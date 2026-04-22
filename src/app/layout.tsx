@@ -1,0 +1,39 @@
+import type { Metadata } from "next";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+
+import { AppShell } from "@/components/layout/app-shell";
+import { AppProviders } from "@/components/providers/app-providers";
+
+import "./globals.css";
+
+const fontSans = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+});
+
+export const metadata: Metadata = {
+  title: "FreeTierAtlas",
+  description: "Decision-first atlas for free-tier services, tools, and implementation guides.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fontSans.variable} ${fontMono.variable}`}>
+        <AppProviders>
+          <AppShell>{children}</AppShell>
+        </AppProviders>
+      </body>
+    </html>
+  );
+}
