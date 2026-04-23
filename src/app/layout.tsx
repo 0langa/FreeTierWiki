@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Open_Sans } from "next/font/google";
 
 import { AppShell } from "@/components/layout/app-shell";
 import { AppProviders } from "@/components/providers/app-providers";
 
 import "./globals.css";
 
-const fontSans = Space_Grotesk({
+const fontSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
 });
 
 const fontMono = IBM_Plex_Mono({
@@ -32,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable}`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} font-sans`}>
         <AppProviders>
           <AppShell>{children}</AppShell>
         </AppProviders>
