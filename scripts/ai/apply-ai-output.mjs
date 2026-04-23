@@ -79,6 +79,17 @@ const PROVIDER_NORMALIZATION = [
   { match: /^propelauth$/i, value: "PropelAuth" },
   { match: /^simplelogin$/i, value: "SimpleLogin" },
   { match: /^stack auth$/i, value: "Stack Auth" },
+  { match: /^mongodb$/i, value: "MongoDB" },
+  { match: /^atlassian$/i, value: "Atlassian" },
+  { match: /^cockroachdb$/i, value: "CockroachDB" },
+  { match: /^eversql$/i, value: "EverSQL" },
+  { match: /^neon$/i, value: "Neon" },
+  { match: /^pinecone$/i, value: "Pinecone" },
+  { match: /^planetscale$/i, value: "PlanetScale" },
+  { match: /^qdrant$/i, value: "Qdrant" },
+  { match: /^redis$/i, value: "Redis" },
+  { match: /^sqlable$/i, value: "Sqlable" },
+  { match: /^upstash$/i, value: "Upstash" },
 ];
 
 function normalizeProvider(value) {

@@ -95,6 +95,15 @@ node scripts/ai/run-batch.mjs --batchDir batch-intake --limit 3 --kind services
 This runs build → Foundry batch → apply → normalize → lint for the chosen kind.
 It writes `ai/services.requests.jsonl` and `ai/services.responses.jsonl` in the batch directory.
 
+### Long-tail routing
+
+The batch runner routes long-tail batches automatically:
+
+- `long-tail-devtools-*` → `content/tools`
+- `long-tail-docs-community*` → `content/resources`
+- `long-tail-learning*` → `content/resources`
+- `long-tail-saas-*` → `content/services`
+
 ## 7) Review the report
 
 Each run writes a report into `reports/` with a summary of Foundry errors and lint warnings.

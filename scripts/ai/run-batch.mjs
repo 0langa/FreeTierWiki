@@ -28,6 +28,23 @@ function parseBatchList(value) {
     .filter(Boolean);
 }
 
+function resolveKindForBatch(fileName, fallbackKind) {
+  const normalized = fileName.toLowerCase();
+  if (normalized.startsWith("long-tail-devtools")) {
+    return "tools";
+  }
+  if (normalized.startsWith("long-tail-docs-community")) {
+    return "resources";
+  }
+  if (normalized.startsWith("long-tail-learning")) {
+    return "resources";
+  }
+  if (normalized.startsWith("long-tail-saas")) {
+    return "services";
+  }
+  return fallbackKind;
+}
+
 async function listBatchFiles(batchDir) {
   const entries = await fs.promises.readdir(batchDir, { withFileTypes: true });
   return entries
@@ -62,7 +79,6 @@ async function main() {
   const batchDir = args.get("batchDir") || positional[0] || path.join(root, "batch-intake");
   const kind = args.get("kind") || positional[1] || "services";
   const force = args.get("force") === "true" || args.get("force") === "1";
-  const contentDir = path.join(root, "content", kind);
   const reportsDir = path.join(root, "reports");
   const batchFiles = parseBatchList(args.get("batchFiles"));
   const limit = args.get("limit") ? Number(args.get("limit")) : undefined;
@@ -82,6 +98,8 @@ async function main() {
   for (const batchFile of batches) {
     const batchPath = path.isAbsolute(batchFile) ? batchFile : path.join(batchDir, batchFile);
     const batchBase = path.parse(batchPath).name;
+    const batchKind = resolveKindForBatch(path.basename(batchPath), kind);
+    const contentDir = path.join(root, "content", batchKind);
     const inputPath = path.join(batchDir, `${batchBase}.requests.jsonl`);
     const outputPath = path.join(batchDir, `${batchBase}.responses.jsonl`);
     const timestamp = nowStamp();
@@ -102,9 +120,9 @@ async function main() {
     let failure = null;
 
     try {
-      await run("node", ["scripts/ai/build-ai-input.mjs", "--batch", batchPath, "--out", inputPath, "--kind", kind], { cwd: root });
+      await run("node", ["scripts/ai/build-ai-input.mjs", "--batch", batchPath, "--out", inputPath, "--kind", batchKind], { cwd: root });
       await run("node", ["scripts/ai/run-foundry-batch.mjs", "--in", inputPath, "--out", outputPath], { cwd: root });
-      const applyArgs = ["scripts/ai/apply-ai-output.mjs", "--in", outputPath, "--out", contentDir, "--kind", kind];
+      const applyArgs = ["scripts/ai/apply-ai-output.mjs", "--in", outputPath, "--out", contentDir, "--kind", batchKind];
       if (force) {
         applyArgs.push("--force", "true");
       }

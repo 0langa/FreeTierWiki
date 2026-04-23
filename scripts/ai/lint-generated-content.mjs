@@ -25,6 +25,17 @@ const ALLOWED_PROVIDERS = new Set([
   "PropelAuth",
   "SimpleLogin",
   "Stack Auth",
+  "MongoDB",
+  "Atlassian",
+  "CockroachDB",
+  "EverSQL",
+  "Neon",
+  "Pinecone",
+  "PlanetScale",
+  "Qdrant",
+  "Redis",
+  "Sqlable",
+  "Upstash",
 ]);
 
 async function* walkFiles(rootDir) {

@@ -35,6 +35,23 @@ function parseBatchLines(text) {
     });
 }
 
+function resolveKindForBatch(fileName, fallbackKind) {
+  const normalized = fileName.toLowerCase();
+  if (normalized.startsWith("long-tail-devtools")) {
+    return "tools";
+  }
+  if (normalized.startsWith("long-tail-docs-community")) {
+    return "resources";
+  }
+  if (normalized.startsWith("long-tail-learning")) {
+    return "resources";
+  }
+  if (normalized.startsWith("long-tail-saas")) {
+    return "services";
+  }
+  return fallbackKind;
+}
+
 function formatTimestamp(date) {
   const pad = (value) => String(value).padStart(2, "0");
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
@@ -52,6 +69,7 @@ async function main() {
   const args = parseArgs(process.argv);
   const batchDir = args.get("batchDir") || path.join(process.cwd(), "batch-intake");
   const contentDir = args.get("contentDir") || path.join(process.cwd(), "content", "services");
+  const fallbackKind = args.get("kind") || "services";
   const outDir = args.get("outDir") || path.join(process.cwd(), "reports");
   const timestamp = new Date();
 
@@ -63,12 +81,14 @@ async function main() {
     const batchPath = path.join(batchDir, fileName);
     const raw = await fs.readFile(batchPath, "utf8");
     const items = parseBatchLines(raw);
+    const batchKind = resolveKindForBatch(fileName, fallbackKind);
+    const batchContentDir = path.join(path.dirname(contentDir), batchKind);
     const added = [];
     const missing = [];
 
     for (const item of items) {
       const slug = slugify(item.name);
-      const entryPath = path.join(contentDir, `${slug}.mdx`);
+      const entryPath = path.join(batchContentDir, `${slug}.mdx`);
       try {
         await fs.access(entryPath);
         added.push({ name: item.name, slug, path: entryPath });

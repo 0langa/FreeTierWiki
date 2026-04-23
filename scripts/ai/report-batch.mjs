@@ -13,6 +13,27 @@ const ALLOWED_PROVIDERS = new Set([
   "Microsoft",
   "IBM",
   "DigitalOcean",
+  "Auth0",
+  "Authgear",
+  "Authress",
+  "Twilio",
+  "EMQX",
+  "Khan Academy",
+  "LoginLlama",
+  "PropelAuth",
+  "SimpleLogin",
+  "Stack Auth",
+  "MongoDB",
+  "Atlassian",
+  "CockroachDB",
+  "EverSQL",
+  "Neon",
+  "Pinecone",
+  "PlanetScale",
+  "Qdrant",
+  "Redis",
+  "Sqlable",
+  "Upstash",
 ]);
 
 function parseArgs(argv) {
@@ -143,17 +164,13 @@ async function main() {
   }
 
   await fs.mkdir(outDir, { recursive: true });
-  const stamp = `${timestamp.getFullYear()}${String(timestamp.getMonth() + 1).padStart(2, "0")}${String(timestamp.getDate()).padStart(2, "0")}-${String(timestamp.getHours()).padStart(2, "0")}${String(timestamp.getMinutes()).padStart(2, "0")}${String(timestamp.getSeconds()).padStart(2, "0")}`;
-  const jsonPath = path.join(outDir, `${runLabel}-${stamp}.json`);
-  const mdPath = path.join(outDir, `${runLabel}-${stamp}.md`);
+  const jsonPath = path.join(outDir, "ai-batch-report.jsonl");
+  const mdPath = path.join(outDir, "ai-batch-report.md");
 
   const mdLines = [
-    `# AI Batch Report`,
+    `## ${formatTimestamp(timestamp)} — ${runLabel}`,
     ``,
-    `Run: ${runLabel}`,
-    `Timestamp: ${formatTimestamp(timestamp)}`,
-    ``,
-    `## Summary`,
+    `### Summary`,
     `- Foundry responses: ${report.foundry.total}`,
     `- Foundry errors: ${report.foundry.errors.length}`,
     `- Lint warnings: ${report.lint.total}`,
@@ -182,8 +199,15 @@ async function main() {
     mdLines.push("");
   }
 
-  await fs.writeFile(jsonPath, JSON.stringify(report, null, 2), "utf8");
-  await fs.writeFile(mdPath, mdLines.join("\n"), "utf8");
+  let mdPrefix = "";
+  try {
+    await fs.access(mdPath);
+  } catch {
+    mdPrefix = "# AI Batch Reports\n\n";
+  }
+
+  await fs.appendFile(jsonPath, `${JSON.stringify(report)}\n`, "utf8");
+  await fs.appendFile(mdPath, `${mdPrefix}${mdLines.join("\n")}\n`, "utf8");
 
   console.log(`Report: ${mdPath}`);
 }
