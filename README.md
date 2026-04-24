@@ -185,6 +185,33 @@ Build with search index generation:
 npm run build
 ```
 
+## Deploying to Cloudflare Pages
+
+FreeTierWiki is configured as a **static Next.js export** for Cloudflare Pages.
+
+Use these Cloudflare Pages settings:
+
+- **Framework preset:** `Next.js (Static HTML Export)`
+- **Build command:** `npm run build`
+- **Build output directory:** `out`
+
+### Important Notes
+
+- `next.config.mjs` uses `output: "export"`, which is required for static export.
+- `images.unoptimized` is enabled for static hosting compatibility.
+- `wrangler.toml` points Pages deploys to `out`.
+- `NEXT_PUBLIC_BASE_PATH` should usually be left **empty** on Cloudflare Pages unless you intentionally host the site under a subpath.
+
+### Before Deploying
+
+Run a production build locally first:
+
+```bash
+npm run build
+```
+
+If the build succeeds, Cloudflare Pages should deploy the generated `out/` folder.
+
 ---
 
 ## License

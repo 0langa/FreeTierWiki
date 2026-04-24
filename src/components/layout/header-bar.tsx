@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 
@@ -44,12 +45,14 @@ export function HeaderBar({
               </Link>
             </div>
             <div className="h-[calc(100%-61px)] p-4">
-              <SidebarNav
-                navTypeItems={navTypeItems}
-                providerRegistry={providerRegistry}
-                domainRegistry={domainRegistry}
-                tagRegistry={tagRegistry}
-              />
+              <Suspense fallback={<div className="text-sm text-muted-foreground">Loading navigation…</div>}>
+                <SidebarNav
+                  navTypeItems={navTypeItems}
+                  providerRegistry={providerRegistry}
+                  domainRegistry={domainRegistry}
+                  tagRegistry={tagRegistry}
+                />
+              </Suspense>
             </div>
           </SheetContent>
         </Sheet>

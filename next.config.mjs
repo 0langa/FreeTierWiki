@@ -3,9 +3,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 
-const githubRepository = process.env.GITHUB_REPOSITORY;
-const repoBasedPath = githubRepository ? `/${githubRepository.split("/")[1]}` : "";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || repoBasedPath || "";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig = {
   output: "export",

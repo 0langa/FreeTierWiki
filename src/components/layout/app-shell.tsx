@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { HeaderBar } from "@/components/layout/header-bar";
 import { SidebarNav } from "@/components/layout/sidebar-nav";
 import { getContentData } from "@/lib/content.server";
@@ -20,13 +22,15 @@ export async function AppShell({ children }: AppShellProps) {
       />
       <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-[280px_1fr]">
         <aside className="hidden border-r px-4 py-6 lg:block">
-          <SidebarNav
-            className="pr-2"
-            navTypeItems={navTypeItems}
-            providerRegistry={providerRegistry}
-            domainRegistry={domainRegistry}
-            tagRegistry={tagRegistry}
-          />
+          <Suspense fallback={<div className="pr-2 text-sm text-muted-foreground">Loading navigation…</div>}>
+            <SidebarNav
+              className="pr-2"
+              navTypeItems={navTypeItems}
+              providerRegistry={providerRegistry}
+              domainRegistry={domainRegistry}
+              tagRegistry={tagRegistry}
+            />
+          </Suspense>
         </aside>
         <main className="min-w-0 px-4 py-6 lg:px-8">{children}</main>
       </div>
