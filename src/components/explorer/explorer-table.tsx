@@ -526,7 +526,7 @@ export function ExplorerTable({
         selectedTags,
       }),
     );
-    return buildCounts(countsData, (entry) => entry.domain);
+    return buildCounts<string>(countsData, (entry) => entry.domain);
   }, [
     data,
     difficulty,
@@ -821,11 +821,11 @@ export function ExplorerTable({
             <SelectContent>
               <SelectItem value="all">All categories</SelectItem>
               {domainOptions
-                .filter((item) => (domainCounts.get(item.value) ?? 0) > 0)
+                .filter((item) => (domainCounts.get(item.value as string) ?? 0) > 0)
                 .map((item) => (
                   <SelectItem key={item.value} value={item.value}>
                     {DOMAIN_LABELS[item.value as keyof typeof DOMAIN_LABELS]} ({
-                      domainCounts.get(item.value) ?? 0
+                      domainCounts.get(item.value as string) ?? 0
                     })
                   </SelectItem>
                 ))}
