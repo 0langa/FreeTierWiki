@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     default: "FreeTierWiki — Free Tier Docs & Service Explorer",
     template: "%s | FreeTierWiki",
   },
-  description: "Decision-first atlas for free-tier services, tools, and implementation guides.",
+  description: "Decision-first atlas for free-tier services, tools, and resources.",
 };
 
 export default function RootLayout({

@@ -63,9 +63,6 @@ More details in `docs/cloudflare-pages.md`.
 - services
 - tools
 - resources
-- guides
-- playbooks
-- comparisons
 
 Each entry is an MDX file with strict frontmatter and shared v2 schema fields.
 

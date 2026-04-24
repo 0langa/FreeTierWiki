@@ -64,13 +64,7 @@ These power routing, navigation, and explorer tables without manual wiring.
 
 ## Extensibility
 
-Per-type schemas extend the shared fields:
-
-- guides add execution metadata
-- playbooks add objective metadata
-- comparisons add compared provider sets
-
-This keeps a single search/explorer pipeline while allowing type-specific depth.
+Per-type schemas extend the shared fields as needed. Currently only services/tools/resources are active.
 
 ## Notes for Migration
 

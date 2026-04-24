@@ -76,7 +76,7 @@ export function GlobalSearch() {
             setIsOpen(false);
           }
         }}
-        placeholder="Search free-tier docs, guides, tags..."
+        placeholder="Search free-tier services, tools, resources..."
         className="pl-9"
       />
 

@@ -2,9 +2,6 @@ export const CONTENT_KINDS = [
   "services",
   "tools",
   "resources",
-  "guides",
-  "playbooks",
-  "comparisons",
 ] as const;
 
 export type ContentKind = (typeof CONTENT_KINDS)[number];
@@ -94,24 +91,11 @@ export type AtlasEntryBase = {
 export type ServiceEntry = AtlasEntryBase & { kind: "services" };
 export type ToolEntry = AtlasEntryBase & { kind: "tools" };
 export type ResourceEntry = AtlasEntryBase & { kind: "resources" };
-export type GuideEntry = AtlasEntryBase & {
-  kind: "guides";
-  estimatedTime?: string;
-  prerequisites?: string[];
-};
-export type PlaybookEntry = AtlasEntryBase & { kind: "playbooks"; objective: string };
-export type ComparisonEntry = AtlasEntryBase & {
-  kind: "comparisons";
-  comparedProviders: string[];
-};
 
 export type AtlasEntry =
   | ServiceEntry
   | ToolEntry
-  | ResourceEntry
-  | GuideEntry
-  | PlaybookEntry
-  | ComparisonEntry;
+  | ResourceEntry;
 
 export type AtlasEntryWithBody = AtlasEntry & {
   body: {

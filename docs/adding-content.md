@@ -5,9 +5,6 @@ Add new entries by creating an `.mdx` file under one of these folders:
 - `content/services`
 - `content/tools`
 - `content/resources`
-- `content/guides`
-- `content/playbooks`
-- `content/comparisons`
 
 ## Required Frontmatter Fields
 
@@ -42,9 +39,7 @@ See `content/services/azure-functions.mdx` as a reference.
 
 Additional per-type fields:
 
-- guides: `estimatedTime`, `prerequisites`
-- playbooks: `objective`
-- comparisons: `comparedProviders`
+- None (services/tools/resources only)
 
 ## Domain and Audience Rules
 

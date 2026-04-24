@@ -563,7 +563,7 @@ Order: Hosting, Compute, Database, Auth, Storage, Messaging, Observability, DevO
 - [Ory](https://ory.sh/)
 - [Othor AI](https://othor.ai/)
 - [OTHRio Test Cloud](https://www.othr.io/)
-- [OVH.ie](https://www.ovh.ie/ssl-gateway/)
+- [OVH.ie SSL Gateway](https://www.ovh.ie/ssl-gateway/)
 - [Pageclip](https://pageclip.co/)
 - [Pagecrawl.io](https://pagecrawl.io/)
 - [Pagertree.com](https://pagertree.com/)

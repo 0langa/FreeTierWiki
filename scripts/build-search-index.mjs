@@ -65,6 +65,7 @@ async function* walkFiles(rootDir) {
 
 async function buildSearchRecords() {
   const records = [];
+  const allowedKinds = new Set(["services", "tools", "resources"]);
 
   for await (const filePath of walkFiles(CONTENT_DIR)) {
     const relativePath = path.relative(CONTENT_DIR, filePath).replace(/\\/g, "/");
@@ -72,6 +73,9 @@ async function buildSearchRecords() {
     const slug = slugParts.join("/").replace(/\.(md|mdx)$/i, "");
     const file = await fs.readFile(filePath, "utf8");
     const { data, content } = matter(file);
+    if (!allowedKinds.has(kind)) {
+      continue;
+    }
     const tags = Array.isArray(data.tags) ? data.tags.map((tag) => String(tag)) : [];
     const category = String(data.category ?? "");
     const freeTierDetails = data.freeTierDetails && typeof data.freeTierDetails === "object" ? data.freeTierDetails : {};

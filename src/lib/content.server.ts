@@ -9,13 +9,10 @@ import type {
   Audience,
   AtlasEntry,
   AtlasEntryWithBody,
-  ComparisonEntry,
   ContentKind,
   Domain,
   FreeTierType,
-  GuideEntry,
   OverageRisk,
-  PlaybookEntry,
   ProductionReadiness,
   RegistryItem,
 } from "@/types/content";
@@ -291,36 +288,6 @@ function parseEntry(
 
   base.freeTierDetails.freeTierType ??= inferFreeTierType(base.pricingModel);
   base.freeTierDetails.overageRisk ??= base.freeTierDetails.hasHardCap ? "none" : "low";
-
-  if (kind === "guides") {
-    const guide: GuideEntry = {
-      ...base,
-      kind: "guides",
-      estimatedTime: optionalString((data as any).estimatedTime),
-      prerequisites: optionalStringArray((data as any).prerequisites),
-    };
-    return { entry: guide, bodyRaw: content };
-  }
-
-  if (kind === "playbooks") {
-    const objective = asString((data as any).objective, "objective");
-    const playbook: PlaybookEntry = {
-      ...base,
-      kind: "playbooks",
-      objective,
-    };
-    return { entry: playbook, bodyRaw: content };
-  }
-
-  if (kind === "comparisons") {
-    const comparedProviders = asStringArray((data as any).comparedProviders, "comparedProviders");
-    const comparison: ComparisonEntry = {
-      ...base,
-      kind: "comparisons",
-      comparedProviders,
-    };
-    return { entry: comparison, bodyRaw: content };
-  }
 
   return { entry: base as AtlasEntry, bodyRaw: content };
 }

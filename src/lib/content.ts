@@ -11,9 +11,6 @@ export const KIND_LABELS: Record<ContentKind, string> = {
   services: "Services",
   tools: "Tools",
   resources: "Resources",
-  guides: "Guides",
-  playbooks: "Playbooks",
-  comparisons: "Comparisons",
 };
 
 export const PRICING_MODEL_LABELS = {
@@ -75,5 +72,5 @@ export const AUDIENCE_LABELS: Record<Audience, string> = {
 };
 
 export function isContentKind(value: string): value is ContentKind {
-  return ["services", "tools", "resources", "guides", "playbooks", "comparisons"].includes(value);
+  return ["services", "tools", "resources"].includes(value);
 }
