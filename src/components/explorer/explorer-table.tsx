@@ -54,6 +54,7 @@ import type {
   AtlasEntry,
   ContentKind,
   FilterDifficulty,
+  ProductionReadiness,
   RegistryItem,
 } from "@/types/content";
 
@@ -923,7 +924,7 @@ export function ExplorerTable({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All readiness levels</SelectItem>
-              {productionReadinessOptions
+              {(productionReadinessOptions as Array<RegistryItem & { value: ProductionReadiness }>)
                 .filter((item) => (productionReadinessCounts.get(item.value) ?? 0) > 0)
                 .map((item) => (
                   <SelectItem key={item.value} value={item.value}>
