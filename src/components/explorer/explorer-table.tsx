@@ -542,13 +542,11 @@ export function ExplorerTable({
           <p className="text-sm text-muted-foreground">{filteredData.length} entries matched.</p>
 
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
-                <Button variant="outline" size="sm">
-                  Columns
-                </Button>
-              }
-            />
+            <DropdownMenuTrigger>
+              <Button variant="outline" size="sm">
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-44">
               <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
               <DropdownMenuSeparator />
