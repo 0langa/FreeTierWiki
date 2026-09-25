@@ -6,13 +6,19 @@ import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
 
+// Mirrors React's recommended hydration-flag pattern (useSyncExternalStore
+// with mismatched server/client snapshots) instead of setState-in-effect.
+function useHydrated() {
+  return React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
+
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useHydrated();
 
   return (
     <Button

@@ -17,6 +17,44 @@ type SidebarNavProps = {
   tagRegistry: RegistryItem[];
 };
 
+const SIDEBAR_SECTIONS_STORAGE_KEY = "freetierwiki.sidebar.sections";
+
+type StoredSidebarSections = {
+  showAllDomains: boolean;
+  showAllProviders: boolean;
+  showAllTags: boolean;
+};
+
+// Mirrors React's recommended hydration-flag pattern (useSyncExternalStore
+// with mismatched server/client snapshots) instead of setState-in-effect.
+function useHydrated() {
+  return React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
+
+function readStoredSidebarSections(): StoredSidebarSections {
+  const defaults: StoredSidebarSections = { showAllDomains: false, showAllProviders: false, showAllTags: false };
+  const saved = window.localStorage.getItem(SIDEBAR_SECTIONS_STORAGE_KEY);
+  if (!saved) {
+    return defaults;
+  }
+
+  try {
+    const parsed = JSON.parse(saved) as Partial<StoredSidebarSections>;
+    return {
+      showAllDomains: Boolean(parsed.showAllDomains),
+      showAllProviders: Boolean(parsed.showAllProviders),
+      showAllTags: Boolean(parsed.showAllTags),
+    };
+  } catch {
+    window.localStorage.removeItem(SIDEBAR_SECTIONS_STORAGE_KEY);
+    return defaults;
+  }
+}
+
 function NavSection({
   title,
   children,
@@ -70,9 +108,21 @@ export function SidebarNav({
 }: SidebarNavProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const isHydrated = useHydrated();
   const [showAllDomains, setShowAllDomains] = React.useState(false);
   const [showAllProviders, setShowAllProviders] = React.useState(false);
   const [showAllTags, setShowAllTags] = React.useState(false);
+  const [appliedStoredSections, setAppliedStoredSections] = React.useState(false);
+
+  // Adjust state during render (React's documented escape hatch) instead of
+  // setState-in-effect: once hydrated, apply the persisted preference once.
+  if (isHydrated && !appliedStoredSections) {
+    const stored = readStoredSidebarSections();
+    setShowAllDomains(stored.showAllDomains);
+    setShowAllProviders(stored.showAllProviders);
+    setShowAllTags(stored.showAllTags);
+    setAppliedStoredSections(true);
+  }
 
   const activeKind = searchParams.get("kind");
   const activeDomain = searchParams.get("domain");
@@ -80,39 +130,15 @@ export function SidebarNav({
   const activeTag = searchParams.get("tag");
 
   React.useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const saved = window.localStorage.getItem("freetierwiki.sidebar.sections");
-    if (!saved) {
-      return;
-    }
-
-    try {
-      const parsed = JSON.parse(saved) as {
-        showAllDomains?: boolean;
-        showAllProviders?: boolean;
-        showAllTags?: boolean;
-      };
-      setShowAllDomains(Boolean(parsed.showAllDomains));
-      setShowAllProviders(Boolean(parsed.showAllProviders));
-      setShowAllTags(Boolean(parsed.showAllTags));
-    } catch {
-      window.localStorage.removeItem("freetierwiki.sidebar.sections");
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === "undefined" || !appliedStoredSections) {
       return;
     }
 
     window.localStorage.setItem(
-      "freetierwiki.sidebar.sections",
+      SIDEBAR_SECTIONS_STORAGE_KEY,
       JSON.stringify({ showAllDomains, showAllProviders, showAllTags }),
     );
-  }, [showAllDomains, showAllProviders, showAllTags]);
+  }, [appliedStoredSections, showAllDomains, showAllProviders, showAllTags]);
 
   const buildCombinedHref = React.useCallback(
     (key: "kind" | "domain" | "provider" | "tag", value: string) => {

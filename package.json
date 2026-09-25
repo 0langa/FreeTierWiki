@@ -5,15 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run search:index && next build",
-    "export": "node -e \"console.warn('`next export` is unnecessary with `output: \\\"export\\\"`. Run `npm run build` instead.')\"",
     "build:static": "npm run build",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
     "search:index": "node scripts/build-search-index.mjs",
-    "validate:content": "node scripts/validate-content.mjs",
-    "validate:content:all": "node scripts/validate-content.mjs content",
-    "validate:content:all:list": "node scripts/validate-content.mjs content --list development/all_free_services_batched.md",
-    "ai:launch": "node development/scripts/ai/launch-batch.mjs"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "serve:out": "node scripts/serve-out.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
@@ -35,6 +33,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.19.22",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -44,6 +43,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",
     "typescript": "^5.9.3",
+    "vitest": "^5.0.2",
     "wrangler": "^4.39.0"
   }
 }
