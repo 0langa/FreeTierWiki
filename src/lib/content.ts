@@ -1,3 +1,4 @@
+import { CONTENT_KINDS, DOMAINS } from "@/types/content";
 import type {
   Audience,
   ContentKind,
@@ -72,5 +73,9 @@ export const AUDIENCE_LABELS: Record<Audience, string> = {
 };
 
 export function isContentKind(value: string): value is ContentKind {
-  return ["services", "tools", "resources"].includes(value);
+  return (CONTENT_KINDS as readonly string[]).includes(value);
+}
+
+export function isDomain(value: string): value is Domain {
+  return (DOMAINS as readonly string[]).includes(value);
 }
