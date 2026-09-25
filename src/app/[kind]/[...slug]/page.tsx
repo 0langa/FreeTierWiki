@@ -1,79 +1,39 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { ContentPage } from "@/components/content/content-page";
+import { EntryPage } from "@/components/entry/entry-page";
+import { BUILD_NOW } from "@/lib/build-info";
 import { isContentKind } from "@/lib/content";
-import { getAllEntries, getEntryByPath, getEntryWithBodyByPath } from "@/lib/content.server";
-import type { ContentKind } from "@/types/content";
+import { getAllEntries, getEntryWithBody } from "@/lib/content.server";
+import { relatedItems } from "@/lib/entry-view";
 
-type DynamicContentPageProps = {
-  params: Promise<{
-    kind?: string | string[];
-    slug?: string | string[];
-  }>;
-};
+type Params = Promise<{ kind: string; slug: string[] }>;
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const allEntries = await getAllEntries();
-  return allEntries.map((entry) => ({
-    kind: entry.kind,
-    slug: entry.slug.split("/"),
-  }));
+  return (await getAllEntries()).map((entry) => ({ kind: entry.kind, slug: entry.slug.split("/") }));
 }
 
-export async function generateMetadata({ params }: DynamicContentPageProps) {
-  const resolvedParams = await params;
+async function load(params: Params) {
+  const { kind, slug } = await params;
+  if (!isContentKind(kind)) return undefined;
+  return getEntryWithBody(kind, slug.join("/"));
+}
 
-  const kindParam = Array.isArray(resolvedParams.kind)
-    ? resolvedParams.kind[0]
-    : resolvedParams.kind;
-  const slugParam = resolvedParams.slug
-    ? Array.isArray(resolvedParams.slug)
-      ? resolvedParams.slug
-      : [resolvedParams.slug]
-    : [];
-
-  if (!kindParam || !isContentKind(kindParam)) {
-    return {};
-  }
-
-  if (slugParam.length === 0) {
-    return {};
-  }
-
-  const entry = await getEntryByPath(kindParam, slugParam.join("/"));
-  if (!entry) {
-    return {};
-  }
-
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const entry = await load(params);
+  if (!entry) return {};
   return {
-    title: entry.title,
+    title: `${entry.title} free tier: limits, card, billing risk`,
     description: entry.description,
+    alternates: { canonical: entry.url },
   };
 }
 
-export default async function DynamicContentPage({ params }: DynamicContentPageProps) {
-  const resolvedParams = await params;
-
-  const kindParam = Array.isArray(resolvedParams.kind)
-    ? resolvedParams.kind[0]
-    : resolvedParams.kind;
-  const slugParam = resolvedParams.slug
-    ? Array.isArray(resolvedParams.slug)
-      ? resolvedParams.slug
-      : [resolvedParams.slug]
-    : [];
-
-  if (!kindParam || !isContentKind(kindParam) || slugParam.length === 0) {
-    notFound();
-  }
-
-  const kind = kindParam as ContentKind;
-  const slug = slugParam.join("/");
-
-  const entry = await getEntryWithBodyByPath(kind, slug);
-  if (!entry) {
-    notFound();
-  }
-
-  return <ContentPage entry={entry} kind={kind} />;
+export default async function DynamicEntryPage({ params }: { params: Params }) {
+  const entry = await load(params);
+  if (!entry) notFound();
+  const related = relatedItems(entry, await getAllEntries(), BUILD_NOW);
+  return <EntryPage entry={entry} related={related} />;
 }
