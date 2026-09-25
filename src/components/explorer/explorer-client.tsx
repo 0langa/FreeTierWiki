@@ -71,7 +71,12 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
     [pathname],
   );
 
-  const update = React.useCallback((patch: Partial<ExplorerQuery>) => navigate({ ...query, ...patch }), [navigate, query]);
+  // Merge the live (not-yet-committed) search text so a filter click during the debounce window
+  // doesn't navigate with the stale committed q and then have the seenSearch guard wipe what was typed.
+  const update = React.useCallback(
+    (patch: Partial<ExplorerQuery>) => navigate({ ...query, q: text.trim(), ...patch }),
+    [navigate, query, text],
+  );
 
   React.useEffect(() => {
     if (text.trim() === query.q) return;
@@ -103,7 +108,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
     <div className="grid gap-10 pt-6 lg:grid-cols-[244px_minmax(0,1fr)] lg:pt-8">
       <aside aria-label="Filters" className="hidden lg:block">
         <div className="sticky top-20">
-          <FilterPanel query={query} counts={counts} onChange={update} />
+          <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
         </div>
       </aside>
 
@@ -183,7 +188,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
           ) : (
             <div className="rounded-xl border border-dashed border-line p-8 text-center text-sm text-ink-3">
               <p>No free tiers match these filters.</p>
-              <button type="button" onClick={() => navigate(DEFAULT_QUERY)} className="btn mt-3">
+              <button type="button" onClick={() => navigate({ ...DEFAULT_QUERY, sort: query.sort })} className="btn mt-3">
                 Clear filters
               </button>
             </div>
@@ -209,7 +214,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
           <Dialog.Popup className="fixed inset-x-0 bottom-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-2xl border-t border-line bg-surface px-4 pb-4 pt-2 lg:hidden">
             <div className="mx-auto mb-3 mt-1 h-1 w-10 rounded-full bg-line" aria-hidden />
             <Dialog.Title className="mb-4 text-lg font-semibold">Filters</Dialog.Title>
-            <FilterPanel query={query} counts={counts} onChange={update} />
+            <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
             <div className="sticky bottom-0 mt-4 bg-surface pt-3">
               <Dialog.Close className="btn btn-primary h-11 w-full justify-center">Show {total} results</Dialog.Close>
             </div>

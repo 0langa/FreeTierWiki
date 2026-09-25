@@ -23,6 +23,7 @@ type Props = {
   query: ExplorerQuery;
   counts: FacetCountMaps | null;
   onChange: (patch: Partial<ExplorerQuery>) => void;
+  disabled?: boolean;
 };
 
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
@@ -78,7 +79,7 @@ const TYPE_OPTIONS: Array<[ContentKind | "all", string]> = [
 // checkbox times out. Raised to 10 to give a small margin above today's rank-9 cutoff.
 const VISIBLE_CATS = 10;
 
-export function FilterPanel({ query, counts, onChange }: Props) {
+export function FilterPanel({ query, counts, onChange, disabled = false }: Props) {
   const [showAllCats, setShowAllCats] = React.useState(false);
   const catCount = (domain: string) => counts?.cats.get(domain) ?? 0;
   const cats = DOMAINS.filter((domain) => catCount(domain) > 0 || query.cats.includes(domain)).sort(
@@ -88,6 +89,7 @@ export function FilterPanel({ query, counts, onChange }: Props) {
 
   return (
     <div className="grid gap-6 text-sm">
+      <fieldset disabled={disabled} className="contents">
       <Group title="Quick">
         <Toggle label="No card needed" checked={query.noCard} onChange={(value) => onChange({ noCard: value })} />
         <Toggle label="Hard cap only" checked={query.hardCap} onChange={(value) => onChange({ hardCap: value })} />
@@ -136,6 +138,7 @@ export function FilterPanel({ query, counts, onChange }: Props) {
       <Group title="Good for">
         <Chips options={PRODUCTION_READINESS_LEVELS} values={query.ready} labels={PRODUCTION_READINESS_LABELS} onChange={(ready) => onChange({ ready })} />
       </Group>
+      </fieldset>
     </div>
   );
 }

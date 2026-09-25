@@ -27,6 +27,7 @@ export type ListItem = {
   status: EntryStatus;
   freshness: Freshness;
   haystack: string;
+  rank: number;
 };
 
 export function offerParts(entry: AtlasEntry): string[] {
@@ -52,7 +53,7 @@ export function safetyScore(item: Pick<ListItem, "risk" | "card" | "cap" | "stat
 }
 
 export function compareSafety(a: ListItem, b: ListItem): number {
-  return safetyScore(b) - safetyScore(a) || a.title.localeCompare(b.title);
+  return safetyScore(b) - safetyScore(a) || b.rank - a.rank || a.title.localeCompare(b.title);
 }
 
 export function toListItem(entry: AtlasEntry, now: Date): ListItem {
@@ -73,6 +74,7 @@ export function toListItem(entry: AtlasEntry, now: Date): ListItem {
     status: entry.status,
     freshness: getFreshness(entry, now),
     haystack: [entry.title, entry.provider, DOMAIN_LABELS[entry.domain], entry.description, ...entry.tags].join(" ").toLowerCase(),
+    rank: Math.round((entry.usefulnessScore * 0.65 + entry.popularityScore * 0.35) * 10) / 10,
   };
 }
 

@@ -63,6 +63,7 @@ export function makeItem(overrides: Partial<ListItem> = {}): ListItem {
     status: "active",
     freshness: { state: "imported", date: "2024-06-09" },
     haystack: "neon neon database serverless postgres. postgres sql",
+    rank: 5,
     ...overrides,
   };
 }

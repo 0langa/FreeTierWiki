@@ -42,6 +42,12 @@ describe("safety ranking", () => {
       "Zeta",
     ]);
   });
+
+  it("breaks safety ties by rank before title", () => {
+    const zeta = makeItem({ title: "Zeta", rank: 9 });
+    const alpha = makeItem({ title: "Alpha", rank: 5 });
+    expect([alpha, zeta].sort(compareSafety).map((item) => item.title)).toEqual(["Zeta", "Alpha"]);
+  });
 });
 
 describe("toListItem", () => {
@@ -58,6 +64,7 @@ describe("toListItem", () => {
     });
     expect(item.haystack).toContain("database");
     expect(item.haystack).toBe(item.haystack.toLowerCase());
+    expect(item.rank).toBe(8);
   });
 });
 

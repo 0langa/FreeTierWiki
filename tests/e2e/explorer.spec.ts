@@ -33,6 +33,20 @@ test("a filter updates the URL and the results, and back restores them", async (
   await expect(count).toHaveText(before);
 });
 
+test("a filter click keeps text typed a moment ago", async ({ page }, info) => {
+  await page.goto("/explorer/");
+  const input = page.getByRole("searchbox", { name: "Search the explorer" });
+  await input.fill("supabase");
+
+  await openFilters(page, info);
+  await page.getByRole("checkbox", { name: /^Database/ }).check();
+  await closeFilters(page, info);
+
+  await expect(page).toHaveURL(/q=supabase/);
+  await expect(page).toHaveURL(/cat=database/);
+  await expect(input).toHaveValue("supabase");
+});
+
 test("back restores the search text", async ({ page }) => {
   await page.goto("/explorer/");
   const input = page.getByRole("searchbox", { name: "Search the explorer" });
