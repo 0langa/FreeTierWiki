@@ -4,64 +4,115 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.65rem;
+    --bg: #f6f6f3;
+    --surface: #ffffff;
+    --surface-2: #efefea;
+    --ink: #15171a;
+    --ink-2: #4b5058;
+    --ink-3: #6a7079;
+    --line: #e2e2dc;
+    --line-strong: #15171a;
+    --brand: #0a7a50;
+    --brand-ink: #ffffff;
+    --none: #0a7a50;
+    --none-bg: #e3f3ea;
+    --low: #2563a8;
+    --low-bg: #e6eef8;
+    --med: #9a5b00;
+    --med-bg: #fbefd9;
+    --high: #b3261e;
+    --high-bg: #fbe6e4;
+    --warn: #9a5b00;
+    --warn-bg: #fdf5e6;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+    color-scheme: light;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-    --card: 224 71% 6%;
-    --card-foreground: 213 31% 91%;
-    --popover: 224 71% 6%;
-    --popover-foreground: 213 31% 91%;
-    --primary: 213 94% 68%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 224.3 76.3% 48%;
+    --bg: #0d0f11;
+    --surface: #14171a;
+    --surface-2: #1b1f23;
+    --ink: #eceef0;
+    --ink-2: #a8aeb6;
+    --ink-3: #8a919a;
+    --line: #262a30;
+    --line-strong: #eceef0;
+    --brand: #34d399;
+    --brand-ink: #06281a;
+    --none: #4ade9a;
+    --none-bg: rgb(74 222 154 / 0.12);
+    --low: #86b9f5;
+    --low-bg: rgb(134 185 245 / 0.12);
+    --med: #f2b45a;
+    --med-bg: rgb(242 180 90 / 0.12);
+    --high: #f58a80;
+    --high-bg: rgb(245 138 128 / 0.13);
+    --warn: #f2b45a;
+    --warn-bg: rgb(242 180 90 / 0.08);
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+    color-scheme: dark;
   }
 
   * {
-    @apply border-border;
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    background-image: radial-gradient(circle at 0% 0%, hsl(var(--muted)) 0, transparent 45%);
-    background-attachment: fixed;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
   }
 
   code,
   pre,
   kbd,
   samp {
-    @apply font-mono;
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-line bg-surface px-3.5 text-sm font-medium text-ink transition-colors hover:border-ink-3;
+  }
+  .btn-primary {
+    @apply border-ink bg-ink text-bg hover:border-ink hover:opacity-90;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent text-ink-2 hover:border-transparent hover:text-ink;
+  }
+  .eyebrow {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.06em] text-ink-3;
+  }
+  .pill {
+    @apply inline-flex h-[22px] items-center gap-1.5 whitespace-nowrap rounded-full px-2 text-xs font-medium;
+  }
+  .pill::before {
+    content: "";
+    @apply h-1.5 w-1.5 rounded-full bg-current;
+  }
+  .prose-lite p {
+    @apply text-ink-2;
+  }
+  .prose-lite p + p {
+    @apply mt-3;
+  }
+  .prose-lite a {
+    @apply underline underline-offset-2 hover:text-ink;
+  }
+  .prose-lite ul {
+    @apply mt-2 list-disc pl-5 text-ink-2;
   }
 }

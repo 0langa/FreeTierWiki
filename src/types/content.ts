@@ -116,20 +116,12 @@ export type RegistryItem = {
   count: number;
 };
 
-// Old shape, still used by src/components/layout/global-search.tsx. Task 5 replaces it.
 export type SearchRecord = {
   id: string;
   url: string;
-  slug: string;
-  kind: ContentKind;
   title: string;
-  description: string;
   provider: string;
   domain: Domain;
-  freeTierType: FreeTierType;
-  overageRisk: OverageRisk;
-  productionReadiness: ProductionReadiness;
+  description: string;
   tags: string[];
-  bestFor: string[];
-  content: string;
 };
