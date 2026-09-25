@@ -65,7 +65,7 @@ async function* walkFiles(rootDir) {
 
 async function buildSearchRecords() {
   const records = [];
-  const allowedKinds = new Set(["services", "tools", "resources"]);
+  const allowedKinds = new Set(["services", "tools"]);
 
   for await (const filePath of walkFiles(CONTENT_DIR)) {
     const relativePath = path.relative(CONTENT_DIR, filePath).replace(/\\/g, "/");

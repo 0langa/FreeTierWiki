@@ -1,4 +1,4 @@
-export const CONTENT_KINDS = ["services", "tools", "resources"] as const;
+export const CONTENT_KINDS = ["services", "tools"] as const;
 export type ContentKind = (typeof CONTENT_KINDS)[number];
 
 export const PRICING_MODELS = ["free", "freemium", "trial"] as const;

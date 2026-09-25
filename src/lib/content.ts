@@ -11,7 +11,6 @@ import type {
 export const KIND_LABELS: Record<ContentKind, string> = {
   services: "Services",
   tools: "Tools",
-  resources: "Resources",
 };
 
 export const PRICING_MODEL_LABELS = {

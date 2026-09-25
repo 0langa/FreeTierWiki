@@ -57,6 +57,11 @@ describe("parseQuery", () => {
       cats: ["database"],
     });
   });
+
+  it("treats the removed resources type as all", () => {
+    expect(parse("type=resources").type).toBe("all");
+    expect(parse("kind=resources").type).toBe("all");
+  });
 });
 
 describe("serializeQuery", () => {
