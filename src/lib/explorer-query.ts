@@ -159,7 +159,7 @@ export type FilterChip = { key: string; label: string; patch: Partial<ExplorerQu
 
 export function filterChips(query: ExplorerQuery): FilterChip[] {
   const chips: FilterChip[] = [];
-  if (query.q.trim()) chips.push({ key: "q", label: `"${query.q.trim()}"`, patch: { q: "" } });
+  if (query.q.trim()) chips.push({ key: "q", label: `“${query.q.trim()}”`, patch: { q: "" } });
   if (query.type !== "all") chips.push({ key: "type", label: KIND_LABELS[query.type], patch: { type: "all" } });
   if (query.cats.length) chips.push({ key: "cats", label: query.cats.map((c) => DOMAIN_LABELS[c]).join(", "), patch: { cats: [] } });
   if (query.risks.length) {

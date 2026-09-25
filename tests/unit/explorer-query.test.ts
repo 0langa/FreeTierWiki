@@ -122,7 +122,7 @@ describe("counts and chips", () => {
     const query = parse("q=pg&cat=hosting,database&nocard=1");
     expect(activeFilterCount(query)).toBe(3);
     expect(filterChips(query)).toEqual([
-      { key: "q", label: '"pg"', patch: { q: "" } },
+      { key: "q", label: `“pg”`, patch: { q: "" } },
       { key: "cats", label: "Hosting, Database", patch: { cats: [] } },
       { key: "noCard", label: "No card", patch: { noCard: false } },
     ]);
