@@ -6,30 +6,25 @@ import { KIND_LABELS } from "@/lib/content";
 import { CONTENT_DIR, listContentFiles, readEntryFile } from "@/lib/content-files";
 import { CONTENT_KINDS, type AtlasEntry, type AtlasEntryWithBody, type ContentKind, type RegistryItem } from "@/types/content";
 
-// Static export prerenders every entry page in its own render, so `cache()` below does not dedupe
-// across pages within a worker: each of the 765 pages re-triggers this loader. Reading all ~760
-// files with a single unbounded Promise.all multiplies into thousands of concurrent file handles
-// across the build's worker processes, which is unstable on Windows. Bound the concurrency instead.
-const READ_CONCURRENCY = 24;
-
-async function readAllEntryFiles(files: string[]) {
-  const loaded: Awaited<ReturnType<typeof readEntryFile>>[] = [];
-  for (let i = 0; i < files.length; i += READ_CONCURRENCY) {
-    const batch = files.slice(i, i + READ_CONCURRENCY);
-    loaded.push(...(await Promise.all(batch.map((file) => readEntryFile(file)))));
-  }
-  return loaded;
-}
-
-const loadAll = cache(async () => {
+async function load() {
   const files = await listContentFiles(CONTENT_DIR);
-  const loaded = await readAllEntryFiles(files);
+  const loaded = await Promise.all(files.map((file) => readEntryFile(file)));
   const entries = loaded.map(({ entry }) => entry).sort((a, b) => a.title.localeCompare(b.title));
   const byPath = new Map<string, AtlasEntryWithBody>(
     loaded.map(({ entry, body }) => [`${entry.kind}/${entry.slug}`, { ...entry, body: { raw: body } }]),
   );
   return { entries, byPath };
-});
+}
+
+// Static export prerenders every one of the ~765 entry pages as its own render. React's `cache()`
+// only dedupes calls within a single render — it does not share results across pages in the same
+// build worker — so without memoization every page re-walks and re-parses all ~760 content files.
+// That multiplies into thousands of concurrent file reads per worker and made local builds OOM.
+// Content is static for the lifetime of a build/server process, so memoize per process in
+// production; dev keeps the per-request `cache()` so editing content shows up without a restart.
+let memoized: ReturnType<typeof load> | undefined;
+const loadAll: () => ReturnType<typeof load> =
+  process.env.NODE_ENV === "production" ? () => (memoized ??= load()) : cache(load);
 
 export async function getAllEntries(): Promise<AtlasEntry[]> {
   return (await loadAll()).entries;

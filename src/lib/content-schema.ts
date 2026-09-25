@@ -134,7 +134,7 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
   const ft = details ?? {};
 
   const limits = list(ft.limits, "freeTierDetails.limits", true);
-  if (details && Array.isArray(ft.limits) && ft.limits.length === 0) {
+  if (details && Array.isArray(ft.limits) && limits.length === 0) {
     problems.push("'freeTierDetails.limits' needs at least one item");
   }
 

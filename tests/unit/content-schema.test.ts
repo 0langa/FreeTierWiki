@@ -119,6 +119,11 @@ describe("parseEntry", () => {
     expect(problems).toEqual([expect.stringContaining("'freeTierDetails.limits' needs at least one item")]);
   });
 
+  it("treats a blank limit as no limit at all", () => {
+    const problems = problemsOf({ ...baseData(), freeTierDetails: { ...(baseData().freeTierDetails as object), limits: [""] } });
+    expect(problems).toEqual([expect.stringContaining("'freeTierDetails.limits' needs at least one item")]);
+  });
+
   it("requires a change note and a check date when status is not active", () => {
     const problems = problemsOf({ ...baseData(), status: "changed" });
     expect(problems).toEqual(
