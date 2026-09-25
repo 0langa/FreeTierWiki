@@ -173,19 +173,26 @@ export function SearchDialog() {
               placeholder="Search by name, provider, or need…"
               aria-label="Search free tiers"
               role="combobox"
+              aria-autocomplete="list"
+              aria-haspopup="listbox"
               aria-expanded={hits.length > 0}
               aria-controls="search-results"
               aria-activedescendant={hits.length > 0 ? `search-hit-${activeIndex}` : undefined}
               className="h-14 w-full bg-transparent text-base outline-none placeholder:text-ink-3"
             />
           </div>
+          {message ? (
+            <p role="status" className="px-4 pt-3 text-sm text-ink-3">
+              {message}
+            </p>
+          ) : null}
           <div id="search-results" role="listbox" aria-label="Results" className="max-h-[60vh] overflow-y-auto p-1.5">
-            {message ? <p className="px-3 py-3 text-sm text-ink-3">{message}</p> : null}
             {hits.map((hit, index) => (
               <Link
                 key={hit.id}
                 id={`search-hit-${index}`}
                 role="option"
+                tabIndex={-1}
                 aria-selected={index === activeIndex}
                 href={hit.url}
                 onClick={close}
