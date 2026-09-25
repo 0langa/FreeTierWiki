@@ -14,6 +14,7 @@ test("the search index loads only when search opens", async ({ page }) => {
 
 test("search finds an entry and Enter opens it", async ({ page }) => {
   await page.goto("/");
+  await page.waitForLoadState("networkidle");
   await page.getByRole("button", { name: "Search free tiers" }).click();
   const input = page.getByRole("combobox", { name: "Search free tiers" });
   await input.fill("supabase");
@@ -24,6 +25,7 @@ test("search finds an entry and Enter opens it", async ({ page }) => {
 
 test("Enter with no match opens the explorer search", async ({ page }) => {
   await page.goto("/");
+  await page.waitForLoadState("networkidle");
   await page.keyboard.press("Control+k");
   const input = page.getByRole("combobox", { name: "Search free tiers" });
   await input.fill("zzqqxx");
