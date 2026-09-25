@@ -19,9 +19,14 @@ const types = {
 };
 
 function resolveFile(urlPath) {
-  const clean = decodeURIComponent(urlPath.split("?")[0]);
+  let clean;
+  try {
+    clean = decodeURIComponent(urlPath.split("?")[0]);
+  } catch {
+    return null;
+  }
   const target = path.normalize(path.join(root, clean));
-  if (!target.startsWith(root)) return null;
+  if (target !== root && !target.startsWith(root + path.sep)) return null;
   for (const candidate of [target, path.join(target, "index.html"), `${target}.html`]) {
     if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) return candidate;
   }
