@@ -26,6 +26,7 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
   const pricing = pricingUrl(entry);
   const titleId = `facts-${entry.slug.replace(/[^a-z0-9-]/gi, "-")}`;
   const limits = compact ? details.limits.slice(0, 2) : details.limits;
+  const showLastChecked = !(freshness.state === "ended" && !freshness.date);
 
   return (
     <aside aria-labelledby={titleId} className="rounded-[4px] border-2 border-line-strong bg-surface px-4 pb-3 pt-3.5 text-sm">
@@ -39,12 +40,14 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
       <dl>
         {compact ? null : <FactRow term="Plan type" value={ended ? "No free plan" : FREE_TIER_TYPE_LABELS[details.freeTierType]} />}
         <FactRow term="Card required" value={details.requiresCard ? "Yes" : "No"} />
-        <FactRow term="Hard cap" value={details.hasHardCap ? "Yes" : "No"} />
+        {!ended ? <FactRow term="Hard cap" value={details.hasHardCap ? "Yes" : "No"} /> : null}
         <FactRow term="Billing risk" value={<RiskPill risk={details.overageRisk} />} />
-        {!compact && details.resetPeriod ? <FactRow term="Resets" value={details.resetPeriod.replace(/^./, (c) => c.toUpperCase())} /> : null}
-        {!compact && details.trialDays ? <FactRow term="Trial length" value={`${details.trialDays} days`} /> : null}
-        {!compact && details.monthlyCreditAmount ? <FactRow term="Credit" value={details.monthlyCreditAmount} /> : null}
-        {compact ? null : <FactRow term="Good for" value={PRODUCTION_READINESS_LABELS[entry.productionReadiness]} />}
+        {!ended && !compact && details.resetPeriod ? (
+          <FactRow term="Resets" value={details.resetPeriod.replace(/^./, (c) => c.toUpperCase())} />
+        ) : null}
+        {!ended && !compact && details.trialDays ? <FactRow term="Trial length" value={`${details.trialDays} days`} /> : null}
+        {!ended && !compact && details.monthlyCreditAmount ? <FactRow term="Credit" value={details.monthlyCreditAmount} /> : null}
+        {!ended && !compact ? <FactRow term="Good for" value={PRODUCTION_READINESS_LABELS[entry.productionReadiness]} /> : null}
       </dl>
       {MEDIUM}
       {compact ? null : <h3 className="text-[13px] font-bold uppercase tracking-wide">Limits</h3>}
@@ -73,9 +76,11 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
       ) : null}
       {THICK}
       <div className="grid gap-1.5 text-[12.5px] text-ink-3">
-        <span>
-          Last checked: <FreshnessLabel freshness={freshness} />
-        </span>
+        {showLastChecked ? (
+          <span>
+            Last checked: <FreshnessLabel freshness={freshness} />
+          </span>
+        ) : null}
         {!compact && pricing ? (
           <span>
             Source:{" "}

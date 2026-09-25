@@ -14,6 +14,7 @@ test("an ended entry says so", async ({ page }) => {
   await page.goto("/services/planetscale/");
   await expect(page.getByRole("note")).toContainText("This free tier ended");
   await expect(page.getByRole("complementary", { name: "Free tier facts" })).toContainText("No free plan");
+  await expect(page.getByRole("heading", { name: "Good fit" })).toHaveCount(0);
 });
 
 test("a changed entry shows what changed", async ({ page }) => {

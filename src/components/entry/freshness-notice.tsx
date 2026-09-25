@@ -20,12 +20,24 @@ function Notice({ tone, children }: { tone: keyof typeof TONES; children: React.
   );
 }
 
-export function FreshnessNotice({ entry, freshness }: { entry: AtlasEntry; freshness: Freshness }) {
+export function FreshnessNotice({
+  entry,
+  freshness,
+  hasAlternatives,
+}: {
+  entry: AtlasEntry;
+  freshness: Freshness;
+  hasAlternatives: boolean;
+}) {
   const latest = entry.changes[0];
   if (entry.status === "ended") {
+    const tail = [latest?.note, hasAlternatives ? "See the other options below." : undefined]
+      .filter((part): part is string => Boolean(part && part.trim()))
+      .join(" ");
     return (
       <Notice tone="high">
-        <strong>This free tier ended{latest ? ` in ${formatMonth(latest.date)}` : ""}.</strong> {latest?.note} See the other options below.
+        <strong>This free tier ended{latest ? ` in ${formatMonth(latest.date)}` : ""}.</strong>
+        {tail ? ` ${tail}` : null}
       </Notice>
     );
   }

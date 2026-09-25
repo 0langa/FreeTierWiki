@@ -34,6 +34,7 @@ export function EntryPage({ entry, related }: { entry: AtlasEntryWithBody; relat
   const freshness = getFreshness(entry, BUILD_NOW);
   const pricing = pricingUrl(entry);
   const category = DOMAIN_LABELS[entry.domain];
+  const ended = entry.status === "ended";
 
   return (
     <div className="grid gap-7 pt-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-12 lg:pt-7">
@@ -70,7 +71,7 @@ export function EntryPage({ entry, related }: { entry: AtlasEntryWithBody; relat
             Report outdated info
           </a>
         </div>
-        <FreshnessNotice entry={entry} freshness={freshness} />
+        <FreshnessNotice entry={entry} freshness={freshness} hasAlternatives={related.length > 0} />
       </header>
 
       <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
@@ -86,11 +87,13 @@ export function EntryPage({ entry, related }: { entry: AtlasEntryWithBody; relat
             <MdxContent source={entry.body.raw} />
           </section>
         ) : null}
-        <section className="grid gap-4 sm:grid-cols-2" aria-label="Fit">
-          <FitCard good title="Good fit" text={entry.whenToUse} items={entry.bestFor} />
-          <FitCard good={false} title="Not a fit" text={entry.whenNotToUse} items={entry.avoidIf} />
-        </section>
-        {entry.quickstartSteps.length > 0 ? (
+        {!ended ? (
+          <section className="grid gap-4 sm:grid-cols-2" aria-label="Fit">
+            <FitCard good title="Good fit" text={entry.whenToUse} items={entry.bestFor} />
+            <FitCard good={false} title="Not a fit" text={entry.whenNotToUse} items={entry.avoidIf} />
+          </section>
+        ) : null}
+        {!ended && entry.quickstartSteps.length > 0 ? (
           <details className="group rounded-xl border border-line bg-surface">
             <summary className="flex cursor-pointer list-none justify-between px-[18px] py-3.5 font-semibold">
               Quickstart · {entry.quickstartSteps.length} steps
