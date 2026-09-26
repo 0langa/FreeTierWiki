@@ -1,5 +1,5 @@
 import { compareSafety, type ListItem } from "@/lib/entry-view";
-import type { AtlasEntry, Domain, EntryChange } from "@/types/content";
+import type { AtlasEntry, ChangelogKind, Domain, RemovalRecord } from "@/types/content";
 
 export type CategorySummary = { domain: Domain; count: number; examples: string[] };
 
@@ -21,10 +21,20 @@ export function topCategories(items: ListItem[], limit: number): CategorySummary
     .slice(0, limit);
 }
 
-export type ChangeRow = EntryChange & { title: string; url: string };
+export type ChangeRow = { date: string; kind: ChangelogKind; note: string; title: string; url: string };
 
-export function latestChanges(entries: AtlasEntry[], limit?: number): ChangeRow[] {
-  const rows = entries.flatMap((entry) => entry.changes.map((change) => ({ ...change, title: entry.title, url: entry.url })));
+export function latestChanges(entries: AtlasEntry[], limit?: number, removals: RemovalRecord[] = []): ChangeRow[] {
+  const liveDomains = new Set(entries.map((entry) => entry.domain));
+  const rows: ChangeRow[] = [
+    ...entries.flatMap((entry) => entry.changes.map((change) => ({ ...change, title: entry.title, url: entry.url }))),
+    ...removals.map((record) => ({
+      date: record.date,
+      kind: record.kind,
+      note: record.note,
+      title: record.title,
+      url: liveDomains.has(record.category) ? `/category/${record.category}/` : "/explorer/",
+    })),
+  ];
   rows.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title));
   return limit === undefined ? rows : rows.slice(0, limit);
 }
