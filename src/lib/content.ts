@@ -1,3 +1,4 @@
+import { CONTENT_KINDS, DOMAINS } from "@/types/content";
 import type {
   Audience,
   ContentKind,
@@ -10,7 +11,6 @@ import type {
 export const KIND_LABELS: Record<ContentKind, string> = {
   services: "Services",
   tools: "Tools",
-  resources: "Resources",
 };
 
 export const PRICING_MODEL_LABELS = {
@@ -28,14 +28,14 @@ export const DOMAIN_LABELS: Record<Domain, string> = {
   messaging: "Messaging",
   observability: "Observability",
   ai: "AI",
-  devops: "DevOps",
+  devops: "DevOps & CI",
   security: "Security",
   networking: "Networking",
   productivity: "Productivity",
   learning: "Learning",
   design: "Design",
   analytics: "Analytics",
-  integration: "Integration",
+  integration: "APIs & integration",
   operations: "Operations",
   other: "Other",
 };
@@ -72,5 +72,9 @@ export const AUDIENCE_LABELS: Record<Audience, string> = {
 };
 
 export function isContentKind(value: string): value is ContentKind {
-  return ["services", "tools", "resources"].includes(value);
+  return (CONTENT_KINDS as readonly string[]).includes(value);
+}
+
+export function isDomain(value: string): value is Domain {
+  return (DOMAINS as readonly string[]).includes(value);
 }

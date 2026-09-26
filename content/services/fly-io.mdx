@@ -23,25 +23,18 @@ tags:
   - database
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free tier includes 3 shared-cpu-1x VMs, 3GB persistent volume, and 160GB
-    outbound data per month.
+  summary: New organizations get no free allowance. There is a one-time trial, then usage is billed.
   limits:
-    - 3 shared-cpu-1x VMs
-    - 3GB persistent volume
-    - 160GB outbound data/month
-    - WireGuard peers: 2
+    - No free allowance for new organizations
+    - 'Free trial: 2 hours of machine runtime or 7 days of access, whichever comes first'
+    - Legacy Hobby plans keep their old allowance
   caveats:
-    - Outbound data above 160GB/month is billed.
-    - Persistent storage above 3GB is billed.
-    - No free Postgres clusters.
+    - A payment method is required to keep apps running after the trial.
   resetPeriod: monthly
-  requiresCard: false
-  freeTierType: always-free
-  hasHardCap: true
-  overageRisk: low
-  billingRiskNotes:
-    - Hard cap on free resources; overages require payment method.
+  requiresCard: true
+  freeTierType: trial
+  hasHardCap: false
+  overageRisk: medium
 useCases:
   - Deploying global web apps
   - Running edge APIs
@@ -57,8 +50,9 @@ whenToUse: >-
   Use Fly.io to deploy containerized apps or APIs that need low-latency global
   access with simple scaling and minimal infrastructure management.
 whenNotToUse: >-
-  Avoid if you need managed databases in the free tier, require high CPU/RAM, or
-  need compliance certifications for regulated workloads.
+  Avoid it if you want free managed databases, require high CPU/RAM, or need
+  compliance certifications for regulated workloads — Fly.io only offers a
+  short trial before billing starts.
 bestFor:
   - global app hosting
   - indie projects
@@ -78,5 +72,12 @@ sourceUrls:
   - 'https://fly.io/docs/about/pricing/'
   - 'https://fly.io/docs/about/faq/'
 featured: false
+status: changed
+lastVerified: 2026-09-25
+pricingUrl: 'https://fly.io/docs/about/pricing/'
+changes:
+  - date: 2024-10-07
+    kind: changed
+    note: Free allowances ended for new organizations. New accounts get a one-time trial of 2 machine-hours or 7 days, then pay as they go.
 ---
-Fly.io offers a generous always-free tier for deploying containerized applications globally, with simple CLI tools and a developer-friendly experience. The free tier is suitable for small projects, demos, and indie apps, but does not include free managed databases or large persistent storage. Overages are capped unless a payment method is added, reducing billing risk. Fly.io is ideal for developers seeking fast, global deployments with minimal setup.
+Fly.io lets you deploy containerized applications globally, with simple CLI tools and a developer-friendly experience. New organizations no longer get a free allowance: you get a one-time trial of 2 machine-hours or 7 days, then you pay as you go, and a payment method is required to keep apps running afterward. Legacy Hobby plans keep their old allowance. Fly.io still suits developers who want fast, global deployments and are ready to pay for ongoing usage.
