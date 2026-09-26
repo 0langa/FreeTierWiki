@@ -44,9 +44,9 @@ See [`/about/`](https://freetier.wiki/about/) for the full explanation. Summary:
 **Billing risk**
 | Level | Meaning |
 |---|---|
-| **None** | Hard cap or truly unlimited, and no card required — you should not get a bill by accident. |
-| **Low** | Going over is unlikely to cost money, but read the caveats. |
-| **Medium** | A card is on file; usage above the free amount is billed. |
+| **None** | The plan is unlimited, or going over the limit stops or throttles the service. You should not get a bill by accident. |
+| **Low** | Going over is unlikely to cost money, but read the watch-out notes. |
+| **Medium** | A card is on file and usage above the free amount is billed. Set a spending limit. |
 | **High** | No real free plan, or usage is billed from the start. |
 
 **Plan types**
