@@ -111,11 +111,6 @@ export type AtlasEntryWithBody = AtlasEntry & {
   };
 };
 
-export type RegistryItem = {
-  value: string;
-  count: number;
-};
-
 export type SearchRecord = {
   id: string;
   url: string;

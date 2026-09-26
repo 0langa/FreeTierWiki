@@ -24,10 +24,19 @@ async function load(params: Params) {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const entry = await load(params);
   if (!entry) return {};
+  const title = `${entry.title} free tier: limits, card, billing risk`;
   return {
-    title: `${entry.title} free tier: limits, card, billing risk`,
+    title,
     description: entry.description,
     alternates: { canonical: entry.url },
+    openGraph: {
+      type: "article",
+      siteName: "freetier.wiki",
+      title,
+      description: entry.description,
+      url: entry.url,
+      images: [{ url: "/og.png", width: 1200, height: 630 }],
+    },
   };
 }
 

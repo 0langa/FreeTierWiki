@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { EntryList } from "@/components/entry/entry-list";
 import { FactsLabel } from "@/components/entry/facts-label";
 import { FreshnessNotice } from "@/components/entry/freshness-notice";
-import { MdxContent } from "@/components/content/mdx-content";
+import { MdxContent } from "@/components/entry/mdx-content";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { pricingUrl, type ListItem } from "@/lib/entry-view";

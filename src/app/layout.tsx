@@ -29,6 +29,14 @@ export const metadata: Metadata = {
     template: "%s · freetier.wiki",
   },
   description: "Free plans for developers with their limits, card rules, billing risk, and the date we last checked them.",
+  openGraph: {
+    type: "website",
+    siteName: "freetier.wiki",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "freetier.wiki: free tiers, with the fine print" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
