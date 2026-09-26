@@ -1,5 +1,7 @@
+// @ts-check
 // Pure helpers for turning pricing pages into short text a reviewer can read.
 
+/** @type {Record<string, string>} */
 const ENTITIES = { "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&apos;": "'" };
 
 /** @param {string} html */
@@ -45,7 +47,9 @@ export function excerpt(text, max = 6000) {
  * @returns {string[]}
  */
 export function candidateUrls(entry) {
+  /** @type {string[]} */
   const urls = [];
+  /** @param {string | undefined} url */
   const add = (url) => {
     if (typeof url === "string" && /^https?:\/\//i.test(url) && !urls.includes(url)) urls.push(url);
   };
@@ -59,7 +63,8 @@ export function candidateUrls(entry) {
       // not a valid URL; skip the guess
     }
   }
-  return urls;
+  // Cap at 4: the ordered list already puts the best guesses first, so trim rather than search further.
+  return urls.slice(0, 4);
 }
 
 /**

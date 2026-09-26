@@ -26,6 +26,14 @@ async function fetchText(url) {
   }
 }
 
+function saveIndex() {
+  // Atomic write: a crash or interruption mid-batch must never leave index.json
+  // truncated or half-written — write to a temp file, then rename over the target.
+  const tmp = `${indexFile}.tmp`;
+  fs.writeFileSync(tmp, `${JSON.stringify(index, null, 1)}\n`);
+  fs.renameSync(tmp, indexFile);
+}
+
 async function handle(entry) {
   const tried = [];
   let best;
@@ -40,6 +48,7 @@ async function handle(entry) {
   fs.writeFileSync(`${base}.txt`, text);
   fs.writeFileSync(`${base}.excerpt.txt`, excerpt(text));
   index[entry.id] = { url: best?.finalUrl ?? best?.url ?? null, thin: isThin(text), tried, fetchedAt: new Date().toISOString() };
+  saveIndex();
 }
 
 let next = 0;
@@ -52,6 +61,5 @@ async function worker() {
   }
 }
 await Promise.all(Array.from({ length: CONCURRENCY }, worker));
-fs.writeFileSync(indexFile, `${JSON.stringify(index, null, 1)}\n`);
 const thin = targets.filter((entry) => index[entry.id].thin).length;
 console.log(`fetched ${targets.length} entries; ${thin} thin (need WebFetch); index: ${indexFile}`);

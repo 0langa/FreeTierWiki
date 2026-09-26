@@ -39,6 +39,16 @@ describe("candidateUrls", () => {
   it("works with only an official URL", () => {
     expect(candidateUrls({ officialUrl: "https://b.io" })).toEqual(["https://b.io", "https://b.io/pricing"]);
   });
+
+  it("caps at 4 URLs, pricingUrl first", () => {
+    const result = candidateUrls({
+      pricingUrl: "https://c.dev/plans",
+      sourceUrls: ["https://c.dev/pricing", "https://c.dev/plans-2", "https://c.dev/free-tier"],
+      officialUrl: "https://c.dev/",
+    });
+    expect(result).toHaveLength(4);
+    expect(result[0]).toBe("https://c.dev/plans");
+  });
 });
 
 describe("isThin", () => {

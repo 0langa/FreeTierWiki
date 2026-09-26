@@ -1,3 +1,4 @@
+// @ts-check
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -37,7 +38,7 @@ export function selectEntries(entries, { domains, ids } = {}) {
       return entry;
     });
   }
-  if (domains && domains.length) return entries.filter((entry) => domains.includes(entry.data.domain));
+  if (domains && domains.length) return entries.filter((entry) => domains.includes(String(entry.data.domain)));
   return entries;
 }
 
