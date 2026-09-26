@@ -22,17 +22,19 @@ tags:
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Always-free tier includes 2 AMD or Arm-based VMs, block storage, and load
-    balancing.
+    Always Free includes 2 AMD-based VMs, an Arm-based (Ampere A1) compute
+    pool, 200GB block storage, a load balancer, and 10TB of outbound data
+    transfer per month.
   limits:
-    - '2 VMs (1/8 OCPU, 1 GB RAM each)'
-    - 200 GB block storage
-    - 10 GB object storage
-    - Load balancer (10 Mbps)
-    - '10,000,000 monthly outbound requests'
+    - '2 AMD-based VMs (1/8 OCPU, 1 GB RAM each)'
+    - '1-2 Arm-based (Ampere A1) VMs: 2 OCPUs and 12 GB memory total'
+    - 200 GB block storage (boot + block volumes combined)
+    - 1 flexible load balancer (10 Mbps)
+    - 10 TB outbound data transfer/month
+    - 2 virtual cloud networks (VCNs)
   caveats:
     - Limited to specific VM shapes and regions
-    - Performance is basic and not suitable for heavy workloads
+    - Extra Arm instances beyond the 2 OCPU/12GB pool are disabled, then deleted after 30 days
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -71,14 +73,17 @@ avoidIf:
   - enterprise compliance needs
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2024-06-09T00:00:00.000Z
+lastUpdated: 2026-09-26
+lastVerified: 2026-09-26
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.oracle.com/cloud/free/'
 docsUrl: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm'
+pricingUrl: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm'
 sourceUrls:
   - 'https://www.oracle.com/cloud/free/'
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
 featured: false
 ---
 Oracle Always Free Compute provides two small virtual machines and essential storage at no cost, ideal for learning, prototyping, and lightweight workloads.

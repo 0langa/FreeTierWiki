@@ -24,23 +24,25 @@ tags:
   - misc
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes 25 GB storage and up to 200 million requests per month.
+  summary: >-
+    DynamoDB's Always Free tier includes 25 GB storage and 25 WCU/25 RCU
+    (about 200 million requests/month), ongoing with no expiry, on top of the
+    AWS account's separate free-tier credits.
   limits:
-    - 25 GB storage
+    - 25 GB of data storage (Always Free, per Region, per account)
     - 25 provisioned Write Capacity Units
     - 25 provisioned Read Capacity Units
-    - 200 million requests/month
+    - '~200 million requests/month (DynamoDB Standard table class)'
   caveats:
-    - Free tier valid for 12 months after AWS account creation
-    - On-demand capacity mode not included in free tier
+    - Always Free, does not expire after 12 months
+    - On-demand capacity mode is billed separately from the Always Free provisioned allowance
   resetPeriod: monthly
   requiresCard: true
-  freeTierType: time-limited
+  freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
     - Overages are billed at standard rates if limits are exceeded
-  trialDays: 365
 useCases:
   - Real-time analytics
   - Session management
@@ -69,15 +71,17 @@ avoidIf:
   - You have strict relational data needs
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2024-06-09T00:00:00.000Z
+lastUpdated: 2026-09-26
+lastVerified: 2026-09-26
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/dynamodb/'
 docsUrl: >-
   https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+pricingUrl: 'https://aws.amazon.com/dynamodb/pricing/'
 sourceUrls:
   - 'https://aws.amazon.com/dynamodb/pricing/'
   - 'https://aws.amazon.com/free/'
 featured: false
 ---
-DynamoDB is AWS's fully managed NoSQL database service, offering seamless scalability, high performance, and serverless operation for modern application workloads.
+DynamoDB is AWS's fully managed NoSQL database service, with an Always Free tier (25 GB storage, 25 WCU/25 RCU) that never expires, offering seamless scalability and serverless operation for modern application workloads.

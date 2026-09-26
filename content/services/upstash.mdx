@@ -1,17 +1,17 @@
 ---
 title: Upstash
 description: >-
-  Upstash provides serverless Redis and Kafka with per-request pricing and
-  global low-latency access.
+  Upstash provides serverless Redis, Vector, and messaging (QStash, Workflow)
+  with per-request pricing and global low-latency access.
 provider: Upstash
 category: database
 domain: database
 subtypes:
   - Redis
-  - Kafka
+  - Vector
+  - QStash
   - serverless
   - key-value
-  - pubsub
 audiences:
   - student
   - indie
@@ -26,16 +26,15 @@ tags:
   - cloud
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes limited Redis and Kafka usage with hard monthly caps.
+  summary: Free tier centers on Redis, with 500,000 commands/month and 256 MB data size; Kafka was discontinued in 2025.
   limits:
-    - '10,000 Redis commands/day'
-    - 256 MB Redis storage
-    - '1,000 Kafka messages/day'
-    - 1 Kafka topic
-    - 256 MB Kafka storage
+    - '500,000 Redis commands/month'
+    - 256 MB Redis data size
+    - 10 GB Redis bandwidth/month
+    - 1 free Redis database
   caveats:
-    - 'Hard cap: service stops at limit'
-    - No credit card required for free tier
+    - 'Kafka was discontinued (March 2025); QStash and Workflow replaced it for messaging/queues'
+    - No credit card required for the free Redis database
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -43,21 +42,21 @@ freeTierDetails:
   overageRisk: none
 useCases:
   - Caching for serverless apps
-  - Real-time pub/sub messaging
   - Low-latency key-value storage
-  - Event streaming for microservices
+  - Durable task queues and scheduling with QStash/Workflow
+  - AI vector search with Upstash Vector
 quickstartSteps:
   - Sign up at upstash.com with your email or GitHub account.
-  - Create a new Redis or Kafka database from the dashboard.
+  - Create a new Redis, Vector, or QStash resource from the dashboard.
   - Copy the connection URL and credentials.
   - Integrate the connection string into your application code.
   - Monitor usage and limits from the Upstash dashboard.
 whenToUse: >-
-  Use Upstash for lightweight, serverless Redis or Kafka needs with predictable
-  free limits and simple integration.
+  Use Upstash for lightweight, serverless Redis, Vector, or QStash/Workflow
+  needs with predictable free limits and simple integration.
 whenNotToUse: >-
-  Avoid if you need high-throughput, large datasets, or advanced Redis/Kafka
-  features beyond the free tier limits.
+  Avoid if you need high-throughput, large datasets, or a hosted Kafka
+  service (Upstash Kafka was discontinued in 2025).
 bestFor:
   - serverless apps
   - prototyping
@@ -66,10 +65,12 @@ bestFor:
 avoidIf:
   - large-scale production
   - high-throughput workloads
-  - complex Redis/Kafka setups
+  - complex Redis or messaging setups
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2024-06-09T00:00:00.000Z
+status: changed
+lastUpdated: 2026-09-26
+lastVerified: 2026-09-26
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://upstash.com/'
@@ -77,6 +78,11 @@ docsUrl: 'https://docs.upstash.com/'
 sourceUrls:
   - 'https://upstash.com/pricing'
   - 'https://docs.upstash.com/'
+pricingUrl: 'https://upstash.com/pricing'
+changes:
+  - date: 2025-03-11
+    kind: changed
+    note: Upstash discontinued Kafka; QStash and Workflow became the messaging/queue products instead.
 featured: false
 ---
-Upstash offers serverless Redis and Kafka with a generous free tier, ideal for prototyping, hobby projects, and serverless workloads with predictable limits.
+Upstash offers serverless Redis, Vector, and messaging (QStash/Workflow) with a generous free tier, ideal for prototyping, hobby projects, and serverless workloads with predictable limits. Kafka support was discontinued in March 2025.

@@ -21,22 +21,20 @@ tags:
   - misc
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes 1 GB storage and 2 GB bandwidth per project per month.
+  summary: Free tier includes 1 GB storage and 5 GB cached egress across up to 2 active projects, no credit card required.
   limits:
     - 1 GB storage
-    - 2 GB bandwidth/month
-    - Unlimited files
-    - Up to 2 projects
+    - 5 GB cached egress
+    - 50 MB max file upload size
+    - Up to 2 active projects
   caveats:
-    - Overages billed automatically
-    - No custom domain support on free tier
+    - No custom domain or image transformations on free tier
+    - Free projects pause after 1 week of inactivity
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: medium
-  billingRiskNotes:
-    - Usage above free limits incurs charges automatically
+  hasHardCap: true
+  overageRisk: none
 useCases:
   - User-generated content storage
   - Media hosting for web/mobile apps
@@ -52,8 +50,8 @@ whenToUse: >-
   Use when you need simple, integrated object storage for files in
   Supabase-backed apps with managed access controls.
 whenNotToUse: >-
-  Avoid if you require large-scale storage, advanced CDN features, or strict
-  hard caps to prevent overages.
+  Avoid if you require large-scale storage, image transformations, or a
+  custom domain on the free tier.
 bestFor:
   - Supabase projects
   - rapid prototyping
@@ -61,11 +59,12 @@ bestFor:
   - MVPs
 avoidIf:
   - enterprise-scale storage
-  - strict cost controls
+  - need image transformations
   - advanced CDN needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2024-06-13T00:00:00.000Z
+lastUpdated: 2026-09-26
+lastVerified: 2026-09-26
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/docs/reference/storage'
@@ -73,6 +72,7 @@ docsUrl: 'https://supabase.com/docs/reference/storage'
 sourceUrls:
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/storage'
+pricingUrl: 'https://supabase.com/pricing'
 featured: false
 ---
-Supabase Storage offers integrated, developer-friendly object storage for files and media, with free tier limits suitable for small projects and prototyping.
+Supabase Storage offers integrated, developer-friendly object storage for files and media, with free tier limits (1 GB storage, 5 GB cached egress) suitable for small projects and prototyping. No card is required, and usage above the cap is blocked rather than billed on the free plan.

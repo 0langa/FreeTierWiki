@@ -23,23 +23,24 @@ tags:
   - misc
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes generous monthly quota for authentication operations.
+  summary: >-
+    Email/password, anonymous, and social sign-in are free and unlimited on
+    the Spark plan. Phone/SMS verification now needs the paid Blaze plan.
   limits:
-    - >-
-      10k verifications/month for email/password, anonymous, and social
-      providers
-    - 100 SMS verifications/month
-    - Unlimited sign-ins for existing users
+    - Unlimited email/password, anonymous, and social sign-in
+    - Phone/SMS verification requires the Blaze (pay-as-you-go) plan
+    - First 10 SMS/day are not billed on Blaze
+    - 'With Identity Platform (SAML/OIDC): 50 MAUs/month free'
   caveats:
-    - SMS verification quota is low and overages are billed.
-    - Enterprise SSO and phone auth have stricter limits.
+    - Phone/SMS auth needs a billing account attached; no free SMS on Spark.
+    - Enterprise SSO (Identity Platform) has separate MAU-based pricing.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - SMS overages can incur charges if quota is exceeded.
+    - Phone/SMS overages are billed per message once on the Blaze plan.
 useCases:
   - Add user authentication to web or mobile apps
   - 'Enable social login (Google, Facebook, etc.)'
@@ -67,14 +68,21 @@ avoidIf:
   - on-premises requirements
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2024-06-09T00:00:00.000Z
+status: changed
+lastVerified: 2026-09-26
+lastUpdated: 2026-09-26
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/auth'
 docsUrl: 'https://firebase.google.com/docs/auth'
+pricingUrl: 'https://firebase.google.com/pricing'
 sourceUrls:
   - 'https://firebase.google.com/pricing'
   - 'https://firebase.google.com/docs/auth'
+changes:
+  - date: 2024-09-01
+    kind: changed
+    note: Phone/SMS verification moved off the free Spark plan; it now requires the Blaze plan and billing, with only the first 10 SMS/day unbilled.
 featured: false
 ---
-Firebase Auth offers a simple way to add authentication to apps, supporting multiple providers and generous free tier limits for most use cases.
+Firebase Auth offers a simple way to add authentication to apps. Email/password, anonymous, and social sign-in stay free and unlimited on the Spark plan, but phone/SMS verification now requires the paid Blaze plan.

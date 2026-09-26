@@ -23,21 +23,24 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes a single cluster with up to 5GB storage and limited
-    compute resources.
+    New Cloud organizations get a 30-day free trial with $400 in credit
+    (Cockroach Continuum pricing). No credit card is required for the Standard
+    edition.
   limits:
-    - 1 free cluster
-    - 5GB storage
-    - 1 vCPU
-    - 1GB RAM
+    - 30-day free trial
+    - $400 in credit
+    - No card required for Standard edition
   caveats:
-    - Compute and storage limits are enforced.
-    - Free clusters may be paused after 60 days of inactivity.
-  resetPeriod: monthly
+    - Mission Critical edition requires a credit card
+    - Clusters pause when the trial ends or the credit runs out
   requiresCard: false
-  freeTierType: always-free
+  freeTierType: trial
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - After the trial, clusters pause with a 30-day grace period to add a payment method before deletion
+  trialDays: 30
+  monthlyCreditAmount: $400 one-time
 useCases:
   - Building resilient web apps
   - Prototyping distributed systems
@@ -53,7 +56,7 @@ whenToUse: >-
   overhead and PostgreSQL compatibility.
 whenNotToUse: >-
   Avoid if you need advanced PostgreSQL extensions, require on-premise
-  deployment, or need large-scale production clusters without cost.
+  deployment, or need a database beyond the 30-day trial without paying.
 bestFor:
   - prototyping
   - learning
@@ -65,14 +68,21 @@ avoidIf:
   - require high storage or compute
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2024-06-09T00:00:00.000Z
+lastUpdated: 2026-09-26
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.cockroachlabs.com/product/cockroachdb/'
 docsUrl: 'https://www.cockroachlabs.com/docs/cockroachcloud'
 sourceUrls:
-  - 'https://www.cockroachlabs.com/docs/cockroachcloud'
   - 'https://www.cockroachlabs.com/pricing/'
+  - 'https://www.cockroachlabs.com/docs/cockroachcloud'
 featured: false
+status: changed
+lastVerified: 2026-09-26
+pricingUrl: 'https://www.cockroachlabs.com/pricing/'
+changes:
+  - date: 2026-09-15
+    kind: changed
+    note: CockroachDB replaced its permanent free cluster tier with Cockroach Continuum pricing, giving new Cloud organizations a 30-day trial with $400 in credit instead.
 ---
-CockroachDB Cloud provides a managed, distributed SQL database service with a generous free tier suitable for learning, prototyping, and small-scale applications.
+CockroachDB Cloud provides a managed, distributed SQL database service with a 30-day, $400-credit free trial suitable for learning, prototyping, and small-scale applications.
