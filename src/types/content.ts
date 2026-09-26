@@ -53,6 +53,17 @@ export type EntryChange = {
   note: string;
 };
 
+export type ChangelogKind = ChangeKind | "removed";
+
+/** An entry that was deleted from the catalog, kept in content/changelog.json so the changelog still shows it. */
+export type RemovalRecord = {
+  date: string;
+  kind: "removed";
+  title: string;
+  category: Domain;
+  note: string;
+};
+
 export type FreeTierDetails = {
   summary: string;
   limits: string[];

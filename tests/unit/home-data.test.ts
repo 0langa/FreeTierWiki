@@ -32,4 +32,27 @@ describe("latestChanges", () => {
   it("returns nothing when no entry has changes", () => {
     expect(latestChanges([makeEntry()], 5)).toEqual([]);
   });
+
+  it("merges removal records and links them to their category", () => {
+    const rows = latestChanges([makeEntry({ domain: "database" })], undefined, [
+      { date: "2024-04-08", kind: "removed", title: "PlanetScale", category: "database", note: "Ended." },
+    ]);
+    expect(rows).toEqual([{ date: "2024-04-08", kind: "removed", title: "PlanetScale", note: "Ended.", url: "/category/database/" }]);
+  });
+
+  it("links a removal to the explorer when its category is gone", () => {
+    const rows = latestChanges([makeEntry({ domain: "hosting" })], undefined, [
+      { date: "2024-04-08", kind: "removed", title: "Gone", category: "design", note: "Closed." },
+    ]);
+    expect(rows[0].url).toBe("/explorer/");
+  });
+
+  it("applies the limit after merging", () => {
+    const rows = latestChanges(
+      [makeEntry({ changes: [{ date: "2025-01-01", kind: "changed", note: "A." }] })],
+      1,
+      [{ date: "2024-04-08", kind: "removed", title: "Old", category: "database", note: "B." }],
+    );
+    expect(rows.map((row) => row.note)).toEqual(["A."]);
+  });
 });

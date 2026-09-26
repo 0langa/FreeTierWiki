@@ -7,7 +7,7 @@ import { OfferText } from "@/components/entry/offer-text";
 import { HeroSearchButton } from "@/components/site/hero-search-button";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
-import { getAllEntries } from "@/lib/content.server";
+import { getAllEntries, getRemovals } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { formatMonth } from "@/lib/format";
 import { freshnessDate, getFreshness } from "@/lib/freshness";
@@ -44,7 +44,7 @@ export default async function HomePage() {
     .filter((item) => item.freshness.state === "checked" && item.status === "active" && !item.card && item.cap && item.risk === "none")
     .sort(compareSafety)
     .slice(0, 3);
-  const changes = latestChanges(entries, 5);
+  const changes = latestChanges(entries, 5, await getRemovals());
   const example = entries.find((entry) => entry.slug === "cloudflare-workers") ?? entries[0];
   const progress = entries.length > 0 ? Math.max((verified / entries.length) * 100, 1) : 0;
 

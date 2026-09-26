@@ -2,24 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ChangePill } from "@/components/entry/labels";
-import { getAllEntries } from "@/lib/content.server";
+import { getAllEntries, getRemovals } from "@/lib/content.server";
 import { formatMonth } from "@/lib/format";
 import { latestChanges } from "@/lib/home-data";
 
 export const metadata: Metadata = {
   title: "Free tier changelog",
-  description: "Free plans that ended or changed, newest first.",
+  description: "Free plans that ended, changed, or were removed from the catalog, newest first.",
   alternates: { canonical: "/changelog/" },
 };
 
 export default async function ChangelogPage() {
-  const rows = latestChanges(await getAllEntries());
+  const rows = latestChanges(await getAllEntries(), undefined, await getRemovals());
   const years = [...new Set(rows.map((row) => row.date.slice(0, 4)))];
 
   return (
     <div className="max-w-3xl pt-8">
       <h1 className="text-[28px] font-bold tracking-tight">Free tier changelog</h1>
-      <p className="mt-2 text-ink-2">Free plans that ended or changed, newest first. Each item links to the entry with the current facts.</p>
+      <p className="mt-2 text-ink-2">Free plans that ended, changed, or were removed from the catalog, newest first. Each item links to the entry with the current facts.</p>
       {rows.length === 0 ? <p className="mt-8 text-sm text-ink-3">No changes recorded yet.</p> : null}
       {years.map((year) => (
         <section key={year} className="mt-8" aria-labelledby={`year-${year}`}>

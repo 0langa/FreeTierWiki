@@ -2,8 +2,9 @@ import "server-only";
 
 import { cache } from "react";
 
+import { readRemovals } from "@/lib/changelog-file";
 import { CONTENT_DIR, listContentFiles, readEntryFile } from "@/lib/content-files";
-import type { AtlasEntry, AtlasEntryWithBody, ContentKind } from "@/types/content";
+import type { AtlasEntry, AtlasEntryWithBody, ContentKind, RemovalRecord } from "@/types/content";
 
 async function load() {
   const files = await listContentFiles(CONTENT_DIR);
@@ -12,7 +13,8 @@ async function load() {
   const byPath = new Map<string, AtlasEntryWithBody>(
     loaded.map(({ entry, body }) => [`${entry.kind}/${entry.slug}`, { ...entry, body: { raw: body } }]),
   );
-  return { entries, byPath };
+  const removals = await readRemovals();
+  return { entries, byPath, removals };
 }
 
 // Static export prerenders every one of the ~765 entry pages as its own render. React's `cache()`
@@ -31,4 +33,8 @@ export async function getAllEntries(): Promise<AtlasEntry[]> {
 
 export async function getEntryWithBody(kind: ContentKind, slug: string): Promise<AtlasEntryWithBody | undefined> {
   return (await loadAll()).byPath.get(`${kind}/${slug}`);
+}
+
+export async function getRemovals(): Promise<RemovalRecord[]> {
+  return (await loadAll()).removals;
 }
