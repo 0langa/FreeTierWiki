@@ -68,6 +68,34 @@ test("slow typing keeps every letter", async ({ page }) => {
   await expect(page).toHaveURL(/q=supabase/);
 });
 
+test("the search chip clears the box", async ({ page }) => {
+  await page.goto("/explorer/");
+  await page.waitForLoadState("networkidle");
+  const input = page.getByRole("searchbox", { name: "Search the explorer" });
+  await input.fill("supabase");
+  await expect(page).toHaveURL(/q=supabase/);
+  await page.getByRole("button", { name: "Remove filter: “supabase”" }).click();
+  await expect(input).toHaveValue("");
+  await page.waitForTimeout(400);
+  await expect(page).not.toHaveURL(/q=/);
+});
+
+test("Clear all empties the box", async ({ page }, info) => {
+  await page.goto("/explorer/");
+  await page.waitForLoadState("networkidle");
+  const input = page.getByRole("searchbox", { name: "Search the explorer" });
+  await input.fill("supabase");
+
+  await openFilters(page, info);
+  await page.getByRole("checkbox", { name: /^Database/ }).check();
+  await closeFilters(page, info);
+
+  await page.getByRole("button", { name: "Clear all" }).click();
+  await expect(input).toHaveValue("");
+  await page.waitForTimeout(400);
+  await expect(page).not.toHaveURL(/q=/);
+});
+
 test("old explorer links still filter", async ({ page }) => {
   await page.goto("/explorer/?kind=services&domain=database");
   await expect(page.getByRole("button", { name: "Remove filter: Services" })).toBeVisible();

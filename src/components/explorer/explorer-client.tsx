@@ -70,6 +70,12 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
   const navigate = React.useCallback(
     (next: ExplorerQuery, mode: "push" | "replace" = "push") => {
       setWrittenQ(next.q.trim());
+      // A clear action (a chip, "Clear all", "Clear filters") writes a different `q` than what's
+      // still sitting in the box — reflect that in the box right away instead of waiting on the
+      // guard above, which sees its own write and (correctly, for the debounce-commit case) leaves
+      // the box alone. Keep trailing spaces the user is still typing: only replace when the
+      // trimmed values actually differ.
+      setText((t) => (t.trim() === next.q.trim() ? t : next.q));
       const qs = serializeQuery(next);
       const url = qs ? `${pathname}?${qs}` : pathname;
       if (mode === "push") window.history.pushState(null, "", url);
