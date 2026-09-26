@@ -29,7 +29,7 @@ export default function AboutPage() {
           <RiskPill risk="none" /> <RiskPill risk="low" /> <RiskPill risk="medium" /> <RiskPill risk="high" />
         </p>
         <p>
-          <strong className="text-ink">None:</strong> going over the limit stops or throttles the service. You cannot get a bill by accident.
+          <strong className="text-ink">None:</strong> the plan is unlimited, or going over the limit stops or throttles the service. Either way, you should not get a bill by accident.
         </p>
         <p>
           <strong className="text-ink">Low:</strong> going over is unlikely to cost money, but read the watch-out notes.

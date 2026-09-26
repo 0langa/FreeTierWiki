@@ -172,7 +172,7 @@ export default async function HomePage() {
         <div>
           <RiskPill risk="none" />
           <h3 className="mb-1.5 mt-2.5 text-[15px] font-semibold">Billing risk</h3>
-          <p className="text-sm text-ink-2">How likely you are to get a bill by accident. “None” means going over stops the service instead of charging you.</p>
+          <p className="text-sm text-ink-2">How likely you are to get a bill by accident. “None” means the plan is unlimited, or going over stops the service instead of charging you.</p>
         </div>
         <div>
           <FreshnessLabel freshness={{ state: "checked", date: BUILD_NOW.toISOString().slice(0, 10) }} />
