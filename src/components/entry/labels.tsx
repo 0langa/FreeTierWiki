@@ -1,7 +1,7 @@
 import { OVERAGE_RISK_LABELS } from "@/lib/content";
 import { formatDay, formatMonth } from "@/lib/format";
 import type { Freshness } from "@/lib/freshness";
-import type { EntryStatus, OverageRisk } from "@/types/content";
+import type { ChangeKind, EntryStatus, OverageRisk } from "@/types/content";
 
 const RISK_CLASS: Record<OverageRisk, string> = {
   none: "bg-risk-none-bg text-risk-none",
@@ -10,10 +10,10 @@ const RISK_CLASS: Record<OverageRisk, string> = {
   high: "bg-risk-high-bg text-risk-high",
 };
 
-export function RiskPill({ risk }: { risk: OverageRisk }) {
+export function RiskPill({ risk, withLabel = true }: { risk: OverageRisk; withLabel?: boolean }) {
   return (
     <span className={`pill ${RISK_CLASS[risk]}`}>
-      <span className="sr-only">Billing risk: </span>
+      {withLabel ? <span className="sr-only">Billing risk: </span> : null}
       {OVERAGE_RISK_LABELS[risk]}
     </span>
   );
@@ -22,6 +22,17 @@ export function RiskPill({ risk }: { risk: OverageRisk }) {
 export function StatusPill({ status }: { status: EntryStatus }) {
   if (status === "active") return null;
   return <span className={`pill ${status === "ended" ? RISK_CLASS.high : RISK_CLASS.medium}`}>{status === "ended" ? "Ended" : "Changed"}</span>;
+}
+
+const CHANGE_CLASS: Record<ChangeKind, string> = {
+  ended: RISK_CLASS.high,
+  changed: RISK_CLASS.medium,
+  new: RISK_CLASS.low,
+};
+const CHANGE_TEXT: Record<ChangeKind, string> = { ended: "Ended", changed: "Changed", new: "New" };
+
+export function ChangePill({ kind }: { kind: ChangeKind }) {
+  return <span className={`pill ${CHANGE_CLASS[kind]}`}>{CHANGE_TEXT[kind]}</span>;
 }
 
 export function CardLabel({ card }: { card: boolean }) {

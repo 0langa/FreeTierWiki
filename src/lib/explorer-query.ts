@@ -102,6 +102,13 @@ export function isDefaultQuery(query: ExplorerQuery): boolean {
 export function matches(item: ListItem, query: ExplorerQuery, ignore?: Facet): boolean {
   if (ignore !== "type" && query.type !== "all" && item.kind !== query.type) return false;
   if (ignore !== "cats" && query.cats.length > 0 && !query.cats.includes(item.domain)) return false;
+
+  // Owner ruling: an ended entry never satisfies a free-tier filter (there is no free tier left to check).
+  // Search text and category/type still match, so an ended entry can still be found.
+  const freeTierFilterActive =
+    query.noCard || query.hardCap || query.recent || query.risks.length > 0 || query.plans.length > 0 || query.ready.length > 0;
+  if (item.status === "ended" && freeTierFilterActive) return false;
+
   if (ignore !== "risks" && query.risks.length > 0 && !query.risks.includes(item.risk)) return false;
   if (ignore !== "plans" && query.plans.length > 0 && !query.plans.includes(item.plan)) return false;
   if (ignore !== "ready" && query.ready.length > 0 && !query.ready.includes(item.ready)) return false;
@@ -119,7 +126,12 @@ const COMPARE: Record<SortMode, (a: ListItem, b: ListItem) => number> = {
 };
 
 export function applyQuery(items: ListItem[], query: ExplorerQuery): ListItem[] {
-  return items.filter((item) => matches(item, query)).sort(COMPARE[query.sort]);
+  const compare = COMPARE[query.sort];
+  const matched = items.filter((item) => matches(item, query));
+  // Owner ruling: ended entries sort last in every mode, in that mode's own order.
+  const active = matched.filter((item) => item.status !== "ended").sort(compare);
+  const ended = matched.filter((item) => item.status === "ended").sort(compare);
+  return [...active, ...ended];
 }
 
 const FACET_FIELD = { cats: "domain", type: "kind", risks: "risk", plans: "plan", ready: "ready" } as const;

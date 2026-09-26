@@ -2,7 +2,7 @@
 
 **Choose free tiers with real constraints, not wishful thinking.**
 
-[freetier.wiki](https://freetier.wiki) lists free plans for developers — services, tools, and learning resources — and shows what each one actually gives you: the limits, whether it needs a card, the billing risk, and how fresh that information is.
+[freetier.wiki](https://freetier.wiki) lists free plans for developers — services and tools — and shows what each one actually gives you: the limits, whether it needs a card, the billing risk, and how fresh that information is.
 
 ---
 
@@ -10,7 +10,7 @@
 
 ### Home
 
-The home page gives a quick overview: content coverage by category, low-risk picks (no card, no overage risk), and a link into the explorer.
+The home page gives a quick overview: how many entries are checked against the official pricing page, browsing by category, and the newest changes, plus a link into the explorer.
 
 ### Explorer
 
@@ -107,7 +107,7 @@ NEXT_BUILD_CPUS=2 npm run build
 
 ## Content
 
-Entries live under `content/services/`, `content/tools/`, and `content/resources/` as MDX files with frontmatter. Key fields:
+Entries live under `content/services/` and `content/tools/` as MDX files with frontmatter. Key fields:
 
 - `lastVerified` — ISO date (`2026-09-25`) someone last checked the entry against the official pricing page. Drives the freshness label; stale after 180 days (`STALE_AFTER_DAYS`).
 - `status` — `active`, `changed`, or `ended`.
@@ -132,4 +132,4 @@ MIT — see the GitHub repository for details.
 
 ---
 
-*FreeTierWiki is a living catalog. Entries are updated as providers change their free-tier terms. Always verify current pricing and limits on the provider's official website before making architectural decisions.*
+*FreeTierWiki is a living catalog. Each entry shows how fresh it is. Always verify current pricing and limits on the provider's official website before making architectural decisions.*

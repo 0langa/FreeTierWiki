@@ -35,12 +35,18 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
   const [text, setText] = React.useState(query.q);
   const [sheetOpen, setSheetOpen] = React.useState(false);
 
+  // Tracks the last `q` this component itself wrote to the URL, so the guard below can tell a URL
+  // change we caused (our own debounce commit landing late) from one we did not (back/forward, a link).
+  // Kept in state (not a ref) so it can be read and adjusted during render, same as `seenSearch` below.
+  const [writtenQ, setWrittenQ] = React.useState(query.q);
+
   // Follow the URL (back/forward) without an effect: reset paging and the search box when the query changes.
   const [seenSearch, setSeenSearch] = React.useState(search);
   if (search !== seenSearch) {
     setSeenSearch(search);
     setLimit(PAGE_SIZE);
-    if (query.q !== text.trim()) setText(query.q);
+    if (query.q !== writtenQ) setText(query.q);
+    setWrittenQ(query.q);
   }
 
   React.useEffect(() => {
@@ -63,6 +69,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
 
   const navigate = React.useCallback(
     (next: ExplorerQuery, mode: "push" | "replace" = "push") => {
+      setWrittenQ(next.q.trim());
       const qs = serializeQuery(next);
       const url = qs ? `${pathname}?${qs}` : pathname;
       if (mode === "push") window.history.pushState(null, "", url);
@@ -129,11 +136,17 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
         </label>
 
         <div className="mt-3.5 flex flex-wrap items-center gap-2 text-sm text-ink-2">
-          <button type="button" onClick={() => setSheetOpen(true)} className="btn lg:hidden">
+          <button
+            type="button"
+            onClick={() => setSheetOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={sheetOpen}
+            className="btn lg:hidden"
+          >
             <SlidersHorizontal className="h-4 w-4" aria-hidden />
             Filters{activeCount > 0 ? ` · ${activeCount}` : ""}
           </button>
-          <span>
+          <span aria-live="polite">
             <strong data-testid="result-count" className="text-ink">
               {waiting ? "…" : total}
             </strong>{" "}

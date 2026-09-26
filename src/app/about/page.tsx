@@ -56,8 +56,8 @@ export default function AboutPage() {
           <FreshnessLabel freshness={{ state: "imported", date: "2024-06-09" }} />
         </p>
         <p>
-          <strong className="text-ink">A date with a check mark</strong> is the day someone compared the entry with the official pricing page. After 6
-          months the date turns amber: it is stale.
+          <strong className="text-ink">A date with a check mark</strong> is the day someone compared the entry with the official pricing page. If a
+          check is more than 6 months older than the site build, it shows as stale.
         </p>
         <p>
           <strong className="text-ink">A gray date</strong>{" "}

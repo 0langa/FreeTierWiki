@@ -140,6 +140,12 @@ describe("parseEntry", () => {
     ]);
   });
 
+  it("rejects an impossible date", () => {
+    expect(problemsOf({ ...baseData(), lastVerified: "2024-02-30" })).toEqual([
+      expect.stringContaining("'lastVerified' must be a date like 2026-09-25"),
+    ]);
+  });
+
   it("accepts numbers in optional text fields", () => {
     const entry = parseEntry({
       kind: "services",

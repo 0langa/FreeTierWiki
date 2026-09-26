@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: "freetier.wiki: free tiers, with the fine print",
     template: "%s · freetier.wiki",
   },
-  description: "Free plans for developers with their limits, card rules, billing risk, and the date we last checked them.",
+  description: "Free plans for developers with their limits, card rules, billing risk, and how fresh each entry is.",
   openGraph: {
     type: "website",
     siteName: "freetier.wiki",
@@ -43,6 +43,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontSans.variable} ${fontMono.variable} font-sans`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2"
+        >
+          Skip to content
+        </a>
         <AppProviders>
           <SiteHeader />
           <main id="main" className="mx-auto w-full max-w-[1240px] px-4 sm:px-6">

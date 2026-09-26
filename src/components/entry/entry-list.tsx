@@ -24,7 +24,7 @@ export function EntryList({ items, showChecked = true, label = "Free tiers" }: {
         <span role="columnheader">What you get free</span>
         <span role="columnheader">Risk</span>
         <span role="columnheader">Card</span>
-        {showChecked ? <span role="columnheader">Checked</span> : null}
+        {showChecked ? <span role="columnheader">Freshness</span> : null}
       </div>
       {items.map((item) => {
         const ended = item.status === "ended";
@@ -32,7 +32,7 @@ export function EntryList({ items, showChecked = true, label = "Free tiers" }: {
           <div
             key={item.id}
             role="row"
-            className={`relative grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1.5 px-4 py-3.5 hover:bg-surface-2 lg:min-h-16 lg:items-center lg:gap-4 lg:px-[18px] lg:py-2.5 ${cols} ${ended ? "opacity-60" : ""}`}
+            className={`relative grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1.5 px-4 py-3.5 hover:bg-surface-2 lg:min-h-16 lg:items-center lg:gap-4 lg:px-[18px] lg:py-2.5 ${cols} ${ended ? "opacity-80" : ""}`}
           >
             <div role="cell" className="col-start-1 row-start-1 min-w-0 lg:col-auto lg:row-auto">
               <div className="flex flex-wrap items-center gap-1.5">

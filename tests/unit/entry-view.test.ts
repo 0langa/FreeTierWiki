@@ -23,6 +23,10 @@ describe("pricingUrl", () => {
   it("then the official URL", () => {
     expect(pricingUrl(makeEntry({ sourceUrls: ["https://neon.tech/docs"] }))).toBe("https://neon.tech/");
   });
+
+  it("ignores a source URL that is not http(s)", () => {
+    expect(pricingUrl(makeEntry({ sourceUrls: ["docs/pricing.md", "mailto:pricing@neon.tech"] }))).toBe("https://neon.tech/");
+  });
 });
 
 describe("safety ranking", () => {

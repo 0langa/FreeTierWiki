@@ -63,13 +63,28 @@ export function SearchDialog() {
   const [searcher, setSearcher] = React.useState<Searcher | null>(null);
   const [failed, setFailed] = React.useState(false);
 
+  // Reset a stale failure the moment the dialog opens, on every path (trigger, Ctrl K, "/", the
+  // hero event) — done during render, like `seenSearch` in the explorer, instead of as an effect.
+  const [seenOpen, setSeenOpen] = React.useState(open);
+  if (open !== seenOpen) {
+    setSeenOpen(open);
+    if (open) setFailed(false);
+  }
+
+  const close = React.useCallback(() => {
+    setOpen(false);
+    setQuery("");
+    setActive(0);
+  }, []);
+
   React.useEffect(() => {
     function onKey(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
       const typing = target?.closest("input, textarea, select, [contenteditable='true']");
       if ((event.key === "k" || event.key === "K") && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
-        setOpen((value) => !value);
+        if (open) close();
+        else setOpen(true);
         return;
       }
       if (event.key === "/" && !typing && !event.ctrlKey && !event.metaKey && !event.altKey) {
@@ -88,7 +103,7 @@ export function SearchDialog() {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener(OPEN_SEARCH_EVENT, onOpenEvent);
     };
-  }, []);
+  }, [open, close]);
 
   React.useEffect(() => {
     if (!open || searcher) return;
@@ -110,12 +125,6 @@ export function SearchDialog() {
   const hits = React.useMemo(() => (searcher && text.length > 1 ? searcher(text) : []), [searcher, text]);
   const activeIndex = Math.min(active, Math.max(hits.length - 1, 0));
   const explorerHref = `/explorer/?q=${encodeURIComponent(text)}`;
-
-  function close() {
-    setOpen(false);
-    setQuery("");
-    setActive(0);
-  }
 
   function onInputKey(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "ArrowDown") {
@@ -143,8 +152,7 @@ export function SearchDialog() {
       open={open}
       onOpenChange={(next) => {
         setOpen(next);
-        if (next) setFailed(false);
-        else setQuery("");
+        if (!next) setQuery("");
       }}
     >
       <Dialog.Trigger
@@ -181,11 +189,9 @@ export function SearchDialog() {
               className="h-14 w-full bg-transparent text-base outline-none placeholder:text-ink-3"
             />
           </div>
-          {message ? (
-            <p role="status" className="px-4 pt-3 text-sm text-ink-3">
-              {message}
-            </p>
-          ) : null}
+          <p role="status" className="px-4 pt-3 text-sm text-ink-3 empty:hidden">
+            {message}
+          </p>
           <div id="search-results" role="listbox" aria-label="Results" className="max-h-[60vh] overflow-y-auto p-1.5">
             {hits.map((hit, index) => (
               <Link

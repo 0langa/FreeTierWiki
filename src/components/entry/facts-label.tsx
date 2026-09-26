@@ -41,7 +41,7 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
         {compact ? null : <FactRow term="Plan type" value={ended ? "No free plan" : FREE_TIER_TYPE_LABELS[details.freeTierType]} />}
         <FactRow term="Card required" value={details.requiresCard ? "Yes" : "No"} />
         {!ended ? <FactRow term="Hard cap" value={details.hasHardCap ? "Yes" : "No"} /> : null}
-        <FactRow term="Billing risk" value={<RiskPill risk={details.overageRisk} />} />
+        <FactRow term="Billing risk" value={<RiskPill risk={details.overageRisk} withLabel={false} />} />
         {!ended && !compact && details.resetPeriod ? (
           <FactRow term="Resets" value={details.resetPeriod.replace(/^./, (c) => c.toUpperCase())} />
         ) : null}
@@ -76,7 +76,11 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
       ) : null}
       {THICK}
       <div className="grid gap-1.5 text-[12.5px] text-ink-3">
-        {showLastChecked ? (
+        {freshness.state === "imported" ? (
+          <span>
+            Not checked yet · data from <FreshnessLabel freshness={freshness} />
+          </span>
+        ) : showLastChecked ? (
           <span>
             Last checked: <FreshnessLabel freshness={freshness} />
           </span>

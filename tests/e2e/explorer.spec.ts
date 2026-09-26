@@ -58,6 +58,16 @@ test("back restores the search text", async ({ page }) => {
   await expect(input).toHaveValue("supabase");
 });
 
+test("slow typing keeps every letter", async ({ page }) => {
+  await page.goto("/explorer/");
+  await page.waitForLoadState("networkidle");
+  const input = page.getByRole("searchbox", { name: "Search the explorer" });
+  await input.focus();
+  await input.pressSequentially("supabase", { delay: 250 });
+  await expect(input).toHaveValue("supabase");
+  await expect(page).toHaveURL(/q=supabase/);
+});
+
 test("old explorer links still filter", async ({ page }) => {
   await page.goto("/explorer/?kind=services&domain=database");
   await expect(page.getByRole("button", { name: "Remove filter: Services" })).toBeVisible();

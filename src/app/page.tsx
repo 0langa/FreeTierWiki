@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FactsLabel } from "@/components/entry/facts-label";
-import { FreshnessLabel, RiskPill, StatusPill } from "@/components/entry/labels";
+import { ChangePill, FreshnessLabel, RiskPill, StatusPill } from "@/components/entry/labels";
 import { OfferText } from "@/components/entry/offer-text";
 import { HeroSearchButton } from "@/components/site/hero-search-button";
 import { BUILD_NOW } from "@/lib/build-info";
@@ -10,7 +10,7 @@ import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { formatMonth } from "@/lib/format";
-import { getFreshness } from "@/lib/freshness";
+import { freshnessDate, getFreshness } from "@/lib/freshness";
 import { latestChanges, topCategories } from "@/lib/home-data";
 
 export const metadata: Metadata = {
@@ -30,7 +30,15 @@ const QUICK_LINKS = [
 export default async function HomePage() {
   const entries = await getAllEntries();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
-  const checked = items.filter((item) => item.freshness.state === "checked").length;
+  const activeCount = entries.filter((entry) => entry.status !== "ended").length;
+  // Counts entries that carry a lastVerified date at all (checked, stale, or ended-with-a-date),
+  // not only the ones currently within the "checked" freshness window.
+  const verified = items.filter(
+    (item) =>
+      item.freshness.state === "checked" ||
+      item.freshness.state === "stale" ||
+      (item.freshness.state === "ended" && freshnessDate(item.freshness) !== undefined),
+  ).length;
   const categories = topCategories(items, 12);
   const safePicks = items
     .filter((item) => item.freshness.state === "checked" && item.status === "active" && !item.card && item.cap && item.risk === "none")
@@ -38,19 +46,19 @@ export default async function HomePage() {
     .slice(0, 3);
   const changes = latestChanges(entries, 5);
   const example = entries.find((entry) => entry.slug === "cloudflare-workers") ?? entries[0];
-  const progress = entries.length > 0 ? Math.max((checked / entries.length) * 100, 1) : 0;
+  const progress = entries.length > 0 ? Math.max((verified / entries.length) * 100, 1) : 0;
 
   return (
     <>
       <section className="grid items-center gap-14 pb-10 pt-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:pt-[72px]">
         <div>
-          <p className="eyebrow">{entries.length} free plans for developers</p>
+          <p className="eyebrow">{activeCount} free plans for developers</p>
           <h1 className="mt-4 max-w-[14ch] text-[38px] font-bold leading-[1.02] tracking-tight sm:text-[56px]">
             Free tiers, with the <em className="not-italic text-brand">fine print.</em>
           </h1>
           <p className="mb-7 mt-5 max-w-[60ch] text-base text-ink-2 sm:text-lg">
-            Find a free plan you can build on. Each entry shows the limits, whether it needs a card, what happens when you go over, and when we
-            last checked it.
+            Find a free plan you can build on. Each entry shows the limits, whether it needs a card, what happens when you go over, and how
+            fresh the data is.
           </p>
           <HeroSearchButton />
           <div className="mt-4 flex flex-wrap gap-2">
@@ -71,7 +79,7 @@ export default async function HomePage() {
       <section aria-label="Checking progress" className="grid gap-2 rounded-2xl border border-line bg-surface px-6 py-5 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-x-8">
         <p className="text-sm text-ink-2">
           <strong className="text-ink">
-            {checked} of {entries.length}
+            {verified} of {entries.length}
           </strong>{" "}
           entries checked against the official pricing page. Every entry shows its own date.
         </p>
@@ -156,7 +164,7 @@ export default async function HomePage() {
                     <Link href={change.url} className="hover:underline">
                       {change.title}
                     </Link>
-                    <StatusPill status={change.kind === "ended" ? "ended" : "changed"} />
+                    <ChangePill kind={change.kind} />
                   </span>
                   <p className="col-start-2 text-[13.5px] text-ink-2">{change.note}</p>
                 </li>
@@ -177,7 +185,10 @@ export default async function HomePage() {
         <div>
           <FreshnessLabel freshness={{ state: "checked", date: BUILD_NOW.toISOString().slice(0, 10) }} />
           <h3 className="mb-1.5 mt-2.5 text-[15px] font-semibold">Last checked</h3>
-          <p className="text-sm text-ink-2">The day someone compared the entry with the official pricing page. After 6 months it shows as stale.</p>
+          <p className="text-sm text-ink-2">
+            The day someone compared the entry with the official pricing page. If a check is more than 6 months older than the site build, it
+            shows as stale.
+          </p>
         </div>
         <div>
           <StatusPill status="ended" />

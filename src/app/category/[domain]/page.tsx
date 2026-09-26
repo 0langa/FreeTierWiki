@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const label = DOMAIN_LABELS[domain];
   return {
     title: `Free ${label} tiers`,
-    description: `Free ${label.toLowerCase()} plans for developers: limits, card rules, billing risk, and when each was last checked.`,
+    description: `Free ${label.toLowerCase()} plans for developers: limits, card rules, billing risk, and how fresh each entry is.`,
     alternates: { canonical: `/category/${domain}/` },
   };
 }
@@ -36,6 +36,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
     .filter((entry) => entry.domain === domain)
     .map((entry) => toListItem(entry, BUILD_NOW))
     .sort(compareSafety);
+  const activeCount = items.filter((item) => item.status !== "ended").length;
 
   return (
     <div className="pt-8">
@@ -48,7 +49,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
       </nav>
       <h1 className="mt-3 text-[28px] font-bold tracking-tight">Free {label} tiers</h1>
       <p className="mt-2 max-w-2xl text-ink-2">
-        {items.length} free tiers, safest first. Each one shows the limits, whether it needs a card, and when we last checked it.
+        {activeCount} free tiers, safest first. Each one shows the limits, whether it needs a card, and how fresh the data is.
       </p>
       <div className="mt-6">
         {items.length > 0 ? (

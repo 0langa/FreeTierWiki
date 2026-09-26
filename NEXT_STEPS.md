@@ -2,7 +2,7 @@
 _State refreshed: 2026-09-26._
 
 ## What this is
-A decision-first atlas of free-tier offerings for developers, tools, and learning resources, rated
+A decision-first atlas of free-tier offerings for developers and tools, rated
 on billing risk, quota shape, and production readiness. Built as a static Next.js 16 (App Router)
 export with TypeScript, Tailwind CSS 3.4, a Base UI search dialog, and FlexSearch loaded lazily on
 first search. Content is frontmatter + MDX under `content/`.
@@ -16,11 +16,12 @@ Gate results at the end of the redesign (Task 10): unit tests 59 passed across 9
 tests 52 passed (26 tests, desktop and phone); lint 0 warnings; typecheck clean; size budget 4 of 4
 checks OK.
 
-Every entry now carries `status` (`active` / `changed` / `ended`), `lastVerified`, `pricingUrl`, and
-a `changes` list. Freshness and status drive the UI: a checked date, an "not re-checked since"
-import date, or a `Changed`/`Ended` pill. Four entries were verified and corrected during this pass:
-PlanetScale (ended), Vercel Postgres (ended), Fly.io (changed), and Railway (changed) — sources are
-in the redesign spec's deviations section.
+The schema supports `status` (`active` / `changed` / `ended`), `lastVerified`, `pricingUrl`, and a
+`changes` list; four entries use them so far. Freshness and status drive the UI: a checked date, a
+"not re-checked since" import date, or a `Changed`/`Ended` pill. Four entries were verified and
+corrected during this pass: PlanetScale (ended, planetscale.com/pricing), Vercel Postgres (ended,
+vercel.com/docs/storage/vercel-postgres), Fly.io (changed, fly.io/docs/about/pricing/), and Railway
+(changed, docs.railway.com/reference/pricing/plans).
 
 Deployment moved to Cloudflare Pages only; GitHub Actions (`ci.yml`) now only runs checks
 (lint, typecheck, unit tests, build, size budget, end-to-end tests) on push to `main` and on every

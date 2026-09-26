@@ -24,7 +24,7 @@ async function load(params: Params) {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const entry = await load(params);
   if (!entry) return {};
-  const title = `${entry.title} free tier: limits, card, billing risk`;
+  const title = entry.status === "ended" ? `${entry.title} free tier (ended)` : `${entry.title} free tier: limits, card, billing risk`;
   return {
     title,
     description: entry.description,

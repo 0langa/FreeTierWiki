@@ -39,8 +39,12 @@ export function normalizeListItem(value: unknown): string {
 
 function toDateString(value: unknown): string | undefined {
   if (value instanceof Date && !Number.isNaN(value.getTime())) return value.toISOString().slice(0, 10);
-  if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}/.test(value) && !Number.isNaN(Date.parse(value.slice(0, 10)))) {
-    return value.slice(0, 10);
+  if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+    const head = value.slice(0, 10);
+    const parsed = new Date(`${head}T00:00:00Z`);
+    // JS rolls an impossible day (e.g. 2024-02-30) into the next month instead of failing to parse.
+    // Reject anything the parsed UTC date doesn't echo back exactly.
+    if (!Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === head) return head;
   }
   return undefined;
 }

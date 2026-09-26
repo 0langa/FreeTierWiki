@@ -35,7 +35,11 @@ export function offerParts(entry: AtlasEntry): string[] {
 }
 
 export function pricingUrl(entry: AtlasEntry): string | undefined {
-  return entry.pricingUrl ?? entry.sourceUrls.find((url) => /pricing|plans|free-?tier/i.test(url)) ?? entry.officialUrl;
+  return (
+    entry.pricingUrl ??
+    entry.sourceUrls.find((url) => /^https?:\/\//i.test(url) && /pricing|plans|free-?tier/i.test(url)) ??
+    entry.officialUrl
+  );
 }
 
 const RISK_POINTS: Record<OverageRisk, number> = { none: 40, low: 30, medium: 15, high: 0 };

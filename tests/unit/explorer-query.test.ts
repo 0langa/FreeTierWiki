@@ -102,12 +102,42 @@ describe("applyQuery", () => {
     expect(titles("q=(")).toEqual([]);
   });
 
-  it("sorts A–Z", () => {
-    expect(titles("sort=az")).toEqual(["Alpha", "Beta", "Delta", "Epsilon"]);
+  it("sorts A–Z, ended last", () => {
+    expect(titles("sort=az")).toEqual(["Alpha", "Beta", "Epsilon", "Delta"]);
   });
 
   it("works on an empty list", () => {
     expect(applyQuery([], DEFAULT_QUERY)).toEqual([]);
+  });
+
+  it("ended entries never match free-tier filters", () => {
+    const ended = makeItem({
+      id: "z",
+      title: "Zulu",
+      haystack: "zulu database",
+      status: "ended",
+      freshness: { state: "ended" },
+      card: false,
+      cap: true,
+      risk: "none",
+    });
+    const items2 = [...items, ended];
+    const search = (q: string) => applyQuery(items2, parse(q)).map((item) => item.title);
+    expect(search("nocard=1")).not.toContain("Zulu");
+    expect(search("cap=1")).not.toContain("Zulu");
+    expect(search("recent=1")).not.toContain("Zulu");
+    expect(search("risk=none")).not.toContain("Zulu");
+    expect(search("plan=always-free")).not.toContain("Zulu");
+    expect(search("ready=side-project")).not.toContain("Zulu");
+    // search text and category/type still match ended entries
+    expect(search("q=zulu")).toContain("Zulu");
+    expect(search("type=services")).toContain("Zulu");
+  });
+
+  it("ended entries sort last in A–Z", () => {
+    const endedFirstAlphabetically = makeItem({ id: "z", title: "Aardvark", status: "ended", freshness: { state: "ended" } });
+    const nonEnded = makeItem({ id: "y", title: "Zebra" });
+    expect(applyQuery([endedFirstAlphabetically, nonEnded], parse("sort=az")).map((item) => item.title)).toEqual(["Zebra", "Aardvark"]);
   });
 });
 
