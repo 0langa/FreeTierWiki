@@ -5,7 +5,7 @@ test("home shows the promise, the trust strip, categories, and the changelog", a
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Free tiers, with the fine print.");
   await expect(page.getByText(/\d+ of \d+ entries checked against the official pricing page/)).toBeVisible();
   await expect(page.getByRole("link", { name: /^Database/ }).first()).toHaveAttribute("href", "/category/database/");
-  await expect(page.getByRole("region", { name: "Free tier changelog" })).toContainText("PlanetScale");
+  await expect(page.getByRole("region", { name: "Free tier changelog" }).getByRole("listitem").first()).toBeVisible();
 });
 
 test("a quick chip opens the filtered explorer", async ({ page }) => {

@@ -17,15 +17,17 @@ tests 52 passed (26 tests, desktop and phone); lint 0 warnings; typecheck clean;
 checks OK.
 
 The schema supports `status` (`active` / `changed` / `ended`), `lastVerified`, `pricingUrl`, and a
-`changes` list; four entries use them so far. Freshness and status drive the UI: a checked date, a
-"not re-checked since" import date, or a `Changed`/`Ended` pill. Four entries were verified and
-corrected during this pass: PlanetScale (ended, planetscale.com/pricing), Vercel Postgres (ended,
-vercel.com/docs/storage/vercel-postgres), Fly.io (changed, fly.io/docs/about/pricing/), and Railway
+`changes` list; four entries used them at first. Freshness and status drive the UI: a checked date, a
+"not re-checked since" import date, or a `Changed`/`Ended` pill. Two entries were verified and
+corrected during this pass: Fly.io (changed, fly.io/docs/about/pricing/), and Railway
 (changed, docs.railway.com/reference/pricing/plans).
 
 Deployment moved to Cloudflare Pages only; GitHub Actions (`ci.yml`) now only runs checks
 (lint, typecheck, unit tests, build, size budget, end-to-end tests) on push to `main` and on every
 pull request — it does not deploy.
+
+Content check in progress (started 2026-09-26): tooling merged; batches 1–6 check all entries
+against their official pricing pages.
 
 ## Phase 2 — data trust (next)
 - Verify the most-visited entries first (Hosting, Database, AI), setting `lastVerified` on each.

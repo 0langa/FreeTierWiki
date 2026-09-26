@@ -116,6 +116,16 @@ Entries live under `content/services/` and `content/tools/` as MDX files with fr
 
 **Rule:** an entry with `status: changed` or `status: ended` must have at least one `changes` item and a `lastVerified` date. This is enforced by the content parser and covered by unit tests (`npm test`).
 
+### Checking entries
+
+Every entry should match its official pricing page. The tools under `scripts/verify/` help:
+
+- `npm run verify:fetch -- --domains hosting,database` saves the pricing-page text under `development/verify/pages/`.
+- `npm run verify:list -- --domains hosting --size 20` prints the work chunks.
+- `npm run verify:remove -- --from deletes.json --date YYYY-MM-DD` deletes entries, adds 301 redirects to their category, and records them in `content/changelog.json`.
+
+Rules: an entry stays only if developers can use it free (always-free plan, credit, or trial). Paid-only, closed, off-topic, and duplicate entries are removed.
+
 ---
 
 ## Deploy
