@@ -24,21 +24,22 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 125,000 requests and 100 hours of execution time per
-    month.
+    Functions run on every Netlify plan and share the account-wide usage-credit
+    pool: 300 credits/month on the Free plan, at 10 credits per GB-hour of
+    compute and 2 credits per 10,000 requests.
   limits:
-    - '125,000 requests/month'
-    - 100 hours execution/month
-    - Up to 10 MB per function
-    - 1 MB request/response size
+    - Shares the account-wide 300 credits/month on the Free plan
+    - 10 credits per GB-hour of compute
+    - 2 credits per 10,000 web requests
+    - Background functions run up to 15 minutes
   caveats:
-    - Hard cap on requests and execution time
-    - Cold starts may affect latency
+    - No separate function quota — compute and requests draw from the same credits as builds and bandwidth
+    - Up to 4GB memory / 2 vCPUs configuration needs a credit-based (paid) plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
   - Add serverless APIs to static sites
   - Handle form submissions
@@ -68,7 +69,7 @@ avoidIf:
   - stateful services
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2024-06-09T00:00:00.000Z
+lastUpdated: 2026-09-26
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.netlify.com/products/functions/'
@@ -76,6 +77,16 @@ docsUrl: 'https://docs.netlify.com/functions/overview/'
 sourceUrls:
   - 'https://www.netlify.com/products/functions/'
   - 'https://docs.netlify.com/functions/overview/'
+  - 'https://www.netlify.com/pricing/'
 featured: false
+status: changed
+lastVerified: 2026-09-26
+pricingUrl: 'https://www.netlify.com/pricing/'
+changes:
+  - date: 2025-09-04
+    kind: changed
+    note: >-
+      Netlify Functions moved from a flat 125,000-request/100-hour free quota
+      to the account-wide 300-credits-per-month system.
 ---
 Netlify Functions provide a simple way to add serverless backend logic to your Netlify-hosted sites, with generous free tier limits and easy deployment.

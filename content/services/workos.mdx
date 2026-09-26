@@ -21,21 +21,22 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free for up to 1,000 monthly active users with core SSO and Directory Sync
-    features.
+    User Management (authentication) is free for up to 1 million monthly
+    active users; enterprise SSO and Directory Sync are billed per connection.
   limits:
-    - '1,000 monthly active users'
-    - 'Core SSO (SAML, OIDC, OAuth)'
-    - 'Directory Sync (SCIM, LDAP, Google Workspace)'
-    - 'MFA (TOTP, SMS)'
+    - '1,000,000 monthly active users free (User Management)'
+    - 'Per additional 1M users: $2,500/month'
+    - 'Enterprise SSO: from $125/connection/month (volume discounts from 16+)'
+    - 'Directory Sync: same per-connection pricing as SSO'
+    - '1,000 free Radar (bot/fraud) checks, then $100/mo per 50k checks'
   caveats:
-    - Some advanced features require paid plans
-    - Enterprise connections may be limited
+    - Free User Management covers login only; SSO and Directory Sync connections are paid add-ons
+    - No credit card required until you move to production
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
 useCases:
   - Add SSO to SaaS apps
   - Integrate enterprise directory sync
@@ -47,11 +48,12 @@ quickstartSteps:
   - Integrate the WorkOS SDK or API into your app.
   - Test SSO or Directory Sync with a sample connection.
 whenToUse: >-
-  Use WorkOS when you need to quickly add SSO or directory sync for enterprise
-  customers in your SaaS application.
+  Use WorkOS for free consumer/user authentication up to 1 million monthly
+  active users, and add paid per-connection SSO or Directory Sync once you
+  land enterprise customers.
 whenNotToUse: >-
-  Avoid if you require a fully self-hosted auth solution or need advanced
-  features beyond the free tier limits.
+  Avoid if you expect to need many enterprise SSO connections right away, since
+  each is billed separately from the free user tier.
 bestFor:
   - SaaS startups
   - B2B apps
@@ -62,14 +64,16 @@ avoidIf:
   - No enterprise customers
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2024-06-09T00:00:00.000Z
+lastVerified: 2026-09-26
+lastUpdated: 2026-09-26
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://workos.com/'
 docsUrl: 'https://workos.com/docs'
+pricingUrl: 'https://workos.com/pricing'
 sourceUrls:
   - 'https://workos.com/pricing'
   - 'https://workos.com/docs'
 featured: false
 ---
-WorkOS offers developer-friendly APIs to add SSO, directory sync, and MFA to SaaS applications, with a generous free tier for early-stage teams.
+WorkOS offers developer-friendly APIs to add authentication, SSO, directory sync, and MFA to SaaS applications. User Management is free up to 1 million monthly active users; enterprise SSO and Directory Sync are billed per connection.

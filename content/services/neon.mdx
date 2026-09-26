@@ -24,16 +24,20 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 10 GB storage, 3 branches, and 500,000 Postgres compute
-    seconds per month.
+    Free plan (no time limit, no credit card) includes up to 100 projects,
+    each with 100 CU-hours of Postgres compute/month, 0.5 GB storage, up to 2
+    CU (8GB RAM) sizing, and unlimited team members.
   limits:
-    - 10 GB storage
-    - 3 branches
-    - '500,000 compute seconds/month'
-    - 1 project
+    - Up to 100 projects
+    - '100 CU-hours of compute per project/month'
+    - 0.5 GB storage per project
+    - Up to 2 CU (8 GB RAM) per compute
+    - 5 GB object storage
+    - Up to 60,000 monthly active users (Neon Auth)
   caveats:
-    - Compute pauses after inactivity
-    - No custom VPC or private networking on free tier
+    - Compute autoscales to zero after 5 minutes of inactivity
+    - Functions and Object Storage usage have separate allowances, billed usage-based beyond the free amount
+    - No custom VPC or private networking on the free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -66,11 +70,13 @@ avoidIf:
   - must run on-premise
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2024-06-11T00:00:00.000Z
+lastUpdated: 2026-09-26
+lastVerified: 2026-09-26
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://neon.tech/'
 docsUrl: 'https://neon.tech/docs/introduction'
+pricingUrl: 'https://neon.com/pricing'
 sourceUrls:
   - 'https://neon.tech/pricing'
   - 'https://neon.tech/docs/introduction'
