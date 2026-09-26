@@ -2,215 +2,127 @@
 
 **Choose free tiers with real constraints, not wishful thinking.**
 
-FreeTierWiki is a decision-first atlas for evaluating free-tier services, tools, and learning resources. It helps developers, indie hackers, startups, and students pick the lowest-risk free-tier options first by comparing services across billing risk, quota shape, and production readiness.
+[freetier.wiki](https://freetier.wiki) lists free plans for developers — services, tools, and learning resources — and shows what each one actually gives you: the limits, whether it needs a card, the billing risk, and how fresh that information is.
 
 ---
 
-## What Is FreeTierWiki?
+## How to use the site
 
-Every free tier comes with limits, gotchas, and hidden risks. FreeTierWiki collects hundreds of free-tier offerings—cloud services, developer tools, and learning resources—and evaluates each one on what actually matters:
+### Home
 
-- **Billing risk** — Will you get surprised by a credit card charge?
-- **Quota shape** — Is it always-free, time-limited, credit-based, or a trial?
-- **Production readiness** — Can you ship a side project, prototype, or real product?
-- **When to use vs. when not to use** — Clear guidance on fit and trade-offs
+The home page gives a quick overview: content coverage by category, low-risk picks (no card, no overage risk), and a link into the explorer.
 
-### What You’ll Find
+### Explorer
 
-| Category | Description | Examples |
-|---|---|---|
-| **Services** | Hosted platforms and runtimes you build on | Vercel, Fly.io, Supabase, Cloudflare Workers, Azure App Service |
-| **Tools** | Products used to build, test, deploy, or operate | Postman, GitHub Actions, Sentry, Terraform, Cypress |
-| **Resources** | Learning material and reference docs | freeCodeCamp, The Odin Project, MIT OpenCourseWare |
+Open **Explorer** to filter and search every entry. Every filter — search text, category, type, risk, and sort — lives in the URL, so a link or the back button always returns the same view. Results are paged 50 at a time.
 
----
+### Category pages
 
-## How to Use the Website
+Each category (Hosting, Database, AI, and so on) has its own page listing just its entries.
 
-### 1. Start on the Home Page
+### Detail pages
 
-The home page gives you a quick overview:
+Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. Below it: when to use it, when not to, a quickstart, and links to the official site and pricing page.
 
-- **Featured Entries** — Hand-picked highlights worth exploring
-- **Low-Risk Free Tier Picks** — Services with no overage risk and no credit card required
-- **Content Coverage** — How many entries we have in each category
-- **Top Categories & Providers** — Quick links to popular domains
-- **Tag Graph** — Click any tag to explore related services
+Every detail page also has a **freshness label**:
+- A green date with a check mark means someone compared the entry with the official pricing page on that date.
+- A gray date means the entry has not been re-checked since it was first written; it may be out of date.
+- `Changed` or `Ended` pills mark offers that stopped being what they used to be.
 
-### 2. Explore with the Universal Explorer
+If you spot something wrong, use **Report outdated info** on the entry — it opens a short GitHub issue form with the entry's link pre-filled.
 
-Click **Open Explorer** or **Browse by Category** to open the main filtering interface.
+### Changelog
 
-The Explorer is a powerful table where you can filter and compare entries across many dimensions:
-
-#### Search
-Type keywords into the search bar at the top of the page. Search matches:
-- Service name and description
-- Provider name
-- Tags, use cases, and categories
-
-#### Filter Dropdowns
-| **Category** | Pick a domain like Hosting, Compute, Database, Auth, AI, DevOps |
-| **Type** | Show only Services, Tools, or Resources |
-| **Free Tier Type** | Always free, Time-limited, Credit-based, or Trial |
-| **Overage Risk** | None, Low, Medium, or High chance of unexpected charges |
-| **Production Readiness** | Prototype, Side project, Production-light, or Production-ready |
-| **Difficulty** | Beginner, Intermediate, or Advanced setup |
-| **Requires Card** | Yes/No — filter out services that demand a credit card |
-
-#### Sort Options
-Change the sort mode to reorder results:
-
-- **Best overall** — Balanced ranking of popularity and usefulness
-- **Lowest billing risk** — Safest options first
-- **Easiest to start** — Beginner-friendly first
-- **Best no-card options** — No credit card required
-- **Best for production-light** — Most production-ready first
-
-#### Column Visibility
-Click the **Columns** dropdown to show or hide columns in the table. Customize the view to focus on what matters to you.
-
-### 3. Read an Entry Detail Page
-
-Click any service name in the Explorer to open its full detail page. Each page contains:
-
-#### Decision Guidance
-- **When to Use** — Practical, user-oriented advice on ideal use cases
-- **When Not to Use** — Clear constraints and trade-offs
-
-#### At-a-Glance Meta Card
-- Provider, Category, Pricing model
-- Free tier type (Always free, Trial, etc.)
-- Overage risk level
-- Whether a credit card is required
-- Difficulty level
-- Production readiness rating
-- Tags and target audiences
-#### Free Tier Details
-- Summary of what the free tier includes
-- Exact limits (requests, storage, bandwidth, users, etc.)
-- Caveats and catches
-- Reset period (monthly, daily, etc.)
-- Full MDX-rendered content with extra context, links, and notes
-#### Official Links
-- Official website
-- Documentation URL
-
-
-On larger screens, the left sidebar provides quick links:
-
-
-
-Toggle between light and dark themes using the sun/moon icon in the top-right corner of the header.
+The `/changelog/` page lists every entry that changed or ended, newest first.
 
 ---
 
-## Understanding the Ratings & Labels
+## Ratings & labels
 
-### Overage Risk
+See [`/about/`](https://freetier.wiki/about/) for the full explanation. Summary:
 
+**Billing risk**
 | Level | Meaning |
 |---|---|
-| **None** | Hard cap or truly free — no way to be accidentally charged |
-| **Low** | Some risk if you exceed limits, but usually blocked or throttled |
-| **Medium** | Possible overages; monitor usage carefully |
+| **None** | Hard cap or truly unlimited, and no card required — you should not get a bill by accident. |
+| **Low** | Going over is unlikely to cost money, but read the caveats. |
+| **Medium** | A card is on file; usage above the free amount is billed. |
+| **High** | No real free plan, or usage is billed from the start. |
 
-### Production Readiness
+**Plan types**
+- **Always free** — the free amount renews and does not expire.
+- **Credit** — a money amount you spend down.
+- **Trial** — free for a limited time.
+- **Time-limited** — free for a set period after sign-up, then it changes.
 
-| Level | Meaning |
-|---|---|
-| **Side project** | Solid for personal projects and MVPs |
-| **Production-light** | Can handle light production traffic with care |
-| **Production-ready** | Trusted for real workloads |
- `development/docs/` contributor and operations docs
-### Difficulty
+**Freshness labels**
+- Checked (date with a check mark) — compared against the official pricing page on that date; turns stale after 180 days.
+- Imported (gray date) — the entry's data is from that date and has not been re-checked since.
 
-| Level | Meaning |
-|---|---|
-| **Beginner** | Sign up and go; minimal configuration |
-| **Intermediate** | Some setup, CLI, or config required |
-| **Advanced** | Requires significant expertise or infrastructure knowledge |
-
----
-
-## Content Coverage
-
-FreeTierWiki covers free-tier offerings across the major cloud providers and indie services:
-
-- **Hosting** — Vercel, Netlify, Fly.io, Render, GitHub Pages, Cloudflare Pages
-- **Compute** — AWS Lambda, Azure Functions, Cloudflare Workers, Google Cloud Run
-- **Database** — Supabase, PlanetScale, Neon, Turso, MongoDB Atlas, Azure Cosmos DB
-- **Auth** — Clerk, Auth0, Supabase Auth, Firebase Auth, Keycloak alternatives
-- **Storage** — Cloudflare R2, Backblaze B2, Azure Blob Storage, S3 Free Tier
-- **AI / ML** — OpenAI API free credits, Hugging Face, Groq, Azure AI services
-- **DevOps** — GitHub Actions, GitLab CI/CD, Terraform Cloud, Sentry, Datadog
-- **Messaging** — Ably, Pusher, PubNub, Azure Service Bus
-- **Observability** — Grafana Cloud, New Relic, UptimeRobot, Logtail
-- **Learning** — freeCodeCamp, The Odin Project, MIT OpenCourseWare, Full Stack Open
+**Status**
+- `active` — the free tier is as described.
+- `changed` — the free tier changed; see the entry's changelog notes.
+- `ended` — the free tier no longer exists.
 
 ---
 
-## Who Is This For?
+## Tech stack
 
-- **Students** — Learning cloud and web development without spending money
-- **Indie Hackers** — Building side projects and MVPs on zero budget
-- **Startups** — Stretching runway by choosing safe free tiers first
-- **Open Source Maintainers** — Finding free hosting and tooling for projects
-- **Teams** — Evaluating low-risk options for prototyping and internal tools
-
----
-
-## Tech Stack
-
-- Next.js (App Router) with static export
-- TypeScript strict mode
-- Tailwind CSS + shadcn/ui
+- Next.js 16 (App Router), static export (`output: "export"`)
+- TypeScript, strict mode
+- Tailwind CSS 3.4
+- Base UI `Dialog` (search)
+- FlexSearch, loaded lazily only when someone searches
 - Frontmatter + MDX content pipeline
-- TanStack Table explorer
-- FlexSearch client search using build-generated index
-- Zustand UI/filter state
+- Vitest (unit tests) and Playwright (end-to-end tests)
 
 ---
 
-## Local Development
+## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Build with search index generation:
+Before pushing, run the same checks CI runs:
 
 ```bash
+npm test
+npm run lint
+npm run typecheck
 npm run build
+npm run check:budget
+npx playwright install chromium
+npm run test:e2e
 ```
 
-## Deploying to Cloudflare Pages
-
-FreeTierWiki is configured as a **static Next.js export** for Cloudflare Pages.
-
-Use these Cloudflare Pages settings:
-
-- **Framework preset:** `Next.js (Static HTML Export)`
-- **Build command:** `npm run build`
-- **Build output directory:** `out`
-
-### Important Notes
-
-- `next.config.mjs` uses `output: "export"`, which is required for static export.
-- `images.unoptimized` is enabled for static hosting compatibility.
-- `wrangler.toml` points Pages deploys to `out`.
-- `NEXT_PUBLIC_BASE_PATH` should usually be left **empty** on Cloudflare Pages unless you intentionally host the site under a subpath.
-
-### Before Deploying
-
-Run a production build locally first:
+On a low-memory machine, the default build can run out of memory. Limit build workers instead:
 
 ```bash
-npm run build
+NEXT_BUILD_CPUS=2 npm run build
 ```
 
-If the build succeeds, Cloudflare Pages should deploy the generated `out/` folder.
+---
+
+## Content
+
+Entries live under `content/services/`, `content/tools/`, and `content/resources/` as MDX files with frontmatter. Key fields:
+
+- `lastVerified` — ISO date (`2026-09-25`) someone last checked the entry against the official pricing page. Drives the freshness label; stale after 180 days (`STALE_AFTER_DAYS`).
+- `status` — `active`, `changed`, or `ended`.
+- `pricingUrl` — link to the provider's current pricing page.
+- `changes` — a list of `{ date, kind, note }` entries, where `kind` is `ended`, `changed`, or `new`. Feeds the changelog.
+
+**Rule:** an entry with `status: changed` or `status: ended` must have at least one `changes` item and a `lastVerified` date. This is enforced by the content parser and covered by unit tests (`npm test`).
+
+---
+
+## Deploy
+
+Cloudflare Pages builds the `main` branch with `npm run build`, serving the `out/` directory, using the Node version pinned in `.nvmrc`. `public/_redirects` holds the 301 redirects for URLs removed or moved during the redesign.
+
+GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build, the size budget check, and end-to-end tests on every push to `main` and every pull request. It only checks — it does not deploy.
 
 ---
 
@@ -220,4 +132,4 @@ MIT — see the GitHub repository for details.
 
 ---
 
-*FreeTierWiki is a living catalog. Entries are updated as providers change their free-tier terms. Always verify current pricing and limits on the provider’s official website before making architectural decisions.*
+*FreeTierWiki is a living catalog. Entries are updated as providers change their free-tier terms. Always verify current pricing and limits on the provider's official website before making architectural decisions.*
