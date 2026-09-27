@@ -26,21 +26,18 @@ tags:
   - cloud
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier includes 30,000 Face API transactions per month.'
+  summary: 'Free (F0) tier includes 30,000 Face API transactions per month.'
   limits:
     - '30,000 transactions/month'
-    - Standard tier features only
-    - Limited to Face API endpoints
+    - '20 transactions/minute rate limit'
   caveats:
-    - Overages are billed per transaction
-    - Some advanced features may require paid tier
+    - Usage stops once the monthly free limit is reached; no overage billing on the F0 tier
+    - Moving past the free limit requires the paid S0 tier
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: medium
-  billingRiskNotes:
-    - Usage above free tier incurs charges automatically
+  hasHardCap: true
+  overageRisk: none
 useCases:
   - User authentication via facial recognition
   - Photo organization by faces
@@ -68,14 +65,16 @@ avoidIf:
   - unpredictable high-volume workloads
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2024-06-13T00:00:00.000Z
+lastUpdated: 2026-09-27
+lastVerified: 2026-09-27
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-face/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/face/'
+pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/face-api/'
 sourceUrls:
-  - 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-face/'
+  - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/face-api/'
   - 'https://learn.microsoft.com/en-us/azure/ai-services/face/'
 featured: false
 ---
-Azure AI Face offers scalable facial detection and recognition APIs with a generous free tier, suitable for authentication, analysis, and security use cases.
+Azure AI Face offers scalable facial detection and recognition APIs with a generous free (F0) tier of 30,000 transactions per month, suitable for authentication, analysis, and security use cases. Usage stops rather than bills once you hit the monthly limit.

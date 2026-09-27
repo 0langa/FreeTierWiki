@@ -1,8 +1,8 @@
 ---
-title: Hugging Face Inference API
+title: Hugging Face Inference Providers
 description: >-
   Provides hosted inference for popular machine learning models via a simple API
-  endpoint.
+  endpoint. Formerly called the Inference API.
 provider: Hugging Face
 category: ai
 domain: ai
@@ -24,19 +24,22 @@ tags:
   - ai
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes limited monthly inference for hosted models.
+  summary: >-
+    Free (non-PRO) accounts get a small monthly credit for Inference
+    Providers; extra usage needs purchased credits.
   limits:
-    - 30 compute minutes per month
-    - Access to select public models
-    - Limited concurrency
+    - '$0.10 in monthly credit per free account'
+    - Access to 200+ models across multiple inference providers
+    - Legacy hf-inference engine mostly covers CPU inference now
   caveats:
-    - Some models and features require paid plans
-    - Performance may be lower on free tier
+    - Extra usage past the free credit requires buying more credits
+    - Credit amount is described as "subject to change" by Hugging Face
   resetPeriod: monthly
   requiresCard: false
-  freeTierType: always-free
+  freeTierType: credit
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  monthlyCreditAmount: $0.10 per month
 useCases:
   - Prototyping NLP applications
   - Experimenting with text generation
@@ -65,14 +68,16 @@ avoidIf:
   - low-latency requirements
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2024-06-13T00:00:00.000Z
+lastUpdated: 2026-09-27
+lastVerified: 2026-09-27
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://huggingface.co/pricing'
-docsUrl: 'https://huggingface.co/docs/api-inference/index'
+docsUrl: 'https://huggingface.co/docs/inference-providers/pricing'
+pricingUrl: 'https://huggingface.co/docs/inference-providers/pricing'
 sourceUrls:
   - 'https://huggingface.co/pricing'
-  - 'https://huggingface.co/docs/api-inference/index'
+  - 'https://huggingface.co/docs/inference-providers/pricing'
 featured: false
 ---
 Hugging Face Inference API offers a simple way to access and run inference on a wide range of pre-trained machine learning models without managing infrastructure. The free tier is ideal for experimentation, learning, and prototyping, but is limited in compute time and model selection. For production workloads or custom models, consider upgrading to a paid plan or self-hosting.
