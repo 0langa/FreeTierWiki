@@ -21,19 +21,24 @@ tags:
   - cloud
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes 1 active pipeline per month.
+  summary: >-
+    Free tier includes 1 free active V1-type pipeline per month, or 100 free
+    V2-type action execution minutes per month.
   limits:
-    - 1 active pipeline per month
+    - 1 active V1-type pipeline/month
+    - 100 V2-type action execution minutes/month
   caveats:
-    - Additional pipelines incur charges
-    - Some integrations may have separate costs
+    - Additional pipelines and action minutes incur charges.
+    - Artifact storage in Amazon S3 and third-party service triggers are
+      billed separately.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: low
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
-    - Charges apply if you exceed 1 active pipeline
+    - V1 pipelines beyond the first free one are billed at $1.00/month each;
+      V2 action minutes beyond the free 100 are billed per minute.
 useCases:
   - Automate code deployments
   - Integrate with AWS developer tools
@@ -63,7 +68,8 @@ avoidIf:
   - Preference for open-source CI/CD
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2024-06-10T00:00:00.000Z
+lastUpdated: 2026-09-27
+lastVerified: 2026-09-27
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codepipeline/'
@@ -71,6 +77,7 @@ docsUrl: 'https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html
 sourceUrls:
   - 'https://aws.amazon.com/codepipeline/pricing/'
   - 'https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html'
+pricingUrl: 'https://aws.amazon.com/codepipeline/pricing/'
 featured: false
 ---
-AWS CodePipeline is a managed CI/CD service that helps automate build, test, and deployment phases for applications and infrastructure on AWS. The free tier allows one active pipeline per month, making it suitable for small teams or projects starting with AWS automation. It integrates natively with other AWS developer tools and supports custom actions, but additional pipelines or integrations may incur charges. CodePipeline is best for AWS-centric workflows and teams looking for a managed, scalable CI/CD solution.
+AWS CodePipeline is a managed CI/CD service that helps automate build, test, and deployment phases for applications and infrastructure on AWS. The free tier allows one active V1-type pipeline per month, or 100 free V2-type action execution minutes per month, making it suitable for small teams or projects starting with AWS automation. It integrates natively with other AWS developer tools and supports custom actions, but additional pipelines or action minutes incur charges. CodePipeline is best for AWS-centric workflows and teams looking for a managed, scalable CI/CD solution.

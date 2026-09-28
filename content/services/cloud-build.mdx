@@ -22,21 +22,23 @@ tags:
   - cloud
 pricingModel: freemium
 freeTierDetails:
-  summary: 120 build-minutes per day free with up to 10 concurrent builds.
+  summary: >-
+    2,500 free build-minutes per month on e2-standard-2 machines, plus 100 GB
+    of free SSD storage.
   limits:
-    - 120 build-minutes/day
-    - 10 concurrent builds
-    - Standard machine type only
+    - 2,500 build-minutes/month
+    - e2-standard-2 machine type only
+    - 100 GB free SSD storage
   caveats:
-    - Premium machine types and additional minutes incur charges
-    - Storage and network usage may incur costs
+    - Premium machine types and minutes beyond the free amount are billed
+    - Storage and network usage above the free amount incur costs
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: low
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
-    - Charges apply if you exceed free build minutes or use premium features
+    - Usage above the free build-minutes and storage is billed automatically
 useCases:
   - Automated testing and deployment
   - Container image builds
@@ -63,14 +65,15 @@ avoidIf:
   - on-premises only environments
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2024-06-09T00:00:00.000Z
+lastVerified: 2026-09-27
+lastUpdated: 2026-09-27
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/build'
 docsUrl: 'https://cloud.google.com/build/docs'
+pricingUrl: 'https://cloud.google.com/build/pricing'
 sourceUrls:
   - 'https://cloud.google.com/build/pricing'
-  - 'https://cloud.google.com/build/docs/quickstart-build'
 featured: false
 ---
 Cloud Build provides managed CI/CD pipelines with a generous free tier, supporting container builds, testing, and deployments tightly integrated with Google Cloud.
