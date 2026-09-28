@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-09-26._
+_State refreshed: 2026-09-28._
 
 ## What this is
 A decision-first atlas of free-tier offerings for developers and tools, rated
@@ -26,15 +26,26 @@ Deployment moved to Cloudflare Pages only; GitHub Actions (`ci.yml`) now only ru
 (lint, typecheck, unit tests, build, size budget, end-to-end tests) on push to `main` and on every
 pull request — it does not deploy.
 
-Content check in progress (started 2026-09-26): tooling merged; batches 1–6 check all entries
-against their official pricing pages.
+## Content check — done (2026-09-26 to 2026-09-28)
+Every entry was checked against its provider's official pricing page, in six batches (PRs #4 to #9;
+the tooling came in PR #3).
+
+- 640 entries remain. 608 of them (95%) have `lastVerified`, a `pricingUrl`, and limits taken from
+  the official page.
+- 94 entries were removed: no free plan, product gone, not a developer tool, only a cloud provider's
+  general sign-up credit, or a duplicate. Each has a 301 redirect and a "Removed" record in
+  `content/changelog.json`.
+- 32 entries could not be checked (bot blocks, no public pricing). They keep the gray
+  "not re-checked" date.
+- A batch reviewer re-checked every deletion and a random sample of each batch against the live
+  pages. About 1 in 10 sampled entries still needed a small fix after the first pass (mostly a user
+  or seat count). Treat the data as much better, not perfect.
+- The tools live in `scripts/verify/`: `fetch-pages.mjs`, `list-entries.mjs`, `remove-entries.mjs`.
 
 ## Phase 2 — data trust (next)
-- Verify the most-visited entries first (Hosting, Database, AI), setting `lastVerified` on each.
+- Re-check the 32 entries that could not be verified, by hand or with a real browser.
 - Tighten rating rules: overage risk `none` only when there is a hard cap or the plan is truly
   unlimited, and no card is required. Re-rate entries against this rule.
-- Review the AI-written long tail against each provider's own website; fix, label, or remove wrong
-  entries (for example Cray, Huly, Plunk, Sweego, Pullflow).
 - Recategorize vague domains (`integration`, `productivity`, `operations`); decide whether to keep
   free online utilities (JSON formatters, temp mail, IP checkers) at all.
 - Add a caveat to the Fly.io entry: no card is needed to start the trial.
@@ -45,7 +56,7 @@ against their official pricing pages.
 - Dead links (official site or docs URL returning an error) open an issue automatically.
 
 ## Phase 4 — release
-- Tag `v1.0.0` once Phase 2's core-entry verification pass is done.
+- Tag `v1.0.0` now that the content check is done.
 
 ## Also worth doing (not phase-gated)
 - Replace the Base UI dialog with a native `<dialog>` element — saves about 20 KB of JS and drops a

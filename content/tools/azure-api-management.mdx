@@ -22,21 +22,21 @@ tags:
   - security
 pricingModel: freemium
 freeTierDetails:
-  summary: Developer tier offers free usage for evaluation and development.
+  summary: >-
+    The Consumption tier includes 1 million free API operations per month,
+    per subscription, and can be used in production.
   limits:
-    - 1 unit per subscription
-    - No SLA
-    - Non-production use only
+    - '1,000,000 API operations/month free (Consumption tier)'
   caveats:
-    - No SLA or uptime guarantee
-    - Not intended for production workloads
+    - Additional operations beyond 1 million/month are billed per 1M operations
+    - The separate Developer tier (for non-production evaluation) is a paid tier, not free
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
-    - Production use requires paid tier
+    - Usage above 1 million operations/month is billed
 useCases:
   - Centralizing API access and security
   - Creating developer portals
@@ -44,34 +44,35 @@ useCases:
   - Transforming and versioning APIs
 quickstartSteps:
   - Sign in to the Azure Portal.
-  - Create a new API Management instance using the Developer tier.
+  - Create a new API Management instance using the Consumption tier.
   - Add your API or import an OpenAPI specification.
   - 'Configure policies for security, rate limiting, or transformation.'
   - Publish the API and access the developer portal.
 whenToUse: >-
-  Use when you need to centralize, secure, and monitor APIs for development or
-  evaluation purposes.
+  Use when you need to centralize, secure, and monitor APIs and stay under 1
+  million calls per month, including production use.
 whenNotToUse: >-
-  Avoid for production workloads or if you require SLA-backed uptime and
-  support.
+  Avoid if you expect high-volume traffic beyond 1 million calls/month
+  without budgeting for overage billing.
 bestFor:
   - api management evaluation
-  - internal development
+  - low-to-medium traffic production APIs
   - testing api gateways
 avoidIf:
-  - need production SLA
-  - require high availability
   - need large-scale throughput
+  - need advanced enterprise features like isolated networking
 difficulty: intermediate
-productionReadiness: prototype
-lastUpdated: 2024-06-09T00:00:00.000Z
+productionReadiness: production-light
+lastUpdated: 2026-09-28
+lastVerified: 2026-09-28
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/api-management/'
+pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
   - 'https://learn.microsoft.com/en-us/azure/api-management/'
 featured: false
 ---
-Azure API Management provides a centralized platform for managing, securing, and monitoring APIs, with a free Developer tier suitable for non-production use.
+Azure API Management provides a centralized platform for managing, securing, and monitoring APIs. The Consumption tier includes 1 million free API operations per month and can be used in production, unlike the separate paid Developer tier.
