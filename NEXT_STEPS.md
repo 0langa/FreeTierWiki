@@ -66,6 +66,16 @@ the tooling came in PR #3).
   `/services/supabase/`).
 - Turn the changelog's Ended/Changed/New filters back on once the list is long enough to need them
   (postponed in Phase 1).
+- Explorer: write the filter state to the URL, and pre-render the default view so crawlers and
+  no-JS visitors see real rows.
+- Detail pages: suggest alternatives (same category, lower risk, checked).
+- Comparison pages generated from the data, for example "Free Postgres hosting compared".
+- An RSS/Atom feed of the changelog.
+- `CONTRIBUTING.md` and a PR template with a check list (source URL, quote, date).
+- Self-host the fonts (`next/font/local`) so a CI build never depends on a Google Fonts download.
+
+(Ideas above come partly from the 2026-09-24 audit on the retired branch `cld/sweet-hawking-isxiyq`;
+the rest of that audit is done.)
 
 ## Owner actions (outside the repo)
 - Turn off GitHub Pages in the repository settings — the workflow no longer deploys there.
