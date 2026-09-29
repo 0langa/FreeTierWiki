@@ -25,7 +25,7 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes one always-on web service (512MB RAM, 0.1 vCPU, 2GB SSD),
+    Free tier includes one web service (scales to zero after 1 hour idle) (512MB RAM, 0.1 vCPU, 2GB SSD),
     one free Postgres database (5 hours active time/month, 1GB storage), and
     100GB outbound bandwidth per month.
   limits:
@@ -34,7 +34,10 @@ freeTierDetails:
     - 100GB outbound bandwidth/month
     - 10 free custom domains
   caveats:
-    - Credit card required at signup to prevent fraud/abuse
+    - Credit card required at signup; Koyeb places a $29 hold and cancels it
+    - Free web service scales to zero after 1 hour without traffic
+    - Free instance is limited to 1 per organization, in Frankfurt or Washington, D.C.
+    - Not for production; no volumes, no worker services
     - Paid plans start at $29/month (Pro) plus metered compute
   resetPeriod: monthly
   requiresCard: true
@@ -42,7 +45,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Bandwidth beyond the free 100GB/month is billed at $0.02-0.04/GB
+    - Bandwidth beyond the free 100GB/month is billed at $0.04/GB
 useCases:
   - Deploying static sites
   - Hosting APIs
@@ -70,9 +73,9 @@ avoidIf:
   - require stateful workloads
   - need advanced networking
 difficulty: beginner
-productionReadiness: production-light
-lastUpdated: 2026-09-26
-lastVerified: 2026-09-26
+productionReadiness: prototype
+lastUpdated: 2026-09-28
+lastVerified: 2026-09-28
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://koyeb.app/'
@@ -81,6 +84,7 @@ pricingUrl: 'https://www.koyeb.com/pricing'
 sourceUrls:
   - 'https://www.koyeb.com/pricing'
   - 'https://www.koyeb.com/docs/faqs/pricing'
+  - 'https://www.koyeb.com/docs/reference/instances'
 featured: false
 ---
 Koyeb is a modern serverless platform designed for fast, global deployment of web applications and APIs with a generous free tier for small projects.
