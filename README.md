@@ -123,6 +123,7 @@ Every entry should match its official pricing page. The tools under `scripts/ver
 - `npm run verify:fetch -- --domains hosting,database` saves the pricing-page text under `development/verify/pages/`.
 - `npm run verify:list -- --domains hosting --size 20` prints the work chunks.
 - `npm run verify:remove -- --from deletes.json --date YYYY-MM-DD` deletes entries, adds 301 redirects to their category, and records them in `content/changelog.json`.
+- `npm run verify:freshness` reads every entry's pricing page, hashes the price-related text, and reports what changed since the last run. The weekly workflow `.github/workflows/freshness.yml` runs it and opens an issue.
 
 Rules: an entry stays only if developers can use it free (always-free plan, credit, or trial). Paid-only, closed, off-topic, and duplicate entries are removed.
 
