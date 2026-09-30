@@ -1,0 +1,77 @@
+name: Weekly pricing check
+
+# Reads every entry's official pricing page once a week, hashes the price-related text, and opens an
+# issue when the text changed or the page is gone. The hashes live on the `freshness-data` branch, so
+# `main` (and the Cloudflare production deploy) never changes because of this job.
+# The page text is only hashed: it is never run, never sent to a model, and never put in the issue.
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: freshness
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check pricing pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - name: Load last week's hashes
+        run: |
+          mkdir -p data
+          if git ls-remote --exit-code --heads origin freshness-data >/dev/null 2>&1; then
+            git fetch --depth=1 origin freshness-data
+            git show FETCH_HEAD:source-hashes.json > data/source-hashes.json
+          else
+            echo "No baseline yet: this run creates it."
+          fi
+
+      - name: Check pricing pages
+        id: check
+        run: node scripts/verify/check-freshness.mjs --hashes data/source-hashes.json --report freshness-report.md
+
+      - name: Show the report in the job summary
+        run: cat freshness-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open an issue when something needs a look
+        if: steps.check.outputs.flagged != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FLAGGED: ${{ steps.check.outputs.flagged }}
+        run: |
+          gh label create freshness --description "Weekly pricing check" --color FBCA04 --force
+          gh issue create --label freshness --title "Pricing check $(date -u +%F): $FLAGGED to look at" --body-file freshness-report.md
+
+      - name: Save this week's hashes
+        run: |
+          cp data/source-hashes.json "$RUNNER_TEMP/source-hashes.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin freshness-data >/dev/null 2>&1; then
+            git fetch --depth=1 origin freshness-data
+            git switch --force -C freshness-data FETCH_HEAD
+          else
+            git switch --orphan freshness-data
+          fi
+          cp "$RUNNER_TEMP/source-hashes.json" source-hashes.json
+          git add source-hashes.json
+          git commit -m "pricing hashes $(date -u +%F)" || echo "Nothing to commit"
+          git push origin freshness-data

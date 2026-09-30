@@ -4,10 +4,10 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { parseListArg, readEntries, selectEntries } from "./lib/entries.mjs";
-import { candidateUrls, excerpt, htmlToText, isThin } from "./lib/pages.mjs";
+import { fetchText } from "./lib/fetch.mjs";
+import { candidateUrls, excerpt, isThin } from "./lib/pages.mjs";
 
 const OUT = path.resolve("development", "verify", "pages");
-const UA = "freetier.wiki-verify/1.0 (+https://freetier.wiki/about/)";
 const CONCURRENCY = 6;
 
 const argv = process.argv.slice(2);
@@ -15,16 +15,6 @@ const targets = selectEntries(readEntries(), { domains: parseListArg(argv, "doma
 fs.mkdirSync(OUT, { recursive: true });
 const indexFile = path.join(OUT, "index.json");
 const index = fs.existsSync(indexFile) ? JSON.parse(fs.readFileSync(indexFile, "utf8")) : {};
-
-async function fetchText(url) {
-  try {
-    const response = await fetch(url, { redirect: "follow", headers: { "user-agent": UA, accept: "text/html" }, signal: AbortSignal.timeout(15_000) });
-    const text = response.ok ? htmlToText(await response.text()) : "";
-    return { url, status: response.status, finalUrl: response.url, text };
-  } catch (error) {
-    return { url, status: 0, error: String(error?.cause?.code ?? error?.name ?? error), text: "" };
-  }
-}
 
 function saveIndex() {
   // Atomic write: a crash or interruption mid-batch must never leave index.json

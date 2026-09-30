@@ -53,10 +53,17 @@ free plan, or a wrong card or risk flag).
   free online utilities (JSON formatters, temp mail, IP checkers) at all.
 - Add a caveat to the Fly.io entry: no card is needed to start the trial.
 
-## Phase 3 — fresh by default (later)
-- A weekly job that fetches each provider's pricing page, diffs it against the stored entry, and
-  opens a pull request when something changed.
-- Dead links (official site or docs URL returning an error) open an issue automatically.
+## Phase 3 — fresh by default (built, first run pending)
+- The weekly check is `.github/workflows/freshness.yml` (Mondays 04:17 UTC, or run it by hand from the
+  Actions tab). It reads every entry's official page, hashes the price-related text, and compares it with
+  last week. The hashes live on the `freshness-data` branch, so `main` and the production deploy do not
+  change. The first run only builds the baseline.
+- It opens an issue (label `freshness`) that lists entries whose text changed, and entries whose page was
+  not found in two runs in a row. Pages that change every week are listed as noise. Pages that block bots
+  or show almost no text are counted but never flagged.
+- A changed hash means "look at this entry", not "the price changed". Re-check the entry with the tools in
+  `scripts/verify/`, fix it, and set a new `lastVerified`.
+- Not built: opening pull requests with drafted fixes, and a check of `docsUrl`.
 
 ## Phase 4 — release
 - Tag `v1.0.0` now that the content check is done.
@@ -81,11 +88,11 @@ free plan, or a wrong card or risk flag).
 the rest of that audit is done.)
 
 ## Owner actions (outside the repo)
-- Turn off GitHub Pages in the repository settings — the workflow no longer deploys there.
-- Turn on Cloudflare Web Analytics for the Pages project.
+- Done: GitHub Pages is off. Cloudflare Web Analytics is on for freetier.wiki ("Enable, excluding visitor
+  data in the EU").
 - Optionally, redirect `freetierwiki.pages.dev` to `freetier.wiki`.
-- Merge `redesign/phase1` into `main` when ready — pushing `main` deploys through Cloudflare Pages.
+- The first weekly run only builds the baseline and opens no issue. Read the issue from the second run on.
 
 ## Effort to next milestone
-Phase 2 (data trust pass over ~145 core entries) is S–M (a few days to two weeks) part-time solo —
-mostly verification against provider pricing pages, not new feature work.
+The content check is done. The next work is a first look at the weekly check's issues, then the
+Phase 2 rating-rule and category clean-up.
