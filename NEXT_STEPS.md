@@ -26,20 +26,23 @@ Deployment moved to Cloudflare Pages only; GitHub Actions (`ci.yml`) now only ru
 (lint, typecheck, unit tests, build, size budget, end-to-end tests) on push to `main` and on every
 pull request — it does not deploy.
 
-## Content check — done (2026-09-26 to 2026-09-28)
-Every entry was checked against its provider's official pricing page, in six batches (PRs #4 to #9;
-the tooling came in PR #3).
+## Content check — done (2026-09-26 to 2026-09-30)
+Every entry was checked against its provider's official pricing page twice. The first pass ran in
+six batches (PRs #4 to #9; the tooling came in PR #3). A second, full pass re-read every checked
+entry; more than 4 in 10 of them needed a fix (about 270 of 607) (mostly a user or seat count, a paid-plan number used for the
+free plan, or a wrong card or risk flag).
 
-- 640 entries remain. 608 of them (95%) have `lastVerified`, a `pricingUrl`, and limits taken from
+- 639 entries remain. 607 of them (95%) have `lastVerified`, a `pricingUrl`, and limits taken from
   the official page.
-- 94 entries were removed: no free plan, product gone, not a developer tool, only a cloud provider's
+- 95 entries were removed: no free plan, product gone, not a developer tool, only a cloud provider's
   general sign-up credit, or a duplicate. Each has a 301 redirect and a "Removed" record in
   `content/changelog.json`.
 - 32 entries could not be checked (bot blocks, no public pricing). They keep the gray
   "not re-checked" date.
-- A batch reviewer re-checked every deletion and a random sample of each batch against the live
-  pages. About 1 in 10 sampled entries still needed a small fix after the first pass (mostly a user
-  or seat count). Treat the data as much better, not perfect.
+- Three Azure storage entries (Blob, Disk, File) keep their 2026-09-26 date. Microsoft's free
+  services list is hidden behind JavaScript, so nobody could re-read it. Other sources show 5 GB of
+  free blob and file storage for 12 months.
+- A unit test keeps the risk fields consistent for every entry (`tests/unit/content-files.test.ts`).
 - The tools live in `scripts/verify/`: `fetch-pages.mjs`, `list-entries.mjs`, `remove-entries.mjs`.
 
 ## Phase 2 — data trust (next)

@@ -25,20 +25,23 @@ tags:
   - compute
 pricingModel: freemium
 freeTierDetails:
-  summary: '1 million free requests and 400,000 GB-s compute per month.'
+  summary: >-
+    Consumption plan: 1 million requests and 400,000 GB-s of compute free each
+    month per subscription, across all function apps.
   limits:
-    - 1 million requests/month
-    - '400,000 GB-s compute/month'
+    - 1 million requests/month per subscription
+    - '400,000 GB-s compute/month per subscription'
   caveats:
-    - Premium and Dedicated plans not included
-    - Some triggers may incur additional costs
+    - Free grant applies to the Consumption plan on paid (pay-as-you-go) subscriptions only.
+    - The storage account created with each app is not covered by the free grant.
+    - Premium plan is billed per second, with no free grant.
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: low
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
-    - Overages billed per request and GB-s beyond free tier
+    - Executions and GB-s above the free grant are billed; there is no hard cap.
 useCases:
   - API backends
   - Event processing
@@ -67,7 +70,7 @@ avoidIf:
   - heavy compute workloads
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-26
+lastUpdated: 2026-09-28
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/services/functions/'
@@ -76,7 +79,7 @@ sourceUrls:
   - 'https://azure.microsoft.com/pricing/details/functions/'
   - 'https://azure.microsoft.com/en-us/free/'
 featured: false
-lastVerified: 2026-09-26
+lastVerified: 2026-09-28
 pricingUrl: 'https://azure.microsoft.com/pricing/details/functions/'
 ---
 Azure Functions enables you to build and deploy event-driven applications with minimal setup, offering a generous free tier for lightweight and scalable workloads.
