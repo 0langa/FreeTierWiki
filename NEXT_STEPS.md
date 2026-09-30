@@ -29,7 +29,7 @@ pull request — it does not deploy.
 ## Content check — done (2026-09-26 to 2026-09-30)
 Every entry was checked against its provider's official pricing page twice. The first pass ran in
 six batches (PRs #4 to #9; the tooling came in PR #3). A second, full pass re-read every checked
-entry; about half of them needed a fix (mostly a user or seat count, a paid-plan number used for the
+entry; more than 4 in 10 of them needed a fix (about 270 of 607) (mostly a user or seat count, a paid-plan number used for the
 free plan, or a wrong card or risk flag).
 
 - 639 entries remain. 607 of them (95%) have `lastVerified`, a `pricingUrl`, and limits taken from
