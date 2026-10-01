@@ -66,6 +66,13 @@ LaunchDarkly (free limits not readable on the official page; add them after a br
 Pages serves static files at no cost, so the budget is only a speed guard. Trimming fields the
 explorer list does not show would win the room back.
 
+## Home page for visitors — 2026-10-01
+The home page now leads with what a first-time visitor needs. A "Popular free picks" card (one
+well-known free plan per common need, set in `POPULAR_PICKS` in `src/app/page.tsx`) replaced the
+sample facts label. A "Recently added" grid replaced the "How we rate" legend (the About page still
+explains the ratings). The "N of M entries checked" progress strip is gone. The home changelog skips
+"new" items, because they have their own section.
+
 ## Phase 2 — data trust (next)
 - Re-check the 32 entries that could not be verified, by hand or with a real browser.
 - Tighten rating rules: overage risk `none` only when there is a hard cap or the plan is truly
