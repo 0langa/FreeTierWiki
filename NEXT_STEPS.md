@@ -37,8 +37,9 @@ free plan, or a wrong card or risk flag).
 - 95 entries were removed: no free plan, product gone, not a developer tool, only a cloud provider's
   general sign-up credit, or a duplicate. Each has a 301 redirect and a "Removed" record in
   `content/changelog.json`.
-- 32 entries could not be checked (bot blocks, no public pricing). They keep the gray
-  "not re-checked" date.
+- 32 entries could not be checked at first (bot blocks, no public pricing). On 2026-10-01 they were
+  read with a real browser: 21 were corrected and dated, and 11 were removed (site gone, no free plan,
+  wrong product, or no way to check, like GitGud). Every entry now has `lastVerified`.
 - Three Azure storage entries (Blob, Disk, File) keep their 2026-09-26 date. Microsoft's free
   services list is hidden behind JavaScript, so nobody could re-read it. Other sources show 5 GB of
   free blob and file storage for 12 months.
@@ -74,7 +75,6 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 "new" items, because they have their own section.
 
 ## Phase 2 — data trust (next)
-- Re-check the 32 entries that could not be verified, by hand or with a real browser.
 - Tighten rating rules: overage risk `none` only when there is a hard cap or the plan is truly
   unlimited, and no card is required. Re-rate entries against this rule.
 - Recategorize vague domains (`integration`, `productivity`, `operations`); decide whether to keep
