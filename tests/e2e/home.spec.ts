@@ -1,9 +1,10 @@
 import { expect, test } from "@playwright/test";
 
-test("home shows the promise, the trust strip, categories, and the changelog", async ({ page }) => {
+test("home shows the promise, popular picks, categories, and the changelog", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Free tiers, with the fine print.");
-  await expect(page.getByText(/\d+ of \d+ entries checked against the official pricing page/)).toBeVisible();
+  await expect(page.getByRole("region", { name: "Popular free picks" }).getByRole("link").first()).toBeVisible();
+  await expect(page.getByRole("region", { name: "Recently added" }).getByRole("link").first()).toBeVisible();
   await expect(page.getByRole("link", { name: /^Database/ }).first()).toHaveAttribute("href", "/category/database/");
   await expect(page.getByRole("region", { name: "Free tier changelog" }).getByRole("listitem").first()).toBeVisible();
 });

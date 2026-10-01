@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { FactsLabel } from "@/components/entry/facts-label";
-import { ChangePill, FreshnessLabel, RiskPill, StatusPill } from "@/components/entry/labels";
+import { ChangePill, FreshnessLabel, RiskPill } from "@/components/entry/labels";
 import { OfferText } from "@/components/entry/offer-text";
 import { HeroSearchButton } from "@/components/site/hero-search-button";
 import { BUILD_NOW } from "@/lib/build-info";
@@ -10,7 +9,6 @@ import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries, getRemovals } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { formatMonth } from "@/lib/format";
-import { freshnessDate, getFreshness } from "@/lib/freshness";
 import { latestChanges, topCategories } from "@/lib/home-data";
 
 export const metadata: Metadata = {
@@ -27,30 +25,49 @@ const QUICK_LINKS = [
   { href: "/category/storage/", label: "Storage" },
 ];
 
+// Common first needs, each with a well-known free plan. `limit` picks which limit line to show;
+// `short` replaces a limit line that is too long for one row.
+const POPULAR_PICKS: { need: string; slug: string; limit: number; short?: string }[] = [
+  { need: "Postgres database", slug: "neon", limit: 2 },
+  { need: "Static site hosting", slug: "cloudflare-pages", limit: 0 },
+  { need: "Serverless functions", slug: "cloudflare-workers", limit: 0 },
+  { need: "LLM API", slug: "gemini-api", limit: 0, short: "Free tokens on supported models" },
+  { need: "User login", slug: "clerk", limit: 0 },
+  { need: "Email API", slug: "resend", limit: 0 },
+  { need: "File storage", slug: "cloudflare-r2", limit: 0 },
+  { need: "Error tracking", slug: "sentry", limit: 0 },
+];
+
 export default async function HomePage() {
   const entries = await getAllEntries();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
   const activeCount = entries.filter((entry) => entry.status !== "ended").length;
-  // Counts entries that carry a lastVerified date at all (checked, stale, or ended-with-a-date),
-  // not only the ones currently within the "checked" freshness window.
-  const verified = items.filter(
-    (item) =>
-      item.freshness.state === "checked" ||
-      item.freshness.state === "stale" ||
-      (item.freshness.state === "ended" && freshnessDate(item.freshness) !== undefined),
-  ).length;
   const categories = topCategories(items, 12);
   const safePicks = items
     .filter((item) => item.freshness.state === "checked" && item.status === "active" && !item.card && item.cap && item.risk === "none")
     .sort(compareSafety)
     .slice(0, 3);
-  const changes = latestChanges(entries, 5, await getRemovals());
-  const example = entries.find((entry) => entry.slug === "cloudflare-workers") ?? entries[0];
-  const progress = entries.length > 0 ? Math.max((verified / entries.length) * 100, 1) : 0;
+  // New entries get their own section, so the changelog shows what changed, ended, or was removed.
+  const changes = latestChanges(entries, undefined, await getRemovals())
+    .filter((change) => change.kind !== "new")
+    .slice(0, 5);
+  const picks = POPULAR_PICKS.flatMap((pick) => {
+    const entry = entries.find((candidate) => candidate.slug === pick.slug && candidate.status !== "ended");
+    return entry ? [{ ...pick, entry, text: pick.short ?? entry.freeTierDetails.limits[pick.limit] ?? entry.freeTierDetails.limits[0] }] : [];
+  });
+  const itemById = new Map(items.map((item) => [item.id, item]));
+  const recent = entries
+    .flatMap((entry) => {
+      const added = entry.changes.find((change) => change.kind === "new");
+      const item = itemById.get(entry.id);
+      return added && item && entry.status === "active" ? [{ date: added.date, item }] : [];
+    })
+    .sort((a, b) => b.date.localeCompare(a.date) || b.item.rank - a.item.rank)
+    .slice(0, 8);
 
   return (
     <>
-      <section className="grid items-center gap-14 pb-10 pt-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:pt-[72px]">
+      <section className="grid items-center gap-14 pb-10 pt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:pt-[72px]">
         <div>
           <p className="eyebrow">{activeCount} free plans for developers</p>
           <h1 className="mt-4 max-w-[14ch] text-[38px] font-bold leading-[1.02] tracking-tight sm:text-[56px]">
@@ -69,26 +86,29 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-        {example ? (
-          <div className="hidden rotate-[1.2deg] shadow-soft lg:block">
-            <FactsLabel entry={example} freshness={getFreshness(example, BUILD_NOW)} compact />
-          </div>
+        {picks.length > 0 ? (
+          <section aria-labelledby="picks-title" className="rounded-2xl border border-line bg-surface p-5">
+            <h2 id="picks-title" className="text-[15px] font-semibold">
+              Popular free picks
+            </h2>
+            <p className="mb-3 mt-0.5 text-[13px] text-ink-3">A good first choice for common needs</p>
+            <ul className="divide-y divide-line">
+              {picks.map((pick) => (
+                <li key={pick.slug}>
+                  <Link href={pick.entry.url} className="group grid gap-0.5 py-2.5">
+                    <span className="text-xs text-ink-3">{pick.need}</span>
+                    <span className="flex items-baseline justify-between gap-3">
+                      <span className="shrink-0 font-semibold group-hover:underline">{pick.entry.title}</span>
+                      <span className="min-w-0 truncate text-right font-mono text-[12.5px] text-ink-2">
+                        <OfferText text={pick.text} />
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
         ) : null}
-      </section>
-
-      <section aria-label="Checking progress" className="grid gap-2 rounded-2xl border border-line bg-surface px-6 py-5 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-x-8">
-        <p className="text-sm text-ink-2">
-          <strong className="text-ink">
-            {verified} of {entries.length}
-          </strong>{" "}
-          entries checked against the official pricing page. Every entry shows its own date.
-        </p>
-        <Link href="/about/" className="whitespace-nowrap text-sm font-medium text-brand">
-          How we check →
-        </Link>
-        <div className="h-1.5 overflow-hidden rounded-full bg-surface-2 sm:col-span-2" aria-hidden>
-          <div className="h-full rounded-full bg-brand" style={{ width: `${progress}%` }} />
-        </div>
       </section>
 
       <section className="mt-14" aria-labelledby="categories-title">
@@ -176,26 +196,34 @@ export default async function HomePage() {
         </section>
       </div>
 
-      <section aria-label="How we rate" className="mt-14 grid gap-6 rounded-2xl border border-line p-7 md:grid-cols-3">
-        <div>
-          <RiskPill risk="none" />
-          <h3 className="mb-1.5 mt-2.5 text-[15px] font-semibold">Billing risk</h3>
-          <p className="text-sm text-ink-2">How likely you are to get a bill by accident. “None” means the plan is unlimited, or going over stops the service instead of charging you.</p>
-        </div>
-        <div>
-          <FreshnessLabel freshness={{ state: "checked", date: BUILD_NOW.toISOString().slice(0, 10) }} />
-          <h3 className="mb-1.5 mt-2.5 text-[15px] font-semibold">Last checked</h3>
-          <p className="text-sm text-ink-2">
-            The day someone compared the entry with the official pricing page. If a check is more than 6 months older than the site build, it
-            shows as stale.
-          </p>
-        </div>
-        <div>
-          <StatusPill status="ended" />
-          <h3 className="mb-1.5 mt-2.5 text-[15px] font-semibold">Changed or ended</h3>
-          <p className="text-sm text-ink-2">When a free plan changes or ends, the entry says so at the top and the changelog records the date.</p>
-        </div>
-      </section>
+      {recent.length > 0 ? (
+        <section className="mt-14" aria-labelledby="recent-title">
+          <div className="mb-4 flex items-baseline justify-between gap-4">
+            <h2 id="recent-title" className="text-xl font-semibold tracking-tight">
+              Recently added
+            </h2>
+            <Link href="/changelog/" className="text-sm text-ink-2 hover:text-ink">
+              All changes →
+            </Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {recent.map(({ item }) => (
+              <Link key={item.id} href={item.url} className="grid content-start gap-1 rounded-xl border border-line bg-surface px-[18px] py-4 hover:border-ink-3">
+                <span className="flex items-start justify-between gap-2">
+                  <span className="font-semibold">{item.title}</span>
+                  <RiskPill risk={item.risk} />
+                </span>
+                <span className="text-[13px] text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
+                {item.offer[0] ? (
+                  <span className="mt-1 font-mono text-[13px] text-ink-2">
+                    <OfferText text={item.offer[0]} />
+                  </span>
+                ) : null}
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }
