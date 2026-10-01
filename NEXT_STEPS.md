@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-09-28._
+_State refreshed: 2026-10-01._
 
 ## What this is
 A decision-first atlas of free-tier offerings for developers and tools, rated
@@ -44,6 +44,27 @@ free plan, or a wrong card or risk flag).
   free blob and file storage for 12 months.
 - A unit test keeps the risk fields consistent for every entry (`tests/unit/content-files.test.ts`).
 - The tools live in `scripts/verify/`: `fetch-pages.mjs`, `list-entries.mjs`, `remove-entries.mjs`.
+
+## New entries — 2026-10-01
+84 new entries were added (the atlas now has 723). Each one was read from its official pricing page
+on 2026-10-01 and has `lastVerified`, a `pricingUrl`, and a `new` item in `changes`, so it shows as
+"New" in the changelog. Main gaps filled: Cloudflare's developer platform (Workers AI, AI Gateway,
+Durable Objects, Queues, Hyperdrive, Vectorize, Images, Turnstile, Web Analytics), AI coding tools
+(GitHub Copilot Free, Cursor, Kiro, Gemini Code Assist), AI data tools (Firecrawl, Jina Reader, Exa,
+E2B), vector and serverless databases (Weaviate, Zilliz, TiDB, Prisma Postgres, Convex), background
+jobs (Trigger.dev, Inngest, Hatchet), auth (Cognito, Stytch, Hanko, Frontegg), monitoring
+(Honeycomb, UptimeRobot, Healthchecks.io), product analytics (Mixpanel, Amplitude, Clarity),
+networking (Tailscale, ZeroTier, ngrok), and well-known tools (Figma, Penpot, Linear, Tally, Docker
+Hub).
+
+Checked but not added: GitHub Models (retired 2026-07-30), SambaNova and Cerebras (no free tier,
+only paid credits or a card-gated trial), InstantDB (team joined OpenAI), Xata, Strapi Cloud, Unkey
+(no free plan), Chroma Cloud (one-time credit only), and Appwrite, Mistral, Snyk, hCaptcha, and
+LaunchDarkly (free limits not readable on the official page; add them after a browser check).
+
+`explorer.json` reached 78.8 KB (gzip), so its size budget was raised from 80 KB to 100 KB. Cloudflare
+Pages serves static files at no cost, so the budget is only a speed guard. Trimming fields the
+explorer list does not show would win the room back.
 
 ## Phase 2 — data trust (next)
 - Re-check the 32 entries that could not be verified, by hand or with a real browser.

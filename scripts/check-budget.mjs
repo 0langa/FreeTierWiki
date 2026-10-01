@@ -23,7 +23,7 @@ const budgets = [
   { name: "home JS", bytes: scriptsIn(path.join(OUT, "index.html")).reduce((sum, file) => sum + gz(file), 0), max: 175 * 1024 },
   { name: "explorer HTML", bytes: gz(path.join(OUT, "explorer", "index.html")), max: 150 * 1024 },
   { name: "detail HTML", bytes: gz(path.join(OUT, "services", "supabase", "index.html")), max: 40 * 1024 },
-  { name: "explorer.json", bytes: gz(path.join(OUT, "data", "explorer.json")), max: 80 * 1024 },
+  { name: "explorer.json", bytes: gz(path.join(OUT, "data", "explorer.json")), max: 100 * 1024 },
 ];
 
 let failed = false;

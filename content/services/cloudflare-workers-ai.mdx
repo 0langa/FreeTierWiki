@@ -1,0 +1,73 @@
+---
+title: Cloudflare Workers AI
+description: >-
+  Run open models (LLMs, embeddings, image, speech) on Cloudflare's GPUs from a Worker or the REST
+  API.
+provider: Cloudflare
+category: ai
+domain: ai
+subtypes:
+  - inference
+  - LLM
+  - embeddings
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - ai
+  - llm
+  - serverless
+  - api
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    10,000 Neurons per day free on the Workers Free plan. Requests fail with an error past the daily
+    limit; no card is needed.
+  limits:
+    - '10,000 Neurons per day (Neurons measure GPU work per request)'
+    - 'Limits reset daily at 00:00 UTC'
+    - 'Open models for text, embeddings, images, and speech'
+  caveats:
+    - A few large models need a paid billing method (Workers Paid or prepaid AI Gateway credits)
+    - 'Neuron cost differs per model, so the number of free requests depends on the model'
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Add a chatbot or summarizer to a Worker
+  - Create embeddings for search
+  - Run speech-to-text or image models without a GPU
+quickstartSteps:
+  - Create a free Cloudflare account.
+  - Create a Worker and add an AI binding.
+  - Call env.AI.run() with a model name.
+whenToUse: 'Use when you already deploy on Cloudflare and want small, capped AI inference with no card.'
+whenNotToUse: Avoid if you need frontier closed models or steady high volume; the daily cap is small.
+bestFor:
+  - side projects
+  - edge apps
+  - embeddings
+avoidIf:
+  - high-volume inference
+  - frontier models
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: '2026-10-01'
+lastVerified: '2026-10-01'
+popularityScore: 7
+usefulnessScore: 8
+officialUrl: 'https://developers.cloudflare.com/workers-ai/'
+docsUrl: 'https://developers.cloudflare.com/workers-ai/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/workers-ai/platform/pricing/'
+pricingUrl: 'https://developers.cloudflare.com/workers-ai/platform/pricing/'
+featured: false
+changes:
+  - date: '2026-10-01'
+    kind: new
+    note: Added to the atlas.
+---
+Workers AI runs open-weight models on Cloudflare's network. The free daily Neuron allowance is a hard cap on the Workers Free plan, so it cannot create a bill.
