@@ -1,0 +1,63 @@
+---
+title: Cloudflare Queues
+description: Message queues for Cloudflare Workers with batching and retries.
+provider: Cloudflare
+category: messaging
+domain: messaging
+subtypes:
+  - message queue
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - queue
+  - serverless
+  - messaging
+pricingModel: freemium
+freeTierDetails:
+  summary: 'Workers Free plan: 10,000 operations per day, with 24-hour message retention.'
+  limits:
+    - '10,000 operations per day'
+    - 'Message retention: 24 hours'
+  caveats:
+    - 'Each message uses about 3 operations (write, read, delete)'
+    - Each retry costs a read operation
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Background jobs from a Worker
+  - Buffer webhooks
+  - Batch writes
+quickstartSteps:
+  - Create a queue with wrangler queues create.
+  - Add producer and consumer bindings.
+  - Send messages with env.QUEUE.send().
+whenToUse: Use for light background work inside a Workers app.
+whenNotToUse: Avoid if you need long message retention on the free plan.
+bestFor:
+  - Workers apps
+  - background jobs
+avoidIf:
+  - high-volume queues
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: '2026-10-01'
+lastVerified: '2026-10-01'
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://developers.cloudflare.com/queues/'
+docsUrl: 'https://developers.cloudflare.com/queues/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/queues/platform/pricing/'
+pricingUrl: 'https://developers.cloudflare.com/queues/platform/pricing/'
+featured: false
+changes:
+  - date: '2026-10-01'
+    kind: new
+    note: Added to the atlas.
+---
+Queues is included in the Workers Free plan with a daily operation limit.

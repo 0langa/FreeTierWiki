@@ -1,0 +1,69 @@
+---
+title: Cloudflare Durable Objects
+description: >-
+  Stateful serverless objects with their own SQLite storage, for coordination, chat, and multiplayer
+  apps.
+provider: Cloudflare
+category: compute
+domain: compute
+subtypes:
+  - stateful serverless
+  - SQLite
+  - WebSockets
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - serverless
+  - database
+  - realtime
+pricingModel: freemium
+freeTierDetails:
+  summary: 'Workers Free plan: 100,000 requests and 13,000 GB-s per day, plus 5 GB of SQLite storage.'
+  limits:
+    - '100,000 requests per day'
+    - '13,000 GB-s duration per day'
+    - '5 million rows read and 100,000 rows written per day'
+    - 5 GB SQLite storage in total
+  caveats:
+    - Only SQLite-backed objects on the free plan
+    - An open WebSocket keeps using duration unless you use the Hibernation API
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Chat rooms and multiplayer state
+  - Rate limiters and counters
+  - Per-user databases
+quickstartSteps:
+  - Define a Durable Object class in a Worker.
+  - Add the binding and a migration in wrangler config.
+  - Get a stub by ID and call its methods.
+whenToUse: 'Use when you need strongly consistent state per room, user, or document.'
+whenNotToUse: Avoid for simple stateless APIs.
+bestFor:
+  - realtime apps
+  - coordination
+avoidIf:
+  - simple CRUD
+difficulty: advanced
+productionReadiness: production-light
+lastUpdated: '2026-10-01'
+lastVerified: '2026-10-01'
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://developers.cloudflare.com/durable-objects/'
+docsUrl: 'https://developers.cloudflare.com/durable-objects/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/durable-objects/platform/pricing/'
+pricingUrl: 'https://developers.cloudflare.com/durable-objects/platform/pricing/'
+featured: false
+changes:
+  - date: '2026-10-01'
+    kind: new
+    note: Added to the atlas.
+---
+Durable Objects are available on the Workers Free plan. Past a daily limit, further operations fail.

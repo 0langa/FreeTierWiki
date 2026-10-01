@@ -1,0 +1,65 @@
+---
+title: Cloudflare Hyperdrive
+description: >-
+  Connection pooling and query caching that makes an existing Postgres or MySQL database fast from
+  Workers.
+provider: Cloudflare
+category: database
+domain: database
+subtypes:
+  - connection pooling
+  - query cache
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - database
+  - serverless
+  - cdn
+pricingModel: freemium
+freeTierDetails:
+  summary: 'Workers Free plan: 100,000 database queries per day through Hyperdrive. Further queries fail.'
+  limits:
+    - '100,000 database queries per day'
+    - 'Resets daily at 00:00 UTC'
+    - Pooling and caching included
+  caveats:
+    - You still need your own database (for example Neon or Supabase)
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Connect Workers to an existing Postgres
+  - Cache read-heavy queries
+quickstartSteps:
+  - Create a Hyperdrive config with your database URL.
+  - Add the binding to your Worker.
+  - Use any Postgres driver with the Hyperdrive connection string.
+whenToUse: Use when a Worker talks to a regional database and you want pooling.
+whenNotToUse: Avoid if you do not use Cloudflare Workers.
+bestFor:
+  - Workers apps
+  - global apps
+avoidIf:
+  - non-Cloudflare stacks
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: '2026-10-01'
+lastVerified: '2026-10-01'
+popularityScore: 4
+usefulnessScore: 7
+officialUrl: 'https://developers.cloudflare.com/hyperdrive/'
+docsUrl: 'https://developers.cloudflare.com/hyperdrive/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/hyperdrive/platform/pricing/'
+pricingUrl: 'https://developers.cloudflare.com/hyperdrive/platform/pricing/'
+featured: false
+changes:
+  - date: '2026-10-01'
+    kind: new
+    note: Added to the atlas.
+---
+Hyperdrive is free within its daily query limit on the Workers Free plan.
