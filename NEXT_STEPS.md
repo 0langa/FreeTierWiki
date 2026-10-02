@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-01._
+_State refreshed: 2026-10-02._
 
 ## What this is
 A decision-first atlas of free-tier offerings for developers and tools, rated
@@ -60,8 +60,11 @@ Hub).
 
 Checked but not added: GitHub Models (retired 2026-07-30), SambaNova and Cerebras (no free tier,
 only paid credits or a card-gated trial), InstantDB (team joined OpenAI), Xata, Strapi Cloud, Unkey
-(no free plan), Chroma Cloud (one-time credit only), and Appwrite, Mistral, Snyk, hCaptcha, and
-LaunchDarkly (free limits not readable on the official page; add them after a browser check).
+(no free plan), and Chroma Cloud (one-time credit only).
+
+On 2026-10-02 five entries that first needed a browser were read and added (the atlas now has 717, after the 11 removals of 2026-10-01):
+Appwrite Cloud, Mistral API, Snyk, hCaptcha (10,000 free requests a month on the official plans page),
+and LaunchDarkly.
 
 `explorer.json` reached 78.8 KB (gzip), so its size budget was raised from 80 KB to 100 KB. Cloudflare
 Pages serves static files at no cost, so the budget is only a speed guard. Trimming fields the
