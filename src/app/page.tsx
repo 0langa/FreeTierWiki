@@ -8,11 +8,12 @@ import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries, getRemovals } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
+import { FEED_ALTERNATE } from "@/lib/feed";
 import { formatMonth } from "@/lib/format";
 import { latestChanges, topCategories } from "@/lib/home-data";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: FEED_ALTERNATE },
 };
 
 const QUICK_LINKS = [

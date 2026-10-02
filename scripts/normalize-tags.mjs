@@ -55,7 +55,6 @@ const CANONICAL_TAGS = [
   "realtime",
   "integration",
   "search",
-  "misc",
 ];
 
 const canonicalSet = new Set(CANONICAL_TAGS);
@@ -374,6 +373,8 @@ function normalizeRawTag(raw) {
 
 function mapTag(raw) {
   const normalized = normalizeRawTag(raw);
+  // Match whole hyphen-separated words only, so "ai" no longer matches "domain" or "email".
+  const hit = (re) => new RegExp(`(?:^|-)(?:${re.source.replace(/^\^/, "")})(?:-|$)`).test(normalized);
 
   if (canonicalSet.has(normalized)) {
     return normalized;
@@ -384,56 +385,56 @@ function mapTag(raw) {
     return direct;
   }
 
-  if (/^llm|gpt|prompt|text-generation|openai/.test(normalized)) return "llm";
-  if (/machine-learning|deep-learning|mlops|model-training|training|model-management|experiment-tracking/.test(normalized)) {
+  if (hit(/^llm|gpt|prompt|text-generation|openai/)) return "llm";
+  if (hit(/machine-learning|deep-learning|mlops|model-training|training|model-management|experiment-tracking/)) {
     return "ml";
   }
-  if (/ai|artificial|inference|embedding|semantic|computer-vision/.test(normalized)) return "ai";
-  if (/analytics|report|dashboard|metrics|bi|visualization|analysis|time-series/.test(normalized)) return "analytics";
-  if (/database|sql|mysql|postgres|nosql|mongo|redis|sqlite|vector/.test(normalized)) return "database";
-  if (/storage|blob|object|file|bucket|s3|archive|backup|nfs|smb|disk/.test(normalized)) return "storage";
-  if (/compute|vm|virtual-machine|server|hpc|gpu|batch/.test(normalized)) return "compute";
-  if (/serverless|function|faas/.test(normalized)) return "serverless";
-  if (/container|docker|registry/.test(normalized)) return "containers";
-  if (/kubernetes|gke/.test(normalized)) return "kubernetes";
-  if (/devops|infrastructure|iac|terraform/.test(normalized)) return "devops";
-  if (/ci|cd|cicd|pipeline|build|deploy/.test(normalized)) return "ci-cd";
-  if (/test|qa|selenium|mock/.test(normalized)) return "testing";
-  if (/monitor|uptime|status|alert|error-tracking|crash-reporting|synthetic|incident/.test(normalized)) return "monitoring";
-  if (/observability|tracing|apm/.test(normalized)) return "observability";
-  if (/log/.test(normalized)) return "logging";
-  if (/security|secure|vulnerability|scanner|code-scanning|threat|ddos|waf|fraud|risk|safety/.test(normalized)) return "security";
-  if (/auth|authentication|login|password|otp|mfa|2fa|sso|saml|oidc|openid|oauth|jwt|access-control|authorization|rbac|abac|user-management/.test(normalized)) return "auth";
-  if (/identity|iam|directory/.test(normalized)) return "identity";
-  if (/privacy/.test(normalized)) return "privacy";
-  if (/compliance|governance|policy|audit/.test(normalized)) return "compliance";
-  if (/network|vpn|proxy|gateway|load-balancer|vnet|subnet|routing|peering|geoip|asn|ip/.test(normalized)) return "networking";
-  if (/dns|domain/.test(normalized)) return "dns";
-  if (/cdn|edge|content-delivery|static-assets|global-distribution/.test(normalized)) return "cdn";
-  if (/cloud|aws|azure|gcp|google-cloud|cloudflare|ibm-cloud|oracle/.test(normalized)) return "cloud";
-  if (/web|website|web-app|webapps|web-development|web-hosting|app-hosting|static-site|ssr|ssg|jamstack/.test(normalized)) return "web";
-  if (/frontend|react|javascript|typescript/.test(normalized)) return "frontend";
-  if (/backend/.test(normalized)) return "backend";
-  if (/mobile|ios|android|flutter/.test(normalized)) return "mobile";
-  if (/cli|terminal/.test(normalized)) return "cli";
-  if (/sdk|library|package|npm|pip|rubygems|maven|gradle|artifact/.test(normalized)) return "sdk";
-  if (/docs|documentation|wiki|knowledge|reference|tutorial|course|education|learning/.test(normalized)) return "docs";
-  if (/open-source|oss/.test(normalized)) return "open-source";
-  if (/collaboration|communication|chat|meeting|conference|whiteboard|brainstorming|team|remote|slack|discord/.test(normalized)) return "collaboration";
-  if (/productivity|tasks|kanban|project|notes|calendar|schedule|gantt|roadmap|time-tracking/.test(normalized)) return "productivity";
-  if (/design|figma|mockup|prototyping|branding|creative|art|web-design/.test(normalized)) return "design";
-  if (/ux|ui|user-experience|accessibility|visual-editor/.test(normalized)) return "ux-ui";
-  if (/video|streaming|webinar/.test(normalized)) return "video";
-  if (/audio|voice|speech|transcription|text-to-speech/.test(normalized)) return "audio";
-  if (/image|images|ocr|screenshot|image-processing|image-generation|image-recognition/.test(normalized)) return "images";
-  if (/email|smtp|newsletter|deliverability|campaign|transactional|mailbox/.test(normalized)) return "email";
-  if (/messaging|sms/.test(normalized)) return "messaging";
-  if (/queue|pubsub|kafka|rabbitmq|mqtt|event/.test(normalized)) return "queue";
-  if (/realtime|real-time|websocket/.test(normalized)) return "realtime";
-  if (/integration|webhook|sync|connector/.test(normalized)) return "integration";
-  if (/search|docssearch|docsearch|indexing|lookup/.test(normalized)) return "search";
+  if (hit(/ai|artificial|inference|embedding|semantic|computer-vision/)) return "ai";
+  if (hit(/analytics|report|dashboard|metrics|bi|visualization|analysis|time-series/)) return "analytics";
+  if (hit(/database|sql|mysql|postgres|nosql|mongo|redis|sqlite|vector/)) return "database";
+  if (hit(/storage|blob|object|file|bucket|s3|archive|backup|nfs|smb|disk/)) return "storage";
+  if (hit(/compute|vm|virtual-machine|server|hpc|gpu|batch/)) return "compute";
+  if (hit(/serverless|function|faas/)) return "serverless";
+  if (hit(/container|docker|registry/)) return "containers";
+  if (hit(/kubernetes|gke/)) return "kubernetes";
+  if (hit(/devops|infrastructure|iac|terraform/)) return "devops";
+  if (hit(/ci|cd|cicd|pipeline|build|deploy/)) return "ci-cd";
+  if (hit(/test|qa|selenium|mock/)) return "testing";
+  if (hit(/monitor|uptime|status|alert|error-tracking|crash-reporting|synthetic|incident/)) return "monitoring";
+  if (hit(/observability|tracing|apm/)) return "observability";
+  if (hit(/log/)) return "logging";
+  if (hit(/security|secure|vulnerability|scanner|code-scanning|threat|ddos|waf|fraud|risk|safety/)) return "security";
+  if (hit(/auth|authentication|login|password|otp|mfa|2fa|sso|saml|oidc|openid|oauth|jwt|access-control|authorization|rbac|abac|user-management/)) return "auth";
+  if (hit(/identity|iam|directory/)) return "identity";
+  if (hit(/privacy/)) return "privacy";
+  if (hit(/compliance|governance|policy|audit/)) return "compliance";
+  if (hit(/network|vpn|proxy|gateway|load-balancer|vnet|subnet|routing|peering|geoip|asn|ip/)) return "networking";
+  if (hit(/dns|domain/)) return "dns";
+  if (hit(/cdn|edge|content-delivery|static-assets|global-distribution/)) return "cdn";
+  if (hit(/cloud|aws|azure|gcp|google-cloud|cloudflare|ibm-cloud|oracle/)) return "cloud";
+  if (hit(/web|website|web-app|webapps|web-development|web-hosting|app-hosting|static-site|ssr|ssg|jamstack/)) return "web";
+  if (hit(/frontend|react|javascript|typescript/)) return "frontend";
+  if (hit(/backend/)) return "backend";
+  if (hit(/mobile|ios|android|flutter/)) return "mobile";
+  if (hit(/cli|terminal/)) return "cli";
+  if (hit(/sdk|library|package|npm|pip|rubygems|maven|gradle|artifact/)) return "sdk";
+  if (hit(/docs|documentation|wiki|knowledge|reference|tutorial|course|education|learning/)) return "docs";
+  if (hit(/open-source|oss/)) return "open-source";
+  if (hit(/collaboration|communication|chat|meeting|conference|whiteboard|brainstorming|team|remote|slack|discord/)) return "collaboration";
+  if (hit(/productivity|tasks|kanban|project|notes|calendar|schedule|gantt|roadmap|time-tracking/)) return "productivity";
+  if (hit(/design|figma|mockup|prototyping|branding|creative|art|web-design/)) return "design";
+  if (hit(/ux|ui|user-experience|accessibility|visual-editor/)) return "ux-ui";
+  if (hit(/video|streaming|webinar/)) return "video";
+  if (hit(/audio|voice|speech|transcription|text-to-speech/)) return "audio";
+  if (hit(/image|images|ocr|screenshot|image-processing|image-generation|image-recognition/)) return "images";
+  if (hit(/email|smtp|newsletter|deliverability|campaign|transactional|mailbox/)) return "email";
+  if (hit(/messaging|sms/)) return "messaging";
+  if (hit(/queue|pubsub|kafka|rabbitmq|mqtt|event/)) return "queue";
+  if (hit(/realtime|real-time|websocket/)) return "realtime";
+  if (hit(/integration|webhook|sync|connector/)) return "integration";
+  if (hit(/search|docssearch|docsearch|indexing|lookup/)) return "search";
 
-  return "misc";
+  return null;
 }
 
 async function* walkFiles(rootDir) {
@@ -472,10 +473,11 @@ async function normalizeTags() {
     const tags = Array.isArray(data.tags) ? data.tags : [];
 
     const normalized = dedupePreserveOrder(
-      tags.map((tag) => mapTag(tag))
+      tags.map((tag) => mapTag(tag)).filter(Boolean)
     );
 
-    const finalTags = normalized.length ? normalized : ["misc"];
+    // An entry whose tags all fail to map keeps none; content tests then flag it for a hand fix.
+    const finalTags = normalized;
 
     const original = tags.map((tag) => normalizeRawTag(tag)).join("|");
     const next = finalTags.join("|");

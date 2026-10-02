@@ -40,4 +40,15 @@ describe("content files", () => {
     }
     expect(problems).toEqual([]);
   }, 60_000);
+
+  it("every entry has real search tags", async () => {
+    const problems: string[] = [];
+    for (const file of await listContentFiles()) {
+      const { entry } = await readEntryFile(file);
+      // Tags only feed search; "misc" matched everything and helped nothing.
+      if (entry.tags.length === 0) problems.push(`${entry.id}: no tags`);
+      if (entry.tags.includes("misc")) problems.push(`${entry.id}: tag misc`);
+    }
+    expect(problems).toEqual([]);
+  }, 60_000);
 });

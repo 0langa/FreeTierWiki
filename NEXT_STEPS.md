@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-01._
+_State refreshed: 2026-10-02._
 
 ## What this is
 A decision-first atlas of free-tier offerings for developers and tools, rated
@@ -74,12 +74,21 @@ sample facts label. A "Recently added" grid replaced the "How we rate" legend (t
 explains the ratings). The "N of M entries checked" progress strip is gone. The home changelog skips
 "new" items, because they have their own section.
 
+## Small wins — 2026-10-02
+- Search tags cleaned: the meaningless `misc` tag is gone from every entry, and about 20 wrong tags are
+  gone too (for example `ai` on a username checker). The old `scripts/normalize-tags.mjs` matched parts
+  of words ("ai" inside "domain"); it now matches whole words and never adds `misc`. A unit test keeps
+  every entry with at least one real tag and no `misc`.
+- The changelog has an RSS feed at `/changelog/feed.xml` (newest 50 items), linked from the changelog
+  page and the page head.
+- `CONTRIBUTING.md` and `.github/pull_request_template.md` (source URL, quote, date) added.
+- The Fly.io card caveat was already in the entry; that roadmap item is closed.
+
 ## Phase 2 — data trust (next)
 - Tighten rating rules: overage risk `none` only when there is a hard cap or the plan is truly
   unlimited, and no card is required. Re-rate entries against this rule.
 - Recategorize vague domains (`integration`, `productivity`, `operations`); decide whether to keep
   free online utilities (JSON formatters, temp mail, IP checkers) at all.
-- Add a caveat to the Fly.io entry: no card is needed to start the trial.
 
 ## Phase 3 — fresh by default (built, first run pending)
 - The weekly check is `.github/workflows/freshness.yml` (Mondays 04:17 UTC, or run it by hand from the
@@ -94,7 +103,7 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 - Not built: opening pull requests with drafted fixes, and a check of `docsUrl`.
 
 ## Phase 4 — release
-- Tag `v1.0.0` now that the content check is done.
+- Done: `v1.0.0` is tagged.
 
 ## Also worth doing (not phase-gated)
 - Replace the Base UI dialog with a native `<dialog>` element — saves about 20 KB of JS and drops a
@@ -108,8 +117,6 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   no-JS visitors see real rows.
 - Detail pages: suggest alternatives (same category, lower risk, checked).
 - Comparison pages generated from the data, for example "Free Postgres hosting compared".
-- An RSS/Atom feed of the changelog.
-- `CONTRIBUTING.md` and a PR template with a check list (source URL, quote, date).
 - Self-host the fonts (`next/font/local`) so a CI build never depends on a Google Fonts download.
 
 (Ideas above come partly from the 2026-09-24 audit on the retired branch `cld/sweet-hawking-isxiyq`;

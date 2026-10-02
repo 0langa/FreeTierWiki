@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import { ChangePill } from "@/components/entry/labels";
 import { getAllEntries, getRemovals } from "@/lib/content.server";
+import { FEED_ALTERNATE, FEED_PATH } from "@/lib/feed";
 import { formatMonth } from "@/lib/format";
 import { latestChanges } from "@/lib/home-data";
 
 export const metadata: Metadata = {
   title: "Free tier changelog",
   description: "Free plans that ended, changed, or were removed from the catalog, newest first.",
-  alternates: { canonical: "/changelog/" },
+  alternates: { canonical: "/changelog/", types: FEED_ALTERNATE },
 };
 
 export default async function ChangelogPage() {
@@ -20,6 +21,13 @@ export default async function ChangelogPage() {
     <div className="max-w-3xl pt-8">
       <h1 className="text-[28px] font-bold tracking-tight">Free tier changelog</h1>
       <p className="mt-2 text-ink-2">Free plans that ended, changed, or were removed from the catalog, newest first. Each item links to the entry with the current facts.</p>
+      <p className="mt-2 text-sm text-ink-3">
+        Follow it in a feed reader:{" "}
+        <a href={FEED_PATH} className="underline hover:text-ink">
+          RSS feed
+        </a>
+        .
+      </p>
       {rows.length === 0 ? <p className="mt-8 text-sm text-ink-3">No changes recorded yet.</p> : null}
       {years.map((year) => (
         <section key={year} className="mt-8" aria-labelledby={`year-${year}`}>
