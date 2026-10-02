@@ -33,7 +33,7 @@ If you spot something wrong, use **Report outdated info** on the entry — it op
 
 ### Changelog
 
-The `/changelog/` page lists every entry that changed or ended, newest first.
+The `/changelog/` page lists every entry that changed or ended, newest first. Follow it with the RSS feed at `/changelog/feed.xml`.
 
 ---
 
@@ -134,6 +134,12 @@ Rules: an entry stays only if developers can use it free (always-free plan, cred
 Cloudflare Pages builds the `main` branch with `npm run build`, serving the `out/` directory, using the Node version pinned in `.nvmrc`. `public/_redirects` holds the 301 redirects for URLs removed or moved during the redesign.
 
 GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build, the size budget check, and end-to-end tests on every push to `main` and every pull request. It only checks — it does not deploy.
+
+---
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
