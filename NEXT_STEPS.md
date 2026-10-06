@@ -1,5 +1,14 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-02._
+_State refreshed: 2026-10-06._
+
+## Pricing review — 2026-10-06
+The [issue #18 review ledger](docs/reviews/2026-10-06-pricing-18.md) accounts for all 127 follow-up
+entries (120 distinct pricing URLs): 21 corrected, 91 verified unchanged, and 15 unresolved.
+Corrections include Neon storage, Firebase Spark versus Blaze limits, v0 credit renewal,
+Gemini paid-tier grounding, Appetize quotas, and RapidAPI billing risks. Pipedream's announced
+March 31, 2027 Workflows/String shutdown is recorded; Connect remains supported.
+Unresolved access and quota details are listed individually; keep #18 open for those follow-ups.
+Verification dates on unchanged or unresolved entries were preserved.
 
 ## What this is
 A decision-first atlas of free-tier offerings for developers and tools, rated

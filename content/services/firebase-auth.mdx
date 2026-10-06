@@ -23,24 +23,27 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Email/password, anonymous, and social sign-in are included at no cost on
-    the Spark plan. Phone/SMS verification needs the paid Blaze plan.
+    Email/password, anonymous, and social sign-in are included at no cost on the Spark plan. Phone/SMS
+    verification needs the paid Blaze plan.
   limits:
     - Email/password, anonymous, and social sign-in at no cost
     - Phone/SMS verification requires the Blaze (pay-as-you-go) plan
-    - '150 password reset emails/day on Spark'
-    - 'With Identity Platform: 50,000 MAUs/month at no cost'
-    - 'With Identity Platform (SAML/OIDC): 50 MAUs/month at no cost'
+    - 150 password reset emails/day on Spark
+    - 'Identity Platform on Spark: 3,000 tier-1 daily active users'
+    - 'Identity Platform on Spark: 2 tier-2 (SAML/OIDC) daily active users'
+    - 'Identity Platform on Blaze: 50,000 tier-1 and 50 SAML/OIDC monthly active users at no cost'
   caveats:
-    - Phone/SMS auth needs a billing account attached; SMS is billed per message and not free on Spark.
-    - Enterprise SSO (Identity Platform) has separate MAU-based pricing.
-  resetPeriod: monthly
+    - >-
+      Phone/SMS auth needs a billing account attached; SMS is billed per message and not free on
+      Spark.
+    - The monthly Identity Platform allowances apply to Blaze; Spark has separate daily limits.
+  resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: medium
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
-    - Phone/SMS overages are billed per message once on the Blaze plan.
+    - Upgrading to Blaze enables paid usage, including phone/SMS charges.
 useCases:
   - Add user authentication to web or mobile apps
   - 'Enable social login (Google, Facebook, etc.)'
@@ -69,17 +72,21 @@ avoidIf:
 difficulty: beginner
 productionReadiness: production-light
 status: changed
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-06
+lastUpdated: 2026-10-06
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/auth'
 docsUrl: 'https://firebase.google.com/docs/auth'
 pricingUrl: 'https://firebase.google.com/pricing'
 sourceUrls:
+  - "https://firebase.google.com/docs/auth/limits"
   - 'https://firebase.google.com/pricing'
   - 'https://firebase.google.com/docs/auth'
 changes:
+  - date: 2026-10-06
+    kind: changed
+    note: "Separated Identity Platform Spark daily limits from Blaze monthly allowances and clarified Spark billing protection."
   - date: 2024-09-01
     kind: changed
     note: Phone/SMS verification moved off the free Spark plan; it now requires the Blaze plan and billing, with SMS billed per message.
