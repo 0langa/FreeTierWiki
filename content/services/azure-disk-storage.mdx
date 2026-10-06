@@ -20,22 +20,25 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Azure offers two 64 GiB (P6) Premium SSD managed disks (locally-redundant)
+    Azure offers two 64 GiB (P6) Premium SSD managed disks
     free for 12 months for new customers, intended to pair with the free VMs.
   limits:
-    - '2x 64 GiB (P6) Premium SSD managed disks, LRS'
+    - 2x 64 GiB (P6) Premium SSD managed disks
     - 12 months duration
     - New Azure free account customers only
   caveats:
     - Only available to new Azure accounts
     - Charges apply after free limit or 12 months
+    - Continuing the first-year benefits requires moving the free account to pay-as-you-go within 30 days
+    - The free benefit's exact redundancy configuration remains unverified; confirm eligible settings before deployment
   resetPeriod: monthly
   requiresCard: true
   freeTierType: time-limited
-  hasHardCap: true
-  overageRisk: medium
+  hasHardCap: false
+  overageRisk: high
   billingRiskNotes:
-    - Exceeding the free limit or continuing after 12 months incurs charges
+    - Before upgrading, services stop when the initial credit expires or runs out
+    - After upgrading to pay-as-you-go, excess usage, ineligible resources, and continued use after 12 months incur charges
   trialDays: 365
 useCases:
   - Persistent storage for Azure VMs
@@ -46,13 +49,13 @@ quickstartSteps:
   - Sign up for an Azure account and activate the free tier.
   - Navigate to the Azure Portal and select 'Create a resource'.
   - Search for and select 'Managed Disks'.
-  - Configure disk size (up to 32 GB Standard SSD for free tier) and settings.
+  - Select an eligible 64 GiB P6 Premium SSD and confirm the free-account benefit and redundancy settings in Azure Portal.
   - Attach the disk to a virtual machine or use as standalone storage.
 whenToUse: >-
   Use when you need reliable, persistent block storage for Azure virtual
   machines or workloads with moderate performance needs.
 whenNotToUse: >-
-  Avoid if you need object storage, require more than 32 GB free, or plan to run
+  Avoid if you need object storage, require more than two 64 GiB disks free, or plan to run
   outside Azure's ecosystem.
 bestFor:
   - Azure VM storage
@@ -64,12 +67,20 @@ avoidIf:
   - non-Azure environments
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-26
+status: changed
+changes:
+  - date: 2026-10-06
+    kind: changed
+    note: Corrected the 32 GB Standard SSD guidance and post-upgrade billing risk; exact free-benefit redundancy remains unverified.
+lastUpdated: 2026-10-06
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types'
 sourceUrls:
+  - 'https://marketplace.microsoft.com/en-us/product/azure-services/microsoft.freeaccountvirtualmachine-linux?tab=Overview'
+  - 'https://azure.microsoft.com/en-us/pricing/free-services/'
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
   - 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
   - 'https://azure.microsoft.com/en-us/free/'
 featured: false
