@@ -22,20 +22,23 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Basic plan on RapidAPI offers 100 requests per month at up to 5
-    requests/second, no credit card required.
+    Basic plan on RapidAPI includes 100 requests/month with a hard request cap and a 5-request/second
+    limit. A card is required for the freemium plan, and bandwidth overages can be billed.
   limits:
-    - '100 requests/month'
-    - '5 requests/second rate limit'
+    - 100 requests/month
+    - 5 requests/second rate limit
     - Proxy and cookie sessions included
+    - 10,240 MB/month bandwidth, then $0.001 per MB
   caveats:
     - Requires a RapidAPI account to get an API key
-    - Going over the free plan needs an upgrade to a paid plan
+    - The request quota has a hard limit, but the separate bandwidth quota has an overage fee
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: high
+  billingRiskNotes:
+    - The Basic plan lists paid bandwidth overages even though requests stop at 100/month.
 useCases:
   - Bypass IP bans for web scraping
   - Test scraping scripts with rotating proxies
@@ -62,14 +65,20 @@ avoidIf:
   - strict uptime needs
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-30
-lastVerified: 2026-09-30
+status: changed
+changes:
+  - date: 2026-10-06
+    kind: changed
+    note: "Corrected the no-card/no-overage claim: RapidAPI freemium billing and a separate bandwidth fee apply."
+lastUpdated: 2026-10-06
+lastVerified: 2026-10-06
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2'
 docsUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2/details'
 pricingUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2/pricing'
 sourceUrls:
+  - https://docs.rapidapi.com/v2.0.0/docs/api-pricing
   - 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2/pricing'
 featured: false
 ---

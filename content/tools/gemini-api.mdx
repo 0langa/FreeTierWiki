@@ -25,18 +25,21 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier offers free input and output tokens with limited access to
-    certain models via Google AI Studio, plus 5,000 free Google Search and
-    Google Maps grounding requests per month.
+    Free input and output tokens on selected Gemini API models, with model-specific rate limits.
+    Grounding availability depends on the model and billing tier.
   limits:
     - Free input and output tokens on supported models
     - Limited access to certain models
-    - '5,000 free Google Search grounding requests/month, shared across Gemini 3.x models'
-    - '5,000 free Google Maps grounding prompts/month, shared across Gemini 3.x models'
+    - Model-specific request and token limits
   caveats:
     - Content sent on the free tier is used to improve Google's products
-    - Exact rate limits vary by usage tier and are shown in Google AI Studio, not published on the pricing page
-  resetPeriod: monthly
+    - >-
+      Exact rate limits vary by usage tier and are shown in Google AI Studio, not published on the
+      pricing page
+    - >-
+      The Gemini 3.x 5,000-request monthly Search and Maps grounding allowances are Paid Tier
+      benefits; billing is required and excess usage is charged.
+  resetPeriod: model-specific
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -69,8 +72,13 @@ avoidIf:
   - large-scale free usage
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+status: changed
+changes:
+  - date: 2026-10-06
+    kind: changed
+    note: "Removed Gemini 3.x paid-tier grounding allowances from the free-tier limits."
+lastUpdated: 2026-10-06
+lastVerified: 2026-10-06
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://ai.google.dev/pricing'
