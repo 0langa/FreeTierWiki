@@ -82,9 +82,10 @@ export function toListItem(entry: AtlasEntry, now: Date): ListItem {
   };
 }
 
+/** Other live entries in the same category, safest first. Ended offers are never suggested. */
 export function relatedItems(entry: AtlasEntry, all: AtlasEntry[], now: Date, limit = 4): ListItem[] {
   return all
-    .filter((other) => other.domain === entry.domain && other.id !== entry.id)
+    .filter((other) => other.domain === entry.domain && other.id !== entry.id && other.status !== "ended")
     .map((other) => toListItem(other, now))
     .sort(compareSafety)
     .slice(0, limit);
