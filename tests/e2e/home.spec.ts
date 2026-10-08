@@ -17,6 +17,24 @@ test("home shows the promise, popular picks, jobs, categories, and the changelog
   await expect(page.getByRole("region", { name: "Recently added" })).toHaveCount(0);
 });
 
+test("the hero card clips long limit lines inside its box", async ({ page }) => {
+  await page.goto("/");
+  const card = page.getByRole("region", { name: /^(Common first picks|Most visited)$/ });
+  const box = await card.boundingBox();
+  expect(box).not.toBeNull();
+  for (const link of await card.getByRole("link").all()) {
+    const linkBox = await link.boundingBox();
+    expect(linkBox).not.toBeNull();
+    expect(linkBox!.x + linkBox!.width).toBeLessThanOrEqual(box!.x + box!.width + 1);
+    // The limit line itself must stay inside the row, not spill past the card edge.
+    const spill = await link.evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return Math.max(0, ...[...el.querySelectorAll("span")].map((s) => s.getBoundingClientRect().right - r.right));
+    });
+    expect(spill).toBeLessThanOrEqual(1);
+  }
+});
+
 test("a quick chip opens the filtered explorer", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: "No card needed" }).click();

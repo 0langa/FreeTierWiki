@@ -13,7 +13,7 @@ import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FEED_ALTERNATE } from "@/lib/feed";
 import { formatDay, formatMonth } from "@/lib/format";
 import { latestChanges, topCategories } from "@/lib/home-data";
-import { mostVisited } from "@/lib/popular-view";
+import { mostVisited, shortOffer } from "@/lib/popular-view";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/", types: FEED_ALTERNATE },
@@ -107,13 +107,13 @@ export default async function HomePage() {
             <ol className="divide-y divide-line">
               {visited.map((item) => (
                 <li key={item.id}>
-                  <Link href={item.url} className="group grid gap-0.5 py-2.5">
+                  <Link href={item.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-0.5 py-2.5">
                     <span className="text-xs text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
-                    <span className="flex items-baseline justify-between gap-3">
+                    <span className="flex min-w-0 items-baseline justify-between gap-3">
                       <span className="shrink-0 font-semibold group-hover:underline">{item.title}</span>
-                      {item.offer[0] ? (
+                      {shortOffer(item.offer) ? (
                         <span className="min-w-0 truncate text-right font-mono text-[12.5px] text-ink-2">
-                          <OfferText text={item.offer[0]} />
+                          <OfferText text={shortOffer(item.offer)!} />
                         </span>
                       ) : null}
                     </span>
@@ -131,9 +131,9 @@ export default async function HomePage() {
             <ul className="divide-y divide-line">
               {picks.map((pick) => (
                 <li key={pick.slug}>
-                  <Link href={pick.entry.url} className="group grid gap-0.5 py-2.5">
+                  <Link href={pick.entry.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-0.5 py-2.5">
                     <span className="text-xs text-ink-3">{pick.need}</span>
-                    <span className="flex items-baseline justify-between gap-3">
+                    <span className="flex min-w-0 items-baseline justify-between gap-3">
                       <span className="shrink-0 font-semibold group-hover:underline">{pick.entry.title}</span>
                       <span className="min-w-0 truncate text-right font-mono text-[12.5px] text-ink-2">
                         <OfferText text={pick.text} />

@@ -4,7 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { parsePopular, readPopular } from "@/lib/popular-file";
-import { mostVisited } from "@/lib/popular-view";
+import { mostVisited, shortOffer } from "@/lib/popular-view";
 import { dayWindows, rankEntryPaths, rowsFromResponse } from "../../scripts/popular/lib/rank.mjs";
 import { makeItem } from "../support/fixtures";
 
@@ -80,6 +80,14 @@ describe("readPopular", () => {
     const file = path.join(dir, "popular.json");
     fs.writeFileSync(file, JSON.stringify({ updated: "2026-10-13", days: 7, paths: ["/services/neon/"] }));
     expect(await readPopular(file)).toEqual({ updated: "2026-10-13", days: 7, paths: ["/services/neon/"] });
+  });
+});
+
+describe("shortOffer", () => {
+  it("prefers the first limit that fits one row, else falls back to the first", () => {
+    expect(shortOffer(["Public developer docs and technical blogs only, free for approved sites", "1 GB storage"])).toBe("1 GB storage");
+    expect(shortOffer(["A very long sentence that does not fit in the card at all, really"])).toMatch(/^A very long/);
+    expect(shortOffer([])).toBeUndefined();
   });
 });
 
