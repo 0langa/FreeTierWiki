@@ -13,7 +13,7 @@ import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FEED_ALTERNATE } from "@/lib/feed";
 import { formatDay, formatMonth } from "@/lib/format";
 import { latestChanges, topCategories } from "@/lib/home-data";
-import { mostVisited, shortOffer } from "@/lib/popular-view";
+import { mostVisited } from "@/lib/popular-view";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/", types: FEED_ALTERNATE },
@@ -107,16 +107,21 @@ export default async function HomePage() {
             <ol className="divide-y divide-line">
               {visited.map((item) => (
                 <li key={item.id}>
-                  <Link href={item.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-0.5 py-2.5">
-                    <span className="text-xs text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
+                  <Link href={item.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-2.5">
                     <span className="flex min-w-0 items-baseline justify-between gap-3">
-                      <span className="shrink-0 font-semibold group-hover:underline">{item.title}</span>
-                      {shortOffer(item.offer) ? (
-                        <span className="min-w-0 truncate text-right font-mono text-[12.5px] text-ink-2">
-                          <OfferText text={shortOffer(item.offer)!} />
-                        </span>
-                      ) : null}
+                      <span className="truncate font-semibold group-hover:underline">{item.title}</span>
+                      <span className="shrink-0 text-xs text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
                     </span>
+                    {item.offer.length > 0 ? (
+                      <span className="line-clamp-2 font-mono text-[12.5px] leading-5 text-ink-2">
+                        {item.offer.slice(0, 2).map((part, index) => (
+                          <span key={index}>
+                            {index > 0 ? " · " : ""}
+                            <OfferText text={part} />
+                          </span>
+                        ))}
+                      </span>
+                    ) : null}
                   </Link>
                 </li>
               ))}
@@ -131,13 +136,13 @@ export default async function HomePage() {
             <ul className="divide-y divide-line">
               {picks.map((pick) => (
                 <li key={pick.slug}>
-                  <Link href={pick.entry.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-0.5 py-2.5">
-                    <span className="text-xs text-ink-3">{pick.need}</span>
+                  <Link href={pick.entry.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-2.5">
                     <span className="flex min-w-0 items-baseline justify-between gap-3">
-                      <span className="shrink-0 font-semibold group-hover:underline">{pick.entry.title}</span>
-                      <span className="min-w-0 truncate text-right font-mono text-[12.5px] text-ink-2">
-                        <OfferText text={pick.text} />
-                      </span>
+                      <span className="truncate font-semibold group-hover:underline">{pick.entry.title}</span>
+                      <span className="shrink-0 text-xs text-ink-3">{pick.need}</span>
+                    </span>
+                    <span className="line-clamp-2 font-mono text-[12.5px] leading-5 text-ink-2">
+                      <OfferText text={pick.text} />
                     </span>
                   </Link>
                 </li>
@@ -195,68 +200,64 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className={`mt-14 grid gap-8 ${safePicks.length >= 3 ? "lg:grid-cols-[1.25fr_1fr]" : ""}`}>
-        {safePicks.length >= 3 ? (
-          <section aria-labelledby="safe-title">
-            <h2 id="safe-title" className="text-xl font-semibold tracking-tight">
-              Safe places to start
-            </h2>
-            <p className="mb-4 mt-0.5 text-[13px] text-ink-3">Checked recently · no card · hard cap</p>
-            <div className="grid gap-3">
-              {safePicks.map((item) => (
-                <Link key={item.id} href={item.url} className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 rounded-xl border border-line bg-surface px-[18px] py-4 hover:border-ink-3">
-                  <span>
-                    <span className="block font-semibold">{item.title}</span>
-                    <span className="text-[13px] text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
-                  </span>
-                  <RiskPill risk={item.risk} />
-                  <span className="col-span-2 font-mono text-[13px] text-ink-2">
-                    {item.offer.map((part, index) => (
-                      <span key={index}>
-                        {index > 0 ? " · " : ""}
-                        <OfferText text={part} />
-                      </span>
-                    ))}
-                  </span>
-                  <span className="col-span-2">
-                    <FreshnessLabel freshness={item.freshness} />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        <section aria-labelledby="changelog-title" role="region">
-          <div className="flex items-baseline justify-between gap-4">
-            <h2 id="changelog-title" className="text-xl font-semibold tracking-tight">
-              Free tier changelog
-            </h2>
-            <Link href="/changelog/" className="text-sm text-ink-2 hover:text-ink">
-              All →
-            </Link>
+      {safePicks.length >= 3 ? (
+        <section className="mt-14" aria-labelledby="safe-title">
+          <h2 id="safe-title" className="text-xl font-semibold tracking-tight">
+            Safe places to start
+          </h2>
+          <p className="mb-4 mt-0.5 text-[13px] text-ink-3">Checked recently · no card · hard cap</p>
+          <div className="grid gap-3 md:grid-cols-3">
+            {safePicks.map((item) => (
+              <Link key={item.id} href={item.url} className="grid grid-cols-[1fr_auto] content-start gap-x-4 gap-y-1.5 rounded-xl border border-line bg-surface px-[18px] py-4 hover:border-ink-3">
+                <span>
+                  <span className="block font-semibold">{item.title}</span>
+                  <span className="text-[13px] text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
+                </span>
+                <RiskPill risk={item.risk} />
+                <span className="col-span-2 font-mono text-[13px] text-ink-2">
+                  {item.offer.map((part, index) => (
+                    <span key={index}>
+                      {index > 0 ? " · " : ""}
+                      <OfferText text={part} />
+                    </span>
+                  ))}
+                </span>
+                <span className="col-span-2">
+                  <FreshnessLabel freshness={item.freshness} />
+                </span>
+              </Link>
+            ))}
           </div>
-          <p className="mb-4 mt-0.5 text-[13px] text-ink-3">Plans that changed or ended, newest first</p>
-          {changes.length > 0 ? (
-            <ol className="divide-y divide-line rounded-xl border border-line bg-surface">
-              {changes.map((change) => (
-                <li key={`${change.url}-${change.date}`} className="grid grid-cols-[76px_1fr] gap-x-3 gap-y-1 px-[18px] py-3.5">
-                  <span className="font-mono text-xs font-medium leading-7 text-ink-3">{formatMonth(change.date)}</span>
-                  <span className="flex flex-wrap items-center gap-2 text-[14.5px] font-semibold">
-                    <Link href={change.url} className="hover:underline">
-                      {change.title}
-                    </Link>
-                    <ChangePill kind={change.kind} />
-                  </span>
-                  <p className="col-start-2 text-[13.5px] text-ink-2">{change.note}</p>
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <p className="rounded-xl border border-dashed border-line p-6 text-sm text-ink-3">No changes recorded yet.</p>
-          )}
         </section>
-      </div>
+      ) : null}
+
+      {/* A footnote, not a feature: the few plans that changed or ended lately. The changelog page has the rest. */}
+      <section aria-labelledby="changelog-title" role="region" className="mt-16 border-t border-line pt-6">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h2 id="changelog-title" className="text-[15px] font-semibold">
+            Free tier changelog
+          </h2>
+          <Link href="/changelog/" className="text-[13px] text-ink-2 hover:text-ink">
+            All changes →
+          </Link>
+        </div>
+        {changes.length > 0 ? (
+          <ol className="mt-3 grid gap-x-8 gap-y-2 text-[13.5px] md:grid-cols-2">
+            {changes.map((change) => (
+              <li key={`${change.url}-${change.date}`} className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <span className="shrink-0 font-mono text-xs text-ink-3">{formatMonth(change.date)}</span>
+                <Link href={change.url} className="font-semibold hover:underline">
+                  {change.title}
+                </Link>
+                <ChangePill kind={change.kind} />
+                <span className="w-full truncate text-ink-3 md:w-auto md:flex-1">{change.note}</span>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="mt-3 text-sm text-ink-3">No changes recorded yet.</p>
+        )}
+      </section>
 
     </>
   );

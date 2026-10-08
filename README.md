@@ -10,7 +10,7 @@
 
 ### Home
 
-The home page is built for a first visit: a search box, quick filter chips, "Most visited" (the entries real visitors opened in the last 30 days, from Cloudflare; until that list exists, a hand-picked "Common first picks" card), "Pick by job" (one card per comparison table), browsing by category, "Safe places to start", and a short changelog of plans that changed or ended. New entries and removed listings stay on the changelog page.
+The home page is built for a first visit: a search box, quick filter chips, "Most visited" (the entries real visitors opened in the last 30 days, from Cloudflare; until that list exists, a hand-picked "Common first picks" card), "Pick by job" (one card per comparison table), browsing by category, "Safe places to start", and, as a footnote at the bottom, the latest plans that changed or ended. New entries and removed listings stay on the changelog page.
 
 ### Explorer
 
