@@ -8,7 +8,9 @@ a "Pick by job" grid with one card per comparison table (`liveComparisons` in
 `changed` and `ended` rows. The "Recently added" grid is gone; new entries and removed listings
 stay on `/changelog/`. Entry pages: the facts label now comes right after the title on a phone
 (the buttons moved below it), and a "Compared in" row links to every comparison table the entry
-is in (`comparisonsFor`). Tests: `tests/unit/comparison-view.test.ts`, home and detail e2e specs.
+is in (`comparisonsFor`). Tests: `tests/unit/comparison-view.test.ts`, home and detail e2e specs. The hero card is now called
+"Common first picks" because it is hand-picked (`POPULAR_PICKS`), not scored by visits. Open: replace
+it with a "Most visited" list fed by Cloudflare zone analytics once an API token exists.
 
 ## Where things stand — 2026-10-08 (read this first)
 Main is clean, deployed, and tagged `v1.1.0`. Eleven PRs merged on 2026-10-08 (#21–#31): OCR.space

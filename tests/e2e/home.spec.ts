@@ -4,7 +4,7 @@ test("home shows the promise, popular picks, jobs, categories, and the changelog
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Free tiers, with the fine print.");
   await expect(page.getByText("Every entry is checked against its official pricing page")).toBeVisible();
-  await expect(page.getByRole("region", { name: "Popular free picks" }).getByRole("link").first()).toBeVisible();
+  await expect(page.getByRole("region", { name: "Common first picks" }).getByRole("link").first()).toBeVisible();
   await expect(page.getByRole("region", { name: "Pick by job" }).getByRole("link", { name: /^Postgres hosting/ })).toHaveAttribute(
     "href",
     "/compare/postgres-hosting/",

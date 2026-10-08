@@ -10,7 +10,7 @@
 
 ### Home
 
-The home page is built for a first visit: a search box, quick filter chips, "Popular free picks" (one well-known free plan per common need), "Pick by job" (one card per comparison table), browsing by category, "Safe places to start", and a short changelog of plans that changed or ended. New entries and removed listings stay on the changelog page.
+The home page is built for a first visit: a search box, quick filter chips, "Common first picks" (one hand-picked, well-known free plan per common need), "Pick by job" (one card per comparison table), browsing by category, "Safe places to start", and a short changelog of plans that changed or ended. New entries and removed listings stay on the changelog page.
 
 ### Explorer
 

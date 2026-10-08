@@ -28,7 +28,7 @@ const QUICK_LINKS = [
   { href: "/category/storage/", label: "Storage" },
 ];
 
-// Common first needs, each with a well-known free plan. `limit` picks which limit line to show;
+// Hand-picked, not scored: common first needs, each with a well-known free plan. `limit` picks which limit line to show;
 // `short` replaces a limit line that is too long for one row.
 const POPULAR_PICKS: { need: string; slug: string; limit: number; short?: string }[] = [
   { need: "Postgres database", slug: "neon", limit: 2 },
@@ -94,9 +94,9 @@ export default async function HomePage() {
         {picks.length > 0 ? (
           <section aria-labelledby="picks-title" className="rounded-2xl border border-line bg-surface p-5">
             <h2 id="picks-title" className="text-[15px] font-semibold">
-              Popular free picks
+              Common first picks
             </h2>
-            <p className="mb-3 mt-0.5 text-[13px] text-ink-3">A good first choice for common needs</p>
+            <p className="mb-3 mt-0.5 text-[13px] text-ink-3">One well-known free plan per need, picked by hand</p>
             <ul className="divide-y divide-line">
               {picks.map((pick) => (
                 <li key={pick.slug}>
