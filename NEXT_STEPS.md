@@ -1,7 +1,7 @@
 # FreeTierWiki — Status & Roadmap
 _State refreshed: 2026-10-08._
 
-## Visitor-first pass — 2026-10-08 (uncommitted)
+## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),
 a "Pick by job" grid with one card per comparison table (`liveComparisons` in
 `src/lib/comparison-view.ts`, shared with `/compare/`), and the home changelog now lists only

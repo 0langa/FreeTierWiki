@@ -68,7 +68,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="grid items-center gap-14 pb-10 pt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:pt-[72px]">
+      <section className="grid items-start gap-14 pb-10 pt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:pt-[72px]">
         <div>
           <p className="eyebrow">{activeCount} free plans for developers</p>
           <h1 className="mt-4 max-w-[14ch] text-[38px] font-bold leading-[1.02] tracking-tight sm:text-[56px]">
@@ -105,8 +105,9 @@ export default async function HomePage() {
               What people opened in the last {popular.days} days · updated {formatDay(popular.updated)}
             </p>
             <ol className="divide-y divide-line">
-              {visited.map((item) => (
-                <li key={item.id}>
+              {visited.map((item, index) => (
+                // Phones see five rows, so "Pick by job" stays within one scroll; desktop has room for eight.
+                <li key={item.id} className={index >= 5 ? "hidden lg:block" : undefined}>
                   <Link href={item.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-2.5">
                     <span className="flex min-w-0 items-baseline justify-between gap-3">
                       <span className="truncate font-semibold group-hover:underline">{item.title}</span>
@@ -134,8 +135,8 @@ export default async function HomePage() {
             </h2>
             <p className="mb-3 mt-0.5 text-[13px] text-ink-3">One well-known free plan per need, picked by hand</p>
             <ul className="divide-y divide-line">
-              {picks.map((pick) => (
-                <li key={pick.slug}>
+              {picks.map((pick, index) => (
+                <li key={pick.slug} className={index >= 5 ? "hidden lg:block" : undefined}>
                   <Link href={pick.entry.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-2.5">
                     <span className="flex min-w-0 items-baseline justify-between gap-3">
                       <span className="truncate font-semibold group-hover:underline">{pick.entry.title}</span>
