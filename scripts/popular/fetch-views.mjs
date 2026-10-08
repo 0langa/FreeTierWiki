@@ -5,7 +5,8 @@
 // on. The raw request log counted every crawler and was 99 percent bots.
 // Usage: CLOUDFLARE_API_TOKEN=... node scripts/popular/fetch-views.mjs [--host freetier.wiki] [--days 30] [--out content/popular.json]
 // The token needs "Account / Account Analytics / Read" on the account that owns the Web Analytics site.
-// Optional: CLOUDFLARE_ACCOUNT_ID skips the account lookup, CLOUDFLARE_SITE_TAG skips the site lookup.
+// Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_SITE_TAG to skip the lookups; the site lookup endpoint needs
+// permissions beyond analytics read, so the workflow always passes both.
 import fs from "node:fs";
 import path from "node:path";
 

@@ -16,8 +16,9 @@ ordered entry paths — never counts — to main (`scripts/popular/fetch-views.m
 `src/lib/popular-file.ts`, `src/lib/popular-view.ts`). Until 2026-10-09 it read the raw request log
 (`httpRequestsAdaptiveGroups`), which was 99 percent crawlers, so the list ranked what bots fetched.
 It needs the repository secret `CLOUDFLARE_API_TOKEN` (Account/Account Analytics/Read on the account
-that owns the Web Analytics site) and, optionally, the repository variable `CLOUDFLARE_ACCOUNT_ID`;
-without the token the job ends early. Until the first run the hand-picked "Common first picks" card
+that owns the Web Analytics site) plus the repository variables `CLOUDFLARE_ACCOUNT_ID` and
+`CLOUDFLARE_SITE_TAG` (the site-lookup endpoint needs more than analytics read); without the token
+the job ends early. Until the first run the hand-picked "Common first picks" card
 (`POPULAR_PICKS`) shows instead.
 
 ## Where things stand — 2026-10-08 (read this first)

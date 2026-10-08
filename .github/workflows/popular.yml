@@ -6,7 +6,9 @@ name: Weekly most-visited list
 # stored, never counts, so neither the repo nor the site reveals traffic numbers. The push to main makes
 # Cloudflare Pages rebuild the site.
 # Needs the repository secret CLOUDFLARE_API_TOKEN (Account / Account Analytics / Read on the account
-# that owns the Web Analytics site). Without it the job ends early and changes nothing.
+# that owns the Web Analytics site) and the repository variables CLOUDFLARE_ACCOUNT_ID and
+# CLOUDFLARE_SITE_TAG (the Web Analytics site tag, visible in the beacon on every page; the lookup
+# endpoint needs more permissions than the token has). Without the token the job ends early.
 
 on:
   schedule:
@@ -52,6 +54,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_SITE_TAG: ${{ vars.CLOUDFLARE_SITE_TAG }}
         run: node scripts/popular/fetch-views.mjs --host freetier.wiki --days 30 --out content/popular.json
 
       - name: Commit the list
