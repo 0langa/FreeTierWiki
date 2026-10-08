@@ -154,8 +154,10 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   the filter code. Cheap win applied: the three mono font files are no longer preloaded (45 KB less
   before first paint). "No compression" in the report is a headless-Chrome artefact: the live HTML
   is 10 KB with brotli (75 KB plain). Left alone: 14 KB of polyfills in a Next chunk, 12 KB unused
-  CSS. Done the same day: the explorer fetches `explorer.json` after first paint (idle callback)
-  or on the first search, filter, or non-default URL, so the pre-rendered 50 rows paint first.
+  CSS. Tried the same day and reverted: fetching `explorer.json` on idle instead of at mount. Four
+  live runs: blocking time went up (410–660 ms vs 210–350 ms), LCP unchanged at about 4 s. The cost
+  is parsing and ranking 705 rows plus five facet counts, not the download. A real fix would ship
+  precomputed facet counts and a smaller first payload; not started.
 - Done 2026-10-08: the changelog has All / New / Changed / Removed filters (Ended appears once an
   entry records that change). Radio inputs plus CSS `:has()`, no JavaScript; rows carry `data-kind`.
 - Already done (since the Phase 1 explorer, checked 2026-10-08): filters live in the URL

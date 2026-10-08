@@ -49,23 +49,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
     setWrittenQ(query.q);
   }
 
-  // The first 50 rows are already in the HTML. Fetch the full list after first paint (idle), or
-  // right away when the URL carries a query or the visitor starts to search or filter.
-  const [woken, setWoken] = React.useState(false);
-  const wake = React.useCallback(() => setWoken(true), []);
-  const wantItems = woken || !isDefaultQuery(query);
   React.useEffect(() => {
-    if (wantItems) return;
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(() => setWoken(true), { timeout: 2500 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const id = window.setTimeout(() => setWoken(true), 1500);
-    return () => window.clearTimeout(id);
-  }, [wantItems]);
-
-  React.useEffect(() => {
-    if (!wantItems) return;
     let cancelled = false;
     fetch("/data/explorer.json")
       .then((response) => {
@@ -81,7 +65,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
     return () => {
       cancelled = true;
     };
-  }, [wantItems]);
+  }, []);
 
   const navigate = React.useCallback(
     (next: ExplorerQuery, mode: "push" | "replace" = "push") => {
@@ -135,7 +119,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
 
   return (
     <div className="grid gap-10 pt-6 lg:grid-cols-[244px_minmax(0,1fr)] lg:pt-8">
-      <aside aria-label="Filters" className="hidden lg:block" onPointerEnter={wake} onFocus={wake}>
+      <aside aria-label="Filters" className="hidden lg:block">
         <div className="sticky top-20">
           <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
         </div>
@@ -150,7 +134,6 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
             type="search"
             value={text}
             onChange={(event) => setText(event.target.value)}
-            onFocus={wake}
             placeholder="Search name, provider, or need…"
             aria-label="Search the explorer"
             className="h-full w-full bg-transparent outline-none placeholder:text-ink-3"
@@ -161,10 +144,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
         <div className="mt-3.5 flex flex-wrap items-center gap-2 text-sm text-ink-2">
           <button
             type="button"
-            onClick={() => {
-              wake();
-              setSheetOpen(true);
-            }}
+            onClick={() => setSheetOpen(true)}
             aria-haspopup="dialog"
             aria-expanded={sheetOpen}
             className="btn lg:hidden"
