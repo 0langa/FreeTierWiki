@@ -12,7 +12,7 @@ Open work, in the order I would do it:
 2. More comparison topics in `content/comparisons.json`. 13 exist (2026-10-08). Redis/KV was skipped:
    only four live entries. Ideas: search APIs, vector databases, status pages, feature flags.
 3. Changelog Ended/Changed/New filters (see "Also worth doing").
-4. Lighthouse against the live domain.
+4. Lighter explorer first paint (Lighthouse perf 80 there, 92–94 elsewhere).
 
 Gates for any change: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`,
 `npm run check:budget`, `npm run test:e2e` (needs the build in `out/`). CI runs the same.
@@ -148,9 +148,14 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 - Done 2026-10-08: the search box and the phone filter sheet use a native `<dialog>`
   (`src/components/ui/modal.tsx`). `@base-ui/react` is gone. Home JS went from 170.7 KB to 150.4 KB
   (gzip).
-- Re-run Lighthouse against the live `freetier.wiki` domain after deploy (last run was against the
-  local server, uncompressed: Performance 71, Accessibility 100, SEO 100 on `/` and
-  `/services/supabase/`).
+- Done 2026-10-08: Lighthouse 13 (mobile, headless) against the live domain. Performance / A11y /
+  Best practices / SEO: home 92/100/100/100, `/services/supabase/` 94/100/100/100,
+  `/compare/postgres-hosting/` 94/100/100/100, `/explorer/` 80/100/100/100. LCP is the `h1` text at
+  about 3.0 s; the explorer is slower (LCP 4.0 s, TBT 240 ms) because it loads `explorer.json` and
+  the filter code. Cheap win applied: the three mono font files are no longer preloaded (45 KB less
+  before first paint). "No compression" in the report is a headless-Chrome artefact: the live HTML
+  is 10 KB with brotli (75 KB plain). Left alone: 14 KB of polyfills in a Next chunk, 12 KB unused
+  CSS. Next real win would be a lighter explorer first paint.
 - Turn the changelog's Ended/Changed/New filters back on once the list is long enough to need them
   (postponed in Phase 1).
 - Already done (since the Phase 1 explorer, checked 2026-10-08): filters live in the URL
@@ -178,4 +183,4 @@ the rest of that audit is done.)
 
 ## Effort to next milestone
 Phases 1–4 and the first pricing review are done. What is left is small and incremental: the weekly
-issue, more comparison topics, the changelog filters, and a live Lighthouse run.
+issue, more comparison topics, the changelog filters, and a lighter explorer first paint.
