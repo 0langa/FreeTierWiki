@@ -73,8 +73,8 @@ avoidIf:
   - enterprise compliance needs
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.oracle.com/cloud/free/'
@@ -86,4 +86,42 @@ sourceUrls:
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
 featured: false
 ---
-Oracle Always Free Compute provides two small virtual machines and essential storage at no cost, ideal for learning, prototyping, and lightweight workloads.
+Oracle Cloud's Always Free tier gives every account small virtual machines, storage, and networking that do not expire. This page covers the compute part.
+
+## What the free plan gives you
+
+Every Oracle Cloud account gets Always Free resources in its home region for the life of the account. For compute, you get up to two AMD VMs on the VM.Standard.E2.1.Micro shape. Each has 1/8th of an OCPU, 1 GB of memory, and up to 50 Mbps of internet bandwidth.
+
+You also get Arm capacity on the VM.Standard.A1.Flex shape: 1,500 OCPU hours and 9,000 GB hours per month. That equals 2 OCPUs and 12 GB of memory, as one VM or split into two. Storage is 200 GB of block volume for boot and data volumes combined, plus five volume backups. Outbound data is free up to 10 TB per month, and you get one flexible load balancer at 10 Mbps.
+
+## When you hit a limit
+
+Always Free resources are never billed. To go past the free amounts, you upgrade to a paid account such as Pay As You Go. Oracle then charges only for usage above the Always Free limits.
+
+On a free account, some limits show up as errors. For example, a sixth volume backup fails until you delete an old one. If your home region has no free capacity left, creating a VM fails with "out of host capacity"; try another availability domain or wait. The separate Free Trial gives $300 of credits for up to 30 days. When it ends, paid resources made with those credits are reclaimed unless you upgrade.
+
+## Gotchas
+
+- Oracle can reclaim idle Always Free instances. A VM counts as idle when, over 7 days, CPU use at the 95th percentile, network use, and (on Arm) memory use all stay under 20%.
+- If you have more than 2 OCPUs and 12 GB of Arm capacity when the trial ends, all your Ampere A1 instances are disabled, then deleted after 30 days, unless you upgrade.
+- Choose your home region carefully at sign-up. Always Free compute can only be created there, and the free shapes can run out.
+
+## Alternatives in this atlas
+
+- [Compute Engine e2-micro](/services/compute-engine-e2-micro/): when you want one small always-free VM on Google Cloud in a US region.
+- [Azure Virtual Machines](/services/virtual-machines/): when you only need a VM for your first year and already work in Azure.
+- [Koyeb](/services/koyeb/): when you want to deploy an app from Git without managing a server.
+
+## Questions people ask
+
+### Is Oracle Cloud Always Free really free forever?
+
+Oracle says Always Free resources are free for the life of the account, in your home region. They stay available after the 30-day Free Trial ends.
+
+### Do I need a credit card for Oracle Cloud Free Tier?
+
+Most people need a mobile phone number and a credit card to create an account. Oracle says the card is not charged unless you upgrade.
+
+### Why did Oracle reclaim my Always Free instance?
+
+Oracle reclaims Always Free instances it deems idle over a 7-day period, when CPU, network, and memory use stay under 20%.

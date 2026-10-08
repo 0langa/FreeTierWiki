@@ -22,6 +22,18 @@ Every change must come from the provider's **official** pricing page or docs, no
 5. For a new entry, add a `changes` item with `kind: new` so it shows in the changelog.
 6. Give it real `tags` (for example `database`, `auth`, `email`). Tags feed search.
 
+### The entry body
+
+Under the frontmatter, an entry has a Markdown body of 350 to 700 words with these `##` sections, in this order:
+
+1. **What the free plan gives you**: the limits that matter, each with the number the pricing page shows today (80 to 140 words).
+2. **When you hit a limit**: hard stop, pause, throttle, or a bill. If the page does not say, write "The pricing page does not say" (60 to 120 words).
+3. **Gotchas**: exactly three bullets, only what the source shows.
+4. **Alternatives in this atlas**: two or three links to other entries (`/services/<slug>/` or `/tools/<slug>/`), one line each on when to switch.
+5. **Questions people ask**: exactly three `###` questions, each answered in one to three sentences.
+
+Every number in the body must appear on a page listed in `sourceUrls`, and `sourceUrls` must include the `pricingUrl`. Do not use `<`, `>`, `{`, or `}` in the body; MDX reads them as code. `npm run check:depth` checks the shape. To also check every number against the pages, fetch them first with `npm run verify:evidence -- --ids services/<slug>`, then run `npm run check:depth -- --ids services/<slug> --evidence`. The fetched text stays local under `development/`.
+
 An entry stays only if developers can use it free: an always-free plan, a product-specific credit, or a trial. Paid-only, closed, off-topic, and duplicate entries are removed with `npm run verify:remove`, which adds a redirect and a changelog record.
 
 ## Run the checks
@@ -31,6 +43,7 @@ npm ci
 npm run lint
 npm run typecheck
 npm test
+npm run check:depth
 npm run build
 ```
 

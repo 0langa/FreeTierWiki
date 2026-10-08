@@ -67,7 +67,7 @@ avoidIf:
   - long-running jobs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/workers/'
@@ -76,7 +76,45 @@ sourceUrls:
   - 'https://developers.cloudflare.com/workers/platform/limits/'
   - 'https://developers.cloudflare.com/workers/platform/pricing/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://developers.cloudflare.com/workers/platform/pricing/'
 ---
-Cloudflare Workers enables you to deploy serverless code at the edge with minimal setup, ideal for APIs, webhooks, and lightweight backend logic.
+Cloudflare Workers runs your JavaScript, TypeScript, Python, or WebAssembly code on Cloudflare's network, close to your users. This page covers the Workers Free plan.
+
+## What the free plan gives you
+
+Every Cloudflare account starts on the Workers Free plan. It allows 100,000 requests per day, and the count resets at midnight UTC. Each request gets 10 ms of CPU time. Time spent waiting on the network does not count toward it. Each isolate can use up to 128 MB of memory. A Worker can make 50 subrequests per request and keep 6 outgoing connections open at once.
+
+You can deploy up to 100 Workers and 5 Cron Triggers per account. A Worker can be up to 64 MiB and must start within 1 second. Requests to static assets are free and unlimited. Workers KV is included too: 100,000 reads and 1,000 writes per day, with 1 GB of stored data.
+
+## When you hit a limit
+
+The Free plan never bills you. At the daily limit, the Worker stops running until the count resets at midnight UTC. Each route chooses what happens next. Fail closed returns a Cloudflare 1027 error page. Fail open bypasses the Worker, so requests behave as if no Worker is configured.
+
+A request that uses more than its CPU time or memory ends with Error 1102. For KV, an operation over its daily limit fails with an error. More usage needs the Workers Paid plan, which has a minimum charge of $5 per month.
+
+## Gotchas
+
+- The 10 ms CPU limit is per request. Server-side rendering or parsing large payloads can use 10 to 20 ms. A Worker that goes over again and again is stopped with Error 1102.
+- Subrequests count every fetch in a redirect chain, so 50 per request runs out faster than your code suggests.
+- Request body size depends on your Cloudflare account plan, not the Workers plan; it is 100 MB on Free, and larger requests get a 413 error.
+
+## Alternatives in this atlas
+
+- [Deno Deploy](/services/deno-deploy/): when you would rather have a monthly allowance than a daily one, for Deno or TypeScript code.
+- [Vercel Serverless Functions](/services/vercel-serverless-functions/): when your app already runs on Vercel and is a personal, non-commercial project.
+- [Netlify Functions](/services/netlify-functions/): when your site is on Netlify and you want functions to share its free credits.
+
+## Questions people ask
+
+### Is Cloudflare Workers free?
+
+Yes. Every account gets the Workers Free plan, with 100,000 requests per day and 10 ms of CPU time per request. The paid plan starts at $5 per month.
+
+### What happens when I go over 100,000 requests a day on Cloudflare Workers?
+
+You are not charged. Requests to the Worker fail with Error 1027, or skip the Worker if the route fails open, until the limit resets at midnight UTC.
+
+### Do static assets count toward the Workers request limit?
+
+No. Requests to static assets are free and unlimited. Only requests that run your Worker code count toward the daily limit.

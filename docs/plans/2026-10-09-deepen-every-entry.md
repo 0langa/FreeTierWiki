@@ -5,6 +5,13 @@ visited" list. This file is the whole context a new session needs. Read it, then
 `NEXT_STEPS.md` ("Where things stand — 2026-10-09"), then start. Do not re-derive the decisions
 below; the owner made them.
 
+## Status
+
+- 2026-10-09: Day 0 done (validator, rendering, 5 hand-made entries, gates green). Waiting for the
+  owner's yes before step 2. Note for workers: `npm run verify:evidence -- --ids <ids>` fetches the
+  sources; read excerpts, not whole pages; run `npm run check:depth -- --ids <ids> --evidence`.
+  Alternative lines and FAQ answers must not state numbers the entry's own sources lack.
+
 ## Why
 
 - The site gets about 90 human visits per 30 days (Cloudflare Web Analytics, bots excluded, as of

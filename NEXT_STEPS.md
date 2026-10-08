@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-08._
+_State refreshed: 2026-10-09._
 
 ## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),
@@ -21,7 +21,29 @@ that owns the Web Analytics site) plus the repository variables `CLOUDFLARE_ACCO
 the job ends early. Until the first run the hand-picked "Common first picks" card
 (`POPULAR_PICKS`) shows instead.
 
-## Where things stand — 2026-10-09 (read this first)
+## Deepen sweep, Day 0 — 2026-10-09 (read this first)
+Day 0 of the one-sweep plan (`docs/plans/2026-10-09-deepen-every-entry.md`) is done on branch
+`deepen/day0`; waiting for the owner's yes before the batches.
+- Validator: `scripts/verify/check-depth.mjs` (`npm run check:depth`, now a CI step after `npm test`),
+  rules in `scripts/verify/lib/depth.mjs`, tests in `tests/unit/verify-depth.test.ts` (also runs the
+  shape check over all real content). `--evidence` checks every body number against pages fetched by
+  `scripts/verify/fetch-evidence.mjs` (`npm run verify:evidence`), stored locally under
+  `development/verify/deepen/evidence/`, plus the fetch date against `lastVerified`/`lastUpdated`.
+- Rendering: a body with `##` sections renders without the "Overview" heading, in a region named
+  "About the free plan"; `.prose-lite` styles `h2`, `h3`, and list spacing. New e2e test in
+  `tests/e2e/detail.spec.ts`.
+- Five hand-made entries: `services/supabase`, `services/cloudflare-workers`, `services/koyeb`,
+  `services/oracle-always-free-compute`, `tools/formsubmit-co`. All pass `check:depth --evidence`.
+  Findings: Supabase's FAQ source URL was a 404 (replaced by three billing docs); Koyeb's FAQ says
+  sign-up selects the Pro plan and charges its pro-rated fee after the card check, and bandwidth
+  overage is not charged yet (frontmatter caveats corrected).
+- Gates: lint, typecheck, unit 149 (16 new), build, budget, e2e (67 passed, 5 skipped) all green.
+- Contributor guide (`CONTRIBUTING.md`) documents the body shape and the two commands.
+
+Open items: owner yes on the rendered page; then batches of 100 by domain, up to 6 workers in
+worktrees; `--all` flips on after the last batch.
+
+## Where things stand — 2026-10-09 (earlier)
 Discovery day. Real traffic measured for the first time: about 90 human visits per 30 days
 (Cloudflare Web Analytics, bots excluded); the raw request log (117k requests) is 99 percent
 crawlers. Google Search Console now exists (domain property, TXT-verified, sitemap submitted) and

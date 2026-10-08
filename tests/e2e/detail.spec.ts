@@ -16,6 +16,15 @@ test("detail page shows the facts label and the pricing link", async ({ page }) 
   await expect(page.getByRole("link", { name: /Official pricing/ })).toHaveAttribute("href", /supabase\.com/);
 });
 
+test("a deepened entry shows its sections and links its alternatives", async ({ page }) => {
+  await page.goto("/services/supabase/");
+  const about = page.getByRole("region", { name: "About the free plan" });
+  await expect(about.getByRole("heading", { level: 2, name: "What the free plan gives you" })).toBeVisible();
+  await expect(about.getByRole("heading", { level: 2, name: "Questions people ask" })).toBeVisible();
+  await expect(about.getByRole("link", { name: "Neon" })).toHaveAttribute("href", "/services/neon/");
+  await expect(page.getByRole("heading", { name: "Overview" })).toHaveCount(0);
+});
+
 test("an unchecked entry says so", async ({ page, request }) => {
   const row = await findEntry(request, (r) => r.freshness.state === "imported");
   test.skip(!row, "every entry is checked");

@@ -37,6 +37,8 @@ export function EntryPage({ entry, related, comparisons = [] }: { entry: AtlasEn
   const pricing = pricingUrl(entry);
   const category = DOMAIN_LABELS[entry.domain];
   const ended = entry.status === "ended";
+  // A deepened body brings its own "##" sections; an older one-sentence body gets the "Overview" heading.
+  const sectioned = /^##\s/m.test(entry.body.raw);
 
   return (
     <div className="grid gap-6 pt-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-12 lg:pt-7">
@@ -101,7 +103,11 @@ export function EntryPage({ entry, related, comparisons = [] }: { entry: AtlasEn
       </div>
 
       <div className="grid content-start gap-9 lg:col-start-1 lg:row-start-3">
-        {entry.body.raw ? (
+        {entry.body.raw && sectioned ? (
+          <section aria-label="About the free plan">
+            <MdxContent source={entry.body.raw} />
+          </section>
+        ) : entry.body.raw ? (
           <section>
             <h2 className="mb-2.5 text-lg font-semibold">Overview</h2>
             <MdxContent source={entry.body.raw} />
