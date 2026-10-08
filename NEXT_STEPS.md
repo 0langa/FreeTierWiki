@@ -16,7 +16,7 @@ dates; all unresolved entries retain their prior verification dates.
 ## What this is
 A decision-first atlas of free-tier offerings for developers and tools, rated
 on billing risk, quota shape, and production readiness. Built as a static Next.js 16 (App Router)
-export with TypeScript, Tailwind CSS 3.4, a Base UI search dialog, and FlexSearch loaded lazily on
+export with TypeScript, Tailwind CSS 3.4, native `<dialog>` elements, and FlexSearch loaded lazily on
 first search. Content is frontmatter + MDX under `content/`.
 
 ## Current state — Phase 1 redesign done
@@ -129,15 +129,16 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 - Done: `v1.0.0` is tagged.
 
 ## Also worth doing (not phase-gated)
-- Replace the Base UI dialog with a native `<dialog>` element — saves about 20 KB of JS and drops a
-  dependency.
+- Done 2026-10-08: the search box and the phone filter sheet use a native `<dialog>`
+  (`src/components/ui/modal.tsx`). `@base-ui/react` is gone. Home JS went from 170.7 KB to 150.4 KB
+  (gzip).
 - Re-run Lighthouse against the live `freetier.wiki` domain after deploy (last run was against the
   local server, uncompressed: Performance 71, Accessibility 100, SEO 100 on `/` and
   `/services/supabase/`).
 - Turn the changelog's Ended/Changed/New filters back on once the list is long enough to need them
   (postponed in Phase 1).
-- Explorer: write the filter state to the URL, and pre-render the default view so crawlers and
-  no-JS visitors see real rows.
+- Already done (since the Phase 1 explorer, checked 2026-10-08): filters live in the URL
+  (`src/lib/explorer-query.ts`) and the default view is pre-rendered with the first 50 rows.
 - Detail pages: suggest alternatives (same category, lower risk, checked).
 - Comparison pages generated from the data, for example "Free Postgres hosting compared".
 - Self-host the fonts (`next/font/local`) so a CI build never depends on a Google Fonts download.
