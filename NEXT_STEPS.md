@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-06._
+_State refreshed: 2026-10-08._
 
 ## Pricing review — 2026-10-06
 The [issue #18 review ledger](docs/reviews/2026-10-06-pricing-18.md) accounts for all 127 follow-up
@@ -99,11 +99,19 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 - `CONTRIBUTING.md` and `.github/pull_request_template.md` (source URL, quote, date) added.
 - The Fly.io card caveat was already in the entry; that roadmap item is closed.
 
-## Phase 2 — data trust (next)
-- Tighten rating rules: overage risk `none` only when there is a hard cap or the plan is truly
-  unlimited, and no card is required. Re-rate entries against this rule.
-- Recategorize vague domains (`integration`, `productivity`, `operations`); decide whether to keep
-  free online utilities (JSON formatters, temp mail, IP checkers) at all.
+## Phase 2 — data trust (done 2026-10-08)
+- Done: the rating rule is enforced by `tests/unit/content-files.test.ts` ("risk and plan fields
+  agree"): overage risk `none` needs no card and either a hard cap or an always-free plan. All 717
+  entries pass (the 38 always-free entries without a hard cap are "no limits" services with no
+  paid overage, checked 2026-10-08). The content check of 2026-09-30 had already re-rated the rest.
+- Done: the vague domains `productivity`, `integration`, and `operations` are gone. Their 183
+  entries now sit in `collaboration`, `forms`, `localization`, `documents`, `apis`, `scraping`,
+  `automation`, or an existing domain (`devops`, `messaging`, `ai`, `analytics`). The mapping is
+  `scripts/migrations/2026-10-phase2-domains.mjs`; old category URLs redirect; changelog records
+  were remapped. The `category` field still mirrors `domain`.
+- Done: 12 online utilities that are not developer services were removed (JSON formatters, diff
+  pages, CyberChef, a username checker, disposable inboxes). Old URLs redirect to the category and
+  the removals are in `content/changelog.json`. 705 entries remain.
 
 ## Phase 3 — fresh by default (built, first run pending)
 - The weekly check is `.github/workflows/freshness.yml` (Mondays 04:17 UTC, or run it by hand from the
