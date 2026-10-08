@@ -143,7 +143,9 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   entries in the same category (`relatedItems` in `src/lib/entry-view.ts`). Ended offers are now
   excluded.
 - Comparison pages generated from the data, for example "Free Postgres hosting compared".
-- Self-host the fonts (`next/font/local`) so a CI build never depends on a Google Fonts download.
+- Done 2026-10-08: IBM Plex Sans and Mono are self-hosted from `src/fonts/` (`next/font/local`, OFL).
+  A build never calls Google Fonts. The OG image template still links Google Fonts; it is rendered
+  by hand, not in CI.
 
 (Ideas above come partly from the 2026-09-24 audit on the retired branch `cld/sweet-hawking-isxiyq`;
 the rest of that audit is done.)
