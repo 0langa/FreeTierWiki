@@ -119,6 +119,28 @@
     content: "";
     @apply h-1.5 w-1.5 rounded-full bg-current;
   }
+  /* Changelog filter: radio inputs in the page, rows carry data-kind. Works without JavaScript. */
+  .changelog:has(#kind-new:checked) li:not([data-kind="new"]),
+  .changelog:has(#kind-changed:checked) li:not([data-kind="changed"]),
+  .changelog:has(#kind-ended:checked) li:not([data-kind="ended"]),
+  .changelog:has(#kind-removed:checked) li:not([data-kind="removed"]) {
+    display: none;
+  }
+  .changelog:has(#kind-new:checked) section:not(:has(li[data-kind="new"])),
+  .changelog:has(#kind-changed:checked) section:not(:has(li[data-kind="changed"])),
+  .changelog:has(#kind-ended:checked) section:not(:has(li[data-kind="ended"])),
+  .changelog:has(#kind-removed:checked) section:not(:has(li[data-kind="removed"])) {
+    display: none;
+  }
+  .changelog input[name="kind"]:checked + label {
+    @apply border-ink bg-ink text-bg;
+  }
+  .changelog input[name="kind"]:focus-visible + label {
+    @apply outline outline-2 outline-offset-2 outline-ink;
+  }
+  .changelog ol:not(:has(li)) {
+    display: none;
+  }
   .prose-lite p {
     @apply text-ink-2;
   }

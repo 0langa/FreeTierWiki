@@ -11,8 +11,7 @@ Open work, in the order I would do it:
    `scripts/verify/`, fix, open a PR, close the issue. Issue #18 stays open for six evidence gaps.
 2. More comparison topics in `content/comparisons.json`. 13 exist (2026-10-08). Redis/KV was skipped:
    only four live entries. Ideas: search APIs, vector databases, status pages, feature flags.
-3. Changelog Ended/Changed/New filters (see "Also worth doing").
-4. Lighter explorer first paint (Lighthouse perf 80 there, 92–94 elsewhere).
+3. Lighter explorer first paint (Lighthouse perf 80 there, 92–94 elsewhere).
 
 Gates for any change: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`,
 `npm run check:budget`, `npm run test:e2e` (needs the build in `out/`). CI runs the same.
@@ -156,8 +155,8 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   before first paint). "No compression" in the report is a headless-Chrome artefact: the live HTML
   is 10 KB with brotli (75 KB plain). Left alone: 14 KB of polyfills in a Next chunk, 12 KB unused
   CSS. Next real win would be a lighter explorer first paint.
-- Turn the changelog's Ended/Changed/New filters back on once the list is long enough to need them
-  (postponed in Phase 1).
+- Done 2026-10-08: the changelog has All / New / Changed / Removed filters (Ended appears once an
+  entry records that change). Radio inputs plus CSS `:has()`, no JavaScript; rows carry `data-kind`.
 - Already done (since the Phase 1 explorer, checked 2026-10-08): filters live in the URL
   (`src/lib/explorer-query.ts`) and the default view is pre-rendered with the first 50 rows.
 - Already done (checked 2026-10-08): detail pages show "Other free … options", the four safest live
@@ -184,4 +183,4 @@ the rest of that audit is done.)
 
 ## Effort to next milestone
 Phases 1–4 and the first pricing review are done. What is left is small and incremental: the weekly
-issue, more comparison topics, the changelog filters, and a lighter explorer first paint.
+issue, more comparison topics, and a lighter explorer first paint.

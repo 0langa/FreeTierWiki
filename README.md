@@ -37,7 +37,7 @@ If you spot something wrong, use **Report outdated info** on the entry — it op
 
 ### Changelog
 
-The `/changelog/` page lists every entry that changed or ended, newest first. Follow it with the RSS feed at `/changelog/feed.xml`.
+The `/changelog/` page lists every entry that changed, ended, or was removed, newest first, with All / New / Changed / Removed filters that work without JavaScript. Follow it with the RSS feed at `/changelog/feed.xml`.
 
 ---
 
