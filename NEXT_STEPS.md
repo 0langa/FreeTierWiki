@@ -9,9 +9,9 @@ Branches are deleted after merge; only `main` and `freshness-data` exist.
 Open work, in the order I would do it:
 1. Weekly pricing issue (label `freshness`) every Monday: re-check listed entries with
    `scripts/verify/`, fix, open a PR, close the issue. Issue #18 stays open for six evidence gaps.
-2. More comparison topics in `content/comparisons.json`. 13 exist (2026-10-08). Redis/KV was skipped:
-   only four live entries. Ideas: search APIs, vector databases, status pages, feature flags.
-3. Lighter explorer first paint (Lighthouse perf 80 there, 92–94 elsewhere).
+2. More comparison topics in `content/comparisons.json` when a job has at least seven live entries.
+   16 exist (2026-10-08). Skipped: Redis/KV (four entries), search APIs (two).
+3. Nothing else is open. The list below is history.
 
 Gates for any change: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`,
 `npm run check:budget`, `npm run test:e2e` (needs the build in `out/`). CI runs the same.
@@ -128,7 +128,7 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   pages, CyberChef, a username checker, disposable inboxes). Old URLs redirect to the category and
   the removals are in `content/changelog.json`. 705 entries remain.
 
-## Phase 3 — fresh by default (built, first run pending)
+## Phase 3 — fresh by default (built, running weekly)
 - The weekly check is `.github/workflows/freshness.yml` (Mondays 04:17 UTC, or run it by hand from the
   Actions tab). It reads every entry's official page, hashes the price-related text, and compares it with
   last week. The hashes live on the `freshness-data` branch, so `main` and the production deploy do not
@@ -154,7 +154,8 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   the filter code. Cheap win applied: the three mono font files are no longer preloaded (45 KB less
   before first paint). "No compression" in the report is a headless-Chrome artefact: the live HTML
   is 10 KB with brotli (75 KB plain). Left alone: 14 KB of polyfills in a Next chunk, 12 KB unused
-  CSS. Next real win would be a lighter explorer first paint.
+  CSS. Done the same day: the explorer fetches `explorer.json` after first paint (idle callback)
+  or on the first search, filter, or non-default URL, so the pre-rendered 50 rows paint first.
 - Done 2026-10-08: the changelog has All / New / Changed / Removed filters (Ended appears once an
   entry records that change). Radio inputs plus CSS `:has()`, no JavaScript; rows carry `data-kind`.
 - Already done (since the Phase 1 explorer, checked 2026-10-08): filters live in the URL
@@ -166,7 +167,7 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   topics in `content/comparisons.json` (Postgres, serverless functions, email APIs, object storage,
   auth, uptime monitoring, static hosting, error tracking). Rows reuse the entry list, safest first;
   ended entries are dropped and a unit test rejects missing ids. Linked from the header, footer, and
-  sitemap. Later the same day: 13 topics, and a hard/soft cap label in the card column (`showCap`).
+  sitemap. Later the same day: 16 topics, and a hard/soft cap label in the card column (`showCap`).
 - Done 2026-10-08: IBM Plex Sans and Mono are self-hosted from `src/fonts/` (`next/font/local`, OFL).
   A build never calls Google Fonts. The OG image template still links Google Fonts; it is rendered
   by hand, not in CI.
@@ -183,4 +184,4 @@ the rest of that audit is done.)
 
 ## Effort to next milestone
 Phases 1–4 and the first pricing review are done. What is left is small and incremental: the weekly
-issue, more comparison topics, and a lighter explorer first paint.
+issue and more comparison topics. v1.1.0 is tagged (2026-10-08).
