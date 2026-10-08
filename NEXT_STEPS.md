@@ -99,9 +99,11 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 - `CONTRIBUTING.md` and `.github/pull_request_template.md` (source URL, quote, date) added.
 - The Fly.io card caveat was already in the entry; that roadmap item is closed.
 
-## Phase 2 — data trust (next)
-- Tighten rating rules: overage risk `none` only when there is a hard cap or the plan is truly
-  unlimited, and no card is required. Re-rate entries against this rule.
+## Phase 2 — data trust (in progress, 2026-10-08)
+- Done: the rating rule is enforced by `tests/unit/content-files.test.ts` ("risk and plan fields
+  agree"): overage risk `none` needs no card and either a hard cap or an always-free plan. All 717
+  entries pass (the 38 always-free entries without a hard cap are "no limits" services with no
+  paid overage, checked 2026-10-08). The content check of 2026-09-30 had already re-rated the rest.
 - Recategorize vague domains (`integration`, `productivity`, `operations`); decide whether to keep
   free online utilities (JSON formatters, temp mail, IP checkers) at all.
 

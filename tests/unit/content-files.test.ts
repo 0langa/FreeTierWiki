@@ -32,6 +32,10 @@ describe("content files", () => {
       const { requiresCard, overageRisk, hasHardCap, freeTierType } = entry.freeTierDetails;
       // "none" means you cannot be billed, which is impossible with a card on file.
       if (overageRisk === "none" && requiresCard) problems.push(`${entry.id}: overageRisk none with requiresCard`);
+      // "none" also needs a reason you cannot be billed: a hard cap, or an always-free plan with no paid overage.
+      if (overageRisk === "none" && !hasHardCap && freeTierType !== "always-free") {
+        problems.push(`${entry.id}: overageRisk none without a hard cap or an always-free plan`);
+      }
       // "high" means billing starts on its own; a hard cap stops the service instead.
       if (overageRisk === "high" && hasHardCap) problems.push(`${entry.id}: overageRisk high with hasHardCap`);
       if (freeTierType === "trial" && entry.pricingModel !== "trial") {
