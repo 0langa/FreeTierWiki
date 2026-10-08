@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 
 import { ChangePill, FreshnessLabel, RiskPill } from "@/components/entry/labels";
 import { OfferText } from "@/components/entry/offer-text";
 import { HeroSearchButton } from "@/components/site/hero-search-button";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
-import { getAllEntries, getRemovals } from "@/lib/content.server";
+import { liveComparisons } from "@/lib/comparison-view";
+import { getAllEntries, getComparisons } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FEED_ALTERNATE } from "@/lib/feed";
 import { formatMonth } from "@/lib/format";
@@ -48,23 +50,16 @@ export default async function HomePage() {
     .filter((item) => item.freshness.state === "checked" && item.status === "active" && !item.card && item.cap && item.risk === "none")
     .sort(compareSafety)
     .slice(0, 3);
-  // New entries get their own section, so the changelog shows what changed, ended, or was removed.
-  const changes = latestChanges(entries, undefined, await getRemovals())
-    .filter((change) => change.kind !== "new")
+  // A visitor only needs to know which plans changed or ended. New entries and removed listings are
+  // housekeeping and stay on the changelog page.
+  const changes = latestChanges(entries)
+    .filter((change) => change.kind === "changed" || change.kind === "ended")
     .slice(0, 5);
+  const jobs = liveComparisons(await getComparisons(), new Set(entries.filter((entry) => entry.status !== "ended").map((entry) => entry.id)));
   const picks = POPULAR_PICKS.flatMap((pick) => {
     const entry = entries.find((candidate) => candidate.slug === pick.slug && candidate.status !== "ended");
     return entry ? [{ ...pick, entry, text: pick.short ?? entry.freeTierDetails.limits[pick.limit] ?? entry.freeTierDetails.limits[0] }] : [];
   });
-  const itemById = new Map(items.map((item) => [item.id, item]));
-  const recent = entries
-    .flatMap((entry) => {
-      const added = entry.changes.find((change) => change.kind === "new");
-      const item = itemById.get(entry.id);
-      return added && item && entry.status === "active" ? [{ date: added.date, item }] : [];
-    })
-    .sort((a, b) => b.date.localeCompare(a.date) || b.item.rank - a.item.rank)
-    .slice(0, 8);
 
   return (
     <>
@@ -86,6 +81,15 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
+          <p className="mt-5 flex items-start gap-2 text-[13.5px] text-ink-2">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" aria-hidden />
+            <span>
+              Every entry is checked against its official pricing page. The check date is on each entry.{" "}
+              <Link href="/about/" className="underline decoration-line underline-offset-2 hover:text-ink">
+                How we rate
+              </Link>
+            </span>
+          </p>
         </div>
         {picks.length > 0 ? (
           <section aria-labelledby="picks-title" className="rounded-2xl border border-line bg-surface p-5">
@@ -111,6 +115,32 @@ export default async function HomePage() {
           </section>
         ) : null}
       </section>
+
+      {jobs.length > 0 ? (
+        <section className="mt-14" aria-labelledby="jobs-title">
+          <div className="mb-4 flex items-baseline justify-between gap-4">
+            <div>
+              <h2 id="jobs-title" className="text-xl font-semibold tracking-tight">
+                Pick by job
+              </h2>
+              <p className="mt-0.5 text-[13px] text-ink-3">One table per need, safest free plan first</p>
+            </div>
+            <Link href="/compare/" className="text-sm text-ink-2 hover:text-ink">
+              All comparisons →
+            </Link>
+          </div>
+          <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-4">
+            {jobs.map((job) => (
+              <li key={job.slug} className="bg-surface">
+                <Link href={job.href} className="flex h-full items-baseline justify-between gap-2 px-5 py-3.5 text-[14.5px] font-medium hover:bg-surface-2">
+                  <span>{job.label}</span>
+                  <span className="font-mono text-[13px] font-medium text-ink-3">{job.count}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="mt-14" aria-labelledby="categories-title">
         <div className="mb-4 flex items-baseline justify-between gap-4">
@@ -175,7 +205,7 @@ export default async function HomePage() {
               All →
             </Link>
           </div>
-          <p className="mb-4 mt-0.5 text-[13px] text-ink-3">What changed, newest first</p>
+          <p className="mb-4 mt-0.5 text-[13px] text-ink-3">Plans that changed or ended, newest first</p>
           {changes.length > 0 ? (
             <ol className="divide-y divide-line rounded-xl border border-line bg-surface">
               {changes.map((change) => (
@@ -197,34 +227,6 @@ export default async function HomePage() {
         </section>
       </div>
 
-      {recent.length > 0 ? (
-        <section className="mt-14" aria-labelledby="recent-title">
-          <div className="mb-4 flex items-baseline justify-between gap-4">
-            <h2 id="recent-title" className="text-xl font-semibold tracking-tight">
-              Recently added
-            </h2>
-            <Link href="/changelog/" className="text-sm text-ink-2 hover:text-ink">
-              All changes →
-            </Link>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {recent.map(({ item }) => (
-              <Link key={item.id} href={item.url} className="grid content-start gap-1 rounded-xl border border-line bg-surface px-[18px] py-4 hover:border-ink-3">
-                <span className="flex items-start justify-between gap-2">
-                  <span className="font-semibold">{item.title}</span>
-                  <RiskPill risk={item.risk} />
-                </span>
-                <span className="text-[13px] text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
-                {item.offer[0] ? (
-                  <span className="mt-1 font-mono text-[13px] text-ink-2">
-                    <OfferText text={item.offer[0]} />
-                  </span>
-                ) : null}
-              </Link>
-            ))}
-          </div>
-        </section>
-      ) : null}
     </>
   );
 }

@@ -38,6 +38,20 @@ test("a changed entry shows what changed", async ({ page, request }) => {
   await expect(page.getByRole("note")).toContainText("Changed in");
 });
 
+test("an entry links to the comparison tables it is in", async ({ page }) => {
+  await page.goto("/services/neon/");
+  const compared = page.getByRole("navigation", { name: "Compared in" });
+  await expect(compared.getByRole("link", { name: "Free Postgres hosting" })).toHaveAttribute("href", "/compare/postgres-hosting/");
+});
+
+test("on a phone the facts label comes before the pricing button", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "phone", "desktop shows the facts label in a side column");
+  await page.goto("/services/supabase/");
+  const facts = await page.getByRole("complementary", { name: "Free tier facts" }).boundingBox();
+  const pricing = await page.getByRole("link", { name: /Official pricing/ }).boundingBox();
+  expect(facts && pricing && facts.y < pricing.y).toBe(true);
+});
+
 test("list items never render as [object Object]", async ({ page }) => {
   await page.goto("/services/render/");
   await expect(page.getByText("[object Object]")).toHaveCount(0);

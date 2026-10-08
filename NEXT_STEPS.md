@@ -1,6 +1,15 @@
 # FreeTierWiki — Status & Roadmap
 _State refreshed: 2026-10-08._
 
+## Visitor-first pass — 2026-10-08 (uncommitted)
+Home: a trust line under the hero ("Every entry is checked against its official pricing page"),
+a "Pick by job" grid with one card per comparison table (`liveComparisons` in
+`src/lib/comparison-view.ts`, shared with `/compare/`), and the home changelog now lists only
+`changed` and `ended` rows. The "Recently added" grid is gone; new entries and removed listings
+stay on `/changelog/`. Entry pages: the facts label now comes right after the title on a phone
+(the buttons moved below it), and a "Compared in" row links to every comparison table the entry
+is in (`comparisonsFor`). Tests: `tests/unit/comparison-view.test.ts`, home and detail e2e specs.
+
 ## Where things stand — 2026-10-08 (read this first)
 Main is clean, deployed, and tagged `v1.1.0`. Eleven PRs merged on 2026-10-08 (#21–#31): OCR.space
 fix, Phase 2 domains and utility removals, native dialog, alternatives fix, self-hosted fonts,

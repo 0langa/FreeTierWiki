@@ -10,7 +10,7 @@
 
 ### Home
 
-The home page gives a quick overview: how many entries are checked against the official pricing page, browsing by category, and the newest changes, plus a link into the explorer.
+The home page is built for a first visit: a search box, quick filter chips, "Popular free picks" (one well-known free plan per common need), "Pick by job" (one card per comparison table), browsing by category, "Safe places to start", and a short changelog of plans that changed or ended. New entries and removed listings stay on the changelog page.
 
 ### Explorer
 
@@ -26,7 +26,7 @@ Each category (Hosting, Database, AI, and so on) has its own page listing just i
 
 ### Detail pages
 
-Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. Below it: when to use it, when not to, a quickstart, and links to the official site and pricing page.
+Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. On a phone the label comes right after the title. Below it: links to the official pricing page and docs, "Compared in" links to every comparison table the entry is in, when to use it, when not to, a quickstart, and other free options in the same category.
 
 Every detail page also has a **freshness label**:
 - A green date with a check mark means someone compared the entry with the official pricing page on that date.

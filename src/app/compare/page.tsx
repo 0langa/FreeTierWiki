@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { liveComparisons } from "@/lib/comparison-view";
 import { getAllEntries, getComparisons } from "@/lib/content.server";
 
 export const metadata: Metadata = {
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default async function CompareIndexPage() {
-  const comparisons = await getComparisons();
   const live = new Set((await getAllEntries()).filter((entry) => entry.status !== "ended").map((entry) => entry.id));
+  const comparisons = liveComparisons(await getComparisons(), live);
 
   return (
     <div className="pt-8">
@@ -20,20 +21,17 @@ export default async function CompareIndexPage() {
         One table per job. Each row shows what you get free, whether a card is needed, the billing risk, and how fresh the data is.
       </p>
       <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
-        {comparisons.map((comparison) => {
-          const count = comparison.entries.filter((id) => live.has(id)).length;
-          return (
-            <li key={comparison.slug} className="bg-surface">
-              <Link href={`/compare/${comparison.slug}/`} className="grid h-full gap-1 px-5 py-[18px] hover:bg-surface-2">
-                <span className="flex items-baseline justify-between gap-2 font-semibold">
-                  {comparison.title}
-                  <span className="font-mono text-[13px] font-medium text-ink-3">{count}</span>
-                </span>
-                <span className="text-[13px] text-ink-3">{comparison.intro}</span>
-              </Link>
-            </li>
-          );
-        })}
+        {comparisons.map((comparison) => (
+          <li key={comparison.slug} className="bg-surface">
+            <Link href={comparison.href} className="grid h-full gap-1 px-5 py-[18px] hover:bg-surface-2">
+              <span className="flex items-baseline justify-between gap-2 font-semibold">
+                {comparison.title}
+                <span className="font-mono text-[13px] font-medium text-ink-3">{comparison.count}</span>
+              </span>
+              <span className="text-[13px] text-ink-3">{comparison.intro}</span>
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );

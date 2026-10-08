@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { EntryPage } from "@/components/entry/entry-page";
 import { BUILD_NOW } from "@/lib/build-info";
 import { isContentKind } from "@/lib/content";
-import { getAllEntries, getEntryWithBody } from "@/lib/content.server";
+import { comparisonsFor } from "@/lib/comparison-view";
+import { getAllEntries, getComparisons, getEntryWithBody } from "@/lib/content.server";
 import { relatedItems } from "@/lib/entry-view";
 
 type Params = Promise<{ kind: string; slug: string[] }>;
@@ -44,5 +45,6 @@ export default async function DynamicEntryPage({ params }: { params: Params }) {
   const entry = await load(params);
   if (!entry) notFound();
   const related = relatedItems(entry, await getAllEntries(), BUILD_NOW);
-  return <EntryPage entry={entry} related={related} />;
+  const comparisons = comparisonsFor(entry.id, await getComparisons());
+  return <EntryPage entry={entry} related={related} comparisons={comparisons} />;
 }

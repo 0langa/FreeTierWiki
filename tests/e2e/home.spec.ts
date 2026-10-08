@@ -1,12 +1,20 @@
 import { expect, test } from "@playwright/test";
 
-test("home shows the promise, popular picks, categories, and the changelog", async ({ page }) => {
+test("home shows the promise, popular picks, jobs, categories, and the changelog", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Free tiers, with the fine print.");
+  await expect(page.getByText("Every entry is checked against its official pricing page")).toBeVisible();
   await expect(page.getByRole("region", { name: "Popular free picks" }).getByRole("link").first()).toBeVisible();
-  await expect(page.getByRole("region", { name: "Recently added" }).getByRole("link").first()).toBeVisible();
+  await expect(page.getByRole("region", { name: "Pick by job" }).getByRole("link", { name: /^Free Postgres hosting/ })).toHaveAttribute(
+    "href",
+    "/compare/postgres-hosting/",
+  );
   await expect(page.getByRole("link", { name: /^Database/ }).first()).toHaveAttribute("href", "/category/database/");
-  await expect(page.getByRole("region", { name: "Free tier changelog" }).getByRole("listitem").first()).toBeVisible();
+  const changelog = page.getByRole("region", { name: "Free tier changelog" });
+  await expect(changelog.getByRole("listitem").first()).toBeVisible();
+  // Removed listings and new entries are housekeeping; the home page only shows plans that changed or ended.
+  await expect(changelog.getByText(/^(Removed|New)$/)).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Recently added" })).toHaveCount(0);
 });
 
 test("a quick chip opens the filtered explorer", async ({ page }) => {

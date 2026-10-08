@@ -6,6 +6,8 @@ import { FactsLabel } from "@/components/entry/facts-label";
 import { FreshnessNotice } from "@/components/entry/freshness-notice";
 import { MdxContent } from "@/components/entry/mdx-content";
 import { BUILD_NOW } from "@/lib/build-info";
+import { jobLabel } from "@/lib/comparison-view";
+import type { Comparison } from "@/lib/comparisons-file";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { pricingUrl, type ListItem } from "@/lib/entry-view";
 import { getFreshness } from "@/lib/freshness";
@@ -30,14 +32,15 @@ function FitCard({ title, text, items, good }: { title: string; text: string; it
 
 const EXTERNAL = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-export function EntryPage({ entry, related }: { entry: AtlasEntryWithBody; related: ListItem[] }) {
+export function EntryPage({ entry, related, comparisons = [] }: { entry: AtlasEntryWithBody; related: ListItem[]; comparisons?: Comparison[] }) {
   const freshness = getFreshness(entry, BUILD_NOW);
   const pricing = pricingUrl(entry);
   const category = DOMAIN_LABELS[entry.domain];
   const ended = entry.status === "ended";
 
   return (
-    <div className="grid gap-7 pt-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-12 lg:pt-7">
+    <div className="grid gap-6 pt-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-12 lg:pt-7">
+      {/* On a phone the DOM order is what shows: title, then the facts label, then the buttons, then the body. */}
       <header className="grid content-start gap-3.5 lg:col-start-1 lg:row-start-1">
         <nav aria-label="Breadcrumb" className="flex min-w-0 gap-2 text-[13.5px] text-ink-3">
           <Link href="/explorer/" className="hover:text-ink">
@@ -56,6 +59,16 @@ export function EntryPage({ entry, related }: { entry: AtlasEntryWithBody; relat
         <p className="text-[15px] text-ink-2">
           {entry.description} · {entry.provider} · {category}
         </p>
+        <FreshnessNotice entry={entry} freshness={freshness} hasAlternatives={related.length > 0} />
+      </header>
+
+      <div className="lg:col-start-2 lg:row-span-3 lg:row-start-1">
+        <div className="lg:sticky lg:top-20">
+          <FactsLabel entry={entry} freshness={freshness} />
+        </div>
+      </div>
+
+      <div className="grid content-start gap-3.5 lg:col-start-1 lg:row-start-2">
         <div className="flex flex-wrap gap-2">
           {pricing ? (
             <a className="btn btn-primary" href={pricing} {...EXTERNAL}>
@@ -71,16 +84,23 @@ export function EntryPage({ entry, related }: { entry: AtlasEntryWithBody; relat
             Report outdated info
           </a>
         </div>
-        <FreshnessNotice entry={entry} freshness={freshness} hasAlternatives={related.length > 0} />
-      </header>
-
-      <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-        <div className="lg:sticky lg:top-20">
-          <FactsLabel entry={entry} freshness={freshness} />
-        </div>
+        {comparisons.length > 0 ? (
+          <nav aria-label="Compared in" className="flex flex-wrap items-center gap-2 text-[13.5px] text-ink-2">
+            <span>Compared in</span>
+            {comparisons.map((comparison) => (
+              <Link
+                key={comparison.slug}
+                href={`/compare/${comparison.slug}/`}
+                className="inline-flex h-7 items-center rounded-full border border-line bg-surface px-2.5 hover:border-ink-3 hover:text-ink"
+              >
+                {jobLabel(comparison.title)}
+              </Link>
+            ))}
+          </nav>
+        ) : null}
       </div>
 
-      <div className="grid content-start gap-9 lg:col-start-1 lg:row-start-2">
+      <div className="grid content-start gap-9 lg:col-start-1 lg:row-start-3">
         {entry.body.raw ? (
           <section>
             <h2 className="mb-2.5 text-lg font-semibold">Overview</h2>
