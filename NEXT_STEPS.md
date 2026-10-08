@@ -139,7 +139,9 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   (postponed in Phase 1).
 - Already done (since the Phase 1 explorer, checked 2026-10-08): filters live in the URL
   (`src/lib/explorer-query.ts`) and the default view is pre-rendered with the first 50 rows.
-- Detail pages: suggest alternatives (same category, lower risk, checked).
+- Already done (checked 2026-10-08): detail pages show "Other free … options", the four safest live
+  entries in the same category (`relatedItems` in `src/lib/entry-view.ts`). Ended offers are now
+  excluded.
 - Comparison pages generated from the data, for example "Free Postgres hosting compared".
 - Self-host the fonts (`next/font/local`) so a CI build never depends on a Google Fonts download.
 

@@ -83,4 +83,10 @@ describe("relatedItems", () => {
     ];
     expect(relatedItems(self, all, now).map((item) => item.title)).toEqual(["B", "A"]);
   });
+
+  it("never suggests an ended offer", () => {
+    const self = makeEntry();
+    const all = [self, makeEntry({ id: "services:e", title: "E", status: "ended" }), makeEntry({ id: "services:b", title: "B" })];
+    expect(relatedItems(self, all, now).map((item) => item.title)).toEqual(["B"]);
+  });
 });
