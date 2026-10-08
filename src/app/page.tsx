@@ -8,11 +8,12 @@ import { HeroSearchButton } from "@/components/site/hero-search-button";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { liveComparisons } from "@/lib/comparison-view";
-import { getAllEntries, getComparisons } from "@/lib/content.server";
+import { getAllEntries, getComparisons, getPopular } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FEED_ALTERNATE } from "@/lib/feed";
-import { formatMonth } from "@/lib/format";
+import { formatDay, formatMonth } from "@/lib/format";
 import { latestChanges, topCategories } from "@/lib/home-data";
+import { mostVisited } from "@/lib/popular-view";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/", types: FEED_ALTERNATE },
@@ -28,7 +29,8 @@ const QUICK_LINKS = [
   { href: "/category/storage/", label: "Storage" },
 ];
 
-// Hand-picked, not scored: common first needs, each with a well-known free plan. `limit` picks which limit line to show;
+// Fallback while the weekly most-visited job has not run yet. Hand-picked, not scored: common first
+// needs, each with a well-known free plan. `limit` picks which limit line to show;
 // `short` replaces a limit line that is too long for one row.
 const POPULAR_PICKS: { need: string; slug: string; limit: number; short?: string }[] = [
   { need: "Postgres database", slug: "neon", limit: 2 },
@@ -56,6 +58,9 @@ export default async function HomePage() {
     .filter((change) => change.kind === "changed" || change.kind === "ended")
     .slice(0, 5);
   const jobs = liveComparisons(await getComparisons(), new Set(entries.filter((entry) => entry.status !== "ended").map((entry) => entry.id)));
+  // The hero card shows real visits once content/popular.json exists with enough live entries.
+  const popular = await getPopular();
+  const visited = popular ? mostVisited(popular.paths, items, 8) : [];
   const picks = POPULAR_PICKS.flatMap((pick) => {
     const entry = entries.find((candidate) => candidate.slug === pick.slug && candidate.status !== "ended");
     return entry ? [{ ...pick, entry, text: pick.short ?? entry.freeTierDetails.limits[pick.limit] ?? entry.freeTierDetails.limits[0] }] : [];
@@ -91,7 +96,33 @@ export default async function HomePage() {
             </span>
           </p>
         </div>
-        {picks.length > 0 ? (
+        {popular && visited.length >= 5 ? (
+          <section aria-labelledby="visited-title" className="rounded-2xl border border-line bg-surface p-5">
+            <h2 id="visited-title" className="text-[15px] font-semibold">
+              Most visited
+            </h2>
+            <p className="mb-3 mt-0.5 text-[13px] text-ink-3">
+              What people opened in the last {popular.days} days · updated {formatDay(popular.updated)}
+            </p>
+            <ol className="divide-y divide-line">
+              {visited.map((item) => (
+                <li key={item.id}>
+                  <Link href={item.url} className="group grid gap-0.5 py-2.5">
+                    <span className="text-xs text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
+                    <span className="flex items-baseline justify-between gap-3">
+                      <span className="shrink-0 font-semibold group-hover:underline">{item.title}</span>
+                      {item.offer[0] ? (
+                        <span className="min-w-0 truncate text-right font-mono text-[12.5px] text-ink-2">
+                          <OfferText text={item.offer[0]} />
+                        </span>
+                      ) : null}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : picks.length > 0 ? (
           <section aria-labelledby="picks-title" className="rounded-2xl border border-line bg-surface p-5">
             <h2 id="picks-title" className="text-[15px] font-semibold">
               Common first picks

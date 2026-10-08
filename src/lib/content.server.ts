@@ -5,6 +5,7 @@ import { cache } from "react";
 import { readRemovals } from "@/lib/changelog-file";
 import { readComparisons, type Comparison } from "@/lib/comparisons-file";
 import { CONTENT_DIR, listContentFiles, readEntryFile } from "@/lib/content-files";
+import { readPopular, type Popular } from "@/lib/popular-file";
 import type { AtlasEntry, AtlasEntryWithBody, ContentKind, RemovalRecord } from "@/types/content";
 
 async function load() {
@@ -16,7 +17,8 @@ async function load() {
   );
   const removals = await readRemovals();
   const comparisons = await readComparisons();
-  return { entries, byPath, removals, comparisons };
+  const popular = await readPopular();
+  return { entries, byPath, removals, comparisons, popular };
 }
 
 // Static export prerenders every one of the ~765 entry pages as its own render. React's `cache()`
@@ -43,6 +45,11 @@ export async function getRemovals(): Promise<RemovalRecord[]> {
 
 export async function getComparisons(): Promise<Comparison[]> {
   return (await loadAll()).comparisons;
+}
+
+/** The weekly "most visited" list, or `undefined` until the job has run once. */
+export async function getPopular(): Promise<Popular | undefined> {
+  return (await loadAll()).popular;
 }
 
 export async function getComparison(slug: string): Promise<Comparison | undefined> {

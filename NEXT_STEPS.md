@@ -8,9 +8,14 @@ a "Pick by job" grid with one card per comparison table (`liveComparisons` in
 `changed` and `ended` rows. The "Recently added" grid is gone; new entries and removed listings
 stay on `/changelog/`. Entry pages: the facts label now comes right after the title on a phone
 (the buttons moved below it), and a "Compared in" row links to every comparison table the entry
-is in (`comparisonsFor`). Tests: `tests/unit/comparison-view.test.ts`, home and detail e2e specs. The hero card is now called
-"Common first picks" because it is hand-picked (`POPULAR_PICKS`), not scored by visits. Open: replace
-it with a "Most visited" list fed by Cloudflare zone analytics once an API token exists.
+is in (`comparisonsFor`). Tests: `tests/unit/comparison-view.test.ts`, home and detail e2e specs. The hero card is "Most visited"
+once `content/popular.json` exists: `.github/workflows/popular.yml` runs every Monday, asks Cloudflare
+(GraphQL `httpRequestsAdaptiveGroups`, HTML 200s from eyeballs, last 30 days, one query per day so
+plan retention limits only shorten the window) and commits the ordered entry paths — never counts —
+to main (`scripts/popular/fetch-views.mjs`, `src/lib/popular-file.ts`, `src/lib/popular-view.ts`).
+It needs the repository secret `CLOUDFLARE_API_TOKEN` (Zone/Analytics/Read + Zone/Zone/Read on the
+freetier.wiki zone); without it the job ends early. Until the first run the hand-picked
+"Common first picks" card (`POPULAR_PICKS`) shows instead.
 
 ## Where things stand — 2026-10-08 (read this first)
 Main is clean, deployed, and tagged `v1.1.0`. Eleven PRs merged on 2026-10-08 (#21–#31): OCR.space

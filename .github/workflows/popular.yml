@@ -1,0 +1,66 @@
+name: Weekly most-visited list
+
+# Asks Cloudflare which entry pages real visitors opened in the last 30 days and commits the ordered
+# list of paths to content/popular.json on main. Only paths are stored, never counts, so neither the
+# repo nor the site reveals traffic numbers. The push to main makes Cloudflare Pages rebuild the site.
+# Needs the repository secret CLOUDFLARE_API_TOKEN (Zone / Analytics / Read + Zone / Zone / Read on
+# the freetier.wiki zone). Without it the job ends early and changes nothing.
+
+on:
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: popular
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update content/popular.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check that the token exists
+        id: token
+        env:
+          HAS_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+        run: |
+          echo "present=$HAS_TOKEN" >> "$GITHUB_OUTPUT"
+          if [ "$HAS_TOKEN" != "true" ]; then
+            echo "CLOUDFLARE_API_TOKEN is not set. Add it under Settings → Secrets → Actions. Nothing changed." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - if: steps.token.outputs.present == 'true'
+        uses: actions/checkout@v4
+
+      - if: steps.token.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Fetch the last 30 days from Cloudflare
+        if: steps.token.outputs.present == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/popular/fetch-views.mjs --host freetier.wiki --days 30 --out content/popular.json
+
+      - name: Commit the list
+        if: steps.token.outputs.present == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/popular.json
+          if git diff --cached --quiet; then
+            echo "No change in the most-visited list." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -m "content: most visited $(date -u +%F)"
+            git push origin HEAD:main
+            echo "Updated content/popular.json." >> "$GITHUB_STEP_SUMMARY"
+          fi
