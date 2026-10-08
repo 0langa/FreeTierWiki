@@ -11,6 +11,9 @@ export function SiteFooter() {
         <Link href="/about/" className="hover:text-ink">
           How we rate
         </Link>
+        <Link href="/compare/" className="hover:text-ink">
+          Comparisons
+        </Link>
         <Link href="/changelog/" className="hover:text-ink">
           Changelog
         </Link>

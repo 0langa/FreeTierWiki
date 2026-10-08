@@ -3,6 +3,7 @@ import "server-only";
 import { cache } from "react";
 
 import { readRemovals } from "@/lib/changelog-file";
+import { readComparisons, type Comparison } from "@/lib/comparisons-file";
 import { CONTENT_DIR, listContentFiles, readEntryFile } from "@/lib/content-files";
 import type { AtlasEntry, AtlasEntryWithBody, ContentKind, RemovalRecord } from "@/types/content";
 
@@ -14,7 +15,8 @@ async function load() {
     loaded.map(({ entry, body }) => [`${entry.kind}/${entry.slug}`, { ...entry, body: { raw: body } }]),
   );
   const removals = await readRemovals();
-  return { entries, byPath, removals };
+  const comparisons = await readComparisons();
+  return { entries, byPath, removals, comparisons };
 }
 
 // Static export prerenders every one of the ~765 entry pages as its own render. React's `cache()`
@@ -37,4 +39,12 @@ export async function getEntryWithBody(kind: ContentKind, slug: string): Promise
 
 export async function getRemovals(): Promise<RemovalRecord[]> {
   return (await loadAll()).removals;
+}
+
+export async function getComparisons(): Promise<Comparison[]> {
+  return (await loadAll()).comparisons;
+}
+
+export async function getComparison(slug: string): Promise<Comparison | undefined> {
+  return (await loadAll()).comparisons.find((comparison) => comparison.slug === slug);
 }

@@ -142,7 +142,11 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 - Already done (checked 2026-10-08): detail pages show "Other free … options", the four safest live
   entries in the same category (`relatedItems` in `src/lib/entry-view.ts`). Ended offers are now
   excluded.
-- Comparison pages generated from the data, for example "Free Postgres hosting compared".
+- Done 2026-10-08: comparison pages at `/compare/` (index) and `/compare/<slug>/`. Eight hand-picked
+  topics in `content/comparisons.json` (Postgres, serverless functions, email APIs, object storage,
+  auth, uptime monitoring, static hosting, error tracking). Rows reuse the entry list, safest first;
+  ended entries are dropped and a unit test rejects missing ids. Linked from the header, footer, and
+  sitemap. Next ideas: more topics, and a hard-cap column.
 - Done 2026-10-08: IBM Plex Sans and Mono are self-hosted from `src/fonts/` (`next/font/local`, OFL).
   A build never calls Google Fonts. The OG image template still links Google Fonts; it is rendered
   by hand, not in CI.

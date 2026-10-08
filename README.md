@@ -20,6 +20,10 @@ Open **Explorer** to filter and search every entry. Every filter — search text
 
 Each category (Hosting, Database, AI, and so on) has its own page listing just its entries.
 
+### Comparison pages
+
+`/compare/` lists hand-picked tables for one job each, such as "Free Postgres hosting compared". A table reuses the entry list: what you get free, card, risk, freshness, safest first. Topics and their rows live in `content/comparisons.json`.
+
 ### Detail pages
 
 Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. Below it: when to use it, when not to, a quickstart, and links to the official site and pricing page.
@@ -114,6 +118,8 @@ Entries live under `content/services/` and `content/tools/` as MDX files with fr
 - `status` — `active`, `changed`, or `ended`.
 - `pricingUrl` — link to the provider's current pricing page.
 - `changes` — a list of `{ date, kind, note }` entries, where `kind` is `ended`, `changed`, or `new`. Feeds the changelog.
+
+`content/comparisons.json` holds the comparison pages: `slug`, `title`, `intro`, and `entries` (ids like `services:neon`). A unit test fails when an id is missing or its entry has ended.
 
 **Rule:** an entry with `status: changed` or `status: ended` must have at least one `changes` item and a `lastVerified` date. This is enforced by the content parser and covered by unit tests (`npm test`).
 
