@@ -1,10 +1,12 @@
 name: Weekly most-visited list
 
-# Asks Cloudflare which entry pages real visitors opened in the last 30 days and commits the ordered
-# list of paths to content/popular.json on main. Only paths are stored, never counts, so neither the
-# repo nor the site reveals traffic numbers. The push to main makes Cloudflare Pages rebuild the site.
-# Needs the repository secret CLOUDFLARE_API_TOKEN (Zone / Analytics / Read + Zone / Zone / Read on
-# the freetier.wiki zone). Without it the job ends early and changes nothing.
+# Asks Cloudflare Web Analytics which entry pages real visitors opened in the last 30 days and commits
+# the ordered list of paths to content/popular.json on main. Web Analytics counts page loads from real
+# browsers with Cloudflare's bot filter on; the raw request log was 99 percent crawlers. Only paths are
+# stored, never counts, so neither the repo nor the site reveals traffic numbers. The push to main makes
+# Cloudflare Pages rebuild the site.
+# Needs the repository secret CLOUDFLARE_API_TOKEN (Account / Account Analytics / Read on the account
+# that owns the Web Analytics site). Without it the job ends early and changes nothing.
 
 on:
   schedule:
@@ -49,6 +51,7 @@ jobs:
         if: steps.token.outputs.present == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: node scripts/popular/fetch-views.mjs --host freetier.wiki --days 30 --out content/popular.json
 
       - name: Commit the list

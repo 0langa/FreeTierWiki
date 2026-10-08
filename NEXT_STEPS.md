@@ -10,12 +10,15 @@ stay on `/changelog/`. Entry pages: the facts label now comes right after the ti
 (the buttons moved below it), and a "Compared in" row links to every comparison table the entry
 is in (`comparisonsFor`). Tests: `tests/unit/comparison-view.test.ts`, home and detail e2e specs. The hero card is "Most visited"
 once `content/popular.json` exists: `.github/workflows/popular.yml` runs every Monday, asks Cloudflare
-(GraphQL `httpRequestsAdaptiveGroups`, HTML 200s from eyeballs, last 30 days, one query per day so
-plan retention limits only shorten the window) and commits the ordered entry paths — never counts —
-to main (`scripts/popular/fetch-views.mjs`, `src/lib/popular-file.ts`, `src/lib/popular-view.ts`).
-It needs the repository secret `CLOUDFLARE_API_TOKEN` (Zone/Analytics/Read + Zone/Zone/Read on the
-freetier.wiki zone); without it the job ends early. Until the first run the hand-picked
-"Common first picks" card (`POPULAR_PICKS`) shows instead.
+Web Analytics (GraphQL `rumPageloadEventsAdaptiveGroups` with `bot: 0`, page loads from real browsers,
+last 30 days, one query per day so plan retention limits only shorten the window) and commits the
+ordered entry paths — never counts — to main (`scripts/popular/fetch-views.mjs`,
+`src/lib/popular-file.ts`, `src/lib/popular-view.ts`). Until 2026-10-09 it read the raw request log
+(`httpRequestsAdaptiveGroups`), which was 99 percent crawlers, so the list ranked what bots fetched.
+It needs the repository secret `CLOUDFLARE_API_TOKEN` (Account/Account Analytics/Read on the account
+that owns the Web Analytics site) and, optionally, the repository variable `CLOUDFLARE_ACCOUNT_ID`;
+without the token the job ends early. Until the first run the hand-picked "Common first picks" card
+(`POPULAR_PICKS`) shows instead.
 
 ## Where things stand — 2026-10-08 (read this first)
 Main is clean, deployed, and tagged `v1.1.0`. Eleven PRs merged on 2026-10-08 (#21–#31): OCR.space

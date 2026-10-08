@@ -46,26 +46,27 @@ export function dayWindows(now, days) {
   return out;
 }
 
-/** The GraphQL query for one zone and one time window: HTML page loads from real visitors, grouped by path. */
+/**
+ * The GraphQL query for one Web Analytics site and one time window: page loads from real browsers, grouped by path.
+ * `rumPageloadEventsAdaptiveGroups` is the dataset behind the dashboard's Web Analytics page. Its beacon only runs
+ * in real browsers and `bot: 0` is the dashboard's "Exclude bots" switch, so plain scrapers never count here.
+ */
 export const VIEWS_QUERY = `
-query ($zone: string!, $host: string!, $since: Time!, $until: Time!) {
+query ($account: string!, $site: string!, $since: Time!, $until: Time!) {
   viewer {
-    zones(filter: { zoneTag: $zone }) {
-      httpRequestsAdaptiveGroups(
-        limit: 2000
-        orderBy: [count_DESC]
+    accounts(filter: { accountTag: $account }) {
+      rumPageloadEventsAdaptiveGroups(
+        limit: 5000
         filter: {
           datetime_geq: $since
           datetime_lt: $until
-          clientRequestHTTPHost: $host
-          requestSource: "eyeball"
-          edgeResponseStatus: 200
-          edgeResponseContentTypeName: "html"
+          siteTag: $site
+          bot: 0
         }
       ) {
         count
         dimensions {
-          clientRequestPath
+          requestPath
         }
       }
     }
@@ -78,8 +79,8 @@ query ($zone: string!, $host: string!, $since: Time!, $until: Time!) {
  * @returns {Array<{ path: string, count: number }>}
  */
 export function rowsFromResponse(body) {
-  const data = /** @type {{ errors?: Array<{ message: string }>, data?: { viewer?: { zones?: Array<{ httpRequestsAdaptiveGroups?: Array<{ count: number, dimensions: { clientRequestPath: string } }> }> } } }} */ (body);
+  const data = /** @type {{ errors?: Array<{ message: string }>, data?: { viewer?: { accounts?: Array<{ rumPageloadEventsAdaptiveGroups?: Array<{ count: number, dimensions: { requestPath: string } }> }> } } }} */ (body);
   if (data?.errors?.length) throw new Error(data.errors.map((error) => error.message).join("; "));
-  const groups = data?.data?.viewer?.zones?.[0]?.httpRequestsAdaptiveGroups ?? [];
-  return groups.map((group) => ({ path: group.dimensions.clientRequestPath, count: group.count }));
+  const groups = data?.data?.viewer?.accounts?.[0]?.rumPageloadEventsAdaptiveGroups ?? [];
+  return groups.map((group) => ({ path: group.dimensions.requestPath, count: group.count }));
 }

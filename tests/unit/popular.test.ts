@@ -46,9 +46,9 @@ describe("dayWindows", () => {
 
 describe("rowsFromResponse", () => {
   it("flattens the groups and surfaces API errors", () => {
-    const body = { data: { viewer: { zones: [{ httpRequestsAdaptiveGroups: [{ count: 5, dimensions: { clientRequestPath: "/services/neon/" } }] }] } } };
+    const body = { data: { viewer: { accounts: [{ rumPageloadEventsAdaptiveGroups: [{ count: 5, dimensions: { requestPath: "/services/neon/" } }] }] } } };
     expect(rowsFromResponse(body)).toEqual([{ path: "/services/neon/", count: 5 }]);
-    expect(rowsFromResponse({ data: { viewer: { zones: [] } } })).toEqual([]);
+    expect(rowsFromResponse({ data: { viewer: { accounts: [] } } })).toEqual([]);
     expect(() => rowsFromResponse({ errors: [{ message: "nope" }] })).toThrow("nope");
   });
 });
