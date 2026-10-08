@@ -14,6 +14,9 @@ export function SiteHeader() {
           <Link href="/explorer/" className="hover:text-ink">
             Explore
           </Link>
+          <Link href="/compare/" className="hover:text-ink">
+            Compare
+          </Link>
           <Link href="/changelog/" className="hidden hover:text-ink md:inline">
             Changelog
           </Link>
