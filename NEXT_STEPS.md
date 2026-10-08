@@ -176,7 +176,8 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
 the rest of that audit is done.)
 
 ## Owner actions (outside the repo)
-- Done: GitHub Pages is off. Cloudflare Web Analytics is on for freetier.wiki ("Enable, excluding visitor
+- Done: GitHub Pages is off (it was found on again and turned off via the API on 2026-10-08; the
+  raw repo had been published at 0langa.github.io/FreeTierWiki). Cloudflare Web Analytics is on for freetier.wiki ("Enable, excluding visitor
   data in the EU").
 - Optionally, redirect `freetierwiki.pages.dev` to `freetier.wiki`.
 - The first weekly run only builds the baseline and opens no issue. Read the issue from the second run on.
