@@ -12,9 +12,10 @@ Open work, in the order I would do it:
 1. Weekly pricing issue (label `freshness`) every Monday: re-check listed entries with
    `scripts/verify/`, fix, open a PR, close the issue. Issue #18 stays open for six evidence gaps.
 2. More comparison topics in `content/comparisons.json` when a job has at least seven live entries.
-   21 exist (2026-10-08: web scraping, log management, realtime messaging, message queues, and PDF
-   generation were the last five). Skipped: Redis/KV (four entries), search APIs (two), webhook
-   delivery (three), containers (six). Localization (13) is the next candidate.
+   22 exist (2026-10-08: web scraping, log management, realtime messaging, message queues, PDF
+   generation, and translation management were the last six). Skipped: Redis/KV (four entries),
+   search APIs (two), webhook delivery (three), containers (six). No candidate with seven live
+   entries is left; add one when the content grows.
 3. Nothing else is open. The list below is history.
 
 Gates for any change: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`,
