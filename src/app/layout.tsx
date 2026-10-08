@@ -28,6 +28,8 @@ const fontMono = localFont({
   ],
   variable: "--font-mono",
   display: "swap",
+  // Mono is only used for small labels; do not preload its 45 KB ahead of the page text.
+  preload: false,
 });
 
 export const metadata: Metadata = {
