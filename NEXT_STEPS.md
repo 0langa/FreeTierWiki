@@ -2,9 +2,11 @@
 _State refreshed: 2026-10-08._
 
 ## Where things stand — 2026-10-08 (read this first)
-Main is clean and deployed. Six PRs merged on 2026-10-08 (#21–#26): OCR.space fix, Phase 2 domains
-and utility removals, native dialog, alternatives fix, self-hosted fonts, comparison pages.
-Branches are deleted after merge; only `main` and `freshness-data` exist.
+Main is clean, deployed, and tagged `v1.1.0`. Eleven PRs merged on 2026-10-08 (#21–#31): OCR.space
+fix, Phase 2 domains and utility removals, native dialog, alternatives fix, self-hosted fonts,
+comparison pages (16 topics), live Lighthouse run, changelog filters, release 1.1.0, and one revert
+(idle explorer fetch, measured as worse). GitHub Pages is off. Branches are deleted after merge;
+only `main` and `freshness-data` exist.
 
 Open work, in the order I would do it:
 1. Weekly pricing issue (label `freshness`) every Monday: re-check listed entries with
