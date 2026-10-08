@@ -1,6 +1,22 @@
 # FreeTierWiki — Status & Roadmap
 _State refreshed: 2026-10-08._
 
+## Where things stand — 2026-10-08 (read this first)
+Main is clean and deployed. Six PRs merged on 2026-10-08 (#21–#26): OCR.space fix, Phase 2 domains
+and utility removals, native dialog, alternatives fix, self-hosted fonts, comparison pages.
+Branches are deleted after merge; only `main` and `freshness-data` exist.
+
+Open work, in the order I would do it:
+1. Weekly pricing issue (label `freshness`) every Monday: re-check listed entries with
+   `scripts/verify/`, fix, open a PR, close the issue. Issue #18 stays open for six evidence gaps.
+2. More comparison topics in `content/comparisons.json` (ideas: LLM APIs, IP geolocation, form
+   backends, CDN, Redis/KV, cron/job runners), and a hard-cap column in the table.
+3. Changelog Ended/Changed/New filters (see "Also worth doing").
+4. Lighthouse against the live domain.
+
+Gates for any change: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`,
+`npm run check:budget`, `npm run test:e2e` (needs the build in `out/`). CI runs the same.
+
 ## Pricing review — 2026-10-06
 The [issue #18 review ledger](docs/reviews/2026-10-06-pricing-18.md) accounts for all 127 follow-up
 entries (120 distinct pricing URLs): 26 corrected, 95 verified unchanged, and 6 unresolved.
@@ -161,5 +177,5 @@ the rest of that audit is done.)
 - The first weekly run only builds the baseline and opens no issue. Read the issue from the second run on.
 
 ## Effort to next milestone
-The content check is done. The next work is a first look at the weekly check's issues, then the
-Phase 2 rating-rule and category clean-up.
+Phases 1–4 and the first pricing review are done. What is left is small and incremental: the weekly
+issue, more comparison topics, the changelog filters, and a live Lighthouse run.
