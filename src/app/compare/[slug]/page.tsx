@@ -48,10 +48,11 @@ export default async function ComparePage({ params }: { params: Params }) {
       <h1 className="mt-3 text-[28px] font-bold tracking-tight">{comparison.title}</h1>
       <p className="mt-2 max-w-2xl text-ink-2">{comparison.intro}</p>
       <p className="mt-2 text-sm text-ink-3">
-        {items.length} free tiers, safest first. Picked by hand; the facts come from each entry and its last check.
+        {items.length} free tiers, safest first. Picked by hand; the facts come from each entry and its last check. A hard cap means the
+        service stops at the limit; a soft cap means it keeps going and may bill you.
       </p>
       <div className="mt-6">
-        <EntryList items={items} label={comparison.title} />
+        <EntryList items={items} showCap label={comparison.title} />
       </div>
     </div>
   );
