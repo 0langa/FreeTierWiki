@@ -8,17 +8,19 @@ const email: Comparison = { slug: "email-sending", title: "Free transactional em
 const live = new Set(["services:neon", "services:supabase", "services:resend"]);
 
 describe("jobLabel", () => {
-  it("drops the trailing 'compared' so a card reads as a job", () => {
-    expect(jobLabel("Free Postgres hosting compared")).toBe("Free Postgres hosting");
-    expect(jobLabel("Free CDNs")).toBe("Free CDNs");
+  it("drops 'Free' and 'compared' so a card reads as a job", () => {
+    expect(jobLabel("Free Postgres hosting compared")).toBe("Postgres hosting");
+    expect(jobLabel("Free auth providers compared")).toBe("Auth providers");
+    expect(jobLabel("Free CDNs")).toBe("CDNs");
+    expect(jobLabel("Object storage")).toBe("Object storage");
   });
 });
 
 describe("liveComparisons", () => {
   it("keeps file order and counts only live entries", () => {
     expect(liveComparisons([postgres, email], live)).toEqual([
-      { slug: "postgres-hosting", href: "/compare/postgres-hosting/", title: "Free Postgres hosting compared", label: "Free Postgres hosting", intro: "Managed Postgres.", count: 2 },
-      { slug: "email-sending", href: "/compare/email-sending/", title: "Free transactional email APIs compared", label: "Free transactional email APIs", intro: "Email.", count: 2 },
+      { slug: "postgres-hosting", href: "/compare/postgres-hosting/", title: "Free Postgres hosting compared", label: "Postgres hosting", intro: "Managed Postgres.", count: 2 },
+      { slug: "email-sending", href: "/compare/email-sending/", title: "Free transactional email APIs compared", label: "Transactional email APIs", intro: "Email.", count: 2 },
     ]);
   });
 });

@@ -41,7 +41,7 @@ test("a changed entry shows what changed", async ({ page, request }) => {
 test("an entry links to the comparison tables it is in", async ({ page }) => {
   await page.goto("/services/neon/");
   const compared = page.getByRole("navigation", { name: "Compared in" });
-  await expect(compared.getByRole("link", { name: "Free Postgres hosting" })).toHaveAttribute("href", "/compare/postgres-hosting/");
+  await expect(compared.getByRole("link", { name: "Postgres hosting" })).toHaveAttribute("href", "/compare/postgres-hosting/");
 });
 
 test("on a phone the facts label comes before the pricing button", async ({ page }, testInfo) => {

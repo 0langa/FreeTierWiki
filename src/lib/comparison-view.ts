@@ -3,9 +3,13 @@ import type { Comparison } from "@/lib/comparisons-file";
 /** A comparison table as a card: its link, a short job label, and how many live entries it holds. */
 export type ComparisonCard = Pick<Comparison, "slug" | "title" | "intro"> & { href: string; label: string; count: number };
 
-/** "Free Postgres hosting compared" reads as a job once the trailing word is gone. */
+/**
+ * "Free Postgres hosting compared" reads as a job once the frame words are gone: "Postgres hosting".
+ * Everything on the site is free, so "Free" carries nothing in a list of jobs.
+ */
 export function jobLabel(title: string): string {
-  return title.replace(/\s+compared$/i, "");
+  const core = title.replace(/^free\s+/i, "").replace(/\s+compared$/i, "");
+  return core.charAt(0).toUpperCase() + core.slice(1);
 }
 
 export function liveComparisons(comparisons: Comparison[], liveIds: ReadonlySet<string>): ComparisonCard[] {
