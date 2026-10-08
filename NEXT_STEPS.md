@@ -28,9 +28,10 @@ Corrections include Neon storage, Firebase Spark versus Blaze limits, v0 credit 
 Gemini paid-tier grounding, Appetize quotas, and RapidAPI billing risks. Pipedream's announced
 March 31, 2027 Workflows/String shutdown is recorded; Connect remains supported.
 The documentation follow-up resolves nine more gaps and partially corrects four others, including
-Azure billing risk and Zipcodestack credit units. Six gaps remain: Azure disk redundancy, Namae hosted
-terms, W&B Personal availability, Zipcodestack's daily cap, HS-ping access, and Invantive access.
-Keep #18 open for those follow-ups. Four corroborated unchanged offers received new verification
+Azure billing risk and Zipcodestack credit units. On 2026-10-08 five of the six gaps were closed in a
+real browser: HS Ping and Invantive verified unchanged; Zipcodestack has no daily cap; Namae's hosted
+site is live; W&B pricing moved to CoreWeave Forge and lists no free self-hosted plan. One gap remains:
+Azure disk redundancy (the free-services list does not render in any browser). Keep #18 open for it. Four corroborated unchanged offers received new verification
 dates; all unresolved entries retain their prior verification dates.
 
 ## What this is
