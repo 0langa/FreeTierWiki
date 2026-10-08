@@ -21,7 +21,23 @@ that owns the Web Analytics site) plus the repository variables `CLOUDFLARE_ACCO
 the job ends early. Until the first run the hand-picked "Common first picks" card
 (`POPULAR_PICKS`) shows instead.
 
-## Where things stand — 2026-10-08 (read this first)
+## Where things stand — 2026-10-09 (read this first)
+Discovery day. Real traffic measured for the first time: about 90 human visits per 30 days
+(Cloudflare Web Analytics, bots excluded); the raw request log (117k requests) is 99 percent
+crawlers. Google Search Console now exists (domain property, TXT-verified, sitemap submitted) and
+Bing Webmaster Tools imported it (sitemap submitted). The weekly "most visited" job switched from
+the request log to Web Analytics page loads with the bot filter on (`aa34a95`, `5a108e4`); the new
+list is on main (`df8c073`). Three commits, no release tag; `v1.1.0` stays the last tag.
+
+Open work, in the order I would do it:
+1. **Deepen every entry, one sweep.** Owner decision, brief in
+   `docs/plans/2026-10-09-deepen-every-entry.md`. Run it on Claude Opus 5.5. Start
+   with Day 0 (validator, body rendering, 5 hand-made entries), then batches of 100.
+2. In 2 to 3 days: read the first Search Console and Bing reports (index coverage, queries) and
+   fold what they show into the sweep's FAQ sections.
+3. Weekly pricing issue (label `freshness`) as before.
+
+## Where things stand — 2026-10-08 (previous)
 Main is clean, deployed, and tagged `v1.1.0`. Eleven PRs merged on 2026-10-08 (#21–#31): OCR.space
 fix, Phase 2 domains and utility removals, native dialog, alternatives fix, self-hosted fonts,
 comparison pages (16 topics), live Lighthouse run, changelog filters, release 1.1.0, and one revert
