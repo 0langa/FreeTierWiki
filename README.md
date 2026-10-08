@@ -71,7 +71,7 @@ See [`/about/`](https://freetier.wiki/about/) for the full explanation. Summary:
 - Next.js 16 (App Router), static export (`output: "export"`)
 - TypeScript, strict mode
 - Tailwind CSS 3.4
-- Base UI `Dialog` (search)
+- Native `<dialog>` for the search box and the phone filter sheet (`src/components/ui/modal.tsx`)
 - FlexSearch, loaded lazily only when someone searches
 - Frontmatter + MDX content pipeline
 - Vitest (unit tests) and Playwright (end-to-end tests)

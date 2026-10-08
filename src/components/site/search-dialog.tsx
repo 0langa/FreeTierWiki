@@ -3,9 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Dialog } from "@base-ui/react/dialog";
 import { Search } from "lucide-react";
 
+import { Modal } from "@/components/ui/modal";
 import { DOMAIN_LABELS } from "@/lib/content";
 import type { SearchRecord } from "@/types/content";
 
@@ -148,14 +148,10 @@ export function SearchDialog() {
   else if (hits.length === 0) message = `No match for “${text}”. Press Enter to search the Explorer.`;
 
   return (
-    <Dialog.Root
-      open={open}
-      onOpenChange={(next) => {
-        setOpen(next);
-        if (!next) setQuery("");
-      }}
-    >
-      <Dialog.Trigger
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
         aria-label="Search free tiers"
         className="flex h-9 items-center gap-2.5 rounded-lg border border-line bg-surface px-2.5 text-sm text-ink-3 hover:border-ink-3 md:w-60"
       >
@@ -164,11 +160,13 @@ export function SearchDialog() {
         <kbd className="ml-auto hidden rounded border border-line bg-surface-2 px-1.5 py-0.5 text-[11px] text-ink-3 md:inline">
           Ctrl K
         </kbd>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/50" />
-        <Dialog.Popup className="fixed left-1/2 top-[12vh] z-50 w-[min(640px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-xl border border-line bg-surface shadow-soft">
-          <Dialog.Title className="sr-only">Search free tiers</Dialog.Title>
+      </button>
+      <Modal
+        open={open}
+        onClose={close}
+        label="Search free tiers"
+        className="fixed left-1/2 top-[12vh] w-[min(640px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-xl border border-line bg-surface shadow-soft"
+      >
           <div className="flex items-center gap-3 border-b border-line px-4">
             <Search className="h-4 w-4 shrink-0 text-ink-3" aria-hidden />
             <input
@@ -220,8 +218,7 @@ export function SearchDialog() {
               </Link>
             ) : null}
           </div>
-        </Dialog.Popup>
-      </Dialog.Portal>
-    </Dialog.Root>
+      </Modal>
+    </>
   );
 }

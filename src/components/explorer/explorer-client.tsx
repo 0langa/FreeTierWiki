@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Dialog } from "@base-ui/react/dialog";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
 import { EntryList } from "@/components/entry/entry-list";
 import { FilterPanel, type FacetCountMaps } from "@/components/explorer/filter-panel";
+import { Modal } from "@/components/ui/modal";
 import type { ListItem } from "@/lib/entry-view";
 import {
   activeFilterCount,
@@ -227,19 +227,21 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
 
       </section>
 
-      <Dialog.Root open={sheetOpen} onOpenChange={setSheetOpen}>
-        <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/50 lg:hidden" />
-          <Dialog.Popup className="fixed inset-x-0 bottom-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-2xl border-t border-line bg-surface px-4 pb-4 pt-2 lg:hidden">
-            <div className="mx-auto mb-3 mt-1 h-1 w-10 rounded-full bg-line" aria-hidden />
-            <Dialog.Title className="mb-4 text-lg font-semibold">Filters</Dialog.Title>
-            <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
-            <div className="sticky bottom-0 mt-4 bg-surface pt-3">
-              <Dialog.Close className="btn btn-primary h-11 w-full justify-center">Show {total} results</Dialog.Close>
-            </div>
-          </Dialog.Popup>
-        </Dialog.Portal>
-      </Dialog.Root>
+      <Modal
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        label="Filters"
+        className="fixed inset-x-0 bottom-0 top-auto max-h-[85vh] w-full overflow-y-auto rounded-t-2xl border-t border-line bg-surface px-4 pb-4 pt-2 lg:hidden"
+      >
+        <div className="mx-auto mb-3 mt-1 h-1 w-10 rounded-full bg-line" aria-hidden />
+        <h2 className="mb-4 text-lg font-semibold">Filters</h2>
+        <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
+        <div className="sticky bottom-0 mt-4 bg-surface pt-3">
+          <button type="button" onClick={() => setSheetOpen(false)} className="btn btn-primary h-11 w-full justify-center">
+            Show {total} results
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  /* Native <dialog> (search, phone filter sheet): callers position and style the box with utilities. */
+  dialog {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-width: none;
+    max-height: none;
+    background: transparent;
+    color: var(--ink);
+  }
+  dialog::backdrop {
+    background: rgb(0 0 0 / 0.5);
+  }
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
   :root {
     --bg: #f6f6f3;
     --surface: #ffffff;
