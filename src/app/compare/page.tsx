@@ -5,7 +5,7 @@ import { getAllEntries, getComparisons } from "@/lib/content.server";
 
 export const metadata: Metadata = {
   title: "Compare free tiers",
-  description: "Side-by-side tables of free plans for one job: Postgres hosting, serverless functions, email APIs, auth, and more.",
+  description: "Side-by-side tables of free plans for one job: Postgres hosting, serverless functions, email APIs, LLM APIs, auth, and more.",
   alternates: { canonical: "/compare/" },
 };
 

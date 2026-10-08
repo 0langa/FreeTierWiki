@@ -9,8 +9,8 @@ Branches are deleted after merge; only `main` and `freshness-data` exist.
 Open work, in the order I would do it:
 1. Weekly pricing issue (label `freshness`) every Monday: re-check listed entries with
    `scripts/verify/`, fix, open a PR, close the issue. Issue #18 stays open for six evidence gaps.
-2. More comparison topics in `content/comparisons.json` (ideas: LLM APIs, IP geolocation, form
-   backends, CDN, Redis/KV, cron/job runners), and a hard-cap column in the table.
+2. More comparison topics in `content/comparisons.json`. 13 exist (2026-10-08). Redis/KV was skipped:
+   only four live entries. Ideas: search APIs, vector databases, status pages, feature flags.
 3. Changelog Ended/Changed/New filters (see "Also worth doing").
 4. Lighthouse against the live domain.
 
@@ -162,7 +162,7 @@ explains the ratings). The "N of M entries checked" progress strip is gone. The 
   topics in `content/comparisons.json` (Postgres, serverless functions, email APIs, object storage,
   auth, uptime monitoring, static hosting, error tracking). Rows reuse the entry list, safest first;
   ended entries are dropped and a unit test rejects missing ids. Linked from the header, footer, and
-  sitemap. Next ideas: more topics, and a hard-cap column.
+  sitemap. Later the same day: 13 topics, and a hard/soft cap label in the card column (`showCap`).
 - Done 2026-10-08: IBM Plex Sans and Mono are self-hosted from `src/fonts/` (`next/font/local`, OFL).
   A build never calls Google Fonts. The OG image template still links Google Fonts; it is rendered
   by hand, not in CI.

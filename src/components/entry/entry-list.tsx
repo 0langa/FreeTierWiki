@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { CardLabel, FreshnessLabel, RiskPill, StatusPill } from "@/components/entry/labels";
+import { CapLabel, CardLabel, FreshnessLabel, RiskPill, StatusPill } from "@/components/entry/labels";
 import { OfferText } from "@/components/entry/offer-text";
 import { DOMAIN_LABELS } from "@/lib/content";
 import type { ListItem } from "@/lib/entry-view";
@@ -8,7 +8,9 @@ import type { ListItem } from "@/lib/entry-view";
 const COLS_WITH_CHECK = "lg:grid-cols-[minmax(180px,1.1fr)_minmax(0,1.6fr)_92px_78px_112px]";
 const COLS_NO_CHECK = "lg:grid-cols-[minmax(160px,1fr)_minmax(0,1.6fr)_92px_78px]";
 
-export function EntryList({ items, showChecked = true, label = "Free tiers" }: { items: ListItem[]; showChecked?: boolean; label?: string }) {
+type EntryListProps = { items: ListItem[]; showChecked?: boolean; showCap?: boolean; label?: string };
+
+export function EntryList({ items, showChecked = true, showCap = false, label = "Free tiers" }: EntryListProps) {
   const cols = showChecked ? COLS_WITH_CHECK : COLS_NO_CHECK;
   return (
     <div
@@ -23,7 +25,7 @@ export function EntryList({ items, showChecked = true, label = "Free tiers" }: {
         <span role="columnheader">Free tier</span>
         <span role="columnheader">What you get free</span>
         <span role="columnheader">Risk</span>
-        <span role="columnheader">Card</span>
+        <span role="columnheader">{showCap ? "Card · Cap" : "Card"}</span>
         {showChecked ? <span role="columnheader">Freshness</span> : null}
       </div>
       {items.map((item) => {
@@ -62,6 +64,7 @@ export function EntryList({ items, showChecked = true, label = "Free tiers" }: {
             </div>
             <div role="cell" className="col-start-1 row-start-3 lg:col-auto lg:row-auto">
               <CardLabel card={item.card} />
+              {showCap ? <CapLabel cap={item.cap} /> : null}
             </div>
             {showChecked ? (
               <div role="cell" className="col-start-2 row-start-3 justify-self-end lg:col-auto lg:row-auto lg:justify-self-start">

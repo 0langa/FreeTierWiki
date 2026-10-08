@@ -44,6 +44,11 @@ export function CardLabel({ card }: { card: boolean }) {
   );
 }
 
+/** Whether the free amount is a hard cap (service stops) or a soft one (it keeps going, maybe billed). */
+export function CapLabel({ cap }: { cap: boolean }) {
+  return <span className={`block text-[12px] ${cap ? "text-ink-2" : "text-ink-3"}`}>{cap ? "Hard cap" : "Soft cap"}</span>;
+}
+
 const BASE = "whitespace-nowrap font-mono text-xs font-medium";
 const DASHED = "border-b border-dashed pb-px";
 
