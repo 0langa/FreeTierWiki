@@ -55,9 +55,10 @@ Open items for the owner:
    `services/contentful` (429 to every fetch), `services/localit`, `services/azure-blob-storage`,
    `services/azure-disk-storage`.
 3. Doubtful entries: removed (see above).
-4. Recheck by hand: `services/gtmetrix-com` (pricing 403), `services/cloudflare-zero-trust`
-   (50-user figure from a 2021 post), `tools/tomorrow-io-weather-api` (rate figures unverified),
-   `tools/zapier` (webhooks on Free: pricing table and help article disagree).
+4. Hand checks done in a real browser (2026-10-09): GTmetrix (pricing lists only paid plans from
+   $4.99; free Basic limits from the 2023 post and FAQ), Cloudflare Zero Trust (50 users, $0
+   forever, confirmed), Tomorrow.io (500/day, 25/hour, 3/second confirmed), Zapier (pricing table
+   and help articles really disagree on Free webhooks; the entry says so).
 
 ## Where things stand — 2026-10-09 (earlier)
 Discovery day. Real traffic measured for the first time: about 90 human visits per 30 days
