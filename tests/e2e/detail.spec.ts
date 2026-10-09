@@ -25,6 +25,31 @@ test("a deepened entry shows its sections and links its alternatives", async ({ 
   await expect(page.getByRole("heading", { name: "Overview" })).toHaveCount(0);
 });
 
+test("the jump menu links to the sections on the page", async ({ page }) => {
+  await page.goto("/services/supabase/");
+  const jumps = page.getByRole("navigation", { name: "On this page" });
+  await jumps.getByRole("link", { name: "Gotchas" }).click();
+  await expect(page).toHaveURL(/#gotchas$/);
+  await expect(page.locator("#gotchas")).toBeInViewport();
+  await expect(page.getByRole("heading", { level: 2, name: "How to get started" })).toBeVisible();
+});
+
+test("a deepened entry carries breadcrumb and FAQ structured data", async ({ page }) => {
+  await page.goto("/services/supabase/");
+  const data = JSON.parse((await page.locator('script[type="application/ld+json"]').first().textContent()) ?? "{}");
+  const types = data["@graph"].map((node: { "@type": string }) => node["@type"]);
+  expect(types).toEqual(["BreadcrumbList", "FAQPage"]);
+  expect(data["@graph"][1].mainEntity).toHaveLength(3);
+});
+
+test("a provider page lists every free tier from that provider", async ({ page }) => {
+  await page.goto("/services/supabase/");
+  await page.getByRole("link", { name: "Supabase", exact: true }).first().click();
+  await expect(page).toHaveURL(/\/provider\/supabase\/$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Supabase free tiers" })).toBeVisible();
+  await expect(page.getByRole("table", { name: "Supabase free tiers" }).getByRole("row")).not.toHaveCount(0);
+});
+
 test("an unchecked entry says so", async ({ page, request }) => {
   const row = await findEntry(request, (r) => r.freshness.state === "imported");
   test.skip(!row, "every entry is checked");

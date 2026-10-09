@@ -1,8 +1,8 @@
 ---
 title: Cloudflare Workers
 description: >-
-  Cloudflare Workers is a serverless platform for deploying JavaScript,
-  TypeScript, and WASM code at the edge.
+  Cloudflare Workers runs JavaScript, TypeScript, Python, or WebAssembly code on
+  Cloudflare's network, for APIs, webhooks, and edge logic.
 provider: Cloudflare
 category: compute
 domain: compute
@@ -46,25 +46,25 @@ useCases:
   - Lightweight backend logic
 quickstartSteps:
   - Sign up for a Cloudflare account.
-  - Install the Wrangler CLI tool.
-  - Run 'wrangler generate my-worker' to scaffold a new project.
-  - Edit the generated code to implement your logic.
-  - Deploy using 'wrangler publish'.
+  - Install Node.js; the Wrangler CLI needs a recent Node version.
+  - Run `npm create cloudflare@latest -- my-first-worker` to create a project.
+  - Run `npx wrangler dev` to test the Worker on your machine.
+  - Run `npx wrangler deploy` to publish it to a workers.dev subdomain.
 whenToUse: >-
-  Use when you need fast, globally distributed serverless functions for
-  lightweight APIs, edge logic, or request handling.
+  Use Workers for small APIs, webhooks, redirects, and request rewriting that
+  need only a few milliseconds of CPU per request.
 whenNotToUse: >-
-  Avoid if you need long-running processes, large memory, or advanced networking
-  features unavailable in Workers.
+  Avoid it for CPU-heavy work such as image processing or large server-side
+  rendering, or for traffic above the daily request limit.
 bestFor:
   - edge APIs
-  - microservices
   - webhooks
-  - personalization
+  - redirects and header rewrites
+  - static sites with a little logic
 avoidIf:
-  - heavy compute
-  - stateful workloads
+  - CPU-heavy requests
   - long-running jobs
+  - traffic above the daily limit
 difficulty: beginner
 productionReadiness: production-light
 lastUpdated: 2026-10-09
@@ -75,11 +75,12 @@ docsUrl: 'https://developers.cloudflare.com/workers/'
 sourceUrls:
   - 'https://developers.cloudflare.com/workers/platform/limits/'
   - 'https://developers.cloudflare.com/workers/platform/pricing/'
+  - 'https://developers.cloudflare.com/workers/get-started/guide/'
 featured: false
 lastVerified: 2026-10-09
 pricingUrl: 'https://developers.cloudflare.com/workers/platform/pricing/'
 ---
-Cloudflare Workers runs your JavaScript, TypeScript, Python, or WebAssembly code on Cloudflare's network, close to your users. This page covers the Workers Free plan.
+You write a Worker on your machine with the Wrangler CLI and deploy it with one command. It then answers requests on a workers.dev subdomain or your own domain. This page covers the Workers Free plan.
 
 ## What the free plan gives you
 

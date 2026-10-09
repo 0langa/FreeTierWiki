@@ -6,6 +6,7 @@ import { readRemovals } from "@/lib/changelog-file";
 import { readComparisons, type Comparison } from "@/lib/comparisons-file";
 import { CONTENT_DIR, listContentFiles, readEntryFile } from "@/lib/content-files";
 import { readPopular, type Popular } from "@/lib/popular-file";
+import { providerGroups, type ProviderGroup } from "@/lib/providers";
 import type { AtlasEntry, AtlasEntryWithBody, ContentKind, RemovalRecord } from "@/types/content";
 
 async function load() {
@@ -18,7 +19,8 @@ async function load() {
   const removals = await readRemovals();
   const comparisons = await readComparisons();
   const popular = await readPopular();
-  return { entries, byPath, removals, comparisons, popular };
+  const providers = providerGroups(entries);
+  return { entries, byPath, removals, comparisons, popular, providers };
 }
 
 // Static export prerenders every one of the ~765 entry pages as its own render. React's `cache()`
@@ -54,4 +56,9 @@ export async function getPopular(): Promise<Popular | undefined> {
 
 export async function getComparison(slug: string): Promise<Comparison | undefined> {
   return (await loadAll()).comparisons.find((comparison) => comparison.slug === slug);
+}
+
+/** Providers with a page of their own (two or more entries). */
+export async function getProviderGroups(): Promise<ProviderGroup[]> {
+  return (await loadAll()).providers;
 }
