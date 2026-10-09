@@ -1,81 +1,134 @@
 ---
 title: Requestly
 description: >-
-  Requestly is a browser-based tool for intercepting, modifying, and redirecting
-  network requests for web development and testing.
+  Requestly is a browser extension and desktop app that intercepts and changes
+  HTTP traffic with rules and mocks, and it also offers an API client. It suits
+  frontend developers and QA engineers.
 provider: Requestly
 category: devops
 domain: devops
 subtypes:
-  - network proxy
-  - request interceptor
-  - web debugging
+  - http-interceptor
+  - api-mocking
+  - api-client
 audiences:
-  - student
   - indie
   - startup
   - team
-  - oss
-  - agency
+  - student
 tags:
-  - networking
-  - testing
-  - web
+  - http interceptor
+  - modheader alternative
+  - modify headers
+  - mock api
+  - redirect requests
+  - charles proxy alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The HTTP Interceptor (browser extension) is free with unlimited rules; the
-    paid API Platform plans add team collaboration and governance.
+    The Free HTTP Rules plan has 5 rules (3 active), unlimited header rules, 5
+    API mock endpoints, and 5 files. The API platform is a paid per-user plan
+    with a 30 day trial.
   limits:
-    - Unlimited rules for the free HTTP Interceptor extension
-    - Modify, redirect, mock, and block network requests
-    - Paid plans include a 30-day free trial, no card required
+    - '5 rules (3 active) on the Free HTTP Rules plan'
+    - Unlimited header rules
+    - '5 API mock endpoints'
+    - '5 files (JS / CSS)'
+    - 'API platform: 30-day free trial, no credit card'
   caveats:
-    - Team Workspaces, SSO, and audit logs need a paid API Platform plan
-    - Paid plans start at $10/user/month, billed annually
+    - Free allows standard HTTP modifications only; Lite adds all HTTP modifications
+    - Team workspaces, SSO, and governance need a paid plan
+    - The Team API platform plan starts at $10 per user per month, billed annually
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Mocking API responses
-  - Redirecting URLs during development
-  - Testing web apps with modified requests
-  - Blocking unwanted scripts
+  - Adding or changing request and response headers while debugging
+  - Redirecting a live request to a local or staging server
+  - Mocking an API response so you can build a frontend without a backend
+  - Delaying requests to test slow networks
+  - Injecting scripts or blocking requests on a page
 quickstartSteps:
-  - >-
-    Install the Requestly browser extension from the official website or Chrome
-    Web Store.
-  - Sign up for a free account and log in.
-  - 'Create a new rule (e.g., modify, redirect, or block requests).'
-  - Apply the rule and test it on your target website.
-  - Review and manage your rules from the Requestly dashboard.
+  - Install the Requestly extension for your browser from requestly.com, or download the desktop app if you need mobile or system-wide traffic.
+  - Pin the extension, open its popup, and press Open App to reach the web app at app.requestly.io.
+  - Open HTTP Rules, create a rule, and pick one type such as Modify Headers or Redirect Request.
+  - Set the source conditions so the rule matches only the URLs you want.
+  - Turn the rule on and check the result in the page, or with the Executed Rules tab in the popup.
 whenToUse: >-
-  Use Requestly when you need to quickly intercept, modify, or redirect network
-  requests for web development or debugging.
+  Use Requestly when you need to change headers, redirect calls, or mock a
+  response in your browser without touching app code.
 whenNotToUse: >-
-  Avoid the free tier if you require team workspaces, SSO, or governance
-  features from the paid API Platform plans.
+  Avoid the Free plan if you need more than 3 active rules at once, all HTTP
+  modifications, or shared team workspaces.
 bestFor:
   - web developers
   - QA engineers
   - frontend teams
 avoidIf:
-  - need server-side interception
-  - require unlimited rules
-  - need advanced automation
+  - many rules active at once
+  - team workspaces or SSO on a free plan
+  - needing server-side interception
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: "The Free HTTP Rules plan now lists 5 rules (3 active), 5 mock endpoints, and 5 files, not unlimited rules."
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://requestly.com/'
-docsUrl: 'https://docs.requestly.com/'
+docsUrl: 'https://interceptor-docs.requestly.com/'
 sourceUrls:
-  - 'https://requestly.com/products/http-interceptor/'
+  - 'https://app.requestly.io/pricing'
   - 'https://requestly.com/pricing/'
-pricingUrl: 'https://requestly.com/products/http-interceptor/'
+  - 'https://interceptor-docs.requestly.com/'
+  - 'https://interceptor-docs.requestly.com/getting-started/quick-start-guide/browser-extension-setup'
+  - 'https://requestly.com/products/http-interceptor/'
+pricingUrl: 'https://app.requestly.io/pricing'
 featured: false
 ---
-Requestly's HTTP Interceptor is a free, open-source browser extension for intercepting, modifying, and redirecting network requests, with no rule limit. Its API Platform desktop app adds paid, per-user team plans for collaboration and governance.
+You create rules in the Requestly web app, which you open from the extension popup. The desktop app adds system-wide and mobile interception.
+
+## What the free plan gives you
+
+The Free HTTP Rules plan costs $0 and covers standard HTTP modifications. It lists 5 rules, of which 3 can be active at once. You get unlimited header rules, 5 API mock endpoints, and 5 files for JS or CSS.
+
+Paid HTTP Rules plans start with Lite at $8 per month, billed $90 a year. Basic costs $15 per month and raises the limit to 10 rules with 5 active. Professional costs $23 per month and removes the rule, group, mock, and file limits.
+
+Requestly also sells an API platform with an API client. Its Team plan costs $10 per user per month, billed annually. You can start a 30 day trial of it with no credit card.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you create more than 5 rules or turn on a fourth rule. It lists the numbers as plan limits only.
+
+The HTTP Rules pricing page shows fixed monthly prices and does not describe any metered charges. To work inside the cap, keep only the rules you need active and use header rules, which are unlimited.
+
+## Gotchas
+
+- Three active rules is the real working limit on Free. Turn old rules off before you switch on new ones.
+- The browser extension has limits that the desktop app does not. For example, it cannot serve local files or modify HTML or CSS content, and its delay rule has a maximum delay.
+- Requestly is moving toward an API platform. The HTTP Rules pricing sits on a separate page from the API platform pricing.
+
+## Alternatives in this atlas
+
+- [Beeceptor](/services/beeceptor/): when you want hosted mock endpoints instead of browser rules.
+- [Insomnia](/tools/insomnia/): when you mostly want an API client for sending requests.
+- [Postman](/tools/postman/): when your team already uses Postman collections and needs an API client.
+
+## Questions people ask
+
+### Is Requestly free?
+
+Partly. The Free HTTP Rules plan costs $0 with 5 rules, of which 3 can be active, plus unlimited header rules. The API platform plans are paid after a 30 day trial.
+
+### Does Requestly need a credit card?
+
+The API platform pricing page says its 30 day trial needs no credit card. The HTTP Rules pricing page does not state a card rule for the Free plan.
+
+### Is the Requestly extension the same as the desktop app?
+
+No. The extension runs inside the browser. The desktop app also intercepts mobile devices, terminal tools, and system-wide traffic.

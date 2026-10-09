@@ -1,8 +1,9 @@
 ---
 title: Codeberg
 description: >-
-  Codeberg is a free, open-source Git hosting platform with collaborative
-  development tools.
+  Codeberg is a non-profit Git hosting site for free and open-source software,
+  built on Forgejo. It also offers issue tracking, a wiki, Pages, and
+  translation hosting for community projects.
 provider: Codeberg
 category: devops
 domain: devops
@@ -17,63 +18,121 @@ audiences:
   - startup
   - team
 tags:
-  - devops
-  - open-source
-  - collaboration
+  - git hosting
+  - forgejo
+  - github alternative
+  - open source hosting
+  - codeberg pages
+  - woodpecker ci
+  - free software
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free Git hosting for free/libre software with collaboration tools; private
-    content is limited to 100 MB.
+    Codeberg is free for free and open-source projects. Private content is
+    allowed up to 100 MB. There is no quota for valid use cases, but you should
+    request more resources first if you plan over 750 MiB of Git storage.
   limits:
     - No charge for free/libre software projects
     - Up to 100 MB of private content
-    - No stated collaborator limit
-    - No quota for valid use cases (request more if over 750 MiB of Git storage)
+    - Request resources first for over 750 MiB of Git storage, over 1.5 GiB of
+      packages, LFS and attachments, or large CI use
+    - Limit of 100 repositories per user or organization, which you can ask to
+      raise
   caveats:
     - No commercial support
-    - Storage subject to review if usage looks unreasonable
-    - Restricted to free and open-source projects
-    - CI/CD is available via the built-in Woodpecker CI service
+    - Codeberg does not offer private hosting services
+    - Storage is subject to review, and Codeberg can deny service for
+      unreasonable resource use
+    - CI runs on Woodpecker CI and needs a manual access request; it is provided
+      as-is, on linux/amd64 only
+    - You are expected to attach a suitable free or open-source license to
+      public work
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Hosting open-source projects
-  - Collaborative software development
-  - Issue tracking
+  - Host the source code of an open source project
+  - Track issues and pull requests for a community project
+  - Publish a project site with Codeberg Pages
+  - Run tests on Codeberg's Woodpecker CI after approval
+  - Translate software with the Weblate service
 quickstartSteps:
-  - 'Go to https://codeberg.org/ and sign up for a free account.'
-  - Verify your email address to activate your account.
-  - Create a new repository or import an existing one.
-  - Clone your repository locally using Git.
-  - Push your code and start collaborating with others.
+  - Go to codeberg.org and click Register. Choose a username, an email address,
+    and a password.
+  - Click the link in the confirmation email to finish creating your account.
+  - Set up two-factor authentication, which the docs recommend as a first step.
+  - Use the Create menu to start a repository, an organization, or a migration
+    from another host.
+  - Install Git, clone the repository, and push your first commit. Add a free or
+    open-source license to your project.
 whenToUse: >-
-  Use Codeberg when you need free, privacy-focused Git hosting for open-source
-  projects with basic collaboration tools.
+  Use Codeberg when your project has a free or open-source license and you want
+  a non-profit, privacy-friendly home for its code instead of a commercial host.
 whenNotToUse: >-
-  Avoid if you require advanced enterprise features or guaranteed commercial
-  support and SLAs.
+  Avoid it for closed-source or commercial private projects, because Codeberg
+  does not offer private hosting services. Avoid it if you need guaranteed CI
+  capacity, since CI access is by request and provided as-is.
 bestFor:
-  - open-source projects
-  - independent developers
-  - student projects
+  - open source maintainers
+  - free software communities
+  - students publishing open projects
 avoidIf:
-  - enterprise compliance needs
-  - commercial SLA required
+  - private commercial repositories
+  - proprietary code
+  - you need a support contract or SLA
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://codeberg.org/'
 docsUrl: 'https://docs.codeberg.org'
 sourceUrls:
-  - 'https://codeberg.org/about'
-  - 'https://docs.codeberg.org/'
+  - https://codeberg.org/
+  - https://docs.codeberg.org/getting-started/faq/
+  - https://docs.codeberg.org/getting-started/first-steps/
+  - https://docs.codeberg.org/ci/
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://codeberg.org/'
 ---
-Codeberg offers a free, open-source alternative to commercial Git hosting, focusing on privacy, collaboration, and community-driven development for individuals and small teams.
+You use Codeberg through Git and a web interface based on Forgejo. It also runs Pages, a Weblate translation service, and Woodpecker CI. It suits maintainers of free and open-source projects who want a non-profit home for their code.
+
+## What the free plan gives you
+
+Codeberg charges nothing. The service is for free and open-source projects, and the site runs on donations and membership fees. You get Git hosting, issues, pull requests, a wiki, Pages, and organizations. The FAQ says there is no quota for valid use cases.
+
+You may keep up to 100 MB of private content if you contribute to free software. Use it for notes or a side project. Codeberg asks you to request resources first if you plan to use more than 750 MiB of Git storage, more than 1.5 GiB of packages, LFS, and attachments, or large CI resources. There is a limit of 100 repositories per user or organization. You can ask for a higher limit.
+
+## When you hit a limit
+
+No bill exists, because Codeberg does not charge for hosting. Limits work through review and requests. Codeberg reviews larger projects and can deny service if your resource use looks unreasonable or hurts other users.
+
+If you need more private storage, a higher repository limit, or CI access, open a request in the public Codeberg e.V. requests repository. If you use more than 100 MB of private storage for a valid case, send a request too. If you do not contribute to any free software, the FAQ says Codeberg is not the right place for you.
+
+## Gotchas
+
+- Codeberg does not offer private hosting services. The FAQ points commercial private projects to self-hosting Forgejo.
+- The CI needs a manual access request, and a volunteer reviews it. CI access is provided as-is and can break at any time.
+- The Woodpecker CI instance builds for linux/amd64 only.
+
+## Alternatives in this atlas
+
+- [Framagit.org](/tools/framagit-org/): when you want free GitLab hosting from Framasoft.
+- [Bitbucket](/services/bitbucket/): when you need free private repositories for a small team.
+- [GitLab](/services/gitlab/): when you want built-in CI on shared runners and can keep a card on file.
+
+## Questions people ask
+
+### Is Codeberg free?
+
+Yes. Codeberg charges nothing for free and open-source projects. It runs on donations and has no quota for valid use cases.
+
+### Can I have private repositories on Codeberg?
+
+A little. If you contribute to free software, Codeberg allows up to 100 MB of private content. It does not offer private hosting for commercial projects.
+
+### Does Codeberg have CI?
+
+Yes, through Woodpecker CI at ci.codeberg.org. You must request access first, and a volunteer reviews your project.

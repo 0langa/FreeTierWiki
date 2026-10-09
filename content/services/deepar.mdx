@@ -1,8 +1,8 @@
 ---
 title: DeepAR
 description: >-
-  DeepAR provides real-time augmented reality face filters and effects for
-  mobile and web applications.
+  DeepAR is an SDK for adding real-time AR face filters, makeup, and effects to
+  iOS, Android, and web apps, plus a free studio to design effects.
 provider: DeepAR
 category: ai
 domain: ai
@@ -16,9 +16,11 @@ audiences:
   - team
   - student
 tags:
-  - sdk
-  - mobile
-  - web
+  - augmented-reality
+  - face-filters
+  - ar-sdk
+  - virtual-makeup
+  - camera-effects
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -26,53 +28,92 @@ freeTierDetails:
     also free up to 10 monthly active users, then paid plans start at
     $25/month.
   limits:
-    - Free for development and testing, watermarked, no user cap
-    - Up to 10 monthly active users free in production
-    - Watermark on free tier output
+    - Free license for development and testing, with a watermark
+    - Up to 10 monthly active users in the free pricing tier
+    - DeepAR Studio is free to use
   caveats:
-    - Watermark removal requires a paid plan
-    - Production use beyond 10 MAU requires paid plans starting at $25/month
+    - The free version comes with a watermark; the pricing page does not say how to remove it
+    - Beyond 10 monthly active users you move to paid tiers, starting at $25/month for up to 1,000 users
+    - The same person on another device or browser can count as another user
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Add AR face filters to mobile apps
-  - Prototype interactive camera effects
-  - Create social media AR experiences
+  - Add AR face filters and effects to a mobile or web app
+  - Apply virtual makeup and beautification
+  - Replace or blur backgrounds in video calls and streams
+  - Design custom effects in DeepAR Studio
+  - Build AR mini-games controlled by facial expressions
 quickstartSteps:
-  - Sign up for a DeepAR developer account.
-  - 'Download the SDK for your platform (iOS, Android, or Web).'
-  - Follow the integration guide to add DeepAR to your project.
-  - Use sample filters or upload your own AR assets.
-  - Test the integration on your device.
+  - Create a DeepAR account on the developer portal.
+  - Click New Project, name it, and choose the FREE plan.
+  - For a web app, add the domain name (not the full URL) to get a license key.
+  - Install the web SDK with `npm install deepar`, or load it from a script tag.
+  - Call `deepar.initialize` with your license key, a preview element, and an effect.
 whenToUse: >-
-  Use DeepAR to quickly add AR face filters or effects to mobile or web apps
-  with minimal setup.
+  Use DeepAR when you want to add AR face effects to a mobile, web, or desktop
+  app and expect very few monthly users, or only need a test or demo build.
 whenNotToUse: >-
-  Avoid if you need commercial use, watermark-free output, or advanced
-  customization beyond free tier limits.
+  Avoid it if you expect more than 10 monthly active users in the free pricing
+  tier, or need watermark-free output.
 bestFor:
-  - prototyping
-  - student projects
+  - AR prototypes
   - demos
-  - MVPs
+  - small test projects
 avoidIf:
-  - commercial deployment
-  - custom branding
-  - high-volume production
+  - more than 10 monthly active users
+  - you cannot accept a watermark
+  - you need wildcard domains without contacting DeepAR
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://developer.deepar.ai'
-docsUrl: 'https://docs.developer.deepar.ai'
+docsUrl: 'https://docs.deepar.ai/deepar-sdk/introduction'
 sourceUrls:
   - 'https://docs.deepar.ai/deepar-sdk/pricing/'
+  - 'https://docs.deepar.ai/deepar-sdk/introduction'
+  - 'https://docs.deepar.ai/deepar-sdk/platforms/web/getting-started/'
 pricingUrl: 'https://docs.deepar.ai/deepar-sdk/pricing/'
 featured: false
 ---
-DeepAR offers a free SDK for adding real-time AR face filters and effects, free for development/testing and free in production up to 10 monthly active users, with a watermark.
+You add DeepAR to an iOS, Android, web, or desktop app with its SDK, using a license key from the developer portal. Effects load into the SDK, and you can design your own in DeepAR Studio. It suits developers who build camera apps with face effects and expect few users while testing.
+
+## What the free plan gives you
+
+DeepAR prices the SDK by monthly active users, or MAU. A MAU is one person who uses DeepAR features in a month. The same person on a second device or browser can count again. The first tier covers up to 10 MAU and costs nothing. The page also says the SDK is free for testing and development with a free license, and that the free version comes with a watermark. The web guide says DeepAR offers unlimited free licenses for testing and small projects, and you can create new free projects as you like.
+
+DeepAR Studio is free to use. Effects you make in Studio are free to use. DeepAR also lists both free and paid effects. The Beauty API is in beta and free for testing, with a watermarked preview.
+
+## When you hit a limit
+
+Above 10 MAU you move to a paid tier. Up to 1,000 MAU costs $25 per month or $250 per year. Up to 5,000 MAU costs $100 per month or $1,000 per year. Higher tiers go up from there, and the page asks you to get in touch above 100,000 MAU. The page does not say whether the SDK stops working or just flags you when you pass 10 MAU. The Beauty API beta shuts itself off after 3 minutes.
+
+## Gotchas
+
+- Devices and browsers count separately, so one person can use up more than one of your 10 free MAU.
+- The free version carries a watermark, and the page does not describe a way to remove it without a paid plan.
+- The Beauty API beta has an automatic shutdown after 3 minutes. ShopAR is priced differently from the SDK, so ask DeepAR for ShopAR pricing.
+
+## Alternatives in this atlas
+
+- [Azure AI Vision](/services/azure-ai-vision/): when you need image analysis from an API, not AR effects.
+- [Hugging Face Spaces](/services/hugging-face-spaces/): when you want to host a browser demo of a vision model for free.
+
+## Questions people ask
+
+### Is DeepAR free?
+
+Partly. The SDK is free for testing and development with a watermark, and the first pricing tier covers up to 10 monthly active users at no cost. Paid tiers start at $25 per month.
+
+### What happens when I go over DeepAR's free users?
+
+You need a paid tier. Up to 1,000 monthly active users costs $25 per month. The page does not say how DeepAR enforces the limit.
+
+### Is DeepAR Studio free?
+
+Yes. DeepAR Studio is free to use, and effects made in it can be used free of charge.

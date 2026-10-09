@@ -1,8 +1,9 @@
 ---
 title: Azure AI Language
 description: >-
-  Azure AI Language provides natural language processing APIs for text analysis,
-  translation, entity recognition, and conversational AI.
+  Azure AI Language analyzes text for sentiment, key phrases, named entities, language, and
+  summaries, and it supports question answering and custom language models. It is for developers who
+  add text understanding to apps.
 provider: Azure
 category: ai
 domain: ai
@@ -17,13 +18,22 @@ audiences:
   - enterprise
   - student
 tags:
-  - analytics
-  - cloud
+  - nlp
+  - sentiment analysis
+  - named entity recognition
+  - key phrase extraction
+  - language detection
+  - text analytics
+  - question answering
 pricingModel: freemium
 freeTierDetails:
-  summary: Free (F0) tier includes 5,000 text records/month shared across the language features.
+  summary: 'Free (F0) tier includes 5,000 text records/month shared across the language features.'
   limits:
-    - '5,000 text records/month, shared across sentiment analysis, key phrase extraction, language detection, NER, and PII detection'
+    - >-
+      5,000 text records/month, shared across summarization, sentiment analysis, key phrase
+      extraction, language detection, question answering, NER, and conversational language
+      understanding
+    - 'Custom text classification and custom NER: up to 1 hour of free training'
   caveats:
     - Usage is throttled once the monthly free limit is reached; no overage billing on the F0 tier
     - Custom model training and endpoint hosting are billed on paid tiers
@@ -34,44 +44,90 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Sentiment analysis for customer feedback
-  - Language translation for apps
-  - Named entity recognition in documents
-  - Building chatbots
+  - Score the sentiment of customer reviews
+  - Pull key phrases and named entities out of documents
+  - Detect the language of incoming text
+  - Build question answering over a knowledge base
 quickstartSteps:
-  - Sign in to the Azure Portal and create an AI Language resource.
-  - Obtain your API key and endpoint from the resource overview.
-  - Install the Azure AI Language SDK or use REST API.
-  - Authenticate using your API key in your application.
-  - 'Call the desired language API (e.g., sentiment analysis, entity recognition).'
+  - Create an Azure account or use an existing subscription.
+  - >-
+    In the Azure portal, create a Language resource. Pick a subscription, resource group, region,
+    name, and the Free F0 pricing tier.
+  - Check the Responsible AI Notice box and select Create.
+  - 'Open the resource, go to the keys and endpoint page, and copy a key and the endpoint.'
+  - 'Install the client library for your language, or call the REST API with the key.'
+  - Send a sample text to a feature such as language detection and read the result.
 whenToUse: >-
-  Use when you need scalable, managed NLP APIs for text analysis
-  or conversational AI without building models from scratch.
+  Use when you need managed text analysis, such as sentiment or entity detection, and your volume
+  stays under 5,000 text records a month.
 whenNotToUse: >-
-  Avoid if you require full model customization, on-premises deployment, or need
-  unlimited free usage for high-volume workloads.
+  Avoid if you need machine translation, which is a separate service, full model customization on
+  the free tier, or on-premises deployment.
 bestFor:
-  - text analysis
-  - translation
-  - entity recognition
-  - chatbots
+  - text analysis prototypes
+  - sentiment and entity extraction
+  - small question answering projects
+  - learning NLP APIs
 avoidIf:
-  - need custom NLP models
+  - need translation in the same service
   - require on-premises deployment
   - high-volume free usage
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
-officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-language/'
+officialUrl: 'https://azure.microsoft.com/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/language-service/overview'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/language-service/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/language-service/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/language-service/overview'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/language-service/concepts/data-limits'
   - >-
-    https://learn.microsoft.com/en-us/azure/ai-services/language-service/overview
+    https://learn.microsoft.com/en-us/azure/ai-services/language-service/language-detection/quickstart
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Language offers managed APIs for text analytics and conversational question answering, with a free (F0) tier of 5,000 text records per month suitable for prototyping and moderate production workloads. Translation is a separate Azure Translator service with its own free tier.
+You create a Language resource in the Azure portal, then call it from the REST API, a client library, or the Foundry portal. It suits developers who add text analysis to an app without training their own models.
+
+## What the free plan gives you
+
+The Free (F0) tier includes 5,000 text records per month. One text record is up to 1,000 characters. A document with 7,500 characters counts as 8 records. The pricing page says summarization, sentiment analysis, key phrase extraction, language detection, question answering, named entity recognition, and conversational language understanding all share this one pool of free records.
+
+Summarization counts the input text and the summary together. The other features count only the input text.
+
+Custom features have their own free amounts. Custom text classification and custom NER give up to 1 hour of free training. Custom NER and classification allow up to 1 model hosted for free. Conversational language understanding training is free at the standard level.
+
+## When you hit a limit
+
+The pricing page FAQ is direct. Usage is throttled when you reach the transaction limit on the Free tier, and customers cannot build up overages on the free tier. The page does not say how long the throttling lasts.
+
+Paid tiers bill per 1,000 text records, but the price fields on the page are blank. Check the Azure pricing calculator before you upgrade. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Question answering needs an Azure AI Search resource. Azure deploys one in your subscription when you choose it.
+- The synchronous API accepts documents up to 5,120 characters. Longer files need the asynchronous API, which allows 125,000 characters across up to 25 documents.
+- Azure Translator is a separate service with its own pricing.
+
+## Alternatives in this atlas
+
+- [Azure AI Translator](/services/azure-ai-translator/): when you need machine translation, which this service does not cover.
+- [Azure AI Content Safety](/services/azure-ai-content-safety/): when you need to detect harmful text rather than analyze meaning.
+- [Cohere API](/services/cohere-api/): when you want language model features without an Azure subscription.
+
+## Questions people ask
+
+### Is Azure AI Language free?
+
+Yes, within limits. The F0 tier includes 5,000 text records per month, shared across the main features.
+
+### What counts as a text record in Azure AI Language?
+
+A text record is up to 1,000 characters. A longer document counts as one record for each 1,000 characters.
+
+### What happens when I go over the Azure AI Language free limit?
+
+Usage is throttled, and you cannot build up overages on the free tier.

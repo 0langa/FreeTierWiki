@@ -1,8 +1,9 @@
 ---
 title: Netlify Functions
 description: >-
-  Netlify Functions lets you run serverless backend code with automatic
-  deployment and scaling from your Netlify site.
+  Netlify Functions runs server-side code next to your Netlify site, deployed
+  from the same Git repository. It is for front-end and Jamstack developers
+  who need small APIs, webhooks, or background jobs.
 provider: Netlify
 category: compute
 domain: compute
@@ -17,10 +18,12 @@ audiences:
   - team
   - oss
 tags:
-  - serverless
-  - web
+  - netlify
+  - serverless functions
+  - jamstack
   - api
-  - backend
+  - background functions
+  - scheduled functions
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -41,46 +44,46 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add serverless APIs to static sites
-  - Handle form submissions
-  - Integrate with third-party APIs
-  - Run scheduled background jobs
+  - Add a small API to a static or framework site
+  - Handle form submissions and webhooks
+  - Call third-party APIs with secrets kept on the server
+  - Run background work for up to 15 minutes
 quickstartSteps:
-  - Sign up for a free Netlify account.
-  - Create or import a site on Netlify.
-  - Add a 'netlify/functions' directory to your project.
-  - >-
-    Write a JavaScript or TypeScript function and save it in the functions
-    directory.
-  - Deploy your site to Netlify; functions are automatically deployed.
+  - 'Sign up for a free Netlify account and import your project from Git.'
+  - 'Run npm install @netlify/functions in your project.'
+  - 'Create a file such as netlify/functions/hello.mts that exports a default handler returning a Response.'
+  - 'Test locally with your framework dev server or the Netlify CLI.'
+  - 'Push to your Git provider so Netlify builds and deploys the function, then open the path you set in the config.'
 whenToUse: >-
-  Use when you need to add backend logic or APIs to static sites without
-  managing servers.
+  Use it to add small server-side code, APIs, or background jobs to a site
+  that already deploys on Netlify.
 whenNotToUse: >-
-  Avoid if you need long-running processes, high memory, or custom runtime
-  environments.
+  Avoid it for background work that must run longer than 15 minutes, or when
+  you cannot let a busy site use up the shared 300 credit pool.
 bestFor:
   - jamstack sites
   - static site APIs
   - simple backend tasks
 avoidIf:
-  - heavy computation
-  - custom runtimes
-  - stateful services
+  - background work longer than 15 minutes
+  - a pool of credits shared with builds and bandwidth
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.netlify.com/products/functions/'
 docsUrl: 'https://docs.netlify.com/functions/overview/'
 sourceUrls:
+  - 'https://www.netlify.com/pricing/'
   - 'https://www.netlify.com/products/functions/'
   - 'https://docs.netlify.com/functions/overview/'
-  - 'https://www.netlify.com/pricing/'
+  - 'https://docs.netlify.com/functions/usage-and-billing/'
+  - 'https://docs.netlify.com/functions/get-started/'
+  - 'https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/'
 featured: false
 status: changed
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.netlify.com/pricing/'
 changes:
   - date: 2025-09-04
@@ -89,4 +92,42 @@ changes:
       Netlify Functions moved from a flat 125,000-request/100-hour free quota
       to the account-wide 300-credits-per-month system.
 ---
-Netlify Functions provide a simple way to add serverless backend logic to your Netlify-hosted sites, with generous free tier limits and easy deployment.
+You add a TypeScript or JavaScript file to the netlify/functions folder of your project and push it to Git. Netlify builds and deploys it with your site, and you can also deploy with the Netlify CLI. It suits front-end developers who want a small API next to a static or framework site.
+
+## What the free plan gives you
+
+Functions have no separate free quota. They draw from the account-wide credit pool of the Free plan, which is 300 credits per month. Compute costs 10 credits per GB-hour, and the default function memory is 1 GB. Web requests, including requests to your functions, cost 2 credits per 10k requests.
+
+Production deploys cost 15 credits each, and bandwidth costs 20 credits per GB. All of these share the same 300 credits. Background functions can run up to 15 minutes. Raising memory up to 4 GB needs a Pro or Enterprise credit-based plan.
+
+## When you hit a limit
+
+The Free plan has a hard limit. Netlify says the free plan has hard monthly limits that cannot be exceeded or incur any costs. When the credits are used up, your web projects pause until the next billing cycle, and visitors see a Site not available page.
+
+If one project passes its limits, all projects on your account pause. Netlify warns you by email and in the app at 50%, 75%, and 100% of usage. You can resume projects by upgrading your plan. Paid plans can add credits with auto recharge, which is off by default.
+
+## Gotchas
+
+- Your functions, builds, and bandwidth all share one 300 credit pool, so a busy site can pause your functions too.
+- Accounts created before September 4, 2025 may be on a Legacy plan, where functions are billed by request count instead of credits.
+- Pausing affects the whole account, not only the function that used the credits.
+
+## Alternatives in this atlas
+
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a free plan with its own request limits that does not pause your whole site.
+- [Vercel Serverless Functions](/services/vercel-serverless-functions/): when your site is hosted on Vercel.
+- [Supabase Edge Functions](/services/supabase-edge-functions/): when your data is in Supabase.
+
+## Questions people ask
+
+### Are Netlify Functions free?
+
+Yes, on the Free plan. They share the 300 credits you get each month with builds, bandwidth, and requests.
+
+### What happens when I run out of Netlify credits?
+
+All your web projects pause until the next billing cycle, or until you upgrade. The free plan cannot incur costs.
+
+### Do Netlify Functions need a credit card?
+
+The pricing page does not say a card is needed for the Free plan. It says the free plan is always free with hard monthly limits.

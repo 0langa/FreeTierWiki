@@ -1,8 +1,8 @@
 ---
 title: Paste.sh
 description: >-
-  Paste.sh is a simple, encrypted pastebin with a web editor and command-line
-  client for sharing text or code snippets securely.
+  Paste.sh is a pastebin that encrypts your text in the browser before it is
+  sent. It is for people who want to share code, logs, or notes through a link.
 provider: Paste.sh
 category: devops
 domain: devops
@@ -16,53 +16,100 @@ audiences:
   - oss
   - startup
 tags:
-  - cli
+  - pastebin
+  - encrypted paste
+  - code sharing
+  - command line
+  - open source
 pricingModel: free
 freeTierDetails:
-  summary: Free encrypted pastebin with a web editor and a command-line client; no account required.
+  summary: Free encrypted pastebin with a web editor and a command-line client; the about page mentions no account or plan.
   limits:
-    - No account needed
+    - The about page mentions no account, price, or plan
     - Web editor at paste.sh plus a bash command-line client
-    - Pastes are encrypted in the client; the key stays in the URL
+    - Pastes are encrypted in the browser with AES-256; the key stays in the URL fragment
+    - 1 MB limit per paste once encrypted
   caveats:
     - The site states no quota, retention period, or service guarantee
+    - It stores paste times, source IP address, User-Agent, and a pasteauth cookie to fight abuse
+    - Illegal and abusive content is not allowed
+    - The web editor needs JavaScript, the Crypto APIs, and cookies
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Share code snippets securely
-  - Send logs or error messages
-  - Quickly transfer text between devices
+  - Sharing a code snippet or config with a colleague
+  - Sending a log or error output from the command line
+  - Moving text between your own devices
+  - Posting a public, unencrypted paste with a short link
 quickstartSteps:
-  - Download the client script with 'curl -OJ https://paste.sh' and make it executable.
-  - Pipe text or a file into it, for example 'paste.sh some-file'.
-  - Copy the returned URL to share your encrypted paste.
-  - Or open paste.sh in a browser, type or paste text, and share the URL.
+  - Open paste.sh in a browser. The about page describes a text area and no sign-up.
+  - Type or paste your text. The page encrypts it in your browser with JavaScript.
+  - Copy the URL, including the part after the `#`, and share it. That part holds the key.
+  - For the command line, install the client with `mkdir -p ~/bin`, then `cd ~/bin && curl -OJ https://paste.sh && chmod +x paste.sh`.
+  - Run the `paste.sh` script to send text, and share the URL it gives you. Add `-p` for a public, unencrypted paste.
 whenToUse: >-
-  Use Paste.sh when you need to share text or code securely and quickly from the
-  command line or a browser.
-whenNotToUse: 'Avoid if you need guaranteed retention, team features, or a stated service level.'
+  Use it to share a snippet or log through a link when you want it encrypted on
+  your side first.
+whenNotToUse: >-
+  Avoid it for files over 1 MB, for anything that needs guaranteed retention, or
+  if your browser blocks JavaScript or cookies.
 bestFor:
-  - CLI users
-  - developers
-  - privacy-focused users
+  - command-line users
+  - developers sharing logs
+  - privacy-minded users
 avoidIf:
-  - You need guaranteed retention
-  - You need team or account features
-  - You need a stated service level
+  - pastes larger than 1 MB
+  - guaranteed retention
+  - team or account features
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://paste.sh/'
-docsUrl: 'https://docs.paste.sh'
+docsUrl: 'https://paste.sh/about'
 sourceUrls:
   - 'https://paste.sh/'
   - 'https://paste.sh/about'
 pricingUrl: 'https://paste.sh/'
 featured: false
 ---
-Paste.sh is a free, encrypted pastebin with a web editor and CLI client for sharing text or code snippets securely without requiring an account.
+You use Paste.sh in a browser by typing into a text area, or from a shell with a small shell script. It suits developers who want a quick encrypted link to share text.
+
+## What the free plan gives you
+
+Paste.sh lists no price, no plan, and no sign-up on its about page. The web page gives you a text area. JavaScript in your browser encrypts the text with AES-256 before it goes to the server. The key sits in the part of the URL after the `#`, which the browser never sends to the server, so the server cannot read your paste.
+
+There is a limit of 1 MB of data per paste once encrypted. The command line client can also make public pastes with a `-p` option. Those pastes are not encrypted.
+
+## When you hit a limit
+
+The page states no quota, no retention period, and no service guarantee, so the only stated limit is 1 MB per paste. The page does not say what happens with a larger paste. Because there is no card or plan, no bill can appear. The site cannot scan or remove most content, because it is encrypted. It asks you to report abuse, and it does not allow illegal or abusive content.
+
+## Gotchas
+
+- Share the whole URL. If you drop the part after the `#`, the paste cannot be decrypted. Other systems may also store that part, depending on how you share the link.
+- The site keeps the time of each paste, your IP address, your User-Agent, and a cookie that lets you edit the paste later. Use the command line client to avoid the cookie.
+- The web version needs JavaScript, browser crypto support, and cookies.
+
+## Alternatives in this atlas
+
+- [Keybase](/services/keybase/): when you want end-to-end encrypted chat and file sharing, not only text links.
+- [Evernote](/services/evernote/): when you want to keep notes over time instead of one-off pastes.
+
+## Questions people ask
+
+### Is Paste.sh free?
+
+The site lists no price or plan, and the about page mentions no account.
+
+### How big can a Paste.sh paste be?
+
+The about page sets a limit of 1 MB of data per paste once it is encrypted.
+
+### Does Paste.sh delete my paste?
+
+The page does not say. It states no retention period or service guarantee.

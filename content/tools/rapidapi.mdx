@@ -1,8 +1,6 @@
 ---
 title: RapidAPI
-description: >-
-  RapidAPI is a marketplace and management platform for discovering, connecting
-  to, and managing APIs from multiple providers.
+description: "RapidAPI is a marketplace where you find third-party APIs, subscribe to a plan, and call them with one account and one key. It is for developers who want to try many APIs without a separate sign-up for each."
 provider: RapidAPI
 category: apis
 domain: apis
@@ -17,9 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - integration
-  - devops
+  - "api marketplace"
+  - "api hub"
+  - "free apis"
+  - "freemium api"
+  - "api key"
+  - "third-party api"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,11 +28,13 @@ freeTierDetails:
     overage fees vary by provider and billing object.
   limits:
     - APIs marked Free do not require a credit card or paid subscription
+    - Free API plans are limited to 1000 requests per hour and 500K requests per month
     - Freemium Basic plans have provider-specific quotas
     - Check each plan for request limits and separate bandwidth charges
   caveats:
     - Freemium APIs require a card, even for a zero-price Basic plan
-    - Some Basic quotas have hard limits; others bill overages automatically
+    - Free APIs return a 429 error at the limit; Freemium plans bill overages automatically
+    - Some providers may need you to get a separate key from their own site
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -40,32 +43,32 @@ freeTierDetails:
   billingRiskNotes:
     - The no-card flag applies only to APIs classified Free, not Freemium Basic subscriptions.
     - Do not assume a zero-price plan has a hard cap on every billing object.
+    - Freemium plans charge a fee for each request over the quota, so track your usage.
 useCases:
-  - Testing third-party APIs
-  - Aggregating multiple APIs in one project
-  - Rapid prototyping with external data
-  - API discovery and evaluation
+  - "Find and compare third-party APIs for a project"
+  - "Test an API from the browser before you subscribe"
+  - "Call several different APIs with one RapidAPI account"
+  - "Prototype with a free Basic plan"
+  - "Track your usage and plans in the Developer Dashboard"
 quickstartSteps:
-  - Sign up for a free RapidAPI account.
-  - Browse or search for an API in the marketplace.
-  - Subscribe to the API's free plan.
-  - Obtain your API key from the dashboard.
-  - Integrate the API into your application using provided endpoints.
-whenToUse: >-
-  Use RapidAPI when you need quick access to a variety of third-party APIs with
-  unified management and billing.
-whenNotToUse: >-
-  Avoid if you require direct contracts, custom SLAs, or guaranteed uptime from
-  API providers.
+  - "Create a RapidAPI account and log in to the Hub."
+  - "Browse or search the Hub for an API. APIs marked Free need no credit card."
+  - "Open the API's pricing tab and read the plan quota and overage fee before you subscribe."
+  - "Subscribe to a Free plan, or to the Basic plan of a Freemium API (this asks for a credit card)."
+  - "Test the endpoints from your browser on the API page, then copy your key from the Developer Dashboard."
+  - "Call the API from your code with your key. Free APIs may also need a key from the provider's own site."
+whenToUse: "Use when you want to try many third-party APIs fast with one account and one key, and you check each plan's quota and card rule before you subscribe."
+whenNotToUse: "Avoid if you need a direct contract with an API provider, a custom service agreement, or a guarantee that a plan never bills overages. Freemium plans need a card and can charge for extra requests."
 bestFor:
-  - prototyping
-  - learning
-  - API aggregation
-  - experimentation
+  - "prototyping"
+  - "learning"
+  - "trying APIs from the browser"
+  - "API discovery"
 avoidIf:
-  - strict compliance
-  - enterprise SLAs
-  - private/internal APIs
+  - "no credit card available for Freemium plans"
+  - "strict compliance"
+  - "enterprise SLAs"
+  - "private or internal APIs"
 difficulty: beginner
 productionReadiness: side-project
 status: changed
@@ -73,16 +76,59 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Distinguished Free APIs from card-required Freemium plans and removed the blanket hard-cap/no-platform-fee guarantee."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://rapidapi.com'
 docsUrl: 'https://docs.rapidapi.com/'
 sourceUrls:
   - "https://docs.rapidapi.com/v2.0.0/docs/api-pricing"
+  - 'https://docs.rapidapi.com/v2.0.0/docs/faqs'
   - 'https://rapidapi.com/hub'
 pricingUrl: 'https://rapidapi.com/hub'
 featured: false
 ---
-RapidAPI provides a unified platform to discover, connect, and manage thousands of APIs, making it easy to prototype and integrate third-party services.
+You use RapidAPI in the browser: find an API in the Hub, subscribe to a plan, and test its endpoints on the API page. Then you call the API from your own code with your key, and track plans and usage in the Developer Dashboard. It suits developers who want to try many APIs with one account.
+
+## What the free plan gives you
+
+RapidAPI sorts APIs into four types: Free, Pay Per Use, Freemium, and Paid. Only the Free type works without a credit card. RapidAPI says it hosts thousands of Free APIs, and they are clearly marked.
+
+Free API plans are limited to 1000 requests per hour and 500K requests per month. Some Free APIs also ask you to get a key or token from the provider's own website.
+
+A Freemium API has a Basic plan with a free allowance. The provider sets that allowance. The docs show an example with a monthly quota, and each plan lists its own limits. Quotas can be daily, monthly, or both, and they can count queries or other items, such as emails. Read the plan before you subscribe.
+
+## When you hit a limit
+
+On a Free API, going over the 1000 per hour or 500K per month limit gives you a 429 Too Many Requests error. Nothing is billed.
+
+On a Freemium API, you keep working past the quota and pay an overage fee for each extra request. RapidAPI sends email alerts at 85 percent and at 100 percent of the quota. It says an email is no guarantee, because a fast burst can pass the limit before the alert fires. The docs say you must watch your own usage. RapidAPI cannot give refunds without the provider's permission.
+
+A daily quota resets 24 hours after you subscribed, not at midnight.
+
+## Gotchas
+
+- Freemium APIs need a credit card even on the free Basic plan. The card exists so RapidAPI can charge overages.
+- Quotas and overage prices differ by API. Check the pricing tab of each API before you subscribe.
+- RapidAPI or the API provider may block your access for abuse or suspicious activity.
+
+## Alternatives in this atlas
+
+- [Abstract API](/tools/abstract-api/): when you want a single provider with clear separate free plans and no card.
+- [Azure API Management](/tools/azure-api-management/): when you want to manage your own APIs instead of consuming third-party ones.
+- [Calendarific](/services/calendarific/): when you only need one data API and want to skip the marketplace and its card rules.
+
+## Questions people ask
+
+### Is RapidAPI free?
+
+Signing up and calling Free APIs costs nothing. Free APIs need no card. Freemium APIs have a free Basic plan, but they need a card on file.
+
+### What happens when I go over the RapidAPI limit?
+
+On a Free API you get a 429 error. On a Freemium API, you pay an overage fee for each extra request. The plan's pricing tab shows the fee.
+
+### Does RapidAPI need a credit card?
+
+Only for Pay Per Use, Freemium, and Paid APIs. Free APIs say they do not need a card or subscription.

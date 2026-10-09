@@ -1,8 +1,9 @@
 ---
 title: Azure AI Document Intelligence
 description: >-
-  Extracts structured data from documents using AI-powered OCR and form
-  recognition.
+  Azure AI Document Intelligence extracts text, tables, and key fields from PDFs, images, and Office
+  files using OCR and prebuilt or custom models. It is for developers who automate invoices,
+  receipts, IDs, and forms.
 provider: Azure
 category: ai
 domain: ai
@@ -16,61 +17,116 @@ audiences:
   - enterprise
   - indie
 tags:
-  - images
-  - ai
-  - cloud
+  - ocr
+  - document ai
+  - invoice processing
+  - form recognizer
+  - pdf extraction
+  - receipt scanning
+  - document intelligence
 pricingModel: freemium
 freeTierDetails:
-  summary: Free (F0) tier includes 500 pages per month across Read, Layout, prebuilt models, and custom classification/extraction.
+  summary: >-
+    Free (F0) tier includes 500 pages per month across Read, Layout, prebuilt models, and custom
+    classification/extraction.
   limits:
-    - '500 pages/month, shared across Read, Layout, and prebuilt models (invoice, receipt, ID, tax forms, contract, and more)'
+    - >-
+      500 pages/month, shared across Read, Layout, and prebuilt models (invoice, receipt, ID, tax
+      forms, contract, and more)
     - Custom document classification and extraction included
+    - Analyze response limited to the first 2 pages of a request
+    - Max document size 4 MB; 1 analyze request per second
   caveats:
     - Premium features and the Query Meter are not included on the F0 tier
     - Moving past 500 pages/month requires the paid S0 tier
+    - 'Training a custom template model is free; neural model training is free for the first 10 hours'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Automated invoice processing
-  - Extracting data from receipts
-  - Digitizing business cards
-  - Form data extraction
+  - Automate invoice and receipt data entry
+  - Read ID documents and tax forms
+  - Extract tables and text from scanned PDFs
+  - Train a custom model for your own form layout
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create an AI Document Intelligence resource.
-  - Obtain your endpoint and API key from the resource.
-  - Install the Azure AI Document Intelligence SDK or use REST API.
-  - Send a document to the API and retrieve extracted data.
+  - 'Create an Azure account, or use an existing Azure subscription.'
+  - >-
+    In the Azure portal, create a Document Intelligence resource, or a Foundry resource if you want
+    several tools under one key. Pick the free F0 tier.
+  - Select Go to resource and copy the key and endpoint.
+  - 'Install the client library for your language, or call the REST API.'
+  - Send a PDF or image to the prebuilt Layout or Read model and read the extracted result.
 whenToUse: >-
-  Use when you need to extract structured data from documents like invoices,
-  receipts, or forms at scale.
+  Use when you need to extract text and fields from invoices, receipts, or forms, and your test
+  volume stays under 500 pages a month.
 whenNotToUse: >-
-  Avoid if you need on-premises processing or have strict data residency
-  requirements, as processing occurs in Azure's cloud.
+  Avoid if you need on-premises processing, files larger than 4 MB, or full multi-page results on
+  the free tier. The free tier returns only the first 2 pages per request.
 bestFor:
-  - automating document workflows
-  - digitizing paper records
-  - accounts payable automation
+  - testing document workflows
+  - small invoice and receipt projects
+  - digitizing a few paper forms
+  - trying prebuilt models before paying
 avoidIf:
-  - requiring offline processing
-  - handling highly sensitive documents with strict compliance needs
+  - need offline processing
+  - need results for every page of long files on the free tier
+  - handle sensitive documents with strict residency rules
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
-officialUrl: >-
-  https://azure.microsoft.com/en-us/pricing/details/ai-document-intelligence/
+officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-document-intelligence/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-document-intelligence/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/ai-document-intelligence/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview'
   - >-
-    https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview
+    https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/quickstarts/get-started-sdks-rest-api
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Document Intelligence provides AI-powered OCR and form recognition to extract structured data from documents, supporting automated workflows and digitization. The free (F0) tier offers 500 pages per month across Read, Layout, and prebuilt/custom models, making it suitable for small to medium workloads. Moving past that requires the paid S0 tier, and processing is cloud-based, so consider compliance and data residency requirements.
+You call it through the REST API, a client SDK, or Document Intelligence Studio. It suits developers who automate invoices, receipts, and forms.
+
+## What the free plan gives you
+
+The Free (F0) tier covers 0 to 500 pages per month. The pricing page lists one pool of pages for everything: Read, Layout, the prebuilt models (invoice, receipt, ID, tax forms, health insurance card, contract), and custom models. The pricing page says training a custom template model is free, and training a custom neural model is free for the first 10 hours.
+
+The F0 quotas are small. You get 1 analyze request per second. The maximum document size is 4 MB. The free tier limits the analyze response to the first 2 pages of each request. You can create up to 500 template models and 100 neural models.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 500 pages. The footnote says the free tier does not support premium features and does not include the Query Meter. The paid S0 tier raises the limits, for example to 2,000 pages per analysis and 500 MB per document. Its page prices appear as blank dashes, so check the Azure pricing calculator.
+
+Free usage and paid usage are separate tiers, so you must pick S0 on purpose. Nothing on the pages says F0 moves up on its own.
+
+## Gotchas
+
+- The F0 analyze response covers only the first 2 pages of a request, even if your file is longer.
+- The max document size is 4 MB on F0, so scanned multi-page files may not fit.
+- The Layout model is needed to make label files for custom training. If you have no label files, the service makes them and bills you for Layout use.
+
+## Alternatives in this atlas
+
+- [OCR.Space](/tools/ocr-space/): when you only need plain text from images and do not want an Azure subscription.
+- [Azure AI Vision](/services/azure-ai-vision/): when you need image analysis and read text in photos, not structured forms.
+- [Reducto](/services/reducto/): when you want document parsing for language model pipelines.
+
+## Questions people ask
+
+### Is Azure AI Document Intelligence free?
+
+Partly. The F0 tier gives you 500 pages per month across Read, Layout, prebuilt, and custom models. Training a custom template model is free, and neural model training is free for the first 10 hours.
+
+### What is the page limit per document on the free tier?
+
+The free tier limits analysis to the first 2 pages of each request. It also caps document size at 4 MB.
+
+### Does Azure AI Document Intelligence need a credit card?
+
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.

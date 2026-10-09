@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { EntryList } from "@/components/entry/entry-list";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS, isDomain } from "@/lib/content";
-import { getAllEntries } from "@/lib/content.server";
+import { comparisonsForDomain, jobLabel } from "@/lib/comparison-view";
+import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 
 type Params = Promise<{ domain: string }>;
@@ -32,7 +33,10 @@ export default async function CategoryPage({ params }: { params: Params }) {
   const { domain } = await params;
   if (!isDomain(domain)) notFound();
   const label = DOMAIN_LABELS[domain];
-  const items = (await getAllEntries())
+  const all = await getAllEntries();
+  const comparisons = comparisonsForDomain(domain, await getComparisons(), new Map(all.map((entry) => [entry.id, entry.domain])));
+  const providers = (await getProviderGroups()).filter((group) => group.entries.some((entry) => entry.domain === domain));
+  const items = all
     .filter((entry) => entry.domain === domain)
     .map((entry) => toListItem(entry, BUILD_NOW))
     .sort(compareSafety);
@@ -51,6 +55,26 @@ export default async function CategoryPage({ params }: { params: Params }) {
       <p className="mt-2 max-w-2xl text-ink-2">
         {activeCount} free tiers, safest first. Each one shows the limits, whether it needs a card, and how fresh the data is.
       </p>
+      {comparisons.length > 0 ? (
+        <nav aria-label="Comparison tables" className="mt-4 flex flex-wrap items-center gap-2 text-[13.5px] text-ink-2">
+          <span>Compare side by side</span>
+          {comparisons.map((comparison) => (
+            <Link key={comparison.slug} href={`/compare/${comparison.slug}/`} className="inline-flex h-7 items-center rounded-full border border-line bg-surface px-2.5 hover:border-ink-3 hover:text-ink">
+              {jobLabel(comparison.title)}
+            </Link>
+          ))}
+        </nav>
+      ) : null}
+      {providers.length > 0 ? (
+        <nav aria-label="Providers" className="mt-3 flex flex-wrap items-center gap-2 text-[13.5px] text-ink-2">
+          <span>By provider</span>
+          {providers.map((group) => (
+            <Link key={group.slug} href={`/provider/${group.slug}/`} className="inline-flex h-7 items-center rounded-full border border-line bg-surface px-2.5 hover:border-ink-3 hover:text-ink">
+              {group.name}
+            </Link>
+          ))}
+        </nav>
+      ) : null}
       <div className="mt-6">
         {items.length > 0 ? (
           <EntryList items={items} label={`Free ${label} tiers`} />

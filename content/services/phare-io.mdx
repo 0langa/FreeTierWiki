@@ -1,8 +1,9 @@
 ---
 title: Phare.io
 description: >-
-  Phare.io is uptime monitoring and status pages, with an unlimited free Hobby
-  plan capped by a monthly monitoring-event allowance.
+  Phare checks websites, APIs, and servers over HTTP, TCP, and ICMP ping, opens
+  incidents when they fail, and hosts public status pages. It targets indie
+  developers and small teams.
 provider: Phare.io
 category: observability
 domain: observability
@@ -16,8 +17,12 @@ audiences:
   - team
   - oss
 tags:
+  - uptime
   - monitoring
-  - devops
+  - status-page
+  - incident-management
+  - ssl-monitoring
+  - api-monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,39 +42,84 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor uptime for websites and APIs
-  - Publish a public status page
-  - Get incident alerts by email or integrations
+  - Checking that a website or API answers over HTTP
+  - Watching a server with TCP or ICMP ping checks
+  - Publishing a public status page on your own domain
+  - Getting alerted when an SSL certificate has a problem
+  - Managing monitors as code with Terraform, Ansible, or NixOS
 quickstartSteps:
-  - Sign up for a free Phare.io account.
-  - Add a website or API endpoint to monitor.
-  - Set your check frequency and alert channels.
-  - Publish a public status page if needed.
+  - 'Register on phare.io and click the confirmation link in the email you receive.'
+  - 'Pick the Hobby plan, which is free and asks for no payment method.'
+  - 'Create your first project to hold your monitors and status pages.'
+  - 'Under Uptime, add a monitor: choose HTTP(s), TCP, or ICMP ping and enter the address to check.'
+  - 'Set the check interval, the regions, and the alert rules, then publish a status page if you want one.'
 whenToUse: >-
-  Use Phare.io when you need free uptime monitoring and a public status page
-  with a generous monthly event allowance.
+  Use Phare to watch a few sites or APIs and publish a status page on your own
+  domain, with one monthly allowance of checks instead of a monitor count.
 whenNotToUse: >-
-  Avoid if you need SMS/voice alerts, on-premise monitoring, or more than
-  100,000 monitoring events per month for free.
+  Avoid it if you need SMS or voice alerts, private status pages, or more checks
+  than the monthly allowance. Hobby has no extra usage, so monitoring pauses.
 bestFor:
-  - uptime monitoring
-  - public status pages
-  - small teams and indie projects
+  - indie projects and small teams
+  - public status pages on a custom domain
+  - monitoring from several regions
 avoidIf:
-  - need SMS/voice alerts
-  - need on-premise monitoring
-  - have very high check volumes
+  - you need SMS or voice alerts
+  - you need private status pages
+  - your checks run far more often than the monthly allowance covers
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://phare.io/'
 docsUrl: 'https://docs.phare.io'
 sourceUrls:
   - 'https://phare.io/pricing'
+  - 'https://phare.io/'
+  - 'https://docs.phare.io'
+  - 'https://docs.phare.io/getting-started'
+  - 'https://docs.phare.io/billing-quotas'
 pricingUrl: 'https://phare.io/pricing'
 featured: false
 ---
-Phare.io offers free uptime monitoring and public status pages, with unlimited projects and team members up to a 100,000 monitoring-events monthly allowance.
+You work in the Phare dashboard, and there is also an API plus Terraform, Ansible, and NixOS integrations. It suits indie developers who want uptime checks and a status page without paying per monitor.
+
+## What the free plan gives you
+
+The Hobby plan is free and the pricing page says no credit card is needed. It includes 100 000 monitoring events per month and 10 AI incident summaries per month. Projects, team members, integrations, and alerts are unlimited. You also get public status pages with unlimited custom domains and SSL. SMS and voice alerts are not included.
+
+An event counts each time Phare runs an HTTP, TCP, or ICMP ping check. The pricing FAQ gives an example: one check per minute from two regions comes to about 90k events in a month. Intervals can be set from 30 seconds to 1 hour.
+
+## When you hit a limit
+
+Free and paid accounts get a 10% overage buffer above the quota, and Phare notifies you before you use it and before it runs out. After that, your monitoring pauses automatically until the next billing period starts.
+
+The Hobby plan does not include additional usage, so you cannot pay to extend it. You would need the paid Scale plan, which starts at 5 euros per month plus usage.
+
+## Gotchas
+
+- Checks from many regions at short intervals use events fast, so spread them out to stay under the quota.
+- The Hobby plan has no SMS or voice alerts, and the Scale plan includes 20 of them.
+- Paid plans use Paddle for payment, and Phare does not store your payment details.
+
+## Alternatives in this atlas
+
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want a free plan with a fixed number of monitors and a status page.
+- [UptimeRobot](/services/uptimerobot/): when you want many free monitors with simple 5-minute checks.
+- [Hyperping](/services/hyperping/): when you want monitors plus a status page from a hosted service.
+
+## Questions people ask
+
+### Is Phare free?
+
+Yes. The Hobby plan is free forever with 100 000 monitoring events per month, unlimited projects and team members, and public status pages.
+
+### Does Phare need a credit card?
+
+No. The pricing page describes the Hobby plan as for people with no credit card. A payment method is only asked when you choose the Scale plan.
+
+### What happens when I go over the Phare free limit?
+
+You get a 10% overage buffer, with notices. After it is used up, monitoring pauses until your next billing period starts.

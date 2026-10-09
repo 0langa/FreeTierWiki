@@ -1,8 +1,8 @@
 ---
 title: Sheetson
 description: >-
-  Sheetson provides a RESTful API layer over Google Sheets for lightweight data
-  storage and retrieval.
+  Sheetson turns a Google Sheet into a REST API, so each tab acts as a table you
+  can read and write over HTTP. It is for small projects, prototypes, and simple sites.
 provider: Sheetson
 category: database
 domain: database
@@ -16,61 +16,112 @@ audiences:
   - startup
   - oss
 tags:
-  - api
+  - google sheets
+  - rest api
+  - spreadsheet database
+  - no-code
+  - headless cms
   - backend
-  - database
 pricingModel: freemium
 freeTierDetails:
-  summary: Free plan offers unlimited spreadsheets and unmetered API requests, capped at 1,000 rows per sheet.
+  summary: >-
+    The Free plan costs nothing and needs no credit card. It allows unlimited
+    spreadsheets and unmetered requests, with up to 1,000 rows per sheet and a
+    shared rate limit.
   limits:
-    - '1,000 rows per sheet'
+    - 1,000 rows per sheet
     - Unlimited spreadsheets
-    - Unmetered requests (shared rate limit)
-    - Pagination queries and email support included
+    - Unmetered requests, on a server shared with other Free users
+    - Pagination queries and email support
   caveats:
-    - Rate limit is shared, not priority, on the free plan
-    - Advanced filtering, unlimited rows, and a dedicated 60 requests/min quota are Professional only
+    - Google Sheets API quotas still apply to your requests
+    - Search and filter queries are available in paid plans only
+    - The Free plan has a shared rate limit; the Professional plan gets a dedicated quota of 60 requests per minute
+    - Sheetson does not store your data; it proxies to the Google Sheets API
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prototyping apps with Google Sheets as a backend
-  - No-code or low-code projects
-  - Simple CRUD APIs for small datasets
+  - A simple data backend for a prototype or student project
+  - A headless CMS that clients edit in a spreadsheet
+  - Feature flags and config values kept in a sheet
+  - Directory or listing sites backed by a sheet
 quickstartSteps:
-  - Create a Google Sheet and set sharing to 'Anyone with the link can view'.
-  - Sign up at Sheetson.com and obtain your API key.
-  - Connect your Google Sheet to Sheetson using the provided interface.
-  - Use the REST API endpoints to read and write data to your sheet.
-  - Monitor usage in your Sheetson dashboard.
+  - Create a Google Sheet. Use the first row as the header, because those names become the JSON keys.
+  - Share the spreadsheet with google@sheetson.com as an editor. The sheet stays private.
+  - Note the spreadsheet ID from the sheet's URL (the part between /d/ and /edit) and the case-sensitive tab name.
+  - Sign in to the Sheetson dashboard and copy your API key.
+  - Call `https://api.sheetson.com/v2/sheets/YOUR_TAB_NAME` with your API key and spreadsheet ID to read rows, and use POST, PATCH, and DELETE to change them.
 whenToUse: >-
-  Use Sheetson when you need a quick, simple API for Google Sheets without
-  backend development.
+  Use it when you want a quick REST API on top of a Google Sheet without writing
+  a backend, and your data stays under 1,000 rows per sheet.
 whenNotToUse: >-
-  Avoid if you need more than 1,000 rows per sheet, advanced querying, or
-  enterprise-grade security.
+  Avoid it for more than 1,000 rows per sheet, for filtering and search on the
+  free plan, for sensitive data, or for high-traffic production apps.
 bestFor:
-  - prototyping
+  - prototypes
   - no-code apps
   - student projects
+  - sheet-backed sites
 avoidIf:
-  - handling sensitive data
+  - sensitive data
   - high-traffic production
   - complex queries
+  - more than 1,000 rows per sheet
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://sheetson.com'
-docsUrl: 'https://sheetson.com/docs'
+docsUrl: 'https://docs.sheetson.com/'
 sourceUrls:
   - 'https://sheetson.com'
-  - 'https://sheetson.com/docs'
+  - 'https://docs.sheetson.com/'
+  - 'https://docs.sheetson.com/getting-started'
+  - 'https://docs.sheetson.com/manage-data/paginate-filter'
 pricingUrl: 'https://sheetson.com'
 featured: false
 ---
-Sheetson lets you turn any Google Sheet into a simple database with a REST API, ideal for quick prototypes and no-code solutions. The free plan caps each sheet at 1,000 rows but allows unlimited spreadsheets and unmetered requests.
+You call a plain HTTP API with an API key from the Sheetson dashboard. Each tab of your Google Sheet becomes a table, and the header row becomes the JSON keys. It suits makers who already keep data in a sheet.
+
+## What the free plan gives you
+
+The Free plan is free forever and needs no credit card. You can connect unlimited spreadsheets, and each sheet can hold up to 1,000 rows. Sheetson does not meter requests on any plan. The Free plan includes pagination queries and email support.
+
+The rate limit is shared. Sheetson says the server is shared across all Free users within its available resources. The Professional plan costs $99 a year and adds unlimited rows, filtering with pagination, priority support, and a dedicated quota of 60 requests per minute.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a sheet passes 1,000 rows. If you need more rows, upgrade or split the data across sheets.
+
+Requests are not counted, but Google Sheets API quotas still apply, and these apply on every plan. Because the Free rate limit is shared, your calls can be slower when other Free users are busy. Search with the `where` parameter is only available in paid plans.
+
+## Gotchas
+
+- Share the sheet with `google@sheetson.com` as an editor. You do not need to make the sheet public.
+- The first row must be a header row. The tab name is case sensitive, so use the exact name in your API path.
+- Every value comes back as a string, except `rowIndex`, which Sheetson adds to each row.
+
+## Alternatives in this atlas
+
+- [Firebase Firestore](/services/firebase-firestore/): when you need a real database with client SDKs instead of a spreadsheet.
+- [Cloudflare D1](/services/cloudflare-d1/): when you want SQL tables and your code runs on Workers.
+- [Appwrite Cloud](/services/appwrite/): when you want a full backend with auth, databases, and storage.
+
+## Questions people ask
+
+### Is Sheetson free?
+
+Yes. The Free plan is forever and needs no credit card. It allows unlimited spreadsheets and unmetered requests, with up to 1,000 rows per sheet.
+
+### Does Sheetson store my data?
+
+No. Sheetson proxies between the Google Sheets API and your apps, so your data stays in your Google Sheet.
+
+### What does the Sheetson Professional plan add?
+
+It costs $99 a year and gives unlimited rows per sheet, filtering and pagination, priority support, and a dedicated 60 requests per minute quota.

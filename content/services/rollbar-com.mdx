@@ -1,8 +1,9 @@
 ---
 title: Rollbar.com
 description: >-
-  Rollbar provides real-time error monitoring and debugging tools for
-  applications across multiple platforms.
+  Rollbar collects errors from your running code, groups them, and shows stack
+  traces, deploys, and session replays. It is for developers who want to find
+  and fix production bugs.
 provider: Rollbar
 category: observability
 domain: observability
@@ -16,8 +17,13 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - logging
+  - error-tracking
+  - exception-monitoring
+  - session-replay
+  - alerts
+  - deploy-tracking
+  - sdk
+  - debugging
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free tier includes 5,000 occurrences plus 1,000 session replays per month.'
@@ -35,39 +41,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Track and resolve application errors
-  - Monitor deployments for regressions
-  - Receive real-time alerts for production issues
+  - Catching and grouping production errors in web, server, and mobile apps
+  - Getting alerts when a new error appears
+  - Tracking which deploy introduced a bug
+  - Watching a session replay of what the user did before an error
+  - Managing projects with the REST API or Terraform
 quickstartSteps:
-  - Sign up for a free Rollbar account.
-  - Create a new project and select your platform.
-  - Install the Rollbar SDK in your application.
-  - Configure your access token and environment.
-  - Deploy your app and verify error reporting.
+  - 'Create a Rollbar account from the Try free button on rollbar.com.'
+  - 'Create a project and find its post_server_item access token in the Rollbar interface.'
+  - 'Install the SDK for your language; for Node.js run npm install --save rollbar.'
+  - 'Create the client with new Rollbar and your access token, then send a first message with rollbar.log.'
+  - 'Open the project in Rollbar to see the item arrive, and add the error handler to catch real errors.'
 whenToUse: >-
-  Use Rollbar when you need real-time error tracking and alerting for web or
-  mobile applications with minimal setup.
+  Use Rollbar when you want error tracking with SDKs for many languages and a
+  free plan that stops at its limit instead of billing you.
 whenNotToUse: >-
-  Avoid if you need analysis credits (RQL/custom analytics) or integration
-  with enterprise authentication out of the box.
+  Avoid it if you need more than 5,000 occurrences a month for free, analysis
+  credits, or the longer data retention that starts on paid plans.
 bestFor:
-  - indie
-  - startup
-  - oss
+  - small apps and side projects
+  - teams that want unlimited users on a free plan
+  - projects that need SDKs for many languages
 avoidIf:
-  - enterprise
-  - agency
+  - you expect high error volume
+  - you need analysis credits or RQL
+  - you need longer data retention
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://rollbar.com/'
 docsUrl: 'https://docs.rollbar.com/docs'
 sourceUrls:
   - 'https://rollbar.com/pricing/'
+  - 'https://rollbar.com/'
+  - 'https://docs.rollbar.com/docs'
+  - 'https://docs.rollbar.com/docs/nodejs'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://rollbar.com/pricing/'
 ---
-Rollbar offers a free plan with 5,000 occurrences and 1,000 session replays per month, unlimited users and projects, suitable for small projects and individual developers needing real-time alerts and debugging.
+You add an SDK to your app, send errors with an access token, and read the results in the Rollbar web app. SDKs cover server, client, and mobile code, and there is a REST API and a Terraform provider. It suits developers who want error tracking in a few minutes.
+
+## What the free plan gives you
+
+The Free plan costs $0 and includes 5,000 occurrences and 1,000 session replays per month. It has unlimited users and unlimited projects. It also includes deploy and version tracking, 1 service link per project, and the REST API with a Terraform provider.
+
+Included credits are 0 on Free, so credit-based analysis features are not part of the plan. The paid Essentials plan adds 4K credits, data retention up to 90 days, and fine grained rate limiting. Rollbar also offers a 14-day full access trial, which includes 200K occurrences, 10K replays, and 15K credits.
+
+## When you hit a limit
+
+Rollbar gives three ways to handle overages. The first is on by default: it stops processing new events when you reach the plan's monthly limit. The pricing page says this means no surprise charges, just a pause until your account renews.
+
+The other options let you keep sending events beyond the limit and pay for them. The pricing page lists overage budgets with on-demand occurrences and sessions, and the page does not show them as part of the Free plan.
+
+## Gotchas
+
+- Events over the monthly limit are not processed until renewal, so errors during that time are not recorded.
+- Free has 0 credits, so features that run on credits need a paid plan or the trial.
+- Replays are limited to 1,000 a month, separate from the 5,000 occurrences.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you want error tracking with logs, spans, and uptime checks on a free developer plan.
+- [Bugsnag](/services/bugsnag/): when you want a free plan with a spans allowance as well as error events.
+- [Honeybadger.io](/services/honeybadger-io/): when you want error tracking plus logging in one free plan.
+
+## Questions people ask
+
+### Is Rollbar free?
+
+Yes. The Free plan is $0 per month with 5,000 occurrences, 1,000 session replays, unlimited users, and unlimited projects.
+
+### What happens when I go over the Rollbar free limit?
+
+By default Rollbar stops processing new events when you reach the monthly limit and resumes when your account renews. You get no surprise charges.
+
+### Does Rollbar have a free trial of paid features?
+
+Yes. Rollbar offers a 14-day full access trial with 200K occurrences, 10K replays, and 15K credits, so you can try the Advanced feature set.

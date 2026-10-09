@@ -1,8 +1,9 @@
 ---
 title: Azure IoT Hub
 description: >-
-  Azure IoT Hub is a managed service for secure, scalable device-to-cloud and
-  cloud-to-device communication.
+  Azure IoT Hub is a managed hub in the cloud that connects IoT devices to your
+  app. Devices send telemetry in, and your app sends messages, commands, and
+  settings back out.
 provider: Azure
 category: messaging
 domain: messaging
@@ -16,54 +17,47 @@ audiences:
   - enterprise
   - student
 tags:
-  - cloud
-  - integration
+  - iot
+  - telemetry
+  - mqtt
+  - device management
+  - azure
+  - device twin
 pricingModel: freemium
 freeTierDetails:
-  summary: 'The Free edition allows up to 8,000 messages per day, one hub per subscription.'
+  summary: 'The Free edition allows up to 8,000 messages per day and 500 device identities, one hub per subscription.'
   limits:
     - '8,000 messages/day (0.5 KB per message)'
     - 1 free-tier IoT hub per Azure subscription
+    - 500 device identities
     - 5 message routing queries
     - 2 message enrichments
-    - 500 device identities
+    - 1 extra endpoint
   caveats:
-    - No SLA on the free tier
     - Intended for testing and evaluation, not production
+    - A free hub cannot be upgraded to a Basic or Standard hub
+    - The name of a free hub can be visible to other free-tier users
   resetPeriod: daily
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Prototype IoT solutions
-  - Remote device monitoring
-  - Basic telemetry ingestion
-  - Learning IoT cloud integration
+  - Prototyping an IoT solution with a handful of devices
+  - Collecting telemetry from sensors or simulated devices
+  - Sending cloud-to-device messages and direct method calls
+  - Syncing device settings with device twins
+  - Learning how Azure connects devices to the cloud
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - Create a new IoT Hub using the Free tier.
-  - Register a device identity in the IoT Hub.
-  - Download the device connection string.
-  - Send test telemetry from your device or simulator.
-whenToUse: >-
-  Use when you need to prototype or test IoT solutions with basic device
-  connectivity and messaging at no cost.
-whenNotToUse: >-
-  Avoid if you require advanced security, high message throughput, or
-  production-grade SLAs.
-bestFor:
-  - prototyping
-  - learning
-  - small-scale IoT projects
-avoidIf:
-  - need high throughput
-  - require advanced security
-  - production SLAs
+  - Sign in to the Azure portal with an Azure subscription, or open Azure Cloud Shell.
+  - 'Run `az extension add --name azure-iot` to add the IoT commands to the Azure CLI.'
+  - Create a resource group and an IoT hub. In the portal, choose Create a resource, then Internet of Things, then IoT Hub, and pick the Free tier.
+  - 'Register a device identity and start a simulated device with `az iot device simulate`.'
+  - 'Watch the telemetry with `az iot hub monitor-events`, then send a message with `az iot device c2d-message send`.'
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/iot-hub/'
@@ -72,6 +66,62 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/iot-hub/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/iot-hub/'
   - 'https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling'
+  - 'https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal'
+  - 'https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-scaling'
+  - 'https://learn.microsoft.com/en-us/azure/iot-hub/quickstart-send-telemetry-cli'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+whenToUse: >-
+  Use the free tier to prototype a small device fleet and test device-to-cloud
+  messaging before you commit to a paid hub.
+whenNotToUse: >-
+  Avoid it for production fleets or anything you plan to grow in place, because
+  a free hub cannot be upgraded to a paid tier.
+bestFor:
+  - IoT prototypes
+  - learning Azure IoT
+  - small test fleets
+avoidIf:
+  - production device fleets
+  - hubs you want to upgrade later
+  - no Azure subscription
 ---
-Azure IoT Hub provides a managed, scalable platform for connecting, monitoring, and managing IoT devices with secure cloud integration and basic messaging features.
+You work with IoT Hub in the Azure portal, with the Azure CLI and its `azure-iot` extension, or with device SDKs. It suits developers who want to test device connectivity on Azure before they pay for a production hub. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+The Free edition is meant for proof of concept projects. It allows up to 8,000 messages per day and up to 500 device identities. Azure counts each message as 0.5 KB for the daily quota on a free hub, while paid tiers use 4 KB.
+
+Each Azure subscription can have one hub in the free tier. The free tier has the capabilities of the Standard tier, but with small allowances. A free hub can have 5 message routing queries, 2 message enrichments, and one extra endpoint. Message routing and Event Grid integration are available on it.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass the 8,000 messages per day. The daily quota is a fixed number for the hub, and you can see it in the Azure portal.
+
+Separate throttles limit the rate of calls. If you hit one, IoT Hub answers with error code 429, and your client should back off and retry. IoT Hub accepts short bursts above a throttle, then queues requests, and finally rejects them. You cannot upgrade a free hub to Basic or Standard. You create a new paid hub instead.
+
+## Gotchas
+
+- Only one free hub is allowed per subscription, so a second free hub needs another subscription.
+- The name of a free hub can be visible to other free-tier users, and hub names are public DNS names. Do not put private data in the name.
+- Deleting a hub deletes its device identity registry, so keep a record of your devices before you remove it.
+
+## Alternatives in this atlas
+
+- [EMQX Serverless](/services/emqx-serverless/): when your devices speak MQTT and you want a free broker without an Azure subscription.
+- [Event Grid](/services/event-grid/): when you want an Azure event and MQTT service for routing events between services.
+- [Azure Web PubSub](/services/azure-web-pubsub/): when you push live updates to browsers rather than connect devices.
+
+## Questions people ask
+
+### Is Azure IoT Hub free?
+
+There is a Free edition. It allows 8,000 messages per day and 500 device identities, with one free hub per Azure subscription. It is meant for testing and evaluation.
+
+### Can I upgrade a free IoT hub?
+
+No. The docs say a free hub cannot be upgraded to Basic or Standard. You create a new hub in a paid tier.
+
+### What happens when I send too many messages to IoT Hub?
+
+The pricing page does not say what happens at the daily quota. For call rates, IoT Hub throttles and answers with error code 429, and your client should back off and retry.

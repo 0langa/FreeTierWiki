@@ -1,8 +1,9 @@
 ---
 title: Pocket Alert
 description: >-
-  Pocket Alert is a free push notification API and app that centralizes
-  alerts from monitoring, deploys, and other services into one channel.
+  Pocket Alert sends push notifications to your iPhone or Android phone from an
+  API call or webhook. It suits developers who want alerts from scripts,
+  monitors, and deploys in one place.
 provider: Pocket Alert
 category: observability
 domain: observability
@@ -17,8 +18,13 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - web
+  - push-notifications
+  - alerts
+  - webhooks
+  - api
+  - mobile
+  - ios
+  - android
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -29,49 +35,95 @@ freeTierDetails:
     - 1 device
     - 1 application
     - 1 webhook
+    - 1 form
+    - 7-day webhook history
   caveats:
     - Paid plans start at $6/month for more volume
-    - Free plan has 1 device, 1 application, and 1 webhook
+    - On the free plan, critical alerts arrive as high priority and cannot bypass Do Not Disturb
+    - Support responds within up to 96 hours on the free plan
+    - Notifications over the daily limit are not delivered
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Get push alerts for server or deploy errors
-  - Centralize webhook notifications into one channel
-  - Receive custom app alerts on mobile
+  - Phone alerts when a deploy or script fails
+  - Turning incoming webhooks from other services into pushes
+  - Order or signup alerts from your own app
+  - Sending a push from the terminal with the CLI
+  - Collecting answers through a form that arrives as a push
 quickstartSteps:
-  - Sign up for a free Pocket Alert account.
-  - Install the iOS or Android app.
-  - Get your API token.
-  - Send a push notification via API or webhook.
-  - Configure priority levels and channels as needed.
+  - 'Sign up free at pocketalert.app and install the Pocket Alert app for iOS or Android.'
+  - 'Log in to the web app, open API Keys, click Create New Key, and copy the key; it is shown only once.'
+  - 'Send a first push with a POST request to the v1/messages endpoint, using a Token header with your key and a JSON body with title and message.'
+  - 'Check the JSON response for the message id (tid) and watch the push arrive on your phone.'
+  - 'Optionally create an application to group alerts by project, or set up a webhook to receive alerts from other services.'
 whenToUse: >-
-  Use Pocket Alert when you want a single, focused push-notification channel
-  from your own scripts, monitors, or services.
+  Use Pocket Alert when you want your own scripts, monitors, or services to push
+  alerts to one phone with a single API call.
 whenNotToUse: >-
-  Avoid if you need more than 50 notifications/day, multiple devices, or
-  multiple applications for free.
+  Avoid it if you need more than one device or application, real critical alerts
+  that bypass Do Not Disturb, or team-wide alerting on the free plan.
 bestFor:
   - personal ops alerts
-  - side projects
   - solo developers
+  - side projects with a few alerts a day
 avoidIf:
   - high notification volume
   - team-wide alerting
-  - multiple devices or applications
+  - several devices or applications
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://pocketalert.app'
-docsUrl: 'https://docs.pocketalert.app'
+docsUrl: 'https://info.pocketalert.app/getting-started.html'
 sourceUrls:
   - 'https://pocketalert.app'
+  - 'https://pocketalert.app/pricing'
+  - 'https://info.pocketalert.app/getting-started.html'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://pocketalert.app'
 ---
-Pocket Alert offers a free-forever push notification channel (50/day, 1 device, 1 app) for centralizing alerts from monitoring, deploys, and custom services.
+You send a push with one HTTP request, a webhook URL, a command line tool, a browser extension, or an MCP server. The docs show cURL, JavaScript, Python, PHP, and Go examples, and no SDK is needed. It suits one developer who wants alerts on a phone.
+
+## What the free plan gives you
+
+The Free plan costs $0 and needs no credit card. It allows 50 daily messages, 1 device, 1 application, 1 webhook, and 1 form. Webhook history is kept for 7 days. The counter resets every day.
+
+Every push delivered to a device counts as one message. Sending the same notification to two devices counts as two. Priority levels run from silent to critical. On Free, critical alerts are delivered as high priority. Paid plans keep true critical alerts, which can bypass Do Not Disturb on Android.
+
+## When you hit a limit
+
+Once you reach the daily message limit, further notifications for that day are not delivered. The counter resets the next day. Nothing is billed, so there is no overage charge on the free plan.
+
+If you keep hitting the limit, the pricing page suggests a plan with higher daily volume. The Starter plan costs $6 per month for 1,000 daily messages, 3 devices, and 5 applications.
+
+## Gotchas
+
+- Over-limit notifications are not delivered. An alert sent after you reach the daily limit does not reach your phone that day.
+- You can have only 1 device on Free, so a second phone or tablet needs a paid plan.
+- Support on Free responds within up to 96 hours, compared with up to 24 hours on Starter.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want monitoring that alerts you on its own, without writing the calls.
+- [Healthchecks.io](/services/healthchecks-io/): when you want alerts for cron jobs and scheduled tasks that fail to check in.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want on-call alerts tied to monitors and a status page.
+
+## Questions people ask
+
+### Is Pocket Alert free?
+
+Yes. The Free plan is free forever with no credit card. It gives you 50 push notifications a day, 1 device, 1 application, and 1 webhook.
+
+### What happens if I hit the daily limit on Pocket Alert?
+
+Further notifications for that day are not delivered. The counter resets the next day, and you can upgrade for a higher daily volume.
+
+### Does Pocket Alert work on iPhone and Android?
+
+Yes. The home page lists iOS and Android apps, and you receive the pushes on the app you install on your phone.

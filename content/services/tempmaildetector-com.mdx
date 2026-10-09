@@ -1,8 +1,9 @@
 ---
 title: TempMailDetector.com
 description: >-
-  Detects and blocks temporary or disposable email addresses in real time via
-  API.
+  TempMailDetector is an API that checks the domain of an email address and
+  tells you if it belongs to a disposable or temporary mail service, so you can
+  block fake sign-ups.
 provider: TempMailDetector.com
 category: security
 domain: security
@@ -16,57 +17,101 @@ audiences:
   - team
   - agency
 tags:
-  - email
-  - productivity
+  - disposable-email
+  - temp-mail
+  - email-validation
+  - signup-fraud
   - api
-  - security
+  - wordpress-plugin
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier allows up to 200 lookups per month, resetting monthly, with no card required.
   limits:
     - 200 lookups/month
     - No card required to start
+    - WordPress and Ghost plugins included
   caveats:
-    - Pro tier is pay-as-you-go at $0.005 per lookup
+    - Pro tier is pay-as-you-go at $0.005 per lookup, excluding VAT
+    - The API returns a 402 status when your account has run out of lookups
+    - It checks only the domain and is not a bulk email validation service
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prevent signups with disposable emails
-  - Reduce spam or fraudulent accounts
-  - Improve email list quality
+  - Blocking disposable email domains on a sign-up form
+  - Stopping fake accounts that abuse free trials
+  - Cleaning up new members on a WordPress or Ghost site
+  - Scoring the risk of a sign-up domain before you accept it
 quickstartSteps:
-  - Sign up for a free account at TempMailDetector.com.
-  - Log in and obtain your API key from the dashboard.
-  - Read the API documentation for integration details.
-  - Integrate the API into your signup or registration flow.
-  - Test with known disposable and real email addresses.
+  - Sign up at tempmaildetector.com. The pricing section says no credit card is required.
+  - Get an API key. The docs say you need a key to use the API.
+  - Split the email address at the at sign and send only the domain to the check endpoint, with a POST request to api.tempmaildetector.com/check.
+  - Send the key in the Authorization header as a Bearer token, and read the score in the response.
+  - Block or flag the sign-up when the score is high. The docs advise blocking at a score of 75 or higher.
 whenToUse: >-
-  Use when you need to block disposable or temporary emails during user
-  registration or form submissions.
+  Use it to check sign-ups one at a time against a list of disposable domains,
+  when your volume fits in 200 lookups a month or you accept pay-as-you-go
+  pricing.
 whenNotToUse: >-
-  Avoid if you require bulk email validation or need to verify email
-  deliverability, not just disposability.
+  Avoid it for bulk list cleaning or for checking if a mailbox exists, because
+  it is not a bulk validation service and checks the domain only.
 bestFor:
-  - signup forms
-  - user registration
-  - SaaS apps
+  - sign-up forms
+  - SaaS free trials
+  - WordPress and Ghost sites
 avoidIf:
-  - bulk email validation
-  - email deliverability checks
+  - you need bulk email validation
+  - you need checks on the mailbox, not only the domain
+  - you get more than 200 sign-ups a month and do not want to pay per lookup
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://tempmaildetector.com/'
-docsUrl: 'https://docs.tempmaildetector.com'
+docsUrl: 'https://tempmaildetector.com/documentation'
 sourceUrls:
   - 'https://tempmaildetector.com/'
+  - 'https://tempmaildetector.com/documentation'
 pricingUrl: 'https://tempmaildetector.com/'
 featured: false
 ---
-TempMailDetector.com provides a simple API to detect and block temporary or disposable email addresses, with 200 free lookups per month.
+You call a small HTTP API from your sign-up code, or install the WordPress or Ghost plugin. The service takes only the email domain, never the full address. It suits developers who run sign-up forms and free trials.
+
+## What the free plan gives you
+
+The Free plan gives 200 lookups per month. It resets monthly, needs no card, and includes the WordPress and Ghost plugins. Each call returns a risk score from 0 to 100 and some details about the domain, such as whether it is on the block list, how old it is, whether its website resolves, and whether it is a forwarding service. The docs advise blocking a score of 75 or higher.
+
+The service says it never stores user emails, because it needs only the domain. If a domain is new, it analyzes it and gives you a risk score.
+
+## When you hit a limit
+
+When your key runs out of lookups, the API returns a 402 Payment Required status with the message no_lookups_remaining. That is a hard stop, so your sign-up code should handle it. Free lookups come back each month. The Pro tier is pay as you go at $0.005 per lookup, excluding VAT, and the lookups you buy never expire. A quota endpoint shows your remaining lookups and overage settings, so you can track use in code.
+
+## Gotchas
+
+- Send only the domain. The service strips the user part if you send a full address. Split on the at sign so sub-domains and country domains such as co.uk work.
+- It is not a bulk email validation service, and it checks only the domain, not the mailbox.
+- You decide what to do with a flagged sign-up. You can hard reject it or let the user continue as a shadow-banned account.
+
+## Alternatives in this atlas
+
+- [Verifalia](/services/verifalia/): when you need to check that addresses really exist, not only that they are disposable.
+- [Antideo](/services/antideo/): when you also want IP and phone checks next to email checks.
+
+## Questions people ask
+
+### Is TempMailDetector free?
+
+Yes, within limits. The Free plan gives 200 lookups per month with no credit card.
+
+### What happens when I run out of TempMailDetector lookups?
+
+The API returns a 402 status with no_lookups_remaining. Free lookups reset monthly, and Pro lookups cost $0.005 each.
+
+### Does TempMailDetector store my users' email addresses?
+
+No. The service needs only the domain, and the docs say you should never send a full customer email.

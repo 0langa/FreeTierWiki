@@ -1,9 +1,8 @@
 ---
 title: SikkerKey
 description: >-
-  SikkerKey is a secrets vault and machine-identity platform: encrypted secret
-  storage plus signed, key-based identity for servers, CI runners, and AI
-  agents.
+  SikkerKey stores encrypted secrets and gives each server, CI runner, or AI
+  agent its own key so it can read only the secrets it was granted.
 provider: SikkerKey
 category: security
 domain: security
@@ -20,13 +19,17 @@ audiences:
   - oss
   - agency
 tags:
-  - auth
-  - security
+  - secrets-management
+  - secret-vault
+  - machine-identity
+  - api-keys
+  - ci-cd
+  - mcp
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Developer plan gives unlimited secrets, projects, reads, and
-    rotations, with 10 machines included, and no card required to sign up.
+    rotations, with 10 machines included.
   limits:
     - 10 machines included
     - Unlimited secrets, projects, reads, and rotations
@@ -35,48 +38,88 @@ freeTierDetails:
   caveats:
     - Machines above the 10 included are billed at $5 each per month; the page says you are never blocked from adding one
     - Organizations with members and vault roles need the paid Teams plan ($29/month, 25 machines)
-  resetPeriod: none
+    - AI identities and people who sign in to the dashboard do not count toward the machine quota
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - Each machine that can read secrets counts, including ephemeral CI machines while they are live
+    - The pricing FAQ says additional machines bill at the plan rate and you are never blocked from adding one
 useCases:
-  - Store secrets and API keys for servers and CI runners
-  - Give machines and AI agents signed identity
-  - Rotate credentials without metered reads
+  - Storing API keys and database passwords for servers and services
+  - Giving CI runners short-lived access to secrets
+  - Letting coding agents such as Claude Code or Cursor work with the vault through the MCP server
+  - Rotating credentials often without paying per read
 quickstartSteps:
-  - Sign up for a free SikkerKey account at sikkerkey.com.
-  - Verify your email and log in to the dashboard.
-  - Create your first project and add secrets.
-  - Enroll your first machine and read a secret from it.
-  - Set access permissions for each secret as needed.
+  - Sign up at app.sikkerkey.com/register with your email, GitHub, or Google account.
+  - Create a project from the Overview page, then add a secret such as `API_KEY` in it.
+  - Open the Machines page and copy the one-time bootstrap command, then run it on the machine that needs the secret. The token expires after 10 minutes.
+  - Approve the machine, add it to the project, and move the secret from Available to Granted for that machine.
+  - Install an SDK (Python, Go, Node.js, Kotlin, .NET, or PHP) and call `getSecret`, or run the CLI with `sikkerkey get` and the secret id.
 whenToUse: >-
-  Use SikkerKey when you need an encrypted secrets vault plus signed machine
-  identity for servers, CI runners, or AI agents.
+  Use SikkerKey when your servers, CI jobs, or agents need to fetch secrets with
+  their own signed identity instead of a shared token.
 whenNotToUse: >-
-  Avoid if you need more than 10 machines for free, multi-user organizations,
-  longer audit retention, or enterprise compliance features out of the box.
+  Avoid the Developer plan if you need team members with vault roles, single
+  sign-on, or audit logs kept longer than a month.
 bestFor:
-  - small teams
-  - individuals
-  - startups
-  - students
+  - solo developers
+  - small teams with a few servers
+  - projects that use CI runners and agents
 avoidIf:
-  - large enterprises
-  - complex compliance needs
-  - require on-premise storage
+  - you need members and roles on a free plan
+  - you need long audit retention
+  - you cannot accept per-machine billing above 10 machines
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://sikkerkey.com'
 docsUrl: 'https://docs.sikkerkey.com'
 sourceUrls:
   - 'https://sikkerkey.com/pricing'
-  - 'https://sikkerkey.com'
+  - 'https://docs.sikkerkey.com'
+  - 'https://docs.sikkerkey.com/docs/quickstart'
 pricingUrl: 'https://sikkerkey.com/pricing'
 featured: false
 ---
-SikkerKey is a secrets vault and machine-identity platform: an encrypted vault for teams plus signed, key-based identity for servers, CI runners, and AI agents, with a free Developer plan for up to 10 machines.
+You manage projects and secrets in a web dashboard. Machines read their secrets with an SDK or a single-binary CLI, and an MCP server lets AI clients work with the vault. It suits solo developers and small teams.
+
+## What the free plan gives you
+
+The Developer plan is free, and the pricing FAQ says it is permanent, not a trial. It includes 10 machines. A machine here is anything that can read secrets right now, such as a server, a service, a CI runner, or a temporary contractor machine.
+
+Secrets, projects, reads, and rotations are unlimited on every plan. You also get 1 month of audit retention and 20 webhook deliveries per day. All plans list the same core features: ephemeral machines, AI identities, managed and leased secrets, access policies, the CLI, SDKs, and passkey sign-in.
+
+## When you hit a limit
+
+Going over 10 machines costs money, not access. Each additional machine on the Developer plan is billed at $5 per month, and the FAQ says you are never blocked from adding one. Machines that cannot read, such as disabled or expired ones, do not count. AI identities and dashboard users do not count either. For the paid plans, a failed payment opens a seven-day window before the plan moves back to Developer.
+
+## Gotchas
+
+- Extra machines bill by the month. A busy CI setup with many live ephemeral machines can raise the count.
+- Organizations with members, vault roles, and access roles need Teams at $29 per month, which includes 25 machines.
+- Adding a machine to a project is not enough. Each secret needs its own grant for each machine.
+
+## Alternatives in this atlas
+
+- [Doppler](/services/doppler/): when you want a secrets manager with a different pricing model.
+- [Infisical](/services/infisical/): when you want an open source secrets platform.
+- [Bitwarden Secrets Manager](/services/bitwarden-secrets-manager/): when you already use Bitwarden for passwords.
+
+## Questions people ask
+
+### Is SikkerKey free?
+
+Yes. The Developer plan is permanent, with 10 machines, unlimited secrets and reads, and no expiry.
+
+### What happens if I go over 10 machines on SikkerKey?
+
+Additional machines bill at $5 per month each on the Developer plan. The pricing FAQ says you are never blocked from adding one.
+
+### Does SikkerKey charge for reads or rotations?
+
+No. Secret count, project count, read volume, and rotation frequency are unlimited on every plan.

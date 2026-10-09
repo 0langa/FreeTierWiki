@@ -1,8 +1,9 @@
 ---
 title: Azure AI Immersive Reader
 description: >-
-  Azure AI Immersive Reader provides text-to-speech, translation, and reading
-  comprehension tools for web and app content accessibility.
+  Azure AI Immersive Reader adds reading tools to your app: read aloud, translation, syllable
+  splitting, and parts-of-speech highlighting. It is for developers who build education and
+  accessibility features.
 provider: Azure
 category: ai
 domain: ai
@@ -19,60 +20,117 @@ audiences:
   - oss
   - agency
 tags:
-  - ux-ui
-  - audio
-  - docs
+  - accessibility
+  - text to speech
+  - reading comprehension
+  - dyslexia
+  - translation
+  - education
+  - immersive reader
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free (F0) tier includes 3 million characters per month.'
+  summary: >-
+    Every tier includes 3 million characters free per month; characters above that are billed per 1
+    million.
   limits:
-    - '3 million characters/month'
+    - 3 million characters/month free on every tier
   caveats:
-    - Usage stops once the monthly free limit is reached; no overage billing on the F0 tier
-    - Moving past the free limit requires the paid S0 tier
+    - There is no separate free-only tier; usage above the free characters is billed
+    - Resources must be set up with Microsoft Entra authentication
+    - Standard (S0) and Education/Nonprofit (S1) are the tiers named in the docs
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: low
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - >-
+      Characters above 3 million per month are billed per 1 million characters; the pricing page
+      does not show a spending cap
 useCases:
-  - Enhancing website accessibility
-  - Adding text-to-speech to educational apps
-  - Supporting language learners
-  - Improving reading comprehension tools
+  - Add a read-aloud button to course pages
+  - Translate lesson text for language learners
+  - Help readers with dyslexia isolate and highlight text
+  - Break words into syllables for new readers
 quickstartSteps:
-  - Sign in to the Azure Portal and create an Immersive Reader resource.
-  - Obtain your resource key and endpoint from the Azure Portal.
-  - Install the Immersive Reader SDK in your application.
-  - Configure authentication using your resource key and endpoint.
-  - Integrate Immersive Reader features into your app or website.
+  - Create an Azure account or use an existing subscription.
+  - >-
+    Create an Immersive Reader resource with the docs script, which also sets up Microsoft Entra
+    authentication. Pick the S0 tier.
+  - 'Save the tenant ID, client ID, client secret, and subdomain the script prints.'
+  - Add the Immersive Reader client library to your web app.
+  - 'On your server, get a Microsoft Entra token for the resource and return it with the subdomain.'
+  - Call the launch function with your text so the reader opens over your page.
 whenToUse: >-
-  Use when you need to add reading accessibility, text-to-speech, or translation
-  features to web or app content with minimal setup.
+  Use when you need reading accessibility, text to speech, or translation inside a web or mobile
+  app, and 3 million characters a month covers your readers.
 whenNotToUse: >-
-  Avoid if you require unlimited free usage, offline processing, or need to
-  support platforms not compatible with Azure services.
+  Avoid if you need a hard free cap, offline processing, or a plain text-to-speech API. Usage past 3
+  million characters is billed.
 bestFor:
-  - accessibility features
   - education apps
-  - language support
+  - accessibility features
+  - language learning apps
+  - small reader audiences
 avoidIf:
+  - need a hard spending cap
   - need offline processing
-  - require unlimited free usage
-  - cannot use Azure
+  - cannot use Azure or Microsoft Entra
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
-officialUrl: >-
-  https://azure.microsoft.com/en-us/pricing/details/ai-services/immersive-reader/
+officialUrl: 'https://azure.microsoft.com/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/immersive-reader/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/immersive-reader/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/immersive-reader/'
-  - 'https://learn.microsoft.com/en-us/azure/ai-services/immersive-reader/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/immersive-reader/overview'
+  - >-
+    https://learn.microsoft.com/en-us/azure/ai-services/immersive-reader/how-to-create-immersive-reader
+  - >-
+    https://learn.microsoft.com/en-us/azure/ai-services/immersive-reader/quickstarts/client-libraries
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Immersive Reader enables developers to quickly add reading, translation, and accessibility features to applications, supporting diverse user needs and compliance. The free (F0) tier covers 3 million characters per month.
+You add the Immersive Reader client library to your web or mobile app. Your server gets a Microsoft Entra token, and the library opens the reader in an iframe over your page. It suits teams that build education and accessibility features. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+The pricing page says every tier gets 3 million characters free per month. This includes the Standard tier and the Education/Nonprofit tier. There is no separate free tier to sign up for. You create a normal resource, and the first 3 million characters each month cost nothing.
+
+The service reads, translates, and highlights the text that your app sends to it. Features include text to speech, translation in real time, picture dictionary, syllable splitting, and parts-of-speech highlighting. The docs say Immersive Reader does not store any customer data.
+
+## When you hit a limit
+
+The pricing page lists a price per 1 million characters above the free amount, but the price field is blank. So usage past 3 million characters is billed, not stopped. The pages do not describe a hard cap or a spending limit.
+
+You create the resource under an Azure subscription. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Each resource must be set up with Microsoft Entra authentication. The docs provide a script that creates the resource and configures it.
+- You need at least the Contributor role on the subscription and the Application Developer role in Microsoft Entra ID, unless you own the subscription.
+- Resource tiers in the docs are S0 for Standard and S1 for Education or Nonprofit.
+
+## Alternatives in this atlas
+
+- [Azure AI Speech](/services/azure-ai-speech/): when you only need text to speech or speech to text.
+- [Azure AI Translator](/services/azure-ai-translator/): when you only need text translation without the reading tools.
+- [Azure AI Language](/services/azure-ai-language/): when you need to analyze text, not display it for reading.
+
+## Questions people ask
+
+### Is Azure AI Immersive Reader free?
+
+Partly. Every tier includes 3 million free characters per month. Characters above that are billed per 1 million.
+
+### What happens when I go over 3 million characters?
+
+You are billed at the per-1M-character rate. The pricing page does not show the price and does not mention a hard cap.
+
+### Does Immersive Reader store my content?
+
+The docs say Immersive Reader does not store any customer data.

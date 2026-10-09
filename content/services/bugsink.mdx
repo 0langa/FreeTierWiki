@@ -1,8 +1,8 @@
 ---
 title: Bugsink
 description: >-
-  Bugsink provides automated error monitoring and reporting for web and mobile
-  applications.
+  Bugsink is an error tracker that works with Sentry SDKs. Use it hosted by
+  Bugsink or run it yourself on your own server.
 provider: Bugsink
 category: observability
 domain: observability
@@ -16,60 +16,106 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - logging
-  - devops
+  - error-tracking
+  - sentry-compatible
+  - self-hosted
+  - open-source
+  - exceptions
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Hosted free plan includes 15,000 events/month for a single user. Bugsink
-    is also open-source and free to self-host with unlimited users.
+    is also free to self-host with unlimited users.
   limits:
     - '15,000 events/month (hosted free plan)'
+    - '5,000 events retained (hosted free plan)'
     - Single user (hosted free plan)
-    - Self-hosted version is free and open-source, unlimited users
+    - Self-hosted version is free, unlimited users
   caveats:
-    - No SLA on the hosted free tier
     - Multiple users require a paid hosted plan (or self-hosting)
+    - Over the rate limit Bugsink returns HTTP 429 and clients back off
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Monitor application errors in real time
-  - Receive alerts for new bugs
-  - Track and resolve issues collaboratively
+  - Track application errors with stack traces
+  - Get alerts in Slack, Discord, or email for new issues
+  - Replace Sentry with a cheaper or self-hosted tracker
+  - Group repeated errors into one issue
 quickstartSteps:
-  - Sign up for a free Bugsink account.
-  - Create a new project in the dashboard.
-  - Integrate the Bugsink SDK into your application.
-  - Deploy your application and trigger an error to verify integration.
-  - View error reports and set up alert notifications.
+  - Sign up for a free hosted account, or install Bugsink yourself from the installation guide.
+  - On the empty Projects page, click New Project in the top-right corner.
+  - Enter a project name and click Save.
+  - Copy the DSN shown in the Connect your Application instructions.
+  - Install a Sentry SDK in your app and set its DSN to the Bugsink one.
+  - Trigger an error on purpose and check that the issue appears on the project page.
 whenToUse: >-
-  Use Bugsink when you need simple, automated error monitoring for web or mobile
-  apps with minimal setup.
+  Use Bugsink when you want simple error tracking that works with Sentry SDKs,
+  hosted for one user or self-hosted for a team.
 whenNotToUse: >-
-  Avoid the hosted free plan if you need more than one user or 15,000
-  events/month; self-host instead for unlimited users at no cost.
+  Avoid the hosted free plan if you need more than one user or more than 15K
+  events a month; self-host instead for unlimited users.
 bestFor:
-  - indie
-  - startup
-  - oss
+  - solo developers
+  - small teams that self-host
+  - projects already using Sentry SDKs
 avoidIf:
-  - enterprise
+  - several users on the hosted free plan
+  - large event volumes on the free plan
   - advanced observability needs
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.bugsink.com/'
-docsUrl: 'https://docs.bugsink.com'
+docsUrl: 'https://www.bugsink.com/docs/'
 pricingUrl: 'https://www.bugsink.com/'
 sourceUrls:
   - 'https://www.bugsink.com/'
+  - 'https://www.bugsink.com/docs/'
+  - 'https://www.bugsink.com/docs/quickstart/'
 featured: false
 ---
-Bugsink offers a hosted free plan (15,000 events/month, single user) and a free, open-source self-hosted option with unlimited users.
+You point a Sentry SDK in your app at Bugsink by changing its DSN, and errors then show up in the Bugsink web app. It suits developers who want simple error tracking, hosted or on their own server.
+
+## What the free plan gives you
+
+The hosted free plan is called 15K / Evaluation. It includes 15K monthly events for a single user, with 5K events retained and chat and email alerts. Alerts reach Slack, Discord, email, or a custom webhook, and the home page says they are included on the free plan.
+
+Bugsink is also free to self-host, with unlimited users and all features. Hosted paid plans start at 75K events for 16 euros per month, with unlimited users. Premium support for self-hosted installs costs 15 euros per user per month.
+
+## When you hit a limit
+
+The docs say that when a rate limit is exceeded (rate limits are configurable per project), Bugsink returns an HTTP 429 status code, and clients are expected to back off, typically for 60 seconds. The docs do not say whether the rejected events are dropped or retried, and the pages do not say what happens when the hosted free plan passes 15K events in a month.
+
+Retention is not a fixed number of days. Older events are assessed for relevance over time, and with low volumes events can stay for years. The pricing page does not describe any overage bill for the free plan, and it asks for no card.
+
+## Gotchas
+
+- The free hosted plan is for a single user. Unlimited users start on the 75K events plan, or you can self-host.
+- Only 5K events are retained on the free hosted plan, even though 15K events arrive each month.
+- Paid hosted plans are priced in euros and start at 75K events a month.
+
+## Alternatives in this atlas
+
+- [GlitchTip](/services/glitchtip/): when you want another Sentry-compatible tracker you can self-host.
+- [Sentry](/services/sentry/): when you need the full Sentry feature set and a larger ecosystem.
+- [Honeybadger.io](/services/honeybadger-io/): when you want error tracking with uptime checks in one tool.
+
+## Questions people ask
+
+### Is Bugsink free?
+
+Yes. The hosted free plan gives you 15K events per month for one user, and the self-hosted version is free with unlimited users.
+
+### Does Bugsink work with Sentry SDKs?
+
+Yes. The site says you point your existing Sentry SDKs at Bugsink by updating the DSN.
+
+### What happens when I go over the Bugsink rate limit?
+
+Bugsink returns an HTTP 429 status code, and clients should back off, typically for 60 seconds.

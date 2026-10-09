@@ -1,8 +1,8 @@
 ---
 title: CloudWatch
 description: >-
-  AWS CloudWatch provides monitoring, logging, and observability for AWS
-  resources and applications.
+  Amazon CloudWatch collects metrics and logs from AWS resources and your own
+  apps, draws dashboards, and sends alarms when something goes wrong.
 provider: AWS
 category: observability
 domain: observability
@@ -17,9 +17,10 @@ audiences:
   - oss
 tags:
   - monitoring
-  - logging
-  - analytics
-  - cloud
+  - logs
+  - metrics
+  - alarms
+  - aws
 pricingModel: freemium
 freeTierDetails:
   summary: 'Includes free monthly usage for metrics, logs, alarms, and dashboards.'
@@ -40,22 +41,23 @@ freeTierDetails:
   billingRiskNotes:
     - Overages can accumulate quickly if logs or metrics exceed free tier.
 useCases:
-  - 'Monitor AWS EC2, Lambda, and other AWS services'
-  - Set up alarms for resource usage
-  - Aggregate and search application logs
-  - Visualize metrics on dashboards
+  - Watch EC2, Lambda, and other AWS service metrics on a dashboard
+  - Set an alarm on CPU use or another metric
+  - Collect and search application logs
+  - Tail logs live while you debug
+  - Run scheduled canary checks against an endpoint
 quickstartSteps:
-  - Sign in to the AWS Management Console.
-  - Navigate to CloudWatch from the AWS services menu.
-  - Create a dashboard to visualize metrics.
-  - 'Set up alarms for key metrics (e.g., CPU utilization).'
-  - Enable log collection for your AWS resources.
+  - Create or sign in to an AWS account.
+  - Open the CloudWatch console at console.aws.amazon.com/cloudwatch.
+  - Read the overview home page, which shows alarm states and automatic dashboards for the AWS services you use.
+  - Optionally create a custom dashboard named CloudWatch-Default; the overview shows it below the alarms if it exists.
+  - Create an alarm on a metric you care about, such as CPU use on an instance.
 whenToUse: >-
-  Use CloudWatch to monitor AWS infrastructure, set up automated alarms, and
-  collect logs for troubleshooting within AWS environments.
+  Use CloudWatch when your workloads already run on AWS and you want metrics,
+  logs, dashboards, and alarms without adding another vendor.
 whenNotToUse: >-
-  Avoid if you need to monitor non-AWS infrastructure or require advanced
-  analytics not supported by CloudWatch.
+  Avoid it for monitoring outside AWS, or if you need a hard spending limit,
+  because usage above the free allowance is billed.
 bestFor:
   - AWS users
   - DevOps teams
@@ -64,11 +66,11 @@ bestFor:
 avoidIf:
   - multi-cloud monitoring
   - on-premises only
-  - advanced log analytics
+  - you need a hard spending cap
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cloudwatch/'
@@ -76,7 +78,47 @@ docsUrl: 'https://docs.aws.amazon.com/cloudwatch/'
 pricingUrl: 'https://aws.amazon.com/cloudwatch/pricing/'
 sourceUrls:
   - 'https://aws.amazon.com/cloudwatch/pricing/'
+  - 'https://aws.amazon.com/cloudwatch/'
   - 'https://docs.aws.amazon.com/cloudwatch/'
+  - 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/GettingStarted.html'
 featured: false
 ---
-CloudWatch is AWS's native observability platform, offering integrated monitoring, logging, and alerting for AWS resources and applications with a generous free tier.
+You open CloudWatch in the AWS console, or send data to it with the AWS CLI, SDKs, and the CloudWatch agent. It suits teams that already run on AWS and want monitoring next to their other services.
+
+## What the free plan gives you
+
+The free tier is a monthly allowance, not a separate plan. Logs get 5 GB of data, counted across ingestion, archive storage, and data scanned by Logs Insights queries. Live Tail gets 1,800 minutes per month, which is about an hour per day.
+
+Metrics get 10 custom or detailed monitoring metrics and 1 million API requests. Dashboards get 3 custom dashboards with up to 50 metrics each, and automatic dashboards are free. Alarms get 10 alarm metrics, for standard resolution alarms only. Contributor Insights gets 1 rule and the first 1 million matching log events. Synthetics gets 100 canary runs per month.
+
+## When you hit a limit
+
+The pricing page does not describe any shutoff at the limit. CloudWatch has no up-front commitment or minimum fee, and you pay for what you use. The bill arrives at the end of the month. Usage above the free allowance is charged at the paid rates on the pricing page.
+
+Live Tail shows how fast this adds up: after the free minutes, it costs $0.01 per minute. Three calls are always charged and never count against the free API requests: GetMetricData, GetInsightRuleReport, and GetMetricWidgetImage.
+
+## Gotchas
+
+- Most AWS services send their basic metrics to CloudWatch for free, but custom and detailed monitoring metrics count against the allowance of 10.
+- The 5 GB log allowance covers ingestion, archive storage, and Logs Insights scans together, so heavy queries use it up as well.
+- Alarm metrics in the free tier apply only to standard resolution alarms that list metrics directly and do not use a Metrics Insights query.
+
+## Alternatives in this atlas
+
+- [Datadog](/services/datadog/): when you run services outside AWS and want one place for all of them.
+- [Grafana Cloud](/services/grafana-cloud/): when you want dashboards and logs for mixed or multi-cloud setups.
+- [Axiom](/services/axiom/): when you mainly need log storage and search.
+
+## Questions people ask
+
+### Is CloudWatch free?
+
+Partly. CloudWatch has a free tier with monthly allowances for logs, metrics, dashboards, and alarms. Usage above the allowance is billed.
+
+### What happens when I go over the CloudWatch free tier?
+
+You are charged at the paid rates at the end of the month. The pricing page does not say the service stops or pauses when you pass an allowance.
+
+### How many CloudWatch dashboards are free?
+
+You get 3 custom dashboards with up to 50 metrics each per month. Automatic dashboards are free on top of that.

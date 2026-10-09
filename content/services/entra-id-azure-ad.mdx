@@ -1,8 +1,8 @@
 ---
 title: Entra ID / Azure AD
 description: >-
-  Microsoft Entra ID (formerly Azure AD) provides cloud-based identity and
-  access management for apps, users, and devices.
+  Microsoft Entra ID, formerly Azure AD, is Microsoft's cloud directory and sign-in service. It
+  gives staff and apps single sign-on, MFA, and app registrations.
 provider: Microsoft
 category: auth
 domain: auth
@@ -17,60 +17,74 @@ audiences:
   - oss
   - agency
 tags:
+  - sso
+  - microsoft
+  - azure ad
+  - directory
+  - mfa
+  - app registration
   - identity
-  - auth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Microsoft Entra ID Free (included with an Azure or Microsoft 365 subscription) provides unlimited
-    SSO across any SaaS app, MFA, and self-service password change for cloud users, plus up to 500,000
-    directory objects, at no extra cost.
+    Microsoft Entra ID Free (included with an Azure or Microsoft 365 subscription) provides
+    unlimited SSO across any SaaS app, MFA, and self-service password change for cloud users, at no
+    extra cost. The default tenant quota is 50,000 directory resources.
   limits:
     - Unlimited SSO across SaaS apps
-    - Up to 500,000 directory objects
+    - 'Default quota of 50,000 directory resources per tenant, or 300,000 with a verified domain'
     - Multi-factor authentication for cloud users
     - Basic security and usage reports
     - Self-service password change for cloud users
   caveats:
     - Requires an Azure or Microsoft 365 subscription to activate
     - Conditional access and premium security need Entra ID P1/P2 add-ons ($7-$10/user/month)
+    - >-
+      The pricing page lists a 500,000 resource limit for the Free tier, but the service limits page
+      sets the default quota lower
+    - Only paid customers can create extra workforce tenants
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Enable SSO for SaaS applications
+  - Single sign-on to SaaS apps for a team
+  - A cloud directory of users and groups
+  - Register an app so it can sign users in with Microsoft accounts
+  - MFA for cloud users
   - Manage employee access to cloud resources
-  - Integrate MFA for user sign-ins
 quickstartSteps:
-  - Sign up for an Azure account and access the Azure portal.
-  - Navigate to 'Microsoft Entra ID' and create a new directory if needed.
-  - Add users or groups to your directory.
-  - Register an application or configure SSO for an existing app.
-  - Assign users to applications and test sign-in.
+  - >-
+    Create a free Azure account. Azure sign-up needs a phone and a credit or debit card for identity verification. The register-an-app quickstart says you can use your Default Directory.
+  - Sign in to the Microsoft Entra admin center.
+  - Add users and groups to your directory.
+  - >-
+    To sign users in to your own app, go to Entra ID, then App registrations, and choose New
+    registration.
+  - 'Give the app a name, set the supported account types and a redirect URI, and register it.'
 whenToUse: >-
-  Use Entra ID when you need centralized identity management, SSO, or basic
-  directory services for your organization or apps.
+  Use Entra ID when your team already lives in Azure or Microsoft 365 and you want single sign-on,
+  MFA, and a basic directory at no extra cost.
 whenNotToUse: >-
-  Avoid if you require advanced security policies, conditional access, or need
-  to manage external identities at scale without premium features.
+  Avoid it if you need conditional access or advanced security without paying for P1 or P2, or want
+  a simple login for consumer apps without Azure.
 bestFor:
-  - centralized authentication
-  - enterprise SSO
+  - Azure and Microsoft 365 teams
+  - single sign-on to SaaS apps
   - basic directory services
 avoidIf:
-  - need advanced security
-  - require B2C/B2B at scale
-  - must avoid Microsoft ecosystem
+  - conditional access on the free tier
+  - consumer-facing sign-in without Azure
+  - avoiding the Microsoft ecosystem
 difficulty: intermediate
 productionReadiness: production-ready
 status: changed
 changes:
-  - date: 2026-10-06
+  - date: 2026-10-06T00:00:00.000Z
     kind: changed
-    note: "Corrected the Free plan summary from password reset to password change for cloud users."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+    note: Corrected the Free plan summary from password reset to password change for cloud users.
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/services/active-directory/'
@@ -78,8 +92,47 @@ docsUrl: 'https://learn.microsoft.com/azure/active-directory/'
 pricingUrl: 'https://www.microsoft.com/en-us/security/business/microsoft-entra-pricing'
 sourceUrls:
   - 'https://www.microsoft.com/en-us/security/business/microsoft-entra-pricing'
-  - 'https://azure.microsoft.com/pricing/details/active-directory/'
   - 'https://learn.microsoft.com/en-us/entra/identity/users/directory-service-limits-restrictions'
+  - 'https://learn.microsoft.com/en-us/entra/fundamentals/whatis'
+  - 'https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app'
 featured: false
 ---
-Microsoft Entra ID (formerly Azure AD) offers free basic identity and access management, including SSO and user directory, with paid upgrades for advanced features.
+You manage Entra ID in the Microsoft Entra admin center, or through the Azure portal and Microsoft Graph. It fits teams that run on Azure or Microsoft 365 and need a cloud directory.
+
+## What the free plan gives you
+
+Microsoft Entra ID Free comes with Microsoft cloud subscriptions such as Azure and Microsoft 365. It supports multifactor authentication, unlimited single sign-on across any SaaS app, basic reports, and self-service password change for cloud users.
+
+The pricing page lists a 500,000 resource limit for the Free tier. The service limits page sets a lower default quota: 50,000 Microsoft Entra resources per tenant for the Free edition. With at least one verified domain, the quota rises to 300,000. A new tenant has a temporary quota of 600 directory objects for its first two days. The paid P1 plan is listed at $7.00 and P2 at $10.00 per user.
+
+## When you hit a limit
+
+To go beyond the default resource quota, you must contact Microsoft Support. The service limits page does not describe an automatic charge for it. Resources include users, groups, applications, and service principals, and soft-deleted objects can still count while you can restore them.
+
+A non-admin user can create no more than 250 Microsoft Entra resources. If developers hit this often, an admin can give them a custom role that allows unlimited app registrations. Features such as conditional access are not part of the Free edition. They need a paid plan.
+
+## Gotchas
+
+- The pricing page and the service limits page give different resource numbers. Use the lower default quota when you plan.
+- Only paid customers can create more workforce tenants. Free tenants and trial subscriptions cannot add them.
+- You need an Azure or Microsoft 365 subscription. Azure's account page says sign-up needs a phone and a credit or debit card for identity verification.
+
+## Alternatives in this atlas
+
+- [Okta](/services/okta/): when you want an independent workforce identity provider outside Microsoft.
+- [Auth0](/services/auth0/): when you need login for customer-facing apps with a free user allowance.
+- [Amazon Cognito](/services/aws-cognito/): when your app runs on AWS and you want user pools there.
+
+## Questions people ask
+
+### Is Microsoft Entra ID free?
+
+Yes, the Free edition is included with Azure and Microsoft 365 subscriptions. It covers unlimited SSO across SaaS apps and MFA for cloud users.
+
+### Does Entra ID need a credit card?
+
+The Free edition is included with a Microsoft cloud subscription such as Azure or Microsoft 365. Azure's account page says sign-up needs a phone and a credit or debit card for identity verification, so plan for a card.
+
+### How many objects can Entra ID Free hold?
+
+The default quota is 50,000 resources per tenant, and 300,000 with a verified domain. To go further, contact Microsoft Support.

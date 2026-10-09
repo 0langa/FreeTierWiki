@@ -1,8 +1,8 @@
 ---
 title: Formcarry.com
 description: >-
-  Formcarry lets you collect form submissions from static sites without backend
-  code or server setup.
+  Formcarry is a form backend: your HTML or app form posts to its endpoint, and
+  it emails you each submission. It suits sites with no server code.
 provider: Formcarry
 category: forms
 domain: forms
@@ -17,60 +17,109 @@ audiences:
   - team
   - oss
 tags:
-  - productivity
-  - web
-  - backend
+  - form backend
+  - html form
+  - contact form
+  - static site forms
+  - email notifications
+  - zapier
 pricingModel: freemium
 freeTierDetails:
-  summary: Free Baby plan includes 1 form and 50 submissions per month.
+  summary: The free Baby plan includes 1 form, 50 submissions a month, and 1 team member.
   limits:
     - 1 form
     - 50 submissions/month
-    - Basic spam protection
+    - 1 team member
+    - Email notifications and spam protection
   caveats:
-    - No file uploads on free tier
-    - Form branding present
+    - File uploads are available on paid plans only
+    - Submissions over the monthly limit are saved but you cannot see them unless you upgrade
+    - Paid plans start with Starter at $6 a month ($5 with yearly billing)
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Collecting contact form submissions on static sites
-  - Quickly adding forms to JAMstack projects
-  - Handling feedback forms without backend setup
+  - Contact forms on a static site
+  - Forms in React, Next.js, Vue, or Svelte apps
+  - Forms in Webflow, Framer, WordPress, Wix, or Squarespace sites
+  - Sending submissions to other apps through Zapier
+  - Setting up forms from an AI tool over MCP
 quickstartSteps:
   - Sign up for a free Formcarry account.
-  - Create a new form in the Formcarry dashboard.
-  - Copy the generated form endpoint URL.
-  - Update your HTML form's action attribute to use the Formcarry endpoint.
-  - Test your form to ensure submissions are received in your dashboard.
+  - Create a form in the dashboard.
+  - Find your form id on the Setup page of the dashboard.
+  - Set your form's action to `https://formcarry.com/s/` followed by your form id, with method POST.
+  - Give every field a name attribute, because a field without a name is never sent.
+  - Submit a test entry and check your email and the dashboard.
 whenToUse: >-
-  Use Formcarry when you need to collect form submissions on static or JAMstack
-  sites without building a backend.
+  Use Formcarry for one contact or feedback form on a static site, a framework
+  app, or a site builder, when email delivery and spam filtering are enough.
 whenNotToUse: >-
-  Avoid if you need advanced workflows, file uploads, or high submission volumes
-  without upgrading to a paid plan.
+  Avoid it if you need more than 1 form, more than 50 submissions a month, or file
+  uploads without paying.
 bestFor:
   - static sites
   - landing pages
   - prototypes
 avoidIf:
-  - file uploads required
+  - need file uploads on the free plan
+  - need more than 1 form
   - high submission volume
-  - custom branding needed
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://formcarry.com'
-docsUrl: 'https://docs.formcarry.com'
+docsUrl: 'https://formcarry.com/docs'
 pricingUrl: 'https://formcarry.com/pricing'
 sourceUrls:
   - 'https://formcarry.com/pricing'
   - 'https://formcarry.com/docs'
+  - 'https://formcarry.com'
 featured: false
 ---
-Formcarry provides a simple backend for HTML forms, ideal for static sites and quick prototypes, with a generous free tier for basic needs.
+You keep your own form and point its action at a Formcarry endpoint. The docs also cover framework guides, site builders, a REST API, and an MCP server.
+
+## What the free plan gives you
+
+The free plan is called Baby and costs $0 a month. It includes 1 form, 50 submissions a month, and 1 team member.
+
+Every submission triggers an instant email notification, and the site says it filters spam. Formcarry stores submissions forever, according to the home page. The docs say any form that can send an HTTP POST works, including plain HTML, React, Webflow, Framer, and WordPress. You can send an Accept header for JSON to get a JSON reply from JavaScript.
+
+File uploads are a paid feature. The home page also lists over 3000 integrations, but the pricing page shows integration call counts only on paid plans.
+
+## When you hit a limit
+
+Formcarry does not drop extra submissions. The site says it saves them in a secure place until the first day of next month. You cannot see them unless you upgrade your plan, and upgrading lets you recover them.
+
+So a busy month hides your data instead of billing you. The free plan has no card on file. The paid plans start at $6 a month for Starter, or $5 with yearly billing, and you can upgrade, downgrade, or cancel from your dashboard at any time.
+
+## Gotchas
+
+- Only 1 form is allowed on the free plan. Paid plans list unlimited forms.
+- Fields without a name attribute are never sent by the browser, so they never reach Formcarry.
+- Entries past 50 in a month stay hidden until you upgrade. The site says Formcarry saves them only until the first day of next month.
+
+## Alternatives in this atlas
+
+- [Formspree.io](/tools/formspree-io/): when you need several forms and can live with a monthly submission cap.
+- [FormKeep.com](/tools/formkeep-com/): when you want unlimited forms that share one monthly submission total.
+- [Formsubmit.co](/tools/formsubmit-co/): when you want no account and unlimited submissions delivered by email.
+
+## Questions people ask
+
+### Is Formcarry free?
+
+Yes. The free Baby plan costs $0 and includes 1 form and 50 submissions a month. Paid plans start at $6 a month.
+
+### What happens when I exceed the Formcarry submission limit?
+
+Formcarry saves the extra submissions until the first day of next month. You can see them only after you upgrade, and then you recover them.
+
+### Does Formcarry support file uploads on the free plan?
+
+No. The site says file uploads are available on paid plans.

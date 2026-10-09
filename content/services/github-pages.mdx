@@ -1,8 +1,7 @@
 ---
 title: GitHub Pages
 description: >-
-  GitHub Pages offers free static website hosting directly from your GitHub
-  repositories.
+  GitHub Pages publishes a static website straight from a GitHub repository, on a github.io address or your own custom domain. It suits personal, project, and documentation sites.
 provider: GitHub
 category: hosting
 domain: hosting
@@ -17,53 +16,62 @@ audiences:
   - startup
   - team
 tags:
-  - web
-  - devops
+  - "static site hosting"
+  - "github pages"
+  - "jekyll"
+  - "github.io"
+  - "custom domain"
+  - "documentation site"
+  - "portfolio"
 pricingModel: free
 freeTierDetails:
   summary: Host public static sites for free from GitHub repositories, with soft usage limits.
   limits:
-    - 1 GB per published site
-    - 100 GB bandwidth/month (soft limit)
-    - 10 builds/hour (soft limit)
-    - Public repositories only on GitHub Free
+    - "1 GB maximum size for a published site"
+    - "100 GB bandwidth/month (soft limit)"
+    - "10 builds/hour (soft limit; not applied to custom GitHub Actions workflows)"
+    - "10-minute deployment timeout"
+    - "Public repositories only on GitHub Free"
   caveats:
-    - No server-side code support
-    - Custom domains require DNS configuration
-    - Bandwidth and build limits are soft — not an automatic hard block, but excessive use may be throttled
+    - "The docs describe publishing site files and mention no server-side code"
+    - "Not allowed as free hosting for an online business, e-commerce site, or primarily commercial SaaS"
+    - "If a site exceeds the usage quotas GitHub may not be able to serve it, or may email suggestions"
+    - "Rate limits may apply, answered with HTTP status 429"
+    - "Only one user or organization site per account"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Personal portfolios
-  - Project documentation
-  - Open source project sites
-  - Simple blogs
+  - "A personal site or portfolio at username.github.io"
+  - "Documentation for an open-source project"
+  - "A project site published from a branch or a Jekyll theme"
+  - "A blog built with Jekyll"
+  - "Publishing with a custom GitHub Actions workflow"
 quickstartSteps:
-  - Create a public repository on GitHub.
-  - 'Add your static site files (HTML, CSS, JS) to the repository.'
-  - Commit and push your changes.
-  - Go to the repository Settings > Pages.
-  - 'Select the branch and folder to publish, then save.'
+  - "Create a GitHub account if you do not have one."
+  - "Create a new repository named username.github.io, replacing username with your GitHub username, and add a README."
+  - "Open the repository Settings, then Pages, and under Build and deployment choose Deploy from a branch."
+  - "Pick the branch and folder to publish from."
+  - "Edit README.md or add files, then visit username.github.io; changes can take up to 10 minutes to publish."
+  - "Optionally set a title and description in `_config.yml` and add a custom domain later."
 whenToUse: >-
-  Use when you need to host static websites or documentation directly from a
-  GitHub repository with minimal setup and no cost.
+  Use GitHub Pages for a static personal, project, or documentation site that lives in a public GitHub repository.
 whenNotToUse: >-
-  Avoid if you need dynamic backend features, private site hosting, or advanced
-  server-side processing.
+  Skip it for private sites on GitHub Free, for sites that need server-side code (the docs mention none), or for an online business or store, which GitHub says Pages must not be used for.
 bestFor:
-  - personal-sites
-  - documentation
-  - open-source-projects
+  - "personal sites"
+  - "project documentation"
+  - "open-source project sites"
+  - "simple blogs"
 avoidIf:
-  - dynamic-sites
-  - private-sites
-  - backend-required
+  - "you run a business or e-commerce site"
+  - "you need server-side code"
+  - "you need a private site on GitHub Free"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://pages.github.com/'
@@ -71,8 +79,48 @@ docsUrl: 'https://docs.github.com/en/pages'
 sourceUrls:
   - 'https://pages.github.com/'
   - 'https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits'
+  - 'https://docs.github.com/en/pages'
+  - 'https://docs.github.com/en/pages/quickstart'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits'
 ---
-GitHub Pages is a free static site hosting service that lets you publish websites directly from your GitHub repositories, ideal for personal, project, or documentation sites. Sites are limited to 1 GB each, with soft limits of 100 GB of bandwidth per month and 10 builds per hour — GitHub Free requires the source repository to be public.
+You push files to a GitHub repository and turn on Pages in the repository settings. The quickstart builds a user site from a repository named after your username, and you can also publish with a GitHub Actions workflow. It suits developers who already keep their work on GitHub.
+
+## What the free plan gives you
+
+GitHub Pages costs nothing on GitHub Free. It works with public repositories on GitHub Free and GitHub Free for organizations. Private repositories need a paid GitHub plan. A published site may be no larger than 1 GB, and the source repository has a recommended limit of 1 GB.
+
+The docs list a soft bandwidth limit of 100 GB per month and a soft limit of 10 builds per hour. The build limit does not apply if you publish with a custom GitHub Actions workflow. Deployments time out after 10 minutes. You can create one user or organization site per account. Custom domains are supported, and GitHub has guides to configure and verify them.
+
+## When you hit a limit
+
+The limits are soft, and the docs do not describe a charge. If your site exceeds the usage quotas, GitHub says it may not be able to serve your site, or you may get an email from GitHub Support with ways to reduce your load. The email may suggest a CDN in front of your site, other GitHub features such as releases, or a different host.
+
+Rate limits may also apply for consistent quality of service. If a request triggers them, you receive an HTTP 429 response. The docs describe a degraded or unserved site and an email from GitHub Support, not a bill.
+
+## Gotchas
+
+- GitHub says Pages must not be used as free hosting for an online business, an e-commerce site, or a site mainly for commercial transactions or SaaS.
+- Sites should not be used for sensitive transactions such as sending passwords or credit card numbers.
+- Changes can take up to 10 minutes to publish after you push them.
+
+## Alternatives in this atlas
+
+- [Cloudflare Pages](/services/cloudflare-pages/): when your source repository is private, since Pages there supports private repositories.
+- [Netlify](/services/netlify/): when you want preview deploys and extra site features.
+- [Firebase Hosting](/services/firebase-hosting/): when your project already uses Firebase.
+
+## Questions people ask
+
+### Is GitHub Pages free?
+
+Yes, for public repositories on GitHub Free. Published sites may be up to 1 GB, with soft limits of 100 GB of bandwidth per month and 10 builds per hour.
+
+### Can I use GitHub Pages for a business site?
+
+No. The docs say Pages is not intended or allowed as free hosting to run an online business, an e-commerce site, or a mainly commercial SaaS site.
+
+### Can I use a custom domain with GitHub Pages?
+
+Yes. GitHub documents how to configure, manage, and verify a custom domain for Pages.

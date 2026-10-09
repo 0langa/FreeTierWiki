@@ -1,8 +1,9 @@
 ---
 title: RepoFlow
 description: >-
-  RepoFlow is a package registry (npm, and other formats) with a free personal
-  tier: 10 GB storage and 100 published packages.
+  RepoFlow is a package registry that hosts private and public packages for
+  npm, Maven, PyPI, Docker, and many other formats. You can use it as a cloud
+  service or self-host it.
 provider: RepoFlow
 category: devops
 domain: devops
@@ -15,61 +16,112 @@ audiences:
   - team
   - oss
 tags:
-  - devops
+  - package registry
+  - artifact repository
+  - npm registry
+  - docker registry
+  - private packages
+  - artifactory alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier for personal use with 10 GB storage, 10 GB bandwidth, and 100
-    published packages.
+    The free cloud plan is for personal use. It has 10GB of storage, 10GB of
+    bandwidth per month, 100 published packages, and 1 workspace.
   limits:
-    - '10 GB storage'
-    - '10 GB bandwidth/month'
+    - '10GB storage'
+    - '10GB bandwidth/month'
     - '100 published packages'
     - Unlimited users, 1 workspace
     - '10 AI requests/month'
   caveats:
-    - Positioned "for personal use"; no stated commercial-use limit found
+    - The page labels the Free plan "for personal use"; it states no separate commercial-use rule
     - Email support only on the free plan
+    - Different versions of one package count as 1 published package
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Host private/public package repositories
-  - Publish and install packages across a workspace
-  - Cache and mirror upstream packages
+  - Hosting private npm, PyPI, Maven, or Docker packages
+  - Caching packages from public registries through remote repositories
+  - Combining several repositories behind one address with a virtual repository
+  - Moving packages over from Artifactory or Nexus
 quickstartSteps:
-  - Sign up at repoflow.io.
-  - Create a workspace and repository.
-  - Publish a package to your registry.
-  - Point your package manager at the RepoFlow registry URL.
+  - Open repoflow.io, choose Start Free, and sign up. No credit card is needed.
+  - Your cloud plan comes with one workspace. Open it and create a repository of the type you need, local, remote, or virtual.
+  - Point your package manager at the repository address. For npm, the docs list npm login, npm install, and npm publish.
+  - Publish your first package, or upload files from a local folder with the RepoFlow CLI.
+  - Check storage, transfer, and package counts on the Workspace Settings page.
 whenToUse: >-
-  Use RepoFlow for free personal package hosting with a moderate storage and
-  publish-count allowance.
+  Use RepoFlow when you want a private package registry for your own projects
+  and 10GB of storage is enough.
 whenNotToUse: >-
-  Avoid if you need more than 10 GB storage, more than 100 published packages,
-  or multiple workspaces for free.
+  Avoid the Free plan if you need more than 10GB of storage, more than 100
+  published packages, more than one workspace, or priority support.
 bestFor:
   - indie developers
-  - small teams hosting private packages
-  - open source maintainers
+  - small private package sets
+  - trying a registry before self-hosting
 avoidIf:
-  - need large-scale storage
-  - need multiple workspaces
-  - need priority support
+  - large artifact storage
+  - more than one workspace
+  - priority support needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://repoflow.io'
 docsUrl: 'https://docs.repoflow.io'
 sourceUrls:
-  - 'https://www.repoflow.io/'
   - 'https://www.repoflow.io/pricing'
+  - 'https://docs.repoflow.io'
+  - 'https://docs.repoflow.io/Basics/workspaces-usage'
+  - 'https://docs.repoflow.io/Basics/repositories'
+  - 'https://docs.repoflow.io/PackageTypes/npm'
 pricingUrl: 'https://www.repoflow.io/pricing'
 featured: false
 ---
-RepoFlow is a package registry with a free personal tier offering 10 GB storage, 10 GB bandwidth, and up to 100 published packages.
+You use the web app to manage repositories, then point your normal package tools at them. A command line tool uploads packages from a folder and migrates a repository from Artifactory.
+
+## What the free plan gives you
+
+The Free cloud plan is for personal use and needs no credit card. It gives you one workspace with 10GB of storage. You can transfer up to 10GB of data each month, and the counter resets at the start of every month.
+
+You can publish up to 100 unique packages. Different versions of the same package count as 1, so 100 packages can hold many releases. You can add unlimited users to the workspace, because RepoFlow does not charge per seat. The plan also includes 10 RepoFlow AI requests per month and email support.
+
+The next plan, Standard, costs $79 per month. It raises storage and bandwidth to 80GB and published packages to 500.
+
+## When you hit a limit
+
+The pricing page and the docs describe these as limits. They do not say what happens when you reach one, such as an upload being refused or a download being blocked.
+
+Workspace admins can see storage, transfer, and local package usage on the Workspace Settings page. The docs say transfer usage can take up to 5 minutes to update. Only packages in local repositories count toward the package limit. Packages cached by remote repositories do not.
+
+## Gotchas
+
+- The Free plan is labeled for personal use. Check the terms if you plan to run a company registry on it.
+- Each cloud plan includes one workspace, so Free cannot split teams or projects into separate workspaces.
+- Transfer counts all data downloaded from the server. A busy CI job that pulls large packages can use up the 10GB.
+
+## Alternatives in this atlas
+
+- [Repsy.io](/services/repsy-io/): when you want a registry with more shared storage and no per-package cap.
+- [Gemfury](/services/gemfury/): when you only need public packages hosted for free.
+- [Docker Hub](/tools/docker-hub/): when your main need is container images.
+
+## Questions people ask
+
+### Is RepoFlow free?
+
+Yes. The Free cloud plan is for personal use and costs nothing. It has 10GB of storage, 10GB of monthly bandwidth, 100 published packages, and 1 workspace.
+
+### Does RepoFlow need a credit card?
+
+No. The pricing page says you can sign up for free with no credit card required.
+
+### Which package types does RepoFlow support?
+
+The docs list Docker, Maven, Debian, npm, PyPI, NuGet, Go, Helm, RPM, Gem, Composer, Cargo, Conan, Chocolatey, Synology, and a Universal type for other files.

@@ -1,8 +1,8 @@
 ---
 title: JWT.io
 description: >-
-  JWT.io provides tools for decoding, verifying, and debugging JSON Web Tokens
-  online.
+  JWT.io is a web page where you paste a JSON Web Token to read its header and
+  claims and to check its signature. It also explains JWTs and lists libraries.
 provider: JWT.io
 category: security
 domain: security
@@ -17,59 +17,104 @@ audiences:
   - team
   - oss
 tags:
+  - jwt
+  - json web token
+  - jwt decoder
+  - jwt debugger
+  - token verification
   - auth
-  - security
+  - RFC 7519
 pricingModel: free
 freeTierDetails:
   summary: JWT.io is completely free to use for decoding and debugging JWTs.
   limits:
-    - No usage limits
-    - No authentication required
-    - No API access
+    - No sign-up or account on the debugger page
+    - Decode, verify, and generate tokens on the Debugger page
+    - Free JWT Handbook download and a libraries directory
   caveats:
-    - Not suitable for production token validation
-    - Manual use only
+    - A debugging page for manual use, not a service to validate production tokens
+    - The site lists no API or published usage limits
+    - Presented by Auth0 and shows an Auth0 sign-up prompt
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Decode JWTs for debugging
-  - Verify JWT signatures manually
-  - Inspect JWT payloads
-  - Learn JWT structure
-  - Test authentication flows
+  - Decoding a JWT to read its header and claims
+  - Checking that a token signature matches a secret or public key
+  - Generating an example token to test an auth flow
+  - Learning what JWTs are and finding a library for your language
 quickstartSteps:
-  - 'Visit https://jwt.io/ in your browser.'
-  - Paste your JWT token into the encoded field.
-  - 'Review the decoded header, payload, and signature sections.'
-  - 'Optionally, enter a secret or public key to verify the signature.'
-  - Use the debugger to inspect claims and troubleshoot issues.
+  - Open jwt.io; the Debugger page needs no account.
+  - Paste your token into the Encoded Token box, or select Generate example.
+  - Read the decoded header, the decoded payload, and the claims breakdown.
+  - Optionally enter the secret or public key under signature verification to see if the signature is valid.
+  - Open Libraries to find a signing and verification library for your language.
 whenToUse: >-
-  Use JWT.io when you need to quickly decode or debug JWTs during development or
-  troubleshooting.
+  Use it to decode, check, or generate a JWT by hand while you build or debug an
+  authentication flow, or to learn how JWTs work.
 whenNotToUse: >-
-  Avoid using JWT.io for automated or production token validation, or when
-  handling sensitive tokens.
+  Avoid it for automated or production token validation, which belongs in a
+  library in your own code. Be careful about pasting live secrets into any website.
 bestFor:
   - debugging JWTs
   - learning JWT structure
   - manual verification
 avoidIf:
-  - automating JWT validation
-  - handling confidential tokens
-  - production environments
+  - you need automated validation
+  - you would paste live production secrets
+  - you need an API
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://jwt.io/'
-docsUrl: 'https://docs.jwt.io'
+docsUrl: 'https://jwt.io/introduction'
 pricingUrl: 'https://jwt.io/'
 sourceUrls:
   - 'https://jwt.io/'
+  - 'https://jwt.io/introduction'
+  - 'https://jwt.io/libraries'
 featured: false
 ---
-JWT.io is a free online tool for decoding, verifying, and debugging JSON Web Tokens, ideal for development and learning but not for production use.
+You use JWT.io in the browser. There is no sign-up, dashboard, or API; you paste a token and the page decodes it. It suits developers who are debugging tokens or learning how they are built.
+
+## What the free plan gives you
+
+JWT.io has no plans or prices. The Debugger decodes a pasted token into its header, payload, and a claims breakdown. It also checks the signature when you enter the secret or a public key, and it has an encoder tab for building tokens.
+
+The Introduction page explains the standard in RFC 7519, the three parts of a token (header, payload, and signature), and when to use JWTs. The Libraries page lists libraries for signing and verifying tokens, with checks for claims such as iss, sub, aud, exp, nbf, and iat. You can also download the JWT Handbook for free.
+
+## When you hit a limit
+
+The site lists no usage limits, no quotas, and no paid tier, so there is nothing to hit or pay for. It is a web page for manual work, and it offers no API to call from your own code.
+
+For tokens in production, use one of the libraries from the Libraries page inside your application instead. The home page also points to Auth0, which presents the site, if you want a hosted login service.
+
+## Gotchas
+
+- The page is for debugging by hand. Validate tokens in your own code for anything automated.
+- Treat live production tokens and signing secrets carefully, and prefer sample tokens when you test on any website.
+- The site is presented by Auth0, so you will see prompts to create an Auth0 account. Your cookie and sharing choices are on the privacy settings link.
+
+## Alternatives in this atlas
+
+- [Auth0](/services/auth0/): when you want a hosted login service that issues and checks tokens for you.
+- [Firebase Auth](/services/firebase-auth/): when you want sign-in with tokens managed by Google.
+- [Postman](/tools/postman/): when you want to test whole API calls with tokens, not only decode them.
+
+## Questions people ask
+
+### Is JWT.io free?
+
+Yes. The Debugger and the Introduction and Libraries pages are free to use, and the site needs no account. The JWT Handbook is a free download.
+
+### Does JWT.io have an API?
+
+The site lists none. It is a page for manual use, and it points to libraries when you need to sign or verify tokens in your own code.
+
+### Can JWT.io verify a token signature?
+
+Yes. Enter the secret or public key in the signature verification section, and the page shows whether the signature is valid.

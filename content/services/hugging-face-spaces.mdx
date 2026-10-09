@@ -1,8 +1,9 @@
 ---
 title: Hugging Face Spaces
 description: >-
-  Host and share machine learning demos and apps with free web hosting for ML
-  models and interactive UIs.
+  Hugging Face Spaces hosts small machine learning demos and web apps as Git
+  repositories on the Hugging Face Hub, for people who want to show a model
+  without running a server.
 provider: Hugging Face
 category: hosting
 domain: hosting
@@ -19,20 +20,26 @@ audiences:
 tags:
   - ml
   - web
+  - gradio
+  - static-site
+  - gpu
+  - demo
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Static HTML Spaces are free and unlimited for everyone. Free accounts can
-    also run up to 2 Gradio Spaces on shared ZeroGPU; more Gradio/Docker
-    Spaces need a paid plan.
+    Static HTML Spaces are free for everyone. Free personal accounts in good
+    standing can also host up to 2 Gradio Spaces on shared ZeroGPU; other
+    Gradio and Docker Spaces need a paid plan.
   limits:
-    - Unlimited static HTML Spaces (free for everyone)
-    - Up to 2 free Gradio Spaces on shared ZeroGPU (personal accounts)
+    - Static HTML Spaces are free for everyone
+    - Up to 2 free Gradio Spaces on shared ZeroGPU (personal accounts in good standing)
+    - 5 minutes of included daily ZeroGPU quota for a free account
     - 'CPU Basic hardware: 2 vCPU, 16 GB RAM, 50 GB non-persistent disk'
-    - Additional Gradio/Docker Spaces require a PRO/Team/Enterprise plan
+    - Other Gradio and Docker Spaces require a PRO, Team, or Enterprise plan
   caveats:
-    - Private and protected Spaces require a paid plan
-    - Free-hardware Spaces sleep after a period of inactivity
+    - Free ZeroGPU hosting needs a verified email and an account older than 30 days
+    - Protected Spaces need a PRO, Team, or Enterprise plan
+    - Free-hardware Spaces sleep after about 48 hours of inactivity
     - Disk on free hardware is not persistent across restarts
   resetPeriod: monthly
   requiresCard: false
@@ -40,43 +47,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Share ML model demos
-  - Host interactive data science apps
-  - Prototype AI-powered web interfaces
+  - Share a machine learning model demo with a public link
+  - Host a static HTML page or a built React, Svelte, or Vue front end
+  - Run a small Gradio app on shared ZeroGPU
+  - Publish a demo that goes with a paper or a model card
 quickstartSteps:
-  - Sign up for a free Hugging Face account.
-  - Navigate to the Spaces section and click 'Create new Space'.
-  - 'Choose a template (Gradio, Streamlit, or custom).'
-  - Push your app code via Git or the web editor.
-  - Deploy and share your Space URL.
+  - Sign up for a free Hugging Face account and confirm your email.
+  - Open the Spaces page and click Create new Space.
+  - Pick a name, an optional license, and a visibility, then choose the Gradio, Docker, or static HTML SDK.
+  - Add your files to the Space repository with git, as with any Hub repository.
+  - Push a commit and let the Space rebuild, then share its URL.
 whenToUse: >-
-  Use when you want to quickly deploy and share ML demos or interactive apps
-  without managing infrastructure.
+  Use it to put a static page or a small Gradio demo online for free, with the
+  code kept in a Git repository on the Hub.
 whenNotToUse: >-
-  Avoid if you need private hosting, dedicated GPU compute, more than 2 free
-  Gradio Spaces, or advanced scaling for production workloads.
+  Avoid it for protected Spaces, for more than 2 free Gradio Spaces, for apps that
+  need steady dedicated GPU time, or for production traffic.
 bestFor:
   - ML demo hosting
-  - prototyping
+  - static HTML pages
   - student projects
   - open source sharing
 avoidIf:
-  - need private apps
-  - require GPU
-  - require high concurrency
+  - you need protected Spaces
+  - you need more than 2 free Gradio Spaces
+  - you need dedicated GPU time
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://huggingface.co/spaces'
 docsUrl: 'https://huggingface.co/docs/hub/spaces-overview'
 pricingUrl: 'https://huggingface.co/docs/hub/spaces-overview'
 sourceUrls:
-  - 'https://huggingface.co/spaces'
   - 'https://huggingface.co/docs/hub/spaces-overview'
+  - 'https://huggingface.co/docs/hub/spaces-zerogpu'
+  - 'https://huggingface.co/docs/hub/spaces-sdks-static'
   - 'https://huggingface.co/pricing'
 featured: false
 ---
-Hugging Face Spaces provides free hosting for static demos and, for personal accounts, up to 2 free Gradio Spaces on shared ZeroGPU. Larger Gradio/Docker Spaces or private hosting need a paid PRO/Team/Enterprise plan.
+You create a Space on the Hub website, then push code to its Git repository. Each commit rebuilds and restarts the Space. It suits people who want to show a model or a page without managing a server.
+
+## What the free plan gives you
+
+Static HTML Spaces are free for everyone. They are served without running on compute, so you never need a paid plan for them. A static Space can also run a build command first, which helps with React, Svelte, or Vue apps.
+
+Gradio and Docker Spaces run on compute and normally need a paid plan. The exception is ZeroGPU: a free personal account in good standing can host up to 2 Gradio Spaces on it. Good standing means a verified email and an account older than 30 days. A free account gets 5 minutes of ZeroGPU quota per day. The default CPU Basic hardware has 2 vCPU, 16 GB of RAM, and 50 GB of disk that is not persistent.
+
+## When you hit a limit
+
+Free hardware has a hard ceiling rather than a bill. The ZeroGPU daily quota for a free account is 5 minutes, and the quota resets 24 hours after your first GPU use. Remaining quota also affects your place in the GPU queue. Only PRO, Team, and Enterprise users can buy extra ZeroGPU time with pre-paid credits.
+
+A Space on default CPU Basic hardware goes to sleep after it is inactive for more than 48 hours, and a visit restarts it. You can also pause a Space from its Settings tab.
+
+## Gotchas
+
+- Creating a new Gradio or Docker Space on regular compute needs a paid plan. PRO costs $9 per month and lets a personal account host up to 10 ZeroGPU Spaces.
+- The disk on the default hardware is not persistent, so anything you write at runtime is lost on restart.
+- Protected visibility is part of the PRO, Team, and Enterprise plans. The pages do not say which plans include private visibility.
+
+## Alternatives in this atlas
+
+- [Cloudflare Pages](/services/cloudflare-pages/): when your demo is only static files and you want a plain static host.
+- [Render](/services/render/): when you need a normal web service or a small Python app instead of a model demo.
+- [Hugging Face Hub](/services/hugging-face-hub/): when you only need to store models and datasets, not host an app.
+
+## Questions people ask
+
+### Is Hugging Face Spaces free?
+
+Static HTML Spaces are free for everyone. A free personal account in good standing can also host up to 2 Gradio Spaces on ZeroGPU. Other Gradio and Docker Spaces need a paid plan.
+
+### Does a Hugging Face Space sleep?
+
+Yes. On default CPU Basic hardware, a Space goes to sleep after more than 48 hours without use, and a visit restarts it. You can also pause it from the Settings tab.
+
+### Does Hugging Face Spaces need a credit card?
+
+The Spaces pages do not ask for a card to host a static Space or a free ZeroGPU Space. Team is bought by credit card, and PRO users can add pre-paid credits for extra ZeroGPU time.

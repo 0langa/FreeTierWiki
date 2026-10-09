@@ -1,6 +1,8 @@
 ---
 title: Prisma Postgres
-description: 'Managed serverless PostgreSQL from the Prisma team, with built-in pooling and caching.'
+description: >-
+  Prisma Postgres is a managed serverless PostgreSQL database from the Prisma
+  team. It is for app developers, especially those who use Prisma ORM.
 provider: Prisma
 category: database
 domain: database
@@ -12,54 +14,117 @@ audiences:
   - indie
   - startup
 tags:
-  - database
+  - prisma
+  - postgres
   - serverless
+  - orm
+  - database
   - backend
 pricingModel: freemium
+status: changed
 freeTierDetails:
-  summary: 'Free plan: 100,000 operations and 0.5 GB storage per month, free forever, no card.'
+  summary: >-
+    The Free plan costs $0, needs no credit card, and has no time limit. It
+    includes 200k operations a month, 1.01 GB of storage, and 50 databases.
   limits:
-    - '100,000 database operations per month'
-    - 0.5 GB storage
-    - Unlimited data transfer
+    - 200k database operations per month; 1 query counts as 1 operation
+    - 1.01 GB of storage
+    - 50 databases
+    - Up to 10 pooled and 10 direct connections
+    - Unlimited database data transfer
+    - Prisma Compute included, with 1M requests and 10 GB of outbound bandwidth per month
   caveats:
-    - Paid plans bill per operation above the included amount
-    - Paid plans have a hard spend limit on by default
+    - No backups on the Free plan; daily backups start on Starter
+    - Support is community only on Free
+    - The pricing table shows no overage price and no spend limit for Free
+    - Paid plans have a hard spend limit that is on by default
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Database for a side project
-  - Postgres for a Prisma ORM app
-  - Preview databases
+  - A Postgres database for a side project or prototype
+  - The database for an app built with Prisma ORM
+  - Spinning up throwaway databases for tests and previews
+  - Learning Postgres on a managed service
 quickstartSteps:
-  - Sign up at console.prisma.io.
-  - Create a Prisma Postgres database.
-  - Copy the connection string into your app.
-whenToUse: 'Use for small Postgres projects, especially with Prisma ORM.'
-whenNotToUse: 'Avoid for apps with many queries; 100,000 operations is small.'
+  - Run `npx create-db@latest` to get a temporary Postgres database and connection strings, or use the web interface at create-db.prisma.io.
+  - Open the claim URL it prints, sign in to the Prisma Data Platform (or create an account), and click Claim database to keep it. Unclaimed databases are deleted after 24 hours.
+  - Choose a workspace that has capacity for new projects and click Authorize Prisma Create DB.
+  - Copy the connection string into your `.env` file as `DATABASE_URL`.
+  - Connect with Prisma ORM, or with any Postgres client such as `psql`, pgAdmin, or node-postgres.
+whenToUse: >-
+  Use it for small Postgres projects, especially with Prisma ORM, when you want
+  a managed database that bills by operation.
+whenNotToUse: >-
+  Avoid the Free plan when you need backups, many connections, or a database
+  that serves heavy traffic, since the plan is capped by operations.
 bestFor:
   - side projects
   - prototypes
+  - Prisma ORM apps
 avoidIf:
   - high-traffic apps
+  - you need backups on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.prisma.io/postgres'
 docsUrl: 'https://www.prisma.io/docs/postgres'
 sourceUrls:
   - 'https://www.prisma.io/pricing'
+  - 'https://www.prisma.io/docs/postgres/introduction/npx-create-db'
+  - 'https://www.prisma.io/docs/postgres/database/connecting-to-your-database'
 pricingUrl: 'https://www.prisma.io/pricing'
 featured: false
 changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-09'
+    kind: changed
+    note: The Free plan now lists 200k operations, 1.01 GB of storage, and 50 databases, up from 100,000 operations and 0.5 GB.
 ---
-Prisma Postgres bills by operation, not by compute time. The free plan suits small apps.
+You can create a database from the web interface or with the `create-db` CLI, then connect with Prisma ORM or any Postgres client. It suits developers who want a managed Postgres database billed by operation, not by compute time.
+
+## What the free plan gives you
+
+The Free plan is $0 per month, free forever, with no credit card required. Prisma Postgres on Free includes 200k operations a month, 1.01 GB of storage, and 50 databases. One query counts as one operation. Database data transfer is unlimited and free on every plan.
+
+The Free plan also covers part of Prisma Compute, the hosting side. You get 1M requests, 360 GB-hours of memory, 4 active vCPU-hours, and 10 GB of outbound bandwidth each month. The plan allows 10 pooled connections and 10 direct connections. Support is community only.
+
+## When you hit a limit
+
+The pricing table shows no overage price and no spend limit for the Free plan. It does not say what happens after you use 200k operations or fill 1.01 GB. Prisma says paid plans carry a hard spend limit that is on by default, so a paid bill cannot surprise you.
+
+For paid plans, the Starter plan costs $10 a month. It includes 1M operations and 10 GB of storage, then charges $8 per million operations and $2 per GB.
+
+## Gotchas
+
+- Databases made with `create-db` are temporary. Prisma deletes them after 24 hours unless you claim them in the Prisma Data Platform.
+- The Free plan has no backups. Daily backups with 7-day retention start on the Starter plan.
+- The Free plan allows only 10 pooled and 10 direct connections. The connection guide lists a "Too many connections" error as a common problem, so read it before you pick a connection string.
+
+## Alternatives in this atlas
+
+- [Neon](/services/neon/): when you want serverless Postgres with branching.
+- [Supabase Database](/services/supabase-database/): when you want Postgres plus auth and storage in one place.
+- [Aiven](/services/aiven/): when you want a free managed Postgres plan without Prisma tooling.
+
+## Questions people ask
+
+### Is Prisma Postgres free?
+
+Yes. The Free plan costs $0, needs no credit card, and has no time limit. It includes 200k operations a month, 1.01 GB of storage, and 50 databases.
+
+### What happens when I go over the Prisma Postgres free limits?
+
+The pricing page does not say. The Free column shows no overage price and no spend limit. Paid plans have a hard spend limit that is on by default.
+
+### Does Prisma Postgres need a credit card?
+
+No. The pricing page says the Free plan is free forever with no credit card required. You do need a Prisma Data Platform account to claim a database.

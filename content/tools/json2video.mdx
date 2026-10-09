@@ -1,6 +1,8 @@
 ---
 title: JSON2Video
-description: Generate videos programmatically from JSON templates using a simple API.
+description: >-
+  JSON2Video is a video editing API: you describe scenes, text, images, and
+  voice-overs in JSON, send it to the API, and get back a rendered video.
 provider: JSON2Video
 category: ai
 domain: ai
@@ -14,54 +16,56 @@ audiences:
   - team
   - oss
 tags:
-  - video
-  - automation
-  - api
-  - ai
+  - video-api
+  - video-automation
+  - json-to-video
+  - text-to-speech
+  - no-code-video
 pricingModel: freemium
 freeTierDetails:
   summary: Free account gives 600 one-time credits to create watermarked videos.
   limits:
     - 600 credits at signup, no credit card needed
-    - Standard rendering uses 1 credit/second; 4K rendering uses 4 credits/second
+    - Standard rendering uses 1 credit per second; 4K rendering uses 4 credits per second
     - Watermark on videos rendered on the free plan
   caveats:
     - Watermark added because some users abused free accounts for commercial use
     - Free credits are a one-time grant, not a recurring monthly allowance
     - >-
-      The 600 credits cover up to about 10 minutes at standard resolution; 4K uses four times the
+      The 600 credits cover about 10 minutes at standard resolution; 4K uses four times the
       credits. External text-to-speech or transcription services may cost extra.
+    - No built-in AI image, AI video, avatar, or face-swap generation
   requiresCard: false
   freeTierType: credit
   hasHardCap: true
   overageRisk: none
   monthlyCreditAmount: 600 credits one-time
 useCases:
-  - Automated video creation for social media
-  - Generating dynamic marketing videos
-  - Prototyping video-based apps
-  - Personalized video messaging
+  - Generate social media videos from data
+  - Make marketing videos from templates
+  - Add subtitles and voice-overs to videos
+  - Customize video templates with JSON or the visual editor
+  - Prototype a video feature in an app
 quickstartSteps:
-  - Sign up for a free JSON2Video account.
-  - Review API documentation and obtain your API key.
-  - Create a JSON template describing your video content.
-  - Send a POST request to the API endpoint with your template.
-  - Download the rendered video from the provided link.
+  - Create a free JSON2Video account. You get 600 credits with no credit card.
+  - Sign in to the Dashboard and copy your API key from the API Keys page.
+  - Send a `POST` request to `https://api.json2video.com/v2/movies` with the `x-api-key` header and a JSON body of scenes and elements.
+  - Keep the project ID from the response, then poll `GET /v2/movies?project={id}` until the status is done.
+  - Read the video URL from the response. Free videos carry a watermark.
 whenToUse: >-
-  Use JSON2Video when you need to automate video creation from structured data
-  or templates via API.
+  Use JSON2Video when you want to render videos from structured data or
+  templates through an API.
 whenNotToUse: >-
-  Avoid if you require high-resolution, watermark-free, or large-scale
-  commercial video production without upgrading.
+  Avoid it if you need watermark-free videos, AI video generation, or more than
+  about 10 minutes of rendering without paying.
 bestFor:
   - developers
-  - startups
-  - indie makers
+  - automation builders
   - hackathons
 avoidIf:
-  - need unwatermarked videos
-  - require advanced editing
-  - need high volume
+  - you need unwatermarked videos
+  - you want AI-generated video or avatars
+  - you need a monthly free allowance
 difficulty: beginner
 productionReadiness: prototype
 status: changed
@@ -69,15 +73,54 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Qualified the video-duration estimate with resolution and additional credit costs."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://json2video.com'
-docsUrl: 'https://docs.json2video.com'
+docsUrl: 'https://json2video.com/docs/v2/'
 pricingUrl: 'https://json2video.com/pricing'
 sourceUrls:
   - 'https://json2video.com/pricing'
+  - 'https://json2video.com'
+  - 'https://json2video.com/docs/v2/getting-started/quickstart/'
+  - 'https://json2video.com/docs/v2/api-reference/authentication/'
 featured: false
 ---
-JSON2Video provides a simple API for generating videos from JSON templates, ideal for automating basic video creation workflows with minimal setup.
+You use JSON2Video through a REST API, SDKs, or a visual editor in the dashboard. It suits developers and automation builders who produce many similar videos.
+
+## What the free plan gives you
+
+A free account comes with 600 credits and needs no credit card. Credits are consumed by the second. A standard video costs 1 credit per second of output, so a 30 second video uses 30 credits. At 1 credit per second, 600 credits is about 10 minutes of rendering. 4K video uses 4 times as many credits, so a 30 second 4K video uses 120 credits.
+
+The credits are a one-time grant. Videos from the free plan carry a small JSON2Video watermark. The pricing page says external text-to-speech or transcription services may cost extra. Plans include video editing, templates, subtitles, voice-overs, and rendering, but no native AI image or video generation.
+
+## When you hit a limit
+
+When you run out of credits, the pricing page says you can buy a pre-paid plan to top up your account. A pre-paid plan is a one-time payment, and those credits do not expire. The first one costs $49.95 for 7,200 credits, which is up to 120 minutes of video. Subscriptions start at the Hobby plan with 3,000 credits per month, at $16.63 per month billed yearly. Subscription credits expire at the end of each month. On a free account, you top up by buying a plan.
+
+## Gotchas
+
+- The free credits are one-time. There is no monthly refill on the free plan.
+- Free-plan videos have a watermark. Paid plans remove it.
+- The pricing page says plans are sized in minutes of output video, and credits are used by the second. Long or 4K videos use credits fast.
+
+## Alternatives in this atlas
+
+- [Lumenfall.ai](/services/lumenfall-ai/): when you want AI-generated images or video from one API.
+- [Doppio](/services/doppio/): when you need rendered PDFs or screenshots from templates, not video.
+- [Metashot](/services/metashot/): when you need rendered images from a template.
+
+## Questions people ask
+
+### Is JSON2Video free?
+
+Partly. A free account gives you 600 one-time credits and a free API key, with a watermark on the videos. No credit card is required.
+
+### How many videos can I make with the JSON2Video free plan?
+
+It depends on video length. A standard video uses 1 credit per second, so 600 credits cover about 10 minutes.
+
+### Does JSON2Video have a watermark?
+
+Yes, on the free plan. The pricing page says it was added because some users abused free accounts for commercial work.

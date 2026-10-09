@@ -1,8 +1,8 @@
 ---
 title: IP2Location.io
 description: >-
-  IP2Location.io provides IP geolocation and threat intelligence APIs for
-  identifying user locations and risks.
+  IP2Location.io is an IP geolocation API that returns country, city, and network
+  details for an IP address, plus domain WHOIS and hosted-domain lookups.
 provider: IP2Location
 category: networking
 domain: networking
@@ -17,56 +17,63 @@ audiences:
   - enterprise
   - oss
 tags:
-  - networking
-  - api
-  - security
+  - ip geolocation
+  - geoip api
+  - whois api
+  - ip lookup
+  - hosted domain
+  - rest api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier offers 50,000 IP Geolocation API queries per month, plus
-    WHOIS and Hosted Domain API queries.
+    The Free plan gives 50,000 IP Geolocation API queries per month, plus WHOIS
+    and Hosted Domain queries. A key-free mode allows 1,000 queries a day.
   limits:
     - '50,000 IP Geolocation API queries/month'
     - '500 Domain WHOIS API queries/month'
     - '50 Hosted Domain API queries/month'
     - '11 IP attributes returned'
+    - '1,000 queries/day with no API key (keyless)'
   caveats:
-    - Attribution is required on the free plan
+    - Attribution is required on the free plan and on the keyless API
     - Advanced features and more IP attributes require a paid plan
     - Service stops once free queries are used up each month
+    - Unused queries are not carried over to the next month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detect user country or city for localization
-  - Block suspicious IPs
-  - Analyze website traffic by region
+  - Showing local content by a visitor's country or city
+  - Flagging suspicious IP addresses
+  - Analyzing website traffic by region
+  - Looking up domain WHOIS data
+  - Finding which domains are hosted on an IP address
 quickstartSteps:
-  - Sign up for a free IP2Location.io account.
-  - Verify your email and log in to the dashboard.
-  - Navigate to the API section and copy your API key.
-  - Review API documentation for endpoint usage.
-  - Integrate the API key into your application to start making requests.
+  - 'Try the keyless API first: call `https://api.ip2location.io/?ip=8.8.8.8` with no sign-up.'
+  - Sign up for the Free plan on ip2location.io to get an API key.
+  - 'Call `https://api.ip2location.io/?key=YOUR_API_KEY&ip=8.8.8.8&format=json`, or send the key as a Bearer token.'
+  - Read the JSON fields in the response.
+  - Add the required attribution text to your site or product.
 whenToUse: >-
-  Use when you need basic IP geolocation or threat data for websites or apps
-  with moderate traffic.
+  Use it when you need IP geolocation for a small site or app and can show the
+  required attribution line.
 whenNotToUse: >-
-  Avoid if you require advanced data fields, higher request volumes, or
-  guaranteed uptime for critical production systems.
+  Avoid it if you cannot show attribution, need more data fields, or need more
+  than the monthly free queries without upgrading.
 bestFor:
   - website localization
-  - basic fraud detection
+  - basic fraud checks
   - analytics
 avoidIf:
   - high-volume enterprise needs
-  - strict SLA requirements
-  - advanced geolocation data
+  - cannot display attribution
+  - need more than 11 IP attributes
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.ip2location.io/'
@@ -77,4 +84,46 @@ sourceUrls:
   - 'https://www.ip2location.io/ip2location-documentation'
 featured: false
 ---
-IP2Location.io offers a generous free tier for IP geolocation and threat intelligence, making it suitable for small projects and basic analytics. The API is easy to integrate, but advanced features and higher limits require a paid plan.
+You call a single REST endpoint, `api.ip2location.io`, with an IP address and an optional API key. It suits small sites and apps that want location data for visitors.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month. Each month it includes 50,000 IP Geolocation API queries, 500 Domain WHOIS API queries, and 50 Hosted Domain API queries. The response carries 11 IP attributes, and the database updates daily.
+
+You can also skip the key. The keyless API allows up to 1,000 queries a day, and the docs suggest the Free plan once you need more. Both routes require attribution: a visible line that says your site or product uses IP2Location.io IP geolocation web service.
+
+Paid plans start with 150K geolocation queries a month and return 20 attributes. The higher plans return up to 79 attributes.
+
+## When you hit a limit
+
+On the Free plan, the web service stops once you run out of queries. You are not billed. Unused queries do not carry into the next month, and the allowance renews each month.
+
+The keyless API works the same way each day. After 1,000 queries, further calls fail until the limit resets at 00:00 UTC.
+
+Paid plans differ. They keep working and bill overage queries instead of stopping. For example, one paid plan lists $10 for every extra 30K geolocation queries.
+
+## Gotchas
+
+- Attribution is required on the Free plan and on the keyless API. Paid plans do not need it.
+- The free response has 11 IP attributes. Fields such as extra network or security data need a paid plan.
+- The Hosted Domain allowance is small, at 50 queries a month, and WHOIS is capped at 500, so do not build a bulk job on them.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/): when country-level data with unlimited requests is enough.
+- [IPLocate](/services/iplocate/): when you want a daily allowance with full data access.
+- [FreeIPAPI](/tools/freeipapi/): when you want a no-account API for light use.
+
+## Questions people ask
+
+### Is IP2Location.io free?
+
+Yes, there is a Free plan with 50,000 IP Geolocation queries a month. You must show an attribution line. There is also a keyless mode with 1,000 queries a day.
+
+### What happens when I go over the IP2Location.io free limit?
+
+On the Free plan the web service stops until the next month. You are not charged. Paid plans keep working and bill overage queries.
+
+### Does IP2Location.io need a credit card?
+
+No. The home page says no credit card is required to create a free account. The pricing page also says no credit card is needed for the 7-day trial of the top plan.

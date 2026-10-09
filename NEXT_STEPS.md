@@ -1,5 +1,5 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-08._
+_State refreshed: 2026-10-09._
 
 ## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),
@@ -21,7 +21,45 @@ that owns the Web Analytics site) plus the repository variables `CLOUDFLARE_ACCO
 the job ends early. Until the first run the hand-picked "Common first picks" card
 (`POPULAR_PICKS`) shows instead.
 
-## Where things stand — 2026-10-09 (read this first)
+## Deepen sweep done — 2026-10-09 (read this first)
+The one-sweep plan (`docs/plans/2026-10-09-deepen-every-entry.md`) is done on branch `deepen/day0`
+(PR #32). Every live entry (685) has the five-section body and passes `npm run check:depth --
+--all --evidence`. 36 worker chunks, each checked against official pages fetched that day; the whole
+entry was reworked, not only pricing (description, use cases, fit text, sign-up and first steps,
+tags, sources). Many frontmatter facts were corrected; entries whose free offer changed got
+`status: changed` and a dated `changes` item.
+- Removed (redirects + changelog): Pastefy and PullFlow (antivirus warns about their sites);
+  Supermaven, Gemini Code Assist, Hugging Face Inference Providers, Huly, HeyForm, Atlas App
+  Services, AWS CodeCommit (free plan or product gone).
+- Site: entry pages have an "On this page" jump menu, fit cards first, a visible "How to get
+  started" list, provider and category links, all sources in the facts box, breadcrumb and FAQPage
+  structured data, and the free-tier summary as meta description. New provider pages
+  (`/provider/<slug>/`, providers with two or more entries) are in the sitemap. The explorer's
+  search text keeps each word once (`searchWords`), so `explorer.json` stays under its budget.
+- Tools: `npm run verify:evidence` (fetch sources), `npm run verify:show` (excerpts),
+  `npm run check:depth` (CI step). Evidence lives in `development/verify/deepen/` (gitignored).
+- Second pass (same night): a 30-entry spot check found no wrong numbers but unsupported wording in
+  5 of 30, so every entry got a claim-by-claim review against the full fetched text
+  (`show-evidence --find`). Most fixes removed guesses ("no card", "it stops at the limit", invented
+  quickstart steps) or set `hasHardCap: false` where no page states a stop. Azure entries cite the
+  Azure account page for the card rule. 63 dead docs/home links were replaced or dropped.
+- Also removed: Gcore (no documented permanent free CDN plan), and on the owner's word the doubtful
+  ten: Teamhood, WaiverStevie, Pingbreak, Virgil Security, SendGrid, HostedScan, Seafile, CatchJS,
+  elmah.io, Azure AI Face. Category pages link their comparison
+  tables and providers; the header fits a phone screen.
+- Gates: lint, typecheck, unit, build, budget (4 of 4), e2e all green at the last run.
+
+Open items for the owner:
+1. PR #32 merged on the owner's word (2026-10-09).
+2. Skipped (bodies from frontmatter only, dates unchanged, no page readable): `tools/seotest-me`,
+   `services/contentful` (429 to every fetch), `services/localit`, `services/azure-blob-storage`,
+   `services/azure-disk-storage`.
+3. Doubtful entries: removed (see above).
+4. Recheck by hand: `services/gtmetrix-com` (pricing 403), `services/cloudflare-zero-trust`
+   (50-user figure from a 2021 post), `tools/tomorrow-io-weather-api` (rate figures unverified),
+   `tools/zapier` (webhooks on Free: pricing table and help article disagree).
+
+## Where things stand — 2026-10-09 (earlier)
 Discovery day. Real traffic measured for the first time: about 90 human visits per 30 days
 (Cloudflare Web Analytics, bots excluded); the raw request log (117k requests) is 99 percent
 crawlers. Google Search Console now exists (domain property, TXT-verified, sitemap submitted) and

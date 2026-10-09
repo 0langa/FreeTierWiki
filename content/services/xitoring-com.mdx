@@ -1,8 +1,9 @@
 ---
 title: Xitoring.com
 description: >-
-  Xitoring provides uptime and server monitoring with alerting, dashboards, and
-  integrations for websites and infrastructure.
+  Xitoring watches websites, APIs, SSL certificates, and Linux or Windows
+  servers from global probing nodes, then alerts you and publishes status pages.
+  It serves small teams and agencies.
 provider: Xitoring
 category: observability
 domain: observability
@@ -16,9 +17,14 @@ audiences:
   - team
   - agency
 tags:
+  - uptime
   - monitoring
-  - devops
-  - analytics
+  - server-monitoring
+  - ssl-monitoring
+  - heartbeat
+  - status-page
+  - synthetic-monitoring
+  - api-monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -26,51 +32,95 @@ freeTierDetails:
     intervals; paid plans start at $4.99/month.
   limits:
     - 20 uptime monitors
-    - 1-minute check interval
+    - 1-minute check interval from 15+ global locations
     - Email alerts included
+    - A free hosted status page
   caveats:
-    - No credit card required, no trial expiry, on the free plan
+    - 'The website monitoring page lists email, push, and webhook alerts on Free, but the pricing FAQ says channels beyond email are paid; check your account'
     - Larger monitor counts, extra alert channels, and API access need a paid plan starting at $4.99/month
+    - At the monitor limit you can keep existing monitors but cannot add new ones
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Website uptime monitoring
-  - SSL certificate monitoring
-  - Basic alerting for outages
+  - Checking HTTP, DNS, ping, TCP, and UDP endpoints every minute
+  - Watching SSL certificate expiry
+  - Verifying cron jobs with heartbeat checks
+  - Publishing a hosted status page
+  - Monitoring servers with the Xitogent agent
 quickstartSteps:
-  - Sign up for a free Xitoring account.
-  - Log in and access the dashboard.
-  - Add your first website or server as a monitor.
-  - Configure alert settings and notification channels.
-  - Review monitoring data and set up integrations if needed.
+  - 'Click Get Started on xitoring.com and register; the site says no credit card is required.'
+  - 'Open New Monitoring and choose Uptime Monitoring for websites and APIs, or Server Monitoring for your own servers.'
+  - 'Create your first check, such as HTTP(S), DNS, Ping, TCP, or Heartbeat, and set the interval, expected response, and timeout.'
+  - 'Create a notification role and add a channel such as email.'
+  - 'Test your alerting, then set up a status page.'
 whenToUse: >-
-  Use Xitoring when you need simple, reliable uptime and server monitoring with
-  basic alerting for small projects or teams.
+  Use Xitoring when you want 20 free monitors with 1-minute checks from many
+  regions and a free hosted status page.
 whenNotToUse: >-
-  Avoid if you require advanced analytics, unlimited monitors, or deep
-  infrastructure integrations beyond the free tier limits.
+  Avoid it if you need more than 20 monitors, SMS or phone alerts, or API
+  access on the free plan. Those need a paid plan.
 bestFor:
-  - website owners
-  - small teams
-  - agencies
+  - small teams and agencies
+  - sites that want 1-minute checks
+  - personal projects that need a status page
 avoidIf:
-  - large enterprises
-  - complex infrastructure
-  - advanced analytics needs
+  - you need more than 20 monitors
+  - you need SMS or phone alerts
+  - you need API access for free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://xitoring.com/'
-docsUrl: 'https://docs.xitoring.com'
+docsUrl: 'https://xitoring.com/docs/getting-started/'
 sourceUrls:
   - 'https://xitoring.com/pricing'
   - 'https://xitoring.com/website-monitoring'
+  - 'https://xitoring.com/'
+  - 'https://xitoring.com/docs/getting-started/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://xitoring.com/website-monitoring'
 ---
-Xitoring offers a free-forever website and uptime monitoring plan with email alerting, plus paid plans for server agent monitoring and custom dashboards.
+You use Xitoring in a web dashboard, with a CLI, a mobile app, and an API on paid plans. For servers you install a small agent called Xitogent with one command. It suits small teams that want uptime checks and server metrics in one place.
+
+## What the free plan gives you
+
+The website monitoring page says the free plan has 20 monitors with 1-minute checks from 15+ global locations, with no credit card and no trial expiry. HTTP/HTTPS, DNS, SSL, ping, and keyword checks are included. Every plan includes a hosted, branded status page.
+
+The pricing page lists paid plans from $4.99 per month for Solo, with a 14-day free trial on any paid plan. It also lists special plans: students free while they study, startups 1 year free, and non-profit and open-source projects free for life.
+
+## When you hit a limit
+
+The pricing FAQ says you get a notification when you approach your plan's limit. Existing monitors keep running, but you cannot add new ones until you upgrade or remove unused monitors.
+
+At the end of the paid trial, you can downgrade to the Free plan or subscribe. The FAQ says all plans include email alerts and that paid plans unlock more channels such as Slack, SMS, and webhooks.
+
+## Gotchas
+
+- The website monitoring page says Free includes email, push, and webhook alerts, but the pricing FAQ lists webhooks as a paid channel. Check which alert channels your account has.
+- Optional 30-second intervals are only on paid plans.
+- Full REST API access is listed for the Business and Enterprise plans.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want more free monitors and are fine with slower checks.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want monitors, on-call alerts, and a status page together.
+- [Hyperping](/services/hyperping/): when you want free monitors with a status page.
+
+## Questions people ask
+
+### Is Xitoring free?
+
+Yes. The free plan has 20 monitors at 1-minute intervals with email alerts and a hosted status page. No credit card is required.
+
+### What happens when I exceed my Xitoring monitor limit?
+
+You get a notification when you approach the limit. Existing monitors keep running, but you cannot add new ones until you upgrade or remove some.
+
+### Does Xitoring have a free trial of paid plans?
+
+Yes. Any paid plan starts with a 14-day free trial and no credit card is required. After the trial you can downgrade to the Free plan.

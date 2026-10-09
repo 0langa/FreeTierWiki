@@ -1,8 +1,9 @@
 ---
 title: Railway
 description: >-
-  Railway is a developer platform for deploying, hosting, and managing web apps
-  and databases with minimal configuration.
+  Railway is a hosting platform that deploys apps, databases, and storage from a
+  GitHub repository, a template, or the command line, and charges by the second
+  for what runs.
 provider: Railway
 category: hosting
 domain: hosting
@@ -17,19 +18,24 @@ audiences:
   - team
   - oss
 tags:
-  - serverless
-  - ci-cd
-  - database
-  - web
+  - paas
+  - deploy
+  - postgres
+  - github
+  - templates
+  - hosting
 pricingModel: freemium
 freeTierDetails:
   summary: A recurring Free plan gives $1 of credit per month. New accounts also get a one-time $5 trial.
   limits:
-    - 'Free plan: $1 of free credit per month (1 replica, 0.5 GB RAM, 1 vCPU, 0.5 GB volume storage)'
+    - 'Free plan: $1 of free credit per month (1 project, 3 services per project, 1 vCPU and 0.5 GB RAM per service, 0.5 GB volume storage)'
     - 'Trial (new accounts only): one-time $5 credit for 30 days, no card required'
     - Then the Hobby plan ($5/month, includes $5 of usage)
   caveats:
     - The Hobby plan always charges its $5 subscription fee, even if usage stays under $5.
+    - The monthly credit does not roll over
+    - An unverified trial account has restricted outbound network access and few open ports
+    - Volumes on Free or Trial accounts are deleted 30 days after expiry
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -39,24 +45,22 @@ freeTierDetails:
     - No charges on the Free plan unless you upgrade to a paid plan.
   monthlyCreditAmount: $1
 useCases:
-  - Deploying full-stack web apps
-  - Hosting APIs and microservices
-  - Prototyping SaaS products
-  - Running managed Postgres databases
+  - Deploy a full-stack web app from GitHub
+  - Host an API or small microservice
+  - Run a managed Postgres or Redis for a prototype
+  - Launch a ready-made open source app from a template
 quickstartSteps:
-  - Sign up at railway.app with your GitHub account.
-  - Create a new project and connect your GitHub repository.
-  - Configure environment variables if needed.
-  - Deploy your app with one click or via CLI.
-  - Access your app's live URL and monitor logs.
+  - Sign up at railway.com; connecting a GitHub account helps Railway verify your trial.
+  - From the dashboard, click New Project.
+  - Pick Deploy from GitHub repo, search for your repository, and select it.
+  - Add the variables Railway asks for, then deploy; Railway builds and starts the service.
+  - Generate a public domain from the service settings, or use the Railway CLI to create and deploy from your terminal.
 whenToUse: >-
-  Use Railway to quickly deploy web apps or APIs without managing
-  infrastructure, especially for prototypes, demos, or small production
-  workloads.
+  Use it to deploy a small app or database fast, from GitHub or a template,
+  while you stay inside the small Free plan.
 whenNotToUse: >-
-  Avoid if you need persistent custom domains on the free tier, require
-  advanced networking, or need more than the Free plan's $1 of credit per
-  month — upgrading means paying the Hobby plan's flat $5 monthly fee.
+  Avoid it if you need more than 1 project or 3 services, more than 1 vCPU per
+  service, or a fixed monthly bill, since paid plans charge for usage.
 bestFor:
   - prototyping
   - hackathons
@@ -64,25 +68,65 @@ bestFor:
   - student projects
 avoidIf:
   - high-traffic production
-  - custom domain required
+  - more than 3 services in a project
   - complex networking
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://railway.app/'
-docsUrl: 'https://docs.railway.app/'
+docsUrl: 'https://docs.railway.com/'
 sourceUrls:
-  - 'https://railway.app/pricing'
-  - 'https://docs.railway.app/develop/cli'
+  - 'https://railway.com/pricing'
+  - 'https://docs.railway.com/pricing/free-trial'
+  - 'https://docs.railway.com/pricing/plans'
+  - 'https://docs.railway.com/quick-start'
 featured: false
 status: changed
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://railway.com/pricing'
 changes:
   - date: 2025-05-01
     kind: changed
     note: Railway introduced a recurring Free plan ($1 of credit per month) alongside its existing one-time trial credit.
 ---
-Railway offers a simple platform for deploying and managing web apps and databases, ideal for rapid prototyping and small-scale production use.
+You work in a project canvas in the dashboard, or from the Railway CLI. Each project holds services and databases, and Railway builds and deploys them for you. It suits makers who want a quick deploy with little server setup.
+
+## What the free plan gives you
+
+New accounts start with a free trial. The trial gives a one-time grant of $5 for up to 30 days. After 30 days, or after the $5 is spent, the account reverts to the Free plan. The Free plan costs $0 and gives $1 of credit per month. That credit does not roll over.
+
+The pricing page lists these Free limits: 1 project, 3 services per project, up to 1 vCPU and 0.5 GB of RAM per service, and 0.5 GB of volume storage. It also lists a 10-minute build timeout and 1 concurrent build. Support is through the community, and no credit card is required to deploy a new project.
+
+## When you hit a limit
+
+The docs do not say what Railway does when the Free plan's $1 of credit runs out. The pricing page only says the Hobby plan charges for extra resource usage once its credits are used.
+
+You can move to the Hobby plan for $5 per month, which includes $5 of usage credits. Railway deletes volumes on Free or Trial accounts 30 days after expiry, so upgrade first if the data matters.
+
+## Gotchas
+
+- The Hobby plan always charges its $5 fee, even if you use less than $5 of resources.
+- Trial accounts that Railway cannot verify through GitHub get restricted outbound network access and a limited set of ports. Railway does not answer requests for manual verification.
+- During the trial, projects are limited to 5 services each. After it, the Free plan allows 3 services per project.
+
+## Alternatives in this atlas
+
+- [Render](/services/render/): when you want a free web service without a monthly credit to watch.
+- [Koyeb](/services/koyeb/): when you want one always-available free service and accept a card check.
+- [Northflank](/services/northflank/): when you want always-on services and cron jobs in a sandbox plan.
+
+## Questions people ask
+
+### Is Railway free?
+
+Partly. New accounts get a one-time $5 trial credit for 30 days. After that, the Free plan gives $1 of credit per month with no card required.
+
+### What happens when my Railway free credit runs out?
+
+The docs do not say. The Hobby plan, at $5 per month with $5 of usage included, is the next step up.
+
+### Does Railway need a credit card?
+
+No, not for the trial or the Free plan. The pricing page says no credit card is required to deploy a new project.

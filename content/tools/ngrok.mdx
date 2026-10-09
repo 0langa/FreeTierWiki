@@ -1,6 +1,8 @@
 ---
 title: ngrok
-description: 'Expose a local server to the internet with a public URL, plus an API gateway.'
+description: >-
+  ngrok puts a service running on your computer onto a public HTTPS URL, so you
+  can test webhooks and share a local app. It also works as an API gateway.
 provider: ngrok
 category: networking
 domain: networking
@@ -12,48 +14,72 @@ audiences:
   - indie
   - startup
 tags:
-  - networking
-  - devops
-  - testing
+  - tunnel
+  - localhost
+  - webhooks
+  - reverse proxy
+  - api gateway
+  - dev domain
+  - ngrok
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: $5 of one-time usage credit, valid for a year. No usage past the credit.'
+  summary: >-
+    Free plan: $5 of one-time usage credit, valid for a year, with up to 3 online
+    endpoints. No usage past the credit.
   limits:
     - $5 one-time usage credit
-    - Credit lasts one year
+    - Credit lasts one year and only works on the Free plan
+    - Up to 3 online endpoints
+    - Up to 1 GB data transfer and 20k HTTP/S requests
+    - 1 team member
     - No additional usage beyond the credit
   caveats:
     - The credit cannot pay for data transfer out
-    - Hobbyist ($10/month) gives monthly credit
+    - Free HTTP/S endpoints show an interstitial page to visitors
+    - Public endpoints use an assigned dev domain, not your own domain
+    - Hobbyist ($10/month) gives monthly credit; its endpoints stop when the credit runs out
   resetPeriod: none
   requiresCard: false
   freeTierType: credit
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Test webhooks on localhost
-  - Share a local demo
+  - Testing webhooks from GitHub, Stripe, or other services on localhost
+  - Sharing a local demo or prototype with a teammate or client
+  - Trying a mobile app against a local backend
+  - Inspecting and replaying HTTP requests while debugging
 quickstartSteps:
-  - Sign up at ngrok.com.
-  - Install the agent and add your authtoken.
-  - Run ngrok http 3000.
-whenToUse: Use for quick local testing and demos.
-whenNotToUse: Avoid for anything always on; the free credit is one-time.
+  - Sign up for an ngrok account and copy your auth token from the dashboard.
+  - 'Install the agent CLI, for example `brew install ngrok` on macOS or `sudo apt install ngrok` on Debian Linux.'
+  - 'Connect the agent to your account with `ngrok config add-authtoken` and your token.'
+  - Start your app or service on a local port.
+  - 'Run `ngrok http 8080`, replacing the port with yours, and open the forwarding URL it prints.'
+whenToUse: >-
+  Use ngrok for short local testing, webhook development, and demos, where a
+  temporary public HTTPS URL is enough.
+whenNotToUse: >-
+  Avoid it for always-on tunnels, production traffic, or your own domain. The
+  free credit is one-time and the free plan has a visitor interstitial page.
 bestFor:
   - webhook testing
-  - demos
+  - local demos
+  - mobile app testing
 avoidIf:
   - always-on tunnels
+  - production traffic
+  - custom domains on a free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://ngrok.com'
 docsUrl: 'https://ngrok.com/docs'
 sourceUrls:
   - 'https://ngrok.com/pricing'
+  - 'https://ngrok.com/docs/getting-started/'
+  - 'https://ngrok.com/docs/share-localhost/quickstart/'
 pricingUrl: 'https://ngrok.com/pricing'
 featured: false
 changes:
@@ -61,4 +87,43 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-ngrok's free plan is now a one-time credit, not an ongoing allowance.
+You run the ngrok agent CLI next to your app, and it prints a public URL that forwards to your local port. It suits developers who need a quick tunnel for testing, and the agent also has SDKs for Python, Go, Node, and Rust.
+
+## What the free plan gives you
+
+The Free plan costs $0 and comes with $5 of one-time included usage. The pricing page says the credit lasts a year, only works while you are on the Free plan, and cannot pay for data transfer out. There is no usage beyond the credit.
+
+The plan allows up to 3 online endpoints, up to 1 GB of data transfer, and up to 20k HTTP/S requests. You get one team member and an assigned dev domain for public endpoints. HTTP/S endpoints show an interstitial page to visitors. Rate limits are 4k HTTP requests a minute and 100 TCP connections a minute.
+
+TCP endpoints on Free need credit card verification, and the pricing page lists randomly assigned TCP addresses only with that verification.
+
+## When you hit a limit
+
+On the free plan, usage past the credit is not allowed, so your endpoints stop. You are not billed for extra. The pricing page does not describe the Free case in more detail.
+
+Paid plans differ. On Hobbyist, which costs $10 a month and includes $10 of monthly usage, endpoints stop until the next billing cycle when the credit runs out. On Pay-as-you-go, endpoints keep working and ngrok bills the extra usage at the end of the cycle. Unused credit does not roll over.
+
+## Gotchas
+
+- The $5 credit is one-time, so the free plan is not an ongoing monthly allowance.
+- A development domain does not use up endpoint hours, but the free plan caps online endpoints at 3.
+- Bringing your own domain is not on Free or Hobbyist. It starts on Pay-as-you-go.
+
+## Alternatives in this atlas
+
+- [UseWebhook.com](/services/usewebhook-com/): when you only need to see incoming webhook requests, not tunnel to localhost.
+- [Tailscale](/services/tailscale/): when you want private access to your own machines, not a public URL.
+
+## Questions people ask
+
+### Is ngrok free?
+
+Yes, with limits. The Free plan gives a one-time credit of $5 that lasts a year, with up to 3 online endpoints. It does not give an ongoing monthly allowance.
+
+### What happens when ngrok free credit runs out?
+
+The pricing page says there is no usage beyond the credit on the Free plan. Hobbyist endpoints stop until the credit resets, and Pay-as-you-go keeps running and bills extra usage.
+
+### Does ngrok need a credit card?
+
+Not for the Free plan in general. TCP endpoints on Free need credit card verification.

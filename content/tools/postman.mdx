@@ -1,8 +1,9 @@
 ---
 title: Postman
 description: >-
-  Postman is a collaborative API platform for building, testing, and documenting
-  APIs.
+  Postman is an API client where you send requests, group them in collections,
+  write tests, and document APIs. It is for developers and testers who work
+  with REST, GraphQL, and other APIs.
 provider: Postman
 category: devops
 domain: devops
@@ -18,58 +19,60 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - testing
-  - collaboration
-  - automation
-  - docs
+  - api client
+  - api testing
+  - rest api
+  - collections
+  - mock server
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan for 1 user: core API testing, 1,000 monitoring requests and 50 AI
-    credits per month.
+    Free plan for 1 user: core API client tools, unlimited mock servers and
+    collection runs, 1,000 monitoring requests and 50 AI credits per month.
   limits:
-    - '1 user (individual plan, no team collaboration)'
+    - '1 user; the Free plan cannot create a team'
     - '1,000 API monitoring requests/month'
     - '50 AI credits/month'
     - '10,000 Postman API calls/month'
+    - Unlimited mock servers and collection runs
   caveats:
-    - 'Team collaboration, shared workspaces, and RBAC require a paid plan'
+    - 'Team collaboration needs the Team plan ($19 per user per month, billed annually)'
+    - 'When monitoring requests run out, monitors and scheduled collection runs stop until the monthly reset'
+    - The Package Library is not available on the Free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - 'Test REST, SOAP, and GraphQL APIs'
-  - Automate API workflows
-  - Share API collections through public workspaces
-  - Generate and publish API documentation
+  - Sending and debugging REST, GraphQL, and gRPC requests
+  - Saving requests in collections and writing JavaScript tests
+  - Running a collection from the command line with the Postman CLI
+  - Mocking an API with a mock server before the backend exists
 quickstartSteps:
-  - Sign up for a free Postman account at postman.com.
-  - Download and install the Postman app or use the web version.
-  - Create a new workspace and import or define your first API request.
-  - Send requests and inspect responses to test your API.
-  - Save collections and organize them in your workspace.
+  - Choose Sign Up for Free on postman.com and create an account.
+  - Install the Postman desktop app.
+  - Enter `postman-echo.com/get` as the request URL and choose Send.
+  - Save the request with Save and New Collection to keep it in a collection.
+  - Open the Scripts tab, choose Post-response, write a test, send again, and read Test Results.
 whenToUse: >-
-  Use Postman to quickly test, debug, and document APIs as an individual;
-  the free plan does not include team collaboration.
+  Use it as a solo API client for testing, collections, and mock servers, when
+  one user and 1,000 monitoring requests a month are enough.
 whenNotToUse: >-
-  Avoid if you need team collaboration, shared workspaces, or more than 1,000
-  monitoring requests a month, as these require paid plans.
+  Avoid it if you need to share work with a team on the free plan, since it is
+  limited to one user and cannot create a team.
 bestFor:
-  - API developers
-  - QA engineers
-  - students
-  - solo developers
+  - solo API developers
+  - students learning APIs
+  - QA engineers testing alone
 avoidIf:
-  - You need enterprise features
-  - You require unlimited monitoring
-  - You need advanced integrations
+  - team collaboration on the free plan
+  - heavy scheduled monitoring
+  - private npm package libraries
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://postman.com'
@@ -77,7 +80,46 @@ docsUrl: 'https://learning.postman.com/docs/getting-started/introduction/'
 sourceUrls:
   - 'https://www.postman.com/pricing/'
   - 'https://learning.postman.com/docs/getting-started/introduction/'
+  - 'https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request/'
+  - 'https://learning.postman.com/docs/billing/about-plans/'
+  - 'https://learning.postman.com/docs/billing/resource-usage/'
 pricingUrl: 'https://www.postman.com/pricing/'
 featured: false
 ---
-Postman offers a free single-user plan for API testing, making it ideal for individuals to build and document APIs. Team collaboration needs a paid plan.
+You use Postman through its desktop app or in the browser, and from the command line with the Postman CLI. It suits one developer or tester who wants a full API client without paying.
+
+## What the free plan gives you
+
+The Free plan costs $0 and is for one user. Since the 2026 plan change, it cannot create a team. It includes the API client, collections and environments, mock servers, and the Postman CLI. Mock server use and collection runs are unlimited on all plans. Each month you get 50 AI credits, 1,000 monitoring requests, and 10,000 calls to the Postman API.
+
+The Solo plan costs $9 per month billed annually. It adds more AI credits, data-driven testing, and custom domains. The Team plan costs $19 per user per month billed annually and adds collaboration and basic role-based access control.
+
+## When you hit a limit
+
+When your monitoring requests run out, you get an email and a message in the app. Monitors and scheduled collection runs then stop running on their schedule until the monthly reset. Pay-as-you-go can resume them, and the docs list add-ons and upgrades as the other options. The docs describe pay-as-you-go as something you enable, so the stop is the default. The pricing table shows AI overage rates under the paid plans.
+
+## Gotchas
+
+- Before March 2026, Free plans could invite up to three users. The new Free plan is limited to one user.
+- A collection run with several iterations counts each iteration as a run, but runs are unlimited in the 2026 plans.
+- Scheduled runs in the Postman Cloud use the monitoring quota, not the manual run quota.
+
+## Alternatives in this atlas
+
+- [Hoppscotch](/services/hoppscotch/): when you want a free web API client with collections.
+- [Requestly](/tools/requestly/): when you want a browser extension to intercept and modify HTTP requests.
+- [MockAPI](/tools/mockapi/): when you only need a hosted fake REST API.
+
+## Questions people ask
+
+### Is Postman free?
+
+Yes. The Free plan costs $0 for one user. It includes the API client, mock servers, unlimited collection runs, 1,000 monitoring requests, and 50 AI credits per month.
+
+### Can a team use Postman for free?
+
+No. The Free plan is limited to one user and cannot create a team. Team collaboration needs a paid plan.
+
+### What happens when I use up my Postman monitoring requests?
+
+You get an email and an in-app notice. Your monitors and scheduled collection runs stop until the monthly reset, unless you enable pay-as-you-go, buy add-ons, or upgrade.

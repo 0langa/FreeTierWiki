@@ -1,8 +1,8 @@
 ---
 title: Cloudflare
 description: >-
-  Cloudflare provides global CDN, DDoS protection, DNS, and security services
-  for websites and applications.
+  Cloudflare sits in front of your website as its DNS provider and proxy. It adds
+  a CDN, DDoS protection, a WAF, and a free SSL certificate.
 provider: Cloudflare
 category: networking
 domain: networking
@@ -22,53 +22,62 @@ audiences:
 tags:
   - cdn
   - dns
-  - security
+  - ddos protection
+  - waf
+  - free ssl
+  - reverse proxy
+  - nameservers
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes CDN, DNS, basic DDoS protection, and free SSL for
-    personal and small business sites.
+    The Free plan costs $0 and includes DNS, CDN, unmetered DDoS protection, a
+    Universal SSL certificate, and the Free Managed Ruleset.
   limits:
-    - 5 custom WAF rules
-    - Free SSL certificate
-    - DNS, CDN, and DDoS protection included
+    - 5 custom WAF rules and 1 rate limiting rule
+    - 70 Cloudflare Rules plus 10K Bulk Redirects
+    - Free Universal SSL certificate
+    - DNS, CDN, and unmetered DDoS protection included
+    - Community forums and docs for support
   caveats:
     - Add-ons such as Load Balancing and Advanced Certificate Manager are paid
-    - Enterprise features require paid plans
+    - No uptime SLA and no ticket support on the Free plan
+    - Free plan is for personal or hobby projects that are not business-critical
+    - Enterprise features require a Contract plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Protecting personal or small business websites
-  - Accelerating static content delivery
-  - Managing DNS with a user-friendly interface
-  - Mitigating basic DDoS attacks
+  - Speeding up and protecting a personal or hobby website
+  - Moving a domain's DNS to a fast free provider
+  - Blocking basic attacks with free DDoS protection and WAF rules
+  - Getting HTTPS on a site with a free SSL certificate
+  - Redirecting old URLs with bulk redirects
 quickstartSteps:
-  - Sign up for a free Cloudflare account.
-  - Add your website domain to Cloudflare.
-  - Verify DNS records and update your domain's nameservers to Cloudflare.
-  - Wait for DNS propagation and confirm your site is active on Cloudflare.
-  - Configure basic security and performance settings as needed.
+  - Open the sign-up page, enter your email and password, and verify the email Cloudflare sends.
+  - In the dashboard select Onboard a domain, enter your apex domain such as example.com, and select the Free plan.
+  - Review the DNS records Cloudflare scanned from your current provider and fix any that are missing.
+  - Replace your domain's nameservers at your registrar with the two Cloudflare nameservers.
+  - Check your SSL/TLS settings, then wait until Cloudflare shows the domain as active.
 whenToUse: >-
-  Use Cloudflare when you need free CDN, DNS, and basic security for personal,
-  portfolio, or small business websites.
+  Use Cloudflare when you want free DNS, a CDN, and basic security in front of a
+  personal, portfolio, or hobby site.
 whenNotToUse: >-
-  Avoid if you need more than 5 custom WAF rules, or enterprise-grade
-  support and SLAs.
+  Avoid it if you need more than 5 custom WAF rules, a regex in rules, an uptime
+  SLA, or ticket support. Those need a paid plan.
 bestFor:
   - personal websites
-  - small business sites
+  - hobby projects
   - static content delivery
 avoidIf:
-  - enterprise security needs
-  - custom firewall requirements
-  - advanced analytics
+  - business-critical sites that need an SLA
+  - more than 5 custom firewall rules
+  - ticket or chat support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://www.cloudflare.com/'
@@ -76,7 +85,50 @@ docsUrl: 'https://developers.cloudflare.com/'
 pricingUrl: 'https://www.cloudflare.com/plans/'
 sourceUrls:
   - 'https://www.cloudflare.com/plans/'
-  - 'https://developers.cloudflare.com/fundamentals/get-started/'
+  - 'https://www.cloudflare.com/plans/network-cdn.md'
+  - 'https://developers.cloudflare.com/waf/custom-rules/index.md'
+  - 'https://developers.cloudflare.com/fundamentals/manage-domains/add-site/'
+  - 'https://developers.cloudflare.com/fundamentals/account/create-account/'
+  - 'https://developers.cloudflare.com/ssl/edge-certificates/universal-ssl/'
 featured: false
 ---
-Cloudflare's free tier offers essential CDN, DNS, and basic security features suitable for most personal and small business websites, with easy setup and global coverage.
+You set Cloudflare up in the dashboard by adding your domain and changing its nameservers. After that, traffic to your site goes through Cloudflare. It suits people with a personal or hobby site who want a free CDN and security layer.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month. It includes DNS, a CDN, unmetered DDoS protection, the Free Managed Ruleset, a WAF, and a Universal SSL certificate that Cloudflare issues and renews for you.
+
+Rules have set sizes. You get 5 custom WAF rules and 1 rate limiting rule, and custom rules on Free do not support regex. Cloudflare Rules allow 70 rules plus 10K Bulk Redirects. Bot mitigation covers simple bots, and API Schema Validation allows up to 5 schemas.
+
+Support is community forums and docs. Cloudflare describes the plan as meant for personal or hobby projects that are not business-critical.
+
+## When you hit a limit
+
+The Free plan does not bill you for extra traffic. You hit the rule limits instead: a sixth custom WAF rule needs the Pro plan, which allows 20 rules and costs $25 a month billed monthly.
+
+Paid add-ons are separate and optional. Load Balancing and Smart Shield with Argo start at $5 a month, and Advanced Certificate Manager is $10 a month. The plans page does not describe any bandwidth cap for the CDN on Free.
+
+## Gotchas
+
+- The Free plan has no uptime SLA. That starts on the Business plan, which costs $250 a month billed monthly.
+- Support on Free is community forums and docs only. Tickets start on the Pro plan.
+- Universal SSL covers your root domain and first-level subdomains on a full setup. Deeper subdomains need Total TLS or an advanced certificate.
+
+## Alternatives in this atlas
+
+- [CacheFly](/services/cachefly/): when you want a dedicated CDN for downloads and large files.
+- [Namecheap Supersonic](/services/namecheap-supersonic/): when your domain is already with Namecheap and you want its CDN.
+
+## Questions people ask
+
+### Is Cloudflare free?
+
+Yes. The Free plan costs $0 a month and includes DNS, a CDN, unmetered DDoS protection, and a free SSL certificate. Paid plans add more rules, better support, and an SLA.
+
+### Does Cloudflare need a credit card for the free plan?
+
+No. You sign up with an email address and password, and then verify your email. The Free plan has no payment step.
+
+### How many WAF rules does the Cloudflare free plan have?
+
+You get 5 custom rules and 1 rate limiting rule. The Pro plan raises custom rules to 20.

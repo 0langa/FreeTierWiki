@@ -1,8 +1,8 @@
 ---
 title: Checkly
 description: >-
-  Checkly provides synthetic monitoring for APIs and web apps with programmable
-  checks and alerting.
+  Checkly runs scheduled API and browser checks against your site and APIs, and
+  alerts you when they fail. You can define the checks as code.
 provider: Checkly
 category: observability
 domain: observability
@@ -16,8 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - api
+  - synthetic-monitoring
+  - uptime
+  - playwright
+  - api-monitoring
+  - monitoring-as-code
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,44 +40,82 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor uptime of web APIs
-  - Test web app flows with browser checks
-  - Receive alerts for downtime
-  - Track performance metrics
+  - Check an API endpoint on a schedule and assert on the response
+  - Run a Playwright script that logs in or checks out in a real browser
+  - Watch cron jobs with heartbeat monitors
+  - Publish a status page for your customers
+  - Keep your checks in your repo and deploy them with your app
 quickstartSteps:
-  - Sign up for a free Checkly account.
-  - Create a new project in your dashboard.
-  - Add an API or browser check with your target URL.
-  - 'Configure alerting options (email, webhook, etc).'
-  - Review monitoring results and set up additional checks as needed.
+  - Run `npx checkly init` in your project to scaffold a `checkly.config.ts` file and a `__checks__` folder.
+  - Run `npx checkly login` to sign in or create a free account from the terminal; the Hobby plan needs no credit card.
+  - Run `npx checkly test` to dry-run your checks against Checkly's global infrastructure before you deploy anything.
+  - Follow the rest of the docs quickstart to deploy your checks.
+  - On Hobby, alerts can go to email, Slack, or webhooks.
 whenToUse: >-
-  Use Checkly to monitor API endpoints or web app flows with programmable checks
-  and receive downtime alerts.
+  Use Checkly to run API checks and real browser checks on a schedule, kept as
+  code in your repo, within the Hobby plan caps.
 whenNotToUse: >-
-  Avoid if you need more than 1 team member, SMS/phone alerts, or
-  high-frequency checks beyond the free tier.
+  Avoid it if you need SMS or phone alerts, maintenance windows, or more than
+  10,000 API runs or 1,000 browser runs a month for free.
 bestFor:
   - API monitoring
-  - web app uptime
-  - small teams
-  - open source projects
+  - browser flow checks
+  - developers who prefer monitoring as code
 avoidIf:
-  - large teams
-  - complex alerting needs
-  - high-frequency enterprise monitoring
+  - SMS or phone alerts on the free plan
+  - more than 10 uptime monitors
+  - high check volumes without paying
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://checklyhq.com'
 docsUrl: 'https://www.checklyhq.com/docs/'
 sourceUrls:
-  - 'https://www.checklyhq.com/changelog/status-pages-available-for-all/'
-  - 'https://checklyhq.com/pricing'
+  - 'https://www.checklyhq.com/pricing/'
   - 'https://www.checklyhq.com/docs/'
+  - 'https://www.checklyhq.com/docs/quickstart/'
 featured: false
-lastVerified: 2026-10-06
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.checklyhq.com/pricing/'
 ---
-Checkly offers programmable synthetic monitoring for APIs and web apps, allowing users to automate uptime and performance checks with alerting on failures.
+You define checks as code in a TypeScript project and deploy them with the `checkly` command line tool, or you create monitors in the web app. It suits developers who want API and browser checks kept in their repo.
+
+## What the free plan gives you
+
+The Hobby plan costs $0 per month, needs no credit card, and gives access to almost all of Checkly's features. It includes 10 Uptime Monitors, 10,000 API check runs per month, and 1,000 browser check runs per month. Uptime Monitors cover URL, TCP, DNS, ICMP, SSL, gRPC, and Traceroute types, plus Heartbeats for cron jobs.
+
+Browser checks run real Playwright scripts in a browser, and each run has a 4 minute timeout. The free plan also includes 1 status page with 20 services and up to 250 subscribers who get email notifications. Hobby has no SMS or phone alert credits and no maintenance windows.
+
+## When you hit a limit
+
+The Hobby plan is hard-capped. Checkly says it stops running your checks when your credits are exhausted, and it points you to the Starter or Team plan if you need more. Checks do not turn into a bill.
+
+Once you reach the 10 Uptime Monitors limit, you cannot create more unless you buy more. Starter and Team plans work differently: they keep running past their included amount and charge overage rates, such as $2.60 per 10k extra API runs on Starter.
+
+## Gotchas
+
+- A Multistep check counts every request as one run, so a script with 3 requests uses 3 runs each time it executes.
+- Playwright Check Suites use one run for every 30 seconds of execution time.
+- Hobby has no SMS or phone alerts, so use email, Slack, or webhook alerts.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you only need simple uptime pings.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want uptime checks with a status page and Slack alerts.
+- [Hyperping](/services/hyperping/): when you want a small uptime tool with status pages.
+
+## Questions people ask
+
+### Is Checkly free?
+
+Yes. The Hobby plan costs $0 per month and needs no credit card. It includes 10 Uptime Monitors, 10,000 API check runs, and 1,000 browser check runs per month.
+
+### What happens when I go over the Checkly free limits?
+
+Nothing is billed. The Hobby plan is hard-capped, and Checkly stops running your checks when your credits are used up.
+
+### Does Checkly need a credit card?
+
+No. The pricing FAQ says you do not need a credit card to start on the Hobby plan.

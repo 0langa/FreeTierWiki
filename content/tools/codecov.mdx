@@ -1,8 +1,9 @@
 ---
 title: Codecov
 description: >-
-  Codecov provides code coverage reporting and analysis for automated testing
-  workflows across multiple CI/CD platforms.
+  Codecov collects the coverage reports from your test runs and shows which
+  lines your tests miss, in pull request comments and on a dashboard. It is for
+  developers on GitHub, GitLab, or Bitbucket.
 provider: Codecov
 category: devops
 domain: devops
@@ -17,65 +18,119 @@ audiences:
   - team
   - oss
 tags:
-  - testing
-  - ci-cd
-  - automation
+  - code coverage
+  - test coverage
+  - coverage report
+  - pull request comments
+  - codecov cli
+  - ci integration
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Developer plan is free forever for a single user: unlimited public repos
-    and uploads, plus unlimited private repos with up to 250 private uploads
+    Developer plan: free for 1 user, with unlimited public repositories and
+    uploads, and unlimited private repositories with up to 250 private uploads
     per month.
   limits:
-    - 1 user (single-user plan)
-    - Unlimited public repositories & uploads
-    - Unlimited private repositories, 250 private repo uploads/month
+    - 1 user
+    - Unlimited public repositories and public uploads
+    - Unlimited private repositories
+    - 250 private repository uploads per month
   caveats:
-    - Team plan required for more than 1 user (up to 10 users, 2,500 uploads/month)
-    - 14-day free trial of the Pro plan available
+    - A user is anyone who authors a pull request on a private repository with
+      Codecov coverage
+    - Team plan is for up to 10 users and 2500 uploads per month, at $5 per user
+      per month
+    - Pro plan is $12 per user per month and has a 14-day free trial
+    - Flags, carry forward flags, components, and project coverage are Pro
+      features
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor code coverage in open source projects
-  - Integrate coverage checks in CI pipelines
-  - Visualize test coverage trends
+  - See coverage changes in each pull request comment
+  - Track coverage trends on a project dashboard
+  - Fail a status check when coverage drops
+  - Merge coverage reports from parallel CI jobs into one report
+  - Split coverage by flags or components in a monorepo (Pro plan)
 quickstartSteps:
-  - 'Sign up for a Codecov account using GitHub, GitLab, or Bitbucket.'
-  - Connect your repository to Codecov.
-  - >-
-    Add Codecov upload step to your CI configuration (e.g., GitHub Actions,
-    Travis CI).
-  - Run your test suite to generate coverage reports.
-  - View coverage reports and insights on the Codecov dashboard.
+  - Sign up at app.codecov.io with GitHub, GitLab, or Bitbucket. GitHub users
+    must also install the Codecov GitHub app for the organization.
+  - Pick your repository from the list and click setup repo to get its upload
+    token.
+  - For GitLab and Bitbucket, add a Team Bot so Codecov can talk to your code
+    host.
+  - Add an upload step to your CI with the Codecov CLI or the GitHub Action, and
+    store the token as a secret, for example CODECOV_TOKEN.
+  - Run your tests and CI, then read the pull request comment and the repository
+    dashboard.
 whenToUse: >-
-  Use Codecov to automate code coverage reporting for public repositories or
-  a single-user account with up to 250 private uploads a month.
+  Use Codecov when you work alone or on an open source project and want coverage
+  reports on pull requests, with an upload step in your CI.
 whenNotToUse: >-
-  Avoid if you need more than 1 user or advanced analytics, as multi-user
-  teams require the paid Team or Pro plan.
+  Avoid it when more than one person writes pull requests on a private
+  repository, because the free Developer plan is for 1 user. Avoid it if your
+  private repositories upload more than 250 coverage reports a month.
 bestFor:
   - open source projects
   - solo developers
-  - CI/CD integration
+  - small private projects
 avoidIf:
-  - need more than 1 user
-  - need advanced analytics
-  - strict on-premise requirements
+  - more than 1 user on private repositories
+  - heavy private CI with many parallel uploads
+  - you need flags and components, which are Pro features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://codecov.io/'
 docsUrl: 'https://docs.codecov.com/docs'
 sourceUrls:
-  - 'https://about.codecov.io/pricing/'
-  - 'https://docs.codecov.com/docs'
+  - https://about.codecov.io/pricing/
+  - https://docs.codecov.com/docs/quick-start
+  - https://codecov.io/
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://about.codecov.io/pricing/'
 ---
-Codecov is a popular code coverage tool that integrates with major CI/CD platforms, offering free coverage reporting for public repositories and limited private usage. It helps teams and open source projects monitor and improve test coverage with automated reports and visualizations.
+You add an upload step to your CI. After each test run it sends the coverage report to Codecov, which comments on the pull request and updates a dashboard. It suits open source projects and solo developers.
+
+## What the free plan gives you
+
+The Developer plan is free. It allows 1 user. Public repositories are unlimited, and so are public repository uploads. Private repositories are also unlimited, but you get 250 private repository uploads per month.
+
+A private repository upload is one coverage report uploaded from a closed-source repository, usually during CI. A build can send more than one upload per commit if you run tests in parallel or use flags. Open source uploads do not count against the monthly 250. A user is anyone who authors a pull request on a private repository with Codecov coverage, or who uses advanced features on a private repository. The Developer plan is best for open source projects or for single-user teams with small private repositories.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 250th private upload in a month. It also does not say what happens when a second user appears on a private repository. The pricing FAQ says the Developer plan is for single-user teams, and the Team plan is for up to 10 users.
+
+To go beyond the free plan, the Team plan costs $5 per user per month and allows 2500 uploads per month. It shows patch coverage only. The Pro plan costs $12 per user per month, needs at least two users, and adds flags, carry forward flags, components, and project coverage. You can try all Pro features free for 14 days.
+
+## Gotchas
+
+- Parallel CI jobs and flags send several uploads per commit, so private repositories can reach 250 uploads faster than you expect.
+- GitHub users must install the Codecov GitHub app for their organization, and may need an organization admin to approve it.
+- The Team plan shows patch coverage only. Project coverage and the trend charts need the Pro plan.
+
+## Alternatives in this atlas
+
+- [Coveralls](/services/coveralls/): when you only need coverage tracking for public repositories.
+- [Codacy](/services/codacy/): when you want coverage together with code quality and security scans.
+- [SonarQube Cloud](/services/sonarcloud-io/): when you want coverage as part of a quality gate on a public open source project.
+
+## Questions people ask
+
+### Is Codecov free?
+
+Yes, the Developer plan is free for 1 user. It covers unlimited public repositories and uploads, and private repositories with up to 250 uploads per month.
+
+### How much does Codecov cost for teams?
+
+The Team plan costs $5 per user per month for up to 10 users. The Pro plan costs $12 per user per month, and it has a 14-day free trial.
+
+### Does Codecov work with GitLab and Bitbucket?
+
+Yes. The quick start covers GitHub, GitLab, and Bitbucket. GitLab and Bitbucket users add a Team Bot so Codecov can communicate with the code host.

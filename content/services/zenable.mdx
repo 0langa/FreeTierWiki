@@ -1,6 +1,6 @@
 ---
 title: "Zenable"
-description: "Zenable provides AI-powered guardrails and automated code review that keep AI coding agents aligned with a team's requirements, with audit-ready reporting."
+description: "Zenable reviews code for bugs and security issues, in pull requests and in AI coding agents' output, and checks it against rules your team sets."
 provider: "Zenable"
 category: "security"
 domain: security
@@ -14,55 +14,104 @@ audiences:
   - enterprise
   - agency
 tags:
-  - compliance
-  - security
-  - ai
-  - automation
+  - ai-code-review
+  - pull-request-review
+  - guardrails
+  - ai-coding-agents
+  - mcp
+  - policy-as-code
 pricingModel: freemium
 freeTierDetails:
-  summary: "Free plan gives 5,000 Zenable Credits per seat per week for AI-assisted PR reviews, plus API access, at no cost."
+  summary: "Free plan gives 5,000 Zenable Credits per seat per week for AI code reviews, plus API access, at no cost."
   limits:
     - '5,000 Zenable Credits/seat/week'
     - 10-25 credits per AI-reviewed file
-    - Deterministic guardrails do not use credits
+    - Deterministic guardrails and static checks do not use credits
+    - 150 files per pull request, 300,000 characters per file
   caveats:
     - No credit card required to start
-    - Team management and 200,000 credits/seat/week need the Professional plan ($99/user/month billed annually)
+    - Custom guardrails for AI IDEs, PR guardrails with custom requirements, and team management are Professional features
+    - Professional has 200,000 credits/seat/week and costs $99/user/month billed annually, with a 14 day free trial
+    - Free accounts can use read tools in the chat and MCP server but not write tools
   resetPeriod: weekly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated PR and MR code review
-  - Enforcing guardrails for AI coding agents (Claude Code, Cursor, VS Code, and more)
-  - Audit-ready reporting on AI-assisted development
+  - Getting an automated review on GitHub or GitLab pull requests
+  - Running guardrail checks that need no AI credits
+  - Checking code that AI coding assistants write in Cursor, Claude Code, or VS Code
+  - Calling Zenable from scripts through the API
 quickstartSteps:
-  - Sign up for a free Zenable account.
-  - Connect your version control system.
-  - Install the Zenable CLI or IDE/agent integration.
-  - Get automated PR reviews and guardrails within your weekly credit allowance.
-whenToUse: "Use Zenable when you need automated AI code review and guardrails that keep AI coding agents aligned with your team's requirements."
-whenNotToUse: "Avoid if you need more than 5,000 credits per seat per week, team management, or dedicated support without upgrading."
+  - Sign up at zenable.app. Docs say the Free plan needs no credit card.
+  - Install the Zenable CLI, then run `zenable install` to add the integration to your IDE, such as Cursor, Claude Code, or VS Code.
+  - Set up GitHub or GitLab code reviews so Zenable reviews new pull requests.
+  - Link your GitHub or GitLab account to your Zenable user under Settings, then User Management. On the Free plan, reviews do not run until you do.
+  - Open a pull request and read the review. Optionally add requirements or guardrails at zenable.app.
+whenToUse: >-
+  Use Zenable when an individual developer or a small team wants AI review on
+  pull requests and does not need custom rules or team management.
+whenNotToUse: >-
+  Avoid the Free plan if you need custom guardrails for AI IDEs, custom PR
+  requirements, team management, or more than 5,000 credits per seat per week.
 bestFor:
   - individual developers
-  - small teams evaluating AI guardrails
+  - people trying AI code review
   - teams using AI coding agents
 avoidIf:
-  - need team management features
-  - need more than 5,000 credits/seat/week
-  - need dedicated customer success support
+  - you need team management
+  - you need custom guardrails on the free plan
+  - you need more than 5,000 credits per seat per week
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: https://zenable.io
 docsUrl: https://docs.zenable.io
 sourceUrls:
-  - https://zenable.io/pricing
+  - 'https://zenable.io/pricing'
+  - 'https://docs.zenable.io'
+  - 'https://docs.zenable.io/plans-and-usage'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://zenable.io/pricing'
 ---
-Zenable offers a free tier with a weekly pool of AI code-review credits and deterministic guardrails that keep AI coding agents aligned with a team's requirements, suitable for individual developers evaluating the platform.
+You install the Zenable CLI to add checks to your IDE, and you connect GitHub or GitLab for pull request reviews. A web console at zenable.app holds your requirements. It suits individual developers who want AI review on their pull requests.
+
+## What the free plan gives you
+
+The Free plan includes 2-click setup, automated PR summaries, documentation, and API access. It gives 5,000 Zenable Credits per seat per week. Credits pay for AI reviews of pull requests, agent code reviews through the CLI, MCP server, or API, and chat tools.
+
+An AI review costs 10 credits per file with the standard model and 25 credits with the premium model. Guardrails and static checks cost no credits and are unlimited on every plan. A pull request can have up to 150 files, and the largest reviewable file is 300,000 characters.
+
+## When you hit a limit
+
+When you use up the weekly credits, AI-powered reviews pause until the next reset. Guardrails and static checks keep running. If a pull request would cost more than the author's remaining credits, Zenable leaves a comment that the limit was reached and charges nothing for the withheld review. Credits reset every Monday at 00:00 UTC. No bill follows, because the Free plan needs no card. Professional gives 200,000 credits per seat per week and costs $99 per user per month, billed annually.
+
+## Gotchas
+
+- On the Free plan, reviews do not run until you link your GitHub or GitLab account to your Zenable user.
+- A closed and reopened pull request, or a review re-requested with a comment, is charged again for the files it reviews.
+- Custom guardrails for AI IDEs and PR guardrails with custom requirements are listed under Professional.
+
+## Alternatives in this atlas
+
+- [CodeRabbit](/tools/coderabbit/): when you want AI pull request review as the main product.
+- [Semgrep](/tools/semgrep/): when you want static analysis and dependency scanning on your code.
+- [SonarQube Cloud](/services/sonarcloud-io/): when you want code quality gates on your repositories.
+
+## Questions people ask
+
+### Is Zenable free?
+
+Yes. The Free plan gives 5,000 Zenable Credits per seat per week and needs no credit card.
+
+### What happens when I run out of Zenable credits?
+
+AI reviews pause until the next weekly reset on Monday at 00:00 UTC. Guardrails and static checks keep running.
+
+### Does Zenable train on my code?
+
+No. The pricing FAQ says Zenable does not train or fine-tune using users' code, on free or paid plans.

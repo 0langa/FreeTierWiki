@@ -1,6 +1,9 @@
 ---
 title: Cloudflare Vectorize
-description: 'Cloudflare''s vector database for embeddings, used from Workers.'
+description: >-
+  Cloudflare Vectorize is a vector database for storing embeddings and finding
+  similar items. It is for developers who build semantic search or retrieval-
+  augmented generation (RAG) apps on Cloudflare Workers.
 provider: Cloudflare
 category: database
 domain: database
@@ -11,46 +14,68 @@ audiences:
   - indie
   - startup
 tags:
-  - database
-  - ai
-  - search
-  - serverless
+  - vector database
+  - embeddings
+  - rag
+  - semantic search
+  - cloudflare workers
+  - workers ai
+  - vectorize
 pricingModel: freemium
 freeTierDetails:
   summary: 'Workers Free plan: 30 million queried and 5 million stored vector dimensions per month.'
   limits:
     - 30 million queried vector dimensions per month
     - 5 million stored vector dimensions
+    - 100 indexes per account
+    - 1536 dimensions maximum per vector
   caveats:
     - 'Dimensions count vectors times their size, so a 768-dimension model uses them fast'
+    - Each query counts the queried vectors plus the stored vectors times the dimensions
+    - The pricing page does not say what happens when a Free plan allowance runs out
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Semantic search in a Worker
-  - RAG with Workers AI
+  - Semantic search over documents
+  - RAG with Workers AI embeddings
+  - Recommendations based on similar items
+  - Filtering vector results by metadata
+  - Keeping per-user vectors in separate namespaces
 quickstartSteps:
-  - Create an index with wrangler vectorize create.
-  - Bind it to your Worker.
-  - Insert and query vectors.
-whenToUse: Use with Workers and Workers AI for small RAG apps.
-whenNotToUse: Avoid for large indexes on the free plan.
+  - Sign up for a Cloudflare account and install Node.js.
+  - 'Create a Worker project with `npm create cloudflare@latest`.'
+  - 'Create an index with `npx wrangler vectorize create <name> --dimensions=<n> --metric=<metric>`, choosing the vector size and the distance metric.'
+  - Bind the index to your Worker in the Wrangler configuration file.
+  - Insert vectors from your Worker and query them for the closest matches.
+whenToUse: >-
+  Use it with Workers and Workers AI for small RAG or semantic search apps
+  where the free dimension allowance is enough.
+whenNotToUse: >-
+  Skip it for large indexes on the free plan, and for apps that do not run on
+  or near Cloudflare. A vector size of 1536 dimensions is the maximum.
 bestFor:
   - RAG on Workers
+  - small semantic search
+  - prototypes
 avoidIf:
-  - large vector sets
+  - You need a very large vector set on the free plan
+  - You need vectors bigger than 1536 dimensions
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://developers.cloudflare.com/vectorize/'
 docsUrl: 'https://developers.cloudflare.com/vectorize/'
 sourceUrls:
   - 'https://developers.cloudflare.com/vectorize/platform/pricing/'
+  - 'https://developers.cloudflare.com/vectorize/'
+  - 'https://developers.cloudflare.com/vectorize/platform/limits/'
+  - 'https://developers.cloudflare.com/vectorize/get-started/intro/'
 pricingUrl: 'https://developers.cloudflare.com/vectorize/platform/pricing/'
 featured: false
 changes:
@@ -58,4 +83,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Vectorize is included in the Workers Free plan with a fixed monthly allowance.
+You create and manage indexes with the Wrangler CLI and call them from a Worker through a binding. It suits developers who add semantic search or RAG to a Cloudflare app.
+
+## What the free plan gives you
+
+Vectorize is included in the Workers Free plan. You get 30 million queried vector dimensions per month and 5 million stored vector dimensions. A dimension count is vectors times their size. For example, 10,000 vectors of 768 dimensions use 7.68 million stored dimensions, which is over the stored allowance.
+
+Empty indexes do not count as stored dimensions. A free account can have 100 indexes, and each index can hold up to 1000 namespaces. Each vector can have up to 1536 dimensions. A single index can hold up to 20,000,000 vectors, though the stored dimension allowance on the Free plan is reached much sooner.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use up the Free plan allowance. It says only that the Free plan will always let you prototype with Vectorize for free. It shows billing rules for the Workers Paid plan, which includes more and charges per million dimensions beyond that.
+
+Watch your totals: each query adds the queried vectors plus the stored vectors, multiplied by the dimensions. A small index with a small embedding model fits the free plan best.
+
+## Gotchas
+
+- Dimensions count vectors multiplied by their size, so large embedding models use the allowance quickly.
+- Each query counts the queried vectors plus the stored vectors, times the dimensions.
+- Vectorize V2 needs Wrangler 3.71.0 or later, and older V1 indexes are deprecated.
+
+## Alternatives in this atlas
+
+- [Upstash Vector](/services/upstash-vector/): when you want a vector database that does not need Cloudflare Workers.
+- [Couchbase Capella](/services/couchbase-capella/): when you want a document database with vector search.
+- [Pinecone](/services/pinecone/): when you want a dedicated vector database service with its own free plan.
+
+## Questions people ask
+
+### Is Cloudflare Vectorize free?
+
+Yes, on the Workers Free plan. It includes 30 million queried vector dimensions per month and 5 million stored vector dimensions.
+
+### How do vector dimensions count against the Vectorize free tier?
+
+Stored dimensions equal your vectors times their size. Queried dimensions equal the queried plus stored vectors times their size, so 10,000 vectors of 768 dimensions use 7.68 million stored dimensions.
+
+### Will Cloudflare Vectorize always have a free tier?
+
+Cloudflare says the Workers free tier will always include the ability to prototype and experiment with Vectorize for free.

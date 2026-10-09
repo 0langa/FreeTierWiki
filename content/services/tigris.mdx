@@ -1,6 +1,9 @@
 ---
 title: Tigris
-description: 'Globally distributed, S3-compatible object storage with no egress fees.'
+description: >-
+  Tigris is object storage with an S3 API that places your data close to where
+  it is read, with no egress fees. It suits developers who serve files to users
+  in many regions.
 provider: Tigris Data
 category: storage
 domain: storage
@@ -12,48 +15,66 @@ audiences:
   - indie
   - startup
 tags:
-  - storage
-  - cdn
-  - cloud
+  - object storage
+  - s3 compatible
+  - no egress fees
+  - global storage
+  - bucket
+  - file hosting
 pricingModel: freemium
 freeTierDetails:
-  summary: '5 GB of storage free, and no egress fees.'
+  summary: 'Free tier: 5 GB of Standard storage, 10,000 Class A requests, and 100,000 Class B requests per month, with no egress fees and no card to start.'
   limits:
-    - 5 GB storage
+    - 5 GB Standard storage per month
+    - '10,000 Class A requests per month (PUT, COPY, POST, LIST)'
+    - '100,000 Class B requests per month (GET and others)'
     - No egress fees
   caveats:
-    - 'Requests are billed per 1,000 (Class A and B)'
-    - Storage past 5 GB is billed
+    - Storage past 5 GB and requests past the free amounts are billed
+    - The free storage allowance covers the Standard tier
+    - Infrequent Access and Archive tiers have a minimum storage duration charge
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Store user uploads
-  - Serve files worldwide
-  - S3 replacement for small apps
+  - Storing user uploads for an app
+  - Serving files to users around the world
+  - Replacing S3 in a small app by changing the endpoint and keys
+  - Keeping app data from TypeScript or Go with the Tigris SDK
 quickstartSteps:
-  - Sign up at console.tigris.dev.
-  - Create a bucket and access keys.
-  - Use any S3 SDK with the Tigris endpoint.
-whenToUse: Use when you want S3-compatible storage without egress costs.
-whenNotToUse: Avoid if you need many requests at no cost.
+  - Sign in to the Tigris console and create a bucket. No card is needed to start.
+  - Create an access key pair, which gives you an ID starting with tid and a secret starting with tsec.
+  - Point an S3 tool at https://t3.storage.dev by setting AWS_ENDPOINT_URL and the two key variables.
+  - Run a command such as aws s3 cp file.bin s3://my-bucket/ to upload.
+  - Or install the SDK with npm install @tigrisdata/storage, or the CLI with npm install -g @tigrisdata/cli.
+whenToUse: >-
+  Use it when you want S3-compatible storage with no egress costs and fast
+  reads from many regions.
+whenNotToUse: >-
+  Avoid it if you make many requests every month and want them free, or if you
+  need a hard spending cap.
 bestFor:
   - file storage
   - global apps
+  - S3 migrations
 avoidIf:
   - request-heavy workloads
+  - you need a hard spending cap
+  - you need free archive storage
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 7
 officialUrl: 'https://www.tigrisdata.com'
 docsUrl: 'https://www.tigrisdata.com/docs/'
 sourceUrls:
   - 'https://www.tigrisdata.com/pricing/'
+  - 'https://www.tigrisdata.com/docs/'
+  - 'https://www.tigrisdata.com/docs/get-started/'
 pricingUrl: 'https://www.tigrisdata.com/pricing/'
 featured: false
 changes:
@@ -61,4 +82,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Tigris charges nothing for egress, which keeps download-heavy apps cheap.
+You use Tigris through any S3 client, the Tigris SDK for TypeScript and Go, or the Tigris CLI. It spreads and moves your data on its own, so you do not set up replication or caching.
+
+## What the free plan gives you
+
+The free tier needs no card to start. Each month you get 5 GB of Standard storage, 10,000 Class A requests, and 100,000 Class B requests. Class A requests are writes and lists such as PUT, COPY, POST, and LIST. Class B requests are reads such as GET.
+
+Egress is free on every tier. DELETE and CANCEL requests are free too, and Tigris does not charge for unauthorized requests to your buckets.
+
+The allowance resets each month and applies before anything is metered. Storage is measured in GB per month, averaged from the daily peak over the billing period.
+
+## When you hit a limit
+
+Tigris does not stop you at the free amounts. Storage past 5 GB and requests past the free amounts are billed. Standard storage costs $0.02 per GB per month. Class A requests cost $0.005 per 1,000, and Class B requests cost $0.0005 per 1,000.
+
+The pricing page lists cheaper tiers. Infrequent Access costs $0.01 per GB per month with a data retrieval fee of $0.01 per GB. Archive tiers cost $0.004 per GB per month. Objects in those tiers carry a minimum storage duration charge.
+
+## Gotchas
+
+- The free allowance is for the Standard tier. Moving data to a colder tier adds retrieval fees and a minimum storage duration.
+- Request counts add up quickly for apps that list buckets or fetch many small files. The free amounts are small.
+- Object notifications cost $0.01 per 1,000 events.
+
+## Alternatives in this atlas
+
+- [Cloudflare R2](/services/cloudflare-r2/): when you want a larger free request allowance and no egress fees, and can add a card.
+- [Backblaze B2](/services/backblaze-b2/): when you want cheap storage with free egress up to a multiple of what you store.
+- [Filebase](/services/filebase/): when you also want IPFS pinning with S3 storage.
+
+## Questions people ask
+
+### Is Tigris free?
+
+Within limits. Each month includes 5 GB of Standard storage, 10,000 Class A requests, and 100,000 Class B requests. Egress is always free.
+
+### Does Tigris charge for egress?
+
+No. Tigris lists egress as free on every storage tier.
+
+### Does Tigris need a credit card?
+
+Not to start. The pricing page says there is no card to start, and the free allowance applies before anything is metered.

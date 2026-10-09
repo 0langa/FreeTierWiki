@@ -1,8 +1,8 @@
 ---
 title: Appveyor
 description: >-
-  Appveyor provides cloud-based continuous integration and deployment for
-  Windows, Linux, and macOS projects.
+  AppVeyor builds, tests, and deploys code on Windows, Linux, and macOS build
+  machines. It suits open-source maintainers and .NET teams who want hosted CI.
 provider: Appveyor
 category: devops
 domain: devops
@@ -18,7 +18,10 @@ audiences:
   - team
 tags:
   - ci-cd
-  - ux-ui
+  - continuous integration
+  - windows build
+  - dotnet
+  - open source
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -34,38 +37,42 @@ freeTierDetails:
     - Free plan is for public/open-source projects only; private projects
       require a paid plan starting at $29/month.
     - Community support only on the free plan.
+    - All plans have a 60-minute limit per build job; the page says to contact AppVeyor for longer builds.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated testing for open source projects
-  - CI/CD for Windows-based applications
-  - Cross-platform build automation
+  - Run tests on every push to a public open-source repository
+  - Build and package Windows and .NET applications
+  - Build on Linux or macOS images as well as Windows
+  - Run builds on your own machines with self-hosted jobs
 quickstartSteps:
-  - Sign up for an Appveyor account.
-  - 'Connect your GitHub, Bitbucket, or GitLab repository.'
-  - Add an appveyor.yml configuration file to your project.
-  - Trigger a build by pushing code to your repository.
-  - Review build results and artifacts in the Appveyor dashboard.
+  - Click Create your FREE account on appveyor.com.
+  - Add a project from your repository in the AppVeyor dashboard.
+  - Put an `appveyor.yml` file in the root of the repository. At minimum it can be an empty file.
+  - Push a commit. Every push starts a new build with an incremented build number.
+  - Read the build log and artifacts in the dashboard, and add build, test, and deploy sections to `appveyor.yml` as you need them.
 whenToUse: >-
-  Use Appveyor for CI/CD pipelines, especially if you need Windows build
-  environments or support for open source projects.
+  Use it to build and test a public project on Windows, Linux, or macOS, when
+  one build job at a time is enough.
 whenNotToUse: >-
-  Avoid if you need to build private repositories, since the free plan only
-  covers public/open-source projects.
+  Skip it for private repositories on the free plan, because the Open-source
+  plan covers public projects only. Skip it if you need more than one job at
+  once or builds longer than 60 minutes.
 bestFor:
-  - open source projects
-  - Windows builds
-  - small teams
+  - public open-source projects
+  - Windows and .NET builds
+  - projects that run one build at a time
 avoidIf:
-  - need high concurrency
-  - require advanced deployment automation
+  - your repository is private
+  - you need more than 1 concurrent job
+  - a build job runs longer than 60 minutes
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.appveyor.com/'
@@ -73,7 +80,46 @@ docsUrl: 'https://www.appveyor.com/docs/'
 sourceUrls:
   - 'https://www.appveyor.com/pricing/'
   - 'https://www.appveyor.com/docs/'
+  - 'https://www.appveyor.com/docs/build-configuration/'
 pricingUrl: 'https://www.appveyor.com/pricing/'
 featured: false
 ---
-Appveyor offers free continuous integration for public, open-source repositories, making it ideal for OSS and Windows-centric projects; private repositories need a paid plan.
+You set up a project in the web dashboard and describe the build in an `appveyor.yml` file or in the dashboard UI. Self-hosted AppVeyor and self-hosted build jobs are also on offer.
+
+## What the free plan gives you
+
+The Open-source plan is free. It covers unlimited public projects with 1 concurrent job and 5 self-hosted jobs, and it comes with community support. Private projects are not part of it.
+
+All plans have a quota of 60 minutes per build job. If a build needs longer, the pricing page tells you to contact AppVeyor. The FAQ explains that every push starts a build with one or more jobs. With only 1 concurrent job, a job that arrives while another is running waits in a queue until the first one finishes.
+
+## When you hit a limit
+
+On the free plan, extra jobs do not fail. They queue behind the running job. The pricing page lists extra concurrent jobs at $50 per month, or $25 per month for open-source plans, and extra self-hosted jobs at $10 per month in packs of 5, or $5 per month for open-source plans.
+
+The page does not describe what happens to a job that runs past 60 minutes. It says only that every plan has that quota. It also offers a 50% discount on all plans for students, educational organizations, and open-source projects that want more compute or concurrent jobs.
+
+## Gotchas
+
+- The free plan is for public repositories only. Private projects start with the Basic plan at $29 per month.
+- Builds run one at a time, so a busy repository will queue jobs.
+- If you keep an `appveyor.yml` in the repository, it overrides settings you made in the UI unless you tell AppVeyor to ignore it.
+
+## Alternatives in this atlas
+
+- [Bitbucket](/services/bitbucket/): when your code lives on Bitbucket and you want its built-in pipelines.
+- [GitLab CI/CD](/services/gitlab-ci-cd/): when you want CI that sits next to your repository.
+- [CircleCI](/tools/circleci/): when you want a general hosted CI service outside the Windows focus.
+
+## Questions people ask
+
+### Is AppVeyor free?
+
+Yes, for public projects. The Open-source plan has unlimited public projects, 1 concurrent job, and 5 self-hosted jobs. Private projects need a paid plan that starts at $29 per month.
+
+### Does AppVeyor need a credit card?
+
+The pricing page says the 14-day trial of the paid plans needs no credit card. It does not mention a card for the free Open-source plan.
+
+### What happens when I run more than one AppVeyor job at a time?
+
+On the free plan, extra jobs wait in a queue until the running job finishes. More concurrent jobs cost extra.

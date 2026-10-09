@@ -1,6 +1,9 @@
 ---
 title: Appwrite Cloud
-description: An open-source backend platform with auth, databases, storage, functions, messaging, and site hosting.
+description: >-
+  Appwrite is an open-source backend with sign-in, databases, file storage,
+  serverless functions, realtime, and messaging in one console. It is for
+  developers who want a ready-made backend for web and mobile apps.
 provider: Appwrite
 category: database
 domain: database
@@ -20,6 +23,10 @@ tags:
   - auth
   - storage
   - open-source
+  - backend as a service
+  - firebase alternative
+  - realtime
+  - serverless functions
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -33,46 +40,55 @@ freeTierDetails:
     - '750,000 executions/month, 100 GB-hours compute/month'
     - '500,000 database reads and 250,000 writes/month'
     - 1 database, 1 bucket, and 2 functions per project
+    - 2 million realtime messages/month, 250 concurrent connections
   caveats:
     - Free projects pause after 1 week of inactivity
     - At a limit the project freezes and the console turns read-only until the next cycle or an upgrade
-    - No backups and 1 organization member on the free plan
+    - No backups, 1 organization member, and logs kept for 1 hour on the free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Backend for a side project or prototype
-  - Add sign-up and login to a web or mobile app
-  - Store user files and run small server functions
+  - Sign-up and login for a web or mobile app
+  - Storing user documents in a database with queries and permissions
+  - Uploading and serving user files from a storage bucket
+  - Running small server functions on events or a schedule
+  - Live updates in the app with realtime subscriptions
 quickstartSteps:
-  - Sign up at cloud.appwrite.io and create a project.
-  - Add a web or mobile platform to the project.
-  - Install the Appwrite SDK for your framework.
-  - Connect with your project ID and endpoint, then add auth or a database.
+  - Open cloud.appwrite.io, create an account, and create your first project in the Appwrite Console.
+  - Under Add a platform, add a Web app (or a mobile platform) and set the hostname to `localhost` for local work.
+  - Copy the project ID from the project Settings page and note your regional endpoint.
+  - Install the SDK for your framework, for example `npm install appwrite` for the Web SDK.
+  - Put the endpoint and project ID in your app config and make a first call, such as creating a user account.
 whenToUse: >-
-  Use Appwrite when you want one open-source backend for auth, data, files, and functions, with a
-  free plan that stops at its limits instead of billing.
+  Use Appwrite when you want one open-source backend for auth, data, files, and
+  functions on a free plan that freezes at its limits instead of billing you.
 whenNotToUse: >-
-  Avoid for apps that must stay online without traffic for a week, or that need backups or more
-  than 2 projects on the free plan.
+  Skip it for apps that must stay online through a week without traffic, or
+  that need backups, more than 2 projects, or a team of members on the free plan.
 bestFor:
-  - prototyping
-  - side projects
-  - mobile apps
+  - prototypes and side projects
+  - mobile and web apps that need auth and a database
+  - developers who may want to self-host later
 avoidIf:
-  - always-on production apps on the free plan
+  - the app sits idle for a week at a time
+  - you need backups on the free plan
+  - you need more than 2 projects
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-02'
-lastVerified: '2026-10-02'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://appwrite.io/'
 docsUrl: 'https://appwrite.io/docs'
 sourceUrls:
   - 'https://appwrite.io/pricing'
+  - 'https://appwrite.io/docs'
+  - 'https://appwrite.io/docs/quick-starts/react'
+  - 'https://appwrite.io/docs/advanced/platform/billing'
 pricingUrl: 'https://appwrite.io/pricing'
 featured: false
 changes:
@@ -80,4 +96,40 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Appwrite is an open-source backend you can self-host or use as Appwrite Cloud. The Cloud free plan covers auth, databases, storage, functions, realtime, and messaging for small projects, and freezes a project at its limits instead of billing.
+You work in the Appwrite Console and call your project through client SDKs or its REST and GraphQL APIs. You can also self-host the open-source version. This page covers the Cloud Free plan.
+
+## What the free plan gives you
+
+The Free plan costs $0. You get 2 projects on shared resources, with 1 database, 1 bucket, and 2 functions in each. Auth covers 75,000 monthly active users. Storage is 2 GB with a 50 MB file size limit, and API bandwidth is 5 GB per month. Functions get 750,000 executions and 100 GB-hours per month. The database allows 500,000 reads and 250,000 writes per month. Realtime allows 250 concurrent connections and 2 million messages. Messaging allows 1,000 messages per month. Your organization has 1 member, and logs are kept for 1 hour.
+
+## When you hit a limit
+
+The Free plan does not bill you. If you reach a resource limit, your project freezes and the Console keeps running in read-only mode. You can upgrade to Pro, remove resources that exceed the limit, or wait for the next billing cycle, which resets usage. Pro starts at $25 per month.
+
+Free projects are also paused after 1 week of inactivity.
+
+## Gotchas
+
+- Free projects are paused after 1 week of inactivity, and you can run only 2 of them.
+- The Free plan has no backups, and the organization has a single member.
+- Each project has 1 database, 1 bucket, and 2 functions, with a 15-minute build limit for functions.
+
+## Alternatives in this atlas
+
+- [Supabase](/services/supabase/): when you want a Postgres-based backend with auth and storage.
+- [Nhost](/services/nhost/): when you want Postgres with a GraphQL API plus auth and storage.
+- [Convex](/services/convex/): when you want a reactive backend where you write your data logic as functions.
+
+## Questions people ask
+
+### Is Appwrite free?
+
+Yes. The Appwrite Cloud Free plan costs $0 and has no end date, with limits on projects, users, storage, and usage. The open-source version is also free to self-host.
+
+### What happens when I go over the Appwrite free limits?
+
+Your project freezes and the Console turns read-only. You can upgrade to Pro, remove the resources over the limit, or wait for the next billing cycle.
+
+### Does Appwrite pause free projects?
+
+Yes. Free projects are paused after 1 week of inactivity. The pricing page limits free accounts to 2 projects.

@@ -1,6 +1,8 @@
 ---
 title: Amazon Cognito
-description: 'AWS user sign-up, sign-in, and access control for web and mobile apps.'
+description: >-
+  Amazon Cognito handles sign-up, sign-in, and access control for web and mobile
+  apps, and it can also protect APIs and hand out temporary AWS credentials.
 provider: Amazon Web Services
 category: auth
 domain: auth
@@ -17,7 +19,10 @@ audiences:
 tags:
   - auth
   - identity
-  - cloud
+  - user pools
+  - social login
+  - aws
+  - oauth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -28,39 +33,54 @@ freeTierDetails:
     - 50 MAU per month for SAML or OIDC federated users
     - Does not expire after 12 months
   caveats:
-    - An AWS account needs a card
+    - You need an AWS account; the Cognito pages do not describe a card-free option
     - No free tier for the Plus tier or for machine-to-machine tokens
     - Usage past the free amount is billed automatically
+    - No free tier pricing in the AWS GovCloud (US) Regions
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
 useCases:
-  - Sign-in for an app on AWS
-  - Social login with Google or Apple
-  - User pools for mobile apps
+  - Sign-in and sign-up for a web or mobile app that runs on AWS
+  - Social login with Google, Apple, or another identity provider
+  - Protecting your own API with access tokens, for example behind API Gateway
+  - Giving signed-in users temporary AWS credentials through an identity pool
+  - Enterprise sign-in through SAML or OIDC federation
 quickstartSteps:
-  - Open the Cognito console.
-  - Create a user pool on the Essentials or Lite tier.
-  - Use the managed login page or the Amplify libraries.
-whenToUse: Use when your app already runs on AWS and you want auth inside the same account.
-whenNotToUse: Avoid if you want a no-card free plan or simple setup.
+  - Create an AWS account.
+  - Open the Amazon Cognito console and choose Create user pool.
+  - Pick the Essentials or Lite tier and set up how users sign in, for example with email or a social provider.
+  - Create an app client, for example a traditional web application, and note its client ID.
+  - Use the managed login page, the AWS SDKs, or the Amplify libraries to sign users in from your app.
+whenToUse: >-
+  Use Cognito when your app already runs on AWS, you want users and tokens in the
+  same account as the rest of your stack, and you are fine with a card on file (the pricing page does not describe a card-free option).
+whenNotToUse: >-
+  Avoid it if you want a free plan with no card, a quick setup with little AWS
+  knowledge, or a free path for machine-to-machine tokens.
 bestFor:
-  - AWS apps
+  - apps already on AWS
+  - social login for consumer apps
+  - APIs behind API Gateway
 avoidIf:
   - no-card projects
-  - SAML-heavy B2B on free
+  - machine-to-machine token use on the free tier
+  - SAML-heavy B2B on the free tier
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cognito/'
 docsUrl: 'https://docs.aws.amazon.com/cognito/'
 sourceUrls:
   - 'https://aws.amazon.com/cognito/pricing/'
+  - 'https://aws.amazon.com/cognito/'
+  - 'https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html'
+  - 'https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-user-pools.html'
 pricingUrl: 'https://aws.amazon.com/cognito/pricing/'
 featured: false
 changes:
@@ -68,4 +88,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Unlike most AWS services, Cognito keeps a free amount that does not end after the first year.
+You set up user pools in the AWS console, then call Cognito through its managed login page, the AWS SDKs, or the Amplify libraries. It suits teams that already build on AWS.
+
+## What the free plan gives you
+
+Cognito has a free tier on the Essentials and Lite pricing tiers. It does not end after the first 12 months of an AWS account, and it covers both new and existing customers. Users who sign in directly or through a social identity provider get 10,000 monthly active users (MAU) free per month. The limit applies per account or per AWS organization.
+
+Users who come in through a SAML 2.0 or OpenID Connect provider get 50 MAU free per month, whatever tier you pick. Identity pools, which hand out unique IDs and temporary AWS credentials, cost nothing. The free tier is not available in the AWS GovCloud (US) Regions.
+
+## When you hit a limit
+
+Nothing stops at the limit. Cognito bills every MAU above the free amount, so a busy month turns into a charge on your AWS bill. The pricing page shows a rate per MAU that drops as your user count grows. For SAML or OIDC users above the 50 MAU free tier, the price is $0.015 per MAU.
+
+The Plus tier has no free tier at all. Machine-to-machine token requests have no free tier either. Because there is no hard cap, watch your MAU count and set up an AWS billing alert before you launch.
+
+## Gotchas
+
+- The free tier covers only the Lite and Essentials tiers. A user pool on Plus is billed from the first user.
+- Machine-to-machine token requests have no free tier, so a service that fetches many tokens costs money from the start.
+- Enterprise users from SAML or OIDC providers get only 50 free MAU. A B2B app with many such users pays quickly.
+
+## Alternatives in this atlas
+
+- [Supabase Auth](/services/supabase-auth/): when you want sign-in without an AWS account or a card.
+- [Firebase Auth](/services/firebase-auth/): when your app is mobile first and you want a simpler SDK setup.
+- [Auth0](/services/auth0/): when you want a hosted login with no card and more B2B features.
+
+## Questions people ask
+
+### Is Amazon Cognito free?
+
+Partly. The Lite and Essentials tiers include 10,000 MAU free each month, and the free tier does not expire after the first 12 months. You pay for every MAU above that.
+
+### Does Amazon Cognito need a credit card?
+
+You need an AWS account to use Cognito. The Cognito pricing page does not say whether a card is required and does not describe a card-free option, so plan for a card.
+
+### What happens when I go over the Cognito free tier?
+
+Cognito keeps working and bills the extra MAU at the per-user rate on the pricing page. There is no hard cap, so monitor your usage.

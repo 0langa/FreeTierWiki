@@ -1,8 +1,8 @@
 ---
 title: Bugsnag
 description: >-
-  Bugsnag provides real-time error monitoring and alerting for applications
-  across multiple platforms.
+  BugSnag reports crashes and errors from mobile, web, desktop, and server apps
+  and tracks app performance, with a stability score for each release.
 provider: Bugsnag
 category: observability
 domain: observability
@@ -16,8 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - observability
+  - error-monitoring
+  - crash-reporting
+  - mobile
+  - performance
+  - exceptions
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -30,40 +33,43 @@ freeTierDetails:
     - Unlimited projects
     - 1 user
   caveats:
-    - No advanced workflow integrations (automatic error assignment, etc.)
+    - Automatic error prioritization and assignment are on higher plans
     - Basic notifications only; priority support requires a paid plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Track and resolve application errors
-  - Monitor crash rates in production
-  - Receive real-time alerts for new issues
+  - Find out about crashes and unhandled exceptions in production
+  - Check whether a release introduces new bugs
+  - Track app start and screen load times
+  - Send alerts when a new error appears
 quickstartSteps:
-  - Sign up for a free Bugsnag account.
-  - Create a new project for your application.
-  - Install the Bugsnag SDK in your app using the provided instructions.
-  - Configure your API key in your application.
-  - Deploy your app and verify error reporting in the Bugsnag dashboard.
+  - Sign up at bugsnag.com; the docs call the first step a free trial, so check you end up on the Free plan.
+  - Create a project for the app you want to monitor on your dashboard.
+  - Copy the 32-character project API key that BugSnag generates.
+  - Follow the installation instructions in the integration guide for your platform, such as `@bugsnag/js` for JavaScript.
+  - Initialize BugSnag in your app by setting your project API key.
+  - Check the dashboard for crashes and unhandled exceptions.
 whenToUse: >-
-  Use Bugsnag when you need simple, real-time error monitoring and alerting for
-  a solo project or small application.
+  Use BugSnag when you are the only developer and want crash and error
+  reports from a small app, with performance data on the side.
 whenNotToUse: >-
-  Avoid if you require advanced workflow integrations, longer data retention,
-  or higher event/span volumes without upgrading.
+  Avoid it if more than one person needs a login, you need more than 7 days of
+  retention, or you expect more than 7.5K events a month on the free plan.
 bestFor:
-  - indie
-  - startup
-  - oss
+  - solo developers
+  - passion projects
+  - small mobile or web apps
 avoidIf:
-  - enterprise
-  - agency
+  - more than 1 user
+  - retention longer than 7 days
+  - high event volumes
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.bugsnag.com/'
@@ -72,6 +78,45 @@ pricingUrl: 'https://www.bugsnag.com/pricing/'
 sourceUrls:
   - 'https://www.bugsnag.com/pricing/'
   - 'https://docs.bugsnag.com/'
+  - 'https://docs.bugsnag.com/product/getting-started/'
 featured: false
 ---
-Bugsnag offers a free tier with 7,500 events and 1M spans per month, 7-day retention, and unlimited projects, ideal for small projects and early-stage apps.
+You create a project in the BugSnag dashboard, add a notifier library for your platform, and set the project API key in your app. BugSnag then reports crashes and unhandled exceptions to the dashboard. It suits solo developers with a small app.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and is for solo users and their passion projects. It includes 7.5K events and 1M spans per month, for 1 user. An event is an unhandled exception or crash, or any handled exception that you choose to report. You can create an unlimited number of projects.
+
+The plan covers error and performance monitoring on 50+ platforms, 30+ third-party integrations, and basic notifications. The free tier keeps event data for 7 days. Paid plans keep it for longer, such as 60 days on one plan.
+
+## When you hit a limit
+
+The pricing page lists a question about going over your event quota, but the fetched page does not show the answer. Check that FAQ before you send a large volume of errors.
+
+The home page says BugSnag uses dynamic sampling and burst protection so you do not exceed quotas or get surprise bills. The Free plan has no card listed on the page, so treat surprise charges as unlikely.
+
+## Gotchas
+
+- The Free plan has only 1 user. Unlimited users start on the next plan up.
+- Automatic error assignment and automatic error prioritization are not on Free.
+- The getting started guide says to sign up for a free trial, so confirm in the sign-up flow that you land on the Free plan.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you want another widely used error tracker to compare.
+- [Rollbar.com](/services/rollbar-com/): when you need error tracking for a small team.
+- [Bugfender](/services/bugfender/): when you mainly need remote logs from mobile devices.
+
+## Questions people ask
+
+### Is Bugsnag free?
+
+Yes, there is a Free plan for solo users. It includes 7.5K events and 1M spans per month and unlimited projects.
+
+### How long does Bugsnag keep data on the free plan?
+
+The pricing page says the Free tier includes 7 days of data retention.
+
+### Does Bugsnag need a credit card for the free plan?
+
+The pricing page does not say. The entry lists no card as required.

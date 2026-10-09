@@ -1,8 +1,9 @@
 ---
 title: Netlify
 description: >-
-  Netlify offers fast, automated deployment and hosting for static sites and
-  frontend frameworks with integrated CI/CD and serverless functions.
+  Netlify builds and hosts websites and web apps from a Git repository, with
+  deploy previews, serverless functions, and a global CDN, for front-end
+  developers and small teams.
 provider: Netlify
 category: hosting
 domain: hosting
@@ -17,10 +18,12 @@ audiences:
   - team
   - oss
 tags:
-  - web
+  - static-site-hosting
+  - jamstack
   - ci-cd
-  - serverless
-  - frontend
+  - serverless-functions
+  - deploy-previews
+  - cdn
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -33,10 +36,11 @@ freeTierDetails:
     - 10 credits per GB-hour of compute (functions, database)
     - 20 credits per GB of bandwidth
     - 2 credits per 10,000 web requests
-    - 1 team member (unlimited Git contributors on public repos)
+    - No extra team members on the Free plan
   caveats:
     - Unlimited deploy previews and branch deploys do not count toward the credit limit
     - Hard monthly limit; the free plan cannot go over 300 credits or incur costs
+    - When credits run out, every project on the team is paused until the next billing cycle or an upgrade
     - Accounts created before September 4, 2025 can keep their previous plan
   resetPeriod: monthly
   requiresCard: false
@@ -44,22 +48,23 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Deploying static websites
-  - Hosting frontend frameworks
-  - Automating site builds from Git
-  - Running lightweight serverless functions
+  - Deploy a static site or landing page from GitHub
+  - Host a front-end framework app with automatic builds on every push
+  - Share deploy previews of a branch with reviewers
+  - Run small serverless functions next to a front end
 quickstartSteps:
-  - Sign up for a free Netlify account.
-  - 'Connect your GitHub, GitLab, or Bitbucket repository.'
-  - Select the repository to deploy and configure build settings.
-  - Deploy your site and access it via the generated Netlify URL.
-  - 'Optionally, add a custom domain and configure serverless functions.'
+  - Sign up for a Netlify account.
+  - In your team dashboard, select Add new project, then Import an existing project.
+  - Choose your Git provider and approve the access prompts.
+  - Keep the default build settings, which detect your framework, and confirm with Publish.
+  - New teams start with private projects; make the project public when you are ready, then optionally add a custom domain.
 whenToUse: >-
-  Use Netlify for fast deployment and hosting of static sites or frontend apps
-  with simple CI/CD and serverless needs.
+  Use Netlify to deploy a static site or front-end app from Git with previews,
+  functions, and little setup.
 whenNotToUse: >-
-  Avoid if you need backend databases, complex server-side logic, or require
-  advanced enterprise features.
+  Avoid it if your traffic could use up 300 credits and you cannot accept
+  paused sites, if you need a long-running backend, or if you need more than
+  one team member on the free plan.
 bestFor:
   - static-sites
   - personal-projects
@@ -71,17 +76,18 @@ avoidIf:
   - enterprise-compliance
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://netlify.com/'
 docsUrl: 'https://docs.netlify.com/'
 sourceUrls:
   - 'https://www.netlify.com/pricing/'
-  - 'https://docs.netlify.com/'
+  - 'https://docs.netlify.com/start/quickstarts/deploy-from-repository'
+  - 'https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/billing-faq-for-credit-based-plans'
 featured: false
 status: changed
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.netlify.com/pricing/'
 changes:
   - date: 2025-09-04
@@ -90,4 +96,42 @@ changes:
       Netlify replaced its old bandwidth/build-minutes/function-invocation
       quotas with a unified 300-credits-per-month free plan.
 ---
-Netlify provides a streamlined workflow for deploying static sites and frontend applications, integrating continuous deployment, serverless functions, and custom domains in a user-friendly platform.
+You connect a Git repository from the dashboard, and Netlify builds and publishes it on every push. It also offers a command-line tool and an API, and it suits people who want fast front-end deploys without running servers.
+
+## What the free plan gives you
+
+The Free plan costs $0 and has a limit of 300 credits per month. One pool of credits pays for everything. A production deploy costs 15 credits. Compute costs 10 credits per GB-hour, which covers serverless functions and Netlify Database. Bandwidth costs 20 credits per GB, and web requests cost 2 credits per 10,000.
+
+Deploy previews and branch deploys are unlimited and do not use credits. The plan includes a global CDN, Blob storage for files and images, and basic firewall rate limiting. On new credit-based accounts, projects start private and become public only when you choose to publish them.
+
+## When you hit a limit
+
+When the monthly credits are used up, Netlify pauses all web projects on your team. Visitors see a "Site not available" page. A paused project receives no new web requests or form submissions, and you cannot start a new production deploy.
+
+On the Free plan, the credit amount is fixed. You can wait for the next billing cycle, or upgrade to a paid plan. The credits reset each cycle. You are not billed for going over, because the plan stops instead.
+
+## Gotchas
+
+- One busy day can use credits fast. Bandwidth at 20 credits per GB means that 15 GB would use all 300 credits.
+- Accounts created before September 4, 2025 are on a legacy plan. New accounts use the credit-based plans.
+- A Free plan or Personal plan cannot add extra team member seats. Reviewer roles are free on any plan.
+
+## Alternatives in this atlas
+
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want static hosting without a credit pool for bandwidth.
+- [GitHub Pages](/services/github-pages/): when your site is plain static files in a public repository.
+- [Vercel](/services/vercel/): when you build with Next.js and want the same Git-based flow.
+
+## Questions people ask
+
+### Is Netlify free?
+
+Yes. The Free plan costs $0 forever and gives you 300 credits per month. The pricing page does not mention a card for it.
+
+### What happens when I go over the Netlify free limit?
+
+Your web projects are paused until the next billing cycle, or until you upgrade. Visitors see a "Site not available" page, and you cannot publish new deploys. Netlify does not bill you for the overage.
+
+### Does Netlify need a credit card?
+
+The pricing page lists the Free plan at $0 forever and does not mention a card for it. Netlify says it takes credit cards for paid plans unless you are on Enterprise.

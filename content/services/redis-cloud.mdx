@@ -1,8 +1,8 @@
 ---
 title: Redis Cloud
 description: >-
-  Fully managed Redis service offering scalable in-memory data storage and
-  caching with a generous always-free tier.
+  Redis Cloud is a managed Redis service for caching, sessions, and fast
+  key-value data. The Free plan gives one small database for learning and prototypes.
 provider: Redis
 category: database
 domain: database
@@ -17,61 +17,112 @@ audiences:
   - team
   - oss
 tags:
+  - redis
+  - cache
+  - key-value
+  - in-memory database
+  - session storage
   - database
 pricingModel: freemium
 freeTierDetails:
-  summary: Always-free tier with up to 30 MB storage on a shared cloud deployment.
+  summary: >-
+    The Free plan costs $0 and gives one 30 MB database on a shared cloud
+    deployment with up to 30 concurrent connections. It comes with a best-effort
+    SLA and community support.
   limits:
-    - Up to 30 MB storage
-    - Single database, shared cloud deployment
-    - Best-effort SLA, community support
+    - 30 MB of memory in a single database
+    - Up to 30 concurrent connections
+    - 1 free database per account
+    - Shared cloud deployment on AWS, Google Cloud, or Azure
+    - Best-effort SLA and community support
   caveats:
-    - No high availability or clustering
-    - Limited to one free database per account
+    - No replication or auto-failover on the Free plan
+    - Free plans have no REST API
+    - You must delete the free database or upgrade it before you can create another free one
+    - Upgrading to a paid plan needs a payment method
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Session storage
   - Application caching
-  - Leaderboard data
-  - Pub/sub messaging
+  - Session storage
+  - Leaderboards and counters
   - Rate limiting
+  - Learning Redis commands and data types
 quickstartSteps:
-  - Sign up for a Redis Cloud account.
-  - Create a new free database instance.
-  - Select your preferred cloud provider and region.
-  - Copy the database endpoint and credentials.
-  - Connect your application using a Redis client.
+  - Go to the Redis Cloud sign up page and sign up with Google or GitHub, or fill in the form and select Get Started.
+  - If you used the form, open the activation email from Redis and select Activate account.
+  - On the create database page the Free plan is already selected. Pick a database name, a database version, a cloud vendor, and a region, then select Create database.
+  - In the database's Security section, view the password for the user `default`, then select Connect.
+  - Connect with Redis Insight, the `redis-cli` utility, or a Redis client for your language.
 whenToUse: >-
-  Use when you need a managed, low-latency cache or key-value store for small
-  apps, prototypes, or learning purposes.
+  Use it when you want a managed Redis for learning, a cache in a small app, or
+  a prototype that needs only 30 MB.
 whenNotToUse: >-
-  Avoid if you require high availability, clustering, or need more than 30 MB
-  storage for production workloads.
+  Avoid it for production, for data larger than 30 MB, for apps that need
+  failover, or for apps with more than 30 simultaneous connections.
 bestFor:
-  - learning
-  - prototyping
-  - small apps
-  - caching
+  - learning Redis
+  - small caches
+  - prototypes
 avoidIf:
-  - large-scale production
-  - high availability required
-  - advanced Redis modules needed
+  - production traffic
+  - need high availability
+  - more than 30 connections
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://redis.io/'
 docsUrl: 'https://docs.redis.com/latest/rc/'
 sourceUrls:
   - 'https://redis.io/pricing/'
-  - 'https://redis.com/redis-enterprise-cloud/pricing/'
+  - 'https://redis.io/docs/latest/operate/rc/subscriptions/'
+  - 'https://redis.io/docs/latest/operate/rc/rc-quickstart/'
+  - 'https://redis.io/docs/latest/operate/rc/databases/create-database/create-free-database/'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://redis.io/pricing/'
 ---
-Redis Cloud provides a fully managed, always-free Redis database ideal for caching, session storage, and rapid prototyping with minimal setup.
+You manage the database in the Redis Cloud console and connect with Redis Insight, `redis-cli`, or a Redis client library. It suits students and developers who want a hosted Redis without installing anything.
+
+## What the free plan gives you
+
+The pricing page lists the Free plan as always $0, with up to 30 MB on a shared cloud deployment. You get a single database, with a best-effort SLA and community support. The docs add that the database allows 30 concurrent connections. You can choose AWS, Google Cloud, or Microsoft Azure as the cloud vendor.
+
+A free plan is a type of Essentials plan, built for training and prototyping. You can have only one free database per account. To create a new one, delete the old one or upgrade it to a paid Essentials plan. Upgrades keep your data, with no loss.
+
+## When you hit a limit
+
+The pages do not say what happens when you fill the 30 MB or pass the 30 connections. No page shows a charge for the Free plan.
+
+If you outgrow it, the paid Essentials plans start from $0.007 an hour, with a total of $5 a month, and range from 250 MB up. You need to add a payment method when you upgrade a free plan.
+
+## Gotchas
+
+- The Free plan allows only 30 concurrent connections. Use connection pooling in your client if your app opens many.
+- The free tier has no replication or auto-failover, so treat the data as disposable.
+- The Free plan has no REST API for managing the database. Use the console instead.
+
+## Alternatives in this atlas
+
+- [Upstash Redis](/services/upstash-redis/): when you want a serverless Redis with a monthly command allowance.
+- [Cloudflare Workers KV](/services/cloudflare-workers-kv/): when your code runs on Workers and you only need key-value lookups.
+- [Aiven](/services/aiven/): when you want a free managed Valkey, a Redis-compatible store.
+
+## Questions people ask
+
+### Is Redis Cloud free?
+
+Yes. The Free plan is always $0 and gives one 30 MB database on a shared cloud deployment. You can have only one free database per account.
+
+### Does Redis Cloud need a credit card?
+
+Not for the Free plan, based on the sign-up steps in the docs, which ask only for a Google or GitHub login or a form. You need a payment method if you upgrade to a paid plan.
+
+### How many connections does the Redis Cloud free plan allow?
+
+The docs list 30 concurrent connections for the free Essentials plan. Paid Essentials plans allow 256 or more.

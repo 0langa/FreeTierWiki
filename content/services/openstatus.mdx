@@ -1,6 +1,8 @@
 ---
 title: openstatus
-description: Open-source synthetic monitoring and status pages.
+description: >-
+  openstatus checks your websites and APIs on a schedule and publishes a public
+  status page. It is open source and aimed at developers and small teams.
 provider: openstatus
 category: observability
 domain: observability
@@ -14,6 +16,10 @@ audiences:
 tags:
   - monitoring
   - open-source
+  - uptime
+  - status-page
+  - synthetic-monitoring
+  - self-hosted
 pricingModel: freemium
 freeTierDetails:
   summary: 'Hobby plan is free: 1 monitor and 1 status page, checked every 10 minutes. No card needed.'
@@ -29,27 +35,44 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - A status page for one service
+  - Checking that one website or API is up
+  - Publishing a public status page for a side project
+  - Telling users about incidents with status reports
+  - Running synthetic checks from CI with GitHub Actions
+  - Self-hosting monitoring and a status page
 quickstartSteps:
-  - Sign up at openstatus.dev.
-  - Create a monitor.
-  - Publish a status page.
-whenToUse: Use for a single status page on a tiny project.
-whenNotToUse: Avoid if you need more than one monitor.
+  - 'Open the dashboard from the Get started free button on openstatus.dev and create your account.'
+  - 'Go to Monitors in the sidebar and click Create Monitor.'
+  - 'Enter a name and the full URL to check; openstatus starts tracking response time and status code at once.'
+  - 'Go to Status Pages in the sidebar and click Create Status Page; give it a title and a slug, which becomes your openstatus.dev subdomain.'
+  - 'Open the Components tab and add a component linked to your monitor, then open the page link to see its uptime bar.'
+whenToUse: >-
+  Use openstatus when you need one monitor and one small public status page for
+  a side project, or when you want an open source tool you can self-host.
+whenNotToUse: >-
+  Avoid it if you must watch more than one URL on the free plan, or need checks
+  more often than every 10 minutes. Those need the paid Starter plan.
 bestFor:
-  - single-service projects
+  - one-service side projects
+  - a simple public status page
+  - teams that want open source tooling
 avoidIf:
-  - many services
+  - you need many monitors on the free plan
+  - you need checks faster than every 10 minutes
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://www.openstatus.dev'
 docsUrl: 'https://docs.openstatus.dev'
 sourceUrls:
   - 'https://www.openstatus.dev/pricing'
+  - 'https://www.openstatus.dev'
+  - 'https://docs.openstatus.dev'
+  - 'https://docs.openstatus.dev/tutorial/create-your-first-monitor'
+  - 'https://docs.openstatus.dev/tutorial/create-your-first-status-page'
 pricingUrl: 'https://www.openstatus.dev/pricing'
 featured: false
 changes:
@@ -57,4 +80,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-openstatus is open source and can be self-hosted.
+You work in a web dashboard to create monitors and a status page. There is also a CLI, an API, a Terraform provider, and a self-hosting guide. It suits one developer or a small team with a single service to watch.
+
+## What the free plan gives you
+
+The Hobby plan is free and needs no credit card. It includes one monitor, one status page with three components, and a minimum check interval of 10 minutes. Every new workspace also starts with a 14-day trial of the Starter plan, which needs no card either.
+
+The paid Starter plan costs $30 per month. It adds 20 monitors, 1-minute checks, a custom domain, and subscribers. You can also run openstatus yourself, because it is open source under the AGPL-3.0 license.
+
+## When you hit a limit
+
+When the 14-day trial ends and you have not added a card, the workspace returns to the free Hobby plan. You are not billed.
+
+For plan limits, the pricing page says openstatus will never stop your monitors or status pages without notice. If you approach or exceed a limit, the team reaches out to help you pick the right plan. Extra status pages and monitor packs are paid add-ons, billed per unit as listed on the pricing page.
+
+## Gotchas
+
+- Hobby has one monitor and one status page, so a second service needs a paid plan or an add-on.
+- The 10-minute minimum check interval is slow for fast outage alerts. The Starter plan moves to 1-minute checks.
+- The home page lists a custom domain under Starter, not under Hobby. New status pages get a subdomain on openstatus.dev from the slug you choose.
+
+## Alternatives in this atlas
+
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want more free monitors and a status page together.
+- [Instatus](/services/instatus/): when your main need is a hosted status page with a few monitors.
+- [UptimeRobot](/services/uptimerobot/): when you want many free monitors and do not need open source.
+
+## Questions people ask
+
+### Is openstatus free?
+
+Yes. The Hobby plan is free with one monitor, one status page, and 10-minute checks. No credit card is required, and you can also self-host the open source code.
+
+### Does openstatus need a credit card?
+
+No. The Hobby plan and the 14-day Starter trial both start without a card. If you add no card by the end of the trial, the workspace goes back to Hobby.
+
+### What happens when I go over the openstatus free limits?
+
+The pricing page says openstatus will not stop your monitors or status pages without notice. It will contact you to choose a plan that fits.

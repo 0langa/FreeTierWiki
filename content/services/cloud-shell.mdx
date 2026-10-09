@@ -1,8 +1,8 @@
 ---
 title: Cloud Shell
 description: >-
-  Cloud Shell provides a browser-based command-line environment with
-  pre-installed tools for managing Google Cloud resources.
+  Cloud Shell gives you a command line in your browser, on a Google-run
+  virtual machine, for managing Google Cloud and running short scripts.
 provider: Google Cloud
 category: devops
 domain: devops
@@ -20,6 +20,9 @@ tags:
   - cli
   - cloud
   - automation
+  - terminal
+  - google-cloud
+  - browser-shell
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -30,43 +33,45 @@ freeTierDetails:
     - 5 GB persistent disk storage
     - Sessions capped at 12 hours
   caveats:
-    - Non-interactive sessions end after 40 minutes idle
-    - Storage is deleted after 120 days of inactivity
+    - Non-interactive sessions end after 40 minutes
+    - The virtual machine ends after 40 minutes of inactivity, and changes outside the home directory are lost
+    - The home directory is deleted after 120 days without access
+    - Interactive use only; the weekly quota blocks use until it resets
   resetPeriod: weekly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Managing Google Cloud resources
-  - Running CLI tools without local setup
-  - Quick prototyping and scripting
+  - Run gcloud commands against a project without installing anything locally
+  - Edit files and work with repositories from a browser tab
+  - Preview a web app from the Cloud Shell virtual machine
+  - Work on your Google Cloud project from a browser on another computer
 quickstartSteps:
-  - Sign in to your Google Cloud account.
-  - >-
-    Navigate to https://shell.cloud.google.com or click the Cloud Shell icon in
-    the console.
-  - Wait for the environment to initialize.
-  - Use the terminal to run gcloud commands or other pre-installed tools.
+  - Sign in to the Google Cloud console with a Google Cloud account.
+  - Click Activate Cloud Shell at the top of the console.
+  - Wait for the session to open in a frame at the bottom of the console.
+  - Type commands in the terminal, such as gcloud commands for your project.
+  - Open Session information, then Usage quota, to see your weekly hours left.
 whenToUse: >-
-  Use Cloud Shell for quick access to Google Cloud CLI tools without local
-  installation or when working from different devices.
+  Use Cloud Shell for quick gcloud and terminal work on Google Cloud, without
+  local setup, from any computer with a browser.
 whenNotToUse: >-
-  Avoid for long-running workloads, heavy compute tasks, or when you need more
-  storage or customization than the free environment allows.
+  Avoid it for non-interactive or long-running jobs, since idle sessions end
+  and it has a weekly hour quota. Google points heavier users to Cloud Workstations.
 bestFor:
   - cloud management
   - learning
   - quick fixes
-  - automation scripts
+  - short scripts
 avoidIf:
-  - need persistent high compute
-  - require custom OS images
-  - need large storage volumes
+  - you need jobs that run without you at the terminal
+  - you need more than 50 hours a week
+  - you need more than 5 GB of home storage
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/shell'
@@ -74,7 +79,47 @@ docsUrl: 'https://cloud.google.com/shell/docs'
 pricingUrl: 'https://cloud.google.com/shell/pricing'
 sourceUrls:
   - 'https://cloud.google.com/shell/pricing'
-  - 'https://docs.cloud.google.com/shell/docs/quotas-limits'
+  - 'https://cloud.google.com/shell/docs/quotas-limits?hl=en'
+  - 'https://cloud.google.com/shell/docs/using-cloud-shell?hl=en'
+  - 'https://cloud.google.com/shell'
 featured: false
 ---
-Cloud Shell offers a free, ready-to-use command-line environment in your browser, ideal for managing Google Cloud resources and running scripts without local setup.
+You use Cloud Shell from the Google Cloud console in a browser tab. You type commands in a terminal, and it suits anyone who manages Google Cloud and wants no local install.
+
+## What the free plan gives you
+
+The pricing page says Cloud Shell is free for users with a Google Cloud account. The default weekly quota is 50 hours. You can see the hours left and the reset time in Session information, under Usage quota.
+
+Each user gets 5 GB of persistent disk storage, mounted as the home directory. Files there, such as `.bashrc` and `.vimrc`, stay between sessions. Sessions end after 12 hours, and you can start a new one right away. The product page says the virtual machine lets you edit files, work with repositories, and preview web apps.
+
+## When you hit a limit
+
+At the weekly quota, you wait until the reset date and time before you can use Cloud Shell again. Google also offers an upgrade to Cloud Workstations, which has no weekly limit.
+
+Idle sessions do not run forever. The virtual machine ends after 40 minutes of inactivity, and changes outside the home directory are lost. Non-interactive sessions end after 40 minutes. The pricing page lists no charge for Cloud Shell, and the quota page says only that you wait or upgrade to Cloud Workstations.
+
+## Gotchas
+
+- Cloud Shell is for interactive use only, so a script left running unattended is cut off after 40 minutes.
+- Google deletes your home directory after 120 days without access, or if you delete it, and cannot recover the files. You get an email first, and starting a session prevents it.
+- Anything you install outside the home directory is gone when the virtual machine ends.
+
+## Alternatives in this atlas
+
+- [Cloud Build](/services/cloud-build/): when you want a build to run without you at a terminal.
+- [Cloud Run](/services/cloud-run/): when you want to host a container instead of only working at a prompt.
+- [GitHub Actions](/services/github-actions/): when you want scripts to run on a schedule or on every push.
+
+## Questions people ask
+
+### Is Google Cloud Shell free?
+
+Yes. The pricing page says Cloud Shell is free for users with a Google Cloud account. It has a weekly quota of 50 hours and 5 GB of storage.
+
+### How long can I use Cloud Shell?
+
+A session lasts up to 12 hours, and the weekly quota is 50 hours. An idle virtual machine ends after 40 minutes.
+
+### Does Cloud Shell keep my files?
+
+Files in your home directory stay between sessions, up to 5 GB. Google deletes them after 120 days without access, so start a session now and then.

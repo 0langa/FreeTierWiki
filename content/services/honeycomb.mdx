@@ -1,8 +1,9 @@
 ---
 title: Honeycomb
 description: >-
-  Observability for distributed systems: tracing, high-cardinality queries, and OpenTelemetry
-  support.
+  Honeycomb is an observability service for distributed tracing and
+  high-cardinality queries on production data. It is built around
+  OpenTelemetry and suits developers who debug across services.
 provider: Honeycomb
 category: observability
 domain: observability
@@ -15,48 +16,68 @@ audiences:
   - indie
   - startup
 tags:
+  - distributed-tracing
+  - opentelemetry
   - observability
-  - monitoring
-  - logging
+  - apm
+  - debugging
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan, free forever: up to 20M events and 100M metrics data points per month.'
+  summary: 'The Free plan is free forever: up to 20M events and 100M metrics data points per month, with 2 triggers.'
   limits:
-    - 20 million events per month
-    - 100 million metrics data points per month
+    - 20M events per month
+    - 100M metrics data points per month
     - 2 triggers
+    - 60 days of event retention
   caveats:
-    - SLOs and more triggers need Pro
+    - More triggers and support come with the Pro plan, which starts at $150 per month
+    - After repeated months over the limit, Honeycomb throttles events
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
+  billingRiskNotes:
+    - The docs describe warnings and throttling for overages, and do not mention overage charges on the Free plan
 useCases:
   - Trace requests across services
   - Debug slow endpoints
-  - Send OpenTelemetry data
+  - Send OpenTelemetry traces and metrics
+  - Find out which attribute explains an error spike with BubbleUp
+  - Set up trigger alerts on queries
 quickstartSteps:
-  - Sign up at honeycomb.io.
-  - Copy your API key.
-  - Send OpenTelemetry traces to Honeycomb.
-whenToUse: Use when you want real tracing for a small or medium app at no cost.
-whenNotToUse: Avoid if you need SLOs on the free plan.
+  - Choose US or EU data storage and sign up for free on honeycomb.io.
+  - Create a team and copy your Honeycomb API key.
+  - Install an OpenTelemetry SDK for your language, for example `npm install --save @opentelemetry/auto-instrumentations-node @opentelemetry/sdk-node` for Node.js.
+  - Set `HONEYCOMB_API_KEY` and `OTEL_SERVICE_NAME`, and point the exporter at `https://api.honeycomb.io/v1/traces` for the US region.
+  - Start the app and send a few requests, then look for the traces in the Honeycomb UI.
+whenToUse: >-
+  Use Honeycomb when you want real distributed tracing for a small app and your
+  telemetry already uses or can use OpenTelemetry.
+whenNotToUse: >-
+  Avoid it if you need more than 2 triggers on the free plan, or if you want a
+  plain error tracker or uptime check without tracing.
 bestFor:
   - tracing
   - microservices
+  - OpenTelemetry users
 avoidIf:
-  - SLO needs
+  - you need many triggers
+  - you only need uptime checks
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://www.honeycomb.io'
 docsUrl: 'https://docs.honeycomb.io'
 sourceUrls:
   - 'https://www.honeycomb.io/pricing'
+  - 'https://www.honeycomb.io/pricing/'
+  - 'https://docs.honeycomb.io/get-started/manage-costs/how-honeycomb-calculates-usage/'
+  - 'https://docs.honeycomb.io/get-started/start-building/application/traces/'
+  - 'https://docs.honeycomb.io/send-data/opentelemetry/'
 pricingUrl: 'https://www.honeycomb.io/pricing'
 featured: false
 changes:
@@ -64,4 +85,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Honeycomb's free plan is large enough for many small production apps.
+You send traces and metrics with OpenTelemetry SDKs, then query them in the Honeycomb web UI. It suits developers who debug production problems across services and want to ask new questions of their data.
+
+## What the free plan gives you
+
+The Free plan is the introductory plan and is free forever. It allows up to 20M events per month and up to 100M metrics data points per month. It includes 2 triggers, plus distributed tracing, BubbleUp, OpenTelemetry support, team query history, and Honeycomb Metrics.
+
+The docs say events and logs have a fixed retention of 60 days. The pricing page also says it has unlimited seats and unlimited querying. Pro starts at $150 per month with 100 triggers and Honeycomb support. The pricing page does not say whether sign-up needs a credit card.
+
+## When you hit a limit
+
+Honeycomb warns you before it throttles. After one month over the limit, you get a warning email at the start of the next month. After a second month in a row, you get a danger notice with a 10-day window to fix it. If you do not, Honeycomb begins throttling events.
+
+While throttled, the Event API accepts one of every ten events and rejects the rest. Burst protection helps with spikes: when you send more than twice the daily target in one day, the excess events do not count against your limit. This can trigger up to three times per calendar month. The docs do not say Free overages are billed.
+
+## Gotchas
+
+- Only 2 triggers fit in the Free plan, so alerting stays small.
+- Throttling can drop most of your events if you stay over the limit for two months in a row.
+- Choose the US or EU data region at sign-up, because the endpoints differ.
+
+## Alternatives in this atlas
+
+- [Grafana Cloud](/services/grafana-cloud/): when you want metrics, logs, and traces with dashboards.
+- [Axiom](/services/axiom/): when you mainly need to store and query logs.
+- [New Relic](/services/new-relic/): when you want a broader monitoring suite.
+
+## Questions people ask
+
+### Is Honeycomb free?
+
+Yes. The Free plan is free forever with up to 20M events and 100M metrics data points per month, and 2 triggers.
+
+### What happens when I go over the Honeycomb event limit?
+
+You get a warning email after the first month over. After a second month, you have 10 days to fix it before Honeycomb begins throttling events.
+
+### How long does Honeycomb keep my data?
+
+The docs say events and logs have a fixed retention of 60 days.

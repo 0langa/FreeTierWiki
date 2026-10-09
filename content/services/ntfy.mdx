@@ -1,6 +1,9 @@
 ---
 title: ntfy.sh
-description: Send push notifications to your phone or desktop with a simple HTTP POST.
+description: >-
+  ntfy is a simple notification service that sends push messages to your phone
+  or desktop from a script, using one HTTP request. It is for people who want
+  alerts from servers, cron jobs, and homelabs.
 provider: ntfy
 category: messaging
 domain: messaging
@@ -12,46 +15,70 @@ audiences:
   - indie
   - startup
 tags:
-  - messaging
-  - automation
-  - open-source
+  - push notifications
+  - self-hosted notifications
+  - pub-sub
+  - curl alerts
+  - open source
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free to use without sign-up on ntfy.sh. Open source, so you can also self-host.'
+  summary: >-
+    Free to use without sign-up on ntfy.sh, with limits of 250 messages a day
+    per visitor. Open source, so you can also self-host.
   limits:
     - Free without sign-up
     - Publish with a simple HTTP PUT or POST
+    - 250 messages per day on ntfy.sh
+    - 5 emails per day, after verifying your email
+    - 2 MB per attachment and 20 MB in total
   caveats:
-    - 'Without sign-up, the topic name works like a password'
-    - Reserved topic names need ntfy Pro
-  resetPeriod: none
+    - Without sign-up, the topic name works like a password
+    - Topic names are public, so pick one that is hard to guess
+    - Repeated abuse of the limits can get your IP address temporarily banned
+    - Reserved topic names and higher limits need a paid plan
+  resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Alert yourself when a script finishes
-  - Server and cron alerts
+  - Getting an alert on your phone when a script or backup finishes
+  - Sending server and cron job alerts
+  - Getting a ping when a CI pipeline completes
+  - Wiring up monitoring tools that can call a webhook
 quickstartSteps:
-  - Install the ntfy app and subscribe to a topic name.
-  - Run curl -d "done" ntfy.sh/<topic>.
-whenToUse: Use for personal alerts from scripts and servers.
-whenNotToUse: Avoid for user-facing notifications in a product.
+  - Install the ntfy app from Google Play, the App Store, or F-Droid, or open the web app.
+  - Subscribe to a topic name of your choice; topics are created on the fly.
+  - Pick a topic name that nobody can guess, because topic names are public.
+  - Send a message with `curl -d "Backup successful" ntfy.sh/mytopic`, or use the `ntfy publish` command.
+  - Check that the notification shows up on your phone.
+whenToUse: >-
+  Use ntfy for personal alerts from scripts, servers, and homelab tools where a
+  simple HTTP call is enough and no sign-up is wanted.
+whenNotToUse: >-
+  Avoid it for user-facing notifications in a product, for private messages on
+  the public server, or for more than 250 messages a day.
 bestFor:
   - scripts
   - homelabs
+  - server alerts
 avoidIf:
-  - product notifications
+  - product notifications for end users
+  - sensitive messages on the public server
+  - high message volume
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://ntfy.sh'
 docsUrl: 'https://docs.ntfy.sh'
 sourceUrls:
   - 'https://ntfy.sh/'
+  - 'https://docs.ntfy.sh'
+  - 'https://docs.ntfy.sh/publish/'
+  - 'https://docs.ntfy.sh/faq/'
 pricingUrl: 'https://ntfy.sh/'
 featured: false
 changes:
@@ -59,4 +86,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-ntfy is free and open source. Pick a hard-to-guess topic name, because public topics can be read by anyone.
+You publish with a plain HTTP PUT or POST from curl, a script, or the `ntfy` command line tool, and you read the message in the Android or iOS app, the web app, or the desktop. It suits one person or a small team that wants alerts from their own machines.
+
+## What the free plan gives you
+
+You can use ntfy.sh without signing up. There is no account, and you publish and subscribe to any topic name. The docs list the limits on ntfy.sh: 250 messages per day, 4,096 bytes per message, and 5 emails per day once you verify your email.
+
+Attachments can be up to 2 MB each, with 20 MB in total per visitor, and they expire after 3 hours. The daily bandwidth limit is 200 MB. The paid plans start at $6 per month, or $5 per month billed annually. The software is open source, so you can run your own server and change the limits.
+
+## When you hit a limit
+
+The docs say traffic over the daily bandwidth limit is rejected, and they do not say what happens at 250 messages a day. The request limit refills slowly: you get 60 requests at once, then one more every 5 seconds.
+
+If you repeatedly exceed the limits or abuse the service, the docs say your IP address may be temporarily banned. You can check a ban at am-i-banned.ntfy.sh. Free use needs no account, and the docs list no overage charge.
+
+## Gotchas
+
+- Without sign-up, the topic name works like a password. Anyone who guesses it can read and post to it, so use a long random name.
+- The FAQ says logs contain topic names and IP addresses, and messages are cached for 12h by default. Self-host if your messages are sensitive.
+- Anonymous email sending is turned off on ntfy.sh because of abuse, so you must verify your email in the web app to use it.
+
+## Alternatives in this atlas
+
+- [OneSignal](/services/onesignal/): when you need push notifications for the users of your own app.
+- [Novu](/services/novu/): when you need an in-app inbox and several channels in a product.
+- [Webpushr](/services/webpushr/): when you want browser push notifications on a website.
+
+## Questions people ask
+
+### Is ntfy free?
+
+Yes. You can use ntfy.sh without signing up, and the server software is open source, so you can self-host it.
+
+### Do I need an account to use ntfy?
+
+No. You pick a topic name, subscribe in the app, and publish with an HTTP request. Because there is no sign-up, the topic name acts like a password.
+
+### How many messages can I send with ntfy for free?
+
+On ntfy.sh the daily message limit is 250. Paid plans raise the limits, and a self-hosted server lets you set your own.

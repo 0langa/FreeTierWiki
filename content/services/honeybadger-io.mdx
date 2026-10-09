@@ -1,8 +1,9 @@
 ---
 title: Honeybadger.io
 description: >-
-  Honeybadger.io provides error monitoring, uptime checks, and alerting for web
-  applications and services.
+  Honeybadger.io combines error tracking, logging, uptime checks, and cron
+  monitoring for web apps. It targets developers who want one dev-friendly
+  tool instead of several.
 provider: Honeybadger
 category: observability
 domain: observability
@@ -16,54 +17,64 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
+  - error-tracking
+  - exception-monitoring
+  - uptime-monitoring
+  - cron-monitoring
+  - rails
   - logging
-  - devops
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free "Developer" plan is $0/month forever, with 5,000 errors/month, 50
-    MB/day logging, and 1 uptime monitor.
+    The free Developer plan costs $0 per month, free forever, with 5,000 errors
+    per month, 50 MB/day of logging, 1 uptime monitor, and 15 days of error
+    retention for one user.
   limits:
     - '5,000 errors/month'
     - 50 MB/day logging
     - 1 uptime monitor
-    - 15-day data retention
+    - 15 days error retention
     - 1 user, unlimited projects
   caveats:
-    - No credit card required
-    - Team plan ($26/month) offers a free trial before billing starts
+    - 'New accounts start with a 30-day free trial of collaboration features; no credit card is required'
+    - If you pick no plan when the trial ends, Honeybadger pauses monitoring until you log in and choose one
+    - 'The Team plan costs $26 per month'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
+  billingRiskNotes:
+    - 'Over the error limit, processing continues up to 125% of the limit and then stops until month end; overage billing is only an option you turn on for paid plans'
 useCases:
-  - Monitor application errors in real time
-  - Receive alerts for downtime or exceptions
-  - Track deployments and releases
+  - Catch exceptions in a Rails, Laravel, Node, or Python app
+  - Get alerts when a site or service goes down
+  - Monitor cron jobs and scheduled tasks
+  - Search structured logs next to errors
+  - Track which deploy introduced an error
 quickstartSteps:
-  - Sign up for a Honeybadger.io account.
-  - Create a new project in the dashboard.
-  - Install the Honeybadger client library in your application.
-  - Configure the client with your project API key.
-  - Deploy your application to start receiving error reports.
+  - Start a free account on honeybadger.io; no credit card is required, and you can switch to the free Developer plan after the trial.
+  - Create a project and copy its API key.
+  - Install the client for your language, for example `bundle add honeybadger` for Ruby.
+  - Run the installer with your key, for example `bundle exec honeybadger install [API KEY]`.
+  - Raise a test error from your app and watch it appear in the project.
 whenToUse: >-
-  Use Honeybadger.io when you need simple, reliable error monitoring and uptime
-  alerts for web applications or APIs.
+  Use Honeybadger when you work alone on an app and want error tracking, one
+  uptime monitor, and logging in one place.
 whenNotToUse: >-
-  Avoid if you need more than 5,000 errors/month, more than 50 MB/day of
-  logging, or more than 1 uptime monitor without upgrading.
+  Avoid it when you need more than 5,000 errors a month, a team with several
+  users, or more than 15 days of error history on the free plan.
 bestFor:
-  - web developers
-  - SaaS teams
-  - indie hackers
+  - solo developers
+  - Rails and Laravel apps
+  - side projects
 avoidIf:
-  - need more than 5,000 errors/month
-  - require deep log analytics
+  - you need more than one user
+  - you need more than 5,000 errors a month
+  - you need deep log analytics
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.honeybadger.io'
@@ -71,8 +82,48 @@ docsUrl: 'https://docs.honeybadger.io/'
 sourceUrls:
   - 'https://www.honeybadger.io/plans/'
   - 'https://docs.honeybadger.io/'
+  - 'https://www.honeybadger.io'
+  - 'https://docs.honeybadger.io/lib/ruby/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.honeybadger.io/plans/'
 ---
-Honeybadger.io offers error monitoring, uptime checks, and alerting for web applications, with a free forever Developer plan and easy integration.
+You add a client library to your app, such as the Ruby gem or the JavaScript package, and view errors, logs, and uptime results in the web dashboard. It suits solo developers.
+
+## What the free plan gives you
+
+The Developer plan is free forever and is built for solo developers. It includes 5,000 errors per month, 50 MB per day of logging and performance data, and 1 uptime monitor. You can create unlimited projects, but the plan has 1 user.
+
+Error data is kept for 15 days on Developer, while the Team plan keeps it for 90 days. The pricing page also describes uptime monitoring that covers your tasks and cron jobs, and a status page feature. Both appear in the plan comparison, so check the table before you plan around them on Developer.
+
+## When you hit a limit
+
+When you pass your monthly error limit, Honeybadger keeps processing up to 125% of the limit. It then stops processing until the end of the month. It sends emails along the way, and you can set your own traffic limits for each project.
+
+Logging quotas work differently. The quota is daily, and Honeybadger does not stop processing data when you go over it. It prompts you to upgrade if you keep exceeding it. Overage billing is an option you switch on for Team and Business plans.
+
+## Gotchas
+
+- New accounts start with a 30-day trial that has unlimited users. If you choose no plan when it ends, monitoring pauses until you log in and pick one.
+- The free plan has 1 user, so collaboration needs the Team plan at $26 per month.
+- Error data is kept for only 15 days, against 90 days on Team.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you want a larger SDK ecosystem for error tracking.
+- [Bugsnag](/services/bugsnag/): when you want another hosted error monitor.
+- [Rollbar](/services/rollbar-com/): when you want error tracking with a different free plan.
+
+## Questions people ask
+
+### Is Honeybadger free?
+
+Yes. The Developer plan costs $0 and is free forever. It has 5,000 errors per month, 50 MB per day of logging, and 1 uptime monitor for one user.
+
+### What happens when I go over my Honeybadger error limit?
+
+Honeybadger processes errors up to 125% of your limit and then stops until the end of the month. It emails you along the way.
+
+### Does Honeybadger need a credit card?
+
+No. The pricing page says the 30-day trial needs no credit card. You can switch to the free Developer plan at any time.

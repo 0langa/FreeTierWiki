@@ -1,8 +1,8 @@
 ---
 title: Upstash Redis
 description: >-
-  Serverless Redis database with per-request pricing and a generous free tier
-  for low-latency caching or session storage.
+  Upstash Redis is a serverless Redis database you call over a Redis client or
+  an HTTP REST API. It suits caching, sessions, and rate limiting in serverless apps.
 provider: Upstash
 category: database
 domain: database
@@ -17,65 +17,113 @@ audiences:
   - team
   - oss
 tags:
+  - redis
+  - serverless redis
+  - cache
+  - rate limiting
+  - key-value
   - database
-  - serverless
-  - cloud
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier includes 500,000 commands/month, 256 MB data size, 10 GB bandwidth/month, and up to 10 free databases.'
+  summary: >-
+    The Free plan costs $0 and includes 256 MB of data, 500K commands a month,
+    and 10 GB of monthly bandwidth for 1 database. Pay as you go starts at $0.2
+    per 100K commands.
   limits:
-    - '500,000 commands/month'
-    - 256 MB data size
-    - 10 GB bandwidth/month
-    - Up to 10 free databases
+    - 256 MB of data size
+    - 500K commands per month
+    - 10 GB of monthly bandwidth
+    - 1 database on the Free plan
+    - Up to 10,000 commands per second
+    - Maximum request size of 10 MB and record size of 100 MB
   caveats:
-    - Max request size 10 MB, max record size 100 MB on free tier
-    - Upgrading to pay-as-you-go requires a credit card
-    - A free instant database is available via API with no signup, deleted after 3 days unless claimed
+    - Free plan has community support only
+    - Upgrading to pay as you go needs a credit card
+    - A free instant database is available through an API call with no signup and is deleted after 3 days unless claimed
+    - The pricing page also says you can create up to 10 databases for free, which differs from the 1 database in the plan table
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Session storage
   - Caching API responses
-  - Leaderboard data
-  - Rate limiting
+  - Session storage
+  - Rate limiting for serverless functions
+  - Leaderboards and counters
   - Feature flag storage
 quickstartSteps:
-  - Sign up for a free Upstash account.
-  - Create a new Redis database from the dashboard.
-  - Copy the database endpoint and credentials.
-  - Connect using your preferred Redis client or SDK.
-  - Start reading and writing key-value data.
+  - Log in to the Upstash Console, or sign up for a free account.
+  - From the Redis tab, click Create Database. Enter a database name and choose a primary region and optional read regions.
+  - Click Next, select the Free plan, and wait for the database to start.
+  - Open the Details tab and copy the `redis-cli` command, endpoint, and token. The token is also the password.
+  - Connect with any Redis client, or run `npm install @upstash/redis` and use the REST URL and token for HTTP access from serverless runtimes.
 whenToUse: >-
-  Use when you need a simple, serverless Redis instance for caching, session
-  storage, or lightweight data needs with minimal setup.
+  Use it for a small cache or key-value store in serverless or edge apps, where
+  HTTP access and no server to run are useful.
 whenNotToUse: >-
-  Avoid if you require advanced Redis modules, high-throughput workloads, or
-  private networking features not available in the free tier.
+  Avoid it for heavy command volumes on the free plan, for private networking
+  needs, or when you need more than 256 MB of data without paying.
 bestFor:
-  - prototyping
-  - side-projects
-  - low-traffic production
-  - learning
+  - serverless caches
+  - rate limiting
+  - prototypes
+  - learning Redis
 avoidIf:
+  - more than 500K commands a month on free
   - need VPC peering
-  - require advanced Redis modules
-  - high request volume
+  - need advanced Redis modules
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://upstash.com/docs/redis'
 docsUrl: 'https://upstash.com/docs/redis'
 sourceUrls:
   - 'https://upstash.com/pricing'
-  - 'https://upstash.com/docs/redis'
+  - 'https://upstash.com/docs/redis/overall/getstarted'
+  - 'https://upstash.com/docs/redis/howto/connectwithupstashredis'
 pricingUrl: 'https://upstash.com/pricing'
 featured: false
 ---
-Upstash Redis offers a serverless, pay-per-request Redis database with a generous free tier (500,000 commands/month), ideal for lightweight caching, session storage, and prototyping without infrastructure management.
+You create databases in the Upstash Console and connect with `redis-cli`, any Redis client, or the HTTP-based `@upstash/redis` SDK that works in serverless and edge runtimes. It suits developers who want Redis without managing a server.
+
+## What the free plan gives you
+
+The Free plan costs $0 and is meant for prototypes and hobby projects. It includes 256 MB of data, 10 GB of monthly bandwidth, and 500K commands per month. The plan table shows 1 database on Free, with up to 10,000 commands per second. The maximum request size is 10 MB and the maximum record size is 100 MB.
+
+Support comes from the community. Pay as you go raises the data size to 100 GB, and Fixed plans start at $10 a month. Some operational commands such as AUTH, PING, and INFO are not charged.
+
+## When you hit a limit
+
+The pricing page does not describe what happens when a Free database passes 500K commands. It does describe other cases. On pay as you go, you get an email, and Upstash may rate limit your database. Requests above the maximum request size are rejected with an exception.
+
+To go past the free limits you enter a credit card, which upgrades the database to pay as you go and updates the limits. That plan costs $0.2 per 100K commands and lets you set a monthly budget cap.
+
+## Gotchas
+
+- The plan table lists 1 database on Free, but the FAQ says you can create up to 10 databases for free. Check the console for what you get.
+- Global databases count replication as commands. A write to a database with one primary and one read region costs two commands.
+- A free instant database, made through an API call with no signup, is deleted after 3 days unless you claim it in your account.
+
+## Alternatives in this atlas
+
+- [Redis Cloud](/services/redis-cloud/): when you want a standard Redis endpoint with a fixed 30 MB free database.
+- [Cloudflare Workers KV](/services/cloudflare-workers-kv/): when your app already runs on Workers and only needs key-value reads.
+- [Upstash Vector](/services/upstash-vector/): when you need vector search from the same provider.
+
+## Questions people ask
+
+### Is Upstash Redis free?
+
+Yes. The Free plan costs $0 and includes 256 MB of data, 500K commands a month, and 10 GB of bandwidth. Upgrading to pay as you go needs a credit card.
+
+### What happens when I go over the Upstash Redis free tier?
+
+The pricing page does not say for the Free plan. On pay as you go, Upstash emails you and may rate limit the database, and you can set a monthly budget.
+
+### Does Upstash Redis work without signing up?
+
+Yes, in one case. The pricing page says a POST request to its start-redis endpoint creates a free database with no signup, and Upstash deletes it after 3 days unless you claim it.

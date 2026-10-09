@@ -1,8 +1,8 @@
 ---
 title: Hygraph
 description: >-
-  Hygraph is a headless GraphQL content management system for building and
-  managing content APIs.
+  Hygraph is a hosted headless CMS that serves structured content through a
+  GraphQL API, for developers and editors who build sites and apps together.
 provider: Hygraph
 category: hosting
 domain: hosting
@@ -16,55 +16,61 @@ audiences:
   - team
   - oss
 tags:
+  - headless-cms
+  - graphql
+  - cms
   - api
+  - jamstack
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Hobby plan includes 1,000 content entries, 500,000 API calls/month,
-    and 3 seats, free forever.
+    The Hobby plan is free forever with 1,000 content entries, 500,000 API
+    calls per month, and 3 seats. No card is needed.
   limits:
-    - '1,000 content entries'
+    - '1,000 content entries (assets count against this limit)'
     - '500,000 API calls/month'
     - 3 seats, 2 standard roles
-    - Unlimited asset storage, 50 MB per file; asset traffic is capped
-    - 2 locales, 10 components, 5 req/sec rate limit
+    - Unlimited asset storage, 50 MB per file; asset traffic is capped at 100 GB
+    - 2 locales, 10 components, 1 environment
+    - 5 requests per second for uncached requests
   caveats:
-    - No granular roles or advanced workflows
-    - 'Usage blocked (not billed) until next cycle if limits are exceeded'
-    - Optional 30-day Enterprise trial available, no card required
+    - No custom roles or advanced workflows
+    - 'Usage is blocked (not billed) until the next billing period if you pass the limits'
+    - Optional 30-day Enterprise trial, no card required
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Building content-driven websites
-  - Prototyping apps with a headless CMS
-  - Managing structured content for JAMstack projects
+  - Run the content for a blog or marketing site from a JAMstack front end
+  - Model products, pages, and authors, then fetch them with GraphQL
+  - Let editors draft and publish content while developers build the front end
+  - Prototype an app on a headless CMS before choosing a paid plan
 quickstartSteps:
-  - Sign up for a free Hygraph account.
-  - Create a new project and define your content models.
-  - Add content entries using the web interface.
-  - Obtain your API endpoint and authentication token.
-  - Query your content using GraphQL from your app.
+  - Sign up with your email address or with GitHub, Facebook, or Google. No card is needed for Hobby.
+  - Click Start from scratch, choose the Hobby plan, then give the project a name and a content region.
+  - Open the Schema builder, add a model, and add fields such as a name, a number, and an asset picker.
+  - Add an entry in the Content editor, save it as a draft, then publish it.
+  - Test a query in the API Playground, then create a Permanent Auth Token and send it as a Bearer token from your app.
 whenToUse: >-
-  Use Hygraph when you need a flexible, hosted headless CMS with a GraphQL API
-  for structured content.
+  Use Hygraph when you want a hosted headless CMS with a GraphQL API and a
+  content editor for non-developers.
 whenNotToUse: >-
-  Avoid if you require advanced workflow features, granular permissions, or need
-  to self-host your CMS.
+  Avoid it if you need custom roles, more than 2 locales, a staging environment
+  next to production, or a self-hosted CMS.
 bestFor:
-  - content-rich apps
+  - content-rich sites
   - JAMstack sites
-  - prototypes
+  - GraphQL prototypes
 avoidIf:
-  - need self-hosting
-  - require advanced roles
-  - need unlimited API calls
+  - you need to self-host
+  - you need custom roles
+  - you need more than 500,000 API calls a month
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://hygraph.com/'
@@ -72,6 +78,47 @@ docsUrl: 'https://hygraph.com/docs'
 pricingUrl: 'https://hygraph.com/pricing'
 sourceUrls:
   - 'https://hygraph.com/pricing'
+  - 'https://hygraph.com/docs/getting-started'
+  - 'https://hygraph.com/docs/getting-started/quickstart'
+  - 'https://hygraph.com/docs/api-reference/basics/authorization'
 featured: false
 ---
-Hygraph offers a free-forever Hobby plan headless CMS with a GraphQL API (1,000 entries, 500,000 API calls/month), suitable for individuals and small projects needing structured content management and delivery.
+You define models in the Schema builder, editors write entries in the Content editor, and your app reads them over GraphQL. It suits small teams where developers and editors share one content source.
+
+## What the free plan gives you
+
+The Hobby plan costs $0 and is free forever. It includes 1,000 content entries and 500,000 API calls per month. Assets count against the entry limit. You get 3 seats with 2 standard roles, 2 locales, 10 components, and 1 environment.
+
+Asset storage is unlimited, with a 50 MB maximum per upload. The plan table lists asset traffic at 100 GB. Uncached requests are limited to 5 per second, while cached requests have no rate limit. Hobby also allows 5 webhooks and 3 API tokens.
+
+## When you hit a limit
+
+On Hobby, Hygraph blocks usage until the next billing period. It does not charge you. You can watch your usage on the project dashboard.
+
+The paid Growth plan behaves differently: it charges extra usage to your credit card at the end of the billing cycle. Hobby has no such charge, so a surprise bill is not a risk on the free plan.
+
+## Gotchas
+
+- New projects keep public API access off. You need a Permanent Auth Token, or you must turn on public permissions yourself.
+- Do not expose a Permanent Auth Token in front-end code when you mutate data. Keep it on the server.
+- Hobby has 2 standard roles and no custom roles, so fine-grained editor permissions need a paid plan.
+
+## Alternatives in this atlas
+
+- [Sanity](/services/sanity/): when you want a free CMS with a code-defined schema and a different query language.
+- [Storyblok](/services/storyblok/): when editors want a visual editor for pages.
+- [Contentful](/services/contentful/): when you want a long-established hosted CMS with a free plan.
+
+## Questions people ask
+
+### Is Hygraph free?
+
+Yes. The Hobby plan is free forever and includes 1,000 content entries, 500,000 API calls per month, and 3 seats.
+
+### What happens when I go over the Hygraph free limits?
+
+Hygraph blocks usage until the next billing period. It does not bill you on Hobby.
+
+### Does Hygraph need a credit card?
+
+No. You can sign up for Hobby with an email address or a GitHub, Facebook, or Google profile. The 30-day Enterprise trial does not need a card either.

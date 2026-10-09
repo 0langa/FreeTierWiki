@@ -1,8 +1,9 @@
 ---
 title: StatusCake.com
 description: >-
-  StatusCake provides website uptime and performance monitoring with free and
-  paid plans.
+  StatusCake checks websites, APIs, SSL certificates, domains, and page speed
+  from outside your network and alerts you when something fails. It is for
+  individuals and small businesses.
 provider: StatusCake
 category: observability
 domain: observability
@@ -17,62 +18,110 @@ audiences:
   - team
   - oss
 tags:
+  - uptime
   - monitoring
-  - web
+  - website-monitoring
+  - ssl-monitoring
+  - page-speed
+  - domain-monitoring
+  - status-page
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan includes 10 uptime monitors with 5-minute check intervals, plus
     1 page speed, 1 domain, and 1 SSL monitor, for 1 team member.
   limits:
-    - 10 uptime monitors
-    - 5-minute check interval
-    - 1 page speed, 1 domain, and 1 SSL monitor
+    - 10 uptime monitors with a 5-minute test interval
+    - 1 page speed monitor, tested every 24 hours
+    - 1 domain monitor, tested every 7 days
+    - 1 SSL monitor, tested every 24 hours
     - 1 team member
   caveats:
-    - Free tier alerts through integrations only; server monitors start on the paid Superior plan
-    - No credit card required
+    - Free tier alerts through integrations; free SMS credits and server monitors start on the paid Superior plan
+    - Paid plans come with a 7-day free trial, no credit card required
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor website uptime
-  - Receive downtime alerts
-  - Track basic website performance
+  - Checking that a website or API answers over HTTP
+  - Watching for string matches on a page
+  - Getting warned before an SSL certificate expires
+  - Tracking when a domain is about to expire
+  - Testing page speed once a day
 quickstartSteps:
-  - Sign up for a free StatusCake account.
-  - Log in and navigate to the dashboard.
-  - Click 'Add New Uptime Test' and enter your website URL.
-  - Configure alert settings and save the monitor.
-  - Check the dashboard for live status and alerts.
+  - 'Click Start monitoring free on statuscake.com and create your account.'
+  - 'In the left menu open Uptime Monitoring and choose New Uptime Test.'
+  - 'Keep the HTTP test type, enter a test name, and enter your website address as the Test URL.'
+  - 'Pick the contact groups to notify, then set options such as String Match, Validate SSL, and Follow Redirects.'
+  - 'Save the test and watch the first results arrive on your dashboard.'
 whenToUse: >-
-  Use StatusCake when you need simple, reliable uptime monitoring for a small
-  number of websites or projects.
+  Use StatusCake to watch up to ten sites or endpoints with five-minute checks,
+  plus one SSL, domain, and page speed check.
 whenNotToUse: >-
-  Avoid if you require SMS/phone alerts, more than 1 team member, or need to
-  monitor more than 10 sites.
+  Avoid it if you need faster checks, free SMS credits, server monitoring, or
+  more than one team member. Those need a paid plan.
 bestFor:
   - personal sites
-  - small projects
-  - open source apps
+  - small business sites
+  - open source apps that need basic checks
 avoidIf:
-  - need advanced alerting
-  - require large-scale monitoring
-  - need detailed performance analytics
+  - you need SMS alerts
+  - you need more than one team member
+  - you need checks faster than every five minutes
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.statuscake.com/'
-docsUrl: 'https://docs.statuscake.com'
+docsUrl: 'https://www.statuscake.com/kb/knowledge-base/create-a-basic-website-test/'
 sourceUrls:
-  - 'https://www.statuscake.com/features/'
   - 'https://www.statuscake.com/pricing/'
+  - 'https://www.statuscake.com/features/'
+  - 'https://www.statuscake.com/'
+  - 'https://www.statuscake.com/kb/knowledge-base/create-a-basic-website-test/'
 pricingUrl: 'https://www.statuscake.com/pricing/'
 featured: false
 ---
-StatusCake offers a straightforward free tier for basic website uptime monitoring, suitable for individuals and small teams who need essential alerting without advanced features.
+You set up tests in the StatusCake web dashboard, and there is also an API with Terraform guides. The knowledge base walks you through a basic website test in a few minutes. It suits individuals and small businesses.
+
+## What the free plan gives you
+
+The Free plan costs 0 euro per month. The comparison table lists 10 uptime monitors with a 5-minute test interval. You also get 1 page speed monitor tested every 24 hours, 1 domain monitor tested every 7 days, and 1 SSL monitor tested every 24 hours. The plan has 1 team member, and the free card lists alerts through integrations.
+
+Paid plans come with a 7-day free trial and no credit card is required. The Superior plan starts at 16.66 euro per month with annual billing and has 100 uptime monitors with 1-minute tests, 75 free SMS credits, and 3 server monitors.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach a free limit. The comparison table shows the maximum counts per plan, such as 10 uptime monitors on Free and 100 on Superior.
+
+The page also does not describe any overage charge on the Free plan. To get more monitors, faster tests, SMS credits, server monitors, or more team members, you move to a paid plan, which you can try first with the 7-day trial.
+
+## Gotchas
+
+- Free page speed and SSL tests run only every 24 hours, and the domain test runs every 7 days.
+- Custom test locations are described in the knowledge base for paid plans. On Free, locations are chosen for you.
+- Free SMS credits and server monitors are not in the Free column of the table. They start on Superior.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want more free monitors on a similar check interval.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want monitors with a status page on a free plan.
+- [Hyperping](/services/hyperping/): when you want a clean dashboard with a free status page.
+
+## Questions people ask
+
+### Is StatusCake free?
+
+Yes. The Free plan costs nothing and includes 10 uptime monitors with 5-minute tests, plus 1 page speed, 1 domain, and 1 SSL monitor.
+
+### Does StatusCake need a credit card?
+
+No. The site says its paid plans start with a 7-day free trial and no credit card is required.
+
+### How often does StatusCake check my site on the free plan?
+
+Every 5 minutes for uptime tests. Page speed and SSL tests run every 24 hours, and domain tests run every 7 days.

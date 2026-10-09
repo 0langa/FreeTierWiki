@@ -1,6 +1,8 @@
 ---
 title: Hookdeck
-description: 'Event gateway for receiving, queuing, and delivering webhooks reliably.'
+description: >-
+  Hookdeck is an event gateway for webhooks. It accepts requests from services
+  like Stripe, queues them, and delivers them to your API with retries.
 provider: Hookdeck
 category: messaging
 domain: messaging
@@ -12,9 +14,12 @@ audiences:
   - indie
   - startup
 tags:
-  - integration
+  - webhooks
+  - event gateway
   - queue
-  - api
+  - retries
+  - localhost
+  - cli
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -22,37 +27,58 @@ freeTierDetails:
     needed.
   limits:
     - '10,000 events per month'
-    - 3-day retention
+    - 3 days of retention
+    - 1 user
+    - 100,000 discarded requests per month
+    - 5 events per second of throughput per destination
   caveats:
     - A request that is delivered to several destinations counts as several events
+    - Past 10,000 events the dashboard locks until you upgrade or the billing period renews
+    - In case of excessive overages, Hookdeck can stop processing requests
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Receive webhooks from Stripe or GitHub reliably
-  - Test webhooks locally with the CLI
-quickstartSteps:
-  - Sign up at hookdeck.com.
-  - Create a connection with a source and destination.
-  - Point the webhook sender at the source URL.
-whenToUse: Use when lost or retried webhooks are a problem.
-whenNotToUse: Avoid if you need long event retention.
+  - Receiving webhooks from Stripe, Shopify, or GitHub without losing them
+  - Queueing webhooks so a slow API does not drop events
+  - Testing webhooks on localhost with the CLI
+  - Filtering and routing events to different destinations
+  - Receiving events from IoT devices or SDKs through one URL
+whenToUse: >-
+  Use Hookdeck when lost, bursty, or retried webhooks are a problem, or when you
+  want to test webhooks on localhost.
+whenNotToUse: >-
+  Avoid the Developer plan if you need event logs for more than 3 days, more than
+  one user, or more than 10,000 events a month.
 bestFor:
   - webhook consumers
+  - localhost webhook testing
+  - small production webhook flows
 avoidIf:
-  - long retention
+  - you need long retention
+  - you need more than one user
+  - you need more than 10,000 events a month free
+quickstartSteps:
+  - Sign up for a Hookdeck account and create an organization. No credit card is needed.
+  - Click Skip to dashboard, then create a connection with a source and a destination.
+  - Copy the source URL and set it as the webhook URL in the sending service.
+  - 'Install the CLI with `npm install hookdeck-cli -g`, or with Homebrew or Scoop.'
+  - 'Run `hookdeck listen` with your local port and the source name to forward webhooks to your local server.'
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 7
 officialUrl: 'https://hookdeck.com'
 docsUrl: 'https://hookdeck.com/docs'
 sourceUrls:
   - 'https://hookdeck.com/pricing'
+  - 'https://hookdeck.com/docs'
+  - 'https://hookdeck.com/docs/receive-webhooks'
+  - 'https://hookdeck.com/docs/cli'
 pricingUrl: 'https://hookdeck.com/pricing'
 featured: false
 changes:
@@ -60,4 +86,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Hookdeck buffers and retries incoming webhooks.
+You set up Hookdeck in its dashboard, through an API, or with the Hookdeck CLI. A connection links a source URL to a destination. It suits developers who receive webhooks and want them queued and retried.
+
+## What the free plan gives you
+
+The Developer plan costs $0 per month. It includes up to 10,000 events, 3 days of retention, 1 user, and SOC 2 compliance. Connections and transformations are unlimited. The plan also includes 100,000 discarded requests per month.
+
+An event is a message that is delivered to a destination, such as your API. A request is any inbound HTTP request from a source. One request can create 0, 1, or several events. Retries are free, because an event price includes all its retries. A project gets 5 events per second of throughput per destination.
+
+## When you hit a limit
+
+The FAQ answers the question for the Developer plan directly. If you exceed 10,000 events, you continue receiving your events, but the dashboard is locked until you upgrade your plan or a new billing period starts. If overages are excessive, Hookdeck reserves the right to stop processing all requests and events.
+
+Throughput works differently. When a destination goes over its throughput ceiling, extra events are queued and delivered as capacity frees up, and inbound requests are always accepted. The Team plan starts at $39 per month and adds 7 days of retention and unlimited users.
+
+## Gotchas
+
+- Delivering one request to several destinations counts as several events, so fan-out uses up the 10,000 faster.
+- The 14 day trial only lets you invite team members. The Free Developer plan limits still apply during the trial.
+- Hookdeck can delete event data older than your retention period at any time, so export what you need to keep.
+
+## Alternatives in this atlas
+
+- [Hook0](/services/hook0/): when you want another webhook service with a free developer plan.
+- [Webhook.site](/services/webhook-site/): when you only need a throwaway URL to inspect requests.
+- [Cloudflare Queues](/services/cloudflare-queues/): when you want to build your own queue behind a Worker.
+
+## Questions people ask
+
+### Is Hookdeck free?
+
+Yes. The Developer plan is always $0 and includes up to 10,000 events and 3-day retention. No credit card is required.
+
+### What happens if I exceed 10,000 events on Hookdeck?
+
+You keep receiving your events, but the dashboard is locked until you upgrade or the billing period renews. Hookdeck can stop processing if the overage is excessive.
+
+### Are Hookdeck retries free?
+
+Yes. The price of an event includes all its retries.

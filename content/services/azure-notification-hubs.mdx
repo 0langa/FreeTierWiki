@@ -1,8 +1,8 @@
 ---
 title: Azure Notification Hubs
 description: >-
-  Azure Notification Hubs enables scalable push notifications to mobile devices
-  across platforms.
+  Azure Notification Hubs is a push engine that sends one notification from your
+  back end to app users on iOS, Android, Windows, and other platforms.
 provider: Azure
 category: messaging
 domain: messaging
@@ -16,54 +16,63 @@ audiences:
   - enterprise
   - indie
 tags:
+  - push notifications
   - mobile
-  - open-source
-  - cloud
+  - ios
+  - android
+  - azure
+  - fcm
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes 1 million pushes per subscription, with no extra pushes
     available on it.
   limits:
-    - 1 million pushes/month
+    - 1 million pushes/month per subscription
     - 100 namespaces
-    - 500 active devices/namespace
+    - 100 hubs per namespace
+    - 500 active devices per namespace
   caveats:
-    - No advanced features like telemetry or scheduled notifications
-    - No SLA on free tier
+    - Scheduled push, bulk import, and multi-tenancy are Standard tier only
+    - Telemetry is limited on the Free tier
+    - The Free tier has no SLA
+    - Pushes over the included amount are not sold on the Free tier
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - The pricing page lists no extra pushes for the Free tier, so you upgrade the tier to send more.
 useCases:
-  - 'Send push notifications to iOS, Android, and Windows devices'
-  - Broadcast alerts to app users
-  - Engage users with targeted messaging
-quickstartSteps:
-  - Sign in to the Azure portal.
-  - Create a new Notification Hub resource.
-  - 'Configure platform credentials (e.g., APNS, FCM).'
-  - Integrate the SDK into your mobile app.
-  - Send a test notification from the Azure portal.
+  - Sending push notifications to iOS, Android, and Windows apps from one back end
+  - Broadcasting alerts or news to all app users
+  - Targeting groups of users through registration queries
+  - Personalizing messages with push variables
 whenToUse: >-
-  Use when you need to send scalable push notifications to multiple mobile
-  platforms from a single backend.
+  Use it to test push notifications for a mobile app across several platforms
+  from one back end, with a small number of devices.
 whenNotToUse: >-
-  Avoid if you require advanced analytics, scheduling, or if your app does not
-  use push notifications.
+  Avoid the Free tier for more than 500 active devices per namespace, for
+  scheduled push, or when you need an SLA.
 bestFor:
-  - mobile apps
-  - cross-platform messaging
-  - broadcast notifications
+  - mobile app prototypes
+  - cross-platform push from one back end
+  - small test audiences
 avoidIf:
-  - need advanced analytics
-  - require scheduled notifications
-  - not using push notifications
+  - you need more than 500 active devices per namespace
+  - you need scheduled push
+  - you need an SLA
+quickstartSteps:
+  - Sign in to the Azure portal with an Azure subscription.
+  - Open Notification Hubs from All services and select Create.
+  - Choose the subscription and resource group, name the namespace and the hub, pick a location, and select Create.
+  - Set up the platform notification service for your app. For Android, create a Firebase project that supports Firebase Cloud Messaging.
+  - Add the Notification Hubs registration to your app, then send a test notification to a registered device.
 difficulty: intermediate
-productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+productionReadiness: prototype
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/notification-hubs/'
@@ -71,7 +80,47 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/notification-hubs/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/notification-hubs/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/notification-hubs/'
-  - 'https://learn.microsoft.com/en-us/azure/notification-hubs/'
+  - 'https://learn.microsoft.com/en-us/azure/notification-hubs/notification-hubs-push-notification-overview'
+  - 'https://learn.microsoft.com/en-us/azure/notification-hubs/create-notification-hub-portal'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure Notification Hubs provides a scalable, cross-platform push notification service with a generous free tier for basic mobile messaging needs.
+You create a namespace and a hub in the Azure portal, connect the push services of each platform, and send from your back end. It suits mobile teams that want one send call for iOS, Android, and Windows. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+Notification Hubs has three tiers: free, basic, and standard. The Free tier includes 1 million pushes per subscription and has no base charge per namespace. Quotas apply per namespace. A subscription can have 100 namespaces and each namespace can have 100 hubs.
+
+The Free tier allows 500 active devices per namespace. An active device is a device eligible to receive notifications, such as a registration ID or a device token. Push variables, cross-platform push to individual devices, and registration queries are available. Telemetry is limited, and the Free tier has no SLA.
+
+## When you hit a limit
+
+The pricing page lists no extra pushes for the Free tier, so there is nothing to buy on it. It also gives an example: a free namespace that goes over its limits had only half of its 2 million pushes go through, chosen at random. For the active device limit, the FAQ says new registrations against any hub in the namespace are interrupted.
+
+To go higher, the pricing FAQ says you change the tier under the Scale tab of your notification hub. The paid tiers allow more devices and bill extra pushes at published rates, so check the live page for the amounts.
+
+## Gotchas
+
+- The 1 million pushes count is per subscription for the tier, not per namespace.
+- Scheduled push, bulk import, and multi-tenancy are not available until the Standard tier.
+- Pushes count every notification delivered to the platform services, such as Apple's and Google's.
+
+## Alternatives in this atlas
+
+- [OneSignal](/services/onesignal/): when you want a free push service that does not need an Azure subscription.
+- [Webpushr](/services/webpushr/): when you send web push notifications to browsers.
+- [Novu](/services/novu/): when you want one API for push, email, and in-app messages.
+
+## Questions people ask
+
+### Is Azure Notification Hubs free?
+
+There is a Free tier. It includes 1 million pushes per subscription and 500 active devices per namespace. It has no SLA.
+
+### What counts as a push in Azure Notification Hubs?
+
+Pushes include all notifications delivered to the platform notification services, such as the Apple Push Notification Service and Google's services.
+
+### What happens when I pass 500 active devices?
+
+New registrations against any hub in that namespace are interrupted. You move to a paid tier to allow more devices.

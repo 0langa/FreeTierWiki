@@ -1,8 +1,9 @@
 ---
 title: Virtual Machines
 description: >-
-  Azure Virtual Machines provides scalable, on-demand compute resources for
-  running applications and workloads in the cloud.
+  Azure Virtual Machines gives you Linux or Windows servers in the Azure
+  cloud, billed by use. It is for people who need a full server to run apps,
+  test setups, or learn cloud basics.
 provider: Azure
 category: compute
 domain: compute
@@ -21,59 +22,64 @@ audiences:
   - oss
   - agency
 tags:
-  - compute
-  - cloud
+  - vm
+  - virtual machine
+  - linux
+  - windows server
+  - iaas
+  - azure vm
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     750 hours per month each of B1s, B2pts v2 (Arm-based), and B2ats v2
-    (AMD-based) burstable VMs, free for 12 months for new customers.
+    (AMD-based) burstable VMs, free for 12 months for new Azure customers.
   limits:
     - 750 hours/month each of B1s, B2pts v2 (Arm), and B2ats v2 (AMD) VMs
     - Windows or Linux OS
-    - Paired with free Managed Disk storage (see Azure Disk Storage entry)
     - 12 months duration
   caveats:
     - Only the listed burstable VM sizes are eligible
-    - New Azure free account customers only
-    - 'After 12 months, standard rates apply'
+    - New Azure customers only
+    - VMs you keep running after 12 months continue to run and are billed at pay-as-you-go rates
+    - An Azure free account must move to pay-as-you-go within 30 days or after its credit is used to keep receiving free services
   resetPeriod: monthly
   requiresCard: true
   freeTierType: time-limited
-  hasHardCap: true
-  overageRisk: low
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
-    - Charges apply if usage exceeds free tier or after 12 months
+    - Usage above the free hours, other VM sizes, and any VM left running after 12 months are billed at pay-as-you-go rates
+    - Azure may place a temporary one-dollar authorization on your card during sign-up
   trialDays: 365
 useCases:
   - Testing and development environments
-  - Learning cloud infrastructure
-  - Hosting small web applications
+  - Learning Linux or Windows server administration
+  - Hosting a small web application
+  - Trying a cloud setup before you commit to it
 quickstartSteps:
-  - Sign up for an Azure account with the free tier.
-  - Navigate to the Azure Portal and select 'Create a resource'.
-  - Choose 'Virtual Machine' and select the B1s, B2pts v2, or B2ats v2 size.
-  - 'Configure OS, networking, and storage as needed.'
-  - Review and create the VM.
-  - Connect to your VM using SSH or RDP.
+  - 'Create an Azure account; sign-up verifies a card.'
+  - 'Sign in to the Azure portal, search for virtual machines, and select Create, then Virtual machine.'
+  - 'Create a resource group, name the VM, pick an image such as Ubuntu Server, and choose one of the free-eligible sizes.'
+  - 'Set SSH public key authentication with a generated key pair, allow SSH and HTTP in the inbound port rules, then select Review + create and Create.'
+  - 'Copy the public IP address and connect with ssh using the downloaded key file.'
 whenToUse: >-
-  Use when you need flexible, on-demand compute for development, testing, or
-  learning cloud infrastructure with minimal upfront cost.
+  Use it when you want a full Linux or Windows server for 12 months to test,
+  learn, or host a small app.
 whenNotToUse: >-
-  Avoid if you need always-free compute, require large-scale production
-  workloads, or want to avoid entering payment details.
+  Avoid it if you need a server that stays free after the first year, if you
+  are not a new Azure customer, or if you cannot give a card at sign-up.
 bestFor:
   - learning
   - prototyping
   - testing
   - small workloads
 avoidIf:
-  - always-free required
-  - large-scale production
+  - a server that stays free after 12 months
+  - not a new Azure customer
   - no credit card
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/services/virtual-machines/'
@@ -81,8 +87,49 @@ docsUrl: 'https://learn.microsoft.com/azure/virtual-machines/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/free/'
   - 'https://azure.microsoft.com/pricing/details/virtual-machines/'
+  - 'https://learn.microsoft.com/azure/virtual-machines/'
+  - 'https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://azure.microsoft.com/en-us/free/'
 ---
-Azure Virtual Machines offers a 12-month free tier for B1s, B2pts v2, and B2ats v2 burstable VMs, ideal for development, testing, and learning cloud computing basics.
+You create a VM in the Azure portal, pick Linux or Windows, and connect with SSH or remote desktop. It suits learners and small projects that need a full server for a year without paying.
+
+## What the free plan gives you
+
+New Azure customers get 750 hours each month of three burstable VM sizes: B1s, B2pts v2 (Arm-based), and B2ats v2 (AMD-based). The offer runs for 12 months. It covers Linux or Windows VMs.
+
+Azure shows this under the free services list of the Azure free account and of pay-as-you-go. The Azure free account also adds a $200 credit to use within 30 days, for services outside the free list. After that you must move to pay-as-you-go pricing within 30 days or after you use the credit, whichever comes first, to keep receiving free services.
+
+## When you hit a limit
+
+If you use more than the monthly free hours, or pick a VM size that is not on the list, Azure bills you at pay-as-you-go rates. The same happens after the 12 months end.
+
+The free services FAQ says VMs you still run after 12 months keep running and are billed. So the offer does not stop your VM for you. Delete the VM before the year ends if you do not want the charge. A VM that shows Stopped (Deallocated) is not billed, but one that shows Stopped Allocated still is. During the free account credit period, Azure says spending protection means your credit card will not be charged.
+
+## Gotchas
+
+- The 750 free hours apply to each listed size separately, and only those three sizes are eligible.
+- Azure may place a temporary one-dollar authorization on your card during sign-up and remove it after verification.
+- The $200 credit lasts up to 30 days. After that, move to pay-as-you-go to keep the free services.
+
+## Alternatives in this atlas
+
+- [Oracle Always Free Compute](/services/oracle-always-free-compute/): when you want a VM that stays free after the first year.
+- [Compute Engine e2-micro](/services/compute-engine-e2-micro/): when you want an always-free small VM on Google Cloud.
+- [Azure Container Apps](/services/azure-container-apps/): when you want to run containers on Azure without managing a VM.
+
+## Questions people ask
+
+### Is Azure Virtual Machines free?
+
+For new Azure customers, yes, for 12 months. You get 750 hours each month of B1s, B2pts v2, and B2ats v2 VMs.
+
+### What happens to my Azure free VM after 12 months?
+
+It keeps running, and Azure bills it at pay-as-you-go rates. Delete the VM before the year ends if you want to avoid charges.
+
+### Does the Azure free VM need a credit card?
+
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.

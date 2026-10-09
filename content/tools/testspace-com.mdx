@@ -1,8 +1,9 @@
 ---
 title: Testspace.com
 description: >-
-  Testspace.com provides cloud-based test result management and visualization
-  for software teams.
+  Testspace collects test results and code coverage from your CI runs into a
+  dashboard, and runs manual tests written as Markdown files. It works with
+  GitHub, GitLab, and Bitbucket.
 provider: Testspace.com
 category: devops
 domain: devops
@@ -11,59 +12,62 @@ subtypes:
   - CI integration
   - dashboard
 audiences:
+  - oss
   - team
   - startup
   - indie
-  - oss
 tags:
-  - testing
-  - ci-cd
-  - analytics
-  - automation
+  - test reporting
+  - test management
+  - test results dashboard
+  - junit reports
+  - github actions
+  - manual testing
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan is for public/open-source projects only: unlimited public
-    projects and 200 sessions per month via a personal GitHub account.
+    The Free plan is for open source: a GitHub personal account, unlimited public
+    projects, and 200 sessions. Private projects need a paid plan.
   limits:
     - Unlimited public projects
-    - 200 sessions/month
-    - GitHub personal account only (no private projects)
+    - 200 sessions
+    - GitHub personal account; private projects are listed from the Basic plan
   caveats:
-    - Private projects require the Basic plan ($32/month)
-    - Over 1 million test cases/month needs an Enterprise account
-  resetPeriod: monthly
+    - Private projects need the Basic plan at $32 per month, which includes 2 private projects and 4 users
+    - Accounts generating over 1 million test cases per month need an Enterprise account
+    - Free sign-up goes through the GitHub Marketplace
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Aggregating test results from CI pipelines
-  - Visualizing test trends over time
-  - Sharing test dashboards with teams
+  - Collecting JUnit, NUnit, or TRX test results from CI runs
+  - Tracking code coverage and test trends over time
+  - Merging results from matrix and parallel jobs into one report
+  - Running manual tests written as Markdown files in a repository
 quickstartSteps:
-  - Sign up for a free Testspace.com account.
-  - Connect your GitHub or GitLab repository.
-  - Integrate Testspace into your CI pipeline using provided instructions.
-  - Push test results to Testspace from your CI jobs.
-  - View and share test dashboards with your team.
+  - Sign up for the Free plan through the GitHub Marketplace, or start a trial on testspace.com.
+  - Choose an organization name, which becomes your subdomain, for example myorg.testspace.com.
+  - Click New Project at the top right and connect the repository.
+  - Add the testspace-com/setup-testspace action to your CI workflow, then run testspace with the path to your result files.
+  - Open your dashboard at your subdomain to review the published results.
 whenToUse: >-
-  Use Testspace.com when you need to aggregate and visualize automated test
-  results from CI pipelines in one place.
+  Use Testspace to see CI test results and coverage for a public GitHub project
+  in one dashboard.
 whenNotToUse: >-
-  Avoid if you need any private project support, since the free plan only
-  covers public/open-source projects.
+  Avoid the Free plan for private projects, for more than 200 sessions, or for
+  a team that needs many users.
 bestFor:
-  - teams using CI/CD
   - open source projects
-  - startups needing test dashboards
+  - teams using CI/CD
+  - manual test plans kept in Git
 avoidIf:
-  - require advanced test case management
-  - need unlimited private projects
+  - needing private projects for free
+  - needing a full test case management suite
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://testspace.com/'
@@ -72,6 +76,48 @@ pricingUrl: 'https://testspace.com/pricing'
 sourceUrls:
   - 'https://testspace.com/pricing'
   - 'https://help.testspace.com/'
+  - 'https://help.testspace.com/getting.started'
+  - 'https://help.testspace.com/publish/overview'
 featured: false
 ---
-Testspace.com offers a simple way to collect, visualize, and share automated test results, especially for teams using CI/CD workflows.
+You push result files from your CI job with the Testspace client, and read them on a dashboard. Manual tests are Markdown files you can keep in your repository.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and is meant for open source. It runs on a GitHub personal account and gives unlimited public projects and 200 sessions. You sign up through the GitHub Marketplace.
+
+A session is a published collection of test cases in a single result record. For example, one CI run is one session. The docs say Testspace also merges results from parallel jobs in the same run.
+
+The Basic plan costs $32 per month and has 4 users, 2 private projects, unlimited public projects, and 200 sessions. Premium costs $120 per month with 20 users and unlimited projects. Both have a 14 day free trial. Enterprise has custom pricing and unlimited sessions.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 200 sessions. It lists unlimited sessions only for the Enterprise plan, so a busy project may need to move up. Each CI run counts as one session, so a busy repository can reach the cap.
+
+The pricing FAQ also says accounts that generate over 1 million test cases a month need an Enterprise account. For very high volume open source, it points to open enterprise accounts through contact.
+
+## Gotchas
+
+- Private projects are not part of Free. Basic is the first plan with private projects.
+- The pricing page lists a GitHub personal account for the Free plan. It does not list a GitHub organization.
+- You can cancel at any time. The pricing page says mid-month changes are prorated.
+
+## Alternatives in this atlas
+
+- [Qase.io](/tools/qase-io/): when you want a test case library with runs and defects.
+- [Tesults](/services/tesults-com/): when you mostly need a place to send automated results.
+- [Codecov](/tools/codecov/): when your main need is coverage reporting.
+
+## Questions people ask
+
+### Is Testspace free?
+
+Yes, for open source. The Free plan gives unlimited public projects and 200 sessions on a GitHub personal account.
+
+### What is a Testspace session?
+
+A session is a published collection of test cases in one result record. A single CI run is one session.
+
+### Does Testspace support private projects?
+
+Not on Free. The Basic plan costs $32 per month and includes 2 private projects and 4 users.

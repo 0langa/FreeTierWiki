@@ -1,8 +1,9 @@
 ---
 title: Earnings Feed
 description: >-
-  Provides an API for SEC EDGAR filings (10-K, 10-Q, 8-K), insider trades, and
-  institutional holdings for financial applications and research.
+  Earnings Feed is a REST API for SEC EDGAR data: 10-K, 10-Q, and 8-K filings, insider trades, and
+  institutional holdings. It suits developers building finance dashboards, research tools, and
+  personal projects.
 provider: Earnings Feed
 category: analytics
 domain: analytics
@@ -16,59 +17,114 @@ audiences:
   - team
   - student
 tags:
-  - api
-  - productivity
+  - sec edgar
+  - sec filings api
+  - insider trading
+  - 13f holdings
+  - financial data
+  - rest api
+  - stock research
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free tier gives 15 requests/minute and 5,000 requests per month, with no
-    credit card required.
+  summary: 'Free tier gives 15 requests/minute and 5,000 requests per month, with no credit card required.'
   limits:
-    - 15 requests/minute
-    - 5,000 requests/month
-    - SEC filings API (10-K, 10-Q, 8-K, insider trades, 13F holdings)
+    - 15 requests per minute
+    - '5,000 requests per UTC calendar month'
+    - 'Every endpoint, including filings, insider trades, and 13F holdings'
   caveats:
-    - Pro ($10/month, billed annually) raises limits to 60 req/min and 250,000 req/month
+    - Monthly limits are hard caps
+    - 'The monthly quota is shared across API keys, interactive docs, and MCP'
+    - Interactive docs tokens are fixed at 10 requests per minute
+    - 'Pro ($10/month billed annually) raises limits to 60 requests per minute and 250,000 per month'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Show new SEC filings in dashboards
-  - Track insider trades and institutional holdings in trading apps
-  - Academic or personal finance research
+  - Show new SEC filings in a dashboard
+  - 'Track insider transactions (Forms 3, 4, and 5)'
+  - Look up institutional holdings from 13F filings
+  - Resolve a ticker to a company profile by CIK
+  - Pull filings for academic or personal finance research
 quickstartSteps:
-  - Sign up for a free Earnings Feed account.
-  - Obtain your API key from the dashboard.
-  - Review the API documentation for endpoint details.
-  - Make test requests using your API key.
-  - Integrate the API into your application.
+  - Sign up free on earningsfeed.com. No credit card is needed.
+  - Create an API key in your dashboard.
+  - Send the key as a Bearer token in the Authorization header.
+  - 'Call https://earningsfeed.com/api/v1/filings with parameters such as ticker, forms, and limit.'
+  - 'Page through results with the cursor, and watch the rate limit headers in each response.'
+  - >-
+    Optional: import the OpenAPI 3.1 spec at /api/v1/openapi.json into Postman or a client
+    generator.
 whenToUse: >-
-  Use when you need SEC filing data (10-K, 10-Q, 8-K, insider trades) for
-  prototypes or light financial applications.
+  Use it when you need SEC filing, insider trade, or 13F data for a prototype or a light finance
+  tool.
 whenNotToUse: >-
-  Avoid if you require high request volumes or bulk data for production
-  trading systems.
+  Avoid it if you need more than 5,000 requests a month, a fast burst rate, or bulk historical
+  downloads for production trading systems.
 bestFor:
   - prototyping
   - personal finance tools
   - student projects
+  - filing alerts
 avoidIf:
   - high-frequency trading
   - enterprise-scale analytics
   - bulk historical data needs
+  - need investment advice
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://earningsfeed.com/api'
-docsUrl: 'https://docs.earningsfeed.com'
+docsUrl: 'https://earningsfeed.com/api/docs'
 sourceUrls:
   - 'https://earningsfeed.com/api'
+  - 'https://earningsfeed.com/api/docs'
 pricingUrl: 'https://earningsfeed.com/api'
 featured: false
 ---
-Earnings Feed offers an API for SEC EDGAR filings, insider trades, and institutional holdings, suitable for lightweight financial applications and research. The free tier gives 15 requests/minute and 5,000 requests/month.
+
+You call Earnings Feed over plain HTTP with a Bearer API key and get JSON back. No SDK is required. It suits developers and researchers who want SEC data without parsing EDGAR themselves.
+
+## What the free plan gives you
+
+The Free plan allows 15 requests per minute and 5,000 requests per UTC calendar month. It costs $0 and needs no credit card or trial period. Every plan includes every endpoint, so Free can read filings, single filing details, insider transactions, 13F holdings, and company profiles.
+
+The data covers 10-K and 10-Q reports, 8-K events, Form 3, 4, and 5 insider trades, 13F holdings, and 13D and 13G ownership stakes. The site checks EDGAR every minute. Its own figures say half of filings appear within two minutes of SEC acceptance, and 9 in 10 within five.
+
+The quota is shared across API keys, interactive docs, and MCP. Interactive docs tokens are fixed at 10 requests per minute.
+
+## When you hit a limit
+
+Monthly limits are hard caps on every plan, and they reset at the start of each UTC calendar month. When you reach the monthly cap, the docs say not to retry in a loop. Wait for the UTC reset, upgrade, or contact support.
+
+The per-minute limit works differently. A minute-scoped 429 response includes a Retry-After header. Wait that long, add some jitter, and cap your retries. Responses include headers that show your minute and monthly usage, so you can track it in code. Pro is $10 per month billed annually and allows 60 requests per minute and 250,000 per month.
+
+## Gotchas
+
+- The monthly cap is account-wide. Testing in the interactive docs or through MCP uses the same 5,000 requests as your app.
+- The pricing table and the FAQ show Pro both as $15 per month and as $10 per month billed annually. The lower price needs an annual plan.
+- The site says it is not affiliated with the SEC, and nothing there is investment advice.
+
+## Alternatives in this atlas
+
+- [Financial Data](/tools/financial-data/): when you want market and symbol data alongside filings.
+- [Market Data API](/tools/market-data-api/): when you want real-time and historical prices.
+- [RapidAPI](/tools/rapidapi/): when you want to browse other finance and data APIs in one marketplace.
+
+## Questions people ask
+
+### Is the Earnings Feed API free?
+
+Yes. The Free plan gives full endpoint access at 15 requests per minute and 5,000 requests per UTC month. It needs no credit card or trial.
+
+### What happens when I hit the Earnings Feed monthly limit?
+
+Monthly limits are hard caps. Wait for the UTC reset, upgrade, or contact support.
+
+### How fast does Earnings Feed show new filings?
+
+The site checks EDGAR every minute. Half of filings appear within two minutes of SEC acceptance, and 9 in 10 within five.

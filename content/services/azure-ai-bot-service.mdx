@@ -1,8 +1,9 @@
 ---
 title: Azure AI Bot Service
 description: >-
-  Azure AI Bot Service enables building, testing, deploying, and managing
-  intelligent bots across multiple channels.
+  Azure AI Bot Service registers and hosts bots on Azure and connects them to chat channels such as
+  Microsoft Teams, Slack, and your own website. It is for developers who build bots with the Agents
+  SDK or the Bot Framework SDK.
 provider: Azure
 category: ai
 domain: ai
@@ -17,7 +18,12 @@ audiences:
   - student
   - oss
 tags:
-  - ai
+  - chatbot
+  - bot framework
+  - azure bot
+  - conversational ai
+  - microsoft teams bot
+  - web chat
 pricingModel: freemium
 freeTierDetails:
   summary: 'Standard channels are unlimited free; premium channels get 10,000 messages/month free.'
@@ -26,41 +32,49 @@ freeTierDetails:
     - '10,000 premium channel messages/month'
   caveats:
     - Premium channel messages above the free amount require the paid tier
-    - Underlying resources (App Service, Application Insights) are billed separately
+    - 'Underlying resources (App Service, Application Insights) are billed separately'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Customer support bots
-  - FAQ automation
-  - Internal helpdesk assistants
-  - Multichannel conversational interfaces
+  - Run a support bot inside Microsoft Teams
+  - Embed a Web Chat bot on your own website
+  - Answer common questions in Slack or Facebook
+  - Give staff an internal helpdesk bot
 quickstartSteps:
-  - Sign in to the Azure portal and create a new Bot Service resource.
-  - Configure your bot using the Azure Bot Framework Composer or SDK.
-  - 'Connect your bot to desired channels (e.g., Teams, Web Chat, Facebook).'
-  - Test your bot using the integrated web chat or Bot Framework Emulator.
-  - Deploy and monitor your bot from the Azure portal.
+  - 'Sign in to the Azure portal with an Azure subscription, or create a free Azure account first.'
+  - 'Select Create a resource, search for bot, pick the Azure Bot card, and select Create.'
+  - >-
+    Choose global or local data residency and how the bot identity is managed: user-assigned managed
+    identity or single-tenant app.
+  - 'Select Review + create, then Create, and open the new resource with Go to resource.'
+  - >-
+    Put the app ID, tenant ID, and password in your bot configuration file, such as appsettings.json
+    for C# or .env for JavaScript.
+  - >-
+    Build the bot with the Bot Framework SDK for C#, JavaScript, or Python, then connect it to
+    channels.
 whenToUse: >-
-  Use when you need to quickly build and deploy conversational bots integrated
-  with Azure and popular messaging platforms.
+  Use when you need to build and deploy a code-based bot on Azure and reach users on channels such
+  as Teams or your own website.
 whenNotToUse: >-
-  Avoid if you require fully open-source hosting, advanced analytics, or need to
-  avoid Azure cloud dependencies.
+  Avoid if you want a no-code bot builder, need fully open-source hosting, or must avoid Azure. The
+  docs point no-code users to Copilot Studio.
 bestFor:
-  - teams building chatbots
-  - Azure-centric organizations
-  - developers needing multichannel support
+  - 'developers building chatbots in C#, JavaScript, or Python'
+  - Azure-centric teams
+  - bots on Microsoft Teams
+  - bots on your own website through Web Chat
 avoidIf:
   - avoiding cloud lock-in
-  - requiring advanced analytics
-  - needing on-premises deployment
+  - want a no-code bot builder
+  - need on-premises deployment
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/bot-service/'
@@ -69,6 +83,48 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/bot-services/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/bot-services/'
   - 'https://learn.microsoft.com/en-us/azure/bot-service/'
+  - 'https://learn.microsoft.com/en-us/azure/bot-service/abs-quickstart'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Bot Service provides a managed platform for building, deploying, and scaling intelligent bots with integration to Azure and popular messaging channels. Standard channels are free with unlimited messages, and premium channels include 10,000 free messages per month. Underlying compute and premium channel overages require paid tiers.
+You create the bot resource in the Azure portal and write the bot code with an SDK in C#, JavaScript, or Python. It suits developers who already work on Azure and want their bot on Teams or a website.
+
+## What the free plan gives you
+
+The Free tier gives you unlimited messages on standard channels. Standard channels are Microsoft first-party services, such as Microsoft Teams, and services with public bot APIs, such as Facebook and Slack. The pricing page points to the docs for the full list.
+
+Premium channels get 10,000 messages per month on the Free tier. These channels let a bot talk to users inside your own app or website. They use the open-source Direct Line and Web Chat clients, which you can customize.
+
+The page shows a second tier called S1. It prices premium messages per 1,000 messages, but the price field on the page is blank.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you send more than 10,000 premium messages in a month. It lists S1 as the tier that charges for premium messages by the 1,000.
+
+You also pay for the resources your bot uses. The page says that apart from the Bot Service price, you pay for resources consumed, such as hosting. A free bot channel does not make the rest of the bot free.
+
+## Gotchas
+
+- Premium channels are the ones used for your own website or app, and they are the ones with the monthly message cap.
+- The hosting that runs your bot code is billed separately from the Bot Service tier.
+- The S1 premium price is not shown on the pricing page, so use the Azure pricing calculator before you plan to exceed the free amount.
+
+## Alternatives in this atlas
+
+- [Azure AI Language](/services/azure-ai-language/): when your bot needs language understanding and you want to stay on Azure.
+- [Azure AI Search](/services/azure-ai-search/): when the bot must answer from your own documents.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want to run models for a bot without an Azure subscription.
+
+## Questions people ask
+
+### Is Azure AI Bot Service free?
+
+Partly. The Free tier has unlimited messages on standard channels and 10,000 premium channel messages per month. Resources your bot uses are billed on top.
+
+### What happens when I go over the free message amount?
+
+The pricing page does not say. It shows an S1 tier that charges premium messages per 1,000, with no price listed.
+
+### Does Azure AI Bot Service need a credit card?
+
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.

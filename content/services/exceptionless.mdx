@@ -1,8 +1,8 @@
 ---
 title: Exceptionless
 description: >-
-  Exceptionless provides real-time error and event monitoring for .NET,
-  JavaScript, and other platforms.
+  Exceptionless collects errors, logs, and feature usage from your apps in real
+  time. It is open source, so you can use it hosted or run it yourself.
 provider: Exceptionless
 category: observability
 domain: observability
@@ -16,9 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - logging
-  - frontend
+  - error-tracking
+  - dotnet
+  - javascript
+  - open-source
+  - self-hosted
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -28,52 +30,94 @@ freeTierDetails:
     - 1 project / 1 user
     - '3,000 events/month'
     - 3-day event retention
-    - No premium features (only daily digest, no real-time alerts, search, or webhooks)
+    - No premium features (daily summaries only, no searching, notifications, or webhooks)
   caveats:
     - No credit card required
-    - Repeatedly exceeding the event limit can require an upgrade or lead to account closure
+    - Going over the event limit sends a notification; continued overage can require an upgrade or lead to account closure
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Track and resolve application errors
-  - Monitor production deployments
-  - Receive real-time alerts for exceptions
+  - Track exceptions in a .NET or JavaScript app
+  - Log messages and feature usage as events
+  - Mark errors as fixed and watch for regressions
+  - Self-host an open source error tracker
 quickstartSteps:
-  - Sign up for a free Exceptionless account.
-  - Create a new project in the dashboard.
-  - Install the Exceptionless SDK for your platform.
-  - Configure your application with the provided API key.
-  - Deploy and verify error events appear in the dashboard.
+  - Sign up for a free account; no credit card is required.
+  - Create your first project when prompted.
+  - On the project list page, click Download & Configure Client and choose your project type.
+  - For browser JavaScript, run `npm install @exceptionless/browser`.
+  - Start the client with `await Exceptionless.startup` and your API key, then send a test error with `Exceptionless.submitException`.
+  - Check the dashboard for the event.
 whenToUse: >-
-  Use Exceptionless to monitor, log, and get alerted on application errors in
-  real time for small to medium projects.
+  Use Exceptionless for a single small project with one user, or host it
+  yourself if you want more.
 whenNotToUse: >-
-  Avoid if you need more than 1 user/project, real-time alerting, or more than
-  3,000 events per month.
+  Avoid the Free plan if you need more than 1 user, live error notifications,
+  searching, or more than 3,000 events a month.
 bestFor:
   - .NET developers
   - JavaScript developers
-  - small teams
+  - solo projects
   - open source projects
 avoidIf:
-  - enterprise with strict compliance
-  - very high event volume
-  - need for advanced analytics
+  - more than 1 user
+  - real-time alerts on the free plan
+  - high event volume
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://exceptionless.com'
 docsUrl: 'https://docs.exceptionless.com/'
 sourceUrls:
   - 'https://exceptionless.com/pricing'
-  - 'https://docs.exceptionless.com/'
+  - 'https://exceptionless.com'
+  - 'https://exceptionless.com/docs/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://exceptionless.com/pricing'
 ---
-Exceptionless is a real-time error and event monitoring service supporting .NET, JavaScript, and other platforms, with a generous free tier for small projects.
+You sign up, create a project, and add an Exceptionless client for your platform. Errors, logs, and feature usage then show up in the web app. It suits small .NET and JavaScript projects, and you can also host it yourself.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and needs no credit card. It includes 1 project and 1 user, 3 days of event retention, and 3,000 events per month. It has no premium features.
+
+Premium features are searching, error occurrence notifications, and web hooks with Slack and Zapier integrations. On the Free plan you only get daily summaries instead of live notifications. The Small plan costs $15 per month and raises the numbers to 5 projects, 10 users, 30 days of retention, and 15,000 events per month.
+
+Exceptionless is open source, and the pricing page says you can host it yourself if you have the resources.
+
+## When you hit a limit
+
+The pricing FAQ says it will simply send you a notification if you go over your error limit. If you continue to exceed the limit, you will be asked to upgrade your plan, or your account will be closed.
+
+So the risk is losing the free account, not a surprise charge. The Free plan needs no card. You can change your plan at any time and cancel before your next billing period.
+
+## Gotchas
+
+- The Free plan allows 1 user, so a team cannot share it.
+- Searching, web hooks, Slack, and Zapier are paid features.
+- Event data is kept for only 3 days on Free, while Large and Extra Large keep it for 180 days.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you need more than one user on a free plan.
+- [Bugsink](/services/bugsink/): when you want a Sentry-compatible tracker you can self-host.
+
+## Questions people ask
+
+### Is Exceptionless free?
+
+Yes. The Free plan costs $0 per month and includes 1 project, 1 user, 3,000 events per month, and 3 days of event retention. No credit card is required.
+
+### What happens when I go over the Exceptionless event limit?
+
+Exceptionless sends you a notification. If you keep going over, you will be asked to upgrade or your account will be closed.
+
+### Can I host Exceptionless myself?
+
+Yes. The pricing page says you can host it yourself, and the docs list Docker and Kubernetes pages under Self Hosting.

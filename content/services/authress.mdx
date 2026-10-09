@@ -1,8 +1,9 @@
 ---
 title: Authress
 description: >-
-  Authress provides authentication and authorization as a service for modern
-  applications with fine-grained access control.
+  Authress is a login and access control API. It handles user sign-in and
+  fine-grained permissions for apps, with SSO, social login, and machine
+  tokens.
 provider: Authress
 category: auth
 domain: auth
@@ -13,21 +14,23 @@ subtypes:
 audiences:
   - startup
   - team
-  - indie
   - oss
 tags:
   - auth
-  - security
+  - authorization
+  - permissions
+  - sso
+  - rbac
+  - api keys
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Pay-per-use pricing at $0.0012 per authentication/authorization call, with
-    the first 1,000 billable calls per month free and everything else
-    (configuration, tenants, applications) included at no cost.
+    the first 1,000 billable calls per month free and everything else,
+    including configuration, free.
   limits:
     - '1,000 billable calls/month free, then $0.0012 per call'
-    - Unlimited tenants
-    - Unlimited applications
+    - Unlimited SSO connections, social login connections, and machine tokens
     - Only auth and authz calls are billable; configuration is free
   caveats:
     - Billed at $0.0012 per call after the first 1,000 billable calls each month; no cap is stated.
@@ -38,34 +41,35 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Add secure authentication to web or mobile apps
-  - Implement fine-grained access control
-  - Manage multi-tenant user permissions
+  - Hosted login with social, passwordless, and passkey sign-in
+  - Enterprise SSO through SAML, OAuth, or OIDC for each customer tenant
+  - Role and resource based permissions for an app or API
+  - Service-to-service authorization and machine tokens
+  - An audit trail of who was allowed to do what
 quickstartSteps:
-  - 'Sign up for a free Authress account at https://authress.io/.'
-  - Create a new application in the Authress dashboard.
-  - Configure your application's callback URLs and authentication settings.
-  - Integrate the Authress SDK or API with your app.
-  - Test user login and access control flows.
+  - Sign up on authress.io and open your Authress account.
+  - Follow the setup guide to enable identity provider sign-in, such as a social provider.
+  - Users then log in through the Authress hosted login screen, or a custom one.
+  - Install an Authress SDK for your language, or call the REST API, as the docs describe.
+  - Check permissions in your code with Authress authorization calls. Each one is a billable call.
 whenToUse: >-
-  Use Authress when you need to quickly add secure authentication and
-  fine-grained authorization to your application without managing your own auth
-  infrastructure.
+  Use Authress when you want login and fine-grained permissions behind one API,
+  and you can pay a small amount per call after the first free calls.
 whenNotToUse: >-
-  Avoid if you expect to exceed 1,000 auth/authz calls per month without
-  budget.
+  Avoid it if you need a fixed spending cap, expect high call volumes on a free
+  budget, or want a plain sign-in widget with no permission model.
 bestFor:
-  - startups
-  - indie developers
-  - small teams
+  - startups and small teams
+  - apps with tenants and per-customer SSO
   - open source projects
 avoidIf:
-  - need a plan with a fixed spending cap
-  - expect high user volumes on free tier
+  - a fixed spending cap
+  - high call volume on a free budget
+  - a plain login form only
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://authress.io/'
@@ -74,6 +78,46 @@ pricingUrl: 'https://authress.io/'
 sourceUrls:
   - 'https://authress.io/'
   - 'https://authress.io/knowledge-base/docs'
+  - 'https://authress.io/knowledge-base/docs/introduction/what-is-authress'
+  - 'https://authress.io/knowledge-base/docs/authentication/user-authentication'
 featured: false
 ---
-Authress offers pay-per-use authentication and authorization with 1,000 free calls per month, enabling secure user management and access control without complex setup.
+You configure Authress in its portal and call it through a REST API or SDKs from your own code. It suits teams that want identity and permissions kept apart from their business logic.
+
+## What the free plan gives you
+
+Authress has no fixed free plan. It charges per call, and the first 1,000 billable calls each month are free. Only authentication and authorization calls are billable. Everything else, including configuration, is free.
+
+The pricing section also lists unlimited SSO connections, unlimited social login connections, and unlimited machine tokens. There is no enterprise tax, so you get all features out of the box. Every customer gets default SLAs, with a 99.995% availability SLA for the default regions. Developer support queries get a response within 24h. A dashboard shows your current and projected spend.
+
+## When you hit a limit
+
+Nothing stops at 1,000 calls. After the first 1,000 billable calls in a month, each call costs 0.0012 USD, billed monthly. The site states no cap on the monthly total, so a busy app can pay more as its traffic grows.
+
+The dashboard shows current and projected spend, so you can watch the bill during the month. The pricing section does not say whether you must add a payment method before you pass the free calls, so check this in the portal before you launch.
+
+## Gotchas
+
+- There is no spending cap. The site states none, so cost grows with the number of authorization checks your app makes.
+- Authorization checks count as billable calls. An app that checks permissions on every request uses the free calls quickly.
+- The pricing information lives on the home page, not on a separate pricing page. Read it there before you plan costs.
+
+## Alternatives in this atlas
+
+- [Auth0](/services/auth0/): when you want a flat free plan with a monthly active user limit instead of per-call billing.
+- [Ory](/services/ory/): when you want open-source identity and permission tools you can also self-host.
+- [WorkOS](/services/workos/): when your main goal is enterprise SSO for B2B customers.
+
+## Questions people ask
+
+### Is Authress free?
+
+Partly. The first 1,000 billable calls each month are free, and everything except authentication and authorization calls is free. After that, each call costs 0.0012 USD.
+
+### How does Authress charge?
+
+It charges per authentication or authorization call, billed monthly. Everything else is free, and a dashboard shows current and projected spend.
+
+### Does Authress have an SLA?
+
+Yes. The site lists default SLAs for all customers, with a 99.995% availability SLA for the default regions.

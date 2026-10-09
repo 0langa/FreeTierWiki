@@ -1,8 +1,9 @@
 ---
 title: Namae
 description: >-
-  Namae is a free tool for instantly checking domain and social username availability across
-  multiple platforms.
+  Namae is an open-source web app that checks whether a name is free as a
+  domain, a code package, a store listing, or a social handle, so you can pick
+  one name for a new project.
 provider: Namae
 category: hosting
 domain: hosting
@@ -18,48 +19,51 @@ audiences:
   - oss
   - agency
 tags:
-  - design
-  - search
+  - name-checker
+  - domain-search
+  - username-availability
+  - branding
+  - open-source
 pricingModel: free
 freeTierDetails:
   summary: >-
     Free, open-source browser app at namae.dev that checks a name across domains, GitHub, npm,
-    PyPI, crates.io, app stores, and more than 30 other registries. No account, no limits.
+    PyPI, crates.io, app stores, and many other registries. The repository describes no account step, limit, or paid tier.
   limits:
-    - Hosted at namae.dev with no account or sign-in
-    - Checks domains, GitHub, GitLab, npm, PyPI, RubyGems, crates.io, Homebrew, app stores, and social handles
+    - Hosted at namae.dev; the repository describes no account step
+    - 'Source has 33 provider cards: domains, GitHub, GitLab, npm, PyPI, RubyGems, crates.io, Homebrew, app stores, and social handles'
     - Apache-2.0 source; self-hosting is possible
   caveats:
-    - Browser tool only; there is no public API product
-    - Checks run from your browser, so some registries can rate-limit you
+    - The repository documents no public API
+    - Each check calls an outside registry, and the pages say nothing about rate limits
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Check domain name availability for new projects
-  - Find matching usernames across social platforms
-  - Brainstorm brand names
-  - Validate name consistency
-  - Research before domain purchase
+  - Check one project name across domains and package registries before you commit to it
+  - Find out whether a social handle or subreddit name is taken
+  - Check app store and browser add-on stores for a name clash
+  - Run your own copy of the checker for a team
 quickstartSteps:
-  - 'Go to https://namae.dev/'
-  - Enter your desired name in the search box.
-  - Review domain and social username availability results.
-  - Click results for more details or registration options.
+  - Open namae.dev in a browser.
+  - Type the name you want in the search box.
+  - Read the cards for domains, code registries, stores, and social sites.
+  - Follow a card's link to the registry to claim the name there.
+  - To self-host, install the Vercel CLI, run yarn install in the repository, then run vc dev.
 whenToUse: >-
-  Use Namae when you need to quickly check if a domain or social username is available for a new
-  project or brand.
-whenNotToUse: 'Avoid if you need a public API, bulk checks, or direct domain registration.'
+  Use it when you are naming a new project, product, or package and want one
+  view of where the name is free.
+whenNotToUse: 'Avoid it if you need a documented public API, bulk checks, or direct domain registration.'
 bestFor:
-  - Branding research
-  - Startups
-  - Personal projects
-  - Open source naming
+  - branding research
+  - startups
+  - personal projects
+  - open source naming
 avoidIf:
-  - You need a supported public API product
-  - You require bulk search
-  - You want to register domains directly
+  - you need a documented public API
+  - you require bulk search
+  - you want to register domains directly
 difficulty: beginner
 productionReadiness: prototype
 status: changed
@@ -70,16 +74,54 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: Qualified hosted availability and public API claims using the official repository.
-lastUpdated: 2026-10-08
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://namae.dev/'
 docsUrl: 'https://github.com/uetchy/namae'
 sourceUrls:
   - 'https://github.com/uetchy/namae'
+  - 'https://github.com/uetchy/namae/tree/master/src/components/cards/providers'
   - 'https://namae.dev/'
 featured: false
 pricingUrl: 'https://namae.dev/'
-lastVerified: 2026-10-08
+lastVerified: 2026-10-09
 ---
-Namae's published source implements browser-based name searches. Hosted availability and individual provider integrations could not be verified during this review.
+You type a name into the website, and it shows one card per registry or service. It suits founders, open source authors, and anyone who needs one name that works in many places.
+
+## What the free plan gives you
+
+Namae is free, and its code is open under the Apache-2.0 license. The repository describes it as a way to save time searching around registries to see if a name is ready for use.
+
+The source has 33 provider cards. They cover domains, GitHub, GitLab, npm, PyPI, RubyGems, crates.io, Homebrew, Docker, the Chrome Web Store, Firefox add-ons, the App Store, Google Play, Slack, YouTube, and Reddit, among others. The repository does not describe any account step, limit, or paid tier.
+
+## When you hit a limit
+
+The repository does not describe any Namae limit. Each check calls an outside registry or service, and the pages do not say how those services treat fast searches.
+
+The pages do not describe bulk checks or a public API. The code is open source under Apache-2.0, so you can run your own copy and decide for yourself how fast it queries other services. The contribution guide asks for the Vercel CLI, `yarn install`, and `vc dev` to start the dev server.
+
+## Gotchas
+
+- Namae reports availability only. It does not register domains or reserve handles for you.
+- The repository lists a card for each provider, and each check calls an outside service, so the result depends on that service.
+- To run it yourself, the contribution guide asks for the Vercel CLI, `yarn install`, and `vc dev`.
+
+## Alternatives in this atlas
+
+- [IntoDNS.ai](/services/intodns-ai/): when you already own the domain and want to check its DNS and email setup.
+- [Cloudflare](/services/cloudflare/): when you picked a name and need free DNS and a CDN for it.
+
+## Questions people ask
+
+### Is Namae free?
+
+Yes. The hosted app at namae.dev is free, and the source code is open under the Apache-2.0 license. The repository mentions no paid plan.
+
+### Does Namae need an account or a credit card?
+
+The repository describes no sign-in, account, or card step. You open the site and type a name.
+
+### Can I host Namae myself?
+
+Yes. The code is open source. The contribution guide says to install the Vercel CLI, run `yarn install`, and start the dev server with `vc dev`.

@@ -1,8 +1,8 @@
 ---
 title: Logto
 description: >-
-  Logto provides authentication and authorization as a service for web, mobile,
-  and native applications.
+  Logto is an open-source identity service for sign-in and access control in web, mobile, and native
+  apps, available as a hosted cloud or to self-host.
 provider: Logto
 category: auth
 domain: auth
@@ -17,55 +17,65 @@ audiences:
   - oss
 tags:
   - auth
-  - identity
+  - open-source
+  - oidc
+  - sso
+  - mfa
+  - passkeys
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan is $0/mo for up to 50,000 monthly active users, no credit card
-    required, with 3 applications and 1 custom domain included.
+    Free plan is $0/mo for up to 50,000 monthly active users, no credit card required, with 3
+    applications and 1 custom domain included.
   limits:
-    - Up to 50,000 monthly active users (MAU)
-    - '3 total applications'
-    - '1 machine-to-machine app'
-    - '1 custom domain'
-    - '3 social connectors'
+    - 'Up to 50,000 monthly active users (MAU)'
+    - 3 total applications
+    - 1 machine-to-machine app
+    - 1 custom domain
+    - 3 social connectors
     - 3-day audit log retention
   caveats:
-    - 1 custom domain included; more domains, RBAC, and SAML/enterprise SSO need paid add-ons
+    - '1 custom domain included; more domains, RBAC, Organizations, MFA, and enterprise SSO are listed as paid add-ons'
     - No credit card required for the Free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Add authentication to web or mobile apps
-  - Enable social login providers
-  - Manage user profiles and permissions
+  - 'Sign-in and sign-up for a web, mobile, or native app'
+  - Social login and passkey sign-in
+  - Multi-factor authentication (a paid add-on on the pricing page)
+  - One identity provider shared by several apps
+  - Self-host the open-source version on your own infrastructure
 quickstartSteps:
-  - 'Sign up for a free Logto account at https://logto.io/.'
-  - Create a new application in the Logto dashboard.
-  - Configure redirect URIs and authentication settings.
-  - Integrate Logto SDK into your app using provided documentation.
-  - Test authentication flow in your application.
+  - Create a Logto Cloud account and a tenant. The Free plan needs no credit card.
+  - >-
+    In the Logto Console, create an application for your framework, for example React, and copy its
+    endpoint and application ID.
+  - 'Install the SDK for your framework, for example `npm i @logto/react`.'
+  - Add the `LogtoProvider` with your endpoint and application ID.
+  - >-
+    In the application settings, add your redirect URI and post sign-out redirect URI, then call the
+    sign-in method from your app.
 whenToUse: >-
-  Use Logto when you need a quick, managed authentication solution for web or
-  mobile apps with generous free limits.
+  Use Logto when you want OIDC-based sign-in with a large free user allowance, and the option to
+  self-host the open-source version.
 whenNotToUse: >-
-  Avoid if you require more than 3 applications, more than 1 custom domain,
-  RBAC, SAML, or enterprise SSO in the free tier.
+  Avoid it if you need more than 3 applications, more than 1 custom domain, RBAC, SAML, or
+  enterprise SSO on the free plan.
 bestFor:
-  - indie
-  - startup
-  - oss
-  - team
+  - side projects and startups
+  - open-source projects
+  - apps with several clients sharing one login
 avoidIf:
-  - enterprise
-  - custom-domain-required
+  - enterprise SSO on the free plan
+  - RBAC on the free plan
+  - more than one custom domain
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://logto.io/'
@@ -73,7 +83,46 @@ docsUrl: 'https://docs.logto.io/'
 pricingUrl: 'https://logto.io/pricing'
 sourceUrls:
   - 'https://logto.io/pricing'
-  - 'https://docs.logto.io/docs/'
+  - 'https://docs.logto.io/introduction'
+  - 'https://docs.logto.io/quick-starts/react'
 featured: false
 ---
-Logto offers a developer-friendly authentication and authorization platform with a generous free tier, supporting modern identity protocols and easy integration.
+You configure sign-in in the Logto Console and add a Logto SDK to your app, which redirects users to a Logto sign-in page. It suits developers who want standard OIDC login and the choice to run it themselves later.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month, needs no credit card, and covers up to 50,000 monthly active users. It is meant for starting out and trying Logto. Your plan includes 3 total applications, 1 machine-to-machine app, 1 custom domain, and 3 social connectors. Audit logs are kept for 3 days.
+
+The pricing page lists RBAC, Organizations, MFA, and enterprise SSO as add-ons billed separately, and the Free column shows none of them. These are paid options. The Pro plan starts at $24 per month and lists unlimited total applications. Logto Cloud also has a dev tenant that includes every Logto feature for testing.
+
+## When you hit a limit
+
+The pricing page does not describe what happens when you pass 50,000 monthly active users or the application limits. It points to upgrades. In the console, Logto shows prompts when it sees you need a higher quota or a premium feature, and you pick a plan under Settings, then Your plan and billing.
+
+Upgrades and downgrades take effect at once. If you downgrade, your quota shifts straight to the Free plan quota. Check the console before you add a fourth application or a second custom domain.
+
+## Gotchas
+
+- The Free plan allows 3 total applications. A web app, a mobile app, and a backend can use them up.
+- Audit logs are kept for only 3 days on the Free plan.
+- RBAC, organizations, MFA, and enterprise SSO are listed as paid add-ons. Plan for this if you build a B2B product.
+
+## Alternatives in this atlas
+
+- [Clerk](/services/clerk/): when you want prebuilt sign-in components for React and Next.js.
+- [Auth0](/services/auth0/): when you need a larger platform with more enterprise connections.
+- [Supabase Auth](/services/supabase-auth/): when you also need a Postgres database.
+
+## Questions people ask
+
+### Is Logto free?
+
+Yes. The Free plan is $0 per month for up to 50,000 monthly active users, with no credit card required.
+
+### Can I self-host Logto?
+
+Yes. The docs say you can self-host Logto on your own infrastructure, in addition to using Logto Cloud.
+
+### Does Logto Free include SSO and RBAC?
+
+No. RBAC, organizations, MFA, and enterprise SSO are listed as add-ons billed separately. The Free plan covers core sign-in.

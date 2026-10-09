@@ -1,14 +1,16 @@
 ---
 title: GlitchTip
 description: >-
-  GlitchTip is an open-source error tracking and monitoring service for web and
-  mobile applications.
+  GlitchTip collects application errors, uptime checks, performance data, and
+  logs in one open-source service. It suits small teams that already use
+  Sentry-style SDKs.
 provider: GlitchTip
 category: observability
 domain: observability
 subtypes:
   - error tracking
   - exception monitoring
+  - uptime monitoring
   - alerting
 audiences:
   - indie
@@ -17,64 +19,110 @@ audiences:
   - oss
 tags:
   - open-source
+  - error-tracking
+  - sentry-alternative
+  - uptime-monitoring
   - monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan is free forever with up to 1,000 events per month, unlimited
-    projects, and unlimited team members.
+    The Free plan costs $0 with up to 1,000 events per month, unlimited
+    projects, and unlimited team members. Past the quota GlitchTip throttles
+    and then blocks events.
   limits:
     - '1,000 events/month'
     - Unlimited projects
     - Unlimited team members
   caveats:
-    - Overages require a paid plan to increase the limit
+    - 'Events count errors, uptime checks, performance transactions, and release file storage together'
+    - 'After the quota fills, GlitchTip throttles incoming events; at 2x the quota it blocks them fully'
+    - A paid plan raises the limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Usage is throttled 10% after quota, and blocked fully at 2x the monthly quota
+    - Usage is throttled by 10% after the quota and blocked fully at 2x the monthly quota
 useCases:
-  - Track application errors
-  - Monitor exceptions in production
-  - Receive real-time alerts
-  - Integrate with Sentry SDKs
+  - Track application errors from a web or mobile app
+  - Group repeated exceptions into issues and get alerts
+  - Check that a site responds with uptime monitoring
+  - Find slow web requests and database calls
+  - Search application logs next to errors
 quickstartSteps:
-  - Sign up for a free GlitchTip account.
-  - Create a new project in the dashboard.
-  - Copy the provided DSN (Data Source Name).
-  - Install a compatible Sentry SDK in your app.
-  - Configure the SDK with your GlitchTip DSN.
-  - Trigger a test error to verify integration.
+  - 'Register at app.glitchtip.com with an email and password, then create an organization.'
+  - Pick the Free subscription when GlitchTip asks for one.
+  - Create a project, choose your platform, and create or pick a team for it.
+  - Copy the project DSN and install a Sentry-compatible SDK, for example `pip install sentry-sdk` for Python.
+  - Call `sentry_sdk.init` with your DSN early in the app, then trigger a test error to see it in the project.
 whenToUse: >-
-  Use GlitchTip when you need simple, open-source error monitoring with a
-  generous free tier for small projects.
+  Use GlitchTip when you want open-source error tracking that works with
+  Sentry SDKs, and your app sends few events.
 whenNotToUse: >-
-  Avoid if you need advanced analytics, high event volumes, or enterprise
-  integrations beyond basic error tracking.
+  Avoid it if your app sends more than 1,000 events a month on the free plan,
+  because events are throttled and then blocked. Uptime checks and performance
+  data also count toward the same quota.
 bestFor:
-  - indie
-  - startup
-  - oss
-  - small teams
+  - side projects
+  - open-source projects
+  - small apps with low traffic
 avoidIf:
-  - enterprise
-  - high-volume
-  - advanced analytics
+  - high event volumes
+  - you need a hard guarantee that no event is dropped
+  - enterprise support needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://glitchtip.com/'
-docsUrl: 'https://glitchtip.com/docs/'
+docsUrl: 'https://glitchtip.com/documentation'
 sourceUrls:
-  - 'https://glitchtip.com/pricing'
-  - 'https://glitchtip.com/docs/'
+  - 'https://glitchtip.com/pricing/'
+  - 'https://glitchtip.com/'
+  - 'https://glitchtip.com/documentation/getting-started'
+  - 'https://glitchtip.com/sdkdocs/python'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://glitchtip.com/pricing/'
 ---
-GlitchTip provides open-source error tracking with a free tier suitable for small projects, supporting Sentry SDKs and easy integration for web and mobile apps.
+You use GlitchTip through its web dashboard and the Sentry SDK you add to your app. It also offers uptime checks, slow-request views, and a logs view.
+
+## What the free plan gives you
+
+The Free plan costs $0 and the pricing page calls it free forever. It covers up to 1,000 events per month. You can create unlimited projects and invite unlimited team members.
+
+An event is the unit GlitchTip uses to measure usage. It counts four things: each error occurrence, each uptime status check, each performance transaction report, and each megabyte of release file storage. Uptime checks and performance data therefore use up the same monthly quota as errors. The free plan is meant for personal projects and lists error tracking as its feature.
+
+## When you hit a limit
+
+GlitchTip does not bill you for going over. After your quota is full, it throttles incoming events by 10%. It raises that gradually, and at 2x the quota it blocks events fully. You can upgrade at any time to raise the limit, and plan changes take effect immediately.
+
+The paid plans on the pricing page are Small at $15 a month, Medium at $50 a month, and Large at $250 a month. Small raises the limit to up to 100k events per month.
+
+## Gotchas
+
+- Uptime checks and performance reports count as events, so a chatty monitor can use your free quota before errors do.
+- Events are dropped once throttling reaches the full block, so you can lose errors during a bad day.
+- The pricing page does not mention a credit card for the Free plan.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you want the original hosted product behind the SDKs GlitchTip supports.
+- [Bugsink](/services/bugsink/): when you want another lightweight error tracker.
+- [Rollbar](/services/rollbar-com/): when you want a hosted error tracker with a different free plan.
+
+## Questions people ask
+
+### Is GlitchTip free?
+
+Yes. The Free plan costs $0 and allows up to 1,000 events per month, with unlimited projects and team members. The pricing page calls it free forever.
+
+### What happens when I go over the GlitchTip event limit?
+
+GlitchTip throttles events by 10% once your quota is full and increases that gradually. At 2x the quota it blocks events fully. Upgrading raises the limit.
+
+### Does GlitchTip work with Sentry SDKs?
+
+Yes. The docs list SDK guides for many platforms and give general setup instructions for any Sentry-compatible SDK.

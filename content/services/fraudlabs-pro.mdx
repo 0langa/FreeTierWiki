@@ -1,8 +1,9 @@
 ---
 title: FraudLabs Pro
 description: >-
-  FraudLabs Pro offers fraud detection and prevention services for online
-  transactions using machine learning and rule-based analysis.
+  FraudLabs Pro scores online orders for fraud by checking IP location, email,
+  billing and shipping data, proxies, and blacklists. It is for small online
+  shops.
 provider: FraudLabs Pro
 category: security
 domain: security
@@ -17,59 +18,66 @@ audiences:
   - enterprise
   - agency
 tags:
-  - security
+  - fraud detection
+  - fraud prevention
+  - ecommerce
+  - chargebacks
+  - order screening
+  - proxy detection
   - api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Micro plan includes 500 queries per month for merchants under
     $25,000/month in sales, with 5 validation rules and 50 custom
-    blacklists, no credit card required.
+    blacklists.
   limits:
     - '500 queries/month'
     - 5 validation rules
+    - 0 grouping rules and 0 sub accounts
     - 50 custom blacklists
     - For merchants under $25,000/month in sales
+    - 10 free SMS verification credits
   caveats:
-    - No credit card required
-    - Accounts inactive for 90 days may be suspended
+    - The pricing page does not mention a payment card for the Micro plan
+    - Standard support only; priority support starts on the Mini plan
+    - Basic validations and features only; advanced blacklist validation and fraud reports start on Mini
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Service stops after the free quota is exhausted
+    - The pricing page does not say what happens after the 500 free queries; paid plans list Auto-Recharge
 useCases:
-  - Screening online orders for fraud
-  - Protecting e-commerce checkouts
-  - Automating transaction risk scoring
+  - Screening online orders for fraud before you ship
+  - Adding a fraud score to an e-commerce checkout
+  - Flagging orders from proxies or blacklisted IPs, emails, or cards
+  - Reviewing orders from the mobile app
 quickstartSteps:
-  - Sign up for a free FraudLabs Pro account.
-  - Log in and generate your API key from the dashboard.
-  - >-
-    Integrate the API key into your website or application using their SDK or
-    REST API.
-  - Configure basic fraud validation rules as needed.
-  - Start submitting transactions for fraud analysis.
+  - Click Sign Up on the Micro plan at fraudlabspro.com.
+  - Get your API license key from your account.
+  - Install a ready plugin for your shop platform, or call the REST API at api.fraudlabspro.com/v2/order/screen with your key.
+  - Send each order's IP, email, billing, and shipping data to the Screen Order API, or use an official SDK.
+  - Set up to 5 validation rules and act on the fraud score the API returns.
 whenToUse: >-
-  Use when you need to quickly add fraud screening to online transactions or
-  e-commerce checkouts with minimal setup.
+  Use it for a small shop or startup that wants a fraud score on each order and
+  stays under 500 orders a month and $25,000 in monthly sales.
 whenNotToUse: >-
-  Avoid if you have over $25,000/month in sales or need to process more than
-  500 queries monthly for free.
+  Avoid it if you have $25,000 or more in monthly sales, need more than 500
+  queries a month, or need grouping rules, sub accounts, or priority support.
 bestFor:
   - e-commerce stores
   - small businesses
   - startups
   - agencies
 avoidIf:
-  - high-volume enterprises
-  - custom ML requirements
-  - offline transactions
+  - your sales are $25,000 or more per month
+  - you screen more than 500 orders a month
+  - you need priority support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.fraudlabspro.com'
@@ -77,8 +85,47 @@ docsUrl: 'https://www.fraudlabspro.com/developer/api'
 sourceUrls:
   - 'https://www.fraudlabspro.com/pricing'
   - 'https://www.fraudlabspro.com/developer/api'
+  - 'https://www.fraudlabspro.com'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.fraudlabspro.com/pricing'
 ---
-FraudLabs Pro provides a free plan for basic fraud detection, ideal for small businesses needing to screen online transactions with minimal integration effort.
+You can use a ready plugin for a shop platform such as Shopify, WooCommerce, or Magento, or call the REST API with an official SDK. A mobile app lets you review orders. It suits small online stores that want a fraud check on each order.
+
+## What the free plan gives you
+
+The Micro plan is free with no commitment. It covers 500 queries per month for merchants with sales under 25K USD per month. You get 5 validation rules, 50 custom blacklists, and no grouping rules or sub accounts.
+
+The basic validations cover IP geolocation, billing, shipping, user, proxy, email address, payment, blacklist, and velocity checks. Basic features include a fraud score, email notification, and the FraudLabs Pro app for Android and iOS. The plan also includes 10 free SMS verification credits and standard support.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 500 queries in a month. It also does not say what happens if your sales pass the 25K USD cap. The paid plans all list Auto-Recharge, but the Micro plan lists it too without describing it.
+
+The paid Mini plan has 1,500 queries per month and priority support. The Small plan has 5,000 queries per month. The Medium plan shows a Try Free button, but the page does not state a trial length for it.
+
+## Gotchas
+
+- The free plan is for merchants with sales under 25K USD per month. Larger merchants need a paid plan.
+- The Micro plan has no grouping rules and no sub accounts, and it only has standard support.
+- Features such as disposable email checks, IP usage type, and phone number validity start on the Small plan.
+
+## Alternatives in this atlas
+
+- [Antideo](/services/antideo/): when you only need to check IPs, emails, and phone numbers through a simple API.
+- [TempMailDetector.com](/services/tempmaildetector-com/): when you only want to catch disposable email sign-ups.
+- [Verifalia](/services/verifalia/): when you want to validate email addresses with a daily free allowance.
+
+## Questions people ask
+
+### Is FraudLabs Pro free?
+
+Yes. The Micro plan is free with 500 queries per month, for merchants under 25K USD per month in sales. The pricing page does not mention a payment card.
+
+### What happens when I use more than 500 FraudLabs Pro queries?
+
+The pricing page does not say. It lists a paid Mini plan with 1,500 queries per month, and Auto-Recharge on each plan.
+
+### Which fraud checks does the free FraudLabs Pro plan include?
+
+It includes basic validations of IP geolocation, billing, shipping, user, proxy, email address, payment, blacklist, and velocity, with a fraud score and email notification.

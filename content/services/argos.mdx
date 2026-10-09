@@ -16,10 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - testing
-  - ci-cd
-  - images
-  - automation
+  - visual regression testing
+  - screenshot testing
+  - playwright
+  - storybook
+  - cypress
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,40 +30,44 @@ freeTierDetails:
     - Up to 5,000 screenshots/month
     - Community support
   caveats:
-    - Hobby (free) plan is intended for personal projects.
+    - Hobby (free) plan is for personal GitHub repositories; a repository in a private GitHub organization needs the Pro plan.
     - Only community support is included on the free plan.
+    - Screenshots from open-source projects are public.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated visual regression testing in CI pipelines
-  - Detecting UI changes before deployment
-  - Maintaining visual consistency across releases
+  - Catch unwanted UI changes in Playwright, Cypress, or Vitest tests
+  - Review Storybook component screenshots on every pull request
+  - Compare screenshots of a mobile app, as long as you can send the images to Argos
+  - Get a preview deployment of Storybook or a static site on each pull request
 quickstartSteps:
-  - Sign up for an Argos account using GitHub or GitLab.
-  - Connect your repository to Argos.
-  - Install the Argos CLI in your project.
-  - Configure your CI pipeline to upload screenshots with Argos CLI.
-  - Review visual diffs in the Argos dashboard after each CI run.
+  - Sign up at argos-ci.com and start the Hobby plan.
+  - Create a project in Argos for your repository and copy its upload token.
+  - Install the SDK for your test tool, for example `npm i --save-dev @argos-ci/playwright`.
+  - Add the Argos reporter to `playwright.config.ts` and call `argosScreenshot(page, "name")` in your tests.
+  - Set the `ARGOS_TOKEN` environment variable in CI and run `npx playwright test`.
+  - Open the build on your pull request and approve or reject the visual changes.
 whenToUse: >-
-  Use Argos when you need automated visual regression testing integrated with
-  your CI workflow for web applications.
+  Use it to check the look of your web app or components on every pull request,
+  in a personal GitHub repository, without keeping baseline images in Git.
 whenNotToUse: >-
-  Avoid if you require testing for native mobile apps or need more than 5,000
-  screenshots per month without upgrading.
+  Skip it for a team project, a private GitHub organization, or more than 5,000
+  screenshots a month. Those need the Pro plan.
 bestFor:
-  - web developers
-  - QA engineers
-  - teams using CI/CD
+  - personal and open-source projects
+  - Playwright, Cypress, Vitest, and Storybook users
+  - developers who review UI changes on pull requests
 avoidIf:
-  - mobile-only projects
-  - high-volume screenshot needs without budget
+  - your repository sits in a private GitHub organization
+  - you need team collaboration on the free plan
+  - you upload more than 5,000 screenshots a month
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://argos-ci.com'
@@ -70,7 +75,47 @@ docsUrl: 'https://argos-ci.com/docs'
 sourceUrls:
   - 'https://argos-ci.com/pricing'
   - 'https://argos-ci.com/docs'
+  - 'https://argos-ci.com/docs/quickstart'
+  - 'https://argos-ci.com/docs/quickstart/playwright'
 pricingUrl: 'https://argos-ci.com/pricing'
 featured: false
 ---
-Argos offers automated visual regression testing for web applications by comparing screenshots in your CI pipeline, helping teams catch unintended UI changes before deployment.
+Your test run uploads screenshots to Argos, and Argos compares them with a baseline picked from your Git history. You then review the differences as a check on the pull request. It works with Playwright, Cypress, Vitest, Storybook, WebdriverIO, Puppeteer, or any tool that makes screenshots, through an SDK or the CLI.
+
+## What the free plan gives you
+
+The Hobby plan is $0 forever and is meant for personal projects. It includes up to 5,000 screenshots and community support. The FAQ says it is designed for personal GitHub repositories.
+
+Argos counts the screenshots uploaded during successful builds. Screenshots from failed builds do not count. The pricing page says the plan is free to start with no credit card. Argos is also an open-source platform, and the docs say the managed cloud service is the supported way to run it. Self-hosting is not officially supported.
+
+## When you hit a limit
+
+The FAQ says that on regular plans you cannot upload more screenshots until your billing period renews, and on usage-based plans you are charged for every extra screenshot. The pricing page does not label Hobby as one or the other. It does show the Pro plan as billed monthly based on usage, so Pro is the plan that charges for extras.
+
+The Pro plan starts at $100 per month and includes 35,000 screenshots. Extra screenshots cost $0.004 each, or $0.0015 each for Storybook.
+
+## Gotchas
+
+- Team collaboration, higher limits, and use in a repository in a private GitHub organization all need the Pro plan.
+- Screenshots from open-source projects are public. Screenshots from private repositories are visible only to team members.
+- Support on every plan goes through the Argos Discord channel or GitHub issues.
+
+## Alternatives in this atlas
+
+- [Cypress](/tools/cypress/): when you want a test runner with its own screenshot tools.
+- [TestingBot.com](/tools/testingbot-com/): when you want cloud browsers and devices to run your tests on.
+- [BugBug](/services/bugbug/): when you want to record browser tests without writing code.
+
+## Questions people ask
+
+### Is Argos free?
+
+Yes, for personal projects. The Hobby plan is free forever and includes up to 5,000 screenshots per month with community support.
+
+### What happens when I go over the Argos screenshot limit?
+
+The FAQ says regular plans cannot upload more screenshots until the billing period renews, and usage-based plans charge for every extra screenshot. The pricing page does not say which kind Hobby is. The Pro plan is billed on usage.
+
+### Does Argos need a credit card?
+
+No. The pricing page says Argos is free to start with no credit card.

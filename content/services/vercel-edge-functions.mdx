@@ -1,8 +1,9 @@
 ---
 title: Vercel Edge Functions
 description: >-
-  Vercel Edge Functions let you run serverless code at the edge for fast,
-  dynamic web experiences.
+  Vercel Edge Functions run JavaScript or TypeScript on the Edge runtime,
+  which is built on V8 and runs close to the request. They are for web
+  developers who add routing, middleware, or light API logic to a Vercel site.
 provider: Vercel
 category: compute
 domain: compute
@@ -17,64 +18,119 @@ audiences:
   - team
   - oss
 tags:
-  - cdn
+  - edge runtime
+  - vercel
+  - middleware
   - serverless
-  - frontend
+  - nextjs
+  - v8
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Hobby (free) plan includes 1 million Edge Requests and 100 GB of Fast
-    Data Transfer per month, with no credit card required.
+    The Hobby (free) plan includes the first 1,000,000 function invocations, 4
+    CPU-hrs of Active CPU, 360 GB-hrs of provisioned memory, 1,000,000 CDN
+    requests, and 100 GB of Fast Data Transfer per month. Hobby cannot buy extra
+    usage.
   limits:
-    - 1,000,000 Edge Requests/month included
-    - 100 GB Fast Data Transfer/month included
+    - 1,000,000 function invocations included
+    - 4 CPU-hrs Active CPU and 360 GB-hrs provisioned memory included
+    - 1,000,000 CDN requests included
+    - 100 GB Fast Data Transfer included
     - 1 team seat on the Hobby plan
   caveats:
-    - Overage past the included amount requires upgrading to the Pro plan ($20/mo, includes $20 of usage credit)
+    - On Hobby, passing a usage limit usually means waiting 30 days before the feature works again
+    - Upgrading to the Pro plan ($20/mo, includes $20 of usage credit) needs card details
     - Hobby is for non-commercial personal use only
+    - Vercel recommends migrating from the Edge runtime to Node.js
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Dynamic routing
-  - Personalization at the edge
-  - Authentication middleware
-  - A/B testing
-  - API proxying
+  - 'Middleware for redirects, rewrites, and authentication checks'
+  - Personalization and A/B testing at request time
+  - API proxying with fetch
+  - Streaming responses from an API route
 quickstartSteps:
-  - Sign up for a free Vercel account.
-  - 'Create or import a project (e.g., Next.js).'
-  - Add an Edge Function in the /api or /middleware directory.
-  - Deploy your project to Vercel.
-  - Test your Edge Function via the deployed URL.
+  - 'Sign up for a free Vercel account and create or import a project, for example a Next.js app.'
+  - 'Install the Vercel CLI with npm i -g vercel and run vercel link to connect the project.'
+  - 'Create a function file, such as api/runtime-example.ts, and export a config with runtime set to edge.'
+  - 'Export a default handler that takes a Request and returns a Response.'
+  - 'Test with vercel dev, then deploy with vercel --prod.'
 whenToUse: >-
-  Use when you need low-latency, serverless code execution close to users for
-  dynamic web features or middleware.
+  Use it to run small request-time logic on web standard APIs, such as
+  middleware, redirects, or API proxying, on a Vercel site.
 whenNotToUse: >-
-  Avoid if you need long-running processes, high memory, or heavy compute
-  workloads; not suitable for backend-only APIs.
+  Avoid it for new work where Node.js fits, for commercial projects on Hobby,
+  or for libraries that need Node.js APIs.
 bestFor:
   - dynamic web apps
   - middleware
   - personalization
 avoidIf:
-  - heavy compute
-  - long-running tasks
-  - high memory needs
+  - commercial projects on Hobby
+  - libraries that need Node.js APIs
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
-officialUrl: 'https://vercel.com/docs/edge-functions'
-docsUrl: 'https://vercel.com/docs/edge-functions'
+officialUrl: 'https://vercel.com/'
+docsUrl: 'https://vercel.com/docs/functions/runtimes/edge'
 pricingUrl: 'https://vercel.com/pricing'
 sourceUrls:
   - 'https://vercel.com/pricing'
-  - 'https://vercel.com/docs/edge-functions'
+  - 'https://vercel.com/docs/functions/runtimes/edge'
+  - 'https://vercel.com/docs/plans/hobby'
+  - 'https://vercel.com/docs/functions/quickstart'
 featured: false
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: >-
+      Vercel now documents Edge Functions as the Edge runtime of Vercel
+      Functions, recommends Node.js instead, and measures free usage in
+      function invocations, Active CPU, and provisioned memory.
 ---
-Vercel Edge Functions enable developers to run serverless JavaScript or TypeScript code at the edge, providing fast, dynamic responses for web applications with a generous free tier suitable for most small to medium projects.
+You add the Edge runtime to a Vercel Function by setting its config, or you write middleware in a framework such as Next.js. You deploy from Git or with the Vercel CLI. Edge code uses web standard APIs like fetch, Request, and Response. Vercel now recommends Node.js for most new work.
+
+## What the free plan gives you
+
+The Hobby plan is free and for non-commercial, personal use. Its included usage covers Edge-runtime functions the same way as other Vercel Functions: the first 1,000,000 function invocations, 4 CPU-hrs of Active CPU, and 360 GB-hrs of provisioned memory. It also includes the first 1,000,000 CDN requests and the first 100 GB of Fast Data Transfer.
+
+An Edge runtime function must begin sending a response within 25 seconds, and it can keep streaming for up to 300 seconds. Hobby allows 200 projects and 100 deployments per day. Runtime logs on Hobby are kept for 1 hour.
+
+## When you hit a limit
+
+Hobby has no billing cycle, because it is a free tier. The docs say that if you pass your usage limits, you will in most cases have to wait until 30 days have passed before you can use the feature again. Some limits have shorter pauses. For example, Web Analytics collection can resume after 7 days.
+
+To get more room, upgrade to Pro. It includes $20 of usage credit, and upgrading means entering your card details. Hobby itself does not bill overage.
+
+## Gotchas
+
+- Vercel recommends migrating from the Edge runtime to Node.js, and Next.js 16.3 no longer supports the edge runtime setting on routes and pages.
+- Hobby is for non-commercial, personal use only under the fair use guidelines.
+- Edge code runs on V8 with a subset of Web APIs, so many Node.js libraries do not work there.
+
+## Alternatives in this atlas
+
+- [Vercel Serverless Functions](/services/vercel-serverless-functions/): when you want Node.js, which Vercel now recommends.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a dedicated edge platform with its own free plan.
+- [Netlify Functions](/services/netlify-functions/): when your site is hosted on Netlify.
+
+## Questions people ask
+
+### Are Vercel Edge Functions free?
+
+Yes, on the Hobby plan for personal, non-commercial use. It includes the first 1,000,000 function invocations and 100 GB of Fast Data Transfer.
+
+### What happens when I go over the Vercel Hobby limits?
+
+In most cases you must wait until 30 days have passed before you can use the feature again. You can upgrade to Pro for more room.
+
+### Does Vercel Edge Functions need a credit card?
+
+The Vercel pages do not say Hobby needs a card. Upgrading to Pro asks for your card details.

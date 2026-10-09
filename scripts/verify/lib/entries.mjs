@@ -7,7 +7,7 @@ const KINDS = ["services", "tools"];
 
 /**
  * @param {string} [contentDir]
- * @returns {Array<{ id: string, kind: string, slug: string, file: string, data: Record<string, unknown> }>}
+ * @returns {Array<{ id: string, kind: string, slug: string, file: string, data: Record<string, unknown>, body: string }>}
  */
 export function readEntries(contentDir = path.resolve("content")) {
   const out = [];
@@ -17,7 +17,8 @@ export function readEntries(contentDir = path.resolve("content")) {
     for (const name of fs.readdirSync(dir).filter((n) => n.endsWith(".mdx")).sort()) {
       const file = path.join(dir, name);
       const slug = name.replace(/\.mdx$/, "");
-      out.push({ id: `${kind}/${slug}`, kind, slug, file, data: matter(fs.readFileSync(file, "utf8")).data });
+      const { data, content } = matter(fs.readFileSync(file, "utf8"));
+      out.push({ id: `${kind}/${slug}`, kind, slug, file, data, body: content.trim() });
     }
   }
   return out;

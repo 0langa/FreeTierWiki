@@ -1,8 +1,9 @@
 ---
 title: Azure Policy
 description: >-
-  Azure Policy helps you enforce organizational standards and assess compliance
-  at scale across Azure resources.
+  Azure Policy checks your Azure resources against rules you set, shows which
+  ones are non-compliant, and can block or fix them. It is for teams that
+  manage Azure subscriptions.
 provider: Azure
 category: security
 domain: security
@@ -15,18 +16,23 @@ audiences:
   - team
   - startup
 tags:
+  - azure policy
+  - governance
   - compliance
-  - security
-  - automation
-  - cloud
+  - policy as code
+  - cloud security
+  - remediation
 pricingModel: free
 freeTierDetails:
   summary: Azure Policy is free on Azure resources.
   limits:
     - No charges for using Azure Policy on Azure resources
     - Azure Automanage machine configuration is free for Azure resources
+    - Resources are re-evaluated for compliance once every 24 hours
   caveats:
-    - Azure Automanage machine configuration is $6/server/month for Arc resources.
+    - Azure Automanage machine configuration is $6/server/month for Arc resources, and Arc machines are not included unless you opt in
+    - Only resources at the subscription or resource group level are evaluated, even if you assign a policy at a management group
+    - An Azure account is needed, and the free account page offers a $200 credit for 30 days
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
@@ -34,32 +40,34 @@ freeTierDetails:
   billingRiskNotes:
     - Machine configuration on Arc-enabled servers costs $6/server/month.
 useCases:
-  - Enforcing security baselines
-  - Ensuring regulatory compliance
-  - Auditing resource configurations
-  - Automating remediation of non-compliance
+  - Allowing deployments only in approved Azure regions
+  - Requiring consistent tags on resources
+  - Requiring diagnostic logs to go to a Log Analytics workspace
+  - Auditing or fixing resources that break a security baseline
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Navigate to 'Policy' under Azure services.
-  - Assign a built-in policy to a subscription or resource group.
-  - Review compliance results and remediate non-compliant resources.
+  - Sign in to the Azure portal with an Azure account that has a subscription.
+  - Search for Policy, open it, and select Assignments, then Assign Policy.
+  - Pick a scope (subscription or resource group) and choose a built-in definition, for example Audit VMs that do not use managed disks.
+  - Keep policy enforcement on Enabled, add a non-compliance message, and select Create.
+  - Open the compliance view to see non-compliant resources, then remediate them.
 whenToUse: >-
-  Use Azure Policy to enforce compliance and governance rules automatically
-  across your Azure resources.
+  Use it when you run Azure subscriptions and want rules for regions, tags,
+  logging, and security settings checked automatically, with no extra charge.
 whenNotToUse: >-
-  Avoid if you need policy enforcement outside Azure or require advanced custom
-  policies without incurring extra costs.
+  Avoid it for environments outside Azure, or if you do not want to pay for
+  machine configuration on Arc-enabled servers.
 bestFor:
   - compliance teams
   - cloud administrators
   - security engineers
 avoidIf:
-  - managing non-Azure environments
-  - avoiding any Azure-specific lock-in
+  - you run outside Azure
+  - you want policy checks on Arc servers without paying
+  - you need rules for who may do what, which is Azure RBAC
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-policy/'
@@ -68,6 +76,46 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-policy/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/azure-policy/'
   - 'https://learn.microsoft.com/en-us/azure/governance/policy/overview'
+  - 'https://learn.microsoft.com/en-us/azure/governance/policy/assign-policy-portal'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure Policy enables organizations to define, assign, and manage policies that enforce rules and effects for Azure resources, ensuring compliance and governance at scale.
+You work in the Azure portal, where you assign built-in or custom definitions and read a compliance dashboard. Definitions are written in JSON, so you can also manage them as code. It suits cloud administrators and security engineers.
+
+## What the free plan gives you
+
+The pricing page says there are no charges for using Azure Policy on Azure resources. You can use the built-in definitions, assign them to a management group, subscription, resource group, or resource, and read the compliance results. You can also set an effect such as deny, audit, or modify.
+
+Azure Automanage machine configuration, which audits settings inside servers, is free for Azure resources. For Arc resources it costs $6 per server per month, billed pro-rated by the hour. The FAQ says you can use as many guest configuration policies as you want per server for the same price.
+
+## When you hit a limit
+
+The pricing page does not list usage limits for Azure Policy itself. The only charge is for machine configuration on Arc-enabled servers. By default, Azure Arc machines are not included, and you must opt in. Azure Automation users are not billed extra for machine configuration.
+
+You can turn machine configuration off for your servers if you do not want the charge. A deny effect can stop a deployment that breaks a rule, so test with audit first. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Even if you assign a policy at the management group level, only resources at the subscription or resource group level are evaluated.
+- Compliance is evaluated when a resource changes, when an assignment changes, and in a regular cycle once every 24 hours.
+- Microsoft recommends starting with an audit effect before an enforcement effect, because enforcement can hinder existing automation.
+
+## Alternatives in this atlas
+
+- [Azure Managed Identities](/services/azure-managed-identities/): when you need identities for Azure resources, not rule checks.
+- [Azure Advisor](/services/azure-advisor/): when you want recommendations on cost and reliability, not rule enforcement.
+- [Azure Cost Management](/services/azure-cost-management/): when you need to watch spend and set budgets.
+
+## Questions people ask
+
+### Is Azure Policy free?
+
+Yes for Azure resources. The pricing page says there are no charges for using Azure Policy on Azure resources. You still need an Azure account.
+
+### How much does Azure Policy cost for Arc servers?
+
+Azure Automanage machine configuration costs $6 per server per month for Arc resources. Arc machines are not included by default, so you have to opt in.
+
+### How often does Azure Policy check my resources?
+
+It checks when a resource is created or updated, when an assignment changes, and in a standard cycle once every 24 hours.

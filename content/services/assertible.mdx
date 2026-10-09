@@ -1,8 +1,9 @@
 ---
 title: Assertible
 description: >-
-  Assertible provides automated API testing and monitoring with integrations for
-  deployment pipelines and alerting.
+  Assertible tests and monitors web services and APIs. You write assertions on
+  HTTP responses, run them on a schedule or after each deploy, and get alerts
+  when they fail.
 provider: Assertible
 category: devops
 domain: devops
@@ -16,15 +17,16 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - monitoring
-  - testing
-  - automation
+  - api testing
+  - api monitoring
+  - uptime
+  - assertions
+  - post-deploy testing
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan includes 2 web services, 10 tests per service, and 1,000 stored
-    test results, forever, with no credit card required.
+    test results, forever.
   limits:
     - 2 web services
     - 10 tests per service
@@ -34,46 +36,86 @@ freeTierDetails:
   caveats:
     - Free plan can be used forever, as an individual or organization.
     - No team management beyond 1-2 members on the free plan.
-  resetPeriod: monthly
+    - Limits apply to stored results, tests, and schedule frequency, not to the number of requests.
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor public APIs for uptime
-  - Automate regression testing after deployments
-  - Receive alerts on API failures
+  - Check that an API endpoint keeps returning the right status and JSON
+  - Run tests against a new version right after each deployment
+  - Send failure alerts to Slack
 quickstartSteps:
-  - Sign up for a free Assertible account.
-  - Create a new service and enter your API endpoint.
-  - Define assertions to check API responses.
-  - Set up test schedules and notification preferences.
-  - Monitor results and receive alerts for failures.
+  - Sign in with GitHub or sign up with an email address on assertible.com.
+  - Create a web service for the API or site you want to test.
+  - Add tests and assertions that check each endpoint.
+  - Add a schedule so the tests run on their own, and connect an alert such as Slack.
+  - Optional - send a deployment event from your CI with the Deployments API so Assertible tests each release.
 whenToUse: >-
-  Use Assertible to automate API testing and uptime monitoring for small
-  projects or when you need simple deployment pipeline integration.
+  Use it for a small API or a couple of web services that you want to check on
+  a schedule and after each deploy, without writing a test framework.
 whenNotToUse: >-
-  Avoid if you require advanced test logic, high test volumes, or full team
-  collaboration features.
+  Skip it if you have more than 2 web services, more than 10 tests per service,
+  or need to keep more than 1,000 results on the free plan.
 bestFor:
-  - API monitoring
-  - Small teams
-  - Open source projects
+  - small APIs
+  - solo developers and QA testers
+  - post-deploy checks from a CI pipeline
 avoidIf:
-  - Need advanced test scripting
-  - Large-scale enterprise testing
+  - you have more than 2 web services
+  - you need more than 10 tests per service
+  - you need more than 2 members on the account
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://assertible.com'
-docsUrl: 'https://docs.assertible.com/'
+docsUrl: 'https://assertible.com/docs'
 sourceUrls:
-  - 'https://assertible.com/plans'
+  - 'https://assertible.com/plans#details'
   - 'https://assertible.com'
-pricingUrl: 'https://assertible.com/plans'
+  - 'https://assertible.com/docs/guide/getting-started'
+pricingUrl: 'https://assertible.com/plans#details'
 featured: false
 ---
-Assertible offers a simple, always-free plan for API monitoring and automated testing, making it suitable for small projects and basic uptime checks. The free plan is limited to 2 web services with 10 tests per service and 1,000 stored results. It is easy to set up and integrates with deployment workflows, but lacks advanced scripting and team features found in higher tiers.
+You work in the Assertible web dashboard, and you can send deployment events from CI with a small HTTP call. It also integrates with GitHub pull requests.
+
+## What the free plan gives you
+
+The Personal plan is $0 per month and the page says you can use it forever, as an individual or an organization. It includes 2 web services, 10 tests per service, and result retention of 1,000 results. The member count is listed as 1-2.
+
+Schedules on this plan are on the Standard frequency, which the plans table labels as 2 monitors. Assertible does not limit the number of requests you make. It limits how many results you can see, how many tests you can create, and how often you can run schedules.
+
+## When you hit a limit
+
+The plans page does not describe a hard stop or a bill at the free limits. It says that if you need to test more web services or add more frequent health checks, you should look at the paid plans.
+
+The Standard plan costs $25 per month. It has 25 web services, 500 tests per service, and 5,000 results, and it comes with a 1 month free trial. Each account pays one monthly charge, with no per-user fees. Paid plans accept Visa, MasterCard, American Express, and Discover cards.
+
+## Gotchas
+
+- The free plan keeps 1,000 results, and the page counts results rather than requests.
+- Each plan has a limited number of members, and the free plan has only 1-2.
+- The free schedule frequency is the Standard one with 2 monitors, so frequent health checks need a paid plan.
+
+## Alternatives in this atlas
+
+- [BugBug](/services/bugbug/): when you want to record browser tests instead of writing HTTP assertions.
+- [Postman](/tools/postman/): when you mainly build and run API requests by hand.
+- [Loader.io](/tools/loader-io/): when you need load tests more than correctness checks.
+
+## Questions people ask
+
+### Is Assertible free?
+
+Yes. The Personal plan is $0 per month, forever. It includes 2 web services, 10 tests per service, and 1,000 results retained.
+
+### Does Assertible limit the number of requests?
+
+No. The plans page says Assertible limits the results you can see, the tests you can create, and how often you run schedules. It does not cap requests.
+
+### Do I need a credit card for Assertible?
+
+The plans page lists no card for the free plan. Paid plans come with a 1 month free trial.

@@ -1,8 +1,9 @@
 ---
 title: Ably
 description: >-
-  Ably provides real-time messaging APIs for building live and collaborative
-  applications at scale.
+  Ably is a hosted realtime messaging service. Apps publish and subscribe to
+  channels over a persistent connection, for chat, live dashboards, and shared
+  editing.
 provider: Ably
 category: messaging
 domain: messaging
@@ -19,22 +20,28 @@ audiences:
   - oss
 tags:
   - realtime
-  - queue
+  - websockets
+  - pub/sub
   - messaging
+  - chat
+  - presence
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 6 million messages per month, 500 messages per second,
-    and 200 concurrent connections and channels.
+    Free package includes 6 million messages per month, 500 messages per second,
+    and 200 concurrent connections and channels. No credit card needed.
   limits:
     - 6 million messages/month
     - 500 messages/second
     - 200 concurrent connections
     - 200 concurrent channels
-    - 1 day message history
+    - 200 presence members per channel
+    - 1 day message storage
+    - 64KiB maximum message size
   caveats:
-    - Free plan limits are fixed; more capacity needs a paid plan.
-    - Some advanced features require paid plans.
+    - Free package limits are fixed; more capacity needs a paid package.
+    - Free package support is community support (Discord and Stack Overflow) with a best-effort target.
+    - Docs say some limits are enforced by rejecting or restricting the excess usage.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -42,41 +49,38 @@ freeTierDetails:
   overageRisk: low
   billingRiskNotes:
     - >-
-      Hard cap prevents unexpected charges, but usage limits may restrict
-      service.
+      The Free package needs no card and has no time limit, so it cannot bill
+      you; it can restrict traffic that goes over the limits.
 useCases:
-  - Live chat
-  - Collaborative editing
-  - IoT device messaging
-  - Live dashboards
-  - Push notifications
-quickstartSteps:
-  - Sign up for a free Ably account.
-  - Create a new app in the Ably dashboard.
-  - Copy your API key from the dashboard.
-  - Install the Ably SDK for your preferred language.
-  - >-
-    Initialize the SDK with your API key and start publishing or subscribing to
-    channels.
+  - Live chat inside a web or mobile app
+  - Live dashboards that push updates to the browser
+  - Collaborative features such as shared cursors and online presence
+  - Notifying devices from a server with mobile and web push
 whenToUse: >-
-  Use Ably when you need scalable, low-latency real-time messaging for web,
-  mobile, or IoT applications.
+  Use Ably to build a proof of concept for chat, live updates, or presence
+  without running your own WebSocket servers.
 whenNotToUse: >-
-  Avoid if you require on-premises deployment, unlimited free usage, or advanced
-  features only available on paid plans.
+  Avoid it if you need more than 200 concurrent connections, more than a day of
+  stored messages, or support beyond the community, or if you need it on your own servers.
 bestFor:
-  - live chat
-  - collaborative apps
-  - realtime dashboards
-  - IoT messaging
+  - proof of concept realtime apps
+  - small chat and live-update features
+  - learning pub/sub over websockets
 avoidIf:
-  - need on-premises
-  - require unlimited free usage
-  - need advanced paid-only features
+  - you need more than 200 concurrent connections
+  - you need message history longer than a day
+  - you must self-host
+quickstartSteps:
+  - Sign up for an Ably account. The Free package needs no credit card.
+  - Create a new app in the dashboard, then create your first API key in the API Keys tab with the publish, subscribe, presence, and history capabilities.
+  - Optionally run `npx @ably/cli init` to install the Ably CLI, sign in, and set a default app and API key.
+  - Add the SDK for your language. The JavaScript guide loads it from a CDN script tag in an HTML file.
+  - Create an `Ably.Realtime` client with your key and a `clientId`, and wait for the `connected` event.
+  - Get a channel such as `my-first-channel`, subscribe to it, then publish a message with `channel.publish` or the CLI command `ably channels publish`.
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.ably.com/'
@@ -84,6 +88,47 @@ docsUrl: 'https://ably.com/docs'
 pricingUrl: 'https://ably.com/pricing'
 sourceUrls:
   - 'https://ably.com/pricing'
+  - 'https://ably.com/docs/platform/pricing/free'
+  - 'https://ably.com/docs/platform/pricing/limits'
+  - 'https://ably.com/docs/getting-started/javascript'
 featured: false
 ---
-Ably offers a robust, developer-friendly platform for adding real-time messaging and data synchronization to applications, with a generous free tier for getting started.
+You work with Ably through its dashboard, the Ably CLI, and SDKs for many languages, including JavaScript, Python, Go, Java, and Swift. It suits developers who want realtime features without running their own WebSocket servers.
+
+## What the free plan gives you
+
+The Free package costs $0 and has no time limit. Ably calls it a place to build a proof of concept. It includes 6 million messages per month and a top rate of 500 messages per second. You can have 200 concurrent connections and 200 concurrent channels at the same time.
+
+Each channel can hold up to 200 presence members. The number of subscribers per channel is unlimited. Ably keeps messages for 1 day, and one message can be up to 64KiB. Support is community support with a best-effort target. The Free package has no credit card requirement.
+
+## When you hit a limit
+
+Ably splits limits into two kinds. Count-based limits, such as concurrent connections and channels, restrict new use until existing resources are removed. Rate-based limits, such as messages per second, can reject the extra publish attempts and return an error code.
+
+Ably says it will not block usage for most limits just because you passed them, and that normal service can continue for a while. It sends email and dashboard notices when you near a limit and when you pass it, and it will ask you to upgrade. The Free package has no card on file, so the limits are the only consequence. The pages do not say what happens after the 6 million monthly messages are used.
+
+## Gotchas
+
+- Message history lasts only 1 day on the Free package. Longer storage needs a paid package.
+- Support on the Free package is community support (Discord and Stack Overflow) with a best-effort target. The pricing page lists a shared Slack or Teams channel only on Enterprise.
+- If you downgrade from a paid package, you keep the paid limits until the billing cycle ends, then get a final invoice for the full package fee and the usage.
+
+## Alternatives in this atlas
+
+- [Pusher](/services/pusher/): when you want another hosted channel service with a free plan and no card.
+- [Scaledrone.com](/services/scaledrone-com/): when you need a simple hosted pub/sub for small apps.
+- [EMQX Serverless](/services/emqx-serverless/): when your clients speak MQTT, for example IoT devices.
+
+## Questions people ask
+
+### Is Ably free?
+
+Yes. The Free package costs $0 with no time limit. It includes 6 million messages per month, 200 concurrent connections, and 200 concurrent channels.
+
+### Does Ably need a credit card?
+
+No. Ably says no credit card is needed to sign up for the Free package, and there is no limit on how long you can use it.
+
+### What happens when I go over the Ably free limits?
+
+Ably restricts or rejects the extra usage for count-based and rate-based limits, and it emails you as you near and pass a limit. It will ask you to upgrade to a paid package.

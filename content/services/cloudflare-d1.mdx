@@ -1,8 +1,9 @@
 ---
 title: Cloudflare D1
 description: >-
-  Cloudflare D1 is a serverless, distributed SQLite database for building fast,
-  globally available applications.
+  Cloudflare D1 is a managed, serverless SQL database with SQLite semantics.
+  It is for developers who build on Cloudflare Workers and Pages and want a
+  database with no servers to run.
 provider: Cloudflare
 category: database
 domain: database
@@ -17,10 +18,13 @@ audiences:
   - team
   - oss
 tags:
-  - database
-  - serverless
-  - cdn
-  - cloud
+  - sqlite
+  - serverless database
+  - cloudflare workers
+  - edge database
+  - sql
+  - d1
+  - wrangler
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free tier includes 5 GB total storage, 5 million rows read/day, and 100,000 rows written/day.'
@@ -29,42 +33,46 @@ freeTierDetails:
     - '5,000,000 rows read/day'
     - '100,000 rows written/day'
     - 10 databases per account
+    - 7 days of Time Travel point-in-time recovery
   caveats:
-    - 50 queries per Worker invocation
-    - No support for large-scale production workloads on free tier.
+    - 50 queries per Worker invocation on the free plan
+    - At the daily read or write limit, queries fail with errors until the reset at 00:00 UTC
+    - Indexes add a written row for each indexed write
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prototyping serverless apps
-  - Building edge-deployed APIs
-  - Lightweight data storage for web projects
+  - Storing app data for a Cloudflare Worker
+  - A small SQL database for a Pages site
+  - Per-user or per-tenant databases
+  - Prototyping an API at the edge
+  - Querying data over the Cloudflare REST API
 quickstartSteps:
-  - Sign up or log in to your Cloudflare account.
-  - Navigate to the D1 dashboard and create a new database.
-  - Install the Wrangler CLI for local development.
-  - Connect your application to D1 using the provided connection string.
-  - Deploy your Worker with D1 integration.
+  - Sign up for a Cloudflare account and install Node.js.
+  - 'Create a Worker project with `npm create cloudflare@latest`.'
+  - 'Create a database with `npx wrangler@latest d1 create <name>` and let Wrangler add the binding to your Wrangler configuration file.'
+  - 'Create a schema and run queries from the command line with Wrangler, then query through the binding in your Worker code.'
+  - 'Deploy the Worker, and optionally develop locally with Wrangler. You can also do these tasks in the Cloudflare dashboard.'
 whenToUse: >-
-  Use Cloudflare D1 for lightweight, globally distributed databases in
-  serverless or edge applications with moderate data needs.
+  Use D1 when your app already runs on Workers or Pages and you want a small
+  SQL database that bills only for queries and storage.
 whenNotToUse: >-
-  Avoid D1 for heavy transactional workloads, large-scale production databases,
-  or when advanced SQL features are required.
+  Skip it for heavy write workloads, databases larger than 500 MB each on the
+  free plan, or apps that need more than 50 queries per Worker call. Skip it
+  if you want a Postgres or MySQL engine.
 bestFor:
-  - prototyping
-  - edge apps
-  - personal projects
-  - MVPs
+  - Workers and Pages apps
+  - prototypes and side projects
+  - many small databases
 avoidIf:
-  - high write throughput
-  - complex SQL requirements
-  - large datasets
+  - You need a database bigger than 500 MB on the free plan
+  - You need Postgres or MySQL
+  - You need more than 50 queries per Worker invocation on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/d1/'
@@ -72,8 +80,48 @@ docsUrl: 'https://developers.cloudflare.com/d1/'
 sourceUrls:
   - 'https://developers.cloudflare.com/d1/platform/pricing/'
   - 'https://developers.cloudflare.com/d1/platform/limits/'
+  - 'https://developers.cloudflare.com/d1/'
+  - 'https://developers.cloudflare.com/d1/get-started/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://developers.cloudflare.com/d1/platform/pricing/'
 ---
-Cloudflare D1 offers a simple, serverless SQLite-compatible database with generous free limits, ideal for edge-first and small-scale web applications.
+You use D1 from a Worker through a binding, from the Wrangler CLI, or over the REST API. It suits developers who already build on Cloudflare.
+
+## What the free plan gives you
+
+The Workers Free plan includes D1 with 5 million rows read per day and 100,000 rows written per day. Storage is 5 GB in total across all databases, and each database can hold up to 500 MB. You can create 10 databases per account. Time Travel, the point-in-time recovery feature, keeps 7 days. A free Worker can run 50 queries per invocation.
+
+There are no charges for data transfer or throughput. Free limits reset daily at 00:00 UTC. Cloudflare says the Free plan will always let you prototype with D1.
+
+## When you hit a limit
+
+At the daily read or write limit, you cannot run queries. The D1 API returns errors telling your client the daily limits are exceeded. When you reach the storage limit, you must delete unused databases or clean up data before you can insert more.
+
+Nothing is billed on the Free plan. Upgrading to the Workers Paid plan removes these limits, usually within minutes.
+
+## Gotchas
+
+- Indexes add a written row for each write that touches an indexed column, which counts against the daily write limit.
+- Storage is the sum of all databases in your account, and tables and indexes both count.
+- Each free database can hold up to 500 MB, so large datasets need the paid plan.
+
+## Alternatives in this atlas
+
+- [Turso](/services/turso/): when you want a hosted SQLite-compatible database that does not need Cloudflare Workers.
+- [Cloudflare Workers KV](/services/cloudflare-workers-kv/): when you only need simple key-value reads at the edge.
+- [Neon](/services/neon/): when you want serverless Postgres instead of SQLite.
+
+## Questions people ask
+
+### Is Cloudflare D1 free?
+
+Yes. D1 is included in the Workers Free plan, with 5 million rows read per day, 100,000 rows written per day, and 5 GB of storage in total.
+
+### What happens when I go over the D1 free limits?
+
+Queries fail with errors once you hit the daily read or write limit, until the reset at 00:00 UTC. At the storage limit, you must free up space before inserting new data.
+
+### Will Cloudflare D1 always have a free plan?
+
+Cloudflare says the Workers Free plan will always include the ability to prototype and experiment with D1 for free.

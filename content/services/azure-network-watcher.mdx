@@ -1,8 +1,8 @@
 ---
 title: Azure Network Watcher
 description: >-
-  Azure Network Watcher provides network monitoring, diagnostic, and analytics
-  tools for Azure resources.
+  Azure Network Watcher gives you tools to monitor, diagnose, and log traffic
+  for Azure virtual machines, virtual networks, and load balancers.
 provider: Azure
 category: networking
 domain: networking
@@ -15,19 +15,26 @@ audiences:
   - team
   - enterprise
 tags:
-  - cloud
-  - networking
+  - network watcher
+  - flow logs
+  - packet capture
+  - connection monitor
+  - network diagnostics
+  - azure
   - monitoring
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes limited monitoring and diagnostic operations per month.
+  summary: >-
+    Each month includes 5 GB of NSG flow logs, 5 GB of virtual network flow
+    logs, 1,000 diagnostic checks, and 10 Connection Monitor tests.
   limits:
     - 5 GB/month NSG flow logs collected
     - 5 GB/month virtual network flow logs collected
     - '1,000 network diagnostic tool checks/month'
     - 10 connection monitor tests/month
   caveats:
-    - Some advanced features may incur charges.
+    - Traffic Analytics and Network Analytics have no free units on the pricing page.
+    - Flow logs sit in a storage account, which bills on its own.
     - Exceeding limits results in pay-as-you-go charges.
   resetPeriod: monthly
   requiresCard: true
@@ -35,34 +42,38 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Monitor usage to avoid unexpected charges if limits are exceeded.
+    - Flow log storage, Log Analytics, and event hub costs are billed separately from Network Watcher.
+    - Packet capture on a scale set counts one check per instance.
 useCases:
-  - Monitor network traffic and diagnose connectivity issues
-  - Analyze network performance bottlenecks
-  - Automate network monitoring workflows
+  - Finding out which security rule blocks traffic to a VM
+  - Checking the next hop and routes of a VM
+  - Capturing packets on a VM to debug a connection
+  - Logging network traffic with flow logs
+  - Watching connectivity between two endpoints over time
 quickstartSteps:
-  - Sign in to the Azure portal and ensure you have an active subscription.
-  - Navigate to 'Network Watcher' in the Azure portal.
-  - Enable Network Watcher for your desired region.
-  - Configure monitoring tools such as Connection Monitor or Packet Capture.
-  - Review collected data and set up alerts as needed.
+  - Sign up for an Azure account and sign in to the Azure portal.
+  - Create a virtual network; Network Watcher turns on by itself in that region.
+  - Create a virtual machine in the virtual network.
+  - Open Network Watcher and run a diagnostic tool such as IP flow verify against the VM.
+  - Read the result, which names the security rule that allowed or denied the traffic.
 whenToUse: >-
-  Use when you need to monitor, diagnose, or analyze network traffic and
-  connectivity within Azure resources.
+  Use it to find out why an Azure VM cannot reach something, to capture packets,
+  or to log traffic on your virtual networks.
 whenNotToUse: >-
-  Avoid if you require monitoring for non-Azure environments or need unlimited
-  diagnostics without risk of overage charges.
+  Avoid it for non-Azure networks, for PaaS monitoring or web analytics, or if
+  you cannot accept any risk of pay-as-you-go charges.
 bestFor:
-  - Azure network monitoring
-  - diagnostics
-  - performance analysis
+  - Azure network troubleshooting
+  - connectivity checks
+  - traffic logging
 avoidIf:
   - monitoring non-Azure networks
+  - web analytics or PaaS monitoring
   - avoiding any risk of overage
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/network-watcher/'
@@ -73,6 +84,47 @@ sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/network-watcher/'
   - >-
     https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+  - >-
+    https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-traffic-filtering-problem
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure Network Watcher offers essential monitoring and diagnostic tools for Azure networks, with a free tier suitable for moderate usage and pay-as-you-go for higher volumes.
+You use Network Watcher in the Azure portal, PowerShell, the CLI, or the REST API. It is for people who run virtual machines and virtual networks in Azure and need to see why traffic does or does not flow. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+Each month includes a fixed set of free units. You can collect 5 GB of network security group flow logs and 5 GB of virtual network flow logs. You can run 1,000 network diagnostic checks, which cover the diagnostic tools and the topology view. You can also run 10 Connection Monitor tests.
+
+Network Watcher turns on by itself in a region when you create or update a virtual network there, and Microsoft says that carries no charge. The overview says it covers IaaS resources such as VMs, virtual networks, application gateways, and load balancers. It is not built for PaaS monitoring or web analytics.
+
+## When you hit a limit
+
+Nothing stops your usage at the free units. Azure bills each extra gigabyte of flow logs, each extra diagnostic check, and each extra Connection Monitor test. The pricing page hides the per-unit prices, so check the calculator before you scale up.
+
+Some costs sit outside Network Watcher. Flow logs live in a storage account, and the pricing page says storage, Log Analytics, and event hub charges apply on their own. Traffic Analytics and Network Analytics show no free units. Packet capture on a scale set counts one check for every instance.
+
+## Gotchas
+
+- Connection Monitor tests are billed when you start them from the portal, PowerShell, the CLI, or the REST API, so 10 free tests go fast on a large setup.
+- Flow log retention can be set from one day to 365 days. If you set none, the logs are kept forever and the storage bill keeps growing.
+- Packet capture on a virtual machine scale set counts one check per instance, and Connection Monitor tests on a scale set count one test per instance, so the free units can go fast.
+
+## Alternatives in this atlas
+
+- [Azure Virtual Networks](/services/azure-virtual-networks/): when you first need the network that Network Watcher inspects.
+- [Azure Bastion](/services/azure-bastion/): when your problem is reaching the VM, not tracing its traffic.
+- [IntoDNS.ai](/services/intodns-ai/): when you only need to check DNS and mail records for a domain.
+
+## Questions people ask
+
+### Is Azure Network Watcher free?
+
+Partly. It includes free monthly units for flow logs, diagnostic checks, and Connection Monitor tests. You pay for anything above them, and for the storage that holds flow logs.
+
+### What happens when I go over the free Network Watcher limits?
+
+Azure bills the extra usage per gigabyte, per check, or per test. It does not stop the service.
+
+### Do I have to enable Network Watcher?
+
+Usually not. Azure turns it on in a region when you create or update a virtual network there. You enable it by hand only if you opted out of automatic enablement.

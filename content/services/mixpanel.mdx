@@ -1,6 +1,9 @@
 ---
 title: Mixpanel
-description: 'Product analytics: events, funnels, retention, and user flows.'
+description: >-
+  Mixpanel is a product analytics tool for events, funnels, retention, and user flows. It also
+  offers session replay, experiments, and feature flags. It suits product teams and startups that
+  track how people use an app.
 provider: Mixpanel
 category: analytics
 domain: analytics
@@ -11,44 +14,77 @@ audiences:
   - indie
   - startup
 tags:
-  - analytics
-  - data
+  - product analytics
+  - funnels
+  - retention
+  - user flows
+  - session replay
+  - feature flags
+  - experiments
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan, free forever: up to 1M events per month. No card needed.'
   limits:
-    - 1M events per month
+    - Up to 1M events per month
+    - Unlimited seats
+    - 10K session replays per month
+    - Up to 1k MEU per month for experiments
+    - Up to 10 active feature flags
+    - 5 saved reports per user account
   caveats:
-    - Startups under 5 years old with up to $8M funding can get the Growth plan free for a year
+    - Over 1M monthly events you are blocked from viewing reports until the next month
+    - >-
+      You can create cohorts but not save them; lookup tables, custom properties, and permissions
+      are not included
+    - Startups under 5 years old with up to $8M funding can get the Startup Plan free for a year
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Funnels and retention for an app
-  - Track feature use
+  - Build funnels to see where users drop off
+  - Track retention for an app
+  - Follow user flows between screens
+  - Track feature use with events and properties
+  - Watch session replays and run experiments
 quickstartSteps:
-  - Sign up at mixpanel.com.
-  - Install the SDK.
-  - Track events and build reports.
-whenToUse: Use for product analytics on a small or medium app.
-whenNotToUse: Avoid if you only need page views.
+  - Sign up at mixpanel.com with Get Started Free. No credit card is needed.
+  - Plan the first events you want to track. The docs say this should take no more than 5 minutes.
+  - Find your project token in Mixpanel.
+  - >-
+    Install the SDK for your stack, for example npm install mixpanel-browser for the web, or the
+    Python, PHP, or Node.js library.
+  - Call mixpanel.init with your token and send your first event.
+  - Build a funnel or retention report from the events that arrive.
+whenToUse: >-
+  Use it for product analytics on a small or medium app when you want a large free event count and
+  unlimited seats.
+whenNotToUse: >-
+  Avoid it if you only need page views, or if you will pass 1M events a month and do not want to
+  move to a paid Growth plan.
 bestFor:
   - product teams
   - startups
+  - feature tracking
+  - small apps
 avoidIf:
   - simple sites
+  - only page views needed
+  - need saved cohorts for free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mixpanel.com'
 docsUrl: 'https://docs.mixpanel.com'
 sourceUrls:
   - 'https://mixpanel.com/pricing/'
+  - 'https://docs.mixpanel.com'
+  - 'https://docs.mixpanel.com/docs/pricing'
+  - 'https://docs.mixpanel.com/docs/quickstart/install-mixpanel'
 pricingUrl: 'https://mixpanel.com/pricing/'
 featured: false
 changes:
@@ -56,4 +92,45 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Mixpanel's free plan has no time limit.
+
+You install an SDK, call init with your project token, and send events. Then you build reports in the Mixpanel web app. It suits product teams and startups that want analytics on how people use an app.
+
+## What the free plan gives you
+
+The Free plan is free forever and needs no credit card. It includes up to 1M events per month and unlimited seats. It also includes 10K session replays per month, up to 1k MEU per month for experiments, and up to 10 active feature flags.
+
+Free is usage-based. The docs say you can use it for as long as you want with no trial. They encourage you to start there and upgrade once you know your volume. After about a week, the Plan Details and Billing page shows an estimate of your volume.
+
+Free has report limits. You get a maximum of 5 saved reports per user account. You can create cohorts but cannot save them. Features such as lookup tables, custom properties, and permissions are not included.
+
+## When you hit a limit
+
+On the Free plan, Mixpanel does not charge overages. It limits your platform access once you reach 1M monthly events. You are blocked from viewing your reports until you upgrade to a Growth plan that supports your usage, or the allowance resets the next month.
+
+On a Growth plan, extra events are billed at your rate at the start of the next month. You cannot set a billing limit at this time. On paid accounts, owners and billing admins get alert emails at 85% of plan volume and at higher levels.
+
+## Gotchas
+
+- Hitting 1M events blocks you from viewing your reports. The block lasts until the next month or until you upgrade to Growth.
+- Hiding an event in Lexicon does not stop its ingestion. Dropping an event only blocks it from that moment on.
+- Downgrading to Free does not take effect at once. It starts on your next billing date.
+
+## Alternatives in this atlas
+
+- [Amplitude](/services/amplitude/): when you want a larger free event count and unlimited seats.
+- [PostHog](/tools/posthog/): when you want analytics, replay, and flags with separate free allowances.
+- [Statsig](/services/statsig/): when feature flags and experiments matter most.
+
+## Questions people ask
+
+### Is Mixpanel free?
+
+Yes. The Free plan gives up to 1M events per month and unlimited seats. It is free forever and needs no credit card.
+
+### What happens when I go over 1M events on the Mixpanel free plan?
+
+Mixpanel does not charge overages on Free. It limits your platform access, so you cannot view reports until you upgrade or the next month starts.
+
+### Does Mixpanel have a startup program?
+
+Yes. Early-stage companies founded less than 5 years ago, with up to $8M in total funding, get their first year free on the Startup Plan.

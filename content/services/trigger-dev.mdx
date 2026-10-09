@@ -1,6 +1,9 @@
 ---
 title: Trigger.dev
-description: 'Open-source background jobs and AI agent workflows in TypeScript, with retries and long runs.'
+description: >-
+  Trigger.dev is an open source platform for background jobs and AI agent
+  workflows written in TypeScript, with retries, long runs, and checkpoints.
+  It is for web and AI developers who do not want to run workers.
 provider: Trigger.dev
 category: compute
 domain: compute
@@ -12,19 +15,25 @@ audiences:
   - indie
   - startup
 tags:
-  - serverless
-  - automation
-  - queue
-  - open-source
+  - background jobs
+  - typescript
+  - ai agents
+  - workflows
+  - queues
+  - scheduled tasks
+  - open source
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: $5 of compute credits per month and 20 concurrent runs.'
+  summary: 'Free plan: $5 of compute credits per month, 20 concurrent runs, and 5 team members.'
   limits:
     - $5 compute credits per month
     - 20 concurrent runs
     - Unlimited tasks
+    - 5 team members
   caveats:
     - Usage is billed per second and per run from the credit
+    - On the Free plan, tasks stop until you upgrade once the $5 credit is used
+    - Concurrency is set per environment
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -32,30 +41,41 @@ freeTierDetails:
   overageRisk: none
   monthlyCreditAmount: $5
 useCases:
-  - Background jobs for a web app
-  - Long AI agent runs
-  - Scheduled tasks
+  - Background jobs for a Next.js or other web app
+  - Long-running AI agent and LLM workflows
+  - Scheduled and recurring tasks
+  - Processing documents and files outside the request cycle
 quickstartSteps:
-  - Sign up at trigger.dev.
-  - Run npx trigger.dev@latest init in your project.
-  - Write a task and deploy.
-whenToUse: Use for TypeScript background jobs without running workers yourself.
-whenNotToUse: Avoid for heavy compute on the free credit.
+  - 'Sign up for Trigger.dev Cloud and create your first organization and project.'
+  - 'In your project root, run npx trigger.dev@latest init to add the SDK, a /trigger folder, and an example task.'
+  - 'Run npx trigger.dev@latest dev to start the local dev server and register your tasks.'
+  - 'Trigger the Hello World task from the dashboard test page or from your code.'
+  - 'Deploy your tasks to Trigger.dev Cloud with the CLI when they work.'
+whenToUse: >-
+  Use it for TypeScript background jobs and AI agent runs that should not time
+  out and that you do not want to host yourself.
+whenNotToUse: >-
+  Avoid it for heavy compute on the free credit, or if the free plan stopping
+  at $5 of credits would break your app.
 bestFor:
   - Next.js apps
   - AI agents
 avoidIf:
-  - heavy compute
+  - heavy compute on the free credit
+  - tasks that must keep running past the free credit
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://trigger.dev'
 docsUrl: 'https://trigger.dev/docs'
 sourceUrls:
   - 'https://trigger.dev/pricing'
+  - 'https://trigger.dev/docs'
+  - 'https://trigger.dev/docs/quick-start'
+  - 'https://trigger.dev/docs/limits'
 pricingUrl: 'https://trigger.dev/pricing'
 featured: false
 changes:
@@ -63,4 +83,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Trigger.dev runs your TypeScript tasks on managed workers.
+You write tasks as TypeScript code in a /trigger folder of your project. The CLI links your project to Trigger.dev Cloud, runs a dev server, and deploys the tasks. Your app then triggers them from its own code. It suits web and AI developers who need long background jobs without running workers.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and includes $5 of free compute credits each month. It has 20 concurrent runs, unlimited tasks, and 5 team members. Concurrency is set per environment. Free allows 20 in production, 10 in staging, 10 in preview, and 25 in development.
+
+Tasks run on Trigger.dev's managed workers, and you only pay while they run. The smallest machine costs $0.0000169 per second. Each run that starts also costs an invocation fee of $0.25 per 10,000 runs, except runs in the DEV environment. Waits longer than 5 seconds are checkpointed and do not count toward compute use.
+
+## When you hit a limit
+
+The pricing FAQ says that on the Free plan, you need to upgrade to keep running tasks once the included $5 of credits is used. On paid plans, tasks keep running and extra compute is billed at the usage rates. So the free plan stops instead of billing you.
+
+You can also hit other limits. The API allows 1,500 requests per minute on every plan. Each queue holds up to 500 runs in development and 10,000 in staging or production on Free. When a queue is full, new triggers to it are rejected.
+
+## Gotchas
+
+- A task that triggers a subtask and waits is checkpointed, so the waiting time does not count toward compute usage or your concurrency limit.
+- Calling trigger in a loop can hit the API rate limit. Use batchTrigger, which fits up to 1,000 tasks in a single call.
+- Every run that starts on the managed workers has a per-run fee on top of compute, so many tiny runs add up. Runs in the DEV environment are not charged.
+
+## Alternatives in this atlas
+
+- [Inngest](/services/inngest/): when you want your functions to stay on your own host.
+- [Hatchet](/services/hatchet/): when you prefer to run your own workers against a managed queue.
+- [Val Town](/services/val-town/): when you want to write and host small scripts in the browser.
+
+## Questions people ask
+
+### Is Trigger.dev free?
+
+Yes, to start. The Free plan costs $0 and includes $5 of compute credits each month and 20 concurrent runs.
+
+### What happens when I use up my Trigger.dev credits?
+
+On the Free plan, you must upgrade to keep running tasks. Paid plans keep running and bill the extra compute.
+
+### Is Trigger.dev open source?
+
+Yes. The pricing page says it uses the Apache 2.0 license, and you can self-host it.

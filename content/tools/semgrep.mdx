@@ -1,6 +1,8 @@
 ---
 title: Semgrep
-description: 'Static analysis (SAST), dependency scanning (SCA), and secrets detection for code.'
+description: >-
+  Semgrep scans source code and dependencies for security bugs and reachable
+  vulnerabilities, in your terminal, in CI, and on pull requests.
 provider: Semgrep
 category: security
 domain: security
@@ -13,47 +15,67 @@ audiences:
   - indie
   - startup
 tags:
-  - security
-  - ci-cd
-  - devops
+  - sast
+  - static-analysis
+  - sca
+  - code-security
+  - ci
+  - appsec
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free for up to 10 contributors, with Code and Supply Chain scanning and cross-file Pro rules.'
+  summary: 'Free for up to 10 contributors and up to 10 private repositories, with Code and Supply Chain scanning, cross-file Pro rules, and 60 AI credits.'
   limits:
     - Up to 10 contributors
+    - Up to 10 private repositories, unlimited public repositories
     - Semgrep Code and Supply Chain included
     - Cross-file analysis with Pro rules
+    - 60 AI credits included
   caveats:
     - A contributor is anyone who committed to a scanned private repo in the last 90 days
-  resetPeriod: none
+    - Secrets detection is not in the Free plan; it is a paid add-on
+    - Free support is community-based, and single sign-on works only through GitHub or GitLab
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Scan pull requests for security bugs
-  - Find vulnerable dependencies
+  - Scanning pull requests for security bugs in the code you wrote
+  - Finding vulnerable dependencies and checking if the vulnerable code is reachable
+  - Running the same checks on your laptop and in CI
+  - Writing your own rules for your team's coding standards
 quickstartSteps:
-  - Sign up at semgrep.dev.
-  - Connect your GitHub or GitLab.
-  - Add Semgrep to CI or turn on managed scans.
-whenToUse: Use for code security scanning in a small team.
-whenNotToUse: Avoid if more than 10 people commit to private repos.
+  - Go to the Semgrep AppSec Platform and sign up with Continue with GitHub or Continue with GitLab, then grant the permissions it asks for.
+  - Enter an organization name and select Create new organization.
+  - When asked where you want to scan, choose Run on CLI.
+  - Install the CLI with `pipx install semgrep` or `uv tool install semgrep`, then run `semgrep --version`.
+  - Run `semgrep login`, select Activate in the browser, then run `semgrep ci` in the root of your project.
+whenToUse: >-
+  Use Semgrep when a small team wants static analysis and dependency scanning
+  on its code, from the CLI or in CI, without paying.
+whenNotToUse: >-
+  Avoid the Free plan if more than 10 people commit to your private
+  repositories, if you have more than 10 private repositories, or if you need
+  secrets detection or support beyond the community.
 bestFor:
   - small teams
-  - open source
+  - open source projects
+  - developers adding a first security scanner
 avoidIf:
-  - large teams
+  - more than 10 people commit to private repos
+  - more than 10 private repositories
+  - you need secrets detection on the free plan
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://semgrep.dev'
 docsUrl: 'https://semgrep.dev/docs/'
 sourceUrls:
   - 'https://semgrep.dev/pricing/'
+  - 'https://semgrep.dev/docs/'
+  - 'https://semgrep.dev/docs/getting-started/quickstart'
 pricingUrl: 'https://semgrep.dev/pricing/'
 featured: false
 changes:
@@ -61,4 +83,40 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Semgrep's free edition covers small teams.
+You sign in with GitHub or GitLab, then scan with the Semgrep command-line tool, in CI, or through Semgrep infrastructure. Results appear in the Semgrep platform and in pull requests. It suits small teams adding a first scanner.
+
+## What the free plan gives you
+
+The Free Edition is free for up to 10 contributors and up to 10 private repositories. Public repositories are unlimited. It includes Semgrep Code (static analysis) at $0 per contributor and Supply Chain (dependency scanning) at $0 per contributor.
+
+You get Pro rules with cross-file analysis, AI-powered detection, triage, and remediation, and 60 AI credits. The pricing table lists support for 35+ languages. CI/CD runs through Semgrep infrastructure. Support is community-based, and single sign-on works only through GitHub or GitLab.
+
+## When you hit a limit
+
+The pricing page does not say what happens if an eleventh person commits to a scanned private repository, or if you add an eleventh private repository. A contributor is anyone who made at least one commit to a scanned private repository in the past 90 days, so the count changes over time. The next plan, Teams, starts at $30 per contributor per month for Code or for Supply Chain and allows up to 500 private repositories. Secrets detection costs $15 per contributor per month on Teams.
+
+## Gotchas
+
+- Secrets detection is not part of the Free plan. The page lists it under Teams and Enterprise.
+- Contributors are counted from commits in the last 90 days, not from people who joined your organization.
+- If Semgrep runs locally or fully in your CI, the pricing FAQ says your source code never leaves your machine or CI. Opting in to AI features or managed scans changes that.
+
+## Alternatives in this atlas
+
+- [Snyk](/services/snyk/): when you want another scanner that covers code and dependencies.
+- [GitGuardian](/tools/gitguardian/): when your first worry is leaked secrets in your repositories.
+- [Aikido](/services/aikido/): when you want several scan types in one dashboard.
+
+## Questions people ask
+
+### Is Semgrep free?
+
+Yes. The Free Edition covers up to 10 contributors and up to 10 private repositories, with Code and Supply Chain scanning.
+
+### How does Semgrep count contributors?
+
+A contributor is someone who made at least one commit to a private repository scanned by Semgrep in the past 90 days.
+
+### Does Semgrep send my source code to the cloud?
+
+Not if Semgrep runs locally or fully in your CI. Only metadata about the runs is sent. AI features and managed scans do send code, as the pricing FAQ explains.

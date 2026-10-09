@@ -1,8 +1,8 @@
 ---
 title: Bencher
 description: >-
-  Bencher provides continuous benchmarking as a service to track and visualize
-  software performance regressions.
+  Bencher tracks benchmark results over time and alerts you when a change makes
+  your code slower. It suits teams that run benchmarks in CI.
 provider: Bencher
 category: observability
 domain: observability
@@ -17,54 +17,60 @@ audiences:
   - team
   - oss
 tags:
-  - testing
+  - benchmarking
+  - performance
   - ci-cd
-  - analytics
+  - regression
+  - open-source
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes unlimited public projects only, with a 65,535
-    metrics/day rate limit. Private projects require a paid plan.
+    Free plan supports public projects only, with a 65,535 metrics/day rate
+    limit. Private projects require a paid plan.
   limits:
     - Unlimited public projects
     - No private projects on Free
     - '65,535 metrics/day rate limit'
-    - Community support (GitHub, Discord)
+    - 'Bare Metal runners: 1 concurrent job, 5 minute job timeout'
   caveats:
     - Private projects require the Pro plan ($100/month)
     - Bare Metal runners without an account are limited to a 1-minute timeout
+    - Free jobs queue behind paid jobs when runners are busy
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Track performance regressions in CI
-  - Visualize benchmark results over time
-  - Collaborate on open source performance metrics
+  - Catch performance regressions in CI before they ship
+  - Chart benchmark results over time
+  - Share performance history of an open source project
+  - Run benchmarks on Bare Metal machines
+  - Claim results from a run made without an account
 quickstartSteps:
-  - 'Sign up for a free Bencher account at https://bencher.dev/.'
-  - Create a new public project (private projects need a paid plan).
-  - Integrate Bencher CLI into your CI workflow to submit benchmarks.
-  - View and analyze performance trends on the Bencher dashboard.
+  - Go to bencher.dev and choose Benchmark for free; the Free plan covers public projects.
+  - Install the `bencher` CLI; the docs have an Install CLI page.
+  - Run your benchmark command through `bencher run`, as shown on the home page.
+  - If you ran without an account, follow the Claim Benchmark Results page in the docs; unclaimed projects get 255 metrics per day.
+  - Add the same `bencher run` command to your CI workflow; the docs have GitHub Actions and GitLab CI/CD guides.
 whenToUse: >-
-  Use Bencher to continuously monitor and visualize software performance for
-  public/open-source projects, especially in CI pipelines.
+  Use Bencher to track benchmark history for a public or open source project and
+  get alerts when performance drops in CI.
 whenNotToUse: >-
-  Avoid if you need private projects (paid-only) or on-premise deployment
-  without a Bencher Self-Hosted license.
+  Avoid it if you need private projects on the free plan, or jobs that run longer
+  than 5 minutes on Bare Metal runners.
 bestFor:
   - open source projects
-  - small teams
-  - performance-focused development
+  - performance-minded libraries
+  - small teams with public repos
 avoidIf:
-  - need private projects
-  - require self-hosting without Pro license
-  - handle sensitive data
+  - you need private projects for free
+  - benchmark jobs longer than 5 minutes
+  - results that must stay confidential
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://bencher.dev/'
@@ -73,6 +79,45 @@ pricingUrl: 'https://bencher.dev/pricing'
 sourceUrls:
   - 'https://bencher.dev/pricing'
   - 'https://bencher.dev/docs'
+  - 'https://bencher.dev/docs/tutorial/quick-start/'
 featured: false
 ---
-Bencher is a benchmarking-as-a-service platform for tracking, visualizing, and sharing software performance metrics, with free unlimited public projects and limited private projects.
+You run the `bencher` command line tool in CI or on your machine, and it sends benchmark results to the Bencher web app, where you see graphs and alerts. It suits open source projects that want to catch slow-downs early.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. It supports public projects only. Private projects are not included. The Free plan allows 65,535 metrics per day, and a project nobody has claimed yet gets 255 metrics per day.
+
+Bare Metal runners are included. On Free you get one concurrent job and a 5 minute job timeout. Without an account, the timeout is 1 minute per run. Free jobs sit behind paid jobs in the queue, but run right away when the queue is idle. On-demand runners are free on this plan.
+
+## When you hit a limit
+
+The pricing page says it does not describe what happens when a Free project passes its daily metric limit.
+
+The Free plan lists a 5 minute job timeout for Bare Metal runners; the page does not say more about what happens past it. Private projects need the Pro plan, which costs $100 per month for up to 250 active series. Pro has a 1-month free trial that needs a credit card.
+
+## Gotchas
+
+- Free is for public projects only, so do not send results you need to keep private.
+- The Free queue waits behind paid jobs during busy periods.
+- Pro bills by active benchmark series, and on-demand runners cost $1.00 per hour on Pro.
+
+## Alternatives in this atlas
+
+- [CodSpeed](/services/codspeed/): when you want benchmark tracking with pull request checks.
+- [Grafana Cloud](/services/grafana-cloud/): when you want general dashboards for any metric, not only benchmarks.
+- [Nx Cloud](/services/nx-cloud/): when your main goal is faster CI builds rather than benchmark history.
+
+## Questions people ask
+
+### Is Bencher free?
+
+Yes, for public projects. The Free plan costs $0 per month and supports public projects only. Private projects need a paid plan.
+
+### Does Bencher need a credit card?
+
+Not for the Free plan. Only the 1-month Pro trial requires a credit card.
+
+### What happens when I go over the Bencher free limits?
+
+The pricing page does not say. The Free plan lists a limit of 65,535 metrics per day and a 5 minute timeout per Bare Metal job.

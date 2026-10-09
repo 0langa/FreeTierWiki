@@ -1,8 +1,9 @@
 ---
 title: IP Geolocation API
 description: >-
-  Provides IP-based geolocation data such as country, city, and timezone for web
-  and mobile applications.
+  Abstract's IP Geolocation API returns country, region, city, coordinates,
+  timezone, and VPN or proxy flags for an IP address. Developers call it from
+  web and mobile apps over HTTPS.
 provider: AbstractAPI
 category: apis
 domain: apis
@@ -17,9 +18,10 @@ audiences:
   - team
   - oss
 tags:
-  - networking
+  - ip geolocation
+  - ip lookup
   - api
-  - search
+  - geoip
 pricingModel: freemium
 freeTierDetails:
   summary: 'Up to 1,000 requests per month are free, with the full API response.'
@@ -28,8 +30,9 @@ freeTierDetails:
     - 1 request/second rate limit
     - Full API response included free
   caveats:
-    - No SLA on free tier
+    - The page ties its 99.99% uptime SLA to Enterprise plans
     - No credit card required to start
+    - The API key is per API; an IP key does not work for the email or phone API
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -38,41 +41,81 @@ freeTierDetails:
 useCases:
   - Personalizing content by user location
   - Blocking or allowing traffic by region
-  - Displaying local time or currency
-  - Fraud detection based on IP
+  - Showing local time or currency
+  - Flagging VPN, proxy, or Tor traffic at sign-up
+  - Looking up a batch of addresses from a log file
 quickstartSteps:
-  - Sign up for a free AbstractAPI account.
-  - Navigate to the IP Geolocation API dashboard.
-  - Copy your unique API key.
-  - >-
-    Send a GET request to the API endpoint with your API key and target IP
-    address.
-  - Parse the JSON response for location data.
+  - Create a free Abstract account on the website; no credit card is asked for.
+  - Open the dashboard and choose the IP Geolocation (IP Intelligence) API.
+  - Copy the API key for that API.
+  - Send a GET request to `https://ip-intelligence.abstractapi.com/v1` with `api_key` and `ip_address` parameters.
+  - Read the JSON response for country, region, city, and coordinates, or add a `fields` parameter to trim it.
 whenToUse: >-
-  Use when you need to quickly determine user location from IP for
-  personalization, analytics, or access control.
+  Use it when you want city-level location from an IP address for
+  personalization, analytics, or a quick fraud signal, at low volume.
 whenNotToUse: >-
-  Avoid if you need highly accurate, real-time location or must process more
-  than 1,000 requests monthly without paying.
+  Avoid it if you need more than 1,000 lookups a month for free, more than one
+  request per second on the free plan, or exact GPS-level location.
 bestFor:
   - web apps
   - mobile apps
   - analytics dashboards
+  - prototypes
 avoidIf:
   - need precise GPS location
   - require unlimited requests
-  - must have advanced data fields
+  - need more than one request per second without paying
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.abstractapi.com/ip-geolocation-api'
-docsUrl: 'https://www.abstractapi.com/api/ip-geolocation/documentation'
+docsUrl: 'https://docs.abstractapi.com/'
 pricingUrl: 'https://www.abstractapi.com/api/ip-geolocation-api'
 sourceUrls:
   - 'https://www.abstractapi.com/api/ip-geolocation-api'
+  - 'https://docs.abstractapi.com/'
+  - 'https://docs.abstractapi.com/api/ip-intelligence'
 featured: false
 ---
-AbstractAPI's IP Geolocation API offers a generous free tier for basic location lookup needs, making it suitable for small projects and prototyping. It is easy to integrate and provides standard geolocation fields, but advanced data and higher request volumes require a paid plan.
+You get a key from the dashboard, then call one GET endpoint from any language. It suits developers who need a quick location lookup in a web app, a back end, or a script.
+
+## What the free plan gives you
+
+The free plan gives you 1,000 requests a month at 1 request per second. It returns the full API response, the same fields that paid plans return, such as location, timezone, flag, currency, and ASN. No credit card is needed to start.
+
+Abstract says its database covers more than 4 billion IPv4 and IPv6 addresses and refreshes daily. Paid plans start at $17 a month and raise the rate limit to 3 requests per second. The page ties the 99.99% SLA to Enterprise plans.
+
+## When you hit a limit
+
+The docs list two errors for free plans. A 422 error means the request stopped because you ran out of credits. A 429 error means you sent more than the allowed requests per second, which is 1 per second on free plans. Your code should wait and retry after a 429.
+
+The pricing page does not say whether a free account is billed for extra requests. The docs say a 422 means the request was stopped for lack of credits.
+
+## Gotchas
+
+- IP location points to a network, not a person. VPNs, proxies, and mobile networks make results less exact, so check the flags in the response.
+- The API key is per API. A key from the IP API does not work for Abstract's email or phone APIs.
+- Old logs give you where an address resolves today, not where it resolved when you logged it.
+
+## Alternatives in this atlas
+
+- [ipapi.is](/tools/ipapi-is/): when you want a daily allowance instead of a monthly one.
+- [IP2Location.io](/services/ip2location-io/): when you need far more free monthly lookups.
+- [The IP API](/tools/the-ip-api/): when you need commercial use on a free plan.
+
+## Questions people ask
+
+### Is the Abstract IP Geolocation API free?
+
+Yes, within limits. The free plan gives you 1,000 requests a month with the full response and needs no credit card.
+
+### What happens when I go over the free IP Geolocation API limit?
+
+The docs say a request fails with a 422 error when you run out of credits. A 429 error means you passed 1 request per second.
+
+### Does the IP Geolocation API need a credit card?
+
+No. The page says no credit card is required to get a free API key.

@@ -1,6 +1,9 @@
 ---
 title: Stream Chat
-description: In-app chat APIs and UI SDKs for web and mobile.
+description: >-
+  Stream Chat provides chat APIs and ready-made UI kits for adding messaging to
+  web and mobile apps. It is for developers who want chat without running their
+  own realtime servers.
 provider: Stream
 category: messaging
 domain: messaging
@@ -12,52 +15,75 @@ audiences:
   - indie
   - startup
 tags:
-  - messaging
-  - realtime
+  - chat api
+  - in-app chat
+  - messaging sdk
+  - realtime chat
+  - react chat
   - mobile
-  - sdk
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan: 1,000 monthly active users and 100 concurrent connections. Small teams can apply for
-    the Maker program.
+    Free Build plan: 1,000 monthly active users and 100 concurrent connections,
+    no credit card. Small teams can apply for the Maker program.
   limits:
-    - '1,000 MAU'
+    - '1,000 monthly active users (MAU)'
     - 100 concurrent connections
-    - All chat features
+    - 'Up to 1M API calls, 100K query channel calls, and 10 GB API bandwidth'
+    - All Chat features
   caveats:
     - >-
-      Maker program: $100 monthly credit if you have fewer than 5 people and under $10k monthly
-      revenue
+      Maker program: $100 monthly credit if you have fewer than 5 people and
+      under $10k monthly revenue
     - Maker availability is limited
+    - The free plan has community support only
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - The pricing page shows Free plan overage as Limits Apply and does not say whether usage over the limits is blocked or billed
 useCases:
-  - In-app chat
-  - Community or support chat
+  - One-to-one and group chat inside a mobile or web app
+  - Community or support chat channels
+  - Chat for a marketplace, dating, or live-event app
+  - Prototype a chat feature before choosing a paid plan
 quickstartSteps:
-  - Sign up at getstream.io.
-  - Create an app and copy the keys.
-  - Use a Stream Chat UI SDK.
-whenToUse: Use for a chat feature in a small app.
-whenNotToUse: 'Avoid if you expect more than 1,000 users soon without budget.'
+  - Create a free account at getstream.io and open the dashboard. The Build plan needs no credit card.
+  - Create an app and get its API key and secret from your Stream account.
+  - On your server, create a user token. Stream signs tokens with your API secret, so the client never creates them.
+  - In a React app, install the SDK with `npm install stream-chat stream-chat-react`.
+  - Create a client with `StreamChat.getInstance`, call `connectUser` with the token, then create a channel and call `watch`.
+whenToUse: >-
+  Use Stream Chat when you want a hosted chat backend with SDKs for React,
+  iOS, Android, Flutter, and React Native, and your app has fewer than 1,000
+  monthly active users.
+whenNotToUse: >-
+  Avoid it if you expect more than 1,000 monthly active users soon without a
+  budget, since the next paid plan starts at $399 per month billed annually.
 bestFor:
-  - chat features
+  - chat features in a small app
+  - prototypes and side projects
+  - maker projects that qualify for the credit
 avoidIf:
-  - large communities
+  - a large community on a zero budget
+  - more than 100 users online at once
+  - you need paid support
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://getstream.io/chat/'
 docsUrl: 'https://getstream.io/chat/docs/'
 sourceUrls:
   - 'https://getstream.io/chat/pricing/'
+  - 'https://getstream.io/chat/'
+  - 'https://getstream.io/chat/docs/react/'
+  - 'https://getstream.io/chat/docs/react/tokens_and_authentication/'
+  - 'https://getstream.io/chat/docs/sdk/react/basics/getting_started/'
 pricingUrl: 'https://getstream.io/chat/pricing/'
 featured: false
 changes:
@@ -65,4 +91,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Stream's free plan needs no card.
+You add chat with a client SDK in your app and a small server that creates user tokens. A dashboard manages the app and its keys. It suits developers who want chat features quickly.
+
+## What the free plan gives you
+
+The Free plan is called Build. It gives you 1,000 monthly active users and 100 concurrent connections. A monthly active user is anyone who connected to chat within the last calendar month. A concurrent connection is an open WebSocket between a device and Stream, and the peak in the billing month counts.
+
+The plan includes all Chat features and community support. It asks for no credit card. Monthly allowances are up to 1M API calls, up to 100K query channel calls, and up to 10 GB of API bandwidth.
+
+Makers get more. If your team has fewer than 5 people and under $10k in monthly revenue, Stream offers a $100 monthly credit. The page says availability is limited.
+
+## When you hit a limit
+
+The pricing table shows overage rates for the Free plan as "Limits Apply" and does not say what happens next. Paid plans list rates, such as $0.09 per extra monthly active user. The pricing page does not say whether free apps stop or slow down at the cap.
+
+The next plan up is Start at $399 per month billed annually, or $499 billed monthly. It covers 10,000 monthly active users and 500 concurrent connections.
+
+## Gotchas
+
+- The pricing page tells you that cron jobs polling query channels are the most common cause of overage on the query channel limit.
+- Messages are stored for as long as your plan is active.
+- Maker credit is limited in availability, so do not plan around it.
+
+## Alternatives in this atlas
+
+- [Ably](/services/ably/): when you need realtime messaging more than a full chat product with UI kits.
+- [Pusher](/services/pusher/): when you want simple realtime events and build the chat UI yourself.
+- [Pubnub.com](/services/pubnub-com/): when you need realtime messaging at scale from another hosted provider.
+
+## Questions people ask
+
+### Is Stream Chat free?
+
+Yes. The Free plan covers 1,000 monthly active users and 100 concurrent connections, includes all Chat features, and needs no credit card.
+
+### What happens when I go over the Stream Chat free limits?
+
+The pricing page lists the Free plan overage as "Limits Apply" and does not explain it. Paid plans show per-unit overage rates.
+
+### Does Stream Chat need a credit card?
+
+No. The Free plan page says no credit card is required.

@@ -1,8 +1,9 @@
 ---
 title: Calendarific
 description: >-
-  Calendarific provides a global public holiday and observance API for over 230
-  countries and territories.
+  Calendarific is a REST API for public holidays and observances in more than
+  230 countries and their regions. Developers use it in calendars, scheduling,
+  and payroll tools.
 provider: Calendarific
 category: apis
 domain: apis
@@ -17,9 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - productivity
-  - api
-  - integration
+  - holiday api
+  - public holidays
+  - calendar api
+  - rest api
+  - payroll
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan allows up to 500 API calls per month, with attribution required.'
@@ -36,35 +39,35 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Display public holidays in apps
-  - Automate scheduling around holidays
-  - Integrate holiday data into HR or payroll systems
+  - Show public holidays in a calendar app
+  - Skip bank holidays when you schedule jobs or deliveries
+  - Build pay-date and leave calendars from national holidays
+  - 'Show holiday names in a user''s language on a paid plan'
 quickstartSteps:
   - Sign up for a free Calendarific account.
-  - Obtain your API key from the dashboard.
-  - Read the API documentation for endpoint details.
-  - Make a test API request using your key.
-  - Integrate the API into your application.
+  - Copy your API key from the account dashboard.
+  - 'Build a request to `https://calendarific.com/api/v2/holidays` with `api_key`, `country`, and `year`.'
+  - Send the GET request and read the holidays in the JSON response.
+  - 'Cache the result, since holiday data for a country and year rarely changes.'
 whenToUse: >-
-  Use Calendarific when you need reliable, up-to-date public holiday data for
-  multiple countries in your app or workflow.
+  Use Calendarific when you need public holiday data for many countries and
+  regions in a calendar, scheduling, or HR tool, at low call volume.
 whenNotToUse: >-
-  Avoid if you require unlimited requests, advanced data, or need local holiday
-  customizations not covered by the API.
+  Avoid it if you cannot show attribution on the free plan, need more than 500
+  calls a month for free, or need more than one language.
 bestFor:
-  - developers
-  - startups
-  - students
-  - HR apps
-  - calendar integrations
+  - calendar apps
+  - scheduling tools
+  - HR and payroll tools
+  - side projects
 avoidIf:
   - need unlimited API calls
-  - require custom holiday data
-  - need advanced support
+  - cannot show attribution
+  - need several languages without paying
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://calendarific.com'
@@ -73,6 +76,46 @@ pricingUrl: 'https://calendarific.com/pricing'
 sourceUrls:
   - 'https://calendarific.com/pricing'
   - 'https://calendarific.com/api-documentation'
+  - 'https://calendarific.com'
 featured: false
 ---
-Calendarific offers a free API tier for accessing global public holiday data, suitable for low-traffic apps and prototypes needing holiday awareness.
+You sign up for a key in the dashboard, then send GET requests over HTTPS and read JSON. It suits developers who build calendars, scheduling, or payroll tools and want holiday data without keeping their own list.
+
+## What the free plan gives you
+
+The Free plan costs $0 and gives you 500 calls per month. It supports a single language. It carries limited historical data and limited upcoming data, and the dataset updates quarterly. You must show attribution to Calendarific.
+
+The pricing page also lists an Enterprise plan with 50,000,000 calls a month, and the Business plan has 50,000. The free plan is enough to test a calendar feature or run a small side project.
+
+Every request to any endpoint counts toward the quota, including requests that return an error. Paid plans start at $12 a month, or $100 a year, for 10,000 calls a month and drop the attribution rule.
+
+## When you hit a limit
+
+The API returns HTTP 429 with the error type `rate_limit_exceeded` once your monthly quota is used. It keeps returning that error until the quota resets or you upgrade. The docs say to wait for the monthly reset or upgrade, and to cache responses, because holiday data for a country and year rarely changes.
+
+The pricing page does not list any overage fee for the Free plan, and the docs describe a stop, not a bill.
+
+## Gotchas
+
+- Attribution to Calendarific is required on the Free plan. Paid plans do not need it.
+- CORS is on, so you can call the API from the browser. That exposes your key and quota, so call it from your server on public sites.
+- The country and year parameters are required on every holidays request. A request without them is rejected, and it still counts as a call.
+
+## Alternatives in this atlas
+
+- [Abstract API](/tools/abstract-api/): when you want a public holidays API from a vendor that also offers IP and email checks.
+- [Country-State-City Microservice API](/tools/country-state-city-microservice-api/): when you also need lists of countries and states to pair with holiday lookups.
+
+## Questions people ask
+
+### Is Calendarific free?
+
+Yes, within limits. The Free plan gives you 500 calls a month, one language, and limited historical and upcoming data. You must credit Calendarific.
+
+### What happens when I go over the Calendarific free limit?
+
+The API answers with HTTP 429 until your monthly quota resets. You can wait or move to a paid plan.
+
+### Does Calendarific need a credit card?
+
+The pages used for this entry do not mention a card for the Free plan. You sign up for a free account and copy your API key from the dashboard.

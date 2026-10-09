@@ -1,8 +1,8 @@
 ---
 title: Mergify
 description: >-
-  Mergify automates pull request merging, queueing, and workflow management for
-  GitHub repositories.
+  Mergify adds a merge queue, CI insights, and merge protections to GitHub
+  pull requests. It is for teams that want main to stay green.
 provider: Mergify
 category: devops
 domain: devops
@@ -16,60 +16,104 @@ audiences:
   - team
   - oss
 tags:
-  - devops
-  - automation
+  - merge queue
+  - github
+  - pull requests
   - ci-cd
+  - automation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free for open source projects (unlimited users) and for private teams of
-    up to 5 active contributors.
+    up to 5 active contributors, with all four products included.
   limits:
-    - Unlimited users for public open source projects
-    - Up to 5 active users on the Free plan for private teams
-    - All 4 products included (CI Insights, Test Insights, Merge Queue, Merge Protections)
+    - Unlimited users for open source projects
+    - Up to 5 users on the Free plan for private teams
+    - 'All 4 products included: CI Insights, Test Engine, Merge Queue, Merge Protections'
+    - 24 hours of data retention on the Free plan
   caveats:
-    - Billing counts only active contributors (opened a PR or pushed in the last 30 days)
-    - Higher seat counts need the Max plan ($21/seat/month)
+    - Billing counts only active contributors (opened a PR or pushed to one in the last 30 days)
+    - Max plan costs $21 per seat per month and covers up to 100 users
+    - The Open Source and Free plans do not include the same features
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automating pull request merges
-  - Managing merge queues for busy repositories
-  - Enforcing branch protection rules
-  - Reducing manual review workload
+  - Queueing pull requests so only tested code reaches main
+  - Batching pull requests to save CI runs
+  - Tracking CI failures and flaky tests
+  - Setting merge rules such as freezes or pull request dependencies
 quickstartSteps:
-  - Sign up at mergify.com and connect your GitHub account.
-  - Install the Mergify GitHub App on your repositories.
-  - Configure Mergify rules using the .mergify.yml file in your repository.
-  - Test automation by opening a pull request and observing Mergify actions.
+  - Sign in at mergify.com.
+  - Install the Mergify GitHub App on your repository; you need GitHub admin rights to add one.
+  - Open the Repositories page of the dashboard and tick the products you want, then choose Save Changes.
+  - Open a pull request and comment `@mergifyio queue` to add it to the merge queue.
+  - Watch Mergify update the pull request, wait for CI, and merge it.
 whenToUse: >-
-  Use Mergify to automate merging and queue management for GitHub repositories,
-  especially for open source or small private projects.
+  Use Mergify to run a merge queue on GitHub for an open source project or a
+  private team of up to 5 active contributors.
 whenNotToUse: >-
-  Avoid if you need advanced merge queue features for many private repositories
-  or require integration with platforms other than GitHub.
+  Avoid it if you use a host other than GitHub, if a private team has more than
+  5 active contributors, or if you need more than 24 hours of data retention.
 bestFor:
   - open source maintainers
-  - small teams
-  - automation enthusiasts
+  - small private teams on GitHub
+  - repositories with slow CI
 avoidIf:
-  - large enterprises needing advanced features
-  - teams not using GitHub
+  - a host other than GitHub
+  - private teams over 5 active contributors
+  - long data retention on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mergify.com'
 docsUrl: 'https://docs.mergify.com/'
 sourceUrls:
   - 'https://mergify.com/pricing'
+  - 'https://docs.mergify.com/'
   - 'https://docs.mergify.com/getting-started/'
+  - 'https://docs.mergify.com/merge-queue/setup'
 pricingUrl: 'https://mergify.com/pricing'
 featured: false
 ---
-Mergify helps automate pull request merges and manage merge queues on GitHub, free for open source projects and for private teams of up to 5 active contributors.
+You install the Mergify GitHub App, choose which products to turn on per repository, and then drive the queue with pull request comments such as `@mergifyio queue`. It suits maintainers and small teams that use GitHub.
+
+## What the free plan gives you
+
+Mergify is free for open source projects, with unlimited users. Private teams get the Free plan for up to 5 users. Both plans include all four products: CI Insights, Test Engine, Merge Queue, and Merge Protections. The pricing page says the Open Source and Free plans do not cover the same features, so check its table.
+
+Data retention is 24 hours on the Free plan and on the Open Source plan. The paid Max plan keeps data for 30 days. Billing counts only active contributors. A contributor is active if they open a pull request or push commits to one in the last 30 days. Inactive teammates, bots, and one-off contributors do not count.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a private team grows past 5 active contributors. The next step is the Max plan, which costs $21 per seat per month and covers up to 100 users. Mergify also offers a free 14-day trial of Max with no credit card. The free plan asks for no card, so no surprise charge shows up.
+
+## Gotchas
+
+- Adding a repository needs GitHub admin rights, and each product is switched on per repository.
+- Free data retention is short at 24 hours, while Max keeps data for 30 days.
+- Mergify works with GitHub. The docs describe installing a GitHub App and do not mention other hosts.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when you need CI runs rather than a merge queue.
+- [GitDailies](/tools/gitdailies/): when you want pull request activity reports for a small team.
+- [SemanticDiff.com](/services/semanticdiff-com/): when you want better pull request review rather than a queue.
+
+## Questions people ask
+
+### Is Mergify free?
+
+Yes. It is free for open source projects and for private teams of up to 5 active contributors. All four products are included.
+
+### Does Mergify need a credit card?
+
+No. The free plan needs no card, and the 14-day Max trial also needs none.
+
+### Who counts as an active contributor on Mergify?
+
+A person who opened a pull request or pushed commits to one in the last 30 days. Inactive teammates, bots, and one-off contributors do not count.

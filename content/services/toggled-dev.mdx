@@ -1,8 +1,9 @@
 ---
 title: Toggled.dev
 description: >-
-  Feature flag management platform for modern development teams with a generous
-  free tier.
+  Toggled.dev is a hosted feature toggle service with a dashboard, a client API,
+  and a JavaScript SDK. Developers use it to switch features on or off per
+  environment without a deploy.
 provider: Toggled.dev
 category: devops
 domain: devops
@@ -16,60 +17,111 @@ audiences:
   - team
   - oss
 tags:
-  - devops
+  - feature toggles
+  - feature flags
+  - release calendar
+  - gradual rollout
+  - kill switch
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 1 project, up to 10 feature toggles, 2 environments, 2
-    seats, and unlimited monthly active users; no credit card required.
+    The free plan has a single project, up to 10 feature toggles per project, and
+    unlimited clients and monthly active users. No credit card is needed.
   limits:
     - 1 project
     - Up to 10 feature toggles per project
+    - Up to 2 environments per project
+    - 2 seats included
+    - Unlimited clients
     - Unlimited monthly active users (MAU)
-    - 2 environments
-    - 2 included seats
+    - Realtime notifications
   caveats:
-    - More projects or unlimited toggles require the PRO plan ($49/month, up to 3 projects and 10 seats)
-  resetPeriod: monthly
+    - The PRO plan costs $49 per month, with up to 3 projects, 10 seats, and unlimited toggles per project
+    - Docs say the free license includes one project only
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Gradual feature rollouts
-  - A/B testing
-  - Kill switch for features
+  - Rolling out a feature to a share of users
+  - A kill switch for a risky feature
+  - Different toggle values per environment such as develop, staging, and production
+  - Scheduling a feature to turn on with the release calendar
 quickstartSteps:
-  - Sign up for a free Toggled.dev account.
-  - Create a new project and environment.
-  - Add your first feature flag in the dashboard.
-  - Integrate the Toggled.dev SDK into your application.
-  - Use the dashboard to toggle features on or off in real time.
+  - Open the sign-up link on toggled.dev and create a free workspace. No credit card is needed.
+  - In Projects, click Add project. The free license allows one project, and an example project is created for you.
+  - Click Add environment and say whether it is production or not.
+  - Create your first toggle in the project, then create a client key from the environment page with Add key.
+  - Query the client API from your app with the key in the x-api-key header, or use the JavaScript SDK.
 whenToUse: >-
-  Use Toggled.dev when you need to manage feature flags or perform controlled
-  rollouts without infrastructure overhead.
+  Use Toggled.dev when you need feature toggles for a single application and 10
+  toggles are enough.
 whenNotToUse: >-
-  Avoid if you need more than 1 project or more than 10 feature toggles per
-  project without paying.
+  Avoid the free plan if you need more than one project, more than 2
+  environments, or more than 10 toggles in a project.
 bestFor:
   - startups
   - indie developers
   - open source projects
   - small teams
 avoidIf:
-  - enterprise with strict compliance
-  - on-premise requirements
+  - needing more than one project
+  - needing more than 10 toggles
+  - needing more than 2 environments
+  - on-premise requirements without an Enterprise plan
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.toggled.dev'
-docsUrl: 'https://docs.toggled.dev'
+docsUrl: 'https://docs.saas.toggled.dev/'
 pricingUrl: 'https://www.toggled.dev/pricing'
 sourceUrls:
   - 'https://www.toggled.dev/pricing'
+  - 'https://docs.saas.toggled.dev/docs/getting-started/create-a-project'
+  - 'https://github.com/toggled-dev/toggled-client-js'
 featured: false
 ---
-Toggled.dev offers a simple, scalable platform for managing feature flags, enabling teams to safely roll out and test new features with minimal setup.
+You manage projects, environments, and toggles in the web dashboard. Your app asks the client API for the active toggles, or uses the JavaScript SDK.
+
+## What the free plan gives you
+
+The pricing page calls it an endless free plan, with the complete set of Toggled.dev features. No credit card is required. The free plan covers a single project with up to 10 feature toggles, up to 2 environments per project, and 2 included seats. Unlimited clients and unlimited monthly active users are included.
+
+The docs say the free license includes one project only. An example project is created when you first set up the workspace. You can delete it and make your own.
+
+The PRO plan costs $49 per month. It includes everything in Free, up to 3 projects, 10 seats included, unlimited toggles per project, and helpdesk replies within 1 business day. Enterprise adds unlimited projects and seats, and a dedicated environment, optionally in your private AWS account.
+
+## When you hit a limit
+
+The pricing page says to subscribe to PRO plans to increase service quotas. It does not say what happens if you try to create an eleventh toggle or a second project. The limits are listed only as the shape of the free plan.
+
+The pricing page says the free plan needs no card. MAU are not a limit on any plan listed. To stay within 10 toggles, archive a toggle when its feature is removed from your code.
+
+## Gotchas
+
+- One project means one app or service. If you have a frontend and a backend as two projects, you need PRO.
+- Client keys belong to an environment. Your app uses a different key for each environment.
+- Session stickiness is an option on client keys. Turn it on when a gradual rollout must not flip a user between on and off at every check.
+
+## Alternatives in this atlas
+
+- [Abby](/services/abby/): when you want feature flags with A/B tests in one free plan.
+- [ConfigCat](/services/configcat/): when you want a free plan with unlimited team members.
+- [GrowthBook](/services/growthbook/): when you want unlimited flags and experiments for a small team.
+
+## Questions people ask
+
+### Is Toggled.dev free?
+
+Yes. The free plan has a single project and up to 10 feature toggles per project. It also has unlimited clients and unlimited monthly active users.
+
+### Does Toggled.dev need a credit card?
+
+No. The pricing page says the free plan needs no credit card.
+
+### How much is Toggled.dev PRO?
+
+PRO costs $49 per month. It includes up to 3 projects, 10 seats, and unlimited feature toggles per project.

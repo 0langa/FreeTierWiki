@@ -1,25 +1,29 @@
 ---
 title: Authgear
 description: >-
-  Authgear provides user authentication, social login, and identity management
-  as a service for web and mobile apps.
+  Authgear is an open-source identity service for web and mobile apps. It
+  covers sign-up, login, social and passwordless sign-in, MFA, and user
+  management.
 provider: Authgear
 category: auth
 domain: auth
 subtypes:
-  - user-auth
-  - social-login
-  - identity-management
+  - OAuth
+  - Passkeys
+  - Social Login
 audiences:
   - startup
   - indie
-  - team
   - student
+  - team
   - oss
 tags:
   - auth
-  - ci-cd
-  - identity
+  - authentication
+  - open source
+  - passkeys
+  - mfa
+  - oidc
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -30,43 +34,46 @@ freeTierDetails:
     - Up to 2 applications
     - Up to 2 admin seats
     - 100 SMS/WhatsApp OTP messages/month included
+    - 1 day of log retention
   caveats:
     - EU data region for Authgear Cloud not yet available (self-hosting covers it today)
-    - Extra applications, environments, or seats are paid add-ons
+    - Extra applications, environments, or seats are paid add-ons on the paid plans, not on Free
+    - Support on the Free plan is through the community
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
 useCases:
-  - Add authentication to web or mobile apps
-  - 'Enable social login (Google, Facebook, etc.)'
-  - Manage user identities securely
+  - Login and sign-up for a single-page app, mobile app, or server-rendered web app
+  - Social login with Google, Facebook, or Apple
+  - Passkeys, biometric login, and multi-factor authentication
+  - Single sign-on to other OIDC or SAML software
+  - Validating the user's JWT in your own backend
 quickstartSteps:
-  - Sign up for a free Authgear account.
-  - Create a new application in the Authgear dashboard.
-  - 'Configure authentication methods (email/password, social logins).'
-  - Integrate Authgear SDK into your app using provided documentation.
-  - Test user signup and login flows.
+  - Start for free on authgear.com and open the Authgear Portal.
+  - Create a project in the Authgear Portal, then follow the get-started guide for your app type (single-page app, regular web app, or mobile app).
+  - Pick your sign-in methods in the Portal, such as email, phone, or social login.
+  - Install the Authgear SDK for your stack (the site lists web, Swift, Kotlin, Flutter, and React Native SDKs) and configure it as the guide shows.
+  - Validate the session token in your backend by checking the JWT against the Authgear JWKS.
 whenToUse: >-
-  Use Authgear when you need quick, secure authentication and social login for
-  web or mobile apps without building your own auth system.
+  Use Authgear when you want hosted login with unlimited users, passkeys, and
+  MFA, and you may later want to self-host an open-source stack.
 whenNotToUse: >-
-  Avoid if you require advanced customizations, on-premise deployment, or need
-  more than 2 applications on the free tier.
+  Avoid it if you need more than two applications or admin seats on the free
+  plan, a data region in the EU today, or more than one day of logs.
 bestFor:
-  - startups
+  - startups and MVPs
   - indie developers
-  - MVPs
   - student projects
 avoidIf:
-  - need on-premise
-  - require advanced customization
-  - expect high user volume
+  - more than two applications on free
+  - EU-hosted managed cloud today
+  - long log retention on free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.authgear.com'
@@ -74,6 +81,47 @@ docsUrl: 'https://docs.authgear.com/'
 pricingUrl: 'https://www.authgear.com/pricing'
 sourceUrls:
   - 'https://www.authgear.com/pricing'
+  - 'https://docs.authgear.com/'
+  - 'https://docs.authgear.com/get-started/start-building'
+  - 'https://docs.authgear.com/reference/billing-faq'
 featured: false
 ---
-Authgear offers a developer-friendly authentication platform with unlimited monthly active users on its free tier, making it easy to add secure login and identity management to your apps.
+You manage your project in the Authgear Portal and add login with a client SDK or the OIDC protocol. It suits small teams that want the login screens handled for them.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. It includes unlimited monthly active users, 2 applications, and 2 admin seats. Every plan includes all auth features, so the Free plan has social login, MFA, and passkeys too.
+
+You also get 100 SMS or WhatsApp one-time password messages per month, and logs are kept for 1 day. Support comes from the community. The paid Developers plan costs $50 per month and also has unlimited users, but it meters SMS and WhatsApp messages and adds priority email support. The pricing page lists 60 days of log retention for the Developers plan. The Business plan costs $500 per month, with 25,000 monthly active users and 180 days of logs.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 100 free SMS or WhatsApp messages in a month. Paid plans bill those messages by use, and the Free plan has no add-ons for extra applications, seats, or environments.
+
+If you want more capacity, you subscribe from the Billing section of the Authgear Portal. You can drop back to the free version at any time, and you then lose the extra features and capacity of the paid plan. Authgear is open source, so you can also export your data and run it on your own servers.
+
+## Gotchas
+
+- The managed cloud runs on Google Cloud in the USA today. An EU data region is listed as coming soon.
+- Only 100 SMS or WhatsApp messages are included each month, so phone-based login can use them up fast.
+- The Free plan keeps logs for just 1 day.
+
+## Alternatives in this atlas
+
+- [Logto](/services/logto/): when you want another open-source auth service with a hosted free plan.
+- [SuperTokens](/services/supertokens/): when you want open-source auth that you can also run yourself.
+- [Auth0](/services/auth0/): when you need a larger ecosystem of quickstarts and integrations.
+
+## Questions people ask
+
+### Is Authgear free?
+
+Yes. The Free plan costs $0 per month and has unlimited monthly active users, 2 applications, and 2 admin seats. No credit card is needed.
+
+### Is Authgear open source?
+
+Yes. The pricing FAQ says Authgear is open source and based on PostgreSQL, so you can export the data and run it on your own servers.
+
+### What do I lose if I cancel a paid Authgear plan?
+
+Cancelling puts you back on the free version. You lose the extra features and the extra capacity for monthly active users.

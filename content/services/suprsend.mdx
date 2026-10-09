@@ -1,8 +1,9 @@
 ---
 title: SuprSend
 description: >-
-  SuprSend is a unified notification infrastructure for managing multi-channel
-  product notifications via APIs and dashboards.
+  SuprSend is a notification platform. You design workflows once, then trigger
+  email, SMS, push, chat, and in-app messages through one API. It is for product
+  teams who do not want to wire up every channel by hand.
 provider: SuprSend
 category: messaging
 domain: messaging
@@ -16,53 +17,63 @@ audiences:
   - indie
   - oss
 tags:
+  - notification infrastructure
+  - notification api
+  - in-app inbox
   - email
+  - push notifications
+  - workflow
   - messaging
-  - api
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier includes up to 10,000 notifications per month across all channels.'
+  summary: >-
+    Free plan: 10,000 notifications per month, unlimited channels and team
+    members, no credit card. All features are open for a 30 day trial first.
   limits:
     - '10,000 notifications/month'
-    - All channels included
-    - Unlimited team members
+    - Unlimited channels and team members
+    - 30 days of log retention
   caveats:
-    - SuprSend branding shown on the in-app notification feed on the free plan
-    - Some advanced features may require paid plans
+    - SuprSend branding shows on the in-app notification feed on the free plan
+    - You bring your own provider accounts, such as Twilio or Mailjet, and pay them directly
+    - The 30 day trial of all features ends and the account moves to the Free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
   billingRiskNotes:
-    - Exceeding 10,000 notifications/month does not stop service immediately — SuprSend contacts you to upgrade or discuss custom pricing
+    - Going over 10,000 notifications/month does not stop service. SuprSend contacts you to upgrade or agree custom pricing
 useCases:
-  - Send transactional notifications
-  - Manage multi-channel messaging
-  - Centralize notification logic
+  - Send order and account notifications by email, SMS, and push from one API call
+  - Show an in-app notification inbox in your product
+  - Batch many alerts into one digest email
+  - Let users pick which channels they want
 quickstartSteps:
-  - Sign up for a SuprSend account.
-  - Create a new project in the dashboard.
-  - Obtain your API keys from the project settings.
-  - Integrate the SuprSend SDK or REST API into your application.
-  - Configure notification templates and channels as needed.
+  - Sign up at suprsend.com. The Free plan asks for no credit card.
+  - Open the dashboard workspace, which holds your channels, templates, and workflows.
+  - Connect your own channel providers, for example an email or SMS vendor you already pay for.
+  - Go to Developers, then API Keys, and create a key. The key shows only once, so store it.
+  - Build a workflow in the dashboard, then trigger it with `POST /trigger/` or a backend SDK for Node, Python, Java, or Go.
 whenToUse: >-
-  Use SuprSend when you need to send notifications across multiple channels
-  without building custom integrations.
+  Use SuprSend when your product sends notifications over several channels and
+  you want one place for workflows, templates, preferences, and logs.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment or need deep customization beyond
-  supported channels and templates.
+  Avoid it if you need only one channel, since you still pay each channel
+  provider yourself, or if you need to run it yourself without the enterprise
+  plan.
 bestFor:
-  - product teams
-  - startups
-  - indie developers
+  - product teams with multi-channel alerts
+  - startups that want an in-app inbox
+  - indie developers who dislike writing notification code
 avoidIf:
-  - require on-premise
-  - need custom channel integrations
+  - a single email-only app
+  - you want the vendor to include the SMS or email delivery
+  - you need a branding-free inbox on a free plan
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.suprsend.com/'
@@ -70,6 +81,51 @@ docsUrl: 'https://docs.suprsend.com/'
 pricingUrl: 'https://www.suprsend.com/pricing'
 sourceUrls:
   - 'https://www.suprsend.com/pricing'
+  - 'https://docs.suprsend.com/'
+  - 'https://docs.suprsend.com/reference/authentication.md'
+  - 'https://docs.suprsend.com/reference/trigger-workflow-api.md'
 featured: false
 ---
-SuprSend provides a unified API and dashboard to manage, send, and track notifications across email, SMS, push, and other channels, simplifying notification infrastructure for modern applications.
+You build notification workflows in a web dashboard and trigger them from your code through an HTTPS API or a backend SDK. A client SDK covers the frontend. It suits developers and product teams.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and asks for no credit card. It includes 10,000 notifications per month, unlimited channels, unlimited team members, lists and broadcasts, and branching and conditions in workflows. The comparison table shows 30 days of log retention.
+
+The in-app notification feed carries SuprSend branding on this plan. The paid plans remove it.
+
+New accounts unlock all features for a 30 day trial. After that, the account moves to the Free plan.
+
+Billing counts notifications, not API requests. A bulk request that reaches many users counts each user separately, while a digest counts as one.
+
+## When you hit a limit
+
+SuprSend does not stop sending when you pass the free limit. The FAQ says it alerts and contacts you if you go over. You can then upgrade or ask for custom pricing.
+
+The Essentials plan costs $100 per month billed annually and includes 50k notifications. Extra notifications on it cost $2 per 1,000. The pricing page does not say how long the free plan keeps sending after you pass the limit, so watch your usage in the dashboard.
+
+## Gotchas
+
+- SuprSend does not send the mail or SMS itself. You bring your own provider accounts, such as Twilio, Sendgrid, or Mailjet, and pay them directly.
+- Group alerts that arrive in a batch or digest count as one notification, but a bulk send to many users counts each user.
+- A workflow request is accepted when the API call is correct. Check the Requests tab under Logs in the dashboard to confirm delivery.
+
+## Alternatives in this atlas
+
+- [Novu](/services/novu/): when you want an open-source notification layer you can also run yourself.
+- [Knock](/services/knock/): when you want a similar workflow and in-app feed product from another provider.
+- [Courier](/services/courier/): when you want one API across email, SMS, and push with a template designer.
+
+## Questions people ask
+
+### Is SuprSend free?
+
+Yes. The Free plan costs $0 per month, includes 10,000 notifications per month, and needs no credit card.
+
+### What happens if I go over the SuprSend free limit?
+
+SuprSend keeps processing and sending your notifications. It alerts you, and you can upgrade or discuss custom pricing.
+
+### Do I still pay for Twilio or Mailjet with SuprSend?
+
+Yes. You bring your own provider accounts and pay those providers directly for what you use.

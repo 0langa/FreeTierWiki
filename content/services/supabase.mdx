@@ -1,8 +1,8 @@
 ---
 title: Supabase
 description: >-
-  Supabase is an open-source backend-as-a-service offering instant APIs,
-  authentication, and real-time database for web and mobile apps.
+  Supabase is a hosted backend built on Postgres. One project gives you a
+  database, auth, file storage, realtime, and edge functions.
 provider: Supabase
 category: database
 domain: database
@@ -43,45 +43,85 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Rapid prototyping with Postgres backend
-  - Adding authentication to web/mobile apps
-  - Building real-time collaborative features
-  - Storing and serving user files
+  - Backend for a web or mobile app prototype
+  - Email, social, and anonymous sign-in for an app
+  - Storing user files next to the database
+  - Live updates with Postgres Changes and realtime messages
+  - Small serverless functions with Edge Functions
 quickstartSteps:
-  - Sign up at supabase.com and verify your email.
-  - Create a new project and choose a database password.
-  - Access your project dashboard and copy API keys.
-  - Install the Supabase client library in your app.
-  - >-
-    Connect using your project URL and API key to start using the database and
-    auth.
+  - Sign up at supabase.com and open the dashboard.
+  - Create an organization on the Free plan, then a new project with a database password and a region.
+  - Copy the project URL and API key from the project's API Keys settings.
+  - Install the client library for your framework (for example `@supabase/supabase-js`).
+  - Create a table in the Table Editor and query it from your app with the client.
 whenToUse: >-
-  Use Supabase when you need a quick, scalable backend with authentication,
-  storage, and real-time features for web or mobile apps.
+  Use Supabase when you want Postgres, sign-in, and file storage for a prototype
+  or a small app, and can live with a project that pauses after a week without
+  activity.
 whenNotToUse: >-
-  Avoid if you require advanced Postgres extensions, custom server logic, or
-  strict on-premise hosting requirements.
+  Avoid it for anything that must stay online with no traffic, needs automatic
+  backups on the free plan, or needs more than two active projects.
 bestFor:
-  - prototyping
-  - MVPs
-  - student projects
-  - open-source apps
+  - prototypes and MVPs
+  - student and hackathon projects
+  - apps that need auth and a database together
 avoidIf:
-  - enterprise compliance
-  - complex backend logic
-  - custom Postgres extensions
+  - apps idle for a week at a time
+  - automatic backups on the free plan
+  - more than two projects
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/'
 docsUrl: 'https://supabase.com/docs'
 sourceUrls:
   - 'https://supabase.com/pricing'
-  - 'https://supabase.com/docs/guides/faq'
+  - 'https://supabase.com/docs/guides/platform/billing-on-supabase'
+  - 'https://supabase.com/docs/guides/platform/cost-control'
+  - 'https://supabase.com/docs/guides/platform/upgrading'
+  - 'https://supabase.com/docs/guides/getting-started'
 pricingUrl: 'https://supabase.com/pricing'
 featured: true
 ---
-Supabase provides a developer-friendly backend platform with instant APIs, authentication, storage, and real-time capabilities, making it ideal for rapid app development and prototyping.
+You build in a web dashboard and reach your project through Supabase client libraries or its generated APIs. This page covers the Free plan.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. Each project gets its own Postgres database with 500 MB of database size, shared CPU, and 500 MB of RAM. You also get 1 GB of file storage, 5 GB of egress, and 5 GB of cached egress. Auth covers 50,000 monthly active users. Realtime allows 200 concurrent peak connections and 2 million messages per month. Edge Functions include 500,000 invocations. API requests are unlimited, and so are team members.
+
+You can run two free projects. That limit counts across every organization where you are an Owner or Administrator. Logs are kept for 1 day, and the largest file you can upload is 50 MB.
+
+## When you hit a limit
+
+The Free plan does not bill you. Supabase's cost-control guide says you are not charged while you are on the Free plan. If you keep going over a quota, Supabase can restrict your services under its Fair Use Policy. To get more, you upgrade the whole organization to Pro, which starts at $25 per month and includes $10 per month in compute credits. The upgrade covers every project in that organization.
+
+Inactivity is the other limit. A free project that sees no activity for 1 week is paused. You restore it from the dashboard.
+
+## Gotchas
+
+- Free projects pause after 1 week of inactivity. You have 1 year to restore a paused project with one click; after that you can only download its backup.
+- The two-project limit is per person, not per organization. Paused projects do not count toward it.
+- Automatic backups, point-in-time recovery, branching, and custom domains are not included in the Free plan. One organization cannot mix Free and paid projects.
+
+## Alternatives in this atlas
+
+- [Appwrite Cloud](/services/appwrite/): when you want a similar open-source backend with auth, storage, and functions from another provider.
+- [Neon](/services/neon/): when you only need Postgres and want compute that scales to zero instead of a project that pauses.
+- [Nhost](/services/nhost/): when you want Postgres with a GraphQL API, auth, and storage built in.
+
+## Questions people ask
+
+### Is Supabase free forever?
+
+The Free plan costs $0 per month and the pricing page shows no end date. The catch is inactivity: a free project pauses after 1 week without activity.
+
+### What happens when a free Supabase project is paused?
+
+It stops until you restore it from the dashboard. The one-click restore works for 1 year. After that, you can still download the backup file and your Storage objects.
+
+### Can I pay for extra usage on the Supabase Free plan?
+
+No. Paying for usage beyond the quota needs a paid plan. On the Free plan you are not charged, and a project that keeps exceeding its quota can be restricted.

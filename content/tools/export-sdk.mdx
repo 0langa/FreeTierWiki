@@ -1,8 +1,8 @@
 ---
 title: Export SDK
-description: >-
-  Export SDK is a toolkit for generating PDFs, with a visual template builder,
-  API, SDK, and no-code integrations.
+description: 'Export SDK is a PDF-as-a-service tool: you design a template in a visual
+  editor, then send it JSON data and get a PDF back. It is for developers, no-code
+  builders, and non-developers who need invoices and reports.'
 provider: Export SDK
 category: documents
 domain: documents
@@ -16,15 +16,19 @@ audiences:
   - team
   - oss
 tags:
-  - data
-  - integration
-  - sdk
-  - api
+  - pdf api
+  - pdf generator
+  - visual template editor
+  - invoice pdf
+  - zapier pdf
+  - javascript sdk
+  - handlebars
 pricingModel: freemium
 freeTierDetails:
   summary: Free plan generates up to 250 PDF pages per month, no card required.
   limits:
     - 250 PDF pages/month
+    - 3 templates
     - No credit card required
     - Visual template builder included
   caveats:
@@ -35,40 +39,82 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Generating PDF invoices and reports from templates
-  - Automating document creation via API or SDK
-  - Building no-code PDF workflows
+  - Generating customer invoices from a template and JSON data
+  - Producing reports as PDFs from app data
+  - Letting a designer build templates while a developer calls the API
+  - Running a no-code PDF flow through Zapier
 quickstartSteps:
-  - Sign up for a free Export SDK account.
-  - Design a PDF template with the visual template builder.
-  - Get your API key from the dashboard.
-  - Call the API or SDK to generate PDFs from your template and data.
-  - Download or receive the generated PDFs (up to 250 pages/month free).
-whenToUse: >-
-  Use Export SDK when you need to generate PDFs from templates via API, SDK,
-  or no-code tools.
-whenNotToUse: >-
-  Avoid if you need more than 250 PDF pages per month without upgrading to a
-  paid plan.
+  - Create an account with your first name, email address, and a password, then verify
+    your email.
+  - Name your organization in the popup after your first login.
+  - Design a template in the visual editor and wrap variable names in handlebars,
+    like customer_name.
+  - Copy your API key and your template ID from the dashboard, and the sample JSON
+    from the Preview window.
+  - Send a POST request to api.exportsdk.com/v1/pdf with the X-API-KEY header and
+    a JSON body holding templateId and data.
+whenToUse: 'Use it when a designer and a developer share the work: one builds the
+  template visually, the other sends data to an API, SDK, or Zapier.'
+whenNotToUse: Avoid it for more than 250 pages a month on the free plan, or if you
+  need more than 3 templates without paying.
 bestFor:
-  - developers
-  - businesses generating invoices or reports
-  - no-code builders
+  - invoices and reports from a visual template
+  - teams where designers and developers split the work
+  - no-code builders using Zapier
 avoidIf:
-  - high-volume PDF generation
-  - need custom document formats beyond templates
+  - you need more than 250 pages a month for free
+  - you need more than 3 templates for free
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://exportsdk.com'
 docsUrl: 'https://docs.exportsdk.com'
-pricingUrl: 'https://exportsdk.com/'
+pricingUrl: https://exportsdk.com/pricing
 sourceUrls:
-  - 'https://exportsdk.com'
-  - 'https://docs.exportsdk.com'
+  - https://exportsdk.com/pricing
+  - https://exportsdk.com
+  - https://docs.exportsdk.com/docs/getting-started/overview/
+  - https://docs.exportsdk.com/docs/getting-started/create-account
+  - https://docs.exportsdk.com/docs/api/endpoint
 featured: false
 ---
-Export SDK is a toolkit for generating PDFs, with a visual template builder, API, SDK, and no-code integrations. The free plan includes 250 pages per month, no credit card required.
+You manage templates, keys, and usage in a dashboard. Then you generate PDFs with a REST API, a JavaScript SDK, or a Zapier integration. It suits teams, but a single person can use it too.
+
+## What the free plan gives you
+
+The Forever Free plan costs $0 and needs no credit card. It gives you 250 pages per month and 3 templates. The pricing page counts pages, not documents. A PDF with 10 pages takes 10 pages from your quota. Previews inside the editor do not count. You are only charged for requests through the API, the SDK, or Zapier. The pricing page says the free account never expires.
+
+Paid plans add volume. Startup costs $29 per month for 2,500 pages and 10 templates, plus chat and email support. Growth costs $69 per month for 10,000 pages and 30 templates. Enterprise has unlimited templates and custom terms.
+
+## When you hit a limit
+
+Export SDK sends you an email when you reach 85% of your plan's limit. If you hit the limit, it prompts you to upgrade your plan or buy more pages in packs of 1,000. The pricing page does not say whether API requests fail at that point. On paid plans, extra pages cost $12 per 1,000 on Startup and $6 per 1,000 on Growth.
+
+## Gotchas
+
+- Limits count pages. A long PDF uses up the free allowance much faster than a one-page invoice.
+- The free plan includes only 3 templates, so a project with many layouts will need a paid plan.
+- By default the request data is not saved. The docs describe an optional setting that saves it.
+
+## Alternatives in this atlas
+
+- [CraftMyPDF](/tools/craftmypdf/): when you want a visual editor and a plan that counts PDFs, not pages.
+- [PDF-API.io](/tools/pdf-api-io/): when you want a plan with a small fixed number of PDFs and a Zapier link.
+- [APITemplate.io](/tools/apitemplate-io/): when you also need image generation from templates.
+
+## Questions people ask
+
+### Is Export SDK free?
+
+Yes. The Forever Free plan gives you 250 pages per month and 3 templates, with no credit card. The pricing page says it never expires.
+
+### How does Export SDK count pages?
+
+It counts pages, not documents. A 10-page PDF uses 10 pages of your quota, and editor previews are free.
+
+### What happens when I run out of Export SDK pages?
+
+You get an email at 85% of your limit. At the limit, you are prompted to upgrade or buy extra pages in packs of 1,000.

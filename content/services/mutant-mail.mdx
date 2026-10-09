@@ -1,8 +1,9 @@
 ---
 title: Mutant Mail
 description: >-
-  Mutant Mail provides unified email management, forwarding, and reply
-  capabilities for multiple domains from a single inbox.
+  Mutant Mail routes the mail of your custom domains to one inbox you already
+  use, and lets you reply from your domain address. It is for people who run
+  several domains or aliases and want one place to read them.
 provider: Mutant Mail
 category: messaging
 domain: messaging
@@ -16,60 +17,107 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - productivity
+  - email aliases
+  - email forwarding
+  - custom domain email
+  - reply from alias
   - privacy
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier allows management of up to 1 domain and 10 email aliases with
-    basic forwarding and reply features.
+    Free forever plan allows 1 custom domain and 10 email ids, with forwarding
+    and replies from your domain address.
   limits:
-    - 1 domain
-    - 10 email aliases
-    - Basic forwarding and reply
+    - 1 custom domain
+    - 10 email ids
+    - Forwarding and replying from your domain address
   caveats:
-    - No custom branding
-    - Limited advanced features
+    - You need a real inbox outside Mutant Mail to receive and reply from
+    - Monthly bandwidth is capped and mail is discarded once the cap is passed
+    - The pricing page could not be read, so the free bandwidth amount is not confirmed
+    - Sending is secondary; the service focuses on replies
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralize email management for multiple domains
-  - Protect personal email addresses with aliases
-  - Simplify email forwarding and replies
+  - Reading mail for several domains from one Gmail or other inbox
+  - Replying from your domain address while the reader sees only that address
+  - Hiding your personal address behind aliases
+  - Catching mail sent to any name at your domain
 quickstartSteps:
-  - Sign up for a free Mutant Mail account.
-  - Add and verify your domain following the DNS instructions.
-  - Create email aliases as needed.
-  - Configure forwarding to your preferred inbox.
-  - Test sending and replying to emails via your aliases.
+  - Click Get started for free and sign up. Your sign-up email becomes your default recipient inbox.
+  - Follow the Wow factor steps the site asks for after sign-up; they take about two minutes.
+  - Add your domain and prove you own it with a TXT record.
+  - Add the MX, SPF, DKIM, and DMARC records Mutant Mail shows for the domain.
+  - Create email ids on the domain and pick the recipient inbox each one forwards to.
+  - Send a test mail to an alias, then reply from your recipient inbox and check that it arrives from your domain.
 whenToUse: >-
-  Use Mutant Mail to manage multiple domain emails and aliases from a single
-  inbox without running your own mail server.
+  Use Mutant Mail when you own one domain and want its mail in an inbox you
+  already use, with the option to reply as your domain address.
 whenNotToUse: >-
-  Avoid if you need advanced email hosting, high-volume sending, or custom
-  branding on the free tier.
+  Avoid it if you need a mailbox that stores mail, high-volume sending, or more
+  than 1 domain and 10 email ids on the free plan.
 bestFor:
-  - indie
-  - startup
-  - oss
+  - owners of a custom domain
+  - side projects
+  - open source maintainers
 avoidIf:
-  - enterprise
-  - agency
+  - you need a mailbox that stores mail
+  - you send high volumes
+  - you need several domains for free
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mutantmail.com/'
-docsUrl: 'https://docs.mutantmail.com'
+docsUrl: 'https://mutantmail.com/knowledge-base/'
 pricingUrl: 'https://www.mutantmail.com/'
 sourceUrls:
   - 'https://www.mutantmail.com/'
+  - 'https://www.mutantmail.com/faq'
+  - 'https://mutantmail.com/knowledge-base/'
 featured: false
 ---
-Mutant Mail enables users to manage, forward, and reply to emails for multiple domains and aliases from a single inbox, streamlining email workflows and protecting privacy.
+You manage domains, email ids, and recipient inboxes in the Mutant Mail dashboard. Your daily mail reading and replying happens in your own inbox, such as Gmail.
+
+## What the free plan gives you
+
+The site offers a free forever plan with 1 custom domain and 10 email ids. The email ids work as aliases that forward to a recipient inbox you control. When you reply from that inbox, Mutant Mail sends the message so it looks like it came from your domain.
+
+The site says the DMARC report and alert system is free for all domains connected to Mutant Mail. It also says it does not store, log, or read the mail that passes through, apart from its optional buffer feature. The pricing page could not be read, so this entry does not list the free bandwidth amount.
+
+## When you hit a limit
+
+Mutant Mail counts bandwidth each time it forwards a mail or sends a reply. The FAQ says you get an email when you pass 80 percent of your limit. If you go over the limit, the server discards mail until the next month starts or you upgrade.
+
+Bandwidth resets on the 1st of each month, not in a rolling window. Blocked mail, such as mail to a deleted or inactive alias, does not count. The maximum size of one email is 20MB, including attachments.
+
+## Gotchas
+
+- You need a real inbox outside Mutant Mail. It does not store your mail, so that inbox holds everything.
+- A domain can only have one mail server. If the domain already runs mail elsewhere, you must move its MX records, or add a subdomain to Mutant Mail instead.
+- If a reply loops back to you, you are probably sending from an address that is not a verified recipient on your account.
+
+## Alternatives in this atlas
+
+- [ImprovMX](/services/improvmx/): when you only need plain forwarding and a daily limit that is easy to read.
+- [Alias Email](/services/bump/): when you want masked addresses that forward to your real inbox.
+- [Resend](/services/resend/): when you need to send email from your domain through an API.
+
+## Questions people ask
+
+### Is Mutant Mail free?
+
+Yes. The site offers a free forever plan with 1 custom domain and 10 email ids.
+
+### Does Mutant Mail store my email?
+
+No. The FAQ says it does not store, log, or read the mail that passes through, so your recipient inbox holds it. Only the optional buffer feature keeps mail until it is sent on.
+
+### What happens if I go over my bandwidth limit?
+
+You get a warning at 80 percent. After that, the server discards mail until the limit resets next month or you upgrade.

@@ -1,8 +1,8 @@
 ---
 title: Asgardeo
 description: >-
-  Asgardeo is a cloud-based identity and access management (IAM) service for
-  secure authentication, authorization, and user management.
+  Asgardeo, now called WSO2 Identity Platform, is a cloud identity service for sign-in, SSO, and
+  user management in web, mobile, and API apps.
 provider: WSO2
 category: auth
 domain: auth
@@ -17,13 +17,18 @@ audiences:
   - enterprise
   - oss
 tags:
-  - identity
   - auth
+  - wso2
+  - oidc
+  - saml
+  - sso
+  - oauth
+  - mcp auth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes up to 15,000 monthly active users with no card and no
-    time limit; a 30-day trial of the Growth tier is also included.
+    Free tier includes up to 15,000 monthly active users with no card and no time limit; a 30-day
+    trial of the Growth tier is also included.
   limits:
     - '15,000 monthly active users'
     - Up to 5 applications
@@ -31,41 +36,51 @@ freeTierDetails:
     - '5,000 M2M tokens'
     - '2,500 AgentID tokens'
     - 1 social login connection
+    - Sessions capped at one day and audit logs kept for seven days
   caveats:
-    - No card required, and the free tier has no time limit
-    - Includes a complimentary 30-day trial of the Growth tier, also cardless
+    - 'No card required, and the free tier has no time limit'
+    - 'Includes a complimentary 30-day trial of the Growth tier, also cardless'
+    - 'Usage above the Free quotas is deactivated, not deleted'
+    - 'The docs say Asgardeo is now WSO2 Identity Platform, so some names still show the old brand'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add SSO to web and mobile apps
-  - Manage user authentication securely
-  - Integrate OAuth2/OIDC/SAML for apps
+  - 'Sign-in and SSO for a React, Next.js, Angular, or Vue app'
+  - 'OAuth2, OIDC, and SAML for apps and APIs'
+  - Machine-to-machine tokens for services
+  - Secure an MCP server with sign-in
+  - A B2B organization for one set of business users
 quickstartSteps:
-  - Sign up for a free Asgardeo account.
-  - Create a new application in the Asgardeo console.
-  - 'Configure authentication methods (e.g., email, social login).'
-  - Integrate the Asgardeo SDK or use OAuth/OIDC endpoints in your app.
-  - Test user login and access flows.
+  - 'Go to the WSO2 Identity Platform page, choose Sign up for free, and enter your email address.'
+  - Open the email you receive and complete the account creation.
+  - >-
+    In the Console, go to Applications, then New Application, pick your framework such as React, and
+    set an authorized redirect URL.
+  - 'Install the SDK, for example `npm install @asgardeo/react`.'
+  - >-
+    Wrap your app in the provider with your client ID and base URL, then add the `SignInButton`
+    component.
 whenToUse: >-
-  Use Asgardeo when you need secure, managed authentication and SSO for your
-  apps without building IAM infrastructure.
+  Use Asgardeo when you want managed sign-in with OIDC, OAuth2, and SAML, and your app fits in 5
+  applications and 15,000 monthly active users.
 whenNotToUse: >-
-  Avoid if you require on-premises IAM, advanced customization, or need to
-  support more than 15,000 monthly active users for free.
+  Avoid it if you need on-premises IAM, more than 5 applications on the free tier, or more than
+  15,000 monthly active users for free.
 bestFor:
-  - secure authentication
+  - secure authentication for web and mobile apps
   - SSO
-  - user management
+  - small teams with few applications
 avoidIf:
-  - need on-premises deployment
-  - require deep IAM customization
+  - on-premises deployment
+  - deep IAM customization
+  - more than 5 applications on free
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://wso2.com/asgardeo'
@@ -74,6 +89,46 @@ pricingUrl: 'https://wso2.com/asgardeo/pricing/'
 sourceUrls:
   - 'https://wso2.com/asgardeo/pricing/'
   - 'https://wso2.com/asgardeo/docs/'
+  - 'https://wso2.com/asgardeo/docs/get-started/create-identity-platform-account/'
+  - 'https://wso2.com/asgardeo/docs/quick-starts/react/'
 featured: false
 ---
-Asgardeo offers a managed IAM platform with SSO, OAuth2, OIDC, and SAML support, suitable for startups and teams needing secure authentication without complex setup.
+You register applications in the Asgardeo console, then add an SDK such as the React one or use standard OAuth2, OIDC, or SAML endpoints. It suits developers who want hosted sign-in and SSO with a small free tier.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. It has no card requirement and no time limit. You get up to 15,000 monthly active users, 5 applications, 1 B2B organization, and 1 social login. It also includes 5,000 M2M tokens and 2,500 AgentID tokens.
+
+Free caps sessions at one day and keeps audit logs for seven days. Users who never sign in are not counted, and stored users cost nothing. The plan includes a 30-day free trial of Growth. After a downgrade, you become eligible for a new trial 60 days later. Growth starts at $25 per month with 3,500 monthly active users and 2 enterprise connections.
+
+## When you hit a limit
+
+On the Free plan, usage above the quotas is deactivated rather than removed. The pricing page says your data and resources are kept and nothing is deleted. So the Free plan acts as a hard cap and does not bill you.
+
+To go further, you move to the Growth plan. For paid plans, the pricing FAQ says nothing stops working when you go over a limit. Extra usage is billed per unit on your next invoice, and Growth bills are capped at $2,000 a month. Check your M2M token use, since only token issuance counts.
+
+## Gotchas
+
+- The product is now called WSO2 Identity Platform. Docs, console pages, and package names can show either name.
+- Free allows 5 applications and 1 B2B organization. A multi-tenant app can reach that limit fast.
+- Free sessions last one day at most, and audit logs are kept for seven days.
+
+## Alternatives in this atlas
+
+- [Auth0](/services/auth0/): when you want a larger user allowance and more quickstarts.
+- [Logto](/services/logto/): when you want open-source auth with a bigger free user limit.
+- [ZITADEL Cloud](/services/zitadel-cloud/): when you want an open-source identity platform with a managed cloud.
+
+## Questions people ask
+
+### Is Asgardeo free?
+
+Yes. The Free plan costs $0 per month and has no time limit. It includes up to 15,000 monthly active users and 5 applications.
+
+### Does Asgardeo need a credit card?
+
+No. The pricing page says no card is needed for the Free plan, and the Growth trial is also cardless.
+
+### What happens when I go over the Asgardeo free limits?
+
+Usage above the Free quotas is deactivated, not deleted. Your data and resources are kept, and you can move to Growth for more.

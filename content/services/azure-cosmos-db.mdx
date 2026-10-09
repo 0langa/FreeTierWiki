@@ -1,8 +1,9 @@
 ---
 title: Azure Cosmos DB
 description: >-
-  Globally distributed, multi-model NoSQL database service with low latency and
-  elastic scalability from Microsoft Azure.
+  Azure Cosmos DB is a fully managed, globally distributed NoSQL database on
+  Azure. It is for developers who need low-latency data with several APIs,
+  including NoSQL, MongoDB, Cassandra, Gremlin, and Table.
 provider: Azure
 category: database
 domain: database
@@ -19,22 +20,29 @@ audiences:
   - student
   - indie
 tags:
-  - database
-  - cdn
-  - serverless
-  - cloud
+  - nosql
+  - azure
+  - document database
+  - multi-model
+  - mongodb api
+  - cosmos db free tier
+  - global distribution
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always-free tier with 1,000 RU/s provisioned throughput and 25 GB storage.
+    The lifetime free tier gives the first 1000 RU/s of throughput and 25 GB of
+    storage in one Azure Cosmos DB account per subscription. You opt in when
+    you create the account, and anything above the allowance is billed.
   limits:
     - '1,000 RU/s provisioned throughput'
     - 25 GB storage
-    - One free database account per Azure subscription
+    - One free tier account per Azure subscription
+    - A shared throughput database can have a maximum of 25 containers
   caveats:
     - Throughput and storage above the free amount are billed at regular price.
     - Free tier must be selected when the account is created; it cannot be added later.
     - Not available for serverless accounts.
+    - If you delete a free tier account, you can apply free tier to a new one.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -42,37 +50,38 @@ freeTierDetails:
   overageRisk: medium
   billingRiskNotes:
     - Throughput and storage above 1,000 RU/s and 25 GB are billed at regular rates.
+    - Keep total provisioned throughput at or under 1,000 RU/s to avoid a charge.
 useCases:
-  - Real-time analytics
-  - IoT data ingestion
-  - Personalization engines
-  - Mobile app backends
-  - Global web applications
+  - Backend data for a web or mobile app
+  - Storing JSON documents with a partition key
+  - IoT and event data
+  - Vector search and AI app data
+  - A MongoDB- or Cassandra-compatible store on Azure
 quickstartSteps:
-  - >-
-    Sign in to the Azure Portal and create a new Cosmos DB account, selecting
-    the free tier option.
-  - 'Choose your preferred API (Core SQL, MongoDB, Cassandra, Gremlin, or Table).'
-  - Configure region(s) for global distribution if needed.
-  - Create a database and container within your account.
-  - Connect to Cosmos DB using the SDK or REST API from your application.
+  - Create an Azure account with an active subscription (the Azure free account needs sign-up verification).
+  - 'Sign in to the Azure portal at portal.azure.com, search for Azure Cosmos DB, and choose Create.'
+  - 'Pick an API such as Azure Cosmos DB for NoSQL, enter subscription, resource group, account name, and location.'
+  - 'On the Basics pane, set Apply Free Tier Discount to Apply. You cannot turn it on after the account exists.'
+  - 'After deployment, open Data Explorer, create a database and container with a partition key, add an item, and run a query. Or use the Azure CLI with `az cosmosdb create` and the `--enable-free-tier true` flag.'
 whenToUse: >-
-  Use when you need a globally distributed, low-latency NoSQL database with
-  flexible data models and automatic scaling.
+  Use it when you want a managed NoSQL database on Azure with global
+  distribution and room to grow past the free 1000 RU/s and 25 GB.
 whenNotToUse: >-
-  Avoid if you require a traditional relational database, or if your workload
-  consistently exceeds the free tier limits.
+  Skip it if you need a classic relational database, or if your workload will
+  often run above the free throughput and storage. Skip it if you cannot opt
+  in at account creation or want a serverless account, since free tier does
+  not cover serverless.
 bestFor:
-  - multi-region apps
-  - real-time workloads
-  - serverless architectures
+  - Azure-based apps
+  - Small production or test workloads
+  - Multi-region NoSQL
 avoidIf:
-  - strict relational schema
-  - large-scale free workloads
-  - on-premises only deployments
+  - You need a relational schema
+  - You want a serverless account on free tier
+  - You already have a free tier account in the subscription
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/services/cosmos-db/'
@@ -80,8 +89,50 @@ docsUrl: 'https://learn.microsoft.com/azure/cosmos-db/introduction'
 sourceUrls:
   - 'https://azure.microsoft.com/pricing/details/cosmos-db/'
   - 'https://azure.microsoft.com/en-us/free/'
+  - 'https://learn.microsoft.com/azure/cosmos-db/free-tier'
+  - 'https://learn.microsoft.com/azure/cosmos-db/introduction'
+  - 'https://learn.microsoft.com/azure/cosmos-db/nosql/quickstart-portal'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://azure.microsoft.com/pricing/details/cosmos-db/'
 ---
-Azure Cosmos DB offers a globally distributed, multi-model NoSQL database with low latency, elastic scalability, and a generous always-free tier for small workloads.
+You manage Azure Cosmos DB in the Azure portal and reach it from SDKs, the Azure CLI, or PowerShell. It suits teams building on Azure who want one account to grow with them.
+
+## What the free plan gives you
+
+The lifetime free tier gives you the first 1000 RU/s of throughput and 25 GB of storage in your account, for as long as the account exists. It works with the NoSQL, MongoDB, Cassandra, Gremlin, and Table APIs on accounts with provisioned or autoscale throughput. You get one free tier account per Azure subscription.
+
+A shared throughput database can use up to 1000 RU/s for free, with a maximum of 25 containers. If you also use the Azure free account, you add 400 RU/s and 25 GB for the first 12 months. That combined amount shrinks back to 1000 RU/s and 25 GB after those months.
+
+## When you hit a limit
+
+Cosmos DB does not stop at the free limit. Throughput and storage above the free amount are billed at regular price. The account keeps all regular features, including high availability and global distribution, so extra regions or RU/s add cost.
+
+To stay free, keep total provisioned throughput at or under 1000 RU/s and storage under 25 GB. The discount is applied at the account level, so each extra region is billed for its own throughput and storage beyond one free allowance. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- You must opt in when you create the account. You cannot turn free tier on afterward.
+- Free tier is not available for serverless accounts.
+- If the free tier option is missing or disabled, another account in the subscription already uses it. If you delete a free tier account, you can apply free tier to a new one.
+
+## Alternatives in this atlas
+
+- [DynamoDB](/services/dynamodb/): when you work on AWS and want a serverless key-value store.
+- [Firebase Firestore](/services/firebase-firestore/): when you want a document database with client SDKs and no cloud subscription setup.
+- [MongoDB Atlas](/services/mongodb-atlas/): when you want MongoDB itself with a free cluster.
+
+## Questions people ask
+
+### Is Azure Cosmos DB free?
+
+Yes, within limits. The lifetime free tier covers the first 1000 RU/s and 25 GB of storage in one account per subscription. Anything above that is billed.
+
+### What happens if I go over the Cosmos DB free tier?
+
+You are billed at the regular price for the extra throughput and storage. The account keeps running.
+
+### How do I turn on the Cosmos DB free tier?
+
+Set Apply Free Tier Discount to Apply when you create the account in the Azure portal, or pass `--enable-free-tier true` in the Azure CLI. You cannot add it to an existing account.

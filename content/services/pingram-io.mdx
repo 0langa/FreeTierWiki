@@ -1,8 +1,9 @@
 ---
 title: Pingram.io
 description: >-
-  Pingram.io (formerly NotificationAPI) is a combined email and SMS
-  notification API with a monthly usage budget and a real free tier.
+  Pingram.io, formerly NotificationAPI, is one API for email and SMS, with
+  voice and WhatsApp coming. It is for developers who want a single monthly
+  budget instead of separate email and SMS subscriptions.
 provider: Pingram.io
 category: messaging
 domain: messaging
@@ -16,9 +17,11 @@ audiences:
   - startup
   - oss
 tags:
-  - email
-  - messaging
-  - api
+  - sms api
+  - email api
+  - notification api
+  - a2p 10dlc
+  - transactional messaging
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -26,6 +29,7 @@ freeTierDetails:
     credit card required.
   limits:
     - 100 SMS/month (US) or 3,000 emails/month, shared budget
+    - 100 call minutes per month
     - 1 free local phone number
     - 30-day log retention
     - Unlimited sending domains and webhooks
@@ -33,6 +37,7 @@ freeTierDetails:
     - Unused free balance does not roll over each billing cycle
     - Managed A2P 10DLC is testing-only on the free plan
     - SMS rates vary by destination country
+    - No dedicated IP on the free plan
     - Voice and WhatsApp are not launched yet; they will draw from the same budget once available
   resetPeriod: monthly
   requiresCard: false
@@ -40,25 +45,26 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Send transactional emails
-  - Send SMS notifications
-  - Prototype notification flows
-  - Test A2P 10DLC messaging
+  - Sending transactional email from an app
+  - Sending SMS notifications and appointment reminders
+  - Prototyping notification flows before paying
+  - Receiving inbound email and SMS replies through webhooks
 quickstartSteps:
-  - Sign up for a free Pingram.io account.
-  - Verify a sending domain.
-  - Generate an API key.
-  - Send a test email or SMS via the API.
-  - Monitor usage against your monthly budget.
+  - Click Get started free on pingram.io and create an account; no credit card is needed.
+  - Verify a sending domain for email, and use the free local phone number for SMS.
+  - Copy your client ID and secret from the account.
+  - Install the SDK with `npm install pingram`, or pick Python, PHP, Go, Ruby, Java, or .NET.
+  - Create the client with your credentials and call `pingram.send()` with a `to`, a channel, and the message.
+  - Watch your usage against the monthly budget.
 whenToUse: >-
-  Use Pingram.io when you need a simple combined email and SMS API with a
-  real, always-free starting tier.
+  Use Pingram.io when you want email and SMS from one API and the free
+  allowance of 3,000 emails or 100 SMS a month is enough.
 whenNotToUse: >-
-  Avoid if you need a dedicated IP, HIPAA compliance, or high-volume SMS
-  without upgrading to a paid budget.
+  Avoid it if you need a dedicated IP, HIPAA compliance, managed A2P 10DLC
+  beyond testing, or a lot of SMS without paying.
 bestFor:
   - indie developers
-  - startups sending transactional email/SMS
+  - startups sending transactional email and SMS
   - prototypes
 avoidIf:
   - need HIPAA or enterprise compliance
@@ -66,15 +72,54 @@ avoidIf:
   - high-volume SMS sending
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.pingram.io/'
 docsUrl: 'https://docs.pingram.io'
 sourceUrls:
   - 'https://www.pingram.io/pricing'
+  - 'https://www.pingram.io/'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://www.pingram.io/pricing'
 ---
-Pingram.io (formerly NotificationAPI) offers an always-free tier of 100 SMS or 3,000 emails per month, ideal for indie developers and startups needing a simple, no-cost start to transactional messaging.
+You install an SDK, create a client with your credentials, and call one `send` function for email or SMS. It suits developers who want to ship notifications without running separate providers for each channel.
+
+## What the free plan gives you
+
+Pingram uses one monthly budget for email and SMS. The Free plan includes 100 SMS or 3,000 emails each month, and you can mix them from the same pool. It also includes 100 call minutes, one local phone number, and unlimited sending domains.
+
+The platform table shows 30 days of log retention, unlimited webhooks, and no Pingram branding on the Free plan. It supports the US, EU, and CA regions. Voice and WhatsApp are not launched yet and will draw from the same budget.
+
+## When you hit a limit
+
+The balance refills each billing cycle, and unused credit does not roll over. SMS messages deduct the rate for their destination country, so a message to a costly country uses more of the budget than a US message.
+
+The pricing page does not say what happens when the free budget runs out, and it says to upgrade for a larger balance. The first paid budget costs $20 per month. On a paid plan you can turn on Auto upgrade, which moves you up when spend reaches 90% of the budget.
+
+## Gotchas
+
+- Managed A2P 10DLC registration is testing-only on the Free plan, so real US SMS traffic at scale needs a paid plan.
+- There is no dedicated IP on Free. It comes with paid plans.
+- Phone numbers beyond the first one cost $0.50 per month each.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you only need email through an API.
+- [Plunk](/services/plunk/): when you want a simple email API with a monthly allowance.
+- [Courier](/services/courier/): when you want notification routing across several channels.
+
+## Questions people ask
+
+### Is Pingram free?
+
+Yes. Every account includes 100 SMS and 3,000 emails per month at no cost. You do not need a credit card.
+
+### Can I send SMS on the Pingram free plan?
+
+Yes, up to 100 US SMS a month from the shared budget, with one local phone number included. Managed A2P 10DLC is testing-only on Free.
+
+### Does unused Pingram budget roll over?
+
+No. Your balance renews to your tier amount each billing cycle, so use it within the month.

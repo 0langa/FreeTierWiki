@@ -1,8 +1,9 @@
 ---
 title: Logflare.app
 description: >-
-  Logflare.app provides log management and analytics with real-time search and
-  integrations for cloud applications.
+  Logflare collects structured log events over HTTP and lets you search and
+  alert on them in real time. It suits developers who want cheap log storage
+  without running servers.
 provider: Logflare
 category: observability
 domain: observability
@@ -18,57 +19,61 @@ audiences:
   - oss
 tags:
   - logging
-  - analytics
-  - realtime
-  - cloud
-  - monitoring
+  - log-management
+  - real-time
+  - structured-logs
+  - bigquery
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free $0/month plan with up to 12,960,000 events per month and 3-day
-    retention, with unlimited team members and sources.
+    The Free plan costs $0 per month with up to 12,960,000 events per month, 3
+    days of event retention, and unlimited sources.
   limits:
     - '12,960,000 events/month max'
-    - 3-day event retention
-    - Unlimited team members and sources
+    - Up to 3 days of event retention
+    - Unlimited sources
     - '5 events/sec rate limit (burst 300)'
+    - 0 additional team members
   caveats:
-    - You are rate-limited to 5 log events per second on average; ingestion of log events stops when you exceed it
-    - Free plan alerts run at 4-hour frequency; no dashboards
+    - 'The free plan is rate limited at 5 log events per second on average for the last 60 seconds; when you hit that, ingestion stops and you get an email and an in-app alert'
+    - Free alerts run every 4 hours and there are no dashboards
+    - Paid plans start a 14-day trial and then charge your credit card
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralized log collection for web apps
-  - Debugging serverless functions
-  - Monitoring small SaaS projects
+  - Collect logs from a web app in one place
+  - Debug serverless functions
+  - Monitor a small SaaS project
+  - Search structured log events with a query language
+  - Send alerts to email, webhook, Slack, or Discord
 quickstartSteps:
-  - 'Sign up for a free Logflare account at https://logflare.app/.'
-  - Create a new source to receive logs.
-  - Copy your source API key and endpoint.
-  - Configure your application or service to send logs to Logflare.
-  - View and search logs in the Logflare dashboard.
+  - Create an account on logflare.app with GitHub or Google.
+  - Create a New Source in the dashboard.
+  - Click the setup button on the source to get its source ID and API key.
+  - Send a first log event with a cURL POST to `https://api.logflare.app/logs/json?source=YOUR-SOURCE-ID-HERE`, with the `X-API-KEY` header set to your key.
+  - Filter the incoming events with the Logflare Query Language.
 whenToUse: >-
-  Use Logflare.app for simple, real-time log management and analytics in small
-  to medium cloud projects or prototypes.
+  Use Logflare when you need simple real-time logs for a small project or
+  prototype and short retention is fine.
 whenNotToUse: >-
-  Avoid if you need long-term retention, additional team members, or
-  ingestion above 5 events/sec without a paid plan.
+  Avoid it if you need more than 3 days of retention, extra team members, or
+  more than 5 events per second without a paid plan.
 bestFor:
   - prototyping
-  - side-projects
+  - side projects
   - small SaaS
   - student projects
 avoidIf:
-  - enterprise compliance
-  - large-scale ingestion
+  - long retention
+  - extra team members
   - complex alerting needs
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://logflare.app/'
@@ -76,7 +81,47 @@ docsUrl: 'https://docs.logflare.app'
 pricingUrl: 'https://logflare.app/pricing'
 sourceUrls:
   - 'https://logflare.app/pricing'
+  - 'https://logflare.app/pricing/'
   - 'https://logflare.app/'
+  - 'https://docs.logflare.app/'
 featured: false
 ---
-Logflare.app offers a free plan with up to 12,960,000 events a month and 3-day retention, rate-limited to 5 events per second, ideal for developers needing quick setup and basic observability.
+You send log events to Logflare over an HTTP endpoint or through its integrations, and search them in the web dashboard. It suits solo developers who need a small log store.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. It allows up to 12,960,000 events per month. The rate limit is 5 events per second, with a burst of 300. You can create unlimited sources, but the plan has 0 additional team members.
+
+Event retention is up to 3 days, and events can have up to 50 fields. Alerts run every 4 hours, and there are no dashboards. Email, webhook, Slack, and Discord alerts are available to all users, while SMS alerts need a paid subscription.
+
+## When you hit a limit
+
+The free plan is rate limited at 5 log events per second on average over the last 60 seconds. When you reach that average, Logflare stops ingesting log events. It warns you with an email and an alert in the interface.
+
+Paid plans use metered pricing. The home page compares them at $15 per million events, and the pricing page lists a 14-day trial after which your credit card is charged. Retention on the metered plan goes up to 90 days.
+
+## Gotchas
+
+- Ingestion stops at the rate limit, so a burst of logs can be dropped.
+- Three days of retention is short for slow bug hunts.
+- Free has no dashboards, and alerts run only every 4 hours.
+
+## Alternatives in this atlas
+
+- [Axiom](/services/axiom/): when you mainly need log storage and search with a different free plan.
+- [Better Stack (Logtail)](/services/logtail-com/): when you want a hosted log tool with a free tier.
+- [Grafana Cloud](/services/grafana-cloud/): when you also need metrics and traces.
+
+## Questions people ask
+
+### Is Logflare free?
+
+Yes. The Free plan costs $0 per month with up to 12,960,000 events and 3 days of retention. Paid plans start with a 14-day trial.
+
+### What happens when I hit the Logflare rate limit?
+
+The free plan is limited to 5 events per second on average over 60 seconds. Logflare then stops ingesting events and warns you by email and in the interface.
+
+### How long does Logflare keep logs on the free plan?
+
+The pricing page lists up to 3 days of event retention on Free. The metered plan keeps events up to 90 days.

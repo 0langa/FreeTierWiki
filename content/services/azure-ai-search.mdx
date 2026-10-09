@@ -1,8 +1,8 @@
 ---
 title: Azure AI Search
 description: >-
-  Azure AI Search is a cloud search service for building rich search experiences
-  over private, heterogeneous content.
+  Azure AI Search is a managed search service for full-text, vector, and hybrid search over your own
+  content. It is for developers who build site search or retrieval for AI apps.
 provider: Azure
 category: ai
 domain: ai
@@ -17,56 +17,64 @@ audiences:
   - indie
 tags:
   - search
-  - ai
-  - cloud
+  - full-text search
+  - vector search
+  - rag
+  - retrieval
+  - azure search
+  - hybrid search
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free tier includes one search service with up to 3 indexes and 50 MB
-    storage.
+  summary: Free tier includes one search service with up to 3 indexes and 50 MB storage.
   limits:
     - 1 free search service per subscription
     - 3 indexes
     - 50 MB storage
-    - First 1,000 semantic ranker requests/month free
+    - 3 indexers; AI enrichment limited to 20 free transactions per indexer per day
   caveats:
     - Shared across tenants; scaling is not supported
     - Service may be deleted after periods of inactivity
-    - Some premium features unavailable (private endpoint, IP firewall, customer-managed keys)
+    - Semantic ranker and the custom entity lookup skill are not available on the free tier
+    - 'Intended for short-term, non-production evaluation'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Prototype search for web or mobile apps
-  - Testing AI-powered search features
-  - Learning and demos
+  - Add keyword search to a website or app
+  - Build vector search over your own documents
+  - Give an AI app a retrieval layer
+  - Index files from Blob Storage with an indexer
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - Create a new Azure AI Search service using the Free tier.
-  - 'Define and import your data source (e.g., Azure Blob Storage, SQL Database).'
-  - Create an index and configure fields.
-  - Upload or connect your data and test search queries.
-whenToUse: >-
-  Use when you need to prototype or test search features in Azure without
-  incurring costs.
+  - Create an Azure account or use an existing subscription.
+  - >-
+    In the Azure portal, create an Azure AI Search service and pick the Free tier. You can have one
+    free service per subscription.
+  - >-
+    Open the service and note its endpoint. Assign yourself roles such as Search Index Data
+    Contributor and Search Index Data Reader.
+  - 'Create an index, using the portal, the REST API, or an SDK such as the .NET client library.'
+  - 'Load some documents, such as the sample hotel data, and wait for indexing to finish.'
+  - Send a search query and read the ranked results.
+whenToUse: Use when you want to prototype search or retrieval in Azure for free and a 50 MB index is enough.
 whenNotToUse: >-
-  Avoid for production workloads or large-scale search needs due to strict
-  resource and SLA limitations.
+  Avoid for production, large datasets, or any workload that needs uptime. The free service is
+  shared, cannot scale, and can be deleted when inactive.
 bestFor:
-  - prototyping
-  - learning
-  - demos
-  - internal tools
+  - prototyping search
+  - learning Azure AI Search
+  - demos and quickstarts
+  - small internal tools
 avoidIf:
   - production workloads
-  - large datasets
-  - high availability requirements
+  - datasets over 50 MB
+  - need semantic ranker for free
+  - need high availability
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/search/'
@@ -74,7 +82,50 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/search/search-what-is-azure-se
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/search/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/search/'
-  - 'https://learn.microsoft.com/en-us/azure/search/search-what-is-azure-search'
+  - 'https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity'
+  - 'https://learn.microsoft.com/en-us/azure/search/search-create-service-portal'
+  - 'https://learn.microsoft.com/en-us/azure/search/search-get-started-text'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Search provides a managed search-as-a-service platform with AI enrichment, ideal for prototyping and learning but not suitable for production-scale workloads on the free tier.
+You create a search service in the Azure portal, then load documents and query them through the portal, the REST API, or an SDK. It suits developers who want to prototype search, or retrieval for an AI app, before they pay.
+
+## What the free plan gives you
+
+Each Azure subscription can have one free search service. It runs on shared hardware. Storage is limited to 50 MB, and you can create up to 3 indexes. You also get up to 3 indexers, 3 data sources, and 3 skillsets.
+
+Indexers on the Free tier have tight limits. A run can last 3 minutes for blob sources and 1 minute for other sources. An indexer can start only once every 180 seconds. AI enrichment is limited to 20 free transactions per indexer per day. Each indexing run can load up to 10,000 documents.
+
+Free services cannot scale. You cannot add replicas or partitions. The docs call the Free tier a short-term, non-production way to evaluate the product.
+
+## When you hit a limit
+
+The limits are hard walls, not bills. The Free tier has no scale-up, so you stop at 50 MB or 3 indexes. To get more room, create a billable service on the Basic tier or higher. The pricing page shows the paid price fields as blank dashes.
+
+Microsoft can also delete a free service. The docs say it may do so after an extended period of inactivity, to make room for other services. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- The pricing page says the semantic ranker is not available in the Dedicated Free tier.
+- The custom entity lookup skill is not available on the free plan.
+- The free service shares infrastructure with other customers, so it is not suitable for production or uptime promises.
+
+## Alternatives in this atlas
+
+- [Azure AI Language](/services/azure-ai-language/): when you need text analysis such as entities and key phrases rather than a search index.
+- [Cohere API](/services/cohere-api/): when you want embeddings and reranking for retrieval without running a search service.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want to run embedding models at the edge without an Azure subscription.
+
+## Questions people ask
+
+### Is Azure AI Search free?
+
+The Free tier costs nothing. It gives you one service per subscription, 3 indexes, and 50 MB of storage.
+
+### Does an Azure AI Search free service get deleted?
+
+It can be. The docs say Microsoft might delete free services that are inactive for an extended period.
+
+### Can I scale the Azure AI Search free tier?
+
+No. On the Free tier you cannot scale, and you cannot configure replicas or partitions. You must use a billable tier for that.

@@ -1,6 +1,9 @@
 ---
 title: UptimeRobot
-description: Website and API uptime monitoring with alerts and status pages.
+description: >-
+  UptimeRobot checks websites, ports, APIs, and cron jobs on a schedule and
+  alerts you when they fail. It also hosts status pages. The free plan is for
+  hobby and non-profit projects.
 provider: UptimeRobot
 category: observability
 domain: observability
@@ -12,8 +15,14 @@ audiences:
   - indie
   - startup
 tags:
+  - uptime
   - monitoring
-  - web
+  - website-monitoring
+  - status-page
+  - heartbeat
+  - ping
+  - port-monitoring
+  - api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -22,38 +31,57 @@ freeTierDetails:
   limits:
     - 50 monitors
     - 5-minute check interval
+    - 1 status page
+    - 3 months of data retention
+    - 10 API requests per minute
   caveats:
     - The free plan is for hobby and non-profit use
-    - 'SSL, DNS, and faster checks need a paid plan'
+    - 'Faster checks need a paid plan; the pricing page says SSL monitoring is paid-only, yet its Free card lists SSL and domain expiry monitoring'
+    - SMS and voice call credits are not included on the free plan; they can be bought separately
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Get alerts when a site goes down
-  - Public status page
+  - Getting alerts when a website or API goes down
+  - Checking keywords on a page
+  - Watching cron jobs with heartbeat monitors
+  - Checking ping and TCP ports on servers
+  - Publishing a basic public status page
 quickstartSteps:
-  - Sign up at uptimerobot.com.
-  - Add an HTTP monitor.
-  - Add an alert contact.
-whenToUse: Use for basic uptime alerts on personal projects.
-whenNotToUse: Avoid for commercial use on the free plan.
+  - 'Register for a free account on uptimerobot.com; no credit card is required.'
+  - 'In the dashboard click Add New Monitor and choose a type such as HTTP(s), Keyword, Ping, Port, or Heartbeat.'
+  - 'Enter the URL or address; the URL fills the Friendly Name for you.'
+  - 'Pick the alert contacts to notify, set the monitor interval, and click Create monitor.'
+  - 'Create a status page from the dashboard once you have a monitor to show.'
+whenToUse: >-
+  Use UptimeRobot for basic uptime alerts on personal, hobby, or non-profit
+  projects, with up to 50 monitors at five-minute checks.
+whenNotToUse: >-
+  Avoid the free plan for commercial sites, since it is described as for hobby
+  and non-profit projects. Also avoid it if you need faster checks.
 bestFor:
   - side projects
   - non-profits
+  - many cheap monitors
 avoidIf:
-  - commercial sites
+  - commercial sites on the free plan
+  - you need checks faster than every five minutes
+  - you need full SSL monitoring (the pricing page is mixed on whether Free has it)
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://uptimerobot.com'
 docsUrl: 'https://uptimerobot.com/api/'
 sourceUrls:
   - 'https://uptimerobot.com/pricing/'
+  - 'https://uptimerobot.com'
+  - 'https://uptimerobot.com/api/'
+  - 'https://help.uptimerobot.com/en/articles/11358364-how-to-create-your-first-monitor-on-uptimerobot-quick-setup-guide/'
 pricingUrl: 'https://uptimerobot.com/pricing/'
 featured: false
 changes:
@@ -61,4 +89,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-UptimeRobot limits the free plan to hobby and non-profit projects.
+You use UptimeRobot through a web dashboard, a mobile app, and an API that is included on every plan. The help center has a quick setup guide for your first monitor. It suits hobby and non-profit sites that need many cheap checks.
+
+## What the free plan gives you
+
+The Free plan costs 0 euro per month and needs no credit card. It includes 50 monitors with a 5-minute monitoring interval. It has 1 status page and keeps 3 months of data. The API is included, with a limit of 10 requests per minute on Free.
+
+Monitor types in the setup guide include HTTP(s), Keyword, Ping, Port, Heartbeat, DNS, API, and UDP. The pricing page says SSL monitoring is included only in paid plans, yet the Free card also lists SSL and domain expiry monitoring, so check what the Free plan covers. Free integrations are basic, and the list includes Google Chat, Discord, Pushover, Pushbullet, and Splunk.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach 50 monitors, and it does not describe a bill on the Free plan. Paid plans raise the monitor tier and shorten the interval.
+
+SMS and voice call credits are not included on Free. Both free and paid users can buy credits separately, as one-time purchases. The Solo plan costs 9 euro per month with annual billing and gives you 60-second checks and 3 status pages with your own domain.
+
+## Gotchas
+
+- The Free plan is described as good for hobby and non-profit projects. A commercial site may not fit its intent.
+- Free checks run every 5 minutes, so a short outage can pass between two checks.
+- The pricing page says SSL monitoring is paid-only, but its Free card lists SSL and domain expiry monitoring. Own-domain status pages are listed on the Solo plan, and Free status pages are basic.
+
+## Alternatives in this atlas
+
+- [Hyperping](/services/hyperping/): when your site is commercial and you want a free plan with a status page.
+- [UptimeObserver.com](/services/uptimeobserver-com/): when you want a free plan with chat alerts and port checks.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want monitors, a status page, and on-call features together.
+
+## Questions people ask
+
+### Is UptimeRobot free?
+
+Yes. The Free plan gives you 50 monitors with 5-minute checks, 1 status page, and 3 months of data. It is described as good for hobby and non-profit projects.
+
+### Does UptimeRobot need a credit card?
+
+No. The pricing page says no credit card is required for the Free plan.
+
+### How often does UptimeRobot check my site on the free plan?
+
+Every 5 minutes. The Solo plan checks every 60 seconds, and higher plans go down to 30 or 15 seconds.

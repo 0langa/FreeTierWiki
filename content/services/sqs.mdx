@@ -1,8 +1,9 @@
 ---
 title: SQS
 description: >-
-  AWS SQS is a fully managed message queuing service for decoupling and scaling
-  distributed systems.
+  Amazon SQS is AWS's message queue. Producers put messages in a queue, and
+  consumers pull and process them later, which keeps parts of an app independent
+  of each other.
 provider: AWS
 category: messaging
 domain: messaging
@@ -17,57 +18,61 @@ audiences:
   - enterprise
   - oss
 tags:
-  - queue
-  - messaging
+  - sqs
+  - message queue
+  - fifo
+  - aws
   - serverless
-  - cloud
-  - integration
+  - background jobs
 pricingModel: freemium
 freeTierDetails:
   summary: 1 million requests per month free for both Standard and FIFO queues.
   limits:
     - 1 million requests/month (Standard and FIFO queues)
-    - Additional usage billed per request
+    - Each 64 KB chunk of a payload counts as one request
+    - Messages kept 4 days by default, up to 14 days
   caveats:
-    - Free tier applies to all AWS accounts every month, not just new accounts
-    - Charges apply for payload data transfer
+    - The free requests apply to all customers every month, not only new accounts
+    - Every SQS action counts as a request, including polling and deleting
+    - Data transfer charges apply across regions and to or from the internet
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Exceeding free tier incurs per-request charges.
-    - High message volume or large payloads can increase costs.
+    - You are charged per million requests past the first 1 million each month.
+    - A 1 MiB payload is billed as 16 requests, so large messages use the free amount fast.
 useCases:
+  - Buffering work for background jobs
   - Decoupling microservices
-  - Asynchronous task processing
-  - Buffering workloads
-  - Reliable message delivery
+  - Smoothing out traffic spikes
+  - Ordered processing with FIFO queues
+  - Receiving fan-out messages from an SNS topic
 quickstartSteps:
-  - Sign in to the AWS Management Console.
-  - Navigate to SQS and create a new queue (Standard or FIFO).
-  - Configure queue settings and permissions.
-  - Send a test message to the queue.
-  - Set up a consumer to poll and process messages.
+  - Sign up for an AWS account.
+  - Open the Amazon SQS console and create a queue. Choose a Standard queue, or a FIFO queue when order matters.
+  - Review the queue settings, such as message retention.
+  - Send a test message from the console or with an AWS SDK.
+  - Receive the message with a consumer, then delete it so it does not come back after the visibility timeout.
 whenToUse: >-
-  Use SQS when you need reliable, scalable message queuing to decouple
-  components or handle asynchronous workloads.
+  Use SQS when one part of your app should hand work to another and the
+  receiver may be slow or offline.
 whenNotToUse: >-
-  Avoid SQS if you require ultra-low latency, on-premises deployment, or need
-  advanced streaming features beyond simple queuing.
+  Avoid it when you must push one message to many subscribers, keep messages
+  longer than 14 days, or run without an AWS account.
 bestFor:
-  - scalable messaging
-  - microservices
-  - serverless apps
+  - background job queues
+  - decoupling services
+  - buffering traffic spikes
 avoidIf:
-  - real-time streaming
-  - on-premises only
-  - no AWS account
+  - you need to broadcast to many subscribers
+  - you need retention beyond 14 days
+  - you have no AWS account
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 9
 officialUrl: 'https://aws.amazon.com/sqs/'
@@ -76,6 +81,47 @@ docsUrl: >-
 pricingUrl: 'https://aws.amazon.com/sqs/pricing/'
 sourceUrls:
   - 'https://aws.amazon.com/sqs/pricing/'
+  - 'https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html'
+  - 'https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-getting-started.html'
+  - 'https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html'
 featured: false
 ---
-Amazon SQS is a managed message queuing service that enables reliable, scalable communication between distributed application components.
+You work with SQS through the AWS console, the AWS SDKs, or the API. You create a queue, send messages, and write a consumer that receives and deletes them. It suits developers who already build on AWS.
+
+## What the free plan gives you
+
+All customers get 1 million SQS requests per month for free, and the page says this is not limited to new accounts. The free amount is the same for Standard queues and FIFO queues. There is no minimum fee.
+
+Every SQS action counts as a request. One request can carry 1 to 10 messages, up to 1 MiB in total. Messages stay in a queue for 4 days by default. You can set retention from 1 minute up to 14 days. Standard queues support nearly unlimited calls per second, and each FIFO partition is limited to 300 transactions per second per action in non-high-throughput mode.
+
+## When you hit a limit
+
+The pricing page lists no hard stop at the free amount. You pay per million requests after the first 1 million each month, and the page shows the rates in a calculator. Standard and FIFO queues have their own rates.
+
+Payload size changes the count. Each 64 KB chunk of a payload is billed as one request, so a request with a 1 MiB payload is billed as 16. Sending and receiving in the same region has no data transfer charge. Cross-region traffic and traffic to or from the internet use standard AWS data transfer charges.
+
+## Gotchas
+
+- Receiving and deleting messages are requests too, so a message that you send, receive, and delete uses several requests unless you batch them.
+- A FIFO queue needs a message group ID on every send. The send fails without one.
+- Standard queues deliver at least once, so a consumer can see the same message twice.
+
+## Alternatives in this atlas
+
+- [SNS](/services/sns/): when you want to push one message to many subscribers.
+- [Cloudflare Queues](/services/cloudflare-queues/): when your code runs on Cloudflare Workers.
+- [Pub/Sub](/services/pub-sub/): when you run on Google Cloud.
+
+## Questions people ask
+
+### Is Amazon SQS free?
+
+Partly. All customers get 1 million requests per month free for Standard and FIFO queues. After that you pay per million requests.
+
+### What counts as a request in SQS?
+
+Every SQS action is a request, and each 64 KB chunk of a payload counts as one. A single request can hold up to 10 messages.
+
+### How long does SQS keep messages?
+
+By default a message stays in the queue for 4 days. You can set the retention between 1 minute and 14 days.

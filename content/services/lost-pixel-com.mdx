@@ -1,8 +1,9 @@
 ---
 title: Lost-pixel.com
 description: >-
-  Lost-pixel.com provides visual regression testing for web applications with
-  easy integration into CI/CD pipelines.
+  Lost Pixel compares screenshots of your web app between code changes and shows
+  you which parts of the UI changed. It is for developers and QA teams who run
+  visual tests in CI.
 provider: Lost-pixel.com
 category: devops
 domain: devops
@@ -16,10 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - testing
+  - visual regression testing
+  - screenshot testing
   - ci-cd
-  - automation
-  - ux-ui
+  - storybook
+  - ui testing
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,50 +29,90 @@ freeTierDetails:
     and monorepo support.
   limits:
     - '7,000 screenshots/month'
-    - Unlimited collaborators
-    - Monorepo support included
+    - Unlimited admins and members
   caveats:
-    - Intended for open source and small projects
+    - Free for open source and small projects
     - No credit card required
+    - The pricing page lists no price per shot above the free quota
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
 useCases:
-  - Automated UI regression testing
-  - Visual bug detection before deployment
-  - Integrating visual tests into CI/CD workflows
+  - Catching unplanned UI changes in Storybook, Ladle, or Histoire components
+  - Screenshot checks of full pages in Next.js, Gatsby, or Remix apps
+  - Reviewing and approving visual changes in a pull request
+  - Comparing screenshots from Cypress or Playwright tests
 quickstartSteps:
-  - Sign up for a free Lost-pixel.com account.
-  - Connect your GitHub repository or configure your project manually.
-  - Install the Lost Pixel CLI in your project.
-  - Add and configure visual regression tests in your codebase.
-  - Integrate Lost Pixel into your CI/CD pipeline to run tests automatically.
+  - Use the Get Started button on lost-pixel.com to create a free project on the platform; no card is asked.
+  - Add a `lostpixel.config.ts` file at the project root and choose a mode, such as `storybookShots`, `pageShots`, or `customShots`.
+  - Set your project ID in the config as `lostPixelProjectId` and store the API key as the `LOST_PIXEL_API_KEY` secret in GitHub.
+  - Add a workflow file at `.github/workflows/lost-pixel-run.yml` that runs the `lost-pixel/lost-pixel` GitHub Action on push.
+  - Push a commit, then review and approve or reject the new screenshots on the platform.
 whenToUse: >-
-  Use when you need automated visual regression testing for web apps, especially
-  with CI/CD integration and public projects.
+  Use it when you want visual regression checks in GitHub Actions for components
+  or pages, and your screenshot count stays under the monthly quota.
 whenNotToUse: >-
-  Avoid if you require private project support or need to test large volumes of
-  screenshots beyond the free tier.
+  Avoid it if you run more screenshots than the free quota, or if you do not use
+  GitHub for your CI.
 bestFor:
-  - UI developers
-  - QA engineers
   - open source maintainers
+  - small UI projects
+  - teams that already use Storybook or Playwright
 avoidIf:
-  - need private project support
-  - require high-volume screenshot testing
+  - high-volume screenshot testing
+  - a CI setup that is not GitHub Actions
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://lost-pixel.com'
 docsUrl: 'https://docs.lost-pixel.com'
 sourceUrls:
   - 'https://lost-pixel.com/pricing'
+  - 'https://lost-pixel.com'
+  - 'https://docs.lost-pixel.com/user-docs'
+  - 'https://github.com/lost-pixel/lost-pixel'
 pricingUrl: 'https://lost-pixel.com/pricing'
 featured: false
 ---
-Lost-pixel.com offers visual regression testing for web applications, allowing teams to catch UI changes and bugs automatically during development and deployment.
+You run Lost Pixel as a GitHub Action in your CI pipeline, with a `lostpixel.config.ts` file in your repository. The platform then shows each new screenshot next to the old one so you can approve or reject it.
+
+## What the free plan gives you
+
+The Hobby plan includes 7,000 screenshots, which Lost Pixel calls shots, per month. It has no credit card requirement. The pricing table lists unlimited admins and members, so your whole team can review changes. The free plan includes monorepo support.
+
+The pricing page says Lost Pixel is free for open source projects and for small projects. The paid plans start at $100 per month for 40,000 shots. Those paid plans charge a price per shot above their quota. The Hobby column shows no such price.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 7,000 shots on the Hobby plan. The Hobby column shows a dash where the paid plans list a price per shot above the quota, and the page asks for no card. So the page gives no sign of a charge on the free plan. If you need more shots, the Startup plan adds a price of $0.006 per shot above its quota.
+
+## Gotchas
+
+- The pricing page says the plan is for open source and small projects but does not define small.
+- The platform works through the GitHub Action and a `LOST_PIXEL_API_KEY` secret, so plan for GitHub Actions.
+- The core tool is open source and can run alone in a mode that only generates and compares screenshots. The review interface and approval flow belong to the platform.
+
+## Alternatives in this atlas
+
+- [Argos](/services/argos/): when you want a visual review tool with a free plan for screenshots.
+- [Percy.io](/tools/percy-io/): when you want another hosted screenshot review tool with a free plan.
+- [Chromatic](/tools/chromatic/): when your tests are mostly Storybook components.
+
+## Questions people ask
+
+### Is Lost Pixel free?
+
+Yes, the Hobby plan is free. It includes 7,000 shots per month and unlimited admins and members.
+
+### Does Lost Pixel need a credit card?
+
+No. The pricing page says no credit card is required to get started.
+
+### What happens when I go over the Lost Pixel free limit?
+
+The pricing page does not say. It lists a price per shot above the quota only for the paid plans, not for the free one.

@@ -1,8 +1,9 @@
 ---
 title: ImprovMX
 description: >-
-  ImprovMX lets you create free email forwarding for your custom domain with
-  simple setup and no hosting required.
+  ImprovMX receives email sent to your own domain and forwards it to the inbox
+  you already use. It suits people who own a domain and do not want to run a
+  mail server.
 provider: ImprovMX
 category: messaging
 domain: messaging
@@ -16,55 +17,62 @@ audiences:
   - startup
   - oss
 tags:
+  - email forwarding
+  - custom domain email
+  - catch-all
+  - email alias
   - email
-  - productivity
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free forever plan allows 1 domain, 25 aliases, and up to 500 forwarded
-    emails per day.
+    emails per day. It forwards mail only; sending over SMTP needs a paid plan.
   limits:
     - 1 domain
     - 25 aliases
     - 500 emails forwarded/day
-  caveats:
-    - No SMTP sending on free plan
     - 7-day email log retention
-    - Forwarding pauses at the daily limit until it resets
+  caveats:
+    - No SMTP sending on the free plan
+    - Rules routing and webhooks are paid features
+    - Forwarding stops at the daily limit until it resets at 00:00 UTC
+    - Mail that arrives after the limit bounces back to the sender
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Forwarding custom domain emails to Gmail or other inboxes
-  - Setting up catch-all addresses for a domain
-  - Receiving emails for side projects without hosting mail servers
+  - Forwarding mail for a custom domain to Gmail or another inbox
+  - Setting up a catch-all address so any name at your domain reaches you
+  - Giving a side project a contact address without hosting mail
+  - Splitting one domain into several aliases for different jobs
 quickstartSteps:
-  - Sign up for a free ImprovMX account.
-  - Add your custom domain to the dashboard.
-  - Update your domain's DNS MX records as instructed.
-  - Create email aliases to forward to your preferred inbox.
-  - Verify forwarding by sending a test email.
+  - Click Get Started Free on improvmx.com and create an account. The page says no credit card is required.
+  - Add your domain in the dashboard.
+  - At your DNS provider, delete old MX records and add the two ImprovMX MX records plus the SPF TXT record.
+  - Wait for DNS to propagate. ImprovMX says this can take 24 to 48 hours, often less.
+  - Open the domain's Aliases page and add an alias, or `*` for a catch-all, with the address it forwards to.
+  - Send a test email to the alias from another address and confirm it arrives.
 whenToUse: >-
-  Use ImprovMX to receive emails at your custom domain and forward them to your
-  main inbox without running your own mail server.
+  Use ImprovMX when you own a domain and only need incoming mail forwarded to
+  an inbox you already read, on one domain with up to 25 aliases.
 whenNotToUse: >-
-  Avoid if you need to send emails from your domain or require advanced
-  filtering, as the free plan only supports forwarding.
+  Avoid it if you need to send mail from your domain, route by rules, use
+  webhooks, or run more than one domain on the free plan.
 bestFor:
   - custom domain owners
   - side projects
   - students
   - open source maintainers
 avoidIf:
-  - need outbound SMTP
-  - require advanced spam filtering
-  - need enterprise support
+  - you need outbound SMTP
+  - you need more than one domain
+  - you need rules or webhooks
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://improvmx.com'
@@ -73,6 +81,47 @@ pricingUrl: 'https://improvmx.com/pricing/'
 sourceUrls:
   - 'https://improvmx.com/pricing/'
   - 'https://improvmx.com/guides/'
+  - 'https://improvmx.com/guides/sending-receiving-limits/'
+  - 'https://improvmx.com/guides/generic-dns-configuration/'
+  - 'https://improvmx.com/guides/catchall-wildcard-aliases/'
 featured: false
 ---
-ImprovMX provides a simple, free way to forward emails from your custom domain to any inbox, making it ideal for personal or small project use without the need to manage mail servers.
+You manage everything in the ImprovMX dashboard: add a domain, point its DNS at ImprovMX, and create aliases. It suits owners of a personal or project domain who just want mail to land in their normal inbox.
+
+## What the free plan gives you
+
+The free plan costs $0 and covers one domain with 25 aliases. It forwards up to 500 emails per day. The email log keeps 7 days of history, and the pricing page lists a 99% uptime guarantee.
+
+A catch-all alias is available through a wildcard alias. The free plan has no Rules routing, and webhooks start on the Premium plan. The pricing page says sending email is a paid feature, so the free plan is for receiving and forwarding only, not for sending from your own domain.
+
+## When you hit a limit
+
+ImprovMX emails you as you get close to the daily limit and again when you reach it. After that it stops processing mail for the domain until the quota resets at 00:00 UTC. Mail that arrives in the meantime bounces to the sender with a short over-quota message that asks them to try again later.
+
+The limits page describes the bounce and an upgrade option, not extra charges. You either wait for the reset or upgrade to get higher limits right away.
+
+## Gotchas
+
+- The free plan covers one domain. A second domain needs a paid plan.
+- DNS changes can take 24 to 48 hours to propagate, so forwarding may not work right after setup.
+- Mail over the daily limit bounces, so a busy catch-all address can lose messages that senders do not retry.
+
+## Alternatives in this atlas
+
+- [Mutant Mail](/services/mutant-mail/): when you want another free forwarding service to compare against.
+- [Alias Email](/services/bump/): when you want masked addresses that forward to your real inbox.
+- [Resend](/services/resend/): when you need to send mail from your domain, not only receive it.
+
+## Questions people ask
+
+### Is ImprovMX free?
+
+Yes. The free plan costs $0 and covers 1 domain, 25 aliases, and 500 forwarded emails per day. The pricing page says the free plan stays free.
+
+### Does ImprovMX need a credit card?
+
+No. The home page says no credit card is required to get started.
+
+### What happens when I go over the ImprovMX limit?
+
+ImprovMX stops processing mail for that domain until 00:00 UTC. Senders get a bounce message, and you can upgrade to raise the limit at once.

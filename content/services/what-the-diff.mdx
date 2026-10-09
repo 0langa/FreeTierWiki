@@ -1,8 +1,9 @@
 ---
 title: What The Diff
 description: >-
-  What The Diff generates AI-powered pull request summaries and release notes
-  for GitHub and GitLab repositories.
+  What The Diff is an app for GitHub and GitLab that reads the diff of a pull
+  request and writes a plain-English description of the changes. It suits teams
+  and maintainers who want faster review context.
 provider: What The Diff
 category: devops
 domain: devops
@@ -11,67 +12,115 @@ subtypes:
   - Pull Request Summaries
   - Release Notes
 audiences:
-  - indie
-  - startup
   - team
   - oss
+  - indie
+  - startup
 tags:
-  - ai
-  - devops
-  - productivity
+  - pull request summary
+  - ai pull request description
+  - code review
+  - github app
+  - gitlab merge request
+  - what the diff
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 25,000 tokens per month (about 10 PRs), unlimited
-    repositories, and no credit card required.
+    The Free plan has 25,000 tokens per month (about 10 pull requests), unlimited
+    repositories, and no credit card.
   limits:
     - '25,000 tokens/month (~10 pull requests)'
     - Unlimited repositories
+    - Automated PR descriptions and inline code refactoring
     - Rate limited
   caveats:
     - Unused tokens do not roll over to the next month
-    - Paid plans start at $19/month for 200,000 tokens
+    - Pro starts at $19 per month for 200,000 tokens, about 40 pull requests
+    - A login uses either GitHub or GitLab; the other platform needs a second account
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Summarizing pull requests
-  - Generating release notes
-  - Improving code review efficiency
+  - Writing a pull request description from the diff
+  - Getting a summary comment when a pull request opens or updates
+  - Asking for a code refactoring in a pull request comment
+  - Giving reviewers context on large changes
 quickstartSteps:
-  - Sign up at whatthediff.ai using your GitHub account.
-  - Authorize the app to access your repositories.
-  - Select a repository to enable What The Diff.
-  - Configure notification and summary preferences.
-  - Start creating or reviewing pull requests to receive AI summaries.
+  - Click Start for free on whatthediff.ai and log in with GitHub or GitLab. That choice sets the platform for the account.
+  - Authorize What The Diff for the organization you want. You can add more repositories later.
+  - In the dashboard, enable each repository you want it to watch. It does nothing until you do.
+  - Choose a mode in the repository settings. The recommended mode replaces shortcodes such as wtd:summary in the pull request description.
+  - Open a pull request, add wtd:summary to the description, and save to get the AI summary.
 whenToUse: >-
-  Use What The Diff to automate pull request summaries and release notes for
-  GitHub or GitLab projects, saving time during code reviews.
+  Use What The Diff when your pull requests lack descriptions and you want an
+  automatic summary on GitHub or GitLab.
 whenNotToUse: >-
-  Avoid if you need support for platforms other than GitHub/GitLab or require
-  unlimited usage without paid plans.
+  Avoid the Free plan if you open more than about 10 pull requests a month, use
+  Bitbucket, or cannot give an app access to your code.
 bestFor:
   - teams using GitHub or GitLab
   - open source maintainers
-  - developers seeking review automation
+  - small repositories with few pull requests
 avoidIf:
-  - you use Bitbucket
-  - you need on-premise solutions
-  - you require unlimited summaries for free
+  - using Bitbucket
+  - needing more than about 10 pull requests a month for free
+  - needing a platform other than GitHub or GitLab
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://whatthediff.ai'
-docsUrl: 'https://docs.whatthediff.ai'
+docsUrl: 'https://whatthediff.ai/getting-started'
 pricingUrl: 'https://whatthediff.ai/pricing'
 sourceUrls:
   - 'https://whatthediff.ai/pricing'
   - 'https://whatthediff.ai'
+  - 'https://whatthediff.ai/getting-started'
+  - 'https://whatthediff.ai/open-source'
 featured: false
 ---
-What The Diff provides AI-generated summaries for pull requests and release notes, helping teams streamline code reviews and documentation in GitHub repositories.
+You work inside your pull requests. The app writes into the description or posts a comment, and you manage repositories in a dashboard.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and needs no credit card. It gives you 25,000 tokens per month, which the page puts at about 10 pull requests. Repositories are unlimited, and tokens belong to the account, not to a repository.
+
+Tokens depend on the size of the diff. The FAQ says an average pull request is around 2,300 tokens, and big diffs need more. The plan includes automated PR descriptions and inline code refactoring, and it is rate limited.
+
+The Pro plan costs $19 per month for 200,000 tokens, about 40 pull requests, with larger token tiers above it. The page says What The Diff does not store your code or diffs, and does not train on them.
+
+## When you hit a limit
+
+If you run out of tokens, you can upgrade to a bigger plan or wait until your next billing cycle. The FAQ says What The Diff does not upgrade your plan automatically.
+
+Unused tokens do not roll over. On the Free plan this is simple: the monthly tokens reset and the rest are lost. Settings such as a maximum tokens per pull request, skipping CI pull requests, and delaying drafts help you stay within the allowance.
+
+## Gotchas
+
+- The update trigger regenerates the comment on each push. The docs warn it can use many tokens without adding value.
+- The service needs full access to your code, because GitHub and GitLab have no permission to read only a pull request diff.
+- One login covers one platform. Using the other platform needs a second account.
+
+## Alternatives in this atlas
+
+- [CodeRabbit](/tools/coderabbit/): when you want AI review comments, free for public repositories.
+- [Reviewable.io](/services/reviewable-io/): when you want a review interface, free for public and personal repositories.
+- [SemanticDiff.com](/services/semanticdiff-com/): when you want to see only meaningful code changes in a pull request.
+
+## Questions people ask
+
+### Is What The Diff free?
+
+Yes. The Free plan has 25,000 tokens per month, about 10 pull requests, and unlimited repositories. It needs no credit card.
+
+### What happens if I run out of What The Diff tokens?
+
+You can upgrade to a bigger plan or wait for the next billing cycle. It does not upgrade you on its own.
+
+### Is there a free plan for open source?
+
+Yes, for qualifying projects. What The Diff sponsors open source projects with a free plan. Projects must be in active development, not founded by a company, and have 10 or more contributors or 100 or more GitHub stars.

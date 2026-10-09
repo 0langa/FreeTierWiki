@@ -1,8 +1,8 @@
 ---
 title: Azure SignalR Service
 description: >-
-  Azure SignalR Service provides real-time messaging and WebSocket management
-  for scalable web applications.
+  Azure SignalR Service is a managed service that pushes content from your
+  server to connected web and mobile clients in real time, without polling.
 provider: Azure
 category: messaging
 domain: messaging
@@ -17,9 +17,12 @@ audiences:
   - student
   - oss
 tags:
+  - signalr
   - realtime
-  - queue
-  - cloud
+  - websockets
+  - asp.net core
+  - azure
+  - chat
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free tier includes 20 concurrent connections and 20,000 messages per day.'
@@ -28,8 +31,9 @@ freeTierDetails:
     - '20,000 messages/day'
     - 1 unit
   caveats:
-    - No SLA on free tier
-    - The free tier is limited to 1 unit
+    - The Free tier is labeled Dev/Test Only
+    - No SLA on the Free tier
+    - The Free tier is limited to 1 unit
     - An Azure account needs a credit or debit card to sign up
   resetPeriod: daily
   requiresCard: true
@@ -38,34 +42,33 @@ freeTierDetails:
   overageRisk: low
 useCases:
   - Live chat in web apps
-  - Real-time dashboards
-  - Collaborative editing
-  - Push notifications
-quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new SignalR Service instance using the Free tier.
-  - Configure connection settings and access keys.
-  - Integrate the SignalR SDK into your application.
-  - Test real-time messaging between clients.
+  - Real-time dashboards and data updates
+  - Voting, polling, and auction pages
+  - Pushing server events to browsers without polling
 whenToUse: >-
-  Use when you need to add scalable real-time messaging or WebSocket support to
-  web or mobile applications without managing infrastructure.
+  Use it to try real-time features in an ASP.NET Core or Azure Functions app
+  with a few test clients.
 whenNotToUse: >-
-  Avoid if you require high connection counts, strict SLAs, or advanced scaling,
-  as the free tier is limited and lacks SLA guarantees.
+  Avoid the Free tier for more than 20 concurrent connections, for production
+  use, or when you need an SLA.
 bestFor:
   - prototyping
   - student projects
-  - small apps
-  - learning
+  - ASP.NET Core real-time features
 avoidIf:
-  - high-scale production
-  - strict SLA needs
-  - large concurrent users
+  - you need more than 20 concurrent connections
+  - you need an SLA
+  - you need production scale
+quickstartSteps:
+  - Sign in to the Azure portal with an Azure subscription.
+  - Select Create a resource, search for signalr, choose SignalR Service, and select Create.
+  - On the Basics tab choose a resource group, set the pricing tier to Free (Dev/Test Only), and select Review + create.
+  - After deployment, open the resource, go to Keys under Settings, and copy the connection string.
+  - Store it as the `Azure:SignalR:ConnectionString` secret in your app, then run the chat quickstart with the .NET SDK.
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/signalr-service/'
@@ -73,7 +76,47 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/azure-signalr/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/signalr-service/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/signalr-service/'
-  - 'https://learn.microsoft.com/en-us/azure/azure-signalr/'
+  - 'https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-overview'
+  - 'https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-quickstart-dotnet-core'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure SignalR Service enables developers to add real-time messaging and WebSocket support to applications without managing servers or scaling infrastructure.
+You create the service in the Azure portal, copy its connection string, and connect your app with the SignalR SDK. It has native support for ASP.NET Core and ASP.NET, and any client library that speaks the SignalR protocol can connect.
+
+## What the free plan gives you
+
+SignalR Service has three tiers: Free, Standard, and Premium. The Free tier includes 20 concurrent connections and 20,000 messages per unit per day. It costs nothing per unit per day and is limited to 1 unit.
+
+The quickstart labels the tier Free (Dev/Test Only). The pricing page lists the SLA for Free as N/A, while Standard has 99.9% and Premium has 99.95%. Custom domain names, geo-replication, and auto scaling are Premium features, so you do not get them on Free.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 20 concurrent connections or 20,000 messages in a day. The Free tier has only one unit, so you cannot add capacity there.
+
+The paid tiers work differently. Standard and Premium give 1,000 concurrent connections per unit, and their messages are unlimited. The first 1,000,000 messages are free, and you can buy additional messages per million. To get more capacity, you create a Standard or Premium instance. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Tutorials use the Free tier unless they say otherwise, so a quickstart instance is a Dev/Test instance.
+- Treat the connection string like a root password. The docs say to keep access keys out of code and plain text, for example by using Azure Key Vault.
+- The Free tier supports 1 unit at most, so it has no way to scale out.
+
+## Alternatives in this atlas
+
+- [Azure Web PubSub](/services/azure-web-pubsub/): when you want a WebSocket publish and subscribe service on Azure without the SignalR protocol.
+- [Ably](/services/ably/): when you need more free connections and are not tied to Azure.
+- [Pusher](/services/pusher/): when you want a hosted channel service with SDKs for many languages.
+
+## Questions people ask
+
+### Is Azure SignalR Service free?
+
+There is a Free tier with 20 concurrent connections and 20,000 messages per unit per day. It is limited to 1 unit and is marked Dev/Test Only.
+
+### Does Azure SignalR Service need an Azure account?
+
+Yes. You create the resource in an Azure subscription. The quickstart tells you to create a free Azure account first if you do not have one.
+
+### What is the difference between Free and Standard SignalR?
+
+Standard allows 1,000 concurrent connections per unit, up to 100 units, and has a 99.9% SLA. Free allows 20 connections, 1 unit, and has no SLA.

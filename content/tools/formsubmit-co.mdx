@@ -1,8 +1,8 @@
 ---
 title: Formsubmit.co
 description: >-
-  Formsubmit.co lets you collect form submissions via email without backend code
-  or server setup.
+  FormSubmit sends your HTML form submissions to your email address. No account,
+  no backend code, and no paid plan.
 provider: Formsubmit.co
 category: forms
 domain: forms
@@ -45,16 +45,14 @@ useCases:
   - Newsletter signups
   - Event registrations
 quickstartSteps:
-  - >-
-    Create an HTML form with your email address in the action attribute (e.g.,
-    action="https://formsubmit.co/your@email.com").
-  - Add required form fields and a submit button.
-  - Publish your form on your website.
-  - Submit a test entry to verify email delivery.
-  - Confirm your email address using the first-submission confirmation email to activate delivery.
+  - Point your form's action at `https://formsubmit.co/` followed by your email address, with method POST.
+  - Give every input, select, and textarea a name attribute.
+  - Publish the form and submit it once.
+  - Confirm your email address from the confirmation email FormSubmit sends.
+  - Optional - swap your email in the action for the random string FormSubmit sends you, and add hidden fields like `_subject` or `_next`.
 whenToUse: >-
-  Use when you need to quickly collect form submissions by email without
-  building a backend or managing servers.
+  Use it for a contact or feedback form on a static site when email delivery is
+  all you need.
 whenNotToUse: >-
   Avoid if you need files larger than 10 MB per submission, long-term file storage,
   or more than five daily archive API accesses.
@@ -73,8 +71,8 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: Confirmed unlimited forms/submissions, uploads and webhooks; corrected the required email-confirmation step and documented archive limits.
-lastVerified: 2026-10-06
-lastUpdated: 2026-10-06
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://formsubmit.co/'
@@ -85,4 +83,42 @@ sourceUrls:
   - 'https://formsubmit.co/'
 featured: false
 ---
-Formsubmit.co is a no-code tool for sending web form submissions directly to your email, completely free with no registration or dashboard.
+You point the form's action at a FormSubmit URL with your address, and each submission arrives in your inbox. It suits contact and feedback forms on static sites.
+
+## What the free plan gives you
+
+FormSubmit is free and needs no registration. You can create unlimited forms for one email address and receive unlimited submissions. Every form comes with reCAPTCHA spam protection, which you can turn off per form.
+
+Special hidden fields add features: a custom subject, a reply-to address, a CC list, a thank-you page, an auto-response to the sender, and a choice of 3 email templates. A webhook can fire on each new submission. File uploads work too, as long as all files in one submission add up to no more than 10MB. If you miss an email, you can read your submissions through the archive API up to 5 times a day. Submissions stay in the archive for 30 days.
+
+## When you hit a limit
+
+The site says setup is free and shows no paid plan for the form endpoint. It lists no quota on forms or submissions, and it does not say what happens if a form sends a very large volume.
+
+The site names only a few hard limits. Files in one submission must add up to no more than 10MB, and archive API calls are capped at 5 a day. FormSubmit also says it imposes technical limitations from time to time to filter out bots, spam, and other malicious programs. It recommends keeping reCAPTCHA on so your forms avoid them.
+
+## Gotchas
+
+- You must confirm your email address. The first submission to a new address triggers a confirmation email, and the documentation does not say whether that first submission is delivered.
+- The auto-response does not work on forms that turn off reCAPTCHA or that submit through AJAX.
+- The archive keeps submissions for only 30 days, and uploaded files are not kept or available through the API. Save what you need from the emails.
+
+## Alternatives in this atlas
+
+- [Formspree.io](/tools/formspree-io/): when you want an account-based form service.
+- [HeroTofu.com](/services/herotofu-com/): when you want an account-based form service with a dashboard.
+- [FabForm](/tools/fabform/): when you want a form builder.
+
+## Questions people ask
+
+### Is FormSubmit really free?
+
+Yes. The site shows no paid plan for the form endpoint, and it allows unlimited forms and submissions. You only confirm your email address once.
+
+### How do I hide my email address in a FormSubmit form?
+
+Confirm your address first. FormSubmit then sends you a random string to use in the form's action URL instead of your email address, so spam bots cannot read it.
+
+### Does FormSubmit store my form submissions?
+
+Yes, for 30 days. You can read them through the archive API up to 5 times a day. Uploaded files are not stored.

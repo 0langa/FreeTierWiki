@@ -1,8 +1,9 @@
 ---
 title: Cerbos Hub
 description: >-
-  Cerbos Hub is a managed authorization platform for centralizing and managing
-  access policies at scale.
+  Cerbos Hub is a hosted control plane for authorization policies. You write,
+  test, and version the rules, and Cerbos Hub builds them and sends them to
+  policy decision points that run in your own environment.
 provider: Cerbos
 category: security
 domain: security
@@ -17,8 +18,13 @@ audiences:
   - enterprise
   - oss
 tags:
-  - auth
-  - compliance
+  - authorization
+  - access control
+  - RBAC
+  - ABAC
+  - policy as code
+  - permissions
+  - policy engine
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -34,47 +40,92 @@ freeTierDetails:
   caveats:
     - Community support only
     - Self-hosted open-source Cerbos PDP is free with no limits, but lacks managed Hub features
+    - Cerbos Hub manages policies in the cloud; the decision points still run in your own environment
+    - Development starts from $25/month after a 3 months free trial
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralized authorization for microservices
-  - Implementing RBAC/ABAC in SaaS apps
-  - Managing policy changes across environments
+  - Keeping role and attribute based access rules out of application code
+  - Testing authorization policies before they ship, in a shared Playground
+  - Syncing policy changes from Git to every decision point automatically
+  - Logging every access decision for audits
 quickstartSteps:
-  - Sign up for a Cerbos Hub account.
-  - Create a new project and define your environments.
-  - Write or import your authorization policies.
-  - Integrate the Cerbos SDK or API with your application.
-  - Test policy checks and monitor usage in the dashboard.
+  - Sign in to Cerbos Hub at hub.cerbos.cloud and follow the onboarding wizard to create an organization and its first workspace.
+  - In the workspace, open Policy stores, choose New store, and either upload a ZIP of policies in the browser or connect a GitHub repository.
+  - Open Deployments, choose New deployment, select the store, and note the deployment ID after the first build.
+  - On the deployment's Client credentials tab, generate a Read and Write credential and copy the client ID and secret, which is shown only once.
+  - Run the Cerbos container with the CERBOS_HUB_DEPLOYMENT_ID, CERBOS_HUB_CLIENT_ID, and CERBOS_HUB_CLIENT_SECRET environment variables, then call it from your app.
 whenToUse: >-
-  Use Cerbos Hub when you need centralized, scalable authorization management
-  for multiple services or environments.
+  Use it when you want authorization rules written as policies, tested and
+  distributed for you, and the free limits of 100 principals and 2 developers
+  are enough for a proof of concept.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment or need unlimited policy checks
-  without upgrading.
+  Avoid it for production with more than 100 monthly active principals, more than
+  2 developers, or if you want everything self-hosted, where the open-source PDP
+  alone fits.
 bestFor:
   - teams managing multiple services
   - SaaS platforms
   - startups needing scalable auth
 avoidIf:
-  - require on-premise
-  - need unlimited free usage
-  - have strict data residency needs
+  - you have more than 100 monthly active principals
+  - you have more than 2 developers
+  - you need support beyond the community
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.cerbos.dev/product-cerbos-hub'
 docsUrl: 'https://docs.cerbos.dev/cerbos-hub/'
 sourceUrls:
-  - 'https://www.cerbos.dev/product-cerbos-hub'
   - 'https://www.cerbos.dev/pricing'
+  - 'https://www.cerbos.dev/product-cerbos-hub'
+  - 'https://docs.cerbos.dev/cerbos-hub/'
+  - 'https://docs.cerbos.dev/cerbos-hub/getting-started'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.cerbos.dev/pricing'
 ---
-Cerbos Hub provides managed, centralized authorization policy management with a generous free tier for small-scale or evaluation use.
+You use the Cerbos Hub web app to manage policy stores and deployments, and the Cerbos CLI or SDKs to automate them. Your application asks a Cerbos policy decision point for each access check through an SDK or API. It suits teams that want authorization rules kept separate from code.
+
+## What the free plan gives you
+
+The Proof of Concept plan costs $0 per month for up to 100 monthly active principals. A principal is a user or a service. You get 1 workspace and 2 developers, 2 Playgrounds, and 2 simultaneous policy decision points. You can also have up to 5 custom tenants and 5 policy builds per week.
+
+Hub keeps 1 week of unified audit logs. The plan also lists a managed CI/CD pipeline, in-browser and serverless authorization, and community support. The open-source Cerbos PDP is a separate option. It is free forever and runs anywhere, on premises or in the cloud, without the Hub features.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 100 monthly active principals or the build and PDP limits. It says pricing is based on the number of monthly active principals, counted as unique principals authorized in one calendar month.
+
+The next plan, Development, starts from $25 per month with the first 100 principals included. It comes with a 3 months free trial. It raises the limits to 3 workspaces, 5 developers, and 100 policy builds per week. The FAQ says you can cancel at any time.
+
+## Gotchas
+
+- Cerbos Hub runs in the cloud, but the policy decision points run in your environment. They need outbound internet access to fetch bundle updates.
+- The audit log retention on the free plan is only 1 week, and the Development plan raises it to 3 months.
+- The FAQ says you can return to the open-source PDP from Hub. First host your own policy files, then change the PDP settings to point at them.
+
+## Alternatives in this atlas
+
+- [Permit.io](/services/permit-io/): when you want a hosted authorization service with a free community tier counted by users.
+- [Auth0](/services/auth0/): when you need user login first, with some role handling built in.
+- [Entra ID / Azure AD](/services/entra-id-azure-ad/): when you are on Microsoft and want its roles and access policies.
+
+## Questions people ask
+
+### Is Cerbos Hub free?
+
+Yes, within limits. The Proof of Concept plan costs $0 per month for up to 100 monthly active principals, 1 workspace, and 2 developers. The open-source Cerbos PDP is also free forever.
+
+### What is a monthly active principal in Cerbos?
+
+It is a unique user or service that needs an authorization decision during one calendar month. If your app has 3000 monthly active users and 15 non-human identities, you have 3015 principals.
+
+### Does Cerbos Hub need a credit card?
+
+The pricing page lists the Proof of Concept plan at $0 and does not mention a card for it. It only says the Development plan has a 3 months free trial.

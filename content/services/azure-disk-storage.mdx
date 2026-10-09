@@ -1,8 +1,9 @@
 ---
 title: Azure Disk Storage
 description: >-
-  Azure Disk Storage provides scalable, high-performance block storage for Azure
-  virtual machines and workloads.
+  Azure Disk Storage gives Azure virtual machines persistent block storage
+  through managed disks. It suits people who run VMs on Azure and need disks
+  that outlive a restart.
 provider: Azure
 category: storage
 domain: storage
@@ -15,8 +16,11 @@ audiences:
   - team
   - enterprise
 tags:
-  - cloud
-  - storage
+  - managed disks
+  - block storage
+  - premium ssd
+  - azure vm
+  - persistent disk
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -41,30 +45,30 @@ freeTierDetails:
     - After upgrading to pay-as-you-go, excess usage, ineligible resources, and continued use after 12 months incur charges
   trialDays: 365
 useCases:
-  - Persistent storage for Azure VMs
-  - Hosting databases
-  - Storing application data
-  - Disaster recovery
+  - Operating system and data disks for an Azure virtual machine
+  - Hosting a small database on a VM
+  - Keeping application data that must survive a VM restart
+  - Moving disks between VMs or taking snapshots for recovery
 quickstartSteps:
-  - Sign up for an Azure account and activate the free tier.
-  - Navigate to the Azure Portal and select 'Create a resource'.
-  - Search for and select 'Managed Disks'.
-  - Select an eligible 64 GiB P6 Premium SSD and confirm the free-account benefit and redundancy settings in Azure Portal.
-  - Attach the disk to a virtual machine or use as standalone storage.
+  - Create an Azure free account with a Microsoft or GitHub account, a phone number, and a credit or debit card.
+  - Open the Azure portal and create a virtual machine, or create a managed disk on its own.
+  - Pick the disk type and size; choose a Premium SSD of 64 GiB (P6) to match the free offer.
+  - Check the free-account benefit and the redundancy setting in the portal before you deploy.
+  - Attach the disk to the VM, then format and mount it inside the operating system.
 whenToUse: >-
-  Use when you need reliable, persistent block storage for Azure virtual
-  machines or workloads with moderate performance needs.
+  Use it when you want a persistent disk for an Azure VM during your first 12
+  months and you can give a card.
 whenNotToUse: >-
-  Avoid if you need object storage, require more than two 64 GiB disks free, or plan to run
-  outside Azure's ecosystem.
+  Avoid it for object storage, for more than two free 64 GiB disks, for use
+  outside Azure, or if you cannot move to pay-as-you-go within 30 days.
 bestFor:
-  - Azure VM storage
-  - database hosting
-  - application data
+  - a first Azure VM
+  - small database hosting on a VM
+  - learning managed disks
 avoidIf:
-  - object storage needs
-  - large-scale free storage
-  - non-Azure environments
+  - you need object storage
+  - you need free storage after 12 months
+  - you run outside Azure
 difficulty: beginner
 productionReadiness: production-light
 status: changed
@@ -78,13 +82,53 @@ usefulnessScore: 6
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types'
 sourceUrls:
-  - 'https://marketplace.microsoft.com/en-us/product/azure-services/microsoft.freeaccountvirtualmachine-linux?tab=Overview'
-  - 'https://azure.microsoft.com/en-us/pricing/free-services/'
-  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
-  - 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
   - 'https://azure.microsoft.com/en-us/free/'
+  - 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
+  - 'https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 lastVerified: 2026-09-26
 pricingUrl: 'https://azure.microsoft.com/en-us/free/'
 ---
-Azure Disk Storage offers managed, persistent block storage for Azure VMs, with two 64 GiB Premium SSD (P6) managed disks free for 12 months for new users.
+You create and attach managed disks in the Azure portal, with the Azure CLI, or from templates. It suits people who run virtual machines on Azure.
+
+## What the free plan gives you
+
+The entry records two 64 GiB (P6) Premium SSD managed disks, free for 12 months for new Azure free account customers. They are meant to pair with the free virtual machines.
+
+The Azure free page lists the free services and says some are free for 12 months to new customers only. It does not list managed disks, and the Marketplace page behind the original source returned an error. Treat the disk amounts as recorded data, and confirm the exact disk size and redundancy setting in the portal before you deploy.
+
+Azure says managed disks come in five types: Ultra Disks, Premium SSD v2, Premium SSD, Standard SSD, and Standard HDD. Only the Premium SSD of 64 GiB matches this offer.
+
+## When you hit a limit
+
+The pricing page could not be read for the free disk amounts, so this section follows the entry's recorded data. Azure's free account page says a new account has a starting credit that you must use within 30 days. When the credit runs out or expires, your subscription and services are disabled until you upgrade.
+
+After you move to pay-as-you-go, you keep the free services for 12 months. Anything beyond the free amounts, any ineligible disk, and any disk still running after 12 months bills at normal rates. The entry rates this risk as high, because there is no hard cap.
+
+## Gotchas
+
+- You must move the free account to pay-as-you-go within 30 days to keep the first-year benefits. Until then, services stop when the credit ends.
+- Azure says only certain tiers within a service are free. A bigger disk, a different disk type, or a third disk may be billed, so check before you deploy.
+- Azure says services still in use after the 12 months keep running and bill at pay-as-you-go rates. Delete what you do not use.
+
+## Alternatives in this atlas
+
+- [Azure Blob Storage](/services/azure-blob-storage/): when you need object storage for files, not a disk for a VM.
+- [Azure File Storage](/services/azure-file-storage/): when several machines must share one network file share.
+- [Oracle Always Free Compute](/services/oracle-always-free-compute/): when you want a VM with storage that does not expire.
+
+## Questions people ask
+
+### Is Azure Disk Storage free?
+
+Only in part. The entry records two 64 GiB P6 Premium SSD managed disks free for 12 months for new Azure free account customers. After that, disks bill at normal rates.
+
+### Does Azure Disk Storage need a credit card?
+
+Yes. Azure asks for a phone number and a credit or debit card at sign-up. It places a small temporary hold and removes it after verification.
+
+### What happens after the 12 months end?
+
+Your free amounts end. Any disks you still use keep running and are billed at pay-as-you-go rates.

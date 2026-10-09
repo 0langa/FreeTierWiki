@@ -1,8 +1,9 @@
 ---
 title: Azure File Storage
 description: >-
-  Azure File Storage provides fully managed file shares accessible via SMB and
-  NFS protocols in the cloud.
+  Azure Files gives you managed cloud file shares that Windows, Linux, and
+  macOS machines can mount over SMB or NFS. It suits teams that need a shared
+  drive for apps or VMs.
 provider: Azure
 category: storage
 domain: storage
@@ -17,63 +18,117 @@ audiences:
   - enterprise
   - indie
 tags:
-  - cloud
-  - storage
+  - file share
+  - smb
+  - nfs
+  - azure files
+  - network drive
+  - lift and shift
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    5 GB standard performance file shares per month free in general-purpose v2
-    storage accounts.
+    5 GB of Azure Files storage per month, free for 12 months for new Azure
+    free account customers.
   limits:
-    - 5 GB storage per month
-    - Standard performance tier
-    - General-purpose v2 accounts only
+    - 5 GB of Azure Files storage per month
+    - 12 months from the date you create your Azure account
+    - New Azure free account customers only
   caveats:
-    - Premium tier not included
-    - Network egress and operations may incur charges
+    - Free for 12 months only; after that the storage is billed at pay-as-you-go rates
+    - Only certain tiers within a service are free, so confirm the eligible share type before you deploy
+    - Unused free storage does not roll over to the next month
   resetPeriod: monthly
   requiresCard: true
-  freeTierType: always-free
-  hasHardCap: true
-  overageRisk: low
+  freeTierType: time-limited
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
-    - Charges apply if you exceed 5 GB or use premium features
+    - Storage above the free 5 GB is billed at pay-as-you-go rates; there is no hard cap
+    - Services you still use after the 12 months end keep running and keep billing
 useCases:
-  - Lift-and-shift file shares to cloud
-  - Shared storage for VMs
-  - Cross-platform file access
-  - Backup and disaster recovery
+  - Moving an app that expects a shared drive to Azure without code changes
+  - A shared folder for several VMs
+  - Storing app settings, diagnostic logs, and dev or test tools in one place
+  - File access from Windows, Linux, and macOS clients
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - Create a general-purpose v2 storage account.
-  - Navigate to File shares and create a new file share.
-  - Connect using SMB or NFS from your client or VM.
-  - Upload or access files as needed.
+  - Create an Azure free account with a Microsoft or GitHub account, a phone number, and a credit or debit card.
+  - In the Azure portal, search for storage accounts and select + Create to make one.
+  - Open the storage account and create a file share, choosing SMB or NFS.
+  - Mount the share on a Windows, Linux, or macOS client.
+  - Copy files to the share and check your free usage in the portal.
 whenToUse: >-
-  Use when you need managed, cloud-based file shares accessible via SMB or NFS
-  for applications or users.
+  Use it when apps or VMs need a shared SMB or NFS drive on Azure, and you can
+  accept a card and a 12-month free period.
 whenNotToUse: >-
-  Avoid if you require object storage, block storage, or need high-performance
-  workloads not covered by the standard tier.
+  Avoid it if you need object storage, a free plan that never expires, a hard
+  spending cap, or a sign-up without a credit card.
 bestFor:
-  - shared file storage
-  - cloud migration
-  - hybrid environments
+  - a shared drive for a few VMs
+  - lift-and-shift of file-based apps
+  - learning Azure file shares
 avoidIf:
-  - object storage needs
-  - high-performance premium workloads
+  - you need object storage
+  - you need free storage after 12 months
+  - you need a hard cap
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-26
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: Free storage is a 12-month offer for new Azure free accounts, not always-free, and extra usage is billed without a hard cap.
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/storage/files/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
+  - 'https://azure.microsoft.com/en-us/free/'
   - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
+  - 'https://learn.microsoft.com/en-us/azure/storage/files/storage-files-introduction'
+  - 'https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-26
+lastVerified: 2026-10-09
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
 ---
-Azure File Storage offers managed file shares in the cloud with SMB and NFS support, suitable for shared storage, migration, and hybrid scenarios.
+You create a file share inside an Azure storage account, then mount it from your machines. You can set it up in the Azure portal, PowerShell, or the Azure CLI, and you can also reach it through the REST API and the Azure Storage client libraries.
+
+## What the free plan gives you
+
+New Azure free account customers get 5 GB of free storage in Azure Files for 12 months. The Azure free page lists this in its group of services that are free for 12 months to new customers.
+
+The free amount is monthly. Azure's cost guide says unused free storage does not roll over, so a month of light use does not save space for the next month. The same guide says only certain tiers within a service are free. Azure Files has an SSD tier and an HDD tier, and several billing models, so check which share type the free amount covers before you deploy.
+
+## When you hit a limit
+
+Azure does not block you at 5 GB. If your usage goes above the free amount, you pay the extra at pay-as-you-go rates. The cost guide says this applies once your account is upgraded.
+
+The free account also has a starting credit. You must move to pay-as-you-go within 30 days, or when the credit is used up, to keep receiving free services. After the 12 months end, services you still use keep running and are billed at normal rates. Delete the shares you no longer need.
+
+## Gotchas
+
+- A phone number and a credit or debit card are required. Azure may place a small temporary hold on the card and remove it after verification.
+- The free amount ends after 12 months. It is not an always-free amount.
+- Azure Files has SSD and HDD tiers and several billing models, and snapshot storage that does not fit inside a share's provisioned storage is billed separately in the provisioned v2 model. Read the pricing table before you pick a tier.
+
+## Alternatives in this atlas
+
+- [Azure Blob Storage](/services/azure-blob-storage/): when you store files as objects through an API instead of a mounted drive.
+- [Backblaze B2](/services/backblaze-b2/): when you want a free amount that does not expire.
+- [Cloud Storage](/services/cloud-storage/): when your other services run on Google Cloud.
+
+## Questions people ask
+
+### Is Azure Files free?
+
+Partly. New Azure free account customers get 5 GB of Azure Files storage for 12 months. After that, or above 5 GB, you pay normal rates.
+
+### Does Azure Files need a credit card?
+
+Yes. Azure uses a phone number and a credit or debit card to check your identity. It does not charge the card at sign-up.
+
+### What happens when I go over the free Azure Files amount?
+
+Azure bills the extra storage at pay-as-you-go rates. There is no hard cap, so watch your usage in the portal.

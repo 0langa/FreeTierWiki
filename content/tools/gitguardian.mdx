@@ -1,8 +1,9 @@
 ---
 title: GitGuardian
 description: >-
-  GitGuardian scans public and private repositories for secrets and sensitive
-  data leaks to help prevent security breaches.
+  GitGuardian finds leaked passwords, API keys, and other secrets in your code
+  repositories and tells you when one needs to be rotated. It also has a
+  command-line tool that blocks secrets before you push.
 provider: GitGuardian
 category: security
 domain: security
@@ -16,10 +17,13 @@ audiences:
   - oss
   - startup
 tags:
-  - devops
-  - security
-  - compliance
-  - monitoring
+  - secret scanning
+  - secrets detection
+  - leaked credentials
+  - ggshield
+  - pre-commit
+  - devsecops
+  - github security
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,50 +33,95 @@ freeTierDetails:
     - Up to 25 developers
     - Unlimited real-time secret scanning
     - Up to 500 historical scan detections
-    - '10,000 API calls/month'
+    - 10K API calls/month
+    - Repository scanning capacity of 1 GB
   caveats:
-    - Team and Enterprise features (endpoint protection, self-hosting, custom detectors) require paid plans
-    - Public secrets monitoring is not included in the free plan
+    - Remediation playbooks, public secrets monitoring, and SSO need paid plans
+    - Endpoint protection is an add-on on paid plans
+    - Starter has limited ggshield CLI and pre-commit hook support
+    - Validity and presence checks are low frequency or paid
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detecting leaked secrets in codebases
-  - Monitoring public repositories for sensitive data
-  - Automating compliance checks
+  - Finding hardcoded secrets in GitHub, GitLab, Bitbucket, or Azure repositories
+  - Blocking a secret before you push it with the ggshield CLI
+  - Scanning your git history for old leaks
+  - Getting incident alerts when a key is exposed
 quickstartSteps:
-  - Sign up for a GitGuardian account.
-  - 'Connect your GitHub, GitLab, or Bitbucket repositories.'
-  - Configure scanning settings and select repositories to monitor.
-  - Review detected incidents and alerts in the dashboard.
-  - Set up notifications or integrations if needed.
+  - Create a GitGuardian account at gitguardian.com; the pricing page says the Starter plan needs no credit card.
+  - Integrate your version control system, such as GitHub, GitLab, Bitbucket, or Azure Repos, and choose the repositories to monitor.
+  - Review incidents in the dashboard as the first scan finds secrets.
+  - Install the ggshield CLI; the install script also runs the ggshield auth login command.
+  - Use ggshield as a pre-commit hook or in CI, with a Personal Access Token or a Service Account key.
 whenToUse: >-
-  Use when you need to monitor repositories for accidental secret leaks or
-  enforce security compliance in your codebase.
+  Use it when you want automatic secret scanning for a team of up to 25 developers
+  and a CLI to catch secrets before commits.
 whenNotToUse: >-
-  Avoid if you need more than 25 developers, endpoint protection, or
-  on-premises deployment.
+  Avoid it if you have more than 25 developers, need endpoint protection or
+  self-hosting, or need remediation playbooks, which are paid.
 bestFor:
   - security teams
   - devops
   - open source maintainers
 avoidIf:
-  - need unlimited private repo scans
-  - require self-hosting
+  - you have more than 25 developers
+  - you need self-hosting
+  - you need public secrets monitoring
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://www.gitguardian.com'
 docsUrl: 'https://docs.gitguardian.com/'
 sourceUrls:
   - 'https://www.gitguardian.com/pricing'
+  - 'https://www.gitguardian.com'
   - 'https://docs.gitguardian.com/'
+  - 'https://docs.gitguardian.com/ggshield-docs/getting-started'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.gitguardian.com/pricing'
 ---
-GitGuardian helps developers and security teams detect and remediate secret leaks in code repositories, supporting both public and private projects with automated scanning.
+You connect repositories in the GitGuardian web dashboard and review incidents there. The open-source ggshield command-line tool runs locally, in CI, or as a pre-commit hook. It suits developers and small security teams.
+
+## What the free plan gives you
+
+The Starter plan costs $0 and is free always, with no credit card required. It includes internal secrets monitoring for up to 25 developers. You get unlimited real-time scanning and up to 500 historical scan detections. The pricing page also lists 10K API calls per month.
+
+The comparison table lists a repository scanning capacity of 1 GB on Starter, against 12 GB on Growth and 60 GB on Enterprise. Starter has limited ggshield CLI and pre-commit hook support. Paid plans add endpoint protection as an add-on.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 25 developers, 500 historical detections, or the API call limit. It lists no overage charge for Starter. Larger needs point to the Growth plan, which has up to 10 teams and extra features, and the Enterprise plan.
+
+The page says you can start free and scan your first repo in 5 minutes, with no credit card.
+
+## Gotchas
+
+- Repository scanning capacity is 1 GB on Starter, so a very large repo may need a paid plan.
+- ggshield sends files to the GitGuardian public API for scanning. The docs say only metadata is stored, and incidents from a ggshield scan do not show in your dashboard.
+- Public secrets monitoring is limited on Growth and unlimited only on Enterprise, so the free plan does not watch public GitHub for your leaks.
+
+## Alternatives in this atlas
+
+- [Semgrep](/tools/semgrep/): when you want code and supply chain scanning as well as secrets.
+- [Aikido](/services/aikido/): when you want secrets detection bundled with dependency and cloud scanning.
+- [Snyk](/services/snyk/): when you want vulnerability scanning for dependencies and code.
+
+## Questions people ask
+
+### Is GitGuardian free?
+
+Yes. The Starter plan is free always, with no credit card required, for up to 25 developers. It includes unlimited real-time scanning and up to 500 historical scan detections.
+
+### Is ggshield free to use?
+
+ggshield is open source. The docs say it works on macOS, Linux, and Windows, and it needs a GitGuardian API key to authenticate. The pricing page says Starter has limited CLI support.
+
+### How big a repository can GitGuardian scan on the free plan?
+
+The comparison table lists a repository scanning capacity of 1 GB on Starter. Growth lists 12 GB and Enterprise lists 60 GB.

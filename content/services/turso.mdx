@@ -1,8 +1,8 @@
 ---
 title: Turso
 description: >-
-  Turso is a distributed, edge-hosted SQLite database service designed for
-  low-latency, global applications.
+  Turso Cloud hosts SQLite-compatible databases, including the Turso engine and
+  libSQL. It is for developers who want many small databases close to their users.
 provider: Turso
 category: database
 domain: database
@@ -17,46 +17,55 @@ audiences:
   - team
   - oss
 tags:
-  - cdn
-  - database
+  - turso
+  - sqlite
+  - libsql
+  - edge database
   - serverless
+  - database
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier includes up to 100 databases, 5 GB storage, and 500 million monthly row reads.'
+  summary: >-
+    The Free plan costs $0 and needs no credit card. It includes 100 databases,
+    5GB of storage, 500 million rows read and 10 million rows written per
+    month, and 3GB of syncs.
   limits:
     - 100 databases
-    - 5 GB storage
-    - 500 million rows read/month
-    - 10 million rows written/month
-    - 3 GB syncs/month
+    - 5GB of storage
+    - 500 million rows read per month
+    - 10 million rows written per month
+    - 3GB of syncs per month
+    - 1 day of point-in-time restore
   caveats:
-    - 'Overages are billed automatically only once you explicitly enable them'
-    - No dedicated support on free tier
+    - Queries that exceed a monthly quota fail with a BLOCKED error, according to the usage docs
+    - Extra usage is billed only once overages are enabled, according to the pricing page
+    - Community support only on the Free plan
+    - The VACUUM command is disabled
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Deploying globally distributed apps
-  - Prototyping edge-first applications
-  - Building low-latency APIs
-  - Syncing data close to users
+  - A small SQLite database for an edge or serverless app
+  - One database per user, per tenant, or per project
+  - Prototyping a global app with low-latency reads
+  - Local-first apps that sync with embedded replicas
 quickstartSteps:
-  - 'Sign up for a Turso account at https://turso.tech/.'
-  - Install the Turso CLI following the official instructions.
-  - Create a new database using the CLI.
-  - Add locations to distribute your database globally.
-  - Connect your application using the provided connection string.
+  - Install the Turso CLI, for example with `brew install tursodatabase/tap/turso` on macOS, or `curl -sSfL https://get.tur.so/install.sh | bash` on Linux.
+  - Run `turso auth signup`. The command opens your browser to sign up.
+  - Create a database with `turso db create my-db`. Add `--tursodb` to use the Turso engine instead of libSQL.
+  - Run `turso db shell my-db` and try SQL such as CREATE TABLE and INSERT.
+  - Connect your app with one of the SDKs for TypeScript, Rust, Go, Python, and others, or use SQL over HTTP.
 whenToUse: >-
-  Use Turso when you need a fast, distributed SQLite database close to your
-  users for edge or global applications.
+  Use it when SQLite fits your app and you want many cheap databases, or reads
+  close to users, on a free plan with no card.
 whenNotToUse: >-
-  Avoid Turso if you require advanced relational features, large-scale storage,
-  or strict enterprise compliance.
+  Avoid it if you need advanced Postgres features, if your data outgrows 5GB, or
+  if hitting a monthly quota must never block queries.
 bestFor:
   - edge apps
-  - global prototypes
+  - one database per user
   - indie projects
   - student projects
 avoidIf:
@@ -65,16 +74,55 @@ avoidIf:
   - enterprise compliance required
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://turso.tech/'
 docsUrl: 'https://docs.turso.tech/'
 sourceUrls:
   - 'https://turso.tech/pricing'
-  - 'https://docs.turso.tech/'
+  - 'https://docs.turso.tech/quickstart'
+  - 'https://docs.turso.tech/help/usage-and-billing'
 pricingUrl: 'https://turso.tech/pricing'
 featured: false
 ---
-Turso offers a globally distributed, serverless SQLite database ideal for edge applications, with a generous free tier (100 databases, 5 GB storage) for small projects and prototyping.
+You manage databases with the `turso` CLI or the dashboard and connect from code with an official SDK or SQL over HTTP. It suits developers who like SQLite and want to run many small databases without managing servers.
+
+## What the free plan gives you
+
+The Free plan is $0 a month, and the pricing page says you can start free with no credit card. It includes 100 databases and 5GB of storage. Each month you get 500 million rows read, 10 million rows written, and 3GB of syncs. Point-in-time restore reaches back 1 day, and support comes from the community.
+
+Turso counts a row read as a row scan, so a query can scan more rows than it returns. Queries without an index scan the whole table. Idle databases cost only storage, which keeps a large set of mostly idle databases cheap.
+
+## When you hit a limit
+
+The usage docs say a query that exceeds a monthly quota for row reads, row writes, or total storage fails with the BLOCKED error code. The page words this for plans that include monthly quotas, so check the dashboard for the exact behavior on your plan.
+
+Extra storage, reads, writes, and syncs are billed automatically only once you enable overages. On the Developer plan, which costs $4.99 a month, this means $1 per billion extra rows read. The Free plan has no overage billing shown on the pricing page.
+
+## Gotchas
+
+- Row reads are row scans. Missing indexes, aggregate functions like count, and joins can use up the 500 million reads faster than you expect.
+- Aborted transactions still count as rows written for any row they inserted or updated.
+- The `VACUUM` command is disabled, so you cannot compact a database to cut storage.
+
+## Alternatives in this atlas
+
+- [Cloudflare D1](/services/cloudflare-d1/): when your app runs on Workers and you want SQLite-style tables there.
+- [Neon](/services/neon/): when you need Postgres instead of SQLite.
+- [Supabase Database](/services/supabase-database/): when you want Postgres with auth and storage around it.
+
+## Questions people ask
+
+### Is Turso free?
+
+Yes. The Free plan is $0 a month and needs no credit card. It includes 100 databases, 5GB of storage, and 500 million rows read per month.
+
+### What happens when I go over the Turso free limits?
+
+The usage docs say queries that exceed a quota fail with a BLOCKED error. Extra usage is billed automatically only once overages are enabled.
+
+### Does Turso offer point-in-time restore on the free plan?
+
+Yes, with a short window. The Free plan lists 1 day of point-in-time restore. The Developer plan lists 10 days.

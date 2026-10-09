@@ -1,8 +1,9 @@
 ---
 title: Abby
 description: >-
-  Abby is a type-safe feature flag and remote config service for developers,
-  with SDKs for React and Next.js.
+  Abby is an open-source service for feature flags, remote config values, and
+  A/B tests, with typed SDKs for React, Next.js, Svelte, and Angular. It suits
+  small teams that ship web apps.
 provider: Abby
 category: devops
 domain: devops
@@ -16,8 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - analytics
+  - feature flags
+  - remote config
+  - a/b testing
+  - open source
+  - react
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,7 +33,7 @@ freeTierDetails:
     - 3 feature flags or remote configs
     - 5 environments
   caveats:
-    - Paid plans are priced per project (Starter $12/mo, Startup $89/mo)
+    - The free plan is called Starter; paid plans are priced per project ($12/mo and $89/mo)
     - Open source, so you can self-host
   resetPeriod: monthly
   requiresCard: false
@@ -37,39 +41,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Roll out features gradually with feature flags
-  - Run A/B tests on UI or copy
-  - Manage remote config variables per environment
+  - Turn a new feature on for some users before everyone
+  - Run an A/B test on a page or a piece of copy
+  - Change a setting in a live app without a redeploy, using a remote config value
+  - Keep separate flag values for each environment
 quickstartSteps:
-  - Sign up for an Abby account.
-  - Create a project and add a feature flag or remote config variable.
-  - Install the SDK for React or Next.js.
-  - Read flags and config values in your app using the SDK.
+  - Create a free account on tryabby.com (the Starter plan is the free one).
+  - Create a project in the dashboard and copy its project id.
+  - Install the Abby SDK for your framework, for example the `@tryabby/next` package for Next.js.
+  - Call `createAbby` with your project id, the current environment, and the names of your flags.
+  - Wrap your app in `AbbyProvider` and read a flag with `useFeatureFlag`.
 whenToUse: >-
-  Use Abby when you need type-safe feature flags and remote config for a
-  React or Next.js app without building your own flagging service.
+  Use it for a React, Next.js, Svelte, or Angular app that needs a few typed
+  flags, one A/B test, or remote config values, and you want an open-source
+  tool you can self-host later.
 whenNotToUse: >-
-  Avoid if you need more than 1,000 events/month, 1 A/B test, or 3 flags, since
-  the free plan caps these.
+  Skip it if you need more than 3 flags or remote configs, more than 1 A/B test,
+  or more than 1,000 events a month on the free plan.
 bestFor:
-  - indie developers
-  - early-stage SaaS
-  - side projects
+  - side projects with a handful of flags
+  - React and Next.js apps
+  - teams that may self-host later
 avoidIf:
-  - need guaranteed high event volume on the free plan
-  - require enterprise support
+  - you need more than 3 flags or remote configs
+  - you need more than one A/B test
+  - you need more than 1,000 events a month
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.tryabby.com'
 docsUrl: 'https://docs.tryabby.com'
-pricingUrl: 'https://www.tryabby.com/pricing'
+pricingUrl: 'https://www.tryabby.com/#pricing'
 sourceUrls:
-  - 'https://www.tryabby.com/pricing'
-  - 'https://www.tryabby.com/docs'
+  - 'https://www.tryabby.com/#pricing'
+  - 'https://docs.tryabby.com'
+  - 'https://docs.tryabby.com/integrations/react'
+  - 'https://docs.tryabby.com/integrations/nextjs'
 featured: false
 ---
-Abby is a type-safe, open-source feature flag and remote config service with SDKs for React and Next.js, letting developers test and roll out features without building their own flagging system.
+You manage flags and config values in the Abby dashboard and read them in your code through an SDK. Abby also offers devtools for debugging flags and a first-party command line tool that the site marks as beta.
+
+## What the free plan gives you
+
+The free plan is the one Abby calls Starter. It costs nothing and covers 1,000 events per month, 1 A/B test, and 3 feature flags or remote config variables. You also get 5 environments, so you can keep separate values for development, staging, and production.
+
+The pricing page prices plans per project. It says to start with feature flags and remote config variables for free and to scale up later. Abby is open source, and the site says you can self-host it, so the free plan is not the only way to run it.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 1,000 events in a month or use more than 3 flags. It does not describe a bill or a pause either. Plan for the free plan to stop at its caps and treat any extra use as something to ask Abby about.
+
+The next paid plan is Startup at $12 per project per month. It raises the caps to 10,000 events, 10 A/B tests, and 30 flags or remote configs.
+
+## Gotchas
+
+- The free plan allows only 1 A/B test and 3 flags or remote configs, so a real product runs out of room fast.
+- Plans are priced per project, not per seat.
+- The pricing page does not say whether the free plan needs a credit card or what happens at the cap.
+
+## Alternatives in this atlas
+
+- [ConfigCat](/services/configcat/): when you need more flags or want to avoid an event cap.
+- [GrowthBook](/services/growthbook/): when you want unlimited flags and experiments for a small team.
+- [Flagsmith](/tools/flagsmith/): when you want an open-source flag service with unlimited flags.
+
+## Questions people ask
+
+### Is Abby free?
+
+Yes. The Starter plan is free and includes 1,000 events per month, 1 A/B test, 3 feature flags or remote configs, and 5 environments. Paid plans start at $12 per project per month.
+
+### Is Abby open source?
+
+Yes. The site says Abby is open source and fully typed, with SDKs for React and Next.js, and it mentions an option to self-host.
+
+### What happens when I go over the Abby free limits?
+
+The pricing page does not say. The next plan up, Startup, raises the caps to 10,000 events and 30 flags or remote configs for $12 per project per month.

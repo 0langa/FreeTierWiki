@@ -1,8 +1,8 @@
 ---
 title: IBM Cloud
 description: >-
-  IBM Cloud offers a suite of cloud services including compute, storage, AI, and
-  databases with a free tier for new users.
+  IBM Cloud is a public cloud with a catalog of compute, storage, database, and
+  AI services, where many services have an always-free Lite plan.
 provider: IBM
 category: hosting
 domain: hosting
@@ -21,10 +21,11 @@ audiences:
   - agency
 tags:
   - cloud
-  - compute
-  - storage
-  - ai
+  - lite-plan
+  - object-storage
+  - watson
   - database
+  - ai
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -33,12 +34,13 @@ freeTierDetails:
   limits:
     - 40+ products with a free Lite plan
     - One instance per service with a Lite plan
-    - Lite quotas reset monthly
+    - Lite quotas are per org and reset on the first of each month
     - $200 credit valid for 30 days
   caveats:
     - Card needed to sign up (small hold of about $1 to verify it)
-    - Lite instances are deleted after 30 days of inactivity
-    - Lite plans have resource and feature restrictions
+    - Lite instances are deleted after 30 days of no development activity
+    - Apps go to sleep after 10 days of no development activity
+    - Reaching a Lite quota suspends the service for that month
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -47,37 +49,35 @@ freeTierDetails:
   billingRiskNotes:
     - Pay-as-you-go account with a card on file; Lite plans cannot be charged, paid plans are billed
 useCases:
-  - Prototyping cloud-native apps
-  - Testing AI and ML services
-  - Learning cloud technologies
-  - Hosting small web apps
+  - Try Watson APIs and other AI services on a Lite plan
+  - Store files in Object Storage while you prototype
+  - Learn cloud tooling on a real catalog without paying
+  - Spin up a small database or service for a side project
 quickstartSteps:
-  - Sign up for an IBM Cloud account at the official website.
-  - Verify your email and log in to the IBM Cloud dashboard.
-  - Claim your $200 free credit and explore available Lite plans.
-  - >-
-    Provision a service (e.g., Cloud Foundry app, Object Storage) from the
-    catalog.
-  - Monitor usage to stay within free tier limits.
+  - Go to the IBM Cloud login page and click Create an IBM Cloud account.
+  - Sign up with an email address (a new IBMid), a Google ID, or a Red Hat ID.
+  - Enter a credit card when asked; IBM uses it to verify your identity.
+  - Click the link in the confirmation email to confirm the account.
+  - Open the catalog, filter for Lite and Free plans, and create your first service.
 whenToUse: >-
-  Use IBM Cloud when you want to experiment with a broad set of cloud services
-  or need a free tier for learning and prototyping.
+  Use it to try a wide catalog of cloud and Watson services on Lite plans while
+  you learn or prototype.
 whenNotToUse: >-
-  Avoid if you need high resource limits, advanced features, or global scale
-  without upgrading to paid plans.
+  Avoid it if you cannot give a credit card, if you need services to stay idle
+  for weeks, or if you need more than one instance of a Lite service.
 bestFor:
   - learning
   - prototyping
-  - testing
+  - testing Watson APIs
   - small apps
 avoidIf:
-  - large-scale production
-  - high resource needs
-  - multi-region deployments
+  - you have no credit card
+  - you need large-scale production
+  - you leave projects idle for weeks
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.ibm.com/cloud/free/'
@@ -85,7 +85,46 @@ docsUrl: 'https://cloud.ibm.com/docs'
 pricingUrl: 'https://www.ibm.com/cloud/free/'
 sourceUrls:
   - 'https://www.ibm.com/cloud/free/'
-  - 'https://cloud.ibm.com/docs/account?topic=account-lite'
+  - 'https://cloud.ibm.com/docs/account?topic=account-account-getting-started'
+  - 'https://cloud.ibm.com/docs/overview?topic=overview-whatis-platform'
 featured: false
 ---
-IBM Cloud provides a free tier with Lite plans and a $200 credit for new users, ideal for learning, prototyping, and exploring IBM's cloud services.
+You create an account, open the catalog in the web console, and provision services one by one. The free tier suits people who want to test a broad set of IBM services, not host one app long term.
+
+## What the free plan gives you
+
+Your account is a Pay-as-you-go account with a card on file. It includes access to more than 40 products that have an always-free Lite plan. IBM says these plans never expire and cannot be charged. You can provision one instance of any service that has a Lite plan.
+
+New accounts also get a $200 credit for the first $200 of apps and services. The credit is available for 30 days and works on any IBM Cloud product. Lite plan quotas are based on usage, and they renew on a monthly basis or on a one-off usage basis.
+
+## When you hit a limit
+
+Reaching a quota on a Lite plan suspends the service for that month. Quota limits are per org, not per instance, and a new instance in the same org shows the usage of earlier ones. The quotas reset on the first day of every month.
+
+Inactivity is a second limit. After 10 days of no development activity, your apps go to sleep. After 30 days of no development activity, your Lite service instances are deleted. Paid plans are billed monthly once you pass the free threshold, and you can set spending alerts.
+
+## Gotchas
+
+- IBM asks for payment details before you create the account. It puts a hold of about $1 on the card to check it.
+- Lite service instances are deleted after 30 days of no development activity, so unattended test setups can disappear.
+- Using a non-Lite plan on the free tier needs an upgrade to a Pay-as-you-go account, and the usage beyond the free tier is billed.
+
+## Alternatives in this atlas
+
+- [Oracle Always Free Compute](/services/oracle-always-free-compute/): when you want a free virtual machine instead of a catalog of managed services.
+- [Azure App Service](/services/azure-app-service/): when you prefer Microsoft's catalog and want a managed web app host.
+- [Koyeb](/services/koyeb/): when you only need to deploy a single web service from Git.
+
+## Questions people ask
+
+### Is IBM Cloud free?
+
+Partly. More than 40 products have an always-free Lite plan, and new accounts get a $200 credit for 30 days. You need a credit card to create the account.
+
+### Does IBM Cloud need a credit card for the free tier?
+
+Yes. IBM asks for payment details up front and places a small hold, typically around $1, to check the card. IBM says Lite plans never incur charges; you are billed only when you go beyond the free tier of a non-Lite plan.
+
+### What happens when my IBM Cloud Lite plan runs out?
+
+The service is suspended for that month, and the quota resets on the first of the month. Lite instances are also deleted after 30 days of no development activity.

@@ -1,8 +1,8 @@
 ---
 title: Supabase Auth
 description: >-
-  Supabase Auth provides user authentication and authorization for web and
-  mobile apps with social logins and email/password support.
+  Supabase Auth is the sign-in service inside Supabase. It handles email and password, magic links,
+  social login, and sessions, and ties users to your Postgres database.
 provider: Supabase
 category: auth
 domain: auth
@@ -20,12 +20,16 @@ audiences:
 tags:
   - auth
   - open-source
+  - postgres
+  - row level security
+  - social login
+  - magic link
+  - oauth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes up to 50,000 monthly active users with core
-    authentication features, unlimited total users, and no credit card
-    required.
+    Free tier includes up to 50,000 monthly active users with core authentication features,
+    unlimited total users, and no credit card required.
   limits:
     - '50,000 monthly active users'
     - Unlimited total users
@@ -33,29 +37,34 @@ freeTierDetails:
     - Basic multi-factor authentication and custom SMTP included
   caveats:
     - Enterprise SSO (SAML 2.0) and advanced (phone) MFA require paid plans
-    - Free projects pause after 1 week of inactivity, limited to 2 active projects
+    - 'Free projects pause after 1 week of inactivity, limited to 2 active projects'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Add authentication to web or mobile apps
-  - 'Enable social login (Google, GitHub, etc.)'
-  - Implement passwordless login
-  - Manage user sessions with JWT
+  - Email and password or magic link sign-in for a web or mobile app
+  - Social login with providers such as Google and GitHub
+  - Row Level Security rules that depend on the signed-in user
+  - Anonymous sign-ins that you upgrade later
+  - Use Supabase as an OAuth provider for other apps
 quickstartSteps:
-  - Sign up for a Supabase account.
-  - Create a new Supabase project.
-  - Navigate to the Auth section in the dashboard.
-  - 'Configure authentication providers (e.g., email, Google).'
-  - Integrate Supabase Auth SDK in your app.
+  - Sign up for Supabase and create a new project in the dashboard.
+  - >-
+    Create your app, for example a React app with `npm create vite@latest my-app -- --template
+    react`.
+  - Install the client library with `npm install @supabase/supabase-js`.
+  - Copy the project URL and publishable key into your environment variables.
+  - >-
+    Turn on the sign-in providers you want under Authentication in the dashboard, then call the
+    sign-up and sign-in methods from your app.
 whenToUse: >-
-  Use when you need fast, easy authentication for web or mobile apps with social
-  login and email/password support.
+  Use Supabase Auth when you also want a Postgres database and want sign-in that works with Row
+  Level Security, for a prototype or small app.
 whenNotToUse: >-
-  Avoid if you require enterprise SSO, advanced MFA, or need to self-host
-  authentication infrastructure.
+  Avoid it if you need enterprise SSO on the free plan, advanced MFA, or authentication hosted apart
+  from a database project.
 bestFor:
   - MVPs
   - side projects
@@ -64,11 +73,11 @@ bestFor:
 avoidIf:
   - enterprise SSO required
   - custom auth flows
-  - on-premises hosting
+  - apps that sit idle for a week
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://supabase.com/docs/reference/auth'
@@ -76,7 +85,48 @@ docsUrl: 'https://supabase.com/docs/guides/auth'
 sourceUrls:
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/auth'
+  - 'https://supabase.com/docs/guides/auth/quickstarts/react'
+  - 'https://supabase.com/docs/guides/auth/rate-limits'
+  - 'https://supabase.com/docs/guides/platform/cost-control'
 pricingUrl: 'https://supabase.com/pricing'
 featured: false
 ---
-Supabase Auth is a managed authentication service supporting social logins, email/password, and passwordless flows, ideal for quickly securing apps without complex setup. Free projects (and their auth) pause after a week of inactivity.
+You use Supabase Auth through the Supabase client libraries or its REST API, and you manage providers and users in the Supabase dashboard. It suits developers who already build on Supabase or want auth next to Postgres.
+
+## What the free plan gives you
+
+Supabase Auth is part of a Supabase project. The Free plan costs $0 and includes 50,000 monthly active users. The pricing page lists total users as unlimited, and social OAuth sign-in and basic multi-factor authentication are included.
+
+The Free plan comes with project limits. Free projects are paused after 1 week of inactivity, and you can have 2 active projects. The Pro plan includes 100,000 monthly active users and then charges $0.00325 per monthly active user. The pricing page marks SSO for the Supabase dashboard, automatic backups, and certifications such as SOC2 as not included in Free.
+
+## When you hit a limit
+
+Supabase's cost-control guide says you are not charged while using the Free Plan. It describes the Spend Cap, which is a Pro plan feature: with it on, further use of an item is disallowed after the quota is used up, until the next billing cycle. The guide does not describe exactly what happens on the Free plan when you pass a quota.
+
+Auth also has rate limits on its endpoints, which protect against abuse. When you pass them, Supabase Auth returns a 429 error. Most limits use a token bucket with a capacity of 30 requests, so a short burst is fine but steady traffic above the rate is denied. Some limits can be changed in the project's Authentication settings.
+
+## Gotchas
+
+- A free project pauses after 1 week of inactivity.
+- Only 2 active projects fit on the Free plan, so a dev, staging, and production setup needs a paid plan.
+- Enterprise SSO (SAML) and phone-based advanced MFA need a paid plan, according to the pricing page.
+
+## Alternatives in this atlas
+
+- [Firebase Auth](/services/firebase-auth/): when you want an auth SDK for web and mobile apps from Google.
+- [Clerk](/services/clerk/): when you want prebuilt sign-in components and organizations.
+- [Logto](/services/logto/): when you want open-source auth that is not tied to a database project.
+
+## Questions people ask
+
+### Is Supabase Auth free?
+
+Yes. The Free plan includes up to 50,000 monthly active users. It costs $0, and you are not charged while on it.
+
+### Does Supabase Auth pause?
+
+The project does. Free projects are paused after 1 week of inactivity, with a limit of 2 active projects.
+
+### Does Supabase Auth need a credit card?
+
+The pricing page shows a Start for Free button and does not mention a card.

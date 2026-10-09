@@ -1,15 +1,13 @@
 ---
 title: Tomorrow.io Weather API
-description: >-
-  Provides hyper-local, real-time and forecasted weather data via a
-  developer-friendly API.
+description: "Tomorrow.io Weather API gives real-time and forecast weather data, plus air quality, pollen, and other layers, through a REST API. It suits developers building weather features, alerts, or dashboards."
 provider: Tomorrow.io
 category: apis
 domain: apis
 subtypes:
-  - weather-api
-  - forecasting
-  - climate
+  - "weather-api"
+  - "forecasting"
+  - "air-quality"
 audiences:
   - student
   - indie
@@ -17,9 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - cli
-  - data
+  - "weather api"
+  - "weather forecast"
+  - "real-time weather"
+  - "air quality api"
+  - "pollen"
+  - "weather alerts"
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan offers 500 API calls per day (25/hour, 3/second), 5-day forecasts, and core weather data layers.'
@@ -38,43 +39,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Weather widgets for apps or websites
-  - Alerting users about severe weather
-  - Integrating weather data into IoT devices
+  - "Show current weather and a 5-day forecast in an app or website"
+  - "Send a user a weather alert for one monitored location"
+  - "Add air quality or pollen data to a health or outdoor app"
+  - "Pull timelines of weather data for a dashboard"
+  - "Feed weather readings into an IoT or automation project"
 quickstartSteps:
-  - Sign up for a Tomorrow.io account.
-  - Navigate to the API dashboard and generate your API key.
-  - Review the API documentation for endpoint details.
-  - Make your first API request using your key.
-  - Integrate the API into your application.
-whenToUse: >-
-  Use when you need reliable, real-time or forecasted weather data for apps,
-  dashboards, or automation.
-whenNotToUse: >-
-  Avoid if you need unlimited requests, advanced analytics, or highly
-  specialized climate datasets without paying.
+  - "Sign up for a Tomorrow.io account. The pricing page says it takes only a few minutes."
+  - "Open your Dashboard and copy the default private API key. Keep it on the server side, because it has full privileges."
+  - "Send a GET request to https://api.tomorrow.io/v4/weather/realtime with the location and apikey parameters for current conditions."
+  - "Call https://api.tomorrow.io/v4/weather/forecast for the forecast. You can pass the key as the apikey query parameter or in a request header."
+  - "Handle errors: a missing or bad key returns a 403 error, and going over the plan limit returns a 429 error."
+whenToUse: "Use when you need real-time or forecast weather data for a small app, dashboard, or prototype and a 5-day forecast with core data layers is enough."
+whenNotToUse: "Avoid if you need a forecast longer than 5 days, more than 24 hours of history, more than one monitored location, or higher rate limits without paying."
 bestFor:
-  - weather widgets
-  - alerting
-  - IoT integrations
-  - prototyping
+  - "weather widgets"
+  - "single-location alerts"
+  - "prototyping"
+  - "small dashboards"
 avoidIf:
-  - need unlimited API calls
-  - require advanced analytics
-  - need unrestricted historical data
+  - "long-range forecasts"
+  - "deep historical data"
+  - "many monitored locations"
+  - "high request volumes"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.tomorrow.io/weather-api/'
-docsUrl: 'https://docs.tomorrow.io/reference/overview'
+docsUrl: 'https://docs.tomorrow.io/reference/welcome'
 pricingUrl: 'https://www.tomorrow.io/weather-api/pricing/'
 sourceUrls:
   - 'https://www.tomorrow.io/weather-api/pricing/'
   - 'https://support.tomorrow.io/hc/en-us/articles/20273728362644-Free-API-Plan-Rate-Limits'
-  - 'https://docs.tomorrow.io/reference/overview'
+  - 'https://docs.tomorrow.io/reference/welcome'
+  - 'https://docs.tomorrow.io/reference/rate-limiting'
+  - 'https://docs.tomorrow.io/reference/api-authentication'
 featured: false
 ---
-Tomorrow.io Weather API offers developers a simple way to access real-time and forecasted weather data, suitable for apps, dashboards, and IoT integrations. The free tier is generous for prototyping and small projects, but advanced features and higher usage require upgrading to paid plans.
+You sign up, copy a private API key from your dashboard, and call REST endpoints such as realtime and forecast from your own code. It suits developers who build weather widgets, single-location alerts, or small dashboards.
+
+## What the free plan gives you
+
+The Free plan is for individuals or teams just getting started. It includes a 5-day forecast, weather timelines and trendlines, core weather data layers, and industry-based insight templates. It also gives you 24 hours of historical weather data, 1 automatically monitored location, and 1 weather-based alert.
+
+The plan also limits how many requests you can make per day, per hour, and per second. The provider's support article on free plan rate limits holds the figures, but this check could not open it. Look up your exact limits there or in your dashboard before you build on them.
+
+The pricing page does not state a card requirement or a price for the Free plan.
+
+## When you hit a limit
+
+The docs say each plan has a request limit per hour and per day. When you pass it, the API answers with a 429 error. Only Enterprise accounts get headers that show the remaining limit, so on the free plan you must count your own calls.
+
+Each API key has its own rate limits. If you need a higher limit, the docs tell you to contact the provider. The pages show no pay-as-you-go charge for the free plan, so going over means failed requests, not a bill.
+
+## Gotchas
+
+- Your API key has full privileges. Keep it on a server and do not put it in browser code.
+- A request without a valid key returns a 403 error.
+- The free plan watches one location and sends one alert. More locations and alerts need a paid plan.
+
+## Alternatives in this atlas
+
+- [Calendarific](/services/calendarific/): when you need holiday dates instead of weather data, with a free plan that needs no card.
+- [Currency Beacon](/services/currencyscoop/): when your project needs exchange rates, with a free sandbox plan that needs no card.
+
+## Questions people ask
+
+### Is Tomorrow.io Weather API free?
+
+Yes, there is a Free plan. It gives a 5-day forecast, core data layers, 24 hours of history, 1 monitored location, and 1 alert.
+
+### What happens when I go over the Tomorrow.io free limit?
+
+You get a 429 error until your limit window passes. The docs say to contact the provider if you need a higher limit.
+
+### Does Tomorrow.io Weather API need a credit card?
+
+The pricing page does not say. You sign up for an account and take an API key from your dashboard.

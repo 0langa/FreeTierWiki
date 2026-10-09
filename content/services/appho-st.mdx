@@ -1,8 +1,9 @@
 ---
 title: Appho.st
 description: >-
-  AppHost distributes iOS (.ipa) and Android (.apk) builds to testers and internal users through
-  install links.
+  AppHost hosts your iOS and Android app files and gives you one private link
+  to share with testers or staff. It is for developers and companies that hand
+  out enterprise or development builds without the app stores.
 provider: Appho.st
 category: devops
 domain: devops
@@ -15,9 +16,10 @@ audiences:
   - oss
   - startup
 tags:
-  - mobile
-  - devops
-  - testing
+  - app distribution
+  - ipa
+  - apk
+  - beta testing
 pricingModel: free
 freeTierDetails:
   summary: 'Free plan: 5 apps and 50 downloads per month, with files up to 100 MB.'
@@ -25,8 +27,7 @@ freeTierDetails:
     - 5 apps
     - 50 downloads per month
     - Files up to 100 MB
-    - Links do not expire
-    - App version and file upload API
+    - Upload API for build pipelines
   caveats:
     - >-
       Free accounts inactive for 90 days may have their files removed (re-upload keeps the same
@@ -37,31 +38,78 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Send test builds to QA
-  - Share internal enterprise apps
-  - Inspect IPA or APK metadata
+  - Send a test build to QA with one link
+  - Hand an internal enterprise app to staff with one link
+  - Check the metadata inside an IPA or APK file
+  - Upload builds from a build pipeline through the API
 quickstartSteps:
-  - Sign up at appho.st.
-  - Upload an .ipa or .apk file.
-  - Share the install link with testers.
-whenToUse: Use to share a few iOS or Android test builds without an app store.
-whenNotToUse: Avoid if testers download more than 50 times a month.
+  - Go to appho.st and sign in with Google or an email address.
+  - Upload an iOS or Android build to your account.
+  - Copy the single private share link for the app.
+  - Send the link to your testers. The link stays the same when you upload a new version.
+  - Optional - generate an API key under Profile to upload builds from your build pipeline.
+whenToUse: >-
+  Use it to hand a few iOS or Android builds to a small, chosen group, with
+  one link that always points to the latest version.
+whenNotToUse: >-
+  Skip it if your apps pass 50 downloads a month, if a build is larger than
+  100 MB, or if you want a public store listing.
 bestFor:
-  - mobile testers
-  - small teams
+  - QA builds for a small team
+  - internal company apps
+  - a single link for iOS and Android
 avoidIf:
-  - many testers
+  - you pass 50 downloads in a month
+  - your build is larger than 100 MB
+  - you want to keep old versions on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://appho.st'
-docsUrl: 'https://docs.appho.st'
 sourceUrls:
   - 'https://appho.st'
 featured: false
 pricingUrl: 'https://appho.st'
-lastVerified: '2026-10-01'
+lastVerified: '2026-10-09'
 ---
-AppHost hosts mobile app builds for testers. It is not a web hosting service.
+You use the web dashboard to upload a build and get a share link. A signed-upload API also lets a build pipeline push files from the command line.
+
+## What the free plan gives you
+
+The Free plan covers 5 apps and 50 downloads per month. Each file can be up to 100 MB. The plan keeps one app version, so you cannot roll back to old builds, and download stats are not included.
+
+One private link serves both the iOS and Android version of an app and always has the latest version. The same link keeps working when you upload a new version. The site also offers a free IPA and APK inspector, so you can read the metadata inside a package file. Basic is the next step up, with 10 apps and 250 downloads per month.
+
+## When you hit a limit
+
+When you pass the monthly download limit, AppHost shows a message that you are over your app download limit for the month. People who open your share links cannot install the app until the limit resets or you move to a paid plan.
+
+Free accounts with more than 90 days of inactivity may have their files removed. You can upload them again, and they use the same link. The site suggests keeping an app downloaded now and then, or going on a paid plan, to avoid this.
+
+## Gotchas
+
+- The Free plan has no download stats, so you cannot see where the 50 downloads went.
+- The Free plan keeps only one version of an app, and paid plans keep more.
+- Share links are private links for the people you send them to, not a public store listing.
+
+## Alternatives in this atlas
+
+- [InstallOnAir](/services/installonair/): when you want another way to share app builds with testers.
+- [Appcircle](/tools/appcircle/): when you also want builds in the cloud before you send them to testers.
+- [Bitrise](/services/bitrise/): when you want a mobile CI service that also sends builds to testers.
+
+## Questions people ask
+
+### Is AppHost free?
+
+Yes. The Free plan allows 5 apps and 50 downloads per month, with files up to 100 MB. Basic starts at $3.49 per month on monthly billing.
+
+### Does AppHost need a credit card?
+
+The site lists no card for the Free plan, and you can sign in with Google or an email address.
+
+### What happens when I go over the AppHost download limit?
+
+Users who open your share links cannot install the app until the limit resets or you upgrade. AppHost shows a message that you are over your limit.

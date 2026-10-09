@@ -1,8 +1,8 @@
 ---
 title: Azure AI Vision
 description: >-
-  Azure AI Vision provides cloud-based image and video analysis APIs for
-  extracting information and insights from visual content.
+  Azure AI Vision analyzes images to return tags, captions, objects, and text. It is for developers
+  who add image understanding or OCR to apps.
 provider: Azure
 category: ai
 domain: ai
@@ -20,62 +20,112 @@ audiences:
   - oss
   - agency
 tags:
-  - ai
-  - images
-  - video
-  - cloud
+  - computer vision
+  - image analysis
+  - ocr
+  - image captioning
+  - object detection
+  - image tagging
 pricingModel: freemium
 freeTierDetails:
-  summary: Free (F0) tier includes 5,000 transactions per month for image analysis, including OCR.
+  summary: 'Free (F0) tier includes 5,000 transactions per month for image analysis, including OCR.'
   limits:
     - '5,000 transactions/month for Image Analysis (tagging, OCR, object detection, and more)'
-    - '20 transactions/minute rate limit'
+    - 20 transactions/minute rate limit
   caveats:
-    - Usage stops once the monthly free limit is reached; no overage billing on the F0 tier
-    - Facial recognition is a separate Face API product with its own free tier, not part of this quota
+    - 'The pricing page does not say what happens after the 5,000 free transactions'
+    - 'Face recognition is a separate Face service; the Face feature listed in Image Analysis counts toward this quota'
+    - 'Microsoft says Image Analysis 4.0 is deprecated and will be retired on September 25, 2028'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Extracting text from images
-  - Detecting objects and faces in photos
-  - Automating image moderation
-  - Video content analysis
+  - Generate captions and tags for photos
+  - Read printed and handwritten text with OCR
+  - Find objects in an image
+  - Crop thumbnails around the area of interest
 quickstartSteps:
-  - Sign in to the Azure portal and create an AI Vision resource.
-  - Retrieve your API key and endpoint from the resource overview.
-  - Install the Azure AI Vision SDK or use REST API in your application.
-  - Authenticate using your API key and endpoint.
-  - Send an image or video to the API and process the response.
+  - Create an Azure account or use an existing subscription.
+  - 'In the Azure portal, create a Computer Vision resource and pick the free F0 pricing tier.'
+  - 'Select Go to resource, open Keys and Endpoint, and copy a key and the endpoint.'
+  - Store them as the VISION_KEY and VISION_ENDPOINT environment variables.
+  - >-
+    Install the client library for your language, for example the Azure.AI.Vision.ImageAnalysis
+    package for .NET.
+  - 'Send an image URL or file and read the caption, tags, or text in the response.'
 whenToUse: >-
-  Use when you need scalable, cloud-based image or video analysis without
-  building custom ML models.
+  Use when you need image tags, captions, or OCR for a prototype and about 5,000 calls a month is
+  enough.
 whenNotToUse: >-
-  Avoid if you require on-premises processing, real-time edge inference, or need
-  unlimited free usage.
+  Avoid if you need a long-lived service, on-premises processing, or custom model training. Image
+  Analysis 4.0 is scheduled for retirement.
 bestFor:
-  - image analysis
-  - OCR
-  - object detection
-  - face recognition
+  - image analysis prototypes
+  - OCR on photos
+  - alt text generation
+  - learning computer vision APIs
 avoidIf:
+  - need a service that lasts past 2028
   - offline processing
   - large-scale free usage
-  - custom model training
+  - need custom model training
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
-officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-vision/'
+officialUrl: 'https://azure.microsoft.com/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/computer-vision/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/computer-vision/'
-  - 'https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview-image-analysis'
+  - >-
+    https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/quickstarts-sdk/image-analysis-client-library-40
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Vision offers cloud APIs for extracting information from images, including OCR, tagging, and object detection, with a free (F0) tier of 5,000 transactions per month for development and prototyping. Face recognition is a separate Face API product with its own free tier.
+You create a Computer Vision resource in the Azure portal, then call it from the REST API or an SDK. It suits developers who add captions, tags, or text reading to an image feature, and who accept that the current service is on a retirement path.
+
+## What the free plan gives you
+
+The Free (F0) tier includes 5,000 free transactions per month. The pricing page also lists a rate of 20 transactions per minute. The same 5,000 monthly amount and 20 per minute rate appear for Image Analysis model customization inferencing.
+
+Image Analysis returns tags, captions, objects, smart crop regions, and text. The Read API reads printed and handwritten text from photos and documents. Face recognition is a separate Face service with its own pages.
+
+The paid S1 tier bills per 1,000 transactions in volume bands. The price fields on the page are blank dashes, so use the Azure pricing calculator.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 5,000 free transactions. The page also lists 20 transactions per minute and does not say what happens above that rate.
+
+Upgrading to S1 is a separate step in the Azure portal. Nothing on the pages says F0 moves up on its own. Plan a paid tier or a different service before you rely on the feature in production. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Microsoft says Image Analysis 4.0 is deprecated and will be retired on September 25, 2028. After that, calls fail, and the docs point to a migration guide.
+- The overview now lists Image Analysis and OCR as legacy services.
+- Image captioning in version 4.0 works only in certain Azure regions. Version 3.2 covers other regions.
+
+## Alternatives in this atlas
+
+- [Azure AI Document Intelligence](/services/azure-ai-document-intelligence/): when you need to extract fields from forms, receipts, and invoices.
+- [Azure AI Custom Vision](/services/azure-ai-custom-vision/): when you want a model trained on your own labeled images.
+
+## Questions people ask
+
+### Is Azure AI Vision free?
+
+Yes, within limits. The F0 tier includes 5,000 transactions per month at 20 transactions per minute.
+
+### Is Azure AI Vision being retired?
+
+Microsoft says Image Analysis 4.0 will be retired on September 25, 2028. The docs recommend moving to the alternatives in the migration guide.
+
+### Does Azure AI Vision include OCR?
+
+Yes. The Read API extracts printed and handwritten text, and the OCR service is listed in the overview as a legacy service.

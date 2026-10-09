@@ -1,8 +1,8 @@
 ---
 title: IPLocate
 description: >-
-  IPLocate provides a free API for IP geolocation lookup with fast response and
-  simple integration.
+  IPLocate is an IP geolocation API that also returns threat, company, and
+  hosting data. The free key gives full access with a daily request allowance.
 provider: IPLocate
 category: apis
 domain: apis
@@ -16,11 +16,12 @@ audiences:
   - startup
   - oss
 tags:
-  - networking
-  - api
-  - search
-  - integration
-pricingModel: free
+  - ip geolocation
+  - geoip
+  - vpn detection
+  - proxy detection
+  - ip lookup
+pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free forever plan allows 1,000 requests per day with full data access, no
@@ -38,23 +39,22 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detecting user location for personalization
-  - Blocking or allowing access by region
-  - Logging IP geolocation data
-  - Basic analytics
-  - Integrating with web or mobile apps
+  - 'Personalize a site by a visitor''s location and currency'
+  - Block or allow access by region
+  - 'Flag VPN, proxy, or hosting traffic at sign-up'
+  - Log location data with requests
+  - Add location to web or mobile apps
 quickstartSteps:
-  - 'Get a free API key at https://www.iplocate.io.'
-  - Review API documentation on the homepage.
-  - >-
-    Make a GET request to https://iplocate.io/api/lookup/{IP}?apikey={key}.
-  - Parse the JSON response in your application.
-  - Monitor your daily usage to stay within the free tier limit.
+  - Sign up on the IPLocate site and get a free API key.
+  - 'Open the docs and pick a client library, or use plain HTTP.'
+  - 'Send a GET request to `https://iplocate.io/api/lookup/17.253.0.0?apikey=YOUR_KEY` with a real address.'
+  - Read the JSON response in your code.
+  - Watch your daily usage so you stay inside the free allowance.
 whenToUse: >-
-  Use IPLocate when you need simple, low-volume IP geolocation for web or app
-  projects with a free API key and no credit card.
+  Use IPLocate when you want full IP intelligence data from a free key, at low
+  daily volume, and without a credit card.
 whenNotToUse: >-
-  Avoid if you need high request volumes, advanced data, guaranteed uptime, or
+  Avoid it if you need more than 1,000 requests a day for free, an SLA, or
   enterprise support.
 bestFor:
   - prototyping
@@ -67,8 +67,8 @@ avoidIf:
   - strict compliance needs
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.iplocate.io'
@@ -77,6 +77,45 @@ pricingUrl: 'https://www.iplocate.io/pricing'
 sourceUrls:
   - 'https://www.iplocate.io'
   - 'https://www.iplocate.io/pricing'
+  - 'https://www.iplocate.io/docs'
 featured: false
 ---
-IPLocate offers a free, easy-to-use IP geolocation API with a free API key, suitable for low-volume applications and no credit card required.
+You get a free API key on the website, then send a GET request to `iplocate.io/api/lookup/` with an IP address and your key. There are also client libraries and an MCP server. It suits developers who want full IP data on a free key without a credit card.
+
+## What the free plan gives you
+
+The free plan gives you 1,000 requests per day, free forever, with no credit card. The pricing page says there are no other limits, and that you get the same data, accuracy, and API as paid users. Free access includes geolocation, threat detection, company, and hosting data.
+
+Paid use is optional. You can buy credits in bulk, where one request is one credit, or pay a fixed price for a monthly quota that starts from 100,000 requests a month. Custom plans with an SLA are available on request. The site also offers free downloadable databases for country and ASN data.
+
+## When you hit a limit
+
+The pricing page does not say what the API returns after the 1,000 daily requests. It also lists no overage charge for the free plan. The pages do not describe a bill for free-key usage.
+
+To get more room, buy credits or a monthly quota. The pricing page says all plans use the same API endpoints, so you do not need to change your code.
+
+## Gotchas
+
+- You need a free API key. The service is not anonymous.
+- The free plan lists no SLA. The pricing page offers an SLA only in custom packages.
+- The free databases cover country and ASN only. City-level data from the database products is paid.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/): when country-level data is enough and you want no request quota.
+- [Geolocated.io](/services/geolocated-io/): when you want a daily allowance and a choice of server region.
+- [ipbase.com](/services/ipbase-com/): when you want a small monthly allowance and batch lookups.
+
+## Questions people ask
+
+### Is IPLocate free?
+
+Yes. The free plan gives you 1,000 requests per day, forever, with no credit card, and the same data as paid plans.
+
+### Does IPLocate need an API key?
+
+Yes. You get a free API key when you sign up, and you pass it as the `apikey` parameter in your request.
+
+### What happens when I go over the IPLocate free limit?
+
+The pricing page does not say. It lists no overage charge for the free plan, and you can buy credits or a monthly quota for more requests.

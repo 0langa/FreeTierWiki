@@ -1,8 +1,8 @@
 ---
 title: Koyeb
 description: >-
-  Koyeb offers a serverless platform for deploying web apps, APIs, and services
-  with global scaling and zero-downtime deployments.
+  Koyeb runs web services, workers, and Postgres databases from a Git
+  repository or a container image, on CPU or GPU instances.
 provider: Koyeb
 category: hosting
 domain: hosting
@@ -39,43 +39,44 @@ freeTierDetails:
     - Free instance is limited to 1 per organization, in Frankfurt or Washington, D.C.
     - Not for production; no volumes, no worker services
     - Paid plans start at $29/month (Pro) plus metered compute
+    - The plan selected at sign-up is Pro, and the pro-rated Pro fee is charged after the card check; Starter bills only usage beyond the free Instance
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Bandwidth beyond the free 100GB/month is billed at $0.04/GB
+    - Bandwidth beyond the free 100GB/month is not charged yet; Koyeb says it will cost $0.04/GB after notice
+    - Instances beyond the free one are billed per second, with no spending limit yet
 useCases:
-  - Deploying static sites
-  - Hosting APIs
-  - Running background jobs
-  - Prototyping SaaS apps
+  - Hosting a small web app or API from GitHub
+  - Running a container image from a registry
+  - A small Postgres database for a side project
+  - Prototyping a service before moving to a paid instance
 quickstartSteps:
-  - Sign up for a free Koyeb account.
-  - Connect your GitHub or GitLab repository.
-  - Create a new service and select your repository.
-  - Configure build and deployment settings.
-  - Deploy and access your app via the provided URL.
+  - Sign up at koyeb.com and add a credit card for the account check.
+  - Check the plan in Usage and billing; Starter keeps only the free Instance free.
+  - Create a Web Service and connect your GitHub repository, or pick a container image.
+  - Let Koyeb build with a Dockerfile or buildpacks, and choose the free Instance in Frankfurt or Washington, D.C.
+  - Deploy and open the public URL Koyeb gives the service.
 whenToUse: >-
-  Use Koyeb when you need to quickly deploy web apps or APIs with minimal
-  infrastructure management and global scaling.
+  Use Koyeb to put one small web app or API online from GitHub or a container
+  image, if you are fine adding a credit card.
 whenNotToUse: >-
-  Avoid Koyeb if you require custom VM configurations, persistent local storage,
-  or need to run stateful workloads.
+  Avoid it for production, for more than one service, for background workers or
+  volumes on the free Instance, or if you cannot give a card.
 bestFor:
-  - prototyping
-  - side-projects
-  - MVPs
-  - student projects
+  - a single hobby web app
+  - trying a container platform
+  - small demos
 avoidIf:
-  - need custom OS
-  - require stateful workloads
-  - need advanced networking
+  - production traffic
+  - no credit card
+  - background workers or volumes
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://koyeb.app/'
@@ -85,6 +86,46 @@ sourceUrls:
   - 'https://www.koyeb.com/pricing'
   - 'https://www.koyeb.com/docs/faqs/pricing'
   - 'https://www.koyeb.com/docs/reference/instances'
+  - 'https://www.koyeb.com/docs/run-and-scale/scale-to-zero'
+  - 'https://www.koyeb.com/docs/build-and-deploy/build-from-git'
 featured: false
 ---
-Koyeb is a modern serverless platform designed for fast, global deployment of web applications and APIs with a generous free tier for small projects.
+You connect a GitHub repository or pick a container image, and Koyeb builds it with a Dockerfile or buildpacks on every push. This page covers the free Instance that every organization gets.
+
+## What the free plan gives you
+
+Each organization gets one free web Service. It runs on a free Instance with 512MB of RAM, 0.1 vCPU, and 2GB of SSD, in either Frankfurt or Washington, D.C. You also get one free Postgres database with 5 hours of active time and 1GB of storage. The free database runs in Washington, D.C., Frankfurt, or Singapore and scales to zero when idle.
+
+Koyeb gives you 100GB of outbound bandwidth per month for free, and the pricing page lists ten free custom domains with automatic SSL. Koyeb says the free Instance is for testing the platform and hobby projects, not for production apps.
+
+## When you hit a limit
+
+Koyeb says you will never be charged for the free web Service. When it gets no traffic for 1 hour, it scales down to zero. The next request wakes it up, with a cold start that typically takes 1 to 5 seconds. HTTP/2 requests cannot wake a sleeping Service.
+
+The other limits are softer. Outbound bandwidth beyond 100GB is not charged yet; the FAQ says it will cost $0.04 per GB once Koyeb starts charging, and it will tell you first. For the free database, the pricing page does not say what happens after the 5 hours of active time. Any Instance beyond the free one is billed per second, and there is no spending limit yet.
+
+## Gotchas
+
+- A credit card is required. Koyeb checks it with a $29 hold and cancels the hold; your bank can take 7 to 21 days to release it.
+- The FAQ says the plan selected at sign-up is Pro, and the pro-rated Pro amount is charged after the card check. Starter is the pay-as-you-go plan that charges only for usage beyond the free Instance; you switch to it in Usage and billing.
+- Each organization can have only one free Instance. A second service, a worker, or a volume is paid usage.
+
+## Alternatives in this atlas
+
+- [Render](/services/render/): when you want to compare a free web service from another host.
+- [Neon](/services/neon/): when you mainly need Postgres and not a web service.
+- [Northflank](/services/northflank/): when you want to compare another container platform.
+
+## Questions people ask
+
+### Is Koyeb free?
+
+Yes, within limits. Each organization gets one free web Service with 512MB of RAM and 0.1 vCPU, and one free Postgres database. You still need a credit card to sign up.
+
+### Does the Koyeb free Instance sleep?
+
+Yes. It scales down to zero after 1 hour without traffic. The next request wakes it up, usually within 1 to 5 seconds.
+
+### Why does Koyeb want my credit card for the free plan?
+
+Koyeb says the card prevents fraud and abuse. It places a $29 hold to verify the card and cancels the hold right away.

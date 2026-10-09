@@ -1,8 +1,9 @@
 ---
 title: Sweego
 description: >-
-  Sweego is a European, GDPR-compliant transactional email and SMS sending
-  API built for developers.
+  Sweego is a European sending API for transactional email and SMS, with
+  deliverability know-how from Mindbaz. It is for developers who want
+  GDPR-minded delivery over REST or SMTP.
 provider: Sweego (Mindbaz)
 category: transactional email & SMS API
 domain: messaging
@@ -16,63 +17,107 @@ audiences:
   - startup
   - oss
 tags:
-  - email
-  - sms
-  - api
+  - transactional email
+  - email api
+  - smtp
+  - sms api
+  - gdpr
+  - eu email
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan sends up to 100 transactional emails per day with API and SMTP
-    access; SMS is pay-as-you-go with no free allowance.
+    access. SMS is pay-as-you-go with prepaid credits and no free allowance.
   limits:
     - 100 emails/day
     - 5 email templates
     - 7-day log retention
     - Unlimited domains
   caveats:
-    - SMS is not included free — credits start at €20 for about 500 SMS
-    - Paid plans start at €10/month for 20,000-50,000 emails with longer log retention
+    - SMS is not included free. Credits start at €20 for about 500 SMS and are valid for 12 months
+    - Paid email plans start at €8 per month billed annually, or €10 billed monthly, for 50 K emails
+    - Overage is listed from the Individual plan up, not on Free
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Send transactional emails (order confirmations, password resets)
-  - Send transactional SMS notifications
-  - Test sends in sandbox mode before going live
+  - Send order confirmations and password reset emails
+  - Send transactional SMS with prepaid credits
+  - Test an email flow in dry-run mode before going live
+  - Receive delivery events by webhook
 quickstartSteps:
-  - Sign up for a free Sweego account.
-  - Generate an API key or SMTP credentials.
-  - Verify your sending domain (SPF, DKIM, DMARC set up automatically).
-  - Send a test email using sandbox mode.
-  - Integrate the REST API or SMTP into your app.
+  - Create a free account with the Get Started link on sweego.io. The free account sends up to 100 emails a day.
+  - Add and verify your sending domain. Sweego says SPF and DKIM are enabled on installation.
+  - Create an API key, or read the SMTP host, port, login, and password from the dashboard.
+  - Test first with the `dry-run` parameter set to true, which sends nothing to a real address.
+  - Send mail with a POST request to `https://api.sweego.io/send`, or point your app at the SMTP settings.
 whenToUse: >-
-  Use Sweego when you need a GDPR-compliant, EU-hosted API for transactional
-  email (and optionally SMS) with deliverability tracking.
+  Use Sweego when you want a European provider for transactional email, with
+  optional SMS, and your volume stays under 100 emails a day.
 whenNotToUse: >-
-  Avoid if you need free SMS sending, more than 100 emails/day without
-  upgrading, or marketing/bulk email campaigns.
+  Avoid it if you need free SMS, or more than 100 emails a day without paying.
 bestFor:
-  - transactional email
-  - EU/GDPR-focused teams
-  - SaaS notifications
+  - transactional email for small apps
+  - EU and GDPR focused teams
+  - side projects that also need SMS later
 avoidIf:
-  - need free SMS
-  - need marketing email campaigns
-  - need high volume without a paid plan
+  - free SMS
+  - a marketing campaign builder
+  - more than 100 emails a day on a free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.sweego.io/'
-docsUrl: 'https://docs.sweego.io'
+docsUrl: 'https://learn.sweego.io/'
 sourceUrls:
   - 'https://www.sweego.io/pricing'
   - 'https://www.sweego.io/'
+  - 'https://www.sweego.io/send-email-sms-api-smtp'
+  - 'https://learn.sweego.io/'
 pricingUrl: 'https://www.sweego.io/pricing'
 featured: false
 ---
-Sweego is not a static-site host as this page previously said — it is a European transactional email and SMS sending API (built by Mindbaz), with a free tier of 100 emails/day and no free SMS.
+You send mail with a REST API call or over SMTP, and you manage domains, keys, and logs in a web platform. It suits developers who need app email and want an EU provider.
+
+## What the free plan gives you
+
+The Free plan costs 0 euros. It sends up to 100 emails a day through the API and SMTP. It allows unlimited domains, 5 templates, and 7 days of log retention. The pricing page does not say whether the free account asks for a card.
+
+SMS is separate. You buy prepaid credits, and they do not depend on your email plan. A 20 euro pack gives about 500 SMS, and credits are valid for 12 months. The pricing page lists 0.040 euros as the price of an SMS in France. The number of SMS per pack is approximate because prices vary by country.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 100 emails a day on the Free plan. Its plan table lists "Overage available" from the Individual plan up, so the Free plan appears to have no overage option.
+
+The Individual plan costs 8 euros per month billed annually, or 10 euros billed monthly, excluding tax. It covers 50 K emails per month and adds more templates and unlimited API keys. Higher plans add longer log retention and a dedicated IP.
+
+## Gotchas
+
+- Sweego presents itself as a transactional email and SMS sending API. The pricing page lists no campaign tools.
+- SMS credits expire after 12 months, and they are bought in packs on top of any email plan.
+- The documentation site loads with JavaScript, so check it in a browser for the current API details.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want a developer-first email API from a global provider.
+- [SendStreak](/services/sendstreak/): when you already have an email backend and want a layer on top with a free daily allowance.
+- [Mailjet](/services/mailjet/): when you want email sending with both API and SMTP from a long-running provider.
+
+## Questions people ask
+
+### Is Sweego free?
+
+Yes, for email. The Free plan sends up to 100 emails a day by API and SMTP. SMS has no free allowance.
+
+### How much does Sweego SMS cost?
+
+You buy credits. A 20 euro pack gives about 500 SMS, and the France price is listed as 0.040 euros per SMS.
+
+### Does Sweego have a sandbox for testing?
+
+Yes. Set the `dry-run` parameter to true to test your email flow without sending to a real address.

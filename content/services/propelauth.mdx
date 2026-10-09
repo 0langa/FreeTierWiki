@@ -1,8 +1,8 @@
 ---
 title: PropelAuth
 description: >-
-  PropelAuth provides authentication, user management, and multi-tenant support
-  for web and mobile applications.
+  PropelAuth is an auth service built for B2B products. It handles sign-up, login, organizations,
+  roles, and enterprise SSO through hosted pages and SDKs.
 provider: PropelAuth
 category: auth
 domain: auth
@@ -18,19 +18,25 @@ audiences:
   - oss
 tags:
   - auth
+  - b2b
+  - multi-tenant
+  - organizations
+  - rbac
+  - saml
+  - sso
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes authentication and user management for up to 10,000
-    monthly active users, with a custom domain included.
+    Free tier includes authentication and user management for up to 10,000 monthly active users,
+    with a custom domain included.
   limits:
     - '10,000 monthly active users'
     - Unlimited organizations
     - Unlimited waitlist users
     - Custom domain included
-    - Up to 10,000 transactional emails/month
+    - 'Up to 10,000 transactional emails/month'
   caveats:
-    - Above 10,000 MAU you are emailed to upgrade; users are not blocked from logging in
+    - 'Above 10,000 MAU you are emailed to upgrade; users are not blocked from logging in'
     - User impersonation and separate staging environments require the paid Growth plan
     - Unlimited SAML/enterprise SSO connections require the paid Growth plan
   resetPeriod: monthly
@@ -39,33 +45,38 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Add authentication to a SaaS app
-  - Enable multi-tenant user management
-  - Integrate SSO for web/mobile projects
+  - Login and sign-up with hosted pages for a B2B SaaS
+  - Organizations where customers invite their own teammates
+  - Roles and permissions per organization
+  - A waitlist before you let people into your product
+  - Enterprise SAML sign-in for larger customers on the Growth plan
 quickstartSteps:
-  - Sign up for a PropelAuth account.
-  - Create a new project in the dashboard.
-  - 'Configure authentication methods (email/password, social logins, SSO).'
-  - Integrate the SDK into your app using provided documentation.
-  - Test user signup and login flows.
+  - Sign up at propelauth.com and create a project in the PropelAuth dashboard.
+  - >-
+    Open the Frontend Integration section of the dashboard and copy your Auth URL into an
+    environment file.
+  - 'Install the library for your stack, for example `npm install @propelauth/react`.'
+  - Wrap your app in the `AuthProvider` component with your Auth URL.
+  - >-
+    Add backend validation with a PropelAuth library for your framework, such as Express, FastAPI,
+    Django Rest Framework, or Go.
 whenToUse: >-
-  Use PropelAuth when you need quick, secure authentication and multi-tenant
-  support without building from scratch.
+  Use PropelAuth for a B2B SaaS that needs organizations, roles, and hosted login quickly, and stays
+  under the free user count.
 whenNotToUse: >-
-  Avoid if you need more than 10,000 monthly active users, require on-premise
-  deployment, or need features only available on paid plans (user impersonation,
-  unlimited SSO connections).
+  Avoid it if you need on-premise hosting, need deep customization of the auth flow, or need SAML,
+  impersonation, or staging environments on a free plan.
 bestFor:
-  - SaaS startups
+  - B2B SaaS startups
   - indie developers
-  - teams needing multi-tenant auth
+  - multi-tenant apps
 avoidIf:
-  - require on-premise
-  - need deep customization
-  - enterprise SSO only
+  - on-premise hosting
+  - deep auth customization
+  - SAML on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://propelauth.com'
@@ -73,8 +84,48 @@ docsUrl: 'https://docs.propelauth.com/'
 sourceUrls:
   - 'https://propelauth.com/pricing'
   - 'https://docs.propelauth.com/'
+  - 'https://docs.propelauth.com/getting-started'
+  - 'https://docs.propelauth.com/getting-started/quickstart-fe'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: '2026-10-09'
 pricingUrl: 'https://propelauth.com/pricing'
 ---
-PropelAuth offers a developer-friendly authentication service with built-in user management and multi-tenant support, free for up to 10,000 monthly active users, ideal for SaaS and modern web apps.
+You configure PropelAuth in its dashboard, then drop in a frontend library such as the React one and a backend library for your framework. It suits small B2B teams that want login, organizations, and roles without building them.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and includes 10,000 monthly active users. It has unlimited organizations and unlimited waitlist users. You also get a custom domain, 2FA and RBAC, and customizable login screens, including a split-screen layout.
+
+PropelAuth counts only users who log in during the month. Waitlist users do not count toward the total until they become regular users. Transactional emails are limited to 10,000. The Growth plan costs $150 per month. It adds user impersonation, unlimited SAML and enterprise SSO connections, a separate staging environment, API keys for M2M, and MCP authentication. Growth Plus costs $500 per month and adds SCIM and directory sync.
+
+## When you hit a limit
+
+PropelAuth does not lock you out. The pricing FAQ says that if you pass 10,000 active users on the Free plan, it emails you to ask you to upgrade, and it does not prevent your users from logging in.
+
+On paid plans, extra monthly active users cost $0.05 per user. The comparison table shows that extra users are not available on Free. The free plan also caps transactional emails at 10,000, and the pages do not say what happens beyond that.
+
+## Gotchas
+
+- SAML and enterprise SSO connections, user impersonation, and a separate staging environment need the paid Growth plan.
+- Waitlist users cannot log in until you invite them to the product.
+- SMS-based 2FA is not on the Free plan. The comparison table shows only TOTP 2FA there.
+
+## Alternatives in this atlas
+
+- [Clerk](/services/clerk/): when you want a much larger free user allowance and prebuilt React components.
+- [WorkOS](/services/workos/): when your main need is enterprise SSO for B2B customers.
+- [Kinde](/services/kinde/): when you want auth with roles and feature flags in one product.
+
+## Questions people ask
+
+### Is PropelAuth free?
+
+Yes. The Free plan costs $0 per month and includes 10,000 monthly active users, unlimited organizations, and a custom domain.
+
+### What happens if I go over 10,000 users on PropelAuth Free?
+
+PropelAuth emails you to ask you to upgrade. It says it will not prevent your users from logging in.
+
+### Does PropelAuth Free include SAML SSO?
+
+No. Unlimited SAML and enterprise SSO connections are part of the Growth plan, which costs $150 per month.

@@ -1,8 +1,8 @@
 ---
 title: Rocket.Chat
 description: >-
-  Rocket.Chat is an open-source team communication platform offering chat,
-  video, and file sharing for organizations.
+  Rocket.Chat is a team chat server you run on your own infrastructure, with
+  channels, direct messages, file sharing, and video integrations.
 provider: Rocket.Chat
 category: collaboration
 domain: collaboration
@@ -17,21 +17,26 @@ audiences:
   - team
   - oss
 tags:
-  - collaboration
+  - rocket.chat
+  - self-hosted chat
+  - slack alternative
+  - team chat
+  - open source
+  - docker
   - messaging
-  - open-source
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Two free self-hosted tiers: Starter (up to 50 users) and open-source
     Community (up to 100 concurrent users), both free to self-host.
   limits:
-    - 'Starter: up to 50 users, self-hosted'
-    - 'Community: up to 100 concurrent users, open-source, self-hosted only'
-    - 'Community: 10,000 push notifications/month'
+    - 'Starter: up to 50 users, self-managed and self-hosted, unlimited push notifications'
+    - 'Community: up to 100 concurrent users, open-source (MIT), self-hosted only'
+    - 'Community: push notifications capped at 10,000 per month'
   caveats:
-    - Community is core messaging only; Starter includes more premium capabilities with usage limits
-    - Community is not suited to production-critical operations
+    - Community is core messaging only; Starter includes many premium capabilities with usage limits
+    - Community is not suited to business-critical production use, according to the docs
+    - Starter has no air-gapped deployment and no paid support add-ons
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -39,35 +44,35 @@ freeTierDetails:
   billingRiskNotes:
     - No billing for self-hosted Starter or Community editions
 useCases:
-  - Internal team chat
-  - Open-source community support
-  - Private messaging for organizations
+  - Private team chat on your own server
+  - A self-hosted community chat for an open-source project
+  - Evaluating premium collaboration features with a small team
+  - Migrating users and messages from Slack
 quickstartSteps:
-  - Download the latest Rocket.Chat Community Edition from the official website.
-  - >-
-    Install Rocket.Chat on your server using Docker, Snap, or manual
-    installation.
-  - Configure environment variables and database connection (MongoDB required).
-  - Start the Rocket.Chat server and access the web interface.
-  - Create your admin account and invite team members.
+  - 'Check the System Requirements guide, and point a domain at your server for production use.'
+  - 'Install Docker, Docker Compose v2, and Git on a Linux server.'
+  - 'Clone the official rocketchat-compose repository and change into the folder.'
+  - 'Copy .env.example to .env and set the Rocket.Chat version and your workspace URL.'
+  - 'Start the stack with Docker Compose, then open your workspace URL.'
+  - 'Complete the setup wizard, which launches on first access, and invite your team.'
 whenToUse: >-
-  Use Rocket.Chat when you need a customizable, self-hosted chat solution for
-  teams or communities with full data control.
+  Use Rocket.Chat when you can run your own server and want a team chat with
+  full control of your data, for up to 50 users on Starter.
 whenNotToUse: >-
-  Avoid if you require managed hosting, advanced enterprise features, or
-  official support without a paid plan.
+  Skip it when you want managed hosting from the vendor, a Free cloud plan, or
+  production-grade reliability on the Community edition.
 bestFor:
-  - self-hosted teams
-  - open-source projects
-  - privacy-focused organizations
+  - self-hosting teams
+  - open-source communities
+  - teams that need data control
 avoidIf:
-  - require managed hosting
-  - need enterprise support
-  - prefer SaaS simplicity
+  - you cannot run your own server
+  - you need vendor-managed hosting
+  - you depend on it for business-critical operations on Community
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://rocket.chat/'
@@ -75,7 +80,47 @@ docsUrl: 'https://docs.rocket.chat/'
 sourceUrls:
   - 'https://rocket.chat/pricing'
   - 'https://docs.rocket.chat/docs/our-plans'
+  - 'https://docs.rocket.chat/docs/deploy-rocketchat'
+  - 'https://docs.rocket.chat/docs/deploy-with-docker-docker-compose'
 pricingUrl: 'https://docs.rocket.chat/docs/our-plans'
 featured: false
 ---
-Rocket.Chat provides a robust, open-source alternative to proprietary chat platforms, ideal for organizations seeking control, extensibility, and privacy in their communications.
+You run Rocket.Chat yourself, most often with Docker Compose on a Linux server, and then use it through the web app. It suits teams that want control of their data and can manage a server.
+
+## What the free plan gives you
+
+Rocket.Chat has two free entry points, both self-hosted. Every workspace on version 6.5 or later starts as a Starter workspace, for up to 50 users. Starter includes many premium capabilities with usage limits, such as LDAP, single sign-on, end-to-end encryption, and unlimited push notifications.
+
+Community is the open-source MIT edition. It is self-hosted only, for up to 100 concurrent users, with push notifications capped at 10,000 per month. It covers core messaging and video calls through Jitsi and BigBlueButton only. The pricing pages list no vendor-hosted free plan.
+
+## When you hit a limit
+
+On Starter, your workspace is restricted from adding new users when you reach 50. Existing users and data stay accessible. You can contact sales to upgrade without migrating data, or downgrade to a Community workspace if you need only basic capabilities for non-production use.
+
+The two user limits work differently. Starter counts how many users you add. Community counts how many are connected at the same time. Nothing bills automatically, since you host the software yourself.
+
+## Gotchas
+
+- You pay for the server and run updates yourself. Each Rocket.Chat version is supported for six months after release.
+- The docs say Community is not suitable for production by organizations that depend on it for business-critical operations.
+- Starter has no air-gapped deployment and no paid support add-ons. Support is community knowledge and self-serve docs.
+
+## Alternatives in this atlas
+
+- [Zulip](/services/zulip/): when you want a free cloud plan instead of running a server.
+- [Pumble](/services/pumble/): when you want hosted team chat with unlimited users.
+- [Chanty](/services/chanty/): when you want a hosted chat for a small team.
+
+## Questions people ask
+
+### Is Rocket.Chat free?
+
+Yes, if you host it. Starter is free for up to 50 users, and the open-source Community edition is free for up to 100 concurrent users.
+
+### What happens when I reach the Rocket.Chat Starter limit?
+
+The workspace cannot add new users. Existing users and data stay accessible. You can upgrade or downgrade to Community.
+
+### Can I use Rocket.Chat free without my own server?
+
+The pages describe free options as self-managed and self-hosted. They list vendor-hosted cloud workspaces under a premium hosting service, not as a free plan.

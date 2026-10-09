@@ -1,8 +1,8 @@
 ---
 title: SerpApi
 description: >-
-  SerpApi provides a real-time API for scraping and parsing search engine
-  results from Google and other major platforms.
+  SerpApi is an API that runs a Google search (or another engine) in a real
+  browser and returns the results as structured JSON or markdown.
 provider: SerpApi
 category: scraping
 domain: scraping
@@ -17,60 +17,108 @@ audiences:
   - team
   - oss
 tags:
-  - search
-  - api
-  - automation
+  - serp api
+  - google search api
+  - search results scraper
+  - seo rank tracking
+  - google shopping api
+  - google maps api
 pricingModel: freemium
 freeTierDetails:
-  summary: 250 free searches per month with full API access.
+  summary: >-
+    250 free searches per month with a guaranteed throughput of 50 successful
+    searches per hour. The pricing page does not say whether a card is needed to register.
   limits:
     - 250 searches/month
-    - 50 searches/hour throughput
-    - All supported engines
+    - 50 successful searches per hour guaranteed throughput
+    - Only successful searches count; cached, errored, and failed searches do not
   caveats:
-    - Overages require a paid plan
+    - More searches need a paid plan; the first paid plan has 1,000 searches a month
+    - Hourly throughput is 20% of plan volume on plans under 1 million searches a month
+    - A cached result is free, but you can force a fresh fetch with the no_cache parameter
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Automate Google search result extraction
-  - Monitor SEO rankings
-  - Aggregate search data for research
-  - Build search-based applications
+  - Tracking where a site ranks on Google
+  - Pulling Google Shopping or Maps results into a data set
+  - Building a search-based app or chatbot tool
+  - Collecting search data for research
+  - Checking local results from a chosen city
 quickstartSteps:
-  - Sign up for a free SerpApi account.
-  - Verify your email and log in to the dashboard.
-  - Copy your API key from the dashboard.
-  - Read the documentation for your target search engine.
-  - Make your first API request using your API key.
+  - Register for a free account on serpapi.com.
+  - Open the dashboard and copy your `api_key`.
+  - Try a query in the playground to see the JSON result.
+  - Send a GET request to `https://serpapi.com/search?engine=google` with the `q` and `api_key` parameters.
+  - Add the `location` parameter to start the search from a chosen city.
 whenToUse: >-
-  Use SerpApi when you need structured, real-time search engine results without
-  managing proxies or parsing HTML.
+  Use SerpApi when you need search results as clean data and do not want to
+  handle proxies, CAPTCHAs, or HTML parsing.
 whenNotToUse: >-
-  Avoid if you need high-volume access beyond the free tier or require scraping
-  unsupported search engines.
+  Avoid the free plan for rank tracking across many keywords or pages: 250
+  searches a month runs out fast.
 bestFor:
-  - SEO monitoring
+  - SEO rank checks
   - market research
+  - prototyping a search tool
   - academic projects
-  - prototyping
 avoidIf:
-  - large-scale scraping
-  - unsupported engines
-  - no external API usage allowed
+  - you need more than 250 searches a month for free
+  - you need more than 50 successful searches an hour
+  - you need an engine the API does not list
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://serpapi.com/'
 docsUrl: 'https://serpapi.com/search-api'
 sourceUrls:
   - 'https://serpapi.com/pricing'
+  - 'https://serpapi.com/search-api'
+  - 'https://serpapi.com/'
 pricingUrl: 'https://serpapi.com/pricing'
 featured: false
 ---
-SerpApi offers a simple API to fetch and parse search engine results, ideal for low-volume automation, SEO tools, and research projects.
+You send a GET request with your API key and get the search results back as JSON or markdown. It fits developers who build search tools, SEO checks, or research scripts.
+
+## What the free plan gives you
+
+The free plan costs $0 a month and gives you 250 searches per month. The guaranteed throughput is 50 successful searches per hour. The pricing page says to spread searches evenly through the hour and across hours.
+
+Only successful searches count. Cached, errored, and failed searches do not. A response with 100 results counts as one search, and so does an empty result set. SerpApi runs each request in a full browser, solves CAPTCHAs for you, and lets you pick a location so results match what a person in that city would see.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop for free accounts. It does say what to do when a plan runs out of searches. You can switch on Automatic Early Renewal, which renews the plan once you use all your searches. You can also renew by hand. Either way, your searches are replenished and your renewal date updates.
+
+For free users the practical choice is to wait for the next month or move to a paid plan. The Starter plan costs $25 a month for 1,000 searches. Every plan has a 99.95% SLA.
+
+## Gotchas
+
+- Throughput is capped at 20% of plan volume per hour on plans under 1 million searches a month, which is why the free plan allows 50 an hour.
+- Cached results are free and are not counted, but they can be stale. The cache expires after 1h, and you can set `no_cache` to true to force a fresh fetch.
+- A refund covers only the first 7 days after you subscribe to a paid plan, and only if you used 20% or less of the searches.
+
+## Alternatives in this atlas
+
+- [ScrapingAnt](/services/scrapingant/): when you want to scrape any page, not only search results.
+- [Apify](/tools/apify/): when you want ready-made Actors, such as a Google Maps scraper, billed from a monthly credit.
+- [WebScraping.AI](/services/webscraping-ai/): when you want a general scraping API with a free monthly allowance.
+
+## Questions people ask
+
+### Is SerpApi free?
+
+Yes, there is a free plan. It gives you 250 searches per month and 50 successful searches per hour. The pricing page does not say whether a credit card is needed to register.
+
+### What counts as a search on SerpApi?
+
+Only successful searches count. Cached, errored, and failed searches do not count. A response with many results still counts as one search.
+
+### What happens when I run out of SerpApi searches?
+
+You can renew your plan early, either automatically or by hand, and your searches are replenished. On the free plan, you can also wait for the next monthly reset.

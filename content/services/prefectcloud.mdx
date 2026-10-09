@@ -1,8 +1,9 @@
 ---
 title: PrefectCloud
 description: >-
-  PrefectCloud is a managed workflow orchestration service for scheduling,
-  monitoring, and managing data pipelines.
+  Prefect Cloud hosts the control plane for Python workflows: you write flows,
+  schedule them, and watch runs in a dashboard. It is for data and ML engineers
+  who orchestrate pipelines.
 provider: Prefect
 category: devops
 domain: devops
@@ -16,61 +17,104 @@ audiences:
   - enterprise
   - oss
 tags:
-  - automation
-  - data
-  - ci-cd
+  - workflow orchestration
+  - python
+  - data pipelines
+  - etl
+  - scheduling
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free Hobby tier includes 2 users and 500 Prefect Serverless minutes per month.'
+  summary: 'Free Hobby tier includes 2 users, 5 deployments, and 500 minutes of Prefect Serverless per month.'
   limits:
     - '2 users, 1 workspace'
-    - '5 deployments'
+    - 'Up to 5 deployments'
     - '500 Prefect Serverless minutes/month'
     - '625 API requests/min rate limit'
+    - '7 days of run retention'
   caveats:
-    - Support limited to community channels
-    - No SSO or audit logs on the free tier
+    - 'At 5 deployments you cannot create new ones until you delete one or upgrade'
+    - Support is through community channels
+    - 'No SSO, service accounts, or audit log on Hobby; the first paid plan is $100 per month'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automating ETL pipelines
-  - Orchestrating machine learning workflows
-  - Monitoring scheduled data jobs
+  - Scheduling ETL and data pipeline flows written in Python
+  - Running flows on managed compute without hosting servers
+  - Watching flow runs, logs, and alerts in one dashboard
+  - Deploying flows straight from a GitHub repository
 quickstartSteps:
-  - Sign up for a PrefectCloud account.
-  - Install the Prefect Python package locally.
-  - Connect your local Prefect agent to PrefectCloud.
-  - Define and register a flow using Prefect's Python API.
-  - Run and monitor your flow from the PrefectCloud dashboard.
+  - Install uv with the install script from astral.sh.
+  - Run `uvx prefect-cloud login`; your browser opens so you can create or log in to a free Prefect Cloud account.
+  - Write a Python function, put `@flow` on the entrypoint and `@task` on the functions it calls.
+  - Test it locally with `uv run 01_getting_started.py`.
+  - Deploy with `uvx prefect-cloud deploy 01_getting_started.py:main --name my_first_deployment` and a `--from` GitHub URL, then watch the run in the dashboard.
 whenToUse: >-
-  Use PrefectCloud when you need to orchestrate, schedule, and monitor
-  Python-based data workflows without managing your own infrastructure.
+  Use it to schedule and monitor up to five Python workflows on managed compute,
+  with one workspace and a team of two.
 whenNotToUse: >-
-  Avoid if you require on-premises orchestration, need advanced enterprise
-  features, or must run non-Python workflows.
+  Avoid it for more than 5 deployments or 2 users on the free tier, for SSO, or
+  for workflows that are not written in Python.
 bestFor:
-  - data teams
-  - ML engineers
-  - analytics engineers
+  - solo data engineers
+  - small pipeline projects
+  - trying Prefect before paying
 avoidIf:
-  - require on-premises
-  - need non-Python support
-  - require advanced RBAC
+  - more than 5 deployments
+  - more than 2 users
+  - SSO or audit logs
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.prefect.io/cloud/'
 docsUrl: 'https://docs.prefect.io/latest/'
 sourceUrls:
   - 'https://www.prefect.io/pricing/'
+  - 'https://www.prefect.io/cloud/'
+  - 'https://docs.prefect.io/v3/get-started/quickstart'
   - 'https://docs.prefect.io/latest/'
 pricingUrl: 'https://www.prefect.io/pricing/'
 featured: false
 ---
-PrefectCloud provides a managed platform for orchestrating, scheduling, and monitoring data workflows, with a generous free tier suitable for small teams and projects.
+You write workflows in Python with the `prefect` library, log in through the `prefect-cloud` command, and manage runs in the Cloud dashboard. It suits data and ML engineers who want orchestration without running their own server.
+
+## What the free plan gives you
+
+The Hobby tier is free forever. It includes 2 users, 1 workspace, and up to 5 deployments. The pricing FAQ speaks of five deployed workflows. You also get 500 minutes of Prefect Serverless each month, which is managed compute run by Prefect. Run history is kept for 7 days, and the API rate limit is 625 requests per minute.
+
+The pricing FAQ says Hobby gives full access to core features for up to five deployed workflows. Prefect prices by seats and workspaces, not by compute or task volume. Support on Hobby comes through community channels.
+
+## When you hit a limit
+
+When you reach 5 deployments, you cannot create new ones until you delete an existing deployment or upgrade to a paid plan. The pricing page does not say what happens when you use all 500 Serverless minutes, so check the dashboard before you plan a long run. The pricing page lists no card for Hobby, and Prefect says it prices by seats and workspaces, not by compute or task volume. The next plan, Starter, costs $100 per month for 3 users and 20 deployments.
+
+## Gotchas
+
+- Five deployments count flows you deploy, so plan which flows need a schedule.
+- The Hobby tier has one workspace and two users, so a shared team account runs out fast.
+- The FAQ lists no trial of paid plans. You contact the team to explore premium features.
+
+## Alternatives in this atlas
+
+- [Pipedream](/services/pipedream/): when you want event-driven workflows with a free plan.
+- [Posthook](/services/posthook/): when you only need scheduled webhooks.
+- [Buddy](/services/buddy/): when you want delivery pipelines with a free seat.
+
+## Questions people ask
+
+### Is Prefect Cloud free?
+
+Yes. The Hobby tier is free forever with 2 users, 1 workspace, up to 5 deployments, and 500 minutes of Prefect Serverless per month.
+
+### What happens when I reach 5 deployments on Prefect?
+
+You cannot create a new deployment until you delete an existing one or upgrade to a paid plan.
+
+### Does Prefect Cloud need a credit card?
+
+No card is listed for Hobby. You create the account in your browser after running the login command.

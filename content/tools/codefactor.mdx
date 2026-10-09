@@ -1,8 +1,9 @@
 ---
 title: CodeFactor
 description: >-
-  CodeFactor provides automated code review and quality analysis for GitHub and
-  Bitbucket repositories.
+  CodeFactor reviews the code in your GitHub or Bitbucket repositories with many
+  open source linters, grades each repository, and comments on pull requests. It
+  is for developers who want quick code quality feedback.
 provider: CodeFactor
 category: devops
 domain: devops
@@ -17,64 +18,116 @@ audiences:
   - team
   - oss
 tags:
-  - security
-  - ci-cd
-  - devops
-  - analytics
+  - code review
+  - code quality
+  - static analysis
+  - linter
+  - pull request checks
+  - auto fix
+  - code duplication
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Community plan is free forever with unlimited users and unlimited public
-    repositories, but 0 private repositories.
+    Community plan: $0 per month with unlimited users and unlimited public
+    repositories, but 0 private repositories. Students and non-profits can
+    request a free Pro plan with 5 private repositories.
   limits:
     - Unlimited public repositories
-    - 0 private repositories (Pro plan required for private repos)
+    - 0 private repositories on the Community plan
     - Unlimited users
   caveats:
-    - Students can request a free Pro plan (5 private repositories)
-    - Non-profits can request a free Pro plan (5 private repositories)
+    - Students can request a free Pro plan with 5 private repositories
+    - Non-profits can request a free Pro plan with 5 private repositories, or a
+      20% discount on a larger plan
+    - Supports GitHub and Bitbucket only
+    - Paid plans are priced by the number of private repositories
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated code review for open source projects
-  - Continuous code quality monitoring
-  - Static analysis for small teams
-  - Integrating code quality checks into CI
+  - Grade the code quality of a public repository
+  - See issues from many linters in one dashboard
+  - Get pull request status checks and comments
+  - Find duplicated code
+  - Apply automatic fixes to common issues
 quickstartSteps:
-  - Sign up at codefactor.io using your GitHub or Bitbucket account.
-  - Authorize CodeFactor to access your repositories.
-  - Select the repository you want to analyze.
-  - Configure analysis settings if needed.
-  - Review the generated code quality report.
+  - Open codefactor.io and click Login, then choose GitHub or Bitbucket.
+  - After you sign up, you can import your first repository.
+  - Click the plus icon in the upper-right corner of any page and select one or
+    more repositories to import.
+  - Click Import and wait for the first review. If CodeFactor shows Reduced
+    Feature Mode, click FIX IT as a repository admin to create the webhook.
+  - Open the repository report, then check pull requests for CodeFactor's status.
 whenToUse: >-
-  Use CodeFactor to automate code quality checks for public repositories,
-  especially for open source projects.
+  Use CodeFactor when you host public repositories on GitHub or Bitbucket and
+  want a free review with many linters and a quality grade.
 whenNotToUse: >-
-  Avoid if you need private repository analysis without paying (students and
-  non-profits can request a free Pro plan instead).
+  Avoid it for private repositories on a free budget, because the Community plan
+  has no private repositories. Students and non-profits can request a free Pro
+  plan instead. Avoid it if you host code on GitLab or elsewhere, because only
+  GitHub and Bitbucket are supported.
 bestFor:
-  - open-source projects
-  - students
-  - small teams
-  - indie developers
+  - open source projects on GitHub or Bitbucket
+  - students with a few private repositories
+  - small teams who want a quality grade
 avoidIf:
-  - need private repo support without paying
-  - require advanced analysis features
+  - private repositories without paying
+  - GitLab or self-hosted Git
+  - you need deep custom rules
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.codefactor.io'
 docsUrl: 'https://docs.codefactor.io'
 sourceUrls:
-  - 'https://www.codefactor.io/pricing'
-  - 'https://www.codefactor.io/about'
+  - https://www.codefactor.io/pricing
+  - https://docs.codefactor.io/bootcamp/import-repository
+  - https://docs.codefactor.io/common-issues/reduced-feature-mode
+  - https://www.codefactor.io/
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.codefactor.io/pricing'
 ---
-CodeFactor offers automated static code analysis and code review for GitHub and Bitbucket repositories, with a free tier for public repositories.
+You log in with GitHub or Bitbucket, import repositories, and read the report in the CodeFactor web app. It also posts a status on pull requests. It suits open source maintainers and students who want a quality grade.
+
+## What the free plan gives you
+
+The Community plan costs $0 per month. It includes unlimited users and unlimited public repositories. It includes 0 private repositories, so it covers public code only.
+
+CodeFactor runs many open source analysis tools. Its home page lists tools such as ESLint, Pylint, RuboCop, Checkstyle, Bandit, Hadolint, and ShellCheck, and a duplication checker. Languages include Python, JavaScript, TypeScript, Java, Go, PHP, C#, Ruby, and more. Features on the pricing page include fast analysis, pull request integration, and code autofix. The docs also describe GitHub Checks and branch badges.
+
+## When you hit a limit
+
+The Community plan simply has no private repositories. You cannot add one without moving to a paid plan. The pricing page says paid plans are priced by the number of private repositories, and the exact prices are not readable in the page text.
+
+Two free routes exist. Students can get a Pro plan with 5 private repositories free of charge by sending a request. Non-profits can also get a free Pro plan with 5 private repositories. For larger needs, non-profits get a 20% discount. To qualify, an organization must be non-government, non-academic, non-commercial in nature, and have no religious affiliation.
+
+## Gotchas
+
+- A repository can run in Reduced Feature Mode if there is no webhook. Then it is analyzed on demand only, and pull requests get no status.
+- Only a GitHub or Bitbucket admin can create the webhook. If you are the admin, click FIX IT.
+- One Pro plan on the pricing page covers 2 branches per repository. The Best value Pro plan lists unlimited branches, subject to a Fair Use Policy.
+
+## Alternatives in this atlas
+
+- [Codacy](/services/codacy/): when you want a free IDE plugin and cloud scans for open source projects.
+- [DeepSource](/services/deepsource/): when you want a free open source plan with unlimited public repositories.
+- [Codeac.io](/tools/codeac-io/): when you want a free plan for public repositories on GitHub, Bitbucket, or GitLab.
+
+## Questions people ask
+
+### Is CodeFactor free?
+
+Yes, for public repositories. The Community plan costs $0 per month with unlimited users and unlimited public repositories. It has 0 private repositories.
+
+### Is CodeFactor free for students?
+
+Yes. The pricing page says the Pro plan with 5 private repositories is free for students, and you request it with a form.
+
+### Does CodeFactor work with GitLab?
+
+No. The docs say CodeFactor supports GitHub and Bitbucket as repository sources for now.

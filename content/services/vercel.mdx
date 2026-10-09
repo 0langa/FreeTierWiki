@@ -1,8 +1,9 @@
 ---
 title: Vercel
 description: >-
-  Vercel provides fast, serverless hosting and deployment for static sites and
-  frontend frameworks with global CDN.
+  Vercel builds and hosts web apps from a Git repository, with a global CDN,
+  preview deployments, and serverless functions, for front-end developers who
+  use frameworks such as Next.js.
 provider: Vercel
 category: hosting
 domain: hosting
@@ -17,64 +18,64 @@ audiences:
   - team
   - oss
 tags:
-  - web
-  - serverless
+  - nextjs
+  - static-site-hosting
+  - serverless-functions
   - cdn
+  - preview-deployments
+  - frontend
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Hobby (free) plan includes unlimited deployments, 100 GB of Fast Data
-    Transfer, and 1 million Function Invocations per month, for 1 team seat.
+    The Hobby (free) plan includes 100 GB of Fast Data Transfer, 1 million CDN
+    requests, and 1 million Function Invocations per month, for 1 team seat.
   limits:
     - 1 team seat (Hobby plan)
-    - Unlimited deployments
+    - 100 deployments per day and 100 builds per hour
     - 100 GB Fast Data Transfer/month included
-    - 1,000,000 Edge Requests/month included
+    - 1,000,000 CDN requests/month included
     - 1,000,000 Function Invocations/month included
-    - 1 GB Blob Storage/month included
+    - 1 GB Blob Storage included
   caveats:
     - Hobby is for non-commercial personal use only
     - Additional team seats require the Pro plan ($20/mo/seat)
-    - Overage past the included amounts requires upgrading to Pro
+    - After you exceed a Hobby limit, you usually wait 30 days before you can use that feature again
+    - A Hobby team cannot connect to Git repositories owned by Git organizations
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Deploying static websites
-  - Hosting Next.js apps
-  - Preview deployments for pull requests
-  - Personal portfolios
-  - Open source project sites
+  - Deploy a Next.js or other framework app from GitHub
+  - Host a static site or portfolio
+  - Share a preview deployment of each branch
+  - Run small serverless functions beside a front end
 quickstartSteps:
-  - 'Sign up at vercel.com with your GitHub, GitLab, or Bitbucket account.'
-  - >-
-    Import your repository and select the project framework (e.g., Next.js,
-    React).
-  - Configure build settings if needed or accept defaults.
-  - Click 'Deploy' to trigger your first deployment.
-  - Access your live site via the provided Vercel URL.
+  - Sign up for a Vercel account and import a Git repository, or install the CLI with `npm i -g vercel`.
+  - Run `vercel login` and follow the prompts to log in.
+  - In your project folder, run `vercel`; the CLI detects the framework, builds the project, and deploys it.
+  - Run `vercel --prod` to deploy to production.
+  - Open the URL that Vercel gives you, and add a custom domain later if you want one.
 whenToUse: >-
-  Use Vercel for quick, zero-config deployment of static sites or frontend
-  frameworks with automatic previews and global CDN.
+  Use it for a personal project or non-commercial site that you want deployed
+  from Git in a few minutes.
 whenNotToUse: >-
-  Avoid if you need backend databases, custom server regions, or advanced
-  serverless features beyond the free tier limits.
+  Avoid it for commercial work, for team projects with several people, or when
+  you need Git organization repositories on the free plan.
 bestFor:
   - static sites
   - Next.js apps
   - personal projects
   - open source demos
 avoidIf:
+  - commercial projects
   - heavy backend workloads
-  - custom serverless regions
   - large teams
-  - enterprise compliance
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://vercel.com/'
@@ -82,7 +83,47 @@ docsUrl: 'https://vercel.com/docs'
 pricingUrl: 'https://vercel.com/pricing'
 sourceUrls:
   - 'https://vercel.com/pricing'
+  - 'https://vercel.com/docs/plans/hobby'
   - 'https://vercel.com/docs/concepts/limits/overview'
+  - 'https://vercel.com/docs/getting-started-with-vercel'
 featured: false
 ---
-Vercel offers a generous free tier for static and frontend hosting, ideal for personal, student, and open source projects with easy Git integration and global CDN.
+You can deploy from the Vercel dashboard by importing a repository, or from the command line with the Vercel CLI. Every branch can get its own preview deployment.
+
+## What the free plan gives you
+
+The Hobby plan costs $0 per month and is meant for personal projects and small apps. Each month it includes the first 100 GB of Fast Data Transfer, the first 10 GB of Fast Origin Transfer, and the first 1,000,000 CDN requests. It also includes 1 million function invocations and 1 GB of Blob storage.
+
+You get automatic CI/CD, a global CDN, DDoS mitigation, a web application firewall, and traffic and performance insights. A Hobby team has 1 seat. The limits page also sets 100 deployments per day, 100 builds per hour, and one hour of runtime log storage.
+
+## When you hit a limit
+
+Hobby has no billing cycle, because it is a free tier. The docs say that if you exceed a usage limit, you usually have to wait until 30 days have passed before you can use the feature again. Some limits pause for shorter periods. Web Analytics, for example, pauses after a grace period and can resume after 7 days.
+
+The Pro plan costs $20 per month. It includes $20 of usage credit and then charges on demand for extra use. The docs describe Hobby as a free tier with no billing cycles.
+
+## Gotchas
+
+- The fair use guidelines limit Hobby to non-commercial, personal use. Commercial sites need Pro.
+- A Hobby team cannot connect to Git repositories owned by Git organizations. You must switch to a team or create one.
+- The deployment limits are 100 per day and 100 builds per hour. A busy repository can hit them.
+
+## Alternatives in this atlas
+
+- [Netlify](/services/netlify/): when you want a similar Git-based flow with a credit pool and unlimited deploy previews.
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want another free static host and a different set of limits.
+- [GitHub Pages](/services/github-pages/): when you only need static files from a public repository.
+
+## Questions people ask
+
+### Is Vercel free?
+
+Yes, for personal and non-commercial use. The Hobby plan costs $0 and includes 100 GB of Fast Data Transfer and 1 million CDN requests per month.
+
+### What happens when I go over the Vercel free limits?
+
+On Hobby, you usually have to wait until 30 days have passed before you can use that feature again. Some limits, such as Web Analytics, pause for 7 days. The docs describe Hobby as a free tier with no billing cycles.
+
+### Can I use Vercel Hobby for a business site?
+
+No. The docs say the Hobby plan is limited to non-commercial, personal use under the fair use guidelines. A business site needs the Pro plan.

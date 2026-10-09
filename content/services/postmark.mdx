@@ -1,8 +1,9 @@
 ---
 title: Postmark
 description: >-
-  Postmark provides reliable transactional email delivery with detailed
-  analytics and fast delivery times.
+  Postmark delivers transactional email such as password resets and receipts,
+  through a REST API or SMTP. It is for developers who care about fast delivery
+  and clear delivery analytics.
 provider: Postmark
 category: messaging
 domain: messaging
@@ -16,51 +17,61 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - api
+  - transactional email
+  - email api
+  - smtp
+  - password reset email
+  - email deliverability
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Developer plan includes 100 emails per month that never expires.
+    Free Developer plan includes 100 emails per month that never expires. No
+    overages are allowed on this plan.
   limits:
     - 100 emails/month
     - No overages allowed
+    - Up to 6 users
+    - 45 days of activity retention
   caveats:
-    - No dedicated IP on free plan
-    - Up to 6 users on the free plan
+    - No dedicated IP on the free plan; dedicated IPs are a paid add-on on Pro plans or higher
+    - Unused emails do not roll over
+    - Inbound email processing is listed on Pro and higher plans
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - No charges until you upgrade
+    - No charges until you upgrade to a paid plan
 useCases:
-  - Send password reset emails
-  - Send order confirmations
-  - Send user notifications
+  - Sending password reset emails
+  - Sending order confirmations and receipts
+  - Sending user notifications from an app
+  - Testing an integration before going to a paid plan
 quickstartSteps:
-  - Sign up for a Postmark account.
-  - Verify your email domain.
-  - Create a new server in the Postmark dashboard.
-  - Obtain your server API token.
-  - Integrate Postmark with your app using SMTP or API.
+  - Click Start Free Trial on postmarkapp.com and create an account; the page says no credit card is required.
+  - Confirm the address you send from by verifying a sender signature, or verify a domain.
+  - Create a server in the dashboard and copy its server API token.
+  - Install an official library for your language, or use SMTP.
+  - Send a first message with a POST to the `/email` endpoint of the API.
+  - Use sandbox mode while you test, then check delivery in the dashboard.
 whenToUse: >-
-  Use Postmark when you need reliable, fast transactional email delivery with
-  simple integration and analytics.
+  Use Postmark when you need fast, reliable transactional email with a simple
+  API and 100 emails a month is enough for testing or a very small project.
 whenNotToUse: >-
-  Avoid if you need more than 100 free emails per month or plan to send large
-  volumes without paying.
+  Avoid it if you need more than 100 emails a month for free, since the pricing
+  page lists no tier between 100 and 10,000.
 bestFor:
   - transactional email
   - app notifications
   - password resets
 avoidIf:
-  - need bulk marketing email
-  - need more than 100 emails/month free
+  - a few hundred emails a month on a free budget
+  - more than 100 emails a month on a free budget
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://postmarkapp.com/'
@@ -68,8 +79,47 @@ docsUrl: 'https://postmarkapp.com/developer'
 sourceUrls:
   - 'https://postmarkapp.com/pricing'
   - 'https://postmarkapp.com/developer'
+  - 'https://postmarkapp.com/developer/user-guide/send-email-with-api'
+  - 'https://postmarkapp.com/developer/user-guide/sandbox-mode'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://postmarkapp.com/pricing'
 ---
-Postmark offers a developer-friendly transactional email service with an always-free Developer plan for testing, fast delivery, and detailed analytics, ideal for app notifications and password resets.
+You send through the REST API, SMTP, or an official library, and you read delivery results in the dashboard. It suits developers who want a dependable email path for app messages.
+
+## What the free plan gives you
+
+Every account starts on the free Developer plan, which includes 100 emails per month. The pricing page says it never expires or runs out. It is meant for testing your integration and for side projects with low volume.
+
+The plan allows up to 6 users and keeps activity data for 45 days. The Developer docs list limits per email: 10MB in total and 50 recipients across To, CC, and BCC. A sandbox mode lets you test without sending real mail.
+
+## When you hit a limit
+
+The pricing page says no overages are allowed on the free plan. After 100 emails you cannot send more that month until the allowance resets or you upgrade, so you cannot be billed by accident.
+
+Paid plans work differently. Extra emails are counted at the end of the billing cycle and added to your next month's cost. The first paid tier is 10,000 emails a month, starting at $15 per month, and there is no tier between 100 and 10,000.
+
+## Gotchas
+
+- Unused emails do not roll over to the next month.
+- There is no plan between the 100 free emails and the paid 10,000, so a small project that needs a few hundred emails must pay for 10,000.
+- You must verify the address you send from before your first send.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you need a free tier with more than 100 emails per month.
+- [Mailgun](/services/mailgun/): when you want a free daily allowance and inbound routing.
+- [MailerSend.com](/services/mailersend-com/): when you want a free plan and a drag and drop template builder.
+
+## Questions people ask
+
+### Is Postmark free?
+
+Yes, within limits. The Developer plan includes 100 emails per month, never expires, and needs no credit card.
+
+### What happens if I go over the Postmark free limit?
+
+You cannot send past 100 emails, because the plan allows no overages. You upgrade to a paid plan to send more.
+
+### Does Postmark have a plan between 100 and 10,000 emails?
+
+No. The pricing page FAQ says Postmark does not offer a tier between the free 100 emails a month and 10,000 emails a month.

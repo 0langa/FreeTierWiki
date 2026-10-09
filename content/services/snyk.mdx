@@ -1,6 +1,9 @@
 ---
 title: Snyk
-description: Security scanning for code, open-source dependencies, containers, and infrastructure as code.
+description: >-
+  Snyk scans your code, open source dependencies, containers, and infrastructure
+  as code for security issues, and suggests fixes. It works in your IDE, CLI,
+  and source control.
 provider: Snyk
 category: security
 domain: security
@@ -14,59 +17,68 @@ audiences:
   - startup
   - oss
 tags:
-  - security
-  - devops
-  - ci-cd
-  - open-source
+  - sast
+  - sca
+  - dependency-scanning
+  - container-scanning
+  - iac-security
+  - snyk-cli
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan for individual developers and small teams with 5 projects and a monthly test limit
-    per product.
+    Free plan for individual developers and small teams with 5 projects and a
+    monthly test limit per product.
   limits:
     - 5 projects
     - 'Snyk Code (SAST): 100 tests/month'
-    - 'Snyk Open Source (SCA): 200 tests'
-    - 'Snyk IaC: 300 tests'
-    - 'Snyk Container: 100 tests'
+    - 'Snyk Open Source, Infrastructure as Code, and Container scanning included, with monthly test limits'
     - IDE, CLI, and source control integrations
   caveats:
     - Snyk Evo features (AI pentesting, coding agent security) are not on the free plan
-    - Jira integration and higher test limits need the Team plan ($25/month)
+    - Jira integration, higher test limits, and 100 projects need the Team plan ($25/month)
+    - The pricing page text does not show the Free test limits for Open Source, IaC, and Container, so check your account
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Scan a repository's dependencies for known vulnerabilities
-  - Find security bugs in source code from the IDE or CLI
-  - Check container images and Terraform before release
+  - Scanning a repository's dependencies for known vulnerabilities
+  - Finding security bugs in your own code from the IDE or CLI
+  - Checking container images and Terraform before a release
+  - Getting pull request checks on a small project
 quickstartSteps:
-  - Sign up at app.snyk.io with GitHub, GitLab, or email.
-  - Import a repository or install the Snyk CLI.
-  - Run snyk test in a project to see its issues.
+  - Create a free account at snyk.io. If your company uses single sign-on, use the SSO link your administrators give you instead.
+  - Connect a source control integration so Snyk can scan your repository, or choose the CLI integration to scan from your machine.
+  - Install the Snyk CLI and authenticate it with a personal access token from your account settings. Tokens last at most 90 days.
+  - In a folder with a manifest file such as package.json, run `snyk test` to scan open source dependencies.
+  - Run `snyk code test` to scan your own source code, then review the results in the Snyk web interface.
 whenToUse: >-
-  Use Snyk on small projects to catch vulnerable dependencies and code issues early, from the IDE,
-  CLI, or pull requests.
+  Use Snyk on small projects to catch vulnerable dependencies and code issues
+  early, from the IDE, the CLI, or pull requests.
 whenNotToUse: >-
-  Avoid if you need more than 5 projects or frequent SAST runs; the free test limits run out fast
-  in CI.
+  Avoid the Free plan if you need more than 5 projects or frequent code scans;
+  100 Snyk Code tests a month can run out fast in CI.
 bestFor:
   - open-source maintainers
   - side projects
+  - small teams starting with security scanning
 avoidIf:
   - large monorepos scanned on every commit
+  - more than 5 projects
+  - you need Jira integration or Evo features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-02'
-lastVerified: '2026-10-02'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://snyk.io/'
 docsUrl: 'https://docs.snyk.io/'
 sourceUrls:
   - 'https://snyk.io/plans/'
+  - 'https://docs.snyk.io/getting-started/quickstart'
+  - 'https://docs.snyk.io/developer-tools/snyk-cli/getting-started-with-the-snyk-cli'
 pricingUrl: 'https://snyk.io/plans/'
 featured: false
 changes:
@@ -74,4 +86,40 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Snyk scans source code, open-source dependencies, containers, and infrastructure as code for security issues. The free plan covers 5 projects with a monthly test limit for each product.
+You use Snyk in the web app, in an IDE, from the command line, or through your source control host, where it can check pull requests. It suits individual developers and small teams.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and is meant for individual developers and small teams. It gives access to Snyk Open Source (dependency scanning), Snyk Code (static analysis), Infrastructure as Code, and Container scanning. You also get real-time code scanning and integrations with IDEs, the CLI, and source code managers.
+
+The comparison table lists 5 projects and 100 Snyk Code tests per month. The text of the page does not show the Free limits for the other products, so look at your own account for those numbers. The Team plan is for up to 10 developers. It starts at $25 per month and raises the limits to 100 projects and 1,000 Snyk Code tests per month.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use up your monthly tests. The FAQ headings on test limits have no answer text in the fetched page. The Free plan has no card on the page and no pay-as-you-go price, so the page shows no charge. Higher limits come from the Team plan, and Jira integration and next business day support come with it.
+
+## Gotchas
+
+- The Free plan has 5 projects. A repository with several manifest files can use up projects quickly.
+- Snyk Evo features, such as AI pentesting and coding agent security, are not on the Free or Team plan. They need an Enterprise subscription.
+- Personal access tokens for the CLI and IDE expire after at most 90 days, so set a reminder to rotate them.
+
+## Alternatives in this atlas
+
+- [Semgrep](/tools/semgrep/): when you want a code scanner with a cap on contributors instead of tests.
+- [Socket](/services/socket/): when you mainly worry about malicious packages in dependencies.
+- [Safety (formerly PyUp.io)](/services/pyup-io/): when your project is only Python and you want a CLI-first scanner.
+
+## Questions people ask
+
+### Is Snyk free?
+
+Yes. The Free plan costs $0 per month and covers 5 projects, with a monthly test limit for each product.
+
+### How many tests do I get on the Snyk free plan?
+
+The pricing page lists 100 Snyk Code tests per month for Free. The fetched page text does not show the numbers for the other products.
+
+### Does Snyk need a credit card for the free plan?
+
+The pricing page shows a Start free button and no card step for the Free plan.

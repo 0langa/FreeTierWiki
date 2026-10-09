@@ -1,8 +1,9 @@
 ---
 title: IP Geolocation API by ipwho.org
 description: >-
-  A free API for retrieving IP-based geolocation data including country, city,
-  timezone, and more.
+  IPWho (ipwho.org) is an IP geolocation API that returns location, time zone,
+  currency, ASN, and VPN or Tor flags. A free plan covers side projects,
+  learning, and non-profits.
 provider: ipwho.org
 category: apis
 domain: apis
@@ -16,58 +17,108 @@ audiences:
   - startup
   - oss
 tags:
-  - networking
-  - api
-pricingModel: free
+  - ip geolocation
+  - geoip
+  - vpn detection
+  - timezone api
+  - bulk lookup
+pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free forever for side projects, learning, and non-profits. No card
     required; commercial use needs a paid plan.
   limits:
-    - Free forever, no request-count stated on the free tier
+    - 2,000 lookups/day on the free plan, hard limit
     - All fields included on every plan, no feature gating
     - No credit card required
   caveats:
     - Commercial/business use requires the paid Launch plan ($2.50/mo)
     - Product now branded IPWho, running on the Lavrox network
+    - No support on the free plan; burst cap of up to 100 requests per second on every plan
+  resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Personalizing content by user location
-  - Blocking or allowing traffic by country
-  - Displaying timezone-aware information
+  - 'Personalize content by country, time zone, and currency'
+  - Add location context to analytics and logs
+  - Flag VPN or Tor traffic at sign-up
+  - Detect unusual login locations
+  - Look up many addresses in one bulk call
 quickstartSteps:
-  - 'Go to https://ipwho.org/ and review API documentation.'
-  - Copy the sample API endpoint URL for free usage.
-  - Make a GET request to the endpoint with an IP address parameter.
-  - Parse the JSON response for geolocation data in your application.
+  - Get a free API key from the IPWho site; no credit card is needed.
+  - Read the overview in the docs.
+  - 'Send a GET request to `https://api.ipwho.org/ip/76.102.11.203?apiKey=YOUR_KEY` with a real address.'
+  - 'Read the JSON response, or filter fields to get only what you need.'
+  - 'Pick an SDK for TypeScript, Python, PHP, Go, or Java if you prefer a typed client.'
 whenToUse: >-
-  Use when you need free, full-featured IP geolocation for side projects,
-  learning, or non-profit use.
+  Use it when you want a full-featured IP geolocation API for a side project,
+  learning, or a non-profit, within 2,000 lookups a day.
 whenNotToUse: >-
-  Avoid if you are shipping a commercial product, since that requires the paid
-  Launch plan.
+  Avoid it for commercial products on the free plan, or when you need more than
+  2,000 lookups a day for free or support.
 bestFor:
   - prototyping
   - student projects
   - personal tools
+  - non-profit projects
 avoidIf:
-  - enterprise needs
-  - production with strict security
+  - commercial use on the free plan
   - high-volume applications
+  - need support on the free plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipwho.org/'
-docsUrl: 'https://ipwho.org/'
-pricingUrl: 'https://www.ipwho.org/'
+docsUrl: 'https://www.ipwho.org/docs'
+pricingUrl: 'https://www.ipwho.org/pricing'
 sourceUrls:
   - 'https://www.ipwho.org/'
+  - 'https://www.ipwho.org/pricing'
+  - 'https://www.ipwho.org/docs'
+  - 'https://www.ipwho.org/docs/guides/rate-limits'
 featured: false
 ---
-IP Geolocation API by ipwho.org (now branded IPWho) offers a free-forever tier for side projects, learning, and non-profits, with every field available on every plan.
+You get a free API key from the dashboard, then call `api.ipwho.org` with a plain GET request or use an official SDK. It suits developers who want every data field, including VPN and Tor flags, on a free key for a personal or non-profit project.
+
+## What the free plan gives you
+
+The Free plan costs $0, needs no card, and gives you 2,000 lookups per day. It has no feature gating: you get location, time zone, currency, ASN, ISP, security flags, bulk lookup, and the client SDKs. The pricing page lists 16 global data centres and no support on the free plan.
+
+The site calls the free plan fit for side projects, learning, and non-profits. The Launch Special plan costs $2.50 a month for 5,000 lookups per day. The Startup plan costs $10 a month for 250,000 lookups per day.
+
+## When you hit a limit
+
+Two limits apply. The daily quota is a hard limit, and past it the API returns HTTP 429 with the code `daily_quota_exceeded`. There is also a burst cap of up to 100 requests per second on every plan, which returns 429 with `burst_limit_exceeded`.
+
+The pricing page says repeated overages will require an upgrade. The docs say free users who hit the daily quota may be prompted to upgrade. Nothing in these pages bills a free key for extra requests.
+
+## Gotchas
+
+- The free plan is for personal, testing, and non-profit use. A commercial project should move to a paid plan.
+- The product is now called IPWho and runs on the Lavrox network, so you may see both names.
+- The free plan has no support. Email support starts on the Startup plan.
+
+## Alternatives in this atlas
+
+- [The IP API](/tools/the-ip-api/): when you want a free tier that allows commercial use.
+- [IPLocate](/services/iplocate/): when you want full data and a similar daily allowance.
+- [ipapi.is](/tools/ipapi-is/): when you want a free account with a daily allowance.
+
+## Questions people ask
+
+### Is IPWho free?
+
+Yes. The Free plan costs $0, needs no credit card, and allows 2,000 lookups per day with all features.
+
+### What happens when I go over the IPWho free limit?
+
+The API returns HTTP 429 with `daily_quota_exceeded` until the next day. Hitting the limit may prompt you to upgrade.
+
+### Can I use IPWho in a commercial project?
+
+Not on the free plan. The site points commercial users to the Launch plan at $2.50 a month.

@@ -1,8 +1,8 @@
 ---
 title: LangWatch
 description: >-
-  LangWatch provides observability and monitoring for LLM applications with
-  prompt tracking, analytics, and debugging tools.
+  LangWatch is an LLM engineering platform for tracing, evaluating, and testing
+  AI agents before and after they ship. It is open core, so you can self-host.
 provider: LangWatch
 category: observability
 domain: observability
@@ -16,53 +16,61 @@ audiences:
   - enterprise
   - oss
 tags:
-  - llm
-  - monitoring
-  - analytics
-  - observability
+  - llm-observability
+  - agent-testing
+  - llm-evaluation
+  - tracing
+  - open-source
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Developer plan is free forever, no credit card required, with 50,000
-    events per month and 14 days of data access.
+    The Developer plan is free forever, no credit card required, with 50k
+    events per month, 14-day data access, and 2 users.
   limits:
-    - '50,000 events/month'
+    - '50k events/month'
     - 14-day data access
     - 2 users
+    - 3 scenarios, 3 simulations, 3 custom evals
     - Community support (GitHub and Discord)
   caveats:
-    - Advanced features require paid plans
-    - No SLA on the free tier
+    - Growth costs 29 euro per core-seat per month
+    - The pricing page lists no SLA for the free plan
+    - You can self-host the open-core version
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor LLM prompt usage
-  - Debug LLM application errors
-  - Analyze prompt performance
+  - Trace LLM calls, tool calls, and retrievals
+  - Run simulated users against an agent
+  - Evaluate response quality with custom evals
+  - Manage and version prompts
+  - Watch usage and cost by user and model
 quickstartSteps:
-  - Sign up for a free LangWatch account.
-  - Create a new project in the dashboard.
-  - Integrate the LangWatch SDK into your LLM application.
-  - Configure prompt tracking and send requests.
-  - View analytics and logs in the LangWatch dashboard.
+  - Sign up for the free Developer plan on langwatch.ai; no credit card is required.
+  - Run `npx langwatch login`, or create an API key under Settings, API Keys in the app.
+  - Set `LANGWATCH_API_KEY` and `LANGWATCH_PROJECT_ID` in your environment.
+  - Install the SDK, for example `pip install langwatch` for Python.
+  - Call `langwatch.setup` with your API key, project ID, and the instrumentor for your LLM library, then send a request.
 whenToUse: >-
-  Use LangWatch when you need to monitor, debug, or analyze prompt usage in
-  LLM-powered applications.
-whenNotToUse: Avoid if you do not use LLMs or require observability for non-AI workloads.
+  Use LangWatch when you want to trace and test an LLM agent, with simulated
+  users and evals, on a free plan or on your own servers.
+whenNotToUse: >-
+  Avoid it for workloads that do not use LLMs, or when you need more than 14 days
+  of data access or more than 2 users on the free plan.
 bestFor:
   - LLM app developers
   - AI startups
-  - Teams building with OpenAI or similar APIs
+  - teams that test agents
 avoidIf:
-  - Not using LLMs
-  - Need observability for traditional apps
+  - not using LLMs
+  - you need observability for traditional apps
+  - you need long data access on the free plan
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://langwatch.ai'
@@ -70,7 +78,47 @@ docsUrl: 'https://docs.langwatch.ai'
 pricingUrl: 'https://langwatch.ai/pricing'
 sourceUrls:
   - 'https://langwatch.ai/pricing'
+  - 'https://langwatch.ai/pricing/'
   - 'https://docs.langwatch.ai'
+  - 'https://langwatch.ai/docs/integration/quick-start'
 featured: false
 ---
-LangWatch offers a free-forever Developer plan for LLM observability, with 50,000 events a month and 14 days of data access, and no credit card required.
+You add the LangWatch SDK or an OpenTelemetry exporter to your app, then view traces, evals, and simulations in the web app. It suits developers who want to test agents as well as watch them.
+
+## What the free plan gives you
+
+The Developer plan is free forever and needs no credit card. It includes 50k events per month, 14-day data access, and 2 users. It also lists 3 scenarios, 3 simulations, and 3 custom evals, with community support on GitHub and Discord.
+
+An event is the work your AI app does in LangWatch. Every LLM call, tool call, retrieval, evaluation, or simulation step counts as one. One user interaction can produce several events. Growth costs 29 euro per core-seat per month and includes 200k events and 30-day retention.
+
+## When you hit a limit
+
+The pricing page does not say what happens on Developer after the 50k events. It says that Growth charges 5 euro per 100k events beyond its 200k allowance, and 3 euro per GB for data kept beyond the included 30 days.
+
+The pricing page says you can see usage, events, storage, and cost live in the dashboard, with anomaly alerts. Check it often if your agent makes many tool calls, because each one counts.
+
+## Gotchas
+
+- Events count LLM calls, tool calls, retrievals, evals, and simulation steps, so one chat can use many events.
+- Data access is 14 days on Developer, against 30 days on Growth.
+- The free plan caps scenarios, simulations, and custom evals at 3 each.
+
+## Alternatives in this atlas
+
+- [Langfuse](/services/langfuse/): when you want open-source LLM tracing with a hosted free plan.
+- [LangSmith](/services/langsmith/): when you build with LangChain.
+- [Helicone](/services/helicone/): when you want simple request logging.
+
+## Questions people ask
+
+### Is LangWatch free?
+
+Yes. The Developer plan is free forever with 50k events per month, 14-day data access, and 2 users. No credit card is required.
+
+### Can I self-host LangWatch?
+
+Yes. The pricing page says LangWatch runs fully self-hosted with docker compose on your own ClickHouse. The docs call it open core.
+
+### Does LangWatch need a credit card?
+
+No. The pricing page says you can sign up and send events with no card required on the Developer plan.

@@ -1,8 +1,9 @@
 ---
 title: Azure SQL Database
 description: >-
-  Managed relational database service for scalable, high-availability SQL
-  workloads on Azure.
+  Azure SQL Database is a managed SQL Server database in the Azure cloud. It
+  is for developers who want a SQL Server engine with patching, backups, and
+  monitoring handled for them.
 provider: Azure
 category: database
 domain: database
@@ -16,8 +17,13 @@ audiences:
   - enterprise
   - student
 tags:
-  - database
-  - cloud
+  - sql server
+  - managed database
+  - azure
+  - serverless
+  - t-sql
+  - relational database
+  - azure sql free offer
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -28,10 +34,12 @@ freeTierDetails:
     - 32 GB data storage per database
     - Up to 10 free General Purpose databases per subscription
     - 32 GB backup storage per database
+    - A maximum of 4 vCores per database
   caveats:
-    - Requires an Azure account (Free Account not required for this benefit)
-    - By default, the database auto-pauses until next month when the free limits are reached
+    - Needs an Azure account and subscription; the Azure free account is not required
+    - By default the database auto-pauses until the next calendar month when the free limits are reached
     - 'If you choose to continue for additional charges, usage above the free amount is billed at standard rates'
+    - With auto-pause on, point-in-time restore is limited to seven days and long-term backup retention is not available
     - An Azure account needs a credit or debit card to sign up
   resetPeriod: monthly
   requiresCard: true
@@ -41,43 +49,83 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above the free amount is billed only if you pick the option to continue using the database for additional charges
 useCases:
-  - Developing cloud-based applications
-  - Testing SQL workloads
-  - Learning SQL Server on Azure
-  - Prototyping data-driven apps
+  - A development or test SQL Server database
+  - Learning T-SQL and SQL Server on Azure
+  - Prototyping a data-driven app
+  - A small app backend that needs a relational database
 quickstartSteps:
-  - Sign in with an Azure account and subscription.
-  - Select 'Start free' in the Create a database pane of the Azure SQL hub.
-  - On the Create SQL Database page, check that the Free offer applied banner shows.
-  - Deploy the database and connect using Azure SQL tools.
+  - Create an Azure account and subscription (card verification applies to Azure sign-up).
+  - 'Open the Azure SQL hub at aka.ms/azuresqlhub and, in the Create a database pane, select Start free.'
+  - 'On the Create SQL Database page, check that the Free offer applied banner shows and that the cost summary shows zero cost.'
+  - 'Pick a resource group, database name, and logical server, then choose Review + create and Create.'
+  - 'Open the Query editor in the Azure portal, or connect with SQL Server Management Studio, the MSSQL extension for VS Code, or `sqlcmd`.'
 whenToUse: >-
-  Use when you need a managed SQL Server database for development, prototyping,
-  or learning on Azure with minimal setup.
+  Use it for development, prototyping, or learning when you want a managed SQL
+  Server database on Azure that pauses itself when the free limits run out.
 whenNotToUse: >-
-  Avoid if you need more than 100,000 vCore-seconds/month of serverless
-  compute per database, require non-SQL engines, or need a non-serverless tier.
+  Skip it if you need more than the monthly free compute, a non-serverless
+  tier, or an elastic pool or failover group. Skip it for non-SQL engines.
 bestFor:
-  - prototyping
-  - learning
-  - testing
-  - development
+  - prototyping and learning
+  - development and testing
+  - small SQL Server apps
 avoidIf:
-  - need more than 100,000 vCore-seconds/month
-  - require non-SQL
-  - production workloads with no budget
+  - You need more compute than the free monthly amount
+  - You need an elastic pool or failover group
+  - You need a non-SQL engine
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
-officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-sql/database/'
+officialUrl: 'https://azure.microsoft.com/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/azure-sql/database/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/azure-sql/database/'
   - 'https://learn.microsoft.com/en-us/azure/azure-sql/database/free-offer'
   - 'https://azure.microsoft.com/en-us/free/'
+  - 'https://learn.microsoft.com/azure/azure-sql/database/single-database-create-quickstart'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://learn.microsoft.com/en-us/azure/azure-sql/database/free-offer'
 ---
-Azure SQL Database offers a managed, scalable SQL Server experience with an always-free serverless offer: 100,000 vCore-seconds of compute and 32 GB of storage per month for each of up to 10 databases.
+You create the database in the Azure portal and query it with the portal query editor, SQL Server Management Studio, VS Code, or `sqlcmd`. It suits people who want a free SQL Server to learn or prototype on.
+
+## What the free plan gives you
+
+The free offer lasts for the lifetime of your subscription. Each database gets 100,000 vCore seconds of serverless compute, 32 GB of data storage, and 32 GB of backup storage every month. You can create up to 10 General Purpose databases per subscription.
+
+The databases run on the same managed platform as paid ones, with patching, backups, and monitoring handled for you. The maximum is 4 vCores and 32 GB of data per database. Your allowance renews at the start of each calendar month.
+
+## When you hit a limit
+
+You choose what happens in the Behavior when free limit reached setting. The default option auto-pauses the database until the start of the next calendar month. The other option keeps the database online, and Azure charges the extra vCore use and storage to your billing method at standard serverless rates.
+
+You are not charged unless you pick that second option and go over. Once you pick it, you cannot switch back to auto-pause. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Open connections from tools like SQL Server Management Studio can keep using credits by stopping auto-pause, so disconnect when you finish.
+- Point-in-time restore keeps seven days, and long-term backup retention is not available with auto-pause on.
+- You cannot copy the free database, put it in an elastic pool or failover group, or convert an existing database to the free offer.
+
+## Alternatives in this atlas
+
+- [Azure PostgreSQL Flexible Server](/services/azure-postgresql-flexible-server/): when you prefer PostgreSQL on Azure.
+- [Azure Cosmos DB](/services/azure-cosmos-db/): when you need a NoSQL database on Azure.
+- [Cloudflare D1](/services/cloudflare-d1/): when you want a small SQL database without an Azure subscription.
+
+## Questions people ask
+
+### Is Azure SQL Database free?
+
+Yes, within a monthly allowance. Each of up to 10 databases per subscription gets 100,000 vCore seconds, 32 GB of data, and 32 GB of backup storage free every month.
+
+### What happens when the free limit runs out?
+
+By default the database auto-pauses until the next calendar month. You can instead choose to keep it online and pay standard serverless rates for the extra use.
+
+### Can I use the Azure SQL free offer without an Azure free account?
+
+Yes. The offer works with any Azure subscription type, but you do need an Azure account and subscription.

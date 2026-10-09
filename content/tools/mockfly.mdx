@@ -1,8 +1,9 @@
 ---
 title: Mockfly
 description: >-
-  Mockfly provides free, hosted mock API endpoints for rapid prototyping and
-  testing without backend setup.
+  Mockfly hosts mock REST API endpoints that you build in a dashboard or import
+  from OpenAPI, Postman, or HAR files. It is for front-end and QA teams who
+  work before the backend is ready.
 provider: Mockfly
 category: devops
 domain: devops
@@ -17,9 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - testing
-  - design
-  - api
+  - mock api
+  - rest api
+  - openapi
+  - fake json
+  - frontend
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -28,52 +31,90 @@ freeTierDetails:
   limits:
     - 500 requests/day
     - 1 project
-    - 4 endpoints
     - 2 responses per endpoint
   caveats:
     - No credit card required
-    - Higher limits need a paid plan
+    - Pro (15 EUR/month) removes the request, project, endpoint, and response limits
+    - Custom hostnames and teammate invites are on paid plans only
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Frontend prototyping
-  - API contract testing
-  - Demo environments
+  - Pointing a front end at a live HTTPS endpoint before the backend ships
+  - Importing an OpenAPI or Postman collection to get mock endpoints
+  - Returning different responses by request parameter, header, or body
+  - Checking error states and slow responses in QA
 quickstartSteps:
-  - Sign up for a free Mockfly account.
-  - Create a new mock API project.
-  - Define endpoints and response schemas.
-  - Test endpoints using your preferred API client.
-  - Share endpoint URLs with your team.
+  - Choose Start free on mockfly.dev and create an account; the free plan needs no credit card.
+  - Create a project. Its namespace forms your base URL, `https://api.mockfly.dev/mocks/` followed by the namespace.
+  - Open the project, go to Endpoints, and add an endpoint with a method, path, and response body.
+  - Test a GET endpoint with the Try it icon, or copy the project base URL and add the endpoint path.
+  - Optional - run `npx mockfly-cli login`, then `npx mockfly-cli pull` and `npx mockfly-cli serve` to serve mocks offline.
 whenToUse: >-
-  Use Mockfly to quickly mock APIs for frontend development, demos, or testing
-  when a real backend is unavailable.
+  Use it for a small mock API with a few endpoints, when 500 requests a day is
+  enough for one project.
 whenNotToUse: >-
-  Avoid if you need advanced authentication, high request volumes, or
-  production-grade reliability for backend services.
+  Avoid it for more than one project on the free plan, for heavy request
+  volume, or when you need your own hostname without paying.
 bestFor:
-  - frontend developers
+  - front-end developers
   - QA engineers
-  - students
+  - one-project prototypes
 avoidIf:
-  - need custom domains
-  - require high throughput
-  - require persistent data
+  - several projects on a free plan
+  - more than 500 requests a day
+  - your own hostname without a paid plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mockfly.dev/'
-docsUrl: 'https://docs.mockfly.dev'
+docsUrl: 'https://www.mockfly.dev/docs'
 sourceUrls:
   - 'https://www.mockfly.dev/'
   - 'https://www.mockfly.dev/pricing'
+  - 'https://www.mockfly.dev/docs'
 pricingUrl: 'https://www.mockfly.dev/pricing'
 featured: false
 ---
-Mockfly is a free tool for creating and managing mock API endpoints, ideal for rapid prototyping, frontend development, and testing workflows without backend dependencies.
+You build endpoints in the Mockfly dashboard, or import them, and your app calls the hosted HTTPS URL. A command line tool can also serve the same mocks offline. It suits front-end developers and QA engineers.
+
+## What the free plan gives you
+
+The Starter plan costs nothing and needs no credit card. It includes 500 requests per day, 1 project, and 2 responses per endpoint. Each project gets a namespace, and your mock API answers at `https://api.mockfly.dev/mocks/` followed by that namespace.
+
+The paid plans remove these limits. Pro costs 15 EUR per month and has unlimited requests, projects, endpoints, and responses. It also adds callbacks, teammate invites, and AI generation of mock JSON. Team costs 49 EUR per month and includes 5 seats. The docs also say Pro and Team can serve a project on your own hostname.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 500th request of the day. It only lists the limit and says Starter needs no credit card, so a bill is not possible on this plan. The free plan also stops at 1 project and 2 responses per endpoint. To lift these limits, you upgrade to Pro. If you only need a short test, the offline command line tool can serve mocks you pulled earlier, but it needs a Mockfly account to pull them.
+
+## Gotchas
+
+- The free limit counts requests per day, so a busy test suite can use it up quickly.
+- Two responses per endpoint limit how many conditional cases you can mock on the free plan.
+- A project namespace starts as a random ID. You can edit it to a readable name such as users.
+
+## Alternatives in this atlas
+
+- [MockAPI](/tools/mockapi/): when you want a free mock API limited by resources instead of requests.
+- [Mocko.dev](/tools/mocko-dev/): when you also want an open-source version that runs on your machine.
+- [Mockerito](/tools/mockerito/): when you want free sample APIs or a short trial of custom mocks.
+
+## Questions people ask
+
+### Is Mockfly free?
+
+Yes. The Starter plan is free, with 500 requests per day, 1 project, and 2 responses per endpoint.
+
+### Does Mockfly need a credit card?
+
+No. The pricing page says Starter is free and needs no credit card.
+
+### What happens when I go over the Mockfly free limit?
+
+The pricing page does not say. Pro at 15 EUR per month removes the request, project, and response limits.

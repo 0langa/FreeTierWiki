@@ -1,8 +1,9 @@
 ---
 title: Pulsetic
 description: >-
-  Pulsetic provides website uptime and performance monitoring with free status
-  pages and alerting.
+  Pulsetic checks websites, servers, and cron jobs on a schedule and shows the
+  results on status pages. It is for site owners, developers, and small teams
+  who want alerts when something breaks.
 provider: Pulsetic
 category: observability
 domain: observability
@@ -16,8 +17,13 @@ audiences:
   - team
   - oss
 tags:
+  - uptime
   - monitoring
-  - web
+  - status-page
+  - heartbeat
+  - cron-monitoring
+  - ssl-monitoring
+  - real-user-monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,52 +33,94 @@ freeTierDetails:
     - Up to 10 monitors (websites/heartbeats/domains)
     - 5-minute check interval, 3 monitoring regions
     - 3 status pages
+    - 1 dependency monitor and 1 webhook per monitor
     - 1,000 RUM page views/month
     - 3-month uptime history, 30-day error log retention
   caveats:
-    - Email alerts only; no Slack, SMS, or WhatsApp alerts on the free plan
-    - No teammates or status badges on the free plan
+    - Email alerts and webhooks only; no Slack, SMS, call, or WhatsApp alerts on the free plan
+    - No teammates, status badges, status page incident updates, or scheduled maintenance on the free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor website uptime
-  - Create a public status page
-  - Receive downtime email alerts
+  - Checking up to ten sites, APIs, or domains for downtime
+  - Watching cron jobs with heartbeat monitors
+  - Publishing a public status page for customers
+  - Tracking page load errors with real user monitoring
+  - Getting email and webhook alerts when something breaks
 quickstartSteps:
-  - Sign up for a free Pulsetic account.
-  - Add your website URL to create a new monitor.
-  - Configure check interval and alert email.
-  - Set up and customize your public status page.
-  - Verify monitoring and receive alerts for downtime.
+  - 'On pulsetic.com choose Sign Up or Try for Free, then sign up with an email and password or with Google.'
+  - 'Agree to the terms, select Continue, and click the verification link in the email Pulsetic sends.'
+  - 'In the Monitors section, enter the URL to watch, pick the locations and alerts, and select Add Monitor.'
+  - 'For a cron job, open Heartbeats, click Add Heartbeat, and call the copied Heartbeat URL at the end of your script.'
+  - 'Open Status Pages, select New Status Page, give it a title, add your monitors, and select Save Page.'
 whenToUse: >-
-  Use Pulsetic to monitor up to 10 websites and display public status pages
-  with basic downtime alerts.
+  Use Pulsetic to watch up to ten sites, domains, or cron jobs with email alerts
+  and put up to three status pages in front of visitors.
 whenNotToUse: >-
-  Avoid if you need faster checks, SMS/WhatsApp alerts, or teammates without
-  paying.
+  Avoid it if you need checks faster than every five minutes, SMS, call, or chat
+  alerts, teammates, or status page incident updates without paying.
 bestFor:
-  - personal sites
-  - side projects
-  - small teams
-  - open source projects
+  - personal sites and side projects
+  - cron job heartbeats
+  - small teams that accept email alerts
 avoidIf:
-  - enterprise-scale monitoring
-  - need for advanced integrations
-  - require SMS/phone alerts
+  - you need SMS or phone alerts
+  - you need to post incident updates on the status page for free
+  - you need teammates
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://pulsetic.com'
 docsUrl: 'https://docs.pulsetic.com'
 sourceUrls:
   - 'https://pulsetic.com/pricing'
+  - 'https://pulsetic.com'
+  - 'https://help.pulsetic.com/article/217-set-up-your-account'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://pulsetic.com/pricing'
 ---
-Pulsetic offers free uptime monitoring for up to 10 websites with public status pages and email alerts, suitable for small projects and teams.
+You work in the Pulsetic dashboard, and there is also an API and webhooks. The setup guide covers monitors, heartbeat monitors for cron jobs, status pages, and badges. It suits one person or a small team with a handful of sites.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and the sign-up flow asks only for an email and password. The comparison table lists 10 monitors, heartbeats, or domains, with a 5-minute check interval and checks from 3 regions. You get 3 status pages, 1 dependency monitor, and 1 webhook per monitor.
+
+History is short: uptime logs are kept for 3 months and error logs for 30 days. The free plan also includes 1,000 real user monitoring page views a month. Alerts go out by email and webhook. The pricing FAQ says the free version has limited functionality, and in many cases is enough to monitor a website.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass a free limit. Paid plans let you buy more capacity as add-ons, such as $0.20 per extra monitor, but the page says that applies on any paid plan, not on Free. Free stays at its fixed limits unless you upgrade.
+
+The Solo plan costs $9 per month and has 60-second checks, 5 regions, and unlimited status pages.
+
+## Gotchas
+
+- The free table shows no status page incident updates and no scheduled maintenance, so the free status pages mostly show monitor status.
+- Calls, SMS, WhatsApp, and chat tools like Slack start on the $9 Solo plan. Free has email and webhooks only.
+- No teammates or status badges on Free. The help center also says Free accounts must log in at least once every 90 days to stay active.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want more free monitors and are fine with a simpler status page.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want on-call style alerts with a status page on a free plan.
+- [Instatus](/services/instatus/): when your main need is a hosted status page with monitors.
+
+## Questions people ask
+
+### Is Pulsetic free?
+
+Yes. The Free plan is $0 per month and covers 10 monitors with 5-minute checks and 3 status pages. Email alerts and webhooks come with it.
+
+### Does Pulsetic need a credit card?
+
+The help center sign-up steps ask for an email and password, or Google sign-in, plus email verification. No step asks for a card.
+
+### Does Pulsetic send SMS alerts on the free plan?
+
+No. SMS, call, and WhatsApp alerts are not included on Free. Calls and SMS start on the Solo plan.

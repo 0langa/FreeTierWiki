@@ -1,8 +1,9 @@
 ---
 title: ConfigCat
 description: >-
-  ConfigCat is a feature flag and remote configuration service for managing
-  feature rollouts and toggles.
+  ConfigCat is a hosted service for feature flags and remote configuration, so
+  you can switch features on or off, and roll them out to some users, without
+  redeploying. It has SDKs for most languages and is for developers and teams.
 provider: ConfigCat
 category: devops
 domain: devops
@@ -16,66 +17,124 @@ audiences:
   - team
   - oss
 tags:
-  - collaboration
-  - testing
-  - devops
+  - feature flags
+  - feature toggles
+  - remote config
+  - percentage rollout
+  - canary release
+  - targeting rules
+  - kill switch
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Forever Free plan: 10 feature flags, 2 environments, 2 products, unlimited
-    team members and MAUs, no card required.
+    Forever Free plan: 2 products, 2 environments per product, 10 feature flags
+    per product, 5 million config JSON downloads and 20 GB of network traffic
+    per month, with unlimited team members and MAUs. No card needed.
   limits:
-    - 10 feature flags
-    - 2 environments
     - 2 products
-    - 5 million config JSON downloads/month
-    - '20 GB/mo network traffic'
-    - Unlimited team members and MAUs
+    - 2 environments per product
+    - 10 feature flags (settings) per product
+    - 5 million config JSON downloads per month
+    - 20 GB network traffic per month
+    - Unlimited team members, MAUs, and feature flag reads
+    - Audit log kept for 7 days
   caveats:
-    - Basic 99% uptime SLA; premium support needs a paid plan
-    - Audit log history limited to 7 days
+    - No credit card required
+    - The Forever Free plan has the same feature set as paid plans, including
+      SSO, SAML, and 2FA
+    - If you reach the traffic limit, ConfigCat keeps your application running
+      and contacts you
+    - Support on the free plan is through Slack or email; premium support starts
+      at the Enterprise plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Gradual feature rollouts
-  - A/B testing
-  - Remote configuration
-  - Kill switch implementation
+  - Release a feature to a small share of users first
+  - Turn a feature off at once with a kill switch
+  - Change app settings without redeploying
+  - Target a feature at chosen user groups
+  - Run a soft launch and A/B style tests
 quickstartSteps:
-  - Sign up for a free ConfigCat account.
-  - Create a new project and environment.
-  - Define your feature flags in the dashboard.
-  - Integrate the ConfigCat SDK into your application.
-  - Fetch and evaluate feature flags in your code.
+  - Sign up for a free ConfigCat account on configcat.com. The site says no
+    credit card is required.
+  - Log in to the Dashboard and click ADD FEATURE FLAG, then give the flag a
+    name.
+  - Optionally try the interactive Feature Flags Tutorial app before you touch
+    your own code.
+  - Install the SDK for your language, for example npm install @configcat/sdk
+    for JavaScript.
+  - Create a client with your SDK Key, read the flag with getValueAsync, and
+    branch your code on the result.
 whenToUse: >-
-  Use ConfigCat when you need to manage feature flags or remotely control app
-  features without redeploying.
+  Use ConfigCat when you want hosted feature flags with unlimited team members
+  and users, and your app needs only a few flags per product.
 whenNotToUse: >-
-  Avoid if you require advanced enterprise integrations, on-premise hosting, or
-  need more than 10 feature flags or 2 environments for free.
+  Avoid it if you need more than 10 feature flags per product, more than 2
+  products, or more than 2 environments on the free plan. Avoid it if you need
+  on-premise hosting without a paid plan.
 bestFor:
-  - feature flag management
-  - remote configuration
   - small teams
-  - startups
+  - apps with a few flags
+  - teams who want unlimited seats on a free plan
 avoidIf:
-  - need on-premise
-  - require advanced integrations
-  - large enterprise scale
+  - many feature flags in one product
+  - more than 2 environments
+  - fast support response on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://configcat.com'
 docsUrl: 'https://configcat.com/docs/'
 sourceUrls:
-  - 'https://configcat.com/pricing/'
+  - https://configcat.com/pricing/
+  - https://configcat.com/docs/subscription-plan-limits/
+  - https://configcat.com/docs/getting-started/
+  - https://configcat.com/docs/network-traffic/
 pricingUrl: 'https://configcat.com/pricing/'
 featured: false
 ---
-ConfigCat provides a simple, scalable way to manage feature flags and remote configuration, enabling safe and controlled feature rollouts for modern applications.
+You manage flags on the ConfigCat dashboard, and your app reads them through an SDK. It suits developers who want a small, hosted flag service with unlimited team members.
+
+## What the free plan gives you
+
+The Forever Free plan costs $0 and has the same feature set as the paid plans. Limits are 2 products, 2 environments per product, and 10 feature flags (settings) per product. You also get 2 segments per product and 1 permission group per product. Each month you get 5 million config JSON downloads and 20 GB of network traffic.
+
+Team members are unlimited, and so are monthly active users, service connections, and feature flag reads. The audit log is kept for 7 days. ConfigCat says the free plan includes SSO, SAML, multi-factor authentication, and the EU-only data option. SDKs are MIT licensed and open source on GitHub, for languages such as JavaScript, Python, Java, Go, and .NET.
+
+## When you hit a limit
+
+The product, environment, and flag counts are plan limits. The docs say values marked with a star are technical limits that support can raise. On the Free plan, products, environments, and feature flags per product are not starred. Configs per product (10) is starred.
+
+For network traffic, the docs say that if you hit the limit, ConfigCat keeps your application up and running. They also say to expect them to contact you about meeting your needs. The pricing page does not describe an automatic charge on the free plan. The Pro plan costs $110 per month on the page and has 3 products, 100 GB of traffic, and 25 million downloads.
+
+## Gotchas
+
+- The limit is 10 feature flags per product, not per account. Two products give you up to 20 flags.
+- Audit log retention is 7 days on Free, against 35 days on Pro.
+- Free plan support goes through Slack or email. Premium support starts at the Enterprise plan.
+
+## Alternatives in this atlas
+
+- [GrowthBook](/services/growthbook/): when you want unlimited feature flags and experiments for a few team members.
+- [Flagsmith](/tools/flagsmith/): when you want unlimited flags with a request-based limit.
+- [LaunchDarkly](/services/launchdarkly/): when you want a larger feature flag platform with more enterprise tools.
+
+## Questions people ask
+
+### Is ConfigCat free?
+
+Yes. The Forever Free plan costs $0 and needs no credit card. It has 10 feature flags per product, 2 products, and unlimited team members and users.
+
+### How many feature flags does ConfigCat give for free?
+
+You get 10 feature flags per product and 2 products. Each product also has 2 environments.
+
+### What happens if I go over the ConfigCat free network traffic limit?
+
+ConfigCat says it keeps your application running if you hit the traffic limit. It also says it will contact you to discuss your needs.

@@ -1,8 +1,7 @@
 ---
 title: Commerce Layer
 description: >-
-  Commerce Layer provides a headless commerce API for building custom e-commerce
-  experiences at scale.
+  Commerce Layer is an API-first, headless commerce platform. Its Core REST API handles prices, inventory, orders, payments, and promotions while you build the storefront yourself.
 provider: Commerce Layer
 category: hosting
 domain: hosting
@@ -16,7 +15,13 @@ audiences:
   - enterprise
   - indie
 tags:
-  - api
+  - "headless commerce"
+  - "ecommerce api"
+  - "rest api"
+  - "orders"
+  - "skus"
+  - "storefront"
+  - "order management"
 pricingModel: freemium
 freeTierDetails:
   summary: Free Developer plan includes 100 live orders per month and unlimited test orders, with 2 users and 1,000 SKUs.
@@ -27,41 +32,42 @@ freeTierDetails:
     - 1,000 SKUs
     - 10 links
   caveats:
-    - Additional live orders require a paid plan
-    - No trial period; the Developer plan is free forever
+    - "The pricing page lists only the free Developer plan and a custom Enterprise plan, so more live orders mean talking to sales"
+    - "Docs call the Developer plan free forever; there is no trial period"
+    - "Plan limits count only active markets, so disable one before enabling another"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Launch MVP e-commerce sites
-  - Integrate custom storefronts
-  - Test headless commerce APIs
-  - Prototype multi-channel sales
+  - "Powering a custom storefront with a REST API"
+  - "Testing a headless commerce stack with unlimited test orders"
+  - "Managing prices, markets, and stock for several regions"
+  - "Sharing product links that open a checkout"
+  - "Prototyping a small shop before a larger build"
 quickstartSteps:
-  - Sign up for a free Commerce Layer account.
-  - Create a new organization and configure your market.
-  - 'Add products, SKUs, and inventory.'
-  - Set up a sales channel and payment gateway.
-  - Integrate the API with your frontend or backend.
+  - "Sign up for free at commercelayer.io; the pricing page lists no card requirement for the Developer plan."
+  - "In the Dashboard, run the setup wizard to get a minimum working configuration, or create the resources by hand in the required order."
+  - "Optionally install the Commerce Layer CLI to configure the organization from the command line."
+  - "Create API credentials in the Dashboard and read the Authentication guide to get an access token."
+  - "Use the Core API to fetch SKUs and prices, then create and update an order from your frontend or backend."
 whenToUse: >-
-  Use Commerce Layer when you need a flexible, API-first solution to build
-  custom e-commerce sites or apps with minimal backend constraints.
+  Use Commerce Layer when you want to build your own storefront or checkout on a commerce API and your volume of live orders is small.
 whenNotToUse: >-
-  Avoid if you require a traditional, all-in-one e-commerce platform or expect
-  to exceed 100 live orders per month on the free tier.
+  Skip it if you want a ready storefront with no code, or if you expect many live orders a month. The pricing page shows only a free Developer plan and a custom Enterprise plan.
 bestFor:
-  - custom storefronts
-  - API-driven commerce
-  - multi-channel sales
+  - "custom storefronts"
+  - "API-driven commerce"
+  - "developers testing headless commerce"
+  - "multi-market selling"
 avoidIf:
-  - need built-in storefront
-  - high order volume
-  - require no-code setup
+  - "you need a built-in storefront"
+  - "you need a no-code setup"
+  - "you expect high live order volume on the free plan"
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://commercelayer.io'
@@ -69,8 +75,47 @@ docsUrl: 'https://docs.commercelayer.io'
 sourceUrls:
   - 'https://commercelayer.io/pricing'
   - 'https://docs.commercelayer.io'
+  - 'https://docs.commercelayer.io/core/getting-started'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://commercelayer.io/pricing'
 ---
-Commerce Layer offers a robust headless commerce API with a generous free tier for low-volume projects, ideal for custom e-commerce builds and MVPs.
+You manage setup in the Commerce Layer Dashboard and use the Core REST API from your own frontend or backend. The docs also describe a CLI for configuring an organization. It suits developers building a custom storefront or checkout, not shop owners who want a ready-made site.
+
+## What the free plan gives you
+
+The free plan is called Developer. The pricing page lists 1 organization, 2 users, 2 markets, 1,000 SKUs, and 10 links. It includes unlimited test orders and 100 free live orders per month, plus core API access and community support. The docs say Commerce Layer is free for developers and will stay that way.
+
+A market is a place or sales strategy with its own prices and inventory. Your plan limits count only active markets. A SKU is one distinct item for sale, so a t-shirt in several sizes and colors counts as many SKUs. Links are shareable product or order links that open a microstore or a checkout.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 100 live orders in a month. It also lists no price for extra orders. The only other plan shown is Enterprise, with a custom quote, unlimited organizations, users, markets, SKUs, and links, and dedicated support. You would contact sales to get past the Developer limits.
+
+For markets, the FAQ gives a clear rule. If you reach the market limit, disable one active market before you enable a new one. The Developer plan lists no card requirement, and test orders cost nothing, so you can build and test freely before real sales start.
+
+## Gotchas
+
+- Each user has an Admin or Read-only role. Custom roles are only on Enterprise.
+- The Metrics API and Provisioning API are listed under Enterprise, not Developer.
+- The docs say the default API version will be phased out over time and will only get bug fixes, while newer features go to a newer version.
+
+## Alternatives in this atlas
+
+- [Contentful](/services/contentful/): when you need structured content for a storefront rather than orders.
+- [Hygraph](/services/hygraph/): when you want a headless content API next to your commerce backend.
+- [Crystallize](/services/crystallize/): when you want product information management with a headless approach.
+
+## Questions people ask
+
+### Is Commerce Layer free?
+
+Yes. The Developer plan is free and includes unlimited test orders and 100 free live orders per month.
+
+### What happens after 100 live orders on Commerce Layer?
+
+The pricing page does not say. It lists only the free Developer plan and a custom Enterprise plan, so more volume means talking to sales.
+
+### Does Commerce Layer need a credit card?
+
+The pricing page lists no card requirement for the Developer plan. You sign up for free and start with the setup wizard or the API.

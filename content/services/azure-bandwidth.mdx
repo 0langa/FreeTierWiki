@@ -1,8 +1,8 @@
 ---
 title: Azure Bandwidth
 description: >-
-  Azure Bandwidth provides outbound data transfer for Azure resources with a
-  limited free monthly allowance.
+  Azure Bandwidth is the data transfer charge on Azure. The first part of your
+  monthly internet egress is free, which suits small apps and tests on Azure.
 provider: Azure
 category: networking
 domain: networking
@@ -16,13 +16,17 @@ audiences:
   - startup
   - team
 tags:
+  - bandwidth
+  - egress
+  - data transfer
+  - azure
   - networking
   - cloud
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    First 100 GB/month of internet egress is free; inbound data transfer is
-    always free.
+    The first 100 GB per month of internet egress is free; inbound data
+    transfer and transfer inside one availability zone are free.
   limits:
     - 100 GB/month internet egress (first tier)
     - Inbound data transfer always free
@@ -30,6 +34,7 @@ freeTierDetails:
   caveats:
     - Applies only to outbound data; inbound is always free.
     - Overages billed at standard per-GB rates by source continent.
+    - Transfer between two Azure regions is charged, even inside Azure.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -37,25 +42,24 @@ freeTierDetails:
   overageRisk: medium
   billingRiskNotes:
     - Exceeding the free limit incurs automatic charges.
+    - There is no hard cap on egress; watch usage in Cost Management.
 useCases:
-  - Hosting small websites
-  - Testing outbound APIs
-  - Low-traffic applications
-  - Prototyping networked services
+  - Serving a small website or API from an Azure VM or app
+  - Testing outbound traffic from a prototype
+  - Low-traffic apps that send data to the internet
+  - Learning how Azure bills network traffic
 quickstartSteps:
-  - Sign up for an Azure account and verify your identity.
-  - 'Create a resource (e.g., VM, App Service) in the Azure portal.'
-  - >-
-    Configure your resource to send outbound data (e.g., serve a website or
-    API).
-  - Monitor bandwidth usage in the Azure portal to stay within the free tier.
-  - Set up billing alerts to avoid unexpected charges.
+  - Sign up for an Azure account at azure.microsoft.com; the free account gives credit and free monthly amounts.
+  - Sign in to the Azure portal and create a resource group.
+  - Create a resource that sends data out, for example a virtual network with a virtual machine.
+  - Send traffic from the resource to the internet, such as serving a page or calling an API.
+  - Open Cost Management in the portal to see how much egress you used this month.
 whenToUse: >-
-  Use when you need limited outbound data transfer for small apps, tests, or
-  prototypes on Azure.
+  Use it when your Azure resources send a small amount of data to the internet
+  each month and you want that traffic free.
 whenNotToUse: >-
-  Avoid if your workload regularly exceeds 100 GB/month outbound data or requires
-  predictable, capped costs.
+  Avoid it as a plan for heavy download traffic, video, or large file delivery,
+  where egress charges grow with every extra gigabyte.
 bestFor:
   - prototyping
   - testing
@@ -67,15 +71,57 @@ avoidIf:
   - strict cost controls
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/bandwidth/'
-docsUrl: 'https://docs.azure.microsoft.com'
+docsUrl: 'https://learn.microsoft.com/en-us/azure/networking/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/bandwidth/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/bandwidth/'
+  - 'https://learn.microsoft.com/en-us/azure/networking/'
+  - 'https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal'
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure Bandwidth offers the first 100 GB/month of outbound data transfer free, suitable for low-traffic apps, testing, and learning on Azure. Monitor usage to avoid overage charges.
+You do not sign up for bandwidth on its own. It is the network traffic bill for the Azure resources you run, and you manage it in the Azure portal. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+Data coming into Azure is free. Data moving inside one availability zone is also free, and so is data from an Azure origin to Azure Front Door Standard or Premium.
+
+For internet egress, the first 100 GB each month is free. This applies when traffic goes out over the Microsoft global network, and also when it uses the cheaper routing preference option. The first 100 GB is listed per month for every source continent, but the price after it depends on the continent.
+
+## When you hit a limit
+
+Nothing stops your traffic at the free amount. Azure keeps sending data and bills you for every extra gigabyte. The rate depends on the continent the data leaves from. For example, the next tier of premium egress from North America or Europe costs $0.087 per GB, and rates are higher from Asia and South America.
+
+Moving data between two Azure regions is charged too, even when both ends are in Azure. Moving data between services in the same region is not charged. The pricing page lists no spending cap for egress, so use Cost Management to watch your usage.
+
+## Gotchas
+
+- The free amount covers outbound internet traffic only. Transfer between regions is billed from the first gigabyte.
+- Traffic leaving Azure after the first tier is billed by source continent, and the rates are higher for Asia and South America.
+- The Azure free account stops your services when its credit runs out or expires, unless you upgrade. After you upgrade, you pay only for usage above the free amounts.
+
+## Alternatives in this atlas
+
+- [Cloudflare](/services/cloudflare/): when you want a CDN in front of your site so less traffic leaves Azure.
+- [CacheFly](/services/cachefly/): when you need CDN delivery for large files or downloads.
+- [Azure Virtual Networks](/services/azure-virtual-networks/): when your question is about private traffic between your own Azure resources.
+
+## Questions people ask
+
+### Is Azure bandwidth free?
+
+Partly. Inbound data is free, and the first 100 GB of internet egress each month is free. Outbound traffic above that is billed per gigabyte.
+
+### What happens when I go over the free Azure egress?
+
+Azure does not block traffic. It bills the extra gigabytes at the rate for the continent the data leaves from.
+
+### Is data transfer between Azure regions free?
+
+No. The pricing page says outbound transfer between two regions is charged at the normal rate, and inbound transfer is free. Transfer inside the same region is not charged.

@@ -1,8 +1,8 @@
 ---
 title: Bugfender
 description: >-
-  Bugfender provides remote logging and crash reporting for mobile and web
-  applications to help developers diagnose issues in production.
+  Bugfender collects logs from your users' mobile and web app installs and shows
+  them in a dashboard, so you can debug problems remotely.
 provider: Bugfender
 category: observability
 domain: observability
@@ -16,10 +16,11 @@ audiences:
   - team
   - student
 tags:
-  - logging
+  - remote-logging
   - mobile
-  - monitoring
-  - collaboration
+  - ios
+  - android
+  - debugging
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,42 +32,43 @@ freeTierDetails:
     - 24-hour log retention
     - Unlimited apps and team members
   caveats:
-    - No crash reporting or advanced features on the free plan
+    - No crash reporting or user feedback collection on the free plan
     - Only 24 hours of log retention (paid plans get 7-30 days)
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Remote debugging of mobile apps
-  - Investigating app problems from device logs
-  - Collecting logs from user devices
-  - Monitoring app health in real time
+  - Read the logs of a user's device when they report a bug
+  - Debug a mobile app in production
+  - Collect logs from a web app in the browser
+  - Get a daily summary email of app activity
 quickstartSteps:
-  - Sign up for a free Bugfender account.
-  - Create a new application in the Bugfender dashboard.
-  - 'Integrate the Bugfender SDK into your app (iOS, Android, or web).'
-  - Initialize Bugfender with your app key.
-  - Deploy your app and view logs in the Bugfender dashboard.
+  - Sign up from bugfender.com; the site says no credit card is required.
+  - Get your app key from the Bugfender dashboard; the docs use `YOUR_APP_KEY_HERE` as the placeholder.
+  - Add the SDK for your platform; for browsers, run `npm install @bugfender/sdk`.
+  - Call `Bugfender.init` early in your app with your `appKey`.
+  - Write a log with `Bugfender.log('This is a log')`.
+  - Open the dashboard to read the log from your device.
 whenToUse: >-
-  Use Bugfender when you need remote logging for mobile or web apps,
-  especially for debugging issues in production.
+  Use Bugfender to read logs from users' devices when a mobile or web app
+  misbehaves and you cannot reproduce the problem.
 whenNotToUse: >-
-  Avoid if you need more than 24 hours of log retention, crash reporting, or
-  support for more than 2,000 devices on the free plan.
+  Avoid it if you need more than 24 hours of log retention, crash reporting, or
+  more than 2,000 devices on the free plan.
 bestFor:
   - mobile developers
-  - indie app creators
-  - startups debugging production issues
+  - indie app makers
+  - small teams debugging production
 avoidIf:
-  - need unlimited retention
-  - require advanced analytics
-  - have large-scale enterprise needs
+  - logs must last more than a day
+  - crash reporting on the free plan
+  - more than 2,000 devices
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://bugfender.com/'
@@ -75,6 +77,47 @@ pricingUrl: 'https://bugfender.com/pricing/'
 sourceUrls:
   - 'https://bugfender.com/pricing/'
   - 'https://docs.bugfender.com/'
+  - 'https://docs.bugfender.com/docs/platforms/web-apps/bugfender-for-javascript-on-browsers'
 featured: false
 ---
-Bugfender is a remote logging service for mobile and web apps, offering 100,000 log lines/day and 2,000 devices free, with 24-hour retention.
+You add the Bugfender SDK to a mobile or web app, and logs from your users' devices show up in the Bugfender web dashboard. It suits solo developers and small teams who need to see what happened on a device they cannot touch.
+
+## What the free plan gives you
+
+The Free plan is meant for trying Bugfender in small projects, and the home page says no credit card is required. It includes 100K log lines per day and 2,000 devices. Logs are kept for 24 hours.
+
+Apps, user accounts, and team members are unlimited. You also get a daily summary email. All plans include unlimited app installs, unlimited app users and sessions, and enterprise-grade encryption.
+
+Crash reporting and user feedback collection start at the Basic plan, not on Free. Basic costs from 39 per month, with 10M monthly log lines, 7-day log retention, and unlimited devices.
+
+## When you hit a limit
+
+The pricing page does not say what happens on the Free plan when you pass 100K log lines in a day or 2,000 devices. It asks for no card, so a bill is unlikely. Check the dashboard before you rely on it at that scale.
+
+The paid plans work differently: the page says you start with reserved monthly logs and scale with pay-as-you-go pricing when you need more.
+
+## Gotchas
+
+- Free logs vanish after 24 hours, so a bug a user reports the next day may already be gone.
+- Crash reporting and user feedback are not in the Free plan list.
+- The 2,000 device limit counts customer devices, and the daily 100K log lines reset every day.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you need crash and error tracking more than raw device logs.
+- [Bugsnag](/services/bugsnag/): when you want crash reports for mobile apps with release tracking.
+- [Embrace](/services/embrace/): when you want mobile app performance data along with crashes.
+
+## Questions people ask
+
+### Is Bugfender free?
+
+Yes. The Free plan includes 100K log lines per day, 2,000 devices, and unlimited apps and team members, with no credit card required.
+
+### How long does Bugfender keep logs on the free plan?
+
+Free logs are kept for 24 hours. Basic keeps them 7 days, and Pro keeps them 30 days.
+
+### Does Bugfender Free include crash reporting?
+
+No. The pricing page lists crash reporting under the Basic plan and above.

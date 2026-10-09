@@ -1,8 +1,9 @@
 ---
 title: Middleware.io
 description: >-
-  Middleware.io provides cloud-native observability for monitoring
-  infrastructure, applications, and logs in real time.
+  Middleware.io is a full-stack observability platform that covers
+  infrastructure, APM, RUM, logs, and traces. It targets small teams that want
+  one place for metrics, logs, and traces.
 provider: Middleware.io
 category: observability
 domain: observability
@@ -16,60 +17,64 @@ audiences:
   - enterprise
   - oss
 tags:
-  - monitoring
   - observability
-  - logging
-  - devops
-  - cloud
+  - infrastructure-monitoring
+  - apm
+  - log-management
+  - opentelemetry
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Forever plan includes 100 GB of data (metrics, logs, traces) with
-    unlimited users and no credit card required.
+    The Free Forever plan costs $0 and includes 100GB of data volume (metrics,
+    logs, traces), unlimited users, and community support.
   limits:
-    - 100 GB data volume (metrics, logs, traces)
-    - '2 million OpsAI tokens'
-    - '1,000 RUM sessions, 20,000 synthetic checks'
+    - 100GB data volume (metrics, logs, traces)
+    - 2 million OpsAI tokens
+    - '1000 RUM sessions, 20000 synthetic checks'
     - 10 browser test runs
     - Unlimited users
     - 14-day data retention
   caveats:
-    - A 14-day trial with unlimited data ingestion is also available
-    - Usage beyond the free allowance moves to pay-as-you-go pricing
+    - 'The pricing FAQ and the getting-started docs also mention a 14-day free trial with unlimited data ingestion'
+    - Pay as you go costs $0.3 per GB of metrics, logs, and traces
+    - Community support only on the free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - The pricing page does not say what happens when you pass the free allowance; paid usage is pay as you go
 useCases:
   - Monitor server health and uptime
-  - Track application performance
+  - Track application performance and traces
   - Aggregate and search logs
+  - Watch real user sessions and synthetic checks
   - Set up alerts for incidents
 quickstartSteps:
-  - Sign up for a free Middleware.io account.
-  - Add your first project or environment.
-  - Install the Middleware agent to start sending data.
-  - 'Configure integrations for your stack (e.g., AWS, Docker, databases).'
-  - Set up dashboards and basic alerting rules.
+  - Sign up for a free account on middleware.io.
+  - Log in so the docs show your own `MW_API_KEY` and `MW_TARGET` in the code snippets.
+  - Pick the host agent or SDK that fits, for example the Linux agent, which needs `curl` or `wget` on the host.
+  - Run the install script from the docs with your `MW_API_KEY` and `MW_TARGET` values.
+  - Verify the installation, then open the dashboards to see host data.
 whenToUse: >-
-  Use Middleware.io to monitor small-scale infrastructure or applications with
-  a simple, unified observability platform within the 100 GB free allowance.
+  Use Middleware.io to monitor small infrastructure or apps in one platform
+  while you stay inside the 100GB free allowance.
 whenNotToUse: >-
-  Avoid if you need more than 100 GB of data a month without moving to
-  pay-as-you-go pricing.
+  Avoid it if you need more than 100GB of data a month without paying, or more
+  than 14 days of retention on the free plan.
 bestFor:
   - startups
   - small teams
-  - open source projects
+  - open-source projects
 avoidIf:
-  - large enterprises
   - high-volume environments
+  - long retention on the free plan
   - custom analytics needs
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://middleware.io/'
@@ -78,6 +83,46 @@ pricingUrl: 'https://middleware.io/pricing'
 sourceUrls:
   - 'https://middleware.io/pricing'
   - 'https://middleware.io/'
+  - 'https://docs.middleware.io/getting-started'
+  - 'https://docs.middleware.io/agent-installation/linux'
 featured: false
 ---
-Middleware.io offers a Free Forever plan with 100 GB of data volume and unlimited users, providing essential observability tools for small teams and projects. Advanced usage beyond the free allowance moves to pay-as-you-go pricing.
+You install a host agent or SDK, then explore metrics, logs, traces, and alerts in the Middleware dashboard. It suits small teams that want infrastructure and application monitoring together.
+
+## What the free plan gives you
+
+The Free Forever plan costs $0 and gives free access to all features with monthly limits. The calculator shows a free tier of 100GB of data volume, 1000 RUM sessions, 20000 synthetic checks, and 10 browser test runs. You also get 2 million OpsAI tokens, unlimited users, and community based support.
+
+Data is kept for 14 days on the free tier, while pay as you go keeps it for 30. The pricing FAQ says usage is measured daily, per data type and source, and counts data actually stored. Data you drop in the data pipeline is not charged.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass the free allowance. It does show the next step: pay as you go costs $0.3 per GB of metrics, logs, and traces. Extra RUM sessions cost $1 per 1K, extra synthetic checks cost $1 per 5K, and extra browser test runs cost $10 per 1K.
+
+Error detection with OpsAI is free. Root cause analysis and automated fixes are charged by tokens used. You can use the ingestion control and data pipeline to drop data you do not need.
+
+## Gotchas
+
+- The pricing FAQ answers "Is Middleware free to use?" with a 14-day trial with unlimited data ingestion, while the plan card says Free Forever. Check your plan after sign-up.
+- Free retention is 14 days, against 30 days on pay as you go.
+- Data volume is measured on stored data each day, so ten GB a day adds up to 300GB in a 30 day month.
+
+## Alternatives in this atlas
+
+- [Grafana Cloud](/services/grafana-cloud/): when you want metrics, logs, and traces with Grafana dashboards.
+- [Datadog](/services/datadog/): when you want a bigger all-in-one product.
+- [New Relic](/services/new-relic/): when you want another full observability platform.
+
+## Questions people ask
+
+### Is Middleware.io free?
+
+Yes. The Free Forever plan costs $0 with 100GB of data volume and unlimited users. The pricing FAQ also mentions a 14-day trial with unlimited ingestion.
+
+### How long does Middleware keep my data?
+
+The pricing FAQ says the free tier keeps data for 14 days and pay as you go keeps it for 30.
+
+### Does Middleware.io need a credit card?
+
+The pricing page does not mention a credit card for the Free Forever plan.

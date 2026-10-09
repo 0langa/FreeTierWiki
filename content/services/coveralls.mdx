@@ -1,8 +1,9 @@
 ---
 title: Coveralls
 description: >-
-  Coveralls provides code coverage reporting and analysis for your software
-  projects with integrations for popular CI/CD platforms.
+  Coveralls collects the coverage reports from your CI builds and shows which
+  lines your tests do not cover, by build, subproject, and source file. It is
+  for developers on GitHub, GitLab, or Bitbucket.
 provider: Coveralls
 category: devops
 domain: devops
@@ -17,61 +18,118 @@ audiences:
   - team
   - oss
 tags:
-  - testing
-  - ci-cd
-  - analytics
-  - open-source
+  - code coverage
+  - test coverage
+  - coverage reports
+  - ci integration
+  - github action
+  - pull request comments
+  - coverage badge
 pricingModel: freemium
 freeTierDetails:
-  summary: Free for public/open source repositories; private repositories need a paid plan.
+  summary: 'The Open Source plan is free: Coveralls says it will always be free
+    for open source. Any repository that is publicly accessible qualifies.
+    Private repositories need a paid plan from $10 per month for 1 repository.'
   limits:
-    - Unlimited public repositories
-    - No private repository access on the free tier
-    - Private repositories from $10/month (Starter, 1 repo)
+    - Free for public repositories on GitHub, GitLab, and Bitbucket
+    - Unlimited users on all plans
+    - No private repositories on the free service
+    - 'Private plans: Starter $10 per month for 1 repository, Org $50 for 10,
+      Org+ $100 for 20, Pro $200 for 40'
   caveats:
-    - Private repositories require a paid plan; the 30-day Starter trial asks for payment info
-    - Sign in with GitHub, Bitbucket, or GitLab
+    - The 30-day Starter trial needs payment information, but a card is not
+      charged if you cancel before 30 days
+    - Yearly billing gets a 10% discount
+    - Any publicly accessible repository counts as open source, whatever its
+      license
+    - Sign in with GitHub, GitLab, or Bitbucket
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor code coverage for open source projects
-  - Integrate coverage checks into CI pipelines
-  - Visualize test coverage trends over time
+  - Track test coverage of an open source project over time
+  - See coverage changes in pull request comments and status updates
+  - Merge coverage from parallel CI builds
+  - Show a coverage badge in a README
 quickstartSteps:
-  - 'Sign up for a Coveralls account using GitHub, GitLab, or Bitbucket.'
-  - Authorize Coveralls to access your repositories.
-  - Add your project to Coveralls from the dashboard.
-  - Integrate the Coveralls reporter into your CI configuration.
-  - Push code and verify coverage reports appear in Coveralls.
+  - Go to coveralls.io, click Sign In for your repo host (GitHub, GitLab, or
+    Bitbucket), and authorize Coveralls. No separate registration is needed.
+  - Go to ADD REPOS, find your repository, and toggle it on.
+  - Click START UPLOADING COVERAGE and copy the repo_token from the Start Page.
+  - 'Pick an integration: the Coveralls GitHub Action, the Coveralls Orb for
+    CircleCI, a community language integration, or the Universal Coverage
+    Reporter.'
+  - Store the token as a CI secret named COVERALLS_REPO_TOKEN, add the upload
+    step to your CI script, and push to see your first report.
 whenToUse: >-
-  Use Coveralls to track and display code coverage for public or open source
-  repositories with easy CI/CD integration.
+  Use Coveralls when your repository is public and you want free coverage
+  tracking fed from your CI.
 whenNotToUse: >-
-  Avoid if you need private repository support for free or require advanced
-  analytics without a paid plan.
+  Avoid it for private repositories on a free budget, because the free service
+  covers public repositories only. Private repositories start at $10 per month
+  for 1 repository, and the trial asks for payment information.
 bestFor:
   - open source maintainers
-  - students
-  - small teams
+  - students with public projects
+  - teams already running CI on GitHub, GitLab, or Bitbucket
 avoidIf:
-  - need free private repo coverage
-  - require advanced analytics for free
+  - free coverage for private repositories
+  - you cannot add an upload step to your CI
+  - you want a free plan with premium support
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://coveralls.io/'
 docsUrl: 'https://docs.coveralls.io/'
 sourceUrls:
-  - 'https://coveralls.io/'
-  - 'https://coveralls.io/pricing'
-  - 'https://docs.coveralls.io/'
+  - https://coveralls.io/pricing
+  - https://coveralls.io/
+  - https://docs.coveralls.io/
+  - https://docs.coveralls.io/faq
 pricingUrl: 'https://coveralls.io/pricing'
 featured: false
 ---
-Coveralls offers free code coverage reporting for public repositories, making it ideal for open source projects and students integrating CI/CD workflows.
+You sign in with your Git host, add a repository, and add an upload step to your CI. Coveralls then tracks coverage for every build. It suits open source maintainers who want free coverage history.
+
+## What the free plan gives you
+
+Coveralls says it will always be free for open source. To qualify, a repository only has to be publicly accessible on GitHub, GitLab, or Bitbucket. Coveralls does not look at the license of the project. All plans include unlimited users, and any user with access to a repository at your Git host can see its coverage reports.
+
+You can explore coverage by build, by subproject, and by source file. It supports push builds, pull request builds, and parallel builds. Notifications include pull request comments and status updates. Official integrations are the Coveralls GitHub Action and the Coveralls Orb for CircleCI. There is also a Universal Coverage Reporter.
+
+## When you hit a limit
+
+The free service has no listed caps on public repositories. The line is private code. Paid plans are tied to one organization at your Git host and are priced by the number of private repositories: Starter costs $10 per month for 1 private repository, Org costs $50 for 10, Org+ costs $100 for 20, and Pro costs $200 for 40. The Unlimited plan costs $400 per month.
+
+Yearly billing gets a 10% discount. Starter has a 30-day free trial. You need to give payment information to start it, but your card is not charged if you cancel before 30 days. The pricing page does not say what Coveralls does if you add a private repository without a plan.
+
+## Gotchas
+
+- The Coveralls bot asks for write access on GitHub because GitHub has no read-only scope for private repositories. It uses the access to send pull request comments.
+- You must store the `repo_token` in a CI secret called `COVERALLS_REPO_TOKEN`.
+- Pull request comments on a private repository need extra commenting access for the Coveralls bot.
+
+## Alternatives in this atlas
+
+- [Codecov](/tools/codecov/): when you want a free plan that also includes a limited number of private uploads for one user.
+- [Codacy](/services/codacy/): when you want coverage together with code quality and security checks.
+- [SonarQube Cloud](/services/sonarcloud-io/): when you want coverage inside a quality gate for a public project.
+
+## Questions people ask
+
+### Is Coveralls free?
+
+Yes, for public repositories. Coveralls says it will always be free for open source, and any publicly accessible repository qualifies.
+
+### How much is Coveralls for private repositories?
+
+The Starter plan costs $10 per month for 1 private repository. The Org plan costs $50 per month for 10.
+
+### Does Coveralls need a credit card?
+
+Not for open source. The 30-day Starter trial for private repositories needs payment information, but cancelling before 30 days means no charge.

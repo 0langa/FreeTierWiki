@@ -1,8 +1,9 @@
 ---
 title: Cube
 description: >-
-  Cube is an open-source headless BI platform for building data APIs and
-  analytics applications.
+  Cube is an analytics platform built on a semantic layer. Teams define metrics once, then use them
+  in workbooks, dashboards, chat, and APIs. It suits data teams and developers building analytics
+  for their own team or product.
 provider: Cube
 category: analytics
 domain: analytics
@@ -16,57 +17,69 @@ audiences:
   - team
   - oss
 tags:
+  - semantic layer
+  - headless bi
   - analytics
-  - open-source
-  - ai
+  - dashboards
+  - embedded analytics
+  - data api
+  - mcp
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever plan for Cube Cloud includes up to 5 workbooks, 1,000
-    requests per day, and 1-day query history, running on shared
-    infrastructure.
+    Free forever plan for Cube Cloud includes up to 5 workbooks and 1,000 requests per day, with no
+    dedicated deployment.
   limits:
     - Up to 5 workbooks
-    - 1,000 requests/day
-    - 1-day query history retention
-    - Shared infrastructure only, no dedicated deployment
+    - '1,000 requests per day'
+    - No dedicated deployment
+    - Limited agent use; premium LLMs need a paid plan
   caveats:
-    - No SSO or advanced security features
+    - The pricing table lists SSO with SAML 2.0; its text does not show which plan has it
     - Community support only
+    - The Free plan is meant for hobbyists finishing small projects
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Build custom analytics dashboards
-  - Expose data APIs for frontend apps
-  - Create semantic layers for BI tools
+  - Define business metrics once in a semantic model
+  - Explore data in workbooks and publish them as dashboards
+  - Ask questions in analytics chat grounded in the data model
+  - 'Expose the same metrics through SQL, REST, or GraphQL APIs'
+  - Give AI agents governed data through the MCP server
 quickstartSteps:
-  - 'Sign up for a free Cube Cloud account at https://cube.dev/cloud.'
-  - 'Connect your data source (e.g., PostgreSQL, BigQuery, Snowflake).'
-  - Define your data schema and cubes using the web UI or CLI.
-  - Deploy your Cube instance and generate API endpoints.
-  - Integrate Cube APIs with your frontend or BI tools.
+  - Select Get started for free on cube.dev and create your free account.
+  - 'Connect your data source, or use the demo deployment to try it first.'
+  - >-
+    Let the AI build your initial semantic model, then review it. Models are code written in YAML or
+    JavaScript.
+  - >-
+    Explore your data in a workbook, and publish it as a dashboard or ask questions in analytics
+    chat.
+  - 'Call the SQL, REST, or GraphQL API, or connect an AI agent through the MCP server.'
+  - Moving from Cube Core? Import a Git repository or upload a local project with the CLI.
 whenToUse: >-
-  Use Cube when you need to build custom analytics APIs or dashboards on top of
-  your data warehouse.
+  Use Cube when you want one governed set of metrics for dashboards, chat, and APIs on top of your
+  data warehouse.
 whenNotToUse: >-
-  Avoid Cube if you need a fully managed, turnkey BI dashboard or require
-  advanced enterprise security features.
+  Avoid Cube if you need more than 5 workbooks or 1,000 requests a day without paying, or if you
+  need a dedicated deployment on the free plan.
 bestFor:
   - developers
   - data engineers
   - startups
   - indie hackers
 avoidIf:
-  - need built-in dashboards
-  - require enterprise SSO
-  - need unlimited data volumes
+  - need unlimited workbooks for free
+  - need enterprise SSO
+  - need a dedicated deployment
+  - want a no-modeling dashboard tool
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://cube.dev/'
@@ -74,7 +87,49 @@ docsUrl: 'https://cube.dev/docs'
 sourceUrls:
   - 'https://cube.dev/pricing'
   - 'https://cube.dev/docs'
+  - 'https://docs.cube.dev/docs/getting-started'
 pricingUrl: 'https://cube.dev/pricing'
 featured: false
 ---
-Cube offers a free tier for building analytics APIs and semantic layers, ideal for small teams and indie projects needing custom data solutions.
+
+You work in the Cube web app, and you can reach the same metrics through SQL, REST, and GraphQL APIs or an MCP server. It suits data teams and developers who want governed metrics for dashboards, chat, and customer-facing analytics.
+
+## What the free plan gives you
+
+The Free plan is called free forever on the pricing page. It is meant for hobbyists finishing small projects. You get up to 5 workbooks, and the daily request limit is 1,000. The Starter plan lifts the limit to 10K on shared compute or 50K on dedicated compute. Premium and Enterprise have no request limit.
+
+Workbooks are where you explore data and then publish dashboards. The pricing page also lists a semantic model agent, a workbooks and dashboards agent, analytics chat, and an MCP server for AI agents. Free has limited agent use, and premium language models need a paid plan.
+
+The Free plan has no dedicated deployment listed. Support is by community channels. Starter costs $40 per developer per month. Premium costs $80 per developer per month.
+
+## When you hit a limit
+
+The pricing page gives the limits but does not say what happens when you pass 1,000 requests in a day or add a sixth workbook. The page also does not state a card requirement for Free.
+
+Paid plans are billed monthly by credit card through Stripe. If a payment keeps failing, Cube says the account may be restricted or suspended until the balance is paid.
+
+## Gotchas
+
+- The daily request limit is 1,000 on Free and 10K on Starter with shared compute.
+- Dedicated deployment is not on the Free plan. It is priced by the hour on paid plans.
+- The pricing table lists SSO with SAML 2.0, workspace access control, and bring your own language model. The page text does not show which plans include them, so check before you rely on Free for them.
+
+## Alternatives in this atlas
+
+- [Hex](/services/hex/): when you want notebooks and apps for analysis instead of a semantic layer.
+- [Preset Cloud](/services/preset-cloud/): when you want dashboards on open-source Superset.
+- [Tinybird](/services/tinybird/): when you want to turn data into fast APIs.
+
+## Questions people ask
+
+### Is Cube free?
+
+Yes. Cube Cloud has a free forever plan with up to 5 workbooks and 1,000 requests per day. Paid plans start at $40 per developer per month.
+
+### How many requests does the Cube free plan allow?
+
+The Free plan has a daily request limit of 1,000. Starter raises it to 10K on shared compute or 50K on dedicated compute.
+
+### Is Cube open source?
+
+Cube is built on an open-source semantic layer called Cube Core. Cube also documents a path to migrate from Cube Core.

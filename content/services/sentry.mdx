@@ -1,8 +1,9 @@
 ---
 title: Sentry
 description: >-
-  Sentry provides error tracking and performance monitoring for web and mobile
-  applications.
+  Sentry captures errors, slow requests, and session replays from your running
+  apps and ties them to releases and code. It is for developers who debug web,
+  mobile, and backend software.
 provider: Sentry
 category: observability
 domain: observability
@@ -17,8 +18,14 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - logging
+  - error-tracking
+  - application-monitoring
+  - performance
+  - tracing
+  - session-replay
+  - cron-monitoring
+  - uptime-monitoring
+  - sdk
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -40,43 +47,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Track and fix application errors
-  - Monitor frontend and backend performance
-  - Receive real-time alerts for production issues
+  - Catching unhandled errors and exceptions in web and server apps
+  - Tracing slow requests across frontend and backend
+  - Watching a session replay before an error
+  - Monitoring a scheduled job with a cron monitor
+  - Checking a URL with an uptime monitor
 quickstartSteps:
-  - Sign up for a free Sentry account at sentry.io.
-  - Create a new project for your application.
-  - >-
-    Install the Sentry SDK in your app using the recommended method for your
-    stack.
-  - Configure the SDK with your project DSN.
-  - Deploy your app and trigger an error to verify integration.
+  - 'Click Try Sentry for Free on sentry.io and create your account.'
+  - 'Create a project and pick your platform; Sentry gives you a public DSN for it.'
+  - 'Install the SDK for your platform; for browser JavaScript run npm install @sentry/browser --save.'
+  - 'Call Sentry.init as early as possible in your app and pass your DSN.'
+  - 'Trigger a test error and open the Issues page in Sentry to see it arrive.'
 whenToUse: >-
-  Use Sentry to monitor and debug errors or performance issues in web, mobile,
-  or backend applications with minimal setup.
+  Use Sentry to find and fix errors and slow requests when you are the only
+  person who needs access to the data.
 whenNotToUse: >-
-  Avoid Sentry if you need more than one user, API/integrations, or more than
-  5,000 errors/month without upgrading to a paid plan.
+  Avoid it on the free plan if you need more than one user, API access, or
+  integrations, or if your app sends more than 5,000 errors a month.
 bestFor:
-  - bug tracking
-  - performance monitoring
-  - small teams
-  - open source projects
+  - solo developers
+  - small side projects
+  - open source work with low error volume
 avoidIf:
-  - need unlimited users
-  - require advanced analytics
-  - have high event volume
+  - you need more than one user
+  - you need API access or third-party integrations
+  - your app has high event volume
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://sentry.io/'
 docsUrl: 'https://docs.sentry.io/'
 sourceUrls:
   - 'https://sentry.io/pricing/'
+  - 'https://docs.sentry.io/'
+  - 'https://docs.sentry.io/pricing/'
+  - 'https://docs.sentry.io/platforms/javascript/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://sentry.io/pricing/'
 ---
-Sentry offers a free Developer tier (5,000 errors, 5 GB logs and metrics, 5M spans per month, 1 uptime monitor, 1 cron monitor) for error and performance monitoring, making it ideal for solo developers on small projects. Teams needing more than one user or higher data volumes will need to upgrade to a paid plan.
+You add an SDK to your app, initialize it with a project DSN, and read the results in the Sentry web app. SDKs exist for plain JavaScript and many frameworks and languages. It suits a solo developer who wants errors and traces in one place.
+
+## What the free plan gives you
+
+The Developer plan is free and limited to one user. It includes 5,000 errors per month, 5 GB of logs and metrics, 5M spans, and 50 replays. It also has 1 uptime monitor and 1 cron monitor, and unlimited projects.
+
+New users also get 5,000 free replays per month for their first 3 months. Every new Sentry account starts with a 14-day free trial of paid features, and the docs say you revert to the Developer plan if you do not upgrade. The Team plan costs $26 per month when billed annually and adds unlimited users plus API and third-party integrations.
+
+## When you hit a limit
+
+The pricing docs say data sent after you have used your reserved volume and your pay-as-you-go budget is dropped, and you are not charged for it. That means you lose monitoring for the rest of the billing cycle.
+
+Extra cron and uptime monitors can only be bought with a pay-as-you-go budget. The docs describe quota management settings, such as spike protection, for controlling which events count. The pricing page does not say how the free plan alerts you when it is close to the limit.
+
+## Gotchas
+
+- The free plan is limited to one user. Unlimited users start on the Team plan.
+- API access and third-party integrations start on the Team plan.
+- Data over the quota is dropped, so you will not see errors that happen after you run out.
+
+## Alternatives in this atlas
+
+- [Rollbar.com](/services/rollbar-com/): when you want unlimited users on a free error tracking plan.
+- [GlitchTip](/services/glitchtip/): when you want a free error tracker with unlimited projects and team members.
+- [Bugsnag](/services/bugsnag/): when you want a free plan that covers both error events and spans.
+
+## Questions people ask
+
+### Is Sentry free?
+
+Yes. The Developer plan is free for one user and includes 5,000 errors, 5M spans, 1 uptime monitor, and 1 cron monitor per month.
+
+### What happens when I go over the Sentry free limit?
+
+Data sent after you run out of volume is dropped and not charged, so you lose monitoring until the billing cycle ends.
+
+### Can a team use the Sentry free plan?
+
+No. The Developer plan is limited to one user. The Team plan adds unlimited users and starts at $26 per month on annual billing.

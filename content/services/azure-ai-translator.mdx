@@ -1,8 +1,8 @@
 ---
 title: Azure AI Translator
 description: >-
-  Cloud-based machine translation service supporting multiple languages for
-  real-time and batch text translation.
+  Azure AI Translator is a machine translation service for text and documents, with language
+  detection and custom models. It is for developers who localize apps, sites, and content.
 provider: Azure
 category: ai
 domain: ai
@@ -19,58 +19,115 @@ audiences:
   - oss
   - agency
 tags:
-  - api
+  - machine translation
+  - translation api
+  - language detection
+  - localization
+  - multilingual
+  - text translation
 pricingModel: freemium
 freeTierDetails:
-  summary: 2 million characters/month free, shared across standard translation and custom translation training.
+  summary: >-
+    2 million characters/month free, shared across standard translation and custom translation
+    training.
   limits:
-    - '2 million characters/month, shared across standard translation and custom translation model training'
+    - >-
+      2 million characters/month, shared across standard translation and custom translation model
+      training
+    - '2 million characters per hour rate limit on F0; up to 50,000 characters per translate request'
   caveats:
-    - Document translation is not included in the free tier; it is a paid, pay-as-you-go feature
-    - Usage stops once the monthly free limit is reached; no overage billing on the F0 tier
+    - 'Document translation is not included in the free tier; it is a paid, pay-as-you-go feature'
+    - The pricing page does not say what happens after the monthly free characters
+    - Characters are counted for each target language
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Website localization
-  - Multilingual chatbots
-  - App internationalization
-  - Document translation
-  - Language detection
+  - Translate user interface strings
+  - Translate support articles or chat messages
+  - Detect the language of incoming text
+  - Train a custom translation model for your terms
 quickstartSteps:
-  - Sign in to the Azure Portal and create an AI Translator resource.
-  - Obtain your API key and endpoint from the resource overview.
-  - Install the Azure Translator SDK or use REST API in your application.
-  - Configure your app with the API key and endpoint.
-  - Send text to the API for translation and handle the response.
+  - Create an Azure account or use an existing subscription.
+  - 'In the Azure portal, create a Translator resource and pick the free F0 pricing tier.'
+  - 'Select Go to resource, open Keys and Endpoint, and copy a key and the endpoint.'
+  - >-
+    Send a translate request to the Text Translation REST API with the key in the
+    Ocp-Apim-Subscription-Key header. Add the region header if your resource is regional or
+    multi-service.
+  - Read the translated text in the response.
 whenToUse: >-
-  Use when you need scalable, automated text translation for apps, websites, or
-  workflows with moderate monthly usage.
+  Use when you need automated text translation in an app or site and 2 million characters a month is
+  enough.
 whenNotToUse: >-
-  Avoid if you need custom translation models, offline translation, or expect to
-  exceed the free tier regularly.
+  Avoid if you need document translation for free, offline translation, or regular volume above the
+  free amount.
 bestFor:
-  - developers
-  - localization teams
-  - multilingual apps
+  - multilingual app prototypes
+  - localization of small sites
+  - chat and support translation
+  - learning the translation API
 avoidIf:
-  - require custom models
+  - need document translation for free
   - need offline translation
   - high-volume translation
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
-officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-translator/'
+officialUrl: 'https://azure.microsoft.com/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/translator/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/translator/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/translator/'
-  - 'https://learn.microsoft.com/en-us/azure/ai-services/translator/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/translator/service-limits'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/translator/overview'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/translator/quickstart-text-rest-api'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Translator provides scalable, cloud-based machine translation with a free (F0) tier of 2 million characters per month for standard translation and custom model training, ideal for apps and websites needing multilingual support. Document translation is a separate, paid feature.
+You create a Translator resource in the Azure portal, then send text to the REST API with a key or through an SDK. It suits developers who localize apps, sites, and support content.
+
+## What the free plan gives you
+
+The F0 tier includes 2 million characters per month. The pricing page says this pool is shared between standard translation and custom translation training. Text translation and language detection are part of the standard features.
+
+The service also sets a rate limit. On F0 you can send 2 million characters per hour, and the docs say to spread them evenly, at roughly 33,300 characters per minute. Each translate request can hold up to 50,000 characters, counted across all target languages. A 3,000-character text sent to three languages counts as 9,000. There is no limit on concurrent requests.
+
+Document translation is a paid feature. It is not part of the free tier.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 2 million monthly characters. The docs describe the hourly limit: if you pass it, or send too much too fast, you get an out-of-quota response.
+
+For more room, move to a paid tier. The S1 tier allows 40 million characters per hour. Paid prices appear as blank dashes on the pricing page, so use the Azure pricing calculator for real numbers. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Characters are counted across every target language, so translating into three languages triples the count.
+- Custom translation training uses the same free pool as standard translation.
+- A multi-service or regional resource needs two headers, the key and the region. A single-service global resource needs only the key.
+
+## Alternatives in this atlas
+
+- [Azure AI Language](/services/azure-ai-language/): when you need to analyze text rather than translate it.
+- [Azure AI Speech](/services/azure-ai-speech/): when you need to translate spoken audio.
+- [Mistral API](/services/mistral-api/): when you want a general language model API that needs no Azure subscription.
+
+## Questions people ask
+
+### Is Azure AI Translator free?
+
+Yes, within limits. The F0 tier gives 2 million characters per month, shared between standard translation and custom translation training.
+
+### Does Azure Translator free tier include document translation?
+
+No. Document translation is a paid feature.
+
+### How fast can I send text on the Translator free tier?
+
+The F0 limit is 2 million characters per hour. Spread the characters evenly instead of sending them in a burst.

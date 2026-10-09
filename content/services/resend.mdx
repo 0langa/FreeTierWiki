@@ -1,8 +1,9 @@
 ---
 title: Resend
 description: >-
-  Resend provides a developer-friendly API for sending transactional and
-  marketing emails with reliable delivery and analytics.
+  Resend is an email API for transactional and marketing email, with React
+  Email templates and SDKs for many languages. It is for developers who want a
+  simple way to send app email.
 provider: Resend
 category: messaging
 domain: messaging
@@ -16,59 +17,111 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - api
+  - transactional email
+  - email api
+  - react email
+  - broadcasts
+  - email sending
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier includes 3,000 emails per month (100/day), with 3 sending domains.'
+  summary: >-
+    Free tier includes 3,000 emails per month (100/day), with 3 verified
+    domains. Marketing emails go to up to 1,000 contacts.
   limits:
     - '3,000 emails/month'
     - '100 emails/day'
-    - 3 sending domains
+    - 3 verified domains
+    - Unlimited marketing emails to up to 1,000 contacts
+    - 1 webhook endpoint
+    - 30 days of data retention
   caveats:
-    - No dedicated IP included
-    - Community/ticket support only
+    - Sent and received emails both count toward the quota
+    - Each To, CC, or BCC recipient counts as a separate email
+    - No dedicated IP on the free plan
+    - Ticket support only
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Send transactional emails
-  - Automate onboarding emails
-  - Notify users of account activity
+  - Sending password resets and receipts from an app
+  - Sending welcome and onboarding emails
+  - Sending a newsletter to contacts with Broadcasts
+  - Receiving inbound email and handling it with webhooks
 quickstartSteps:
-  - Sign up for a Resend account.
-  - Add and verify your sending domain.
-  - Generate an API key from the dashboard.
-  - Integrate the Resend API into your application.
-  - Send a test email to confirm setup.
+  - Sign up for Resend and create an API key in the dashboard.
+  - Add a domain and verify it with the DNS records Resend gives you.
+  - Install an SDK, for example `npm install resend` for Node.js.
+  - Store the key as `RESEND_API_KEY` and create the client with it.
+  - Call `resend.emails.send` with a from address, a to address, a subject, and an html body.
+  - Check the result in the dashboard logs.
 whenToUse: >-
-  Use Resend when you need a simple, reliable API for sending transactional or
-  marketing emails without complex setup.
+  Use Resend when you want a simple email API for an app and up to 100 emails a
+  day and 3,000 a month is enough.
 whenNotToUse: >-
-  Avoid if you require advanced deliverability features, dedicated IPs, or need
-  to send high email volumes beyond the free tier.
+  Avoid it if you send more than 100 emails a day for free, need a dedicated
+  IP, or need support beyond tickets.
 bestFor:
   - developers
   - startups
   - open source projects
 avoidIf:
-  - need dedicated IP
-  - require advanced analytics
-  - 'send >3,000 emails/month for free'
+  - more than 100 emails a day for free
+  - dedicated IP needed
+  - more than 3 domains on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://resend.com'
 docsUrl: 'https://resend.com/docs'
 sourceUrls:
   - 'https://resend.com/pricing'
-  - 'https://resend.com/docs'
+  - 'https://resend.com/docs/introduction'
+  - 'https://resend.com/docs/send-with-nodejs'
+  - 'https://resend.com/docs/knowledge-base/account-quotas-and-limits'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://resend.com/pricing'
 ---
-Resend offers a straightforward email API with a generous free tier, making it easy for developers to send transactional and marketing emails with minimal setup.
+You call the REST API or an SDK for your language, and you read logs and metrics in the dashboard. It suits developers who want a short path from sign-up to a first sent email.
+
+## What the free plan gives you
+
+The Free plan costs $0 and includes 3,000 emails a month, with a daily limit of 100. The docs say the quota counts both sent and received emails, and each To, CC, or BCC recipient counts as one email. The daily quota resets at midnight UTC.
+
+Free accounts can verify up to 3 domains and send marketing emails to up to 1,000 contacts. The plan includes 1 webhook endpoint and 30 days of data retention. Open and click tracking is available on every plan, including Free.
+
+## When you hit a limit
+
+Free accounts have a daily and a monthly email quota. The pricing page does not describe the exact error you see after 100 emails in a day, but it notes the daily quota resets at midnight UTC, not on a rolling window.
+
+Pay-as-you-go overages are an option on paid plans only. The Pro plan costs $20 per month for 50,000 emails. The API rate limit starts at 10 requests per second per team on every plan, and extra requests get a 429 response.
+
+## Gotchas
+
+- Received emails count toward your quota, so inbound mail uses up the same 100 a day.
+- A bounce rate above 4% or a spam rate above 0.08% can lead to a temporary pause in sending.
+- Marketing broadcasts do not count against the transactional quota, but they are limited by your contact count.
+
+## Alternatives in this atlas
+
+- [Postmark](/services/postmark/): when you want a free plan focused only on transactional delivery.
+- [Mailgun](/services/mailgun/): when you need inbound routing and a mature email API.
+- [Plunk](/services/plunk/): when you want an open source option that you can self-host.
+
+## Questions people ask
+
+### Is Resend free?
+
+Yes. The Free plan includes 3,000 emails a month with a limit of 100 a day. The pricing page says there is no free trial, only a free-forever plan.
+
+### How many emails can I send per day with Resend for free?
+
+You can send 100 emails per day, counted on a UTC calendar day. Sent and received emails both count, and each recipient counts separately.
+
+### Does Resend support custom domains on the free plan?
+
+Yes. A free account can verify up to 3 domains. The Pro plan raises that to 10.

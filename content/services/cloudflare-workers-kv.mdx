@@ -1,8 +1,9 @@
 ---
 title: Cloudflare Workers KV
 description: >-
-  Cloudflare Workers KV is a globally distributed key-value storage for
-  serverless applications running on Cloudflare Workers.
+  Cloudflare Workers KV is a global, low-latency key-value store for Workers.
+  It is for developers who need fast reads of small values, such as settings,
+  flags, and cached data, near their users.
 provider: Cloudflare
 category: database
 domain: database
@@ -17,66 +18,113 @@ audiences:
   - team
   - oss
 tags:
-  - cdn
+  - key-value
+  - cloudflare workers
+  - kv
+  - edge storage
+  - cache
+  - feature flags
   - serverless
-  - storage
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 1 GB storage, 100,000 read operations, and 1,000
-    write/delete operations per day.
+    Free plan includes 1 GB of storage, 100,000 reads per day, and 1,000 writes
+    per day. Past a limit, that type of operation fails with an error.
   limits:
     - 1 GB storage
     - '100,000 reads/day'
-    - '1,000 writes/deletes/day'
+    - '1,000 writes/day'
+    - '1,000 deletes/day'
+    - '1,000 list requests/day'
+    - 25 MiB maximum value size
   caveats:
-    - Eventual consistency
-    - Per-account limits apply
+    - Eventually consistent
+    - Writes to the same key are limited to 1 per second
+    - Dashboard and Wrangler operations count as usage, and so do reads of keys that do not exist
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
   billingRiskNotes:
-    - Hard caps prevent unexpected charges
+    - On the Free plan, operations past the daily limit fail with an error instead of billing
 useCases:
-  - Edge session storage
-  - Feature flag management
-  - Configuration storage
-  - Caching small objects
+  - Storing configuration for a Worker
+  - Feature flags read at the edge
+  - Caching small objects close to users
+  - Session or notification settings per user
+  - Redirect or routing tables
 quickstartSteps:
-  - Sign up for a Cloudflare account.
-  - Install Wrangler CLI and authenticate.
-  - Create a new Worker project with Wrangler.
-  - Add a KV namespace in your Cloudflare dashboard.
-  - Bind the KV namespace to your Worker in wrangler.toml.
-  - Deploy your Worker and interact with KV storage.
+  - Sign up for a Cloudflare account and install Node.js.
+  - 'Create a Worker project with `npm create cloudflare@latest`.'
+  - 'Create a namespace with `npx wrangler kv namespace create <BINDING_NAME>`.'
+  - Add the binding to your Wrangler configuration file so the Worker can reach the namespace.
+  - 'Write and read keys from your Worker, or use Wrangler or the dashboard, then deploy.'
 whenToUse: >-
-  Use when you need low-latency, globally distributed key-value storage for
-  serverless or edge applications.
+  Use it for read-heavy, small key-value data at the edge, where an eventually
+  consistent store is fine.
 whenNotToUse: >-
-  Avoid if you require strong consistency, complex queries, or large object
-  storage beyond 25 MB per value.
+  Skip it when you need strong consistency, complex queries, or frequent
+  writes to the same key. Writes to the same key are limited to 1 per second.
 bestFor:
   - edge applications
   - stateless APIs
-  - feature flags
+  - feature flags and config
 avoidIf:
-  - strong consistency required
-  - large data sets
-  - relational queries needed
+  - You need strong consistency
+  - You need relational queries
+  - You write to the same key often
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/kv'
 docsUrl: 'https://developers.cloudflare.com/kv'
 sourceUrls:
+  - 'https://developers.cloudflare.com/kv/platform/pricing/'
   - 'https://developers.cloudflare.com/kv/platform/limits/'
-  - 'https://developers.cloudflare.com/workers/platform/limits'
+  - 'https://developers.cloudflare.com/kv'
+  - 'https://developers.cloudflare.com/kv/get-started/'
+  - 'https://developers.cloudflare.com/kv/concepts/how-kv-works/'
 featured: false
-lastVerified: 2026-09-28
-pricingUrl: 'https://developers.cloudflare.com/kv/platform/limits/'
+lastVerified: 2026-10-09
+pricingUrl: 'https://developers.cloudflare.com/kv/platform/pricing/'
 ---
-Cloudflare Workers KV provides globally distributed, eventually consistent key-value storage for serverless applications, ideal for edge use cases with simple data access patterns.
+You use Workers KV from a Worker through a binding, from the Wrangler CLI, from the dashboard, or over the REST API. It suits Cloudflare developers who read small values often.
+
+## What the free plan gives you
+
+Workers KV is included in the Workers Free plan. Each day you get 100,000 key reads, 1,000 key writes, 1,000 key deletes, and 1,000 list requests. Storage is 1 GB per account and per namespace. You can create 1,000 namespaces per account.
+
+A key can be up to 512 bytes, and a value can be up to 25 MiB. A Worker invocation can make up to 1000 operations. All daily limits reset at 00:00 UTC. KV does not charge for data transfer.
+
+## When you hit a limit
+
+If you pass any one of the daily limits, further operations of that type fail with an error. The Free plan does not bill you, so a traffic spike causes errors rather than a charge. Your Worker should handle a failed read or write without crashing. Limits reset daily at 00:00 UTC. Moving to the Workers Paid plan removes the daily limits and charges per operation beyond the included amount.
+
+## Gotchas
+
+- Operations from the dashboard or Wrangler count as usage, including updating, deleting, and listing keys.
+- Reads of keys that do not exist still count, even when they return a null or a 404.
+- Writes to the same key are limited to 1 per second, and data is eventually consistent.
+
+## Alternatives in this atlas
+
+- [Cloudflare D1](/services/cloudflare-d1/): when you need SQL queries and relations instead of simple keys.
+- [Upstash Redis](/services/upstash-redis/): when you want Redis commands and fast writes outside Cloudflare.
+- [Firebase Realtime Database](/services/firebase-realtime-database/): when you want synced data for client apps.
+
+## Questions people ask
+
+### Is Cloudflare Workers KV free?
+
+Yes, on the Workers Free plan. You get 1 GB of storage, 100,000 reads per day, and 1,000 writes, deletes, and list requests per day.
+
+### What happens when I hit the Workers KV free limits?
+
+Further operations of that type fail with an error until the daily reset at 00:00 UTC. You are not billed on the Free plan.
+
+### Is Workers KV strongly consistent?
+
+No. It is eventually consistent, and writes to the same key are limited to 1 per second.

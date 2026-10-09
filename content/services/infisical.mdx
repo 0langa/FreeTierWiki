@@ -16,53 +16,62 @@ audiences:
   - team
   - oss
 tags:
-  - security
+  - secrets manager
+  - environment variables
   - open-source
+  - vault alternative
+  - secret rotation
+  - infisical cli
+  - devops
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier for individuals and personal projects with 5 identities and
     unlimited projects.
   limits:
-    - 5 identities
+    - 5 identities (people or machines)
     - Unlimited projects
-    - 3 environments per project
+    - 3 environments
     - 10 secret syncs
+    - 100+ integrations, secret sharing, references, and overrides
   caveats:
-    - No SSO or custom roles on the free plan (SSO starts on Pro)
-    - No audit log streaming on the free plan
+    - Access controls, secret versioning, secret rotation, and SAML SSO start on Pro
+    - Honey tokens and audit log retention are not part of the free plan
+    - Audit log streaming to a SIEM is Enterprise only
+    - Paid plans cost per identity per month and include a free trial
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Store and sync environment variables securely
-  - Share secrets with team members
-  - Automate secret injection in CI/CD pipelines
+  - Keeping API keys and environment variables out of code and .env files
+  - Sharing a secret with a teammate through an expiring link
+  - Syncing secrets to GitHub, Vercel, AWS, or Kubernetes
+  - Running a local app with secrets injected by the Infisical CLI
 quickstartSteps:
-  - Sign up for a free Infisical account.
-  - Create a new project and invite up to 4 teammates.
-  - Add your environment variables or secrets to the project.
-  - Integrate Infisical with your application using the SDK or CLI.
-  - Configure access permissions for your team.
+  - Click Get started for free on infisical.com and create an account on Infisical Cloud, or choose to self-host.
+  - Create a project and add your secrets to its environments; the free plan allows 3 environments.
+  - Install the CLI with Homebrew, winget, Scoop, npm install -g @infisical/cli, or your Linux package manager.
+  - Run infisical login to sign in, and infisical init to link your project folder.
+  - Start your app with infisical run followed by your command, so secrets arrive as environment variables.
 whenToUse: >-
-  Use Infisical to manage and share secrets securely across small teams or
-  open-source projects without complex infrastructure.
+  Use it when one person or a very small team wants an open-source secrets
+  manager with a CLI, and 5 identities and 3 environments are enough.
 whenNotToUse: >-
-  Avoid if you need enterprise features like SSO, advanced audit logs, or
-  support for more than 5 identities.
+  Avoid it for more than 5 identities, SSO, access controls, or secret rotation,
+  which start on the paid Pro plan.
 bestFor:
   - small teams
   - indie developers
   - open-source projects
 avoidIf:
-  - enterprise
-  - large teams
-  - strict compliance needs
+  - you have more than 5 people and machines
+  - you need SSO or role-based access controls
+  - you need secret rotation or audit logs
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://infisical.com/'
@@ -71,6 +80,48 @@ pricingUrl: 'https://infisical.com/pricing'
 sourceUrls:
   - 'https://infisical.com/pricing'
   - 'https://infisical.com/docs'
+  - 'https://infisical.com/docs/documentation/getting-started/introduction'
+  - 'https://infisical.com/docs/cli/usage'
 featured: false
 ---
-Infisical provides a simple, secure way to manage and share secrets for applications, ideal for small teams and open-source projects.
+You manage secrets in the Infisical web dashboard, with the `infisical` CLI, or through SDKs. The company also lets you self-host the open-source platform. It suits individuals and small projects that want secrets in one place.
+
+## What the free plan gives you
+
+The Free plan is $0 forever, for individuals and personal projects. It includes 5 identities and unlimited projects. An identity is any human or machine that logs in to Infisical, so the 5 cover both teammates and CI pipelines.
+
+The comparison table lists 3 environments and 10 secret syncs on the free plan. You also get 100+ integrations, secret sharing, secret references and imports, secret overrides, and 2FA.
+
+The Pro plan costs $20 per identity per month, billed annually, and adds unlimited identities, access controls, secret rotation, SAML SSO, secret versioning, and 30 day audit log retention.
+
+## When you hit a limit
+
+The pricing page lists the free limits and shows no overage price. It does not say what happens when you add a sixth identity or an eleventh sync. The pricing page says all paid plans include a free trial with no credit card.
+
+The upgrade path is Pro, which has unlimited identities and costs per identity. Advanced raises syncs to 50 and environments to 12 per project. Enterprise removes the limits and adds self-hosting and audit log streaming.
+
+## Gotchas
+
+- Projects are unlimited, but identities are not. The 5 identities are counted across the whole organization.
+- Access controls, secret versioning, and SAML SSO are not on the free plan.
+- Honey tokens start on Pro, and audit log streaming to a SIEM is Enterprise only.
+
+## Alternatives in this atlas
+
+- [Bitwarden Secrets Manager](/services/bitwarden-secrets-manager/): when you want unlimited secrets with a small user and machine allowance.
+- [Doppler](/services/doppler/): when you want a hosted secrets service with a CLI and per-user pricing.
+- [SikkerKey](/services/sikkerkey/): when you want another free secrets plan with unlimited secrets and projects.
+
+## Questions people ask
+
+### Is Infisical free?
+
+Yes. The Free plan is $0 forever, with 5 identities and unlimited projects. The platform is also open source, so you can host it yourself.
+
+### What counts as an identity in Infisical?
+
+An identity is any human or machine that authenticates to Infisical. The pricing page says this includes apps, CI pipelines, and services.
+
+### Does Infisical have a free trial of paid plans?
+
+Yes. The pricing page says all paid plans include a free trial, and no credit card is required.

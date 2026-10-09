@@ -1,8 +1,9 @@
 ---
 title: Pixela
 description: >-
-  Pixela is a free service to track and visualize daily activities or habits
-  using simple graph APIs.
+  Pixela is a free API service that turns your daily activity into GitHub-style graphs. You record a
+  number each day and get a graph image you can embed. It suits habit trackers, hobby coders, and
+  anyone who likes scripts and automation.
 provider: Pixela
 category: analytics
 domain: analytics
@@ -16,57 +17,66 @@ audiences:
   - oss
   - startup
 tags:
-  - analytics
-  - api
-  - productivity
+  - habit tracker
+  - contribution graph
+  - pixelation api
+  - activity graph
+  - personal analytics
+  - rest api
+  - svg badge
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Almost all features are free; some features are Patreon-only, and some API
-    requests are rejected for non-supporters.
+    Almost all features are free; some features are Patreon-only, and some API requests are rejected
+    for non-supporters.
   limits:
-    - Almost all features free
-    - 25% of requests to some APIs are rejected for non-supporters (retry works)
-    - Some features are only for Patreon supporters
+    - Almost all features are free
+    - Some APIs reject about 25% of requests from non-supporters
+    - Batch posting and AI analysis need a thanks-code from Patreon
+    - 'Supporter-only extras: isSecret graphs, graph paging, and more'
   caveats:
-    - No official SLA
-    - Community-supported
-    - Data stored publicly unless configured otherwise
+    - Making a graph secret needs the isSecret option, a supporter-only feature
+    - 'You must confirm you accept the terms of service and are not a minor, or have parental consent'
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Track daily habits or goals
-  - Visualize personal progress
-  - Integrate with scripts or automation
-  - Share progress with others
+  - Track a daily habit and show it as a graph
+  - 'Post a number from a script, webhook, or automation'
+  - Embed a graph image on a profile page or website
+  - Record time with the stopwatch endpoint
+  - Log from a chat bot or MCP client
 quickstartSteps:
-  - 'Sign up for a Pixela account at https://pixe.la/.'
-  - Create a user via the Pixela API using your preferred HTTP client.
   - >-
-    Create a graph by sending a POST request to the /v1/users/<username>/graphs
-    endpoint.
-  - Add data points (pixels) to your graph using the API.
-  - View your graph via the provided URL or embed it in your site.
-whenToUse: >-
-  Use Pixela when you want a simple, API-driven way to track and visualize daily
-  activities or habits without complex setup.
+    Create a user: POST to https://pixe.la/v1/users with a token of your choice, a username,
+    agreeTermsOfService yes, and notMinor yes. There is no sign-up form.
+  - >-
+    Create a graph: POST to /v1/users/USERNAME/graphs with the header X-USER-TOKEN and an id, name,
+    unit, type, and color.
+  - >-
+    Post a pixel: POST to /v1/users/USERNAME/graphs/GRAPH_ID with a date such as 20180915 and a
+    quantity.
+  - 'Open your graph at the URL for your graph to see it, or embed it as an image.'
+  - Call it from a script or use the instant recording endpoints such as increment.
+  - 'Optional: set a thanks-code on your user if you support Pixela on Patreon.'
+whenToUse: 'Use Pixela when you want a simple, API-driven way to track a daily number and show it as a graph.'
 whenNotToUse: >-
-  Avoid Pixela if you need advanced analytics, private data storage by default,
-  or enterprise-grade reliability and support.
+  Avoid Pixela if you need advanced analytics, private graphs by default, or enterprise-grade
+  support.
 bestFor:
   - habit tracking
   - personal analytics
   - automation
+  - hobby projects
 avoidIf:
   - need private data by default
   - require advanced analytics
   - require enterprise support
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://pixe.la/'
@@ -74,6 +84,51 @@ docsUrl: 'https://docs.pixe.la/'
 pricingUrl: 'https://pixe.la/'
 sourceUrls:
   - 'https://pixe.la/'
+  - 'https://docs.pixe.la/'
+  - 'https://docs.pixe.la/entry/post-user'
+  - >-
+    https://github.com/a-know/Pixela/wiki/How-to-support-Pixela-by-Patreon-%EF%BC%8F-Use-Limited-Features
 featured: false
 ---
-Pixela offers a free, API-based service for tracking and visualizing daily habits or activities, ideal for personal projects and lightweight integrations.
+
+You use Pixela entirely through HTTP calls, such as curl, a script, or a webhook. There is no web sign-up form. It suits hobby coders and habit trackers who like to automate.
+
+## What the free plan gives you
+
+Pixela says it provides almost all of its features for free. Some features are only for people who pay for Pixela through Patreon. All operations go through the API.
+
+You create a user with one POST call, then create graphs and post one number per day to each graph. The API also has instant recording calls to increment, decrement, add, or subtract a pixel, and a stopwatch endpoint for recording time. Other endpoints cover webhooks, graph stats, a user profile page, and a remote MCP server.
+
+Features limited to supporters with a valid thanks-code include batch pixel posting and the AI analysis endpoint. They also include a supporter badge and ad hiding on graph and profile pages, Retina display in all periods, graph paging, the isSecret option, and optional data in SVG output.
+
+## When you hit a limit
+
+Pixela has no listed quota and no price. The one hard limit is on requests. The Patreon page says supporters get a change that disables a rule where some APIs reject requests 25% of the time. For free users, that means a call can fail, so handle errors in your code.
+
+If you stop supporting Pixela on Patreon, the limited features stop working, because the account is linked to Patreon.
+
+## Gotchas
+
+- Handle failed calls. Some APIs reject requests from non-supporters about 25% of the time.
+- Making a graph secret needs the isSecret option, which is a supporter feature.
+- Your token is hashed and saved at sign-up. Pixela stores only a hash of your token, so keep your own copy.
+
+## Alternatives in this atlas
+
+- [Cloudflare Web Analytics](/services/cloudflare-web-analytics/): when you want traffic stats for a website.
+- [Aptabase](/services/aptabase/): when you want privacy-first usage counts for an app.
+- [Mixpanel](/services/mixpanel/): when you need funnels and user-level analysis.
+
+## Questions people ask
+
+### Is Pixela free?
+
+Almost all features are free. A few, such as batch pixel posting and the isSecret option, are only for Patreon supporters.
+
+### How do I create a Pixela account?
+
+You do not use a sign-up form. Send a POST request to the users endpoint with a token, a username, and yes to the terms and not-a-minor fields.
+
+### Why does Pixela reject some of my API requests?
+
+Some APIs reject requests for non-supporters. Supporters have that rule disabled.

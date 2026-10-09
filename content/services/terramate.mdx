@@ -1,8 +1,9 @@
 ---
 title: Terramate
 description: >-
-  Terramate is an open-source tool for managing and scaling Terraform stacks
-  with code generation and automation features.
+  Terramate is an open source CLI that splits Terraform, OpenTofu, and
+  Terragrunt code into stacks. It adds code generation, change detection, and
+  orchestration, with an optional cloud dashboard.
 provider: Terramate
 category: devops
 domain: devops
@@ -10,61 +11,70 @@ subtypes:
   - Terraform Automation
   - Stack Management
   - Code Generation
-audiences:
-  - indie
-  - startup
-  - team
-  - oss
-tags:
-  - devops
   - automation
   - open-source
   - cli
+audiences:
+  - team
+  - startup
+  - indie
+  - oss
+tags:
+  - terraform
+  - opentofu
+  - terragrunt
+  - terraform stacks
+  - gitops
+  - drift detection
+  - infrastructure as code
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Terramate CLI is open-source and free. Terramate Cloud's Community
-    plan is also forever free, with up to 2 users and 1,000 resources.
+    The Terramate CLI is open source and free. The Terramate Cloud Community plan
+    is free forever, with up to 2 users and 1000 resources.
   limits:
-    - Terramate CLI free and open source, no usage limits
-    - Cloud Community plan: 2 users
-    - Cloud Community plan: up to 1,000 resources
-    - Cloud Community plan: 30-day data retention
+    - Terramate CLI free and open source
+    - 'Cloud Community plan: up to 2 users'
+    - 'Cloud Community plan: up to 1000 resources'
+    - 'Cloud Community plan: 30-day data retention'
   caveats:
-    - Cloud Community support is Discord-only
-    - Cloud Teams plan is $449/month for unlimited users and 5,000 resources
+    - Cloud Community support is through Discord
+    - The Cloud Teams plan costs $449 per month and has unlimited users and up to 5000 resources
+    - The pricing page says extra seats cannot be added to the Teams plan
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Managing multiple Terraform stacks
-  - Automating Terraform workflows
-  - Generating Terraform code
-  - Scaling infrastructure as code projects
+  - Splitting a large Terraform state into smaller stacks
+  - Generating backend and provider configuration with less copy and paste
+  - Running terraform plan and apply only in stacks that changed
+  - Getting plan previews on pull requests from your existing CI
+  - Detecting and reconciling drift
 quickstartSteps:
-  - Install Terramate CLI from the official repository.
-  - Initialize a new Terramate project in your infrastructure repo.
-  - Define stacks and configuration in terramate directories.
-  - Generate Terraform code and run Terramate commands to manage stacks.
-  - Integrate with your CI/CD pipeline if needed.
+  - Install the CLI, for example brew install terramate on macOS, or use the apt, dnf, or release binary options. Check it with terramate version.
+  - Install Terraform or OpenTofu, and create a Git repository with git init and an initial empty commit.
+  - Create stacks with terramate create, then list them with terramate list.
+  - Generate shared backend and provider code with code generation, and run commands in the changed stacks with terramate run.
+  - Optional. Run terramate cloud login to sign in to Terramate Cloud, using Google by default or the github option.
 whenToUse: >-
-  Use Terramate when you need to manage many Terraform stacks or automate
-  Terraform code generation for complex infrastructure.
+  Use Terramate when one Terraform repository has grown too big and you want
+  stacks, change detection, and generated code, with your own CI.
 whenNotToUse: >-
-  Avoid Terramate if you only manage a single Terraform stack or require
-  commercial support and SLAs.
+  Avoid it if you manage a single Terraform stack, or if you need more than 2
+  users or 1000 resources on the free Cloud plan.
 bestFor:
-  - Teams managing complex Terraform projects
-  - Open-source infrastructure automation
-  - Startups scaling IaC
+  - teams with many Terraform stacks
+  - open source infrastructure automation
+  - startups scaling infrastructure as code
 avoidIf:
-  - You need vendor support
-  - You only use a single Terraform stack
+  - a single Terraform stack
+  - needing vendor support on the free plan
+  - more than 2 Cloud users
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://terramate.io/'
@@ -73,6 +83,48 @@ pricingUrl: 'https://terramate.io/pricing'
 sourceUrls:
   - 'https://terramate.io/pricing'
   - 'https://github.com/terramate-io/terramate'
+  - 'https://terramate.io/docs/cli/getting-started'
+  - 'https://terramate.io/docs/cli/installation'
 featured: false
 ---
-Terramate is a free, open-source CLI tool designed to help teams manage, automate, and scale Terraform stacks efficiently with code generation and workflow automation.
+You work from the Terramate CLI inside a Git repository, and your existing CI runs the commands. Terramate Cloud is an optional dashboard that adds previews, drift, and asset views.
+
+## What the free plan gives you
+
+The Terramate CLI is open source and runs on your own machine or in your own CI. The GitHub README says it needs no access to your state or cloud accounts. It supports Terraform, OpenTofu, and Terragrunt.
+
+Terramate Cloud has a Community plan that is free forever. It allows up to 2 users and up to 1000 resources, with 30 days of data retention. It includes deployment workflows, pull request previews, and drift management. Support is through Discord.
+
+The Teams plan costs $449 per month and has a 14 day free trial. It raises the limits to unlimited users, up to 5000 resources, and 90 days of data retention, and it adds asset management and a 24 hour support response.
+
+## When you hit a limit
+
+The pricing page lists the Community limits but does not say what happens if you pass 2 users or 1000 resources. Resources are the things Terramate Cloud manages and observes.
+
+The limits belong to Terramate Cloud. The CLI is open source and runs in your own CI. Community is listed as free forever, so nothing is billed. If you outgrow it, the Teams plan is the next step. The FAQ says additional seats are not sold for Teams, so larger teams are pointed to a custom Enterprise offer from sales.
+
+## Gotchas
+
+- Terramate is not a CI/CD platform. You still need GitHub Actions, GitLab CI/CD, Bitbucket Pipelines, or similar to run the workflows.
+- Change detection works by comparing Git commits. The quickstart tells you to make an empty first commit so there is something to compare.
+- The CLI signs in to Terramate Cloud with Google by default. Use the github option for GitHub. Microsoft Entra ID is not supported in the CLI yet.
+
+## Alternatives in this atlas
+
+- [Scalr](/services/scalr/): when you want hosted Terraform runs instead of using your own CI.
+- [Terrateam](/services/terrateam/): when you want pull request driven Terraform runs.
+- [Pulumi](/services/pulumi/): when you want to write infrastructure in a general programming language.
+
+## Questions people ask
+
+### Is Terramate free?
+
+Yes. The CLI is open source, and the Terramate Cloud Community plan is free forever for up to 2 users and 1000 resources.
+
+### Does Terramate need a credit card?
+
+The pricing page lists the Community plan as free forever and does not ask for payment. The Teams plan has a 14 day free trial.
+
+### Which tools does Terramate work with?
+
+Terraform, OpenTofu, and Terragrunt. Terramate is not a CI/CD platform, so it works with GitHub Actions, GitLab CI/CD, and Bitbucket Pipelines.

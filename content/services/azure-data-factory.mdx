@@ -1,24 +1,15 @@
 ---
 title: Azure Data Factory
 description: >-
-  Azure Data Factory is a cloud-based data integration service for creating,
-  scheduling, and orchestrating data pipelines at scale.
-provider: Azure
-category: automation
-domain: automation
-subtypes:
-  - ETL
-  - Data Pipeline
-  - Orchestration
-audiences:
-  - startup
-  - team
-  - enterprise
+  Azure Data Factory moves and transforms data between cloud and on-premises
+  stores by running scheduled pipelines. It suits data engineers and teams on
+  Azure.
 tags:
-  - ci-cd
-  - integration
-  - cloud
-  - automation
+  - etl
+  - data-pipeline
+  - data-integration
+  - orchestration
+  - azure
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,33 +28,36 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above the free 5 activities is billed; there is no hard cap.
 useCases:
-  - Automating ETL workflows
-  - Migrating data between cloud and on-premises
-  - Orchestrating data movement across services
+  - Copying data on a daily or weekly schedule from an on-premises database to Azure Blob storage
+  - Running a small nightly ETL job across a few data stores
+  - Orchestrating data movement between cloud services
+  - Learning pipeline design before you move work to a larger setup
 quickstartSteps:
-  - Sign in to the Azure Portal and create a Data Factory instance.
-  - Set up linked services to connect to your data sources and destinations.
-  - Create a pipeline and add activities for data movement or transformation.
-  - Configure triggers to schedule pipeline runs.
-  - Monitor pipeline execution and review run history.
+  - Create an Azure account and make sure your role lets you create a data factory.
+  - Go to Azure Data Factory Studio at adf.azure.com and choose Create a new data factory, or use Create on the data factories page in the Azure portal.
+  - In the portal route, pick a resource group, a region, and a globally unique name, then set Version to V2 and choose Review + create, then Create.
+  - Choose Go to resource, then Launch Studio.
+  - In Studio, add linked services for your source and destination, then build a pipeline with activities.
+  - Schedule the pipeline to run no more than once a day so it stays inside the free low-frequency activities.
 whenToUse: >-
-  Use when you need to automate, schedule, or orchestrate data movement and
-  transformation across diverse sources in Azure or hybrid environments.
+  Use it to run a few daily or weekly copy and transform jobs on Azure, or to
+  try pipelines on a small scale before you commit to a bigger setup.
 whenNotToUse: >-
-  Avoid if you require unlimited free runs, advanced data flows, or need a fully
-  managed ETL with no risk of overages.
+  Avoid it for jobs that run more than once a day on the free amount, for
+  anything that must never produce a bill, or if you are starting a new project
+  and want Microsoft's newer Fabric Data Factory.
 bestFor:
-  - data engineers
-  - integration teams
-  - cloud architects
+  - a handful of daily or weekly pipelines
+  - copying data between Azure and on-premises stores
+  - learning data pipelines on Azure
 avoidIf:
-  - seeking unlimited free ETL
-  - require on-premises-only solutions
-  - need open-source tools
+  - hourly or more frequent pipelines on a free budget
+  - you cannot give Azure a payment method
+  - you need a hard spending cap
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/data-factory/'
@@ -72,6 +66,57 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/data-factory/data
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/data-factory/data-pipeline/'
   - 'https://learn.microsoft.com/en-us/azure/data-factory/introduction'
+  - 'https://learn.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+provider: Azure
+category: automation
+domain: automation
+subtypes:
+  - ETL
+  - Data Pipeline
+  - Orchestration
+audiences:
+  - startup
+  - team
+  - enterprise
 ---
-Azure Data Factory provides scalable, cloud-based data integration and ETL capabilities with a limited always-free tier suitable for light workloads and evaluation.
+You build pipelines in the Azure Data Factory Studio web interface, and the factory runs them on a schedule or a trigger. It suits data engineers and small teams who already use Azure.
+
+## What the free plan gives you
+
+Azure Data Factory has one free amount: the first 5 low frequency activities in a month are free, in both the cloud and on-premises variants. A low frequency activity does not run more than once in a day. Daily, weekly, and monthly schedules count as low frequency.
+
+The pricing page says there is no charge for the first five cloud and the first five on-premises activities. Storage and HDInsight are billed separately at their own rates. High frequency activities, such as hourly runs, are not part of the free amount. The pricing page you can read here shows the price tables only as placeholders, so this page gives no dollar rates. Check the Azure pricing calculator for them.
+
+## When you hit a limit
+
+There is no hard cap. Activities beyond the free 5 are billed, and nothing stops a pipeline from running past the free amount. Because you need an Azure payment method, a bill is the likely result of going over.
+
+The pricing page notes that usage beyond 100 activities a month gets a 20% discount, for both low and high frequency activities. That means the discount starts only after you already pay for activities. Keep each activity on a daily or slower schedule to stay inside the free amount. Watch your Azure cost reports during your first month.
+
+## Gotchas
+
+- Microsoft now calls Data Factory in Microsoft Fabric the next generation of Azure Data Factory, and says new users should start with it. Existing factories can upgrade.
+- The free amount covers only low frequency activities. An hourly or every-15-minute activity is billed from the first run.
+- The quickstart tells you to open Studio in Microsoft Edge or Google Chrome, and the factory name must be globally unique.
+
+## Alternatives in this atlas
+
+- [Azure Logic Apps](/services/azure-logic-apps/): when you want event-driven workflows and connectors on Azure instead of data pipelines.
+- [Make](/services/make/): when you want a visual automation builder without an Azure account.
+- [Pipedream](/services/pipedream/): when you want to connect apps and run code in workflows.
+
+## Questions people ask
+
+### Is Azure Data Factory free?
+
+Only a small part. The first 5 low frequency activities each month are free, and everything above that is billed.
+
+### Does Azure Data Factory need a credit card?
+
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+### What is a low frequency activity in Azure Data Factory?
+
+It is an activity that runs no more than once a day, such as a daily, weekly, or monthly run. Activities that run more often count as high frequency and are not free.

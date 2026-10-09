@@ -1,8 +1,9 @@
 ---
 title: Vercel Serverless Functions
 description: >-
-  Deploy serverless APIs and backend logic with zero-config on Vercel’s global
-  edge network.
+  Vercel Functions run server-side code, such as API routes, webhooks, and
+  streamed responses, deployed together with your site. They are for front-end
+  and full-stack developers who do not want to manage servers.
 provider: Vercel
 category: compute
 domain: compute
@@ -17,23 +18,26 @@ audiences:
   - team
   - oss
 tags:
-  - serverless
-  - api
-  - cdn
-  - frontend
+  - vercel
+  - serverless functions
+  - api routes
+  - nextjs
+  - webhooks
+  - fluid compute
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Hobby (free) plan includes 1 million Function Invocations, 4 hours of
-    Fluid Active CPU time, and 360 GB-hours of provisioned memory per month.
+    The Hobby (free) plan includes 1 million Function Invocations, 4 CPU-hrs of
+    Fluid Active CPU time, and 360 GB-hrs of provisioned memory per month.
   limits:
     - 1,000,000 Function Invocations/month included
-    - 4 hours Fluid Active CPU/month included
+    - 4 CPU-hrs Fluid Active CPU/month included
     - 360 GB-hrs Fluid Provisioned Memory/month included
+    - 300 seconds maximum duration and 2 GB maximum memory on Hobby
     - 1 team seat on the Hobby plan
   caveats:
-    - Cold starts may affect latency outside Fluid compute
-    - Overage past the included amount requires upgrading to the Pro plan ($20/mo, includes $20 of usage credit)
+    - On Hobby, passing a usage limit usually means waiting 30 days before the feature works again
+    - Upgrading to the Pro plan ($20/mo, includes $20 of usage credit) needs card details
     - Hobby is for non-commercial personal use only
   resetPeriod: monthly
   requiresCard: false
@@ -41,37 +45,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Deploying REST or GraphQL APIs
+  - REST or GraphQL API routes next to a front end
   - Webhook handlers
-  - Backend logic for static sites
-  - Rapid prototyping
+  - Streaming model responses from an AI API
+  - Backend logic for static or framework sites
 quickstartSteps:
-  - Sign up for a free Vercel account.
-  - Install Vercel CLI or connect your GitHub/GitLab/Bitbucket repository.
-  - >-
-    Create an `api/` directory in your project and add a JavaScript or
-    TypeScript file.
-  - Write your serverless function code and export a default handler.
-  - Deploy your project with `vercel` CLI or push to your connected repository.
+  - 'Sign up for a free Vercel account.'
+  - 'Create a project with pnpm create next-app@latest, or use an existing one.'
+  - 'Install the Vercel CLI with npm i -g vercel and run vercel link.'
+  - 'Add a route such as app/api/hello/route.ts that exports a GET function returning a Response.'
+  - 'Test locally with vercel dev, then deploy with vercel --prod or by pushing to a connected Git repository.'
 whenToUse: >-
-  Use for lightweight APIs, webhooks, or backend logic that benefit from global
-  edge deployment and simple scaling.
+  Use it for API routes, webhooks, and backend logic that live next to a site
+  you host on Vercel for a personal project.
 whenNotToUse: >-
-  Avoid for long-running processes, heavy compute workloads, or when you need
-  fine-grained control over infrastructure.
+  Avoid it for commercial projects on Hobby, or for jobs longer than 300
+  seconds on the free plan.
 bestFor:
   - prototyping
   - static site backends
   - personal projects
   - small teams
 avoidIf:
-  - need long execution times
-  - require custom runtimes
-  - heavy compute workloads
+  - commercial projects on Hobby
+  - jobs longer than 300 seconds
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://vercel.com/docs/functions/serverless-functions'
@@ -80,6 +81,47 @@ pricingUrl: 'https://vercel.com/pricing'
 sourceUrls:
   - 'https://vercel.com/pricing'
   - 'https://vercel.com/docs/functions/serverless-functions'
+  - 'https://vercel.com/docs/plans/hobby'
+  - 'https://vercel.com/docs/functions/quickstart'
+  - 'https://vercel.com/docs/functions/limitations'
 featured: false
 ---
-Vercel Serverless Functions let you deploy backend logic and APIs with minimal configuration, scaling automatically and running close to your users on Vercel’s edge network.
+You add an API route or a function file to your project, such as app/api/hello/route.ts in Next.js or an api/ file in other setups. Vercel builds it on every push or CLI deploy. It suits front-end and full-stack developers who want backend routes and webhooks next to their site.
+
+## What the free plan gives you
+
+The Hobby plan is free and meant for personal, non-commercial projects. Its included usage covers the first 1,000,000 function invocations each month. It also includes 4 CPU-hrs of Active CPU and 360 GB-hrs of provisioned memory, which Vercel measures under Fluid compute.
+
+A function on Hobby can use up to 2 GB of memory and run for up to 300 seconds. Functions run in one region by default, iad1, and you can change it. The size limit for a function bundle is 250 MB uncompressed, or 500 MB for Python. Hobby also includes 1,000,000 CDN requests and 100 GB of Fast Data Transfer.
+
+## When you hit a limit
+
+Hobby is a free tier with no billing cycle. The docs say that if you go over your usage limits, you will in most cases have to wait until 30 days have passed before you can use the feature again. Some limits have shorter pauses.
+
+A function that runs longer than its maximum duration gets a 504 error with the code FUNCTION_INVOCATION_TIMEOUT. To get more room, upgrade to Pro, which includes $20 of usage credit and extends the duration to a maximum of 800 seconds.
+
+## Gotchas
+
+- Hobby is for non-commercial, personal use only under Vercel's fair use guidelines.
+- Caching a response means the function does not run, so it does not use an invocation, though the request still counts as a CDN request.
+- Hobby functions cannot run in several regions. Pro and Enterprise teams can set multiple regions.
+
+## Alternatives in this atlas
+
+- [Vercel Edge Functions](/services/vercel-edge-functions/): when you want the Edge runtime on Vercel, though Vercel now recommends Node.js.
+- [Netlify Functions](/services/netlify-functions/): when your site is hosted on Netlify.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a free plan with a different set of limits.
+
+## Questions people ask
+
+### Are Vercel Serverless Functions free?
+
+Yes, on the Hobby plan for personal, non-commercial use. It includes the first 1,000,000 function invocations, 4 CPU-hrs of Active CPU, and 360 GB-hrs of provisioned memory per month.
+
+### What happens when I go over the Vercel Hobby limits?
+
+In most cases you must wait until 30 days have passed before you can use the feature again. Hobby cannot buy extra usage; the Pro plan includes $20 of usage credit.
+
+### How long can a Vercel Function run on the free plan?
+
+On Hobby, the default and maximum duration is 300 seconds. A function that runs longer returns a 504 error.

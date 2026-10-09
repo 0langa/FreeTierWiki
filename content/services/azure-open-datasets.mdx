@@ -1,8 +1,9 @@
 ---
 title: Azure Open Datasets
 description: >-
-  A collection of curated, open-access datasets hosted on Azure for machine
-  learning, analytics, and research projects.
+  Azure Open Datasets is a catalog of curated public datasets, such as taxi trips, weather, census,
+  and labor statistics, prepared for machine learning. It is for data scientists, students, and
+  researchers.
 provider: Azure
 category: ai
 domain: ai
@@ -18,56 +19,59 @@ audiences:
   - enterprise
   - oss
 tags:
-  - ml
-  - analytics
-  - search
+  - open data
+  - public datasets
+  - machine learning datasets
+  - azure machine learning
+  - data science
+  - nyc taxi data
 pricingModel: free
 freeTierDetails:
-  summary: No additional charge for most Open Datasets; you pay only for the Azure services you use with them.
+  summary: >-
+    No additional charge for most Open Datasets; you pay only for the Azure services you use with
+    them. An Azure account is not required to read them from Python.
   limits:
     - No additional charge for most Open Datasets
-    - >-
-      Standard Azure storage and compute charges apply if datasets are processed
-      or copied
+    - Standard Azure storage and compute charges apply if datasets are processed or copied
   caveats:
-    - Microsoft pays for hosting storage, but egress costs for reading large datasets can be charged to your subscription.
-    - Egress charges, where they apply, are shown on the dataset overview page.
-  requiresCard: true
+    - >-
+      Microsoft pays for hosting storage, but egress costs for reading large datasets can be charged
+      to your subscription.
+    - 'Egress charges, where they apply, are shown on the dataset overview page.'
+  requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Training machine learning models
-  - Data science research
-  - Analytics projects
-  - Academic studies
-  - Prototyping AI solutions
+  - Train a model on taxi trip or weather data
+  - Enrich a forecast with holiday or census data
+  - Teach data science with ready-made public data
+  - Test a notebook on realistic data
 quickstartSteps:
-  - Sign in to your Azure account or create a free account.
-  - Navigate to the Azure Open Datasets portal.
-  - Browse or search for relevant datasets.
-  - Access datasets directly in Azure or link them to your compute resources.
-  - >-
-    Optionally, download or copy datasets to your own Azure storage for
-    processing.
+  - 'Browse the Azure Open Datasets catalog and pick a dataset, such as NYC taxi trip records.'
+  - Read the dataset page for its schema and any egress charge notice.
+  - Install the Python package with pip install azureml-opendatasets.
+  - 'Import the dataset class, for example from azureml.opendatasets, and load it into a dataframe.'
+  - Optionally create an Azure Machine Learning dataset from it in your workspace.
 whenToUse: >-
-  Use when you need reliable, curated public datasets for machine learning,
-  analytics, or research within the Azure ecosystem.
+  Use when you want curated public datasets for machine learning, analytics, or research, with no
+  data hosting cost to you.
 whenNotToUse: >-
-  Avoid if you require proprietary, private, or real-time datasets, or if you
-  want to avoid any potential Azure storage or bandwidth costs.
+  Avoid if you need private or real-time data, or if you want to rule out all Azure compute and
+  egress costs.
 bestFor:
   - machine learning prototyping
+  - teaching and student projects
   - academic research
-  - data exploration
+  - exploring public data in notebooks
 avoidIf:
-  - needing private data
-  - avoiding cloud storage costs
-  - requiring real-time data
+  - need private data
+  - need real-time data
+  - must avoid any egress or compute cost
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/products/open-datasets/'
@@ -75,7 +79,49 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/open-datasets/'
 pricingUrl: 'https://azure.microsoft.com/en-us/products/open-datasets/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/products/open-datasets/'
-  - 'https://learn.microsoft.com/en-us/azure/open-datasets/'
+  - 'https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-are-open-datasets'
+  - >-
+    https://learn.microsoft.com/en-us/azure/open-datasets/how-to-create-azure-machine-learning-dataset-from-open-dataset
 featured: false
 ---
-Azure Open Datasets provides free access to curated public datasets for machine learning, analytics, and research, with no direct dataset access fees. Standard Azure compute, storage, and egress charges apply only if you process or copy the data into your own resources.
+You browse the dataset catalog, then load a dataset with the Python SDK from Azure Machine Learning, Azure Databricks, or any Python environment. It suits data scientists and students who want ready-made public data for models and demos.
+
+## What the free plan gives you
+
+There is no plan to sign up for. The pricing page says there is no additional charge for using most Open Datasets. Microsoft pays for the storage that hosts the data, and the page says storage will always remain free.
+
+The catalog covers public-domain data for weather, census, holidays, public safety, location, transportation, and labor and economics. Examples include the New York City yellow and green taxi trip records and US Labor Force Statistics. Microsoft copies the data to Azure and preprocesses it, so it is ready for machine learning. It also pulls updates from sources such as NOAA at regular intervals.
+
+The docs say you do not need an Azure account to read the datasets from a Python environment.
+
+## When you hit a limit
+
+The datasets have no usage quota on the pages. The cost risk sits in what you do with the data. The pricing page says egress costs for reading large datasets can be charged to the Azure subscription that reads them. Egress means the cost of read operations and network bandwidth for data that leaves the Azure region.
+
+Most datasets are free to access. Where egress charges apply, the dataset overview page shows them. You also pay for any virtual machines, storage, networking, and Azure Machine Learning services you use to work with the data.
+
+## Gotchas
+
+- Reading large datasets can create egress charges on your subscription, and the dataset page lists them where they apply.
+- Compute is not free. Your subscription pays for virtual machines and any Azure Machine Learning service you use.
+- Some dataset classes need the azureml-dataprep package, which works only with 64-bit Python.
+
+## Alternatives in this atlas
+
+- [Hugging Face Hub](/services/hugging-face-hub/): when you want community datasets and models that you can pull without an Azure subscription.
+- [Google Colab](/services/google-colab/): when you want a free notebook to explore data.
+- [Azure AI Search](/services/azure-ai-search/): when you want to index and search data you already own.
+
+## Questions people ask
+
+### Is Azure Open Datasets free?
+
+Mostly. The pricing page says there is no additional charge for most Open Datasets, and Microsoft pays for hosting storage.
+
+### Do I need an Azure account to use Azure Open Datasets?
+
+No. The docs say you can access the datasets from any Python environment. An account helps when you use Azure Machine Learning.
+
+### Can Azure Open Datasets cost me money?
+
+Yes, in two ways. Egress charges can apply for large reads, and you pay for the compute you use to process the data.

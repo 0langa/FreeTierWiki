@@ -1,8 +1,9 @@
 ---
 title: CodeMagic
 description: >-
-  CodeMagic is a CI/CD tool for automating mobile app builds, tests, and
-  deployments.
+  Codemagic builds, tests, and ships mobile apps in the cloud, with Flutter,
+  React Native, native iOS and Android, and Ionic Capacitor workflows. It is for
+  solo developers and mobile teams.
 provider: CodeMagic
 category: devops
 domain: devops
@@ -17,65 +18,127 @@ audiences:
   - team
   - oss
 tags:
-  - ci-cd
-  - mobile
-  - automation
+  - mobile ci/cd
+  - flutter ci
+  - react native ci
+  - ios builds
+  - android builds
+  - macos build minutes
+  - app store deployment
+  - codemagic.yaml
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan gives 1 team member, 1 parallel build, and 500 Mac mini M2 build
-    minutes refilled monthly; Linux and Windows minutes are billed per minute
-    even on this plan.
+    Free individual plan: 1 user, unlimited applications, 1 parallel build, and
+    500 free macOS M2 minutes per month, reset on the 1st. Linux and Windows
+    builds have no free minutes. Builds are limited to 120 minutes.
   limits:
-    - 1 team member
+    - 1 user on a personal account; collaborators cannot be invited
+    - Unlimited applications
     - 1 parallel build
-    - 500 Mac mini M2 build minutes/month (refilled monthly)
+    - 500 free macOS M2 minutes per month, reset on the 1st
     - 120-minute build duration limit
-    - Linux/Windows minutes billed at $0.045/minute (no free allotment)
+    - Linux and Windows minutes have no free allowance and cost $0.045 per minute
   caveats:
-    - 30-day build history & artifact storage
-    - Free accounts available for teachers, students, and non-profits
+    - Free minutes are not available in a team
+    - Extra minutes need billing, which asks for a credit card; macOS M2 costs
+      $0.095 per minute after the 500
+    - Teachers, students, and non-profits can get free accounts
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - If you enable billing, minutes past the free 500 are charged to your card
+      on the first day of the next month
 useCases:
-  - Automate Flutter app builds
-  - Run tests on mobile apps
-  - Deploy apps to app stores
+  - Build a Flutter app on a Mac machine without owning a Mac
+  - Build and sign iOS and Android apps
+  - Publish builds to app stores
+  - Run tests for a mobile app on every push
+  - Send over-the-air updates for React Native apps with Codemagic Patch
 quickstartSteps:
-  - 'Sign up for a CodeMagic account using GitHub, GitLab, or Bitbucket.'
-  - Connect your mobile app repository.
-  - Configure your build pipeline using the UI or codemagic.yaml.
-  - Set up environment variables and secrets if needed.
-  - Start your first build and review build logs.
+  - Sign up at codemagic.io/signup with GitHub, Bitbucket, GitLab, or your
+    email. Email sign-up sends a six-character key to verify the address.
+  - Use your personal account and not a team, because free minutes apply only
+    there.
+  - Click Add application, pick your Git provider, install the Codemagic GitHub
+    App if you use GitHub, and select the repository.
+  - Set the project type and configure the build with a codemagic.yaml file, or
+    with the Flutter workflow editor for Flutter apps.
+  - Start your first build and read the build log.
 whenToUse: >-
-  Use CodeMagic to automate building, testing, and deploying mobile apps,
-  especially for Flutter projects or small teams.
+  Use Codemagic when you build a mobile app alone and want free iOS-capable
+  macOS minutes each month, configured with codemagic.yaml or the Flutter
+  workflow editor.
 whenNotToUse: >-
-  Avoid if you need unlimited build minutes, advanced enterprise features, or
-  extensive parallel builds for large teams.
+  Avoid it when a team needs to share the project, because the free plan is a
+  single-user personal account, and free minutes do not apply in a team. Avoid
+  it if you need free Linux or Windows builds, because those have no free
+  minutes.
 bestFor:
-  - Flutter developers
-  - mobile app teams
-  - indie developers
+  - solo Flutter developers
+  - indie mobile apps
+  - trying iOS builds without a Mac
 avoidIf:
-  - large enterprise
-  - high concurrency needs
-  - non-mobile projects
+  - team accounts that want free minutes
+  - free Linux or Windows builds
+  - more than 1 parallel build
+  - builds longer than 120 minutes
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://codemagic.io/'
 docsUrl: 'https://docs.codemagic.io/'
 sourceUrls:
-  - 'https://codemagic.io/pricing/'
-  - 'https://docs.codemagic.io/getting-started/'
+  - https://codemagic.io/pricing/
+  - https://docs.codemagic.io/billing/pricing
+  - https://docs.codemagic.io/billing/billing
+  - https://docs.codemagic.io/getting-started/signup
+  - https://docs.codemagic.io/getting-started/adding-apps
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://codemagic.io/pricing/'
 ---
-CodeMagic provides a simple way to automate mobile app CI/CD, with a generous free tier ideal for individuals and small teams working on Flutter or cross-platform apps.
+You add your repository in the Codemagic web app and describe the build in a `codemagic.yaml` file, or use the Flutter workflow editor. It suits a solo mobile developer who wants hosted Mac builds.
+
+## What the free plan gives you
+
+The Free plan is for individuals. It gives you a personal account with unlimited applications and 500 free minutes per month on macOS M2 machines. The minutes reset on the 1st of each month. You get 1 parallel build and a build duration limit of 120 minutes. You cannot invite collaborators to an individual plan.
+
+Free minutes are not available if you use a team. Builds on Linux and Windows have no free minutes. They cost $0.045 per minute. The pricing page says teachers, students, and non-profits can ask for free accounts. The plan is meant for hobby projects, indie apps, and proofs of concept.
+
+## When you hit a limit
+
+If you do not enable billing, the free minutes are your ceiling. To use more, you enable billing on your account and enter a credit card. Codemagic then charges for usage monthly, on the first day of the next month. Even then, your first 500 macOS M2 minutes stay free.
+
+After the 500, macOS M2 minutes cost $0.095 per minute and macOS M4 minutes cost $0.114 per minute. A build that times out or fails from a Codemagic service error is not counted toward billing. Builds that fail for any other reason count. The pricing page does not say exactly what happens in the free plan if billing is off and the 500 minutes are gone.
+
+## Gotchas
+
+- Free minutes work only on a personal account. Put the app in a team and the free allowance is gone.
+- Linux and Windows machines have no free minutes, so a Flutter Android build on Linux is paid once billing is on.
+- Build time is counted separately for your personal account and for each team.
+
+## Alternatives in this atlas
+
+- [Bitrise](/services/bitrise/): when you want a mobile CI service with a different free plan structure.
+- [Appcircle](/tools/appcircle/): when you want mobile CI/CD with a monthly build count instead of minutes.
+- [GitHub Actions](/services/github-actions/): when your project is on GitHub and general CI is enough.
+
+## Questions people ask
+
+### Is Codemagic free?
+
+Partly. The individual plan gives you 500 free macOS M2 minutes per month, reset on the 1st, with 1 parallel build. Linux and Windows minutes are paid.
+
+### Does Codemagic need a credit card?
+
+Not for the free minutes. You need a card only when you enable billing to pay for extra minutes.
+
+### How much does Codemagic cost after the free minutes?
+
+macOS M2 minutes cost $0.095 per minute, and Linux X2 and Windows minutes cost $0.045 per minute. Billing is monthly, on the first day of the next month.

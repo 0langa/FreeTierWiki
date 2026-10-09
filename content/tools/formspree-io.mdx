@@ -1,15 +1,16 @@
 ---
 title: Formspree.io
 description: >-
-  Formspree.io lets you easily add forms to static sites and receive submissions
-  without backend code.
+  Formspree is a form backend. Point your own HTML or React form at a Formspree
+  endpoint, and it stores submissions, filters spam, and sends notifications. It
+  suits sites with no server of their own.
 provider: Formspree
 category: forms
 domain: forms
 subtypes:
-  - form-processing
-  - static-site
-  - email-integration
+  - form backend
+  - static site
+  - email notifications
 audiences:
   - student
   - indie
@@ -17,65 +18,113 @@ audiences:
   - oss
   - agency
 tags:
-  - productivity
-  - web
-  - email
-  - integration
+  - form backend
+  - html form
+  - contact form
+  - static site forms
+  - react forms
+  - ajax
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free tier allows up to 50 form submissions per month, with unlimited
-    forms.
+  summary: The free plan allows 50 submissions a month with unlimited forms and projects, a 30-day archive, and no file uploads.
   limits:
     - 50 submissions/month
-    - Unlimited forms
+    - Unlimited forms and projects
     - 30-day submission archive
+    - 1 team member and 2 linked emails
     - No file uploads (0 GB)
   caveats:
-    - Only 1 team member on the Free plan
-    - 2 linked emails
+    - Over-limit submissions are saved but not emailed, and they run no plugins until you have room again
+    - Submission export, custom thank-you page, plugins, API access, and autoresponses need a paid plan
+    - Personal costs $15 a month, or $10 a month with annual billing
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Collect contact form submissions on static sites
-  - Receive feedback or support requests
-  - Newsletter signups without backend
-  - Simple event RSVPs
+  - Contact forms on a static site
+  - Forms in a React app
+  - Submitting forms with AJAX and a JSON reply
+  - Hiding your email address behind a random string
+  - Restricting a form to submissions from your own domain
 quickstartSteps:
-  - Sign up for a free Formspree account.
-  - Create a new form in the Formspree dashboard.
-  - Copy the generated form endpoint URL.
-  - Add the Formspree endpoint to your HTML form's action attribute.
-  - Test your form by submitting a sample entry.
+  - Sign up for a Formspree account and verify your email address.
+  - Log in to the dashboard, click the plus sign in the top left, then choose New Form.
+  - Find your form's endpoint in the Integration section of the dashboard, where default snippets also appear.
+  - Set your form's action to that endpoint, and give every field a name attribute.
+  - For AJAX, send the Accept header as application/json. For React, use the formspree-react library.
+  - Submit a test entry and check the Submissions tab.
 whenToUse: >-
-  Use Formspree when you need to quickly add forms to static or JAMstack sites
-  without building a backend.
+  Use Formspree when you write your own HTML or React form and want spam
+  filtering and a submissions inbox, at a low monthly volume.
 whenNotToUse: >-
-  Avoid if you need more than 50 submissions a month, file uploads, or more
-  than 1 team member on the free tier.
+  Avoid it if you expect more than 50 submissions a month, need file uploads, or
+  need submission export, API access, or plugins without paying.
 bestFor:
   - static sites
   - landing pages
   - quick prototypes
 avoidIf:
+  - need file uploads on the free plan
   - high-volume forms
-  - file uploads needed
-  - custom backend logic required
+  - need plugins or export on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://formspree.io/'
-docsUrl: 'https://formspree.io/docs/'
+docsUrl: 'https://help.formspree.io/'
 pricingUrl: 'https://formspree.io/plans/'
 sourceUrls:
   - 'https://formspree.io/plans/'
-  - 'https://formspree.io/docs/'
+  - 'https://help.formspree.io/articles/building-your-form/building-an-html-form'
+  - 'https://help.formspree.io/articles/form-and-project-settings/over-limit-submissions'
+  - 'https://help.formspree.io/articles/form-and-project-settings/system-limits'
 featured: false
 ---
-Formspree.io provides a simple, no-code backend for HTML forms with unlimited forms and 50 free submissions/month, ideal for static sites and quick deployments.
+You keep your own form markup and point its action at a Formspree endpoint. Submissions land in a dashboard inbox, and plugins can pass them on to other tools.
+
+## What the free plan gives you
+
+The free plan costs $0 and is meant for testing and development. It allows 50 submissions a month. You can create unlimited forms and unlimited projects, and the submission archive keeps entries for 30 days.
+
+The plan includes 1 team member, 2 linked emails, and 0 GB of file uploads, so forms cannot take files. You still get private emails, AJAX forms, custom reCAPTCHA, restrict to domain, and basic spam filtering.
+
+Several features start on the Personal plan. These include submission export, search, a custom thank-you page, basic plugins, and multiple target emails. API access and autoresponses start on Professional.
+
+## When you hit a limit
+
+Your forms keep working for visitors. Formspree stops processing new submissions once you reach the monthly limit. It saves them in an Over Limit folder, skips the notification emails and plugins, and emails you when this starts.
+
+You can reprocess those submissions once you have room, by upgrading or after the limit resets. Each reprocessed submission uses one from your monthly limit. The folder shows only short previews, and search and export do not work there.
+
+All plans also share a rate limit of 20 posts per minute per form. AJAX forms receive a 429 error when they pass it.
+
+## Gotchas
+
+- The free plan archive keeps submissions for only 30 days, so read them before they expire.
+- Over-limit submissions are saved, but you see only previews until you reprocess them.
+- File uploads are off on the free plan. Paid plans accept up to 10 files per submission, each up to 25MB.
+
+## Alternatives in this atlas
+
+- [Formsubmit.co](/tools/formsubmit-co/): when you want no account and unlimited submissions delivered by email.
+- [Formcarry.com](/tools/formcarry-com/): when you want extra submissions saved until the next month.
+- [Form.taxi](/tools/form-taxi/): when you want a small free plan with webhooks and a few forms.
+
+## Questions people ask
+
+### Is Formspree free?
+
+Yes. The free plan costs $0 and allows 50 submissions a month with unlimited forms. Personal starts at $15 a month, or $10 with annual billing.
+
+### What happens when I go over the Formspree submission limit?
+
+Formspree keeps the submissions in an Over Limit folder without sending emails or running plugins. You can reprocess them once you have room in your limit.
+
+### Does Formspree allow file uploads on the free plan?
+
+No. The plans page lists 0 GB of file uploads on the free plan and 1 GB on Personal.

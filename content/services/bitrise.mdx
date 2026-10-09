@@ -1,8 +1,8 @@
 ---
 title: Bitrise
 description: >-
-  Bitrise is a CI/CD platform focused on automating mobile app builds, testing,
-  and deployment.
+  Bitrise builds, tests, and ships iOS and Android apps on hosted machines. It
+  is for mobile teams that want a CI/CD service made for mobile work.
 provider: Bitrise
 category: devops
 domain: devops
@@ -17,10 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - mobile
-  - ci-cd
-  - automation
-  - testing
+  - mobile ci/cd
+  - ios build
+  - android build
+  - code signing
+  - build cache
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -32,50 +33,98 @@ freeTierDetails:
     - 90-minute build timeout
     - 300 credits/month
   caveats:
-    - No credit card needed
-    - Credits reset monthly; running out requires a paid plan
+    - >-
+      The Bitrise docs say a new account cannot start CI builds until you start the 30-day trial or buy a Pro plan; the trial needs a credit card, which is charged $0.01 and the charge is voided
+    - >-
+      After the trial you can pick the free Hobby plan, which the pricing FAQ says needs no credit card
+    - Hobby is access for a team of one
+    - The pricing page does not say what happens when the 300 monthly credits run out.
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
-  - Automating mobile app builds
-  - Running tests on mobile codebases
-  - Deploying apps to app stores
-  - Integrating with GitHub or GitLab
+  - Build and test an iOS or Android app on every commit
+  - Sign builds and send them to testers
+  - Release to the app stores from a workflow
+  - Speed up builds with remote build cache for Xcode, Gradle, or Bazel
 quickstartSteps:
-  - Sign up for a Bitrise account.
-  - 'Connect your mobile app repository (GitHub, GitLab, Bitbucket, or manual).'
-  - 'Select your project type (iOS, Android, etc.) and configure workflows.'
-  - 'Add build, test, and deploy steps as needed.'
-  - Trigger your first build and review results.
+  - Sign up with an email address or through a Git hosting provider.
+  - Start the 30-day trial, which asks for a credit card ($0.01 is charged and voided); without it you cannot run CI builds.
+  - On the Dashboard, select New project, then Configure Bitrise CI, and connect your repository and default branch.
+  - Let Bitrise scan the repository and generate a starter CI configuration, or choose the project type yourself.
+  - Review the build machine and stack, choose private or public builds, optionally register a webhook, and click Finish to start the first build.
+  - When the trial ends, choose the free Hobby plan to keep going.
 whenToUse: >-
-  Use Bitrise when you need automated CI/CD for mobile apps with minimal setup
-  and strong integration with mobile tooling.
+  Use it to build and ship a mobile app, when you build only a few times a
+  month and work alone.
 whenNotToUse: >-
-  Avoid if you require advanced customization, non-mobile workflows, or
-  unlimited concurrent builds without cost.
+  Skip it if you cannot give a card to start the trial, need more than 1 private
+  app on the free plan, or work in a team. Hobby is access for a team of one.
 bestFor:
-  - mobile developers
-  - small teams
-  - open source projects
+  - solo mobile developers
+  - side projects with few builds
+  - trying Bitrise before choosing a plan
 avoidIf:
-  - you need complex backend CI/CD
-  - require unlimited concurrency
-  - need on-premise hosting
+  - you work in a team on the free plan
+  - you need more than 1 private app
+  - you run more than 300 credits of builds a month
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: Bitrise docs say new accounts need the 30-day trial, which asks for a credit card, before CI builds can run; the free Hobby plan is available after the trial.
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.bitrise.io/'
 docsUrl: 'https://devcenter.bitrise.io/'
 sourceUrls:
   - 'https://www.bitrise.io/pricing'
-  - 'https://devcenter.bitrise.io/getting-started/getting-started-with-bitrise/'
+  - 'https://docs.bitrise.io/en/bitrise-ci/getting-started/getting-started'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.bitrise.io/pricing'
 ---
-Bitrise provides a streamlined CI/CD solution tailored for mobile app development, offering easy setup, workflow automation, and integrations with popular mobile tools.
+You use Bitrise in the web dashboard and describe builds as workflows, with an API and a CLI around it. The docs build the first project from a wizard that scans your repository.
+
+## What the free plan gives you
+
+The Hobby plan is free and the pricing page calls it free forever. The FAQ says it includes 1 private app and 5 concurrent builds, with a 90-minute build timeout and 300 credits per month. The plan is access for a team of one, with support from the Bitrise Community on Slack or the Discuss forum.
+
+The pricing page says the credits are enough to build a small project a few times per month. The pricing page also lists build timeout and concurrent builds as plan limits, so check them before you rely on the plan.
+
+## When you hit a limit
+
+A build that reaches the 90-minute timeout is stopped. The FAQ says that on the Free plan the build times out at 90 minutes, while Starter and Pro allow longer runs.
+
+The pricing page does not say what happens on Hobby when the 300 monthly credits are gone. Its trial FAQ mentions requesting a trial extension or getting a paid plan, but that is about the trial. The Starter plan costs $99 per month on monthly billing and has unlimited build minutes with up to 4 concurrent builds. The docs say Bitrise does not sign you up for a paid plan when the trial ends.
+
+## Gotchas
+
+- The docs say a new account cannot start CI builds until you start the 30-day trial or buy a Pro plan.
+- The trial needs a credit card. The card is charged $0.01, and the charge is voided right away.
+- The pricing FAQ says Hobby needs no credit card, and it is offered at the end of the trial. Plan to enter a card once.
+
+## Alternatives in this atlas
+
+- [Appcircle](/tools/appcircle/): when you want another mobile CI/CD service with a free plan and no trial step.
+- [CodeMagic](/tools/codemagic/): when you build Flutter or other cross-platform apps.
+- [CircleCI](/tools/circleci/): when you want general CI for more than mobile apps.
+
+## Questions people ask
+
+### Is Bitrise free?
+
+Yes, through the Hobby plan: 1 private app, 5 concurrent builds, a 90-minute build timeout, and 300 credits per month. It is for a team of one.
+
+### Does Bitrise need a credit card?
+
+The pricing FAQ says Hobby needs no credit card. The docs say you must start the 30-day trial to run builds, and the trial asks for a card with a $0.01 charge that is voided.
+
+### What happens when my Bitrise trial ends?
+
+You must choose a plan to continue. You can pick the free Hobby plan with 300 credits per month, and Bitrise does not move you to a paid plan on its own.

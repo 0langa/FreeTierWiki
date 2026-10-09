@@ -1,8 +1,8 @@
 ---
 title: SmartParse
 description: >-
-  SmartParse connects CSV files to any REST API, with field mapping, error
-  handling, and SFTP upload on paid plans.
+  SmartParse maps the columns of a CSV file to a REST API and sends the rows as
+  JSON requests. Developers use it instead of writing one-off import scripts.
 provider: SmartParse
 category: automation
 domain: automation
@@ -16,8 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - data
+  - csv
+  - rest-api
+  - data-mapping
+  - bulk-import
+  - sftp
 pricingModel: freemium
 freeTierDetails:
   summary: The free Intro plan includes up to 300 processing units per month, with browser uploads only.
@@ -32,41 +35,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Pushing CSV exports into a REST API
-  - Bulk imports of users or stock data
-  - Replacing custom CSV transform scripts
+  - Pushing a CSV export into a REST API that accepts JSON
+  - Bulk imports of users, orders, or stock data into a platform such as Salesforce or Shopify
+  - Retrying failed rows after your API comes back online
+  - Replacing a custom script that reshapes CSV data
 quickstartSteps:
-  - Sign up for a free SmartParse account.
-  - Upload a few sample CSV lines to start a mapping.
-  - Map CSV fields to your target API request.
-  - Upload a CSV file in the browser and review results.
-  - Automate the flow through the SmartParse API.
+  - Sign up for a free account at smartparse.io; the sign-up page offers a free trial.
+  - Create a mapping from your CSV columns to the JSON fields of your target API.
+  - Upload a CSV file in the browser, which is the only upload method on the free plan.
+  - Review the results, then fix and reprocess any failed rows.
 whenToUse: >-
-  Use SmartParse when you need to send CSV data to a REST API without writing
-  custom transform scripts.
+  Use it to test sending CSV data to a REST API without writing a transform
+  script, when your uploads are small.
 whenNotToUse: >-
-  Avoid if you need more than 300 processing units per month, SFTP on the
-  free plan, or on-premise deployment.
+  Avoid the free plan if you need more than 300 processing units a month or SFTP
+  uploads.
 bestFor:
-  - CSV to API integrations
-  - bulk data imports
-  - developers avoiding custom scripts
+  - CSV to REST API pipelines
+  - small test uploads
+  - teams that want to skip custom scripts
 avoidIf:
-  - processing sensitive data with strict compliance
-  - needing SFTP on the free plan
-  - requiring custom on-premise solutions
+  - you need SFTP on the free plan
+  - you process more than 300 processing units a month
+  - you need a tool that creates APIs from CSV files
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://smartparse.io'
-docsUrl: 'https://docs.smartparse.io'
+docsUrl: 'https://smartparse.io'
 pricingUrl: 'https://smartparse.io'
 sourceUrls:
   - 'https://smartparse.io'
-  - 'https://docs.smartparse.io'
+  - 'https://smartparse.io/sign-up/'
 featured: false
 ---
-SmartParse maps and pushes CSV data to any REST API. The free Intro plan gives 300 processing units per month with browser uploads only.
+You work in the SmartParse web app: you define the field mapping, upload a CSV in the browser, and SmartParse sends the rows to your API. The site's documentation address did not load, so this page relies on the main site. It suits developers who do bulk imports into a REST API.
+
+## What the free plan gives you
+
+The Intro plan is free and has up to 300 processing units available each month. The pricing page describes it as suitable for testing and small uploads, and its only upload method is the browser.
+
+The site does not define a processing unit. Its usage calculator asks for files per month, lines per file, API response time, and concurrency. Treat the free amount as a test allowance.
+
+The first paid plan allows up to 8000 processing units for $119 a month and adds SFTP uploads and downloads. Higher plans cost $299 and $499 a month and add custom throttling.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use up the 300 processing units on the Intro plan. This entry lists the free plan as a hard cap with no overage charge, and the site shows no pay-as-you-go option.
+
+Separate from plan limits, the site says SmartParse has circuit breakers that stop it from flooding your API when the API is down. It also quarantines failed records so you can reprocess them once your API is back. The plan list shows data quarantining, circuit breakers, and notifications on the Intro plan too.
+
+## Gotchas
+
+- The free plan is limited to browser uploads. SFTP starts on the first paid plan.
+- SmartParse only connects CSV data to an existing API that accepts JSON. It does not create an API from your CSV file.
+- The site gives no definition of a processing unit, so you cannot easily predict how far 300 will go.
+
+## Alternatives in this atlas
+
+- [Coupler](/services/coupler/): when you want to move app data into spreadsheets, not push CSV files to an API.
+- [Dataimporter.io](/services/dataimporter-io/): when your CSV data goes into Salesforce.
+- [Make](/services/make/): when you want a visual builder to send file data to APIs.
+
+## Questions people ask
+
+### Is SmartParse free?
+
+Yes, the Intro plan is free with up to 300 processing units available each month and browser uploads only.
+
+### What kinds of APIs does SmartParse support?
+
+Any REST API endpoint that accepts JSON payloads. The site names Salesforce, Shopify, and custom internal APIs as examples.
+
+### What happens if my API goes down while SmartParse runs?
+
+SmartParse uses circuit breakers to stop flooding the API, and it quarantines failed records. You can reprocess them when the API is back.

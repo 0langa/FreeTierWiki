@@ -1,8 +1,8 @@
 ---
 title: GetUpdraft
 description: >-
-  GetUpdraft is an over-the-air app distribution and beta-testing platform for
-  iOS and Android builds, with CI integrations and code signing.
+  Updraft (GetUpdraft) sends beta builds of iOS, Android, and Windows apps to testers over the air
+  through a link or QR code. It is for app developers and small teams.
 provider: GetUpdraft
 category: devops
 domain: devops
@@ -15,62 +15,117 @@ audiences:
   - startup
   - team
 tags:
-  - devops
-  - mobile
-  - ci-cd
+  - app distribution
+  - beta testing
+  - ios beta
+  - android apk
+  - ota install
+  - testflight alternative
+  - app center alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Starter plan includes 1 app project, 3 app versions, 500 MB storage,
-    and 100 app installs per month, with no credit card required.
+    Free Starter plan includes 1 app project, 3 app versions, 500 MB storage, and 100 app installs
+    per month, with no credit card required.
   limits:
     - 1 app project
-    - 3 app versions
-    - 500 MB storage
-    - 100 app installs/month
+    - 3 app versions (builds)
+    - 500MB storage
+    - 100 app installations per month
+    - Unlimited testers and users per organization
   caveats:
-    - Re-signing .ipa/.aab binaries needs the paid Professional plan
-    - Best-effort support only on the free plan
+    - Re-signing .ipa and .aab files needs the paid Professional plan
+    - Support on the free plan is by contact form with a best-effort reaction time
+    - >-
+      The FAQ says there is no install limit, but the pricing page lists 100 installations per month
+      on Starter; this entry follows the pricing page
+    - 'The pricing page says there is no trial period, so you sign up and use the free plan'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Distribute beta builds to testers over the air
-  - Share iOS and Android builds via QR code or link
-  - Integrate app uploads with CI (Jenkins, Fastlane, GitLab, Gradle)
-  - Manage app versions and release notes
+  - Sending an iOS or Android beta build to testers by link or QR code
+  - 'Uploading builds from CI with the Jenkins, Fastlane, GitLab, or Gradle plugin'
+  - Keeping one public link that always opens the latest build
+  - Adding release notes that testers see at install
 quickstartSteps:
-  - 'Sign up for a free GetUpdraft account at https://www.getupdraft.com.'
-  - Create an app project and upload your first build (.ipa/.apk/.aab).
-  - Invite testers or share the public install link/QR code.
-  - Wire up CI uploads via the Jenkins, Fastlane, GitLab, or Gradle plugin.
+  - Sign up at getupdraft.com and register your organization.
+  - Create your first app project and add an app to it.
+  - 'Open the build tab and click Upload new build; drag in an .ipa, .apk, .aab, or Windows file.'
+  - 'Add release notes if you want, then save the build.'
+  - >-
+    Share the public link or QR code with testers, or upload from CI with a plugin, curl, or the
+    API.
 whenToUse: >-
-  Use GetUpdraft when you need free over-the-air distribution of beta iOS or
-  Android builds to testers without app-store review.
+  Use Updraft to hand beta builds of one app to testers over the air, with link and QR code
+  installs.
 whenNotToUse: >-
-  Avoid if you need binary re-signing, more than 1 app project, or more than
-  100 installs a month — these need a paid plan.
+  Avoid the free plan if you have more than 1 app project, need more than 3 builds kept, or need
+  more than 100 installations a month or re-signing.
 bestFor:
-  - mobile app beta testing
-  - indie app developers
-  - small teams distributing builds
+  - one-app indie developers
+  - small beta tests
+  - teams with CI uploads for one app
 avoidIf:
-  - need binary re-signing
-  - need multiple app projects
-  - need more than 100 installs/month
+  - you ship more than 1 app
+  - you need more than 100 installs a month on the free plan
+  - you need re-signing of .ipa or .aab files
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.getupdraft.com'
 docsUrl: 'https://docs.getupdraft.com'
 sourceUrls:
   - 'https://www.getupdraft.com/pricing'
+  - 'https://docs.getupdraft.com'
+  - 'https://docs.getupdraft.com/quickstart/your-first-app-project/upload-first-build'
+  - 'https://docs.getupdraft.com/faq'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: '2026-10-09'
 pricingUrl: 'https://www.getupdraft.com/pricing'
 ---
-GetUpdraft is an over-the-air (OTA) distribution platform for mobile app beta testing — an alternative to Diawi, DeployGate, and Applivery. The free Starter plan gives 1 app project, 3 versions, 500 MB storage, and 100 installs a month, with no credit card required and no trial period.
+You work in the Updraft dashboard, and you can add upload plugins or call the API from your build system. Testers install from a link or QR code. It suits indie developers and small teams with one app to test.
+
+## What the free plan gives you
+
+The Starter plan is free. The pricing page says there is no trial period: you sign up and use all features for free, within the plan limits. Starter includes 1 app project, 3 app versions, 500MB of storage, and 100 app installations per month.
+
+Employees, contributors, and testers are unlimited. You get public link installation, QR code installation, and a testers dashboard. You can upload by drag and drop, with a plugin, or through the API with cURL. Supported files are .ipa, .apk, .aab, and Windows files.
+
+The Pay as you go plan costs $5 per month plus $5 per GB of storage. It has unlimited projects and versions and 1000 installations per month. Professional costs $49 per month and adds re-signing of .ipa and .aab files.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach a free limit, such as 100 installations or 500MB of storage. It names the paid plans as the way to get more.
+
+The FAQ says that to upload a file bigger than 500MB you must move to the paid plan. It also says there is no maximum upload size and no install limit. That FAQ page was last updated years ago, and the pricing page lists 100 installs per month for Starter. Trust the pricing page.
+
+## Gotchas
+
+- Starter keeps only 3 builds. Plan to delete old versions as you upload new ones.
+- Paid storage is billed to your credit card at the end of the month. The free plan needs no card.
+- Re-signing of .ipa and .aab files is only on the Professional plan, not on Starter.
+
+## Alternatives in this atlas
+
+- [Diawi](/services/diawi/): when you want a quick upload page and share link without a project setup.
+- [GitHub Actions](/services/github-actions/): when you want your CI to build the app before you upload it.
+- [GitLab CI/CD](/services/gitlab-ci-cd/): when your builds run on GitLab and you upload them from a pipeline.
+
+## Questions people ask
+
+### Is GetUpdraft free?
+
+Yes. The Starter plan is free and includes 1 app project, 3 app versions, 500MB of storage, and 100 app installations per month.
+
+### Does GetUpdraft have a trial period?
+
+No. The pricing page says there is no trial period. You sign up and use all features for free within the plan limits.
+
+### Can I install old builds from GetUpdraft?
+
+Yes. The FAQ says you can select a previous version in the build history and install or share it again. The free plan keeps only 3 versions.

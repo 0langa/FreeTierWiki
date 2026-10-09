@@ -1,8 +1,8 @@
 ---
 title: CacheFly
 description: >-
-  CacheFly is a global content delivery network (CDN) offering fast, reliable
-  content distribution with a generous free tier.
+  CacheFly is a content delivery network that caches your files on servers around
+  the world, so downloads and static assets reach visitors faster.
 provider: CacheFly
 category: networking
 domain: networking
@@ -17,64 +17,110 @@ audiences:
   - oss
 tags:
   - cdn
-  - networking
+  - content delivery network
+  - static assets
+  - file downloads
+  - caching
+  - ssl
 pricingModel: freemium
 freeTierDetails:
-  summary: "Free 'Developer' CDN plan with 100 GB bandwidth per month."
+  summary: "Free 'Developer' CDN plan with up to 100 GB of bandwidth per month and one domain."
   limits:
     - 100 GB bandwidth/month
-    - '19 points of presence'
+    - '1 domain'
+    - Universal SSL and bring-your-own certificates
     - Email support
   caveats:
     - Overages billed at $0.05/GB
     - Credit card required at sign-up (a $1 charge is made and refunded to check it)
-    - No advanced analytics on free tier
+    - No WAF, SSO, or WebSockets on the Developer plan; logs are basic
+    - The pricing page also shows a separate 5 TB free card, so the allowance may be larger than stated here
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Overages beyond 100 GB are charged automatically at $0.05/GB
+    - Overages beyond the free data are charged automatically on pay-as-you-go
 useCases:
-  - Accelerating website static assets
+  - Speeding up static assets such as images, scripts, and style sheets
   - Distributing software downloads
   - Serving video or audio files
-  - Reducing server load
+  - Taking load off an origin server
 quickstartSteps:
-  - Sign up for a free CacheFly account at the official signup page.
-  - Add your website or application domain in the CacheFly dashboard.
-  - Configure your origin server settings for content pull.
-  - Update your DNS or application to point static asset URLs to CacheFly.
-  - Verify content is being served via CacheFly CDN.
+  - Open the free developer sign-up page and create your CacheFly account.
+  - Add a credit card; CacheFly charges and refunds $1 to check it.
+  - Log in to the CacheFly control panel.
+  - Set up a service for your domain and point it at your origin server.
+  - Point your asset URLs or DNS at CacheFly and check that files arrive through the CDN.
 whenToUse: >-
-  Use CacheFly when you need a simple CDN for static content with a small free
-  allowance and global reach.
+  Use CacheFly when you want to try a CDN for downloads or static files on a
+  personal project, and one domain is enough.
 whenNotToUse: >-
-  Avoid if you require advanced analytics, custom edge logic, or need more than
-  100 GB/month bandwidth without incurring overage charges.
+  Avoid it if you need a web application firewall, single sign-on, WebSockets,
+  advanced logs, or more than one domain on the free plan.
 bestFor:
   - static websites
   - media distribution
-  - open source projects
-  - startups
+  - open source downloads
+  - testing a CDN
 avoidIf:
-  - need advanced analytics
-  - require custom edge scripting
+  - need a WAF or SSO
+  - more than one domain
   - expect high bandwidth overages
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://portal.cachefly.com/signup/free2023'
-docsUrl: 'https://docs.portal.cachefly.com'
+docsUrl: 'https://www.cachefly.com/faq/'
 pricingUrl: 'https://www.cachefly.com/pricing/'
 sourceUrls:
   - 'https://www.cachefly.com/pricing/'
-  - 'https://portal.cachefly.com/signup/free2023'
   - 'https://www.cachefly.com/free/'
+  - 'https://www.cachefly.com/faq/'
 featured: false
 ---
-CacheFly's free "Developer" tier suits small static content delivery, with a 100 GB monthly bandwidth cap. It's ideal for indie developers and side projects needing fast, reliable content distribution without upfront costs. Overages are billed automatically at $0.05/GB, so monitor usage if you expect high traffic.
+You manage CacheFly from its control panel, and the FAQ says an API covers cache purging, analytics, and configuration changes. The free account suits one small site or download area that needs a global cache.
+
+## What the free plan gives you
+
+The Developer plan costs $0 a month. The main pricing card says it includes up to 100 GB of free bandwidth each month. It covers one domain, email support, and Universal SSL, and you can also bring your own certificate. API access is included.
+
+Security and edge features are limited. The comparison table shows no WAF, no single sign-on, no WebSockets, no HTTP/3, and basic logs and DDoS protection. It lists a 99.95% SLA for the Developer plan.
+
+The pricing page contradicts itself on size. A second free card on the same page says 5TB of data and 19 PoPs, with overage on pay-as-you-go. This entry uses the 100 GB figure from the Developer card, because that card also gives a price for extra data.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop. The Developer card gives an overage rate of 5 cents per GB, and the free page says you can later move to a pay-as-you-go plan. Plan for extra traffic to be billed, not blocked.
+
+The sign-up note on the free page says self-signup plans need a credit card at registration. CacheFly charges and refunds $1 to check your future payment method, and it says you are not charged during the free trial period. The pages do not say how long that period lasts.
+
+## Gotchas
+
+- You must add a credit card to sign up, even though the plan costs nothing. The $1 check is refunded.
+- The free plan covers one domain. The Business plan allows 50 domains and starts at $300 a month.
+- Free-plan limits differ across the pricing page. Check the control panel for the allowance on your own account before you rely on it.
+
+## Alternatives in this atlas
+
+- [Cloudflare](/services/cloudflare/): when you want a free CDN without a credit card.
+- [Namecheap Supersonic](/services/namecheap-supersonic/): when you already use Namecheap and want CDN caching with it.
+- [Azure Bandwidth](/services/azure-bandwidth/): when your files already live on Azure and you only care about egress costs.
+
+## Questions people ask
+
+### Is CacheFly free?
+
+Yes, there is a free Developer account. The main pricing card gives up to 100 GB of free data each month for one domain. A second card on the same page says 5TB.
+
+### What happens when I go over the CacheFly free limit?
+
+The pricing page lists an overage rate of 5 cents per GB and says pay-as-you-go applies. It does not say the service stops.
+
+### Does CacheFly need a credit card?
+
+Yes. Self-signup plans need a card at registration. CacheFly charges $1 and refunds it to check the card.

@@ -1,8 +1,8 @@
 ---
 title: Google Colab
 description: >-
-  Google Colab provides free cloud-hosted Jupyter notebooks with GPU support for
-  interactive Python development and data science.
+  Google Colab is a hosted Jupyter notebook service with free access to GPUs and
+  TPUs, for learning Python, machine learning, and data science.
 provider: Google Cloud
 category: ai
 domain: ai
@@ -18,63 +18,104 @@ audiences:
   - team
   - oss
 tags:
-  - ml
-  - compute
+  - jupyter-notebook
+  - free-gpu
+  - machine-learning
+  - python
+  - data-science
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free access to hosted Jupyter notebooks with limited CPU, GPU, and RAM
-    resources.
+    Free access to hosted Jupyter notebooks with CPU, GPU, and TPU resources that
+    are not guaranteed and not unlimited.
   limits:
-    - Sessions run up to 12 hours, depending on availability
-    - GPU/TPU access heavily restricted on the free tier
-    - Exact resource limits are not published and vary over time
+    - Free of charge, with GPU and TPU access when available
+    - Resources are not guaranteed, and usage limits sometimes fluctuate
+    - Virtual machines are deleted when idle and have a maximum lifetime
+    - Exact limits are not published
   caveats:
-    - No guaranteed resource availability
-    - Runtimes time out when idle; exact idle duration is not published
-    - Data not persisted between sessions unless saved to Google Drive
+    - SSH shells, remote desktops, web UIs, and distributed workers can be terminated on the free tier
+    - File hosting and media serving are not allowed on any managed runtime
+    - Notebooks live in Google Drive; the virtual machine's files do not persist
   resetPeriod: per session
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Machine learning prototyping
-  - Collaborative data analysis
-  - Educational tutorials
-  - Experimenting with Python libraries
+  - Prototype machine learning models on a free GPU or TPU
+  - Teach Python and data science in a classroom
+  - Share notebooks with others like a Google Doc
+  - Import and run existing Jupyter notebooks
+  - Try Python libraries without installing anything
 quickstartSteps:
-  - 'Sign in with your Google account at https://colab.research.google.com/.'
-  - Click 'New Notebook' to create a new Jupyter notebook.
-  - Select 'Runtime' > 'Change runtime type' to enable GPU or TPU if needed.
-  - Write and execute Python code in the notebook cells.
-  - Save your work to Google Drive for persistence.
+  - Open Colab and sign in with your Google account.
+  - Create a notebook, or choose Upload notebook from the File menu to import an .ipynb file. You can also load one from GitHub.
+  - Write Python in cells and run them. The code runs on a virtual machine private to your account.
+  - Notebooks save to Google Drive. Use the Share button to share one, and add install cells for any custom libraries.
+  - Download the notebook from the File menu when you want a copy.
 whenToUse: >-
   Use Google Colab for quick prototyping, learning, or sharing Python notebooks
-  with free access to GPUs and collaborative features.
+  when you want free GPU access without setting up anything.
 whenNotToUse: >-
-  Avoid Colab for long-running jobs, sensitive data, or production workloads
-  requiring persistent compute or storage.
+  Avoid Colab for long-running jobs, hosting services, or work that needs
+  guaranteed compute. Free runtimes can be shut down.
 bestFor:
   - learning
   - prototyping
-  - collaboration
   - teaching
 avoidIf:
-  - need-persistent-compute
-  - require-high-security
-  - require-long-running-jobs
+  - you need guaranteed GPU time
+  - you need persistent compute or storage
+  - you want to host a web app or serve files
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://colab.research.google.com/'
 docsUrl: 'https://research.google.com/colaboratory/faq.html'
 sourceUrls:
   - 'https://research.google.com/colaboratory/faq.html'
+  - 'https://colab.google/'
 pricingUrl: 'https://research.google.com/colaboratory/faq.html'
 featured: false
 ---
-Google Colab offers free, cloud-based Jupyter notebooks with GPU/TPU support, ideal for prototyping, learning, and collaborative data science projects.
+You use Colab in the browser. You sign in with a Google account, open or create a notebook, and run Python in cells on a virtual machine that Google hosts. It suits students, teachers, and ML beginners who want a free GPU or TPU without any setup.
+
+## What the free plan gives you
+
+The FAQ says Colab is free of charge and gives access to computing resources, including GPUs and TPUs. There is nothing to install. Notebooks are stored in Google Drive or loaded from GitHub, and you can share them like a Google Doc. You can download any notebook as an .ipynb file.
+
+The free tier has no published numbers. Google says Colab resources are not guaranteed and not unlimited, and usage limits sometimes fluctuate. Colab gives priority to people who are actively programming in a notebook. Your code runs in a virtual machine private to your account.
+
+## When you hit a limit
+
+Virtual machines are deleted when idle for a while, and the service enforces a maximum lifetime. Google does not publish the exact times. The free tier can also terminate runtimes at any time without warning if they do things like remote control with SSH shells or remote desktops, run a web UI instead of the notebook, or run distributed workers. Paid plans, a positive compute unit balance, Colab Enterprise, or a local runtime remove these restrictions. Colab also limits how often you can reset your virtual machine.
+
+## Gotchas
+
+- Free runtimes can end without warning. Save work to Google Drive and keep install cells in your notebook, because custom files and libraries on the virtual machine are not shared.
+- Interacting mainly through a web UI instead of working in notebook cells is one of the activities that can end a free runtime.
+- Mounting Google Drive can time out if a folder holds thousands of items, so keep your top-level My Drive folder small.
+
+## Alternatives in this atlas
+
+- [Deepnote](/services/deepnote/): when several people need to edit one notebook in real time.
+- [Paperspace](/services/paperspace/): when you want a hosted notebook machine with basic instances.
+- [Hugging Face Spaces](/services/hugging-face-spaces/): when you want to host a demo app, which Colab does not allow.
+
+## Questions people ask
+
+### Is Google Colab free?
+
+Yes. The FAQ says Colab is free of charge to use, including GPUs and TPUs. Resources are not guaranteed, and limits sometimes change.
+
+### Does Google Colab need a credit card?
+
+The FAQ describes the service as free of charge and mentions a Google account sign-in. It does not mention a card for the free tier.
+
+### Why does my Colab runtime keep disconnecting?
+
+Colab deletes idle virtual machines and sets a maximum lifetime. Free runtimes are also ended when they run things like web UIs or SSH shells.

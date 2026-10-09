@@ -1,8 +1,8 @@
 ---
 title: Let's Encrypt
 description: >-
-  Let's Encrypt provides free, automated SSL/TLS certificates for securing
-  websites and web applications.
+  Let's Encrypt is a free, automated certificate authority run by a nonprofit.
+  It issues domain-validated TLS certificates so any site can use HTTPS.
 provider: Let's Encrypt
 category: security
 domain: security
@@ -17,7 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - security
+  - ssl
+  - tls
+  - https
+  - certbot
+  - acme
+  - wildcard-certificate
 pricingModel: free
 freeTierDetails:
   summary: Free domain-validated SSL/TLS certificates, within rate limits.
@@ -28,41 +33,45 @@ freeTierDetails:
   caveats:
     - Only supports domain-validated certificates
     - Wildcard certificates need the DNS-01 challenge
+    - No direct support; help comes from docs and the community forum
   resetPeriod: weekly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Securing personal or business websites
-  - Enabling HTTPS for web applications
-  - Automating certificate renewal
-  - Testing SSL/TLS deployment
+  - Turning on HTTPS for a personal or business website
+  - Getting a wildcard certificate for many subdomains
+  - Automating certificate renewal with Certbot or another ACME client
+  - Securing mail servers or other servers that use a domain name
 quickstartSteps:
-  - Install Certbot or another ACME client on your server.
-  - Run the client to request a certificate for your domain.
-  - Complete domain validation via HTTP or DNS challenge.
-  - Install the issued certificate on your web server.
-  - Set up automatic renewal for ongoing security.
+  - Check whether your hosting provider already gets and renews Let's Encrypt certificates for you; if so, turn on the option in its settings.
+  - If not, pick an ACME client; Let's Encrypt recommends Certbot and lists others on its client page.
+  - Point the client at the production ACME directory, `https://acme-v02.api.letsencrypt.org/directory`, if it asks for an endpoint.
+  - Test first against the staging API, which has much higher limits than production.
+  - Request a certificate for your domain and prove you control it with an HTTP or DNS challenge; wildcards need DNS.
+  - Install the certificate on your server and let the client renew it before it expires.
 whenToUse: >-
-  Use Let's Encrypt when you need free, automated SSL/TLS certificates for
-  public domains and want to automate renewals.
+  Use Let's Encrypt when you control a public domain and want free HTTPS
+  certificates that renew on their own, either through your host or through an
+  ACME client you run.
 whenNotToUse: >-
-  Avoid if you require extended validation, organization validation, or need
-  certificates for internal or non-public domains.
+  Avoid it if you need Organization Validation or Extended Validation
+  certificates, which it does not offer, or email encryption or code signing
+  certificates, which are a different kind of certificate.
 bestFor:
   - public websites
-  - web apps
+  - web apps and APIs
   - open source projects
   - small businesses
 avoidIf:
-  - need EV/OV certificates
-  - internal-only domains
-  - require long-term certificates
+  - you need EV or OV certificates
+  - you need email encryption or code signing certificates
+  - you cannot run an ACME client or use a host that does
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 10
 officialUrl: 'https://letsencrypt.org/'
@@ -72,6 +81,43 @@ sourceUrls:
   - 'https://letsencrypt.org/docs/rate-limits/'
   - 'https://letsencrypt.org/docs/faq/'
   - 'https://letsencrypt.org/getting-started/'
+  - 'https://letsencrypt.org/docs/'
 featured: true
 ---
-Let's Encrypt offers free, automated SSL/TLS certificates for securing websites, with easy integration and automated renewals for most web servers.
+Many hosting providers get Let's Encrypt certificates for you with a settings switch. If yours does not, you run an ACME client such as Certbot on your server, and the client does the work from the command line. No part of getting a certificate happens on the Let's Encrypt website.
+
+## What the free plan gives you
+
+Certificates cost nothing. Let's Encrypt is a nonprofit and says it does not charge a fee. It issues Domain Validation certificates, and they work for web servers, mail servers, FTP servers, and other servers that use a domain name. Wildcard certificates are available, but you must prove control with the DNS-01 challenge.
+
+Default certificates are valid for 90 days, and Let's Encrypt recommends renewing every 60 days. You can opt in to six-day certificates. A single certificate can hold up to 100 identifiers, and a new account can place up to 300 orders every 3 hours.
+
+## When you hit a limit
+
+Rate limits are the only cap, and they are a hard stop, not a bill. You can issue up to 50 certificates per registered domain every 7 days, and up to 5 certificates for the exact same set of names every 7 days. Capacity refills slowly over time, and Let's Encrypt cannot reset a limit for you. Renewals through ACME Renewal Info are exempt from all rate limits. Test against the staging environment, which has much higher limits.
+
+## Gotchas
+
+- Let's Encrypt does not offer Organization Validation or Extended Validation certificates, and it does not issue certificates for email encryption or code signing.
+- Reinstalling your client over and over, or deleting its configuration on every deploy, is a common way to hit the duplicate certificate limit.
+- The team does not give direct support. Use the documentation and the community forum.
+
+## Alternatives in this atlas
+
+- [CertKit](/services/certkit/): when you want certificate management handled for you instead of running a client yourself.
+- [Cloudflare](/services/cloudflare/): when you want the edge to handle HTTPS for you and do not want to run a client.
+- [SSLabs.com](/services/sslabs-com/): use it after issuing a certificate to test how your server is set up.
+
+## Questions people ask
+
+### Is Let's Encrypt really free?
+
+Yes. Let's Encrypt says it does not charge a fee for certificates. Some hosting providers charge a small fee for managing the certificates for you.
+
+### How long do Let's Encrypt certificates last?
+
+Default certificates are valid for 90 days. You can opt in to certificates that last six days. The lifetimes cannot be adjusted.
+
+### Does Let's Encrypt issue wildcard certificates?
+
+Yes. You must use the DNS-01 challenge to prove you control the domain.

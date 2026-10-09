@@ -1,8 +1,8 @@
 ---
 title: Permit.io
 description: >-
-  Permit.io provides a managed authorization service for fine-grained access
-  control in your applications.
+  Permit.io is a hosted service for deciding who can do what in your app. You
+  model roles and permissions in a dashboard and check them with one SDK call.
 provider: Permit.io
 category: security
 domain: security
@@ -11,14 +11,19 @@ subtypes:
   - policy management
   - RBAC
   - ABAC
+  - ReBAC
 audiences:
   - startup
   - team
   - enterprise
   - oss
 tags:
-  - auth
-  - compliance
+  - authorization
+  - rbac
+  - abac
+  - rebac
+  - permissions
+  - access-control
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,48 +34,91 @@ freeTierDetails:
     - 20 tenants, 25 roles, 3 environments
     - Unlimited authorization queries, projects, and PDP instances
     - 14-day audit/decision log retention
+    - 2,000 role assignments, 2,000 resource instances, 2,000 relationship tuples
   caveats:
-    - Advanced features require paid plans
-    - Basic Slack support only, no SLA on Community tier
+    - Cloud uptime and the support SLA are listed as best effort, with community Slack as the support channel
+    - Compliance support (SOC 2 report, HIPAA BAA) and multi-cloud or on-prem deployment options are listed under Enterprise
+    - Only a single deployment region is listed for the Community tier
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Implement RBAC or ABAC in web/mobile apps
-  - Centralize access policies
-  - Manage permissions for SaaS products
+  - Adding role-based access control to a SaaS product
+  - Giving each customer tenant its own roles and users
+  - Moving from hard-coded permission checks to one central policy
+  - Letting end users manage their own team access with embeddable screens
 quickstartSteps:
-  - Sign up for a free Permit.io account.
-  - Create a new project in the dashboard.
-  - 'Define roles, resources, and permissions.'
-  - Integrate the Permit.io SDK into your application.
-  - Test authorization flows using the dashboard.
+  - Sign up at app.permit.io with a Google, GitHub, or Microsoft account.
+  - Create a workspace, give it a name, and select Launch Your Account.
+  - In the dashboard, open Policy and create a role such as Admin, then create a resource such as Document with its actions.
+  - Open Directory, add a user, and assign the role. Then set the role's permissions in the Policy Editor.
+  - Install a Permit SDK in your backend and call `permit.check()` with a user, an action, and a resource.
 whenToUse: >-
-  Use Permit.io when you need to add robust, centralized authorization to your
-  application without building it from scratch.
+  Use Permit.io when you want roles, attributes, or relationships managed in a
+  dashboard and enforced by a small SDK call, and your app fits within the
+  Community limits.
 whenNotToUse: >-
-  Avoid if you require on-premises deployment, or need custom authorization
-  logic not supported by Permit.io.
+  Avoid the Community tier if you have more than 1,000 monthly active users,
+  more than 20 tenants, or need compliance reports or a support SLA.
 bestFor:
   - SaaS products
-  - internal tools
   - multi-tenant apps
+  - proofs of concept for access control
 avoidIf:
-  - strict on-premises requirements
-  - custom non-standard auth logic
+  - you expect more than 1,000 monthly active users on the free tier
+  - you need a support SLA or compliance reports
+  - you need on-premises deployment without a paid plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://permit.io'
 docsUrl: 'https://docs.permit.io'
 sourceUrls:
   - 'https://permit.io/pricing'
+  - 'https://docs.permit.io'
+  - 'https://docs.permit.io/quickstart/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://permit.io/pricing'
 ---
-Permit.io offers a managed authorization platform with a generous free Community tier (1,000 MAU, 20 tenants), enabling teams to implement RBAC and ABAC quickly and securely.
+You set up roles, resources, and users in the Permit dashboard, or through the API and Terraform. Your backend then calls an SDK function such as `permit.check()` to ask if a user may do an action. It suits developers who want to stop hand-writing permission code.
+
+## What the free plan gives you
+
+The Community plan is labeled free forever. It allows 1,000 monthly active users and 20 tenants. You can define 25 roles, 50 resource types, and 5 condition sets, with 2,000 role assignments, 2,000 resource instances, and 2,000 relationship tuples. You also get 20 groups and 3 environments.
+
+Authorization queries, projects, and PDP instances have no limit. The PDP is the service that answers permission checks, and you can run it yourself. The plan supports RBAC, ABAC, ReBAC, and PBAC through the UI, API, SDK, or infrastructure-as-code. Audit logs are kept for 14 days.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass a Community limit, such as 1,000 monthly active users. It lists the Enterprise plan as the step above, with no limits on active users and tenants. Pricing for that plan is by contact. The pricing page labels Community as free forever and shows no payment step for it. Cloud uptime and the support SLA are listed as best effort.
+
+## Gotchas
+
+- Many limits count objects you create, not only users. Role assignments, resource instances, and relationship tuples each stop at 2,000.
+- Only a single deployment region is listed for the Community plan.
+- Compliance support, such as the SOC 2 report and HIPAA BAA, and on-prem or multi-cloud deployment are listed under Enterprise. The page does not say which plans include SSO.
+
+## Alternatives in this atlas
+
+- [Cerbos Hub](/services/cerbos-hub/): when you want another hosted authorization service to compare against.
+- [Authress](/services/authress/): when you want pay-per-call pricing instead of a monthly user cap.
+- [Auth0](/services/auth0/): when your main need is logging users in, with permissions as a smaller part.
+
+## Questions people ask
+
+### Is Permit.io free?
+
+Yes. The Community plan is free forever and covers up to 1,000 monthly active users and 20 tenants.
+
+### Does Permit.io need a credit card?
+
+The pricing page shows no card step for the Community plan. You sign up at app.permit.io with a Google, GitHub, or Microsoft account.
+
+### What happens if I go over the Permit.io free limits?
+
+The pricing page does not say. It lists Enterprise as the plan with no limits on monthly active users and tenants.

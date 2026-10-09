@@ -1,6 +1,9 @@
 ---
 title: Loops
-description: 'Email for SaaS: marketing, product, and transactional email in one tool.'
+description: >-
+  Loops sends marketing, product, and transactional email from one tool. It is
+  built for SaaS teams that want one place for newsletters, onboarding
+  sequences, and app-triggered mail.
 provider: Loops
 category: messaging
 domain: messaging
@@ -12,18 +15,25 @@ audiences:
   - indie
   - startup
 tags:
+  - saas email
+  - transactional email
+  - email automation
+  - onboarding emails
   - email
-  - messaging
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan: unlimited contacts and up to 4,000 sends in any rolling 30 days, to your 1,000 newest
-    contacts.
+    Free plan: unlimited contacts and up to 4,000 sends in any rolling 30 days,
+    to your 1,000 newest contacts. Free emails carry Loops branding.
   limits:
     - 'Up to 4,000 sends per rolling 30 days'
     - 'Sends go to your 1,000 newest contacts'
     - Unlimited contacts stored
+    - Up to 10 emails per second
   caveats:
+    - Free emails include Loops branding
+    - Marketing and transactional sends count together
+    - You need your own sending domain; free hosting subdomains do not work
     - Paid plans are priced by subscribed contacts
   resetPeriod: rolling 30 days
   requiresCard: false
@@ -31,29 +41,43 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Product update emails
-  - Onboarding sequences
-  - Transactional email
+  - Sending product update emails to your users
+  - Running a welcome or onboarding sequence
+  - Sending password resets and receipts through the API
+  - Triggering emails from product events
 quickstartSteps:
-  - Sign up at loops.so.
-  - Verify your sending domain.
-  - Send with the API or the editor.
-whenToUse: Use for a young SaaS that needs marketing and transactional email in one place.
-whenNotToUse: 'Avoid if your list is over 1,000 active contacts.'
+  - Sign up at loops.so. The sign-up flow asks for your sending domain.
+  - Add the DNS records Loops gives you on the Settings Domain page and verify them.
+  - Import contacts or collect sign-ups with a Loops form.
+  - Build your first email in the editor, or set up a workflow that sends a sequence.
+  - For app emails, generate an API key under Settings API, then send events or transactional email with the API or an SDK such as `npm i loops`.
+whenToUse: >-
+  Use Loops when a young SaaS needs marketing sequences and transactional mail
+  in one place and keeps its active list under about 1,000 contacts.
+whenNotToUse: >-
+  Avoid it if you need to email more than your 1,000 newest contacts for free,
+  need to remove Loops branding, or have no domain you can edit DNS for.
 bestFor:
   - early SaaS
+  - product update emails
+  - small subscriber lists
 avoidIf:
-  - large lists
+  - large lists on a free budget
+  - no domain of your own
+  - branding must be removed
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://loops.so'
 docsUrl: 'https://loops.so/docs'
 sourceUrls:
   - 'https://loops.so/pricing'
+  - 'https://loops.so/docs/quickstart'
+  - 'https://loops.so/docs/sending-domain'
+  - 'https://loops.so/docs/api-reference/intro'
 pricingUrl: 'https://loops.so/pricing'
 featured: false
 changes:
@@ -61,4 +85,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Loops combines marketing and transactional email for SaaS products.
+You work in the Loops editor and workflow builder, and your app talks to it through the REST API, SDKs, or integrations. It fits small SaaS teams that want email handled without a separate tool for each kind of message.
+
+## What the free plan gives you
+
+The free plan stores unlimited contacts. It lets you send up to 4,000 emails in any rolling 30-day window, and the emails go to your 1,000 newest contacts. Marketing and transactional sends count together toward the 4,000.
+
+Free emails include Loops branding. Free accounts can send up to 10 emails per second. Loops does not charge for team seats, so you can invite your whole team. Paid plans are priced by the number of subscribed contacts and remove the branding.
+
+## When you hit a limit
+
+The pricing page describes the free plan as up to 4,000 sends to the 1,000 newest contacts and lists no overage charge. You upgrade to reach more subscribed contacts.
+
+If you send faster than 10 emails per second, Loops queues the extra emails until it can send them. The pricing page does not say what happens when you reach 4,000 sends inside the 30-day window, so check the dashboard before a big send.
+
+## Gotchas
+
+- Only your 1,000 newest contacts receive free sends, so older contacts drop out of reach as you add new ones.
+- You must use your own domain. Free subdomains from hosts such as Vercel or Netlify cannot be sending domains.
+- Loops recommends a subdomain such as `mail.yourcompany.com` for sending, rather than your root domain.
+
+## Alternatives in this atlas
+
+- [Plunk](/services/plunk/): when you want a free plan built around API sending with a simple monthly cap.
+- [MailerLite](/services/mailerlite/): when you mainly send newsletters and want a drag-and-drop builder.
+- [Resend](/services/resend/): when you only need transactional email through an API.
+
+## Questions people ask
+
+### Is Loops free?
+
+Yes. The free plan has unlimited stored contacts and up to 4,000 sends in any rolling 30 days, to your 1,000 newest contacts. Free emails carry Loops branding.
+
+### Does Loops need a credit card?
+
+No. The pricing page says Loops is free to start, with no credit card required.
+
+### Can I send transactional email on the Loops free plan?
+
+Yes. The free plan counts transactional and marketing sends together toward the 4,000 sends. You create the email in Loops and send it through the API.

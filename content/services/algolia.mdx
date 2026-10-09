@@ -1,8 +1,7 @@
 ---
 title: Algolia
 description: >-
-  Algolia provides a hosted search API for fast, relevant, and scalable search
-  experiences in web and mobile applications.
+  Algolia is a hosted search and retrieval platform. You send it JSON records and query them through an API, client libraries, or ready-made UI libraries to add search and recommendations to a website or app.
 provider: Algolia
 category: hosting
 domain: hosting
@@ -16,9 +15,13 @@ audiences:
   - team
   - oss
 tags:
-  - search
-  - api
-  - devops
+  - "search"
+  - "search-api"
+  - "site-search"
+  - "instantsearch"
+  - "recommendations"
+  - "crawler"
+  - "javascript"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,43 +34,43 @@ freeTierDetails:
     - '5,000 recommendation requests/month'
     - '5,000 crawls/month'
   caveats:
-    - No SLA or advanced AI ranking features on the Free plan
-    - Usage beyond the free thresholds requires upgrading to a paid plan
+    - The pricing page lists SSO, an enhanced SLA, and NeuralSearch under higher plans, not the Free plan
+    - The pricing page says to choose a monthly plan when your usage exceeds the free plan limits
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Adding instant search to websites
-  - Mobile app search functionality
-  - E-commerce product search
-  - Documentation or blog search
+  - "Adding instant search to a documentation site or blog"
+  - "Product search for a small online store"
+  - "Search-as-you-type in a React or JavaScript app"
+  - "Showing related items with recommendations"
+  - "Crawling your own site to build a search index"
 quickstartSteps:
-  - Sign up for a free Algolia account.
-  - Create a new application and obtain your API keys.
-  - Add your data to an index using the Algolia dashboard or API.
-  - Integrate Algolia search into your app using a client library or widget.
-  - Test your search and adjust relevance settings as needed.
+  - "Create a free Algolia account; the pricing page says the Free plan needs no credit card."
+  - "In the Algolia dashboard, open the API Keys page and copy the Application ID, the Write API key, and the Search API key."
+  - "Create a Vite app with `npm create vite@latest algolia-quickstart-products -- --template react-ts`."
+  - "Install the packages with `npm install algoliasearch instantsearch.css react-instantsearch ora tsx`."
+  - "Run an indexing script that uses the `algoliasearch` client to save sample records and set index settings."
+  - "Render the search box, hits, and pagination with the React InstantSearch components."
 whenToUse: >-
-  Use Algolia when you need fast, scalable, and easy-to-integrate search for web
-  or mobile apps with minimal infrastructure management.
+  Use Algolia when you want a hosted search box and little infrastructure to run, and your data fits within the Free plan record and request counts.
 whenNotToUse: >-
-  Avoid Algolia if you require advanced custom AI ranking, an SLA, or need
-  on-premises deployment.
+  Skip it if you need a support contract or advanced AI ranking, if your site gets steady search traffic above the Free plan request count, or if the search engine must run on your own servers.
 bestFor:
-  - developer
-  - indie
-  - startup
-  - open-source
+  - "documentation search"
+  - "small shops and blogs"
+  - "prototypes"
+  - "React and JavaScript front ends"
 avoidIf:
-  - enterprise
-  - strict on-premise requirements
-  - large-scale commercial projects on free tier
+  - "you need an SLA or enterprise support"
+  - "you need self-hosted search"
+  - "you expect steady traffic above the Free plan"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://www.algolia.com/'
@@ -75,6 +78,46 @@ docsUrl: 'https://www.algolia.com/doc/'
 pricingUrl: 'https://www.algolia.com/pricing/'
 sourceUrls:
   - 'https://www.algolia.com/pricing/'
+  - 'https://www.algolia.com/doc/guides/getting-started/quick-start/'
+  - 'https://www.algolia.com/doc/guides/getting-started/what-is-algolia/'
 featured: false
 ---
-Algolia offers a free plan for personal, startup, and small commercial projects, making it easy to add powerful search to your app without managing infrastructure. The free tier is best for prototypes and small sites, but larger or high-traffic use requires a paid plan.
+You manage indices and relevance in the Algolia dashboard and send records through the API or a client library such as `algoliasearch`. UI libraries like React InstantSearch draw the search box and results. It suits developers who want to add search to a site or app without running a search server.
+
+## What the free plan gives you
+
+The Free plan costs nothing and the pricing page says no credit card is required. Each month it includes 10,000 search requests, 5,000 recommendation requests, and 5,000 crawls. It also allows 50,000 records at a time. A record is one item that someone can search for, such as a product or a page. The count covers all your indices together, and each pre-sorted copy of your records adds to the total.
+
+The Free plan covers search and recommendations. Paid plans add things like analytics retention, SSO, and a stronger SLA. The page lists three data center regions for the paid plans: US, UK, and EU.
+
+## When you hit a limit
+
+The pricing page does not say what Algolia does when a Free plan hits its monthly limits. It shows a message that your selected usage exceeds the limits of the free plan and points you to a monthly plan instead. Because the Free plan needs no card, Algolia has no payment method to bill.
+
+On paid plans, going over the included records is billed as an over-quota charge based on the highest record count you reached. Search requests above the included amount are billed per extra 1,000 requests. Plan for an upgrade before a launch with real traffic.
+
+## Gotchas
+
+- Records from every index count together, and each pre-sort of your records creates a copy that raises the total.
+- The pricing page does not describe an SLA for the Free plan; the SLA and SSO items are listed under higher plans.
+- The quickstart needs Node.js 20.19 or later, and it uses three keys from the dashboard: Application ID, Write API key, and Search API key.
+
+## Alternatives in this atlas
+
+- [DocsSearch](/services/docssearch/): when you only need search for public developer docs and want it fully managed.
+- [Azure AI Search](/services/azure-ai-search/): when you already work in Azure and can add a card to your account.
+- [Aiven](/services/aiven/): when you want a free OpenSearch service you control more directly.
+
+## Questions people ask
+
+### Is Algolia free?
+
+Yes. The Free plan includes 10,000 search requests, 5,000 recommendation requests, and 5,000 crawls each month, plus 50,000 records. No credit card is required.
+
+### What happens when I go over the Algolia free tier?
+
+The pricing page does not say. It tells you to choose a monthly plan when your usage exceeds the Free plan limits.
+
+### Does Algolia need a credit card?
+
+No. The pricing page says no credit card is required for the Free plan.

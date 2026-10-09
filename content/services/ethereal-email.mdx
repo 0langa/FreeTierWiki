@@ -1,8 +1,8 @@
 ---
 title: Ethereal Email
 description: >-
-  Ethereal Email provides free, disposable SMTP accounts for testing email
-  sending in development environments.
+  Ethereal Email is a fake SMTP service that catches the mail your app sends and shows it to you
+  instead of delivering it. It is for developers who test email code.
 provider: Ethereal Email
 category: devops
 domain: devops
@@ -17,60 +17,116 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - testing
+  - fake smtp
+  - email testing
+  - nodemailer
+  - smtp sandbox
+  - test inbox
+  - imap
+  - email preview
 pricingModel: free
 freeTierDetails:
-  summary: Unlimited free disposable SMTP accounts for email testing.
+  summary: >-
+    Unlimited free disposable SMTP accounts for email testing. Public accounts send up to 200
+    messages per hour and nothing is ever delivered.
   limits:
-    - Not for production use
-    - Emails are auto-deleted after a few hours
-    - No delivery to real inboxes
-    - 100 MB message storage per address
+    - Nothing is delivered to real inboxes; every message is caught
+    - Public accounts can send up to 200 messages per hour
+    - 100 MB of message storage per address
+    - Messages are deleted after a few hours
+    - Inbound email is disabled for public accounts
   caveats:
-    - Emails are accessible publicly if account credentials are shared
-    - Not suitable for sending emails to real users
+    - Message preview URLs are public and need no login
+    - Messages are stored for only a few hours
+    - Inbound email works only for accounts made by EmailEngine subscribers
+    - Not for production or for sending to real users
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
     - No billing required; service is always free
+  resetPeriod: hourly
 useCases:
-  - Testing email sending in development
-  - Previewing transactional emails
-  - Debugging SMTP integration
+  - Testing that your app sends signup and password reset emails
+  - Previewing the HTML of a transactional email
+  - Debugging an SMTP integration without a real mail provider
+  - Reading caught mail back through an IMAP or POP3 client
 quickstartSteps:
-  - 'Visit https://ethereal.email and click ''Create Ethereal Account''.'
-  - Copy the generated SMTP credentials.
-  - Configure your application or email library with these credentials.
-  - Send a test email from your application.
-  - Log in to Ethereal Email with your credentials to view received emails.
+  - >-
+    Call `nodemailer.createTestAccount()` in your code, or click Create Ethereal Account on
+    ethereal.email; no signup or verification is needed.
+  - Point your app at the SMTP host `smtp.ethereal.email` with the credentials you received.
+  - 'Send a message to any recipient address, real or made up.'
+  - Open the preview URL from `nodemailer.getTestMessageUrl(info)` in your browser.
+  - 'Optionally log in on the site, or use an IMAP or POP3 client, to read the caught messages.'
 whenToUse: >-
-  Use Ethereal Email when you need to test email sending in development without
-  sending real emails.
+  Use Ethereal when you want your code to send real SMTP mail in development without delivering
+  anything to a real person.
 whenNotToUse: >-
-  Do not use for production or sending emails to real users, as emails are not
-  delivered outside Ethereal.
+  Avoid it for production, for mail that must reach real users, and for tests that need to receive
+  inbound mail on a public account.
 bestFor:
-  - development
-  - testing
-  - debugging
+  - Nodemailer users
+  - developers testing transactional email
+  - teams that want a throwaway SMTP account
 avoidIf:
-  - production
-  - real-user-delivery
+  - you need real delivery
+  - you need inbound mail on a free account
+  - you need messages to stay stored for days
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://ethereal.email'
-docsUrl: 'https://docs.ethereal.email'
+docsUrl: 'https://ethereal.email/help'
 sourceUrls:
   - 'https://ethereal.email/'
-  - 'https://github.com/nodemailer/ethereal-email'
+  - 'https://ethereal.email/faq'
+  - 'https://ethereal.email/help'
 pricingUrl: 'https://ethereal.email/'
 featured: false
 ---
-Ethereal Email is a free service that provides disposable SMTP accounts for safely testing email functionality in development environments, without risk of spamming real users.
+You create a throwaway account from the Nodemailer API or with one click on the website, then send mail over SMTP. You read the caught messages through a preview link, the website, or an IMAP or POP3 client. It suits developers who test email code.
+
+## What the free plan gives you
+
+Ethereal is completely free. The FAQ says it is run by the Nodemailer team and funded by EmailEngine, a commercial email API.
+
+You can create as many test accounts as you want, even from code, with no signup or email verification. Ethereal accounts act like standard SMTP, IMAP, and POP3 accounts, so any mail library that speaks SMTP works. Every message is caught and stored for review. Nothing is delivered.
+
+Public accounts can send up to 200 messages per hour. Each address has 100MB of message storage.
+
+## When you hit a limit
+
+At the send limit, the server temporarily rejects further messages until the start of the next hour. Accounts made by EmailEngine subscribers are not rate limited.
+
+At the storage limit, the account cannot receive more messages. To free space, delete older messages with an IMAP client (POP3 does not work for this), or wait for them to expire. Messages are stored for only a few hours, after which they are deleted.
+
+## Gotchas
+
+- Message preview URLs are public and need no authentication. Anyone with the link can read the message.
+- Inbound email is disabled for public accounts, and mail sent to those addresses bounces. Inbound email works only for accounts made by EmailEngine subscribers.
+- Ethereal never delivers mail. Do not use it to send to real users.
+
+## Alternatives in this atlas
+
+- [Webhook.site](/services/webhook-site/): when you want to inspect HTTP requests, not email.
+- [ExtendsClass](/services/extendsclass/): when you want other free developer test tools in the browser.
+- [Hook0](/services/hook0/): when you test webhook delivery.
+
+## Questions people ask
+
+### Is Ethereal Email free?
+
+Yes. Ethereal is completely free to use. You can create as many test accounts as you want.
+
+### Does Ethereal Email deliver emails?
+
+No. It accepts mail over SMTP but never delivers it. You read the caught message by a preview URL or an IMAP client.
+
+### How long does Ethereal keep my emails?
+
+For a few hours, then it deletes them. Each address also has a storage quota of 100MB.

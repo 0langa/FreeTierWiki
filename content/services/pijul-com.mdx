@@ -1,8 +1,9 @@
 ---
 title: Pijul.com
 description: >-
-  Pijul.com offers free hosting for Pijul version control repositories on the
-  Nest.
+  The Nest is the hosting site for Pijul repositories, linked from pijul.org as
+  free hosting. It is for developers who use the Pijul version control system
+  instead of Git.
 provider: Pijul.com
 category: devops
 domain: devops
@@ -16,8 +17,11 @@ audiences:
   - startup
   - oss
 tags:
-  - devops
-  - collaboration
+  - pijul
+  - version control
+  - repository hosting
+  - nest
+  - patch-based
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -25,50 +29,89 @@ freeTierDetails:
     platform.
   limits:
     - Free repository hosting on the Nest (nest.pijul.com)
-    - Sign-up needs only a handle, email, and password
+    - Sign-up needs a handle, email, and password
+    - Clone over https, or over ssh with a Nest account
   caveats:
-    - Only supports Pijul version control system
-    - The Nest lists no repository or storage limits
+    - The Nest is Pijul's own hosting platform; its pages mention no Git hosting
+    - The Nest lists no repository or storage limits, and no pricing page
+    - Installing the Pijul client needs the Rust toolchain (cargo) or a distribution package
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Collaborative software development using Pijul
-  - Hosting open source Pijul projects
-  - Code repository for Pijul users
+  - Hosting a Pijul repository for yourself or a team
+  - Cloning Pijul projects, including Pijul itself
+  - Trying patch-based version control with channels and forks
+  - Sharing open source work in a Pijul repository
 quickstartSteps:
-  - Sign up for a free account at pijul.com.
-  - Create a new repository from the dashboard.
-  - Install the Pijul CLI on your local machine.
-  - Clone your repository using the provided URL.
-  - Push your changes to pijul.com and invite collaborators.
+  - Register at nest.pijul.com with a handle, an email, and a password.
+  - Install the client with `cargo install pijul --version "~1.0.0-beta"`, or use a distribution package.
+  - In a project folder, run `pijul init`, then `pijul add` for your files and `pijul record -am 'message'` to record a change.
+  - Try the project clone with `pijul clone https://nest.pijul.com/pijul/pijul`, or over ssh with your Nest account.
+  - Use `pijul fork` and `pijul channel switch` to work on separate channels.
 whenToUse: >-
-  Use when you need free, hosted Pijul repositories for collaborative or solo
-  development.
+  Use it to host Pijul repositories on the Nest, when you use Pijul and accept
+  that no limits or plans are published.
 whenNotToUse: >-
-  Avoid if you require Git/Mercurial support or advanced integrations like CI/CD
-  pipelines.
+  Avoid it if you need Git hosting or written storage limits and a service
+  level.
 bestFor:
   - Pijul users
-  - open source projects
-  - small teams
+  - version control experiments
+  - small open source projects
 avoidIf:
-  - You require Git support
-  - You need built-in CI/CD
-  - You use other VCS tools
+  - Git repositories
+  - written limits or a service level
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://pijul.org/'
-docsUrl: 'https://docs.pijul.com'
+docsUrl: 'https://pijul.org/'
 sourceUrls:
   - 'https://pijul.org/'
+  - 'https://pijul.org/downloads'
   - 'https://nest.pijul.com/'
 pricingUrl: 'https://pijul.org/'
 featured: false
 ---
-Pijul.com provides free hosting for Pijul repositories on the Nest, for projects that use the Pijul version control system.
+You work with the `pijul` command line tool on your machine, and the Nest holds the shared copy of your repository. It suits developers who want to try Pijul or host a Pijul project without paying for hosting.
+
+## What the free plan gives you
+
+The Pijul home page links to the Nest as free hosting, and the Nest shows no plans or prices. To register, you enter a handle, an email address, and a password. The Nest page lists neither repository limits nor storage limits.
+
+You can clone a repository over https without an account. Cloning over ssh needs a Nest account. The Pijul client installs with `cargo`, which needs the Rust toolchain, and the downloads page also lists distribution packages. Pijul itself lives on the Nest, so the Pijul project uses the same hosting.
+
+## When you hit a limit
+
+The pages do not state any limits, so they say nothing about what happens when you pass one. The registration form has no card field, and the pages show no plans or prices. There is also no stated service level, so back up important work. Keep a second copy of anything you cannot lose, and check the Nest support page, which the Nest site links, if you need an answer from the people who run it.
+
+## Gotchas
+
+- The Nest is described as Pijul's own repository hosting platform. The pages mention no Git hosting.
+- The pages give no pricing, quota, or support promise. Treat it as a community service.
+- The client needs a Rust toolchain to install with `cargo`, which adds setup time compared with a Git install.
+
+## Alternatives in this atlas
+
+- [Codeberg](/tools/codeberg/): when you want free Git hosting for free software projects.
+- [Heptapod.net](/services/heptapod-net/): when you want free Mercurial and Git hosting for open source work.
+- [Bitbucket](/services/bitbucket/): when you want private Git repositories with basic CI for a small team.
+
+## Questions people ask
+
+### Is the Pijul Nest free?
+
+The Pijul home page links to the Nest as free hosting. The Nest shows no plans or prices.
+
+### Does Pijul hosting need a credit card?
+
+The registration form has no card field. You enter a handle, an email, and a password.
+
+### Can I host Git repositories on the Pijul Nest?
+
+The pages describe the Nest as Pijul's own repository hosting platform and mention no Git hosting. Use a Git host for Git repositories.

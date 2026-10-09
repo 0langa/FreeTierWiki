@@ -1,8 +1,9 @@
 ---
 title: Cloudflare Hyperdrive
 description: >-
-  Connection pooling and query caching that makes an existing Postgres or MySQL database fast from
-  Workers.
+  Cloudflare Hyperdrive speeds up queries from Workers to a database you
+  already host, with connection pooling and query caching. It works with
+  PostgreSQL and MySQL databases and is for Cloudflare Workers developers.
 provider: Cloudflare
 category: database
 domain: database
@@ -14,9 +15,13 @@ audiences:
   - indie
   - startup
 tags:
-  - database
-  - serverless
-  - cdn
+  - cloudflare workers
+  - connection pooling
+  - postgres
+  - mysql
+  - query caching
+  - hyperdrive
+  - database proxy
 pricingModel: freemium
 freeTierDetails:
   summary: 'Workers Free plan: 100,000 database queries per day through Hyperdrive. Further queries fail.'
@@ -24,37 +29,54 @@ freeTierDetails:
     - '100,000 database queries per day'
     - 'Resets daily at 00:00 UTC'
     - Pooling and caching included
+    - 10 configured databases per account
+    - About 20 origin database connections per configuration
   caveats:
-    - You still need your own database (for example Neon or Supabase)
+    - You still need your own PostgreSQL or MySQL database (for example Neon or Supabase)
+    - Cached and uncached queries both count toward the daily limit
+    - Hyperdrive does not invalidate cached reads when you write
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Connect Workers to an existing Postgres
-  - Cache read-heavy queries
+  - Connecting a Worker to an existing Postgres or MySQL database
+  - Pooling database connections for serverless Workers
+  - Caching read-heavy queries near users
+  - Using an ORM or driver such as node-postgres from a Worker
 quickstartSteps:
-  - Create a Hyperdrive config with your database URL.
-  - Add the binding to your Worker.
-  - Use any Postgres driver with the Hyperdrive connection string.
-whenToUse: Use when a Worker talks to a regional database and you want pooling.
-whenNotToUse: Avoid if you do not use Cloudflare Workers.
+  - 'Sign up for a Cloudflare account, install Node.js, and run `npx wrangler login`.'
+  - 'Create a Worker project with `npm create cloudflare@latest`.'
+  - 'Have a publicly reachable PostgreSQL or MySQL database, or connect a private one through Workers VPC.'
+  - 'Run `npx wrangler hyperdrive create <name> --connection-string=...` with your database connection string.'
+  - Add the Hyperdrive binding to your Wrangler configuration and use your normal driver with the Hyperdrive connection string in the Worker.
+whenToUse: >-
+  Use it when a Worker talks to a regional PostgreSQL or MySQL database and
+  you want connection pooling and optional caching.
+whenNotToUse: >-
+  Skip it if you do not use Cloudflare Workers, or if you need a database
+  itself, because Hyperdrive does not host data. Skip it if you need read-
+  after-write results from cached reads without a second config.
 bestFor:
-  - Workers apps
-  - global apps
+  - Workers apps with an existing database
+  - global apps with a regional database
 avoidIf:
-  - non-Cloudflare stacks
+  - You do not use Cloudflare Workers
+  - You need Cloudflare to host the database
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 4
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/hyperdrive/'
 docsUrl: 'https://developers.cloudflare.com/hyperdrive/'
 sourceUrls:
   - 'https://developers.cloudflare.com/hyperdrive/platform/pricing/'
+  - 'https://developers.cloudflare.com/hyperdrive/'
+  - 'https://developers.cloudflare.com/hyperdrive/get-started/'
+  - 'https://developers.cloudflare.com/hyperdrive/platform/limits/'
 pricingUrl: 'https://developers.cloudflare.com/hyperdrive/platform/pricing/'
 featured: false
 changes:
@@ -62,4 +84,40 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Hyperdrive is free within its daily query limit on the Workers Free plan.
+You set Hyperdrive up with the Wrangler CLI and a binding in your Worker, then use your usual database driver. It suits Workers developers who already have a database somewhere else.
+
+## What the free plan gives you
+
+Hyperdrive is included in the Workers Free plan with 100,000 database queries per day. A query means any statement through Hyperdrive, including selects, inserts, updates, deletes, and schema changes. Cached and uncached queries count the same. Limits reset daily at 00:00 UTC.
+
+Connection pooling and query caching are included at no extra charge. On the Free plan you can configure 10 databases per account, with about 20 connections to the origin database per configuration. A single query can run for 60 seconds, and cached responses can be up to 50 MB.
+
+## When you hit a limit
+
+Once you pass the daily query limit, further operations of that type fail with an error. Nothing is billed on the Free plan, so you cannot run up a Hyperdrive bill by accident. Your own database provider still bills you under its own terms. The limits reset at 00:00 UTC, or you can move to the Workers Paid plan, where Cloudflare adjusts Hyperdrive limits for you and queries are unlimited.
+
+## Gotchas
+
+- Hyperdrive does not host data. You pay your database provider separately.
+- Cached reads are not invalidated when you write, so use a separate cache-disabled configuration for reads that must be fresh.
+- Hyperdrive limits origin connections, and long-running queries or transactions can exhaust the pool.
+
+## Alternatives in this atlas
+
+- [Cloudflare D1](/services/cloudflare-d1/): when you want a Cloudflare-hosted SQL database instead of connecting to an outside one.
+- [Neon](/services/neon/): when you need a hosted Postgres to put behind Hyperdrive.
+- [Supabase](/services/supabase/): when you want Postgres with auth and storage to connect from Workers.
+
+## Questions people ask
+
+### Is Cloudflare Hyperdrive free?
+
+Yes, on the Workers Free plan, up to 100,000 database queries per day. Pooling and caching add no charge.
+
+### What happens when I exceed the Hyperdrive free limit?
+
+Further operations of that type fail with an error until the daily reset at 00:00 UTC. Upgrading to Workers Paid removes the daily cap.
+
+### Does Hyperdrive work with MySQL?
+
+Yes. Hyperdrive works with PostgreSQL, MySQL, and many compatible databases, including CockroachDB and PlanetScale.

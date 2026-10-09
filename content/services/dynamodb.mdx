@@ -1,8 +1,9 @@
 ---
 title: DynamoDB
 description: >-
-  AWS DynamoDB is a fully managed NoSQL database service for fast and flexible
-  performance at scale.
+  Amazon DynamoDB is a serverless NoSQL key-value and document database from
+  AWS. It is for apps that need fast reads and writes at any size without
+  running database servers.
 provider: AWS
 category: database
 domain: database
@@ -18,60 +19,70 @@ audiences:
   - student
   - oss
 tags:
-  - database
+  - nosql
+  - key-value
   - serverless
-  - cloud
+  - aws
+  - document database
+  - dynamodb free tier
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    DynamoDB's Always Free tier includes 25 GB storage and 25 WCU/25 RCU
-    (about 200 million requests/month), ongoing with no expiry, on top of the
-    AWS account's separate free-tier credits.
+    The DynamoDB free tier gives 25 GB of storage and 25 provisioned write and
+    read capacity units each month, about 200 million requests. A new AWS
+    Free account plan lasts six months, then the account closes unless you
+    upgrade.
   limits:
-    - 25 GB of data storage (Always Free, per Region, per account)
+    - 25 GB of data storage (per Region, per payer account)
     - 25 provisioned Write Capacity Units
     - 25 provisioned Read Capacity Units
     - '~200 million requests/month (DynamoDB Standard table class)'
+    - 2.5 million DynamoDB Streams read requests/month
+    - 1 GB of data transfer out per month
   caveats:
-    - Always Free, does not expire after 12 months
-    - On-demand capacity mode is billed separately from the Always Free provisioned allowance
+    - The allowance covers provisioned capacity on the Standard table class; on-demand tables are billed per request
+    - A Free account plan ends after six months or when credits run out, and the account then closes unless you upgrade to a Paid plan
+    - On the Paid account plan, usage past the allowance is billed at standard rates
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Overages are billed at standard rates if limits are exceeded
+    - Overages are billed at standard rates on the Paid account plan
+    - The Free account plan does not bill, but it closes the account after six months
 useCases:
-  - Real-time analytics
-  - Session management
-  - IoT data storage
-  - Mobile app backends
-  - Gaming leaderboards
+  - Session storage and user profiles for a web or mobile app
+  - Game leaderboards and player state
+  - Shopping carts and order records
+  - Storing IoT or event data
+  - Serverless backends behind AWS Lambda
 quickstartSteps:
-  - Sign up for an AWS account and log in to the AWS Management Console.
-  - Navigate to DynamoDB and click 'Create table'.
-  - 'Enter a table name and primary key, then choose default settings.'
-  - Review and create the table.
-  - Use the AWS SDK or Console to add and query items.
+  - Sign up for an AWS account at aws.amazon.com/free and choose the Free plan or the Paid plan.
+  - Sign in to the AWS Management Console and open the DynamoDB console.
+  - 'Choose Tables, then Create table, and enter a table name and a partition key (the docs example uses a Music table with Artist and SongTitle keys).'
+  - Keep the default table settings and choose Create table.
+  - 'You can also create tables with the AWS CLI, for example `aws dynamodb create-table`. To skip the account, run DynamoDB local, the downloadable version, on your computer.'
 whenToUse: >-
-  Use DynamoDB for scalable, low-latency NoSQL workloads with unpredictable
-  traffic or when you need serverless database management.
+  Use DynamoDB for key-value or document data with unpredictable traffic, when
+  you want no servers to manage and the free allowance of 25 GB and 25
+  capacity units covers you.
 whenNotToUse: >-
-  Avoid if you need complex relational queries, multi-table joins, or strong
-  ACID transactions across tables.
+  Skip it if you need SQL joins or complex relational queries. Skip it if you
+  cannot watch your capacity mode, because on-demand tables fall outside the
+  free allowance.
 bestFor:
-  - Scalable NoSQL workloads
-  - Event-driven architectures
-  - Serverless applications
+  - Serverless apps on AWS
+  - Prototypes and learning
+  - Key-value lookups at scale
 avoidIf:
-  - You require SQL joins
-  - You need multi-table transactions
-  - You have strict relational data needs
+  - You need SQL joins
+  - You want a free tier with no AWS account
+  - You need heavy on-demand traffic for free
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/dynamodb/'
@@ -81,6 +92,54 @@ pricingUrl: 'https://aws.amazon.com/dynamodb/pricing/'
 sourceUrls:
   - 'https://aws.amazon.com/dynamodb/pricing/'
   - 'https://aws.amazon.com/free/'
+  - 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html'
+  - 'https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html'
+  - 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html'
 featured: false
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: New AWS accounts choose a Free plan that ends after six months, so the always-free DynamoDB allowance only outlasts that on a Paid account plan.
 ---
-DynamoDB is AWS's fully managed NoSQL database service, with an Always Free tier (25 GB storage, 25 WCU/25 RCU) that never expires, offering seamless scalability and serverless operation for modern application workloads.
+You use DynamoDB from the AWS console, the AWS CLI, or an AWS SDK. It suits developers who already build on AWS or want a key-value store without servers.
+
+## What the free plan gives you
+
+The DynamoDB free tier is enough for about 200 million requests a month, depending on item size. Each month, per Region and per payer account, you get 25 write capacity units, 25 read capacity units, and 25 GB of storage. You also get 25 replicated write units for global tables across two Regions, 2.5 million stream read requests, and 1 GB of data transfer out.
+
+The allowance applies to provisioned capacity and the Standard table class. It is a recurring monthly allowance. It does not apply to on-demand tables.
+
+New AWS accounts also get up to $200 in credits for up to 6 months.
+
+## When you hit a limit
+
+What happens depends on your AWS account plan. A Free account plan does not bill you. It ends after six months or when its credits run out, and then the account closes. AWS keeps your data for 90 days, and you can upgrade to a Paid plan in that time.
+
+On a Paid account plan, usage beyond the free allowance is billed at standard rates. Credits cover it first.
+
+## Gotchas
+
+- On-demand capacity is not part of the free allowance. The CLI example in the getting-started guide creates a table in pay-per-request mode.
+- The Free account plan closes the account when it ends, so the always-free allowance only lasts beyond six months on a Paid plan.
+- Some actions upgrade a Free account plan to Paid automatically, such as joining AWS Organizations.
+
+## Alternatives in this atlas
+
+- [Firebase Firestore](/services/firebase-firestore/): when you want a document database with simple client SDKs and no AWS account.
+- [Azure Cosmos DB](/services/azure-cosmos-db/): when you work on Azure and need a multi-model NoSQL database.
+- [MongoDB Atlas](/services/mongodb-atlas/): when you prefer MongoDB documents and a free cluster.
+
+## Questions people ask
+
+### Is DynamoDB free?
+
+DynamoDB has a free tier of 25 GB of storage and 25 read and 25 write capacity units each month. It is enough for about 200 million requests a month on provisioned tables.
+
+### Does the DynamoDB free tier expire?
+
+The DynamoDB allowance itself has no end date. A new AWS Free account plan does end after six months, and then the account closes unless you upgrade to a Paid plan.
+
+### What happens when I go over the DynamoDB free tier?
+
+On a Paid account plan you pay standard rates for the extra usage. On a Free account plan you are not billed, but the plan ends when its credits run out.

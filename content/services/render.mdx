@@ -1,8 +1,9 @@
 ---
 title: Render
 description: >-
-  Render provides managed cloud hosting for web apps, static sites, databases,
-  and background workers with simple deployment workflows.
+  Render is a cloud host that builds and runs web services, static sites,
+  Postgres databases, and key-value stores from a Git repository, for developers
+  who want a simple deploy flow.
 provider: Render
 category: hosting
 domain: hosting
@@ -18,9 +19,12 @@ audiences:
   - team
   - oss
 tags:
-  - serverless
-  - web
+  - paas
+  - static-site-hosting
+  - postgres
+  - web-service
   - ci-cd
+  - docker
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -28,7 +32,7 @@ freeTierDetails:
     database that expires after 30 days, with 5 GB of bandwidth included per month.
   limits:
     - 'Static sites: always free to deploy, with CDN'
-    - 'Web services: 512 MB RAM, under 1 CPU (free instance type)'
+    - 'Web services: 750 free instance hours per month, 512 MB RAM, under 1 CPU (free instance type)'
     - 'PostgreSQL: 256 MB RAM, 1 GB storage, 100 connections (expires after 30 days)'
     - 'Key-value (Redis-compatible): 25 MB RAM, 50 connections'
     - 5 GB bandwidth/month included per workspace, then $0.15/GB
@@ -36,9 +40,8 @@ freeTierDetails:
     - >-
       Free PostgreSQL expires 30 days after creation, with a 14-day grace period to upgrade; there are
       no backups
-    - Free web services sleep after 15 minutes without inbound traffic and take about a minute to wake
-    - Cron jobs are billed per compute-minute; there's no separate free cron allocation
-    - Custom domains require verification
+    - Free web services spin down after 15 minutes without inbound traffic and take about a minute to wake
+    - Free web services cannot send mail on SMTP ports 25, 465, or 587
     - >-
       Without a payment method, exceeding bandwidth suspends free services; adding a payment method
       enables paid bandwidth overages.
@@ -52,41 +55,39 @@ freeTierDetails:
       Bandwidth overages are charged if a payment method is on file; free instance hours remain
       capped.
 useCases:
-  - Deploying static websites
-  - Hosting web applications
-  - Running background jobs
-  - Prototyping SaaS products
+  - Host a static site, blog, or documentation set
+  - Run a small Express, Django, FastAPI, or Flask web service
+  - Test a Postgres database for a prototype
+  - Preview Render's workflow before a paid move
 quickstartSteps:
-  - Sign up at render.com using your GitHub or GitLab account.
-  - Create a new service and connect your repository.
-  - >-
-    Select the type of service (web, static site, database, or background
-    worker).
-  - Configure build and start commands as needed.
-  - Deploy and monitor your service from the Render dashboard.
+  - Sign up for Render, then add a Git deployment credential in Account Settings for your Git provider.
+  - In the Render Dashboard, click New and choose Web Service or Static Site.
+  - Select your repository and click Connect.
+  - Complete the form with the build and start commands, and choose the Free compute plan for a web service.
+  - Deploy, then open the service URL; the Render CLI is another way to deploy.
 whenToUse: >-
-  Use Render for quick deployment of web apps, static sites, or databases
-  without managing infrastructure.
+  Use it to put a static site, a small web service, or a short-lived Postgres
+  on a managed host without a card.
 whenNotToUse: >-
-  Avoid if you need advanced networking, custom VM configurations, or require
-  strict uptime guarantees for production-critical workloads.
+  Avoid it for production work, for apps that must answer instantly after idle
+  time, for persistent disks, or for services that send mail over SMTP.
 bestFor:
   - prototyping
   - side projects
   - MVPs
   - student projects
 avoidIf:
-  - enterprise compliance
-  - custom networking
-  - high-availability production
+  - production traffic
+  - instant response after idle
+  - persistent disks or SMTP
 difficulty: beginner
-productionReadiness: production-light
+productionReadiness: prototype
 status: changed
 changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified that a saved payment method enables bandwidth overage charges on free services."
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://render.com/'
@@ -94,8 +95,47 @@ docsUrl: 'https://render.com/docs'
 sourceUrls:
   - 'https://render.com/pricing'
   - 'https://render.com/docs/free'
+  - 'https://render.com/docs/your-first-deploy'
 featured: false
-lastVerified: 2026-10-06
+lastVerified: 2026-10-09
 pricingUrl: 'https://render.com/pricing'
 ---
-Render offers a free tier for hosting static sites, a small web service, and a 1 GB PostgreSQL database (free databases expire after 30 days), making it ideal for rapid prototyping and small projects. The platform automates deployments from Git, provides managed SSL, and includes basic monitoring. Free web services sleep after 15 minutes of inactivity, and bandwidth is capped at 5 GB/month per workspace, but there's no risk of surprise overages without a card on file. It's best suited for students, indie developers, and startups needing simple, reliable hosting without infrastructure management.
+You connect a Git repository in the dashboard, and Render builds it and gives the service a public address. You can also deploy from the Render CLI. The Free instance types are for testing and hobby projects, and Render says not to use them for production.
+
+## What the free plan gives you
+
+Static sites are free to deploy. A Free web service has 512 MB of RAM and less than 1 CPU, and the workspace gets 750 Free instance hours per calendar month. Services that are spun down use no hours. The Hobby workspace includes 5 GB of bandwidth per month, then $0.15 per GB, and the plan page lists up to 25 services.
+
+You can also create one free Postgres database per workspace, with 256 MB of RAM, 100 connections, and 1 GB of storage. One free Key Value instance is allowed too, and it keeps data in memory only.
+
+## When you hit a limit
+
+If you use all 750 instance hours, Render suspends your Free web services until the start of the next month. If you use all your outbound bandwidth, Render bills you for the extra when a payment method is on file. Without a payment method, it suspends all your Free services for the rest of the month.
+
+Build pipeline minutes work in a similar way. Without a payment method, or at your spend limit, Render disables new builds for the month while existing services keep running. Render emails you when you approach a limit.
+
+## Gotchas
+
+- A Free web service spins down after 15 minutes without inbound traffic, and waking it takes about one minute. Changes to its local filesystem are lost when it spins down.
+- A Free Postgres database expires 30 days after creation. You then have a 14-day grace period to upgrade, and after that Render deletes it and its data. Free databases have no backups.
+- Free web services cannot send outbound traffic on ports 25, 465, or 587, which SMTP mail commonly uses.
+
+## Alternatives in this atlas
+
+- [Railway](/services/railway/): when you prefer a monthly credit and a project canvas for apps and databases.
+- [Koyeb](/services/koyeb/): when you need a service that scales to zero and want a free Postgres, and accept a card check.
+- [Cloudflare Pages](/services/cloudflare-pages/): when your project is only static files and you want a CDN host.
+
+## Questions people ask
+
+### Is Render free?
+
+Yes, within limits. Static sites are free, a Free web service gets 750 instance hours per month, and you can create one free Postgres database that expires after 30 days.
+
+### Does the Render free tier sleep?
+
+Yes. A Free web service spins down after 15 minutes without inbound traffic. It spins back up on the next request, which takes about a minute.
+
+### What happens when I go over the Render free limits?
+
+If you use all 750 instance hours, Render suspends your free web services until next month. If you use all your bandwidth, you are billed for the extra when a payment method is saved. Otherwise your free services are suspended.

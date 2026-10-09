@@ -1,8 +1,9 @@
 ---
 title: BrowserCat
 description: >-
-  BrowserCat provides a free headless browser API for automating web page
-  rendering and screenshot tasks.
+  BrowserCat gives your Playwright, Puppeteer, or CDP scripts a managed cloud
+  browser behind one websocket endpoint, so developers skip running their own
+  browser servers.
 provider: BrowserCat
 category: devops
 domain: devops
@@ -16,21 +17,27 @@ audiences:
   - startup
   - oss
 tags:
-  - automation
-  - api
-  - images
+  - headless browser
+  - playwright
+  - puppeteer
+  - cdp
+  - browser automation
+  - screenshot api
+  - web scraping
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier gives 1,000 credits per month (about 100 requests or 1 hour of
-    browser time), with no credit card required.
+    Hobby plan: 1,000 credits per month at $0, no credit card needed. One credit
+    pays for a successful utility API request or 30 seconds of websocket
+    browser time.
   limits:
-    - '1,000 credits/month (about 100 requests or 1 browser-hour)'
+    - '1,000 credits per month on the Hobby plan'
     - '1,000 concurrent requests'
-    - 'Overage: $0.0025/credit if enabled (soft limit $10, hard limit $20)'
+    - 'Extra credits cost $0.0025 each; soft limit $10, hard limit $20 on free plans'
   caveats:
-    - No credit card required
-    - Optional USDC credit packs and overage billing exist for heavier usage
+    - No credit card required to start
+    - At the hard limit BrowserCat rejects all requests until the billing period ends or you approve a higher limit
+    - Optional USDC credit packs exist for heavier usage
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -38,43 +45,82 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Automated website screenshots
-  - Web page rendering for previews
-  - Testing website appearance
-  - Simple web scraping
-quickstartSteps:
-  - 'Sign up for a free BrowserCat account at https://www.browsercat.com.'
-  - Obtain your API key from the dashboard.
-  - Review the API documentation for endpoint usage.
-  - Send a test API request to capture a screenshot.
-  - Integrate the API into your application or workflow.
+  - Running Playwright or Puppeteer tests in CI on hosted browsers
+  - Taking screenshots of web pages from code
+  - Scraping pages that need a real browser
+  - Rendering pages for link previews
 whenToUse: >-
-  Use BrowserCat when you need quick, low-volume browser automation or
-  screenshots without managing your own infrastructure.
+  Use BrowserCat when you already write Playwright or Puppeteer scripts and want
+  a hosted browser for small jobs without running browser servers yourself.
 whenNotToUse: >-
-  Avoid if you require high request volumes, advanced browser features, or
-  guaranteed uptime for production-critical workflows.
+  Avoid it for heavy automation: the free plan covers only 1,000 credits a
+  month, and extra credits cost money. Avoid it if you need Selenium or Cypress,
+  which BrowserCat says it does not plan to support.
 bestFor:
-  - website previews
-  - testing
-  - prototyping
-  - student projects
+  - small Playwright or Puppeteer jobs
+  - screenshot and rendering tasks
+  - trying hosted browsers before paying
 avoidIf:
   - high-volume automation
-  - complex browser scripting
-  - enterprise SLAs
+  - Selenium or Cypress based tests
+  - you cannot accept a possible overage charge
+quickstartSteps:
+  - Sign up for a free BrowserCat account at browsercat.com; the home page says no credit card is needed.
+  - Create an API key in your account.
+  - Point your Playwright, Puppeteer, or other CDP client at the endpoint wss://api.browsercat.com/connect and pass the API key.
+  - Run your script as usual: open a tab, go to a URL, and read or capture the page.
+  - Watch your credit use in the dashboard and set alerts before you near the limit.
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.browsercat.com'
-docsUrl: 'https://docs.browsercat.com'
+docsUrl: 'https://www.browsercat.com/docs'
+pricingUrl: 'https://www.browsercat.com/pricing'
 sourceUrls:
   - 'https://www.browsercat.com'
   - 'https://www.browsercat.com/pricing'
+  - 'https://www.browsercat.com/docs'
 featured: false
-lastVerified: 2026-09-28
-pricingUrl: 'https://www.browsercat.com/pricing'
 ---
-BrowserCat offers a free, easy-to-use headless browser API for automating screenshots and simple web rendering tasks, ideal for prototyping and testing.
+You write a normal Playwright or Puppeteer script and change one connection line to point at BrowserCat. It suits developers who test or scrape from code and do not want to host browsers.
+
+## What the free plan gives you
+
+The Hobby plan costs $0 per month and includes 1,000 credits each month. Credits count work, not wall-clock hours. A successful call to the utility API costs 1 credit. A websocket session costs 1 credit for every 30 seconds of activity, so long sessions use credits fast.
+
+The plan allows 1,000 concurrent requests and works with Playwright, Puppeteer, and any CDP client. The home page says no credit card is needed and the free tier is free forever. Today your sessions run on Cloudflare browsers, and BrowserCat says it will add more backends behind the same endpoint.
+
+## When you hit a limit
+
+If you pass 1,000 credits, BrowserCat charges $0.0025 for each extra credit. It also keeps a soft limit and a hard limit on your account. On free plans these are $10 and $20.
+
+When you cross the soft limit, BrowserCat emails you and asks you to approve a higher limit. If you do not approve, it rejects all requests once you reach the hard limit. The block lasts until the billing period ends or you approve an increase. The pricing page does not say how a free account without a card pays for extra credits.
+
+## Gotchas
+
+- One credit equals 30 seconds of websocket activity, so long sessions use credits fast.
+- BrowserCat says it has no plans to support Selenium or Cypress. It supports Playwright, Puppeteer, and CDP libraries.
+- Extra credits are billed at $0.0025 each, and the hard limit of $20 on free plans is the real cap.
+
+## Alternatives in this atlas
+
+- [Microlink.io](/services/microlink-io/): when you only need screenshots and page metadata from a simple API.
+- [Firecrawl](/services/firecrawl/): when you want page content as clean text instead of running browser scripts.
+- [Apify](/tools/apify/): when you want ready-made scrapers and a scheduler around the browser.
+
+## Questions people ask
+
+### Is BrowserCat free?
+
+Yes. The Hobby plan costs $0 per month and includes 1,000 credits. You can pay for extra credits if you go past that.
+
+### Does BrowserCat need a credit card?
+
+The home page says no credit card is needed for the free tier. The pricing page does not describe how extra credits are paid on a free account.
+
+### What happens when I go over the BrowserCat free limit?
+
+Extra credits cost $0.0025 each. BrowserCat emails you at the soft limit and rejects requests at the hard limit until you approve more or the period ends.

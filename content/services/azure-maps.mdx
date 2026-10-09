@@ -1,8 +1,9 @@
 ---
 title: Azure Maps
 description: >-
-  Azure Maps provides geospatial APIs for maps, search, routing, traffic, and
-  weather data integration in web and mobile applications.
+  Azure Maps is Microsoft's set of map, search, routing, traffic, time zone,
+  and weather APIs. Developers use it to add location features to web and
+  mobile apps, mostly on Azure.
 provider: Azure
 category: apis
 domain: apis
@@ -18,8 +19,11 @@ audiences:
   - enterprise
   - student
 tags:
-  - api
-  - cloud
+  - maps
+  - geocoding
+  - routing
+  - location api
+  - azure
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -46,31 +50,34 @@ useCases:
   - Display interactive maps in web or mobile apps
   - Geocode addresses and search locations
   - Calculate routes and travel times
-  - Integrate real-time traffic or weather data
+  - Show real-time traffic or weather tiles
+  - Look up the time zone or approximate location of an IP address
 quickstartSteps:
-  - Sign up for an Azure account and create an Azure Maps resource.
-  - Obtain your Azure Maps primary key from the Azure portal.
-  - Install the Azure Maps SDK or use REST APIs in your application.
-  - Configure authentication using your subscription key.
-  - 'Start making API calls for maps, search, routing, or weather features.'
+  - Sign in to the Azure portal with an Azure subscription, or create a free Azure account first.
+  - Select Create a resource, search for Azure Maps, and select Create.
+  - Choose your subscription, resource group, and a name, and confirm that the Gen2 pricing tier is selected.
+  - Accept the license and privacy terms, then select Create.
+  - Open the account, go to Authentication, and copy the Primary Key.
+  - Paste the key into the Azure Maps demo page (`AzureMapDemo.html`) or your own web app and load a map.
 whenToUse: >-
-  Use Azure Maps when you need scalable, cloud-based mapping, geolocation, or
-  routing APIs integrated with other Azure services.
+  Use Azure Maps when your app already runs on Azure, or when you want maps,
+  search, and routing from one provider with a small free monthly amount per
+  service.
 whenNotToUse: >-
-  Avoid if you require unlimited free usage, offline maps, or need to avoid
-  credit card registration for the free tier.
+  Avoid it if you need unlimited free map usage or cannot create an Azure
+  subscription.
 bestFor:
-  - developers integrating maps
-  - businesses needing geospatial APIs
   - Azure-centric teams
+  - developers adding maps or search to an app
+  - prototypes with low monthly map usage
 avoidIf:
-  - need offline maps
   - require unlimited free usage
-  - cannot provide payment details
+  - cannot create an Azure subscription
+  - only need IP geolocation
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-maps/'
@@ -79,6 +86,9 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-maps/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/azure-maps/'
   - 'https://learn.microsoft.com/en-us/azure/azure-maps/understanding-azure-maps-transactions'
+  - 'https://learn.microsoft.com/en-us/azure/azure-maps/how-to-manage-pricing-tier'
+  - 'https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 status: changed
 changes:
   - date: 2026-09-15
@@ -86,4 +96,42 @@ changes:
     note: 'Gen1 pricing (including the old S0 free tier amounts) retired; Gen2 pricing gives 5,000 free Base Map Tile transactions/month.'
 featured: false
 ---
-Azure Maps offers robust APIs for mapping, geolocation, routing, and real-time data, with a generous free tier for developers and businesses building location-aware applications.
+You create the account in the Azure portal, then call the REST APIs with an account key, as the quickstart does. It suits developers who build map, search, and routing features, especially on Azure.
+
+## What the free plan gives you
+
+Azure Maps now has one pricing tier, Gen2, and each meter has its own free monthly amount. The pricing page lists 5,000 free transactions each for Base Map Tiles, Traffic Tiles, Geolocation, Search, Spatial Calculations, and Time Zone. It lists 1,000 free transactions each for Imagery Tiles, Weather Tiles, Static Map Images, Routing, Traffic, and Weather.
+
+A transaction is not always one request. For map tiles, 15 tiles count as one transaction, so 5,000 Base Map Tile transactions cover up to 75,000 tiles. For Search, every 10 autocomplete requests count as one transaction.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop. It says Azure Maps uses consumption-based pricing and that billing is calculated monthly, so usage above a free amount becomes billable. The page lists no per-transaction prices in its table, and it points to the pricing calculator.
+
+The pricing page says volume discounts begin at 100,000 transactions per month and that you should contact sales for details. Each meter is billed on its own, so one busy service can bill while the others stay free. Watch the Metrics report in the Azure portal.
+
+## Gotchas
+
+- The Gen1 tier, including the old S0 free amounts, retired on September 15, 2026. Old accounts were converted to Gen2 automatically.
+- Batch calls and matrix calls use up transactions faster. Each query in a batch search counts as a Search transaction, and every 4 cells of a route matrix count as one Routing transaction.
+- You need an Azure subscription to create the account.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/): when you only need IP geolocation and country level is enough.
+- [IP2Location.io](/services/ip2location-io/): when you only need IP geolocation with a larger free allowance.
+- [IPLocate](/services/iplocate/): when you want IP lookups with no credit card.
+
+## Questions people ask
+
+### Is Azure Maps free?
+
+Partly. Every meter has a free monthly amount, such as 5,000 transactions for Search and 1,000 for Routing. Usage above that amount is billed.
+
+### What happens when I go over the Azure Maps free limit?
+
+The pricing page does not describe a hard stop. It describes consumption-based pricing, so extra transactions are billable. Check your usage in the Azure portal metrics.
+
+### Does Azure Maps need a credit card?
+
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.

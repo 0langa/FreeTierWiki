@@ -1,8 +1,8 @@
 ---
 title: Pagertree.com
 description: >-
-  Pagertree.com provides incident alerting and on-call management for teams to
-  streamline response workflows.
+  PagerTree sends incident alerts to the right on-call person and escalates them
+  if nobody responds. It is for small teams that run on-call rotations.
 provider: Pagertree
 category: devops
 domain: devops
@@ -16,64 +16,106 @@ audiences:
   - enterprise
   - oss
 tags:
-  - monitoring
-  - devops
+  - on-call
+  - incident alerting
+  - pagerduty alternative
+  - escalation
+  - opsgenie alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes basic incident alerting and on-call scheduling for small
-    teams.
+    Basic plan is $0 per user per month for up to 5 users, with 2 teams,
+    unlimited integrations, and 3 months of data retention.
   limits:
     - Up to 5 users
     - Up to 2 teams
     - Unlimited integrations
-    - '3 months of data retention'
-    - Push, email, and Slack notifications
+    - 3 months of data retention
+    - iPhone and Android app
   caveats:
-    - No SMS, voice, or WhatsApp notifications on the free plan
-    - Basic tier only; SSO needs a paid plan
+    - SSO is only on the top paid plan
+    - Notification budget is set by plan price (50 percent of the subscription price), so the pages leave the free plan's SMS and voice budget unclear
+    - 'Larger plans: $15 per user per month for up to 25 users (pricing page)'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
-  - Automated incident alerting
-  - On-call rotation management
-  - Small team response coordination
+  - Paging the on-call engineer when a monitor fires
+  - Running an on-call rotation with layers and overrides
+  - Escalating an unacknowledged alert to a backup person
+  - Routing or suppressing noisy alerts before they page anyone
 quickstartSteps:
-  - Sign up for a free Pagertree account.
-  - Create your organization and invite up to 4 additional users.
-  - Set up your first on-call schedule.
-  - >-
-    Configure alert sources (e.g., monitoring tools) to send incidents to
-    Pagertree.
-  - Test alert delivery via email or mobile push.
+  - Choose Sign Up on pagertree.com; the pricing page offers a 14-day trial with no credit card.
+  - Open the Users page and use New User to invite teammates with a name, email, role, and team.
+  - Open the Integrations page, choose New Integration, click your monitoring tool, and follow its guide. Email and Webhook are generic options.
+  - On the Team page, drag across days on the calendar to create on-call events and assign users and a layer.
+  - Send a test alert and check that the on-call person is notified, then that it escalates if nobody acknowledges.
 whenToUse: >-
-  Use Pagertree.com if you need simple, reliable incident alerting and on-call
-  scheduling for a small team.
+  Use it for on-call alerting and escalation for a team of up to 5 people, when
+  you do not need SMS or voice budgets on the free plan.
 whenNotToUse: >-
-  Avoid if you require SMS/phone notifications, advanced integrations, or
-  support for larger teams without upgrading.
+  Avoid it for more than 5 users on the free plan, or when phone calls and text
+  messages must be guaranteed without paying.
 bestFor:
-  - small teams
+  - small on-call teams
   - startups
-  - open source projects
+  - side projects with alerting
 avoidIf:
-  - require SMS alerts
-  - need advanced integrations
-  - have more than 5 users
+  - more than 5 users
+  - guaranteed SMS or voice alerts on a free plan
+  - SSO needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://pagertree.com/'
-docsUrl: 'https://docs.pagertree.com'
+docsUrl: 'https://pagertree.com/docs/'
 sourceUrls:
   - 'https://pagertree.com/pricing'
+  - 'https://pagertree.com/docs/getting-started/account-admins'
+  - 'https://pagertree.com/notification-limits/'
+  - 'https://docs.pagertree.com'
 pricingUrl: 'https://pagertree.com/pricing'
 featured: false
 ---
-Pagertree.com offers a free tier for small teams to manage incident alerting and on-call schedules, making it easy to coordinate response workflows without complex setup.
+You use the PagerTree web app to connect your monitoring tools, set a schedule, and invite your team. Alerts then page the person on call, with the mobile app as one way to receive them. It suits small teams that want a lighter option than a large incident platform.
+
+## What the free plan gives you
+
+The Basic plan costs $0 per user per month and is built for up to 5 users. It includes up to 2 teams, unlimited integrations, and 3 months of data retention. The comparison table also lists an iPhone and Android app for Basic.
+
+The paid plans start at $15 per user per month for up to 25 users, according to the pricing page. SSO is limited to the top plan. The docs explain that PagerTree waits up to 5 minutes for the primary on-call user to respond. After that, it escalates the alert to the backup user.
+
+## When you hit a limit
+
+The pricing page does not say what happens if you add a sixth user to the Basic plan. It lists "Up to 5 Users" as the plan size. Notifications have a separate budget. The notification limits page says you can use up to 50% of your subscription price in notifications, and that you stop receiving SMS, voice, and WhatsApp alerts at the limit. Push, email, and Slack notifications are still attempted. The pages do not state what this means for a $0 plan.
+
+## Gotchas
+
+- The 14-day trial on the pricing page needs no credit card, but the pages do not describe how trial features differ from Basic.
+- Notification limits are tied to plan price, so a free plan may not give you SMS or voice credit. Check in the app before you rely on phone alerts.
+- Auto-recharge for notification credit is opt-in and charges the card on file. The pricing page also says PagerTree may charge overage fees for abnormal or unreasonable SMS and voice usage.
+
+## Alternatives in this atlas
+
+- [Better Stack Uptime](/services/better-stack-uptime/): when you also want uptime monitoring and a status page.
+- [Incidenthub.cloud](/services/incidenthub-cloud/): when you want monitors with chat alerts from one tool.
+- [Pingmeter.com](/services/pingmeter-com/): when you only need simple website uptime checks.
+
+## Questions people ask
+
+### Is PagerTree free?
+
+Yes, there is a Basic plan at $0 per user per month for up to 5 users, with 2 teams and unlimited integrations.
+
+### Does PagerTree need a credit card?
+
+The pricing page says the 14-day free trial needs no credit card. Basic is listed at $0.
+
+### What happens when I go over the PagerTree free limits?
+
+The pricing page does not say. The notification limits page says SMS, voice, and WhatsApp alerts stop at your notification limit, while push, email, and Slack are still tried.

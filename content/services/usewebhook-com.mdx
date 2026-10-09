@@ -1,8 +1,9 @@
 ---
 title: UseWebhook.com
 description: >-
-  UseWebhook.com provides managed webhook endpoints for capturing, inspecting, and forwarding HTTP
-  requests during development and testing.
+  UseWebhook gives you a unique HTTPS URL that captures any webhook so you can
+  inspect it in the browser. Developers use it to debug webhooks and to forward
+  them to localhost.
 provider: UseWebhook.com
 category: automation
 domain: automation
@@ -17,58 +18,103 @@ audiences:
   - team
   - oss
 tags:
-  - integration
-  - testing
-  - devops
+  - webhook-tester
+  - debugging
+  - localhost
+  - http-requests
+  - developer-tools
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free webhook inbox in the browser, with a CLI that forwards requests to localhost.'
+  summary: 'Free webhook inbox in the browser with no account, plus a CLI that forwards requests to localhost.'
   limits:
-    - 'Free, no sign-up'
-    - Inbox shows the last 20 requests
-    - Forward to localhost with the CLI
+    - No sign-up, account, or API key
+    - Multiple webhook URLs and as many requests as you like
+    - The 20 most recent requests are stored per webhook URL
+    - Request bodies are limited to 10 kB
   caveats:
-    - 'For testing, not for production traffic'
+    - The site describes itself as a free webhook testing tool and lists no delivery guarantee
+    - Some operations are rate limited to prevent abuse
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Testing webhook integrations
-  - Debugging third-party webhooks
-  - Capturing and replaying HTTP requests
+  - Seeing exactly what a Stripe, GitHub, or Shopify webhook sends
+  - Forwarding webhooks to a local development server
+  - Replaying a past request from history
+  - Checking headers, body, and metadata of an HTTP request
 quickstartSteps:
-  - Sign up for a free UseWebhook.com account.
-  - Create a new webhook endpoint from the dashboard.
-  - Copy the generated endpoint URL.
-  - Configure your service or app to send webhooks to this URL.
-  - Inspect incoming requests in the dashboard.
+  - Open usewebhook.com; you get a unique HTTPS URL with no account, API key, or setup.
+  - Give that URL to the service that sends webhooks, or send a test HTTP request to it.
+  - Watch each request appear in the browser with its headers, body, and metadata.
+  - To forward requests to your machine, install the UseWebhook CLI and run `usewebhook $URL --forward-to http://localhost:3000/your-endpoint`.
+  - Replay a past request from the webhook history when you need it again.
 whenToUse: >-
-  Use when you need to capture, inspect, or debug webhooks during development or integration
-  testing.
+  Use it to look at a webhook payload quickly, or to forward live webhooks to
+  your local server while you build an integration.
 whenNotToUse: >-
-  Avoid for production workloads, high-volume webhooks, or when custom domains and long-term
-  retention are required.
+  Avoid it for production traffic, for request bodies larger than 10 kB, or when
+  you need to keep more than the 20 most recent requests.
 bestFor:
-  - development
-  - testing
   - debugging webhooks
+  - local development
+  - quick payload checks
 avoidIf:
-  - need production-grade reliability
-  - require custom domains
-  - need high request volume
+  - you need production-grade delivery
+  - you need to keep more than 20 requests per URL
+  - your requests have bodies larger than 10 kB
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-01'
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://usewebhook.com'
-docsUrl: 'https://docs.usewebhook.com'
+docsUrl: 'https://usewebhook.com/faq'
 sourceUrls:
   - 'https://usewebhook.com'
-  - 'https://usewebhook.com/pricing'
+  - 'https://usewebhook.com/faq'
 featured: false
 pricingUrl: 'https://usewebhook.com'
-lastVerified: '2026-10-01'
+lastVerified: 2026-10-09
 ---
-UseWebhook.com is a developer tool for capturing and inspecting webhook requests, ideal for debugging and testing integrations with minimal setup.
+You open the site, copy your unique URL, and watch requests arrive in the browser. The CLI forwards them to a local server. It suits developers who build or debug integrations that depend on webhooks.
+
+## What the free plan gives you
+
+UseWebhook is free, and you do not need an account, an API key, or any setup. You can create multiple webhook URLs and send as many requests as you like. The FAQ lists no paid plan, and the pricing page we could read shows none.
+
+Each webhook URL stores the 20 most recent requests. Request bodies are limited to 10 kB. For every request you see the headers, the body, and the metadata. You can forward requests to localhost with the CLI and replay any past request from your history.
+
+The site says all data is encrypted in transit and at rest, and that it keeps data retention low.
+
+## When you hit a limit
+
+The FAQ says there is no cap on how many requests you send, but the site limits some operations to prevent abuse. The pages do not say which operations or what the rate is.
+
+When more than 20 requests arrive for one URL, the oldest ones drop out of the stored list. A request body over 10 kB goes past the stated limit, and the pages do not say what the service does with it. There is no bill, because the service shows no paid plan.
+
+## Gotchas
+
+- Only the 20 most recent requests are kept for each webhook URL, so save any payload you need to keep.
+- Request bodies are limited to 10 kB, which excludes large file uploads.
+- The site calls itself a webhook testing tool and lists no delivery guarantee.
+
+## Alternatives in this atlas
+
+- [Hook0](/services/hook0/): when you need to send webhooks to your customers with retries and logs.
+- [Svix](/services/svix/): when you want a hosted webhook sender; it also offers a free tester called Svix Play.
+- [Posthook](/services/posthook/): when you want to schedule a webhook delivery for a later time.
+
+## Questions people ask
+
+### Is UseWebhook free?
+
+Yes. It is free, with no account needed. You can create multiple webhook URLs and send as many requests as you like.
+
+### Do I need to sign up for UseWebhook?
+
+No. The FAQ says you just open the site and start sending requests to your unique URL, with no account, API key, or setup.
+
+### Can UseWebhook forward webhooks to localhost?
+
+Yes. Install the UseWebhook CLI and run it with your URL and the forward-to option pointing at your local endpoint. You can also replay past requests from history.

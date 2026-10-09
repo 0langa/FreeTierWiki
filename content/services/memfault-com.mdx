@@ -1,8 +1,8 @@
 ---
 title: Memfault.com
 description: >-
-  Memfault provides cloud-based monitoring, debugging, and OTA update management
-  for embedded and IoT devices.
+  Memfault monitors, debugs, and updates firmware on embedded and IoT devices
+  from the cloud. It is for firmware teams that ship connected hardware.
 provider: Memfault
 category: observability
 domain: observability
@@ -16,49 +16,61 @@ audiences:
   - enterprise
   - oss
 tags:
-  - monitoring
+  - iot
+  - embedded
+  - firmware
+  - crash-reporting
+  - ota-updates
+  - nordic
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Developer plan has no charge for up to 10 development devices; usage
-    beyond that is billed pay-as-you-go.
+    The Developer plan is free for teams building on Nordic low-power wireless
+    solutions: no charge for up to 10 development devices, then pay-as-you-go.
   limits:
     - No charge for up to 10 development devices
-    - Pay-as-you-go billing beyond 10 devices
+    - Pay-as-you-go pricing beyond 10 development and/or production devices
   caveats:
-    - Developer plan is for teams building on Nordic low-power wireless solutions
-    - No hard cap on device count; exceeding the free allowance moves you to pay-as-you-go billing
-    - Applies to development and production devices beyond the free 10
+    - The Developer plan is exclusive to teams building on Nordic low-power wireless solutions
+    - The pricing page does not define a development device or state data retention for the Developer plan
+    - The pricing page does not say whether a credit card is required
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
+  billingRiskNotes:
+    - Devices beyond the free 10 are billed pay-as-you-go, whether they are development or production devices
 useCases:
-  - Monitor IoT device health remotely
-  - Deploy OTA firmware updates
-  - Debug embedded device errors
+  - Monitor the health of IoT devices remotely
+  - Collect crash dumps from firmware in the field
+  - Debug embedded device errors with symbolicated traces
+  - Roll out OTA firmware updates
+  - Track battery and connectivity metrics
 quickstartSteps:
-  - Sign up for a free Memfault account.
-  - Integrate the Memfault SDK into your device firmware.
-  - Register your devices on the Memfault dashboard.
-  - Send device data and errors to Memfault for monitoring.
-  - Configure OTA update settings as needed.
+  - Register for an nRF Cloud account; the nRF Connect SDK guide says a Memfault project is created for your chip variant.
+  - Set up a working nRF Connect SDK environment for your firmware.
+  - Copy the Memfault project key and add `CONFIG_MEMFAULT=y` and `CONFIG_MEMFAULT_NCS_PROJECT_KEY` to `prj.conf`.
+  - Pick an upload path, for example `CONFIG_MEMFAULT_HTTP_PERIODIC_UPLOAD=y` for nRF91 and nRF70, or `CONFIG_BT_MDS=y` for Bluetooth LE devices.
+  - Build and flash, then check the device and its data in the Memfault project.
 whenToUse: >-
-  Use Memfault when you need remote monitoring, debugging, and OTA updates for
-  up to 10 development devices for free.
+  Use Memfault when you build firmware on Nordic chips and want crash reports,
+  metrics, and OTA updates for up to 10 development devices at no cost.
 whenNotToUse: >-
-  Avoid if you cannot accept pay-as-you-go billing once you exceed 10 devices.
+  Avoid it if you do not build on Nordic chips, since the free plan is
+  exclusive to those teams, or if you cannot accept pay-as-you-go billing past
+  10 devices.
 bestFor:
-  - IoT startups
+  - Nordic-based IoT startups
   - embedded teams
-  - device manufacturers
+  - firmware prototypes
 avoidIf:
-  - needing more than 10 devices without billing
-  - requiring on-premise solutions
+  - non-Nordic hardware on the free plan
+  - more than 10 devices without billing
+  - on-premise only requirements
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://memfault.com'
@@ -66,7 +78,47 @@ docsUrl: 'https://docs.memfault.com/'
 pricingUrl: 'https://memfault.com/pricing'
 sourceUrls:
   - 'https://memfault.com/pricing'
-  - 'https://docs.memfault.com/docs/'
+  - 'https://memfault.com/pricing/'
+  - 'https://docs.memfault.com/docs/mcu/introduction/'
+  - 'https://docs.memfault.com/docs/mcu/nrf-connect-sdk-guide/'
 featured: false
 ---
-Memfault offers a cloud platform for embedded and IoT device monitoring, debugging, and OTA updates, free for up to 10 development devices with pay-as-you-go billing beyond that.
+You add the Memfault SDK to your firmware, then follow devices and crashes in the Memfault web app. It suits embedded teams, especially those on Nordic chips.
+
+## What the free plan gives you
+
+The Developer plan is free per month. The pricing page describes it as exclusive pricing for teams building on Nordic low-power wireless solutions. It includes no charge for up to 10 development devices. The Get started button leads to nRF Cloud, so sign-up runs through Nordic's cloud pricing page. Memfault also offers an interactive sandbox on its docs site if you want to look around first.
+
+The pricing page does not define a development device, and it does not state data retention for the Developer plan. For comparison, the Growth plan costs $3,495 per month and keeps data for 30 days.
+
+## When you hit a limit
+
+The pricing page lists no hard cap. Beyond 10 devices, Memfault uses pay-as-you-go pricing for development and production devices. The pricing page does not list the rate, so ask before you add devices.
+
+The page does not say whether a credit card is required. Count your devices before you ship a pilot fleet, because production devices also count past the free 10.
+
+## Gotchas
+
+- The free plan is aimed at Nordic-based teams, so other hardware may not qualify.
+- Production devices count toward the pay-as-you-go line, not only development devices.
+- The MCU docs assume you already have a Memfault account, and tell new users to reach out to Memfault.
+
+## Alternatives in this atlas
+
+- [Embrace](/services/embrace/): when you monitor mobile apps and not firmware.
+- [Sentry](/services/sentry/): when you track errors in software, not devices.
+- [Netdata.cloud](/services/netdata-cloud/): when you monitor servers and hosts.
+
+## Questions people ask
+
+### Is Memfault free?
+
+Partly. The Developer plan has no charge for up to 10 development devices, but the pricing is exclusive to teams building on Nordic low-power wireless solutions.
+
+### What happens when I go over 10 devices on Memfault?
+
+The pricing page says pay-as-you-go pricing applies beyond 10 development and production devices. It does not list the rate.
+
+### How do I send data from my device to Memfault?
+
+The nRF Connect SDK guide says devices push data chunks to the Memfault cloud. nRF91 and nRF70 devices can upload over HTTPS, and Bluetooth LE devices use a phone app.

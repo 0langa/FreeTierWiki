@@ -1,8 +1,7 @@
 ---
 title: Azure App Service
 description: >-
-  Azure App Service enables fast deployment and scalable hosting for web apps
-  and APIs with integrated DevOps and security features.
+  Azure App Service is Microsoft's managed host for web apps and APIs. It runs code in .NET, Java, Node.js, PHP, and Python on Windows or Linux, and its Free F1 plan is meant for trials and learning.
 provider: Azure
 category: hosting
 domain: hosting
@@ -20,8 +19,14 @@ audiences:
   - oss
   - agency
 tags:
-  - web
-  - ci-cd
+  - "azure"
+  - "web app"
+  - "app service"
+  - "paas"
+  - "api hosting"
+  - "nodejs"
+  - "dotnet"
+  - "f1 free tier"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -39,37 +44,38 @@ freeTierDetails:
   resetPeriod: daily
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
 useCases:
-  - Deploying personal or demo web apps
-  - Hosting APIs for prototypes
-  - Learning Azure PaaS
-  - Testing CI/CD pipelines
+  - "Hosting a small Node.js, .NET, Java, PHP, or Python web app for a demo"
+  - "Running a prototype API behind an azurewebsites.net address"
+  - "Learning Azure deployment from VS Code or the Azure CLI"
+  - "Trying App Service before choosing a paid plan"
+  - "Testing a deployment pipeline on a throwaway app"
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new App Service resource.
-  - Select the Free (F1) tier during setup.
-  - 'Deploy your web app using GitHub, local Git, or ZIP upload.'
-  - Browse to the provided URL to verify deployment.
+  - "Create an Azure account with an active subscription; the account sign-up asks for a card for verification."
+  - "Install Node.js LTS and, for the VS Code route, Visual Studio Code. The Azure CLI works too."
+  - "Create a sample app with `npx express-generator myExpressApp --view ejs`."
+  - "In VS Code, right-click App Services and choose Create new Web App, then enter a globally unique name."
+  - "Pick a Node.js runtime stack and choose the Free (F1) pricing tier."
+  - "Choose Yes to deploy the workspace, then select Browse Website to open the app."
 whenToUse: >-
-  Use when you need to quickly deploy and test web apps or APIs with minimal
-  configuration and no upfront cost.
+  Use the Free F1 plan to learn App Service, test a deployment, or show a small demo on an azurewebsites.net address.
 whenNotToUse: >-
-  Avoid for production workloads needing high availability, custom domains with
-  SSL, or advanced scaling and networking features.
+  Skip it for production traffic, apps that need a custom domain or an SLA, or apps that must stay warm. Microsoft says production use of free and shared plans is not supported.
 bestFor:
-  - prototyping
-  - learning
-  - personal projects
-  - demos
+  - "learning Azure"
+  - "demos"
+  - "prototype APIs"
+  - "throwaway test apps"
 avoidIf:
-  - production apps
-  - high-traffic sites
-  - custom SSL needs
+  - "production apps"
+  - "a custom domain with SSL"
+  - "an SLA"
+  - "always-on workloads"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/services/app-service/'
@@ -78,8 +84,49 @@ sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/app-service/windows/'
   - 'https://azure.microsoft.com/en-us/free/'
   - 'https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits'
+  - 'https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs'
+  - 'https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/app-service/windows/'
 ---
-Azure App Service provides a managed platform for deploying web apps and APIs with integrated scaling, security, and DevOps support. The free tier is ideal for learning, prototyping, and low-traffic demos, but lacks production-grade features such as custom domain SSL and guaranteed uptime.
+You create the app in the Azure portal, the Azure CLI, or Visual Studio Code, then deploy your code to an azurewebsites.net address. The Free plan suits students and developers who want to learn the service or share a demo. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+The Free plan is called F1 and runs on shared compute with other customers. The pricing page gives it 60 CPU minutes per day and 1 GB of storage. The limits table adds more detail for Free: up to 10 apps in one plan, a CPU cap of 3 minutes in any 5 minute window, 1,024 MB of memory per plan, and 165 MB of bandwidth. It also allows 1 shared instance and no scale out.
+
+Free apps get no custom domains. You use the azurewebsites.net name, and that default domain has SSL at no extra charge. Custom domain SSL is not supported on Free. Always On is not offered. The pricing page says there is no SLA for free and shared plans.
+
+## When you hit a limit
+
+The pricing page and the limits table list the Free caps, but they do not say what happens to your app when it reaches them. Nothing on these pages describes a surprise bill from the Free plan itself. The pricing FAQ says an App Service plan carries a compute charge except for the Free tier.
+
+Stopped apps on paid tiers still cost money. The FAQ tells you to delete apps you do not use or move them to the Free tier to avoid charges. Other Azure services you connect, such as a database, bill on their own terms. To go past the Free caps, scale the plan up to a paid tier.
+
+## Gotchas
+
+- Microsoft says free and shared plans are for trials, experimentation, and learning, and that production use is not supported.
+- The Free plan allows 0 custom domains, so a branded address needs a paid plan.
+- Azure sign-up may place a temporary $1 authorization on your card, which is reversed after verification.
+
+## Alternatives in this atlas
+
+- [Azure Static Web Apps](/services/azure-static-web-apps/): when your site is static files plus small APIs and you want to stay in Azure.
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want free static hosting without a card.
+- [Render](/services/render/): when you want a free web service outside Azure.
+
+## Questions people ask
+
+### Is Azure App Service free?
+
+Yes, the Free F1 plan costs nothing. It gives 60 CPU minutes per day and 1 GB of storage on shared compute.
+
+### Can I use a custom domain on the Azure App Service free tier?
+
+No. The limits table lists 0 custom domains for Free, and you use the azurewebsites.net subdomain only. Custom domain SSL is not supported either.
+
+### Is the Azure App Service free tier good for production?
+
+No. Microsoft says production use of free and shared plans is not supported, and there is no SLA.

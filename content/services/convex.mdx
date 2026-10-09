@@ -1,6 +1,10 @@
 ---
 title: Convex
-description: 'A reactive backend: database, server functions, file storage, and search in TypeScript.'
+description: >-
+  Convex is a cloud backend that combines a reactive database, server
+  functions written in TypeScript, file storage, and auth. It is for
+  developers building realtime full-stack apps who want one place for data and
+  backend code.
 provider: Convex
 category: database
 domain: database
@@ -13,53 +17,78 @@ audiences:
   - indie
   - startup
 tags:
-  - database
-  - serverless
-  - realtime
   - backend
+  - realtime database
+  - typescript
+  - serverless functions
+  - reactive
+  - full-stack
+  - convex
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan with 1M function calls, 0.5 GB database storage, and 1 GB file storage per month.'
+  summary: >-
+    The Free plan has hard resource caps: 1M function calls, 0.5 GB of database
+    storage, and 1 GB of file storage per month. Starter is the pay-as-you-go
+    plan that can pass these amounts.
   limits:
     - 1M function calls per month
     - '0.5 GB database storage, 1 GB database I/O'
     - 1 GB file storage
     - 20 GB-hours of action compute
     - 1 GB data egress
-    - 1 to 6 developers
+    - 0.5 GB search storage
+    - 1 to 6 developers and 40 deployments
   caveats:
-    - The pay-as-you-go Starter plan bills past these limits
+    - Free has hard resource caps, while the Starter plan bills past the included amounts
     - Log streaming needs Professional
+    - Included amounts are shared across regions, and non-US regions cost 1.3x past the free amounts
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The Starter plan bills usage past the included amounts, so pick Free if you want hard caps
 useCases:
-  - Realtime app backend
-  - Full-stack TypeScript apps
+  - Realtime app backend that updates clients automatically
   - Chat and collaborative apps
+  - Full-stack TypeScript apps with typed queries
+  - Background jobs and scheduled functions
+  - AI app data with file and search storage
 quickstartSteps:
-  - Run npm create convex@latest.
-  - Sign in when the CLI asks.
-  - Write queries and mutations in the convex/ folder.
-whenToUse: Use for realtime TypeScript apps where you want database and functions in one place.
-whenNotToUse: Avoid if you need plain SQL or a self-managed Postgres.
+  - 'Create a React app, for example with `npm create vite@latest`, and run `npm install convex` (or start with `npm create convex@latest`).'
+  - 'Run `npx convex dev`. It asks you to log in with GitHub, create a project, and sync a dev deployment.'
+  - 'Add sample data with `npx convex import --table tasks sampleData.jsonl`.'
+  - 'Write a query function in the `convex/` folder, such as `convex/tasks.ts`.'
+  - Wrap your app in a ConvexProvider with a ConvexReactClient and call the query from your React code.
+whenToUse: >-
+  Use Convex for realtime TypeScript apps where you want the database and
+  server functions in one place, with a free plan that has hard caps.
+whenNotToUse: >-
+  Skip it if you need plain SQL, a self-managed Postgres, or more than 6
+  developers on the free plan. Skip it if you cannot accept hard caps on
+  database size and function calls.
 bestFor:
   - realtime apps
   - TypeScript developers
+  - prototypes and personal projects
 avoidIf:
-  - SQL-first teams
+  - You want plain SQL
+  - You need more than 6 developers
+  - You need more than 1M function calls a month for free
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.convex.dev'
 docsUrl: 'https://docs.convex.dev'
 sourceUrls:
   - 'https://www.convex.dev/pricing'
+  - 'https://docs.convex.dev/production/state/limits'
+  - 'https://docs.convex.dev/quickstart/react'
+  - 'https://www.convex.dev/faq'
 pricingUrl: 'https://www.convex.dev/pricing'
 featured: false
 changes:
@@ -67,4 +96,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Convex combines a database and server functions. The free plan has fixed monthly resources.
+You write backend functions in TypeScript in a `convex/` folder, run `npx convex dev` to sync them, and call them from your app with a Convex client library. It suits realtime apps built by small teams.
+
+## What the free plan gives you
+
+The pricing page lists a Free and Starter plan. Free is $0 per month, and Starter is pay as you go. Both allow 1 to 6 developers and 40 deployments, and both share the same performance tier.
+
+Included each month on Free: 1 million function calls, 0.5 GB of database storage, 1 GB of database I/O, 1 GB of file storage, and 0.5 GB of search storage. You also get 20 GB-hours of action compute and 1 GB of data egress. Query and mutation compute is free on serverless deployments.
+
+## When you hit a limit
+
+The Convex limits page says Free has hard resource caps. Starter can exceed its included amounts with usage-based pricing, for example $2.20 per additional 1 million function calls. The pages do not say exactly what the app sees when a Free cap is reached.
+
+If you want to go past the caps, switch the plan to Starter or move to Professional, which costs $25 per developer per month.
+
+## Gotchas
+
+- Function calls include explicit client calls, scheduled runs, subscription updates, and file accesses, so a realtime app can use them quickly.
+- Each index is priced as another copy of the table for database storage.
+- Included amounts are shared across regions, and other regions cost more than US regions.
+
+## Alternatives in this atlas
+
+- [Supabase](/services/supabase/): when you want SQL with Postgres plus auth and storage.
+- [Firebase Firestore](/services/firebase-firestore/): when you want a document database with realtime listeners.
+- [Appwrite Cloud](/services/appwrite/): when you want an open-source backend with auth, storage, and functions.
+
+## Questions people ask
+
+### Is Convex free?
+
+Yes. The Free plan costs $0 and includes 1 million function calls, 0.5 GB of database storage, and 1 GB of file storage each month.
+
+### What happens when I go over the Convex free limits?
+
+The Convex limits page says the Free plan has hard resource caps. Starter lets you pass the included amounts and pay for the extra usage.
+
+### How many developers can use the Convex free plan?
+
+The Free and Starter plan covers 1 to 6 developers. Professional covers 1 to 20 developers.

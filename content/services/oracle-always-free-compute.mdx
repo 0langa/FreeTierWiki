@@ -1,8 +1,8 @@
 ---
 title: Oracle Always Free Compute
 description: >-
-  Oracle Cloud offers always-free virtual machines and resources for lightweight
-  compute workloads and development.
+  Oracle Cloud's Always Free compute gives every account small AMD and Arm
+  virtual machines that never expire, for learning and small servers.
 provider: Oracle Cloud
 category: compute
 domain: compute
@@ -33,7 +33,7 @@ freeTierDetails:
     - 2 virtual cloud networks (VCNs)
   caveats:
     - Limited to specific VM shapes and regions
-    - Extra Arm instances beyond the 2 OCPU/12GB pool are disabled, then deleted after 30 days
+    - When the Free Trial ends, Arm instances beyond the 2 OCPU/12GB pool are disabled, then deleted after 30 days
     - Idle instances can be reclaimed after 7 days of under 20% CPU and network use
   resetPeriod: monthly
   requiresCard: true
@@ -49,32 +49,30 @@ useCases:
   - CI/CD runners
   - Open source project hosting
 quickstartSteps:
-  - Sign up for an Oracle Cloud Free Tier account with a valid credit card.
-  - Log in to the Oracle Cloud Console and navigate to Compute > Instances.
-  - >-
-    Click 'Create Instance', select an Always Free eligible shape (e.g.,
-    VM.Standard.E2.1.Micro or VM.Standard.A1.Flex).
-  - Configure networking and storage as needed within free limits.
-  - Launch the instance and connect via SSH using the provided public IP.
+  - Sign up for Oracle Cloud Free Tier with a mobile number and a credit card, and pick your home region carefully.
+  - In the Console, create a compartment and a virtual cloud network with a public subnet.
+  - Create an instance with an Always Free-eligible shape (VM.Standard.E2.1.Micro or VM.Standard.A1.Flex) and image.
+  - Add your SSH public key while creating the instance.
+  - Connect with ssh to the instance's public IP address.
 whenToUse: >-
-  Use when you need always-free, basic VMs for development, prototyping, or
-  learning without ongoing costs.
+  Use it when you want a real Linux VM you control, for learning, a small
+  server, or a self-hosted tool, and you can keep it busy enough to avoid idle
+  reclamation.
 whenNotToUse: >-
-  Avoid if you require high performance, advanced networking, or more resources
-  than the free tier allows.
+  Avoid it if you cannot give a card, need a VM outside your home region, or
+  will leave the VM idle for long stretches.
 bestFor:
-  - learning
-  - prototyping
-  - personal projects
-  - open source demos
+  - learning Linux and cloud networking
+  - small self-hosted services
+  - Arm builds and tests
 avoidIf:
-  - high-traffic production
-  - compute-intensive workloads
-  - enterprise compliance needs
+  - no credit card
+  - VMs that sit idle
+  - needs guaranteed capacity
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.oracle.com/cloud/free/'
@@ -84,6 +82,45 @@ sourceUrls:
   - 'https://www.oracle.com/cloud/free/'
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm'
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/Compute/tutorials/first-linux-instance/overview.htm'
 featured: false
 ---
-Oracle Always Free Compute provides two small virtual machines and essential storage at no cost, ideal for learning, prototyping, and lightweight workloads.
+You create and manage the VMs in the Oracle Cloud Console and connect to them over SSH. This page covers the compute part of the Always Free tier.
+
+## What the free plan gives you
+
+Every Oracle Cloud account gets Always Free resources in its home region for the life of the account. For compute, you get up to two AMD VMs on the VM.Standard.E2.1.Micro shape. Each has 1/8th of an OCPU, 1 GB of memory, and up to 50 Mbps of internet bandwidth.
+
+You also get Arm capacity on the VM.Standard.A1.Flex shape: 1,500 OCPU hours and 9,000 GB hours per month. That equals 2 OCPUs and 12 GB of memory, as one VM or split into two. Storage is 200 GB of block volume for boot and data volumes combined, plus five volume backups. Outbound data is free up to 10 TB per month, and you get one flexible load balancer at 10 Mbps.
+
+## When you hit a limit
+
+Always Free resources are never billed. To go past the free amounts, you upgrade to a paid account such as Pay As You Go. Oracle then charges only for usage above the Always Free limits.
+
+On a free account, some limits show up as errors. For example, a sixth volume backup fails until you delete an old one. If your home region has no free capacity left, creating a VM fails with "out of host capacity"; try another availability domain or wait. The separate Free Trial gives $300 of credits for up to 30 days. When it ends, paid resources made with those credits are reclaimed unless you upgrade.
+
+## Gotchas
+
+- Oracle can reclaim idle Always Free instances. A VM counts as idle when, over 7 days, CPU use at the 95th percentile, network use, and (on Arm) memory use all stay under 20%.
+- If you have more than 2 OCPUs and 12 GB of Arm capacity when the trial ends, all your Ampere A1 instances are disabled, then deleted after 30 days, unless you upgrade.
+- Choose your home region carefully at sign-up. Always Free compute can only be created there, and the free shapes can run out.
+
+## Alternatives in this atlas
+
+- [Compute Engine e2-micro](/services/compute-engine-e2-micro/): when you want one small always-free VM on Google Cloud in a US region.
+- [Azure Virtual Machines](/services/virtual-machines/): when you only need a VM for your first year and already work in Azure.
+- [Koyeb](/services/koyeb/): when you want to deploy an app from Git without managing a server.
+
+## Questions people ask
+
+### Is Oracle Cloud Always Free really free forever?
+
+Oracle says Always Free resources are free for the life of the account, in your home region. They stay available after the 30-day Free Trial ends.
+
+### Do I need a credit card for Oracle Cloud Free Tier?
+
+Most people need a mobile phone number and a credit card to create an account. Oracle says the card is not charged unless you upgrade.
+
+### Why did Oracle reclaim my Always Free instance?
+
+Oracle reclaims Always Free instances it deems idle over a 7-day period, when CPU, network, and memory use stay under 20%.

@@ -1,8 +1,8 @@
 ---
 title: Market Data API
 description: >-
-  Provides free and paid access to real-time and historical financial market
-  data via a simple API.
+  Market Data is a REST API and Google Sheets add-on for U.S. stocks, options, ETFs, and mutual
+  funds. It returns JSON or CSV. The free plan suits students, spreadsheet users, and side projects.
 provider: Market Data API
 category: analytics
 domain: analytics
@@ -17,61 +17,120 @@ audiences:
   - team
   - oss
 tags:
-  - api
+  - stock market api
+  - options data
+  - google sheets
+  - historical prices
+  - market data
+  - rest api
+  - mutual funds
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    "Free Forever" plan offers limited daily API credits and spreadsheet
-    formulas for real-time and historical market data.
+    Free Forever plan offers 100 API credits per day and 100 Google Sheets formulas per day, with
+    standard API endpoints and 24h delayed stock and options quotes.
   limits:
-    - 100 API credits per day
-    - 100 spreadsheet formulas per day
-    - 24h delayed stock and options data
+    - '100 API credits per day, reset at 9:30 AM Eastern Time'
+    - 100 Google Sheets formulas per day
+    - Standard API endpoints
+    - 24h delayed stock quotes and option chains
+    - 50 concurrent requests on every plan
   caveats:
-    - Real-time stock quotes via API/Sheets require a paid plan for non-professionals
-    - A separate 30-day free trial of a paid tier is also offered, no card required
+    - 'Most successful calls cost 1 credit, but calls for several symbols cost 1 credit per symbol'
+    - Real-time options data starts on the Trader plan
+    - A separate 30-day free trial of a paid plan is offered with no credit card
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Building financial dashboards
-  - Academic research
-  - Prototyping trading bots
-  - Market data analysis
+  - Pull stock prices into Google Sheets with formulas
+  - Fetch historical candles for a chart or backtest
+  - Read an options chain with filters for strikes and expirations
+  - Build a small dashboard or tracker
+  - Try mutual fund end-of-day prices
 quickstartSteps:
-  - Sign up for a free account at marketdata.app.
-  - Verify your email address.
-  - Log in and generate an API key from your dashboard.
-  - Review API documentation for endpoint usage.
-  - Make your first API request using your API key.
+  - 'Try the API first with the free trial symbols. AAPL stock, AAPL options, and the VFINX mutual fund do not use credits.'
+  - Create a free account on marketdata.app and sign in to your customer dashboard.
+  - Request an API token. It is delivered by email to the address you signed in with.
+  - >-
+    Send requests to https://api.marketdata.app/ with the header Authorization: Bearer and your
+    token.
+  - 'Treat HTTP 203 the same as 200, and read the X-Api-Ratelimit headers to track your credits.'
+  - 'Optionally install the Google Sheets add-on to use formulas, up to 100 a day on Free.'
 whenToUse: >-
-  Use when you need free, basic access to real-time or historical financial
-  market data for prototyping or research.
+  Use it when you want free U.S. stock and options data for a spreadsheet, a student project, or a
+  prototype and can live with delayed data.
 whenNotToUse: >-
-  Avoid if you require high request volumes, premium data, or guaranteed
-  low-latency feeds for production trading.
+  Avoid it if you need real-time options, more than 100 credits a day, or redistribution of the data.
 bestFor:
+  - students
+  - spreadsheet users
+  - side projects
   - prototyping
-  - learning
-  - personal projects
-  - academic use
 avoidIf:
   - high-frequency trading
+  - need real-time options
   - enterprise-grade analytics
-  - premium data needs
+  - need heavy daily volume
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.marketdata.app'
-docsUrl: 'https://docs.marketdata.app'
+docsUrl: 'https://www.marketdata.app/docs/api'
 pricingUrl: 'https://www.marketdata.app/pricing'
 sourceUrls:
   - 'https://www.marketdata.app/pricing'
+  - 'https://www.marketdata.app/docs/api'
+  - 'https://www.marketdata.app/docs/api/authentication'
+  - 'https://www.marketdata.app/docs/api/rate-limits'
 featured: false
 ---
-Market Data API offers a simple way to access real-time and historical market data for stocks, crypto, and forex, with a generous free tier suitable for learning and prototyping.
+
+You call a REST API with a Bearer token and get JSON or CSV back, or you use the Google Sheets add-on with formulas. It suits students, spreadsheet users, and hobby developers.
+
+## What the free plan gives you
+
+The Free Forever plan costs $0 and is described as the best option for students or small side projects. You get 100 API credits per day and 100 Sheets formulas per day. It uses standard API endpoints, and stock quotes and option chains are 24 hours delayed.
+
+Each successful call normally costs 1 credit. If a response includes several symbols, the call costs 1 credit per symbol. Only status 200 and 203 responses use credits.
+
+The credit counter resets at 9:30 AM Eastern Time, the NYSE opening bell. Every plan allows up to 50 concurrent requests.
+
+New accounts can also take a 30-day free trial of a paid plan with no credit card. Paid plans start at $12 per month with annual billing, or $30 per month when paid monthly.
+
+## When you hit a limit
+
+You can make any single request as long as you have at least 1 credit left, even if it costs more than your balance. Your balance can then go negative. Further requests return 429 responses until the window resets at 9:30 AM Eastern Time.
+
+A request over the 50 concurrent request limit also returns a 429. There is no bill on the Free plan. Large option chains can drain 100 credits fast, so use the filters to ask only for the strikes and expirations you need.
+
+## Gotchas
+
+- An entire option chain returns every contract, and each one costs a credit. One unfiltered call can use your whole day.
+- Free data is delayed by 24 hours. Real-time options data starts on the Trader plan.
+- Your token is delivered by email after you sign in to the dashboard. Keep it secret, and send it in the Authorization header rather than the URL.
+
+## Alternatives in this atlas
+
+- [Financial Data](/tools/financial-data/): when you want symbol lists and daily history with a Python SDK.
+- [Earnings Feed](/services/earnings-feed/): when you want SEC filings and insider trades.
+- [RapidAPI](/tools/rapidapi/): when you want to compare other data APIs in one marketplace.
+
+## Questions people ask
+
+### Is the Market Data API free?
+
+Yes. The Free Forever plan gives 100 API credits and 100 Sheets formulas per day. A separate 30-day trial of a paid plan needs no credit card.
+
+### When do Market Data API credits reset?
+
+The daily counter resets at 9:30 AM Eastern Time, at the NYSE opening bell.
+
+### Is Market Data API data real time on the free plan?
+
+No. Stock quotes and option chains are 24 hours delayed on Free. Real-time options data starts on the Trader plan.

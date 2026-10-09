@@ -1,8 +1,8 @@
 ---
 title: Deadmanssnitch
 description: >-
-  Deadmanssnitch monitors scheduled jobs and alerts you when they fail to check
-  in on time.
+  Dead Man's Snitch alerts you when a cron job or scheduled task fails to check
+  in on time. You add one curl call to each job you want to watch.
 provider: Deadmanssnitch
 category: observability
 domain: observability
@@ -16,12 +16,15 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - productivity
+  - cron-monitoring
+  - dead-mans-switch
+  - heartbeat
+  - scheduled-jobs
+  - alerts
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free "Lone Snitch" plan includes 1 snitch, forever, separate from the free
+    Free "Lone Snitch" plan includes 1 snitch, separate from the free
     trial offered on paid plans.
   limits:
     - 1 snitch (Lone Snitch, free plan)
@@ -31,44 +34,84 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Monitor cron jobs for failures
-  - Receive alerts if scheduled tasks don't run
-  - Track background job health
+  - Find out when a nightly backup does not run
+  - Watch a monthly email job
+  - Monitor Heroku Scheduler tasks
+  - Track an hourly cron job
 quickstartSteps:
-  - Sign up for a Deadmanssnitch account.
-  - Create a new snitch for your scheduled job.
-  - Copy the unique check-in URL provided.
-  - Add an HTTP request to the check-in URL at the end of your job script.
-  - Configure alert preferences for missed check-ins.
+  - Sign up at deadmanssnitch.com and pick the free Lone Snitch plan.
+  - 'Create a snitch: give it a name and leave the alert type at Basic.'
+  - Set the interval, such as Hour, and optionally add a snitch-specific email address.
+  - Copy the unique check-in URL on the `nosnch.in` domain.
+  - Add a curl call to that URL after your job, such as `run_backups_or_something.sh && curl` followed by the URL.
+  - Wait for the next interval; if the job does not check in, the snitch alerts you.
 whenToUse: >-
-  Use Deadmanssnitch to monitor cron jobs or scheduled tasks where missing a run
-  could cause issues.
+  Use it to watch one cron job or scheduled task where a missed run would cause
+  trouble, with a single free snitch.
 whenNotToUse: >-
-  Avoid if you need continuous application monitoring or more than 1 snitch
-  without upgrading.
+  Avoid it if you need more than 1 snitch for free, or continuous application
+  monitoring rather than check-in alerts.
 bestFor:
   - cron job monitoring
-  - scheduled task alerting
-  - simple uptime notifications
+  - one critical backup job
+  - simple scheduled-task alerts
 avoidIf:
-  - need more than 1 free snitch
-  - require deep application metrics
-  - want integrated infrastructure monitoring
+  - more than 1 free snitch
+  - deep application metrics
+  - infrastructure monitoring
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://deadmanssnitch.com/'
-docsUrl: 'https://docs.deadmanssnitch.com'
+docsUrl: 'https://deadmanssnitch.com/docs'
 sourceUrls:
   - 'https://deadmanssnitch.com/plans'
   - 'https://deadmanssnitch.com/docs'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://deadmanssnitch.com/plans'
 ---
-Deadmanssnitch provides simple monitoring for scheduled jobs, alerting you if your jobs fail to check in as expected. Its free Lone Snitch plan covers 1 snitch forever.
+You create a snitch in the web app, get a unique check-in URL, and add a curl call to the end of your cron job. If the call does not arrive in time, you get an alert. It suits people with a single scheduled job that must not fail silently.
+
+## What the free plan gives you
+
+The free plan is called The Lone Snitch and sits under the "No Frills Free Plan" heading. It gives you 1 snitch. The plans page does not list its check-in interval or other features, and the free plan is not tied to a trial.
+
+The paid plans add snitches. Little Birdy costs $5 per month for 3 snitches, with an API, Field Agent, and unlimited team members. Private Eye costs $19 per month for 100 snitches and adds integrations. Surveillance Van costs $49 per month for 300 snitches and adds Smart Alerts and Error Notices.
+
+## When you hit a limit
+
+The plans page does not say what happens when you try to add a second snitch on the free plan. You need a paid plan for more snitches. The page lists no overage charge and gives no card requirement for the free plan.
+
+For on-premise hosting, or if you need to monitor more jobs than the top plan allows, the page tells you to email the company.
+
+## Gotchas
+
+- The free plan has only 1 snitch, so one backup or one email job fits, but a second does not.
+- The docs say the snitch checks on the hour, every hour. A check-in at 2:10 p.m. is first judged in the 3 to 4 p.m. window.
+- Only the Surveillance Van plan has a free trial button, and the page does not give its length.
+
+## Alternatives in this atlas
+
+- [Healthchecks.io](/services/healthchecks-io/): when you need more than one cron monitor on a free plan.
+- [Cronitor](/services/cronitor/): when you want several monitors plus chat alerts.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want heartbeats together with website checks and a status page.
+
+## Questions people ask
+
+### Is Dead Man's Snitch free?
+
+Yes, in a small way. The Lone Snitch plan is free and gives you 1 snitch. Paid plans start at $5 per month for 3 snitches.
+
+### How do I check in to Dead Man's Snitch?
+
+Send a request to your snitch's unique URL, which uses the nosnch.in domain. The docs chain a curl call after the job, such as a backup script.
+
+### How often does Dead Man's Snitch check?
+
+The docs example uses an hourly interval. On the hour, it looks to see if your snitch checked in during the previous hour.

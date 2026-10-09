@@ -1,6 +1,8 @@
 ---
 title: hCaptcha
-description: A privacy-focused CAPTCHA and bot detection service.
+description: >-
+  hCaptcha is a CAPTCHA and bot protection service that retains no personal
+  data. You add a widget to a form and check the result on your server.
 provider: Intuition Machines
 category: security
 domain: security
@@ -12,41 +14,56 @@ audiences:
   - indie
   - startup
 tags:
-  - security
-  - web
+  - captcha
+  - bot protection
+  - recaptcha alternative
+  - spam prevention
+  - form protection
   - privacy
 pricingModel: freemium
 freeTierDetails:
   summary: Basic plan is free for up to 10,000 requests a month, with bot protection in every country.
   limits:
-    - 'Up to 10,000 requests/month'
+    - Free up to 10,000 requests per month
     - Works in every country
+    - Complies with GDPR, CCPA, LGPD, and PIPL
   caveats:
-    - Low-friction and passive modes, custom themes, and analytics need Pro
-    - Pro starts with a 14-day free trial
+    - Low friction 99.9% passive mode, custom themes, and analytics need Pro
+    - Pro starts with a free 14-day trial, then switches back to Free if you do not keep it
+    - Pro costs $99 per month billed yearly, or $139 billed monthly, with 100K evals included
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Protect sign-up and login forms
-  - Stop spam on contact forms
+  - Protecting sign-up and login forms from bots
+  - Stopping spam on contact forms
+  - Replacing reCAPTCHA with a two-line script change
+  - Adding bot checks to WordPress, React, Vue, or mobile apps
 quickstartSteps:
-  - Sign up at dashboard.hcaptcha.com and add a site key.
-  - Add the hCaptcha script and widget to your form.
-  - Check the token on your server with the siteverify endpoint.
-whenToUse: Use hCaptcha to protect forms from bots on sites with modest traffic.
-whenNotToUse: Avoid if you need more than 10,000 checks a month or a puzzle-free experience for free.
+  - Create an hCaptcha account with Sign Up on hcaptcha.com.
+  - Copy your public sitekey from Sites and your secret from Settings.
+  - Load the script from js.hcaptcha.com and add a div with the h-captcha class and your sitekey inside the form.
+  - Receive the h-captcha-response token with the form submission on your server.
+  - POST the token and your secret to api.hcaptcha.com/siteverify, and allow the action only when success is true.
+whenToUse: >-
+  Use it to protect forms from bots on sites with up to 10,000 checks a month,
+  or when you want a privacy-focused alternative to reCAPTCHA.
+whenNotToUse: >-
+  Avoid it if you expect more than 10,000 requests a month on the free plan, or
+  need passive mode with no puzzle, which needs Pro.
 bestFor:
   - forms
   - sign-up pages
 avoidIf:
-  - high-traffic sites on the free plan
+  - you expect over 10,000 requests a month
+  - you need passive mode on the free plan
+  - you need an SLA, which is Enterprise
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-02'
-lastVerified: '2026-10-02'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://www.hcaptcha.com/'
@@ -54,6 +71,7 @@ docsUrl: 'https://docs.hcaptcha.com/'
 sourceUrls:
   - 'https://www.hcaptcha.com/plans'
   - 'https://www.hcaptcha.com/pricing'
+  - 'https://docs.hcaptcha.com/'
 pricingUrl: 'https://www.hcaptcha.com/plans'
 featured: false
 changes:
@@ -61,4 +79,41 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-hCaptcha is a CAPTCHA service focused on privacy. The Basic plan is free for up to 10,000 requests a month.
+You create sites and keys in the hCaptcha dashboard, add a short script and a div to your form, and verify the token with an HTTP call. Plugins and SDKs exist for WordPress, React, Vue, Angular, Node, and mobile apps. It suits anyone who wants a CAPTCHA that is simple to add.
+
+## What the free plan gives you
+
+The Basic plan costs $0 and covers up to 10,000 requests per month. The plans page lists world-class bot protection, support in every country, and compliance with GDPR, CCPA, LGPD, and PIPL. It says hCaptcha retains no personal data.
+
+Pro adds the low friction 99.9% passive mode, custom themes, and analytics. It costs $99 per month billed yearly or $139 billed monthly, and includes 100K monthly evals, then $0.99 per 1K. Enterprise adds risk scores, SLAs, SAML SSO, and advanced reporting through a sales contact.
+
+## When you hit a limit
+
+The plans page does not say what happens when you pass 10,000 requests in a month. It lists no overage price for Basic, so check your dashboard and the terms before you rely on it for a busy site.
+
+Pro bills extra evals above its included 100K at $0.99 per 1K. The page also offers a free 14 day Pro trial with no payment required. If you do not keep Pro, you are switched back to the Free plan after 14 days.
+
+## Gotchas
+
+- A callback in the browser does not authorize anything. You must send the token and your secret to the siteverify endpoint and check that success is true.
+- Keep the secret on your server. Only the sitekey belongs in your page.
+- The 99.9% passive mode, custom themes, and analytics are listed under Pro, not Basic.
+
+## Alternatives in this atlas
+
+- [Cloudflare Turnstile](/services/cloudflare-turnstile/): when you want a CAPTCHA alternative that uses no puzzle in most cases and has unlimited challenges.
+- [Cloudflare](/services/cloudflare/): when you want bot and DDoS protection for a whole site, not only forms.
+
+## Questions people ask
+
+### Is hCaptcha free?
+
+Yes. The Basic plan is $0 and free for up to 10,000 requests per month. It works in every country.
+
+### What happens when I go over the hCaptcha free limit?
+
+The plans page does not say. It lists Pro at $99 per month billed yearly, with 100K monthly evals included, and a free 14 day trial.
+
+### Does hCaptcha need a credit card?
+
+The plans page says no payment is required for the free 14 day Pro trial. It does not mention a card for the Basic plan.

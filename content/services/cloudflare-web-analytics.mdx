@@ -1,6 +1,9 @@
 ---
 title: Cloudflare Web Analytics
-description: 'Privacy-first website analytics with no cookies, from Cloudflare.'
+description: >-
+  Cloudflare Web Analytics is free, privacy-first website analytics that uses no cookies. You can
+  track sites that are not on Cloudflare with a small JavaScript snippet. It suits bloggers, docs
+  sites, and small businesses that want simple traffic and speed stats.
 provider: Cloudflare
 category: analytics
 domain: analytics
@@ -12,47 +15,77 @@ audiences:
   - indie
   - startup
 tags:
-  - analytics
+  - web analytics
   - privacy
-  - web
+  - no cookies
+  - core web vitals
+  - page views
+  - website traffic
+  - rum
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free. Works with a small JavaScript snippet, so your site does not need to be on Cloudflare.'
   limits:
-    - Free website analytics
-    - No cookies or fingerprinting
-    - Core Web Vitals
+    - Free website analytics with no cookies or fingerprinting
+    - Core Web Vitals and page load time
+    - Up to 10 sites not proxied through Cloudflare; no limit for proxied sites
+    - 'Data for the previous six months, unsampled for 7 days'
   caveats:
-    - Fewer features than product analytics tools (no funnels or user paths)
+    - Fewer features than product analytics tools (the pages list no funnels or user paths)
+    - The JavaScript beacon is blocked by ad blockers
+    - The Free plan has no Web Analytics rules
+    - Older data is aggregated down to around 10% of the original volume
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Page views and referrers for a site
-  - Core Web Vitals
+  - See page views and referrers for a blog or docs site
+  - Track Core Web Vitals and page load time as visitors experience them
+  - Measure traffic without a cookie banner
+  - Track a site that is hosted somewhere else with a JavaScript snippet
+  - Watch a single-page app by route
 quickstartSteps:
-  - Sign in to Cloudflare.
-  - Add a site under Web Analytics.
-  - 'Paste the JS snippet, or turn it on for a proxied site.'
-whenToUse: 'Use for simple, private site stats at no cost.'
-whenNotToUse: Avoid if you need event funnels or user-level analysis.
+  - Sign in to the Cloudflare dashboard and open the Web Analytics page.
+  - Select Add a site.
+  - >-
+    For a site not proxied through Cloudflare, enter the hostname, select it, and select Done. Then
+    copy the JS snippet from Manage site.
+  - Add the snippet to your HTML pages before the closing body tag.
+  - >-
+    For a site proxied through Cloudflare, pick the hostname from the drop-down and select Done.
+    Automatic setup is on by default.
+  - 'Wait a few minutes for data to appear, then open the site card to read the metrics.'
+whenToUse: >-
+  Use it for simple, private site stats at no cost, especially if you want Core Web Vitals without
+  cookies.
+whenNotToUse: >-
+  Avoid it if you need event funnels or user-level analysis, or if you need exact counts that ad
+  blockers cannot hide.
 bestFor:
   - blogs
   - docs sites
+  - small business sites
+  - privacy-minded site owners
 avoidIf:
   - product analytics
+  - funnels
+  - user-level tracking
+  - need more than 10 non-proxied sites
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.cloudflare.com/web-analytics/'
 docsUrl: 'https://developers.cloudflare.com/web-analytics/'
 sourceUrls:
   - 'https://www.cloudflare.com/web-analytics/'
+  - 'https://developers.cloudflare.com/web-analytics/limits/'
+  - 'https://developers.cloudflare.com/web-analytics/get-started/'
+  - 'https://developers.cloudflare.com/web-analytics/faq/'
 pricingUrl: 'https://www.cloudflare.com/web-analytics/'
 featured: false
 changes:
@@ -60,4 +93,45 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Cloudflare Web Analytics is free and does not use cookies.
+
+You add a JavaScript snippet to your pages, or switch it on in the Cloudflare dashboard for a proxied site, and read the stats there. It fits bloggers and docs sites that want traffic numbers without cookies.
+
+## What the free plan gives you
+
+Web Analytics is free, and the pages we checked mention no credit card. Cloudflare says it uses no client-side state such as cookies or localStorage, and it does not fingerprint people by IP address or user agent. You get page views, page load time, and Core Web Vitals, measured from your visitors' browsers.
+
+You can track up to 10 sites that do not run through Cloudflare. Sites proxied through Cloudflare have no limit. You can read data for the previous six months. Cloudflare keeps unsampled beacon data for the past 7 days. After that, it aggregates the data down to around 10% of the original volume.
+
+The Free plan has no Web Analytics rules. Without rules, the snippet is injected on all subdomains of a proxied site.
+
+## When you hit a limit
+
+The docs list a site limit of 10 for sites that are not proxied. The FAQ calls it a soft limit that can be adjusted. The pages do not describe a bill or a cutoff, and the tool is free on every plan.
+
+Sampling is the more likely thing you will notice. Low-traffic sites are sampled at higher percentages to keep the numbers reliable. The dashboard picks a sampling level based on your filters and the volume of matching rows. The GraphQL API shows which level it used in the sampleInterval field.
+
+## Gotchas
+
+- Ad blockers block the JavaScript beacon, so counts for sites without Cloudflare proxying can run low. Proxied sites can also use edge analytics, which blockers cannot stop. The FAQ says Pro, Business, and Enterprise plans get that advanced version.
+- Single-page apps may show fewer metrics than you expect. The last route change is only sent when the visitor leaves the tab or closes the window.
+- The pages describe traffic and page speed metrics. They do not list funnels or user paths.
+
+## Alternatives in this atlas
+
+- [Microsoft Clarity](/services/microsoft-clarity/): when you want heatmaps and session recordings as well as traffic.
+- [Aptabase](/services/aptabase/): when you want privacy-first analytics for an app instead of a website.
+- [Mixpanel](/services/mixpanel/): when you need funnels and user-level analysis.
+
+## Questions people ask
+
+### Is Cloudflare Web Analytics really free?
+
+Yes. It is free, and the pages we checked mention no credit card. You can use it on sites that are not on Cloudflare.
+
+### Does Cloudflare Web Analytics use cookies?
+
+No. Cloudflare says it uses no cookies or localStorage and does not fingerprint visitors.
+
+### How long does Cloudflare keep Web Analytics data?
+
+You can access data for the previous six months. Unsampled data stays for 7 days and is then aggregated to around 10% of its original volume.

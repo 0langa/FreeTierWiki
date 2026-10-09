@@ -1,8 +1,9 @@
 ---
 title: Backblaze B2
 description: >-
-  Backblaze B2 offers affordable, scalable cloud object storage with a generous
-  always-free tier for developers and small projects.
+  Backblaze B2 stores files as objects in buckets, with a native API and an
+  S3-compatible API. It suits developers who need cheap storage for backups,
+  media, and app data.
 provider: Backblaze
 category: storage
 domain: storage
@@ -17,7 +18,12 @@ audiences:
   - team
   - oss
 tags:
-  - storage
+  - object storage
+  - s3 compatible
+  - backup
+  - cloud storage
+  - bucket
+  - egress
 pricingModel: freemium
 freeTierDetails:
   summary: '10 GB free storage, plus and free egress up to 3x your average monthly storage.'
@@ -27,8 +33,9 @@ freeTierDetails:
     - Class A/B/C API calls always free
     - First 2,500 Class D calls/day free
   caveats:
-    - Egress beyond the 3x allowance billed at $0.01/GB
-    - Class D transactions beyond the daily free amount incur small usage fees
+    - Egress beyond the 3x allowance is billed at $0.01/GB, though it is free through many CDN and compute partners
+    - Class D transactions beyond the first 2,500 calls per day cost $0.004 per 10,000 calls
+    - A public bucket needs a verified email and a payment history on file, or a small fee paid by card
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -37,35 +44,35 @@ freeTierDetails:
   billingRiskNotes:
     - Egress above 3x storage is billed at $0.01/GB, and Class D calls above 2,500/day are billed
 useCases:
-  - Website asset hosting
-  - Backup and archival
-  - Media storage
-  - App data storage
-  - S3-compatible integrations
+  - Backups and archives of files and databases
+  - Storing images, video, and downloads for a website or app
+  - Behind a CDN, as the origin for static assets
+  - Apps that already speak the S3 API
+  - Keeping datasets and models for machine learning
 quickstartSteps:
-  - Sign up for a Backblaze account.
-  - Create a B2 bucket in the dashboard.
-  - Generate an application key for API access.
-  - 'Upload files via web UI, CLI, or S3-compatible tools.'
-  - Configure bucket permissions and lifecycle rules as needed.
+  - Sign up for a Backblaze account and sign in to the web console.
+  - In the left menu under B2 Cloud Storage, click Buckets, then Create a Bucket.
+  - Name the bucket and choose Private or Public. Public buckets need a verified email and a payment history on file.
+  - Copy the Endpoint value from the bucket, which is the S3 endpoint.
+  - Upload files in the web console, or use the B2 command-line tool or any S3-compatible tool with an application key.
 whenToUse: >-
-  Use Backblaze B2 for affordable, scalable object storage when you need S3
-  compatibility or simple backups for small to medium workloads.
+  Use it for cheap object storage with the S3 API, especially backups and
+  files that sit behind a CDN.
 whenNotToUse: >-
-  Avoid if you require advanced CDN features, ultra-low latency, or need to
-  store and serve large volumes of data for free.
+  Avoid it if you need a built-in CDN, very low latency, or lots of free
+  downloads straight from the bucket beyond the 3x allowance.
 bestFor:
   - backups
   - media storage
   - indie projects
   - S3-compatible workflows
 avoidIf:
-  - need global CDN
-  - require ultra-low latency
-  - expect high free bandwidth
+  - you need a built-in global CDN
+  - you need very low latency
+  - you expect high free bandwidth without a CDN partner
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.backblaze.com/cloud-storage/pricing'
@@ -73,8 +80,50 @@ docsUrl: 'https://www.backblaze.com/b2/docs/'
 sourceUrls:
   - 'https://www.backblaze.com/cloud-storage/pricing'
   - 'https://www.backblaze.com/b2/docs/'
+  - 'https://www.backblaze.com/docs/cloud-storage-create-and-manage-buckets'
+  - 'https://www.backblaze.com/docs/cloud-storage-s3-compatible-api'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.backblaze.com/cloud-storage/pricing'
 ---
-Backblaze B2 provides cost-effective, S3-compatible object storage with a generous always-free tier, ideal for backups, media, and small-scale cloud storage needs.
+You work with B2 in the Backblaze web console, with the command-line tool, or through the Native API and the S3-compatible API. Any tool written for S3 can point at a B2 bucket with few changes.
+
+## What the free plan gives you
+
+The first 10GB of storage is always free. Backblaze also gives you free egress, meaning downloads, up to 3x your average monthly stored data. It works out the average from byte hours over the billing cycle.
+
+Class A, B, and C API calls are free for pay-as-you-go customers. For Class D transactions, the first 2,500 calls per day are free. There are no minimum file size fees and no minimum storage duration fees.
+
+Beyond the free storage, B2 starts at $6.95 per TB per month. The pricing page does not say whether sign-up asks for a card. It lists a credit card or invoice as the payment method.
+
+## When you hit a limit
+
+Nothing is cut off at the free amounts. Storage above 10GB is billed monthly at the pay-as-you-go rate.
+
+Egress above 3x your average storage costs $0.01 per GB. Backblaze says egress is free to and through many partner CDNs and compute services, including Cloudflare and Fastly, so a CDN in front of the bucket removes most of that fee. Class D transactions beyond the daily free amount cost $0.004 per 10,000 calls. Backblaze describes the pricing as no surprise fees and no penalties.
+
+## Gotchas
+
+- To create a public bucket, you must verify your email and have a payment history on file, or pay a small fee by card that is credited to your balance.
+- Bucket permission changes can take up to ten minutes to apply.
+- The S3-compatible API does not support ACLs, IAM roles, object tagging, or website configuration, so check your tool before you move over.
+
+## Alternatives in this atlas
+
+- [Cloudflare R2](/services/cloudflare-r2/): when you want S3 storage with no download fees and can add a card.
+- [Tigris](/services/tigris/): when you want S3-style storage that spreads data across regions on its own.
+- [Filebase](/services/filebase/): when you want an S3 API in front of decentralised storage.
+
+## Questions people ask
+
+### Is Backblaze B2 free?
+
+Partly. The first 10GB of storage is always free, and downloads are free up to 3x your average monthly storage. Anything above that is billed.
+
+### Does Backblaze B2 need a credit card?
+
+The pricing page does not say whether sign-up asks for a card. To create a public bucket you need a payment history on file or a small card payment.
+
+### What happens when I go over the Backblaze B2 free egress?
+
+Backblaze bills the extra download traffic at $0.01 per GB. Downloads to or through partner CDNs such as Cloudflare and Fastly are free.

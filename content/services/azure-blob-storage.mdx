@@ -1,8 +1,9 @@
 ---
 title: Azure Blob Storage
 description: >-
-  Scalable object storage for unstructured data such as images, videos, backups,
-  and logs on Azure.
+  Azure Blob Storage keeps files such as images, videos, backups, and logs as
+  objects inside a storage account. It suits developers and teams that already
+  build on Azure.
 provider: Azure
 category: storage
 domain: storage
@@ -18,8 +19,12 @@ audiences:
   - student
   - oss
 tags:
-  - storage
-  - cloud
+  - object storage
+  - blob storage
+  - azure storage
+  - file storage
+  - backup
+  - static website
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -42,31 +47,31 @@ freeTierDetails:
     - Charges accrue if you exceed free tier limits.
     - No hard cap—monitor usage to avoid unexpected costs.
 useCases:
-  - Static website hosting
-  - Backup and disaster recovery
-  - Media storage
-  - Data lake for analytics
-  - Log archiving
+  - Storing user uploads such as images and videos
+  - Backups and archives of files and databases
+  - Keeping application logs
+  - Serving static files for a website
+  - Holding raw data for analytics jobs
 quickstartSteps:
-  - Sign in to the Azure Portal and create a new Storage Account.
-  - Select 'BlobStorage' as the account kind and choose the 'Hot' access tier.
-  - Create a new container within your storage account.
-  - Upload files to the container using the portal or Azure CLI.
-  - Configure access policies or generate SAS tokens as needed.
+  - Sign up for an Azure free account with a Microsoft or GitHub account, a phone number, and a credit or debit card.
+  - Open the Azure portal and create a storage account.
+  - In the storage account, open Containers in the Data storage section and select + Container.
+  - Name the container and keep the default Private access level.
+  - Select Upload to add a file, then right-click the blob to download it again.
 whenToUse: >-
-  Use when you need scalable, reliable object storage for unstructured data with
-  global access and integration with Azure services.
+  Use it when you want object storage that sits next to other Azure services,
+  and you accept a card and a 12-month free period.
 whenNotToUse: >-
-  Avoid if you need a hard usage cap, require on-premises storage, or want a
-  free tier without a credit card.
+  Avoid it if you need a free plan that never expires, a hard spending cap, or
+  a sign-up without a credit card.
 bestFor:
-  - cloud backups
-  - media storage
-  - analytics data lakes
+  - small backups during the first year
+  - file storage for apps already on Azure
+  - learning Azure storage
 avoidIf:
-  - need hard cap
-  - on-premises only
-  - no credit card
+  - you need storage that stays free after 12 months
+  - you need a hard cap
+  - you cannot give a card
 difficulty: beginner
 productionReadiness: production-ready
 lastUpdated: 2026-09-26
@@ -76,9 +81,51 @@ officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/blobs/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/storage/blobs/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/storage/blobs/'
-  - 'https://learn.microsoft.com/en-us/azure/storage/blobs/blob-storage-estimate-costs'
+  - 'https://azure.microsoft.com/en-us/pricing/free-services/'
+  - 'https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 lastVerified: 2026-09-26
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/blobs/'
 ---
-Azure Blob Storage provides scalable, secure object storage for a wide range of unstructured data, with a free tier suitable for small projects and testing.
+You manage Blob Storage in the Azure portal, with the Azure CLI, or from code with the Azure Storage client libraries. It fits developers who want plain file storage inside an Azure subscription.
+
+## What the free plan gives you
+
+New Azure accounts get a free monthly amount of Blob Storage for 12 months. The atlas records it as 5 GB of hot block blob storage on locally redundant storage (LRS), plus 20,000 read operations and 10,000 write operations each month.
+
+The Azure free services page says some free services last 12 months for new customers, and some stay free for as long as you have an account. Blob Storage is in the 12-month group in this entry. The pricing page does not show the free amounts, so check the free services list in the portal before you rely on them.
+
+The free amount covers only the hot tier on LRS. Other tiers and other redundancy options are billed.
+
+## When you hit a limit
+
+The pricing page could not be read for the free amounts, so this section follows the entry's recorded data. Azure does not stop your account at the free amount. Extra storage and extra operations are billed at the normal pay-as-you-go rates.
+
+Blob Storage bills data storage per GB per month, plus operations, data retrieval, and data transfer. There is no hard cap on the free amount. After the 12 months end, the free amount ends too, and the storage is billed as normal. Set a budget and an alert in Azure Cost Management to catch a surprise early.
+
+## Gotchas
+
+- You need a phone number and a credit or debit card to sign up, and Azure places a small temporary authorization on the card.
+- The recorded free amount covers hot-tier LRS only. Cool, cold, and archive tiers and other redundancy options have their own prices on the pricing page.
+- SFTP is a separate line on the pricing page, charged per hour while it is enabled on a storage account.
+
+## Alternatives in this atlas
+
+- [Backblaze B2](/services/backblaze-b2/): when you want object storage with a free amount that does not expire.
+- [Cloud Storage](/services/cloud-storage/): when your other services run on Google Cloud.
+- [Cloudflare R2](/services/cloudflare-r2/): when you serve files to many users and want to avoid download fees.
+
+## Questions people ask
+
+### Is Azure Blob Storage free?
+
+Only for new Azure accounts, and only for 12 months. The recorded amount is 5 GB of hot LRS block blob storage with 20,000 read and 10,000 write operations each month.
+
+### Does Azure Blob Storage need a credit card?
+
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+### What happens when I go over the free Blob Storage amount?
+
+Azure bills the extra at the normal rates. There is no hard cap, so use budgets and alerts in Cost Management.

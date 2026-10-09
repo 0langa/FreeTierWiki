@@ -1,8 +1,9 @@
 ---
 title: CarAPI.dev
 description: >-
-  CarAPI.dev provides a free REST API for vehicle data, including makes, models,
-  trims, and specifications.
+  CarAPI.dev is a REST API for vehicle data: VIN decoding, plate lookup,
+  listings, photos, valuation, recalls, and EV charging stations. Developers use
+  it in car and fleet apps.
 provider: CarAPI.dev
 category: apis
 domain: apis
@@ -17,7 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - api
+  - vin decode
+  - vehicle data api
+  - license plate lookup
+  - car api
+  - ev charging
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier allows 100 API requests per month, with access to all API endpoints.
@@ -32,22 +37,23 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Building car comparison tools
-  - Populating vehicle dropdowns in forms
-  - Prototyping automotive apps
-  - Educational projects involving car data
+  - 'Decode a VIN into make, model, year, and engine'
+  - Convert a license plate to a VIN
+  - Check recall or mileage history for a vehicle
+  - Find EV charging stations near a point
+  - Read a VIN or plate from a photo with the OCR endpoints
 quickstartSteps:
   - Sign up for a free CarAPI.dev account.
-  - Obtain your API key from the dashboard.
-  - Read the API documentation for endpoint details.
-  - Make your first API request using your key.
-  - Integrate API responses into your application.
+  - Sign in to the dashboard and copy your API key.
+  - 'Open the docs and pick an endpoint, such as VIN Decode.'
+  - 'Send a GET request to `https://api.carapi.dev/v1/vin-decode/VIN?token=YOUR_API_KEY` with a real VIN in place of the placeholder.'
+  - 'Read the JSON response and watch the `X-RateLimit-Remaining` header for your quota.'
 whenToUse: >-
-  Use CarAPI.dev when you need basic vehicle data for apps, forms, or prototypes
-  with low to moderate API usage.
+  Use CarAPI.dev when you need VIN decoding, plate lookup, or other vehicle data
+  in a prototype or small app with fewer than 100 calls a month.
 whenNotToUse: >-
-  Avoid if you need more than 100 requests/month for free, or guaranteed uptime
-  for production-critical automotive services.
+  Avoid it if you need more than 100 requests a month for free, or data from
+  regions an endpoint does not cover.
 bestFor:
   - prototyping
   - student projects
@@ -56,11 +62,11 @@ bestFor:
 avoidIf:
   - enterprise production
   - high-traffic apps
-  - advanced automotive analytics
+  - need a free plan above 100 requests a month
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://carapi.dev'
@@ -71,4 +77,41 @@ sourceUrls:
   - 'https://docs.carapi.dev'
 featured: false
 ---
-CarAPI.dev offers a simple REST API for retrieving vehicle makes, models, and specifications, with 100 free requests per month to all endpoints.
+You sign up on the website, copy a token from the dashboard, and send GET requests with `curl` or any HTTP client. There is also an MCP server for AI agents. It suits developers who need to decode a VIN or look up a vehicle in a prototype.
+
+## What the free plan gives you
+
+The Free plan gives you 100 requests per month and access to all API endpoints. The paid plans differ only in volume: Starter has 5,000 requests a month for 29 EUR, Professional has 25,000 for 89 EUR, and Business has 100,000 for 249 EUR.
+
+The site lists 16 endpoints with US and EU coverage. They include VIN decode, plate to VIN, stolen vehicle check, vehicle inspection records, listings, photos, valuation, mileage history, recalls, and EV charging stations. The docs also list OCR endpoints that read a VIN or a license plate from a photo.
+
+## When you hit a limit
+
+The API answers with HTTP status 429 and the code `quota_exceeded` when you use up your monthly quota. The message includes a reset date, and the response headers `X-RateLimit-Remaining` and `X-RateLimit-Reset` let you track usage.
+
+The pricing page lists no overage fee. The free plan stops at the quota instead of billing you. To get more requests before the reset, pick one of the paid plans.
+
+## Gotchas
+
+- The docs list one quota of 100 requests a month for the Free plan, so a small test run of VIN decodes and photo lookups can use up the month.
+- The example request in the docs puts your key in a `token` query parameter, so keep calls on your server and out of front-end code.
+- Some endpoints cover only some regions. Recalls cover U.S. records, and inspection records come from European countries.
+
+## Alternatives in this atlas
+
+- [Abstract API](/tools/abstract-api/): when you need IP, email, or phone checks instead of vehicle data.
+- [Canopy](/services/canopy/): when your product data comes from Amazon listings rather than vehicles.
+
+## Questions people ask
+
+### Is CarAPI.dev free?
+
+Yes, within limits. The Free plan gives you 100 requests a month to all endpoints. Paid plans start at 29 EUR a month for 5,000 requests.
+
+### What happens when I go over the CarAPI.dev free limit?
+
+The API returns a 429 status with the code `quota_exceeded` and the date your quota resets. The pricing page lists no overage fee.
+
+### Does CarAPI.dev have an MCP server?
+
+The docs list an MCP Server page and an AI Agents page, and the home page says the API is MCP-ready.

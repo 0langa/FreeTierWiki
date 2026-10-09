@@ -1,8 +1,9 @@
 ---
 title: IPinfo
 description: >-
-  IPinfo provides IP address data APIs for geolocation, ASN, privacy detection,
-  and more.
+  IPinfo is an IP data API for geolocation, ASN, and privacy detection. The free
+  IPinfo Lite plan gives country-level location and ASN data with no request
+  quota.
 provider: IPinfo
 category: apis
 domain: apis
@@ -17,9 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
-  - privacy
+  - ip geolocation
+  - asn lookup
+  - ip data
+  - geoip
+  - privacy detection
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -40,22 +43,23 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Show user country on websites
-  - Personalize content by country
-  - Country-level analytics
-  - Prototype before upgrading to city-level data
+  - 'Show a visitor''s country on a website'
+  - Personalize content or language by country
+  - Run country-level analytics on traffic
+  - Look up the network (ASN) behind an address
+  - Prototype before moving to city-level data
 quickstartSteps:
-  - 'Sign up for a free IPinfo Lite account at https://ipinfo.io/signup.'
-  - Retrieve your API token from the dashboard.
-  - Read the API documentation for endpoint details.
-  - Make a test API request using your token.
-  - Integrate the API into your application.
+  - 'Sign up for a free IPinfo Lite account at `ipinfo.io/signup`; no credit card is needed.'
+  - Copy your API token from the dashboard.
+  - 'Send a request to `https://api.ipinfo.io/lite/8.8.8.8?token=$TOKEN`, or use `lite/me` for your own address.'
+  - 'Read the JSON response for country and ASN fields, or ask for one field such as `/country_code`.'
+  - Upgrade to a paid plan only if you need city-level data or privacy detection.
 whenToUse: >-
-  Use IPinfo Lite when country-level geolocation is enough and you need
-  unlimited free requests.
+  Use IPinfo Lite when country-level geolocation and basic ASN data are enough
+  and you want no request quota.
 whenNotToUse: >-
-  Avoid if you need city-level geolocation, full ASN data, privacy detection, or
-  on-premises deployment.
+  Avoid it if you need city-level location, full ASN data, privacy detection, or
+  a self-hosted database.
 bestFor:
   - web developers
   - app developers
@@ -67,8 +71,8 @@ avoidIf:
   - must self-host
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://ipinfo.io/'
@@ -77,6 +81,45 @@ pricingUrl: 'https://ipinfo.io/pricing'
 sourceUrls:
   - 'https://ipinfo.io/pricing'
   - 'https://ipinfo.io/developers'
+  - 'https://ipinfo.io/'
 featured: false
 ---
-IPinfo Lite offers unlimited, free-forever country-level IP geolocation; city-level data and privacy detection require a paid plan.
+You sign up, copy a token from the dashboard, and call `api.ipinfo.io/lite` over HTTPS with the token as a query parameter, Basic auth, or a Bearer header. It suits developers who only need the country and network of a visitor and want no request quota.
+
+## What the free plan gives you
+
+IPinfo Lite is free forever and needs no credit card. It gives you unlimited API requests per month for country-level geolocation, plus ASN, ASN name, and ASN domain. The pricing page also lists 50 web lookups in the dashboard.
+
+Nothing is limited per day, per hour, or per second on the free plan, and the docs say IPinfo does not cap parallel requests. City-level data starts on IPinfo Core at $26 a month. Privacy detection for VPNs, proxies, and Tor is on paid plans.
+
+## When you hit a limit
+
+The free Lite plan has no request quota, so there is no limit to hit. The docs say paid plans return HTTP 429 when you pass the monthly limit, unless metered billing is turned on, in which case overages keep requests flowing.
+
+On Core, IPinfo bills overages at a set price per request. IPinfo also emails you as you near the plan limit and again when you reach it. The free plan does not bill you.
+
+## Gotchas
+
+- Lite gives country, not city. If you need a city or coordinates, you must pay for Core or higher.
+- Full ASN details and privacy detection are not part of Lite.
+- Your token is in every request, so keep it out of public client-side code unless you accept that exposure.
+
+## Alternatives in this atlas
+
+- [IPLocate](/services/iplocate/): when you want full data on a free plan with a daily allowance.
+- [IP2Location.io](/services/ip2location-io/): when you want a large monthly allowance of full geolocation lookups.
+- [The IP API](/tools/the-ip-api/): when you want a free tier that allows commercial use.
+
+## Questions people ask
+
+### Is IPinfo free?
+
+Yes. IPinfo Lite is free forever, has no request quota, and needs no credit card. It returns country-level location and ASN data.
+
+### Does the IPinfo free plan include city?
+
+No. The free Lite plan is country level only. City-level geolocation starts on the Core plan.
+
+### What happens when I go over the IPinfo limit?
+
+Lite has no limit. On paid plans the API returns HTTP 429 past the monthly quota, or it bills overages if metered billing is on.

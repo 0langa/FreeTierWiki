@@ -1,6 +1,8 @@
 ---
 title: ZeroTier
-description: Virtual networks that connect devices anywhere as if on one LAN.
+description: >-
+  ZeroTier creates virtual networks that act like one LAN across your laptops,
+  phones, and servers, wherever they are.
 provider: ZeroTier
 category: networking
 domain: networking
@@ -11,45 +13,69 @@ audiences:
   - student
   - indie
 tags:
-  - networking
+  - zerotier
+  - virtual network
+  - mesh vpn
+  - sd-wan
+  - homelab
+  - peer to peer
+  - lan over internet
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Personal plan is free: 10 devices on one network, for personal, non-commercial use.'
+  summary: >-
+    The Personal plan is free: 10 devices on one network with one admin, for
+    personal, non-commercial use.
   limits:
     - 10 devices
     - 1 network
     - 1 network admin
+    - Community support
   caveats:
     - Non-commercial use only
+    - The pricing page lists the Personal plan at 10 devices, while the quickstart docs mention up to 25 devices
+    - Extra devices cost money on paid plans, which also add a commercial license
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Homelab networking
-  - LAN gaming
-  - Connect personal devices
+  - Homelab networking across sites
+  - LAN gaming with friends
+  - Connecting your own devices as if on one network
+  - Reaching a home server from a laptop or phone
 quickstartSteps:
-  - Sign up at my.zerotier.com.
-  - Create a network.
-  - Install ZeroTier and join the network ID.
-whenToUse: Use for a small personal network.
-whenNotToUse: Avoid for commercial use on the free plan.
+  - Create an account at my.zerotier.com.
+  - Select Create A Network on the Networks tab and note the network ID.
+  - Download and install the ZeroTier client from zerotier.com/download on two devices.
+  - 'Join the network on each device, for example `zerotier-cli join` followed by the network ID.'
+  - Tick the Auth box for each device in the Members panel, then test with ping.
+whenToUse: >-
+  Use it to link up to 10 of your own devices on one virtual network for
+  personal, non-commercial use.
+whenNotToUse: >-
+  Avoid it for commercial use on the free plan, for more than one network or
+  admin, or for more devices than the plan allows.
 bestFor:
   - homelabs
+  - LAN gaming
+  - personal devices
 avoidIf:
   - commercial use
+  - more than 10 devices
+  - several networks
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.zerotier.com'
 docsUrl: 'https://docs.zerotier.com'
 sourceUrls:
   - 'https://www.zerotier.com/pricing/'
+  - 'https://docs.zerotier.com'
+  - 'https://docs.zerotier.com/start'
 pricingUrl: 'https://www.zerotier.com/pricing/'
 featured: false
 changes:
@@ -57,4 +83,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-ZeroTier's free plan is for personal use only.
+You make a network in the ZeroTier Central web console, install the client on each device, and join with the network ID. It suits hobbyists who want their own devices on one private network without a lot of setup.
+
+## What the free plan gives you
+
+The Personal plan is free. It is for personal, non-commercial use and covers 10 devices on one network with one network admin. You get the CLI, the UI, and webhooks, and support comes from the community.
+
+The pricing page says new accounts, created after Nov. 5, 2025, use New Central, while older accounts use Legacy Central. The Personal plan is aimed at hobbyists, smart home users, and gamers.
+
+Paid plans start with Essential, which adds a commercial license, 10 networks, five admins, OIDC single sign-on, and 30-day audit logs. Essential includes 10 devices, and more cost $2 each.
+
+## When you hit a limit
+
+The pricing page lists the device count as included, with extra devices priced on paid plans. For the Personal plan it shows no per-device price. To go past the device count, plan on upgrading to a paid plan.
+
+Commercial use is the bigger line. The Personal plan is for non-commercial use only, and the commercial license starts on the Essential plan at $18 a month. The pages do not describe what ZeroTier does if you pass the free device count.
+
+## Gotchas
+
+- The quickstart docs say Central is free for personal and small business use up to 25 devices. The pricing page lists 10 devices and non-commercial use, so trust the pricing page.
+- A device that joins a network shows Access Denied until you tick Auth for it in the Members panel.
+- Windows blocks ping by default, but ZeroTier enables ping automatically, so you can test with it.
+
+## Alternatives in this atlas
+
+- [Tailscale](/services/tailscale/): when you want sign-in through an identity provider and up to 6 users on the free plan.
+- [Cloudflare Zero Trust](/services/cloudflare-zero-trust/): when you need access control for a small team on a free plan.
+- [ngrok](/tools/ngrok/): when you only need a public URL to a service on your own machine.
+
+## Questions people ask
+
+### Is ZeroTier free?
+
+Yes, for personal use. The Personal plan covers 10 devices on one network with one admin. It is for non-commercial use only.
+
+### Can I use ZeroTier free for business?
+
+No. The Personal plan is non-commercial. The Essential plan adds a commercial license and starts at $18 a month.
+
+### Does ZeroTier need a credit card?
+
+The quickstart docs say no credit card is required for Central. The pricing page shows the Personal plan as free with a Start Now button.

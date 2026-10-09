@@ -1,8 +1,8 @@
 ---
 title: Apify
 description: >-
-  Apify provides cloud-based web scraping, automation, and data extraction tools
-  with a generous free tier for small-scale projects.
+  Apify is a cloud platform where you run ready-made scrapers and automation
+  programs called Actors, or publish your own, and collect the results as data.
 provider: Apify
 category: scraping
 domain: scraping
@@ -17,14 +17,19 @@ audiences:
   - team
   - oss
 tags:
+  - web scraping
+  - web crawler
+  - actors
   - automation
-  - data
-  - api
+  - data extraction
+  - scraping api
+  - proxies
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan includes $5 of monthly platform credit to spend on Apify Store
-    actors or your own actors.
+    Actors or your own Actors, with no credit card. When the credit runs out,
+    access is blocked until the next monthly cycle.
   limits:
     - $5 monthly platform credit
     - $0.2 per compute unit
@@ -33,7 +38,8 @@ freeTierDetails:
   caveats:
     - Access is blocked until the next monthly cycle once free credit runs out
     - Unused credit does not roll over
-    - Free plan limits Rented Actors to trial use
+    - Free plan has no Apify Store discount
+    - Apify Proxy on the free plan works only inside the platform, not for external clients
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -42,36 +48,38 @@ freeTierDetails:
   billingRiskNotes:
     - No card required; the free plan is blocked, not billed, when credit runs out
 useCases:
-  - Crawling websites for structured data
-  - Automating web workflows
-  - Building custom data extraction APIs
-  - Monitoring price changes
-  - Aggregating public information
+  - Scraping Google Maps listings or product pages with a ready-made Actor
+  - Crawling a website and exporting the content as data
+  - Tracking prices on a schedule
+  - Collecting data to feed an AI app
+  - Calling an Actor from your own code through the API
 quickstartSteps:
-  - Sign up for a free Apify account at apify.com.
-  - Create a new actor or select a template from the Apify Store.
-  - Configure input settings for your target website or workflow.
-  - Run the actor and monitor progress in the Apify console.
-  - Download or export extracted data in your preferred format.
+  - Sign up for a free Apify account at apify.com; the pricing page says no credit card is required.
+  - Open Apify Store in the Console and pick an existing Actor to run first.
+  - Fill in the Actor's input, start the run, and read the results from its dataset.
+  - To build your own, install the CLI (`npm install -g apify-cli` or `brew install apify-cli`) and run `apify create`.
+  - Test the Actor on your machine with `apify run`.
+  - Run `apify login`, then `apify push` to upload and build it on the platform.
 whenToUse: >-
-  Use Apify when you need to automate web data extraction or scraping without
-  managing your own infrastructure.
+  Use Apify when you want a ready-made scraper from Apify Store, or a place to
+  run your own crawler on a schedule, without managing servers.
 whenNotToUse: >-
-  Avoid Apify for projects requiring high-volume scraping, custom browser
-  automation, or if you need on-premise deployment.
+  Avoid the free plan for steady scraping at volume: the $5 credit is spent
+  quickly by browser-based crawls, and the account is blocked until the next
+  month once it is gone.
 bestFor:
-  - web scraping beginners
-  - data automation
-  - small projects
-  - prototyping
+  - trying a ready-made scraper
+  - small scheduled crawls
+  - prototyping a data pipeline
+  - learning web scraping
 avoidIf:
-  - need unlimited scraping
-  - require on-premise
-  - have strict data residency needs
+  - you need steady high-volume scraping
+  - you need proxies for your own external clients
+  - you cannot tolerate an account block mid-month
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.apify.com/'
@@ -79,6 +87,47 @@ docsUrl: 'https://docs.apify.com/'
 pricingUrl: 'https://apify.com/pricing'
 sourceUrls:
   - 'https://apify.com/pricing'
+  - 'https://docs.apify.com/platform/actors/running'
+  - 'https://docs.apify.com/cli/docs/quick-start'
+  - 'https://docs.apify.com/cli/docs/installation'
 featured: false
 ---
-Apify offers a cloud platform for web scraping and automation, providing a free tier suitable for learning, prototyping, and small data extraction tasks.
+You can run Actors by hand in the Console, call them with the API, or start them from your own code. The command line tool helps when you write your own Actor.
+
+## What the free plan gives you
+
+The free plan costs nothing and needs no credit card. It gives you $5 a month to spend in Apify Store or on your own Actors. Compute costs $0.2 per compute unit, where one unit is 1 GB of RAM for one hour. A single Actor run can use up to 16 GB of RAM, and you can run up to 5 Actors at once.
+
+Support is community only, and Apify Store prices carry no discount. The free plan includes Apify Proxy, but only for use inside the platform. It does not extend to external clients. Paid plans start at $19 a month and lower the compute price.
+
+## When you hit a limit
+
+The free plan has a hard stop. Once your platform usage passes the $5 credit, Apify blocks your access to its services until the next monthly cycle begins. You are not billed, because there is no card on file. Paid users keep running and pay for the extra usage on the next invoice.
+
+Unused credit does not roll over. It expires at the end of the billing cycle, so you cannot save it for a bigger job. Runs cost more when they use proxies, move more data, use more memory, or retry failed requests.
+
+## Gotchas
+
+- Many Store Actors charge per event or per result, so read the pricing section on each Actor's page before you run it.
+- Proxy traffic, data transfer, and storage operations all draw from the same $5 credit as compute.
+- Extras such as more concurrent runs, more Actor RAM, and datacenter proxies are paid add-ons.
+
+## Alternatives in this atlas
+
+- [ScrapingAnt](/services/scrapingant/): when you want a plain scraping API with browser rendering instead of a platform of Actors.
+- [Browse AI](/services/browse-ai/): when you prefer to train a point-and-click robot rather than write or pick an Actor.
+- [Simplescraper](/services/simplescraper/): when you want to scrape in the browser with no code.
+
+## Questions people ask
+
+### Is Apify free?
+
+Yes, there is a free plan. It gives you $5 of platform credit each month and needs no credit card. When the credit is used up, access is blocked until the next cycle.
+
+### What happens when I run out of Apify free credit?
+
+Apify blocks your access to its services until the beginning of the next monthly cycle. Free accounts are not charged. Paid accounts can keep going and pay for the extra usage.
+
+### Does Apify need a credit card for the free plan?
+
+No. The pricing page says no credit card is required for the free plan.

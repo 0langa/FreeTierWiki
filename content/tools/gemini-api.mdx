@@ -1,8 +1,8 @@
 ---
 title: Gemini API
 description: >-
-  Google Cloud's Gemini API provides access to advanced generative AI models for
-  text, code, and multimodal tasks.
+  The Gemini API gives developers access to Google's Gemini models for text,
+  code, images, and other inputs, with a free tier and AI Studio to try it.
 provider: Google Cloud
 category: ai
 domain: ai
@@ -19,57 +19,61 @@ audiences:
   - enterprise
   - oss
 tags:
-  - ai
-  - llm
-  - api
+  - gemini
+  - llm-api
+  - generative-ai
+  - multimodal
+  - google-ai-studio
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free input and output tokens on selected Gemini API models, with model-specific rate limits.
-    Grounding availability depends on the model and billing tier.
+    Free input and output tokens on selected Gemini API models, with model-specific rate limits
+    shown in Google AI Studio. Content sent on the free tier is used to improve Google's products.
   limits:
     - Free input and output tokens on supported models
     - Limited access to certain models
-    - Model-specific request and token limits
+    - Rate limits per project in requests per minute, tokens per minute, and requests per day
+    - Free access to Google AI Studio
   caveats:
     - Content sent on the free tier is used to improve Google's products
     - >-
-      Exact rate limits vary by usage tier and are shown in Google AI Studio, not published on the
+      Exact rate limits vary by model and usage tier and are shown in Google AI Studio, not on the
       pricing page
     - >-
-      The Gemini 3.x 5,000-request monthly Search and Maps grounding allowances are Paid Tier
-      benefits; billing is required and excess usage is charged.
+      Batch and Flex pricing are not available on the free tier, and the Gemini 3.x Search and Maps
+      grounding allowances of 5,000 per month are Paid Tier benefits
+    - Daily request limits reset at midnight Pacific time
   resetPeriod: model-specific
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Text summarization
-  - Chatbots
-  - Code generation
-  - Image captioning
-  - Multimodal analysis
+  - Summarize and rewrite text
+  - Build chatbots and assistants
+  - Generate and explain code
+  - Describe and analyze images and other media
+  - Prototype an AI feature in Google AI Studio before writing code
 quickstartSteps:
-  - Sign in to Google Cloud and enable the Gemini API in your project.
-  - Create or select a service account with appropriate permissions.
-  - Obtain an API key or set up OAuth credentials.
-  - Install the Google AI SDK or use the REST API.
-  - Make your first API call using sample code from the documentation.
+  - Open Google AI Studio and sign in with a Google account. It creates a project and an API key for new users.
+  - Copy the key from the API keys page and set it as the `GEMINI_API_KEY` environment variable.
+  - Install an SDK with `pip install -U google-genai` or `npm install @google/genai`.
+  - Make a request with the SDK client, or send a POST with the `x-goog-api-key` header to `generativelanguage.googleapis.com`.
+  - Check your rate limits and usage in AI Studio. Link billing only if you want the Paid Tier.
 whenToUse: >-
-  Use Gemini API when you need scalable, managed access to Google's latest
-  generative AI models for text or multimodal tasks.
+  Use the Gemini API when you want to prototype with Google's models for free,
+  or add text and multimodal features to an app through an SDK or REST.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment, strict data residency, or need
-  unlimited free usage for high-volume workloads.
+  Avoid the free tier for private or sensitive data, since Google may use free
+  tier content to improve its products, or for high-volume workloads.
 bestFor:
   - prototyping
   - AI-powered apps
   - multimodal projects
 avoidIf:
-  - self-hosting required
-  - strict data locality
-  - large-scale free usage
+  - you send private or customer data on the free tier
+  - you need high rate limits for production
+  - you need on-premises hosting
 difficulty: beginner
 productionReadiness: production-light
 status: changed
@@ -77,15 +81,55 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Removed Gemini 3.x paid-tier grounding allowances from the free-tier limits."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://ai.google.dev/pricing'
 docsUrl: 'https://ai.google.dev/docs'
 sourceUrls:
   - 'https://ai.google.dev/gemini-api/docs/pricing'
+  - 'https://ai.google.dev/pricing'
+  - 'https://ai.google.dev/gemini-api/docs/rate-limits'
+  - 'https://ai.google.dev/gemini-api/docs/quickstart'
+  - 'https://ai.google.dev/gemini-api/docs/billing'
 pricingUrl: 'https://ai.google.dev/gemini-api/docs/pricing'
 featured: false
 ---
-Gemini API provides developers with access to Google's generative AI models for building applications that require text, code, or multimodal understanding. The free tier gives free input/output tokens on supported models, though exact rate limits are not published and vary by usage tier. Integration is straightforward via REST or SDK, and the service is ideal for teams looking to quickly add AI capabilities without managing infrastructure.
+You use the Gemini API through an API key from Google AI Studio, with the Python or JavaScript SDK or plain REST. It suits developers who prototype AI features and do not want to run models themselves.
+
+## What the free plan gives you
+
+New accounts start on the Free Tier. It allows access to certain models in the Gemini API and AI Studio, with free input and output tokens, up to each model's rate limits. The pricing page lists "Limited access to certain models" and "Free of charge" prices for the Standard tier. Batch and Flex pricing show as not available on the free tier.
+
+Rate limits are measured in requests per minute, tokens per minute, and requests per day. They apply per project, not per API key. Limits are stricter for experimental and preview models. The pricing page does not list exact numbers. You read your active limits in Google AI Studio.
+
+## When you hit a limit
+
+If you go over any single limit, the API returns a rate limit error. Daily request quotas reset at midnight Pacific time. Billing starts only after you link a billing account. To get higher limits and keep your prompts out of Google's training, you link a billing account and prepay a minimum of $5 to move to the Paid Tier. The Paid Tier also unlocks 5,000 free grounding requests per month for Search, then $14 per 1,000 requests.
+
+## Gotchas
+
+- On the free tier, Google uses your content to improve its products. The Paid Tier removes this.
+- Rate limits are stricter for experimental and preview models.
+- Grounding with Google Search and Maps shows as not available on the free tier for Gemini 3.x models.
+
+## Alternatives in this atlas
+
+- [Groq](/services/groq/): when you want a free plan with daily request limits and hosted open models.
+- [Mistral API](/services/mistral-api/): when you want a free plan with monthly API credits.
+- [OpenRouter](/services/openrouter/): when you want to try many models from different providers through one API.
+
+## Questions people ask
+
+### Is the Gemini API free?
+
+Yes, on the Free Tier. You get free input and output tokens on supported models, with rate limits. The pricing page also lists free access to Google AI Studio.
+
+### Does the Gemini API need a credit card?
+
+No. New accounts start on the Free Tier. You link a billing account only to move to the Paid Tier.
+
+### Is my data used to train Google models on the Gemini API free tier?
+
+The pricing page says content on the free tier is used to improve Google's products. The billing page says moving to the Paid Tier keeps your prompts and responses out of that use.

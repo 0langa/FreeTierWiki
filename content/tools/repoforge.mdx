@@ -1,8 +1,8 @@
 ---
 title: RepoForge
 description: >-
-  RepoForge is a private package registry (Python, Docker, NPM, Debian, Conda)
-  with a free, non-commercial tier and 100 MB storage.
+  RepoForge hosts package registries for Python, Docker, NPM, Debian, and Conda.
+  The free plan is for open source projects and holds public packages only.
 provider: RepoForge
 category: devops
 domain: devops
@@ -14,56 +14,106 @@ audiences:
   - startup
   - oss
 tags:
-  - devops
+  - private pypi server
+  - package registry
+  - python packages
+  - docker registry
+  - npm registry
+  - conda channel
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever tier for open source projects, with 100 MB storage and
-    unlimited public packages.
+    The Free plan is for open source projects. It gives you 100 MB of storage
+    and unlimited public packages, free forever, and it is not for commercial use.
   limits:
     - '100 MB storage'
     - Unlimited public packages
     - 'Formats: Python, Docker, NPM, Debian, Conda'
   caveats:
     - Not for commercial use
-    - No private packages on the free plan
+    - Unlimited private packages start on the paid Basic plan
+    - Upstream mirroring, SSO, and custom domains are on higher paid plans
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Host public packages for open source projects
-  - Publish Python, Docker, NPM, Debian, or Conda packages
-  - Try the registry before upgrading to a paid, private-package plan
+  - Publishing a public Python package from your own registry address
+  - Hosting public Docker, NPM, Debian, or Conda packages for an open source project
+  - Trying a hosted registry before paying for private packages
+  - Installing your packages with pip, poetry, or uv from a custom index
 quickstartSteps:
-  - Sign up at repoforge.io.
-  - Create a repository for your package format.
-  - Configure your package manager's index URL to point at RepoForge.
-  - Publish your package.
+  - Choose Start Free on repoforge.io. No card is needed.
+  - Copy the unique registry URL you get at sign-up. It looks like api.repoforge.io followed by your registry id.
+  - Publish with twine upload, using that URL as the repository URL.
+  - Install with pip install, adding the same URL as the index URL. It also works with poetry and uv.
+  - Read the quickstart for your format (Python, Docker, NPM, or Conda) linked in the site footer.
 whenToUse: >-
-  Use RepoForge for free public package hosting on an open source,
-  non-commercial project.
+  Use RepoForge to host public packages for an open source project when you
+  want your own registry address and 100 MB is enough.
 whenNotToUse: >-
-  Avoid if you need private packages, more than 100 MB storage, or commercial
-  use, since those require a paid plan.
+  Avoid the Free plan for commercial work, private packages, or anything that
+  needs more than 100 MB of storage.
 bestFor:
   - open source maintainers
+  - Python package authors
   - indie developers
 avoidIf:
-  - need private packages
   - commercial use
-  - need more than 100 MB storage
+  - private packages
+  - more than 100 MB of storage
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://repoforge.io'
-docsUrl: 'https://docs.repoforge.io'
+docsUrl: 'https://repoforge.io'
 sourceUrls:
   - 'https://repoforge.io'
+  - 'https://repoforge.io/pricing'
 pricingUrl: 'https://repoforge.io'
 featured: false
 ---
-RepoForge is a private package registry for Python, Docker, NPM, Debian, and Conda, with a free, non-commercial tier limited to 100 MB storage.
+You publish with your usual tools, such as twine, and install with pip against a registry address RepoForge gives you. There is nothing to host yourself.
+
+## What the free plan gives you
+
+The Free plan is meant for open source projects and costs nothing. It includes 100 MB of storage and unlimited public packages. The plan is free forever and needs no credit card. The site lists Python, Docker, NPM, Debian, and Conda as supported formats.
+
+The pricing page says plainly that the Free plan is not for commercial use. If your project is a business, plan to use a paid tier.
+
+Paid plans are priced per user per month in pounds. Basic costs £12 per user and adds 1 GB of storage per user, unlimited private packages, and REST API access. Standard and Advanced raise storage further and add mirroring, SSO, and custom domains.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 100 MB of storage. The site says there are no bandwidth caps and no surprise invoices, but it does not describe what a full registry does.
+
+The site shows no card step for the Free plan, so a bill can only start when you choose a paid plan. Paid plans are priced per user, and storage on them is counted per user, so check the plan table before you add people.
+
+## Gotchas
+
+- Free is for open source projects only. The pricing page lists "Not for commercial use" under the Free plan.
+- Private packages are not part of Free. The Basic plan is the first one with unlimited private packages.
+- Storage on paid plans is counted per user, so the total grows with your team size.
+
+## Alternatives in this atlas
+
+- [Repsy.io](/services/repsy-io/): when you want a larger free storage allowance for your packages.
+- [Gemfury](/services/gemfury/): when you only need public packages hosted free.
+- [Jitpack.io](/services/jitpack-io/): when your packages are Java or Android libraries built from public Git repositories.
+
+## Questions people ask
+
+### Is RepoForge free?
+
+Yes, for open source projects. The Free plan gives you 100 MB of storage and unlimited public packages, and it is free forever.
+
+### Does RepoForge need a credit card?
+
+No. The site says no card is needed to start free. You only pay if you move to a paid plan.
+
+### Can I use RepoForge for private packages for free?
+
+No. The Free plan is for public packages. Unlimited private packages start on the Basic plan.

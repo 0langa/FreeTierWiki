@@ -1,8 +1,9 @@
 ---
 title: Svix
 description: >-
-  Svix provides a managed webhooks service for sending, receiving, and
-  monitoring webhook events at scale.
+  Svix is a webhook sending service. You call its API once, and it delivers
+  events to your customers' endpoints with retries, signing, and a customer
+  portal. It suits SaaS teams that do not want to build this themselves.
 provider: Svix
 category: automation
 domain: automation
@@ -17,9 +18,11 @@ audiences:
   - indie
   - oss
 tags:
-  - integration
-  - queue
+  - webhooks
+  - event-delivery
+  - saas
   - api
+  - retries
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier includes up to 50,000 messages per month, no credit card required.
@@ -37,42 +40,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Sending webhook notifications from SaaS apps
-  - Reliable event delivery to third-party services
-  - Monitoring webhook delivery status
+  - Sending webhook events from your SaaS product to customer endpoints
+  - Giving customers a self-serve portal to manage their own webhook endpoints
+  - Retrying failed deliveries without writing retry code
+  - Receiving and testing webhooks with Svix Ingest and Svix Play
 quickstartSteps:
-  - Sign up for a Svix account.
-  - Create a new application in the Svix dashboard.
-  - Add an endpoint URL to receive webhooks.
-  - Send a test event from the dashboard to verify delivery.
-  - Integrate the Svix API into your application for automated event sending.
+  - Sign up for a free Svix account; the pricing page says no credit card is required.
+  - Create an API key in the dashboard.
+  - Install a Svix SDK, which the quickstart marks as optional.
+  - Create a consumer application for one of your customers.
+  - Add an endpoint URL for that application, then send a message with the SDK or the API.
 whenToUse: >-
-  Use Svix when you need reliable, managed webhook delivery without building
-  your own infrastructure.
+  Use it when your product sends webhooks and you want retries, signing, and a
+  customer-facing portal without building them.
 whenNotToUse: >-
-  Avoid Svix if you require high message volumes, advanced security, or custom
-  branding on the free tier.
+  Avoid the Free plan if you need more than 50,000 messages a month, an uptime
+  SLA, a branded portal, or more than 1 connector.
 bestFor:
-  - SaaS products
-  - internal tools
+  - SaaS products that send webhooks
   - MVPs
-  - event-driven apps
+  - teams that want a customer portal for webhooks
 avoidIf:
-  - need unlimited endpoints
-  - require advanced analytics
-  - must have custom branding
+  - you need an uptime SLA on the free plan
+  - you need white-label headers or an unbranded portal for free
+  - you send more than 50,000 messages a month
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.svix.com/'
 docsUrl: 'https://docs.svix.com/'
 sourceUrls:
   - 'https://www.svix.com/pricing/'
-  - 'https://docs.svix.com/'
+  - 'https://www.svix.com/'
+  - 'https://docs.svix.com/quickstart'
 pricingUrl: 'https://www.svix.com/pricing/'
 featured: false
 ---
-Svix offers a simple way to send and manage webhooks, with a generous free tier for low-volume use and easy integration for developers.
+You use Svix through its API and SDKs to create consumer applications, add endpoints, and send messages. A dashboard shows deliveries. It suits SaaS developers who add webhooks to their product.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month and needs no credit card. It includes up to 50,000 messages a month, 7 days of payload retention, a message rate of 50 per second, and an embeddable webhooks UI. Environments, consumer applications, transformations, and team members are unlimited. The Free plan has 1 connector.
+
+Only attempted or transformed messages count toward usage. Messages that Svix filters out, for example when there are no endpoints, and retries are free. Each 64 KiB chunk of payload bills as one message. You can also test webhooks with Svix Play without signing up.
+
+## When you hit a limit
+
+The pricing page does not say whether Svix blocks sending after 50,000 messages on the Free plan. It lists no per-message price for Free, so this entry treats the plan as a hard limit with no charge.
+
+On paid plans, extra messages bill at $0.0001 each. The Basic plan starts at $20 a month and the Professional plan at $490 a month. Both include 50k free messages a month. Professional starts with a 30-day free trial.
+
+## Gotchas
+
+- The Free plan has no uptime SLA. Basic has 99.9% and Professional has 99.99%.
+- White label headers need Basic, and the unbranded application portal needs Professional.
+- Payload retention is only 7 days on Free, against 30 days on Basic.
+
+## Alternatives in this atlas
+
+- [Hook0](/services/hook0/): when you want an open-source sender you can self-host.
+- [Posthook](/services/posthook/): when you want to schedule a webhook for later, not send events.
+- [UseWebhook.com](/services/usewebhook-com/): when you only need to inspect incoming webhooks.
+
+## Questions people ask
+
+### Is Svix free?
+
+Yes. The Free plan costs $0, needs no credit card, and includes up to 50,000 messages a month.
+
+### Does Svix have an SLA on the free plan?
+
+No. The FAQ says the Free plan has no SLA. The Basic plan offers 99.9%.
+
+### Can I test webhooks with Svix without an account?
+
+Yes. The pricing page says you can use the Svix Play webhooks tester without even signing up.

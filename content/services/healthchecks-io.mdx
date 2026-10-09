@@ -1,6 +1,9 @@
 ---
 title: Healthchecks.io
-description: 'Cron job monitoring: your job pings a URL, and you get an alert when a ping is late.'
+description: >-
+  Healthchecks.io watches cron jobs and other scheduled tasks. Your job sends an
+  HTTP request to a unique URL, and you get an alert when a request is late or
+  reports a failure.
 provider: Healthchecks.io
 category: observability
 domain: observability
@@ -12,46 +15,67 @@ audiences:
   - indie
   - startup
 tags:
-  - monitoring
-  - automation
+  - cron-monitoring
+  - heartbeat
+  - dead-mans-switch
+  - backup-monitoring
   - open-source
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Hobbyist plan is free: 20 jobs with 100 log entries each.'
+  summary: 'The Hobbyist plan is free: monitor 20 jobs, keeping 100 log entries per job. No credit card required.'
   limits:
     - 20 monitored jobs
     - 100 log entries per job
   caveats:
-    - Business plan is free for open-source projects and non-profits on request
+    - The Business plan is free for open-source projects and non-profits on request
+    - Do not use multiple accounts to get around the Hobbyist limits; the pricing page treats that as abuse
+    - Not a website uptime monitor
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Alert when a backup script does not run
+  - Alert when a nightly backup script does not run
   - Watch cron jobs and scheduled tasks
+  - Check that daily, weekly, or monthly report emails go out
+  - Track SSL renewals and other periodic chores
+  - Send an "I'm alive" message from a server
 quickstartSteps:
-  - Sign up at healthchecks.io.
-  - Create a check and copy its ping URL.
-  - Add curl <ping URL> at the end of your job.
-whenToUse: Use to know when a scheduled job stops running.
-whenNotToUse: Avoid for website uptime; use an uptime monitor.
+  - Click Create Free Account on healthchecks.io; no credit card is required.
+  - Create a check for the job you want to watch and copy its unique ping URL.
+  - Pick how the job is identified, with the default UUID-based ping URL or a slug you choose.
+  - Update your job to send an HTTP request (GET, HEAD, or POST) to the ping URL every time it runs, for example with curl at the end of the script.
+  - Set up a notification method such as email or Slack so you get the alert when a ping is late.
+whenToUse: >-
+  Use Healthchecks.io to know when a scheduled job stops running or reports a
+  failure.
+whenNotToUse: >-
+  Avoid it for website uptime checks, which need a service that probes your
+  site, or for application performance metrics. The docs say it is not the
+  right tool for either.
 bestFor:
   - cron jobs
   - backups
+  - scheduled reports
 avoidIf:
-  - uptime checks
+  - website uptime probing
+  - application performance metrics
+  - more than 20 jobs on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 8
 officialUrl: 'https://healthchecks.io'
 docsUrl: 'https://healthchecks.io/docs/'
 sourceUrls:
   - 'https://healthchecks.io/pricing/'
+  - 'https://healthchecks.io/docs/'
+  - 'https://healthchecks.io/docs/configuring_checks/'
+  - 'https://healthchecks.io/docs/http_api/'
+  - 'https://healthchecks.io/docs/configuring_notifications/'
 pricingUrl: 'https://healthchecks.io/pricing/'
 featured: false
 changes:
@@ -59,4 +83,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Healthchecks.io is open source and can also be self-hosted.
+You create a check in the web dashboard, then add one HTTP request to the end of your job, so the job pings Healthchecks.io each time it runs. It suits people who run a few cron jobs or backup scripts. The docs also cover a self-hosted version.
+
+## What the free plan gives you
+
+The Hobbyist plan costs $0 per month. It lets you monitor 20 jobs, and each job keeps 100 log entries. The log entries are for auditing past activity of your cron jobs. When the limit is reached, the oldest entries are removed to make room for new ones.
+
+The paid Supporter plan at $5 per month has the same limits as Hobbyist. It exists for people who want to support the service. The Business plan at $20 per month monitors 100 jobs and keeps 1000 log entries per job. The home page says you can monitor 20 cron jobs for free with no credit card.
+
+## When you hit a limit
+
+The pricing page does not describe a cutoff for the 20-job limit, but it says the log limit works by deleting the oldest entries, so you lose old history and not new pings. To go past 20 jobs you move to a paid plan.
+
+Do not create several accounts to dodge the limit. The pricing page says that is abuse. It also says some pings may be rate limited if you ping a single check more than 5 times per minute.
+
+## Gotchas
+
+- Healthchecks.io is for cron jobs and similar tasks, not for probing a website. The docs say it is not the right tool for website uptime.
+- Log history is short at 100 entries per job. A job that runs often keeps only its most recent runs.
+- Open-source projects and non-profits can get the Business plan free, but you have to ask for it.
+
+## Alternatives in this atlas
+
+- [Better Stack Uptime](/services/better-stack-uptime/): when you need to probe a website and not a cron job.
+- [UptimeRobot](/services/uptimerobot/): when you want simple HTTP uptime checks.
+- [Cronitor](/services/cronitor/): when you want another cron and job monitor.
+
+## Questions people ask
+
+### Is Healthchecks.io free?
+
+Yes. The Hobbyist plan costs $0 per month and lets you monitor 20 jobs with 100 log entries each. No credit card is required.
+
+### What happens when a Healthchecks.io job does not ping?
+
+Healthchecks.io listens for HTTP requests from your jobs and alerts you through your notification methods when a ping does not arrive. You can set up several methods, such as email and Slack.
+
+### Can I use Healthchecks.io to monitor my website?
+
+Not well. The docs say it is not the right tool for probing website uptime with HTTP requests. Use an uptime monitor for that.

@@ -1,8 +1,9 @@
 ---
 title: Localhero.ai
 description: >-
-  Localhero.ai is a lightweight translation management system (TMS) that
-  translates new strings automatically on every pull request.
+  Localhero.ai is a translation management system for product teams. A GitHub
+  Action translates new strings in each pull request, and the team reviews the
+  result in a dashboard.
 provider: Localhero.ai
 category: localization
 domain: localization
@@ -16,8 +17,14 @@ audiences:
   - startup
   - oss
 tags:
-  - automation
-  - collaboration
+  - localization
+  - translation
+  - i18n
+  - github-actions
+  - ai-translation
+  - pull-request
+  - rails
+  - django
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -33,35 +40,38 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Auto-translate new UI strings on every pull request
-  - Keep translations in sync with code changes
-  - Localize small open source or side projects
+  - Auto-translating new UI strings on every pull request
+  - Localizing Rails, Django, Phoenix, React, or i18next apps stored in YAML, JSON, or PO files
+  - Letting non-developers review and edit copy in the browser
+  - Keeping a glossary and style guide so AI translations match your brand voice
 quickstartSteps:
-  - Sign up for a free Localhero.ai account.
-  - Connect your GitHub repository.
-  - Let the GitHub Action detect new strings in pull requests.
-  - Review and tweak AI translations in the shared PR page.
+  - Sign up at localhero.ai. The 30-day trial and the free plan need no credit card.
+  - Create an API key in your account settings.
+  - Run `npx @localheroai/cli init` in your project folder and enter the API key.
+  - Create or pick a project, set the source and target languages, and confirm the path of your translation files.
+  - Optional: add the key to your repository secrets as `LOCALHERO_API_KEY` and add the official GitHub Action workflow.
+  - Open a pull request. The action translates the new keys, and your team reviews them in the dashboard.
 whenToUse: >-
-  Use Localhero.ai when you want translations delivered automatically inside
-  your normal pull-request workflow for a small project.
+  Use Localhero.ai when your translation files live in a Git repository and you
+  want AI translations inside the pull request workflow.
 whenNotToUse: >-
-  Avoid if you need more than one project or more than 250 translation
-  credits a month without upgrading to a paid plan.
+  Avoid it if you need more than one project on the free plan, or if you want
+  human translators in the tool.
 bestFor:
   - open source maintainers
-  - side projects
-  - small product teams
+  - side projects with a GitHub repository
+  - small product teams that ship often
 avoidIf:
-  - multiple projects
-  - high translation volume
-  - enterprise compliance
+  - you need more than one project for free
+  - you translate a large volume of text each month
+  - you need human translation workflows
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://localhero.ai'
@@ -70,6 +80,48 @@ pricingUrl: 'https://localhero.ai/pricing'
 sourceUrls:
   - 'https://localhero.ai/pricing'
   - 'https://localhero.ai/'
+  - 'https://localhero.ai/docs'
+  - 'https://localhero.ai/docs/setup'
 featured: false
 ---
-Localhero.ai is a translation management system that lives in pull requests, offering a Free Forever plan (1 project, 250 credits/month) plus a 30-day full-access trial, ideal for small projects and open source.
+You set it up with a CLI command and a GitHub Action, then review translations in the dashboard or in the pull request. It suits developers who keep translation files in a repository.
+
+## What the free plan gives you
+
+The pricing page offers a free plan for open source and side projects: 1 project and 250 translation credits per month. It names the plan "free, forever". The page also says every plan gets the same high-quality AI translations.
+
+A credit translates one source key, up to 100 characters, into one target language. Ten keys in five languages use 50 credits. Longer keys use more credits. At 250 credits a month, the free plan fits a small app with few new strings each month.
+
+New accounts can also try Localhero.ai free for 30 days with full access. The site says this trial needs no credit card.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 250 free credits. It does not mention a bill for the free plan either.
+
+For paid plans, it sells a top-up pack of 500 credits for $19. Purchased credits do not expire and roll over between billing cycles. The top-up pack is available on any paid plan, so a free account has to upgrade first. The paid plans start at $29 per month for Starter, with 2 projects and 1250 credits a month.
+
+## Gotchas
+
+- The free plan has 1 project. Starter has 2 projects, Growth has 5, and Professional has 20.
+- Credits count each key and each target language. Adding a language multiplies the cost of every new key.
+- The GitHub App must be connected for the Export to GitHub and Sync to GitHub buttons to work.
+
+## Alternatives in this atlas
+
+- [Tolgee](/services/tolgee/): when you want a free plan with more than one project and an in-app editor.
+- [Localizely.com](/services/localizely-com/): when you want a free plan with unlimited users.
+- [Loco (Localise.biz)](/services/localise-biz/): when you want a free plan with private projects and a web editor.
+
+## Questions people ask
+
+### Is Localhero.ai free?
+
+Yes, for small use. The free plan gives 1 project and 250 credits per month. There is also a 30-day trial with full access.
+
+### Does Localhero.ai need a credit card?
+
+No. The pricing page says the 30-day trial has full access and needs no credit card, and it shows a free sign-up for the free plan.
+
+### What is a Localhero.ai credit?
+
+A credit translates one source key, up to 100 characters, into one target language. Longer keys need more credits.

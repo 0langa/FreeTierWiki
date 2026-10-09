@@ -1,6 +1,9 @@
 ---
 title: Repsy.io
-description: 'Repsy hosts private and public package repositories (Maven, npm, Python, Docker, NuGet, and more).'
+description: >-
+  Repsy is a cloud artifact repository for Maven, npm, PyPI, Docker, and other
+  package types. It suits developers and small teams who want private or public
+  registries without running a server.
 provider: Repsy.io
 category: devops
 domain: devops
@@ -16,9 +19,12 @@ audiences:
   - team
   - oss
 tags:
-  - sdk
-  - containers
-  - devops
+  - package registry
+  - artifact repository
+  - maven repository
+  - private npm registry
+  - docker registry
+  - pypi
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan: 20 GB shared storage and unlimited repositories. No card needed.'
@@ -26,34 +32,43 @@ freeTierDetails:
     - 20 GB shared storage
     - Unlimited repositories
     - 1 user per repository
+    - 99% SLA
     - Maven, npm, Python, Docker, NuGet, Go, Cargo, Helm, and Ruby
   caveats:
     - Webhooks and custom domains need a paid plan
     - Repsy is open source and can be self-hosted
+    - Your data stays available for 30 days after you downgrade or cancel
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Host private Maven or npm packages
-  - Private Docker images
-  - Share packages with a small team
+  - Hosting private Maven or Gradle libraries
+  - Publishing private npm packages under a scope
+  - Keeping private Docker images
+  - Sharing a repository with a CI job through a deploy token
+  - Publishing open source libraries from a public repository
 quickstartSteps:
-  - Sign up at repsy.io.
-  - Create a repository for your package format.
-  - Point your build tool at the repository URL.
-whenToUse: Use when you need a free private package registry for a few people.
+  - Sign up at repsy.io. No credit card is needed. A default repository is created for you.
+  - After you log in, use the Dashboard to see your plan and storage, and press Create New Repository for another one.
+  - Pick the package type. Repositories are private by default; switch the Private toggle off to make one public.
+  - Authenticate your tool. For npm, run npm login with your scope and the repository URL on repo.repsy.io.
+  - Publish your first package, for example with npm publish, then install it from the same repository.
+whenToUse: >-
+  Use Repsy when you want a free private registry for your own packages and
+  20 GB shared storage is enough.
 whenNotToUse: >-
-  Avoid if you require support for other package formats, advanced access controls, or
-  enterprise-grade SLAs.
+  Avoid the Free plan if several people need access to one repository, or if you
+  need webhooks or a custom domain. Those come with paid plans.
 bestFor:
   - students
   - indie developers
-  - small teams
+  - small private package sets
   - open source projects
 avoidIf:
-  - enterprise compliance
-  - custom domain support
+  - more than one user per repository
+  - webhooks or custom domains
+  - enterprise SLAs
 difficulty: beginner
 productionReadiness: production-light
 status: changed
@@ -61,17 +76,56 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Removed an outdated warning that contradicted the supported npm, Python, and Docker package formats."
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://repsy.io'
 docsUrl: 'https://docs.repsy.io/'
 sourceUrls:
   - 'https://repsy.io/pricing'
-  - 'https://repsy.io'
   - 'https://docs.repsy.io/'
 featured: false
 pricingUrl: 'https://repsy.io/pricing'
-lastVerified: 2026-10-06
 ---
-Repsy hosts package repositories for many formats. It is open source, so you can also self-host it.
+You manage repositories in the Repsy dashboard and use your usual build tool to publish and install. Deploy tokens let a CI job reach one repository without your account login.
+
+## What the free plan gives you
+
+The Free plan costs $0 and needs no credit card. It includes 20 GB of shared storage and unlimited repositories, public or private. The plan lists 1 user per repository and a 99% SLA.
+
+Repsy hosts nine package types: Maven, npm, PyPI, Docker, Cargo, Go, Helm, NuGet, and Ruby. Private repositories need a signed-in account or a deploy token. Public repositories can be downloaded by anyone.
+
+The Pro plan costs $7.90 per month, excluding VAT. It raises storage to 200 GB and adds 2 users per repository, 2 webhooks per repository, one custom domain, and a 99.9% SLA.
+
+## When you hit a limit
+
+The pricing page and the docs do not say what happens when your account fills its 20 GB of storage. The Dashboard shows your plan, available storage, and a usage chart, so you can watch it.
+
+The pricing page says no credit card is required for Free. If you downgrade or cancel a paid plan, your data stays secure and reachable for 30 days. In that time you can upgrade again or export your data.
+
+## Gotchas
+
+- Storage is shared across all repositories in your account. It is not 20 GB per repository.
+- Repsy supports only scoped npm packages, with names like `@foo/foo`. Plan your package names with a scope from the start.
+- A deploy token is scoped to a single repository. Use one to give a build job access to that repository only.
+
+## Alternatives in this atlas
+
+- [RepoFlow](/tools/repoflow/): when you want unlimited users in one workspace.
+- [Gemfury](/services/gemfury/): when you only need public packages hosted free.
+- [Docker Hub](/tools/docker-hub/): when you mainly need container images.
+
+## Questions people ask
+
+### Is Repsy free?
+
+Yes. The Free plan costs $0 and includes 20 GB of shared storage and unlimited repositories. No credit card is required.
+
+### Can I make a private repository on the Repsy free plan?
+
+Yes. Repositories are private by default. Private repositories need a signed-in account or a deploy token to download.
+
+### What happens to my packages if I cancel a Repsy plan?
+
+Your data remains secure and accessible for 30 days after downgrading or cancelling. During that time you can upgrade or export it.

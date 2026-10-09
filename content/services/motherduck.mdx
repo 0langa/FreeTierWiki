@@ -1,6 +1,8 @@
 ---
 title: MotherDuck
-description: 'Cloud DuckDB: a serverless analytics data warehouse you can query from DuckDB anywhere.'
+description: >-
+  MotherDuck is a serverless cloud data warehouse built on DuckDB. You query your cloud databases
+  and local files in one SQL session. The Lite plan suits solo analysts and small projects.
 provider: MotherDuck
 category: analytics
 domain: analytics
@@ -13,49 +15,82 @@ audiences:
   - indie
   - startup
 tags:
-  - database
-  - analytics
-  - data
+  - duckdb
+  - cloud data warehouse
+  - serverless analytics
+  - sql
+  - parquet
+  - csv analytics
+  - olap
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 10 GB storage and 10 hours of Pulse compute per month for up to 3 users.'
+  summary: >-
+    Free Lite plan: 10 GB of storage and 10 compute unit hours of Pulse compute per month, for up to
+    3 internal users. Extra usage is billed.
   limits:
-    - 10 GB storage
-    - 10 hours of Pulse compute per month
-    - Up to 3 internal users and 2 service accounts
+    - 10 GB of free storage
+    - 10 compute unit hours per month on Pulse instances
+    - Up to 3 internal active users and 2 service accounts
+    - Pulse instances only
+    - 'Flights: 30 minutes per day of F4 compute without a credit card'
   caveats:
-    - Only Pulse instances on the free plan
-    - A 7-day trial of the Business plan is separate
+    - Usage beyond the included compute and storage is billed
+    - Lite (paid) databases keep 1 day of history; Business keeps 7 days
+    - Scheduling and unlimited Flight runs on Lite need a credit card
+    - A 7-day Free Trial of paid features is given on sign-up without a card
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Analytics on CSV and Parquet files
-  - Small data warehouse
-  - Share DuckDB databases
+  - Run SQL on CSV and Parquet files in the cloud
+  - Keep a small cloud data warehouse
+  - Share DuckDB databases with a teammate
+  - Query local and cloud data in one session
+  - Run scheduled Python jobs with Flights
 quickstartSteps:
-  - Sign up at motherduck.com.
-  - Get a token.
-  - 'Run ATTACH ''md:'' from DuckDB.'
-whenToUse: Use when you like DuckDB and want a small hosted warehouse.
-whenNotToUse: Avoid for heavy compute; 10 hours is small.
+  - >-
+    Sign up at motherduck.com with Start Free and create an organization. You get a 7-day Free Trial
+    without a credit card, then you can stay on Lite.
+  - >-
+    Install the DuckDB CLI with the install script: curl -s https://install.motherduck.com | sh on
+    macOS and Linux, or the PowerShell script on Windows.
+  - Run duckdb to start a session.
+  - >-
+    Run ATTACH 'md:'; and follow the browser sign-in. Or create an access token at
+    app.motherduck.com/settings/tokens to avoid signing in each session.
+  - >-
+    List your databases to confirm the connection, then query local files and cloud databases
+    together.
+  - 'Use the Web UI or the Python, Java, or Node.js clients when you outgrow the CLI.'
+whenToUse: Use it when you like DuckDB and want a small hosted warehouse for your own analysis.
+whenNotToUse: >-
+  Avoid it for heavy compute, since 10 compute unit hours is small, or for teams of more than 3
+  active users on the free plan.
 bestFor:
-  - data analysis
+  - solo data analysts
   - DuckDB users
+  - small projects
+  - hobbyists
 avoidIf:
   - large warehouses
+  - heavy compute
+  - more than 3 active users
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://motherduck.com'
 docsUrl: 'https://motherduck.com/docs/'
 sourceUrls:
   - 'https://motherduck.com/product/pricing/'
+  - 'https://motherduck.com/docs/about-motherduck/billing/pricing/'
+  - 'https://motherduck.com/docs/getting-started/connect-query-from-duckdb-cli/'
+  - >-
+    https://motherduck.com/docs/key-tasks/authenticating-and-connecting-to-motherduck/authenticating-to-motherduck/
 pricingUrl: 'https://motherduck.com/product/pricing/'
 featured: false
 changes:
@@ -63,4 +98,45 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-MotherDuck runs DuckDB in the cloud. The free plan suits personal analytics.
+
+You connect from the DuckDB command line, the web interface, or a client library in Python, Java, or Node.js. It suits solo analysts and DuckDB fans who want a small hosted warehouse.
+
+## What the free plan gives you
+
+The free plan is now called Lite and is meant for individual users and small projects. It has a $0 platform fee. It includes 10 GB of storage, 10 compute unit hours per month on Pulse instances, up to 3 internal active users, and 2 service accounts. End users of apps you build are unlimited.
+
+Pulse instances handle light, bursty work and are billed per query, with a minimum of one compute unit second. Lite is limited to Pulse. Bigger instance types such as Standard and Jumbo are on the Business plan, which costs $250 per org per month plus usage.
+
+Flights run Python jobs on a schedule. Without a credit card, Lite includes 30 minutes of Flight compute per day at no charge. A credit card unlocks scheduling and unlimited concurrent runs.
+
+## When you hit a limit
+
+This plan is not a hard stop. The docs say Lite includes 10 compute unit hours and that additional usage is billed. Storage past 10 GB is billed at $0.04 to $0.044 per GB per month, and extra Pulse compute is $0.60 to $0.77 per compute unit hour. Both rates depend on your cloud region. The pages do not say what happens if you go over without a card on file, so add monitoring before you run big jobs.
+
+New users get a 7-day Free Trial without a credit card. At the end, you can stay on Lite with no card or move to Business.
+
+## Gotchas
+
+- The pricing page lists the free plan under the name Lite, so look for that name when you compare plans or read the docs.
+- Lite databases keep 1 day of history by default. Business keeps 7 days and lets admins set 0 to 90.
+- AI features have their own cost. SQL Assistant and advanced AI functions are billed per call or per AI Unit, while FixIt is free.
+
+## Alternatives in this atlas
+
+- [Tinybird](/services/tinybird/): when you want analytics served as APIs on a real-time engine.
+- [Hex](/services/hex/): when you want notebooks and apps on top of a warehouse.
+- [Datalore](/services/datalore/): when you want a hosted Python notebook for analysis.
+
+## Questions people ask
+
+### Is MotherDuck free?
+
+Yes. The Lite plan has a $0 platform fee and includes 10 GB of storage and 10 compute unit hours per month. Extra usage is billed.
+
+### Does MotherDuck need a credit card?
+
+No for the Lite plan or the 7-day Free Trial. A credit card is needed to unlock Flight scheduling and unlimited concurrent runs on Lite.
+
+### How do I connect to MotherDuck from DuckDB?
+
+Install the DuckDB CLI, run duckdb, then run ATTACH 'md:'. DuckDB opens your browser to sign in, or you can use an access token.

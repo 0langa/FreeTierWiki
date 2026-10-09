@@ -1,8 +1,9 @@
 ---
 title: ip-api
 description: >-
-  ip-api provides a simple API for IP geolocation and related network
-  information.
+  ip-api is a free HTTP API that returns the location, ISP, and network flags of
+  an IP address or domain in JSON. It needs no API key and is for non-commercial
+  use.
 provider: ip-api
 category: apis
 domain: apis
@@ -17,8 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
+  - ip geolocation
+  - geoip
+  - ip lookup
+  - rest api
+  - proxy detection
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -38,24 +42,22 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detect user location for personalization
-  - Restrict access by region
-  - Display network or ISP information
-  - Analyze traffic sources
+  - Show the country or city of a visitor on a personal site
+  - Look up the ISP or AS number of an address
+  - 'Spot proxy, VPN, or hosting addresses in a hobby project'
+  - Look up many addresses in one batch request
 quickstartSteps:
-  - 'Visit https://ip-api.com/docs to review API endpoints and usage.'
-  - 'Choose the endpoint (e.g., /json/{IP}) for your use case.'
-  - >-
-    Make a simple HTTP GET request to the endpoint using your preferred tool or
-    code.
-  - Parse the JSON response to extract geolocation or network data.
-  - Respect the 45 requests/minute/IP limit to avoid being blocked.
+  - Open the ip-api documentation to pick the JSON endpoint.
+  - 'Send a GET request to `http://ip-api.com/json/` followed by an IP address or domain; leave it empty to use your own address.'
+  - 'Add a `fields` parameter to return only the data you need.'
+  - 'Read the JSON response and check that `status` is `success`.'
+  - 'Stay under 45 requests per minute, or use the batch endpoint for many addresses (it allows 15 requests per minute).'
 whenToUse: >-
-  Use ip-api when you need basic, fast IP geolocation or network info with
-  minimal setup and no account required.
+  Use ip-api when you need quick, no-account IP lookups for a hobby, learning,
+  or open source project.
 whenNotToUse: >-
-  Avoid if you need commercial use, HTTPS, higher request volumes, or
-  guaranteed uptime for production workloads.
+  Avoid it if the project is commercial, if you need HTTPS, or if you need more
+  than 45 requests per minute without paying.
 bestFor:
   - prototyping
   - side-projects
@@ -64,19 +66,60 @@ bestFor:
 avoidIf:
   - commercial website use
   - need HTTPS
-  - require SLA
+  - require an SLA
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ip-api.com'
 docsUrl: 'https://ip-api.com/docs'
 pricingUrl: 'https://ip-api.com/'
 sourceUrls:
-  - 'https://ip-api.com/docs'
   - 'https://ip-api.com/'
+  - 'https://ip-api.com/docs'
+  - 'https://ip-api.com/docs/api:json'
+  - 'https://ip-api.com/docs/api:batch'
+  - 'https://ip-api.com/docs/legal'
 featured: false
 ---
-ip-api offers a fast, no-signup IP geolocation API suitable for basic location detection and network info, with a generous free tier for low-volume use.
+You call the API with a plain HTTP GET or POST from a script, a browser, or `curl`. There is no sign-up and no key for the free endpoint. It suits hobby projects and learning, but not commercial sites.
+
+## What the free plan gives you
+
+The free endpoint needs no API key and no registration. The site says it will never require either. It allows 45 HTTP requests per minute from one IP address. You can pass an IP, a domain name, or nothing, in which case the API uses your own address.
+
+A response can hold country, region, city, zip code, latitude, longitude, timezone, currency, ISP, organization, AS number, and flags for mobile, proxy, and hosting. The `fields` parameter limits what comes back. The batch endpoint takes up to 100 addresses in one POST request, and it has its own limit of 15 requests per minute.
+
+## When you hit a limit
+
+If you pass 45 requests per minute, the API throttles you with HTTP 429 until the rate window resets. The terms add that your access is blocked for a while. Repeated overages can get your IP address banned for up to 1 hour.
+
+The site sells a pro service for unlimited queries, SSL, and commercial use. The pages describe throttling and blocking for the free endpoint, not a bill.
+
+## Gotchas
+
+- The free endpoint is HTTP only. SSL access is part of the pro service.
+- Commercial use is not allowed on the free endpoint. The terms name local currency for a shop, geo-targeted ads, and fraud prevention for orders as forbidden uses.
+- Browser pages served over HTTPS may block calls to a plain HTTP endpoint, so call it from your server.
+
+## Alternatives in this atlas
+
+- [The IP API](/tools/the-ip-api/): when you need commercial use on a free plan.
+- [FreeIPAPI](/tools/freeipapi/): when you want a free endpoint with no account.
+- [ipapi.is](/tools/ipapi-is/): when you want a daily allowance with a free account.
+
+## Questions people ask
+
+### Is ip-api free?
+
+Yes, for non-commercial use. The free endpoint needs no API key and allows 45 requests per minute from one IP address.
+
+### Can I use ip-api on a commercial website?
+
+No. The terms limit the free endpoint to non-commercial use. Commercial use needs a pro subscription.
+
+### Does the ip-api free endpoint support HTTPS?
+
+No. The free endpoint runs over HTTP. The pro service adds SSL access.

@@ -1,8 +1,9 @@
 ---
 title: Azure Web PubSub
 description: >-
-  Azure Web PubSub provides real-time messaging for web applications using
-  WebSockets and publish-subscribe patterns.
+  Azure Web PubSub is a managed service that holds WebSocket connections for you
+  and delivers messages between clients and servers, using groups and a publish
+  and subscribe model.
 provider: Azure
 category: messaging
 domain: messaging
@@ -17,20 +18,22 @@ audiences:
   - student
   - indie
 tags:
+  - websockets
+  - pub/sub
   - realtime
-  - queue
-  - cloud
-  - messaging
+  - azure
+  - mqtt
+  - socket.io
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free tier includes 20 concurrent connections and 20,000 messages per day.'
   limits:
     - 20 concurrent connections
-    - '20,000 messages per day'
+    - '20,000 messages per unit per day'
     - 1 unit
   caveats:
-    - No SLA on free tier
-    - The free tier is limited to 1 unit
+    - The Free tier has no SLA
+    - The Free tier is limited to 1 unit
     - An Azure account needs a credit or debit card to sign up
   resetPeriod: daily
   requiresCard: true
@@ -40,32 +43,33 @@ freeTierDetails:
 useCases:
   - Real-time chat
   - Live dashboards
-  - Collaborative apps
-  - IoT device messaging
-quickstartSteps:
-  - Sign in to the Azure portal.
-  - Create a new Web PubSub resource.
-  - Configure connection settings and keys.
-  - Integrate the Web PubSub SDK into your app.
-  - Start sending and receiving messages.
+  - Streaming AI-generated tokens to a browser
+  - Notifications and multiplayer coordination
+  - Connecting MQTT clients over WebSocket
 whenToUse: >-
-  Use when you need scalable, real-time messaging for web or mobile apps without
-  managing WebSocket infrastructure.
+  Use it to try managed WebSockets with groups for a chat or live-update
+  feature, with only a few test clients.
 whenNotToUse: >-
-  Avoid if you need high connection counts, advanced routing, or on-premises
-  deployment, as the free tier is limited and cloud-only.
+  Avoid the Free tier for more than 20 concurrent connections or when you need
+  an SLA.
 bestFor:
-  - real-time collaboration
-  - live notifications
-  - prototyping messaging features
+  - real-time prototypes
+  - chat and live notifications
+  - learning pub/sub over WebSocket
 avoidIf:
-  - need high concurrency
-  - require on-premises hosting
-  - need advanced message routing
+  - you need more than 20 concurrent connections
+  - you need an SLA
+  - you need more than 20 connections or 1 unit
+quickstartSteps:
+  - Sign in to the Azure portal with an Azure subscription.
+  - Create a Web PubSub resource and choose the Free tier. You can also run `az extension add --upgrade --name webpubsub` and then `az webpubsub create` with `--sku Free_F1`.
+  - Copy a Client Access URL for your hub from the portal. Set the group permissions the client needs.
+  - 'Install a client SDK, for example `npm install @azure/web-pubsub-client` or `dotnet add package Azure.Messaging.WebPubSub.Client --prerelease`.'
+  - Create a `WebPubSubClient` with the Client Access URL, call `start()`, join a group with `joinGroup`, and handle the `group-message` event.
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/web-pubsub/'
@@ -73,7 +77,48 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/web-pubsub/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/web-pubsub/'
-  - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/'
+  - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/overview'
+  - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/howto-develop-create-instance'
+  - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/quickstarts-pubsub-among-clients'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure Web PubSub offers managed WebSocket-based real-time messaging, ideal for chat, live dashboards, and collaborative applications with a generous free tier for prototyping.
+You create a resource in the Azure portal or with the Azure CLI. Clients connect to it with a Client Access URL, and your servers use the service SDKs or a REST API. It suits developers who want WebSocket features without running connection servers. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+Web PubSub comes in Free, Standard, and Premium tiers, split by concurrent connections, messages, and units. The Free tier gives 20 concurrent connections and 20,000 messages per unit per day. It costs nothing per unit per day and allows 1 unit at most.
+
+The pricing page lists no SLA for Free, while Standard has 99.9% and Premium has 99.95%. Availability zones, auto scaling, custom domain names, and geo-replication are Premium only. The overview says the service also supports Socket.IO on Azure and MQTT clients over WebSocket.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 20 connections or 20,000 messages in a day. You cannot add units to a Free resource, because it is capped at 1 unit.
+
+Standard and Premium work differently. Each unit supports 1,000 concurrent connections, and messages are unlimited. The first 1,000,000 messages are free, and extra messages are sold per million. Billing counts only outbound messages from the service, and a message over 2 KB counts as several messages of 2 KB each.
+
+## Gotchas
+
+- The pricing FAQ says only outbound messages count, and ping messages are ignored. Traffic is counted in bytes.
+- Each application server opens five initial connections per hub by default, and each client uses one connection.
+- The .NET quickstart installs the client package with the `--prerelease` flag.
+
+## Alternatives in this atlas
+
+- [Azure SignalR Service](/services/azure-signalr-service/): when your app uses ASP.NET Core and the SignalR protocol.
+- [Ably](/services/ably/): when you want more free connections and are not tied to Azure.
+- [EMQX Serverless](/services/emqx-serverless/): when your clients speak MQTT.
+
+## Questions people ask
+
+### Is Azure Web PubSub free?
+
+There is a Free tier with 20 concurrent connections and 20,000 messages per unit per day. It allows 1 unit and has no SLA.
+
+### What is the difference between Web PubSub and SignalR Service?
+
+Both have the same Free tier numbers. Web PubSub is the base service with connections, users, groups, and events. SignalR Service targets apps built on the SignalR protocol.
+
+### How are Web PubSub connections counted?
+
+Each application server starts with five initial connections per hub by default, and each client has one client connection.

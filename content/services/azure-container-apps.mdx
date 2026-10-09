@@ -1,8 +1,9 @@
 ---
 title: Azure Container Apps
 description: >-
-  Azure Container Apps lets you run microservices and containerized apps without
-  managing infrastructure.
+  Azure Container Apps runs containers on a serverless platform that scales
+  with HTTP traffic or events. It is for teams that want to run container
+  images on Azure without managing Kubernetes.
 provider: Azure
 category: compute
 domain: compute
@@ -18,8 +19,9 @@ audiences:
 tags:
   - containers
   - serverless
-  - kubernetes
-  - cloud
+  - microservices
+  - docker
+  - azure container apps
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,7 +33,8 @@ freeTierDetails:
     - 2 million requests/month
   caveats:
     - Free tier applies to consumption plan only
-    - Networking and storage may incur extra costs
+    - Your own virtual network or other Azure resources your apps use may add charges
+    - Private endpoints and planned maintenance carry a Dedicated Plan Management charge, even on the Consumption plan
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -40,32 +43,34 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above the free amount is billed per second; there is no hard cap.
 useCases:
-  - Deploying stateless APIs
-  - Running background jobs
-  - Hosting event-driven microservices
+  - Hosting an HTTP API packaged as a container image
+  - Running event-driven microservices that scale with traffic
+  - 'Running container jobs that start, finish, and stop billing'
+  - Trying a container image quickly with the quickstart image
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new Container Apps environment.
-  - Deploy your container image from Docker Hub or Azure Container Registry.
-  - Configure scaling and ingress settings.
-  - Test your app endpoint.
+  - 'Create an Azure account with an active subscription and register the Microsoft.App resource provider.'
+  - 'Sign in to the Azure portal, search for Container Apps, and select Create, then Container App.'
+  - 'Create a resource group, enter an app name, choose Container image as the deployment source, and pick a region.'
+  - 'Select Use quickstart image on the Container tab, or point to your own container image.'
+  - 'Select Review + create, then Create, and open the Application Url when the deployment finishes.'
 whenToUse: >-
-  Use when you need to deploy containerized apps without managing Kubernetes or
-  underlying infrastructure.
+  Use it when you already have a container image and want Azure to run and
+  scale it, including down to zero, without managing Kubernetes.
 whenNotToUse: >-
-  Avoid if you require full Kubernetes control, persistent storage, or need
-  advanced networking features.
+  Avoid it if you need full Kubernetes control, if you want a fixed monthly
+  cost with no usage billing, or if you cannot add a payment method to an
+  Azure account.
 bestFor:
   - stateless APIs
   - event-driven apps
   - microservices
 avoidIf:
-  - stateful workloads
-  - custom networking
   - full Kubernetes control
+  - a fixed cost with no usage billing
+  - no payment method for an Azure account
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
@@ -73,8 +78,49 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/container-apps/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
   - 'https://learn.microsoft.com/en-us/azure/container-apps/'
+  - 'https://learn.microsoft.com/en-us/azure/container-apps/quickstart-portal'
+  - 'https://learn.microsoft.com/en-us/azure/container-apps/billing'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
 ---
-Azure Container Apps provides a serverless platform for running containerized applications and microservices, with a generous free tier for small workloads.
+You create a Container Apps environment and a container app in the Azure portal, or with the Azure CLI, and point it at a container image. It suits teams that already package code as containers and want Azure to run them without managing Kubernetes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## What the free plan gives you
+
+The free grant belongs to the Consumption plan. Each Azure subscription gets the first 180,000 vCPU-seconds, the first 360,000 GiB-seconds, and the first 2 million HTTP requests free every calendar month. A vCPU-second is one second of one CPU core. A GiB-second is one second of one GiB of memory.
+
+Free usage does not show on your bill. You only pay once your use passes these monthly grants. The pricing page says an app can scale to zero replicas when there are no requests or events, and no usage charges apply while it is scaled to zero. Container Apps jobs also cost nothing while no execution is running.
+
+## When you hit a limit
+
+Nothing stops your apps at the free amounts. After the grants are used, Azure bills you per second for the vCPU and memory your replicas have, plus the requests they handle. The pricing page and the billing docs describe no hard spending cap.
+
+You can keep a minimum number of replicas always running. A replica that sits idle is charged at a reduced rate, and a replica is charged at the active rate while it starts, handles requests, or uses more than a small amount of CPU or network. Scaling to zero is the way to stop all usage charges.
+
+## Gotchas
+
+- The free grants cover the Consumption plan. The Dedicated plan bills for the instances in each workload profile.
+- Your own virtual network or other Azure resources your apps use may add charges. Private endpoints and planned maintenance carry a Dedicated Plan Management charge, even on the Consumption plan.
+- A minimum replica count above zero stops scale to zero, so idle charges can start even when nobody uses the app.
+
+## Alternatives in this atlas
+
+- [Cloud Run](/services/cloud-run/): when you want a container service on Google Cloud with scale to zero.
+- [Azure Functions](/services/azure-functions/): when you want to deploy single functions, not whole containers, on Azure.
+- [Koyeb](/services/koyeb/): when you want one small free container service outside the big clouds.
+
+## Questions people ask
+
+### Is Azure Container Apps free?
+
+Partly. The Consumption plan includes 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests free each month per subscription. You pay for use above that.
+
+### Does Azure Container Apps scale to zero?
+
+Yes, you can configure an app to scale to zero replicas when there are no requests or events. No usage charges apply while it is scaled to zero.
+
+### What happens when I go over the Azure Container Apps free grant?
+
+Azure keeps your apps running and bills the extra usage per second. The pricing page shows no hard cap.

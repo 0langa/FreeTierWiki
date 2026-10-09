@@ -1,8 +1,9 @@
 ---
 title: CodePipeline
 description: >-
-  AWS CodePipeline automates continuous integration and continuous delivery for
-  fast and reliable application and infrastructure updates.
+  AWS CodePipeline models your release steps as stages, such as source, build,
+  test, and deploy, and runs them each time your code changes. It is for teams
+  that ship to AWS.
 provider: AWS
 category: devops
 domain: devops
@@ -16,9 +17,11 @@ audiences:
   - enterprise
   - oss
 tags:
+  - aws
   - ci-cd
-  - automation
-  - cloud
+  - continuous delivery
+  - release pipeline
+  - deployment automation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -40,36 +43,35 @@ freeTierDetails:
     - V1 pipelines beyond the first free one are billed at $1.00/month each;
       V2 action minutes beyond the free 100 are billed per minute.
 useCases:
-  - Automate code deployments
-  - Integrate with AWS developer tools
-  - Implement CI/CD for microservices
-  - Orchestrate multi-stage build and test workflows
+  - Release a change through source, build, test, and deploy stages in order
+  - Build with AWS CodeBuild and deploy with AWS CodeDeploy
+  - Add a manual approval step before a production deploy
+  - Start a pipeline from an Amazon S3 bucket or a connected repository
 quickstartSteps:
-  - Sign in to the AWS Management Console.
-  - Navigate to CodePipeline and click 'Create pipeline'.
-  - >-
-    Configure pipeline settings and select a source provider (e.g., GitHub,
-    CodeCommit).
-  - Add build and deploy stages as needed.
-  - Review and create the pipeline to start automating deployments.
+  - Create an AWS account and apply a managed policy that gives your user access to CodePipeline.
+  - Optional - install the AWS CLI.
+  - Open the CodePipeline console and choose Create pipeline.
+  - Pick a source such as an Amazon S3 bucket (the docs tutorial uses a versioned bucket) and name the pipeline.
+  - Add a build or deploy stage, for example with CodeBuild or CodeDeploy, then create the pipeline.
+  - Push a change to the source and watch it move through the stages.
 whenToUse: >-
-  Use CodePipeline to automate CI/CD workflows for applications deployed on AWS
-  or when integrating with other AWS services.
+  Use it to automate releases of an app that already runs on AWS, when you
+  want one managed place to chain build, test, and deploy.
 whenNotToUse: >-
-  Avoid if you need multi-cloud CI/CD or want to avoid AWS lock-in, or if your
-  team already uses a different CI/CD platform.
+  Skip it if you deploy outside AWS or want to avoid an AWS account with a
+  payment method. Past the free tier, you pay per pipeline or per action minute.
 bestFor:
-  - AWS-centric teams
-  - Automated deployments
-  - Infrastructure as code workflows
+  - AWS deployments
+  - teams that use CodeBuild and CodeDeploy
+  - release flows with approval steps
 avoidIf:
-  - Multi-cloud environments
-  - Non-AWS deployments
-  - Preference for open-source CI/CD
+  - you deploy outside AWS
+  - you want a pipeline you can run for free without limits
+  - you need more than 100 free action minutes a month
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codepipeline/'
@@ -77,7 +79,47 @@ docsUrl: 'https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html
 sourceUrls:
   - 'https://aws.amazon.com/codepipeline/pricing/'
   - 'https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html'
+  - 'https://docs.aws.amazon.com/codepipeline/latest/userguide/getting-started-codepipeline.html'
+  - 'https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-s3.html'
 pricingUrl: 'https://aws.amazon.com/codepipeline/pricing/'
 featured: false
 ---
-AWS CodePipeline is a managed CI/CD service that helps automate build, test, and deployment phases for applications and infrastructure on AWS. The free tier allows one active V1-type pipeline per month, or 100 free V2-type action execution minutes per month, making it suitable for small teams or projects starting with AWS automation. It integrates natively with other AWS developer tools and supports custom actions, but additional pipelines or action minutes incur charges. CodePipeline is best for AWS-centric workflows and teams looking for a managed, scalable CI/CD solution.
+You create and watch pipelines in the AWS console, and the AWS CLI works too. Each pipeline is made of stages, and each stage holds actions such as a source, a CodeBuild build, or a CodeDeploy deploy.
+
+## What the free plan gives you
+
+CodePipeline has two pipeline types, V1 and V2, and the free tier depends on which one you use. For V1-type pipelines, you get one free active pipeline per month. For V2-type pipelines, you get 100 free action execution minutes per month.
+
+The free V2 minutes are shared by all V2 pipelines in the account. They reset at the start of each calendar month, and unused minutes do not carry over. The page says new and existing customers get the free tier. A pipeline is V1 if the type is not specified, but the docs say V2 is the only type you can choose in the console.
+
+## When you hit a limit
+
+Past the free tier, you pay. A V1 pipeline costs $1.00 per active month, where active means it is more than 30 days old and had at least one code change run through it. A pipeline with no new code changes in the month costs nothing.
+
+V2 pipelines cost $0.002 per action execution minute, rounded up to the nearest minute. You are charged for all action types except manual approval and custom actions. The pricing page works through an example where a V2 pipeline uses 8 action minutes in a month and pays $0.00.
+
+## Gotchas
+
+- Pipelines are free for the first 30 days after creation, and a V1 pipeline is billed for the full month once it is active, with no proration.
+- Artifact storage in Amazon S3 and triggers from other services are billed separately, as the atlas notes in the caveats.
+- The pricing calculator on the page works only for V1 pipelines.
+
+## Alternatives in this atlas
+
+- [CodeBuild](/services/codebuild/): when you only need the build step and not the whole release flow.
+- [GitLab CI/CD](/services/gitlab-ci-cd/): when your code and pipelines should live in the same place.
+- [Cloud Build](/services/cloud-build/): when you deploy on Google Cloud instead of AWS.
+
+## Questions people ask
+
+### Is AWS CodePipeline free?
+
+Partly. The free tier gives you one free active V1 pipeline per month, or 100 free action execution minutes per month on V2 pipelines.
+
+### What does a CodePipeline V2 action minute cost?
+
+After the free 100 minutes, V2 pipelines cost $0.002 per action execution minute. Manual approval and custom actions are not charged.
+
+### Do I pay for a CodePipeline V1 pipeline that I do not use?
+
+A V1 pipeline that has no new code changes running through it during the month costs nothing. An active V1 pipeline costs $1.00 per month.

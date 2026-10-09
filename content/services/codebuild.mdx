@@ -1,8 +1,9 @@
 ---
 title: CodeBuild
 description: >-
-  AWS CodeBuild is a fully managed continuous integration service that compiles
-  source code, runs tests, and produces software packages.
+  AWS CodeBuild runs your build and test commands on managed build machines and
+  produces deployable artifacts. It is for teams on AWS who do not want to run
+  their own build servers.
 provider: AWS
 category: devops
 domain: devops
@@ -16,10 +17,11 @@ audiences:
   - enterprise
   - oss
 tags:
+  - aws
   - ci-cd
-  - automation
-  - cloud
-  - testing
+  - buildspec
+  - build server
+  - continuous integration
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -32,6 +34,7 @@ freeTierDetails:
     - Reserved Capacity EC2, Sandbox, and the Docker image server are not
       included in the free tier.
     - Free tier does not expire after the standard 12-month AWS Free Tier term.
+    - The Lambda free tier covers only the lambda.arm.1GB and lambda.x86-64.1GB compute types.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -40,33 +43,35 @@ freeTierDetails:
   billingRiskNotes:
     - Usage beyond free tier incurs charges
 useCases:
-  - Automated code builds
-  - Continuous integration pipelines
-  - Running unit and integration tests
+  - Compile code and run unit tests on every change
+  - Produce build artifacts, for example a JAR file from a Maven project
+  - Add a build or test step to an AWS CodePipeline pipeline
+  - Build with a custom environment and your own build tools
 quickstartSteps:
-  - Sign in to the AWS Management Console.
-  - Navigate to CodeBuild and create a new build project.
-  - 'Connect your source repository (e.g., GitHub, CodeCommit).'
-  - Configure build environment and specify buildspec.yml.
-  - Start a build and monitor the results.
+  - Create an AWS account and sign in; use an IAM user rather than the root account.
+  - Put your source code and a `buildspec.yml` file in a repository, or in an Amazon S3 bucket.
+  - Open CodeBuild in the AWS console and create a build project that points to the source and the build environment.
+  - Choose the compute type; general1.small, arm1.small, or a 1GB Lambda type counts toward the free tier.
+  - Start a build and read the logs and output artifacts.
+  - Optional - run builds from the AWS CLI, an SDK, or as a stage in CodePipeline.
 whenToUse: >-
-  Use CodeBuild when you need managed CI/CD builds for AWS-integrated projects
-  or want to automate testing and packaging.
+  Use it when your code or deploys already live on AWS and you want builds
+  without managing servers, with a small monthly amount of free build time.
 whenNotToUse: >-
-  Avoid if you require unlimited free builds, need advanced build matrix
-  features, or want to avoid AWS account setup and billing risk.
+  Skip it if you want builds that never cost money, or if you do not want an
+  AWS account with a payment method. Only 100 EC2 build minutes a month are free.
 bestFor:
-  - AWS users
-  - teams automating builds
-  - projects needing scalable CI
+  - AWS-based projects
+  - teams that use CodePipeline
+  - light CI with short builds
 avoidIf:
   - you need unlimited free builds
-  - you want local build runners
-  - you avoid AWS billing
+  - you do not want an AWS account with billing
+  - you need Reserved Capacity or Sandbox for free
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codebuild/'
@@ -74,7 +79,46 @@ docsUrl: 'https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html'
 sourceUrls:
   - 'https://aws.amazon.com/codebuild/pricing/'
   - 'https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html'
+  - 'https://docs.aws.amazon.com/codebuild/latest/userguide/getting-started-overview.html'
 pricingUrl: 'https://aws.amazon.com/codebuild/pricing/'
 featured: false
 ---
-AWS CodeBuild offers a managed CI/CD service with a free tier suitable for small workloads, integrating seamlessly with other AWS developer tools.
+You create a build project in the AWS console and describe the build commands in a `buildspec.yml` file. You can also start builds from the AWS CLI, the AWS SDKs, or a CodePipeline stage.
+
+## What the free plan gives you
+
+The CodeBuild free tier includes 100 total build minutes per month on the general1.small or arm1.small instance types, using on-demand Amazon EC2. With on-demand Lambda, it includes 6,000 total build seconds per month on the lambda.arm.1GB or lambda.x86-64.1GB compute types.
+
+The free tier does not automatically expire at the end of the 12-month AWS Free Tier term. Reserved Capacity EC2, Sandbox, and the Docker image server do not have a free tier. The two free amounts are separate, one for EC2 builds and one for Lambda builds. The docs describe CodeBuild as a fully managed build service that compiles source code, runs unit tests, and produces artifacts ready to deploy.
+
+## When you hit a limit
+
+CodeBuild uses pay-as-you-go pricing with no upfront costs or minimum fees. You pay for build duration at a rate that depends on the compute type. After the free minutes are used up, builds keep running and you are billed for the rest.
+
+The pricing page gives an example. If you run 100 builds of 5 minutes each on build.general1.small, that is 500 build minutes. Minus the 100 free minutes, 400 minutes are billable, which comes to $2.
+
+## Gotchas
+
+- A larger runner is not free. Only the small instance types and the 1GB Lambda types count toward the free tier.
+- The getting-started tutorial can create other resources, such as an S3 bucket and CloudWatch Logs, and the docs warn they may add charges.
+- The free tier needs an AWS account, and this atlas lists the plan as requiring a card.
+
+## Alternatives in this atlas
+
+- [Cloud Build](/services/cloud-build/): when you build on Google Cloud instead of AWS.
+- [GitLab CI/CD](/services/gitlab-ci-cd/): when your code is on GitLab and you want CI in the same place.
+- [CodePipeline](/services/codepipeline/): when you want to chain CodeBuild into a release pipeline on AWS.
+
+## Questions people ask
+
+### Is AWS CodeBuild free?
+
+Partly. The free tier includes 100 build minutes per month on general1.small or arm1.small, or 6,000 build seconds per month on the 1GB Lambda compute types. The rest is billed.
+
+### Does the CodeBuild free tier expire?
+
+No. The pricing page says it does not automatically expire at the end of your 12-month AWS Free Tier term.
+
+### What happens when I use more than 100 CodeBuild minutes?
+
+You are billed for the extra minutes at the rate for your compute type. For example, 500 build minutes in a month leaves 400 billable minutes after the free 100.

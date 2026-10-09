@@ -1,8 +1,8 @@
 ---
 title: Phase Two
 description: >-
-  Phase Two provides managed Keycloak hosting for identity, SSO, and
-  authentication in SaaS applications.
+  Phase Two hosts Keycloak for you on its own cluster, with open-source extensions for
+  organizations, SSO, an admin portal, and magic links.
 provider: Phase Two
 category: auth
 domain: auth
@@ -15,57 +15,106 @@ audiences:
   - startup
   - team
 tags:
-  - auth
-  - identity
   - keycloak
+  - managed keycloak
+  - sso
+  - organizations
+  - saml
+  - oidc
+  - b2b saas
 pricingModel: trial
 freeTierDetails:
-  summary: >-
-    The Starter plan has a 30-day free trial. After the trial it costs $149 per
-    month.
+  summary: The Starter plan has a 30-day free trial. After the trial it costs $149 per month.
   limits:
     - 30-day free trial on the Starter plan
-    - Unlimited users, sized for about 5,000 active users
+    - 'Unlimited users, sized for about 5,000 active users'
     - 2 custom domains on Starter
   caveats:
     - No always-free plan
     - Billing starts at $149/month after 30 days unless you cancel
+    - 'Nothing is blocked or charged extra when you pass the sizing, but performance may slow down'
   requiresCard: true
   freeTierType: trial
   hasHardCap: false
   overageRisk: medium
   trialDays: 30
 useCases:
-  - Add authentication to SaaS apps
-  - Enable SSO for teams
-  - Integrate OAuth or SAML providers
+  - Run Keycloak without managing servers
+  - Add customer-managed SSO to a B2B SaaS with the organizations extension
+  - Passwordless magic link login on Keycloak
+  - Move off a per-user vendor to a flat cluster price
+  - Move off another provider; the site lists migration help for Auth0, Okta, and WorkOS
 quickstartSteps:
-  - Sign up for a Phase Two account.
-  - Start a Starter cluster with the 30-day trial.
-  - Create a realm and client in the Keycloak admin console.
-  - Configure redirect URIs and connect your app with an OIDC or SAML library.
-  - Cancel before day 30 if you do not want to pay.
+  - Choose Try for free on phasetwo.io and sign up for the Phase Two Dashboard.
+  - 'Start the Starter plan trial, which runs 30 days. Cancel before it ends to avoid the charge.'
+  - Use the Dashboard to operate your cluster and realms, and configure Keycloak for your app.
+  - Clone the sample application from the docs to see authentication working end to end.
+  - Work through the Go-Live Checklist before you move the cluster into production.
 whenToUse: >-
-  Use Phase Two to try managed Keycloak for SSO and authentication before you
-  commit to a paid plan.
+  Use Phase Two when you want managed Keycloak with flat cluster pricing, and a 30-day trial is
+  enough to decide.
 whenNotToUse: >-
-  Avoid it if you need a free plan that lasts past 30 days.
+  Avoid it if you need a free plan that lasts past 30 days, or you want per-user pricing that starts
+  at zero.
 bestFor:
   - SaaS startups
   - teams that want managed Keycloak
+  - B2B apps that need customer-managed SSO
 avoidIf:
-  - need a permanent free plan
+  - a permanent free plan
+  - a trial that does not convert to a paid plan on its own
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 5
 officialUrl: 'https://phasetwo.io'
-docsUrl: 'https://docs.phasetwo.io'
+docsUrl: 'https://phasetwo.io/docs/introduction/'
 pricingUrl: 'https://phasetwo.io/pricing/hosting/'
 sourceUrls:
   - 'https://phasetwo.io/pricing/hosting/'
+  - 'https://phasetwo.io'
+  - 'https://phasetwo.io/docs/introduction/'
+  - 'https://phasetwo.io/docs/getting-started/'
 featured: false
 ---
-Phase Two hosts Keycloak for you. The Starter plan is free for 30 days, then $149 per month.
+You sign up in the Phase Two Dashboard, then use the Keycloak admin tools and the Phase Two Management and Extensions APIs. It suits teams that want Keycloak on a managed cluster, mostly for B2B SaaS products.
+
+## What the free plan gives you
+
+Phase Two has no free plan. It has a trial. Every Starter cluster starts with a 30-day free trial, and after that it costs $149 per month. You can cancel any time before the trial ends and you will not be charged.
+
+Hosting is priced per cluster, not per user, and users are unlimited on every tier. The Starter tier is sized for about 5,000 active users and runs a dedicated, independently provisioned cluster. It includes unlimited SSO connections and 2 custom domains. Registered users are always unlimited, and the sizing only describes the authentication load the cluster handles.
+
+## When you hit a limit
+
+After 30 days, the trial turns into a $149 monthly charge unless you cancel first. That is the main limit to watch. The pricing page does not say whether a card is needed to start the trial, so plan for one and set a reminder before the trial ends.
+
+Phase Two does not cap users. Nothing is blocked, throttled, or surcharged when you go past the sizing for your tier. Performance may degrade, usually as higher latency on the token endpoints. If your traffic is heavier than the sizing assumes, with short token lifespans or chatty machine clients, the cluster carries fewer users than the headline number.
+
+## Gotchas
+
+- The trial converts to a paid plan on its own. Cancel before day 30 if you only want to test.
+- The tiers differ by authentication load, not by user count. Heavy token traffic can slow a cluster below its headline size.
+- The Starter tier includes 2 custom domains. The next tier up has 5.
+
+## Alternatives in this atlas
+
+- [Cloud-IAM](/services/cloud-iam/): when you want managed Keycloak with a free plan for testing.
+- [Logto](/services/logto/): when you want an open-source auth service with a permanent free plan.
+- [ZITADEL Cloud](/services/zitadel-cloud/): when you want a managed open-source identity platform.
+
+## Questions people ask
+
+### Does Phase Two have a free tier?
+
+No. It has a 30-day free trial of the Starter plan. After the trial it costs $149 per month, unless you cancel.
+
+### Is the Phase Two trial really free?
+
+The pricing page says yes. A Starter cluster starts with a 30-day free trial, and you pay nothing if you cancel before it ends.
+
+### How many users can Phase Two handle?
+
+Users are unlimited on every tier. The Starter tier is sized for about 5,000 active users, and going past that does not block anyone but may slow the cluster.

@@ -1,8 +1,9 @@
 ---
 title: Formspark.io
 description: >-
-  Formspark.io provides a backend for HTML forms, enabling form submissions
-  without server-side code.
+  Formspark is a form backend. You write your own HTML form, and Formspark
+  stores the submissions, filters spam, and forwards the data. It is not a
+  drag-and-drop form builder.
 provider: Formspark
 category: forms
 domain: forms
@@ -17,62 +18,112 @@ audiences:
   - team
   - oss
 tags:
-  - productivity
-  - backend
-  - api
-  - integration
+  - form backend
+  - html form
+  - static site forms
+  - spam filter
+  - webhooks
+  - rest api
 pricingModel: freemium
 freeTierDetails:
-  summary: Every account starts with 250 free submissions, a one-time allowance.
+  summary: Every account starts with one workspace holding 250 free submissions, 10 forms, and 5 team members. The allowance is one-time, not monthly.
   limits:
     - 250 free submissions (one-time per workspace, not monthly)
-    - No credit card required
+    - 10 forms
+    - 5 team members
+    - Submission archive kept forever
+    - Spam filtering, webhooks, Slack, Zapier, and exports included
   caveats:
-    - Extra submissions require a one-time paid upgrade ($50, shown as $25 with a 50% discount)
+    - Extra submissions need a one-time paid bundle of 50,000 submissions ($50, shown as $25 with a 50% discount)
     - Additional user-created workspaces start with 0 submissions
+    - Autoresponder, branding removal, and the REST API need the paid upgrade
   requiresCard: false
   freeTierType: credit
   monthlyCreditAmount: 250 submissions (one-time, not monthly)
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Collect contact form submissions
-  - Newsletter signups
-  - Feedback forms
-  - Event registrations
+  - Contact forms on a static site
+  - Newsletter signups and waitlists
+  - RSVPs and feedback widgets
+  - Posting submissions to Slack, Zapier, or a webhook
+  - Forms on Astro, Next.js, Hugo, Webflow, or WordPress sites
 quickstartSteps:
-  - Sign up for a free Formspark account.
-  - Create a new form in the dashboard.
-  - Copy the generated form endpoint URL.
-  - Add the endpoint to your HTML form's action attribute.
-  - Test your form by submitting a sample entry.
+  - Sign up for a free Formspark account at formspark.io.
+  - Sign in to the dashboard and create a new form.
+  - Copy the action URL from the form's Setup section. It ends with your form's unique ID.
+  - Set your HTML form's action to that URL, with method POST.
+  - Give every input, select, and textarea a name attribute, and add a submit button.
+  - Submit a test entry. You can also test your payload by posting to the echo address in the docs.
 whenToUse: >-
-  Use Formspark when you need to quickly handle form submissions without
-  building a backend or server.
+  Use Formspark when you already write your own HTML form and want storage,
+  spam filtering, and notifications for a low-traffic site.
 whenNotToUse: >-
-  Avoid if you need more than 250 total submissions without a one-time paid
-  upgrade.
+  Avoid it if you want a drag-and-drop builder, or expect more than 250
+  submissions without buying a bundle.
 bestFor:
   - simple websites
   - landing pages
   - static sites
   - MVPs
 avoidIf:
-  - need file uploads
-  - require custom backend logic
-  - expect high traffic
+  - want a drag-and-drop form builder
+  - expect more than 250 submissions in total
+  - need an autoresponder on the free plan
 difficulty: beginner
-productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
-popularityScore: 6
-usefulnessScore: 7
+productionReadiness: side-project
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
+popularityScore: 5
+usefulnessScore: 6
 officialUrl: 'https://formspark.io/'
-docsUrl: 'https://formspark.io/docs'
+docsUrl: 'https://documentation.formspark.io'
 pricingUrl: 'https://formspark.io/pricing'
 sourceUrls:
   - 'https://formspark.io/pricing'
-  - 'https://formspark.io/docs'
+  - 'https://documentation.formspark.io'
+  - 'https://documentation.formspark.io/setup/'
+  - 'https://documentation.formspark.io/troubleshooting/limits-and-plans.html'
 featured: false
 ---
-Formspark.io offers a simple, no-code backend for HTML form submissions, with a one-time 250 free-submission allowance per workspace, no card required.
+You bring your own HTML form and point it at a Formspark action URL. The dashboard shows submissions, and the docs also describe a REST API and guides for many frameworks.
+
+## What the free plan gives you
+
+Every account starts with one free workspace. It holds 250 submissions, 10 forms, and 5 team members, and the plan needs no credit card. The 250 submissions are a one-time allowance, not a monthly one.
+
+Spam filtering is on for every submission. Webhooks, Slack, Zapier, and exports are included in the free plan. The submission archive is kept forever. Support on the free plan comes from the community.
+
+Each accepted submission spends one from the workspace total. Submissions rejected as spam do not count. The docs say the average user gets 5 submissions a day, so 250 can last a while on a small site.
+
+## When you hit a limit
+
+Formspark does not cut you off at exactly zero. The docs describe a small buffer past the end of your submissions. After that, recent submissions are held back and not discarded. A new bundle releases the held submissions into your inbox.
+
+You then buy a bundle of 50,000 submissions as a one-time payment. It costs $50, and the pricing page shows $25 with a 50% discount. There are no recurring charges. Bundles do not expire, and you buy another when one runs out.
+
+## Gotchas
+
+- The 250 submissions are a one-time allowance for the workspace, so they do not renew each month.
+- Extra workspaces you create start with 0 submissions, and upgrades apply to one workspace only.
+- Formspark is not a form builder. Fields without a name attribute never reach the dashboard, and input names that start with an underscore are hidden.
+
+## Alternatives in this atlas
+
+- [Formspree.io](/tools/formspree-io/): when you want a monthly submission allowance instead of a one-time pack.
+- [Formsubmit.co](/tools/formsubmit-co/): when you want unlimited submissions delivered by email with no account.
+- [FormKeep.com](/tools/formkeep-com/): when you want unlimited forms with a monthly submission cap.
+
+## Questions people ask
+
+### Is Formspark free?
+
+Yes, to start. Every account gets one workspace with 250 free submissions, 10 forms, and 5 team members. The allowance is one-time.
+
+### What happens when I run out of Formspark submissions?
+
+Formspark gives a small buffer, then holds back new submissions instead of discarding them. A new bundle of 50,000 releases them to your inbox.
+
+### Does Formspark need a credit card?
+
+No. The site says no credit card is required, and upgrades are a one-time payment with no subscription.

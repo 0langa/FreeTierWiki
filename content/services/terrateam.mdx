@@ -1,8 +1,9 @@
 ---
 title: Terrateam (now Stategraph Orchestration)
 description: >-
-  Terrateam is a GitHub-integrated Terraform automation platform for
-  collaborative infrastructure management and policy enforcement.
+  Terrateam is now Stategraph Orchestration. It runs Terraform and OpenTofu plans
+  and applies from GitHub or GitLab pull requests, with policy checks, approvals,
+  and drift detection.
 provider: Terrateam
 category: devops
 domain: devops
@@ -10,68 +11,123 @@ subtypes:
   - Terraform Automation
   - GitHub Integration
   - Policy Enforcement
+  - compliance
 audiences:
   - team
   - startup
+  - indie
   - oss
 tags:
-  - devops
-  - automation
-  - compliance
+  - terraform
+  - opentofu
+  - terragrunt
+  - pull request automation
+  - gitops
+  - stategraph
+  - atlantis alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan is the full product for small teams: 50 runs/month, 3 users,
-    and 1 concurrent worker, with no card required.
+    The Free cloud plan has every Orchestration feature with limits of 3 users, 50
+    runs a month, and 1 concurrent worker. No credit card is needed.
   limits:
     - 50 runs/month
     - 3 users
     - 1 concurrent worker
-    - Every Orchestration feature, including SSO, RBAC, and policy management
+    - 30-day audit retention
+    - Every Orchestration feature, including SSO and RBAC
   caveats:
-    - Pro plan is a flat $12,000/year for unlimited runs, users, and workers
-    - Terrateam is now Stategraph Orchestration; terrateam.io redirects to stategraph.com
+    - 'Pro costs $12,000 per year, billed annually, for unlimited users, runs, and workers'
+    - New accounts start on Pro for 30 days with no card, then move to Free
+    - Terrateam is now Stategraph Orchestration; terrateam.io shows the Stategraph site
+    - The open source edition allows up to 3 active users per month per installation, with unlimited runs
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automating Terraform workflows via GitHub
-  - Enforcing infrastructure policies in code reviews
-  - Collaborative infrastructure management
+  - Getting a Terraform or OpenTofu plan as a comment on every pull request
+  - Applying infrastructure changes on a comment or on merge
+  - Requiring approvals and policy checks before an apply
+  - Running scheduled drift detection
+  - Showing cost estimates in pull requests
 quickstartSteps:
-  - Sign up at terrateam.io with your GitHub account.
-  - Install the Terrateam GitHub App to your repositories.
-  - Configure repository settings and Terraform workflows.
-  - Commit Terraform code and open a pull request to trigger automation.
-  - Review and approve infrastructure changes via GitHub.
+  - Go to app.stategraph.cloud, sign in, and name your tenant.
+  - Open Get Started, then Connect GitHub (or Connect GitLab) and install the app on your account or organization.
+  - Pick a repository, or fork the example repository kick-the-tires for a first plan with no cloud credentials.
+  - Add the workflow file to the default branch, so plans run on your own GitHub Actions or GitLab CI runners.
+  - Open a pull request to get a plan comment, then comment stategraph apply or merge to apply.
 whenToUse: >-
-  Use Terrateam if you need automated Terraform workflows and policy enforcement
-  tightly integrated with GitHub pull requests.
+  Use it when you want Terraform or OpenTofu runs from pull requests on GitHub
+  or GitLab, with a small team and fewer than 50 runs a month.
 whenNotToUse: >-
-  Avoid if you need more than 50 runs/month, more than 3 users, or more than
-  1 concurrent worker without paying.
+  Avoid the Free plan if more than 3 people run plans, if you exceed 50 runs a
+  month, or if you need more than 1 run at a time.
 bestFor:
-  - teams using GitHub
-  - OSS projects
-  - startups automating IaC
+  - small teams on GitHub or GitLab
+  - open source infrastructure projects
+  - startups automating Terraform
 avoidIf:
-  - large enterprises needing unlimited runs
-  - non-GitHub/GitLab workflows
-  - need more than 1 concurrent worker
+  - needing unlimited runs for free
+  - more than 3 users
+  - needing more than 1 concurrent worker
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://terrateam.io'
-docsUrl: 'https://docs.terrateam.io'
+docsUrl: 'https://stategraph.com/docs/'
 pricingUrl: 'https://stategraph.com/pricing'
 sourceUrls:
   - 'https://stategraph.com/pricing'
-  - 'https://docs.terrateam.io'
+  - 'https://stategraph.com/docs/get-started/editions'
+  - 'https://stategraph.com/docs/get-started/quickstart/cloud'
+  - 'https://terrateam.io'
 featured: false
 ---
-Terrateam automates Terraform workflows and policy enforcement for GitHub repositories, making infrastructure-as-code collaboration easier for small teams and open source projects.
+You work from pull requests and comments, plus a console for runs and logs. Plans and applies execute on your own CI runners, so cloud credentials stay with you.
+
+## What the free plan gives you
+
+The Free plan on Stategraph Cloud costs $0 forever and needs no credit card. It supports GitHub and GitLab with Terraform, OpenTofu, Terragrunt, Pulumi, CDKTF, or any command line tool. It allows 3 users, 50 runs a month, and 1 concurrent worker. Audit logs are kept for 30 days, and support comes from the community.
+
+A run is one plan or one apply, counted per calendar month. The docs say Free and Pro include every Orchestration feature and differ only by these limits.
+
+Pro costs $12,000 per year and lifts the limits to unlimited users, runs, and workers. It also has 365 days of audit retention and an onboarding session.
+
+You can also self-host the open source edition under the MPL-2.0 license. It allows up to 3 active users a month per installation and unlimited runs.
+
+## When you hit a limit
+
+The pricing page does not say what happens on Cloud Free after run 50. It does say how the self-hosted open source edition behaves at its limit. After the first 3 active users in a month, other users' plans and applies do not run. A comment on the pull request explains why.
+
+New accounts start on Pro for 30 days with no credit card, then move to Free. The docs say you add a card to stay on Pro.
+
+## Gotchas
+
+- Repositories show up in the console only after their first pull request event, so the list starts empty.
+- On GitLab, you need a group, because personal namespaces are not supported. You also need an access token with the api scope.
+- The terrateam.io address now shows the Stategraph site. Old guides may still use Terrateam names.
+
+## Alternatives in this atlas
+
+- [Terramate](/services/terramate/): when you want an open source CLI and to keep running your own CI.
+- [Scalr](/services/scalr/): when you want hosted runs billed per run.
+- [Pulumi](/services/pulumi/): when you want infrastructure written in a general programming language.
+
+## Questions people ask
+
+### Is Terrateam still a product?
+
+Terrateam is now Stategraph Orchestration. The old terrateam.io address shows the Stategraph site, and the free plan is on Stategraph Cloud.
+
+### Is Stategraph Orchestration free?
+
+Yes, for small teams. The Free cloud plan allows 3 users, 50 runs a month, and 1 concurrent worker. The open source edition is free to self-host.
+
+### Does it need a credit card?
+
+No. The pricing page says no credit card is needed to start, and the 30 day Pro trial also asks for none.

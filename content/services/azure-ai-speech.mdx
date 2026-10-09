@@ -1,8 +1,8 @@
 ---
 title: Azure AI Speech
 description: >-
-  Azure AI Speech provides cloud-based speech-to-text, text-to-speech, and
-  speech translation APIs for applications.
+  Azure AI Speech turns speech into text, text into natural-sounding speech, and translates spoken
+  language. It is for developers who add voice features to apps.
 provider: Azure
 category: ai
 domain: ai
@@ -19,63 +19,121 @@ audiences:
   - oss
   - agency
 tags:
-  - audio
-  - ai
-  - cloud
+  - speech to text
+  - text to speech
+  - speech recognition
+  - speech translation
+  - voice
+  - tts
+  - stt
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free (F0) tier includes 5 audio hours/month real-time transcription, 0.5
-    million characters/month neural text-to-speech, and 5 audio hours/month
-    speech translation.
+    Free (F0) tier includes 5 audio hours/month real-time transcription, 0.5 million
+    characters/month neural text-to-speech, and 5 audio hours/month speech translation.
   limits:
-    - 5 audio hours/month real-time speech-to-text (standard + custom, batch excluded)
+    - >-
+      5 audio hours/month real-time speech-to-text (shared by standard and custom models; batch not
+      supported)
     - 0.5 million characters/month neural text-to-speech
     - 5 audio hours/month speech translation
+    - 1 concurrent request on the base model endpoint and 1 on a custom endpoint (not adjustable)
   caveats:
     - Batch transcription is not included in the free tier
-    - One custom model endpoint is free; unused custom models are removed after 7 days
+    - One custom model endpoint is free; unused custom models are decommissioned after 7 days
+    - Free (F0) quotas are not adjustable; Standard (S0) quotas are
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Voice transcription for apps
-  - Text-to-speech for accessibility
-  - Real-time speech translation
+  - Transcribe meetings or calls in real time
+  - Read text aloud with neural voices
+  - Translate speech between languages
+  - Add voice commands to an app
 quickstartSteps:
-  - Sign in to the Azure Portal and create a Speech resource.
-  - Copy your Speech resource key and endpoint.
-  - Install the Azure Speech SDK for your preferred language.
-  - Configure your app with the key and endpoint.
-  - 'Call the API for speech-to-text, text-to-speech, or translation.'
+  - Create an Azure account or use an existing subscription.
+  - >-
+    Create a Speech resource, or a Foundry resource, in the Azure portal and pick the Free F0
+    pricing tier.
+  - Copy a key and the region from the resource.
+  - Store the key in an environment variable such as SPEECH_KEY.
+  - >-
+    Follow the speech to text or text to speech quickstart for your language, using the SDK or the
+    REST API.
+  - Send audio or text and read the result.
 whenToUse: >-
-  Use when you need reliable cloud-based speech recognition, synthesis, or
-  translation with generous free monthly limits.
+  Use when you need cloud speech recognition, synthesis, or translation and your monthly volume fits
+  in a few audio hours.
 whenNotToUse: >-
-  Avoid if you need unlimited usage, custom voice models, or fully offline/local
-  processing.
+  Avoid if you need more than 1 concurrent request on the free tier, batch transcription for free,
+  or offline processing.
 bestFor:
-  - voice-enabled apps
+  - voice-enabled app prototypes
   - accessibility features
-  - multilingual support
+  - short transcription jobs
+  - multilingual demos
 avoidIf:
-  - need custom voice training
+  - need batch transcription on the free tier
   - require on-premises processing
   - exceed free tier limits regularly
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
-officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-speech/'
+officialUrl: 'https://azure.microsoft.com/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/speech-services/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/speech-services/'
-  - 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/'
+  - >-
+    https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-services-quotas-and-limits
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/get-started-text-to-speech'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-Azure AI Speech offers cloud APIs for speech-to-text, text-to-speech, and translation. The free (F0) tier includes 5 audio hours/month transcription, 0.5 million characters/month neural TTS, and 5 audio hours/month translation, suitable for development and light production workloads.
+You create a Speech resource in Azure, then call it from the REST API, an SDK, the Speech CLI, or the Foundry portal. It suits developers who add voice input, spoken output, or live translation to an app.
+
+## What the free plan gives you
+
+The Free (F0) tier has monthly allowances for three jobs. Real-time speech to text gets 5 audio hours per month, and that pool is shared between standard and custom models. Neural text to speech gets 0.5 million characters per month. Speech translation gets 5 audio hours per month.
+
+One custom model endpoint can be hosted for free. The pricing page says unused custom models are decommissioned after 7 days. Batch transcription is not supported on the free tier.
+
+The F0 quotas cannot be raised. The docs set the limit at 1 concurrent request for the base model endpoint and 1 for a custom endpoint. Real-time speech-to-text and speech translation share that concurrency count. Several features, such as Voice Live and large language model speech, show as not applicable for F0.
+
+## When you hit a limit
+
+The pricing page does not say what happens when the free hours or characters are used up. The docs say F0 quotas are not adjustable. Standard (S0) quotas can be adjusted, and the default for S0 is 100 concurrent requests.
+
+If you switch a resource from F0 to S0, the new quotas can take up to several hours to apply. Paid prices are shown as blank dashes on the page, so use the Azure pricing calculator. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+
+## Gotchas
+
+- Free audio hours for speech to text are shared between standard and custom models.
+- Free custom models vanish after 7 days if you do not use them.
+- Custom voice is a limited access feature, so it is not a free self-serve path.
+
+## Alternatives in this atlas
+
+- [Azure AI Translator](/services/azure-ai-translator/): when you only need text translation and not audio.
+- [Azure AI Immersive Reader](/services/azure-ai-immersive-reader/): when you want a read-aloud button with reading tools inside your own web app.
+- [Azure AI Language](/services/azure-ai-language/): when your input is already text and you need analysis.
+
+## Questions people ask
+
+### Is Azure AI Speech free?
+
+Yes, within limits. The F0 tier gives 5 audio hours of speech to text, 0.5 million characters of text to speech, and 5 audio hours of speech translation each month.
+
+### Does Azure AI Speech free tier support batch transcription?
+
+No. The pricing page says batch is not supported for the free audio hours.
+
+### Can I raise the Azure AI Speech free tier limits?
+
+No. The docs say the quotas and limits for F0 resources are not adjustable. You must move to Standard (S0) for higher limits.

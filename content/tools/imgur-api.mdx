@@ -1,8 +1,8 @@
 ---
 title: Imgur API
 description: >-
-  Imgur API enables developers to upload, manage, and share images programmatically on the Imgur
-  platform.
+  The Imgur API is a REST interface for uploading, reading, and managing images
+  and albums on Imgur from your own code.
 provider: Imgur
 category: hosting
 domain: hosting
@@ -16,51 +16,55 @@ audiences:
   - startup
   - oss
 tags:
-  - images
-  - api
+  - image-hosting
+  - rest-api
+  - oauth
+  - upload
+  - albums
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free for non-commercial apps: about 12,500 requests or 1,250 uploads per day.'
+  summary: 'Non-commercial apps get about 12,500 requests or 1,250 uploads per day; the docs list no fee.'
   limits:
     - 'About 12,500 requests per day per app'
     - 'About 1,250 uploads per day per app'
-    - Per-user limits by IP address
+    - Each user (by IP address) is limited per app, with a pause of an hour
   caveats:
-    - Commercial apps must use the paid RapidAPI plans
+    - Commercial apps must register with RapidAPI and use a paid plan
     - Hitting the daily limit five times in a month blocks the app for the rest of the month
+    - You must register an application even for anonymous uploads
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Embed user-uploaded images in apps
-  - Automate image gallery creation
-  - Host images for blogs or forums
+  - Upload user images from your app and store the returned link
+  - Upload images anonymously, without tying them to an account
+  - Create and fill albums from a script
+  - Read public gallery data and image info
 quickstartSteps:
-  - Register for a free Imgur account.
-  - Create an application in the Imgur dashboard to obtain a Client ID and secret.
-  - Read the API documentation to understand authentication and endpoints.
-  - Use your Client ID to authenticate API requests.
-  - Test uploading an image using the API.
+  - Register your application on the Imgur site to receive a client_id and client_secret.
+  - 'Send the header Authorization: Client-ID plus your client_id for public reads and anonymous uploads.'
+  - Use OAuth 2.0 to get an access token if you need to act as a user.
+  - Send your first upload or image-info request, and watch the X-RateLimit-ClientRemaining header.
 whenToUse: >-
-  Use when you need a simple, reliable way to host and share images via API with generous free
-  limits.
+  Use it for a non-commercial project that needs simple image hosting through a
+  REST API.
 whenNotToUse: >-
-  Avoid if you require video hosting, advanced image processing, or need guaranteed uptime for
-  critical production workloads.
+  Avoid it for commercial apps on the free route, for apps that need more than
+  about 12,500 requests a day, or for work that needs a service-level guarantee.
 bestFor:
   - prototyping
   - side-projects
   - student projects
   - community forums
 avoidIf:
-  - video hosting
-  - enterprise SLAs
-  - custom CDN needs
+  - the app earns money
+  - you need guaranteed uptime
+  - you need a custom CDN
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
+lastUpdated: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://api.imgur.com'
@@ -69,6 +73,44 @@ sourceUrls:
   - 'https://apidocs.imgur.com/'
 featured: false
 pricingUrl: 'https://apidocs.imgur.com/'
-lastVerified: '2026-10-01'
+lastVerified: '2026-10-09'
 ---
-Imgur API provides a straightforward way to upload, manage, and share images, making it ideal for lightweight apps, prototypes, and community-driven projects. The free tier is generous for most non-commercial use cases, but strict rate limits and lack of advanced features may limit suitability for high-volume or enterprise scenarios.
+You call the REST API over HTTPS and get JSON back. Version 3 uses OAuth 2.0, and the docs suggest Postman as the quickest way to try the endpoints.
+
+## What the free plan gives you
+
+The docs list no fee for non-commercial apps. Each registered application can make about 12,500 requests per day, or about 1,250 uploads per day. Imgur calls this a credit allocation system.
+
+You also get a second limit for each user. Imgur counts users by IP address for each application. Every response carries rate limit headers, such as `X-RateLimit-ClientRemaining`, so your code can track the credits left. For public reads and anonymous uploads you only need to send your client ID in an `Authorization` header.
+
+## When you hit a limit
+
+If a user hits the per-user limit, Imgur stops that user from requesting more data for an hour. If your app reaches its daily limit five times in one month, Imgur blocks the app for the rest of that month.
+
+The docs list no bill for non-commercial use. Commercial use works differently: you register with RapidAPI, pick a pricing plan there, and send requests to a RapidAPI endpoint with a key. The docs treat an app as commercial if it makes money, including in-app advertising, or belongs to a company.
+
+## Gotchas
+
+- You must register an application and use a client ID even if you only want anonymous uploads.
+- The free limits are approximate, and five days over the daily limit in a month blocks the app until the next month.
+- An access token is valid for about a month, so your code must renew it.
+
+## Alternatives in this atlas
+
+- [Cloudinary](/services/cloudinary/): when you want image transformations and a dashboard with a free plan.
+- [ImageKit](/services/imagekit/): when you need an image CDN with resizing and clear bandwidth limits.
+- [Cloudflare Images](/services/cloudflare-images/): when your app already runs on Cloudflare and you want to store and transform images there.
+
+## Questions people ask
+
+### Is the Imgur API free?
+
+The docs list no fee for non-commercial apps. Each app gets about 12,500 requests or about 1,250 uploads per day.
+
+### What happens when I go over the Imgur API limit?
+
+Imgur stops a user for an hour if they pass the per-user limit. If your app hits the daily limit five times in a month, it is blocked for the rest of the month.
+
+### Can I use the Imgur API in a commercial app?
+
+Not on the free route. You register your app, sign up with RapidAPI, choose a plan there, and use the RapidAPI endpoint with a key.

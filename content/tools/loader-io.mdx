@@ -1,8 +1,8 @@
 ---
 title: Loader.io
 description: >-
-  Loader.io offers simple cloud-based load testing for web applications and
-  APIs.
+  Loader.io sends many simulated clients at your web app or API from the cloud,
+  so you can see how it holds up under load.
 provider: Loader.io
 category: devops
 domain: devops
@@ -17,61 +17,106 @@ audiences:
   - team
   - oss
 tags:
-  - testing
+  - load-testing
+  - stress-testing
+  - performance
   - api
   - web
+  - benchmarking
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier allows basic load testing with limited concurrent clients and
-    tests.
+    The free plan allows 10,000 clients per test, 1 target host, 1 minute
+    tests, and 2 URLs per test.
   limits:
+    - 10,000 clients per test
     - 1 target host
-    - '10,000 clients per test'
+    - 1 minute tests
     - 2 URLs per test
   caveats:
-    - No advanced analytics (only aggregated stats, not per-URL)
-    - No team collaboration features
+    - Free users see only aggregated stats for all URLs, not per-URL results
+    - Pro is $99.95 a month for 100,000 clients per test and unlimited target hosts
+    - All tests run from Amazon's US-east datacenter
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
 useCases:
-  - Test web app scalability
-  - API endpoint stress testing
-  - Performance benchmarking
-  - CI/CD integration for performance checks
+  - Check how a web app handles many users at once
+  - Stress test an API endpoint
+  - Compare response times before and after a change
+  - Ramp the load up during a test with Maintain client load
 quickstartSteps:
   - Sign up for a free Loader.io account.
-  - Add and verify your target domain.
-  - Create a new test specifying the number of clients and duration.
-  - Run the test and review the results dashboard.
+  - Open Target Hosts, click New Host, and enter your domain name or IP address.
+  - Verify the host by uploading the token file to your server root or adding a DNS TXT record.
+  - Click New Test, pick Clients per test, Clients per second, or Maintain client load, and set clients and duration.
+  - Run the test and read the results page.
 whenToUse: >-
-  Use Loader.io to quickly test how your web app or API handles concurrent
-  traffic up to 10,000 clients.
+  Use Loader.io for a quick load test of one host with a short test and up to
+  10,000 clients.
 whenNotToUse: >-
-  Avoid if you need advanced analytics, multi-host testing, or require more than
-  10,000 concurrent clients per test.
+  Avoid the free plan if you need tests longer than a minute, more than one
+  host, more than 2 URLs per test, or per-URL results.
 bestFor:
   - web developers
-  - QA engineers
   - API developers
+  - quick load checks
 avoidIf:
-  - need advanced reporting
-  - require team collaboration
-  - need higher concurrency limits
+  - you need longer tests
+  - you need more than one target host
+  - you need per-URL analytics for free
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://loader.io/'
-docsUrl: 'https://loader.io/docs/'
+docsUrl: 'http://support.loader.io'
 sourceUrls:
   - 'https://loader.io/pricing'
-  - 'https://loader.io/docs/'
+  - 'https://loader.io/'
+  - 'http://support.loader.io'
 pricingUrl: 'https://loader.io/pricing'
 featured: false
 ---
-Loader.io provides a straightforward way to test your web application's or API's ability to handle concurrent users, making it ideal for quick performance checks and early-stage scalability validation.
+You use Loader.io from a web dashboard, or its API, to register a host and run tests against it. It suits developers who want a fast load check without setting up their own load generator.
+
+## What the free plan gives you
+
+The pricing page says to use the Free plan forever and upgrade to Pro anytime. The Free plan is $0 a month and allows 10,000 clients per test, 1 target host, 1 minute tests, and 2 URLs per test.
+
+You choose from three test types: Clients per test, Clients per second, and Maintain client load. The advanced settings let you set an error threshold, timeouts, and basic authentication. Free users see aggregated stats for all URLs, and the home page calls Loader.io a free load testing service.
+
+## When you hit a limit
+
+The pricing page does not describe an error or a bill when you reach a free limit. The limits are in the form itself: client count, host count, URL count, and test length. To go beyond them, you move to Pro.
+
+Pro costs $99.95 a month. It allows 100,000 clients per test, unlimited target hosts, unlimited 10 minute tests, and 10 URLs per test. It adds advanced analytics, concurrent tests, DNS verification, team features, and priority support.
+
+## Gotchas
+
+- You must verify each target host with a token file or a DNS TXT record before you can create a test.
+- All tests run from Amazon's US-east datacenter, and the pages list no other test location.
+- Free users do not get per-URL response times or response codes. Those are advanced analytics on paid plans.
+
+## Alternatives in this atlas
+
+- [Checkly](/services/checkly/): when you want scheduled API and browser checks instead of load bursts.
+- [Hoppscotch](/services/hoppscotch/): when you want to send and script single API requests by hand.
+- [Keploy](/services/keploy/): when you want regression tests built from real API traffic.
+
+## Questions people ask
+
+### Is Loader.io free?
+
+Yes. The Free plan is $0 a month with 10,000 clients per test and 1 target host. Tests run for 1 minute.
+
+### How much does Loader.io Pro cost?
+
+Pro is $99.95 a month. It raises the limit to 100,000 clients per test and unlimited target hosts.
+
+### Where do Loader.io tests run from?
+
+The pricing FAQ says all tests run from Amazon's US-east datacenter.

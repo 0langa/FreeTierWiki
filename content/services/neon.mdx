@@ -1,8 +1,8 @@
 ---
 title: Neon
 description: >-
-  Neon is a serverless Postgres platform with autoscaling, branching, and a
-  generous free tier for developers.
+  Neon is a serverless Postgres database with autoscaling, scale to zero, and
+  branching. It suits developers who want a database per app, branch, or preview.
 provider: Neon
 category: database
 domain: database
@@ -17,57 +17,63 @@ audiences:
   - team
   - oss
 tags:
-  - database
+  - postgres
   - serverless
+  - database
+  - branching
   - cloud
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan (no time limit, no credit card) includes up to 100 projects, each with 100 CU-hours of
-    Postgres compute/month, 1 GB storage, up to 2 CU (8GB RAM) sizing, and unlimited team members.
+    The Free plan has no time limit and needs no credit card. It includes up to
+    100 projects, each with 100 CU-hours of Postgres compute per month and 1 GB
+    of storage, with computes up to 2 CU (8 GB RAM).
   limits:
     - Up to 100 projects
-    - 100 CU-hours of compute per project/month
-    - 1 GB storage per project
-    - Up to 2 CU (8 GB RAM) per compute
-    - 5 GB object storage per project
-    - Up to 60,000 monthly active users (Neon Auth)
+    - 100 CU-hours of compute per project per month
+    - 1 GB of Postgres storage per project, up to 20 GB across all projects
+    - Computes up to 2 CU (8 GB RAM)
+    - 10 branches per project
+    - 5 GB of egress per project
+    - 5 GB of Object Storage per project
+    - Up to 60k monthly active users on Managed Better Auth
   caveats:
-    - Compute autoscales to zero after 5 minutes of inactivity
-    - >-
-      Functions and Object Storage usage have separate allowances, billed usage-based beyond the free
-      amount
-    - No custom VPC or private networking on the free plan
+    - Compute scales to zero after 5 minutes of inactivity and you cannot turn this off on Free
+    - Functions and Object Storage have their own allowances, separate from CU-hours
+    - Instant restore on Free reaches back 6 hours by default and scheduled backups are not available
+    - Private networking appears only on the Scale plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Developing and testing Postgres-backed apps
-  - Prototyping SaaS products
-  - Branching databases for feature development
+  - Running a Postgres database for a side project or small app
+  - Giving each pull request or preview its own database branch
+  - Prototyping a SaaS product before you pay for compute
+  - Keeping many small, rarely used databases for demos and tests
 quickstartSteps:
-  - Sign up at neon.tech using your email or GitHub account.
-  - Create a new project and select your region.
-  - Configure your database and create your first branch.
-  - Copy the connection string and use it in your application.
-  - Monitor usage and manage branches from the Neon dashboard.
+  - Sign up for a Neon account from the Sign up button on neon.com.
+  - In the console, create a project. Neon makes a root branch and a default database named `neondb`.
+  - Run `npx neon@latest init` to link a project and write your `DATABASE_URL` to `.env`, or copy the connection string from the console.
+  - Open the SQL Editor in the console, or connect with `psql` using `neon connection-string`.
+  - Create a `development` branch from your root branch and try schema changes there.
 whenToUse: >-
-  Use Neon for rapid development, prototyping, or when you need serverless
-  Postgres with easy branching and no infrastructure management.
+  Use Neon for serverless Postgres on side projects, prototypes, and
+  per-branch development databases that mostly sit idle.
 whenNotToUse: >-
-  Avoid Neon if you require advanced networking, high-throughput workloads, or
-  strict on-premise compliance requirements.
+  Avoid the Free plan for production workloads, for private networking, or for
+  databases that need more than 1 GB of storage or 2 CU of compute.
 bestFor:
   - prototyping
-  - side-projects
-  - feature-branching
+  - side projects
+  - branch per feature development
   - student projects
 avoidIf:
-  - need private networking
-  - require high IOPS
-  - must run on-premise
+  - production workloads
+  - private networking
+  - more than 1 GB per database
+  - scheduled backups
 difficulty: beginner
 productionReadiness: production-light
 status: changed
@@ -75,16 +81,57 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Updated free Postgres storage from 0.5 GB to 1 GB per project."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://neon.tech/'
 docsUrl: 'https://neon.tech/docs/introduction'
 pricingUrl: 'https://neon.com/pricing'
 sourceUrls:
-  - 'https://neon.tech/pricing'
+  - 'https://neon.com/pricing'
+  - 'https://neon.com/docs/introduction/plans'
   - 'https://neon.tech/docs/introduction'
+  - 'https://neon.com/docs/get-started/signing-up'
 featured: false
 ---
-Neon provides a modern, serverless Postgres experience with branching and autoscaling, making it ideal for development, testing, and small production workloads.
+---
+You use Neon from the web console, the `neon` CLI, or any Postgres driver or ORM with a connection string. It suits developers who want a managed Postgres database without running a server.
+
+## What the free plan gives you
+
+The Free plan costs nothing, has no time limit, and needs no credit card. You can create up to 100 projects. Each project gets 100 CU-hours of Postgres compute per month, which covers about 400 hours of a 0.25 CU compute. Computes can grow up to 2 CU, or 8 GB of RAM.
+
+Storage is 1 GB of Postgres data per project, and the total across your Free projects cannot pass 20 GB. Each project allows 10 branches and 5 GB of egress. The plan also includes 5 GB of Object Storage per project, a Functions allowance, and Managed Better Auth for up to 60k monthly active users. Object Storage and Functions do not use your CU-hours.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a Free project passes its compute or storage allowance. It does say you pay nothing on this plan. The Free plan needs no credit card.
+
+The limit you will notice first is sleep. Neon scales a compute to zero after 5 minutes of inactivity, and on Free you cannot disable it. When you need more, you move to a paid plan, where usage is metered from zero at the paid rates.
+
+## Gotchas
+
+- The 1 GB storage limit applies per project, and a separate 20 GB cap covers all your Free projects together. Both limits are enforced.
+- The Free plan allows 10 branches per project. The pricing page does not say what happens past 10, so delete old branches before you reach that count.
+- Instant restore on Free defaults to a 6 hour history window, and scheduled backups are not available. Take your own dumps if the data matters.
+
+## Alternatives in this atlas
+
+- [Supabase Database](/services/supabase-database/): when you want Postgres with auth, storage, and APIs from one dashboard.
+- [Prisma Postgres](/services/prisma-postgres/): when you already use Prisma and want a managed database next to it.
+- [Aiven](/services/aiven/): when you want a free managed Postgres plan from a provider with several database engines.
+
+## Questions people ask
+
+### Is Neon free?
+
+Yes. The Free plan has no time limit and needs no credit card. It includes up to 100 projects with 100 CU-hours of compute each and 1 GB of storage per project.
+
+### Does the Neon free tier sleep?
+
+Yes. Neon scales a compute to zero after 5 minutes of inactivity, and you cannot turn this off on the Free plan.
+
+### What happens when I go over the Neon free tier limits?
+
+The pricing page does not describe what happens at the limit. Free plan quotas do not carry over when you upgrade, because paid plans meter usage from zero.

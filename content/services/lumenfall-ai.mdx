@@ -1,8 +1,8 @@
 ---
 title: Lumenfall.ai
 description: >-
-  Lumenfall.ai is a unified API gateway for AI image and video generation
-  across multiple providers, with automatic fallbacks and no markup.
+  Lumenfall is one OpenAI-compatible API for AI image, video, and text models
+  from many providers, with automatic failover and no markup on provider prices.
 provider: Lumenfall.ai
 category: ai
 domain: ai
@@ -17,57 +17,62 @@ audiences:
   - team
   - oss
 tags:
-  - ai
-  - images
-  - api
+  - image-generation-api
+  - video-generation-api
+  - ai-gateway
+  - openai-compatible
+  - failover
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    New accounts get a small one-time credit to try the unified image/video
+    New accounts get a small one-time credit to try the unified image and video
     API; usage is billed at each provider's own rate after that.
   limits:
     - $1 free credit at signup, no credit card required
-    - Pay-as-you-go at provider rates after the credit
-    - No monthly fee, no platform markup on top of provider cost
+    - Prepaid balance; pay at provider rates after the credit
+    - No monthly fee and no platform markup on top of provider cost
   caveats:
-    - Usage-based billing starts as soon as the $1 credit is used
+    - Requests fail with a 402 error when the prepaid balance is too low
     - No ongoing free monthly allowance
+    - Postpaid billing and auto top-up are options that can charge you without a manual step
   requiresCard: false
   freeTierType: credit
   hasHardCap: true
   overageRisk: low
   billingRiskNotes:
     - Once the $1 credit is spent, every request is billed at the provider's rate
+    - Auto top-up and postpaid billing are optional; leave them off to stay within the prepaid balance
   monthlyCreditAmount: $1 one-time
 useCases:
-  - Generating images or video from a single unified API
-  - Prototyping across multiple AI image/video providers without separate accounts
-  - Building resilient apps that fail over between providers automatically
-  - Comparing image/video model output across providers
+  - Generate images and video from one OpenAI-compatible API
+  - Compare image and video models from several providers
+  - Fail over to another provider when one goes down
+  - See the cost of every request in one dashboard
+  - Use one key instead of separate provider accounts
 quickstartSteps:
-  - 'Go to https://lumenfall.ai/ and sign up (no credit card required).'
-  - Get your API key (starts with lmnfl_) from the dashboard.
-  - Point the OpenAI SDK at the Lumenfall base URL.
-  - Call the images or videos endpoint with your chosen model.
-  - Monitor requests, cost, and errors on the Lumenfall dashboard.
+  - Sign up at lumenfall.ai. The $1 credit arrives right away and no card is needed.
+  - Create an API key in the dashboard.
+  - Point the OpenAI SDK at the base URL `https://api.lumenfall.ai/openai/v1` with your Lumenfall key.
+  - Call `images/generations` with a model such as `gemini-3-pro-image` and a prompt. Videos use an asynchronous call.
+  - Check each request's cost and status in the Requests dashboard.
 whenToUse: >-
-  Use when you need one API for AI image and video generation across many
-  providers, with automatic fallback if a provider errors or rate-limits.
+  Use Lumenfall when you want one API for image and video models across many
+  providers, with failover and no markup.
 whenNotToUse: >-
-  Avoid if you need a large ongoing free allowance; billing starts as soon as
-  the small signup credit is used.
+  Avoid it if you need a large free monthly allowance. Free use ends when the
+  $1 credit is gone.
 bestFor:
-  - developers building AI image/video features
-  - teams comparing multiple providers
-  - apps that need automatic provider fallback
+  - developers building AI image and video features
+  - teams comparing providers
+  - apps that need provider failover
 avoidIf:
-  - need a large free monthly allowance
-  - require a single-provider direct integration
-  - cannot use usage-based billing
+  - you need a large free monthly allowance
+  - you want a direct single-provider integration
+  - you cannot use prepaid billing
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://lumenfall.ai/'
@@ -76,6 +81,43 @@ pricingUrl: 'https://lumenfall.ai/pricing'
 sourceUrls:
   - 'https://lumenfall.ai/'
   - 'https://lumenfall.ai/pricing'
+  - 'https://docs.lumenfall.ai/quickstart'
+  - 'https://docs.lumenfall.ai/billing'
 featured: false
 ---
-Lumenfall.ai is a unified, zero-markup API gateway for AI image and video generation, giving a small free credit to try it before usage-based billing begins.
+You use Lumenfall with the OpenAI SDK or plain HTTP, pointed at the Lumenfall base URL, plus a web dashboard that shows each request. It suits developers who want image or video generation without opening an account with every provider.
+
+## What the free plan gives you
+
+Every new account gets a $1 credit the moment you sign up, and no credit card is needed. Lumenfall has no monthly fee, no subscription, and no platform fee. It charges the provider's own price with zero markup, so a request that costs a provider $0.04 costs you $0.04.
+
+The credit works across the models Lumenfall offers. The home page lists models from providers such as OpenAI, Google, ByteDance, Alibaba, and Black Forest Labs. You also get one wallet and one invoice. Each response includes the exact cost of that request.
+
+## When you hit a limit
+
+Lumenfall uses a prepaid balance. When the balance is too low, requests return a 402 error with the code `INSUFFICIENT_BALANCE`. To continue, add funds, turn on auto top-up, or switch to postpaid billing. Top-ups can be any amount. After the $1 credit is gone, every request is billed at the provider's rate. Auto top-up and postpaid billing are optional, so leaving them off keeps you inside what you loaded.
+
+## Gotchas
+
+- The $1 credit is one-time. There is no monthly free allowance.
+- Prices follow each provider's rate, so costs vary by model and output. In-progress video jobs show an estimated cost, and the final cost appears when they finish.
+- Auto top-up and postpaid billing can charge you without a manual step, so enable them on purpose.
+
+## Alternatives in this atlas
+
+- [JSON2Video](/tools/json2video/): when you want to assemble videos from templates, not generate them with AI.
+- [Metashot](/services/metashot/): when you want rendered images from a template.
+
+## Questions people ask
+
+### Is Lumenfall free?
+
+Partly. New accounts get a $1 credit with no credit card. After that you pay providers' prices with no markup.
+
+### Does Lumenfall add a markup?
+
+No. The pricing page says it charges nothing extra, with no platform fee, monthly fee, or hidden costs.
+
+### What happens when my Lumenfall balance runs out?
+
+Requests return a 402 insufficient balance error. You can add funds or turn on auto top-up to continue.

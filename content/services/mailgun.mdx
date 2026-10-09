@@ -1,8 +1,9 @@
 ---
 title: Mailgun
 description: >-
-  Mailgun provides APIs for sending, receiving, and tracking email at scale for
-  applications and businesses.
+  Mailgun is an email API and SMTP relay for sending, receiving, and tracking
+  app email. It is for developers who need reliable delivery from their own
+  code.
 provider: Mailgun
 category: messaging
 domain: messaging
@@ -17,61 +18,108 @@ audiences:
   - enterprise
   - oss
 tags:
-  - email
-  - api
+  - transactional email
+  - email api
+  - smtp relay
+  - inbound email
+  - email sending
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan is always free: 100 emails per day with 1 sending domain.'
+  summary: >-
+    Free plan is always free: 100 emails per day with 1 custom sending domain,
+    2 API keys, and 1 inbound route.
   limits:
     - '100 emails/day'
-    - 1 sending domain
+    - 1 custom sending domain
+    - 2 API keys
     - 1-day log retention
     - 1 inbound route
   caveats:
-    - No dedicated IP on free tier
     - Ticket support only
+    - Sandbox domain only sends to authorized recipients you verify
+    - The pricing page does not list a dedicated IP on the free plan
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Send transactional emails
-  - Automate email notifications
-  - Track email delivery
-  - Receive inbound emails
+  - Sending password resets and receipts from an app
+  - Sending notification email through the REST API or SMTP
+  - Tracking delivery with analytics and webhooks
+  - Receiving inbound email and routing it to your app
 quickstartSteps:
-  - Sign up for a Mailgun account and verify your email.
-  - Add and verify your sending domain.
-  - Obtain your API key from the dashboard.
-  - Integrate Mailgun API or SMTP into your application.
-  - Send a test email to confirm setup.
+  - Sign up for a free Mailgun account.
+  - Follow the guided setup in the dashboard to activate the account and create your first API key.
+  - Add your own email as an authorized recipient for the sandbox domain, and click the verification link.
+  - Send a first message with a POST to the `/messages` endpoint of your sandbox domain, using your private API key.
+  - Add and verify your own sending domain by setting its DNS records, then send from it.
 whenToUse: >-
-  Use Mailgun when you need reliable, scalable email delivery with API or SMTP
-  integration for apps or services.
+  Use Mailgun when an app needs API or SMTP email delivery and 100 emails a day
+  on one domain is enough.
 whenNotToUse: >-
-  Avoid if you need more than 100 emails per day for free, or require multiple
-  sending domains without upgrading.
+  Avoid it if you need more than 100 emails a day for free or more than one
+  sending domain.
 bestFor:
   - transactional email
   - app notifications
-  - automated messaging
+  - inbound email routing
 avoidIf:
-  - need more than 100 emails/day free
-  - need multiple sending domains
-  - require bulk marketing tools
+  - more than 100 emails a day for free
+  - several sending domains
+  - more than 1 inbound route
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://www.mailgun.com/'
-docsUrl: 'https://documentation.mailgun.com/en/latest/'
+docsUrl: 'https://documentation.mailgun.com/docs/mailgun/'
 sourceUrls:
   - 'https://www.mailgun.com/pricing/'
-  - 'https://documentation.mailgun.com/en/latest/'
+  - 'https://documentation.mailgun.com/docs/mailgun/'
+  - 'https://documentation.mailgun.com/docs/mailgun/quickstart/'
+  - 'https://documentation.mailgun.com/docs/mailgun/user-manual/get-started/'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://www.mailgun.com/pricing/'
 ---
-Mailgun is a popular email delivery service offering APIs and SMTP relay for sending, receiving, and tracking transactional emails. The free plan is always free, allowing up to 100 emails per day with one sending domain, making it suitable for testing and early-stage projects. Mailgun is best for developers and teams needing reliable email delivery.
+You send mail with the REST API, an SDK, or SMTP, and you manage domains, keys, and logs in the dashboard. It fits developers who want one service to send and also receive app email.
+
+## What the free plan gives you
+
+The free plan costs $0 and includes 100 emails per day. You get the RESTful email API and SMTP relay, one custom sending domain, 2 API keys, tracking, analytics, and webhooks.
+
+Logs are kept for 1 day, and bounce classification is also limited to 1 day. You get 1 inbound route to receive email, and support is by ticket only. Test sends go through the sandbox domain until you verify your own domain. The first plan up, Basic, starts at $15 per month with 10,000 emails and no daily limit.
+
+## When you hit a limit
+
+The free plan counts 100 emails per day. The pricing page does not say what happens when you pass that number, such as whether sends are rejected or delayed. It also lists no overage price for the free plan.
+
+Paid plans have no daily email limit and list monthly overage rates per 1,000 emails. Upgrade to Basic if you regularly need more than 100 emails a day.
+
+## Gotchas
+
+- New accounts start with a sandbox domain. You must verify each address as an authorized recipient before the sandbox sends to it.
+- The free plan includes only 1 custom sending domain. The Basic plan also has 1, and the Foundation plan has 1,000.
+- Log retention is just 1 day on the free plan, so debug a failed send quickly.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want a developer-first email API with several sending domains on the free plan.
+- [Postmark](/services/postmark/): when you care most about transactional delivery and can live with a small monthly allowance.
+- [MailerSend.com](/services/mailersend-com/): when you want an email API with a drag and drop template builder.
+
+## Questions people ask
+
+### Is Mailgun free?
+
+Yes. The free plan costs $0 and includes 100 emails per day with one custom sending domain. The home page invites you to start for free and send up to 100 emails a day.
+
+### How many emails can I send with the Mailgun free plan?
+
+You can send 100 emails per day. Paid plans remove the daily limit and bill by monthly volume.
+
+### Can I receive email with Mailgun for free?
+
+Yes, in a small way. The free plan includes 1 inbound route, while the Basic plan lists 5.

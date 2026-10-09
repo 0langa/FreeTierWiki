@@ -1,8 +1,9 @@
 ---
 title: SendStreak
 description: >-
-  SendStreak offers transactional email delivery with a generous free tier for
-  developers and small businesses.
+  SendStreak is a layer that sits on top of your own email backend, such as AWS
+  SES, Postmark, Gmail, or an SMTP host. It adds templates, retries, logs, and
+  routing for developers who send app email.
 provider: SendStreak
 category: messaging
 domain: messaging
@@ -17,61 +18,110 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - api
+  - transactional email
+  - email api
+  - smtp
+  - email templates
+  - gdpr
+  - eu hosted
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier gives 100 emails per day, forever, with full API and SMTP
-    access; pay-as-you-go pricing (€2/10,000 emails) applies beyond that.
+    Free tier gives 100 emails per day, forever. Beyond that you pay as you go,
+    at 2 euros per 10,000 emails. Your own email backend bills you separately.
   limits:
     - 100 emails/day, forever
-    - Full API and SMTP access
-    - 'Pay-as-you-go beyond free amount: €2/10,000 emails'
+    - All features included, no tiers
+    - 'Pay-as-you-go beyond free amount: €2/10,000 emails, excluding VAT'
   caveats:
-    - Free allowance stays even after upgrading to a paid plan
-    - No subscriptions or monthly minimums — pure pay-as-you-go beyond free tier
+    - You connect your own email backend, and that provider bills you at its own rates
+    - The free daily allowance stays after you upgrade
+    - Billing happens in whole packages of 10,000 emails
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - Sending more than 100 emails a day costs 2 euros per 10,000 emails, and a started package counts as a whole one
 useCases:
-  - Send transactional emails from web apps
-  - Integrate email notifications
-  - Automate password resets
+  - Add templates and logs on top of AWS SES or Postmark
+  - Send password reset and order emails through one API call
+  - Switch email providers without changing app code
+  - Keep email content and logs on EU servers
 quickstartSteps:
-  - Sign up for a free SendStreak account.
-  - Verify your email address and domain.
-  - Obtain your API key from the dashboard.
-  - Integrate SendStreak SMTP or API into your application.
-  - Send a test email to confirm setup.
+  - Create a free account on sendstreak.com. The site offers a free sign-up.
+  - Connect a backend by creating a mail server, for example AWS SES, Postmark, Gmail, or your own SMTP host.
+  - Add a send domain. The API has endpoints to add and verify send domains.
+  - Create a personal access token for the REST API.
+  - Send a message with a POST to the `messages` endpoint of the v2 API, or use the Node.js, Java, or PHP SDK.
 whenToUse: >-
-  Use SendStreak when you need reliable, low-volume transactional email delivery
-  with simple API or SMTP integration.
+  Use SendStreak when you already run or plan to run an email backend such as
+  AWS SES, and want templates, logs, retries, and a single API on top.
 whenNotToUse: >-
-  Avoid if you require high-volume sending, advanced deliverability features, or
-  dedicated IP addresses.
+  Avoid it if you want one vendor that also delivers the mail, since SendStreak
+  needs a separate backend that bills you on its own.
 bestFor:
-  - developers
-  - startups
-  - side projects
-  - open source apps
+  - developers who send app email through AWS SES
+  - small apps under 100 emails a day
+  - teams that need EU data residency
 avoidIf:
-  - need high-volume email
-  - require dedicated IP
-  - need advanced analytics
+  - you want a single bill that includes delivery
+  - you want a flat monthly price instead of paying per email
+  - you have no email backend to connect
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.sendstreak.com/'
-docsUrl: 'https://docs.sendstreak.com'
+docsUrl: 'https://www.sendstreak.com/documentation/getting-started/'
 pricingUrl: 'https://www.sendstreak.com/pricing'
 sourceUrls:
   - 'https://www.sendstreak.com/pricing'
+  - 'https://www.sendstreak.com/'
+  - 'https://www.sendstreak.com/documentation/getting-started/'
 featured: false
 ---
-SendStreak provides a straightforward, developer-friendly platform for sending transactional emails, with 100 emails/day free forever and pay-as-you-go pricing beyond that.
+You call a REST API or use an SDK, and you manage templates and logs in a web dashboard. It suits developers who want control over mail delivery without building the extras themselves.
+
+## What the free plan gives you
+
+SendStreak has one plan with every feature. The first 100 emails each day are free, and that allowance never expires. Templates, routing, retries, logs, analytics, and automations are all on from day one, with no tiers or seats.
+
+Pricing is excluding VAT. The pricing page says the service is EU-hosted and GDPR compliant.
+
+SendStreak does not deliver the mail by itself. It runs on top of the backend you connect, such as AWS SES, Postmark, or your own SMTP host. That provider bills you directly at its own rates.
+
+## When you hit a limit
+
+The pricing page says every email beyond the daily 100 costs 2 euros per 10,000, and the free 100 a day stays after you upgrade. It does not say what happens to a free account that sends more than 100 a day without paid billing set up.
+
+Billing uses whole packages of 10,000 emails, once per billing period. A started package counts as a whole one. For example, 97,000 billable emails are 10 packages, so the bill is 20 euros. The pricing page says there is no monthly fee and no minimum.
+
+## Gotchas
+
+- The pricing page says your email backend bills you separately, and the comparison on that page includes the AWS SES cost.
+- The free allowance is a daily one. The estimate on the page assumes sending is spread across the month.
+- All prices exclude VAT.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want one vendor that sends the email and has its own free plan.
+- [Postmark](/services/postmark/): when you want a delivery service for app email without a separate layer on top.
+- [Sweego](/services/sweego/): when you want a European sending API that includes delivery.
+
+## Questions people ask
+
+### Is SendStreak free?
+
+Yes, up to 100 emails a day, forever. The free amount stays after you start paying for more.
+
+### How much does SendStreak cost after the free emails?
+
+It costs 2 euros per 10,000 emails, excluding VAT, with no monthly fee. Billing rounds up to whole packages of 10,000.
+
+### Do I still pay my email provider with SendStreak?
+
+Yes. SendStreak runs on top of the backend you connect, so AWS SES, Postmark, or your SMTP host bills you at its own rates.

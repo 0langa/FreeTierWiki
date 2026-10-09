@@ -1,6 +1,9 @@
 ---
 title: Leapcell
-description: 'Serverless hosting for web apps in Node.js, Python, Go, and Rust, with a free PostgreSQL database.'
+description: >-
+  Leapcell is a serverless platform that builds and runs Node.js, Python, Go,
+  and Rust web apps from a Git repository, with a free PostgreSQL database on
+  the Hobby plan.
 provider: Leapcell
 category: hosting
 domain: hosting
@@ -13,9 +16,11 @@ audiences:
   - startup
 tags:
   - serverless
-  - hosting
-  - database
-  - web
+  - paas
+  - postgresql
+  - node-js
+  - python
+  - web-hosting
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -24,40 +29,58 @@ freeTierDetails:
   limits:
     - 20 projects
     - '100,000 invocations per month'
-    - 3 GB-hours serverless compute
-    - 2 GB networking
-    - 1 PostgreSQL database
+    - 3 GB-hours serverless compute per month
+    - 2 GB networking per month
+    - 1 free PostgreSQL database
+    - 60 build minutes per month, 10 minutes per deployment
   caveats:
     - Persistent servers need a paid plan
+    - Free plan keeps deployment logs and metrics for 7 days; function logs for 3 days
+    - Fair use policy bans multiple accounts used to dodge the free limits
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Host a web app or API
-  - Small app with a Postgres database
+  - Host a small web app or API without running a server
+  - Deploy a FastAPI, Flask, Express, or Next.js project from GitHub
+  - Run a webhook callback, chatbot, or scheduled job
+  - Pair a small app with a free PostgreSQL database
 quickstartSteps:
-  - Sign up at leapcell.io.
-  - Connect a repository.
-  - Deploy and add the free database.
-whenToUse: Use for small apps that can run as serverless functions.
-whenNotToUse: Avoid for apps that must keep a long-running process.
+  - Sign up for free on leapcell.io.
+  - Create a new service and connect your GitHub repository and branch.
+  - Set the build command, the start command, and the port your app listens on.
+  - Deploy; Leapcell builds a container image and gives you a leapcell.dev address.
+  - Check the service logs if the start fails, and add the free PostgreSQL database when you need one.
+whenToUse: >-
+  Use it for small apps and APIs that can run as serverless services and that
+  fit the monthly Hobby quotas.
+whenNotToUse: >-
+  Avoid it for apps that must keep a long-running process, for steady traffic
+  that would pass 100,000 invocations a month, or for any use the fair use
+  policy bans.
 bestFor:
   - side projects
   - APIs
+  - webhook handlers
 avoidIf:
   - stateful servers
+  - always-on workers
+  - proxies or VPN services
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://leapcell.io'
 docsUrl: 'https://docs.leapcell.io'
 sourceUrls:
   - 'https://leapcell.io/pricing'
+  - 'https://docs.leapcell.io/limit'
+  - 'https://docs.leapcell.io/overview'
+  - 'https://docs.leapcell.io/fair-use'
 pricingUrl: 'https://leapcell.io/pricing'
 featured: false
 changes:
@@ -65,4 +88,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Leapcell runs apps as serverless services and includes one free Postgres database.
+You give Leapcell a Git repository plus a build command and a start command. It builds a container, deploys it, and serves it on a leapcell.dev address. You manage everything from the web dashboard and the service logs.
+
+## What the free plan gives you
+
+The Hobby plan costs $0. It includes 20 projects, 100,000 serverless invocations per month, and 3 GB-hours of serverless compute. You also get 2 GB of outbound networking and 10 GB of inbound large payloads each month, plus 1 free PostgreSQL database that runs on shared infrastructure.
+
+Builds get 60 minutes per month, and one deployment can build for up to 10 minutes. A single request can run for 15 minutes. The service can run up to 100 concurrent executions. Deployment logs and metrics are kept for 7 days, while the pricing page lists 3 days of function log retention. You can add up to 10 custom domains.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a Hobby account passes its monthly quotas. The paid plans list pay-as-you-go prices after their included amounts, but the Hobby column lists no such price.
+
+Some limits are hard caps on a single action. A deployment that builds for more than 10 minutes stops, and you can create at most 100 deployments a day. The fair use page also lets Leapcell stop a service without notice if it judges the use unfair.
+
+## Gotchas
+
+- Persistent servers are a separate mode from serverless. The pricing page lists them under the paid features.
+- The fair use policy bans open proxies, VPN services, crypto mining, and creating several accounts to get around the free limits.
+- The docs say a service is served from a `leapcell.dev` domain, and you must give a build command, a start command, and a port.
+
+## Alternatives in this atlas
+
+- [Render](/services/render/): when you want a free web service with a normal long-running process.
+- [Koyeb](/services/koyeb/): when you prefer container deploys and accept a card check.
+- [Vercel](/services/vercel/): when your app is a front end or Next.js project.
+
+## Questions people ask
+
+### Is Leapcell free?
+
+Yes. The Hobby plan costs $0 and includes 20 projects, 100,000 invocations per month, 3 GB-hours of compute, and 1 PostgreSQL database.
+
+### What happens when I go over the Leapcell free limits?
+
+The pricing page does not say what happens on Hobby. Paid plans list per-use prices after their included amounts, and the Hobby plan lists none.
+
+### Does Leapcell have a free database?
+
+Yes. The Hobby plan includes 1 free PostgreSQL database. The pricing page calls it a multi-tenant database for development, testing, and hobby projects.

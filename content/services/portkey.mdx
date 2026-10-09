@@ -1,8 +1,6 @@
 ---
 title: Portkey
-description: >-
-  Portkey provides unified API management and observability for AI and LLM
-  applications.
+description: 'Portkey is an AI gateway and control panel that sits between your app and more than 250 AI models. It logs requests and adds routing, caching, and key management for developers who build LLM apps.'
 provider: Portkey
 category: ai
 domain: ai
@@ -16,11 +14,12 @@ audiences:
   - indie
   - oss
 tags:
-  - ai
-  - llm
-  - api
-  - monitoring
-  - networking
+  - 'ai gateway'
+  - 'llm observability'
+  - 'llm gateway'
+  - 'prompt management'
+  - 'llm logs'
+  - 'api keys'
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -41,33 +40,33 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralizing LLM API calls
-  - Monitoring AI application usage
-  - Rate limiting and key management for LLMs
-  - Aggregating observability across providers
+  - 'Sending calls to many LLM providers through one gateway'
+  - 'Logging and tracing LLM requests'
+  - 'Managing prompt templates'
+  - 'Caching repeated requests'
+  - 'Watching model usage and cost in one place'
 quickstartSteps:
-  - Sign up for a free Portkey account.
-  - Create a new project in the Portkey dashboard.
-  - Configure your LLM provider API keys in Portkey.
-  - Update your application to use the Portkey endpoint as the LLM gateway.
-  - Monitor requests and usage in the Portkey dashboard.
-whenToUse: >-
-  Use Portkey when you need to manage, monitor, and secure multiple LLM API
-  integrations from a single gateway.
-whenNotToUse: >-
-  Avoid if you require unlimited requests, advanced enterprise features, or
-  direct LLM provider integration without a proxy.
+  - 'Create a Portkey account on the sign-up page of the web app.'
+  - 'Copy your account''s API key from the Settings page.'
+  - 'Add Portkey to your code with one of its SDKs or REST APIs. With the OpenAI SDK, import the Portkey SDK and configure it in your OpenAI client object.'
+  - 'Make a chat completion call through Portkey.'
+  - 'Open the Portkey dashboard to see the request appear in your logs.'
+whenToUse: 'Use Portkey when you want one gateway and one log view across several LLM providers, and your volume fits the free log limit.'
+whenNotToUse: 'Avoid it for production workloads on the Developer plan, which the pricing page marks as not suitable for them. Also avoid it if you need more than 3 days of log history or more than 10,000 recorded logs per month.'
 bestFor:
-  - AI startups
-  - LLM app developers
-  - Teams needing unified observability
+  - 'prototyping LLM apps'
+  - 'evaluating an AI gateway'
+  - 'small projects'
+  - 'developers who want one log view across providers'
 avoidIf:
-  - You need unlimited usage
-  - You require advanced enterprise SLAs
+  - 'production workloads on the free plan'
+  - 'log history longer than 3 days'
+  - 'more than 10,000 recorded logs per month'
+  - 'a direct provider connection without a proxy'
 difficulty: beginner
-productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+productionReadiness: prototype
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://portkey.ai/'
@@ -75,6 +74,49 @@ docsUrl: 'https://docs.portkey.ai/'
 pricingUrl: 'https://portkey.ai/pricing'
 sourceUrls:
   - 'https://portkey.ai/pricing'
+  - 'https://docs.portkey.ai/'
+  - 'https://portkey.ai/docs/introduction/make-your-first-request'
 featured: false
 ---
-Portkey offers a free tier for managing and monitoring LLM API usage, ideal for small teams and early-stage AI projects.
+You keep calling your model providers, but through the Portkey SDK or REST API, and read the logs and metrics in a web dashboard. It fits developers who use more than one provider. This page covers the free Developer plan.
+
+
+## What the free plan gives you
+
+The Developer plan is free forever. It records up to 10,000 logs per month. Logs stay for 3 days, and metrics stay for 30 days.
+
+You get the AI gateway, observability with logs, traces, feedback, custom metadata, and filters, and simple caching. Prompt management allows 3 prompt templates, with a playground, API endpoints, versioning, and variables. Support comes from the community.
+
+The pricing page says this plan is for prototyping and testing, and it is not suitable for production workloads. Portkey also says its gateway is open source and free to use.
+
+## When you hit a limit
+
+Passing 10,000 logs does not block your requests. The pricing page says only the logs beyond the limit are not recorded. You lose visibility, not traffic.
+
+The comparison table lists "No Overage Allowed" for the free plan. The Production plan costs $49 per month and adds paid overages. The docs say Portkey sets no explicit timeout on requests on free or paid plans. The pages do not mention a card for the free plan.
+
+## Gotchas
+
+- Logs from the Developer plan are kept for only 3 days, so export or review them quickly.
+- The plan has 3 prompt templates. Unlimited templates need a paid plan.
+- The docs estimate that Portkey adds between 20 and 40ms of delay compared with calling a provider directly.
+
+## Alternatives in this atlas
+
+- [Helicone](/services/helicone/): when you want a free logging plan with seats and storage listed.
+- [Langfuse](/services/langfuse/): when you want tracing and evaluation with a longer data window.
+- [Cloudflare AI Gateway](/services/cloudflare-ai-gateway/): when you already use Cloudflare and want caching and rate limiting.
+
+## Questions people ask
+
+### Is Portkey free?
+
+Yes. The Developer plan is free forever and records up to 10,000 logs per month. The paid Production plan starts at $49 per month.
+
+### What happens when I go over the Portkey free log limit?
+
+Your requests keep working. Only the logs beyond the limit are not recorded.
+
+### Does Portkey slow down my API calls?
+
+A little. The docs estimate that it adds between 20 and 40ms compared with direct calls to the provider.

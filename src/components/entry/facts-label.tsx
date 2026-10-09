@@ -24,6 +24,8 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
   const ended = entry.status === "ended";
   const watchOut = [...details.caveats, ...details.billingRiskNotes];
   const pricing = pricingUrl(entry);
+  // The pricing page first, then the other official pages the entry was checked against.
+  const sources = [...new Set([pricing, ...entry.sourceUrls].filter((url): url is string => Boolean(url && /^https?:\/\//i.test(url))))].slice(0, 5);
   const titleId = `facts-${entry.slug.replace(/[^a-z0-9-]/gi, "-")}`;
   const limits = compact ? details.limits.slice(0, 2) : details.limits;
   const showLastChecked = !(freshness.state === "ended" && !freshness.date);
@@ -85,13 +87,19 @@ export function FactsLabel({ entry, freshness, compact = false }: { entry: Atlas
             Last checked: <FreshnessLabel freshness={freshness} />
           </span>
         ) : null}
-        {!compact && pricing ? (
-          <span>
-            Source:{" "}
-            <a href={pricing} target="_blank" rel="noopener noreferrer" className="text-ink-2 underline underline-offset-2 hover:text-ink">
-              {shortUrl(pricing)}
-            </a>
-          </span>
+        {!compact && sources.length > 0 ? (
+          <div>
+            <span>{sources.length === 1 ? "Source:" : "Sources:"}</span>
+            <ul className="mt-0.5 grid gap-0.5">
+              {sources.map((url) => (
+                <li key={url} className="truncate">
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="text-ink-2 underline underline-offset-2 hover:text-ink">
+                    {shortUrl(url)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : null}
         {compact ? null : (
           <a href={reportUrl(entry)} target="_blank" rel="noopener noreferrer" className="text-ink-2 underline underline-offset-2 hover:text-ink">

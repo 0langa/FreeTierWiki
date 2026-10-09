@@ -1,6 +1,8 @@
 ---
 title: Tailscale
-description: A WireGuard-based private network (tailnet) that connects your devices and servers.
+description: >-
+  Tailscale builds a private WireGuard-based network (a tailnet) that links your
+  laptops, phones, and servers, so you can reach them from anywhere.
 provider: Tailscale
 category: networking
 domain: networking
@@ -12,47 +14,70 @@ audiences:
   - indie
   - oss
 tags:
-  - networking
-  - security
+  - vpn
+  - wireguard
+  - tailnet
+  - mesh vpn
+  - homelab
+  - remote access
+  - magicdns
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Personal plan is free forever: up to 6 users, unlimited user devices, and 50 tagged resources.'
+  summary: >-
+    The Personal plan is free forever for non-commercial use: up to 6 users,
+    unlimited user devices, and 50 tagged resources.
   limits:
     - Up to 6 users
     - Unlimited user devices
     - Up to 50 tagged resources (servers)
+    - Up to 3 ACL groups
+    - 1,000 minutes per month for ephemeral resources
   caveats:
+    - The Personal plan is only for non-commercial use
     - More tagged resources cost $1 each per month
+    - A sign-up with a custom domain email starts a 14-day Enterprise trial, not the Personal plan
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Reach home servers from anywhere
+  - Reaching a home server or NAS from anywhere
   - Private SSH to VPS machines
-  - Connect dev machines
+  - Connecting your own dev machines and phones
+  - Using remote desktop and file sharing between your own machines
 quickstartSteps:
-  - Sign up at tailscale.com.
-  - Install Tailscale on two devices.
-  - Connect with the Tailscale IP or MagicDNS name.
-whenToUse: Use to connect your own devices and servers privately.
-whenNotToUse: Avoid for a business team; the free plan is personal.
+  - Go to tailscale.com and select Get started, or install the client first and then sign up.
+  - Sign in with an existing single sign-on identity provider account, such as a Gmail address.
+  - On the Let's add your first device page, pick your operating system, install the client, and sign in with the same account.
+  - Install Tailscale on a second device.
+  - 'Open the Machines page in the admin console, then connect with the device name or Tailscale IP, for example `ssh username@device-name`.'
+whenToUse: >-
+  Use it to connect your own devices and servers privately for personal projects,
+  homelabs, and learning.
+whenNotToUse: >-
+  Avoid it for a company or commercial team on the free plan. The Personal plan
+  is for non-commercial use.
 bestFor:
   - homelabs
   - developers
+  - personal remote access
 avoidIf:
   - company teams
+  - commercial use on the free plan
+  - more than 6 users
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://tailscale.com'
 docsUrl: 'https://tailscale.com/kb'
 sourceUrls:
   - 'https://tailscale.com/pricing'
+  - 'https://tailscale.com/kb/1017/install'
+  - 'https://tailscale.com/kb/1452/quickstart'
 pricingUrl: 'https://tailscale.com/pricing'
 featured: false
 changes:
@@ -60,4 +85,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Tailscale's Personal plan includes nearly all features.
+You install the Tailscale client on each device, sign in, and the devices see each other with a stable IP address and a MagicDNS name. It suits people who want private access to their own machines with little setup.
+
+## What the free plan gives you
+
+The Personal plan is free forever. It allows up to 6 users and unlimited user devices, such as computers and phones. It includes up to 50 tagged resources, such as exit nodes and servers, up to 3 ACL groups, and 1,000 minutes a month for short-lived ephemeral resources like CI runners.
+
+Personal gives you nearly all of Tailscale's features. These include secure peer-to-peer connections, subnet routers and exit nodes, MagicDNS, ACLs, and basic Tailscale SSH for up to 5 hosts. Support is basic. The plan has the basic user roles of Owner, Admin, and Member.
+
+Tailscale says the Personal plan is for individuals using it at home and is only suitable for non-commercial use.
+
+## When you hit a limit
+
+You can add more tagged resources for $1 a month each, using the add-on on the pricing page. Short-lived workloads that need more ephemeral minutes mean contacting sales. The Premium plan includes 10,000 of those minutes a month.
+
+More than 6 users means the Standard plan, at $8 per user per month. Standard also lifts the user cap and allows up to 10 ACL groups. The pages do not describe a hard stop at the free limits, so check the admin console before you add users or tagged servers.
+
+## Gotchas
+
+- Signing up with a custom domain email, such as @example.com, starts a 14-day Enterprise trial. A public domain like @gmail.com gets the Personal plan.
+- The Personal plan is not meant for commercial use, even if you are below the user limit.
+- Tailscale connects devices only. You must run a service, such as SSH or a web server, on the device you connect to.
+
+## Alternatives in this atlas
+
+- [ZeroTier](/services/zerotier/): when you want a virtual network with its own controller and a free device allowance.
+- [Cloudflare Zero Trust](/services/cloudflare-zero-trust/): when you need access control for a small team, not only your own devices.
+- [ngrok](/tools/ngrok/): when you need a public URL to a local service, not a private network.
+
+## Questions people ask
+
+### Is Tailscale free?
+
+Yes. The Personal plan is free forever for up to 6 users with unlimited user devices and 50 tagged resources. It is for non-commercial use.
+
+### Can I use the Tailscale free plan for my business?
+
+No. Tailscale says the Personal plan is only suitable for non-commercial use. Business teams should use a paid plan or the 14-day trial.
+
+### Does Tailscale need a credit card?
+
+The pricing page does not ask for one for the Personal plan. You sign in with an identity provider account.

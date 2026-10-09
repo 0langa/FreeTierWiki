@@ -1,8 +1,9 @@
 ---
 title: Uptimetoolbox.com
 description: >-
-  Uptimetoolbox.com provides free uptime monitoring for websites and APIs with
-  instant alerts and simple dashboards.
+  UptimeToolbox checks websites, SSL certificates, and domain expiry, hosts
+  status pages, and can watch Linux servers with a small agent. It is for small
+  sites and projects.
 provider: Uptimetoolbox.com
 category: observability
 domain: observability
@@ -16,21 +17,26 @@ audiences:
   - startup
   - oss
 tags:
+  - uptime
   - monitoring
-  - web
+  - status-page
+  - ssl-monitoring
+  - linux-monitoring
+  - heartbeat
+  - domain-expiry
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free Basic plan includes 5 monitors with 7-day hi-res data retention and
-    3-month historical data, plus custom domains.
+    Free Basic plan includes 5 monitors with 3-minute checks, 1 status page,
+    1 server, 7-day hi-res data retention, and 3-month historical data.
   limits:
-    - 5 monitors
-    - 3-minute check interval
+    - 5 monitors with 3-minute checks
+    - 1 status page
+    - 1 server (Linux agent)
     - 7-day hi-res data retention
     - 3-month historical data
-    - Custom domains included
   caveats:
-    - SMS/voice call credit is included, but the free-tier amount is not stated on the pricing page
+    - SMS and voice alerts need the Pro plan since February 2022, even though the pricing list shows SMS and voice credit under Basic
     - 14-day free trial for paid plans; no card required
   resetPeriod: none
   requiresCard: false
@@ -38,39 +44,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor website uptime
-  - Get notified of outages
-  - Track API availability
+  - Checking that a website or API is up
+  - Getting alerts for SSL certificate and domain expiry
+  - Publishing a custom status page
+  - Watching one Linux server with the agent
+  - Using heartbeats and custom metrics
 quickstartSteps:
-  - Sign up for a free Uptimetoolbox.com account.
-  - Log in and click 'Add Monitor'.
-  - Enter your website or API URL and configure check interval.
-  - Set up your email for alert notifications.
-  - Save and start monitoring your site.
+  - 'Click Sign up or Register Now on uptimetoolbox.com; the Basic plan is free and the trial needs no credit card.'
+  - 'Log in and follow the Intro Tour from the Need Help menu.'
+  - 'Add a monitor on the dedicated add monitor page, with options such as check frequency, proxies, basic auth, and redirect following.'
+  - 'Build a status page with the status page builder widgets.'
+  - 'Optionally install the Linux agent on a server for core metrics such as RAM, CPU, and disk usage.'
 whenToUse: >-
-  Use Uptimetoolbox.com to monitor the uptime of a few websites or APIs with
-  custom domains and 3-month historical data.
+  Use UptimeToolbox for a few monitors with three-minute checks, a branded
+  status page, and SSL and domain expiry checks.
 whenNotToUse: >-
-  Avoid if you need more than 5 monitors or longer hi-res data retention.
+  Avoid it if you need more than 5 monitors, SMS or voice alerts on the free
+  plan, or hi-res data kept longer than 7 days.
 bestFor:
   - personal projects
   - small websites
-  - open source apps
+  - one small server
 avoidIf:
-  - enterprise monitoring
-  - large teams
-  - advanced alerting needs
+  - you need many monitors
+  - you need SMS or voice alerts without paying
+  - you need long hi-res retention
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://uptimetoolbox.com/'
-docsUrl: 'https://docs.uptimetoolbox.com'
 sourceUrls:
   - 'https://uptimetoolbox.com/'
+  - 'https://www.uptimetoolbox.com/linux/'
+  - 'https://www.uptimetoolbox.com/changelog/'
 pricingUrl: 'https://uptimetoolbox.com/'
 featured: false
 ---
-Uptimetoolbox.com offers a free Basic plan for website and API uptime monitoring, with 5 monitors, custom domains, and 3-month historical data.
+You use UptimeToolbox in a web dashboard, with an Intro Tour for new users. A small Linux agent reports server metrics. It suits small sites and projects that need a status page and a few checks.
+
+## What the free plan gives you
+
+The Basic plan costs $0 per month. The home page lists 5 monitors with 3-minute checks, 1 status page, and 1 server. Data is kept as 7 days of hi-res data and 3 months of historical data. Custom domains are listed on every plan, including Basic.
+
+The site says it also watches your domain expiry and SSL certificates. The Professional plan costs $9 per month and has 25 monitors, 1-minute checks, 3 status pages, and 10 servers. The Business plan costs $29 per month with 100 monitors and 30-second checks.
+
+## When you hit a limit
+
+The home page does not say what happens when you reach 5 monitors, and it does not describe any charge on Basic. Higher counts need a paid plan.
+
+The pricing list shows SMS and voice credit under Basic, but the changelog says that since February 2022 the Pro plan is required for SMS and voice alerts because of abuse. Do not count on phone alerts on the free plan. A 14-day free trial of paid plans needs no credit card.
+
+## Gotchas
+
+- Basic has 5 monitors and 1 server, so a second server needs a paid plan or a custom plan from support.
+- SMS and voice alerts need the Pro plan according to the changelog, despite the pricing list.
+- The Linux agent needs no extra software and uses tools built into most Linux distributions, such as awk, curl, and sed. The Linux FAQ calls server monitoring an early preview without alerting, while the changelog lists CPU, RAM, and disk thresholds, so test server alerts before you rely on them.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want more free monitors.
+- [UptimeObserver.com](/services/uptimeobserver-com/): when you want a free plan with chat alerts and several monitor types.
+- [Hyperping](/services/hyperping/): when you want a free plan with monitors and a status page.
+
+## Questions people ask
+
+### Is UptimeToolbox free?
+
+Yes. The Basic plan is free and lists 5 monitors, 3-minute checks, 1 status page, and 1 server.
+
+### Does UptimeToolbox need a credit card?
+
+No. The site says you can sign up for a 14-day free trial and no credit card is required.
+
+### Does UptimeToolbox send SMS alerts for free?
+
+Probably not. The changelog says the Pro plan is required for SMS and voice alerts, even though the pricing list shows SMS and voice credit under Basic.

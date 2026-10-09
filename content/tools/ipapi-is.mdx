@@ -1,8 +1,8 @@
 ---
 title: ipapi.is
 description: >-
-  ipapi.is provides a simple API for IP geolocation and ASN lookup with generous
-  free tier limits.
+  ipapi.is is an IP lookup API that returns location, ASN, company, and flags for
+  VPN, proxy, Tor, hosting, and abusive addresses.
 provider: ipapi.is
 category: networking
 domain: networking
@@ -17,64 +17,113 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
+  - ip geolocation
+  - asn lookup
+  - vpn detection
+  - proxy detection
+  - hosting detection
+  - ip api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier allows 1,000 API requests per day with a free account and no
-    credit card required.
+    The Free plan allows 1,000 API requests per day with a free account and an
+    API key. Commercial use is allowed, and no payment details are needed.
   limits:
-    - '1,000 requests/day (full JSON output, free account)'
-    - '10 fields only for unauthenticated requests'
+    - '1,000 requests/day (full API output, free account and API key)'
+    - Without a key, a small daily budget with a minimal response and no bulk or ASN lookups
+    - Commercial use allowed
     - No credit card required
   caveats:
     - One free account per person or company
-    - Purchased pay-as-you-go credits never expire and are used after the daily free quota
+    - Purchased one-time credits never expire and are used after the daily free requests
+    - Bulk lookups and ASN queries need an API key
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detect user location
-  - Personalize content by region
-  - Block or allow traffic by country
-  - Network analytics
-  - Fraud prevention
+  - Detecting VPN, proxy, Tor, or datacenter traffic
+  - Finding the country and city of a visitor
+  - Looking up the company or ASN that owns an IP
+  - Scoring abusive IPs for fraud checks
+  - Looking up many addresses at once with a bulk request
 quickstartSteps:
-  - 'Visit https://ipapi.is/ to review API documentation.'
-  - Choose the endpoint for IP or ASN lookup.
-  - 'Make a GET request to the API endpoint (e.g., https://ipapi.is/json/).'
-  - Parse the JSON response for geolocation or ASN data.
-  - Integrate the API call into your application as needed.
+  - Try a keyless lookup in a terminal with curl and the address https://api.ipapi.is?q=32.5.140.2.
+  - Create a free account on ipapi.is; no payment details are needed.
+  - Copy your API key from the dashboard.
+  - 'Add `&key=` and your key to the request to get the full response.'
+  - Handle HTTP 429 in your code and send bulk lookups as a POST request with a key.
 whenToUse: >-
-  Use ipapi.is when you need fast, simple IP geolocation or ASN lookup with
-  generous free usage and minimal setup.
+  Use it when you need IP geolocation plus VPN, proxy, and hosting detection and
+  1,000 lookups a day is enough, including in commercial products.
 whenNotToUse: >-
-  Avoid if you require guaranteed uptime, advanced data fields, or
-  enterprise-level support and SLAs.
+  Avoid it if you need more than the daily free quota without paying, or an
+  enterprise support contract.
 bestFor:
-  - quick geolocation
+  - fraud and abuse checks
   - prototyping
   - personal projects
   - open source tools
 avoidIf:
   - enterprise compliance
   - strict SLA needs
-  - advanced analytics
+  - high daily volume without paying
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipapi.is/'
-docsUrl: 'https://ipapi.is/docs/'
-pricingUrl: 'https://ipapi.is/'
+docsUrl: 'https://ipapi.is/developers.html'
+pricingUrl: 'https://ipapi.is/pricing.html'
 sourceUrls:
   - 'https://ipapi.is/'
-  - 'https://ipapi.is/docs/'
+  - 'https://ipapi.is/pricing.html'
+  - 'https://ipapi.is/developers.html'
 featured: false
 ---
-ipapi.is offers a straightforward REST API for IP address geolocation and ASN lookup, suitable for projects needing basic location data without authentication or payment.
+You call `api.ipapi.is` over HTTP from any language, with an optional API key. It suits developers who want one lookup that mixes location with security flags.
+
+## What the free plan gives you
+
+The Free plan costs $0 and allows 1,000 requests per day, every day. It is not a trial. You get the full API output, the same as every paid plan, and commercial use is allowed for products, SaaS, plugins, and client work. You need a free account and an API key, but no payment details.
+
+Each response can include the ASN, the owning company, a location with a time zone, and flags for datacenter, Tor, proxy, VPN, and abuse. The free key also unlocks bulk lookups and ASN queries.
+
+Without a key the API still answers, but the pricing page says only 30 requests a day, and with a minimal response of ownership and location. The developer docs give 100 lookups per client IP per UTC day for keyless use, so treat that mode as a quick test.
+
+## When you hit a limit
+
+With a key, going over the daily quota returns HTTP 429 with the code ERR_QUOTA_EXCEEDED. You are not billed for the free plan. The quota resets daily.
+
+Keyless clients get HTTP 429 with ERR_FREE_TIER_EXHAUSTED and a Retry-After header. A client that ignores 50 of these notices is blocked at the firewall for 12 hours.
+
+If you need more, you can buy one-time credits, with every dollar giving 30,000 requests, and they never expire. Subscriptions start at $20 a month for 20,000 requests a day. Each day, your free 1,000 requests are spent first.
+
+## Gotchas
+
+- Only one free account per person or company is allowed. Making several accounts to multiply the quota breaks the terms.
+- A bulk request costs one lookup for each address it resolves, not one lookup for the request, and it holds at most 100 unique entries.
+- The pricing page and the developer docs give different keyless limits, so always send a key from production code.
+
+## Alternatives in this atlas
+
+- [The IP API](/tools/the-ip-api/): when you want a free tier that also allows commercial use.
+- [IPLocate](/services/iplocate/): when you want a daily allowance with full data access.
+- [IP2Location.io](/services/ip2location-io/): when a monthly quota suits you better than a daily one.
+
+## Questions people ask
+
+### Is ipapi.is free?
+
+Yes. The Free plan gives 1,000 requests a day with a free account and API key. It includes the full output and allows commercial use.
+
+### What happens when I go over the ipapi.is limit?
+
+The API returns HTTP 429 until the next day. Paid options are one-time credits that never expire, or a monthly subscription.
+
+### Does ipapi.is need a credit card?
+
+No. The pricing page says no payment details are needed for the Free plan. You do need a free account and API key for the full response.

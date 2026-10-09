@@ -1,8 +1,9 @@
 ---
 title: Cloudflare R2
 description: >-
-  Cloudflare R2 is an object storage service with S3-compatible API and no
-  egress fees.
+  Cloudflare R2 stores files as objects and speaks the S3 API, with no charge
+  for data sent out to the internet. It suits developers who serve files to
+  many users.
 provider: Cloudflare
 category: storage
 domain: storage
@@ -16,8 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - storage
-  - cloud
+  - object storage
+  - s3 compatible
+  - no egress fees
+  - bucket
+  - static assets
+  - backup
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,7 +36,7 @@ freeTierDetails:
   caveats:
     - Storage and operations above free tier billed at standard rates
     - Free tier applies only to Standard storage, not Infrequent Access
-    - Enabling R2 needs an R2 subscription checkout, which asks for a payment method
+    - Enabling R2 needs an R2 subscription checkout; the docs do not say which payment details it asks for
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -40,35 +45,34 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above free tier is billed automatically
 useCases:
-  - Static asset hosting
-  - Backup storage
-  - Media file storage
-  - S3-compatible workloads
+  - Storing files for web content and cloud-native apps
+  - Hosting podcast episodes and other media
+  - Data lakes and analytics data
+  - Keeping output from batch jobs, such as model files and datasets
+  - Holding originals for an image pipeline
 quickstartSteps:
-  - Sign up for a Cloudflare account or log in.
-  - Navigate to the R2 dashboard in the Cloudflare console.
-  - Create a new R2 bucket and note the access keys.
-  - >-
-    Configure your application or tool with the S3-compatible endpoint and
-    credentials.
-  - Upload and manage objects via the dashboard or API.
+  - Sign up for a Cloudflare account and open the Cloudflare Dashboard.
+  - Open R2 and create a bucket, choosing a location and a default storage class.
+  - For the S3 API, go to API Tokens and create an Account or User API token with Object Read and Write permission.
+  - Copy the Access Key ID and Secret Access Key, and note your endpoint URL (https://ACCOUNT_ID.r2.cloudflarestorage.com).
+  - Point an S3 SDK, the aws CLI, or rclone at that endpoint, or bind the bucket to a Worker.
 whenToUse: >-
-  Use Cloudflare R2 for affordable, S3-compatible object storage with no egress
-  fees, especially for static assets or backups.
+  Use it when you serve many downloads and want S3-style storage without
+  egress fees.
 whenNotToUse: >-
-  Avoid if you need advanced S3 features like Glacier, or require strict hard
-  caps to prevent overage billing.
+  Avoid it if you need a hard spending cap, a deep archive tier, or the whole
+  AWS S3 feature set.
 bestFor:
   - static assets
-  - media storage
+  - media downloads
   - cost-sensitive projects
 avoidIf:
-  - need deep archive
-  - require hard cap billing
-  - need advanced S3 features
+  - you need a hard cap on billing
+  - you need a deep archive tier
+  - you need every AWS S3 feature
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/r2/'
@@ -76,8 +80,50 @@ docsUrl: 'https://developers.cloudflare.com/r2/'
 sourceUrls:
   - 'https://developers.cloudflare.com/r2/pricing/'
   - 'https://developers.cloudflare.com/r2/platform/limits/'
+  - 'https://developers.cloudflare.com/r2/'
+  - 'https://developers.cloudflare.com/r2/get-started/s3/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://developers.cloudflare.com/r2/pricing/'
 ---
-Cloudflare R2 provides S3-compatible object storage with no egress fees, making it ideal for serving static assets and backups at low cost.
+You manage R2 in the Cloudflare Dashboard, from a Worker through the Workers API, or with any S3 SDK, the aws CLI, or rclone. It fits developers who already use S3 tools and want to avoid download fees.
+
+## What the free plan gives you
+
+Each month you can use 10 GB-month of storage, 1 million Class A operations, and 10 million Class B operations for free. Class A operations tend to change data, such as PutObject and ListObjects. Class B operations read it, such as GetObject.
+
+Egress, meaning data sent to the internet, is free on every storage class. Delete operations are free too. Storage is measured in GB-month, which averages your daily peak storage over a 30-day billing period.
+
+The free tier applies only to Standard storage. Infrequent Access storage gets no free amount.
+
+## When you hit a limit
+
+Cloudflare does not stop your bucket at the free amounts. It bills extra usage automatically at standard rates. Standard storage costs $0.015 per GB-month. Class A operations cost $4.50 per million requests, and Class B operations cost $0.36 per million.
+
+Cloudflare rounds usage up to the next billing unit. One million and one operations bills as two million. The r2.dev public address is for testing only, and heavy traffic there can get a 429 Too Many Requests response.
+
+## Gotchas
+
+- The free tier covers Standard storage only. Infrequent Access has its own prices, a data retrieval fee, and a minimum storage duration.
+- Turning on R2 needs a checkout flow that adds an R2 subscription to your account. The docs say R2 is free to get started with included monthly usage, but not which payment details the checkout asks for.
+- The r2.dev address is not meant for production. Use a custom domain on the bucket for real traffic.
+
+## Alternatives in this atlas
+
+- [Backblaze B2](/services/backblaze-b2/): when you want object storage with a free amount of storage and free egress up to 3x your storage.
+- [Tigris](/services/tigris/): when you want S3-style storage that spreads data across regions.
+- [Supabase Storage](/services/supabase-storage/): when your app already uses Supabase and you want storage tied to its auth.
+
+## Questions people ask
+
+### Is Cloudflare R2 free?
+
+Partly. Each month includes 10 GB-month of Standard storage, 1 million Class A operations, and 10 million Class B operations. Egress is always free.
+
+### Does Cloudflare R2 charge for egress?
+
+No. Cloudflare says there is no charge for egress bandwidth on any storage class.
+
+### What happens when I go over the R2 free tier?
+
+Cloudflare bills the extra at standard rates and does not cap usage. Standard storage is $0.015 per GB-month.

@@ -1,8 +1,9 @@
 ---
 title: Percy.io
 description: >-
-  Percy.io provides automated visual testing for web applications to catch UI
-  changes before they reach production.
+  Percy, now part of BrowserStack, takes screenshots of your pages in CI and
+  shows you what changed between builds. It is for developers and QA teams who
+  review UI changes before release.
 provider: Percy.io
 category: devops
 domain: devops
@@ -16,63 +17,105 @@ audiences:
   - team
   - oss
 tags:
-  - testing
+  - visual testing
+  - visual regression
+  - screenshot testing
+  - browserstack
   - ci-cd
-  - ux-ui
-  - automation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 5,000 screenshots per month for public and private
-    projects.
+    Free plan includes 5,000 screenshots per month, unlimited users, and
+    unlimited projects, with 1 month of build history.
   limits:
     - '5,000 screenshots/month'
     - Unlimited users
     - Unlimited projects
+    - All desktop browsers, but you cannot set browsers per project
+    - 30 days of build history (builds on the free plan expire in 30 days)
   caveats:
     - Screenshots reset monthly
-    - Usage above 5,000 screenshots is billed as overage, not blocked
+    - The pricing FAQ says you may keep using Percy past the included screenshots and pay for extra ones
+    - Paid plans start at $199 per month billed annually
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Automated UI regression testing
-  - Visual review in CI/CD pipelines
-  - Collaborative UI change approval
+  - Catching unintended visual changes in a pull request
+  - Taking screenshots of Storybook, Cypress, or Puppeteer runs
+  - Reviewing and approving UI changes with the team
+  - Comparing pages across desktop browsers and widths
 quickstartSteps:
-  - Sign up for a free Percy.io account.
-  - 'Install the Percy SDK for your framework (e.g., percy-cli, @percy/cli).'
-  - Integrate Percy into your test suite or CI pipeline.
-  - Run your tests to capture and upload screenshots.
-  - Review visual diffs and approve changes in the Percy dashboard.
+  - Sign in at percy.io, open the dashboard, and choose Create new project.
+  - Name the project and choose Create Project. Percy then shows a project token.
+  - Install the CLI with `npm install @percy/cli` and set the token as the `PERCY_TOKEN` environment variable.
+  - Describe your pages in a `snapshots.yml` file with a name and a url for each snapshot.
+  - Run `npx percy snapshot snapshots.yml`, then open the build link to review the comparison.
 whenToUse: >-
-  Use Percy.io when you need to automate visual regression testing for web apps
-  and catch unintended UI changes during development.
+  Use it for visual review of web pages or components in CI, when a team shares
+  one free account and stays under 5,000 screenshots a month.
 whenNotToUse: >-
-  Avoid Percy.io if your project exceeds 5,000 screenshots/month or requires
-  on-premise hosting, as higher usage needs paid plans.
+  Avoid it if you need more than 5,000 screenshots a month without paying, build
+  history longer than 30 days.
 bestFor:
   - UI developers
   - QA engineers
-  - teams using CI/CD
+  - teams with CI
 avoidIf:
-  - need unlimited screenshots
-  - require self-hosting
-  - no visual testing needs
+  - more than 5,000 screenshots a month on a strict budget
+  - long build history on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://percy.io'
 docsUrl: 'https://docs.percy.io/'
 sourceUrls:
-  - 'https://percy.io/pricing'
+  - 'https://www.browserstack.com/pricing?product=percy'
   - 'https://www.browserstack.com/docs/percy/overview/plans-and-billing'
+  - 'https://www.browserstack.com/docs/percy/overview/visual-testing-basics'
+  - 'https://www.browserstack.com/docs/percy/get-started-without-code-or-automation-script/first-percy-build'
 pricingUrl: 'https://www.browserstack.com/docs/percy/overview/plans-and-billing'
 featured: false
 ---
-Percy.io enables teams to automate visual regression testing, integrating with CI/CD workflows to catch and review UI changes before deployment.
+You run the Percy CLI or an SDK in your tests or CI, and it uploads screenshots as a build. You then review the differences in the Percy dashboard. It suits teams that want a shared visual review step.
+
+## What the free plan gives you
+
+The free plan costs $0 and includes 5,000 screenshots per month, unlimited users, and unlimited projects. A screenshot is one page or component rendered in one browser at one width. Two pages in two browsers at three widths make twelve screenshots, although the Percy dashboard shows them as two snapshots.
+
+The free plan includes all desktop browsers, but you cannot choose browsers for each project. Build history is short: builds on the free plan expire after 30 days, while paid plans keep 1 year. The free plan also lists support by email.
+
+## When you hit a limit
+
+The pricing FAQ says your plan comes with included monthly screenshots, and you may keep using Percy after you reach the limit. You are then charged for the extra screenshots. The FAQ does not spell out how this works for the free plan, so treat it as a possible bill. On the paid Desktop plan, each extra screenshot costs $0.036. You can turn on usage notifications to get an alert when you cross a threshold you choose.
+
+## Gotchas
+
+- Screenshots multiply fast. Every browser and width in your project counts as a separate screenshot.
+- Build history on the free plan lasts 30 days, so older builds disappear.
+- Percy is now sold under BrowserStack, and its pricing and docs live on the BrowserStack site.
+
+## Alternatives in this atlas
+
+- [Chromatic](/tools/chromatic/): when your tests are mostly Storybook components.
+- [Lost-pixel.com](/services/lost-pixel-com/): when you want a GitHub Action based visual testing platform.
+- [Argos](/services/argos/): when you want another hosted screenshot review tool with a free plan.
+
+## Questions people ask
+
+### Is Percy free?
+
+Yes. The free plan includes 5,000 screenshots per month, unlimited users, and unlimited projects.
+
+### What happens when I go over the Percy free screenshot limit?
+
+The FAQ says you may keep using Percy and pay for the extra screenshots. It does not say how that applies to the free plan, so set usage notifications.
+
+### How long does Percy keep builds on the free plan?
+
+Builds on the free plan expire after 30 days. Paid plans keep 1 year of build history.

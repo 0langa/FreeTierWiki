@@ -1,8 +1,8 @@
 ---
 title: Wrapapi.com
 description: >-
-  Wrapapi.com lets you turn any website into a structured API without writing
-  backend code.
+  WrapAPI turns the requests a website makes into an API you define, with named
+  inputs and outputs you call over plain HTTP.
 provider: Wrapapi.com
 category: scraping
 domain: scraping
@@ -16,58 +16,104 @@ audiences:
   - startup
   - oss
 tags:
-  - web
-  - api
-  - automation
+  - website to api
+  - web scraping api
+  - chrome extension
+  - api builder
+  - capture requests
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan includes 30,000 API calls per month on shared infrastructure; APIs must be public.'
   limits:
     - '30,000 API calls/month'
     - Shared infrastructure
+    - Public APIs only
   caveats:
-    - APIs built on the free plan must be public and shared with the community
-    - Private APIs need a paid Business or Enterprise plan
+    - APIs built on the free plan must be shared with the community, who can build on or clone them
+    - Private APIs and unlimited API calls need a paid plan, with prices on request
+    - The pricing page gives no card rule or limit behavior for the free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Turn websites into APIs
-  - Automate data extraction
-  - Integrate web data into apps
+  - Turning a site's search or listing page into a JSON endpoint
+  - Chaining several website requests into one API call
+  - Prototyping a data feed for an app
+  - Wrapping a site that has no public API
 quickstartSteps:
-  - Sign up for a free Wrapapi.com account.
-  - Create a new project and specify the target website URL.
-  - Use the visual editor to select data elements to extract.
-  - Test your API endpoint and copy the generated URL.
-  - Integrate the API endpoint into your application.
+  - Register for a WrapAPI account from the site; the free plan is listed on the pricing page.
+  - Optionally install the WrapAPI Chrome extension to record and filter the requests a page makes.
+  - In the builder, set the URL, query string, POST data, and any file uploads for the request.
+  - Mark which parts of the request are inputs; WrapAPI compares captured requests and suggests them.
+  - Define the data you want as outputs, then publish the endpoint.
+  - Call the published endpoint with normal HTTP requests to `wrapapi.com/use`.
 whenToUse: >-
-  Use when you need to quickly extract structured data from websites or automate
-  web data integration without backend coding.
+  Use WrapAPI when a site has no API and you want a simple endpoint that you
+  define by recording the requests it makes, and you are fine with it being public.
 whenNotToUse: >-
-  Avoid if you need high-volume scraping, advanced anti-bot bypass, or require
-  guaranteed long-term API stability.
+  Avoid the free plan for private data or customer data, since free APIs must be
+  shared with the community.
 bestFor:
   - prototyping
-  - automation
-  - no-code projects
+  - wrapping a site with no API
+  - open or shareable data
 avoidIf:
-  - high-volume scraping
-  - mission-critical APIs
-  - sites with aggressive anti-bot measures
-difficulty: beginner
+  - the API must be private
+  - you need unlimited API calls
+  - you need an uptime promise, since the pricing page lists none
+difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://wrapapi.com/'
-docsUrl: 'https://docs.wrapapi.com'
+docsUrl: 'https://wrapapi.com/docs'
 pricingUrl: 'https://wrapapi.com/pricing'
 sourceUrls:
   - 'https://wrapapi.com/pricing'
+  - 'https://wrapapi.com/docs'
+  - 'https://wrapapi.com/'
 featured: false
 ---
-Wrapapi.com enables users to visually turn any website into a custom API, ideal for quick data extraction and prototyping without backend development.
+You build the API in a browser-like builder, optionally recording requests with a Chrome extension. After you publish, other code calls it with regular HTTP requests. It suits developers who are comfortable reading a site's network requests.
+
+## What the free plan gives you
+
+The free plan gives you 30,000 API calls per month on shared infrastructure. In return, your APIs are public. They must be shared with the community, and other users can build complementary APIs or clone yours.
+
+The pricing page describes the free plan as everything WrapAPI offers while contributing back to the community. You can use the builder, the Chrome extension, and the published endpoint. The page lists no card rule for the free plan, and the paid plans have no listed price.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 30,000 calls in a month. The free plan is listed at no price and the page shows no card step, so a bill is unlikely. If you need more calls, the page points you to the paid plans and a contact form.
+
+The paid plans are Business and a fully managed plan. Both list private APIs and unlimited API calls, and the prices are on request. A further plan offers a private cloud-hosted version.
+
+## Gotchas
+
+- Free APIs are public, so do not wrap anything that needs a private login or customer data.
+- The Chrome extension is optional, but it helps WrapAPI find which request values should become inputs.
+- A published endpoint is called at `wrapapi.com/use`, so your app depends on WrapAPI staying online.
+
+## Alternatives in this atlas
+
+- [Simplescraper](/services/simplescraper/): when you want to click on a page and export data without recording requests.
+- [Browse AI](/services/browse-ai/): when you want a no-code robot that runs on a schedule.
+- [Apify](/tools/apify/): when you want ready-made scrapers or to run your own code in the cloud.
+
+## Questions people ask
+
+### Is WrapAPI free?
+
+Yes, there is a free plan with 30,000 API calls per month on shared infrastructure. APIs you build on it must be public.
+
+### Can I keep my WrapAPI APIs private on the free plan?
+
+No. The free plan requires public APIs that are shared with the community. Private APIs are part of the paid plans.
+
+### What happens if I go over the WrapAPI free limit?
+
+The pricing page does not say. It lists unlimited API calls on the paid plans, with prices on request.

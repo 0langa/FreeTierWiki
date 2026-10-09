@@ -1,8 +1,8 @@
 ---
 title: Kinde
 description: >-
-  Kinde provides authentication, user management, and feature flagging for
-  modern web and mobile apps.
+  Kinde is an auth and billing platform for SaaS. It handles sign-up, sign-in, roles and
+  permissions, feature flags, and subscription billing for your users.
 provider: Kinde
 category: auth
 domain: auth
@@ -19,65 +19,112 @@ audiences:
   - oss
 tags:
   - auth
+  - user management
+  - feature flags
+  - billing
+  - organizations
+  - saas
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan is $0 forever for up to 10,500 monthly active users (MAU), no
-    credit card required, including a custom domain and MFA.
+    Free plan is $0 forever for up to 10,500 monthly active users (MAU), no credit card required.
   limits:
     - '10,500 monthly active users (MAU)'
     - Unlimited applications
-    - '10 feature flags'
+    - 10 feature flags
     - '2 custom roles, 10 permissions'
     - '2,000 machine-to-machine tokens/month'
-    - '1 webhook'
+    - 1 webhook
   caveats:
-    - Kinde branding shown on the Free plan
+    - Removing Kinde branding is listed as a paid-plan feature
     - 0.7% fee per transaction if you bill customers through Kinde
-    - No in-app chat support on the Free plan (email and community only)
+    - In-app chat support is not included on the Free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Add authentication to web or mobile apps
-  - Manage user roles and permissions
-  - Implement feature flags for controlled rollouts
+  - 'Sign-up and sign-in for a SaaS app, with email and social providers'
+  - 'Roles, permissions, and organizations for a B2B product'
+  - Feature flags to turn features on for some users
+  - Charge customers with plans and subscriptions
+  - Machine-to-machine tokens for your own services
 quickstartSteps:
-  - Sign up for a free Kinde account at kinde.com.
-  - Create a new application in the Kinde dashboard.
-  - Configure authentication settings and redirect URIs.
-  - Integrate the Kinde SDK into your app using provided guides.
-  - 'Test user signup, login, and feature flag functionality.'
+  - Go to app.kinde.com/register and create an account with your name and email.
+  - Enter the one-time code that Kinde sends to your inbox.
+  - >-
+    Add your business name, pick a Kinde domain name, and choose the region where your data is
+    stored.
+  - 'Create a project from scratch and select your technology, for example React.'
+  - >-
+    Choose how users sign in, such as email, Google, or Facebook, then open the dashboard and
+    connect your app with the Kinde SDK.
 whenToUse: >-
-  Use Kinde when you need quick, scalable authentication and feature flagging
-  for web or mobile apps without complex setup.
+  Use Kinde when you want auth with roles, feature flags, and later billing in one product, and you
+  can live with Kinde branding on the free plan.
 whenNotToUse: >-
-  Avoid Kinde if you require on-premise hosting, advanced enterprise
-  integrations, or need support for more than 10,500 monthly active users for
-  free.
+  Avoid it if you need on-premise hosting, no vendor branding on the free plan, or advanced
+  enterprise features at no cost.
 bestFor:
-  - startups
-  - indie developers
-  - student projects
-  - open source apps
+  - startups and side projects
+  - SaaS apps that may add billing
+  - small B2B apps
 avoidIf:
-  - require on-premise auth
-  - need advanced enterprise features
-  - exceed free tier user limits
+  - on-premise auth
+  - white-label login on the free plan
+  - advanced enterprise features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://kinde.com/'
-docsUrl: 'https://kinde.com/docs/'
+docsUrl: 'https://docs.kinde.com/'
 pricingUrl: 'https://kinde.com/pricing/'
 sourceUrls:
   - 'https://kinde.com/pricing/'
-  - 'https://kinde.com/docs/'
+  - 'https://docs.kinde.com/'
+  - 'https://docs.kinde.com/get-started/guides/first-things-first/'
 featured: false
 ---
-Kinde offers a developer-friendly platform for authentication, user management, and feature flagging, with a generous free tier suitable for most small projects and startups.
+You set up a business and project in the Kinde dashboard, then connect your app with a Kinde SDK for your language. It suits SaaS builders who want sign-in, access control, and billing from one vendor.
+
+## What the free plan gives you
+
+The Free plan is for hobbyists and personal projects, and it needs no credit card. The pricing page lists no setup fees or monthly fees. It includes 10,500 monthly active users, attack protection, and 2 environments, production and development.
+
+Limits on the Free plan are small for extras. You get 10 feature flags, 2 custom roles with 10 permissions, 1 webhook, and 5 custom properties. The Pro plan lifts the limits with uncapped M2M tokens, unlimited roles, webhooks, and flags. The pricing table lists removing Kinde branding as a paid-plan feature. Users on paid subscriptions that you bill through Kinde are not counted toward your monthly active users.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a Free plan passes 10,500 monthly active users. It lists the Pro plan as uncapped, with a price for each extra monthly active user. The first rate shown is 0.0175 dollars, and higher tiers show lower rates.
+
+The page says you can upgrade when you want and cancel any time. If you bill your own customers through Kinde, a 0.7% fee per transaction applies on the Free plan. Check the dashboard usage before a launch, and ask Kinde support if you expect to pass the free limit.
+
+## Gotchas
+
+- The pricing table lists removing Kinde branding as a paid-plan feature.
+- Roles are limited to 2 custom roles and 10 permissions on Free, which a multi-role B2B app can outgrow.
+- If you bill customers through Kinde, there is a 0.7% fee per transaction on the Free plan.
+
+## Alternatives in this atlas
+
+- [Clerk](/services/clerk/): when you want a larger free user limit and ready-made React sign-in components.
+- [Auth0](/services/auth0/): when you want a broader platform with more enterprise options.
+- [Logto](/services/logto/): when you want open-source auth with organizations and roles.
+
+## Questions people ask
+
+### Is Kinde free?
+
+Yes. The Free plan costs nothing, covers up to 10,500 monthly active users, and needs no credit card.
+
+### Does Kinde need a credit card?
+
+No. The pricing page says no credit card is required for the Free plan.
+
+### What are the Kinde free plan limits besides users?
+
+Free has 10 feature flags, 2 custom roles, 10 permissions, 1 webhook, and 2 environments. It does not include removing Kinde branding.

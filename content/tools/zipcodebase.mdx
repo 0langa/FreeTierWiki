@@ -1,15 +1,13 @@
 ---
 title: Zipcodebase
-description: >-
-  Zipcodebase provides a free API for global postal code lookup, distance
-  calculation, and location data enrichment.
+description: "Zipcodebase is a postal code API for worldwide zip code lookup, distance calculation, and radius search. It suits developers who validate addresses or find places near a postal code."
 provider: Zipcodebase
 category: apis
 domain: apis
 subtypes:
-  - postal-code-api
-  - location-data
-  - geocoding
+  - "postal-code-api"
+  - "distance-calculation"
+  - "location-data"
 audiences:
   - student
   - indie
@@ -17,8 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - search
+  - "zip code api"
+  - "postal code lookup"
+  - "distance between zip codes"
+  - "radius search"
+  - "address validation"
+  - "postal code api"
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan is $0/month with 5,000 searches, 1 concurrent request, and a 10-mile radius/distance limit.'
@@ -27,6 +29,7 @@ freeTierDetails:
     - 1 concurrent request
     - 10-mile radius/distance limit
   caveats:
+    - The pricing page marks the Free plan as Private Use; Commercial Use starts at the Small plan
     - Higher concurrency, larger radius, and SLA support are paid-plan only
     - You get an email at 90% and 100% of your monthly usage
   resetPeriod: monthly
@@ -35,40 +38,82 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Validating user postal codes in signup forms
-  - Calculating distances between locations
-  - Enriching address data with location details
+  - "Turn a postal code into place information"
+  - "Calculate the distance between two postal codes"
+  - "Find postal codes within a radius"
+  - "List postal codes of a city or state"
+  - "Check postal codes in sign-up and checkout forms"
 quickstartSteps:
-  - 'Sign up for a free Zipcodebase account at https://zipcodebase.com.'
-  - Verify your email and log in to the dashboard.
-  - Navigate to the API section and copy your API key.
-  - Review API documentation for endpoint usage.
-  - Make your first API request using your API key.
-whenToUse: >-
-  Use Zipcodebase when you need to validate, look up, or enrich postal code data
-  in your apps or websites.
-whenNotToUse: >-
-  Avoid if you require advanced geospatial analytics, unlimited usage, or
-  guaranteed uptime for critical production systems.
+  - "Open zipcodebase.com and register for the free plan to get an API key."
+  - "Log in and open the documentation. When you are logged in, the code snippets there contain your private key."
+  - "Pick an endpoint from the docs: postal code to location, distance between postal codes, postal codes within a radius, or by city or state."
+  - "Send your first request with your API key and a country code and postal code."
+  - "Keep requests one at a time, since the free plan allows 1 concurrent request."
+whenToUse: "Use when you need to look up postal codes or measure distances between them in a small app, and 5000 searches a month with a 10-mile radius is enough."
+whenNotToUse: "Avoid if you need a search radius above 10 miles, more than 1 request at a time, or more than 5000 searches a month without paying."
 bestFor:
-  - address validation
-  - location enrichment
-  - distance calculation
+  - "address forms"
+  - "store locators"
+  - "hobby projects"
+  - "distance checks"
 avoidIf:
-  - need advanced geospatial features
-  - require unlimited requests
-  - require enterprise SLA
+  - "radius search wider than 10 miles on the free plan"
+  - "parallel requests"
+  - "need an SLA"
+  - "high search volume"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://zipcodebase.com'
-docsUrl: 'https://zipcodebase.com/docs'
+docsUrl: 'https://app.zipcodebase.com/documentation'
 pricingUrl: 'https://zipcodebase.com/pricing-plans/'
 sourceUrls:
   - 'https://zipcodebase.com/pricing-plans/'
+  - 'https://zipcodebase.com'
+  - 'https://app.zipcodebase.com/documentation'
 featured: false
 ---
-Zipcodebase offers a simple API for developers to validate, search, and enrich postal code data globally, with a generous free tier for basic use.
+You use Zipcodebase through an API key from your account. The documentation page fills in code snippets with your own key after you log in. It suits developers who add postal code checks and distance search to forms and small apps.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month and is for hobby projects. It gives you 5000 searches a month and 1 concurrent request. The search radius for distance and radius lookups is limited to 10 miles.
+
+The service holds postal code data for more than 200 countries. The documentation covers looking up a postal code, working out the distance between postal codes, finding postal codes within a radius, and listing postal codes by city or state. It can also list the provinces or states of a country.
+
+Only successful responses use your allowance. Invalid requests and errors do not count.
+
+## When you hit a limit
+
+The site sends you an email when your monthly usage reaches 90% and again at 100%, so you have time to react. The pricing page does not say what the API does after 100%, so upgrade before you reach the limit.
+
+Paid plans start at $45 a month for 60.000 searches, a 100-mile radius, and the same single concurrent request. Larger plans add more concurrent requests and bigger radii.
+
+## Gotchas
+
+- The pricing page marks the Free plan as Private Use and lists Commercial Use from the Small plan up.
+- The free radius is 10 miles. The Small plan raises it to 100 miles.
+- You can run 1 request at a time, so parallel calls need a larger plan.
+
+## Alternatives in this atlas
+
+- [Zipcodestack](/tools/zipcodestack/): when you want another postal code API with a monthly credit allowance.
+- [Country-State-City Microservice API](/tools/country-state-city-microservice-api/): when you only need country, state, and city lists for form dropdowns.
+- [Geolocated.io](/services/geolocated-io/): when you want to find a place from an IP address.
+
+## Questions people ask
+
+### Is Zipcodebase free?
+
+Yes. The Free plan costs $0 a month and includes 5000 searches, 1 concurrent request, and a 10-mile radius.
+
+### What happens when I use all my Zipcodebase requests?
+
+You get emails at 90% and 100% of your monthly usage. The pricing page does not say what the API does next, so upgrade before you reach the limit.
+
+### Do failed requests count against the Zipcodebase limit?
+
+No. The FAQ says you are only charged for successful responses, and invalid requests do not affect your usage.

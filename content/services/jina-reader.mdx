@@ -1,6 +1,8 @@
 ---
 title: Jina Reader
-description: 'Turns any URL into LLM-friendly text: put https://r.jina.ai/ in front of a URL.'
+description: >-
+  Jina Reader turns any web page into clean, LLM-friendly text when you put
+  r.jina.ai in front of the URL, and s.jina.ai searches the web the same way.
 provider: Jina AI
 category: ai
 domain: ai
@@ -12,20 +14,24 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - api
-  - data
+  - web-reader
+  - url-to-markdown
+  - llm-grounding
+  - rag
+  - web-search-api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free for basic use without a key (rate limited by IP). Each new API key comes with 10M free
-    tokens.
+    Free for basic use without a key (20 requests per minute per IP). Each new API key comes
+    with 10M free tokens and a higher rate limit.
   limits:
-    - 'Free without an API key, rate limited per IP'
-    - 10 million free tokens with each new API key
-    - Rate limits by requests and tokens per minute
+    - 'Reader (r.jina.ai) without a key: 20 requests per minute'
+    - 'With a free API key: 500 requests per minute, and 10M free tokens'
+    - 'Search (s.jina.ai) needs an API key: 100 requests per minute on a free key'
+    - Rate limits count requests and tokens per minute, per IP or per key
   caveats:
-    - 'With a key, tokens are charged by content length'
+    - 'With a key, tokens are charged by content length; each search request costs at least 10,000 tokens'
+    - Failed requests do not deduct tokens
     - The ReaderLM and jina-vlm models are licensed for non-commercial use only
   resetPeriod: none
   requiresCard: false
@@ -33,31 +39,40 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Feed a web page to an LLM
-  - Ground answers on live pages
-  - Quick page-to-Markdown in scripts
+  - Feed a web page to an LLM as Markdown
+  - Ground answers on live pages in an agent
+  - Convert a URL to text in a script with one curl call
+  - Search the web and get results as text with s.jina.ai
+  - Add Jina tools to an LLM client through the MCP server
 quickstartSteps:
-  - 'Open https://r.jina.ai/<your URL> in a browser or with curl.'
-  - 'For higher limits, get a free API key.'
-  - Send the key in the Authorization header.
+  - Try it with no sign-up. Run `curl "https://r.jina.ai/https://www.example.com"` or paste that address into a browser.
+  - For a higher rate limit, get a free API key on the Jina site. Every new key comes with 10M free tokens.
+  - Send the key in the request header with your call.
+  - To search the web, call `s.jina.ai`. It needs an API key.
+  - Use headers such as `X-Token-Budget` to cap tokens per request.
 whenToUse: 'Use when you need a fast, zero-setup way to read web pages into an LLM.'
-whenNotToUse: Avoid for heavy crawling; use a crawler with clear quotas.
+whenNotToUse: >-
+  Avoid it for heavy crawling. Without a key you get 20 requests per minute,
+  and the models behind it have a non-commercial license.
 bestFor:
   - scripts
   - AI agents
   - prototypes
 avoidIf:
   - bulk crawling
+  - you need pages behind an interactive login
+  - you need a commercial license for the Reader models
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://jina.ai/reader'
 docsUrl: 'https://jina.ai/reader'
 sourceUrls:
   - 'https://jina.ai/reader'
+  - 'https://jina.ai/api-dashboard/rate-limit'
 pricingUrl: 'https://jina.ai/reader'
 featured: false
 changes:
@@ -65,4 +80,39 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Jina Reader needs no sign-up for basic use. An API key raises the limits and starts with a free token balance.
+You use Jina Reader by adding `https://r.jina.ai/` in front of a web address, with curl, a script, or a browser. An API key is optional and raises the limits. It suits developers who need page text for LLMs, agents, and RAG systems.
+
+## What the free plan gives you
+
+Reader is free for basic use. Without an API key, you can call `r.jina.ai` at 20 requests per minute, counted per IP address. A free API key raises that to 500 requests per minute, and every new key comes with 10M free tokens. With a key, the limit follows the key instead of the IP.
+
+The search endpoint, `s.jina.ai`, is blocked without a key. A free key gets 100 requests per minute there. Each search request costs a fixed number of tokens, starting from 10,000. Reader uses tokens based on the length of the output. Tokens are not deducted for failed requests.
+
+## When you hit a limit
+
+You hit a rate limit when either the requests per minute or the tokens per minute threshold is reached first. Without a key, you can add a key to raise the limit. When your 10M free tokens run out, the pricing section lets you top up a key with more tokens, and the page lists 500 requests per minute for a paid key and 5000 for a premium key. The page does not say what the API returns when a free key has no tokens left. You can set `X-Token-Budget` to cap tokens on one request. A request that goes over the budget fails.
+
+## Gotchas
+
+- Pages that need an interactive login, MFA, or a token the page fetches itself are out of scope. You can forward session cookies, but those requests are not cached.
+- The ReaderLM-v2 and jina-vlm models use a CC-BY-NC 4.0 license, so commercial production use needs a commercial license.
+- If a website blocks the request, Reader respects that outcome and does not work around it.
+
+## Alternatives in this atlas
+
+- [Firecrawl](/services/firecrawl/): when you need to crawl whole sites or extract structured data.
+- [Exa](/services/exa/): when you need a web search API instead of single-page reading.
+
+## Questions people ask
+
+### Is Jina Reader free?
+
+Yes. Reader is free for basic use with no key at 20 requests per minute. A free API key adds 10M tokens and a limit of 500 requests per minute.
+
+### Does Jina Reader need an API key?
+
+Not for basic use. Put `r.jina.ai` in front of a URL. The search endpoint needs a key, and a key also raises your rate limit.
+
+### What happens when I go over the Jina Reader rate limit?
+
+The limit triggers when either the requests or the tokens per minute are reached. Add a key or wait a minute. A premium key lists a higher limit.

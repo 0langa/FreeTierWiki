@@ -1,8 +1,9 @@
 ---
 title: CertKit
 description: >-
-  CertKit provides automated SSL/TLS certificate management and lifecycle
-  automation for web applications and APIs.
+  CertKit requests, renews, and deploys SSL/TLS certificates from one place, and
+  watches your domains for expiry. A small agent pushes certificates to your
+  servers.
 provider: CertKit
 category: security
 domain: security
@@ -16,8 +17,12 @@ audiences:
   - enterprise
   - agency
 tags:
-  - automation
-  - security
+  - ssl certificate
+  - tls
+  - ACME
+  - certificate renewal
+  - wildcard certificate
+  - certificate monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,50 +32,97 @@ freeTierDetails:
   limits:
     - '2 certificates, 1 agent, 1 seat (Homelab plan)'
     - 3 domain SSL monitors
+    - Up to 2 SANs per certificate
+    - Wildcard and multi-domain certificates, automated issuance and renewal
     - 90-day free trial of paid plans, no credit card required
   caveats:
     - Homelab plan is for personal, non-commercial use only
     - Businesses evaluating CertKit use the 90-day trial instead
+    - The pricing page lists email support from Professional up, and none for Homelab
+    - After a 90-day trial without a plan, the account deactivates and CertKit stops renewing
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automating SSL certificate renewals
-  - Centralizing certificate management
-  - Reducing manual certificate errors
+  - Renewing certificates for a homelab or personal domains without running ACME on every server
+  - Getting a wildcard certificate from one place
+  - Watching domains for certificate expiry
+  - Deploying renewed certificates to servers through an agent
 quickstartSteps:
-  - Sign up for a CertKit account.
-  - Add your domain or application.
-  - Configure DNS or HTTP validation as instructed.
-  - Request and deploy your first SSL/TLS certificate.
-  - Set up automation for renewals.
+  - Sign up on certkit.io; the Homelab plan and the 90-day trial need no credit card.
+  - Add your domains and create the one-time CNAME record that delegates DNS validation to CertKit.
+  - Request a certificate; CertKit asks an ACME certificate authority on your behalf.
+  - Install the CertKit agent on a server, which then fetches renewed certificates and reloads your software.
+  - Check the certificate in the dashboard and watch for expiry alerts.
 whenToUse: >-
-  Use CertKit when you need to automate SSL/TLS certificate issuance and renewal
-  for a few domains or applications.
+  Use it for a homelab or personal project with a few certificates that you want
+  renewed and deployed automatically from one dashboard.
 whenNotToUse: >-
-  Avoid if you require advanced integrations, large-scale certificate
-  management, or enterprise-level support.
+  Avoid the free plan for business or client work, which needs the trial or a paid
+  plan, and for more than 2 certificates or 1 agent.
 bestFor:
   - small teams
   - startups
   - agencies managing client sites
 avoidIf:
-  - enterprise with complex PKI
-  - need for custom integrations
+  - you use it for a business or for clients
+  - you need more than 2 certificates
+  - you need support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.certkit.io/certificate-management'
-docsUrl: 'https://docs.certkit.io'
+docsUrl: 'https://www.certkit.io/docs'
 sourceUrls:
-  - 'https://www.certkit.io/certificate-management'
   - 'https://www.certkit.io/pricing'
+  - 'https://www.certkit.io/how-it-works'
+  - 'https://www.certkit.io/docs'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.certkit.io/pricing'
 ---
-CertKit simplifies SSL/TLS certificate management by automating issuance, renewal, and deployment for small to medium web projects.
+You manage certificates in the CertKit web app. You can also use its read-only REST API, and you install an agent on servers that should receive certificates. It suits homelab owners who want automatic renewals without running a certificate client on each machine.
+
+## What the free plan gives you
+
+The Homelab plan is free for personal, non-commercial use. It includes 2 certificates, 1 agent, and 1 seat. You also get 3 domain SSL monitors and certificates with up to 2 SANs each. Automated issuance and renewal, delegated DNS validation, and wildcard and multi-domain certificates are in every plan.
+
+A certificate in CertKit means one managed identity. A wildcard certificate counts as one, and renewals and reissues do not use another slot. The pricing page lists email support from the Professional plan up and none for Homelab.
+
+All plans include a free 90-day trial with no credit card. Professional costs $99 per month and Business costs $399 per month, both billed yearly.
+
+## When you hit a limit
+
+The pricing FAQ says that when you reach your plan limits, you can add more certificates or agents at $2 per month each, or move up a plan. The Homelab plan is listed as free, so extras apply to paid plans.
+
+After the 90-day trial, CertKit contacts you. If you do not subscribe, your account deactivates. Logins stop, monitoring alerts stop, and renewals stop. Certificates already deployed keep working until they expire. Personal users can move to the free Homelab plan.
+
+## Gotchas
+
+- The Homelab plan is not for your business or your clients. Businesses get the 90-day trial, and consultants who manage client certificates need a paid plan.
+- You need one agent per server. Network appliances such as load balancers cannot run the agent and use an agent on another server as a deployment hub.
+- CertKit uses delegated DNS validation with a one-time CNAME record, so you need access to your DNS.
+
+## Alternatives in this atlas
+
+- [Let's Encrypt](/services/let-s-encrypt/): when you are happy to run your own ACME client on each server.
+- [Cloudflare](/services/cloudflare/): when your domain is on Cloudflare and you want certificates handled at the edge.
+- [SSLabs.com](/services/sslabs-com/): when you only want to test an existing TLS setup.
+
+## Questions people ask
+
+### Is CertKit free?
+
+Partly. The Homelab plan is free for personal, non-commercial use, with 2 certificates, 1 agent, and 1 seat. All plans also have a free 90-day trial with no credit card.
+
+### Can I use the CertKit Homelab plan for my business?
+
+No. The FAQ says Homelab is for personal projects and personal systems. Businesses evaluating CertKit use the free 90-day trial, and clients' certificates need a paid plan.
+
+### What happens to my certificates if I stop using CertKit?
+
+Certificates already deployed keep running on your servers until they expire. After that you must renew them yourself, or resubscribe.

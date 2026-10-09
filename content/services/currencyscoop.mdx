@@ -1,8 +1,9 @@
 ---
 title: Currency Beacon
 description: >-
-  Currency Beacon (formerly CurrencyScoop) provides a free API for real-time
-  and historical foreign exchange rates, with MCP support for AI agents.
+  Currency Beacon (formerly CurrencyScoop) is a REST API for live and historical
+  foreign exchange rates, with an MCP server for AI clients. Developers use it
+  for checkout pricing and reports.
 provider: Currency Beacon
 category: apis
 domain: apis
@@ -18,8 +19,11 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - ci-cd
+  - exchange rates
+  - currency api
+  - forex
+  - currency conversion
+  - mcp
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -30,7 +34,8 @@ freeTierDetails:
     - Hourly rate updates
     - Live, historical, and conversion endpoints
   caveats:
-    - Sandbox plan is meant for prototyping, not production
+    - The sandbox plan is for prototyping before you commit; rates update hourly
+    - The time-series endpoint is only on the Startup and Professional plans
     - REST and MCP calls share the same monthly quota
   resetPeriod: monthly
   requiresCard: false
@@ -38,33 +43,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Display currency conversion rates
-  - Build financial dashboards
-  - Integrate exchange rates into apps
-  - Give an AI agent live exchange-rate data via MCP
+  - 'Show prices in the customer''s currency at checkout'
+  - Convert an amount with the live mid-market rate
+  - Pull the end-of-day rate for a past date for reports
+  - Give an AI client a currency tool through MCP
 quickstartSteps:
   - Sign up for a free Currency Beacon account.
-  - Verify your email address and log in.
-  - Navigate to your dashboard and copy your API key.
-  - Read the API documentation for endpoint usage.
-  - Make your first API request using your API key.
+  - Copy your API key from the dashboard.
+  - 'Send a GET request to `https://api.currencybeacon.com/v1/latest` with your key, preferably as a Bearer token.'
+  - 'Try `/v1/convert` with `from`, `to`, and `amount`, or connect an MCP client with the same key.'
 whenToUse: >-
-  Use Currency Beacon when you need simple, low-volume access to real-time or
-  historical currency exchange rates for prototypes.
+  Use Currency Beacon when you need exchange rates for a prototype, a small
+  tool, or an AI agent, and hourly updates are enough.
 whenNotToUse: >-
-  Avoid if you need more than 5,000 requests/month or production-grade update
-  frequency without upgrading.
+  Avoid it if you need more than 5,000 requests a month for free, rates faster
+  than hourly, or the time-series endpoint without paying.
 bestFor:
   - prototyping
   - student projects
   - personal dashboards
+  - AI agents that need rates
 avoidIf:
-  - production finance apps
+  - need real-time rates on a free plan
+  - need the time-series endpoint for free
   - high-traffic services
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://currencybeacon.com'
@@ -75,4 +81,41 @@ sourceUrls:
   - 'https://currencybeacon.com/api-documentation'
 featured: false
 ---
-CurrencyScoop has rebranded to Currency Beacon. The free Developer sandbox plan gives 5,000 API/MCP requests per month with hourly updates, no card required.
+You sign up on the website, copy an API key from the dashboard, and send HTTPS GET requests to the v1 endpoints. The same account also works through an MCP server for AI clients. It suits developers who need exchange rates for a checkout, a report, or a prototype.
+
+## What the free plan gives you
+
+The Developer sandbox plan costs $0 a month and needs no credit card to start. It gives you 5,000 API requests per month with hourly updates. You can use the latest, historical, and conversion endpoints. The historical data goes back to January 1, 1996.
+
+REST calls and MCP tool calls share the same quota. Each successful MCP tool call counts as one request. The time-series endpoint is for the Startup and Professional plans only. Paid plans start at $10 a month for 50,000 requests with 15 minute updates.
+
+## When you hit a limit
+
+The docs say a 429 error means you exceeded your request volume limit, and they tell you to upgrade your plan or slow down. The pricing page lists no overage fee and says there are no hidden fees.
+
+The pages do not say outright what happens to a free account at the quota, but they list no overage fee. Because MCP calls share the quota, an AI agent that loops can use up the 5,000 requests faster than a normal app.
+
+## Gotchas
+
+- The sandbox plan updates rates hourly. Faster updates need a paid plan: 15 minutes on Basic, 1 minute on Startup, and real time on Professional.
+- Do not put the API key in front-end code or a public repository. The docs recommend sending it as a Bearer token in the Authorization header.
+- The time-series endpoint is not part of the free plan.
+
+## Alternatives in this atlas
+
+- [UniRateAPI](/tools/unirateapi/): when you want a free daily allowance for fiat and crypto rates.
+- [Abstract API](/tools/abstract-api/): when you want other lookup APIs, such as IP or email checks, from one vendor.
+
+## Questions people ask
+
+### Is Currency Beacon free?
+
+Yes, within limits. The Developer sandbox plan gives you 5,000 requests a month with hourly rate updates and needs no credit card.
+
+### What happens when I go over the Currency Beacon free limit?
+
+The docs say a 429 error means you exceeded your request volume limit, and they tell you to upgrade or slow down. The pricing page lists no overage fee.
+
+### Can I use Currency Beacon with an AI agent?
+
+Yes. The site says MCP clients such as Claude, ChatGPT, Cursor, VS Code, and Codex can use the same account and quota. Each successful tool call counts as one request.

@@ -1,8 +1,8 @@
 ---
 title: ScrapingAnt
 description: >-
-  ScrapingAnt provides a simple API for web scraping with proxy rotation and
-  browser rendering.
+  ScrapingAnt is a web scraping API that loads a page in headless Chrome
+  through rotating proxies and hands back the HTML for you to parse.
 provider: ScrapingAnt
 category: scraping
 domain: scraping
@@ -17,10 +17,12 @@ audiences:
   - student
   - oss
 tags:
-  - web
-  - networking
-  - api
-  - automation
+  - web scraping api
+  - headless chrome
+  - rotating proxies
+  - proxy rotation
+  - javascript rendering
+  - mcp server
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -30,52 +32,95 @@ freeTierDetails:
     - 10,000 credits/month
     - Browser rendering included
     - Proxy rotation included
-    - No concurrency cap
+    - No concurrency cap on any plan
   caveats:
-    - No credit card required
-    - A default request costs 10 credits; other options cost more
+    - No credit card required; payment details are asked only if you upgrade
+    - A default request (Chrome rendering, standard proxies) costs 10 credits; most requests cost 1 to 25 credits
+    - Failed requests cost nothing
+    - Residential and datacenter proxy plans are billed separately by bandwidth
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Extracting data from public websites
-  - Automating data collection for research
-  - Testing web scraping scripts
-  - Monitoring website changes
+  - Scraping JavaScript-heavy pages that need a real browser
+  - Monitoring competitor prices
+  - Pulling search results or listings
+  - Feeding page text or markdown to an AI agent through the MCP server
+  - Testing a scraping script before building your own proxy setup
 quickstartSteps:
-  - Sign up for a free ScrapingAnt account.
-  - Obtain your API key from the dashboard.
-  - Read the API documentation for request structure.
-  - Make your first API call using your preferred language.
-  - Review usage statistics in your dashboard.
+  - Sign up for a free ScrapingAnt account; no credit card is needed.
+  - Copy your API key from the dashboard, where a request generator also builds test requests.
+  - Send a GET request to `https://api.scrapingant.com/v2/general` with a urlencoded `url` parameter and your key in the `x-api-key` header or query parameter.
+  - Add options to the request, such as `proxy_country`, `wait_for_selector`, or `js_snippet`.
+  - Read the API credits cost page in the docs to see what each option costs before you scale up.
 whenToUse: >-
-  Use ScrapingAnt when you need to scrape public web data with minimal setup and
-  want proxy rotation or browser rendering.
+  Use ScrapingAnt when a page needs a real browser or rotating proxies and you
+  want one API call instead of running Chrome yourself.
 whenNotToUse: >-
-  Avoid if you need more than 10,000 credits/month or must comply with strict
-  anti-bot policies.
+  Avoid the free plan if you scrape at volume: a default request costs 10
+  credits, so 10,000 credits cover far fewer pages than the number suggests.
 bestFor:
   - quick prototyping
-  - small-scale scraping
-  - students
-  - indie developers
+  - scraping JavaScript pages
+  - small scheduled jobs
+  - AI agents that read web pages
 avoidIf:
-  - need high-volume scraping
-  - require dedicated proxies
-  - scraping sensitive or protected sites
+  - you need high-volume scraping on the free credits
+  - you need dedicated proxy pools
+  - you want a point-and-click tool with no code
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://scrapingant.com/'
 docsUrl: 'https://docs.scrapingant.com/'
 sourceUrls:
   - 'https://scrapingant.com/'
+  - 'https://docs.scrapingant.com/'
+  - 'https://docs.scrapingant.com/request-response-format'
 pricingUrl: 'https://scrapingant.com/'
 featured: false
 ---
-ScrapingAnt offers a simple, always-free tier for web scraping with proxy rotation and browser rendering, ideal for small projects and prototyping.
+You call one HTTP endpoint with an API key, from cURL, Python, Node, or any client. An MCP server also lets AI coding agents fetch pages through the same credits. It suits developers who want a rendered page without running their own browsers.
+
+## What the free plan gives you
+
+The free plan gives you 10,000 API credits every month and needs no credit card. Browser rendering and proxy rotation are included. ScrapingAnt says there is no concurrency cap on any plan.
+
+Credits are what you spend. Most requests cost between 1 and 25 credits, depending on the options you switch on, such as proxy type and JavaScript rendering. The default request uses Chrome rendering with standard proxies and costs 10 credits. At that rate the free credits cover about 1,000 default requests. ScrapingAnt says you pay only for successful scrapes, and failed requests cost 0.
+
+## When you hit a limit
+
+The pricing section does not say what happens when the free credits run out. It does say you can restart your plan mid-month, and credits refresh the moment you pay, so scraping never has to stop. You only enter payment details if you upgrade, so a free account has no card to charge.
+
+The first paid plan gives 100,000 credits a month for $19 a month. Proxy plans are separate and are billed by the gigabyte, not with API credits.
+
+## Gotchas
+
+- Options raise the price of a request. Rendering and better proxies can push a single request well above the 10-credit default.
+- A request stops after at most 60 seconds by default, and you can set a timeout from 5 to 60 seconds.
+- The default proxy type is datacenter. Pick another proxy type or a country in the request if a site blocks you.
+
+## Alternatives in this atlas
+
+- [WebScraping.AI](/services/webscraping-ai/): when you want a scraping API with a similar monthly credit model.
+- [Zenscrape](/services/zenscrape/): when you want another proxy-rotating scraping API to compare.
+- [Browse AI](/services/browse-ai/): when you would rather train a robot by clicking than write code.
+
+## Questions people ask
+
+### Is ScrapingAnt free?
+
+Yes. The free plan includes 10,000 API credits every month with no credit card. Browser rendering and proxy rotation are included.
+
+### How many requests do the ScrapingAnt free credits cover?
+
+It depends on the options. A default request costs 10 credits, and most requests cost between 1 and 25 credits.
+
+### Does ScrapingAnt need a credit card?
+
+No. You only enter payment details if you upgrade to a paid plan.

@@ -1,8 +1,9 @@
 ---
 title: Buildkite
 description: >-
-  Buildkite is a CI/CD platform for running fast, scalable pipelines on your own
-  infrastructure.
+  Buildkite is a CI/CD service that coordinates your builds and runs the jobs on
+  agents, either your own machines or Buildkite's hosted ones. It is made for
+  teams that want control over where code builds.
 provider: Buildkite
 category: devops
 domain: devops
@@ -16,62 +17,123 @@ audiences:
   - enterprise
   - oss
 tags:
-  - ci-cd
-  - automation
+  - ci/cd
+  - continuous integration
+  - pipelines
+  - build agents
+  - self-hosted ci
+  - test splitting
+  - github actions alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes up to 5 users, 10 concurrent jobs, 2,000 Linux vCPU
-    minutes, and 250,000 test executions per month, no credit card required.
+    Free plan: up to 5 users, 10 concurrent jobs, 2,000 Linux vCPU minutes and
+    250k test executions per month. No credit card required. A 30-day all-access
+    trial runs alongside it.
   limits:
     - Up to 5 users
     - Up to 10 concurrent jobs
-    - 2,000 Linux vCPU minutes/month
-    - 250,000 test executions/month
-    - 50 GB artifact storage/month
+    - Up to 2,000 Linux vCPU minutes per month on hosted agents, Small size only
+    - 250k test executions per month
+    - 50GB artifact storage per month
+    - 250GB artifact downloads per month
   caveats:
     - No credit card required
-    - A separate 30-day all-access trial gives temporary access to paid-plan features
+    - A separate 30-day all-access trial gives full access to paid-plan features
+    - Free hosted agents are Small AMD64 Linux only; Pro adds macOS agents and
+      larger sizes
+    - Support on the free plan is community support
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated testing for open source projects
-  - Custom CI/CD pipelines on self-hosted agents
-  - 'Integrating with GitHub, GitLab, or Bitbucket'
+  - Run build and test pipelines defined in YAML in your repository
+  - Run jobs on your own machines or on Buildkite hosted agents
+  - Split a large test suite across several machines
+  - Collect test results from your test runners in one place
 quickstartSteps:
-  - Sign up for a Buildkite account.
-  - 'Connect your code repository (GitHub, GitLab, or Bitbucket).'
-  - Install and configure a Buildkite agent on your infrastructure.
-  - Create a pipeline and add your build steps.
-  - Trigger your first build to verify setup.
+  - Open the Buildkite sign-up page and choose Sign up with GitHub, or Continue
+    with Email. Email sign-up needs a verification link and an organization
+    name. No credit card is required.
+  - 'On the New Pipeline page, pick a Git scope: your GitHub account, the
+    Buildkite Examples, or a remote URL for GitLab, Bitbucket, or any Git
+    repository.'
+  - Choose a repository and a name, and pick the Starter pipeline from Buildkite
+    Examples to see a first build.
+  - Select Create and run. The Starter pipeline has build, test, and deploy
+    steps.
+  - For your own repository, add a pipeline definition at
+    .buildkite/pipeline.yml and use the Pipeline upload template so Buildkite
+    runs it.
 whenToUse: >-
-  Use Buildkite if you need scalable CI/CD pipelines with control over your
-  build infrastructure and strong support for open source projects.
+  Use Buildkite when you want pipelines defined as code and control over the
+  machines that run your jobs, with a free plan for a small team.
 whenNotToUse: >-
-  Avoid Buildkite if you require fully managed build agents or need more than
-  5 users or 10 concurrent jobs without paying.
+  Avoid it when you want a CI tool with no setup at all, or when more than 5
+  users, more than 10 concurrent jobs, or bigger hosted machines than the Small
+  size are needed on the free plan.
 bestFor:
-  - teams needing self-hosted CI
-  - open source maintainers
-  - organizations with security requirements
+  - small teams with up to 5 users
+  - pipelines as code in YAML
+  - teams that want to pick their own build machines
 avoidIf:
-  - you need managed build infrastructure
-  - you need more than the free plan's users or concurrency
+  - more than 5 users
+  - more than 10 concurrent jobs
+  - macOS hosted agents on the free plan
+  - you want zero CI setup
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://buildkite.com'
 docsUrl: 'https://buildkite.com/docs'
 sourceUrls:
-  - 'https://buildkite.com/pricing'
-  - 'https://buildkite.com/docs'
+  - https://buildkite.com/pricing
+  - https://buildkite.com/docs/pipelines/getting-started
+  - https://buildkite.com/docs/platform/pricing-and-plans
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://buildkite.com/pricing'
 ---
-Buildkite provides a flexible CI/CD platform that lets you run pipelines on your own infrastructure, ideal for teams needing control and scalability.
+You write pipeline steps in YAML, either in the web editor or in a file in your repository. Buildkite then dispatches the jobs to agents. It suits small teams who want pipelines as code.
+
+## What the free plan gives you
+
+The Free plan costs $0 and allows up to 5 users and up to 10 concurrent jobs. It includes up to 2,000 Linux vCPU minutes per month on Buildkite hosted agents, in the Small size on AMD64 only. A vCPU minute is one minute of one virtual CPU.
+
+You also get 250k test executions per month. A test execution is one recorded result from one test run, and sending this data is optional. Artifact storage is 50GB per month and artifact downloads are 250GB per month. The plan includes dynamic pipelines and test splitting. Support is community support. Pro costs $30 per active user per month and adds macOS hosted agents and larger machine sizes.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 2,000 minutes or pass the other monthly amounts. It lists the amounts as "up to", so treat them as caps. The page shows no card requirement for the Free plan.
+
+If you need more users, jobs, or minutes, move to Pro. Buildkite's docs say spend alerts for Pro only warn you and do not cap spending, so set one before you scale up.
+
+## Gotchas
+
+- The hosted minutes cover only Small Linux agents on AMD64. Mac agents, bigger sizes, and ARM64 are not part of the free allowance.
+- The 30-day all-access trial is separate from the Free plan. It includes a Developer Success Engineer for 30 days, then you choose a plan.
+- For your own code, the New Pipeline page lets you pick a Git scope: your GitHub account, or a remote URL for GitLab, Bitbucket, or any Git repository.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when your code lives on GitHub and you want CI built in.
+- [CircleCI](/tools/circleci/): when you want a hosted CI with a large monthly credit pool.
+- [Buddy](/services/buddy/): when you want a visual pipeline editor for one small project.
+
+## Questions people ask
+
+### Is Buildkite free?
+
+Yes. The Free plan costs $0 and gives you up to 5 users, 10 concurrent jobs, and 2,000 Linux vCPU minutes per month. No credit card is required.
+
+### How much does Buildkite cost after the free plan?
+
+The Pro plan costs $30 per active user per month. It allows up to 50 users and includes 4,000 Linux vCPU minutes per month.
+
+### Does Buildkite need a credit card to start?
+
+No. The pricing page says the Free plan and the 30-day all-access trial need no credit card.

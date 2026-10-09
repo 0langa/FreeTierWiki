@@ -1,6 +1,8 @@
 ---
 title: Cohere API
-description: 'LLM, embedding, and rerank models through an API, aimed at search and retrieval apps.'
+description: >-
+  Cohere offers language models for chat, text embeddings, and reranking through an API. It is for
+  developers who build search and retrieval apps.
 provider: Cohere
 category: ai
 domain: ai
@@ -13,54 +15,68 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - llm
-  - api
-  - search
+  - llm api
+  - embeddings
+  - rerank
+  - rag
+  - semantic search
+  - command models
+  - cohere
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Every account gets a free Trial API key. Calls are free but rate limited and not for production
     or commercial use.
   limits:
-    - Free Trial API key on sign-up
-    - Calls with a trial key are free
-    - Rate limited per model
+    - 'Free Trial API key on sign-up'
+    - 'Trial keys are limited to 1,000 API calls a month'
+    - 'Trial rate limits per endpoint, for example 20 requests per minute for chat and 10 for rerank'
   caveats:
     - Trial keys may not be used for production or commercial work
     - A Production key bills pay-as-you-go
-  resetPeriod: none
+    - Every account starts as a personal account with Trial keys only
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prototype RAG search with embeddings and rerank
-  - Test Command models
-  - Learn LLM APIs
+  - Add reranking to an existing search system
+  - Create embeddings for semantic search
+  - Prototype a retrieval-augmented chatbot
+  - Learn the Cohere API with the Playground
 quickstartSteps:
-  - Sign up at dashboard.cohere.com.
-  - Copy the Trial API key.
-  - 'Call the Chat, Embed, or Rerank endpoint.'
+  - Create a Cohere account. A Trial API key is created for you.
+  - Copy the key from the API Keys page in the dashboard.
+  - Install the Python SDK with pip install -U cohere.
+  - Create a client with cohere.ClientV2 and your API key.
+  - 'Call the chat endpoint with a Command model, or call Embed or Rerank for search work.'
+  - Check the Playground in the dashboard to try prompts without code.
 whenToUse: 'Use for learning and prototypes, especially rerank and embeddings for search.'
-whenNotToUse: Avoid for any commercial or production app; the trial key does not allow it.
+whenNotToUse: >-
+  Avoid for any commercial or production app. The trial key does not allow it, and it caps you at
+  1,000 API calls a month.
 bestFor:
   - prototypes
   - RAG experiments
   - learning
+  - testing rerank on an existing search
 avoidIf:
   - production
   - commercial use
+  - 'need more than 1,000 calls a month on a trial key'
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://cohere.com'
 docsUrl: 'https://docs.cohere.com'
 sourceUrls:
   - 'https://cohere.com/pricing'
+  - 'https://docs.cohere.com/docs/rate-limits'
+  - 'https://docs.cohere.com/v2/docs/text-gen-quickstart'
 pricingUrl: 'https://cohere.com/pricing'
 featured: false
 changes:
@@ -68,4 +84,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Cohere's trial key is free with no time limit, but only for non-production use.
+You get an API key from the Cohere dashboard and call the Chat, Embed, and Rerank endpoints from the Python SDK or the REST API. It suits developers who prototype search and retrieval apps.
+
+## What the free plan gives you
+
+Every new account gets a Trial API key automatically. Calls made with a trial key are free. The docs cap it at 1,000 API calls a month.
+
+Each endpoint has its own trial rate limit. Chat models are limited to 20 requests per minute. Rerank is limited to 10 requests per minute. Embed allows 2,000 inputs per minute for text, and image embedding allows 5 inputs per minute. Tokenize allows 100 requests per minute, and audio transcription allows 5 requests per minute.
+
+The models include the Command family for chat, Embed for search and classification, and Rerank for improving search results. Trial keys may not be used for production or commercial work.
+
+## When you hit a limit
+
+The docs say trial keys are rate limited, and the monthly cap is 1,000 API calls. They do not describe the exact error you will see. The Trial key never bills you, because calls with a trial key are free.
+
+To go further, ask for a Production key. The account Owner opens the Billing and Usage page in the dashboard and fills out the Go to Production workflow. Production keys bill pay-as-you-go. Bills arrive at the end of each calendar month, or when the balance reaches $250.
+
+## Gotchas
+
+- Trial keys cannot be used for production or commercial purposes.
+- Every new account starts as a personal account that can only use Trial keys. Organizations do not get production access automatically.
+- Production keys on newer chat model variants, such as Command A Reasoning, work like trial keys. Contact sales to use those in production.
+
+## Alternatives in this atlas
+
+- [Mistral API](/services/mistral-api/): when you want another hosted model API with a free mode and no card.
+- [Groq](/services/groq/): when you want fast chat models with a free API key.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want embeddings and chat models on Cloudflare with a daily free allowance.
+
+## Questions people ask
+
+### Is the Cohere API free?
+
+Yes, with a Trial key. Calls are free, but the key is capped at 1,000 API calls a month and is not for production use.
+
+### Can I use the Cohere trial key for a commercial app?
+
+No. The pricing page says trial keys are not permitted for production or commercial purposes. You need a Production key.
+
+### Does Cohere need a credit card for the trial?
+
+The pricing page says an account gets a Trial key automatically when it is created. It lists no card step for the trial key.

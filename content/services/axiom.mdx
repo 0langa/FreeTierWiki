@@ -1,8 +1,8 @@
 ---
 title: Axiom
 description: >-
-  Axiom provides scalable log and event analytics with real-time querying and
-  visualization for observability and monitoring.
+  Axiom stores and queries logs, traces, and other event data in one place, with
+  dashboards and monitors on top. It suits developers who need searchable logs.
 provider: Axiom
 category: observability
 domain: observability
@@ -16,9 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - logging
-  - analytics
-  - monitoring
+  - logs
+  - log-management
+  - observability
+  - events
+  - dashboards
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,7 +33,7 @@ freeTierDetails:
     - 30-day data retention
     - Community support
   caveats:
-    - No SSO, RBAC, or advanced features on the free Personal plan
+    - No SSO, RBAC, directory sync, or extended audit logs on the free Personal plan
     - SSO and RBAC are paid add-ons on Axiom Cloud ($25/month platform fee)
   resetPeriod: monthly
   requiresCard: false
@@ -39,35 +41,36 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralized log aggregation
-  - Real-time event monitoring
-  - Application troubleshooting
-  - Dashboard creation
+  - Collect logs from an app or server in one place
+  - Search events with the APL query language
+  - Build a dashboard of saved queries
+  - Create monitors that alert on thresholds
+  - Search, filter, and inspect events in real time
 quickstartSteps:
-  - Sign up for a free Axiom account.
-  - Create a new dataset for your logs.
-  - Install and configure an Axiom ingestion agent or use API to send logs.
-  - Verify data is arriving in your dataset.
-  - Build queries and dashboards to visualize your data.
+  - Start free from axiom.co; the Personal plan needs no credit card.
+  - Create a dataset for your logs; the docs list Datasets under Manage.
+  - Create an API token; the docs list Tokens under Access.
+  - Send your first event with a single HTTP request to `https://AXIOM_DOMAIN/v1/ingest/DATASET_NAME`, using your own domain and dataset name.
+  - Open the dataset to check that the event arrived.
+  - Save a query as a dashboard element to chart it.
 whenToUse: >-
-  Use Axiom for aggregating and analyzing logs or events from apps or
-  infrastructure with fast search and visualization needs.
+  Use Axiom when you want to send logs or events from a small app and search
+  them quickly, with a free plan that needs no card.
 whenNotToUse: >-
-  Avoid if you need more than 30-day retention, SSO/RBAC, or expect to exceed
-  the free compute and storage allowance regularly.
+  Avoid it if you need more than 30 days of retention, SSO, or role-based access
+  control, or if you expect to pass the free compute and storage allowance.
 bestFor:
-  - log analytics
-  - real-time monitoring
-  - small teams
+  - individual developers
   - side projects
+  - small teams starting with log search
 avoidIf:
-  - need long-term retention
-  - require enterprise features
-  - expect high event volume
+  - retention longer than 30 days
+  - SSO or role-based access control
+  - high event volume
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://axiom.co/'
@@ -75,7 +78,46 @@ docsUrl: 'https://docs.axiom.co/'
 pricingUrl: 'https://axiom.co/pricing'
 sourceUrls:
   - 'https://axiom.co/pricing'
-  - 'https://docs.axiom.co/docs/ingest'
+  - 'https://docs.axiom.co/'
+  - 'https://axiom.co/docs/getting-started-guide/getting-started'
 featured: false
 ---
-Axiom's free Personal plan offers 500GB/month data loading compute, 10 GB-hours query compute, and 25GB storage, ideal for individual developers and small projects.
+You send events to Axiom with an HTTP request or one of its integrations, then explore them in the web console with queries and dashboards. It suits individual developers and small projects that need log search.
+
+## What the free plan gives you
+
+The Personal plan costs $0 per month, is described as permanent, and needs no credit card. It includes 500 GB per month of data loading compute and 10 GB-hours per month of query compute. Storage is 25 GB, and data is kept for 30 days. Support is through the community.
+
+The paid Axiom Cloud plan starts at $25 per month plus usage. It has a larger allowance of 1 TB of loading, 100 GB-hours of queries, and 100 GB of storage. SSO, role-based access control, directory sync, and extended audit logs are paid add-ons on that plan, not on Personal.
+
+## When you hit a limit
+
+The pricing page does not say what happens on the Personal plan when you pass an allowance. It does not list an overage price for Personal, and it asks for no card.
+
+For the paid Axiom Cloud plan, the page says extra usage is billed at normal rates, with no separate overage rate. Data older than 30 days drops out of the Personal plan, so move anything you need to keep.
+
+## Gotchas
+
+- Personal has no SSO or role-based access control, and those add-ons exist only on the paid Cloud plan.
+- The pricing page lists soft limits on datasets, fields per dataset, and query concurrency. It says they can be lifted on request.
+- Query compute (10 GB-hours a month) is a separate allowance from data loading compute (500 GB a month).
+
+## Alternatives in this atlas
+
+- [Grafana Cloud](/services/grafana-cloud/): when you also want metrics, traces, and dashboards in one stack.
+- [Datadog](/services/datadog/): when you need a full monitoring suite with many integrations.
+- [Logflare.app](/services/logflare-app/): when you want a simple log sink for a small project.
+
+## Questions people ask
+
+### Is Axiom free?
+
+Yes. The Personal plan costs $0 per month, needs no credit card, and includes 500 GB per month of data loading compute and 25 GB of storage.
+
+### How long does Axiom keep data on the free plan?
+
+The Personal plan keeps data for 30 days. The pricing page lists this as the plan's retention.
+
+### What happens when I go over the Axiom free limits?
+
+The pricing page does not say for the Personal plan. On the paid Cloud plan, extra usage is billed at normal rates.

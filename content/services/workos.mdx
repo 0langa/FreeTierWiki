@@ -1,8 +1,8 @@
 ---
 title: WorkOS
 description: >-
-  WorkOS provides APIs and tools for adding enterprise authentication and
-  directory sync to your SaaS app.
+  WorkOS gives B2B apps login through AuthKit plus enterprise features: SSO, directory sync, an
+  admin portal for customers' IT teams, and audit logs.
 provider: WorkOS
 category: auth
 domain: auth
@@ -17,12 +17,17 @@ audiences:
   - indie
 tags:
   - auth
-  - identity
+  - authkit
+  - sso
+  - directory sync
+  - scim
+  - b2b saas
+  - enterprise ready
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    User Management (authentication) is free for up to 1 million monthly
-    active users; enterprise SSO and Directory Sync are billed per connection.
+    User Management (authentication) is free for up to 1 million monthly active users; enterprise
+    SSO and Directory Sync are billed per connection.
   limits:
     - '1,000,000 monthly active users free (User Management)'
     - 'Per additional 1M users: $2,500/month'
@@ -38,34 +43,41 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Add SSO to SaaS apps
-  - Integrate enterprise directory sync
-  - Enable multi-factor authentication
+  - Hosted login and sign-up with AuthKit
+  - Enterprise SSO for each business customer
+  - Directory sync that provisions and removes users from a corporate directory
+  - A self-serve admin portal for customers' IT admins
+  - Bot and fraud checks with Radar
 quickstartSteps:
-  - Sign up for a WorkOS account.
-  - Create a new project in the WorkOS dashboard.
-  - Configure your application's redirect URIs.
-  - Integrate the WorkOS SDK or API into your app.
-  - Test SSO or Directory Sync with a sample connection.
+  - Create a WorkOS account and open the WorkOS Dashboard. You do not need a credit card to start.
+  - Copy your API key and client ID from the dashboard.
+  - >-
+    Install the SDK for your stack, for example `npm install @workos-inc/node`, or run `npx
+    workos@latest` to let the installer set it up.
+  - >-
+    Add a redirect URI in the Applications section of the dashboard, for example
+    `http://localhost:3000/callback`.
+  - >-
+    Add the AuthKit login redirect and the callback endpoint to your app, then save an encrypted
+    session for the signed-in user.
 whenToUse: >-
-  Use WorkOS for free consumer/user authentication up to 1 million monthly
-  active users, and add paid per-connection SSO or Directory Sync once you
-  land enterprise customers.
+  Use WorkOS when you build a B2B app that needs a big free login allowance now and enterprise SSO
+  or directory sync when customers ask for it.
 whenNotToUse: >-
-  Avoid if you expect to need many enterprise SSO connections right away, since
-  each is billed separately from the free user tier.
+  Avoid it if you expect many enterprise connections right away, since each one is billed on its
+  own, or if you want auth fully on your own servers.
 bestFor:
   - SaaS startups
   - B2B apps
-  - Teams needing enterprise auth
+  - teams that will get enterprise customers
 avoidIf:
-  - Need on-premise auth
-  - Strict data residency
-  - No enterprise customers
+  - many SSO connections from day one
+  - on-premise auth
+  - no enterprise customers
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://workos.com/'
@@ -74,6 +86,45 @@ pricingUrl: 'https://workos.com/pricing'
 sourceUrls:
   - 'https://workos.com/pricing'
   - 'https://workos.com/docs'
+  - 'https://workos.com/docs/authkit/vanilla/nodejs'
 featured: false
 ---
-WorkOS offers developer-friendly APIs to add authentication, SSO, directory sync, and MFA to SaaS applications. User Management is free up to 1 million monthly active users; enterprise SSO and Directory Sync are billed per connection.
+You add WorkOS to your app with an SDK, send users to the hosted AuthKit login, and manage settings in the WorkOS Dashboard. It suits B2B teams that want login now and enterprise features later.
+
+## What the free plan gives you
+
+WorkOS User Management is free for up to 1 million monthly active users. A user counts as active if they sign up, sign in, or update a profile within the calendar month. WorkOS is free to get started, and you do not need to add a credit card until you are ready to move to production.
+
+All WorkOS products are available in the staging environment at no cost, so you can test SSO and Directory Sync before you pay. The Radar bot and fraud product is also free at first. Each enterprise customer you support with SSO or Directory Sync counts as one connection, and connections are billed per month, with the price per connection dropping as you add more.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop. After the first 1 million users, each extra million users costs $2,500 per month. Contact WorkOS for volume pricing.
+
+The costs you are more likely to meet are connections. Enterprise SSO starts at $125 per connection per month, and the page lists lower rates from $100 down to $65 as the count grows. Directory Sync uses the same per-connection pricing. Every connection is billed the same, no matter which identity provider or how many end users it has.
+
+## Gotchas
+
+- The free tier covers User Management only. SSO and Directory Sync connections are billed per connection.
+- Staging is for testing and production is for live apps. The pricing page says you need a credit card only once you are ready to move to production.
+- Radar has a free amount, then costs $100 per month for each 50k checks.
+
+## Alternatives in this atlas
+
+- [Scalekit](/services/scalekit/): when you want a free plan that includes one SSO connection and one SCIM connection.
+- [Stytch](/services/stytch/): when you want a pay-as-you-go auth API with built-in SSO and SCIM allowances.
+- [Frontegg](/services/frontegg/): when you want a hosted login with an admin portal for customer organizations.
+
+## Questions people ask
+
+### Is WorkOS free?
+
+Partly. User Management is free for up to 1 million monthly active users. Enterprise SSO and Directory Sync are billed per connection.
+
+### Does WorkOS need a credit card?
+
+Not to start. The pricing page says you do not need to add a credit card until you are ready to move to production.
+
+### How much does WorkOS SSO cost?
+
+Enterprise SSO starts at $125 per connection per month. The price per connection drops as you add more connections.

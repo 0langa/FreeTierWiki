@@ -1,8 +1,8 @@
 ---
 title: Zuplo
 description: >-
-  Zuplo is a managed API gateway for developers to secure, monitor, and manage
-  APIs with minimal configuration.
+  Zuplo is a managed API gateway. You put it in front of your API to add API
+  keys, rate limits, a developer portal, and MCP and AI gateways.
 provider: Zuplo
 category: networking
 domain: networking
@@ -16,9 +16,13 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - networking
-  - security
+  - api gateway
+  - api management
+  - rate limiting
+  - api keys
+  - developer portal
+  - mcp gateway
+  - gitops
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -26,34 +30,37 @@ freeTierDetails:
     required, with the MCP Gateway, AI Gateway, and developer portal included.
   limits:
     - '100,000 requests/month'
-    - 1 day of analytics, live logs, and traces
+    - 1 day of analytics, 15 minutes of live logs and traces
+    - 2 developer seats, 2 projects, 5 environments, 100 consumers and API keys
     - MCP Gateway servers limited to development mode
     - '1,000 tool invocations/month'
   caveats:
     - No custom domains on the free plan (Builder plan adds 2 for $25/mo)
     - MCP Gateway upstream/virtual servers are development-mode only on the free plan
+    - Requests beyond the limit are rate-limited until the next billing cycle
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Protecting APIs with rate limiting
-  - Adding authentication to APIs
-  - Monitoring API usage
-  - Rapid API prototyping
+  - Adding API key authentication to an API
+  - Rate limiting a public API
+  - Publishing a developer portal for your API
+  - Putting an MCP server in front of your API for AI agents
+  - Prototyping an API gateway before moving to a paid plan
 quickstartSteps:
-  - Sign up for a Zuplo account at zuplo.com.
-  - Create a new project and define your API routes.
-  - Configure authentication and rate limiting as needed.
-  - Deploy your gateway and obtain the endpoint URL.
-  - Test your API through the Zuplo gateway.
+  - Sign in to the Zuplo Portal and create a free account; no credit card is needed.
+  - Open Projects, select New Project and API & MCP Gateway, name it, and create a blank project.
+  - In the Code tab, open the routes.oas.json file and select Add Route.
+  - Set the method and path, and choose the URL Forward Handler to proxy to your origin API.
+  - Save the route and test a request through the gateway; later connect GitHub for deploys.
 whenToUse: >-
-  Use Zuplo when you need a quick, managed API gateway for securing and
-  monitoring APIs without managing infrastructure.
+  Use Zuplo when you want a managed gateway for auth, rate limits, and a
+  developer portal in front of an API, with GitOps deploys from GitHub.
 whenNotToUse: >-
-  Avoid Zuplo if you require custom domains, advanced enterprise features, or
-  need to self-host your API gateway.
+  Avoid it if you need custom domains on the free plan, SSO, a self-hosted
+  gateway, or an SLA.
 bestFor:
   - rapid prototyping
   - small teams
@@ -62,11 +69,11 @@ bestFor:
 avoidIf:
   - require custom domains
   - need advanced enterprise controls
-  - must self-host
+  - must self-host on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://zuplo.com/'
@@ -74,6 +81,48 @@ docsUrl: 'https://zuplo.com/docs'
 pricingUrl: 'https://zuplo.com/pricing'
 sourceUrls:
   - 'https://zuplo.com/pricing'
+  - 'https://zuplo.com/docs/articles/what-is-zuplo'
+  - 'https://zuplo.com/docs/articles/step-1-setup-basic-gateway'
 featured: false
 ---
-Zuplo provides a managed API gateway with built-in security, rate limiting, and analytics, ideal for developers seeking fast setup and minimal maintenance.
+You build routes in the Zuplo Portal or in code, and deploy from a GitHub repo. It suits developers who want API management without running gateway servers.
+
+## What the free plan gives you
+
+The free plan costs $0, needs no credit card, and covers 100K requests per month. The compare table lists 5 environments, 2 projects, 2 developer seats, and 100 consumers and API keys. Analytics keep 1 day of history, and live logs and traces keep 15 minutes.
+
+It includes the AI Gateway with 1 team and a developer portal. The MCP Gateway runs in development mode only, with 1K tool invocations a month. DDoS protection is basic, and GitOps works with GitHub.
+
+Custom domains are not part of the free plan. The Builder plan costs $25 a month and adds 2 custom domains, 10 environments, 1000 consumers, and 7 days of analytics. Zuplo says Builder is for solo entrepreneurs and hobbyists going live, not for teams.
+
+## When you hit a limit
+
+The pricing FAQ says that on the Free tier, requests beyond your limit are rate-limited until the next billing cycle. You are not billed. The answer also says your API will never suddenly stop working due to limits.
+
+On Builder, you can buy more request capacity, with $100 per 100K, and Zuplo says it will reach out to help you size your plan. Enterprise plans start at $1,000 a month on an annual contract and add SSO and an SLA.
+
+## Gotchas
+
+- The free plan has no custom domains, so your API uses a Zuplo address until you move to Builder.
+- The MCP Gateway servers on Free are development mode only. Production MCP use needs Builder or Enterprise.
+- Free keeps 1 day of analytics and only 15 minutes of live logs, so debug a problem soon after it happens.
+
+## Alternatives in this atlas
+
+- [Azure API Management](/tools/azure-api-management/): when you already run on Azure and a pay-per-operation tier suits you.
+- [IBM API Connect](/tools/ibm-api-connect/): when you want to try a full enterprise API platform in a time-limited trial.
+- [Cloudflare](/services/cloudflare/): when you only need basic rules and rate limiting in front of a site.
+
+## Questions people ask
+
+### Is Zuplo free?
+
+Yes. The free plan covers 100K requests a month with no credit card. It includes the developer portal and a development-mode MCP Gateway.
+
+### What happens when I go over the Zuplo free limit?
+
+Requests beyond the limit are rate-limited until the next billing cycle. The pricing FAQ says your API will not suddenly stop working.
+
+### Does the Zuplo free plan support custom domains?
+
+No. Custom domains start on the Builder plan, which adds 2 for $25 a month.

@@ -1,8 +1,6 @@
 ---
 title: OpenRouter
-description: >-
-  OpenRouter provides unified API access to multiple AI models, including free
-  and pay-as-you-go options for popular LLMs.
+description: 'OpenRouter gives developers one API for hundreds of AI models, including free models whose IDs end in :free. It suits people who want to try many models with one key.'
 provider: OpenRouter
 category: ai
 domain: ai
@@ -17,10 +15,12 @@ audiences:
   - oss
   - team
 tags:
-  - llm
-  - api
-  - ai
-  - networking
+  - 'llm api'
+  - 'free llm'
+  - 'ai models'
+  - 'api gateway'
+  - 'openai compatible'
+  - 'model router'
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,7 +31,7 @@ freeTierDetails:
     - '50 requests/day with under 10 lifetime credits purchased'
     - '1,000 requests/day once 10+ credits purchased'
   caveats:
-    - Free-tier limits apply account-wide, not per API key
+    - The daily cap depends on credits purchased over the life of the account
     - Only models with a ":free" suffix are included
   resetPeriod: daily
   requiresCard: false
@@ -39,35 +39,32 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Experimenting with different LLMs via a single API
-  - Building prototypes using free AI models
-  - Comparing model outputs for research
+  - 'Trying many language models through one API key'
+  - 'Building a prototype on free models'
+  - 'Comparing answers from different models'
+  - 'Switching to a paid model by changing the model ID'
+  - 'Testing an app with the free models router'
 quickstartSteps:
-  - Sign up for a free OpenRouter account.
-  - Obtain your API key from the dashboard.
-  - Review the list of free models and their limits.
-  - >-
-    Integrate the OpenRouter API into your application using the provided
-    endpoint.
-  - Monitor your usage in the dashboard to stay within free tier limits.
-whenToUse: >-
-  Use OpenRouter when you want to access multiple AI models through a single API
-  with a free tier for experimentation or prototyping.
-whenNotToUse: >-
-  Avoid if you need guaranteed access to premium models or require strict SLAs
-  for production workloads.
+  - 'Create an OpenRouter account and sign in.'
+  - 'Create an API key and store it as OPENROUTER_API_KEY.'
+  - 'Pick a model from the models page; search for free to find IDs that end in :free.'
+  - 'Send a request to https://openrouter.ai/api/v1/chat/completions with the header Authorization: Bearer and your key, or use one of the SDKs.'
+  - 'If a request fails with a 429 error, read the X-RateLimit-Reset header to see when your limit resets.'
+whenToUse: 'Use OpenRouter when you want one API for many models and a free way to try some of them.'
+whenNotToUse: 'Avoid it when you need steady production traffic on free models. Free models allow 50 requests per day until you buy credits, and 1,000 after that. The FAQ says they are usually not suitable for production use.'
 bestFor:
-  - prototyping
-  - model evaluation
-  - student projects
+  - 'prototyping'
+  - 'model evaluation'
+  - 'comparing models'
+  - 'student projects'
 avoidIf:
-  - need enterprise SLAs
-  - require specific premium models
-  - need high-volume production use
+  - 'production traffic on free models'
+  - 'more than 1,000 free requests per day'
+  - 'a guarantee of access to one specific model'
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://openrouter.ai/models?q=free'
@@ -76,6 +73,49 @@ pricingUrl: 'https://openrouter.ai/docs/api-reference/limits'
 sourceUrls:
   - 'https://openrouter.ai/models?q=free'
   - 'https://openrouter.ai/docs/api-reference/limits'
+  - 'https://openrouter.ai/docs/faq'
+  - 'https://openrouter.ai/docs/quickstart'
 featured: false
 ---
-OpenRouter offers a unified API for accessing multiple AI models, making it easy to experiment and prototype with free-tier LLMs.
+You send standard HTTP requests to one chat completions endpoint, or use an SDK, and change the model ID to switch models. This page covers the free models, whose IDs end in `:free`.
+
+
+## What the free plan gives you
+
+You can call any model with a `:free` ID without paying. Free models run at 20 requests per minute. The daily cap depends on how many credits you have bought over the life of the account.
+
+With less than 10 credits purchased, you get 50 requests per day. After you buy at least 10 credits, the daily cap rises to 1,000 requests. The limits page says the higher cap starts one credit below that mark, at 9 credits.
+
+New users also get a small free allowance to test the service. OpenRouter also offers a Free Models Router that picks a free model for you. The FAQ calls free models low-limit and usually not suitable for production use.
+
+## When you hit a limit
+
+OpenRouter rejects the request with a 429 error and the message "Rate limit exceeded". The response carries headers that show your limit, what remains, and when it resets. Wait and retry, or switch to the paid version of the same model.
+
+The limits page lists no charge for hitting a cap. But a negative credit balance can cause 402 errors, even on free models. Add credits to bring the balance above zero.
+
+## Gotchas
+
+- With less than 10 credits purchased, the cap is 50 requests per day, so a prototype can run out of requests fast.
+- The daily cap is based on all-time credits purchased. Spending credits does not lower it again.
+- The pages do not say whether a credit card is needed for free models. The limits page lists no card rule.
+
+## Alternatives in this atlas
+
+- [Groq](/services/groq/): when you want fast inference with limits set per model and no card.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want a daily free allowance that sits next to your other Cloudflare apps.
+- [Mistral API](/services/mistral-api/): when you want a free plan from one model maker with monthly credits.
+
+## Questions people ask
+
+### Is OpenRouter free?
+
+Partly. Models with a `:free` ID cost nothing to call, within the rate limits. Paid models cost credits.
+
+### What are the OpenRouter free model limits?
+
+Free models allow 20 requests per minute. The daily cap is 50 requests with less than 10 credits purchased, and 1,000 requests once you have bought at least 10 credits.
+
+### What happens when I go over the OpenRouter free limit?
+
+You get a 429 "Rate limit exceeded" error. Retry later, or move to the paid version of the model. A negative credit balance can also block free models with a 402 error.

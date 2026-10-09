@@ -1,8 +1,9 @@
 ---
 title: Upstash
 description: >-
-  Upstash provides serverless Redis, Vector, and messaging (QStash, Workflow)
-  with per-request pricing and global low-latency access.
+  Upstash offers serverless Redis, Vector, QStash message queues, and Workflow
+  with pay-per-request pricing. It is for serverless and edge apps that need
+  data and background jobs without servers.
 provider: Upstash
 category: database
 domain: database
@@ -19,43 +20,51 @@ audiences:
   - team
   - oss
 tags:
-  - database
-  - queue
-  - serverless
-  - cloud
+  - upstash
+  - serverless redis
+  - qstash
+  - message queue
+  - workflow
+  - vector database
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier centers on Redis, with 500,000 commands/month and 256 MB data size; Kafka was discontinued in 2025.
+  summary: >-
+    Each Upstash product has its own Free plan. Redis includes 256 MB of data and
+    500K commands a month, Vector 10K queries and updates a day, and QStash and
+    Workflow 1,000 messages or steps a day.
   limits:
-    - '500,000 Redis commands/month'
-    - 256 MB Redis data size
-    - 10 GB Redis bandwidth/month
-    - Up to 10 free Redis databases
+    - Redis Free has 256 MB of data, 500K commands per month, and 10 GB of bandwidth
+    - Vector Free has 1 GB of data and 10K queries and updates per day
+    - QStash Free has 1,000 messages per day
+    - Workflow Free has 1,000 steps per day
+    - The pricing page says you can create up to 10 databases for free
   caveats:
-    - 'Kafka was discontinued (March 2025); QStash and Workflow replaced it for messaging/queues'
-    - No credit card required for the free Redis database
+    - Kafka does not appear on the current pricing pages; QStash and Workflow cover messaging and queues
+    - Upgrading any product to pay as you go needs a credit card
+    - Free plans have community support only
+    - Workflow and QStash daily limits are soft limits that apply when you consistently exceed them
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Caching for serverless apps
-  - Low-latency key-value storage
-  - Durable task queues and scheduling with QStash/Workflow
-  - AI vector search with Upstash Vector
+  - Caching and rate limiting for serverless apps
+  - Background jobs and delayed HTTP calls with QStash
+  - Durable multi-step workflows that outlive a serverless time limit
+  - Vector search for small AI features
 quickstartSteps:
-  - Sign up at upstash.com with your email or GitHub account.
-  - Create a new Redis, Vector, or QStash resource from the dashboard.
-  - Copy the connection URL and credentials.
-  - Integrate the connection string into your application code.
-  - Monitor usage and limits from the Upstash dashboard.
+  - Log in to the Upstash Console, or sign up for a free account.
+  - For Redis, click Create Database on the Redis tab, name it, pick a region, and choose the Free plan.
+  - For QStash, open the QStash tab, pick a region, and copy the `QSTASH_TOKEN` from the Quickstart section.
+  - Publish a first message with a POST request to `https://qstash.upstash.io/v2/publish/` followed by your destination URL, with the token in an Authorization header.
+  - Check the Logs tab in the console to see the message status. Use the SDKs, such as `@upstash/redis`, to avoid raw requests.
 whenToUse: >-
-  Use Upstash for lightweight, serverless Redis, Vector, or QStash/Workflow
-  needs with predictable free limits and simple integration.
+  Use it for a small cache, queue, or vector index in serverless or edge apps,
+  when HTTP access and no servers to run matter more than raw throughput.
 whenNotToUse: >-
-  Avoid if you need high-throughput, large datasets, or a hosted Kafka
-  service (Upstash Kafka was discontinued in 2025).
+  Avoid it if you need a hosted Kafka service, very high throughput on free
+  plans, or private networking.
 bestFor:
   - serverless apps
   - prototyping
@@ -64,24 +73,65 @@ bestFor:
 avoidIf:
   - large-scale production
   - high-throughput workloads
-  - complex Redis or messaging setups
+  - you need hosted Kafka
 difficulty: beginner
 productionReadiness: prototype
 status: changed
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://upstash.com/'
 docsUrl: 'https://docs.upstash.com/'
 sourceUrls:
   - 'https://upstash.com/pricing'
-  - 'https://docs.upstash.com/'
+  - 'https://upstash.com/pricing/qstash'
+  - 'https://upstash.com/pricing/workflow'
+  - 'https://upstash.com/pricing/vector'
+  - 'https://upstash.com/docs/qstash/overall/getstarted'
 pricingUrl: 'https://upstash.com/pricing'
 changes:
   - date: 2025-03-11
     kind: changed
-    note: Upstash discontinued Kafka; QStash and Workflow became the messaging/queue products instead.
+    note: Kafka no longer appears on the pricing pages; QStash and Workflow are the messaging and queue products there.
 featured: false
 ---
-Upstash offers serverless Redis, Vector, and messaging (QStash/Workflow) with a generous free tier, ideal for prototyping, hobby projects, and serverless workloads with predictable limits. Kafka support was discontinued in March 2025.
+You create resources in the Upstash Console and reach them over REST with SDKs for TypeScript, Python, and other languages. This page covers the products together. The Redis and Vector pages in this atlas go deeper on each one.
+
+## What the free plan gives you
+
+Each product has a Free plan at $0 for prototypes and hobby projects. Redis includes 256 MB of data, 10 GB of monthly bandwidth, and 500K commands per month. Vector includes 1 GB of data and 10K queries and updates per day, with 1,536 dimensions at most per vector.
+
+QStash, the HTTP message queue, allows 1,000 messages per day, with messages up to 1 MB and a delay of up to 7 days. Workflow, built on QStash, allows 1,000 steps per day and up to 1,000 steps per workflow run. Both cap monthly bandwidth at 50 GB. The pricing page says you can create up to 10 databases for free.
+
+## When you hit a limit
+
+For QStash and Workflow, the pricing FAQ calls the daily limits soft limits that apply only if you consistently exceed them. Short spikes do not block you at once. If usage stays over, Upstash contacts you about an upgrade. If it cannot reach you, workflow runs may start failing with quota errors.
+
+Past the daily step limit, QStash returns errors for step execution, the Workflow SDK retries after a short delay, and failed runs land in the dead letter queue. For Redis and Vector, the pricing pages do not say what happens on the Free plan. Pay as you go starts after you enter a credit card.
+
+## Gotchas
+
+- Each delivery attempt counts as one QStash message, so retries use your 1,000 messages a day.
+- Some Workflow steps count as two billed steps, such as `context.call` and `context.invoke`. Parallel steps add one extra billed step each.
+- Kafka does not appear on the current pricing pages. Use QStash for queued HTTP delivery instead.
+
+## Alternatives in this atlas
+
+- [Cloudflare Queues](/services/cloudflare-queues/): when your code runs on Cloudflare Workers and you want a queue there.
+- [Inngest](/services/inngest/): when you want event-driven functions and durable workflows.
+- [CloudAMQP](/services/cloudamqp/): when you want a shared RabbitMQ instance instead of HTTP delivery.
+
+## Questions people ask
+
+### Is Upstash free?
+
+Yes. Each product has a Free plan. Redis includes 256 MB of data and 500K commands a month, and QStash allows 1,000 messages a day.
+
+### What happens when I hit the Upstash free limits?
+
+For QStash and Workflow, the daily limits are soft limits that apply when you consistently exceed them. Upstash contacts you first, and runs may fail with quota errors if you do not respond.
+
+### Does Upstash still offer Kafka?
+
+The current pricing pages do not list Kafka. They list QStash and Workflow for messaging and queues.

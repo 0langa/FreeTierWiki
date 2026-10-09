@@ -1,8 +1,8 @@
 ---
 title: IntoDNS.ai
 description: >-
-  IntoDNS.ai provides automated DNS health checks and reports for domains,
-  highlighting configuration issues and best practices.
+  IntoDNS.ai scans a domain for DNS and email security problems, such as SPF,
+  DKIM, DMARC, and DNSSEC, and explains how to fix them.
 provider: IntoDNS.ai
 category: networking
 domain: networking
@@ -17,61 +17,110 @@ audiences:
   - team
   - agency
 tags:
-  - dns
-  - monitoring
-  - ai
-  - analytics
+  - dns checker
+  - spf
+  - dkim
+  - dmarc
+  - dnssec
+  - email deliverability
+  - domain health
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free forever DNS and email security scanner with a public API and
-    optional domain monitoring.
+    Everything is free with no trial and no card. Public scans and the public
+    API need no account; a free account adds nightly monitoring.
   limits:
-    - Unlimited public scans, no account required
-    - Public REST API, no API key required
-    - Free account adds domain monitoring and email fix digests
-    - 'Checks: SPF, DKIM, DMARC, DNSSEC, MTA-STS, BIMI, blacklists'
+    - Scans of any domain, no account required
+    - Public REST API for DNS, email, blacklist, and quick-scan endpoints, no API key
+    - PDF report export and generator tools (SPF, DMARC, MTA-STS, BIMI) without an account
+    - Free account adds nightly monitoring, scan history, and email fix digests
   caveats:
-    - AI-assisted explanations are available where useful
-    - A free account is needed for scheduled monitoring and digests
+    - The API rate limit is described as generous; bursts may get HTTP 429
+    - A free account is needed for monitoring, AI-assisted explanations, and digests
+    - DKIM checks look for common selectors and cannot prove that sent mail is signed
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Check DNS configuration
-  - Troubleshoot domain issues
-  - Validate DNS best practices
+  - Checking a domain's DNS records for mistakes
+  - Fixing SPF, DKIM, and DMARC problems that send mail to spam
+  - Checking DNSSEC, MTA-STS, BIMI, and blacklist status
+  - Running a NIS2 readiness quick scan on a domain
+  - Adding a domain scan to a script through the public API
 quickstartSteps:
-  - 'Go to https://intodns.ai.'
-  - Enter your domain name in the search box.
-  - Click 'Report' to generate a DNS health check.
-  - Review the results and follow recommendations.
+  - 'Open intodns.ai and type your domain name into the scan box.'
+  - Select Scan domain to get the report, with no sign-up.
+  - Read the prioritized issues and the fix guidance for each failed check.
+  - Optionally sign in with email or Google to switch on nightly monitoring for the domain.
+  - 'For scripts, call `https://intodns.ai/api/scan/quick` with a `domain` query parameter; no API key is needed.'
 whenToUse: >-
-  Use IntoDNS.ai when you need a quick, automated DNS health check for any
-  domain without registration.
+  Use IntoDNS.ai for a quick check of a domain's DNS and email setup, or to learn
+  what each SPF, DKIM, and DMARC record should look like.
 whenNotToUse: >-
-  Avoid if you need a dedicated support SLA or enterprise-scale scanning beyond
-  what the public tool and free account provide.
+  Avoid it if you need a support SLA, a stated API rate limit, or paid
+  enterprise-scale scanning.
 bestFor:
   - quick DNS checks
-  - domain troubleshooting
+  - email deliverability fixes
   - students learning DNS
 avoidIf:
-  - need continuous monitoring
-  - require API integration
-  - need alerting features
+  - need a support SLA
+  - need a fixed API rate limit
+  - enterprise-scale scanning
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://intodns.ai'
-docsUrl: 'https://docs.intodns.ai'
+docsUrl: 'https://intodns.ai/api-docs'
 pricingUrl: 'https://intodns.ai'
 sourceUrls:
   - 'https://intodns.ai'
+  - 'https://intodns.ai/pricing'
+  - 'https://intodns.ai/api'
 featured: false
 ---
-IntoDNS.ai offers free, instant DNS health checks for any domain, making it ideal for quick troubleshooting and learning DNS best practices.
+You use IntoDNS.ai in the browser by typing a domain, or from code through its public REST API. It suits site owners and admins who want to fix mail and DNS settings without paying for a tool.
+
+## What the free plan gives you
+
+The pricing page says all features are free forever, with no credit card and no trial. Without an account you can scan any domain, run the email security check for SPF, DKIM, and DMARC, check blacklists, export a PDF report, and test email deliverability. You can also use the SPF, DMARC, MTA-STS, and BIMI generators and embed a security badge.
+
+The public API is open. DNS, email, blacklist, and quick-scan endpoints need no API key. The site advertises more than 60 security checks and scans that finish in under 3 seconds.
+
+A free account adds nightly monitoring, AI-assisted explanations, scan history, saved domains, email fix digests, and a CSP Monitor.
+
+## When you hit a limit
+
+The pricing page lists no paid tier and no scan cap, so there is no bill to hit. The only stated limit is on the API. The API description calls the rate limit generous and says bursts may get an HTTP 429 response with a Retry-After header.
+
+If you get a 429, wait for the time in Retry-After and send the request again. The pages give no numbers for the limit, so space out batch jobs.
+
+## Gotchas
+
+- Monitoring, scan history, and fix digests need a free account. Plain scans do not.
+- The DKIM check looks for common selectors and a published key. The site says this cannot prove your outgoing mail is signed, so use the email test for that.
+- The API page names other sites it does not run, api.intodns.io and intodns.io, so make sure you call intodns.ai.
+
+## Alternatives in this atlas
+
+- [Internet.nl](/services/internet-nl/): when you want a second opinion with web, email, and connection tests.
+- [SSLabs.com](/services/sslabs-com/): when your main question is the strength of a server's TLS setup.
+- [Sucuri SiteCheck](/services/sucuri-sitecheck/): when you want to scan a public website for malware and blacklisting.
+
+## Questions people ask
+
+### Is IntoDNS.ai free?
+
+Yes. The pricing page says all features are free forever, with no trial and no credit card. Scans work without an account.
+
+### Does IntoDNS.ai need an account?
+
+No for scans, reports, and the public API. A free account is only needed for nightly monitoring, scan history, and email fix digests.
+
+### Does IntoDNS.ai have an API rate limit?
+
+Yes, but no number is published. The API calls it generous and says bursts may get HTTP 429 with a Retry-After header.

@@ -1,8 +1,9 @@
 ---
 title: Hook0
 description: >-
-  Hook0 provides managed webhooks infrastructure for sending, receiving, and
-  monitoring webhook events at scale.
+  Hook0 is an open-source webhooks-as-a-service platform: you make one API call
+  and it handles delivery, retries, and signatures. It suits developers whose
+  product sends webhooks to its own customers.
 provider: Hook0
 category: automation
 domain: automation
@@ -16,8 +17,11 @@ audiences:
   - indie
   - oss
 tags:
-  - integration
-  - queue
+  - webhooks
+  - event-delivery
+  - hmac
+  - open-source
+  - self-hosted
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -36,42 +40,85 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Send webhooks from your SaaS app
-  - Receive and process third-party events
-  - Monitor webhook delivery and retries
+  - Sending webhooks from your SaaS product to your customers' endpoints
+  - Retrying failed deliveries and checking each attempt
+  - Signing outgoing events with HMAC so receivers can verify them
+  - Self-hosting a webhook sender for data control
 quickstartSteps:
-  - Sign up for a Hook0 account.
-  - Create a new webhook project in the dashboard.
-  - Define your event types and webhook endpoints.
-  - Integrate Hook0 SDK or API into your app to trigger events.
-  - Monitor deliveries and troubleshoot via the dashboard.
+  - Create an account at hook0.com, then open the dashboard.
+  - Select your organization and choose Create new application.
+  - Copy the Default API key from the application's API keys page.
+  - Create an event type, then create a subscription that points at your endpoint.
+  - Send an event with a POST to `https://app.hook0.com/api/v1/event` using your token, an `application_id`, an `event_type`, and at least one label.
+  - Open Request Attempts in the dashboard to check the delivery.
 whenToUse: >-
-  Use Hook0 when you need reliable, scalable webhook delivery and monitoring
-  without building your own infrastructure.
+  Use it when your product needs to send webhooks and you want retries, signing,
+  and delivery logs without building them, or you want to self-host.
 whenNotToUse: >-
-  Avoid the free plan if you need more than 100 events/day without
-  self-hosting, advanced custom integrations, or guaranteed SLAs.
+  Avoid the hosted free plan for more than 100 events a day, or if you need
+  more than 2 free organizations.
 bestFor:
-  - SaaS apps
-  - startups
-  - indie developers
-  - open source projects
+  - SaaS products that send webhooks
+  - side projects
+  - teams that want to self-host
 avoidIf:
-  - need more than 100 events/day on the hosted free plan
-  - require strict SLAs
-  - need advanced enterprise features
+  - you need more than 100 events a day for free
+  - you want to receive and inspect third-party webhooks only
+  - you need support beyond community help
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.hook0.com/'
-docsUrl: 'https://docs.hook0.com/'
+docsUrl: 'https://documentation.hook0.com/'
 pricingUrl: 'https://www.hook0.com/pricing'
 sourceUrls:
   - 'https://www.hook0.com/pricing'
-  - 'https://docs.hook0.com/'
+  - 'https://www.hook0.com/'
+  - 'https://documentation.hook0.com/'
+  - 'https://documentation.hook0.com/docs/getting-started'
 featured: false
 ---
-Hook0 offers a managed webhooks platform, letting you send, receive, and monitor webhook events with minimal setup and no infrastructure maintenance.
+You work through a dashboard and a REST API: you define event types and subscriptions, then send events with one API call. Hook0 then delivers them to the endpoints you registered. It suits developers who add webhooks to their own product.
+
+## What the free plan gives you
+
+The Developer plan is free forever and needs no credit card. It includes 100 webhook events a day, HMAC signatures, and delivery monitoring, with community support. Subscriptions and retries are free, because one event can trigger several subscriptions and each can be retried.
+
+Your account can belong to up to 2 free organizations. An organization on a paid plan does not count toward that limit. Hook0 Cloud is hosted in France by default.
+
+The server is open source under SSPL-1.0, and you can self-host it with Docker Compose or Kubernetes at no cost. The client SDKs use the MIT license. When you self-host, you run the infrastructure, scaling, and updates yourself.
+
+## When you hit a limit
+
+On the free Developer plan, extra events past the daily limit are blocked with an HTTP 429 error. You get no bill. The Organization Dashboard shows your event use for the current day and earlier days, so you can watch it.
+
+Paid plans work differently. They never block events. The Startup plan costs €59 a month and covers up to 30,000 events a day, then charges €0.003 per event. The Pro plan costs €190 a month, covers up to 100,000 events a day, then charges €0.0001 per event.
+
+## Gotchas
+
+- The 100 events a day limit is a hard stop with HTTP 429 on the free plan, so a traffic spike drops events until the next day.
+- Every event needs at least one label, and the API rejects an empty labels object.
+- An application API token can read and manage everything in that application, so treat it as a credential.
+
+## Alternatives in this atlas
+
+- [Svix](/services/svix/): when you want another hosted webhook sender with its own free plan.
+- [Posthook](/services/posthook/): when you want to schedule a webhook for a later time.
+- [UseWebhook.com](/services/usewebhook-com/): when you only need a URL to receive and inspect webhooks.
+
+## Questions people ask
+
+### Is Hook0 free?
+
+Yes. The free Developer plan has 100 webhook events a day, HMAC signatures, and delivery monitoring, with no credit card. You can also self-host the open-source server for free.
+
+### What happens when I go over the Hook0 free limit?
+
+Extra events are blocked with an HTTP 429 error until the next day. Paid plans never block events and bill per event instead.
+
+### Can I self-host Hook0 for free?
+
+Yes. The server is open source under SSPL-1.0, and you can run it with Docker Compose or Kubernetes. You manage the infrastructure yourself.

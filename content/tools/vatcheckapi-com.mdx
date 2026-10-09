@@ -1,24 +1,25 @@
 ---
 title: Vatcheckapi.com
-description: >-
-  Vatcheckapi.com provides a simple API to validate European VAT numbers in real
-  time.
+description: "Vatcheckapi.com is a REST API that checks EU and UK VAT numbers and returns the registered company name and address. It suits developers who handle B2B invoicing and reverse charge in checkout or billing."
 provider: Vatcheckapi.com
 category: apis
 domain: apis
 subtypes:
-  - vat-validation
-  - api
-  - compliance
+  - "vat-validation"
+  - "iban-validation"
+  - "compliance"
 audiences:
   - startup
   - team
   - indie
   - oss
 tags:
-  - productivity
-  - api
-  - compliance
+  - "vat number validation"
+  - "vat checker api"
+  - "eu vat"
+  - "vies"
+  - "iban validation"
+  - "reverse charge"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,31 +38,29 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Validating customer VAT numbers during checkout
-  - Automating VAT compliance for EU businesses
-  - Integrating VAT checks into CRM or ERP systems
+  - "Check a customer's VAT number at checkout"
+  - "Apply reverse charge only to registered businesses"
+  - "Fill in company name and address from a VAT number"
+  - "Validate VAT numbers inside a CRM or billing tool"
+  - "Check IBANs, since every plan can validate them"
 quickstartSteps:
-  - Sign up for a free Vatcheckapi.com account.
-  - Log in and obtain your API key from the dashboard.
-  - Read the API documentation for endpoint details.
-  - >-
-    Send a GET request to the VAT validation endpoint with your API key and VAT
-    number.
-  - Check the response for validation status.
-whenToUse: >-
-  Use when you need to validate EU VAT numbers automatically in your app or
-  workflow with minimal setup.
-whenNotToUse: >-
-  Avoid if you require high-volume validation, batch processing, or guaranteed
-  uptime, as the free tier is limited and has no SLA.
+  - "Open vatcheckapi.com and choose Get your free API key to register in the developer portal."
+  - "Copy your API key. The free plan allows one key at a time."
+  - "Send a GET request to https://api.vatcheckapi.com/v2/check with the vat_number parameter and your key in the apikey parameter or header."
+  - "Read the JSON result for registration status and company details. Add a country_code parameter when the number has no country prefix."
+  - "Watch your monthly and per-minute quota in the response headers or with the Status endpoint."
+whenToUse: "Use when you need to check EU or UK VAT numbers in a checkout or billing flow and 150 checks a month is enough for a prototype or small shop."
+whenNotToUse: "Avoid if you need more than 150 checks a month, no rate limit, sandbox keys, or email support. The free plan has none of those."
 bestFor:
-  - EU e-commerce
-  - SaaS billing
-  - Accounting tools
+  - "EU e-commerce"
+  - "SaaS billing"
+  - "accounting tools"
+  - "small B2B shops"
 avoidIf:
-  - High-volume validation
-  - Non-EU VAT needs
-  - Strict uptime requirements
+  - "more than 150 checks per month"
+  - "no rate limit needed"
+  - "need sandbox API keys"
+  - "need email support"
 difficulty: beginner
 productionReadiness: prototype
 status: changed
@@ -69,15 +68,58 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified that the 150 free validations renew monthly."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://vatcheckapi.com'
-docsUrl: 'https://docs.vatcheckapi.com'
+docsUrl: "https://vatcheckapi.com/docs"
 pricingUrl: 'https://vatcheckapi.com/pricing/'
 sourceUrls:
   - 'https://vatcheckapi.com/pricing/'
+  - 'https://vatcheckapi.com'
+  - 'https://vatcheckapi.com/docs'
+  - 'https://vatcheckapi.com/docs/check'
 featured: false
 ---
-Vatcheckapi.com offers a straightforward API for real-time validation of European VAT numbers, making it easy to automate compliance checks for EU businesses and applications. The always-free tier is suitable for low-volume use cases, such as startups or prototypes, but is not intended for high-throughput or mission-critical scenarios.
+You call Vatcheckapi.com with a GET request and an API key from any language. The docs list official libraries, an MCP server, and a status endpoint for your quota. It suits developers who add VAT checks to a checkout or billing tool.
+
+## What the free plan gives you
+
+The Free plan costs $0.00 a month and is for testing and personal projects. You get 150 validations a month, 1 API key, and a rate limit of 10 requests per minute. The home page says the service covers 29 countries.
+
+One call checks the format, the checksum, and the registration of a VAT number, and returns the company behind it. Every plan can also validate IBANs, and each IBAN counts as one request.
+
+Only successful calls use your quota. Errors on the provider's side and validation errors, such as a wrong parameter, do not count.
+
+## When you hit a limit
+
+When you pass the monthly quota, the API returns a 429 status code. You then upgrade your plan or wait until the end of the month. When you pass 10 requests in a minute on the free plan, you also get a 429 code and must wait until the minute ends.
+
+Response headers tell you the quota you have left. The Status endpoint shows it too and does not count against your quota. The pricing page does not mention a card for the free plan, and paid plans start at $9.99 a month.
+
+## Gotchas
+
+- The free plan allows only 1 API key at a time, and it has no sandbox keys. Sandbox keys come with the paid plans that allow more than one key.
+- Paid plans remove the rate limit. The free plan keeps it, so a burst of checks can fail.
+- Requests with a country code the API does not support fail with a 422 validation error.
+
+## Alternatives in this atlas
+
+- [Numlookupapi.com](/tools/numlookupapi-com/): when you need to check phone numbers from the same style of plan.
+- [Verimail.io](/services/verimail-io/): when you need to check email addresses at sign-up.
+- [Zoho Billing](/services/zoho-subscriptions/): when you want a full billing system that handles tax, not only number checks.
+
+## Questions people ask
+
+### Is Vatcheckapi free?
+
+Yes. The Free plan costs $0.00 a month and includes 150 validations, 1 API key, and 10 requests per minute.
+
+### What happens when I go over the Vatcheckapi limit?
+
+The API returns a 429 status code. You either upgrade your plan or wait until the end of the month. The per-minute limit also returns a 429 code until the minute ends.
+
+### Does Vatcheckapi validate UK VAT numbers?
+
+Yes. The home page says it checks any EU or UK VAT number and returns the registered company name and address.

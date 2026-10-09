@@ -1,8 +1,8 @@
 ---
 title: GitDailies
 description: >-
-  GitDailies generates automated daily summaries and reports from your GitHub
-  repositories for improved team visibility.
+  GitDailies is a GitHub app that turns pull request activity into metrics, DORA dashboards, alerts,
+  and daily summaries. It is for engineering teams that want to see where reviews get stuck.
 provider: GitDailies
 category: devops
 domain: devops
@@ -16,62 +16,121 @@ audiences:
   - indie
   - oss
 tags:
-  - devops
-  - analytics
-  - automation
+  - pull request metrics
+  - dora metrics
+  - github app
+  - pr alerts
+  - daily digest
+  - code review analytics
+  - slack alerts
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Community plan includes 50 PRs per month across 2 repos with
-    unlimited users.
+    Free Community plan includes 50 PRs per month across 2 repos with unlimited users, 7 days of
+    history, daily digests, PR metrics, partial DORA metrics, and 2 shared alert rules.
   limits:
-    - 50 PRs/month
+    - 50 PRs per month
     - 2 repos
     - Unlimited users
-    - 7 days PR history
+    - 7 days of history
+    - Daily digests and PR metrics
+    - Partial DORA metrics
+    - 'Shared alerts, limited to 2 rules'
   caveats:
-    - Full DORA metrics and private alerts require a paid plan
+    - >-
+      Full DORA metrics (4 of 4), private alerts, and priority support need the Pro plan at $49 per
+      month
+    - The MCP server and Metrics API are listed on the Max plan
+    - GitDailies reads GitHub metadata only; it does not clone repos or read source code
+    - The pricing section does not say what happens after 50 PRs
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Daily team activity summaries
-  - Automated changelog generation
-  - Keeping stakeholders updated
-  - Tracking repository contributions
+  - 'Getting a daily digest of open PRs and waiting reviews by email, Slack, or Telegram'
+  - Alerting the right person when a PR gets stale
+  - Tracking PR review times and trends
+  - Checking partial DORA metrics for a team on a small budget
 quickstartSteps:
-  - Sign up at gitdailies.com using your GitHub account.
-  - Authorize GitDailies to access your repositories.
-  - Select the repository you want to monitor.
-  - Configure notification preferences and summary schedule.
-  - Receive daily summary emails.
+  - 'Open GitHub Marketplace, find GitDailies, and choose the free plan.'
+  - >-
+    Pick the GitHub organization to install the GitDailies app in; the app asks for minimal
+    permissions.
+  - Sign in to the GitDailies web app with your GitHub login.
+  - Choose the repositories to follow (the free plan covers 2).
+  - >-
+    Set up a project, then optionally connect Slack, Telegram, or an AI agent, and read the first
+    daily digest.
 whenToUse: >-
-  Use GitDailies when you want automated PR metrics and daily summaries of
-  GitHub activity for up to 2 repositories without manual setup.
+  Use GitDailies to see pull request and review metrics and get daily summaries for up to 2 GitHub
+  repositories at no cost.
 whenNotToUse: >-
-  Avoid if you need more than 2 repos, full DORA metrics, or integration with
-  non-GitHub platforms.
+  Avoid the free plan if you follow more than 2 repos, need full DORA metrics, need more than 7 days
+  of history, or do not use GitHub.
 bestFor:
-  - teams
-  - open source projects
-  - small startups
+  - small teams with 2 active repos
+  - open-source projects that want PR reminders
+  - teams that want review metrics without changing workflow
 avoidIf:
-  - need multi-repo support
-  - require advanced analytics
-  - use platforms other than GitHub
+  - you need more than 2 repos
+  - you need full DORA metrics
+  - you use GitLab or Bitbucket
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://gitdailies.com'
-docsUrl: 'https://docs.gitdailies.com'
+docsUrl: 'https://gitdailies.com/docs'
 pricingUrl: 'https://gitdailies.com'
 sourceUrls:
   - 'https://gitdailies.com'
+  - 'https://gitdailies.com/docs'
+  - 'https://gitdailies.com/docs/getting-started/installation'
+  - 'https://gitdailies.com/docs/getting-started/github-permissions'
 featured: false
 ---
-GitDailies provides automated daily summaries from your GitHub repositories, helping teams and individuals stay updated with minimal setup.
+You install GitDailies as a GitHub app, sign in to its web app, and pick repositories to follow. Results show in the dashboard, in Slack or Telegram, and in a daily digest. It suits small teams on GitHub.
+
+## What the free plan gives you
+
+The Community plan costs $0 per month. It covers 50 PRs per month and 2 repos, with unlimited users. It keeps 7 days of history.
+
+The plan includes daily digests, PR metrics, and DORA metrics in a partial form. It also includes shared alerts, limited to 2 rules. You can send digests by email, Slack, or Telegram.
+
+GitDailies uses only GitHub metadata, such as PR titles, reviewers, timestamps, and status checks. It says it does not clone your repos or read source code.
+
+## When you hit a limit
+
+The pricing section does not say what happens after 50 PRs in a month. It also does not say what happens if you follow a third repo.
+
+The Pro plan lifts the limits. It costs $49 per month and covers 250 PRs per month, 25 repos, and 3 months of history. It adds full DORA metrics, unlimited private alerts, and priority support. The Max plan costs $299 per month and adds the MCP server for AI agents and the Metrics API.
+
+## Gotchas
+
+- You install it from GitHub Marketplace into a GitHub organization, and you choose a plan there. The docs say the app asks for the minimal permissions.
+- A user only sees a repo in GitDailies if the user has read access to it on GitHub and GitDailies follows it.
+- The MCP server for AI agents is listed on the Max plan, not on Community.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when you want your own workflows to post alerts on pull requests.
+- [GitHub Codespaces](/tools/github-codespaces/): when you want a cloud dev environment for the same repos.
+- [DeepSource](/services/deepsource/): when you want automated review of the code in each PR.
+
+## Questions people ask
+
+### Is GitDailies free?
+
+Yes. The Community plan is free and covers 50 PRs per month and 2 repos, with unlimited users.
+
+### Does GitDailies need a credit card?
+
+The page says you sign in with your GitHub account and shows the Community plan at $0. It lists no card step for the free plan.
+
+### What does GitDailies read from my repositories?
+
+Only GitHub metadata, such as PR titles, reviewers, timestamps, and status checks. It says it does not clone your repos or read your source code.

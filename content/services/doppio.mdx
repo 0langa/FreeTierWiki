@@ -1,8 +1,9 @@
 ---
 title: Doppio
 description: >-
-  Doppio is an API that turns HTML into pixel-perfect PDFs and screenshots
-  using managed Chromium rendering.
+  Doppio is a hosted API that turns HTML, web pages, and templates into PDFs
+  and screenshots using managed Chromium. It is for developers who do not want
+  to run their own headless browser.
 provider: Doppio
 category: compute
 domain: compute
@@ -16,20 +17,26 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - web
+  - html to pdf
+  - pdf api
+  - screenshot api
+  - chromium
+  - invoice pdf
+  - headless chrome
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Basic plan renders up to 400 PDF/screenshot documents per month with
-    1 template, no credit card required.
+    1 template and community support. The pricing page says no credit card is
+    required.
   limits:
     - 400 documents/month
     - 1 template
-    - No credit card required
+    - 30 second default render timeout
   caveats:
-    - Async renders and higher rate limits need a paid plan
+    - Async renders and presigned URL upload need a paid plan
     - More templates or document volume need a paid plan
+    - The quickstart guide says Doppio asks for a credit card to prevent abuse, which conflicts with the pricing page
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -41,36 +48,78 @@ useCases:
   - Take automated website screenshots
   - Create certificates from HTML templates
 quickstartSteps:
-  - 'Sign up for a free Doppio account at https://doppio.sh/.'
-  - Grab your API key from the dashboard.
-  - Send a URL, raw HTML, or a saved template ID to the render API.
-  - Receive a PDF or PNG screenshot, or have it uploaded to your S3 bucket.
+  - 'Create a free account at app.doppio.sh and open the dashboard.'
+  - 'Copy your API key; refresh the key the first time you copy it.'
+  - 'Send a POST request to api.doppio.sh/v1/render/pdf/direct with a URL (goTo) or raw HTML (setContent).'
+  - 'Save the raw PDF the API returns, or use the screenshot render methods for PNG images.'
+  - 'Check the usage monitoring guide so you can watch your monthly document count.'
 whenToUse: >-
-  Use Doppio when you need an API to turn HTML into PDFs or screenshots
-  without running your own Chromium infrastructure.
+  Use Doppio when you want an API that turns HTML into PDFs or screenshots
+  without running your own Chromium.
 whenNotToUse: >-
-  Avoid if you need more than 400 documents a month, more than 1 template, or
-  async rendering — these require a paid plan.
+  Avoid it if you need more than 400 documents a month, more than 1 template,
+  or async renders, which need a paid plan.
 bestFor:
   - developers generating invoices or reports
   - screenshot and document workflows
   - indie hackers
 avoidIf:
-  - need high document volume
-  - need multiple templates
-  - need async rendering
+  - high document volume
+  - several templates
+  - async rendering on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://doppio.sh/'
-docsUrl: 'https://docs.doppio.sh'
+docsUrl: 'https://doc.doppio.sh/'
 sourceUrls:
-  - 'https://doppio.sh/'
   - 'https://doppio.sh/pricing'
+  - 'https://doppio.sh/'
+  - 'https://doc.doppio.sh/'
+  - 'https://doc.doppio.sh/guide/quick-start'
+  - 'https://doc.doppio.sh/guide/render-methods/render-pdf-direct'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://doppio.sh/pricing'
 ---
-Doppio is an HTML-to-PDF and screenshot API, powered by managed Chromium, with direct S3 upload and webhook support. The free Basic plan renders up to 400 documents a month with 1 template and no credit card required — enough for small projects — with paid plans available for higher volume, more templates, and async rendering.
+You call the Doppio REST API from your code with an API key. You send a URL, raw HTML, or a saved template, and you get back a PDF or a screenshot. Official quick starts cover Node.js, Python, PHP, Ruby, Rust, serverless, and a CLI.
+
+## What the free plan gives you
+
+The Basic plan is free. It allows up to 400 documents per month, 1 template, and community support. The pricing page says there is no time limit and no trial period. Every plan uses the full rendering engine, so free PDFs and screenshots come out the same as paid ones.
+
+The default timeout is 30 seconds per render. Async renders, which allow longer timeouts, and presigned URL upload to your own storage are listed only on paid plans. The paid plans start at $16 per month for up to 4,000 documents and 5 templates.
+
+## When you hit a limit
+
+Doppio says that on plans other than Pro, renders pause until the next billing cycle unless you upgrade. On the free plan that means a hard stop and no bill. Only the Pro plan charges extra documents, at $0.0037 each beyond its 36,000 documents.
+
+So you will not get a surprise charge on the free plan. A pause also means your app needs a plan for failed renders. Doppio also offers a usage monitoring guide, so you can track your count before the pause.
+
+## Gotchas
+
+- The pricing page says no credit card is required. The quickstart guide says Doppio asks for a card to prevent abuse. Expect either at sign-up.
+- The quickstart notes that you must refresh your API key the first time you copy it.
+- The free plan has 1 template. A second saved template needs the Premium plan with 5 templates.
+
+## Alternatives in this atlas
+
+- [CustomJS](/services/customjs/): when you also need small JavaScript steps, forms, or hosted pages next to PDFs.
+- [Doczilla](/services/doczilla/): when you want PDF generation from templates.
+- [PDFBolt](/tools/pdfbolt/): when you want another hosted PDF generation API with a free plan.
+
+## Questions people ask
+
+### Is Doppio free?
+
+Yes. The Basic plan is free with up to 400 documents per month and 1 template. The site says there is no time limit.
+
+### Does Doppio need a credit card?
+
+The pricing page says no credit card is required. The quickstart guide says Doppio asks for one to prevent abuse, so be ready for either.
+
+### What happens when I go over the Doppio free quota?
+
+Renders pause until the next billing cycle unless you upgrade. The free plan does not bill extra documents.
