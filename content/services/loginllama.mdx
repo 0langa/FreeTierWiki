@@ -90,13 +90,13 @@ LoginLlama is not a login system. You call its REST API, or an SDK for Node.js, 
 
 The home page says you get 1,000 free checks every month, with no card. Each check scores one login from 0 to 10 and returns risk codes such as impossible travel, new device, and known VPN. Your app then decides to block the login, step up to MFA, or allow it.
 
-The pricing page itself loads without plan details, so the free amount comes from the home page. Requests are rate limited to 100 per minute per API key, or 200 for staging keys. The home page says a check responds in under 500 milliseconds and fails open, so a slow call does not lock users out.
+The pricing page itself loads without plan details, so the free amount comes from the home page. Requests are rate limited to 100 per minute per API key, or 200 for staging keys. The home page says a check takes under 500 milliseconds and that the API fails open by design.
 
 ## When you hit a limit
 
-The pages we could read do not say what happens when the 1,000 free checks run out. The docs mention that a call can fail with an out-of-credits error when no API credits remain. They also say the API answers with a 429 error when you pass the rate limit, and they suggest backoff.
+The pages we could read do not say what happens when the 1,000 free checks run out. The docs mention that a call can fail with an out-of-credits error when no API credits remain. They also say the API answers with a 429 error when you pass the rate limit.
 
-Because your login flow calls this API, plan for both cases. Decide in your code whether a failed check should allow the login or block it, and watch your credit use in the dashboard.
+Because your login flow calls this API, plan for both cases. Decide in your code whether a failed check should allow the login or block it, and keep an eye on your remaining credits.
 
 ## Gotchas
 

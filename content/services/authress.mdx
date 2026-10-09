@@ -26,12 +26,11 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Pay-per-use pricing at $0.0012 per authentication/authorization call, with
-    the first 1,000 billable calls per month free and everything else
-    (configuration, tenants, applications) included at no cost.
+    the first 1,000 billable calls per month free and everything else,
+    including configuration, free.
   limits:
     - '1,000 billable calls/month free, then $0.0012 per call'
-    - Unlimited tenants
-    - Unlimited applications
+    - Unlimited SSO connections, social login connections, and machine tokens
     - Only auth and authz calls are billable; configuration is free
   caveats:
     - Billed at $0.0012 per call after the first 1,000 billable calls each month; no cap is stated.
@@ -48,11 +47,11 @@ useCases:
   - Service-to-service authorization and machine tokens
   - An audit trail of who was allowed to do what
 quickstartSteps:
-  - Sign up on authress.io and open the Authress Management Portal.
+  - Sign up on authress.io and open your Authress account.
   - Follow the setup guide to enable identity provider sign-in, such as a social provider.
   - Users then log in through the Authress hosted login screen, or a custom one.
-  - Install the Authress SDK, for example `@authress/sdk` for JavaScript, and create an `AuthressClient` with your API URL.
-  - Check permissions in your code with the `userPermissions.authorizeUser` call.
+  - Install an Authress SDK for your language, or call the REST API, as the docs describe.
+  - Check permissions in your code with Authress authorization calls. Each one is a billable call.
 whenToUse: >-
   Use Authress when you want login and fine-grained permissions behind one API,
   and you can pay a small amount per call after the first free calls.
@@ -83,7 +82,7 @@ sourceUrls:
   - 'https://authress.io/knowledge-base/docs/authentication/user-authentication'
 featured: false
 ---
-You configure Authress in its management portal and call it through a REST API or SDKs from your own code. It suits teams that want identity and permissions kept apart from their business logic.
+You configure Authress in its portal and call it through a REST API or SDKs from your own code. It suits teams that want identity and permissions kept apart from their business logic.
 
 ## What the free plan gives you
 
@@ -113,7 +112,7 @@ The dashboard shows current and projected spend, so you can watch the bill durin
 
 ### Is Authress free?
 
-Partly. The first 1,000 billable calls each month are free, and configuration, tenants, and applications cost nothing. After that, each call costs 0.0012 USD.
+Partly. The first 1,000 billable calls each month are free, and everything except authentication and authorization calls is free. After that, each call costs 0.0012 USD.
 
 ### How does Authress charge?
 

@@ -33,7 +33,7 @@ freeTierDetails:
     - 50 MAU per month for SAML or OIDC federated users
     - Does not expire after 12 months
   caveats:
-    - An AWS account needs a card
+    - You need an AWS account; the Cognito pages do not describe a card-free option
     - No free tier for the Plus tier or for machine-to-machine tokens
     - Usage past the free amount is billed automatically
     - No free tier pricing in the AWS GovCloud (US) Regions
@@ -49,14 +49,14 @@ useCases:
   - Giving signed-in users temporary AWS credentials through an identity pool
   - Enterprise sign-in through SAML or OIDC federation
 quickstartSteps:
-  - Create an AWS account. AWS asks for a payment method at sign-up.
+  - Create an AWS account.
   - Open the Amazon Cognito console and choose Create user pool.
   - Pick the Essentials or Lite tier and set up how users sign in, for example with email or a social provider.
   - Create an app client, for example a traditional web application, and note its client ID.
   - Use the managed login page, the AWS SDKs, or the Amplify libraries to sign users in from your app.
 whenToUse: >-
   Use Cognito when your app already runs on AWS, you want users and tokens in the
-  same account as the rest of your stack, and you are fine with a card on file.
+  same account as the rest of your stack, and you are fine with a card on file (the pricing page does not describe a card-free option).
 whenNotToUse: >-
   Avoid it if you want a free plan with no card, a quick setup with little AWS
   knowledge, or a free path for machine-to-machine tokens.
@@ -94,13 +94,13 @@ You set up user pools in the AWS console, then call Cognito through its managed 
 
 Cognito has a free tier on the Essentials and Lite pricing tiers. It does not end after the first 12 months of an AWS account, and it covers both new and existing customers. Users who sign in directly or through a social identity provider get 10,000 monthly active users (MAU) free per month. The limit applies per account or per AWS organization.
 
-Users who come in through a SAML 2.0 or OpenID Connect provider get 50 MAU free per month, whatever tier you pick. Identity pools, which hand out unique IDs and temporary AWS credentials, cost nothing. Some older Lite user pools keep a free tier of 50,000 MAU. The free tier is not available in the AWS GovCloud (US) Regions.
+Users who come in through a SAML 2.0 or OpenID Connect provider get 50 MAU free per month, whatever tier you pick. Identity pools, which hand out unique IDs and temporary AWS credentials, cost nothing. The free tier is not available in the AWS GovCloud (US) Regions.
 
 ## When you hit a limit
 
 Nothing stops at the limit. Cognito bills every MAU above the free amount, so a busy month turns into a charge on your AWS bill. The pricing page shows a rate per MAU that drops as your user count grows. For SAML or OIDC users above the 50 MAU free tier, the price is $0.015 per MAU.
 
-The Plus tier has no free tier at all. Machine-to-machine token requests have no free tier either. Because the AWS account needs a card, watch your MAU count and set up an AWS billing alert before you launch.
+The Plus tier has no free tier at all. Machine-to-machine token requests have no free tier either. Because there is no hard cap, watch your MAU count and set up an AWS billing alert before you launch.
 
 ## Gotchas
 
@@ -122,7 +122,7 @@ Partly. The Lite and Essentials tiers include 10,000 MAU free each month, and th
 
 ### Does Amazon Cognito need a credit card?
 
-You need an AWS account to use Cognito, and AWS asks for a payment method when you sign up. The Cognito pricing page does not describe a card-free option.
+You need an AWS account to use Cognito. The Cognito pricing page does not say whether a card is required and does not describe a card-free option, so plan for a card.
 
 ### What happens when I go over the Cognito free tier?
 

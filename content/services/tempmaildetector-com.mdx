@@ -33,7 +33,7 @@ freeTierDetails:
   caveats:
     - Pro tier is pay-as-you-go at $0.005 per lookup, excluding VAT
     - The API returns a 402 status when your account has run out of lookups
-    - It checks only whether a domain is disposable, not whether an address can receive mail
+    - It checks only the domain and is not a bulk email validation service
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -46,7 +46,7 @@ useCases:
   - Scoring the risk of a sign-up domain before you accept it
 quickstartSteps:
   - Sign up at tempmaildetector.com. The pricing section says no credit card is required.
-  - Log in and get your API key from your account.
+  - Get an API key. The docs say you need a key to use the API.
   - Split the email address at the at sign and send only the domain to the check endpoint, with a POST request to api.tempmaildetector.com/check.
   - Send the key in the Authorization header as a Bearer token, and read the score in the response.
   - Block or flag the sign-up when the score is high. The docs advise blocking at a score of 75 or higher.
@@ -63,7 +63,7 @@ bestFor:
   - WordPress and Ghost sites
 avoidIf:
   - you need bulk email validation
-  - you need deliverability checks
+  - you need checks on the mailbox, not only the domain
   - you get more than 200 sign-ups a month and do not want to pay per lookup
 difficulty: beginner
 productionReadiness: production-light
@@ -94,7 +94,7 @@ When your key runs out of lookups, the API returns a 402 Payment Required status
 ## Gotchas
 
 - Send only the domain. The service strips the user part if you send a full address. Split on the at sign so sub-domains and country domains such as co.uk work.
-- It is not a bulk email validation service, and it does not check if a mailbox can receive mail.
+- It is not a bulk email validation service, and it checks only the domain, not the mailbox.
 - You decide what to do with a flagged sign-up. You can hard reject it or let the user continue as a shadow-banned account.
 
 ## Alternatives in this atlas

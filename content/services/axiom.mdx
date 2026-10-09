@@ -33,7 +33,7 @@ freeTierDetails:
     - 30-day data retention
     - Community support
   caveats:
-    - No SSO, RBAC, or advanced features on the free Personal plan
+    - No SSO, RBAC, directory sync, or extended audit logs on the free Personal plan
     - SSO and RBAC are paid add-ons on Axiom Cloud ($25/month platform fee)
   resetPeriod: monthly
   requiresCard: false
@@ -45,12 +45,12 @@ useCases:
   - Search events with the APL query language
   - Build a dashboard of saved queries
   - Create monitors that alert on thresholds
-  - Try queries on the built-in Playground datasets
+  - Search, filter, and inspect events in real time
 quickstartSteps:
   - Start free from axiom.co; the Personal plan needs no credit card.
-  - Open the Datasets tab and create a dataset for your logs.
-  - Create an API token, which the docs describe on their Tokens page.
-  - Send your first event with an HTTP POST to the `/v1/ingest/DATASET_NAME` endpoint of your Axiom domain, with an `Authorization: Bearer` header.
+  - Create a dataset for your logs; the docs list Datasets under Manage.
+  - Create an API token; the docs list Tokens under Access.
+  - Send your first event with a single HTTP request to `https://AXIOM_DOMAIN/v1/ingest/DATASET_NAME`, using your own domain and dataset name.
   - Open the dataset to check that the event arrived.
   - Save a query as a dashboard element to chart it.
 whenToUse: >-
@@ -100,7 +100,7 @@ For the paid Axiom Cloud plan, the page says extra usage is billed at normal rat
 
 - Personal has no SSO or role-based access control, and those add-ons exist only on the paid Cloud plan.
 - The pricing page lists soft limits on datasets, fields per dataset, and query concurrency. It says they can be lifted on request.
-- Queries count against your query compute allowance, including queries run by agents through the MCP server on the paid plan.
+- Query compute (10 GB-hours a month) is a separate allowance from data loading compute (500 GB a month).
 
 ## Alternatives in this atlas
 

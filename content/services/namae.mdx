@@ -28,15 +28,14 @@ pricingModel: free
 freeTierDetails:
   summary: >-
     Free, open-source browser app at namae.dev that checks a name across domains, GitHub, npm,
-    PyPI, crates.io, app stores, and many other registries. No account, no limits.
+    PyPI, crates.io, app stores, and many other registries. The repository describes no account step, limit, or paid tier.
   limits:
-    - Hosted at namae.dev with no account or sign-in
+    - Hosted at namae.dev; the repository describes no account step
     - 'Source has 33 provider cards: domains, GitHub, GitLab, npm, PyPI, RubyGems, crates.io, Homebrew, app stores, and social handles'
     - Apache-2.0 source; self-hosting is possible
   caveats:
-    - Browser tool only; there is no public API product
-    - Checks run from your browser, so some registries can rate-limit you
-    - The site sits behind a bot check, so scripts cannot read it
+    - The repository documents no public API
+    - Each check calls an outside registry, and the pages say nothing about rate limits
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -55,14 +54,14 @@ quickstartSteps:
 whenToUse: >-
   Use it when you are naming a new project, product, or package and want one
   view of where the name is free.
-whenNotToUse: 'Avoid it if you need a public API, bulk checks, or direct domain registration.'
+whenNotToUse: 'Avoid it if you need a documented public API, bulk checks, or direct domain registration.'
 bestFor:
   - branding research
   - startups
   - personal projects
   - open source naming
 avoidIf:
-  - you need a supported public API product
+  - you need a documented public API
   - you require bulk search
   - you want to register domains directly
 difficulty: beginner
@@ -94,18 +93,18 @@ You type a name into the website, and it shows one card per registry or service.
 
 Namae is free, and its code is open under the Apache-2.0 license. The repository describes it as a way to save time searching around registries to see if a name is ready for use.
 
-The source has 33 provider cards. They cover domains, GitHub, GitLab, npm, PyPI, RubyGems, crates.io, Homebrew, Docker, the Chrome Web Store, Firefox add-ons, the App Store, Google Play, Slack, YouTube, and Reddit, among others. The hosted site at namae.dev has no pricing page, and the repository does not describe any account step, limit, or paid tier.
+The source has 33 provider cards. They cover domains, GitHub, GitLab, npm, PyPI, RubyGems, crates.io, Homebrew, Docker, the Chrome Web Store, Firefox add-ons, the App Store, Google Play, Slack, YouTube, and Reddit, among others. The repository does not describe any account step, limit, or paid tier.
 
 ## When you hit a limit
 
-The pricing page does not say, because Namae has none. The checks run from your browser against each registry, so a registry can slow or block you if you search too fast. That limit comes from the registry, not from Namae.
+The repository does not describe any Namae limit. Each check calls an outside registry or service, and the pages do not say how those services treat fast searches.
 
-The hosted site also uses a bot check, so a script cannot fetch it. If you need bulk checks, you must run your own copy of the open-source project.
+The pages do not describe bulk checks or a public API. The code is open source under Apache-2.0, so you can run your own copy and decide for yourself how fast it queries other services. The contribution guide asks for the Vercel CLI, `yarn install`, and `vc dev` to start the dev server.
 
 ## Gotchas
 
 - Namae reports availability only. It does not register domains or reserve handles for you.
-- The repository lists a card for each provider, and a provider can break or change without notice, because every check calls an outside service.
+- The repository lists a card for each provider, and each check calls an outside service, so the result depends on that service.
 - To run it yourself, the contribution guide asks for the Vercel CLI, `yarn install`, and `vc dev`.
 
 ## Alternatives in this atlas

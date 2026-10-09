@@ -30,7 +30,7 @@ freeTierDetails:
     - 1 request/second rate limit
     - Full API response included free
   caveats:
-    - Priority support and the uptime SLA are for Enterprise plans, not the free plan
+    - The page ties its 99.99% uptime SLA to Enterprise plans
     - No credit card required to start
     - The API key is per API; an IP key does not work for the email or phone API
   resetPeriod: monthly
@@ -86,13 +86,13 @@ You get a key from the dashboard, then call one GET endpoint from any language. 
 
 The free plan gives you 1,000 requests a month at 1 request per second. It returns the full API response, the same fields that paid plans return, such as location, timezone, flag, currency, and ASN. No credit card is needed to start.
 
-Abstract says its database covers more than 4 billion IPv4 and IPv6 addresses and refreshes daily. Paid plans start at $17 a month and raise the rate limit to 3 requests per second. The free plan has no uptime SLA; the page ties the 99.99% SLA to Enterprise plans.
+Abstract says its database covers more than 4 billion IPv4 and IPv6 addresses and refreshes daily. Paid plans start at $17 a month and raise the rate limit to 3 requests per second. The page ties the 99.99% SLA to Enterprise plans.
 
 ## When you hit a limit
 
 The docs list two errors for free plans. A 422 error means the request stopped because you ran out of credits. A 429 error means you sent more than the allowed requests per second, which is 1 per second on free plans. Your code should wait and retry after a 429.
 
-The pricing page does not say whether a free account is billed for extra requests. No card is on file for a free account, so the practical result is that calls fail until the next month.
+The pricing page does not say whether a free account is billed for extra requests. The docs say a 422 means the request was stopped for lack of credits.
 
 ## Gotchas
 

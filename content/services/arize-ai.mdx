@@ -26,19 +26,18 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     AX Free plan includes 25k trace spans/month, 1GB ingestion/month, and 10
-    data-quality issues/month, with unlimited users and evals.
+    Signal issues/month, with unlimited users and evals.
   limits:
     - '25,000 trace spans/month'
     - 1GB ingestion/month
-    - 10 data-quality issues/month
+    - 10 Signal issues/month
     - Unlimited users and evals
   caveats:
-    - No advanced enterprise integrations
     - Support limited to community channels
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
   - Tracing every step of an LLM agent request
@@ -47,7 +46,7 @@ useCases:
   - Testing a prompt or model change with experiments
   - Asking the built-in Alyx agent about your traces
 quickstartSteps:
-  - Sign up for a free Arize AX account at app.arize.com; the pricing page says no credit card is required.
+  - Sign up for a free Arize AX account from the pricing page; it says no credit card is required.
   - Install the tooling with one command from the docs, such as `npx evals` or `uvx arize-ax-cli instrument`.
   - Let the setup sign you in and pick your space, so you do not copy a Space ID or API key by hand.
   - Let it add the OpenInference packages for your stack and wire them into your Python or TypeScript app.
@@ -97,7 +96,7 @@ Retention works the same way as a limit. Traces older than 15 days are no longer
 
 ## Gotchas
 
-- The pricing page shows 10 issues per month in the plan card but 25 issues per month in the comparison table row for the free column, so check the number in your account.
+- Signal issues are capped at 10 per month on the free plan, against 25 on Pro.
 - Retention is 15 days on the free plan, which is short for slow investigations.
 - The docs setup command starts a coding agent session that edits your app, so read the changes it makes before you run the app.
 

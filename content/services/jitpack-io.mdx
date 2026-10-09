@@ -57,15 +57,13 @@ whenToUse: >-
   Use JitPack to share a JVM or Android library from a Git repository without
   uploading to Maven Central.
 whenNotToUse: >-
-  Avoid it if you need free private repository builds, or a formal publishing
-  flow such as signed releases on Maven Central.
+  Avoid it if you need free private repository builds.
 bestFor:
   - open source libraries
   - Android libraries
   - quick sharing of snapshot builds
 avoidIf:
   - you need free private builds
-  - you need signed artifacts for a release
   - builds take longer than 15 minutes
 difficulty: beginner
 productionReadiness: side-project
@@ -98,9 +96,9 @@ Private repositories need a subscription. The Individual plan is $12 a month for
 
 ## Gotchas
 
-- Public artifacts are frozen after 7 days. Within the first 7 days you can rebuild to fix a release, but the docs recommend a patch release instead.
-- If you delete a tag or repository on GitHub after JitPack built it, JitPack keeps serving the existing artifacts.
-- Add the JitPack repository last in your Gradle repository list, because Gradle checks repositories in order.
+- Public artifacts are frozen after 7 days. Within the first 7 days you can rebuild to fix a release issue.
+- The FAQ says JitPack keeps hosting artifacts after the originating Git repository is deleted.
+- For a pull request build, use `PR` plus the pull request number, then `-SNAPSHOT`, as the version. For a branch snapshot, use the branch name plus `-SNAPSHOT`.
 
 ## Alternatives in this atlas
 

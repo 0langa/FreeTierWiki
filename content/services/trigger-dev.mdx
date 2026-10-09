@@ -55,8 +55,8 @@ whenToUse: >-
   Use it for TypeScript background jobs and AI agent runs that should not time
   out and that you do not want to host yourself.
 whenNotToUse: >-
-  Avoid it for heavy compute on the free credit, for non-TypeScript stacks, or
-  if the free plan stopping at $5 of credits would break your app.
+  Avoid it for heavy compute on the free credit, or if the free plan stopping
+  at $5 of credits would break your app.
 bestFor:
   - Next.js apps
   - AI agents
@@ -99,9 +99,9 @@ You can also hit other limits. The API allows 1,500 requests per minute on every
 
 ## Gotchas
 
-- A task that triggers a subtask and waits is checkpointed, so the waiting time does not use credits or concurrency.
+- A task that triggers a subtask and waits is checkpointed, so the waiting time does not count toward compute usage or your concurrency limit.
 - Calling trigger in a loop can hit the API rate limit. Use batchTrigger, which fits up to 1,000 tasks in a single call.
-- The free credit covers compute plus the per-run fee, so many tiny runs still use it up.
+- Every run that starts on the managed workers has a per-run fee on top of compute, so many tiny runs add up. Runs in the DEV environment are not charged.
 
 ## Alternatives in this atlas
 

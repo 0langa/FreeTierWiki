@@ -36,13 +36,13 @@ freeTierDetails:
       The pricing page does not list the free limits; it says current plans and limits are in the
       app
   caveats:
-    - Deployment.io pivoted from simple app hosting to AI-driven managed software delivery
+    - The pricing and home pages now describe AI-driven managed software delivery, not a simple hosting button
     - 'The runner installs in your own AWS account, and AWS bills that usage'
     - 'Agents call an LLM on your own vendor account, and the vendor bills the tokens'
     - The pricing page does not mention a credit card for the free sign-up
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
   billingRiskNotes:
     - AWS charges for the runner and the infrastructure it creates in your account
@@ -53,17 +53,17 @@ useCases:
   - Getting a preview deployment for each pull request
   - 'Letting Claude Code, Cursor, or Codex deploy through the Deployment.io MCP server'
 quickstartSteps:
-  - Sign up at app.deployment.io/signup.
+  - Choose Start for free on deployment.io/platform and create an account.
   - Connect your GitHub or GitLab account and give access to the repositories you want.
   - >-
-    In Org Settings, add a runner: launch the CloudFormation stack in your AWS account, which takes
-    about 5 minutes.
+    In Org Settings, open Runners and add a runner: launch the CloudFormation stack in your AWS
+    account, which the docs say takes about 5 minutes.
   - >-
-    In Org Settings, add an LLM provider key (Anthropic or OpenAI) or enable AWS Bedrock; Tasks stay
-    blocked without one.
+    In Organization Settings, under Agents and LLM Providers, add a provider key (Anthropic or
+    OpenAI) or enable AWS Bedrock; Task creation is blocked without one.
   - >-
-    Open Tasks and click Create Task, or start an Assistant session first and convert its spec to a
-    Task, then review the pull request.
+    Create a Task with a title, a description, the repositories, and an agent, or work it out in an
+    Assistant session first and convert it to a Task, then review the pull request it opens.
 whenToUse: >-
   Use the free Platform tier to try an AI plan, build, verify, and deploy loop on your own
   repositories and your own AWS account.
@@ -114,8 +114,8 @@ The costs outside the free tier matter more. The runner lives in your AWS accoun
 ## Gotchas
 
 - You must install a runner in your AWS account with a CloudFormation stack before deploys and Tasks work. The docs say it takes about 5 minutes.
-- Tasks run one at a time in the order you create them. If a Task fails the build and tests, nothing is committed and no pull request appears.
-- The company moved from simple app hosting to AI-driven managed delivery, so the product is not a basic deploy button anymore.
+- Tasks run one at a time, in the order you create them. If a Task fails the build and tests, nothing is committed and no pull request appears.
+- The pricing and home pages describe AI-driven managed delivery, so the product is not a basic deploy button.
 
 ## Alternatives in this atlas
 

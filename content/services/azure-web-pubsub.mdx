@@ -50,8 +50,8 @@ whenToUse: >-
   Use it to try managed WebSockets with groups for a chat or live-update
   feature, with only a few test clients.
 whenNotToUse: >-
-  Avoid the Free tier for more than 20 concurrent connections, for production
-  use, or when you need an SLA.
+  Avoid the Free tier for more than 20 concurrent connections or when you need
+  an SLA.
 bestFor:
   - real-time prototypes
   - chat and live notifications
@@ -59,7 +59,7 @@ bestFor:
 avoidIf:
   - you need more than 20 concurrent connections
   - you need an SLA
-  - you need production scale
+  - you need more than 20 connections or 1 unit
 quickstartSteps:
   - Sign in to the Azure portal with an Azure subscription.
   - Create a Web PubSub resource and choose the Free tier. You can also run `az extension add --upgrade --name webpubsub` and then `az webpubsub create` with `--sku Free_F1`.
@@ -80,9 +80,10 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/overview'
   - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/howto-develop-create-instance'
   - 'https://learn.microsoft.com/en-us/azure/azure-web-pubsub/quickstarts-pubsub-among-clients'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
-You create a resource in the Azure portal or with the Azure CLI. Clients connect to it with a Client Access URL, and your servers use the service SDKs or a REST API. It suits developers who want WebSocket features without running connection servers.
+You create a resource in the Azure portal or with the Azure CLI. Clients connect to it with a Client Access URL, and your servers use the service SDKs or a REST API. It suits developers who want WebSocket features without running connection servers. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 
 ## What the free plan gives you
 
@@ -100,7 +101,7 @@ Standard and Premium work differently. Each unit supports 1,000 concurrent conne
 
 - The pricing FAQ says only outbound messages count, and ping messages are ignored. Traffic is counted in bytes.
 - Each application server opens five initial connections per hub by default, and each client uses one connection.
-- The client SDK in the quickstart is in preview, so its interface may change.
+- The .NET quickstart installs the client package with the `--prerelease` flag.
 
 ## Alternatives in this atlas
 

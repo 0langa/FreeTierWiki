@@ -32,7 +32,7 @@ freeTierDetails:
     - 1 million requests/month
     - '400,000 GB-seconds compute/month'
   caveats:
-    - 'Limits apply per AWS account, not per function.'
+    - The free tier does not apply to functions that use Provisioned Concurrency.
     - Charges apply for usage above free tier.
   resetPeriod: monthly
   requiresCard: true
@@ -40,7 +40,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Overages are billed automatically if limits are exceeded.
+    - Usage above the free amounts is billed on a Paid plan. The AWS Free Tier page says the Free plan incurs no charges unless you upgrade to a Paid plan.
 useCases:
   - Backends for web and mobile APIs
   - Running code when a file lands in storage or a message arrives
@@ -56,9 +56,8 @@ whenToUse: >-
   Use Lambda for short, event-driven jobs and small APIs where you want AWS to
   scale the code and you do not want to manage servers.
 whenNotToUse: >-
-  Avoid Lambda for work that runs longer than 15 minutes in one call, for
-  steady heavy compute, or if you cannot add a payment method to an AWS
-  account.
+  Avoid Lambda for work that runs longer than 15 minutes in one call, or for
+  steady heavy compute.
 bestFor:
   - event-driven apps
   - microservices
@@ -66,7 +65,6 @@ bestFor:
 avoidIf:
   - jobs that run longer than 15 minutes
   - 'steady, heavy compute'
-  - no payment method for an AWS account
 difficulty: beginner
 productionReadiness: production-ready
 lastUpdated: 2026-10-09
@@ -81,6 +79,7 @@ sourceUrls:
   - 'https://docs.aws.amazon.com/lambda/latest/dg/welcome.html'
   - 'https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html'
   - 'https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html'
+  - 'https://aws.amazon.com/free/'
 featured: false
 ---
 You work in the Lambda console or deploy code from your own tools, and a trigger such as a web endpoint or a storage event starts each run. It suits developers who want to run small pieces of backend code without keeping a server online.
@@ -93,19 +92,19 @@ You pick the memory for each function, from 128 MB up to 10,240 MB, and CPU powe
 
 ## When you hit a limit
 
-The pricing page does not describe a hard stop. It shows that usage above the free amounts is billed. The examples subtract the free 1 million requests and 400,000 GB-seconds from the bill, then charge for the rest. Nothing on the page says AWS blocks your functions when the free amounts run out, so treat overage as a bill and watch your usage.
+The pricing page does not describe a hard stop. It shows that usage above the free amounts is billed. The examples subtract the free 1 million requests and 400,000 GB-seconds from the bill, then charge for the rest. Nothing on the page says AWS blocks your functions when the free amounts run out, so treat overage as a bill and watch your usage. The AWS Free Tier page adds that the Free plan incurs no charges unless you upgrade to a Paid plan.
 
 Quotas are different. When requests exceed your concurrency limit, Lambda throttles them, and the docs tell you to retry with exponential backoff. You can ask for higher quotas.
 
 ## Gotchas
 
-- The free amounts apply to the account and to Functions. Provisioned Concurrency and other features have their own prices.
+- The free tier does not apply to functions that use Provisioned Concurrency. Provisioned Concurrency and other features have their own prices.
 - New accounts have reduced concurrency and memory quotas until AWS raises them based on your usage.
 - Memory sets both cost and speed, because CPU grows with memory and the GB-second allowance is shared across all your functions.
 
 ## Alternatives in this atlas
 
-- [Cloudflare Workers](/services/cloudflare-workers/): when you want a free plan without a credit card and fast starts at the edge.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want an edge runtime.
 - [Cloud Run functions](/services/cloud-functions/): when you want the same style of function on Google Cloud.
 - [Azure Functions](/services/azure-functions/): when the rest of your stack runs on Azure.
 

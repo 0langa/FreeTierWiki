@@ -35,8 +35,8 @@ freeTierDetails:
     - 20 GB combined storage (Standard + Infrequent Access + Archive tiers)
     - '50,000 API requests/month'
   caveats:
-    - Requires an Oracle Cloud Free Tier account (phone number and credit card at signup)
-    - Exceeding Always Free limits requires upgrading to a paid account; the account itself is never charged automatically
+    - Requires an Oracle Cloud account; the entry records a phone number and credit card at sign-up, which the fetched Oracle docs do not confirm
+    - Oracle says it charges only for use above the Always Free limits after you upgrade to a paid account
     - If you use more than 20 GB when a Free Trial ends without upgrading, all objects are deleted
     - Always Free resources live in the home region of your tenancy
   resetPeriod: monthly
@@ -51,7 +51,7 @@ useCases:
   - Using existing S3 tools through the S3 compatibility API
 quickstartSteps:
   - Sign up for an Oracle Cloud Free Tier account.
-  - In the Oracle Cloud Console, open Object Storage and pick your home region.
+  - In the Oracle Cloud Console, open Object Storage and check that you are in your home region.
   - Create a bucket. Oracle suggests a default name, and you can replace it.
   - Upload objects in the Console, or use the OCI CLI, an SDK, or the REST API.
   - To use S3 tools, create a customer secret key and point the tool at the Amazon S3 Compatibility API endpoint.
@@ -59,8 +59,7 @@ whenToUse: >-
   Use it for small backups, archives, or app files when you already use Oracle
   Cloud, or want a small always-free store.
 whenNotToUse: >-
-  Avoid it if you need more than 20 GB for free, multi-region replication, or
-  a built-in CDN.
+  Avoid it if you need more than 20 GB for free or a built-in CDN.
 bestFor:
   - backups
   - archiving
@@ -68,8 +67,6 @@ bestFor:
   - application data
 avoidIf:
   - require advanced CDN
-  - need multi-region replication
-  - require ultra-low latency
 difficulty: beginner
 productionReadiness: production-light
 lastUpdated: 2026-10-09
@@ -108,12 +105,12 @@ If you do not upgrade before the trial ends, the account is limited to 20 GB. If
 ## Gotchas
 
 - Going over 20 GB at the end of a trial wipes your objects. Check usage before the trial ends.
-- Always Free resources must be in your home region. Resources made elsewhere bill at regular rates.
+- Oracle says Always Free resources are free in the home region of your tenancy. Check the Always Free-eligible label before you create a bucket elsewhere.
 - Access runs through compartments and IAM policies. A tenancy administrator must grant you rights before you can create buckets or upload objects.
 
 ## Alternatives in this atlas
 
-- [Backblaze B2](/services/backblaze-b2/): when you want S3 tools and no card at sign-up.
+- [Backblaze B2](/services/backblaze-b2/): when you want S3 tools and a free amount that does not need Oracle Cloud.
 - [Cloudflare R2](/services/cloudflare-r2/): when you serve many downloads and want no egress fees.
 - [Cloud Storage](/services/cloud-storage/): when your other services run on Google Cloud.
 
@@ -125,7 +122,7 @@ Yes, in part. Every tenancy gets 20 GB of combined Standard, Infrequent Access, 
 
 ### Does Oracle Object Storage need a credit card?
 
-The entry records that an Oracle Cloud Free Tier account asks for a phone number and a credit card at sign-up.
+The entry records a phone number and a credit card at sign-up. The Oracle docs fetched for this entry do not say what sign-up asks for.
 
 ### What happens when my Oracle free trial ends?
 

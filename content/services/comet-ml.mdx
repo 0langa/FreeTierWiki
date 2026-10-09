@@ -33,11 +33,11 @@ freeTierDetails:
     - 100 GB data storage
     - Community support
   caveats:
-    - No advanced collaboration or admin features on the Free plan
+    - Teams need a paid plan; Pro supports up to 10 users
     - Verified academics can get the paid Pro plan free
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
   - Log metrics and parameters from model training runs
@@ -46,12 +46,12 @@ useCases:
   - Register trained models in the model registry
   - Get a free Pro plan as a verified academic
 quickstartSteps:
-  - Create a free Comet account at comet.com. It gives you a default workspace and a default ML project.
-  - Install the SDK with `pip install comet_ml`.
-  - Run `comet login` in a terminal, or call `comet_ml.login()` in a notebook, to store your API key.
-  - Start a run in your training script with `exp = comet_ml.start(project_name="demo-project")`.
+  - Create a free Comet account at comet.com. The home page says no credit card is needed.
+  - Install the Comet ML Python SDK (step 1 of the docs quickstart), for example with `pip install comet_ml`.
+  - Call `comet_ml.login()` in your script or notebook to connect your account.
+  - Start a run with `exp = comet_ml.start()`.
   - Log values with `exp.log_metrics(...)` and `exp.log_parameters(...)`, then run your code.
-  - Open the link Comet prints to see the experiment in the dashboard.
+  - Open the experiment in the Comet web dashboard to view the results.
 whenToUse: >-
   Use Comet ML when one person wants hosted tracking for training runs, a model
   registry, and artifact versioning without running a server.
@@ -98,7 +98,7 @@ The pricing page does not say what happens when you pass 100GB on the free plan.
 ## Gotchas
 
 - The free plan has 1 platform user, so a team cannot share one free workspace.
-- The free plan runs on a fair usage policy with no published run limit, so heavy use could be restricted.
+- The free plan runs on a fair usage policy with no published run limit. The page does not say what happens if you go past it.
 - The pricing page now leads with Opik, the LLM tracing product. The MLOps free plan is a separate set of limits further down the page.
 
 ## Alternatives in this atlas

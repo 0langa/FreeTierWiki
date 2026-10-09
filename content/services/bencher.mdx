@@ -32,7 +32,6 @@ freeTierDetails:
     - No private projects on Free
     - '65,535 metrics/day rate limit'
     - 'Bare Metal runners: 1 concurrent job, 5 minute job timeout'
-    - Community support (GitHub, Discord)
   caveats:
     - Private projects require the Pro plan ($100/month)
     - Bare Metal runners without an account are limited to a 1-minute timeout
@@ -40,21 +39,20 @@ freeTierDetails:
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
   - Catch performance regressions in CI before they ship
   - Chart benchmark results over time
   - Share performance history of an open source project
   - Run benchmarks on Bare Metal machines
-  - Try the CLI with mock data
+  - Claim results from a run made without an account
 quickstartSteps:
-  - Sign up for a free account at bencher.dev; the Free plan covers public projects.
-  - Install the `bencher` CLI with the command for your operating system from the quickstart, then check it with `bencher --version`.
-  - Run your benchmark command through `bencher run`; with no benchmarks yet, use the `bencher mock` subcommand to make mock data.
-  - Open the View report and View results links the command prints.
-  - Use the Claim this project link if you ran without an account.
-  - Add the same `bencher run` command to your CI workflow.
+  - Go to bencher.dev and choose Benchmark for free; the Free plan covers public projects.
+  - Install the `bencher` CLI; the docs have an Install CLI page.
+  - Run your benchmark command through `bencher run`, as shown on the home page.
+  - If you ran without an account, follow the Claim Benchmark Results page in the docs; unclaimed projects get 255 metrics per day.
+  - Add the same `bencher run` command to your CI workflow; the docs have GitHub Actions and GitLab CI/CD guides.
 whenToUse: >-
   Use Bencher to track benchmark history for a public or open source project and
   get alerts when performance drops in CI.
@@ -88,21 +86,21 @@ You run the `bencher` command line tool in CI or on your machine, and it sends b
 
 ## What the free plan gives you
 
-The Free plan costs $0 per month and is for open source projects. It supports public projects only. Private projects are not included. The Free plan allows 65,535 metrics per day, and a project nobody has claimed yet gets 255 metrics per day.
+The Free plan costs $0 per month. It supports public projects only. Private projects are not included. The Free plan allows 65,535 metrics per day, and a project nobody has claimed yet gets 255 metrics per day.
 
-Bare Metal runners are included. On Free you get one concurrent job and a 5 minute job timeout. Without an account, the timeout is 1 minute per run. Free jobs sit behind paid jobs in the queue, but run right away when the queue is idle. On-demand runners are free on this plan, and public series are free too. Support runs through GitHub and Discord.
+Bare Metal runners are included. On Free you get one concurrent job and a 5 minute job timeout. Without an account, the timeout is 1 minute per run. Free jobs sit behind paid jobs in the queue, but run right away when the queue is idle. On-demand runners are free on this plan.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a Free project passes its daily metric limit. It describes a stop only for Self-Hosted licenses, where new metrics stop once you reach the licensed quantity.
+The pricing page says it does not describe what happens when a Free project passes its daily metric limit.
 
-Job timeouts are firm: a Bare Metal run that goes past 5 minutes on Free is over its limit. Private projects need the Pro plan, which costs $100 per month for up to 250 active series. Pro has a 1-month free trial that needs a credit card.
+The Free plan lists a 5 minute job timeout for Bare Metal runners; the page does not say more about what happens past it. Private projects need the Pro plan, which costs $100 per month for up to 250 active series. Pro has a 1-month free trial that needs a credit card.
 
 ## Gotchas
 
-- Free is for public projects only, so your benchmark results are visible to anyone who can reach your Bencher instance.
+- Free is for public projects only, so do not send results you need to keep private.
 - The Free queue waits behind paid jobs during busy periods.
-- Pro bills by active benchmark series, and Bare Metal runner time at $1.00 per hour is billed on top.
+- Pro bills by active benchmark series, and on-demand runners cost $1.00 per hour on Pro.
 
 ## Alternatives in this atlas
 
@@ -114,7 +112,7 @@ Job timeouts are firm: a Bare Metal run that goes past 5 minutes on Free is over
 
 ### Is Bencher free?
 
-Yes, for public projects. The Free plan costs $0 per month and is meant for open source projects. Private projects need a paid plan.
+Yes, for public projects. The Free plan costs $0 per month and supports public projects only. Private projects need a paid plan.
 
 ### Does Bencher need a credit card?
 

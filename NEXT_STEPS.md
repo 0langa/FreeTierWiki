@@ -23,7 +23,7 @@ the job ends early. Until the first run the hand-picked "Common first picks" car
 
 ## Deepen sweep done — 2026-10-09 (read this first)
 The one-sweep plan (`docs/plans/2026-10-09-deepen-every-entry.md`) is done on branch `deepen/day0`
-(PR #32). Every live entry (696) has the five-section body and passes `npm run check:depth --
+(PR #32). Every live entry (695) has the five-section body and passes `npm run check:depth --
 --all --evidence`. 36 worker chunks, each checked against official pages fetched that day; the whole
 entry was reworked, not only pricing (description, use cases, fit text, sign-up and first steps,
 tags, sources). Many frontmatter facts were corrected; entries whose free offer changed got
@@ -38,14 +38,21 @@ tags, sources). Many frontmatter facts were corrected; entries whose free offer 
   search text keeps each word once (`searchWords`), so `explorer.json` stays under its budget.
 - Tools: `npm run verify:evidence` (fetch sources), `npm run verify:show` (excerpts),
   `npm run check:depth` (CI step). Evidence lives in `development/verify/deepen/` (gitignored).
-- Gates: lint, typecheck, unit (156), build, budget (4 of 4), e2e (73 passed, 5 skipped).
+- Second pass (same night): a 30-entry spot check found no wrong numbers but unsupported wording in
+  5 of 30, so every entry got a claim-by-claim review against the full fetched text
+  (`show-evidence --find`). Most fixes removed guesses ("no card", "it stops at the limit", invented
+  quickstart steps) or set `hasHardCap: false` where no page states a stop. Azure entries cite the
+  Azure account page for the card rule. 63 dead docs/home links were replaced or dropped.
+- Also removed: Gcore (no documented permanent free CDN plan). Category pages link their comparison
+  tables and providers; the header fits a phone screen.
+- Gates: lint, typecheck, unit, build, budget (4 of 4), e2e all green at the last run.
 
 Open items for the owner:
 1. Merge PR #32 (the merge was blocked for the agent).
 2. Skipped (bodies from frontmatter only, dates unchanged, no page readable): `tools/seotest-me`,
    `services/contentful` (429 to every fetch), `services/localit`, `services/azure-blob-storage`,
    `services/azure-disk-storage`.
-3. Worth a decision: `services/gcore` (no clearly labeled free CDN plan), `services/teamhood`
+3. Worth a decision: `services/teamhood`
    (free plan only on the Classic plans page), `services/waiverstevie-com` (free = watermarked test
    environment), `services/pingbreak-com` (sign-in asks for broad X permissions),
    `tools/virgil-security` (pages from 2020/2021), `services/azure-ai-face` (approval only),

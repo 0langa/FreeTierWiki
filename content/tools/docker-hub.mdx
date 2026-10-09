@@ -38,7 +38,7 @@ freeTierDetails:
       Docker says excessive data transfer, pull rates, or storage can lead to throttling or extra
       charges (fair use)
     - A multi-arch image counts as one pull for each architecture
-  resetPeriod: rolling 6 hours
+  resetPeriod: 6-hour window
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -53,9 +53,7 @@ quickstartSteps:
   - 'Search Docker Hub for an image, such as the nginx Docker Official Image.'
   - 'Run `docker run -p 8080:80 --rm nginx` to pull and run it.'
   - 'Write a Dockerfile, then run `docker build -t YOUR-USERNAME/nginx-custom .` with your Docker ID.'
-  - >-
-    Sign in (in Docker Desktop or with `docker login`), then run `docker push
-    YOUR-USERNAME/nginx-custom`, which creates the repository if it does not exist.
+  - 'Sign in (in Docker Desktop or from the command line), then run `docker push YOUR-USERNAME/nginx-custom`.'
 whenToUse: >-
   Use Docker Hub to get official images and to host public images for open-source work or small
   projects.
@@ -103,7 +101,7 @@ A pull of a multi-arch image counts as one pull for each architecture.
 
 ## When you hit a limit
 
-When you pass the pull rate limit, the pull fails with a message that you have reached your pull rate limit. The message says you can raise the limit by authenticating and upgrading. The limit works over a rolling 6-hour window.
+When you pass the pull rate limit, the pull fails with a message that you have reached your pull rate limit. The message says you can raise the limit by authenticating and upgrading. The pull rate limit is calculated over 6 hours.
 
 Docker also has an abuse rate limit that applies to every account level equally. It is in the order of thousands of requests per minute. Docker says excessive pulls, data transfer, or storage can lead to throttling or extra charges under its fair use rules.
 
@@ -111,7 +109,7 @@ Docker also has an abuse rate limit that applies to every account level equally.
 
 - Shared IP addresses matter without login. A CI runner or an office network can share one 100-pull allowance.
 - The pricing page and the usage docs give different pull numbers for Personal, so check the docs page before you plan around a limit.
-- You must be signed in to push an image. Name the image with your Docker ID, for example `YOUR-USERNAME/nginx-custom`.
+- You must be signed in to push an image. Name it with your Docker ID, for example `YOUR-USERNAME/nginx-custom`.
 
 ## Alternatives in this atlas
 
@@ -131,4 +129,4 @@ The usage docs say 200 pulls per 6 hours for a logged-in Personal user, and 100 
 
 ### Does Docker Hub need a credit card?
 
-The pricing page shows Personal at $0 and lists no payment step. You need a verified Docker account to follow the quickstart.
+The pricing page shows Personal at $0 and lists no payment step.

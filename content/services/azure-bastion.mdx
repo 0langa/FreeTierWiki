@@ -85,15 +85,16 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/bastion/bastion-overview'
   - 'https://learn.microsoft.com/en-us/azure/bastion/quickstart-developer-sku'
   - 'https://learn.microsoft.com/en-us/azure/bastion/bastion-sku-comparison'
+  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
 ---
 You use Bastion from the Azure portal. Open your virtual network, choose Connect, then Bastion, and the session opens in your browser. It suits people who run a few Azure VMs and want to keep them off the public internet.
 
 ## What the free plan gives you
 
-Azure Bastion comes in four SKUs: Developer, Basic, Standard, and Premium. Only the Developer SKU is free. It runs on shared infrastructure, so you do not need a dedicated subnet, and it deploys in seconds when you first connect.
+Azure Bastion comes in four SKUs: Developer, Basic, Standard, and Premium. Only the Developer SKU is free. It runs on shared infrastructure, so you do not need a dedicated subnet. It deploys to your virtual network when you first connect.
 
-The Developer SKU supports one VM connection at a time and does not support virtual network peering. It is available in select regions only, and the VM you connect to must be in one of them. Microsoft describes it as a no-cost option for development and test.
+The Developer SKU supports one VM connection at a time and does not support virtual network peering. It is available in select regions only, and your virtual network must be in one of them. Microsoft describes it as a no-cost option for development and test.
 
 The pricing page also lists the first 5 GB of outbound data transfer each month as free. Hourly charges for the paid SKUs are separate from that.
 
@@ -101,13 +102,13 @@ The pricing page also lists the first 5 GB of outbound data transfer each month 
 
 The Developer SKU does not bill you when you reach a limit. It just cannot do more: a second VM connection, a peered network, or a region it does not cover is out of reach. Microsoft says it is not suitable for production workloads.
 
-The bill risk comes from the paid SKUs. They bill hourly from the moment you deploy them until you delete them, whatever your data use. Outbound data above the free amount is billed per gigabyte. To get more than one connection or peering, you must move to Basic, Standard, or Premium, which need a dedicated subnet and a public IP address.
+The bill risk comes from the paid SKUs. They bill hourly from the moment you deploy them until you delete them, whatever your data use. Outbound data above the free amount is billed per gigabyte. To get more than one connection or peering, you must move to Basic, Standard, or Premium, which need a dedicated subnet. All except Premium private-only deployments also need a public IP address.
 
 ## Gotchas
 
 - The Deploy Bastion button in the portal creates a Standard SKU host. Pick the Developer SKU option on purpose if you want the free one.
 - Basic, Standard, and Premium bill every hour from deployment, even with no traffic, so delete test hosts when you finish.
-- The Developer SKU must be in a supported region, and the VM you connect to needs Reader roles and an open RDP or SSH port.
+- The Developer SKU must be in a supported region, and the VM you connect to needs Reader roles and an open RDP (3389) or SSH (22) port.
 
 ## Alternatives in this atlas
 
@@ -127,4 +128,4 @@ It connects to one VM at a time and has no virtual network peering. It is for de
 
 ### Does Azure Bastion need a credit card?
 
-The pages I read do not say. Bastion runs inside an Azure subscription, so you need an Azure account first, and the free Developer SKU needs no dedicated subnet or public IP.
+Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.

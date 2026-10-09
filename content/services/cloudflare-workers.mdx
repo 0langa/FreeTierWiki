@@ -84,7 +84,7 @@ You write a Worker on your machine with the Wrangler CLI and deploy it with one 
 
 ## What the free plan gives you
 
-Every Cloudflare account starts on the Workers Free plan. It allows 100,000 requests per day, and the count resets at midnight UTC. Each request gets 10 ms of CPU time. Time spent waiting on the network does not count toward it. Each isolate can use up to 128 MB of memory. A Worker can make 50 subrequests per request and keep 6 outgoing connections open at once.
+Every Cloudflare account starts on the Workers Free plan. It allows 100,000 requests per day, and the count resets at midnight UTC. Each request gets 10 ms of CPU time. Time spent waiting on the network does not count toward it. Each isolate can use up to 128 MB of memory. A Worker can make 50 subrequests per request and have 6 connections waiting for response headers at once.
 
 You can deploy up to 100 Workers and 5 Cron Triggers per account. A Worker can be up to 64 MiB and must start within 1 second. Requests to static assets are free and unlimited. Workers KV is included too: 100,000 reads and 1,000 writes per day, with 1 GB of stored data.
 
@@ -96,7 +96,7 @@ A request that uses more than its CPU time or memory ends with Error 1102. For K
 
 ## Gotchas
 
-- The 10 ms CPU limit is per request. Server-side rendering or parsing large payloads can use 10 to 20 ms. A Worker that goes over again and again is stopped with Error 1102.
+- The 10 ms CPU limit is per request. Server-side rendering or parsing large payloads can use 10 to 20 ms. A Worker that goes over gets Error 1102.
 - Subrequests count every fetch in a redirect chain, so 50 per request runs out faster than your code suggests.
 - Request body size depends on your Cloudflare account plan, not the Workers plan; it is 100 MB on Free, and larger requests get a 413 error.
 

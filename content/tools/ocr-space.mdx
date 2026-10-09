@@ -30,7 +30,7 @@ freeTierDetails:
     - 500 requests/day per IP address
     - Engine 3 has a separate 1,000 conversions/month quota
   caveats:
-    - Free API key requires registration (email)
+    - Free API key requires registration
     - The interactive web OCR tool is for manual use, not automated scraping
   resetPeriod: monthly
   requiresCard: false
@@ -44,7 +44,7 @@ useCases:
   - 'Making a scanned PDF searchable'
   - 'Reading handwriting with OCR Engine 3'
 quickstartSteps:
-  - 'Register for a free API key on the OCR.Space site with your email address.'
+  - 'Register for a free API key on the OCR.Space site.'
   - 'Choose an engine: Engine 2 is the default, and Engine 3 gives better accuracy on handwriting and tables.'
   - 'Send a POST request to https://api.ocr.space/parse/image with your key in the apikey header and a file, url, or base64Image value.'
   - 'Set the language parameter, or use auto with Engine 2 or 3.'
@@ -61,7 +61,7 @@ avoidIf:
   - 'files larger than 1MB'
   - 'PDFs longer than 3 pages'
   - 'more than 500 requests per day from one IP address'
-  - 'on-premise processing on the free plan'
+  - 'on-premise processing, which is a separate product from the free API'
 difficulty: beginner
 productionReadiness: prototype
 status: changed
@@ -96,11 +96,11 @@ The free web form on the home page needs no registration. It accepts files up to
 
 The free plan has a rate limit of 500 requests per day per IP address. The site says this stops accidental spamming. PRO plans do not have that limit.
 
-The site warns that someone could use up all your free conversions if they find your key. It suggests the POST version of the API for that reason. The pages do not say what happens after you use the monthly quota, and they list no overage price. The free plan shows no paid add-on, so a surprise bill is not likely.
+The site warns that someone could use up all your free conversions if they find your key. It suggests the POST version of the API for that reason. The pages do not say what happens after you use the monthly quota, and they list no overage price for the free plan.
 
 ## Gotchas
 
-- The free API key needs registration, and the key travels with every request, so keep it out of public code.
+- The free API key needs registration. If someone finds your key, they can use up your free conversions, so keep it out of public code.
 - Engine 3 gives the best accuracy, including handwriting and tables, but it is slower on larger files and has the smaller quota.
 - The free file limit is 1MB through the API, but the web form accepts 5MB. Do not test with the form and expect the same result from the API.
 
