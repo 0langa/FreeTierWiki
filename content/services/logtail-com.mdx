@@ -1,6 +1,8 @@
 ---
 title: "Better Stack (Logtail)"
-description: "Better Stack (formerly Logtail) provides cloud-based logs, metrics, traces, uptime monitoring, and incident management with real-time search."
+description: >-
+  Better Stack, formerly Logtail, collects logs, traces, and metrics from your
+  apps and servers and lets you search them live.
 provider: "Better Stack"
 category: "observability"
 domain: observability
@@ -14,11 +16,11 @@ audiences:
   - indie
   - oss
 tags:
-  - logging
+  - logs
+  - log-management
+  - logtail
+  - tracing
   - observability
-  - monitoring
-  - cloud
-  - search
 pricingModel: freemium
 freeTierDetails:
   summary: "Free plan for personal projects includes monitors, logs, metrics, traces, and error tracking with short retention."
@@ -37,38 +39,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralized log collection for apps
-  - Debugging and troubleshooting
-  - Monitoring small-scale deployments
+  - Collect logs from an app or server in one place
+  - Watch logs arrive in Live tail while you debug
+  - Send logs with Vector, OpenTelemetry, or an HTTP call
+  - Keep traces and metrics next to logs
+  - Track exceptions from an app
 quickstartSteps:
   - Sign up for a free Better Stack account.
-  - Create a new source for your application.
-  - Install the Better Stack logging agent or use provided API/SDK.
-  - Configure your app or server to send logs to Better Stack.
-  - View and search logs in the Better Stack dashboard.
-whenToUse: "Use Better Stack when you need simple, cloud-based log, metrics, and uptime management for small apps or prototypes with minimal setup."
-whenNotToUse: "Avoid if you require longer than 3-day retention, high ingestion volumes, or enterprise features like SSO without upgrading."
+  - Go to Sources and click Connect source, then name it and pick its type, such as Node.js.
+  - Open the source, go to Configure, and copy the token from Basic information.
+  - 'Send a first log with curl: post JSON with a `dt` timestamp and a `message` field and the header `Authorization: Bearer` followed by your source token.'
+  - Open Live tail to see the message arrive.
+  - Switch to an integration guide for your stack, such as Node.js, Python, Docker, or Kubernetes.
+whenToUse: >-
+  Use it when you want searchable logs and live tail for a small or personal
+  project without running your own logging stack.
+whenNotToUse: >-
+  Avoid it if you need logs for longer than 3 days, more than 3 GB of logs, or
+  SSO on the free plan.
 bestFor:
-  - small teams
+  - personal projects
   - indie developers
-  - startups
-  - open source projects
+  - short debugging sessions
 avoidIf:
-  - enterprise
+  - long-term log retention
   - high-volume logging
-  - long-term retention needs
+  - enterprise SSO
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: https://betterstack.com/
 docsUrl: https://betterstack.com/docs/logs/
 pricingUrl: https://betterstack.com/pricing
 sourceUrls:
-  - https://betterstack.com/pricing
-  - https://betterstack.com/docs/logs/
+  - 'https://betterstack.com/pricing'
+  - 'https://betterstack.com/docs/logs/'
+  - 'https://betterstack.com/docs/logs/logging-start/'
 featured: false
 ---
-Better Stack (formerly Logtail) offers a free plan for small projects covering logs, metrics, traces, uptime monitoring, and error tracking, with data retained for 3 days.
+You send logs to Better Stack with its collector, Vector, OpenTelemetry, or a plain HTTP request, then search them in the web app and watch them live. It suits small apps that need searchable logs without running a logging server.
+
+## What the free plan gives you
+
+The free plan is "Free for personal projects" and costs $0 per month. For logs it includes 3 GB retained for 3 days. It also includes 3 GB of traces retained for 3 days, 30 GB of metrics, and 3 GB of web events retained for 3 days.
+
+The plan also covers 100,000 exceptions per month, 5,000 session replays, 10 monitors and heartbeats, and 1 status page. Team members are unlimited, and alerts go to Slack and email. Everything sits in one account, so logs, uptime checks, and error tracking share the same free plan and the same limits.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 3 GB of logs on the free plan. It does list paid Telemetry bundles that include 30 days of log retention, and per-GB prices for ingestion and retention beyond the bundle.
+
+The short retention is the limit you will notice first. Logs, traces, and web events stay for only 3 days on the free plan, so an old problem will be gone by the time you look.
+
+## Gotchas
+
+- Logs are kept for only 3 days on the free plan, while paid bundles keep them for 30 days.
+- The free plan is for personal projects, so read the terms before you use it for a company.
+- Generic SAML SSO is for enterprise plans only, and Azure and Okta SSO cost extra.
+
+## Alternatives in this atlas
+
+- [Axiom](/services/axiom/): when you need longer free retention for logs.
+- [Grafana Cloud](/services/grafana-cloud/): when you want logs together with metrics and dashboards.
+- [Logflare.app](/services/logflare-app/): when you want a simple log sink for a small project.
+
+## Questions people ask
+
+### Is Better Stack (Logtail) free?
+
+Yes, for personal projects. The free plan costs $0 per month and includes 3 GB of logs retained for 3 days, plus metrics, traces, and uptime monitors.
+
+### How long does Better Stack keep logs on the free plan?
+
+Logs are retained for 3 days on the free plan. Paid bundles list 30 days of log retention.
+
+### What happens when I use more than 3 GB of logs?
+
+The pricing page does not say for the free plan. Paid bundles list per-GB prices for ingestion and retention.

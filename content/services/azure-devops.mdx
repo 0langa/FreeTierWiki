@@ -1,8 +1,9 @@
 ---
 title: Azure DevOps
 description: >-
-  Azure DevOps provides cloud-based tools for CI/CD, code repositories, agile
-  planning, and collaboration for software development teams.
+  Azure DevOps bundles Git repositories, build and release pipelines, work
+  boards, and package feeds in one hosted service. It suits small teams that
+  want planning and CI/CD under one login.
 provider: Azure
 category: devops
 domain: devops
@@ -17,9 +18,11 @@ audiences:
   - oss
   - agency
 tags:
+  - azure pipelines
+  - azure repos
+  - azure boards
   - ci-cd
-  - devops
-  - productivity
+  - git hosting
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -34,10 +37,14 @@ freeTierDetails:
     - 2 GiB free Azure Artifacts storage
   caveats:
     - Additional users beyond 5 require buying a paid license first.
-    - Exceeding the free parallel-job minutes queues and delays pipeline runs
-      until you buy more parallel jobs; nothing is billed automatically.
+    - >-
+      Creating a new organization requires an active Azure subscription (the create-organization docs);
+      the pricing FAQ says a card is not needed to get started.
+    - >-
+      After the 1,800 free Microsoft-hosted minutes, you buy a Microsoft-hosted pipeline to remove the
+      time limit; nothing is billed automatically.
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
@@ -46,34 +53,39 @@ freeTierDetails:
       explicit purchase (billing must be set up first); it is not billed
       automatically.
 useCases:
-  - Automated CI/CD pipelines
-  - Source code hosting with Git
-  - Agile project tracking
-  - Release management
+  - Host private Git repositories with Azure Repos
+  - Build and test code with Azure Pipelines, using an `azure-pipelines.yml` file
+  - Track work on Azure Boards
+  - Host package feeds with Azure Artifacts
 quickstartSteps:
-  - Sign up for an Azure account and access Azure DevOps.
-  - Create a new DevOps organization and project.
-  - Import or create a Git repository.
-  - Set up a CI/CD pipeline using Azure Pipelines.
-  - Invite up to 4 additional users to collaborate.
+  - Sign in to Azure DevOps with a Microsoft account, a GitHub account, or a work or school account.
+  - Select New organization, name it, choose a hosting geography, and pick an Azure subscription.
+  - Create a project, then create or import a Git repository.
+  - Add a YAML pipeline, which lives in a file named `azure-pipelines.yml` next to your code.
+  - Add the first five users with a Basic license, and give others the Stakeholder tier.
 whenToUse: >-
-  Use Azure DevOps when you need integrated CI/CD, code hosting, and agile
-  planning for small to medium teams.
+  Use it for a team of up to 5 that wants repos, boards, and CI/CD in one hosted
+  service, and can live with one free Microsoft-hosted job.
 whenNotToUse: >-
-  Avoid if you need unlimited free users, advanced enterprise features without
-  cost, or prefer open-source/self-hosted DevOps tools.
+  Skip it if more than 5 people need Repos and Boards without paying, or if you
+  have no Azure subscription. Skip it also if one build job at a time is too few.
 bestFor:
-  - small teams
-  - startups
-  - agencies
-  - OSS projects
+  - small teams of up to 5
+  - Microsoft-stack projects
+  - teams that want boards and CI in one place
 avoidIf:
-  - large organizations needing unlimited free users
-  - teams requiring on-premises only solutions
+  - you need more than 5 free Repos and Boards users
+  - you need more than 1 parallel job on the free plan
+  - you have no Azure subscription
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: Microsoft's docs say creating a new organization needs an active Azure subscription, so the card rule is now marked as required.
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/services/devops/'
@@ -82,7 +94,49 @@ sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/'
   - >-
     https://learn.microsoft.com/en-us/azure/devops/user-guide/what-is-azure-devops
+  - >-
+    https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/create-organization
+  - >-
+    https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-get-started
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/'
 featured: false
 ---
-Azure DevOps offers a comprehensive suite for code hosting, CI/CD, and agile project management, ideal for teams seeking integrated cloud-based DevOps workflows.
+You use Azure DevOps in the browser, with Git on your machine and pipelines defined in YAML. It has separate services for Repos, Pipelines, Boards, Test Plans, and Artifacts.
+
+## What the free plan gives you
+
+The Basic plan is free for the first 5 users. Azure Repos gives you unlimited private Git repositories. Azure Artifacts includes 2 GiB of free storage per organization.
+
+For Azure Pipelines, each organization gets one parallel job with 1,800 minutes (30 hours) of build time per month on Microsoft-hosted agents. It also gets one free self-hosted parallel job with unlimited minutes. Users beyond the first five are assigned the Stakeholder tier by default, which is free but has less access. Access to Pipelines and Artifacts is open to all users, including Stakeholders.
+
+## When you hit a limit
+
+If you need more time or more concurrent jobs, you buy pipelines. A Microsoft-hosted parallel job costs $40 and a self-hosted one costs $15 per extra job. The FAQ explains that buying your first Microsoft-hosted pipeline keeps the job count at one and only removes the time limit. To run two jobs at once, buy two.
+
+For more users who need Repos and Boards, buy Basic licenses. The FAQ says a credit card is not needed to get started, and that the card is set up when you buy more.
+
+## Gotchas
+
+- The create-organization docs say you need an active Azure subscription to create a new organization. Existing organizations and free tier limits are not affected.
+- The 1,800 free minutes apply to Microsoft-hosted agents only, and buying one pipeline does not add a second parallel job.
+- Users after the first 5 become Stakeholders by default and cannot use Repos and Boards fully until you buy them a Basic license.
+
+## Alternatives in this atlas
+
+- [Bitbucket](/services/bitbucket/): when you want Git hosting and light CI for up to 5 users, tied to Jira.
+- [GitLab CI/CD](/services/gitlab-ci-cd/): when you want repos and CI under one product with a different free quota.
+- [Azure Advisor](/services/azure-advisor/): when you also run workloads on Azure and want free recommendations.
+
+## Questions people ask
+
+### Is Azure DevOps free?
+
+Yes, for the first 5 users on the Basic plan. You get unlimited private Git repos, 2 GiB of Artifacts storage, and one Microsoft-hosted job with 1,800 free minutes a month.
+
+### Do I need a credit card for Azure DevOps?
+
+The pricing FAQ says a card is not needed to get started. The docs also say creating a new organization needs an active Azure subscription, so this atlas marks a card as required.
+
+### How many free build minutes does Azure DevOps give?
+
+Each organization gets one Microsoft-hosted parallel job with 1,800 minutes per month, plus one self-hosted parallel job with unlimited minutes.

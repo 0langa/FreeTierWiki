@@ -1,8 +1,9 @@
 ---
 title: Meterian.io
 description: >-
-  Meterian.io provides automated open source dependency scanning and
-  vulnerability management for software projects.
+  Meterian scans the open source libraries in your code and containers for
+  known vulnerabilities, risky licences, and stale versions, and reports what
+  to upgrade.
 provider: Meterian.io
 category: security
 domain: security
@@ -16,8 +17,12 @@ audiences:
   - enterprise
   - oss
 tags:
-  - security
-  - open-source
+  - sca
+  - dependency-scanning
+  - vulnerability-scanner
+  - sbom
+  - devsecops
+  - ci
 pricingModel: freemium
 freeTierDetails:
   summary: Free plan covers unlimited open source projects plus 1 closed-source project.
@@ -27,39 +32,43 @@ freeTierDetails:
     - '10 analyses/day'
     - HTML reports only
   caveats:
-    - Other report formats require a paid plan
+    - Other report formats and CI integration are listed only on paid plans
     - Scanning more than 1 closed-source project requires a paid plan
+    - The cheapest paid plan is listed at a yearly price in pounds
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated vulnerability scanning for open source projects
-  - Security compliance checks in CI/CD pipelines
-  - Dependency health monitoring
+  - Checking a repository for vulnerable dependencies before a release
+  - Scanning a container image for known issues
+  - Running a scan in a GitHub Action or a CI job
+  - Listing the licences used by your dependencies
 quickstartSteps:
-  - Sign up for a free Meterian.io account.
-  - 'Connect your GitHub, GitLab, or Bitbucket repository.'
-  - Select the repository to scan.
-  - Run your first scan and review the vulnerability report.
+  - Open meterian.io and sign in, or create an account from the Free plan on the pricing page.
+  - Open the dashboard and create or copy an API token from the tokens section.
+  - Choose how to scan. You can add the GitHub Action, run the Docker client with `docker pull meterian/cli:latest`, or use the Java thin client.
+  - Set the `METERIAN_API_TOKEN` environment variable to your token.
+  - Run the client in your project folder and read the report it produces.
 whenToUse: >-
-  Use Meterian.io to automate open source dependency scanning and vulnerability
-  checks for public projects or a single closed-source repository.
+  Use Meterian for open source projects, or for a single private codebase,
+  when you want a dependency scan with an HTML report and no cost.
 whenNotToUse: >-
-  Avoid if you need scanning for more than 1 closed-source repository, more
-  than 10 analyses a day, or report formats beyond HTML.
+  Avoid the free plan if you have more than one closed-source project, need
+  more than 10 analyses a day, or need JSON, text, or PDF reports.
 bestFor:
-  - open source projects
-  - small teams
-  - security-conscious startups
+  - open source maintainers
+  - solo developers with one private repository
+  - trying software composition analysis
 avoidIf:
-  - large enterprises needing advanced features
-  - projects with many private repos
+  - you have several private repositories
+  - you need CI integration or report formats other than HTML
+  - you run many scans per day
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.meterian.io/'
@@ -67,7 +76,45 @@ docsUrl: 'https://docs.meterian.io'
 pricingUrl: 'https://www.meterian.io/plans/'
 sourceUrls:
   - 'https://www.meterian.io/plans/'
-  - 'https://www.meterian.io/'
+  - 'https://docs.meterian.io'
+  - 'https://docs.meterian.io/the-client/guide-your-first-scan.md'
+  - 'https://docs.meterian.io/the-client/guide-your-first-scan/your-first-scan-dockerized-client.md'
 featured: false
 ---
-Meterian.io offers automated open source dependency scanning and vulnerability management, with a free tier covering unlimited open source projects, 1 closed-source project, and 10 analyses a day.
+You run Meterian as a command-line client, a Docker image, or a GitHub Action, and read the results in a web dashboard or an HTML report. It suits open source maintainers and small teams who want a first dependency scan.
+
+## What the free plan gives you
+
+The Free plan covers unlimited open source projects and 1 closed-source project. You get 10 analyses per day and HTML reports. Meterian says all plans include the codebase scanner and the container scanner.
+
+A report scores each project from 0 to 100 on security, stability, and licensing. It names the component, the CVE number, and the dependencies the issue touches. The next plan, called Bootstrap, raises the limits to 10 closed-source projects and 100 analyses per day, and adds text and JSON reports, CI integration, and basic API access. It is listed at 2300 pounds a year.
+
+## When you hit a limit
+
+The plans page does not say what happens when you pass 10 analyses in a day or add a second closed-source project. The limits are written as fixed numbers per plan, and the paid plans are priced per year, so the page shows no pay-as-you-go charge. If you need more, the next step on the page is the Bootstrap plan.
+
+## Gotchas
+
+- The Free plan lists HTML reports only. JSON, text, and PDF reports come with paid plans.
+- The limit is counted in analyses per day, so a busy pipeline that scans on every push can reach 10 quickly.
+- The Docker client needs an API token from your account before it can run.
+
+## Alternatives in this atlas
+
+- [Snyk](/services/snyk/): when you want to compare another dependency scanner on the same project.
+- [Aikido](/services/aikido/): when you want dependency scanning together with other code checks.
+- [Semgrep](/tools/semgrep/): when you care about checking your own code, not only your dependencies.
+
+## Questions people ask
+
+### Is Meterian free?
+
+Yes, within limits. The Free plan covers unlimited open source projects, 1 closed-source project, and 10 analyses per day.
+
+### Does Meterian scan private repositories for free?
+
+One closed-source project is free. For more, the plans page points you to the Bootstrap plan, which covers 10.
+
+### How do I run my first Meterian scan?
+
+Get an API token from your dashboard, set it as `METERIAN_API_TOKEN`, and run the Docker client or the GitHub Action in your project.

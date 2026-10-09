@@ -1,8 +1,7 @@
 ---
 title: Azure Static Web Apps
 description: >-
-  Azure Static Web Apps offers fast, secure hosting for static sites with
-  integrated CI/CD and serverless APIs.
+  Azure Static Web Apps builds and hosts a static front end from a GitHub repository and can add serverless API routes through Azure Functions. It is aimed at hobby and personal sites on the Free plan.
 provider: Azure
 category: hosting
 domain: hosting
@@ -18,10 +17,13 @@ audiences:
   - team
   - oss
 tags:
-  - web
-  - serverless
-  - cloud
-  - cdn
+  - "static site hosting"
+  - "jamstack"
+  - "azure"
+  - "github actions"
+  - "serverless api"
+  - "azure functions"
+  - "spa hosting"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,50 +31,52 @@ freeTierDetails:
     each with 2 custom domains, 500 MB storage, and free SSL, plus a shared
     100 GB bandwidth/month and managed Functions API.
   limits:
-    - Up to 10 apps per subscription
-    - 100 GB bandwidth/month (per subscription)
-    - 2 custom domains per app
-    - 500 MB storage per app (250 MB per environment)
-    - SSL included
+    - "Up to 10 apps per subscription"
+    - "100 GB bandwidth/month (per subscription)"
+    - "2 custom domains per app"
+    - "500 MB storage per app (250 MB per environment)"
+    - "3 preview environments and 15,000 files per app"
+    - "Free SSL certificates"
   caveats:
-    - Custom domains limited to 2 per app on the free tier
-    - No custom authentication providers on free tier
-    - If a site goes over the free quotas, Azure stops serving it
-    - An Azure account needs a credit or debit card to sign up
+    - "Custom domains limited to 2 per app on the free tier"
+    - "Custom roles work through invitations only; roles through serverless functions are unavailable on Free"
+    - "If a site goes over the 100 GB quota on the free plan, Azure cannot serve it"
+    - "No SLA on the free plan; it is meant for hobby and personal projects"
+    - "An Azure account needs a credit or debit card to sign up"
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Personal portfolios
-  - Documentation sites
-  - Jamstack apps
-  - Prototyping static web projects
+  - "Hosting a personal portfolio or documentation site from GitHub"
+  - "Deploying a React, Angular, Vue, or Blazor front end"
+  - "Adding a small serverless API to a static site"
+  - "Using preview environments to review changes before merge"
+  - "Trying a Jamstack stack inside Azure"
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new Static Web App resource.
-  - Connect your GitHub repository containing your static site.
-  - Configure build settings and deployment branch.
-  - Review and create the Static Web App.
+  - "Have an Azure account, a GitHub account, Visual Studio Code, and Git installed."
+  - "Generate a repository from a GitHub template, such as vanilla-basic, and name it my-first-static-web-app."
+  - "Clone the repository and open it in Visual Studio Code."
+  - "Install the Azure Static Web Apps extension from the Extensions view."
+  - "Press F1, run Azure Static Web Apps: Create static web app, and sign in to Azure and GitHub when asked."
+  - "Pick your subscription, enter the app and build locations, then right-click the project and choose Browse Site."
 whenToUse: >-
-  Use when you need fast, secure static site hosting with built-in CI/CD and
-  simple serverless API integration.
+  Use it for a static site or single-page app in a GitHub repository, with a small serverless API, when you already have or accept an Azure account.
 whenNotToUse: >-
-  Avoid if you require dynamic server-side rendering, advanced authentication,
-  or complex backend integrations.
+  Skip it for production sites that need an SLA, for sites that may pass the monthly bandwidth quota, or for server-side rendered apps that need a long-running server.
 bestFor:
-  - static sites
-  - Jamstack apps
-  - prototypes
-  - personal projects
+  - "personal sites"
+  - "documentation sites"
+  - "single-page apps"
+  - "Azure learners"
 avoidIf:
-  - dynamic web apps
-  - complex backend needs
-  - advanced auth requirements
+  - "you need an SLA"
+  - "traffic may pass the bandwidth quota"
+  - "you need custom roles through serverless functions"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/app-service/static/'
@@ -80,9 +84,48 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/static-web-apps/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/app-service/static/'
   - 'https://learn.microsoft.com/en-us/azure/static-web-apps/quotas'
-  - 'https://azure.microsoft.com/en-us/free/'
+  - 'https://learn.microsoft.com/en-us/azure/static-web-apps/getting-started'
+  - 'https://learn.microsoft.com/en-us/azure/static-web-apps/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/app-service/static/'
 ---
-Azure Static Web Apps provides free static site hosting with integrated CI/CD, custom domains, SSL, and serverless API support, ideal for personal or small team projects.
+You connect a GitHub repository, and a GitHub Actions workflow builds and deploys your site. The quickstart uses the Azure Static Web Apps extension in Visual Studio Code, so it suits developers who already work in that editor.
+
+## What the free plan gives you
+
+The Free plan is for hobby and personal projects. It costs nothing and includes 100 GB of bandwidth per subscription each month. You can have 10 apps in a subscription, with 2 custom domains per app and free SSL certificates. Each app gets 500 MB of total storage across all environments, with 250 MB for a single environment. It also allows 3 preview environments, 15,000 files, and a request size of 30 MB.
+
+The pricing page says you can add serverless APIs with Azure Functions and gives 1 million free executions. Authorization with custom roles works through invitations on Free. The Standard plan raises storage and domain counts, adds an SLA, and is billed per hour.
+
+## When you hit a limit
+
+The pricing FAQ is direct about this. If a Free plan site goes over the 100 GB quota, Azure cannot serve your site. There is no overage billing on Free, because overage bandwidth is listed as unavailable. Standard apps that pass the quota are billed at overage rates instead.
+
+To get past the Free caps, upgrade to the Standard plan. The pricing page links a guide for the upgrade. Storage limits and the file count are quotas for each app, so a larger site can also hit those before it hits the bandwidth cap.
+
+## Gotchas
+
+- The Free plan has no SLA. Microsoft describes it as intended for hobby and personal use.
+- GitHub Actions and Packages store your build artifacts, and they follow their own GitHub storage quotas.
+- The quickstart asks you to sign in to both Azure and GitHub, and GitHub may ask you to enable Actions on the repository.
+
+## Alternatives in this atlas
+
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want static hosting without an Azure account or card.
+- [GitHub Pages](/services/github-pages/): when a plain static site from a repository is enough.
+- [Netlify](/services/netlify/): when you want preview deploys and forms without Azure.
+
+## Questions people ask
+
+### Is Azure Static Web Apps free?
+
+Yes, the Free plan costs nothing. It includes 100 GB of bandwidth per subscription each month and up to 10 apps.
+
+### What happens when I go over the Azure Static Web Apps free quota?
+
+On the Free plan, Azure cannot serve your site once it passes the 100 GB quota. Standard apps are billed at overage rates instead.
+
+### Can I use a custom domain on Azure Static Web Apps free?
+
+Yes. The Free plan allows 2 custom domains per app, with free SSL certificates.

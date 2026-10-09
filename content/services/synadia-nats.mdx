@@ -1,8 +1,9 @@
 ---
 title: Synadia / NATS
 description: >-
-  Managed NATS messaging service for real-time, scalable, and secure pub/sub,
-  request/reply, and streaming workloads.
+  Synadia Cloud runs NATS for you, a messaging system for publish and subscribe,
+  request and reply, and streams. It is for developers who want a managed
+  NATS without running servers.
 provider: Synadia
 category: messaging
 domain: messaging
@@ -17,67 +18,118 @@ audiences:
   - team
   - oss
 tags:
+  - nats
   - messaging
-  - queue
+  - pub/sub
+  - message queue
+  - jetstream
+  - event streaming
   - realtime
-  - cloud
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Personal Plan offers 10 connections, 5 GiB storage, and 10 GiB
-    network data per month for individual developers and hobbyists.
+    Free Personal plan: 10 connections, 5 GiB storage, and 10 GiB network data,
+    with 2 accounts. No credit card.
   limits:
     - 10 connections
     - 5 GiB storage
-    - 10 GiB network data/month
-    - 2 accounts
+    - 10 GiB network data
+    - 2 accounts and 2 leaf nodes
     - 1 MiB max message size
   caveats:
-    - Upgrade anytime within your account when you're ready to scale
+    - Synadia may delete inactive free accounts
+    - GDPR compliance is not guaranteed on a free account
+    - The Personal plan has no support SLA, and Synadia recommends an Enterprise contract for production
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
+  billingRiskNotes:
+    - On the Personal plan a network data overage drops active and new client connections until the next billing cycle or an upgrade
 useCases:
-  - Real-time messaging for microservices
-  - IoT device communication
-  - Event-driven architectures
-  - Lightweight streaming
-  - Prototyping distributed systems
+  - Publish and subscribe between microservices
+  - Request and reply calls between services
+  - Durable streams with JetStream for event-driven apps
+  - Connect IoT or edge devices to a global messaging system
+  - Prototype a distributed system on managed NATS
 quickstartSteps:
-  - 'Sign up for a Synadia account at https://www.synadia.com/cloud.'
-  - Create a new Synadia Cloud Personal plan account and obtain credentials.
-  - Install the NATS CLI or SDK for your preferred language.
-  - Connect to the NGS endpoint using your credentials.
-  - Publish and subscribe to a test subject to verify connectivity.
+  - Sign up at cloud.synadia.com. The Personal plan needs no credit card.
+  - Under NGS, create an account in the dashboard. Each team starts with two accounts, one of them a default.
+  - Open the account, go to the Users tab, and create a user.
+  - Open the user and download its credentials file under Get Connected.
+  - Install the NATS CLI, then run `nats context save` with the server `tls://connect.ngs.global` and the creds file.
+  - Test with `nats sub ">"` and publish to a subject to check the connection.
 whenToUse: >-
-  Use when you need a managed, scalable, and low-latency messaging backbone for
-  cloud-native or distributed applications.
+  Use Synadia Cloud when you want managed NATS for prototypes or small
+  services, and you can live with 10 connections.
 whenNotToUse: >-
-  Avoid if you require strict message ordering, persistent queues with high
-  durability, or advanced enterprise integrations.
+  Avoid the free plan for production that needs a support SLA, GDPR guarantees,
+  or more than 10 connections at once.
 bestFor:
-  - real-time messaging
-  - microservices
-  - IoT
-  - event-driven apps
+  - NATS prototypes
+  - small microservice setups
+  - learning JetStream
 avoidIf:
-  - need strict ordering
-  - require persistent queues
-  - require enterprise integrations
+  - you need a support SLA
+  - you need GDPR guarantees on a free account
+  - you need more than 10 connections
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.synadia.com/cloud'
-docsUrl: 'https://docs.nats.io/nats-on-synadia'
+docsUrl: 'https://docs.synadia.com/cloud/user-guides/quick-start'
 pricingUrl: 'https://www.synadia.com/cloud'
 sourceUrls:
   - 'https://www.synadia.com/cloud'
-  - 'https://docs.nats.io/nats-on-synadia'
+  - 'https://docs.synadia.com/cloud/pricing'
+  - 'https://docs.synadia.com/cloud/user-guides/quick-start'
+  - 'https://docs.synadia.com/cloud/resources/faq'
 featured: false
 ---
-Synadia Cloud provides a managed NATS messaging platform with a free Personal plan, suitable for prototyping, development, and small-scale production workloads. It excels at low-latency, real-time communication for distributed systems, but may not fit use cases requiring advanced message durability or enterprise-grade integrations.
+You manage accounts and users in a web dashboard and connect with the NATS command line tool or a NATS client library. It suits developers who already know NATS or want to learn it on a managed system.
+
+## What the free plan gives you
+
+The Personal plan costs $0 per month and asks for no credit card. The marketing page lists these resources: 2 accounts, 10 connections, 2 leaf nodes, a 1 MiB maximum message size, 10 GiB of network data, and 5 GiB of storage.
+
+An account is a space where you allocate resources. You can create several and share streams and services between them. You split the plan's total across accounts, so a plan upgrade is not needed just to shift usage around.
+
+The FAQ says a free account lasts as long as you use it. Synadia may delete inactive free accounts.
+
+## When you hit a limit
+
+On the Personal plan, a network data overage drops active and new client connections. They stay dropped until the next billing cycle, or until you upgrade. Nothing is billed.
+
+The FAQ also says some other limits exist, such as subscriptions per connection and JetStream assets. They protect the system, and Synadia says it can often raise them for free if you contact it.
+
+The Starter plan costs $49 per month and the Pro plan costs $199 per month. Upgrade from the Billing tab on the Team Settings page.
+
+## Gotchas
+
+- The FAQ says GDPR compliance is not guaranteed with a free account.
+- The pricing docs recommend an annual Enterprise contract with a support SLA for production deployments.
+- Lost private credentials cannot be recovered, because Synadia never stores them. You would create a new account.
+
+## Alternatives in this atlas
+
+- [Ably](/services/ably/): when you want hosted realtime pub/sub with client libraries for many platforms.
+- [Pusher](/services/pusher/): when you only need simple realtime events for a web or mobile app.
+- [CloudAMQP](/services/cloudamqp/): when you prefer a managed RabbitMQ message queue.
+
+## Questions people ask
+
+### Is Synadia Cloud free?
+
+Yes. The Personal plan costs $0 per month, needs no credit card, and gives you 10 connections, 5 GiB of storage, and 10 GiB of network data.
+
+### What happens when I go over the Synadia free plan limits?
+
+If you go over the network data limit, Synadia drops active and new client connections until the next billing cycle or an upgrade. There is no bill on the Personal plan.
+
+### Can Synadia delete my free account?
+
+It can. The FAQ says a free account lasts as long as you use it, and Synadia reserves the right to delete inactive free accounts.

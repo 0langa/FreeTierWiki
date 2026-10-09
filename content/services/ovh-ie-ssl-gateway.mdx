@@ -1,8 +1,8 @@
 ---
 title: OVH.ie SSL Gateway
 description: >-
-  Provides free SSL termination and HTTP/HTTPS reverse proxy for your web
-  applications.
+  OVHcloud SSL Gateway sits in front of your own server and adds HTTPS with a
+  managed certificate that renews itself. The Free offer covers one site.
 provider: OVH
 category: networking
 domain: networking
@@ -17,40 +17,48 @@ audiences:
   - student
   - oss
 tags:
-  - networking
-  - security
+  - ssl gateway
+  - https
+  - reverse proxy
+  - ssl termination
+  - lets encrypt
+  - anti-ddos
+  - ovhcloud
 pricingModel: free
 freeTierDetails:
-  summary: Free SSL Gateway covers a main domain, its www subdomain, plus 1 extra subdomain.
+  summary: >-
+    The Free SSL Gateway covers a main domain, its www subdomain, and one extra
+    subdomain, with a Let's Encrypt certificate and Anti-DDoS protection.
   limits:
     - Main domain + www + 1 extra subdomain
     - Domains up to level 3 only
     - Default Let's Encrypt DV certificate only
+    - Metrics included for 1 month
   caveats:
     - Advanced (paid) solution needed for level-4 domains or up to 1,000 domains
-    - No load balancing or dedicated IP on free plan
-  resetPeriod: monthly
+    - No load balancing or dedicated IP on the Free offer
+    - Not compatible with OVHcloud web hosting plans
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Securing a single website with HTTPS
-  - Adding SSL to legacy web servers
-  - Protecting web traffic with basic reverse proxy
+  - Adding HTTPS to a site on a VPS or dedicated server
+  - Putting HTTPS in front of an older web server
+  - Getting a certificate that renews on its own
+  - Forcing visitors from HTTP to HTTPS
 quickstartSteps:
-  - Sign up for an OVH account.
-  - Navigate to the SSL Gateway product page.
-  - Create a new SSL Gateway and specify your domain.
-  - Configure your backend server IP address.
-  - Update your DNS records to point to the SSL Gateway endpoint.
-  - Wait for SSL certificate issuance and test HTTPS access.
+  - Open the SSL Gateway page on ovhcloud.com and choose the Free solution with Order now.
+  - Enter your domain or subdomain; the system detects the IP address of your site, and you pick one.
+  - Choose one of the 2 data centre locations.
+  - Tick the box that lets OVHcloud update your DNS record, or change the A record yourself after the email arrives.
+  - Pay the order, wait for the confirmation email, then open Sunrise, then SSL Gateway, in the OVHcloud Control Panel to set HSTS and HTTPS redirection.
 whenToUse: >-
-  Use when you need free SSL for a single domain and basic reverse proxy without
-  managing certificates.
+  Use it for one site on your own server that needs HTTPS with a managed
+  certificate, and a main domain, www, and one extra subdomain are enough.
 whenNotToUse: >-
-  Avoid if you need level-4 domains, more than one extra subdomain, or
-  advanced proxy features like load balancing.
+  Avoid it for OVHcloud web hosting plans, level-4 domains, more than one extra
+  subdomain, or when you need load balancing or a dedicated IP.
 bestFor:
   - personal sites
   - small business
@@ -59,20 +67,59 @@ bestFor:
 avoidIf:
   - multi-domain needs
   - level-4 domain requirements
-  - enterprise-grade features
+  - OVHcloud web hosting
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.ovh.ie/ssl-gateway/'
-docsUrl: 'https://docs.ovh.ie'
+docsUrl: 'https://docs.ovhcloud.com/en/guides/web-cloud/ssl-gateway/order'
 sourceUrls:
   - 'https://www.ovhcloud.com/en-ie/security/ssl-gateway/'
-  - >-
-    https://help.ovhcloud.com/csm/en-ssl-gateway-overview?id=kb_article_view&sysparm_article=KB0044066
+  - 'https://docs.ovhcloud.com/en/guides/web-cloud/ssl-gateway/order'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.ovhcloud.com/en-ie/security/ssl-gateway/'
 ---
-OVH.ie SSL Gateway offers a free, easy way to secure a single website with HTTPS using OVH's managed SSL and reverse proxy service.
+You order the gateway on the OVHcloud site and manage it later in the Control Panel under Sunrise. It suits people who run their own server and want OVHcloud to handle the certificate.
+
+## What the free plan gives you
+
+The Free SSL Gateway is for low-traffic sites such as blogs, associations, and forums. It covers your main domain, one www subdomain, and one more subdomain of your choice. Only domains up to level 3 are allowed, so `www.example.org` works and `blog.france.example.org` does not.
+
+You get the default Let's Encrypt DV certificate, which OVHcloud renews for you. The Free offer also includes OVHcloud Anti-DDoS Infrastructure and one month of metrics.
+
+The paid Advanced offer costs €20 excluding VAT per month. It allows up to 1000 domains and subdomains, level-4 domains and higher, load balancing, a dedicated IP, and an optional EV certificate. The service runs in 2 locations, Roubaix and Beauharnois.
+
+## When you hit a limit
+
+The pages describe no traffic limit on the Free offer. Its limits are about what you can protect: the number of domains and subdomains, and the domain level. If you need more, you move to the Advanced offer, and the Control Panel has an upgrade button for that.
+
+You must point your DNS at the gateway. If you do not change the A record within 3 days of the order, the order is cancelled. DNS changes can take up to 24 hours to work. The pages do not say whether the Free order needs a payment method, only that you follow the steps until you pay for the order.
+
+## Gotchas
+
+- SSL Gateway is not compatible with OVHcloud web hosting plans. Those have their own SSL certificate tools.
+- You can pick only one IP address when ordering, even if your domain has several. Extra IPs are an Advanced feature.
+- The Free offer cannot load balance or give you a dedicated IP, and your domain must be up to level 3.
+
+## Alternatives in this atlas
+
+- [Cloudflare](/services/cloudflare/): when you want a free CDN and proxy with HTTPS in front of any host.
+- [Let's Encrypt](/services/let-s-encrypt/): when you would rather install a free certificate on your own server.
+- [SSLabs.com](/services/sslabs-com/): when you only need to test how well your HTTPS setup is configured.
+
+## Questions people ask
+
+### Is OVH SSL Gateway free?
+
+Yes, there is a Free offer. It covers a main domain, a www subdomain, and one more subdomain, with a Let's Encrypt certificate.
+
+### Can OVH SSL Gateway Free protect a level-4 domain?
+
+No. The Free offer only allows domains up to level 3. Level-4 domains and higher need the Advanced offer.
+
+### Does OVH SSL Gateway work with OVHcloud web hosting?
+
+No. The docs say SSL Gateways are not compatible with OVHcloud web hosting offers. Use the SSL tools of the hosting plan instead.

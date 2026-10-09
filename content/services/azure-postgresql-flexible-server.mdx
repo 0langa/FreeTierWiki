@@ -1,8 +1,9 @@
 ---
 title: Azure PostgreSQL Flexible Server
 description: >-
-  Managed PostgreSQL database service with flexible scaling, high availability,
-  and built-in security on Azure.
+  Azure Database for PostgreSQL flexible server is a managed PostgreSQL
+  service on Azure. It is for developers who want PostgreSQL without running
+  the server, backups, and patching themselves.
 provider: Azure
 category: database
 domain: database
@@ -17,8 +18,13 @@ audiences:
   - enterprise
   - oss
 tags:
-  - database
-  - cloud
+  - postgresql
+  - managed database
+  - azure
+  - flexible server
+  - burstable
+  - sql
+  - 12 months free
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -30,7 +36,9 @@ freeTierDetails:
     - 32 GB backup storage
     - Free for 12 months (new customers only)
   caveats:
-    - Free tier only available to new Azure free account customers for 12 months
+    - The free amount is for new Azure customers only and lasts 12 months
+    - After 12 months, or above the monthly free amounts, usage is billed at pay-as-you-go rates
+    - The Azure free account asks for card verification, and a temporary authorization may appear on the card
   resetPeriod: monthly
   requiresCard: true
   freeTierType: time-limited
@@ -40,49 +48,84 @@ freeTierDetails:
     - Exceeding limits or the 12-month period incurs standard pay-as-you-go charges
   trialDays: 365
 useCases:
-  - Developing and testing PostgreSQL applications
-  - Hosting small production databases
+  - A development or test PostgreSQL database
   - Learning PostgreSQL on Azure
+  - A small app backend that needs a relational database
+  - Trying PostgreSQL features before moving to a larger plan
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - >-
-    Navigate to 'Create a resource' and select 'Azure Database for PostgreSQL
-    Flexible Server'.
-  - >-
-    Choose the 'Burstable B1ms' compute tier and configure storage within free
-    limits.
-  - Select a supported region and complete required settings.
-  - Review and create the server.
-  - Connect to your PostgreSQL server using provided connection details.
+  - 'Create an Azure account. New customers get the free monthly amounts for 12 months, and sign-up asks for card verification.'
+  - 'Sign in to the Azure portal, choose Create a resource, then Databases, then Azure Database for PostgreSQL flexible server, and select Create.'
+  - 'Fill in subscription, resource group, a globally unique server name, region, and PostgreSQL version.'
+  - 'Set the workload type to Development so the server uses a Burstable size, and pick the Burstable B1ms compute tier within the free amount.'
+  - 'Set an admin username and password, review, and create. Then connect with a PostgreSQL client on port 5432.'
 whenToUse: >-
-  Use when you need a managed PostgreSQL database with minimal setup and
-  predictable free-tier limits for development or small workloads.
+  Use it for development, testing, or learning when you want managed
+  PostgreSQL on Azure and are a new Azure customer inside your first 12
+  months.
 whenNotToUse: >-
-  Avoid if you require advanced performance, large-scale production, or
-  multi-region deployments beyond free-tier constraints.
+  Skip it if you are not a new Azure customer, since the free amount is for
+  new customers only. Skip it for long-term free hosting, because the free
+  amount ends after 12 months.
 bestFor:
-  - development
-  - testing
-  - learning
-  - small production workloads
+  - development and testing
+  - learning PostgreSQL
+  - short-term small workloads
 avoidIf:
-  - high performance
-  - large scale
-  - multi-region
-  - no credit card
+  - You are not a new Azure customer
+  - You need free hosting past 12 months
+  - You need a server without a card on file
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/'
 sourceUrls:
-  - >-
-    https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/
+  - 'https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/'
   - 'https://azure.microsoft.com/en-us/free/'
+  - 'https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/'
+  - 'https://learn.microsoft.com/azure/postgresql/configure-maintain/quickstart-create-server'
 featured: false
-lastVerified: 2026-09-28
-pricingUrl: 'https://azure.microsoft.com/en-us/free/'
+lastVerified: 2026-10-09
+pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/'
 ---
-Azure PostgreSQL Flexible Server offers a managed PostgreSQL experience with a generous 12-month free tier for new customers, ideal for development, testing, and small production workloads. It expires after 12 months. Using more than the free compute or storage, or continuing past 12 months, is billed, so monitor usage.
+You create and manage the server in the Azure portal, then connect with any PostgreSQL client or driver. It suits developers who are new to Azure and want a managed PostgreSQL to learn or test on.
+
+## What the free plan gives you
+
+New Azure customers get free monthly amounts of 20 or more popular services for 12 months. For Azure Database for PostgreSQL, that is 750 hours per month of a Flexible Server Burstable B1MS instance, plus 32 GB of storage and 32 GB of backup storage. The amounts reset every month.
+
+You can get this through a pay-as-you-go account or through the Azure free account. The free account adds a $200 credit that you must use within 30 days. The Azure page says your card is not charged on the free account, though a temporary $1 authorization may appear during sign-up.
+
+## When you hit a limit
+
+The free amount is a monthly allowance, not a hard cap. Hours, storage, and backup storage above the allowance are billed at pay-as-you-go rates. The same happens when the 12 months end. Run one Burstable B1MS server to stay inside the 750 hours.
+
+Check your usage in the Azure portal so a second server or larger disk does not create a charge.
+
+## Gotchas
+
+- The 12-month free amount is only for new Azure customers.
+- The Development workload type uses Burstable sizes, and Production uses General Purpose or Memory Optimized, which fall outside the free offer.
+- Turning on high availability adds a standby server, which is not part of the free amount.
+
+## Alternatives in this atlas
+
+- [Azure SQL Database](/services/azure-sql-database/): when you prefer SQL Server and want an always-free serverless allowance on Azure.
+- [Neon](/services/neon/): when you want serverless PostgreSQL without an Azure subscription.
+- [Supabase](/services/supabase/): when you want Postgres together with auth and storage.
+
+## Questions people ask
+
+### Is Azure Database for PostgreSQL flexible server free?
+
+It is free for new Azure customers for 12 months, within 750 hours of a B1MS Burstable instance, 32 GB of storage, and 32 GB of backup storage each month.
+
+### What happens after the 12 months?
+
+Standard pay-as-you-go prices apply to the server. The same goes for any usage above the monthly free amounts during the 12 months.
+
+### Does Azure PostgreSQL free tier need a credit card?
+
+The Azure free account asks for card verification, and a temporary $1 authorization may appear and then be reversed. The page says the card is not charged on the free account.

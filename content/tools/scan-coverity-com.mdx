@@ -1,8 +1,10 @@
 ---
 title: Scan.coverity.com
 description: >-
-  Scan.coverity.com offers free static code analysis for open source projects to
-  detect security and quality defects.
+  Coverity Scan runs Black Duck's Coverity static analysis on registered open
+  source projects and shows the defects it finds. It checks Java, C/C++, C#,
+  JavaScript, Ruby, and Python code for bugs such as leaks and NULL
+  dereferences.
 provider: Coverity
 category: devops
 domain: devops
@@ -17,20 +19,35 @@ audiences:
   - startup
   - team
 tags:
-  - security
-  - open-source
-  - ci-cd
+  - static analysis
+  - coverity
+  - security scanning
+  - open source
+  - defect detection
+  - code quality
+  - memory leaks
 pricingModel: free
 freeTierDetails:
-  summary: Free static code analysis for qualifying open source projects.
+  summary: Free static analysis for registered open source projects. Weekly build
+    limits depend on code size, from 28 builds per week for projects under 100K
+    lines to 7 for projects over 1 million lines. No billing for approved
+    projects.
   limits:
-    - Only for open source projects
-    - Project must be publicly available
-    - Requires project registration and approval
-    - Builds per week depend on code size (28 under 100K lines, 7 over 1M lines)
+    - Only registered open source projects
+    - 'Under 100K lines: up to 28 builds per week, 4 per day'
+    - '100K to 500K lines: up to 21 builds per week, 3 per day'
+    - '500K to 1 million lines: up to 14 builds per week, 2 per day'
+    - 'Over 1 million lines: up to 7 builds per week, 1 per day'
+    - API upload limit of 500MB per build, with a separate endpoint for larger
+      builds
   caveats:
-    - Not available for private or commercial codebases
-    - Manual approval process may delay access
+    - Projects must be registered and approved
+    - Not available for private or closed-source code
+    - Projects run by for-profit corporations may be approved at Black Duck's
+      discretion
+    - Detailed results are usually visible only to approved project members
+      until defects are resolved; Black Duck may set a date to publish full
+      results
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -38,41 +55,85 @@ freeTierDetails:
   billingRiskNotes:
     - No billing or overage risk for approved open source projects
 useCases:
-  - Detecting security vulnerabilities in open source code
-  - Improving code quality for public repositories
-  - Integrating static analysis into CI pipelines
+  - Find resource leaks and NULL dereferences in a C or C++ project
+  - Review security defects before a release
+  - Scan a Java, C#, JavaScript, Ruby, or Python open source project
+  - Upload a scheduled build for analysis from your own build machine
 quickstartSteps:
-  - Sign up for a Scan.coverity.com account.
-  - Register your open source project and provide repository details.
-  - Wait for project approval by the Coverity team.
-  - Download and configure the Coverity analysis tool.
-  - Run analysis and upload results to Scan.coverity.com.
+  - Go to scan.coverity.com and sign up for free.
+  - Check whether your project is already registered. If not, click Add project
+    and fill out the registration form, then wait for approval.
+  - After approval, download the Coverity software that Scan provides for
+    submitting builds.
+  - Run a build of your code with the Coverity software on your own machine.
+  - Submit the build to Scan, by upload or through the API, and read the defect
+    results in Scan.
 whenToUse: >-
-  Use when you need free, automated static analysis for open source projects to
-  find security and quality issues.
+  Use Coverity Scan when you maintain an open source project and want deep
+  static analysis that follows all execution paths, at no charge, and you can
+  wait for project approval.
 whenNotToUse: >-
-  Do not use for private, commercial, or closed-source projects, or if you need
-  immediate onboarding without approval delays.
+  Avoid it for private or closed-source code, because Scan only serves
+  registered open source projects. Avoid it if you need results on every commit:
+  weekly build limits apply and extra builds are rejected.
 bestFor:
   - open source maintainers
-  - security-focused developers
-  - CI/CD users
+  - C and C++ projects with hidden memory bugs
+  - security-minded project teams
 avoidIf:
-  - you need analysis for private code
-  - you require instant access
-  - your project is not open source
+  - closed-source code
+  - you need instant onboarding
+  - you need many builds per day on a large codebase
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://scan.coverity.com/'
 docsUrl: 'https://scan.coverity.com/faq'
 sourceUrls:
-  - 'https://scan.coverity.com/'
-  - 'https://scan.coverity.com/faq'
+  - https://scan.coverity.com/
+  - https://scan.coverity.com/faq
 pricingUrl: 'https://scan.coverity.com/'
 featured: false
 ---
-Scan.coverity.com provides free static code analysis for open source projects, helping maintainers find and fix security and quality issues before release.
+You register your project on scan.coverity.com, build it with Coverity's software on your own machine, and upload the build. Scan then analyzes it in Black Duck's service and shows the defects. It suits maintainers of open source code.
+
+## What the free plan gives you
+
+Coverity Scan is free for registered open source projects. Black Duck offers the analysis results at no charge to registered open source developers. The service finds defects in Java, C/C++, C#, JavaScript, Ruby, and Python code. Examples include resource leaks, NULL pointer dereferences, incorrect API use, use of uninitialized data, and memory corruption.
+
+The number of builds you can submit each week depends on project size. A project under 100K lines of code can submit up to 28 builds per week, with 4 per day. A project of 100K to 500K lines gets 21 per week, and 500K to 1 million lines gets 14. A project over 1 million lines gets 7 per week, with 1 per day.
+
+## When you hit a limit
+
+Once a project reaches the maximum builds per week, Scan rejects extra build requests. You can submit the build again the following week. The FAQ asks you to email Scan if you have special requirements.
+
+There is no bill, because the service is free for approved open source projects. The API request that uploads a build has a 500MB limit, and a separate endpoint handles larger builds. Scan is only for registered open source projects. For closed-source code, the FAQ points you to Black Duck sales.
+
+## Gotchas
+
+- Projects must meet an open source definition based on the Open Source Initiative. Projects run by for-profit companies may still be approved at Black Duck's discretion.
+- Access to detailed results is usually limited to approved project members, so defects can be fixed before the public sees them. Black Duck may set a date to publish full results.
+- You run the build yourself with Coverity's software. Scan analyzes what you upload, so it does not scan your repository on its own.
+
+## Alternatives in this atlas
+
+- [SonarQube Cloud](/services/sonarcloud-io/): when you want analysis on every pull request for a public open source project.
+- [DeepSource](/services/deepsource/): when you want automated code quality fixes with a free open source plan.
+- [Semgrep](/tools/semgrep/): when you want rule-based code and supply chain scanning for a small team.
+
+## Questions people ask
+
+### Is Coverity Scan free?
+
+Yes, for registered open source projects. Black Duck provides the analysis results at no charge to registered open source developers.
+
+### How many builds can I submit to Coverity Scan?
+
+It depends on code size. A project under 100K lines gets up to 28 builds per week, and a project over 1 million lines gets up to 7.
+
+### Can I use Coverity Scan for private code?
+
+No. Scan is only for open source projects registered with the service. For a non-open-source codebase, the FAQ points you to Black Duck sales.

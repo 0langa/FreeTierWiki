@@ -1,6 +1,8 @@
 ---
 title: Docker Hub
-description: Container image registry and Docker's developer tools.
+description: >-
+  Docker Hub is the public registry where you find, pull, and share container images. It is for
+  anyone who builds or runs containers, alone or in a team.
 provider: Docker
 category: devops
 domain: devops
@@ -11,9 +13,13 @@ audiences:
   - indie
   - startup
 tags:
-  - containers
-  - devops
-  - ci-cd
+  - container registry
+  - docker images
+  - docker pull
+  - docker push
+  - docker login
+  - dockerfile
+  - image hosting
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -24,31 +30,50 @@ freeTierDetails:
     - Unlimited public repositories
     - 1 private repository
   caveats:
-    - 'Without login, pulls are limited to 100 per 6 hours per IP address'
-    - The pricing page shows the pull limit per hour; the usage docs show it per 6 hours
-  resetPeriod: monthly
+    - 'Without login, pulls are limited to 100 per 6 hours per IPv4 address or IPv6 /64 subnet'
+    - >-
+      The pricing page shows 100 pulls per hour, while the usage docs show 200 pulls per 6 hours for
+      Personal; the docs are more detailed
+    - >-
+      Docker says excessive data transfer, pull rates, or storage can lead to throttling or extra
+      charges (fair use)
+    - A multi-arch image counts as one pull for each architecture
+  resetPeriod: rolling 6 hours
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
-  - Host public container images
-  - Pull base images in CI
+  - Pulling official base images such as nginx for a build
+  - Publishing a public image for users or teammates
+  - Sharing one private image with a teammate on the free plan
+  - Pulling images in CI with a logged-in account to get the higher limit
 quickstartSteps:
-  - Create a Docker account.
-  - Run docker login.
-  - Push an image with docker push.
-whenToUse: Use to publish public images and pull base images.
-whenNotToUse: Avoid if CI pulls many images per hour without login.
+  - Create a Docker account and install Docker (Docker Desktop is one option).
+  - 'Search Docker Hub for an image, such as the nginx Docker Official Image.'
+  - 'Run `docker run -p 8080:80 --rm nginx` to pull and run it.'
+  - 'Write a Dockerfile, then run `docker build -t YOUR-USERNAME/nginx-custom .` with your Docker ID.'
+  - >-
+    Sign in (in Docker Desktop or with `docker login`), then run `docker push
+    YOUR-USERNAME/nginx-custom`, which creates the repository if it does not exist.
+whenToUse: >-
+  Use Docker Hub to get official images and to host public images for open-source work or small
+  projects.
+whenNotToUse: >-
+  Avoid relying on anonymous or shared-IP pulls in busy CI, or on the free plan for more than 1
+  private repository.
 bestFor:
-  - open source
-  - individuals
+  - open-source image publishers
+  - individuals pulling base images while logged in
+  - small projects with one private image
 avoidIf:
-  - heavy CI pulls
+  - your CI pulls many images per hour without logging in
+  - you need more than 1 private repository
+  - you need pulls that never hit a rate limit
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://hub.docker.com'
@@ -56,6 +81,9 @@ docsUrl: 'https://docs.docker.com/docker-hub/'
 sourceUrls:
   - 'https://www.docker.com/pricing/'
   - 'https://docs.docker.com/docker-hub/usage/'
+  - 'https://docs.docker.com/docker-hub/usage/pulls/'
+  - 'https://docs.docker.com/docker-hub/quickstart/'
+  - 'https://hub.docker.com'
 pricingUrl: 'https://www.docker.com/pricing/'
 featured: false
 changes:
@@ -63,4 +91,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Log in before pulling in CI to get the higher pull limit.
+You use Docker Hub through the website, Docker Desktop, or the `docker` command line. Pull images to run them, and push your own images to a repository to share them. It suits solo developers, open-source maintainers, and small teams.
+
+## What the free plan gives you
+
+Docker Personal costs $0. The usage docs list a pull rate limit of 200 per 6 hours for a logged-in Personal user, unlimited public repositories, and up to 1 private repository. The pricing page also lists 1 Docker Scout-enabled repo.
+
+Without logging in you can pull, but the limit is 100 per 6 hours for each IPv4 address or IPv6 /64 subnet. The pricing page words the Personal pull limit as 100 pulls per hour, which differs from the docs. This entry uses the docs, because they spell out the 6-hour window.
+
+A pull of a multi-arch image counts as one pull for each architecture.
+
+## When you hit a limit
+
+When you pass the pull rate limit, the pull fails with a message that you have reached your pull rate limit. The message says you can raise the limit by authenticating and upgrading. The limit works over a rolling 6-hour window.
+
+Docker also has an abuse rate limit that applies to every account level equally. It is in the order of thousands of requests per minute. Docker says excessive pulls, data transfer, or storage can lead to throttling or extra charges under its fair use rules.
+
+## Gotchas
+
+- Shared IP addresses matter without login. A CI runner or an office network can share one 100-pull allowance.
+- The pricing page and the usage docs give different pull numbers for Personal, so check the docs page before you plan around a limit.
+- You must be signed in to push an image. Name the image with your Docker ID, for example `YOUR-USERNAME/nginx-custom`.
+
+## Alternatives in this atlas
+
+- [GitLab](/services/gitlab/): when you want your code, CI, and images under one account.
+- [Gemfury](/services/gemfury/): when you host packages for several languages, not only container images.
+- [Koyeb](/services/koyeb/): when you want a place to run a container image from a registry.
+
+## Questions people ask
+
+### Is Docker Hub free?
+
+Yes. Docker Personal costs $0 and gives you unlimited public repositories and 1 private repository.
+
+### What is the Docker Hub pull limit for free accounts?
+
+The usage docs say 200 pulls per 6 hours for a logged-in Personal user, and 100 per 6 hours for users who are not logged in. The pricing page words it as 100 pulls per hour.
+
+### Does Docker Hub need a credit card?
+
+The pricing page shows Personal at $0 and lists no payment step. You need a verified Docker account to follow the quickstart.

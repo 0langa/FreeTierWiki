@@ -1,8 +1,8 @@
 ---
 title: Embrace
 description: >-
-  Embrace provides mobile observability and monitoring for troubleshooting,
-  performance, and user experience optimization.
+  Embrace records real user sessions in mobile and web apps, with crashes,
+  network requests, and performance data tied to each session.
 provider: Embrace
 category: observability
 domain: observability
@@ -17,8 +17,10 @@ audiences:
   - indie
 tags:
   - mobile
-  - monitoring
-  - analytics
+  - rum
+  - crash-reporting
+  - opentelemetry
+  - performance
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,40 +39,82 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor mobile app crashes
-  - Analyze app performance bottlenecks
-  - Track user experience issues
+  - Watch what happened in a user session before a crash
+  - Find slow screens and network requests in a mobile app
+  - Track Core Web Vitals for a web app
+  - Send app data to other tools through open standards
 quickstartSteps:
-  - Sign up for a free Embrace account.
-  - Add the Embrace SDK to your mobile app project.
-  - Configure the SDK with your app credentials.
-  - Deploy your app and start monitoring sessions in the Embrace dashboard.
+  - Log in to the Embrace Dashboard; the pricing page lists a free plan with no card mentioned.
+  - Register your app to get an App ID.
+  - 'Pick the SDK for your platform: Android, iOS, Web, React Native, Unity, or Flutter.'
+  - For iOS, add the SDK to your project with Swift Package Manager.
+  - Initialize the SDK in your application, then run the app.
+  - Open the dashboard to see your first user sessions.
 whenToUse: >-
-  Use Embrace when you need real-time monitoring and troubleshooting for mobile
-  app performance and stability.
+  Use Embrace to see user sessions, crashes, and performance for a small mobile
+  or web app, or for a staging environment.
 whenNotToUse: >-
-  Avoid if you need more than 5 users, more than 1 million sessions per year,
-  or longer than 3-day data retention without upgrading.
+  Avoid it if you need more than 5 users, more than 1 million sessions per year,
+  or more than 3 days of events data on the free plan.
 bestFor:
-  - mobile developers
-  - QA teams
-  - product managers
+  - small mobile apps
+  - staging and development environments
+  - teams of up to 5 people
 avoidIf:
-  - web-only teams
   - backend-only projects
-  - apps with very high session volumes
+  - more than 5 users
+  - high session volumes
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://embrace.io/'
 docsUrl: 'https://docs.embrace.io/'
 sourceUrls:
   - 'https://embrace.io/pricing/'
-  - 'https://docs.embrace.io/docs/getting-started'
+  - 'https://embrace.io/docs/'
+  - 'https://embrace.io/docs/ios/6x/getting-started/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://embrace.io/pricing/'
 ---
-Embrace offers a free tier for mobile app observability, providing essential crash and performance monitoring with a session and retention limit. It is ideal for teams needing actionable insights into mobile app health and user experience, but may not suit projects with high traffic or non-mobile needs.
+You register your app in the Embrace dashboard, add an Embrace SDK to your app, and initialize it. Embrace then records user sessions with crashes, network requests, and performance data. It suits mobile and web teams who want to see what users actually experienced.
+
+## What the free plan gives you
+
+The Free plan is made for small apps and for development or staging environments. It costs $0 and is billed by session use: it is free up to 1 million sessions per year. A session is captured when an app is used in a particular state, such as when it is opened in the foreground.
+
+You get 5 free users, 3 days of events data retention, and up to 100GB of logs ingested per year. Error logs are free, while info, warning, and system logs are charged at paid rates on paid plans. Embrace supports Android, iOS, Web, React Native, Unity, and Flutter.
+
+## When you hit a limit
+
+Embrace is clear about this one. The FAQ says it ingests up to 1 million sessions per year and offers 5 free users. You cannot add more users or ingest more data after you reach either cap, unless you upgrade to a paid plan.
+
+That makes the Free plan a hard cap, not a bill. The Pro plan costs $0.80 per 1,000 sessions with a minimum spend of $80 per month, and it allows up to 10 users.
+
+## Gotchas
+
+- Free retention for events data is only 3 days, while Enterprise lists 30 days.
+- The free plan is meant for small apps and for staging, not for production apps with heavy traffic.
+- The home page notes that Palo Alto Networks completed its acquisition of Embrace, so plan terms could change.
+
+## Alternatives in this atlas
+
+- [Bugsnag](/services/bugsnag/): when you mainly want crash and error reports.
+- [Sentry](/services/sentry/): when you want error tracking across many platforms.
+- [Bugfender](/services/bugfender/): when you want remote device logs for a mobile app.
+
+## Questions people ask
+
+### Is Embrace free?
+
+Yes. The Free plan is free up to 1 million sessions per year, with 5 users and 3 days of events data retention.
+
+### What happens when I reach the Embrace free session cap?
+
+You cannot ingest more data or add more users until you upgrade to a paid plan. The FAQ says this for both the session and user caps.
+
+### Does Embrace need a credit card?
+
+The pricing page does not mention a card for the Free plan. The Pro plan has a minimum spend of $80 per month.

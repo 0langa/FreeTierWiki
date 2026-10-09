@@ -1,8 +1,9 @@
 ---
 title: Smart Vault
 description: >-
-  Smart Vault is an encrypted secrets and environment-variable manager for
-  development teams, with a CLI for local dev and CI/CD.
+  Smart Vault keeps a team's environment variables and credential files in one
+  encrypted place, organized by app and environment, and delivers them to
+  laptops and CI with a CLI.
 provider: Smart Grow
 category: secrets management
 domain: security
@@ -16,9 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - security
-  - secrets
-  - devops
+  - secrets-management
+  - environment-variables
+  - env-files
+  - cli
+  - ci-cd
+  - credential-files
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,52 +31,94 @@ freeTierDetails:
     required.
   limits:
     - 1 organization, 3 apps, 2 environments per app
-    - 50 variables per environment, 2 secure files
+    - 50 variables per environment, 2 secure files per environment
     - 2 API keys
     - Encryption, versioning, CLI, and activity log included
   caveats:
-    - Not end-to-end encrypted — the service decrypts values to answer authorized requests
+    - Not end-to-end encrypted. The service decrypts values to answer authorized requests
+    - Anyone who can read an environment can download its values with the CLI
     - Paid plans from $4.99/month add more apps, environments, and members
-  resetPeriod: none
+    - CLI sessions last 7 days, with up to 5 devices
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Store environment variables and credential files for a small team
-  - Sync secrets into local development and CI/CD pipelines
-  - Roll back recent changes to secret values
+  - Replacing shared .env files with one source of truth for a small team
+  - Pulling variables onto a laptop with one command
+  - Giving a CI pipeline read-only access to one environment with an API key
+  - Storing certificate and key files next to the variables
+  - Rolling back a variable to an earlier version
 quickstartSteps:
-  - Sign up for a free Smart Vault account.
-  - Install the CLI and run smart-grow cloud_login.
-  - Create an environment and add your secrets.
-  - Run smart-grow cloud_download to pull secrets locally or in CI.
-  - Manage device access and API keys from the dashboard.
+  - Open vault.smart-grow.app and choose Start for free. No credit card is needed.
+  - Create an organization, then an application, then an environment such as production.
+  - Add variables, and upload secure files such as a certificate if you need them.
+  - Install the CLI with `npm install -g @smart-dev-agency/smart-grow-secure-cli`, then run `smart-grow cloud_login` and approve the device in the browser.
+  - Run `smart-grow cloud_download` to write the variables to smart-grow.env. In CI, use an API key with `cloud_sync` instead.
 whenToUse: >-
-  Use Smart Vault to store and share environment variables and credential
-  files securely for a small team, with CLI access for local dev and CI/CD.
+  Use Smart Vault to share environment variables and credential files with a
+  small team, with a CLI for laptops and CI.
 whenNotToUse: >-
-  Avoid if you need end-to-end encryption (the service can decrypt values) or
-  more than one organization on the free plan.
+  Avoid it if you need end-to-end encryption, because the service decrypts
+  values to serve requests, or if you need more than 3 apps or 1 organization on
+  the free plan.
 bestFor:
   - small teams
   - indie developers
-  - CI/CD secret syncing
+  - CI secret syncing
 avoidIf:
-  - need end-to-end encryption
-  - need more than 1 free organization
-  - enterprise compliance
+  - you need end-to-end encryption
+  - you need more than 3 apps on a free plan
+  - you need enterprise compliance
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 3
 usefulnessScore: 4
 officialUrl: 'https://vault.smart-grow.app/'
-docsUrl: 'https://docs.vault.smart-grow.app'
+docsUrl: 'https://vault.smart-grow.app/docs'
 sourceUrls:
   - 'https://vault.smart-grow.app/'
+  - 'https://vault.smart-grow.app/docs'
+  - 'https://vault.smart-grow.app/docs/cli'
 pricingUrl: 'https://vault.smart-grow.app/'
 featured: false
 ---
-Smart Vault (previously listed here as "Smart Grow Vault") is an encrypted secrets and environment-variable manager for teams, not a plant-tracking app as earlier described. The free plan covers one organization and two API keys with no card required.
+You manage organizations, apps, and environments in a web dashboard, and pull values with the `smart-grow` command-line tool. A scoped API key does the same in a pipeline. It suits small teams that share .env files today.
+
+## What the free plan gives you
+
+The Free plan costs $0 and needs no credit card. It covers 1 organization, 3 apps per organization, and 2 environments per app. Each environment holds 50 variables and 2 secure files, such as a .pem or .p12 certificate. You can create 2 API keys.
+
+Every plan includes encryption, versioning, the CLI, and the activity log. You can compare versions and roll back a change, and you can download your variables as a JSON or .env file whenever you want. Access can be set by role and by environment.
+
+## When you hit a limit
+
+The site does not say what happens when you reach a cap, such as a fourth app or a variable beyond the 50 in an environment. The free plan is a fixed set of numbers and needs no card, so the page shows no way to get billed. Paid plans start at $4.99 a month and add more apps, environments, and members. Moving up is the only path the site describes, so plan to upgrade or split projects before you reach a cap.
+
+## Gotchas
+
+- Smart Vault is not end-to-end encrypted. The service decrypts values to answer authorized requests.
+- Values are masked in the dashboard, but anyone who can read an environment can download its values with the CLI.
+- A CLI session lasts 7 days, and you can have up to 5 devices. Sign in again when a session ends.
+
+## Alternatives in this atlas
+
+- [Doppler](/services/doppler/): when you want to compare another hosted secrets manager.
+- [Infisical](/services/infisical/): when you want an open source secrets manager.
+- [SikkerKey](/services/sikkerkey/): when you want each machine to have its own signed identity.
+
+## Questions people ask
+
+### Is Smart Vault free?
+
+Yes. The Free plan costs $0 with no credit card. It covers 1 organization, 3 apps, and 2 API keys.
+
+### Does Smart Vault work in CI/CD?
+
+Yes. Create an API key limited to the environments your pipeline needs, and run the `cloud_sync` command in your runner.
+
+### Is Smart Vault end-to-end encrypted?
+
+No. The service decrypts values to answer authorized requests. Values are encrypted at rest and travel over a post-quantum encrypted channel on top of HTTPS.

@@ -1,8 +1,8 @@
 ---
 title: ROBOHASH
 description: >-
-  ROBOHASH generates unique robot-themed images from any text input via a simple
-  API.
+  Robohash turns any text into a unique robot, monster, kitten, or avatar image
+  through a plain image URL. It is for placeholder avatars in prototypes and small sites.
 provider: ROBOHASH
 category: design
 domain: design
@@ -16,56 +16,104 @@ audiences:
   - startup
   - oss
 tags:
-  - images
-  - api
+  - robohash
+  - avatar generator
+  - placeholder images
+  - identicon
+  - image api
+  - gravatar
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free API with no authentication and no stated rate limit; images are
-    CC-BY licensed.
+    Robohash is free to use through image URLs, with no sign-up and no stated
+    rate limit. The images are CC-BY licensed, so give credit when you embed them.
   limits:
-    - No authentication required
-    - No documented hard rate limits
-    - Images are CC-BY licensed; attribution is expected
+    - No authentication or account required
+    - No documented hard rate limit
+    - Images are CC-BY licensed, and the site asks you to mention where they came from
   caveats:
-    - The provider may add a banner to images if bandwidth grows too high
+    - The site says it might add a small banner to images if bandwidth gets very high
+    - The artwork sets have different Creative Commons licenses from the MIT-licensed code
+    - For high-volume or production use, the project suggests hosting your own instance with Docker
   freeTierType: always-free
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Generating unique user avatars
-  - Placeholder images for prototypes
-  - Fun visualizations for apps
-  - Gamification elements
+  - Unique default avatars for users, keyed by username or email
+  - Placeholder images for mockups and prototypes
+  - Fun profile pictures for forums and games
+  - Visual fingerprints for IDs, IP addresses, or file names
 quickstartSteps:
-  - 'Choose a text string (e.g., username or email).'
-  - 'Construct a URL: https://robohash.org/{your-text}.png'
-  - Embed the URL in your app or website to display the generated image.
+  - Pick any text, such as a username, email, user ID, or file name.
+  - Build the image URL `https://robohash.org/YOUR-TEXT.png`, or change the extension to get another format.
+  - Add options to the URL, for example `?set=set3` for a robot set, `?size=200x200` for size, or `?bgset=bg1` for a background.
+  - Embed the URL in an `img` tag in your app or site.
+  - Add a credit line such as "Robots lovingly delivered by Robohash.org" because the images are CC-BY.
 whenToUse: >-
-  Use ROBOHASH when you need quick, unique placeholder or avatar images without
-  authentication or setup.
+  Use it when you want unique placeholder or avatar images from a plain URL,
+  with no key and no setup.
 whenNotToUse: >-
-  Avoid for high-security needs, or if you require custom image styles or
-  guaranteed uptime.
+  Avoid it when you need custom styles, guaranteed uptime, or a service you can
+  count on at high traffic without hosting it yourself.
 bestFor:
   - prototyping
+  - default user avatars
   - student projects
   - open source apps
-  - personal websites
 avoidIf:
   - strict branding
-  - enterprise compliance
+  - need guaranteed uptime
+  - high-volume production without self-hosting
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://robohash.org/'
-docsUrl: 'https://docs.robohash.org'
+docsUrl: 'https://github.com/e1ven/Robohash'
 sourceUrls:
   - 'https://robohash.org/'
+  - 'https://github.com/e1ven/Robohash'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://robohash.org/'
 ---
-ROBOHASH is a free service that generates unique robot-themed images from any text, ideal for avatars or placeholders in prototypes and personal projects.
+You use Robohash with a URL. Put your text in the path and the service returns a PNG image, so no SDK or sign-up is needed. It suits developers who want default avatars or placeholder pictures.
+
+## What the free plan gives you
+
+Robohash has no plans. The home page says the service is provided for free, and you do not need an account or API key. The same text always produces the same image, so you can key avatars to a username, email, or ID.
+
+You can change the look with URL options. Different sets give robots, monsters, floating heads, kittens, humans, and gorillas. You can request other file formats, use `size` for dimensions such as 200x200 or 500x500, add a background with `bgset`, or ask Robohash to use a Gravatar when one exists.
+
+## When you hit a limit
+
+The site states no rate limit and no quota. The only warning is about bandwidth. The owner says that if bandwidth gets crazy, a small banner might be added to the bottom of the images.
+
+For high-volume or production use, the project README suggests hosting your own instance with Docker. The code is available under the MIT license, and there are pre-built Docker images on GitHub's container registry. The artwork sets carry their own Creative Commons licenses.
+
+## Gotchas
+
+- The images are CC-BY. Credit Robohash when you embed them, for example with the line "Robots lovingly delivered by Robohash.org".
+- If you use `set=any`, new sets may change existing hashes. Name a set or list of sets to keep an image stable.
+- The site makes no uptime promise, so cache images or host your own copy for anything important.
+
+## Alternatives in this atlas
+
+- [Cloudflare Images](/services/cloudflare-images/): when you want to host and resize your own avatar images.
+- [Metashot](/services/metashot/): when you want to render custom images from templates.
+- [Penpot](/tools/penpot/): when you want to design your own avatar artwork.
+
+## Questions people ask
+
+### Is Robohash free?
+
+Yes. The site provides its service for free, with no sign-up and no API key. The images are CC-BY licensed, so you should credit Robohash.
+
+### Does Robohash have a rate limit?
+
+The site states none. It says it might add a small banner to images if bandwidth gets very high, and it suggests self-hosting with Docker for high-volume use.
+
+### Can I use Robohash images in a commercial project?
+
+The README says the images are free for personal and commercial use under the CC-BY license. Check the license of each artwork set and give credit.

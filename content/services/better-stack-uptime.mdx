@@ -1,8 +1,8 @@
 ---
 title: Better Stack Uptime
 description: >-
-  Monitors website and service uptime with incident alerts, status pages, and
-  integrations.
+  Better Stack Uptime checks your websites and APIs, alerts you when they go
+  down, and publishes a status page for your users.
 provider: Better Stack
 category: observability
 domain: observability
@@ -16,7 +16,11 @@ audiences:
   - team
   - oss
 tags:
+  - uptime
   - monitoring
+  - status-page
+  - heartbeat
+  - alerts
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan includes 10 monitors/heartbeats, 1 status page, and Slack/email alerts.'
@@ -32,33 +36,36 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor website uptime
-  - Receive downtime alerts
-  - Publish public status pages
+  - Check that a website or API answers with a success status
+  - Get a Slack or email alert when it goes down
+  - Watch cron jobs with heartbeat monitors
+  - Publish a public status page
+  - Review uptime history
 quickstartSteps:
-  - Sign up for a Better Stack account.
-  - Add your website or service URL as a new monitor.
-  - 'Configure alerting channels (email, Slack, Teams).'
-  - Set up a status page if desired.
-  - Review uptime reports and receive alerts as needed.
+  - Sign up at betterstack.com and start on the free plan; it needs no credit card.
+  - Open Uptime and create a monitor.
+  - Enter the URL or IP address to monitor in the "URL to monitor" field; the guide uses an HTTP status code monitor.
+  - Pick who gets notified and the channel; on the free plan use Slack or email.
+  - Click Create monitor so it starts checking the URL.
+  - Add your status page to show the result to users.
 whenToUse: >-
-  Use when you need simple, reliable uptime monitoring and public status pages
-  for websites or APIs.
+  Use it when you want simple uptime checks, Slack or email alerts, and one
+  public status page for a personal or small project.
 whenNotToUse: >-
-  Avoid if you require SMS/phone alerts, more than 1 status page, or need to
-  monitor more than 10 services for free.
+  Avoid it if you need SMS or phone alerts for free, more than 1 status page, or
+  more than 10 monitors and heartbeats.
 bestFor:
   - personal projects
   - small teams
   - open source projects
 avoidIf:
-  - need SMS/phone alerts
-  - require advanced integrations
-  - monitoring large fleets
+  - you need SMS or phone alerts without paying
+  - you monitor more than 10 endpoints
+  - you need more than 1 status page
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://betterstack.com/better-uptime'
@@ -67,6 +74,45 @@ pricingUrl: 'https://betterstack.com/pricing'
 sourceUrls:
   - 'https://betterstack.com/pricing'
   - 'https://betterstack.com/better-uptime'
+  - 'https://betterstack.com/docs/uptime/monitoring-start/'
 featured: false
 ---
-Better Stack Uptime provides free monitoring for up to 10 services with 1 status page and Slack/email alerts, ideal for small projects and teams.
+You manage Better Stack Uptime in a web dashboard, and a Terraform provider and REST API exist on paid plans. It suits people who want a quick uptime check and a public status page for a personal or small project.
+
+## What the free plan gives you
+
+The free plan is called "Free for personal projects" and costs $0 per month. It includes 10 monitors and heartbeats and 1 status page. Alerts go out by Slack and email. The product page says checks run every 3 minutes on the free plan.
+
+The same free account also includes Telemetry limits: 100,000 exceptions per month, 5,000 session replays, and 3 GB each of logs, traces, and web events kept for 3 days, plus 30 GB of metrics. Team members are unlimited.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you try to add an eleventh monitor or a second status page. It lists paid extras instead: an additional public status page costs $15 per month, billed monthly.
+
+Phone call and SMS alerts are not part of the free plan. They need a Responder license, which starts at $34 per license per month billed monthly, or $29 billed yearly.
+
+## Gotchas
+
+- The free plan is described as for personal projects, so read the terms before you use it for a company.
+- Slack and email alerts are free, but phone calls and SMS need a paid Responder license.
+- The status page on the free plan is a single page, and extras like removing the Better Stack footer, password protection, and SSO are paid add-ons.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want a plain uptime monitor with a status page.
+- [Hyperping](/services/hyperping/): when you want monitors and a status page from one small tool.
+- [Instatus](/services/instatus/): when the status page matters more than the checks.
+
+## Questions people ask
+
+### Is Better Stack Uptime free?
+
+Yes, for personal projects. The free plan costs $0 per month and includes 10 monitors and heartbeats and 1 status page.
+
+### Does Better Stack Uptime send SMS or phone alerts for free?
+
+No. The free plan sends Slack and email alerts. Phone call and SMS alerts need a paid Responder license.
+
+### How often does Better Stack check my site on the free plan?
+
+The product page says every 3 minutes. Paid plans list checks as fast as every 30 seconds.

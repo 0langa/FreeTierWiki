@@ -1,6 +1,8 @@
 ---
 title: Zilliz Cloud
-description: Managed Milvus vector database for similarity search and RAG.
+description: >-
+  Zilliz Cloud is the managed version of the open-source Milvus vector database.
+  The Free cluster is for learning and personal projects with vector search and RAG.
 provider: Zilliz
 category: database
 domain: database
@@ -12,46 +14,70 @@ audiences:
   - indie
   - startup
 tags:
+  - zilliz
+  - milvus
+  - vector database
+  - similarity search
+  - rag
   - database
-  - ai
-  - search
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 5 GB storage and 2.5M vCUs per month on serverless.'
+  summary: >-
+    The Free plan costs $0 and includes 5 GB of storage, 2.5M vCUs per month,
+    and up to 5 collections. Each organization can have 1 Free cluster.
   limits:
-    - 5 GB storage
-    - 2.5 million vCUs per month (vCU = compute unit for reads and writes)
+    - 5 GB of storage, enough for about 1M vectors of 768 dimensions
+    - 2.5M vCUs per month for reads and writes
+    - Up to 5 collections
+    - 1 Free cluster per organization
+    - Community support through Slack
   caveats:
-    - Dedicated clusters are paid; a 30-day trial and $200 credits are offered for them
+    - Serverless and Dedicated clusters are paid; a 30-day free trial with credits is offered for them
+    - When the trial ends without a payment method, the organization is frozen and trial clusters are recycled, then deleted after 30 days
+    - Community support only on the Free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - RAG vector store
+  - A vector store for RAG prototypes
   - Image or text similarity search
+  - Learning Milvus without running it yourself
+  - Semantic search over a small document set
 quickstartSteps:
-  - Sign up at cloud.zilliz.com.
-  - Create a free serverless cluster.
-  - Insert vectors with the Milvus SDK.
-whenToUse: Use when you want a hosted Milvus with a free serverless tier.
-whenNotToUse: Avoid if you need dedicated performance for free.
+  - Sign up at Zilliz Cloud with a work email and a confirmation code, or link a Google or GitHub account. GitHub needs a public email address.
+  - Create a Free cluster from the console and wait for its status to become Running.
+  - Save the cluster credentials shown during creation. The password appears only once.
+  - Connect with the Milvus client, for example `MilvusClient` from `pymilvus`, using the cluster endpoint and credentials.
+  - Create a collection, insert vectors, and run a search.
+whenToUse: >-
+  Use it when you want a hosted Milvus for learning or a small vector search
+  project, with a free cluster that needs no card.
+whenNotToUse: >-
+  Avoid the Free plan for production or for data larger than 5 GB. Free clusters
+  are not for apps that need dedicated performance.
 bestFor:
-  - RAG
+  - RAG prototypes
   - semantic search
+  - learning Milvus
 avoidIf:
   - large production indexes
+  - need dedicated performance
+  - more than 5 collections
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://zilliz.com/cloud'
 docsUrl: 'https://docs.zilliz.com'
 sourceUrls:
   - 'https://zilliz.com/pricing'
+  - 'https://docs.zilliz.com/docs/free-trials'
+  - 'https://docs.zilliz.com/docs/register-with-zilliz-cloud'
+  - 'https://docs.zilliz.com/docs/free-and-serverless-clusters'
 pricingUrl: 'https://zilliz.com/pricing'
 featured: false
 changes:
@@ -59,4 +85,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Zilliz Cloud is the managed version of the open-source Milvus vector database.
+You manage clusters in the Zilliz Cloud console or through its API, and you read and write data with the Milvus SDKs, such as `pymilvus`. It suits developers who want Milvus without running it themselves.
+
+## What the free plan gives you
+
+The Free plan is $0 and is a starting point for learning and personal projects. It includes 5 GB of storage, which the docs say is enough for 1M vectors of 768 dimensions. You also get 2.5M vCUs per month. A vCU measures the resources used by reads such as search and query, and by writes such as insert, upsert, and delete.
+
+The Free cluster allows up to 5 collections, and each organization can have only one Free cluster. Support comes from the community through Slack. For more resources, the docs point you to a free trial of Serverless and Dedicated clusters.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use up the 2.5M vCUs or the 5 GB. For more capacity, you move to a Serverless or Dedicated cluster. Serverless starts from $0 a month on the Standard plan and charges for what you use.
+
+The trial works differently from the Free cluster. A work email signup gets $100 in credits that expire after 30 days. Adding a payment method earns another $100. If the trial ends without a payment method, the organization is frozen and trial clusters go to the recycle bin. They are deleted for good after 30 days.
+
+## Gotchas
+
+- Only one Free cluster is allowed per organization. A second serving cluster must be Serverless or Dedicated.
+- Save the cluster password when you create the cluster. The console shows it only once.
+- The trial credits do not apply to the Free cluster. Treat them as a separate, short test of paid clusters.
+
+## Alternatives in this atlas
+
+- [Pinecone](/services/pinecone/): when you want a serverless index with monthly read and write units.
+- [Qdrant](/services/qdrant/): when you want a free single-node cluster you can size by RAM and disk.
+- [Weaviate Cloud](/services/weaviate-cloud/): when you want hybrid search on a free cluster.
+
+## Questions people ask
+
+### Is Zilliz Cloud free?
+
+Yes. The Free plan costs $0 and includes 5 GB of storage, 2.5M vCUs per month, and up to 5 collections. Each organization can have one Free cluster.
+
+### Does Zilliz Cloud need a credit card for the free plan?
+
+No. The docs say no payment information is required to register. You add a payment method only to earn extra trial credits or to use paid clusters.
+
+### What happens after the Zilliz Cloud free trial?
+
+If you have no payment method, the organization is frozen and trial clusters are recycled. They are deleted permanently after 30 days unless you add a payment method.

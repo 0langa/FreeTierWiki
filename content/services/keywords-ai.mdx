@@ -1,8 +1,6 @@
 ---
 title: Respan
-description: >-
-  Respan (formerly Keywords AI) is an LLM engineering platform: an AI gateway,
-  observability, and evals tool for LLM apps and agents.
+description: 'Respan, formerly Keywords AI, is an AI gateway with built-in tracing, evals, and security testing for LLM apps and agents. It suits developers who ship AI features and need to see what their models do.'
 provider: Respan
 category: ai
 domain: ai
@@ -16,10 +14,12 @@ audiences:
   - agency
   - team
 tags:
-  - ai
-  - llm
-  - api
-  - monitoring
+  - 'llm observability'
+  - 'ai gateway'
+  - 'llm tracing'
+  - 'llm evals'
+  - 'prompt management'
+  - 'ai agents'
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -39,35 +39,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Routing LLM calls through one gateway with automatic fallbacks
-  - Tracing and debugging AI agent calls
-  - Scoring model or prompt output quality with evals
-  - Monitoring cost, latency, and error rate across providers
+  - 'Routing LLM calls through one gateway with fallbacks'
+  - 'Tracing each step of an AI agent run'
+  - 'Scoring outputs with evaluators and test sets'
+  - 'Tracking cost, latency, and errors across models'
+  - 'Testing an agent against adversarial messages before launch'
 quickstartSteps:
-  - Sign up for a free Respan account.
-  - Get an API key from the dashboard.
-  - Point your existing OpenAI-compatible SDK at the Respan gateway endpoint.
-  - Set up an evaluator to score outputs against a test set.
-  - Watch requests, cost, and errors on the monitoring dashboard.
-whenToUse: >-
-  Use Respan when you need an LLM gateway with built-in observability and
-  evals for AI apps or agents, without building that tooling yourself.
-whenNotToUse: >-
-  Avoid if you need unlimited logs, longer retention, or enterprise
-  compliance features beyond the free tier limits.
+  - 'Create a free account at platform.respan.ai. No credit card is needed.'
+  - 'In the platform, go to Gateway, then API keys, click New key, and copy it.'
+  - 'Set the key as the environment variable RESPAN_API_KEY.'
+  - 'Install the SDK next to your LLM SDK: pip install respan-ai openai for Python, or npm install @respan/respan openai for TypeScript.'
+  - 'Create a Respan() client once, before your first model call.'
+  - 'Run your app and open Logs in the platform to see the first trace.'
+whenToUse: 'Use Respan when you want one place for an LLM gateway, tracing, and evals, and your volume fits the free log and score limits.'
+whenNotToUse: 'Avoid it if you need more than 100k logs a month, more than 7 days of log history, or unlimited datasets, evaluators, and prompts on the free plan.'
 bestFor:
-  - LLM app developers
-  - AI agent builders
-  - small teams needing LLM observability
-  - startups
+  - 'LLM app developers'
+  - 'AI agent builders'
+  - 'small teams that need LLM observability'
+  - 'startups'
 avoidIf:
-  - you need more than 100,000 logs/month
-  - require SSO or audit logs
-  - need long log retention
+  - 'more than 100k logs per month'
+  - 'long log retention'
+  - 'unlimited datasets, evaluators, or prompts'
+  - 'SOC 2 reports on the free plan'
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://respan.ai'
@@ -76,6 +75,46 @@ pricingUrl: 'https://respan.ai/pricing'
 sourceUrls:
   - 'https://respan.ai/pricing'
   - 'https://respan.ai'
+  - 'https://respan.ai/docs/documentation/features/tracing/quickstart'
+  - 'https://respan.ai/docs/documentation/admin/credits-billing'
 featured: false
 ---
-Respan (formerly Keywords AI) offers a free plan for its LLM gateway, tracing, and evals platform, ideal for small teams shipping and monitoring AI agents.
+You send your LLM calls through one gateway endpoint, or add the Respan SDK to trace calls you already make. You read the results in a web platform, a command line tool, or an MCP server. It fits developers and small teams who run AI features in production.
+
+## What the free plan gives you
+
+The Free plan costs $0 and covers the full platform. The pricing page says you can start with your team and need no credit card. You get 100k logs and 1k scores per month, 5 datasets, 5 prompts, and 2 evaluators.
+
+Log retention on the Free plan is 7 days. The gateway proxy accepts 412 requests per minute, and ingestion is capped at 412 logs per minute. The Team plan costs $199 per month, billed yearly, and raises these limits. It also allows unlimited datasets, evaluators, and prompts, and it adds a SOC 2 report.
+
+## When you hit a limit
+
+The pricing page lists extra logs at $8 per 100k and extra scores at $1 per 1k. It does not say whether a Free account can buy them or is stopped at the cap. Treat 100k logs as the ceiling and check your usage in the platform.
+
+Gateway calls that use Respan's own provider keys are paid with prepaid gateway credits. When the balance runs out, those requests fail with a 401 error and the code `activation_required`. Requests that use your own provider key keep working.
+
+## Gotchas
+
+- Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Use your own provider keys to avoid buying credits.
+- Logs stay for only 7 days on the Free plan, so export what you need to keep.
+- Team plan features such as a SOC 2 report and a private Slack channel start on the Team plan.
+
+## Alternatives in this atlas
+
+- [Portkey](/services/portkey/): when you want a gateway with a free plan that blocks no requests past its log limit.
+- [Langfuse](/services/langfuse/): when you want tracing and evals without a gateway.
+- [Helicone](/services/helicone/): when you want request logging with a simple free plan.
+
+## Questions people ask
+
+### Is Respan free?
+
+Yes. The Free plan costs $0, needs no credit card, and includes 100k logs and 1k scores per month.
+
+### Is Respan the same as Keywords AI?
+
+Yes. Respan is the new name of Keywords AI, and the pricing page still shows Keywords AI, Inc. in its footer.
+
+### What happens when I run out of gateway credits?
+
+Gateway requests that need Respan's provider keys fail with a 401 error until you add credits. Requests that use your own provider key keep working.

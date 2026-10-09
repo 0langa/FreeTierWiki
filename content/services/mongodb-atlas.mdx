@@ -1,8 +1,8 @@
 ---
 title: MongoDB Atlas
 description: >-
-  MongoDB Atlas is a fully managed cloud database service for deploying,
-  managing, and scaling MongoDB clusters.
+  MongoDB Atlas is a managed cloud database that runs MongoDB on AWS, Azure, or
+  Google Cloud. Its Free cluster suits learning, prototypes, and small apps.
 provider: MongoDB
 category: database
 domain: database
@@ -17,66 +17,114 @@ audiences:
   - team
   - oss
 tags:
+  - mongodb
+  - nosql
+  - document database
   - database
   - cloud
+  - free cluster
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The M0 free cluster is free forever: 512 MB storage, shared RAM/vCPU, 32MB
-    of sort memory, and up to 100 operations per second, no credit card
-    required.
+    The Free cluster costs nothing and has no end date: 512 MB of storage,
+    shared RAM and vCPU, 32 MB of sort memory, and up to 100 operations per
+    second. Atlas pauses it after 30 days with no connections.
   limits:
-    - 512 MB storage (M0 cluster)
-    - Shared RAM and vCPU
-    - 32MB of sort memory
+    - 512 MB of data storage, indexes included
+    - Shared RAM and vCPU; memory and storage are not configurable
     - Up to 100 operations per second
-    - 3-node replica set
+    - 10 GB in and 10 GB out of data transfer per rolling seven days
+    - Up to 500 connections, 100 databases, and 500 collections
+    - One Free cluster per project, as a 3-node replica set
   caveats:
-    - No dedicated resources or advanced features on M0
-    - Limited to specific cloud regions
+    - Atlas pauses a Free cluster after 30 days with zero connections
+    - No backups, no sharding, no private endpoints, and no server-side JavaScript
+    - Free clusters run only in a subset of regions on AWS, Google Cloud, and Azure
+    - You cannot change the cluster with the Clusters API after you create it
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prototyping NoSQL apps
-  - Learning MongoDB
-  - Small web/mobile projects
-  - Open source demos
+  - Learning MongoDB and its query language on a real cloud cluster
+  - Prototyping a document-based backend for a web or mobile app
+  - Storing a small dataset for a demo or open source project
+  - Following a course or tutorial that needs a connection string
 quickstartSteps:
-  - Sign up for a MongoDB Atlas account.
-  - Create a new free M0 cluster.
-  - Configure cluster region and settings.
-  - Add a database user and set access rules.
-  - Connect to the cluster using your preferred driver.
+  - Install the Atlas CLI, for example with `brew install mongodb-atlas` or `choco install mongodb-atlas`, and install MongoDB Shell.
+  - Run `atlas setup` with a cluster name, provider, and region. The command asks you to create an Atlas account if you have none.
+  - Give the command a database username and password so it creates a database user for the new free cluster.
+  - Copy the connection string the command prints.
+  - Connect with `atlas clusters connect` and the `mongosh` option, then run `show dbs` to test the connection.
+  - Connect your app with an official MongoDB client library and the same connection string.
 whenToUse: >-
-  Use when you need a managed MongoDB database for learning, prototyping, or
-  small-scale applications without infrastructure overhead.
+  Use it when you want a hosted MongoDB database for learning, a prototype, or a
+  small app that stays well under 512 MB and 100 operations per second.
 whenNotToUse: >-
-  Avoid if you require high performance, large storage, advanced features, or
-  dedicated resources for production workloads.
+  Avoid it for production traffic, for data that must be backed up by Atlas, for
+  sharded or private-network setups, or for apps that need more than 512 MB.
 bestFor:
-  - prototyping
-  - learning
-  - hobby projects
-  - demos
+  - learning MongoDB
+  - prototypes
+  - small demos
+  - tutorial projects
 avoidIf:
-  - high-traffic production
-  - large datasets
-  - compliance needs
+  - production traffic
+  - datasets above 512 MB
+  - you need automatic backups
+  - you need private networking
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://www.mongodb.com/products/platform/atlas'
 docsUrl: 'https://www.mongodb.com/docs/atlas/'
 pricingUrl: 'https://www.mongodb.com/pricing'
 sourceUrls:
-  - 'https://www.mongodb.com/docs/atlas/free-clusters/'
   - 'https://www.mongodb.com/pricing'
+  - 'https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/'
+  - 'https://www.mongodb.com/docs/atlas/getting-started/'
 featured: false
 ---
-MongoDB Atlas offers a free shared cluster tier suitable for learning, prototyping, and small projects, with easy setup and no credit card required.
+You manage Atlas from a web console, the Atlas CLI, or the Clusters API, and your app talks to it through the official MongoDB drivers. The Free cluster suits students and solo developers who want a real hosted MongoDB without a bill.
+
+## What the free plan gives you
+
+The pricing page lists a Free cluster at no cost, with 512 MB of storage and shared RAM and vCPU. The docs add the rest. Data storage counts uncompressed documents plus their indexes. The cluster is a 3-node replica set, and you cannot change its memory or storage size.
+
+Throughput is capped at 100 operations per second, and sorts in memory are limited to 32 MB. A Free cluster accepts up to 500 connections and holds up to 100 databases and 500 collections. Data transfer is limited to 10 GB in and 10 GB out per rolling seven days. You get one Free cluster per project, in a subset of regions on AWS, Google Cloud, and Azure.
+
+## When you hit a limit
+
+The docs describe throttling, not charges. If you pass the operations per second limit or the transfer limit, Atlas throttles the network speed and adds a one second cooldown on the affected connection before it resumes. Queued work waits its turn, so requests can take more than a second.
+
+Storage works differently. The cap is 0.5 GB, and Free clusters do not expand storage on their own. To get more room, you move to a paid cluster. The docs do not describe what happens to writes the moment you pass the cap.
+
+## Gotchas
+
+- Atlas pauses a Free cluster after 30 days with zero connections. You can resume it, but the docs advise exporting your data if you will not use the cluster for a long time.
+- Free clusters have no backups. The docs point you to `mongodump` and `mongorestore` for manual copies.
+- Free clusters do not support server-side JavaScript, so `$where` and map-reduce do not work. They also block access to the `admin` database collections.
+
+## Alternatives in this atlas
+
+- [Firebase Firestore](/services/firebase-firestore/): when you want a document database with built-in client SDKs and no cluster to manage.
+- [Convex](/services/convex/): when you want a backend with a database and server functions in one place.
+- [Cloudflare D1](/services/cloudflare-d1/): when your data fits a relational model and you already use Workers.
+
+## Questions people ask
+
+### Is MongoDB Atlas free?
+
+Yes. The pricing page lists a Free cluster at no cost, and it says the cluster is free forever. It has 512 MB of storage and shared compute.
+
+### What happens when I go over the MongoDB Atlas free tier limits?
+
+Atlas throttles the cluster when you pass the operations or data transfer limits. The docs describe no charge for this. To get past the storage cap, you upgrade to a paid cluster.
+
+### Does a MongoDB Atlas free cluster pause?
+
+Yes. Atlas pauses a Free cluster after 30 days of inactivity with zero connections. You can usually resume it, unless it ran an old version Atlas cannot restore.

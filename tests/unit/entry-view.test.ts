@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { compareSafety, offerParts, pricingUrl, relatedItems, safetyScore, toListItem } from "@/lib/entry-view";
+import { compareSafety, offerParts, pricingUrl, relatedItems, safetyScore, searchWords, toListItem } from "@/lib/entry-view";
 import { makeEntry, makeItem } from "../support/fixtures";
 
 const now = new Date("2026-09-25T00:00:00Z");
@@ -88,5 +88,11 @@ describe("relatedItems", () => {
     const self = makeEntry();
     const all = [self, makeEntry({ id: "services:e", title: "E", status: "ended" }), makeEntry({ id: "services:b", title: "B" })];
     expect(relatedItems(self, all, now).map((item) => item.title)).toEqual(["B"]);
+  });
+});
+
+describe("searchWords", () => {
+  it("keeps each word once, lowercase, without filler words", () => {
+    expect(searchWords(["Supabase", "Postgres for the web, and Postgres for apps", "next.js", "c#"])).toBe("supabase postgres web apps next.js c#");
   });
 });

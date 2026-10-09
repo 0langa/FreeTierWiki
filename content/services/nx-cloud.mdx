@@ -1,8 +1,9 @@
 ---
 title: Nx Cloud
 description: >-
-  Nx Cloud accelerates and manages distributed builds and caching for Nx
-  monorepos with collaboration features.
+  Nx Cloud shares build and test results between your machines and CI, and can
+  spread CI tasks across several machines. It is for teams that use the Nx
+  build system.
 provider: Nx
 category: devops
 domain: devops
@@ -16,61 +17,106 @@ audiences:
   - team
   - oss
 tags:
+  - remote cache
+  - monorepo
+  - nx
   - ci-cd
-  - devops
+  - distributed builds
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Hobby (free forever) plan includes 50,000 credits per month and 5
-    complimentary contributors, no credit card required.
+    Hobby (free forever) plan includes 50,000 credits per month, 5 contributors,
+    and 10 concurrent CI connections, no credit card required.
   limits:
-    - '50,000 credits/month (resets monthly)'
-    - 5 complimentary contributors
+    - '50,000 credits/month (resets monthly, unused credits do not carry over)'
+    - 5 contributors
+    - 10 concurrent CI connections
     - Community support
   caveats:
     - Credits are Nx Cloud's usage currency; consumption varies by resource class
+    - Nx Cloud features turn off once the monthly credits run out, until the next reset
     - No credit card required for the Hobby plan
+    - Qualifying open source organizations can get Nx Cloud free by contacting Nx
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Speeding up CI for Nx monorepos
-  - Sharing build cache across teams
-  - Optimizing developer workflows
+  - Sharing a remote task cache across developer machines and CI
+  - Running only the tasks affected by a pull request
+  - Spreading CI tasks across several machines with Nx Agents
+  - Finding what slows pull requests down
 quickstartSteps:
-  - 'Sign up for an Nx Cloud account at https://nx.app.'
-  - Install Nx CLI and initialize your monorepo if not already done.
-  - Run 'nx connect-to-nx-cloud' in your project directory.
-  - Follow the prompts to link your workspace to Nx Cloud.
-  - Push changes and verify build caching in your CI pipeline.
+  - Use an Nx workspace; if you have none, `npx nx@latest init` adds Nx to an existing project.
+  - Run `npx nx@latest connect` in the workspace, or sign in to Nx Cloud and connect the repository from the browser.
+  - Authorize the connection when asked, for example with your Git host account.
+  - Run a task twice, such as `nx build`, to see the second run use the cache.
+  - Push the changes, then check cache hits and pull request insights in your CI pipeline.
 whenToUse: >-
-  Use Nx Cloud to accelerate builds and enable remote caching for Nx-based
-  monorepos, especially in collaborative or CI environments.
+  Use it when you have an Nx workspace and want a shared cache or faster CI on
+  the free Hobby plan, up to 5 contributors.
 whenNotToUse: >-
-  Avoid if you do not use Nx or monorepos, or require advanced enterprise
-  features or SLAs.
+  Avoid it if you do not use Nx. Avoid it if you cannot allow Nx Cloud features
+  to switch off for the rest of the month once the credits run out.
 bestFor:
   - Nx monorepo users
-  - teams needing faster CI
+  - small teams
   - open source projects
 avoidIf:
   - not using Nx
-  - require enterprise support
-  - need unlimited seats
+  - features that must never switch off mid-month
+  - enterprise SSO or SLAs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://nx.dev/ci'
 docsUrl: 'https://nx.dev/ci/using-nx-cloud'
 sourceUrls:
-  - 'https://nx.dev/ci/using-nx-cloud'
   - 'https://nx.app/pricing'
+  - 'https://nx.dev/ci'
+  - 'https://nx.dev/ci/using-nx-cloud'
+  - 'https://nx.dev/docs/features/ci-features/remote-cache'
 pricingUrl: 'https://nx.app/pricing'
 featured: false
 ---
-Nx Cloud provides remote build caching and distributed computation for Nx monorepos, helping teams speed up CI and developer workflows with a generous free tier.
+You connect an existing Nx workspace with one command or from the Nx Cloud web app. After that, your normal `nx` commands use the shared cache. It suits small teams and open source projects that already use Nx.
+
+## What the free plan gives you
+
+The Hobby plan is free forever and needs no credit card. It includes 50,000 credits per month, 5 contributors, and 10 concurrent CI connections, with community support. Credits are the usage currency, and each operation costs a different amount depending on the resource class.
+
+The remote cache shares task results across developer machines and CI jobs. A cache hit restores the terminal output and files without running the task again. Nx itself is free and open source. Task running, the project graph, local caching, and `nx affected` all work without an Nx Cloud account.
+
+## When you hit a limit
+
+On the Hobby plan, Nx Cloud features turn off once the monthly credits are gone. They turn back on at the next reset. Unused credits do not carry over. Your own local builds keep working, because local caching does not need Nx Cloud. Nothing is billed on Hobby. The Team plan has no such cap. It costs $29 per month, and usage beyond its included $29 of credit costs $5.50 per 10,000 credits.
+
+## Gotchas
+
+- Credits, not build minutes, set the limit. Check the credit pricing page to see what each operation costs.
+- The Hobby plan covers 5 contributors. On the Team plan, extra contributors cost $19 each.
+- Qualifying open source organizations get Nx Cloud free, but they have to talk to the Nx team to set it up.
+
+## Alternatives in this atlas
+
+- [Buildkite](/services/buildkite/): when you want a CI service with a free plan instead of a build cache.
+- [CircleCI](/tools/circleci/): when you want hosted CI with free monthly credits for any project type.
+- [Cirun.io](/tools/cirun-io/): when you want your own runners for open source builds.
+
+## Questions people ask
+
+### Is Nx Cloud free?
+
+Yes. The Hobby plan is free forever with 50,000 credits per month, 5 contributors, and 10 concurrent CI connections. No credit card is needed.
+
+### What happens when I use up my Nx Cloud credits?
+
+On Hobby, Nx Cloud features turn off until the next monthly reset. Unused credits do not carry over.
+
+### Do I need Nx Cloud to use Nx?
+
+No. Nx is free and open source, and local caching works without an account.

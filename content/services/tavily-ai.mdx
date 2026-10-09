@@ -1,8 +1,6 @@
 ---
 title: Tavily AI
-description: >-
-  Tavily AI provides an API for real-time web search and retrieval to enhance AI
-  and LLM applications.
+description: 'Tavily is a web access API built for AI agents. It offers search, extract, crawl, map, and research endpoints so LLM apps can pull in fresh web content.'
 provider: Tavily
 category: ai
 domain: ai
@@ -17,10 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - web
-  - api
-  - llm
-  - ai
+  - 'web search api'
+  - 'ai search'
+  - 'rag'
+  - 'web scraping api'
+  - 'llm tools'
+  - 'research agent'
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier includes 1,000 API credits per month, no credit card required.
@@ -35,42 +35,83 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Enhancing LLMs with real-time web data
-  - Building chatbots with up-to-date information
-  - Academic research requiring current sources
+  - 'Giving a chatbot fresh web results'
+  - 'Feeding clean page content into a RAG pipeline'
+  - 'Crawling or mapping a website for an AI agent'
+  - 'Running a multi-step research task that returns a report'
+  - 'Fetching clean text from a list of URLs'
 quickstartSteps:
-  - 'Sign up for a free Tavily AI account at https://tavily.com/.'
-  - Verify your email and log in to the dashboard.
-  - Navigate to the API section and generate your API key.
-  - Review API documentation for endpoint usage and parameters.
-  - Make your first API call using your key to test search functionality.
-whenToUse: >-
-  Use Tavily AI when you need to augment AI or chatbot applications with fresh,
-  real-time web search results.
-whenNotToUse: >-
-  Avoid if you require high-volume search, guaranteed uptime, or advanced
-  features beyond the free tier limits.
+  - 'Sign in or create an account on the Tavily platform; no credit card is needed.'
+  - 'Copy an API key from your dashboard.'
+  - 'Install the Python SDK with pip install tavily-python, or call the REST API at https://api.tavily.com/search.'
+  - 'Create TavilyClient(api_key=...) and call search with a question.'
+  - 'Check your credit use in the dashboard; a basic search costs 1 credit.'
+whenToUse: 'Use Tavily when an AI app or agent needs current web results, page content, or crawled sites through one API.'
+whenNotToUse: 'Avoid it for high-volume search. The Free plan stops at 1,000 credits per month, and production rate limits need a paid plan or pay as you go.'
 bestFor:
-  - developers building LLM apps
-  - students needing web retrieval
-  - startups prototyping AI features
+  - 'developers building LLM apps'
+  - 'AI agent prototypes'
+  - 'students (Tavily offers free access for students)'
+  - 'startups testing web retrieval'
 avoidIf:
-  - you need unlimited search
-  - enterprise-grade SLAs
-  - offline or static datasets
+  - 'you need more than 1,000 credits per month for free'
+  - 'you need production rate limits without paying'
+  - 'you need a guaranteed SLA on the free plan'
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://tavily.com/'
 docsUrl: 'https://docs.tavily.com/'
 pricingUrl: 'https://www.tavily.com/pricing'
 sourceUrls:
-  - 'https://tavily.com/'
   - 'https://docs.tavily.com/'
+  - 'https://docs.tavily.com/documentation/api-credits'
+  - 'https://docs.tavily.com/documentation/rate-limits'
+  - 'https://docs.tavily.com/sdk/python/quick-start'
   - 'https://www.tavily.com/pricing'
 featured: false
 ---
-Tavily AI offers a simple API for real-time web search, ideal for augmenting LLMs and chatbots with current information in prototypes and side projects.
+You call Tavily through a REST API, a Python or JavaScript SDK, or the playground in the web dashboard. It fits developers who build chatbots and agents on top of language models.
+
+## What the free plan gives you
+
+The Researcher plan is free and includes 1,000 API credits per month with email support. No credit card is required. Credits reset on the first day of each month.
+
+Each request spends credits based on its type. A basic search costs 1 credit and an advanced search costs 2. Basic extraction costs 1 credit for every 5 successful URLs, and advanced extraction costs 2 credits for every 5. Mapping costs 1 credit for every 10 pages. A research task costs between 4 and 250 credits, depending on the model.
+
+Paid plans start at 4,000 credits for $30 per month. Pay as you go costs $0.008 per credit. The pricing page also lists free access for students.
+
+## When you hit a limit
+
+When you use all 1,000 credits, requests stop until the credits reset or you upgrade to a paid plan. The FAQ says this directly, so the free plan cannot run up a bill.
+
+Rate limits also apply. Production keys, with 1,000 requests per minute, need a paid plan or pay as you go. Without one, expect the development limit of 100 requests per minute. Research tasks are limited to 20 requests per minute. A rate-limited call returns an error, and you should wait for the `Retry-After` header when it is present.
+
+## Gotchas
+
+- Credits are not requests. An advanced search, a crawl, or a research task uses more credits than a basic search.
+- Failed extractions and failed map requests are not charged.
+- The docs list no SLA for the free plan, so do not build a critical service on it.
+
+## Alternatives in this atlas
+
+- [Exa](/services/exa/): when you want search built for AI with monthly free credits.
+- [Firecrawl](/services/firecrawl/): when you mostly need to scrape or crawl pages into clean text.
+- [Jina Reader](/services/jina-reader/): when you want to turn a web page into text without a key for light use.
+
+## Questions people ask
+
+### Is Tavily free?
+
+Yes. The Researcher plan gives you 1,000 API credits per month with no credit card.
+
+### What happens when I run out of Tavily credits?
+
+Requests stop until your credits reset on the first day of the month, or until you upgrade to a paid plan.
+
+### How much does a Tavily search cost in credits?
+
+A basic search costs 1 credit and an advanced search costs 2 credits.

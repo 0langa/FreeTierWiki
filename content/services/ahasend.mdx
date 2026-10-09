@@ -1,14 +1,13 @@
 ---
 title: AhaSend
 description: >-
-  AhaSend provides transactional and marketing email delivery with a generous
-  free tier for small projects and startups.
+  AhaSend is a European service that sends transactional email for apps, such as
+  sign-up confirmations and password resets, through an API or SMTP relay.
 provider: AhaSend
 category: messaging
 domain: messaging
 subtypes:
   - transactional email
-  - marketing email
   - SMTP
   - API
 audiences:
@@ -18,59 +17,108 @@ audiences:
   - oss
 tags:
   - email
-  - api
+  - transactional email
+  - smtp
+  - email api
+  - webhooks
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Send up to 1,000 emails per month for free with 3 sending domains and full API access.'
+  summary: >-
+    Free plan sends 1,000 emails per month with 3 sending domains, the REST API,
+    SMTP relay, and webhooks. No credit card needed.
   limits:
-    - '1,000 emails/month'
-    - 1 to 7-day message retention
+    - 1,000 emails/month
     - 3 sending domains
-    - Full Management API
+    - 1 to 7 days of message and metadata retention
+    - REST API, SMTP relay, sandbox mode, and webhooks included
   caveats:
-    - No dedicated IP on free tier
-    - Community/best-effort support only
+    - No dedicated IP on the Free plan
+    - Community support, best effort only
+    - You must verify a sending domain before you can send
+    - Hourly sending limits start low for new accounts
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Sending transactional emails from web apps
-  - Email notifications for SaaS products
-  - Small-scale marketing campaigns
-quickstartSteps:
-  - Sign up for a free AhaSend account.
-  - Verify your email address and domain.
-  - Create an API key or obtain SMTP credentials.
-  - Integrate AhaSend with your application or email client.
-  - Send a test email to confirm setup.
+  - Sending sign-up confirmations and password resets from a web app
+  - Sending order receipts and one-time codes
+  - Relaying mail from an existing app through SMTP
+  - Receiving inbound email and routing it to a webhook
+  - Testing an email integration with sandbox mode
 whenToUse: >-
-  Use AhaSend when you need a simple, cost-effective solution for sending
-  transactional or marketing emails with generous free limits.
+  Use AhaSend when your app sends transactional email and you want an API or
+  SMTP relay with a free monthly allowance and no card.
 whenNotToUse: >-
-  Avoid if you require advanced deliverability features, dedicated IPs, or need
-  to send high email volumes beyond the free tier.
+  Avoid it for newsletters and marketing campaigns, for more than 1,000 emails a
+  month on the free plan, or when you need a dedicated IP or paid support.
 bestFor:
-  - indie
-  - startup
-  - student
-  - oss
+  - app sign-up and receipt emails
+  - side projects that send a few emails
+  - testing an email integration
 avoidIf:
-  - enterprise
-  - high-volume
-  - dedicated-ip-required
+  - you need marketing or bulk campaign tools
+  - you need a dedicated IP
+  - you send more than 1,000 emails a month for free
+quickstartSteps:
+  - Sign up for a free account on the AhaSend dashboard and click the link in the verification email.
+  - Add your sending domain under Domains, publish the DNS records AhaSend gives you, and wait for verification.
+  - For the HTTP API, go to Credentials, choose Add, and create an API Key v2 for sending. For SMTP, create an SMTP Credential.
+  - Send your first email with `POST https://api.ahasend.com/v2/accounts/{account_id}/messages`, or connect to `send.ahasend.com` over SMTP.
+  - Check the Messages page in the dashboard for the delivery status.
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://ahasend.com'
-docsUrl: 'https://docs.ahasend.com'
+docsUrl: 'https://ahasend.com/docs'
 pricingUrl: 'https://ahasend.com/pricing'
 sourceUrls:
   - 'https://ahasend.com/pricing'
+  - 'https://ahasend.com/docs/facts.md'
+  - 'https://ahasend.com/docs/quickstart.md'
+  - 'https://ahasend.com/docs'
 featured: false
 ---
-AhaSend offers a free tier for sending up to 1,000 emails monthly, making it suitable for small projects needing reliable email delivery.
+You can send through the REST API, the SMTP relay, a command line tool, or the official Node.js and Go SDKs. It suits developers who need reliable app email and own a domain they can verify.
+
+## What the free plan gives you
+
+The Free plan includes 1,000 emails per month. The pricing page says no credit card is required. You can add 3 sending domains, and the plan includes the REST API, the SMTP relay, sandbox mode, webhooks, and inbound routing.
+
+AhaSend keeps message data and metadata for 1 to 7 days on this plan, and new accounts start at 7 days. All message data is stored in the EU. Support on the Free plan is community-only, with best-effort replies. The Free plan has no dedicated IP.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 1,000 monthly emails. The docs say AhaSend plans have an included monthly volume with usage-based overage, but they do not describe it for the Free plan. The quickstart lists the monthly allowance as one thing to check when mail does not arrive.
+
+Hourly sending limits are separate. They start low for new accounts and grow with account age, plan, and sending reputation. The docs say support can raise them. API requests also have their own limit of 100 per second.
+
+## Gotchas
+
+- You cannot send until you verify a sending domain with DNS records. The quickstart says verification keeps deliverability good and stops spoofing.
+- AhaSend sends transactional email only. Its free email API page says it avoids marketing email to keep delivery fast.
+- One SMTP message can have up to 50 recipients and 20 MiB in total size, including attachments.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want a developer-first email API with a free plan and no card.
+- [Brevo](/services/brevo/): when you also need newsletters and marketing campaigns.
+- [Mailgun](/services/mailgun/): when you want a long-running email API with webhooks and inbound routing.
+
+## Questions people ask
+
+### Is AhaSend free?
+
+Yes. The Free plan includes 1,000 emails per month, 3 sending domains, and full API access. The pricing page says no credit card is required.
+
+### Does AhaSend support SMTP?
+
+Yes. You create an SMTP credential in the dashboard and connect to `send.ahasend.com` on port 25, 587, or 2525 with STARTTLS. Port 465 is not supported.
+
+### Can I send marketing email with AhaSend?
+
+AhaSend says it sends only transactional email, to keep delivery fast. Use a different service for newsletters and campaigns.

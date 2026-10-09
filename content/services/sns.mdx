@@ -1,8 +1,9 @@
 ---
 title: SNS
 description: >-
-  AWS SNS is a fully managed pub/sub messaging service for decoupling
-  microservices, distributed systems, and serverless applications.
+  Amazon SNS is AWS's pub/sub notification service. An app publishes a message
+  to a topic, and SNS delivers it to every subscriber, such as queues, Lambda
+  functions, web endpoints, email addresses, and mobile devices.
 provider: AWS
 category: messaging
 domain: messaging
@@ -16,22 +17,28 @@ audiences:
   - enterprise
   - oss
 tags:
-  - queue
-  - cloud
-  - messaging
+  - sns
+  - pub/sub
+  - notifications
+  - aws
+  - fan-out
+  - mobile push
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     1 million SNS API requests per month free, plus separate free monthly
     allowances for mobile push, HTTP/S, and email deliveries.
   limits:
-    - 1M API requests/month (publish and topic/subscription operations)
+    - 1M API requests/month (publishes, batch publishes, topic and subscription operations)
     - 1M mobile push notification deliveries/month
     - 100,000 HTTP/S notification deliveries/month
     - 1,000 email/email-JSON notification deliveries/month
+    - Deliveries to SQS and Lambda carry no delivery charge
   caveats:
-    - SMS notifications are not included in the free tier
-    - Charges apply for overages and unsupported protocols
+    - SMS has no free allowance; it is pay as you go
+    - Free usage is calculated each month across all regions and does not accumulate
+    - Each 64KB chunk of a payload counts as one request or delivery
+    - Data transfer charges can apply, including from SNS to SQS and Lambda
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -39,37 +46,41 @@ freeTierDetails:
   overageRisk: medium
   billingRiskNotes:
     - >-
-      Overages can occur if usage exceeds free tier limits, especially for SMS,
-      which has no free allowance.
+      You pay as you go for usage past the free amounts, and SMS has no free
+      allowance.
+    - >-
+      A large payload counts as many requests: a 1 MiB publish is billed as 16
+      requests.
 useCases:
-  - Sending alerts and notifications
-  - Decoupling microservices
-  - Fan-out event distribution
-  - Triggering Lambda functions
+  - Sending alerts and notifications to people and systems
+  - Fanning one event out to several SQS queues or Lambda functions
+  - Decoupling microservices with topics
+  - Sending mobile push notifications
+  - Posting to HTTP/S webhook endpoints
 quickstartSteps:
-  - Sign in to AWS Management Console and navigate to SNS.
-  - Create a new topic and choose a topic type.
-  - 'Add one or more subscriptions (e.g., email, HTTP endpoint).'
-  - Publish a test message to the topic.
-  - Verify message delivery to your subscribed endpoints.
+  - Sign up for an AWS account.
+  - Sign in to the Amazon SNS console and choose Create topic.
+  - Pick a topic type, Standard or FIFO, and enter a name. You cannot change the type or name later.
+  - Create a subscription to the topic, for example an email address, an HTTP/S endpoint, an SQS queue, or a Lambda function.
+  - Publish a message to the topic and check that the subscribers receive it.
 whenToUse: >-
-  Use SNS to quickly set up scalable pub/sub messaging or notifications between
-  AWS services and external endpoints.
+  Use SNS to push one message to many subscribers on AWS, such as queues,
+  Lambda functions, webhooks, email, or mobile push.
 whenNotToUse: >-
-  Avoid SNS if you need guaranteed message ordering, long message retention, or
-  advanced filtering beyond basic attributes.
+  Avoid it for text messages on a free budget, since SMS has no free allowance,
+  or when you want a free tier that never touches an AWS account.
 bestFor:
+  - fan-out to queues and Lambda
   - event notifications
-  - microservice decoupling
-  - real-time alerts
+  - alerts by email or webhook
 avoidIf:
-  - strict FIFO required
-  - large message payloads
-  - complex filtering
+  - you need free SMS
+  - you do not want an AWS account
+  - you send very large payloads often
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/sns/'
@@ -77,6 +88,47 @@ docsUrl: 'https://docs.aws.amazon.com/sns/latest/dg/welcome.html'
 pricingUrl: 'https://aws.amazon.com/sns/pricing/'
 sourceUrls:
   - 'https://aws.amazon.com/sns/pricing/'
+  - 'https://docs.aws.amazon.com/sns/latest/dg/welcome.html'
+  - 'https://docs.aws.amazon.com/sns/latest/dg/sns-setting-up.html'
+  - 'https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html'
 featured: false
 ---
-AWS SNS provides scalable, managed pub/sub messaging for event-driven architectures, supporting multiple protocols and easy integration with AWS services.
+You use SNS through the AWS console or an AWS SDK. You create a topic, add subscriptions, and publish. It suits developers who already run on AWS and need to push one event to several places.
+
+## What the free plan gives you
+
+SNS has no upfront fees. Each month the first 1 million SNS requests are free. Standard topic requests include publishes, batch publishes, and the topic and subscription owner operations.
+
+Deliveries have their own free amounts: 1 million mobile push notifications, 100,000 HTTP/S notifications, and 1,000 email or email-JSON notifications. Deliveries to SQS queues and Lambda functions have no per-message charge. Message filtering on attributes is free. Free usage is counted each month across all regions and does not carry over.
+
+## When you hit a limit
+
+The pricing page lists no hard stop at the free amounts. You pay as you go for usage past them, and the charge appears on your bill at the end of the month. The pricing page shows the rates in a calculator, so check the live page for the amount.
+
+SMS has no free allowance at all. Text messages are billed by destination country. Payload size also matters. Each 64KB chunk counts as one request, so a publish with a 1 MiB payload counts as 16 requests. Data transfer charges apply between SNS and SQS or Lambda.
+
+## Gotchas
+
+- A topic's type and name cannot change after you create it. Pick Standard or FIFO with care.
+- Free usage resets each month and is calculated across all regions, so topics in several regions share one free allowance.
+- Payload-based message filtering is billed by the data scanned, while attribute-based filtering is free.
+
+## Alternatives in this atlas
+
+- [SQS](/services/sqs/): when you need a queue that consumers pull from, not a push to subscribers.
+- [Pub/Sub](/services/pub-sub/): when you run on Google Cloud and want the same publish and subscribe model.
+- [Event Grid](/services/event-grid/): when you run on Azure and route events between Azure services.
+
+## Questions people ask
+
+### Is Amazon SNS free?
+
+Partly. The first 1 million requests each month are free, plus free monthly deliveries for mobile push, HTTP/S, and email. Past those amounts you pay as you go.
+
+### Is SMS free on Amazon SNS?
+
+No. SMS has no free allowance. It is billed by destination country, and some countries need dedicated origination identities.
+
+### What happens when I go over the SNS free tier?
+
+SNS pricing is pay as you go, so you are charged for the extra usage at the end of the month. The pricing page lists the per-unit rates for the extra requests and deliveries.

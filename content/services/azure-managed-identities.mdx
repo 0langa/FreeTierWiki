@@ -1,8 +1,9 @@
 ---
 title: Azure Managed Identities
 description: >-
-  Azure Managed Identities provides automatic identity management for Azure
-  resources to securely access other Azure services without credentials.
+  Managed identities give an Azure resource its own identity in Microsoft Entra
+  ID, so your code can get tokens for other Azure services without storing
+  passwords or keys. They are for developers who build on Azure.
 provider: Azure
 category: security
 domain: security
@@ -16,10 +17,13 @@ audiences:
   - enterprise
   - oss
 tags:
-  - cloud
-  - identity
-  - security
-  - auth
+  - managed identity
+  - azure
+  - microsoft entra
+  - passwordless
+  - service principal
+  - RBAC
+  - secrets
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -28,8 +32,13 @@ freeTierDetails:
   limits:
     - No extra cost for managed identities
     - Assigned to Azure compute resources or supported app hosting platforms
+    - Requests to the managed identity endpoint are limited to 20 per second and 5 concurrent requests
+    - Each identity counts toward the tenant's directory object quota
   caveats:
     - The Azure resources that use the identities are billed as usual.
+    - Managed identities cannot access resources in a different directory or tenant
+    - Creation is blocked when a tenant reaches 98 percent of its directory object quota
+    - A permission change can take several hours to take effect because tokens are cached
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
@@ -39,38 +48,34 @@ freeTierDetails:
       No direct cost for managed identities, but underlying resource usage may
       incur charges
 useCases:
-  - Securely access Azure Key Vault from VMs
-  - Automate resource authentication in CI/CD
-  - Replace hardcoded credentials in apps
+  - Letting a virtual machine read secrets from Azure Key Vault without a password
+  - Letting an app service or function reach a storage account or SQL database
+  - Replacing access keys and connection-string passwords in app code
+  - Using one shared identity across several Azure resources
 quickstartSteps:
-  - >-
-    Create an Azure resource (e.g., VM, App Service) that supports managed
-    identities.
-  - Enable system-assigned or user-assigned managed identity for the resource.
-  - >-
-    Assign the managed identity necessary Azure role permissions (e.g., Key
-    Vault Reader).
-  - >-
-    Update your application code to use Azure SDK authentication via managed
-    identity.
-  - Test access to the target Azure service without explicit credentials.
+  - Sign in to the Azure portal with an account on an Azure subscription; the account needs a payment method.
+  - Create a resource that supports managed identities, such as a virtual machine, or open an existing one.
+  - Open the resource, go to Security, then Identity, set System assigned status to On, and click Save. Or create a user-assigned identity under Managed Identities and add it to the resource.
+  - Grant the identity access to the target service with an Azure role assignment, for example on a storage account.
+  - In your code, use the Azure.Identity library or MSAL to get a token with no secret in your configuration.
 whenToUse: >-
-  Use when you need secure, credential-free authentication for Azure resources
-  accessing other Azure services.
+  Use it when code running on an Azure resource needs to call another service
+  that supports Microsoft Entra authentication, and you want no stored secrets.
 whenNotToUse: >-
-  Avoid if you require cross-cloud or on-premises authentication, or need
-  identities outside Azure's managed scope.
+  Avoid it for code outside Azure, for access across different tenants, or for
+  Azure Cloud Services (classic), which the FAQ says is not supported.
 bestFor:
   - secure automation
   - cloud-native apps
   - enterprise workloads
 avoidIf:
-  - multi-cloud identity
-  - on-premises integration
+  - the code runs outside Azure
+  - you need access across tenants
+  - you use Azure Cloud Services (classic)
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/active-directory/'
@@ -78,7 +83,48 @@ docsUrl: 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-az
 pricingUrl: 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview'
 sourceUrls:
   - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview'
+  - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/managed-identities-faq'
+  - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/qs-configure-portal-windows-vm'
+  - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities'
   - 'https://azure.microsoft.com/en-us/pricing/details/active-directory/'
 featured: false
 ---
-Azure Managed Identities lets Azure resources authenticate to supported services securely without managing credentials, reducing risk and simplifying access control.
+You set it up in the Azure portal, the Azure CLI, PowerShell, an Azure Resource Manager template, or the REST API. Your code then asks for a token through the Azure.Identity library or MSAL. It suits developers who already run workloads on Azure.
+
+## What the free plan gives you
+
+Microsoft's overview says managed identities can be used at no extra cost. There are two types. A system-assigned identity is created with a resource and deleted with it. A user-assigned identity is a standalone resource that several resources can share.
+
+You can assign an identity to an Azure virtual machine, a virtual machine scale set, a Service Fabric cluster, an Azure Kubernetes cluster, or any app hosting platform that Azure supports. Then you grant it access to services such as a storage account, SQL database, or Cosmos DB. The resources that use the identity are billed as usual, and you need an Azure subscription.
+
+## When you hit a limit
+
+You pay nothing for identities, so a limit cannot create a bill. The limits are technical. The FAQ says requests to the managed identity endpoint are limited to 20 per second and 5 concurrent requests, and requests over the instance metadata limit get 429 responses.
+
+Each identity also counts toward your tenant's directory object quota. Creating a new identity is blocked once usage would reach 98 percent of that quota. An administrator then has to raise the quota or delete objects.
+
+## Gotchas
+
+- Tokens are cached for around 24 hours, so a role change can take several hours to work. You cannot force a refresh.
+- Managed identities do not work across directories or tenants. After you move a subscription to another directory, you must re-create them and grant roles again.
+- Deleted identities are soft deleted for 30 days, but you cannot restore or permanently delete them in that time.
+
+## Alternatives in this atlas
+
+- [Entra ID / Azure AD](/services/entra-id-azure-ad/): when you need sign-in for people and apps, not only identities for Azure resources.
+- [Bitwarden Secrets Manager](/services/bitwarden-secrets-manager/): when your workload runs outside Azure and still needs stored secrets.
+- [Doppler](/services/doppler/): when you want a secrets manager that works across clouds.
+
+## Questions people ask
+
+### Are Azure managed identities free?
+
+Yes. Microsoft says managed identities can be used at no extra cost. You still pay for the Azure resources that use them, and you need an Azure subscription.
+
+### What is the difference between system-assigned and user-assigned managed identities?
+
+A system-assigned identity belongs to one resource and is deleted with it. A user-assigned identity is its own resource, has its own life cycle, and can be shared by several resources.
+
+### Are there limits on Azure managed identities?
+
+Yes. The FAQ lists a rate limit of 20 requests per second with 5 concurrent requests for the managed identity endpoint. It also lists a tenant directory object quota, with creation blocked at 98 percent.

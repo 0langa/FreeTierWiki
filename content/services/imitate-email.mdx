@@ -1,8 +1,8 @@
 ---
 title: Imitate Email
 description: >-
-  Imitate Email provides a fake SMTP server for testing email sending in
-  development environments without sending real emails.
+  Imitate Email gives you a test mailbox that accepts mail over SMTP, so your
+  app can send emails in development and you can read them in a web inbox.
 provider: Imitate Email
 category: devops
 domain: devops
@@ -18,53 +18,57 @@ audiences:
   - oss
 tags:
   - email
-  - testing
+  - smtp
+  - email-testing
+  - mailbox
+  - sandbox
+  - fake-smtp
 pricingModel: freemium
 freeTierDetails:
-  summary: Free plan gives 15 emails per day, forever, with no credit card required.
+  summary: >-
+    Free plan gives 15 emails per day, forever (450 test emails a month on the
+    home page), with a personal mailbox and no card step.
   limits:
     - 15 emails/day (forever)
     - 1 personal mailbox
-    - 1 active widget user
     - Web widget shows Imitate Email branding
   caveats:
-    - Paid plans start at €6/month for more emails, mailboxes, and an unbranded widget
+    - The Developer plan costs €6/month and adds 2000 monthly emails, 30 day retention, and POP3/IMAP support
+    - The unbranded web widget is not on the free or Developer plan
+    - Team mailboxes need a multi-user plan
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Test email sending in development
-  - Preview transactional emails
-  - Debug email formatting
-  - Automate email-related CI tests
+  - Test the emails your app sends during development
+  - Preview transactional emails in a web inbox
+  - Check email formatting before you send to real users
+  - Run email-related tests in a CI pipeline
 quickstartSteps:
-  - Sign up for a free Imitate Email account.
-  - Create a new inbox from the dashboard.
-  - >-
-    Configure your app's SMTP settings to use the provided server and
-    credentials.
-  - Send a test email from your application.
-  - View and debug received emails in the Imitate Email dashboard.
+  - Sign up from the home page with your email address.
+  - Enter the verification code Imitate Email sends to confirm your address.
+  - Find your SMTP username and password in Settings, then Personal Settings.
+  - Set your app to use smtp.imitate.email on port 587 with those credentials.
+  - Send a first email and open your mailbox to see it appear.
 whenToUse: >-
-  Use when you need to safely test email sending from your app without
-  delivering real emails to users.
+  Use Imitate Email to test email sending from your app without delivering
+  messages to real inboxes.
 whenNotToUse: >-
-  Avoid for production email delivery or when testing with actual user inboxes
-  is required.
+  Avoid it for real email delivery, and for heavy test volumes on the free plan.
 bestFor:
-  - development environments
-  - QA teams
-  - CI pipelines
+  - local development
+  - QA checks
+  - CI test runs
 avoidIf:
-  - sending real emails
-  - production use
-  - large-scale team collaboration
+  - you need to send real emails
+  - you send more than 15 test emails a day
+  - you need a shared team mailbox for free
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://imitate.email'
@@ -72,6 +76,47 @@ docsUrl: 'https://imitate.email/docs'
 pricingUrl: 'https://imitate.email/pricing'
 sourceUrls:
   - 'https://imitate.email/pricing'
+  - 'https://imitate.email'
+  - 'https://imitate.email/docs/quick'
+  - 'https://imitate.email/docs/basics/concepts'
 featured: false
 ---
-Imitate Email is a developer-focused fake SMTP server that captures and displays outgoing emails for safe testing, debugging, and previewing during application development.
+You point your app's SMTP settings at Imitate Email and read what it sends in a web mailbox. It suits developers and testers who want to check email flows without a real mail server.
+
+## What the free plan gives you
+
+The pricing page says you sign up for free and get 15 emails every day, forever. The home page puts it as 450 test emails a month, free forever, for a solo developer. All you need to sign up is an email address.
+
+Everyone who signs up gets a personal mailbox, which only they can see and which is meant for developers while they build software. The free plan shows the Imitate Email logo and colours on the web widget. Team mailboxes are only on multi-user plans.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 15th email of the day. The free plan needs no card, so no bill follows.
+
+When you outgrow the free plan, the pricing page offers paid plans and optional extras. The Developer plan is 6 euros per month, or 35 euros per year. It adds 2000 monthly emails, 10 daily forwards, 30 day retention, and POP3/IMAP support. Extra emails cost 4.50 euros per month for each 5000.
+
+## Gotchas
+
+- The 15 email limit is per day, so a large test run in one day can use it up.
+- The web widget carries Imitate Email branding on the free and Developer tiers. Custom branding is on the Starter and Team plans.
+- Team mailboxes sit under a project and only exist on multi-user plans.
+
+## Alternatives in this atlas
+
+- [Mailtrap.io](/services/mailtrap-io/): when you want another hosted email sandbox with one sandbox for one user.
+- [Ethereal Email](/services/ethereal-email/): when you need disposable SMTP accounts with no daily count to track.
+- [Brevo](/services/brevo/): when you need to send real emails, not only test them.
+
+## Questions people ask
+
+### Is Imitate Email free?
+
+Yes. The pricing page says you get 15 emails every day, forever, when you sign up for free. The home page says the same plan is 450 test emails a month.
+
+### What happens when I go over the Imitate Email free limit?
+
+The pricing page does not say. Paid plans start with the Developer plan at 6 euros per month.
+
+### Does Imitate Email need a credit card?
+
+No card step is described for the free plan. The quick start says all it takes is your email address and a verification code.

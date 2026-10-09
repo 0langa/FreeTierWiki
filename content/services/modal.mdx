@@ -1,6 +1,9 @@
 ---
 title: Modal
-description: 'Serverless GPUs and containers for Python: run AI inference, training, and batch jobs.'
+description: >-
+  Modal is a serverless cloud for Python that runs functions on CPUs and GPUs
+  and bills by the second. It is for developers who run AI inference, batch
+  jobs, training, or sandboxes without managing servers.
 provider: Modal
 category: compute
 domain: compute
@@ -12,51 +15,71 @@ audiences:
   - indie
   - startup
 tags:
-  - compute
-  - serverless
-  - ai
-  - ml
+  - gpu
+  - serverless gpu
+  - python
+  - ai inference
+  - fine-tuning
+  - batch jobs
+  - sandboxes
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Starter plan: $30 of free compute credits every month, 3 seats.'
+  summary: 'Starter plan: $30 of free compute credits every month, 3 seats. A payment method must be on file.'
   limits:
     - $30 compute credits per month
     - 3 workspace seats
     - '100 containers, 10 GPU concurrency'
     - 1 TiB egress per month
   caveats:
-    - Usage past the credit is billed once you add a payment method
+    - Modal requires a payment method on file to use the service, and GPU use requires a valid one
+    - Usage past the credit is auto-charged at the end of the billing cycle
+    - Workspace budgets and spend limits can cap usage
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: credit
   hasHardCap: false
-  overageRisk: low
+  overageRisk: medium
+  billingRiskNotes:
+    - Usage beyond the monthly credit is billed to the payment method on file, with incremental charges when thresholds are passed
   monthlyCreditAmount: $30
 useCases:
-  - Run GPU inference
-  - Batch data jobs
-  - Fine-tune small models
+  - Run GPU inference for open weights or custom models
+  - Scale out batch data jobs in parallel
+  - Fine-tune or train models
+  - Run AI-generated code in isolated sandboxes
 quickstartSteps:
-  - pip install modal.
-  - Run modal setup to log in.
-  - Decorate a Python function and run modal run.
-whenToUse: Use when you need GPUs on demand for Python work.
-whenNotToUse: Avoid if you need always-on GPUs for free.
+  - 'Create an account at modal.com.'
+  - 'Run pip install modal.'
+  - 'Run modal setup to authenticate; if it fails, run python -m modal setup.'
+  - 'Write a Python file with a modal.App and a function decorated with app.function, optionally with a gpu argument.'
+  - 'Run it with modal run and the path of your file.'
+whenToUse: >-
+  Use it when you need CPUs or GPUs on demand for Python work such as
+  inference, batch jobs, or fine-tuning, and you are fine paying per second
+  beyond the credit.
+whenNotToUse: >-
+  Avoid it if you cannot put a payment method on file, or if you need an
+  always-on GPU that costs nothing.
 bestFor:
   - AI inference
   - batch jobs
 avoidIf:
-  - always-on services
+  - no payment method
+  - always-on free GPUs
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://modal.com'
-docsUrl: 'https://modal.com/docs'
+docsUrl: 'https://modal.com/docs/guide'
 sourceUrls:
   - 'https://modal.com/pricing'
+  - 'https://modal.com/docs/guide'
+  - 'https://modal.com/docs/guide/billing'
+  - 'https://modal.com/docs/guide/budgets'
+  - 'https://modal.com/docs/examples/hello_world'
 pricingUrl: 'https://modal.com/pricing'
 featured: false
 changes:
@@ -64,4 +87,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Modal refills $30 of credits every month on the Starter plan.
+You write Python functions with a decorator, and Modal builds the container and runs it in the cloud with the CPU or GPU you ask for. You launch work with the modal run command or deploy it as a web endpoint or scheduled job. It suits developers who run AI inference, batch jobs, or fine-tuning without owning GPUs.
+
+## What the free plan gives you
+
+The Starter plan costs $0 plus compute, and it comes with $30 of free credits every month. It includes 3 workspace seats, 100 containers, and 10 GPU concurrency. It also covers limited scheduled and web functions, 5 deployed cron jobs, real-time metrics and logs, region selection, and 1 TiB per month of free network egress.
+
+Modal bills per second, with no minimum usage increment. For example, an Nvidia T4 costs $0.000164 per second and CPU costs $0.0000131 per core per second. The credit pays for that compute, so it lasts longer on small CPU work than on large GPUs.
+
+## When you hit a limit
+
+Modal bills usage after the credit ends. The billing docs say each workspace is billed monthly and auto-charged for usage, less credits. It also charges incrementally the first time you pass certain thresholds.
+
+You can cap this. A workspace budget sets a monthly limit on total usage. A spend limit stops workloads that would add out-of-pocket charges once it is reached. If you set none, the default spend limit is the usage limit minus your credits.
+
+## Gotchas
+
+- Modal requires a payment method on file to use the service, and using a GPU requires a valid one. The pricing page does not say this.
+- Network egress above the included 1 TiB per month is billed at $0.04 per GiB.
+- Containers have a minimum request of 128 MiB of memory and 0.125 CPU cores, and you pay for whichever is higher, what you request or what you use.
+
+## Alternatives in this atlas
+
+- [Google Colab](/services/google-colab/): when you want a notebook with free GPU time and no card.
+- [Hugging Face Spaces](/services/hugging-face-spaces/): when you want to host a small model demo for free.
+- [Paperspace](/services/paperspace/): when you want a notebook-style GPU environment.
+
+## Questions people ask
+
+### Is Modal free?
+
+Partly. The Starter plan includes $30 of free compute credits every month, and you pay for usage beyond that.
+
+### Does Modal need a credit card?
+
+Yes. The billing docs say you must have a payment method on file to use Modal, and GPU use requires a valid one.
+
+### What happens when I use up the Modal free credits?
+
+Modal auto-charges the usage that exceeds your credits at the end of the billing cycle. You can set a workspace budget or spend limit to cap it.

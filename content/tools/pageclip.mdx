@@ -1,8 +1,8 @@
 ---
 title: Pageclip
 description: >-
-  Pageclip provides simple form backend hosting for static sites, enabling form
-  submissions without server-side code.
+  Pageclip saves the data from HTML forms on your website, so a static site can
+  collect contact messages, sign-ups, and survey answers without its own server.
 provider: Pageclip
 category: hosting
 domain: hosting
@@ -16,9 +16,10 @@ audiences:
   - startup
   - oss
 tags:
-  - productivity
-  - web
-  - backend
+  - form-backend
+  - static-site
+  - contact-form
+  - webhook
   - email
 pricingModel: freemium
 freeTierDetails:
@@ -29,40 +30,42 @@ freeTierDetails:
     - '1,000 submissions/month'
   caveats:
     - Paid plans (from $9/mo) unlock unlimited forms and higher submission limits
+    - File inputs are ignored and multipart requests are rejected
+    - Each site accepts data only from the domains you list
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Collect contact form submissions on static sites
-  - Newsletter signups
-  - Feedback forms for portfolios
-  - Event RSVP forms
+  - Collect contact form messages on a static site
+  - Save newsletter sign-ups from a landing page
+  - Take feedback or poll answers from a portfolio
+  - Send each submission to your own server with a webhook
 quickstartSteps:
-  - Sign up for a free Pageclip account.
-  - Create a new site in the Pageclip dashboard.
-  - Copy the provided form endpoint URL.
-  - Add the Pageclip form action and attributes to your HTML form.
-  - Deploy your static site and test form submissions.
+  - Create a Pageclip account; it then asks you to set up a site.
+  - Give the site a name and the domains that may send data, for example your domain and localhost.
+  - Create a named form in the dashboard for each form on your website.
+  - Add the Pageclip script and stylesheet to your page, and set your form's action to the endpoint Pageclip shows you.
+  - Give every input a name attribute, submit a test entry, and read it in the dashboard.
 whenToUse: >-
-  Use Pageclip when you need a quick, no-code backend for forms on static or
-  JAMstack sites.
+  Use it when a static site needs one form saved, with optional emails or a
+  webhook, and you do not want to run a server.
 whenNotToUse: >-
-  Avoid if you require advanced integrations, file uploads, or need to process
-  high submission volumes.
+  Avoid it if you need file uploads, more than one form on the free plan, or
+  more than 1,000 submissions a month.
 bestFor:
   - static sites
   - landing pages
   - personal portfolios
 avoidIf:
-  - complex workflows
   - file uploads
-  - high-traffic enterprise forms
+  - more than one form
+  - high-traffic forms
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://pageclip.co/'
@@ -73,4 +76,41 @@ sourceUrls:
   - 'https://pageclip.co/docs'
 featured: false
 ---
-Pageclip is a simple form backend service for static websites, letting users collect form submissions without writing server-side code or managing infrastructure.
+You paste a script, a stylesheet, and a form action into your HTML, then read the entries in the Pageclip dashboard. There is also a REST API and a webhook for developers who want the data elsewhere.
+
+## What the free plan gives you
+
+The Free plan costs nothing and includes one site, one form, and 1,000 submissions. The pricing page says prices are per month, and the submission count is the main cap.
+
+Pageclip saves every input, textarea, or select that has a name attribute. It can send you an email for each submission. If you name a field `email`, the address becomes the reply-to of that email. A field named `subject` sets the email subject. You can also set a webhook so Pageclip posts each submission to your own server, and you can use the REST API to fetch data, including CSV output.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 1,000 submissions on the Free plan. It lists the next plans as Basic, with one site, unlimited forms, and 20,000 submissions, and Pro, with unlimited sites and 100,000 submissions.
+
+Nothing on the page suggests a bill on the Free plan, and the Free plan needs no payment details, so no bill is expected. For a busy form, plan to move to a paid plan or add a second service.
+
+## Gotchas
+
+- File inputs are ignored, and Pageclip rejects multipart requests.
+- A site accepts data only from the domains you list for it. Data from other domains is rejected.
+- With more than one form on your website, you must create a named form in Pageclip for each one, and the free plan has one form.
+
+## Alternatives in this atlas
+
+- [Formsubmit.co](/tools/formsubmit-co/): when you want form-to-email with no registration and several forms.
+- [Formspree.io](/tools/formspree-io/): when you want a well-known form backend with several forms on the free plan.
+
+## Questions people ask
+
+### Is Pageclip free?
+
+Yes. The Free plan includes one site, one form, and 1,000 submissions per month. Paid plans start at $9 per month.
+
+### What happens when I go over the Pageclip free limit?
+
+The pricing page does not say. The next plan up, Basic, allows 20,000 submissions on one site with unlimited forms.
+
+### Does Pageclip work with a static site?
+
+Yes. The docs say it works anywhere you can put an HTML form, including Jekyll, Hugo, Gatsby, and GitHub Pages.

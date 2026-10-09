@@ -1,6 +1,9 @@
 ---
 title: UploadThing
-description: 'File uploads for TypeScript apps: an upload button, server routes, and storage in one.'
+description: >-
+  UploadThing adds file uploads to full-stack TypeScript apps, with a server
+  file router, ready-made upload components, and hosted storage. It suits
+  developers on Next.js, Remix, SvelteKit, and similar frameworks.
 provider: Ping Labs
 category: storage
 domain: storage
@@ -12,45 +15,66 @@ audiences:
   - indie
   - startup
 tags:
-  - storage
-  - frontend
-  - backend
+  - file upload
+  - upload button
+  - next.js
+  - typescript
+  - file storage
+  - s3 alternative
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 2 GB of storage and 7 days of audit logs.'
+  summary: 'Free plan: 2 GB of storage shared between all apps, unlimited uploads and downloads, and 7 days of audit logs.'
   limits:
-    - 2 GB storage
+    - 2 GB storage, shared between all apps
+    - Unlimited uploads and downloads
     - 7 days audit log retention
   caveats:
-    - Paid plans start at $25 per month
+    - The 100GB App plan costs $10 per month, and the usage-based plan starts at $25 per month
+    - Regions and Private Files are not part of the free plan
+    - UploadThing needs to reach your server to run the upload-complete callback
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - User avatar and file uploads
-  - Next.js file uploads
+  - Profile photos and avatar uploads
+  - Letting users attach files in a Next.js or React app
+  - Image uploads with a size limit and a file count limit
+  - Running server code after each upload finishes
 quickstartSteps:
-  - Sign up at uploadthing.com.
-  - Install the uploadthing package.
-  - Create a file router and add the upload button.
-whenToUse: Use for easy file uploads in a Next.js or React app.
-whenNotToUse: Avoid if you need more than 2 GB for free.
+  - Create an app in the UploadThing Dashboard and copy a token from the API Keys tab.
+  - Install the packages, for example npm install uploadthing @uploadthing/react.
+  - Put the token in your .env file as UPLOADTHING_TOKEN.
+  - Define a file router with createUploadthing, with file types, size limits, and optional auth middleware.
+  - Serve the router from an API route such as /api/uploadthing, then add the UploadButton component.
+whenToUse: >-
+  Use it for quick file uploads in a TypeScript app, with auth checked on your
+  own server.
+whenNotToUse: >-
+  Avoid it if you need more than 2 GB for free, private files, or storage
+  regions you choose yourself.
 bestFor:
   - Next.js apps
+  - small projects
+  - avatar uploads
 avoidIf:
-  - large media
+  - large media libraries
+  - you need private files on the free plan
+  - your app is not reachable by UploadThing
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://uploadthing.com'
 docsUrl: 'https://docs.uploadthing.com'
 sourceUrls:
   - 'https://uploadthing.com/pricing'
+  - 'https://docs.uploadthing.com'
+  - 'https://docs.uploadthing.com/getting-started/appdir'
+  - 'https://docs.uploadthing.com/faq'
 pricingUrl: 'https://uploadthing.com/pricing'
 featured: false
 changes:
@@ -58,4 +82,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-UploadThing handles the upload itself; you keep auth on your own server.
+You define a file router on your server and drop an upload button or dropzone into your front end. UploadThing handles the upload itself, and you keep authentication on your own server. It suits TypeScript developers.
+
+## What the free plan gives you
+
+The free 2GB App plan costs $0 per month. It includes 2GB of storage, shared between all your apps, along with unlimited uploads and downloads. Audit log retention is 7 days.
+
+Each upload goes through a file route. A route sets the allowed file types, the maximum file size, and how many files a user can upload. It can also run server code before the upload, such as an auth check, and after the upload finishes.
+
+The paid plans add storage, longer log retention, Regions, and Private Files. Those features are not listed for the free plan.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 2GB. It lists storage as the limit and unlimited uploads and downloads, with no bandwidth cap.
+
+The 100GB App plan costs $10 per month and includes 100GB of storage and 30 days of audit logs. The usage-based plan starts at $25 per month with 250GB included, then charges $0.08 per GB above that. No card is needed for the free plan, so the entry records no overage bill.
+
+## Gotchas
+
+- UploadThing runs your upload-complete callback from its own servers. If it cannot reach your app, the callback fails. In production this can happen when your middleware or a firewall blocks the route.
+- Keep /api/uploadthing out of your auth middleware. It serves as a validation endpoint and as a webhook.
+- Import the package styles file, or the upload components look unstyled.
+
+## Alternatives in this atlas
+
+- [Uploadcare](/services/uploadcare/): when you want an upload widget with image tools on a free plan.
+- [Supabase Storage](/services/supabase-storage/): when your app already uses Supabase and its auth rules.
+- [Vercel Blob](/services/vercel-blob/): when your app runs on Vercel.
+
+## Questions people ask
+
+### Is UploadThing free?
+
+Yes. The free 2GB App plan costs $0 per month and includes 2GB of storage, unlimited uploads and downloads, and 7 days of audit logs.
+
+### What does UploadThing cost after the free plan?
+
+The 100GB App plan costs $10 per month. The usage-based plan starts at $25 per month with 250GB included.
+
+### Does UploadThing work with frameworks other than Next.js?
+
+Yes. The docs list guides for Remix, SvelteKit, Astro, Nuxt, SolidStart, Expo, and backend adapters such as Express and Fastify.

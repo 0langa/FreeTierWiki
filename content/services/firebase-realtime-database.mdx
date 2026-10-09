@@ -1,8 +1,10 @@
 ---
 title: Firebase Realtime Database
 description: >-
-  A cloud-hosted NoSQL database for building real-time, collaborative
-  applications with automatic data synchronization.
+  Firebase Realtime Database is a cloud NoSQL database that stores data as one
+  JSON tree and syncs changes to connected clients in milliseconds. It is for
+  app developers who want live data in web and mobile apps with little backend
+  code.
 provider: Google Cloud
 category: database
 domain: database
@@ -17,58 +19,65 @@ audiences:
   - team
   - oss
 tags:
+  - nosql
   - realtime
-  - database
-  - mobile
-  - web
+  - json database
+  - firebase
+  - mobile backend
+  - live sync
+  - rtdb
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Spark plan offers a free tier with limited database usage and
-    connections.
+    On the no-cost Spark plan, Realtime Database includes 1 GB of storage, 10
+    GB/month of downloads, and 100 simultaneous connections. Spark is not
+    billed.
   limits:
     - 1 GB storage
-    - 100 simultaneous connections
-    - 10 GB/month downloads (360 MB/day)
+    - 100 simultaneous connections on the Spark plan
+    - 10 GB/month downloads
   caveats:
-    - More than 100 simultaneous connections needs the paid Blaze plan
+    - More than 100 simultaneous connections needs a paid plan
+    - On the Blaze plan you keep the no-cost amounts and pay for usage beyond them
+    - Budget alerts on Blaze do not cap your usage or charges
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Service stops when free limits are reached
+    - The Spark plan is not billed for Realtime Database usage
+    - After upgrading to Blaze, storage costs $5 per GB per month beyond the no-cost amount
 useCases:
-  - Real-time chat apps
-  - Collaborative editing
-  - Live dashboards
+  - Chat and messaging apps
+  - Live dashboards and presence indicators
+  - Syncing state across devices
   - Mobile app backends
+  - Small multiplayer or collaborative features
 quickstartSteps:
-  - Create a Firebase project at the Firebase Console.
-  - Add Firebase Realtime Database to your project.
-  - Configure database rules for your use case.
-  - Integrate the Firebase SDK into your app.
-  - Read and write data using the provided API.
+  - Create a Firebase project in the Firebase console.
+  - 'Go to Realtime Database and click Create database, then pick a location.'
+  - 'Choose a Security Rules mode: test mode for quick starts or locked mode.'
+  - 'Add the SDK to your app, for example `npm install firebase` for the web, and call `getDatabase`.'
+  - 'Read and write JSON data at database paths with the SDK, and set Security Rules before you launch.'
 whenToUse: >-
-  Use when you need real-time data sync for web or mobile apps with minimal
-  backend setup.
+  Use it for small apps that need simple live data sync, such as chat or
+  presence, on the no-cost Spark plan.
 whenNotToUse: >-
-  Avoid if you require complex queries, large-scale commercial use, or need
-  SQL-like relational features.
+  Skip it if you need complex queries, SQL features, or more than 100
+  simultaneous connections without upgrading to Blaze.
 bestFor:
-  - prototyping
+  - prototypes
   - student projects
-  - MVPs
-  - real-time apps
+  - live data apps
 avoidIf:
-  - enterprise-scale
-  - complex querying
-  - strict compliance needs
+  - You need complex queries
+  - You need relational features
+  - You need more than 100 simultaneous connections for free
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://firebase.google.com/products/realtime-database'
@@ -77,6 +86,47 @@ pricingUrl: 'https://firebase.google.com/pricing'
 sourceUrls:
   - 'https://firebase.google.com/pricing'
   - 'https://firebase.google.com/docs/database'
+  - 'https://firebase.google.com/docs/database/usage/billing'
+  - 'https://firebase.google.com/docs/database/usage/limits'
+  - 'https://firebase.google.com/docs/database/web/start'
 featured: false
 ---
-Firebase Realtime Database provides a simple, scalable NoSQL backend for apps needing live data updates, ideal for rapid prototyping and learning.
+You set up Realtime Database in the Firebase console and use it through Firebase SDKs that keep a live connection to your data. It suits apps that need simple live syncing.
+
+## What the free plan gives you
+
+On the no-cost Spark plan, you are not billed for Realtime Database. You get 1 GB of data storage and 10 GB per month of data downloads, with no card needed to start. The simultaneous connection limit on Spark is 100. A connection is one mobile device, browser tab, or server app connected to the database.
+
+Downloads count all bytes sent out, including protocol and encryption overhead. Traffic from operations that security rules deny also counts. Reads and writes from the Firebase console count too.
+
+## When you hit a limit
+
+The pages do not say what the app sees when Spark usage runs out, only that you are not billed on Spark. To go past the limits, upgrade the project to the pay-as-you-go Blaze plan. You keep the no-cost 1 GB of storage and 10 GB per month of downloads, and you are billed for use beyond that.
+
+On Blaze, storage costs $5 for each GB per month. Budget alerts warn you about cost, but they do not cap usage or charges.
+
+## Gotchas
+
+- The Spark plan allows only 100 simultaneous connections.
+- Downloads include protocol overhead and rejected requests, so small frequent connections cost more than payload size suggests.
+- On Blaze, budget alerts do not stop spending.
+
+## Alternatives in this atlas
+
+- [Firebase Firestore](/services/firebase-firestore/): when you need richer queries and a document model.
+- [Appwrite Cloud](/services/appwrite/): when you want an open-source backend with realtime and auth.
+- [Convex](/services/convex/): when you want a reactive backend with TypeScript functions.
+
+## Questions people ask
+
+### Is Firebase Realtime Database free?
+
+Yes, on the Spark plan. You get 1 GB of storage and 10 GB per month of downloads with no billing, and up to 100 simultaneous connections.
+
+### What happens when I exceed the Realtime Database free limits?
+
+The pages do not describe the error behavior. To use more, upgrade to Blaze, where you pay for usage beyond the no-cost amounts.
+
+### How many users can use Realtime Database on the free plan?
+
+The limit is 100 simultaneous connections on Spark. A connection is one device, browser tab, or server connected at once.

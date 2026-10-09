@@ -1,8 +1,7 @@
 ---
 title: Gcore
 description: >-
-  Gcore offers global cloud, CDN, and edge solutions for hosting, compute, and
-  media delivery.
+  Gcore CDN delivers websites, downloads, and video from a global network of edge servers. You add a domain as a CDN resource, point DNS at Gcore, and manage caching, SSL, and security in the dashboard.
 provider: Gcore
 category: hosting
 domain: hosting
@@ -17,8 +16,13 @@ audiences:
   - enterprise
   - indie
 tags:
-  - cdn
-  - cloud
+  - "cdn"
+  - "content delivery network"
+  - "video streaming cdn"
+  - "edge caching"
+  - "ddos protection"
+  - "lets encrypt"
+  - "website acceleration"
 pricingModel: freemium
 freeTierDetails:
   summary: Free-to-start CDN plan with 1 TB of traffic per month; no credit card required.
@@ -27,8 +31,9 @@ freeTierDetails:
     - No credit card required to start
     - Full CDN feature set on the free plan
   caveats:
-    - Traffic beyond 1 TB/month is billed per GB once you add payment details
-    - Some advanced options and add-ons are paid extras
+    - "The CDN page says free to start with no credit card; the pricing table lists a pay-as-you-go plan with 1 TB per month and an Enterprise plan, and does not describe a separate free plan"
+    - "Traffic above the plan limit is charged as overage; the billing docs describe overage in portions once it reaches a credit limit"
+    - "The billing docs mention a credit card added at signup as the payment instrument, so check whether a card is asked for in your account"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -37,33 +42,34 @@ freeTierDetails:
   billingRiskNotes:
     - Overage billing needs a payment method to be added first — it is not automatic
 useCases:
-  - Website acceleration
-  - Global content delivery
-  - Media streaming
-  - Edge caching
+  - "Speeding up a website for visitors around the world"
+  - "Delivering static assets such as images, CSS, JavaScript, and fonts"
+  - "Streaming video with HLS or DASH through a CDN"
+  - "Distributing game patches and software downloads"
+  - "Putting a CDN in front of an S3 bucket or CMS"
 quickstartSteps:
-  - Sign up for a Gcore account.
-  - Add your domain or application in the dashboard.
-  - Configure CDN or hosting settings as needed.
-  - Update your DNS records to point to Gcore.
-  - Monitor usage and performance in the dashboard.
+  - "Sign up for a Gcore account; the CDN page says it is free to start with no credit card."
+  - "Create a CDN resource: enter your domain name and set up an origin or origin group."
+  - "Choose a DNS option, either a CNAME record or Gcore Managed DNS delegation."
+  - "Optionally enable WAAP for layer 7 DDoS and web application protection."
+  - "Set the CNAME record at your DNS host to point at Gcore, then check the resource in the dashboard."
+  - "Use the dashboard to set caching rules, add an SSL certificate or a free Let's Encrypt certificate, and watch traffic."
 whenToUse: >-
-  Use Gcore when you need a global CDN with a free traffic allowance, easy
-  setup, and no credit card to start.
+  Use Gcore when you want a CDN in front of your own site or media files and can start without a card, with the option to move to a paid plan later.
 whenNotToUse: >-
-  Avoid if you need unlimited traffic or a hard cap that blocks usage instead
-  of billing once you add payment details.
+  Skip it if you want a hard stop instead of overage charges, or if you need a clearly published free plan; the pricing table shows a pay-as-you-go plan and an Enterprise plan.
 bestFor:
-  - global delivery
-  - media sites
-  - startups
+  - "website acceleration"
+  - "media and video delivery"
+  - "game and software downloads"
+  - "teams that can accept pay-as-you-go billing"
 avoidIf:
-  - strict budget
-  - advanced CDN needs
-  - hard usage caps required
+  - "you need a hard usage cap"
+  - "you need a documented permanent free plan"
+  - "your budget is strict"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://gcorelabs.com/'
@@ -71,8 +77,49 @@ docsUrl: 'https://docs.gcorelabs.com'
 sourceUrls:
   - 'https://gcore.com/cdn'
   - 'https://gcore.com/pricing'
+  - 'https://gcore.com/pricing/edge-network'
+  - 'https://docs.gcore.com/cdn/how-the-cdn-service-and-its-additional-options-are-billed'
+  - 'https://docs.gcore.com/cdn/getting-started/create-a-cdn-resource/create-a-cdn-resource'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://gcore.com/cdn'
 ---
-Gcore provides a global CDN and cloud platform with a free tier suitable for accelerating websites and delivering media content with minimal setup. The CDN is free to start with no credit card required, including 1 TB of traffic per month; going over that amount is billed per GB once you add payment details.
+You use the Gcore dashboard to add a domain as a CDN resource and point your DNS at Gcore. The docs also offer a REST API, SDKs, and Terraform. It suits site owners and media teams that want a global CDN with simple billing.
+
+## What the free plan gives you
+
+The CDN page says Gcore CDN is free to start with no credit card required, with paid plans for higher throughput, advanced security, and dedicated support. The page lists 210+ points of presence on six continents, and DDoS protection and a web application firewall on all plans. Free Let's Encrypt SSL and custom certificates are supported. You can create up to thirty CDN resources on one account.
+
+The pricing table shows two CDN plans, pay as you go and Enterprise. The pay-as-you-go column lists 1 TB per month, though the table has no row labels, so treat that figure as the monthly traffic allowance and confirm it in your account.
+
+## When you hit a limit
+
+The billing docs say each plan has a monthly traffic limit and a request limit, and the traffic resets on the first day of each calendar month. When you pass either limit, extra charges apply. Gcore collects overage in portions of 50 euros or 60 dollars, which is the account credit limit, and the CDN keeps working while overage stays below it.
+
+Once the overage reaches the credit limit, Gcore charges the linked payment instrument, described as a credit card added at signup. If payment fails again, the CDN stops delivering content until you recharge the account. So going over is a bill risk, not a hard stop.
+
+## Gotchas
+
+- The pricing page does not describe a separate free CDN plan, so confirm what your account includes before you rely on 1 TB.
+- Traffic and request overage costs are combined, so a high request count can cost money even if traffic stays low.
+- Plan changes take effect on the first day of the following month.
+
+## Alternatives in this atlas
+
+- [cdnjs](/services/cdnjs/): when you only need to load popular open-source libraries from a CDN.
+- [Bunny Fonts](/services/bunny-fonts/): when you only need web fonts delivered without tracking.
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want static hosting with a CDN built in and no card.
+
+## Questions people ask
+
+### Is Gcore CDN free?
+
+The CDN page says it is free to start, with no credit card required. The pricing table lists a pay-as-you-go plan with 1 TB per month.
+
+### What happens when I exceed the Gcore CDN traffic limit?
+
+Extra charges apply. Gcore collects overage in portions of 50 euros or 60 dollars, and the CDN stops delivering content if payment fails.
+
+### Does Gcore CDN need a credit card?
+
+The CDN page says no credit card is required to start. The billing docs say overage is charged to a payment instrument added at signup.

@@ -1,8 +1,8 @@
 ---
 title: Ory
 description: >-
-  Ory provides open-source identity and access management services for
-  authentication, authorization, and user management.
+  Ory is an open-source identity stack for login, sessions, permissions, and OAuth2. Ory Network is
+  the managed cloud version of the same software.
 provider: Ory
 category: auth
 domain: auth
@@ -17,14 +17,17 @@ audiences:
   - oss
 tags:
   - identity
-  - auth
   - open-source
+  - oauth2
+  - oidc
+  - permissions
+  - ory network
+  - self-hosted
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The free Developer plan is for testing and proof-of-concept only: 2
-    development environments and 1 team member, but 0 production or staging
-    environments.
+    The free Developer plan is for testing and proof-of-concept only: 2 development environments and
+    1 team member, but 0 production or staging environments.
   limits:
     - 2 development environments
     - 0 production and 0 staging environments (dev/test only)
@@ -32,41 +35,48 @@ freeTierDetails:
     - Unlimited social connections
     - Admin UI and zero-downtime migrations included
   caveats:
-    - Free plan cannot be used in production or staging — the Production plan ($770/year) is required for that
+    - >-
+      Free plan cannot be used in production or staging — the Production plan ($770/year) is
+      required for that
     - No SLA or enterprise support on the free plan
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add user authentication to web or mobile apps
-  - Implement OAuth2 or SSO
-  - Manage user sessions and permissions
+  - Build a proof of concept for login and registration with your own UI
+  - 'Test password, passwordless, passkey, and multi-factor sign-in'
+  - Try OAuth2 and OpenID Connect flows as a provider
+  - Evaluate Ory before you pay or self-host
+  - Test a migration of an existing user base to Ory
 quickstartSteps:
-  - Sign up for an Ory Cloud account.
-  - Create a new project in the Ory dashboard.
-  - Configure authentication flows and user settings.
-  - Integrate Ory SDK or APIs into your application.
-  - Test user registration and login.
+  - Sign up at ory.com and create a free developer project in the Ory Console.
+  - >-
+    Pick a quickstart that matches your stack, for example protect a page with login in Next.js,
+    React, Express.js, or Go.
+  - >-
+    Configure sign-in methods such as password, passwordless, passkeys, or multi-factor
+    authentication in the project.
+  - 'Use hosted screens or build your own login pages, because the Ory APIs are headless.'
+  - 'Before launch, move to the Production plan, or run the open-source Ory software yourself.'
 whenToUse: >-
-  Use Ory's free Developer plan to prototype OAuth2, SSO, or permissions in a
-  non-production environment before upgrading.
+  Use the free Developer plan to test Ory and build a proof of concept, then either buy the
+  Production plan or self-host the open-source services.
 whenNotToUse: >-
-  Avoid the free plan if you need to run in staging or production — Ory
-  requires the paid Production plan for that, or its self-hosted open-source
-  components instead.
+  Avoid the free plan for staging or production, since it has none of either, or if you need an SLA
+  or enterprise support.
 bestFor:
-  - developers
-  - startups
-  - open-source projects
+  - proofs of concept
+  - evaluating Ory
+  - open-source projects that can self-host
 avoidIf:
-  - need on-premise only
-  - require advanced enterprise features
-  - exceed free tier limits
+  - staging or production on the free plan
+  - an SLA or enterprise support
+  - several team members on the free plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://ory.sh/'
@@ -75,6 +85,46 @@ pricingUrl: 'https://www.ory.com/pricing/'
 sourceUrls:
   - 'https://www.ory.com/pricing/'
   - 'https://www.ory.sh/docs/'
+  - 'https://www.ory.com/docs/getting-started/overview'
+  - 'https://www.ory.com/docs/network/getting-started'
 featured: false
 ---
-Ory offers a robust, open-source authentication and authorization platform with a generous free tier, ideal for projects needing secure user management and modern identity protocols.
+You create a project in the Ory Console and call Ory's headless APIs from your app, with hosted screens or your own UI. It suits developers who want to test the managed cloud before they pay or self-host.
+
+## What the free plan gives you
+
+The Developer plan is free and meant for testing and proof-of-concept work. It gives you 2 development environments and 1 team member. It has 0 production environments and 0 staging environments, so it is not for live traffic.
+
+The paid Production plan costs $770 per year and adds 1 production environment and 3 staging environments. The Growth plan costs $9,350 per year, with 2 production environments and 5 staging environments. Ory says every core service in Ory Network is the same Apache 2.0 licensed software available on GitHub, so you can also run it yourself.
+
+## When you hit a limit
+
+The Developer plan has no production environment, so the real limit is that you cannot go live on it. When you are ready to launch, you buy the Production plan, or you deploy the open-source Ory services on your own infrastructure.
+
+The pricing page does not describe what happens if you add more users to a development project. The Production plan also bills by use, for example per active daily user, so read its price table before you switch. The free plan has no included monthly credit.
+
+## Gotchas
+
+- The free plan has no staging or production environment. Treat it as a test lab only.
+- Only 1 team member fits in the Developer plan, so a team cannot share one project on it.
+- Ory has several services: Kratos for login, Hydra for OAuth2, Keto for permissions, and Polis for enterprise SSO. Pick the ones you need first.
+
+## Alternatives in this atlas
+
+- [Logto](/services/logto/): when you want open-source auth with a hosted free plan you can use in production.
+- [SuperTokens](/services/supertokens/): when you want open-source auth with a free hosted tier for live apps.
+- [ZITADEL Cloud](/services/zitadel-cloud/): when you want an open-source identity platform with a managed cloud.
+
+## Questions people ask
+
+### Is Ory free?
+
+The Developer plan on Ory Network is free, but only for testing and proofs of concept. The open-source software is also free to run on your own servers.
+
+### Can I use Ory Network free in production?
+
+No. The Developer plan has 0 production environments and 0 staging environments. You need the Production plan, which costs $770 per year.
+
+### Does Ory need a credit card?
+
+The pricing page shows a Start for free button for the Developer plan and does not mention a card. The atlas lists it as needing no card.

@@ -1,29 +1,32 @@
 ---
 title: UniRateAPI
-description: >-
-  UniRateAPI provides real-time and historical foreign exchange rates via a
-  simple API for developers and businesses.
+description: "UniRateAPI is a currency API that returns exchange rates for fiat currencies and cryptocurrencies. It suits developers who need rates for price displays, converters, and dashboards."
 provider: UniRateAPI
 category: apis
 domain: apis
 subtypes:
-  - currency-exchange
-  - financial-data
-  - REST API
+  - "currency-exchange"
+  - "exchange-rates"
+  - "REST API"
 audiences:
   - student
   - indie
   - startup
   - team
 tags:
-  - api
+  - "exchange rate api"
+  - "currency converter api"
+  - "forex api"
+  - "crypto prices"
+  - "currency api"
+  - "vat rates"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier is free forever with 200 requests/day (30 requests/minute),
     real-time fiat and crypto rates, no credit card required.
   limits:
-    - 200 requests/day
+    - 200 requests/day (6,000/month)
     - 30 requests/minute
     - 170+ fiat currencies and 500+ cryptocurrencies (real-time rates)
     - EU VAT rates and IBAN validation included
@@ -36,43 +39,79 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Display currency conversion rates in apps
-  - Automate price updates for e-commerce
-  - Financial dashboards
-  - Learning API integration
+  - "Show prices in a visitor's currency"
+  - "Build a currency converter or calculator"
+  - "Update product prices in an online shop"
+  - "Feed live rates into a finance dashboard"
+  - "Learn API calls with a free currency feed"
 quickstartSteps:
-  - Sign up for a free UniRateAPI account.
-  - Verify your email and log in to the dashboard.
-  - Obtain your API key from the dashboard.
-  - Read the API documentation for endpoint details.
-  - Make your first API request using your key.
-whenToUse: >-
-  Use UniRateAPI when you need quick access to real-time or historical currency
-  exchange rates for apps or dashboards.
-whenNotToUse: >-
-  Avoid if you require high request volumes, advanced analytics, or premium
-  financial data beyond basic exchange rates.
+  - "Open unirateapi.com and choose Get Free API Key to register. No credit card is needed."
+  - "Copy your API key from your account."
+  - "Send a GET request to https://api.unirateapi.com/api/rates with the api_key and from parameters, for example from set to USD."
+  - "Read the rates in the JSON response, for example the EUR value."
+  - "For Python, install the official client with pip install unirate-api, or call the API with the requests library."
+whenToUse: "Use when you need current exchange rates for a prototype, personal project, or small app and 200 requests a day is enough."
+whenNotToUse: "Avoid if you need historical rates, time series, precious metals or commodity prices, or more than 200 requests a day without paying for Pro."
 bestFor:
-  - prototyping
-  - learning
-  - small apps
-  - testing
+  - "currency converters"
+  - "price display"
+  - "prototyping"
+  - "learning"
 avoidIf:
-  - high-frequency trading
-  - enterprise-scale needs
-  - complex financial analytics
+  - "historical exchange rate data"
+  - "commodity or precious metals prices"
+  - "high request volumes"
+  - "priority support"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://unirateapi.com'
-docsUrl: 'https://docs.unirateapi.com'
-pricingUrl: 'https://unirateapi.com/'
+docsUrl: 'https://unirateapi.com/apidocs/'
+pricingUrl: 'https://unirateapi.com/pricing'
 sourceUrls:
   - 'https://unirateapi.com'
-  - 'https://docs.unirateapi.com'
+  - 'https://unirateapi.com/pricing'
+  - 'https://unirateapi.com/docs/python'
 featured: false
 ---
-UniRateAPI offers a simple, always-free tier for developers needing basic currency exchange rates, ideal for learning, prototyping, and small-scale integrations.
+You call UniRateAPI with a GET request and an API key from any language. The docs also show an official Python client that you install with pip. It suits developers who add currency conversion to apps, shops, and dashboards.
+
+## What the free plan gives you
+
+The Free tier costs $0 a month, lasts forever, and needs no credit card. The site calls it good for testing and personal projects. You get 200 requests a day, which the pricing page puts at 6,000 a month, with a limit of 30 requests per minute. The pricing page lists 170+ fiat currencies, and the home page says the free tier also covers cryptocurrencies, with more than 870 currencies in total.
+
+The home page also lists EU VAT rates and an IBAN validation API on the free tier. The pricing page says the free tier has no historical data access. The two pages disagree about historical data, so trust the pricing page and treat history as a Pro feature.
+
+## When you hit a limit
+
+If you pass the daily limit, API requests return a 429 error. The error includes information about when your limit resets, which is midnight UTC. You can upgrade to Pro for higher limits.
+
+Because the free tier needs no card, nothing is billed. Pro costs $9 a month and gives 25,000 requests a day, historical data from 1999, and time series data.
+
+## Gotchas
+
+- Historical rates, precious metals, energy and farm commodity prices, and VAT number validation need the paid Pro plan.
+- The per-minute limit of 30 requests applies on top of the daily limit, so a burst can fail before the day ends.
+- The home page and pricing page list different free features. Check the pricing page before you rely on a feature.
+
+## Alternatives in this atlas
+
+- [Currency Beacon](/services/currencyscoop/): when you want another currency data API with a free plan that needs no card.
+- [Calendarific](/services/calendarific/): when you need holiday data instead of exchange rates, with a free plan that needs no card.
+
+## Questions people ask
+
+### Is UniRateAPI free?
+
+Yes. The Free tier costs $0 forever and allows 200 requests a day. It needs no credit card.
+
+### What happens when I go over the UniRateAPI limit?
+
+Requests return a 429 error until the limit resets at midnight UTC. You can upgrade to Pro for higher limits.
+
+### Does UniRateAPI give historical exchange rates for free?
+
+No, according to the pricing page. Historical data back to 1999 is a Pro feature at $9 a month.

@@ -1,8 +1,8 @@
 ---
 title: Langfuse
 description: >-
-  Langfuse provides observability and analytics for LLM applications, enabling
-  prompt tracking, evaluation, and debugging.
+  Langfuse is an open-source platform that traces, evaluates, and debugs LLM
+  applications and agents. You can use the hosted cloud or self-host it.
 provider: Langfuse
 category: observability
 domain: observability
@@ -17,58 +17,60 @@ audiences:
   - oss
   - indie
 tags:
-  - llm
-  - ai
-  - observability
-  - analytics
+  - llm-observability
+  - tracing
+  - prompt-management
+  - open-source
+  - evals
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Hobby plan is free, no credit card required, with 50,000 units per month
-    and 30 days of data access.
+    The Hobby plan is free, no credit card required, with 50k units per month,
+    30 days of data access, and 2 users.
   limits:
-    - '50,000 units/month included'
+    - '50k units/month included'
     - 30 days data access
     - 2 users
     - Community support via GitHub
   caveats:
     - All platform features are included but with usage limits
     - Data older than 30 days is not accessible on the free plan
+    - Langfuse is open source, so you can also self-host it
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor LLM application performance
+  - Trace LLM application and agent runs
   - Debug prompt chains
-  - Evaluate LLM outputs
-  - Track user interactions with AI
+  - Evaluate LLM outputs with scores
+  - Track which users trigger which LLM calls
+  - Manage and fetch prompts
 quickstartSteps:
-  - Sign up for a free Langfuse account.
-  - Create a new project in the Langfuse dashboard.
-  - Integrate the Langfuse SDK into your LLM application.
-  - Send traces and events from your app to Langfuse.
-  - View analytics and traces in the dashboard.
+  - Create a Langfuse account on the cloud, or self-host Langfuse.
+  - Create new API credentials in the project settings.
+  - Set `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and `LANGFUSE_BASE_URL` in your environment.
+  - Install the SDK, for example `pip install langfuse` for Python or `npm install @langfuse/openai` for the JavaScript OpenAI wrapper.
+  - In Python, import OpenAI with `from langfuse.openai import openai`, make a call, and open the trace in the dashboard.
 whenToUse: >-
-  Use Langfuse when you need to monitor, debug, or analyze LLM application
-  behavior and prompt performance.
+  Use Langfuse when you want to trace, debug, and score the behavior of an LLM
+  app, hosted or self-hosted.
 whenNotToUse: >-
-  Avoid if you require observability for non-AI workloads or need more than
-  50,000 units a month or longer data access without upgrading.
+  Avoid it for non-AI workloads, or if you need more than 50k units a month or
+  more than 30 days of data access without paying.
 bestFor:
   - LLM developers
   - AI startups
-  - teams building with GPT-4
   - prompt engineers
 avoidIf:
-  - You need observability for traditional apps
-  - You require more than 50,000 units a month
-  - You need enterprise SLAs on the free tier
+  - you need observability for traditional apps
+  - you need more than 50k units a month on the free plan
+  - you need enterprise SLAs on the free tier
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://langfuse.com/'
@@ -76,7 +78,47 @@ docsUrl: 'https://langfuse.com/docs'
 pricingUrl: 'https://langfuse.com/pricing'
 sourceUrls:
   - 'https://langfuse.com/pricing'
+  - 'https://langfuse.com/pricing/'
   - 'https://langfuse.com/docs'
+  - 'https://langfuse.com/docs/observability/get-started/'
 featured: false
 ---
-Langfuse offers a free Hobby plan for LLM observability, with 50,000 units a month and 30 days of data access, letting you track, debug, and analyze prompt chains and outputs.
+You instrument your app with the Langfuse SDK or an OpenAI wrapper, then explore traces, prompts, and scores in the web app. It suits developers who build LLM apps and want to inspect every call.
+
+## What the free plan gives you
+
+The Hobby plan is free and needs no credit card. It includes all platform features with limits: 50k units per month, 30 days of data access, 2 users, and community support through GitHub. It is described as good for hobby projects and proofs of concept.
+
+A billable unit is any tracing data point you send, including the trace, its observations such as spans, events, and generations, and scores from evaluations. Core costs $29 per month with 100k units included, 90 days of data access, and unlimited users.
+
+## When you hit a limit
+
+The pricing page does not say what happens on Hobby after the 50k units are used up. It shows no additional usage price for Hobby, while Core charges $8 per 100k extra units.
+
+The billable units docs say units are counted per billing period and add up traces, observations, and scores. They also say anything stored counts, including data made by features such as LLM-as-a-Judge. Check the usage in your project before a busy month.
+
+## Gotchas
+
+- Units count observations and scores, not only traces, so one request can use several units.
+- Data older than 30 days is not accessible on Hobby.
+- Hobby has 2 users, while Core has unlimited users.
+
+## Alternatives in this atlas
+
+- [LangSmith](/services/langsmith/): when you build with LangChain and want its tracing.
+- [Helicone](/services/helicone/): when you want request logging through a gateway.
+- [LangWatch](/services/langwatch/): when you want LLM monitoring with evaluation.
+
+## Questions people ask
+
+### Is Langfuse free?
+
+Yes. The Hobby plan is free with no credit card, and it includes 50k units per month, 30 days of data access, and 2 users. You can also self-host the open-source version.
+
+### What counts as a unit in Langfuse?
+
+A billable unit is any tracing data point: a trace, an observation such as a span, event, or generation, or a score.
+
+### Is Langfuse open source?
+
+Yes. The docs say Langfuse is open source and that you can use Langfuse Cloud or self-host it with the same instrumentation code.

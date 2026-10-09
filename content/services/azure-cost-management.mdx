@@ -1,8 +1,8 @@
 ---
 title: Azure Cost Management
 description: >-
-  Azure Cost Management helps monitor, allocate, and optimize cloud spending
-  across Azure resources and services.
+  Azure Cost Management shows where your Azure money goes. You can analyze costs, set budgets, and
+  get alerts. It suits anyone who pays for Azure resources, from solo developers to finance teams.
 provider: Azure
 category: analytics
 domain: analytics
@@ -16,14 +16,20 @@ audiences:
   - enterprise
   - agency
 tags:
-  - cloud
-  - analytics
+  - azure
+  - cost management
+  - cloud costs
+  - budgets
+  - finops
+  - billing
 pricingModel: free
 freeTierDetails:
-  summary: Free for Azure customers and managed service providers to manage and analyze Azure resource costs.
+  summary: >-
+    Free for Azure customers and managed service providers to manage and analyze Azure resource
+    costs.
   limits:
     - No additional cost for Azure customers and managed service providers
-    - Cost analysis, budgets, and alerts included at no charge
+    - 'Cost analysis, budgets, and alerts included at no charge'
   caveats:
     - Free for Azure spend; it needs an Azure account to use.
   resetPeriod: monthly
@@ -32,42 +38,94 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Monitor Azure cloud spending
-  - Set budgets and alerts
-  - Analyze cost trends
-  - Allocate costs to projects or teams
+  - 'Break down Azure spending by service, resource group, or tag'
+  - Set a monthly budget and get an email when cost passes it
+  - Spot cost spikes with anomaly alerts
+  - Send scheduled cost reports to a team
+  - Export raw cost data to a storage account for reporting
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - Navigate to 'Cost Management + Billing'.
-  - Select 'Cost Management' and choose your subscription.
-  - Review cost analysis and set up budgets or alerts as needed.
+  - Sign in to the Azure portal with an account that has an Azure subscription.
+  - >-
+    Search for Cost Management and open it, or open Cost analysis from a subscription or resource
+    group.
+  - >-
+    Wait up to 48 hours after creating a new subscription before all features work. You can set a
+    budget right away.
+  - Open a smart view such as the Services view to see cost by service over time.
+  - >-
+    Select the create link in the Budget KPI and enter the amount you expect to stay under each
+    month.
+  - Configure anomaly alerts or a scheduled alert so cost spikes reach your inbox.
 whenToUse: >-
-  Use when you need to monitor, analyze, and control Azure cloud costs for your
-  organization or projects.
+  Use it when you already pay for Azure and want to see, limit, and report on that spend without
+  buying another tool.
 whenNotToUse: >-
-  Avoid if you require deep multi-cloud analytics for non-Azure clouds, since
-  those connectors are billed separately.
+  Avoid it if you need cost reports for clouds other than Azure, or if you have a classic Cloud
+  Solution Provider or sponsorship subscription, which it does not support.
 bestFor:
   - Azure users
   - cloud cost managers
   - finance teams
+  - FinOps reporting
 avoidIf:
   - multi-cloud only
   - non-Azure environments
+  - classic CSP or sponsorship subscriptions
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/cost-management/'
-docsUrl: >-
-  https://learn.microsoft.com/en-us/azure/cost-management-billing/cost-management-overview
+docsUrl: 'https://learn.microsoft.com/en-us/azure/cost-management-billing/cost-management-overview'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cost-management/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cost-management/'
-  - >-
-    https://learn.microsoft.com/en-us/azure/cost-management-billing/cost-management-overview
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-mgt'
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/quick-acm-cost-analysis'
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/understand-cost-mgt-data'
 featured: false
 ---
-Azure Cost Management provides free, built-in tools for tracking, analyzing, and optimizing Azure cloud spending, at no additional cost for Azure customers and managed service providers.
+
+You use it in the Azure portal, and you can pull the same data through exports and APIs. It fits anyone who pays an Azure bill, from solo developers to finance teams.
+
+## What the free plan gives you
+
+The pricing page lists the price as "Free for Azure". You pay nothing extra to use Cost Management on your Azure spend. You still pay for the Azure resources you run. The tool needs an Azure subscription to read from.
+
+Cost analysis gives you built-in views of cost by service and over time. Budgets track your spend against an amount you pick, and you can set them monthly, quarterly, or yearly. Alerts cover budgets, anomalies, and scheduled reports by email. Tags let you add your own labels, and scheduled exports send cost details to a storage account.
+
+Summarized data in cost analysis covers the last 13 months. A new subscription can take up to 48 hours before every feature works.
+
+## When you hit a limit
+
+The pricing page does not list a usage cap, so there is no quota to run out of. The tool itself stays free for Azure.
+
+The limits that matter are about data, not money. Daily views span at most 3 months. If a subscription changes offer type, older costs are not available. Budgets only warn you. A subscription or resource group budget can call an action group to take automated steps, which is how you can reduce or stop further charges.
+
+## Gotchas
+
+- Classic Cloud Solution Provider and sponsorship subscriptions are not supported. They will be supported after they move to a Microsoft Customer Agreement.
+- Support costs and some Marketplace or commitment purchases are not included for every account type. Check the data page for your offer.
+- Budgets and alerts do not stop spending on their own. You must connect an action group if you want automatic action.
+
+## Alternatives in this atlas
+
+- [Microsoft Purview](/services/azure-purview/): when you need to catalog and govern data rather than track cost.
+- [Cube](/services/cube/): when you want to build your own cost or metrics reports on a semantic layer.
+- [Hex](/services/hex/): when you want to analyze exported cost data in notebooks.
+
+## Questions people ask
+
+### Is Azure Cost Management free?
+
+Yes for Azure. The pricing page lists it as free for Azure. You still pay for the resources you use.
+
+### Does Azure Cost Management stop my spending at a budget?
+
+No. A budget sends alerts when cost passes your amount. You can link an action group to take automated steps.
+
+### How far back does Azure cost analysis go?
+
+Summarized data in cost analysis covers the last 13 months. If your subscription changes offer type, costs before the change are not available.

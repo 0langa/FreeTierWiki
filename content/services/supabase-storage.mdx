@@ -1,8 +1,9 @@
 ---
 title: Supabase Storage
 description: >-
-  Supabase Storage provides scalable object storage with access controls and
-  integration with Supabase projects.
+  Supabase Storage keeps files, folders, and buckets inside a Supabase project,
+  with access rules written as database policies. It suits developers who
+  already build on Supabase.
 provider: Supabase
 category: storage
 domain: storage
@@ -17,53 +18,59 @@ audiences:
   - team
   - oss
 tags:
-  - storage
+  - file storage
+  - object storage
+  - supabase
+  - bucket
+  - s3 compatible
+  - user uploads
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes 1 GB storage and 5 GB cached egress across up to 2 active projects, no credit card required.
+  summary: 'Free plan: 1 GB of file storage, 5 GB of egress, 5 GB of cached egress, and 50 MB per file, across up to 2 active projects, no credit card required.'
   limits:
-    - 1 GB storage
-    - 5 GB cached egress
+    - 1 GB file storage
+    - 5 GB egress and 5 GB cached egress
     - 50 MB max file upload size
     - Up to 2 active projects
   caveats:
-    - No custom domain or image transformations on free tier
+    - Image transformations are not included on the free plan
     - Free projects pause after 1 week of inactivity
+    - The spend cap and extra usage need the Pro plan; on Free you are not charged
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - User-generated content storage
-  - Media hosting for web/mobile apps
-  - Document management
-  - Static asset storage
+  - Profile pictures and other user uploads
+  - Media files for a web or mobile app
+  - Documents and attachments stored next to your database
+  - Public assets in public buckets and private files in private buckets
 quickstartSteps:
-  - Sign up for a Supabase account and create a new project.
-  - Navigate to the 'Storage' section in your project dashboard.
-  - Create a new storage bucket and configure access policies.
-  - Use the Supabase client libraries to upload and retrieve files.
-  - Monitor usage and adjust permissions as needed.
+  - Sign up for Supabase and create a project.
+  - Open Storage in the project dashboard and create a bucket. Names follow the AWS naming rules.
+  - Add access rules for the bucket with Storage policies.
+  - Upload files in the dashboard, or with a Supabase client library, resumable uploads, or the S3 protocol.
+  - Serve files by their public URL, or with signed URLs for private buckets.
 whenToUse: >-
-  Use when you need simple, integrated object storage for files in
-  Supabase-backed apps with managed access controls.
+  Use it when your app already uses Supabase and you want files governed by the
+  same auth and database rules.
 whenNotToUse: >-
-  Avoid if you require large-scale storage, image transformations, or a
-  custom domain on the free tier.
+  Avoid it if you need image transformations, files larger than 50 MB, or
+  storage that stays active when a free project sits idle.
 bestFor:
   - Supabase projects
   - rapid prototyping
   - student apps
   - MVPs
 avoidIf:
-  - enterprise-scale storage
-  - need image transformations
-  - advanced CDN needs
+  - you need image transformations on Free
+  - you need files above 50 MB
+  - you need a project that never pauses
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/docs/reference/storage'
@@ -71,7 +78,50 @@ docsUrl: 'https://supabase.com/docs/reference/storage'
 sourceUrls:
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/storage'
+  - 'https://supabase.com/docs/guides/storage/quickstart'
+  - 'https://supabase.com/docs/guides/storage/uploads/file-limits'
+  - 'https://supabase.com/docs/guides/platform/cost-control'
 pricingUrl: 'https://supabase.com/pricing'
 featured: false
 ---
-Supabase Storage offers integrated, developer-friendly object storage for files and media, with free tier limits (1 GB storage, 5 GB cached egress) suitable for small projects and prototyping. No card is required, and usage above the cap is blocked rather than billed on the free plan.
+You create buckets in the Supabase dashboard and work with files through the client libraries, resumable uploads, or the S3 protocol. Access rules sit next to your data, so one login covers both.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. It includes 1 GB of file storage, 5 GB of egress, and 5 GB of cached egress. You can run 2 active projects. The largest file you can upload on Free is 50 MB.
+
+Storage holds files, folders, and buckets. Buckets are separate containers, so you can keep videos in one and profile pictures in another, each with its own security rules.
+
+Image transformations are listed as not included in the Free plan. On a paid plan, 100 origin images are included, then the pricing page lists $5 per 1,000 origin images.
+
+## When you hit a limit
+
+You are not charged on the Free plan. Supabase's cost-control guide says the spend cap is a Pro plan feature, and that you will not be charged while on Free. Over-use of a quota can lead to restricted services under the Fair Use Policy if it keeps happening.
+
+The other limit is inactivity. The pricing page says free projects are paused after 1 week of inactivity. A paused project cannot serve its files until you restore it. Pro raises the file size limit to 500 GB per file.
+
+## Gotchas
+
+- Free projects pause after 1 week without activity, and files in a paused project are not served until you restore it.
+- The 50 MB file size limit is a hard ceiling on Free. You can set a lower limit per bucket, but not a higher one.
+- HTML files are returned as plain text for security, so you cannot host a web page from a bucket.
+
+## Alternatives in this atlas
+
+- [Supabase](/services/supabase/): when you want the whole backend, with a database and auth beside the files.
+- [Cloudflare R2](/services/cloudflare-r2/): when you serve many downloads and want no egress fees.
+- [UploadThing](/services/uploadthing/): when you only want an upload button and hosted storage in a TypeScript app.
+
+## Questions people ask
+
+### Is Supabase Storage free?
+
+Yes, within limits. The Free plan includes 1 GB of file storage, 5 GB of egress, and 5 GB of cached egress, with a 50 MB limit per file.
+
+### Does Supabase Storage need a credit card?
+
+No. The entry records that the Free plan needs no card, and Supabase says you are not charged while on it.
+
+### What happens when I go over the Supabase Storage limit?
+
+You are not billed on Free. A project that keeps going over its quota can be restricted, and you can upgrade to Pro for more.

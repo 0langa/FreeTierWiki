@@ -1,8 +1,9 @@
 ---
 title: Cloudinary
 description: >-
-  Cloudinary provides cloud-based image and video management, including storage,
-  transformation, and delivery via CDN.
+  Cloudinary stores images and videos, changes them with URL options or an API,
+  and delivers them through a CDN. It suits developers and teams that serve
+  lots of media.
 provider: Cloudinary
 category: storage
 domain: storage
@@ -18,9 +19,12 @@ audiences:
   - oss
   - agency
 tags:
-  - images
-  - video
-  - cdn
+  - image hosting
+  - video hosting
+  - image cdn
+  - image transformation
+  - media api
+  - digital asset management
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,8 +35,9 @@ freeTierDetails:
     - 3 users / 1 account
     - No credit card required
   caveats:
-    - 1 credit covers roughly 1,000 transformations, 1 GB storage, or 1 GB bandwidth
-    - Community support only (forums, tickets, email)
+    - 1 credit covers roughly 1,000 transformations, 1 GB of managed storage, or 1 GB of image bandwidth
+    - Video bandwidth boost and custom domain (CNAME) support are on paid plans
+    - Support is forums, tickets, and email
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -42,41 +47,87 @@ freeTierDetails:
     - No credit card on file, so free credits cannot be exceeded automatically
   monthlyCreditAmount: 25 credits/month
 useCases:
-  - Host and deliver images for web or mobile apps
-  - Automate image and video optimization
-  - On-the-fly media transformations
-  - Serve media via global CDN
+  - Hosting product and blog images for a website or app
+  - Resizing, cropping, and converting images through URL options
+  - Uploading user photos and videos through the API or upload widget
+  - Serving video through a CDN
+  - Managing a shared library of media assets
 quickstartSteps:
-  - Sign up for a free Cloudinary account.
-  - 'Create a new project and obtain your cloud name, API key, and API secret.'
-  - Upload an image or video via the dashboard or API.
-  - Integrate Cloudinary SDK or use direct URLs in your app.
-  - Apply transformations using URL parameters as needed.
+  - Register for the Free plan with a Google or GitHub account, or with an email address. No card is needed.
+  - Open the Console and find your cloud name, API key, and API secret in the API Keys settings.
+  - Install an SDK, for example the Node.js SDK, and set the CLOUDINARY_URL environment variable.
+  - Upload an image with the SDK, the Upload API, or the upload widget.
+  - Transform the image with URL options and use the delivery URL in your page.
 whenToUse: >-
-  Use Cloudinary when you need scalable, automated image or video storage,
-  transformation, and fast global delivery.
+  Use it when you want one service to store, transform, and deliver images and
+  video without running your own pipeline.
 whenNotToUse: >-
-  Avoid if you need more than 25 monthly credits of combined storage,
-  bandwidth, and transformations, or need on-premise-only media storage.
+  Avoid it if your traffic will use more than the 25 monthly credits, or if you
+  need media kept only on your own servers.
 bestFor:
   - media-heavy apps
   - ecommerce
   - blogs
   - portfolios
 avoidIf:
-  - strict cost control
-  - offline-only environments
+  - you need strict cost control past the free credits
+  - you need on-premises-only storage
+  - you need a custom domain on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloudinary.com'
 docsUrl: 'https://cloudinary.com/documentation'
 sourceUrls:
   - 'https://cloudinary.com/pricing'
+  - 'https://cloudinary.com/documentation'
+  - 'https://cloudinary.com/documentation/developer_onboarding_faq_free_plan'
+  - 'https://cloudinary.com/documentation/node_quickstart'
+  - 'https://cloudinary.com/documentation/upload_images'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://cloudinary.com/pricing'
 ---
-Cloudinary offers a robust platform for storing, transforming, and delivering images and videos, with a generous free tier suitable for small to medium projects.
+You upload through the Console, the Upload API, or an SDK for Node.js, Python, PHP, React, and many other languages. You then change images with options in the delivery URL. It suits developers who need resizing and CDN delivery.
+
+## What the free plan gives you
+
+The Free plan gives you 25 monthly credits for 3 users on 1 account. Cloudinary says it is free forever and needs no credit card. Image and video transformations are included, along with access to free add-ons.
+
+One credit is shared across all services. It equals 1,000 transformations, or 1GB of managed storage, or 1GB of image bandwidth. Cloudinary counts the credits for you and shows the split in your dashboard. A 2GB video bandwidth rate is listed as paid plans only.
+
+The docs say the Free plan can run in production without restrictions, as long as you stay within the credit allowance. Custom domain (CNAME) support starts on a paid plan.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 25 credits. The docs only say you can upgrade to a plan that fits if your needs grow beyond the Free plan's credit limits.
+
+The account has no card on file, so Cloudinary has nothing to charge. That is why the entry records no overage bill. Watch your credit use in the dashboard, and check what is blocked before you rely on the free plan for a busy site.
+
+## Gotchas
+
+- The credits are shared. A video-heavy or transformation-heavy month can use them up through bandwidth alone.
+- Eager transformations count toward your transformation quota even if an identical derived asset already exists.
+- Support on the Free plan is through forums, tickets, and email. Expedited support is a paid feature.
+
+## Alternatives in this atlas
+
+- [ImageKit](/services/imagekit/): when you want an image CDN with its own free plan.
+- [Uploadcare](/services/uploadcare/): when you mainly need an upload widget and file handling.
+- [Cloudflare Images](/services/cloudflare-images/): when your site is already on Cloudflare and you only need resizing.
+
+## Questions people ask
+
+### Is Cloudinary free?
+
+Yes. The Free plan gives you 25 monthly credits for 3 users on 1 account. Cloudinary says it is free forever with no credit card.
+
+### Does Cloudinary need a credit card?
+
+No. You can register with a Google or GitHub account, or with an email address. No card or other financial details are required.
+
+### What happens when I use all my Cloudinary credits?
+
+The pricing page does not say. Cloudinary only says you can upgrade to a plan that fits your needs.

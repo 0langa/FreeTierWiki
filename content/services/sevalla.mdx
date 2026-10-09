@@ -1,6 +1,9 @@
 ---
 title: Sevalla Static Sites
-description: Static site hosting on Cloudflare's edge from Sevalla (by Kinsta).
+description: >-
+  Sevalla Static Sites builds a static site from a Git repository and serves it
+  from Cloudflare's edge network. Sevalla is a Kinsta product, and this entry
+  covers only its static hosting.
 provider: Sevalla
 category: hosting
 domain: hosting
@@ -11,47 +14,70 @@ audiences:
   - indie
   - startup
 tags:
-  - web
-  - hosting
+  - static-site-hosting
   - cdn
+  - git-deploy
+  - pull-request-previews
+  - kinsta
 pricingModel: freemium
 freeTierDetails:
   summary: 'Static sites are free: up to 100 sites, 100 GB bandwidth, and 600 build minutes.'
   limits:
     - 100 sites per account
-    - 100 GB bandwidth
-    - 600 build minutes
+    - 100 GB bandwidth per month
+    - 600 build minutes per month
+    - 1 GB build size and 1 concurrent build per site
   caveats:
     - Fair use policy applies
     - Apps and databases are paid
+    - Past the free bandwidth and build minutes, usage is billed at a per-use rate
+    - Pull request previews use extra build minutes and bandwidth
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - Bandwidth past 100 GB is billed per GB, and build minutes past 600 are billed per minute
 useCases:
-  - Host a static site or SPA
-  - Deploy docs or a blog
+  - Host a static site or single-page app
+  - Deploy a documentation site or blog built by a static site generator
+  - Preview pull requests before merging them
+  - Serve a site from edge locations close to visitors
 quickstartSteps:
-  - Sign up at sevalla.com.
-  - Connect a Git repository.
-  - Set the build command and deploy.
-whenToUse: Use for static sites when you want an alternative to Netlify or Pages.
-whenNotToUse: Avoid if you need server-side code for free.
+  - Sign up for a Sevalla account at app.sevalla.com.
+  - Open the Static Sites page and click Add site.
+  - Connect GitHub, GitLab, or Bitbucket and choose the repository and branch.
+  - Enter a build command and a publish directory, and turn on auto-deploy if you want a deploy on each commit.
+  - Deploy, then read the build and rollout log on the deployment details page.
+whenToUse: >-
+  Use it for a pre-built or generator-built static site that fits in 100 GB of
+  bandwidth a month and needs no server code.
+whenNotToUse: >-
+  Avoid it for sites that render on the server, need a database or sessions, or
+  build with a language other than Node.js, since those belong on Sevalla's paid
+  applications.
 bestFor:
   - static sites
+  - documentation sites
+  - blogs
 avoidIf:
   - backends
+  - server-side rendering
+  - PHP builds
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://sevalla.com/static-site-hosting/'
 docsUrl: 'https://docs.sevalla.com'
 sourceUrls:
   - 'https://sevalla.com/pricing/'
+  - 'https://docs.sevalla.com/static-sites/overview'
+  - 'https://docs.sevalla.com/billing/static-site-pricing'
+  - 'https://docs.sevalla.com/static-sites/get-started/add-a-static-site'
 pricingUrl: 'https://sevalla.com/pricing/'
 featured: false
 changes:
@@ -59,4 +85,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Sevalla hosts static sites for free on Cloudflare's network.
+You add a site from the Sevalla dashboard, connect a Git provider, and Sevalla builds and publishes it. It suits people who already build with Node.js tools or who push pre-built files.
+
+## What the free plan gives you
+
+Static site hosting is free for up to 100 sites per account. The free amounts each month are 100 GB of bandwidth and 600 build minutes. Each site has a build size of 1 GB and 1 concurrent build, and you cannot raise those limits or the number of sites.
+
+Sevalla serves static sites from Cloudflare's network, and the docs count more than 260 edge locations. The docs support GitHub, GitLab, and Bitbucket as Git providers, with auto-deploy on each commit and optional pull request previews.
+
+## When you hit a limit
+
+You can keep going past the free amounts, but usage is billed. After the first 100 GB of bandwidth in a month, Sevalla charges $0.1 per GB, counted by the byte on traffic that leaves your site. After the first 600 build minutes, it charges $0.05 per minute.
+
+The invoice covers only bandwidth and build time for static sites. The pages do not say whether a card is needed to sign up. Pull request previews create a new deployment for each pull request, so they add to build minutes and bandwidth.
+
+## Gotchas
+
+- Sites that need server-side rendering, a database connection, sessions, or a build in a language other than Node.js fit better on Sevalla's paid application hosting.
+- A static site name must be unique across your static sites, applications, and databases.
+- Static sites cannot run dynamic features such as contact forms on their own. The docs point to outside form services for that.
+
+## Alternatives in this atlas
+
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want static hosting on the same edge network from the provider itself.
+- [Netlify](/services/netlify/): when you want deploy previews and functions in one credit-based plan.
+- [GitHub Pages](/services/github-pages/): when your site lives in a GitHub repository and you want the simplest path.
+
+## Questions people ask
+
+### Is Sevalla static site hosting free?
+
+Yes, within limits. You get up to 100 sites, 100 GB of bandwidth per month, and 600 build minutes per month.
+
+### What happens when I go over the Sevalla free static site limits?
+
+Sevalla bills the extra. Bandwidth past 100 GB costs $0.1 per GB, and build time past 600 minutes costs $0.05 per minute.
+
+### Which Git providers work with Sevalla?
+
+GitHub, GitLab, and Bitbucket. You pick the repository and branch when you add a site, and you can turn on auto-deploy for each commit.

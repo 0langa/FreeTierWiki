@@ -1,6 +1,8 @@
 ---
 title: Firecrawl
-description: 'An API that scrapes, crawls, and searches the web and returns clean Markdown or JSON for LLMs.'
+description: >-
+  Firecrawl is a web data API that scrapes, crawls, maps, and searches pages and
+  returns clean Markdown or JSON for LLM apps.
 provider: Firecrawl
 category: ai
 domain: ai
@@ -13,20 +15,24 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - api
-  - data
-  - automation
+  - web-scraping
+  - web-crawler
+  - llm
+  - rag
+  - markdown
 pricingModel: freemium
 freeTierDetails:
   summary: '1,000 free credits per month (about 1,000 pages), refreshed monthly. No card needed.'
   limits:
-    - '1,000 credits per month'
+    - '1,000 credits per month, shared across all endpoints'
     - 'About 1,000 scraped pages or 500 searches'
-    - Credits refresh monthly
+    - 2 concurrent requests
+    - '10 requests a minute on scrape, map and search; 2 a minute on crawl and agent'
   caveats:
     - 'Pages that return an error status (403, 404) still cost 1 credit'
-    - Some features (agent runs) have their own small daily free amount
+    - Unused credits do not roll over
+    - Pay-as-you-go top-ups need a paid plan
+    - The Agent feature is in preview with 5 free daily runs
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -34,30 +40,42 @@ freeTierDetails:
   overageRisk: none
 useCases:
   - Turn web pages into Markdown for an LLM
-  - Crawl a docs site for RAG
-  - Search the web from an agent
+  - Crawl a docs site to feed a RAG pipeline
+  - Search the web and scrape the results from an agent
+  - Extract structured JSON from a page with a schema
+  - Add web tools to Cursor or Claude Code with the CLI
 quickstartSteps:
-  - Sign up at firecrawl.dev.
-  - Copy your API key.
-  - Call /scrape with a URL.
-whenToUse: Use when an AI app needs clean web content without running your own scraper.
-whenNotToUse: 'Avoid for large crawls; 1,000 credits go fast.'
+  - Create a free account at firecrawl.dev and copy your API key. The docs say you can try a first scrape without a key, at lower rate limits.
+  - Install the Python SDK with `pip install firecrawl-py`, or use the Node SDK, the CLI, or plain cURL.
+  - Create a client with `Firecrawl(api_key="fc-YOUR-API-KEY")`.
+  - Call `app.search("firecrawl", limit=5)`, or send a POST to `https://api.firecrawl.dev/v2/scrape` with a URL.
+  - Check your credit use in the dashboard before you start a large crawl.
+whenToUse: >-
+  Use Firecrawl when an AI app needs clean page content, crawled docs, or web
+  search results without running your own scraper.
+whenNotToUse: >-
+  Avoid it for large crawls on the free plan. A basic page costs 1 credit, so
+  1,000 credits go fast.
 bestFor:
-  - RAG
+  - RAG pipelines
   - AI agents
   - prototypes
 avoidIf:
-  - large crawls
+  - you crawl whole sites often
+  - you need more than 2 concurrent requests for free
+  - you need unused credits to roll over
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.firecrawl.dev'
 docsUrl: 'https://docs.firecrawl.dev'
 sourceUrls:
   - 'https://www.firecrawl.dev/pricing'
+  - 'https://docs.firecrawl.dev'
+  - 'https://www.firecrawl.dev'
 pricingUrl: 'https://www.firecrawl.dev/pricing'
 featured: false
 changes:
@@ -65,4 +83,39 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Firecrawl converts web pages to LLM-ready text. The free plan is a monthly credit pool with no card.
+You use Firecrawl through a REST API, Python and Node SDKs, a command-line tool, or an MCP server for AI tools. It suits developers who feed web content into LLM apps, RAG pipelines, and agents.
+
+## What the free plan gives you
+
+The Free plan costs $0 and gives you 1,000 credits every month, refreshed monthly, with no credit card required. Credits are shared across all endpoints, so searches and scraped pages draw on one balance. The pricing page says that equals 500 searches or 1,000 pages scraped.
+
+A basic scrape, crawl, or map costs 1 credit per page. A search costs 2 credits per 10 results. The JSON, Question, and Highlight formats add 4 credits per page on scrape and crawl. The Free plan allows 2 concurrent requests, and the pricing page calls its rate limits low: 10 requests a minute on scrape, map, and search, and 2 a minute on crawl and agent. Agent is in preview with 5 free daily runs.
+
+## When you hit a limit
+
+The pricing page describes no overage charge on the Free plan, and it needs no card, so you cannot be billed. Credits refresh monthly, and unused ones do not roll over. When the 1,000 credits are gone, you wait for the refresh or move to a paid plan. Pay-as-you-go top-ups, which add credits in 5 USD increments, are for paid plans only. The Hobby plan costs $16 per month billed yearly, or $19 billed monthly, and includes 5,000 credits.
+
+## Gotchas
+
+- A page that returns an error such as 403 or 404 is still returned and still costs 1 credit. A scrape that returns no result is not charged.
+- Heavier formats cost more. JSON, Question, and Highlight add 4 credits per page, so your 1,000 credits cover fewer pages.
+- Interact sessions cost 2 credits per browser minute, which uses up a small balance fast.
+
+## Alternatives in this atlas
+
+- [Jina Reader](/services/jina-reader/): when you only need to turn single URLs into readable text.
+- [Exa](/services/exa/): when you need a search index with page contents, not a scraper.
+
+## Questions people ask
+
+### Is Firecrawl free?
+
+Yes. The Free plan gives you 1,000 credits every month, which covers about 1,000 pages. Paid plans start with Hobby at $16 per month billed yearly.
+
+### Does Firecrawl need a credit card?
+
+No. The pricing page says the Free tier needs no credit card.
+
+### What happens when I run out of Firecrawl credits?
+
+The pricing page describes no overage charge on Free. You wait for the monthly refresh or move to a paid plan. Pay-as-you-go top-ups need a paid plan.

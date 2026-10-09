@@ -1,8 +1,9 @@
 ---
 title: IP Geolocation
 description: >-
-  Provides IP-based geolocation data, including country, city, timezone, and ASN
-  information via a simple API.
+  IPGeolocation.io is an IP geolocation API that returns location, currency,
+  ASN, and time zone for an address in one call. A free plan covers testing and
+  small projects.
 provider: IPGeolocation.io
 category: apis
 domain: apis
@@ -16,8 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
+  - ip geolocation
+  - geoip
+  - timezone api
+  - asn lookup
+  - ip lookup
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -36,39 +40,40 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Personalizing content by user location
-  - Blocking or allowing traffic by region
-  - Displaying timezone-aware information
-  - Analyzing website visitor distribution
+  - 'Personalize content or currency by a visitor''s country'
+  - Block or allow traffic by region
+  - Show time zone aware information
+  - Look at where website visitors come from
+  - Add basic location signals to fraud checks
 quickstartSteps:
-  - Sign up for a free account at ipgeolocation.io.
+  - Sign up for a free account on ipgeolocation.io.
   - Verify your email and log in to the dashboard.
   - Copy your API key from the dashboard.
-  - Make a test API request using your API key.
-  - Integrate the API into your application.
+  - 'Send a GET request to `https://api.ipgeolocation.io/v3/ipgeo` with `apiKey` and an `ip` parameter; leave out `ip` to look up the caller.'
+  - 'Use `fields` or `excludes` to trim the response.'
 whenToUse: >-
-  Use when you need basic, reliable IP geolocation data for moderate daily API
-  usage without cost.
+  Use it when you want one call that returns location, currency, ASN, and time
+  zone for testing or a small non-commercial project.
 whenNotToUse: >-
-  Avoid if you require high request volumes, advanced data fields, or guaranteed
-  uptime for critical production workloads.
+  Avoid it for commercial use on the free plan, for bulk lookups, or when you
+  need security or domain data without paying.
 bestFor:
   - location-based personalization
   - regional analytics
-  - basic fraud detection
+  - testing and prototypes
 avoidIf:
-  - high-traffic production
-  - need for premium data
+  - commercial use on the free plan
+  - need security data or bulk lookups for free
   - strict SLA requirements
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-06
+lastVerified: 2026-10-09
 status: changed
 changes:
   - date: 2026-10-06
     kind: changed
     note: "Added the official non-commercial-use restriction to the free plan."
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipgeolocation.io/'
@@ -77,6 +82,46 @@ pricingUrl: 'https://ipgeolocation.io/pricing.html'
 sourceUrls:
   - 'https://ipgeolocation.io/pricing.html'
   - 'https://ipgeolocation.io/documentation/ip-geolocation-api.html'
+  - 'https://ipgeolocation.io/documentation/credits-usage.html'
+  - 'https://ipgeolocation.io/'
 featured: false
 ---
-IP Geolocation by IPGeolocation.io offers a free API tier suitable for low-traffic apps needing basic location data, with simple setup and clear usage limits.
+You create an account, copy an API key from the dashboard, and call one HTTPS endpoint, `/v3/ipgeo`, from any language. It suits developers who want one call that returns location, currency, ASN, and time zone for testing or a small side project.
+
+## What the free plan gives you
+
+The Free plan costs $0 and gives you 1000 API credits per day, for life. The pricing page says no credit card is required. A successful lookup charges 1 credit, so the plan covers up to 1000 basic lookups a day.
+
+The free plan returns location, country metadata, currency, ASN, and time zone. Lookup by domain, hostname, company data, security flags, bulk lookup, and translated responses need a paid plan. The first paid plan, Starter, costs $19 a month for 150000 credits. The page says to use the free plan only for testing and small projects, and the site says commercial use needs a paid plan.
+
+## When you hit a limit
+
+The free plan, which the docs also call the Developer plan, has no surcharge and no overage. It stays capped at its daily credits. The pricing page says there are no overages on Free. Past the cap, the API answers with HTTP 429, as it does for paid plans without overage.
+
+Paid plans can keep serving requests after their credits run out if overage is turned on, and they are billed in blocks. The free plan never bills you.
+
+## Gotchas
+
+- Credits are not requests. Adding security data to a lookup costs 2 more credits, so one call can cost 3 credits. Adding abuse contact data costs 1 more.
+- Asking for a language other than English with a free key returns a 401 response.
+- The free plan is for non-commercial use. The home page says commercial use requires a paid plan.
+
+## Alternatives in this atlas
+
+- [IPLocate](/services/iplocate/): when you want a daily allowance with full data and no credit card.
+- [Geolocated.io](/services/geolocated-io/): when you want a daily allowance and a choice of server region.
+- [ip2geo.dev](/services/ip2geo-dev/): when you want a monthly allowance and typed SDKs.
+
+## Questions people ask
+
+### Is IPGeolocation.io free?
+
+Yes, for testing and small non-commercial projects. The Free plan gives you 1000 API credits per day and needs no credit card.
+
+### What happens when I go over the IPGeolocation.io free limit?
+
+The free plan stays capped at its daily credits and has no overage billing. The API returns HTTP 429 until the next day.
+
+### Can I use the IPGeolocation.io free plan commercially?
+
+No. The home page says commercial use requires a paid plan.

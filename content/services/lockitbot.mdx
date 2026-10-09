@@ -1,66 +1,70 @@
 ---
 title: Lockitbot
 description: >-
-  Lockitbot provides automated Slack channel access management and compliance
-  workflows for teams.
+  Lockitbot is a Slack bot for reserving shared resources, such as a staging
+  server or a test environment, so two people do not use the same one at once.
 provider: Lockitbot
 category: security
 domain: security
 subtypes:
   - Slack Integration
-  - Access Control
-  - Compliance
+  - Resource Locking
 audiences:
   - team
   - startup
-  - enterprise
   - agency
 tags:
-  - collaboration
-  - auth
-  - compliance
-  - automation
-  - security
+  - slack
+  - slack-bot
+  - resource-locking
+  - shared-environments
+  - devops
 pricingModel: freemium
 freeTierDetails:
   summary: Free plan is limited to 2 resources; paid plans can be trialed free for 15 days.
   limits:
     - Up to 2 resources
     - Unlimited members and users
+    - Unlimited locks
   caveats:
     - Starter plan ($17/month) raises the limit to 100 resources
-    - API access, priority support, and white-labeled bot need a paid plan
+    - The pricing page lists API access, priority support, and a white-labeled bot as plan features; check which plan includes them before you build on the API
+    - The refund policy says there are no refunds on paid plans
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automate Slack channel access requests
-  - Enforce compliance for channel membership
-  - Audit Slack access changes
+  - Reserving a shared staging or test environment before you deploy to it
+  - Locking a shared database, device, or license so nobody overwrites your work
+  - Getting an alert in Slack when a busy resource becomes free
+  - Locking and releasing resources from a script through the HTTP API
 quickstartSteps:
-  - Sign up at lockitbot.com with your Slack account.
-  - Authorize Lockitbot to access your Slack workspace.
-  - Configure access policies and workflows in the dashboard.
-  - Invite team members to use automated access requests.
-  - Monitor access logs and compliance reports.
+  - Open lockitbot.com and choose Add to Slack, then approve the app in your Slack workspace.
+  - Start a plan from the pricing page; the Free plan has a Start Trial button, and any plan can be tried free for 15 days.
+  - In Slack, type `@Lockit new` to create your first resource, for example a staging server.
+  - Lock it with `@Lockit lock` and the resource name, and free it with `@Lockit release` and the name.
+  - Add your team in the resource settings to get an alert when the resource is free.
 whenToUse: >-
-  Use Lockitbot when you need to automate Slack channel access for a couple of
-  resources, or trial the paid plan for larger teams.
+  Use Lockitbot when a small team shares a few environments or devices and
+  coordinates by Slack messages today. Two resources are enough for one
+  staging server and one test device.
 whenNotToUse: >-
-  Avoid if you need more than 2 resources without upgrading, or need advanced
-  compliance automation.
+  Avoid it if you need to track more than two resources for free, if your team
+  does not use Slack, or if you want on-call scheduling and incident response
+  rather than locks.
 bestFor:
-  - teams managing Slack access
-  - startups needing compliance
-  - agencies with multiple clients
+  - small engineering teams with a shared staging environment
+  - QA teams sharing test devices
+  - Slack-first teams
 avoidIf:
-  - you need advanced compliance automation
-  - your team exceeds free tier limits
+  - you need more than 2 resources on a free plan
+  - your team does not use Slack
+  - you need on-call rotations or incident response
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.lockitbot.com/'
@@ -68,6 +72,42 @@ docsUrl: 'https://docs.lockitbot.com'
 pricingUrl: 'https://www.lockitbot.com/pricing'
 sourceUrls:
   - 'https://www.lockitbot.com/pricing'
+  - 'https://www.lockitbot.com/'
 featured: false
 ---
-Lockitbot automates Slack channel access management and compliance workflows, with a free plan capped at 2 resources and a 15-day trial of paid plans.
+You work with Lockitbot inside Slack by mentioning `@Lockit`. A script can also call its HTTP API with an API key. It suits teams that share a few environments or devices.
+
+## What the free plan gives you
+
+The Free plan costs $0 and covers up to 2 resources. A resource is anything your team shares, such as a staging server or a test phone. The plan lists unlimited members, unlimited users, and unlimited locks, so the only cap is the number of resources.
+
+In Slack, you create a resource with `@Lockit new`, list resources with `@Lockit list`, and lock or release one by name. You can also add a team to a resource so people get an alert when it becomes free. The Starter plan costs $17 a month and covers up to 100 resources. The page also offers a custom plan through the contact form.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you try to add a third resource on the Free plan. It names 2 resources as the limit and lists Starter as the next step. Nothing on the page suggests a bill for going over, and a card is not mentioned for the Free plan. Any plan can be tried free for 15 days, so you can test the 100-resource limit before you pay.
+
+## Gotchas
+
+- Lockitbot locks and releases shared resources. The official site does not describe channel access control or compliance workflows.
+- The pricing page lists API, priority support, and a white-labeled bot as plan features. It does not say which plans include the API, so check before you build a script on it.
+- The refund policy says there are no refunds on paid plans, but you can cancel at any time.
+
+## Alternatives in this atlas
+
+- [Pagertree.com](/services/pagertree-com/): when your real need is on-call schedules and incident alerts, not locks on shared resources.
+- [Atlassian Jira Free](/services/atlassian-jira-free/): when you want to track who owns a task or environment in a ticket instead of a Slack lock.
+
+## Questions people ask
+
+### Is Lockitbot free?
+
+Yes, there is a Free plan for up to 2 resources with unlimited members and locks. Paid plans start at $17 a month.
+
+### What happens when I go over 2 resources on Lockitbot?
+
+The pricing page does not say. It lists the Starter plan, which raises the limit to 100 resources, as the next step.
+
+### How do I lock a resource in Lockitbot?
+
+Mention `@Lockit lock` with the resource name in Slack. To free it, use `@Lockit release` with the name.

@@ -1,8 +1,8 @@
 ---
 title: Azure Monitor
 description: >-
-  Azure Monitor provides full-stack monitoring, metrics, and diagnostics for
-  applications and infrastructure on Azure.
+  Azure Monitor collects metrics and logs from Azure resources and your apps,
+  runs alerts, and gives you tools to analyze them.
 provider: Azure
 category: observability
 domain: observability
@@ -15,10 +15,11 @@ audiences:
   - team
   - enterprise
 tags:
+  - azure
   - monitoring
-  - logging
-  - analytics
-  - cloud
+  - logs
+  - metrics
+  - alerts
 pricingModel: freemium
 freeTierDetails:
   summary: Includes 5 GB of data ingestion and 31 days of log data retention per month.
@@ -40,33 +41,36 @@ freeTierDetails:
   billingRiskNotes:
     - Data ingestion above free tier is billed automatically
 useCases:
-  - Monitor Azure VMs and services
-  - Set up alerts for application health
-  - Analyze logs and metrics
-  - Track resource utilization
+  - Watch the health of Azure VMs and services
+  - Send alerts when a metric crosses a threshold
+  - Query logs in a Log Analytics workspace
+  - Check availability with web tests
+  - Review resource use over time
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Navigate to 'Monitor' and create a Log Analytics workspace.
-  - Connect your Azure resources to the workspace.
-  - Configure data collection and retention settings.
-  - Set up alerts and dashboards as needed.
+  - Create an Azure account with an active subscription.
+  - Sign in to the Azure portal and search for Azure Monitor.
+  - Create a Log Analytics workspace: pick a subscription, resource group, name, and region.
+  - Select Review + Create, then Create; a pay-as-you-go tier applies and no charges start until data collection begins.
+  - Connect your Azure resources to the workspace through data collection settings.
+  - Set up an alert rule on a metric you care about.
 whenToUse: >-
-  Use Azure Monitor to track performance, logs, and health of Azure-hosted
-  resources with integrated dashboards and alerting.
+  Use Azure Monitor to watch Azure-hosted resources with built-in metrics, logs,
+  and alerts, and keep usage inside the free amounts.
 whenNotToUse: >-
-  Avoid if you need to monitor non-Azure infrastructure or require a hard cap to
-  prevent unexpected charges.
+  Avoid it for monitoring outside Azure, or if you need a hard cap on spending,
+  because usage above the free amounts is billed.
 bestFor:
   - Azure-centric teams
   - DevOps
   - Cloud operations
 avoidIf:
-  - Multi-cloud monitoring
-  - Strict budget control
+  - multi-cloud monitoring
+  - strict budget control
+  - verbose logging above the free ingestion
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/monitor/'
@@ -74,7 +78,46 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/azure-monitor/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/monitor/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/monitor/'
-  - 'https://learn.microsoft.com/en-us/azure/azure-monitor/'
+  - 'https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/overview'
+  - 'https://learn.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace'
 featured: false
 ---
-Azure Monitor offers integrated monitoring, logging, and alerting for Azure resources, with a generous free tier and scalable paid options for larger workloads.
+You set up Azure Monitor in the Azure portal, or with PowerShell and templates, by creating a Log Analytics workspace and connecting your resources. It suits teams that already run on Azure.
+
+## What the free plan gives you
+
+Azure Monitor has no single free plan. It has free amounts inside each part of the service. The first 5 GB per month per billing account of Analytics Logs ingestion is free. The pricing table lists 31 or 90 days of retention included for Analytics Logs, and 30 days for Basic and Auxiliary Logs.
+
+Platform metrics are ingested for free, and the first 1,000,000 platform metric API calls per month are free. Metric alerts include 10 monitored metric time-series per month. Notifications include 1,000 emails per month, 1,000 ITSM connector events, and 1,000 push notifications. Standard metrics and activity logs collect at no cost, and so do the advanced monitoring tools that use your ingested data.
+
+## When you hit a limit
+
+Azure bills you. Log data is billed by ingestion, retention, and export, and the free amounts only cover the first part of each month. A new workspace uses a pay-as-you-go tier by default, and no charges start until data collection begins.
+
+The pricing page does not describe a hard stop or a spending cap. Check your costs in Azure before you connect many resources, because verbose logs can grow fast.
+
+## Gotchas
+
+- The 5 GB of free log ingestion is per billing account, not per workspace, so several workspaces share it.
+- Retention beyond the included days costs money, and you can extend it up to 12 years.
+- If a workspace has Microsoft Sentinel enabled, ingestion is billed with Sentinel meters instead.
+
+## Alternatives in this atlas
+
+- [CloudWatch](/services/cloudwatch/): when your workloads run on AWS instead of Azure.
+- [Grafana Cloud](/services/grafana-cloud/): when you monitor several clouds and want one dashboard tool.
+- [Datadog](/services/datadog/): when you need agent-based monitoring across mixed infrastructure.
+
+## Questions people ask
+
+### Is Azure Monitor free?
+
+Partly. Standard metrics and activity logs cost nothing, and the first 5 GB per month of Analytics Logs ingestion is free per billing account. Other usage is billed.
+
+### Does Azure Monitor need a credit card?
+
+You need an Azure account with an active subscription, and the entry lists a card as required. Creating a workspace starts no charges until data collection begins.
+
+### What happens when I pass the free log ingestion?
+
+Extra ingestion is billed per GB at pay-as-you-go rates. The pricing page does not describe a cap or a stop.

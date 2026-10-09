@@ -1,8 +1,9 @@
 ---
 title: Val Town
 description: >-
-  Write and run small TypeScript functions in the browser: HTTP endpoints, cron jobs, and email
-  handlers.
+  Val Town lets you write, run, and host small TypeScript programs in the
+  browser, with HTTP endpoints, cron jobs, and email handlers. It is for
+  developers who want scripts and webhooks online fast.
 provider: Val Town
 category: compute
 domain: compute
@@ -15,9 +16,13 @@ audiences:
   - indie
   - startup
 tags:
-  - serverless
-  - automation
-  - api
+  - typescript
+  - webhooks
+  - cron jobs
+  - deno
+  - scripts
+  - http endpoints
+  - mcp server
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan: 100,000 runs per day, cron every 15 minutes, 1 minute per run.'
@@ -26,40 +31,55 @@ freeTierDetails:
     - Cron intervals of 15 minutes or more
     - 1 minute wall-clock time per run
     - Unlimited public vals
+    - 3 days of log retention
   caveats:
-    - Private vals and email to others need Pro
-    - Short log retention on Free
+    - Private vals, custom domains, and email to others need a paid plan
+    - Log retention is 3 days on Free
+    - Some limits are soft-enforced and may change
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Quick webhooks and APIs
-  - Scheduled scripts
+  - Quick webhooks and small APIs
+  - Scheduled scripts that run on a cron
   - Glue code between services
+  - Email handlers and small websites
 quickstartSteps:
-  - Sign up at val.town.
-  - Create a new HTTP or cron val.
-  - Write TypeScript and save.
-whenToUse: Use for small scripts and webhooks you want online in minutes.
-whenNotToUse: Avoid for long jobs or private code on the free plan.
+  - 'Sign up at val.town.'
+  - 'Create a new val and open the editor.'
+  - 'Click Add trigger and choose HTTP, cron, or email.'
+  - 'Write a TypeScript file whose default export takes a Request and returns a Response (for HTTP), then save.'
+  - 'Copy the val.run URL of the HTTP trigger and open it in a browser.'
+whenToUse: >-
+  Use it to get small scripts, webhooks, and scheduled jobs online in minutes
+  without setting up hosting.
+whenNotToUse: >-
+  Avoid it for long jobs beyond 1 minute on Free, for code that must stay
+  private, or for custom domains on the free plan.
 bestFor:
   - scripts
   - webhooks
   - prototypes
 avoidIf:
   - long-running jobs
+  - private code on the free plan
+  - custom domains on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.val.town'
 docsUrl: 'https://docs.val.town'
 sourceUrls:
   - 'https://www.val.town/pricing'
+  - 'https://www.val.town/limits'
+  - 'https://docs.val.town/vals/'
+  - 'https://docs.val.town/vals/http/'
+  - 'https://docs.val.town/vals/cron/'
 pricingUrl: 'https://www.val.town/pricing'
 featured: false
 changes:
@@ -67,4 +87,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Val Town is a fast way to put a small function on the internet.
+You write TypeScript in the Val Town editor, add an HTTP, cron, or email trigger, and save. Your code runs on the Deno runtime, and each file change is versioned. You can also use the CLI or an AI agent through the MCP server. It suits people who want small scripts and webhooks online without setting up hosting.
+
+## What the free plan gives you
+
+The Free plan costs $0. It includes 100,000 runs per day and unlimited public vals. Each run can last 1 minute of wall-clock time. Cron triggers can run as often as every 15 minutes, with up to 10 crons per val. Logs are kept for 3 days, with 100,000 log lines per day.
+
+The Free plan allows up to 2,500 vals, but 0 private vals and 0 custom domains. You can email yourself from a val, but not other people. The limits page also says the API allows 1,000 requests per minute for authenticated calls, and a worker can use up to 4 GiB of memory.
+
+## When you hit a limit
+
+The pricing and limits pages do not say what happens after 100,000 runs in a day. The limits page says Val Town enforces these limits, that they may change, and that some are soft-enforced. It asks you to contact them if a limit blocks a legitimate use.
+
+A run that goes past the 1 minute execution timeout stops. Pro raises the timeout to 10 min, the cron interval to 1 minute, and the daily runs to 1,000,000.
+
+## Gotchas
+
+- Free vals are public. Private vals need the Pro plan.
+- A cron cannot run more often than every 15 minutes on Free. Crons run in UTC.
+- Free logs last only 3 days, so debug failures soon after they happen.
+
+## Alternatives in this atlas
+
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a different set of free limits for HTTP handlers.
+- [Deno Deploy](/services/deno-deploy/): when you want to deploy your own Deno projects from Git.
+- [Windmill.dev](/services/windmill-dev/): when you want scripts and workflows in one platform.
+
+## Questions people ask
+
+### Is Val Town free?
+
+Yes. The Free plan costs $0 and includes 100,000 runs per day, unlimited public vals, and 1 minute of wall-clock time per run.
+
+### Can Val Town run cron jobs for free?
+
+Yes, but a cron on the Free plan can run at most once every 15 minutes. The Pro plan allows once a minute.
+
+### Can I keep my Val Town code private for free?
+
+No. The Free plan allows 0 private vals. Pro allows 2,000.

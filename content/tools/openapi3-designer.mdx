@@ -1,8 +1,9 @@
 ---
 title: OpenAPI3 Designer
 description: >-
-  A free online tool for visually designing and editing OpenAPI 3.0
-  specifications.
+  OpenAPI Designer is a browser editor where you build and edit OpenAPI 3.0
+  definitions with forms instead of writing YAML by hand. It is for developers
+  who design or document REST APIs.
 provider: OpenAPI3 Designer
 category: devops
 domain: devops
@@ -17,58 +18,101 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - design
-  - ci-cd
+  - openapi
+  - api design
+  - swagger editor
+  - yaml
+  - rest api
 pricingModel: free
 freeTierDetails:
   summary: Free web editor; an account is optional and only needed to save definitions to the server.
   limits:
     - Editor works without an account
-    - Optional account to save definitions
-    - Open definition is kept in your browser
+    - Optional account to save definitions to the server
+    - The open definition is kept in your browser and survives a reload
+    - Downloads are never blocked, even for incomplete definitions
   caveats:
     - No pricing page; the site lists no paid plan
-    - Unsaved work stays only in this browser
+    - Without an account, your work stays only in this browser
+    - Edits OpenAPI 3.0; a Swagger 2.0 document is refused
+    - Some keywords, such as oneOf or examples, cannot be created in the editor
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Designing new REST APIs
-  - Editing existing OpenAPI specs
-  - Learning OpenAPI syntax
-  - Quick prototyping of API contracts
+  - Drafting a new REST API definition with forms
+  - Editing an existing OpenAPI file without hand-written YAML
+  - Learning how schemas, paths, and security fit together
+  - Downloading a JSON or YAML spec to share with a team
 quickstartSteps:
-  - 'Go to https://openapidesigner.com/ in your browser.'
-  - Start a new OpenAPI 3.0 document or import an existing YAML/JSON file.
-  - 'Edit endpoints, schemas, and metadata visually or in code view.'
-  - Export or copy your OpenAPI spec when finished.
+  - Open openapidesigner.com. No account is needed to start.
+  - On the Info tab, set the API Title and the Version.
+  - Use Schemas to add named types, then Paths to add an operation with a method, an Operation ID, and a response.
+  - Open Preview to read the definition as JSON or YAML and fix anything it names as missing.
+  - Download the file, or create an account and choose Save to account to keep it on the server.
 whenToUse: >-
-  Use when you need a quick, visual way to design or edit OpenAPI 3.0 specs
-  without installing software.
+  Use it for a quick form-based draft of an OpenAPI 3.0 definition, or to edit
+  an existing one without hand-writing YAML.
 whenNotToUse: >-
-  Avoid if you require advanced team collaboration, private hosting, or
-  integration with CI/CD pipelines.
+  Avoid it for Swagger 2.0 files, for specs that rely on oneOf, examples, or
+  tags that you must create here, or for team workflows.
 bestFor:
   - learning OpenAPI
-  - quick prototyping
-  - individual API design
+  - quick API drafts
+  - solo API design
 avoidIf:
-  - need team workflows
-  - require private/self-hosted tools
-  - need CI/CD integration
+  - Swagger 2.0 documents
+  - creating advanced keywords like oneOf or examples
+  - team review workflows
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://openapidesigner.com/'
-docsUrl: 'https://docs.openapidesigner.com'
+docsUrl: 'https://openapidesigner.com/docs'
 sourceUrls:
   - 'https://openapidesigner.com/'
+  - 'https://openapidesigner.com/docs'
 pricingUrl: 'https://openapidesigner.com/'
 featured: false
 ---
-OpenAPI3 Designer is a free, browser-based tool for visually creating and editing OpenAPI 3.0 specifications, ideal for quick prototyping and learning.
+You work in the browser with tabs for Info, Servers, Schemas, Paths, Security, and Preview. There is nothing to install and no code to write. It suits developers who want a form-based way to draft or fix an OpenAPI file.
+
+## What the free plan gives you
+
+The site shows no pricing page and no paid plan. The editor works without an account. The definition you are editing stays in your browser and survives a reload. An account is optional, and you need it only to save definitions to the server.
+
+The editor reads any OpenAPI 3.x definition and edits OpenAPI 3.0. It lets you edit GET, POST, PUT, PATCH, and DELETE operations. Preview shows the result as JSON or YAML, and you can download it at any time.
+
+## When you hit a limit
+
+The site states no quotas, so there is no usage limit to hit. The real limits are in what the editor can do. It refuses a Swagger 2.0 document. Some keywords, such as oneOf, examples, and tags, cannot be created in the forms. When an imported file already contains them, the editor keeps them and exports them unchanged. Without an account, the only copy of your work lives in this browser.
+
+## Gotchas
+
+- Nothing is saved on the server unless you create an account and choose Save to account. Download your file before you clear browser data.
+- Schemas with oneOf, allOf, or anyOf open read-only, so you cannot change them in the forms.
+- A parameter's required flag is computed from its location when you save, so a required header becomes optional.
+
+## Alternatives in this atlas
+
+- [Postman](/tools/postman/): when you want to test and document APIs, not only draft a spec.
+- [Hoppscotch](/services/hoppscotch/): when you want a free, open API client with collections.
+- [Mockfly](/tools/mockfly/): when you want to turn an OpenAPI file into hosted mock endpoints.
+
+## Questions people ask
+
+### Is OpenAPI Designer free?
+
+The site shows no pricing page and no paid plan. The editor works without an account.
+
+### Do I need an account for OpenAPI Designer?
+
+No. An account is only needed to save definitions to the server. Without one, your work stays in your browser.
+
+### Does OpenAPI Designer support Swagger 2.0?
+
+No. It refuses a Swagger 2.0 document. It edits OpenAPI 3.0 and imports any 3.x definition.

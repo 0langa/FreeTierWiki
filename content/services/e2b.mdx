@@ -1,6 +1,8 @@
 ---
 title: E2B
-description: Secure cloud sandboxes for running AI-generated code and agents.
+description: >-
+  E2B runs short-lived cloud sandboxes where AI agents and apps can safely
+  execute code that a language model wrote.
 provider: E2B
 category: ai
 domain: ai
@@ -12,49 +14,66 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - compute
-  - security
+  - sandbox
+  - code-execution
+  - ai-agents
+  - code-interpreter
+  - llm
 pricingModel: freemium
 freeTierDetails:
   summary: Hobby plan is free with $100 of one-time usage credits. No card needed.
   limits:
     - $100 one-time usage credit
     - Up to 20 concurrent sandboxes
+    - Sessions up to 1 hour of continuous runtime
+    - Up to 8 vCPUs and 8 GiB of memory per sandbox
     - Usage billed per second from the credit
   caveats:
     - The credit does not refill
-    - Sessions are shorter than on Pro (24 hours on Pro)
+    - Continuous runtime is 1 hour on Hobby and 24 hours on Pro
+    - When the credit runs out the account is blocked until you add a payment method
   resetPeriod: none
   requiresCard: false
   freeTierType: credit
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Run code that an LLM wrote
-  - Give an agent a computer
-  - Data analysis sandboxes
+  - Run code that an LLM wrote without risking your own machine
+  - Give an AI agent a computer with files and a shell
+  - Build a code interpreter for data analysis
+  - Pause a sandbox and resume it later with its state
 quickstartSteps:
-  - Sign up at e2b.dev.
-  - Copy your API key.
-  - Install the SDK and create a sandbox.
-whenToUse: Use when you build an agent that must run untrusted code safely.
-whenNotToUse: Avoid if you need a lasting free allowance; the credit is one-time.
+  - Create an E2B account. Every new account gets $100 in credits.
+  - Open the E2B Dashboard, copy your API key, and save it as `E2B_API_KEY` in a `.env` file.
+  - Install the SDK with `pip install e2b-code-interpreter python-dotenv`, or `npm i @e2b/code-interpreter dotenv`.
+  - Call `Sandbox.create()` to start a sandbox.
+  - Run code inside it with `sbx.run_code(...)` and list files with `sbx.files.list("/")`.
+whenToUse: >-
+  Use E2B when you build an agent or app that must run untrusted or
+  model-written code in an isolated cloud sandbox.
+whenNotToUse: >-
+  Avoid it if you need a lasting free allowance, since the credit is one-time,
+  or sandboxes that run longer than 1 hour without pausing on the free plan.
 bestFor:
   - AI agents
   - code interpreters
+  - data analysis sandboxes
 avoidIf:
-  - long-running free workloads
+  - you need a monthly free allowance
+  - you need more than 20 concurrent sandboxes on the free plan
+  - you cannot add a payment method once the credit is used
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://e2b.dev'
 docsUrl: 'https://e2b.dev/docs'
 sourceUrls:
   - 'https://e2b.dev/pricing'
+  - 'https://e2b.dev/docs/billing'
+  - 'https://e2b.dev/docs/quickstart'
 pricingUrl: 'https://e2b.dev/pricing'
 featured: false
 changes:
@@ -62,4 +81,40 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-E2B gives each new account a one-time credit for sandboxes. It is a starter credit, not a monthly allowance.
+You use E2B through its Python or JavaScript SDK with an API key from the dashboard. Your code starts a sandbox, runs code in it, and reads the results. It suits developers who build AI agents and code interpreters and need a safe place for generated code to run.
+
+## What the free plan gives you
+
+The Hobby plan has a base price of $0 per month and a one-time $100 usage credit. No credit card is required. You can run up to 20 concurrent sandboxes. Each sandbox can use up to 8 vCPUs and 8 GiB of memory, and it can run for 1 hour before you must pause it.
+
+E2B bills by the second for a running sandbox, and the credit pays for it. The default size is 2 vCPUs and 4 GiB of memory. A paused sandbox is kept with no time limit, and you pay only while a sandbox runs.
+
+## When you hit a limit
+
+If you run out of credits, E2B blocks your account. You must add a payment method to keep using the service. The credit does not refill, and moving to the Pro plan does not add credits. API requests that go over a rate limit get an HTTP 429 response with a `Retry-After` header. The newer SDK versions retry these requests for you. Pro costs $150 per month plus usage and raises limits such as runtime and concurrency.
+
+## Gotchas
+
+- The $100 credit is a one-time gift, not a monthly allowance.
+- A sandbox stops being continuous after 1 hour on Hobby. Pause and resume it to reset the clock.
+- Pausing, killing, or timing out a sandbox stops billing at once, so end sandboxes you do not need.
+
+## Alternatives in this atlas
+
+- [CrewAI](/services/crewai/): when you need a framework to coordinate agents, not a place to run their code.
+- [Firecrawl](/services/firecrawl/): when your agent needs web pages turned into clean data.
+- [Groq](/services/groq/): when you need fast model inference for the agent itself.
+
+## Questions people ask
+
+### Is E2B free?
+
+Partly. The Hobby plan is free and comes with a one-time $100 usage credit. After the credit is gone you must add a payment method.
+
+### Does E2B need a credit card?
+
+No. The pricing page says no credit card is required to start on the Hobby plan.
+
+### What happens when I run out of E2B credits?
+
+Your account is blocked. You add a payment method to continue using E2B.

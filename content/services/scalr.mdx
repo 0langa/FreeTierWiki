@@ -1,8 +1,9 @@
 ---
 title: Scalr
 description: >-
-  Scalr is a Terraform automation and collaboration platform for managing
-  infrastructure as code at scale.
+  Scalr runs your Terraform and OpenTofu code in a hosted pipeline, with state
+  storage, pull request automation, and policy checks. It suits platform teams
+  moving off Terraform Cloud.
 provider: Scalr
 category: devops
 domain: devops
@@ -10,19 +11,25 @@ subtypes:
   - Terraform Management
   - IaC Collaboration
   - Policy Enforcement
+  - collaboration
 audiences:
-  - startup
   - team
-  - enterprise
+  - startup
+  - indie
   - oss
 tags:
-  - devops
-  - automation
-  - compliance
-  - collaboration
+  - terraform
+  - opentofu
+  - infrastructure as code
+  - terraform cloud alternative
+  - remote state
+  - drift detection
+  - policy as code
 pricingModel: freemium
 freeTierDetails:
-  summary: Free up to 50 Terraform runs per month, with unlimited users, workspaces, and environments.
+  summary: >-
+    Free up to 50 Terraform runs per month, with unlimited users, workspaces, and
+    environments.
   limits:
     - 50 runs/month free
     - Unlimited users
@@ -31,54 +38,101 @@ freeTierDetails:
     - SAML 2.0 SSO included at no extra cost
   caveats:
     - >-
-      Free plan covers 50 runs/month. Business is billed at $0.99/run before volume discounts; its
-      published 100-run example costs $99.
+      Business is billed at $0.99 per run before volume discounts; the published
+      100-run example costs $99
     - No charges for users, workspaces, resources, private agents, or SAML
+    - The Free and Business plans are the same product; only the run volume differs
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - The pricing pages do not say what happens to a Free account past 50 runs; the billing FAQ says customers are never blocked from running and runs past the prepaid amount are billed at $0.99 each
 useCases:
-  - Collaborative Terraform workflows
-  - Policy enforcement for infrastructure
-  - Centralized IaC management
+  - Running Terraform and OpenTofu plans and applies from pull requests
+  - Replacing Terraform Cloud as the remote backend
+  - Enforcing policy on runs with OPA or Checkov
+  - Spotting drift between code and real infrastructure
+  - Separating teams with environments and access policies
 quickstartSteps:
-  - Sign up for a free Scalr account at scalr.com.
-  - Create your first workspace and connect your version control system.
-  - Add your Terraform configuration repository.
-  - Configure environment variables and secrets as needed.
-  - Run a Terraform plan and apply from the Scalr UI.
+  - Start free on scalr.com and sign up for an account.
+  - Create an environment as an account admin. New environments use Scalr as the backend by default.
+  - Assign a VCS provider and provider configurations (cloud credentials) to the environment.
+  - Create a workspace. Pick VCS driven, CLI driven, no-code, or API driven.
+  - Open a pull request or run the CLI. Scalr plans on the pull request and applies after merge.
 whenToUse: >-
-  Use Scalr when you need collaborative, policy-driven Terraform automation with
-  centralized management for small teams or pilot projects.
+  Use Scalr when you want hosted Terraform or OpenTofu runs with pull request
+  automation and your volume stays near 50 runs a month.
 whenNotToUse: >-
-  Avoid if you need more than 50 Terraform runs per month without paying a
-  per-run fee.
+  Avoid it if you run many plans and applies each month and want a flat price,
+  because Scalr bills each run past the free amount.
 bestFor:
-  - teams starting with IaC
+  - small Terraform teams
   - policy-driven workflows
-  - Terraform collaboration
+  - teams leaving Terraform Cloud
 avoidIf:
   - high monthly Terraform run volume
-  - need per-seat/per-resource pricing predictability at scale
+  - needing a fixed monthly bill
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-06
+lastVerified: 2026-10-09
 status: changed
 changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified that the paid Business example bills all 100 runs, rather than subtracting the free plan's 50 runs."
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://scalr.com/'
-docsUrl: 'https://scalr.com/docs/'
+docsUrl: 'https://docs.scalr.io/docs/introduction'
 pricingUrl: 'https://scalr.com/pricing/'
 sourceUrls:
   - 'https://scalr.com/pricing/'
-  - 'https://scalr.com/docs/'
+  - 'https://docs.scalr.io/docs/pricing-faq'
+  - 'https://docs.scalr.io/docs/creating-environments'
+  - 'https://docs.scalr.io/docs/creating-a-workspace'
 featured: false
 ---
-Scalr provides a free tier for small teams to automate and collaborate on Terraform infrastructure, with basic policy enforcement and community support.
+You manage Scalr in a web console and through the Terraform or OpenTofu CLI. Your code stays in your own repository and the runs execute in Scalr.
+
+## What the free plan gives you
+
+Scalr prices by runs, not by users or resources. A run is either an apply or a dry run, which is the same as a plan. The Free plan covers up to 50 runs per month. There are no charges for users, workspaces, resources under management, private agents, or SAML.
+
+The Free and Business plans are the same product. The only difference is volume. Both start with five concurrent runs by default, and Scalr raises that for free if you ask with a valid use case. Self-hosted agents add five more concurrent runs each.
+
+Everything else is the same on both plans, including role-based access control, SAML 2.0 single sign-on, drift detection, policy enforcement, and the module and provider registries.
+
+## When you hit a limit
+
+The pricing pages do not say what a Free account sees after run 50. Business is usage-based at $0.99 per run, and 100 runs cost $99 per month. The billing FAQ says customers are never blocked from running. Runs past a prepaid amount are billed at the same $0.99 rate at the end of the period.
+
+Some runs do not count. These include drift detection runs, local execution runs, and runs that fail early, for example during init. You can also cut run counts by skipping dry runs on pull requests, or by adding a skip tag to a commit message.
+
+## Gotchas
+
+- Plans on pull requests count as runs. A busy repository can use 50 runs quickly if every push triggers a plan.
+- Runs do not roll over. Unused runs in a period are lost.
+- The Scalr backend gives the full feature set. A different backend, such as S3, limits some features and removes Terraform CLI runs from Scalr.
+
+## Alternatives in this atlas
+
+- [Terramate](/services/terramate/): when you want to orchestrate Terraform stacks and keep running them in your own CI.
+- [Terrateam](/services/terrateam/): when you want pull request driven Terraform runs.
+- [Pulumi](/services/pulumi/): when you would rather write infrastructure in a general programming language.
+
+## Questions people ask
+
+### Is Scalr free?
+
+Yes, up to 50 runs per month. There are no charges for users, workspaces, resources, private agents, or SAML.
+
+### What counts as a run in Scalr?
+
+A run is an apply or a dry run, which is a plan. Drift detection runs, local execution runs, and several kinds of failed runs are not billed.
+
+### How much does Scalr cost after the free runs?
+
+The Business plan is $0.99 per run, with volume discounts. For example, 100 runs cost $99 per month.

@@ -1,8 +1,9 @@
 ---
 title: Supabase Database
 description: >-
-  Managed PostgreSQL database with instant REST and realtime APIs,
-  authentication, and storage, designed for modern app development.
+  Supabase Database is a managed Postgres database with instant REST APIs, row
+  level security, and a dashboard. It is for app builders who want Postgres with
+  auth and storage nearby.
 provider: Supabase
 category: database
 domain: database
@@ -18,60 +19,66 @@ audiences:
   - team
   - oss
 tags:
+  - supabase
+  - postgres
   - database
-  - serverless
-  - realtime
+  - rest api
+  - row level security
   - open-source
-  - api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes a managed PostgreSQL database with generous usage limits
-    for small projects.
+    The Free plan costs $0 and gives a Postgres database of 500 MB on shared CPU
+    with 500 MB of RAM. You can have 2 active projects, and Supabase pauses a
+    free project after 1 week of inactivity.
   limits:
-    - 500 MB database storage
-    - 1 GB file storage
-    - '50,000 monthly active users'
-    - '500,000 monthly edge function invocations'
+    - 500 MB of database size per project
+    - Shared CPU with 500 MB of RAM
+    - 2 active projects
+    - 1 GB of file storage
+    - 5 GB of egress
+    - 50,000 monthly active users
+    - Unlimited API requests
   caveats:
-    - Limited compute resources (shared CPU, 500 MB RAM)
-    - No point-in-time recovery or automatic backups on free tier
-    - Free projects pause after 1 week of inactivity, limited to 2 active projects
+    - Free projects are paused after 1 week of inactivity
+    - Daily backups start on the Pro plan, not on Free
+    - Continually exceeding the Free quota can lead to service restrictions such as read-only databases
+    - Community support only on Free
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Rapid prototyping
-  - Building MVPs
-  - Student projects
-  - Open-source apps
+  - A Postgres backend for a prototype or MVP
+  - A database with an instant REST API for a web or mobile app
+  - Student and hackathon projects
+  - Open-source demos that need a hosted database
 quickstartSteps:
-  - Sign up for a free Supabase account.
-  - Create a new project and choose a database password.
-  - Access the project dashboard and note your API keys.
-  - Use the SQL editor to create tables or import data.
-  - Connect your app using the provided REST or client libraries.
+  - Sign up for Supabase and create a project from the dashboard. You set a database password and a region.
+  - Open the SQL Editor in the project dashboard and create a table, for example the `instruments` table from the quickstart.
+  - Enable row level security on the table and add a policy for the roles that should read it.
+  - For a Next.js app, run `npx create-next-app -e with-supabase` and set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`.
+  - Query the table from your app with the Supabase client, or connect with `psql` or an ORM such as Prisma or Drizzle.
 whenToUse: >-
-  Use when you need a managed PostgreSQL database with instant APIs and
-  authentication for small to medium projects.
+  Use it when you want managed Postgres with an instant API for a prototype or
+  small app and can live with a project that pauses after a week of inactivity.
 whenNotToUse: >-
-  Avoid if you require large-scale production workloads, advanced database
-  features, or custom backup and recovery options.
+  Avoid the Free plan for anything that must stay online without traffic, that
+  needs automatic backups, or that needs more than 2 active projects.
 bestFor:
   - prototyping
-  - side-projects
+  - side projects
   - student apps
   - open-source demos
 avoidIf:
-  - enterprise workloads
-  - complex backup needs
+  - apps idle for a week at a time
+  - automatic backups needed
   - high-availability requirements
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/docs/reference/sql'
@@ -79,7 +86,47 @@ docsUrl: 'https://supabase.com/docs/reference/sql'
 sourceUrls:
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/database'
+  - 'https://supabase.com/docs/guides/platform/billing-faq'
+  - 'https://supabase.com/docs/guides/getting-started/quickstarts/nextjs'
 pricingUrl: 'https://supabase.com/pricing'
 featured: false
 ---
-Supabase Database offers a managed PostgreSQL instance with built-in APIs, authentication, and storage, ideal for quickly launching and iterating on modern web and mobile applications.
+You work in the Supabase dashboard with the Table Editor and SQL Editor, call the database through the auto-generated API and client libraries, or connect with any Postgres tool. It suits builders who want a full Postgres database without running a server.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month. Each project gets a 500 MB database on shared CPU with 500 MB of RAM. The plan also includes 1 GB of file storage, 5 GB of egress, 50,000 monthly active users, and unlimited API requests. Support comes from the community.
+
+You can have 2 active free projects. Paused projects do not count toward that quota, and Supabase does not charge for them. The billing FAQ adds that the free project count includes projects owned by organization members with the Owner or Admin role.
+
+## When you hit a limit
+
+Supabase notifies you when you exceed the Free quota. If you keep exceeding it, the Fair Use Policy applies service restrictions, such as read-only databases or a 402 status on API requests. You get a grace period first, and restrictions lift when the quota refills at the start of the next billing cycle.
+
+Inactivity is a separate limit. Free projects are paused after 1 week of inactivity. The Pro plan starts at $25 a month and adds daily backups kept for 7 days.
+
+## Gotchas
+
+- A free project pauses after 1 week without activity, so a demo you share later may be asleep.
+- Free projects have no daily backups. Those start on the Pro plan, so export your own dumps.
+- The 2 project limit counts all active free projects across organizations where you are an Owner or Admin.
+
+## Alternatives in this atlas
+
+- [Neon](/services/neon/): when you want serverless Postgres with branching and scale to zero.
+- [Prisma Postgres](/services/prisma-postgres/): when you use Prisma ORM and want a managed database next to it.
+- [Aiven](/services/aiven/): when you want a free managed Postgres plan without an app platform around it.
+
+## Questions people ask
+
+### Is Supabase database free?
+
+Yes. The Free plan costs $0 and includes a 500 MB Postgres database per project, with up to 2 active projects. It also includes 1 GB of file storage and 50,000 monthly active users.
+
+### Does the Supabase free tier pause?
+
+Yes. Supabase pauses free projects after 1 week of inactivity. Paused projects do not count toward the 2 active project limit.
+
+### What happens when I exceed the Supabase free quota?
+
+Supabase notifies you first. If you keep going over, service restrictions apply, such as read-only databases. The restrictions lift when your quota refills.

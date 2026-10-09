@@ -1,8 +1,8 @@
 ---
 title: Doczilla
-description: >-
-  Doczilla offers a pay-as-you-go PDF generation API and Screenshot API for
-  developers.
+description: Doczilla is a pay-as-you-go API that turns HTML or templates into PDFs
+  and takes screenshots of web pages. It suits developers who want document and screenshot
+  rendering without running a headless browser themselves.
 provider: Doczilla
 category: documents
 domain: documents
@@ -15,9 +15,13 @@ audiences:
   - team
   - oss
 tags:
-  - ai
-  - docs
-  - search
+  - pdf api
+  - html to pdf
+  - screenshot api
+  - website screenshot
+  - invoice pdf
+  - headless chrome
+  - pdf generation
 pricingModel: freemium
 freeTierDetails:
   summary: Free Hobby plan includes 250 PDF/Screenshot API requests per month, no credit card needed.
@@ -33,39 +37,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Generate PDF documents via API
-  - Capture website screenshots via API
-  - Automate document or report generation
+  - Turning custom HTML into a PDF
+  - Generating invoices styled with Tailwind CSS
+  - Taking screenshots of web pages, including protected sites
+  - Rendering PDFs from saved templates with data
+  - Running large jobs through an async webhook endpoint
 quickstartSteps:
-  - Sign up for a free Doczilla account.
-  - Obtain your API key from the dashboard.
-  - Call the PDF or Screenshot API endpoint with your parameters.
-  - Review the response and generated file.
-  - Monitor usage against the 250 requests/month free quota.
-whenToUse: >-
-  Use Doczilla to generate PDFs or capture screenshots via API with minimal
-  setup and no credit card.
-whenNotToUse: >-
-  Avoid if you need more than 250 requests/month or more than 30 requests/minute
-  without upgrading to a paid plan.
+  - Sign up for a Doczilla account and create your organization.
+  - Open your organization's settings page and copy your API key.
+  - Send a POST request to the PDF endpoint at api.doczilla.app/v1/pdf with an Authorization
+    Bearer header and a JSON body holding the page HTML and PDF options.
+  - Set printBackground to true if your PDF is missing background graphics.
+  - Try the sync endpoint for a URL back, or the async endpoint with a webhook for
+    batches; use v1/screenshot for screenshots.
+whenToUse: Use it to make PDFs from HTML or capture screenshots through one HTTP call,
+  with no card on the Hobby plan.
+whenNotToUse: Avoid it if you need more than 250 requests a month or more than 30
+  requests a minute without paying, or if you need a visual template editor.
 bestFor:
-  - indie
-  - oss
-  - startup
+  - developers who already have HTML to turn into a PDF
+  - small apps with a few hundred documents a month
+  - trying a PDF and screenshot API without a card
 avoidIf:
-  - enterprise
-  - agency
+  - you need more than 250 requests a month for free
+  - you need more than 30 requests a minute
+  - you want a drag-and-drop template designer
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.doczilla.app/'
 docsUrl: 'https://docs.doczilla.app'
 pricingUrl: 'https://doczilla.app/pricing'
 sourceUrls:
-  - 'https://doczilla.app/pricing'
+  - https://doczilla.app/pricing
+  - https://docs.doczilla.app/quickstart
+  - https://docs.doczilla.app
+  - https://www.doczilla.app/
 featured: false
 ---
-Doczilla is now a pay-as-you-go PDF and Screenshot generation API, not an AI documentation/code-search tool. The free Hobby plan gives 250 requests/month, no card required.
+You call Doczilla from your own code with an API key. A direct endpoint returns the file, a sync endpoint returns a URL, and an async endpoint sends the result to your webhook. It suits developers who already work with HTML.
+
+## What the free plan gives you
+
+The Hobby plan costs 0 euros a month and needs no credit card. It includes 250 requests per month and 30 requests per minute. The plan table also lists queuing. The same plan covers the PDF API and the Screenshot API, so both draw from the 250 requests.
+
+The Pro plan costs 4,99 euros a month. It includes 2,000 requests a month and 120 requests per minute. Each extra request costs 0.00372 euros. A higher tier has custom pricing, custom rate limits, and priority support. The pricing page says you pay only for what you use. Direct responses over 32 MiB need the other content type described in the docs.
+
+## When you hit a limit
+
+The pricing page lists "Queuing" on the Hobby plan and gives no more detail. It does not say whether requests over 250 a month are refused or held. The homepage FAQ says there are no strict limits, which seems to describe paid use. Because Hobby has no card on file, nothing can be billed. On Pro, extra requests are billed one by one at the listed price. Check your usage in the dashboard so a spike does not surprise you. Moving up to Pro is the way to get more room.
+
+## Gotchas
+
+- The plan table shows queuing for Hobby, but the pages do not explain how it works when you pass 250 requests.
+- A blank page or missing background in your PDF usually has a simple fix: turn off the adblocker with page.adblocker set to false, or set pdf.printBackground to true.
+- Doczilla describes itself as a pay-as-you-go service, so Pro bills per extra request beyond the 2,000 included.
+
+## Alternatives in this atlas
+
+- [DynamicDocs](/services/dynamicdocs/): when you want JSON-driven templates instead of raw HTML.
+- [TemplateFox](/services/templatefox/): when you want a PDF and image API built around templates.
+- [PDFBolt](/tools/pdfbolt/): when you want a different PDF API with its own free quota.
+
+## Questions people ask
+
+### Is Doczilla free?
+
+Yes. The Hobby plan is free, needs no credit card, and gives you 250 requests per month at 30 requests per minute.
+
+### What does Doczilla cost after the free plan?
+
+The Pro plan is 4,99 euros a month with 2,000 requests included. Extra requests cost 0.00372 euros each.
+
+### Does Doczilla do screenshots as well as PDFs?
+
+Yes. It has a Screenshot API next to the PDF API, and both count toward the same request quota.

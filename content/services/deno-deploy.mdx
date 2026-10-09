@@ -1,8 +1,7 @@
 ---
 title: Deno Deploy
 description: >-
-  Serverless hosting for JavaScript and TypeScript apps (Deno, Next.js, Astro, and more), plus
-  sandboxes.
+  Deno Deploy hosts JavaScript and TypeScript web apps, APIs, and static sites. You connect a GitHub repository, and apps run on demand and scale to zero when idle.
 provider: Deno
 category: hosting
 domain: hosting
@@ -14,52 +13,72 @@ audiences:
   - indie
   - startup
 tags:
-  - serverless
-  - web
-  - hosting
-  - backend
+  - "deno"
+  - "serverless"
+  - "typescript"
+  - "edge hosting"
+  - "javascript hosting"
+  - "github deploy"
+  - "deno kv"
+  - "cron"
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan: 1M requests, 20 GiB egress, and 10 hours of active CPU per month.'
   limits:
-    - 1M requests per month
-    - 20 GiB egress per month
-    - 10 hours active CPU
-    - 150 GiB-hours memory time
-    - '10 apps, 5 custom domains'
+    - "1M requests per month"
+    - "20 GiB egress per month"
+    - "10 hours active CPU, 150 GiB-hours memory time"
+    - "10 apps, 5 custom domains"
+    - "10 GiB revision storage, 15 builds per hour"
   caveats:
-    - Paid plans bill above these amounts
-    - No wildcard subdomains on Free
+    - "Paid plans bill above these amounts; the pricing page does not say what the Free plan does at its limits"
+    - "No wildcard subdomains on Free"
+    - "Idle apps shut down after about 20 to 30 seconds, so memory time is not used while idle"
+    - "Monorepos are not yet supported by the app setup flow"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Host a TypeScript API
-  - Deploy a full-stack JS app
-  - Run cron jobs
+  - "Hosting a TypeScript API or small backend"
+  - "Deploying a Next.js or other framework app from GitHub"
+  - "Serving a static site or single-page app"
+  - "Running scheduled jobs with Cron"
+  - "Keeping small data in Deno KV"
 quickstartSteps:
-  - Sign in at console.deno.com with GitHub.
-  - Connect a repository.
-  - Push to deploy.
-whenToUse: Use for small JS or TS apps that need quick deploys.
-whenNotToUse: Avoid for CPU-heavy work; 10 CPU hours is small.
+  - "Visit console.deno.com and create an organization; its name and slug cannot be changed later."
+  - "Press the New App button on the organization apps page."
+  - "Choose the GitHub repository, granting the Deno Deploy GitHub app access if it does not appear."
+  - "Check the detected build setup, or open Edit build config to set the framework preset, install command, build command, and entrypoint."
+  - "Save and deploy; later pushes to the repository deploy again."
+  - "Optionally create or configure apps from the command line with `deno deploy create`."
+whenToUse: >-
+  Use Deno Deploy for small JavaScript or TypeScript apps and APIs that deploy from GitHub and sit idle most of the time.
+whenNotToUse: >-
+  Skip it for CPU-heavy work, since the Free plan includes 10 hours of active CPU, or for monorepos, which the getting-started guide says are not yet supported.
 bestFor:
-  - side projects
-  - APIs
+  - "side projects"
+  - "TypeScript APIs"
+  - "framework apps from GitHub"
+  - "low-traffic services"
 avoidIf:
-  - CPU-heavy apps
+  - "your app is CPU-heavy"
+  - "your repository is a monorepo"
+  - "you need wildcard subdomains on a free plan"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://deno.com/deploy'
 docsUrl: 'https://docs.deno.com/deploy/'
 sourceUrls:
   - 'https://deno.com/deploy/pricing'
+  - 'https://docs.deno.com/deploy/'
+  - 'https://docs.deno.com/deploy/getting_started/'
+  - 'https://deno.com/deploy'
 pricingUrl: 'https://deno.com/deploy/pricing'
 featured: false
 changes:
@@ -67,4 +86,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Deno Deploy runs apps close to users. Idle apps scale to zero, so memory time is not used while idle.
+You use the web console at console.deno.com, or the `deno deploy create` command, to make an organization and apps. Each app links to a GitHub repository and deploys on each push. It suits JavaScript and TypeScript developers who want to host small apps without managing servers.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and is meant for personal use and smaller projects. It includes 1M requests per month, 20GiB of egress bandwidth, 10 hours of active CPU, and 150 GiB-hours of memory time. You can run 10 apps, attach 5 custom domains, and keep 10 GiB of revision storage. The page also lists 15 builds per hour.
+
+Active CPU is billed only while your code runs, not while it waits for requests or network I/O. Memory is counted at 768 MB per second while the app is loaded, and idle apps shut down after about 20 to 30 seconds. Wildcard subdomains and sandboxes are not included on Free.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a Free plan passes its included amounts. It shows the next plans with rates for extra use. Pro costs $20 per month with 5M requests, 200GiB of egress, and 50 hours of CPU. Extra requests cost $2 per million, extra egress costs $0.20 per GiB, and extra CPU costs $0.10 per hour.
+
+Because the pages do not describe a Free overage rule, treat the included amounts as the real limit and watch usage in the console. The Builder plan costs $200 per month and is aimed at Subhosting users and growing platforms.
+
+## Gotchas
+
+- The docs say Deno Deploy Classic will be shut down on July 20, 2026, so older guides may describe the old product.
+- Organization names and slugs cannot be changed after creation, and you cannot reuse a slug from an existing Classic project.
+- Monorepos, where the app lives in a subdirectory, are not yet supported.
+
+## Alternatives in this atlas
+
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want serverless functions on the Cloudflare platform.
+- [Cloudflare Pages](/services/cloudflare-pages/): when your project is mainly a static site.
+- [Koyeb](/services/koyeb/): when you want to run a container image or a long-lived service.
+
+## Questions people ask
+
+### Is Deno Deploy free?
+
+Yes. The Free plan includes 1M requests, 20GiB of egress, and 10 hours of active CPU each month, for up to 10 apps.
+
+### Does Deno Deploy sleep when idle?
+
+Idle apps shut down after about 20 to 30 seconds, so memory time is not billed while they are scaled to zero.
+
+### How many custom domains does the Deno Deploy free plan allow?
+
+The Free plan allows 5 custom domains. Wildcard subdomains are not included.

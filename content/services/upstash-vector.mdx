@@ -1,8 +1,8 @@
 ---
 title: Upstash Vector
 description: >-
-  Upstash Vector provides a managed vector database with a free tier for
-  building AI-powered search and retrieval applications.
+  Upstash Vector is a serverless vector database you call over REST or an SDK.
+  It suits semantic search and retrieval in small AI apps.
 provider: Upstash
 category: database
 domain: database
@@ -17,64 +17,109 @@ audiences:
   - team
   - oss
 tags:
-  - database
-  - ai
-  - search
+  - vector database
+  - semantic search
+  - embeddings
   - serverless
+  - rag
+  - database
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier includes 1 database with up to 200M vector-dimensions and 1 GB total data.'
+  summary: >-
+    The Free plan costs $0 and gives 1 database with up to 200 million vector
+    dimensions in total, 1 GB of data, and 10K queries and updates per day.
   limits:
-    - 1 free vector database
-    - 200M vector-dimensions capacity (max 1,536 dimensions)
-    - 1 GB total data
-    - '10,000 queries/updates per day'
+    - 1 database on the Free plan
+    - 200 million vectors times dimensions
+    - Up to 1,536 dimensions per vector
+    - 1 GB of data and metadata
+    - 10K queries and updates per day
     - 100 namespaces
   caveats:
-    - Community support only, no uptime SLA on free tier
-    - Upgrading requires a credit card (pay-as-you-go)
+    - Community support only, with no uptime SLA on Free
+    - Upgrading to pay as you go needs a credit card
+    - The pricing page also says you can create up to 10 indexes for free, which differs from the 1 database in the plan table
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - AI-powered semantic search
-  - Recommendation systems
-  - Document similarity search
+  - Semantic search over documents
+  - Retrieval for RAG and AI chatbots
+  - Recommendation and similarity search
+  - Hybrid search that mixes keyword and meaning
 quickstartSteps:
-  - Sign up for a free Upstash account.
-  - Create a new Vector database from the Upstash dashboard.
-  - Copy your database endpoint and credentials.
-  - Integrate with your application using the Upstash Vector SDK or REST API.
-  - Start inserting and querying vectors.
+  - Log in to the Upstash Console, or sign up for a free account.
+  - In the Vector tab, click Create Index. Enter a name, pick a region, and choose Dense, Sparse, or Hybrid.
+  - For a dense or hybrid index, set the dimensions and distance metric. The docs suggest a dense index with dimension 2 for the code samples.
+  - Select the Free plan.
+  - Copy the REST URL and token from the Connect section, install an SDK such as `npm install @upstash/vector`, and call `index.upsert` and `index.query`.
 whenToUse: >-
-  Use Upstash Vector when you need a simple, managed vector database for small
-  to medium AI search or retrieval projects.
+  Use it to add vector search to a small app with an HTTP API and no servers,
+  when 10K queries and updates a day is enough.
 whenNotToUse: >-
-  Avoid if you need high-throughput, advanced features, or strict SLAs for
-  production-critical workloads.
+  Avoid the Free plan for high-traffic apps, for vectors above 1,536 dimensions,
+  or for data larger than 1 GB.
 bestFor:
-  - prototyping
-  - side-projects
   - AI demos
+  - small RAG apps
   - student projects
 avoidIf:
-  - enterprise production
-  - large-scale workloads
-  - strict compliance needs
+  - high query volume
+  - vectors above 1,536 dimensions
+  - strict uptime SLAs
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://upstash.com/docs/vector'
 docsUrl: 'https://upstash.com/docs/vector'
 sourceUrls:
   - 'https://upstash.com/pricing/vector'
-  - 'https://upstash.com/docs/vector'
+  - 'https://upstash.com/docs/vector/overall/getstarted'
+  - 'https://upstash.com/docs/vector/sdks/ts/getting-started'
 pricingUrl: 'https://upstash.com/pricing/vector'
 featured: false
 ---
-Upstash Vector offers a managed, serverless vector database with a generous free tier (1 GB data, 1 free database), ideal for building and testing AI-powered search and retrieval features.
+You create an index in the Upstash Console and use it through a REST API or SDKs for Python, TypeScript, Go, and PHP. It suits developers who want a vector store for AI search without running any infrastructure.
+
+## What the free plan gives you
+
+The Free plan costs $0 and is for prototypes and hobby projects. It includes 1 database with room for 200 million vectors times dimensions. Each vector can have up to 1,536 dimensions. Total data and metadata is capped at 1 GB.
+
+You can use 100 namespaces and filter on metadata. Each vector can carry up to 48 KB of metadata and 1 MB of data. Free indexes can run in N. Virginia or Ireland on AWS, or Iowa on GCP. Support comes from the community.
+
+## When you hit a limit
+
+The Free plan caps queries and updates at 10K per day. The pages do not say what happens when you reach it, but the limit is daily, so it resets the next day. To go past it you add a credit card, and the index becomes a pay as you go index with no daily cap.
+
+Pay as you go costs $0.4 per 100K requests, plus $0.25 per GB of storage. The Fixed plan costs $60 a month and allows 1M queries and updates a day.
+
+## Gotchas
+
+- The 10K daily limit counts queries and updates together, and queries and upserts cost the same on paid plans.
+- The default topk limit is 1000, so you cannot ask for more than that many matches per query.
+- The plan table shows 1 database on Free, but the FAQ says up to 10 indexes are free. Check the console for what your account allows.
+
+## Alternatives in this atlas
+
+- [Pinecone](/services/pinecone/): when you want a larger monthly allowance measured in read and write units.
+- [Qdrant](/services/qdrant/): when you want a free single-node cluster you can fill without a daily cap.
+- [Weaviate Cloud](/services/weaviate-cloud/): when you want a second always-free vector cluster to compare.
+
+## Questions people ask
+
+### Is Upstash Vector free?
+
+Yes. The Free plan costs $0 and includes 1 database, 1 GB of data, and 10K queries and updates per day. Upgrading to pay as you go needs a credit card.
+
+### What are the Upstash Vector free tier limits?
+
+The index holds up to 200 million vectors times dimensions, with at most 1,536 dimensions per vector and 100 namespaces. Queries and updates are limited to 10K per day.
+
+### How much does Upstash Vector cost after the free tier?
+
+Pay as you go costs $0.4 per 100K requests and $0.25 per GB of storage. The Fixed plan costs $60 a month.

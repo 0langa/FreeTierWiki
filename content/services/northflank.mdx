@@ -1,6 +1,9 @@
 ---
 title: Northflank
-description: 'A container platform for services, jobs, and databases on Northflank''s cloud or your own.'
+description: >-
+  Northflank is a container platform that builds and runs services, scheduled
+  jobs, and databases from Git or a Docker image, on its own cloud or in your
+  AWS, GCP, or Azure account.
 provider: Northflank
 category: hosting
 domain: hosting
@@ -14,9 +17,11 @@ audiences:
   - startup
 tags:
   - containers
-  - hosting
-  - database
-  - devops
+  - docker
+  - paas
+  - cron-jobs
+  - postgresql
+  - byoc
 pricingModel: freemium
 freeTierDetails:
   summary: 'Developer Sandbox is free: 2 services, 2 jobs, and 1 database add-on, always on.'
@@ -24,36 +29,46 @@ freeTierDetails:
     - 2 services
     - 2 jobs (cron)
     - 1 add-on (database)
+    - 1 project in the Developer Sandbox
     - Up to 1 bring-your-own-cloud cluster
   caveats:
     - Northflank says the free tier should not be used for production
-    - >-
-      The page does not clearly say whether a card is needed; Northflank verifies cards without
-      charging
+    - Every account must add a payment method before creating resources, on every plan
+    - With bring-your-own-cloud, your cloud provider still charges you
   resetPeriod: none
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Host a container API
-  - Run a small Postgres or Redis
-  - Scheduled jobs
+  - Host a container API or web app that stays on
+  - Build and deploy a Dockerfile or buildpack project from GitHub, GitLab, or Bitbucket
+  - Run a small Postgres or Redis next to a service
+  - Run scheduled jobs on a cron schedule
 quickstartSteps:
-  - Sign up at northflank.com.
-  - Create a project and a service from a Git repo or image.
-  - Add a database add-on.
-whenToUse: Use for always-on container hobby projects.
-whenNotToUse: Avoid for production on the sandbox.
+  - Create an account at app.northflank.com and add a payment method, which Northflank requires to verify identity.
+  - Pick the Developer Sandbox plan when asked to choose a billing plan.
+  - Link your Git account, then create a project and choose its region.
+  - Create a combined service, pick the repository and branch, and choose Dockerfile or buildpack for the build.
+  - Click create service and open the service dashboard to follow the build.
+whenToUse: >-
+  Use it to run always-on container hobby projects with a small database and a
+  couple of scheduled jobs.
+whenNotToUse: >-
+  Avoid it for production on the sandbox, for more than 2 services, or if you
+  cannot add a payment method.
 bestFor:
   - hobby containers
   - learning
+  - small APIs with a database
 avoidIf:
   - production
+  - no payment method
+  - more than 2 services
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://northflank.com'
@@ -61,6 +76,9 @@ docsUrl: 'https://northflank.com/docs'
 sourceUrls:
   - 'https://northflank.com/pricing'
   - 'https://northflank.com/docs/v1/application/billing/pricing-on-northflank'
+  - 'https://northflank.com/docs/v1/application/getting-started'
+  - 'https://northflank.com/docs/v1/application/getting-started/create-a-project'
+  - 'https://northflank.com/docs/v1/application/getting-started/build-and-deploy-your-code'
 pricingUrl: 'https://northflank.com/pricing'
 featured: false
 changes:
@@ -68,4 +86,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Northflank's sandbox stays on without sleeping, which is rare for free container hosting.
+You work in a web dashboard, a CLI, or an API. You group services, jobs, and add-ons in projects, and Northflank builds each service from a Dockerfile or a buildpack. It suits developers who already think in containers.
+
+## What the free plan gives you
+
+The Developer Sandbox plan is free. The pricing page lists 2 free services, 2 free cron jobs, and 1 free database, and says compute is always on with no sleeping. The docs say you can create one project and deploy up to 1 bring-your-own-cloud cluster.
+
+Teams are included at no extra cost, and the plan includes free TLS and custom domains, plus logs and metrics kept for a month. Vertical scaling is limited on the free plan, and the docs describe it as a good way to explore the platform and spin up hobby projects.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach the sandbox limits. The docs say you can upgrade at any time and keep your existing resources, and the pay-as-you-go plan starts without restrictions.
+
+Northflank says billing alerts and thresholds help you avoid surprise bills. If you bring your own cloud, your cloud provider still charges you for the infrastructure, so that cost is outside the free plan.
+
+## Gotchas
+
+- You must add a payment method to create any resource, even on the free plan. Northflank says this verifies identity and stops abuse.
+- The docs say the free tier should not be used for production applications.
+- The free plan gives you one project, so plan how you group your two services, jobs, and database.
+
+## Alternatives in this atlas
+
+- [Koyeb](/services/koyeb/): when you want one free web service and a free Postgres database with a simpler setup.
+- [Render](/services/render/): when you want a free web service without adding a card.
+- [Railway](/services/railway/): when you want a simple dashboard and templates for databases.
+
+## Questions people ask
+
+### Is Northflank free?
+
+Yes, within the Developer Sandbox. It allows 2 services, 2 jobs, and 1 database add-on, and Northflank says it is not for production.
+
+### Does Northflank need a credit card?
+
+Yes. The docs say all users must add a payment method before creating resources, whatever plan they choose. Northflank says this verifies identity and prevents abuse.
+
+### Does the Northflank free tier sleep?
+
+No. The pricing page says compute is always on and does not sleep.

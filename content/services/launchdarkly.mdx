@@ -1,6 +1,8 @@
 ---
 title: LaunchDarkly
-description: Feature flags, experiments, and observability, with controls for AI agents.
+description: >-
+  LaunchDarkly lets you turn features and AI behavior on or off for chosen
+  users without a deploy, and run experiments on the result.
 provider: LaunchDarkly
 category: devops
 domain: devops
@@ -13,59 +15,71 @@ audiences:
   - startup
   - team
 tags:
-  - devops
-  - testing
-  - monitoring
-  - ai
+  - feature-flags
+  - experimentation
+  - ab-testing
+  - release-management
+  - sdk
+  - ai-configs
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Developer plan is $0 a month forever with unlimited seats and feature flags, 5 service
-    connections, and 1K client-side monthly active users. No credit card required.
+    The Developer plan is $0 a month forever with unlimited seats and feature
+    flags, 5 service connections, and 1K client-side monthly active users. No
+    credit card required.
   limits:
     - Unlimited seats and feature flags
     - 5 service connections and 1,000 client-side MAU/month
-    - '100,000 experimentation MAU/month'
+    - 100,000 experimentation MAU/month
     - 10M logs and 10M traces/month
-    - '5,000 session replays and 5,000 errors/month'
-    - '5,000 AI runs/month, 14-day AgentControl retention'
+    - 5,000 session replays and 5,000 errors/month
+    - 5,000 AI runs/month, 14-day AgentControl retention
   caveats:
     - Unlimited projects and environments need the Foundation plan
     - Foundation bills $10 per extra service connection and $8.33 per extra 1K client-side MAU
+    - Foundation has a 14-day trial, then pay as you go
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Roll out features behind flags
-  - Run A/B tests on a small app
+  - Roll out a feature to a share of users behind a flag
   - Turn off a broken feature without a deploy
+  - Run an A/B test on a flag
+  - Target a feature by user, account, or device
+  - Control and track AI model settings and runs
 quickstartSteps:
-  - Sign up for the free Developer plan (no card).
-  - Create a feature flag in the dashboard.
-  - Install a LaunchDarkly SDK and connect it with your SDK key.
-  - Wrap a feature in a flag check and toggle it from the dashboard.
+  - Sign up for a free trial; after 14 days it moves to the free Developer plan.
+  - Create a feature flag in the dashboard and set its variations.
+  - Install a LaunchDarkly SDK for your codebase and connect it with your key.
+  - Check the flag in your code, passing in the user context.
+  - Add targeting rules and toggle the flag from the dashboard.
 whenToUse: >-
-  Use LaunchDarkly to add feature flags and simple experiments to a small app with a whole team,
-  since seats are not limited.
+  Use LaunchDarkly to add feature flags and simple experiments to a small app
+  with a whole team, since seats are not limited.
 whenNotToUse: >-
-  Avoid if your app has more than 1,000 client-side users a month or many server-side services.
+  Avoid it if your app has more than 1,000 client-side users a month or needs
+  many server-side services on the free plan.
 bestFor:
   - feature flags
   - small teams
+  - gradual rollouts
 avoidIf:
-  - large client-side audiences on the free plan
+  - you have large client-side audiences on the free plan
+  - you need many projects and environments for free
+  - you need SCIM or custom roles
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: '2026-10-02'
-lastVerified: '2026-10-02'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://launchdarkly.com/'
 docsUrl: 'https://launchdarkly.com/docs/'
 sourceUrls:
   - 'https://launchdarkly.com/pricing/'
+  - 'https://launchdarkly.com/docs/home/getting-started'
 pricingUrl: 'https://launchdarkly.com/pricing/'
 featured: false
 changes:
@@ -73,4 +87,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-LaunchDarkly offers feature flags, experimentation, and observability. The Developer plan is free forever with unlimited seats and flags, 5 service connections, and 1,000 client-side monthly active users.
+You create flags in the LaunchDarkly dashboard and read them in your app through one of its SDKs. It suits small teams that want gradual rollouts and a kill switch.
+
+## What the free plan gives you
+
+The Developer plan is $0 per month, forever, with no credit card. It has unlimited seats and unlimited feature flags, and the pricing page says to invite your whole team because pricing is based on usage. It also includes 100K experimentation MAU, 10M logs and 10M traces, and 5K session replays and 5K errors each month.
+
+The cap on delivery is 5 service connections and 1K client-side MAU per month. A service connection is one server-side SDK connected to one environment for a month, and each unique client-side user or device is one MAU. The plan also includes 5K AI runs a month, with 14 days of data retention.
+
+## When you hit a limit
+
+The pricing page says AI run ingestion stops at 5K on the Developer plan. For service connections and client-side users it says only that the free tier is limited, not what happens past the limit.
+
+Foundation is the pay-as-you-go step up, with a 14-day trial. It bills $10 per additional service connection per month and $8.33 per 1k client-side MAU. It adds unlimited projects and environments. Past 5K AI runs, Foundation charges $5 per additional 1k runs.
+
+## Gotchas
+
+- The free plan is capped at 1 project and 3 environments in the plan table, while Foundation has unlimited.
+- Server-side SDK usage is counted per connection, and the page notes serverless and short-lived processes bill fractionally by connection time on paid plans.
+- Special rates exist for Kubernetes, serverless, Python, and Ruby setups, because they create many server-side connections.
+
+## Alternatives in this atlas
+
+- [GrowthBook](/services/growthbook/): when you want an open-source tool you can self-host.
+- [Abby](/services/abby/): when you want a small hosted tool for flags and A/B tests.
+- [Flagsmith](/tools/flagsmith/): when you want another feature flag service with a free plan.
+
+## Questions people ask
+
+### Is LaunchDarkly free?
+
+Yes. The Developer plan is $0 per month, forever, with unlimited seats and unlimited feature flags. It limits you to 5 service connections and 1K client-side MAU a month.
+
+### Does LaunchDarkly need a credit card?
+
+No. The pricing page says no credit card is required for the Developer plan.
+
+### What happens when the LaunchDarkly free trial ends?
+
+The getting started guide says that after 14 days your trial converts to a developer tier plan. That plan is free.

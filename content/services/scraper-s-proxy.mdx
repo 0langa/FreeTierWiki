@@ -1,8 +1,8 @@
 ---
 title: Scraper's Proxy
 description: >-
-  Scraper's Proxy provides rotating residential and datacenter proxies for web
-  scraping with a free tier for limited usage.
+  Scraper's Proxy is a scraping API that fetches web pages for you through a
+  pool of proxies, with optional browser rendering and a page-to-JSON parser.
 provider: Scraper's Proxy
 category: networking
 domain: networking
@@ -17,8 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - web
-  - networking
+  - web scraping api
+  - proxy api
+  - rotating proxy
+  - rapidapi
+  - javascript rendering
+  - captcha
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,11 +31,13 @@ freeTierDetails:
   limits:
     - 100 requests/month
     - 5 requests/second rate limit
-    - Proxy and cookie sessions included
+    - Proxy and cookie sessions, JavaScript rendering, and email support included
     - 10,240 MB/month bandwidth, then $0.001 per MB
   caveats:
     - Requires a RapidAPI account to get an API key
+    - RapidAPI asks for a credit card even on the free plan
     - The request quota has a hard limit, but the separate bandwidth quota has an overage fee
+    - Failed requests (5xx responses) are free and do not count toward the quota
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -40,20 +46,23 @@ freeTierDetails:
   billingRiskNotes:
     - The Basic plan lists paid bandwidth overages even though requests stop at 100/month.
 useCases:
-  - Bypass IP bans for web scraping
-  - Test scraping scripts with rotating proxies
-  - Collect public data from websites
+  - Fetching pages that block your own IP address
+  - Testing a scraper against a rotating proxy
+  - Collecting public data from websites
+  - Rendering JavaScript pages in a browser before you read them
+  - Turning a web page into JSON with the parser endpoint
 quickstartSteps:
-  - Sign up for a free RapidAPI account.
-  - Subscribe to the Scraper's Proxy Basic (free) plan.
-  - Copy your RapidAPI key from the app's dashboard.
-  - Configure your scraper or HTTP client to call the RapidAPI endpoint with the key.
+  - Sign up for a free RapidAPI account from the RapidAPI home page.
+  - Open the Scraper's Proxy listing and select the Basic plan on the Pricing tab; RapidAPI asks for a credit card.
+  - Back on the Endpoints tab, pick Standard Fetch Raw Webpages, enter a target page, and select Test Endpoint.
+  - Switch to Code Snippets, choose your language, and copy the request into your scraper.
+  - Set a timeout of at least 30 seconds and send `accept-encoding` as gzip to save bandwidth.
 whenToUse: >-
-  Use when you need rotating proxies for small-scale or testing web scraping
-  projects without upfront payment.
+  Use it to test a scraper or fetch a few hundred pages a year through
+  proxies, when a RapidAPI account with a card on file is fine.
 whenNotToUse: >-
-  Avoid if you need high request volumes, guaranteed speeds, or enterprise-grade
-  support for production workloads.
+  Avoid it for high-volume scraping, for projects that cannot give a credit
+  card, or when you cannot risk a bandwidth fee.
 bestFor:
   - testing
   - learning
@@ -61,8 +70,8 @@ bestFor:
   - prototyping
 avoidIf:
   - high-volume scraping
-  - enterprise production
-  - strict uptime needs
+  - no credit card
+  - strict budget limits
 difficulty: beginner
 productionReadiness: prototype
 status: changed
@@ -70,16 +79,58 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Corrected the no-card/no-overage claim: RapidAPI freemium billing and a separate bandwidth fee apply."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2'
 docsUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2/details'
 pricingUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2/pricing'
 sourceUrls:
-  - https://docs.rapidapi.com/v2.0.0/docs/api-pricing
+  - 'https://docs.rapidapi.com/v2.0.0/docs/api-pricing'
   - 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2/pricing'
+  - 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2'
+  - 'https://docs.rapidapi.com/docs/consumer-quick-start-guide'
 featured: false
 ---
-Scraper's Proxy is now listed on RapidAPI, with a free Basic plan (100 requests/month) suitable for testing and small scraping tasks.
+You call Scraper's Proxy through the RapidAPI hub with an HTTP request, and you can test it from the browser first. It suits developers who want to try proxy scraping on a few pages.
+
+## What the free plan gives you
+
+The Basic plan costs $0 a month and sits on RapidAPI. It includes 100 requests a month with a hard limit, and a rate limit of 5 requests per second. It also includes proxy and cookie sessions, JavaScript rendering, and email support. Failed requests, which return a 5xx status, are free and do not count toward the quota.
+
+The API has endpoints to fetch raw pages by GET or POST, to fetch pages with a rendered browser, and to turn a page into JSON. The listing recommends a timeout of at least 30 seconds, because most sites take 2 to 8 seconds to answer.
+
+RapidAPI asks for a credit card for every freemium API, even on the free plan. The paid plans start at $40 a month for 5.000 requests.
+
+## When you hit a limit
+
+The request limit is hard: at 100 requests a month, the Basic plan stops. The bill risk comes from a separate bandwidth fee. The plan includes 10240MB a month, and after that RapidAPI charges $0.001 per 1MB.
+
+RapidAPI's own rules also apply. Its docs say freemium plans can charge overage fees, and that you must watch your usage in the dashboard. It emails you when you reach 85% and 100% of a quota, but it says an email is not guaranteed.
+
+## Gotchas
+
+- Your credit card is on file from the first day, so heavy bandwidth use can create a charge.
+- The 100 requests are a hard limit, but the bandwidth fee is not, so the two limits behave differently.
+- Large pages use more of the bandwidth quota. The listing advises setting the accept-encoding header to gzip, which uses less bandwidth.
+
+## Alternatives in this atlas
+
+- [ScrapingAnt](/services/scrapingant/): when you want a larger free monthly credit and no credit card.
+- [Zenscrape](/services/zenscrape/): when you want free credits with IP rotation and browser rendering and no card.
+- [WebScraping.AI](/services/webscraping-ai/): when you want a free API tier without a card on file.
+
+## Questions people ask
+
+### Is Scraper's Proxy free?
+
+There is a free Basic plan with 100 requests a month. You still need a RapidAPI account and a credit card, and extra bandwidth is billed.
+
+### What happens when I go over the Scraper's Proxy free limit?
+
+The Basic plan has a hard limit on requests, so it stops at 100 a month. Bandwidth past 10240MB is billed at $0.001 per 1MB.
+
+### Does Scraper's Proxy need a credit card?
+
+Yes. RapidAPI requires a credit card for freemium APIs, even on the free plan, so it can charge overages.

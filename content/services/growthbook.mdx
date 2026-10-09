@@ -1,8 +1,8 @@
 ---
 title: GrowthBook
 description: >-
-  GrowthBook is an open-source feature flagging and A/B testing platform for
-  modern product teams.
+  GrowthBook is an open-source tool for feature flags and A/B tests, run in its
+  cloud or on your own servers.
 provider: GrowthBook
 category: devops
 domain: devops
@@ -17,60 +17,67 @@ audiences:
   - oss
 tags:
   - open-source
-  - testing
-  - analytics
+  - feature-flags
+  - ab-testing
+  - experimentation
+  - self-hosted
+  - sdk
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes unlimited feature flags and experiments for up to 3 team
-    members.
+    The free Starter plan on the cloud has up to 3 users, 1 project, unlimited
+    feature flags and experiments, 1M CDN requests, and 5GB of CDN bandwidth
+    per month. Self-hosted has unlimited users.
   limits:
-    - Up to 3 users (cloud) or unlimited users (self-hosted)
+    - Up to 3 users on the cloud plan, unlimited users when self-hosted
     - 1 project
     - Unlimited feature flags and experiments
-    - 1 million CDN requests/month
-    - 5 GB CDN bandwidth/month
+    - Unlimited traffic
+    - 1M CDN requests/month
+    - 5GB CDN bandwidth/month
   caveats:
-    - No SSO or advanced permissions
-    - No SLA or premium support
+    - Advanced statistics such as sequential testing and CUPED are in the paid Pro plan
+    - SSO and SCIM are Enterprise features
+    - Pro costs $40 per seat per month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
   billingRiskNotes:
     - >-
-      No credit card required; exceeding CDN usage shows a warning rather than
-      a charge.
+      No credit card required. Going over the CDN allowance shows a "CDN usage
+      exceeded" warning, and GrowthBook says it will work with you on a fix.
 useCases:
-  - Release features gradually with feature flags
-  - Run A/B tests to optimize product decisions
-  - Enable experimentation for small teams
+  - Release a feature to a share of users with a feature flag
+  - Run an A/B test and read the results against your own data
+  - Change remote configuration without a new deploy
+  - Self-host the same code on your own servers
 quickstartSteps:
-  - Sign up for a free GrowthBook account.
-  - Create a new project and invite up to 2 teammates.
-  - Integrate the GrowthBook SDK into your application.
-  - Define your first feature flag or experiment.
-  - Monitor results and adjust flags as needed.
+  - Sign up for a free Cloud account, or follow the docs to self-host.
+  - Create your first feature in the app.
+  - Copy the usage instructions GrowthBook shows for your language.
+  - Add the SDK to your app and check the flag with a call such as `gb.isOn("my-feature")`.
+  - Turn the feature on in the app and reload your app to see the change.
 whenToUse: >-
-  Use GrowthBook when you need simple, open-source feature flagging or A/B
-  testing for small teams or projects.
+  Use GrowthBook to ship features behind flags and run A/B tests with a small
+  team, in the cloud or on your own servers.
 whenNotToUse: >-
-  Avoid if you require enterprise features like SSO, advanced permissions, or
-  premium support for larger teams.
+  Avoid the free cloud plan for more than 3 users, more than 1 project, or if
+  you need advanced statistics, SSO, or a support contract.
 bestFor:
-  - small teams
+  - small product teams
   - startups
   - open-source projects
-  - indie developers
+  - teams that want to self-host
 avoidIf:
-  - large enterprises
-  - teams needing SSO
-  - organizations requiring SLAs
+  - you need more than 3 cloud users
+  - you need SSO or SCIM
+  - you need a formal support agreement
 difficulty: beginner
-productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+productionReadiness: production-ready
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://growthbook.io'
@@ -78,6 +85,46 @@ docsUrl: 'https://docs.growthbook.io/'
 pricingUrl: 'https://www.growthbook.io/pricing'
 sourceUrls:
   - 'https://www.growthbook.io/pricing'
+  - 'https://docs.growthbook.io/'
+  - 'https://docs.growthbook.io/quick-start'
 featured: false
 ---
-GrowthBook provides a free, open-source platform for feature flagging and A/B testing, ideal for small teams and projects needing experimentation tools without enterprise overhead.
+You manage flags and experiments in the GrowthBook web app, then read them in your code through an SDK. It suits product and engineering teams that want one tool for flags and tests.
+
+## What the free plan gives you
+
+The Starter plan on GrowthBook Cloud is free and needs no credit card. It allows up to 3 users and 1 project. You get unlimited feature flags, unlimited experiments, and unlimited traffic.
+
+Caching and delivery have an allowance: 1M CDN requests and 5GB of CDN bandwidth per month. The pricing page says a seat equals a user, and every user needs their own login. The self-hosted plan is free too and has unlimited users. The docs say the same open-source code runs the Cloud platform and your own servers.
+
+## When you hit a limit
+
+If you go over the CDN allowance, the app shows a "CDN usage exceeded" warning. The FAQ says GrowthBook will work with you on a fix, such as raising limits, cutting your usage, or moving to a custom plan.
+
+The FAQ also lists overage prices that apply after you exceed included usage: $10 per extra million CDN requests and $1 per extra GB of CDN bandwidth. The pricing page does not say whether free accounts are billed these amounts. No card is on file for a free account.
+
+## Gotchas
+
+- The free cloud plan stops at 3 users and 1 project. The Pro plan raises that to 30 users and 3 projects.
+- Sequential testing, CUPED variance reduction, sticky bucketing, and URL split tests are listed under the Pro plan.
+- SSO and SCIM belong to the Enterprise plan.
+
+## Alternatives in this atlas
+
+- [Abby](/services/abby/): when you want a hosted feature flag and A/B testing tool instead of running your own.
+- [LaunchDarkly](/services/launchdarkly/): when you need a hosted flag service with a large vendor behind it.
+- [Amplitude](/services/amplitude/): when your main need is product analytics rather than running tests.
+
+## Questions people ask
+
+### Is GrowthBook free?
+
+Yes. The Starter plan on the cloud is free for up to 3 users with unlimited feature flags and experiments. The self-hosted plan is also free and has unlimited users.
+
+### Does GrowthBook need a credit card?
+
+No. The pricing page says "No credit card required" for the free cloud plan.
+
+### What happens when I go over the GrowthBook free limits?
+
+You see a "CDN usage exceeded" warning in the app, and GrowthBook works with you on a solution. Paid overage prices exist, but the page does not say they are billed to free accounts.

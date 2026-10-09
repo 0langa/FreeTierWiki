@@ -1,6 +1,9 @@
 ---
 title: Novu
-description: 'Open-source notification infrastructure: in-app inbox, email, SMS, push, and chat from one API.'
+description: >-
+  Novu is open source notification infrastructure with an in-app inbox plus
+  email, SMS, push, and chat delivery from one API. It is for developers who
+  want to add notifications without building the delivery layer.
 provider: Novu
 category: messaging
 domain: messaging
@@ -12,45 +15,71 @@ audiences:
   - indie
   - startup
 tags:
-  - messaging
-  - email
-  - open-source
-  - api
+  - notification infrastructure
+  - in-app inbox
+  - open source
+  - multi-channel notifications
+  - push notifications
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 10,000 workflow runs per month. No card needed.'
+  summary: >-
+    Free plan: 10,000 workflow runs per month across all channels. No card
+    needed.
   limits:
     - '10,000 workflow runs per month'
+    - All channels - email, in-app, SMS, chat, push
+    - 20 workflows and 2 environments
+    - 1 day of activity feed retention
   caveats:
     - You still pay the email or SMS provider you connect
+    - The docs say Novu does not stop or throttle sending past your included runs
+    - Usage above the plan rolls into on-demand pricing on paid plans; the docs do not describe the free plan here
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - The billing docs describe overage pricing only for paid plans, and the free plan needs no card
 useCases:
-  - In-app notification inbox
-  - Multi-channel notifications
+  - Adding an in-app notification bell and inbox to a web app
+  - Sending one event to email, SMS, push, and chat from one workflow
+  - Digesting several events into one message
+  - Letting users choose which notifications they receive
 quickstartSteps:
-  - Sign up at dashboard.novu.co.
-  - Create a workflow.
-  - Trigger it from your backend with the SDK.
-whenToUse: Use when you need notifications across several channels.
-whenNotToUse: Avoid if you only send email; an email API is simpler.
+  - Create a Novu account in the dashboard; no credit card is needed.
+  - Create a Next.js or React app and install `@novu/nextjs` or `@novu/react`.
+  - Add the `Inbox` component with your application identifier and a subscriber id from the API Keys page.
+  - In the dashboard, create a workflow, add an In-App step with a subject and body, and use Test Workflow.
+  - Connect a provider for email, SMS, push, or chat when you add more channels.
+  - Trigger the workflow from your backend with a server SDK such as the TypeScript one.
+whenToUse: >-
+  Use Novu when an app needs notifications across several channels or an
+  in-app inbox, and you want the option to self-host.
+whenNotToUse: >-
+  Avoid it if you only send email, since a plain email API is simpler, or if
+  you need more than 20 workflows on the free plan.
 bestFor:
   - SaaS apps
+  - apps that need an in-app inbox
+  - teams that may self-host
 avoidIf:
   - email-only needs
+  - more than 20 workflows on a free budget
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://novu.co'
 docsUrl: 'https://docs.novu.co'
 sourceUrls:
   - 'https://novu.co/pricing'
+  - 'https://docs.novu.co/platform/overview'
+  - 'https://docs.novu.co/platform/quickstart/nextjs'
+  - 'https://docs.novu.co/platform/developer/limits'
+  - 'https://docs.novu.co/platform/account/billing'
 pricingUrl: 'https://novu.co/pricing'
 featured: false
 changes:
@@ -58,4 +87,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Novu can also be self-hosted.
+You build workflows in the dashboard, show the Inbox component in your front end, and trigger sends from your server with an SDK. Novu is open source, so you can also run it on your own servers.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and includes 10,000 workflow runs a month across email, in-app, SMS, chat, and push. A workflow run is one execution of a workflow for one subscriber. Runs from every environment count toward the same monthly total.
+
+The limits page lists 20 workflows, 20 steps per workflow, and 2 environments for Free. Delay and digest steps can last up to 1 day, and the inbox feed keeps messages for 30 days. The activity feed keeps 1 day of history on Free.
+
+## When you hit a limit
+
+The billing docs say Novu does not stop or throttle your notifications when you go over your included workflow runs. Extra usage rolls into on-demand pricing on paid plans, and the docs do not describe the free plan in that passage.
+
+If you pass the default workflow or step limit, the limits page says you may get restricted functionality or errors. Novu suggests upgrading, and support can set custom limits.
+
+## Gotchas
+
+- Novu does not send email or SMS itself. You connect providers such as SendGrid or Twilio, and you pay them.
+- Activity feed retention is 1 day on Free, so debug a failed send soon after it happens.
+- Workflow runs count per subscriber, so one workflow sent to 100 people uses 100 runs.
+
+## Alternatives in this atlas
+
+- [Knock](/services/knock/): when you want a hosted notification service with unlimited workflows.
+- [Courier](/services/courier/): when you want a hosted API and a visual designer for notifications.
+- [SuprSend](/services/suprsend/): when you want a free tier that counts all notifications together.
+
+## Questions people ask
+
+### Is Novu free?
+
+Yes. Novu Cloud has a Free plan with 10,000 workflow runs per month and no credit card. The software is also open source, so you can self-host it.
+
+### What happens if I go over the Novu free limit?
+
+The docs say Novu does not stop or throttle notifications when you pass your included runs. Overage pricing is described for paid plans.
+
+### Does Novu send my emails?
+
+Novu routes the message to an email provider you connect, such as SendGrid. You pay that provider for delivery.

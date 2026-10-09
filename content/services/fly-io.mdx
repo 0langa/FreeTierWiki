@@ -1,8 +1,7 @@
 ---
 title: Fly.io
 description: >-
-  Fly.io lets you deploy full-stack apps and databases close to users globally
-  with minimal DevOps overhead.
+  Fly.io runs apps from Docker images as Machines in regions around the world. You deploy with the flyctl command line tool, and new organizations get a short trial rather than a free plan.
 provider: Fly.io
 category: hosting
 domain: hosting
@@ -16,10 +15,14 @@ audiences:
   - team
   - oss
 tags:
-  - cdn
-  - web
-  - containers
-  - database
+  - "fly.io"
+  - "containers"
+  - "app hosting"
+  - "docker"
+  - "flyctl"
+  - "edge deployment"
+  - "machines"
+  - "postgres"
 pricingModel: trial
 freeTierDetails:
   summary: New organizations get no free allowance. There is a one-time trial, then usage is billed.
@@ -38,48 +41,89 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Deploying global web apps
-  - Running edge APIs
-  - Hosting personal projects
-  - Open source app demos
+  - "Deploying a web app or API close to users in several regions"
+  - "Running a Docker image on a Machine"
+  - "Trying a Django, Rails, Laravel, or Phoenix app with fly launch"
+  - "Adding a volume or a managed Postgres database to an app"
+  - "Testing whether Fly.io fits before paying"
 quickstartSteps:
-  - 'Sign up at https://fly.io/ and install the Fly CLI.'
-  - Run 'fly launch' in your project directory to initialize.
-  - Authenticate with 'fly auth login'.
-  - Deploy your app using 'fly deploy'.
-  - Monitor and manage via the Fly dashboard.
+  - "Install flyctl: `brew install flyctl` on macOS with Homebrew, `curl -L https://fly.io/install.sh | sh` on macOS or Linux, or the PowerShell script on Windows."
+  - "Create a Fly.io account; the trial does not need a credit card."
+  - "From your project folder, run `fly launch`. It detects some frameworks and writes a `fly.toml` file."
+  - "Review the proposed organization, region, and Machine size, then continue."
+  - "Run `fly deploy` to deploy or redeploy the app."
+  - "Check Trial Status in the dashboard, and add a payment method before the trial ends to keep apps running."
 whenToUse: >-
-  Use Fly.io to deploy containerized apps or APIs that need low-latency global
-  access with simple scaling and minimal infrastructure management.
+  Use Fly.io to try running a containerized app near your users, if you are ready to pay for ongoing use after a short trial.
 whenNotToUse: >-
-  Avoid it if you want free managed databases, require high CPU/RAM, or need
-  compliance certifications for regulated workloads — Fly.io only offers a
-  short trial before billing starts.
+  Skip it if you want an ongoing free tier, a free managed database, or a hobby project that must stay online at no cost. New organizations have no free allowance.
 bestFor:
-  - global app hosting
-  - indie projects
-  - open source demos
+  - "global app hosting"
+  - "containerized apps"
+  - "developers ready to pay a small monthly bill"
+  - "short trials"
 avoidIf:
-  - need free managed databases
-  - require large persistent storage
-  - strict compliance needs
+  - "you want a free tier that never expires"
+  - "you need a free managed database"
+  - "you cannot add a credit card after the trial"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://fly.io/'
 docsUrl: 'https://fly.io/docs/'
 sourceUrls:
   - 'https://fly.io/docs/about/pricing/'
-  - 'https://fly.io/docs/about/faq/'
+  - 'https://fly.io/docs/about/free-trial/'
+  - 'https://fly.io/docs/getting-started/'
+  - 'https://fly.io/docs/flyctl/install/'
+  - 'https://fly.io/docs/launch/create/'
 featured: false
 status: changed
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://fly.io/docs/about/pricing/'
 changes:
   - date: 2024-10-07
     kind: changed
     note: Free allowances ended for new organizations. New accounts get a one-time trial of 2 machine-hours or 7 days, then pay as they go.
 ---
-Fly.io lets you deploy containerized applications globally, with simple CLI tools and a developer-friendly experience. New organizations no longer get a free allowance: you get a one-time trial of 2 machine-hours or 7 days, then you pay as you go, and apps stop after the trial unless you add a payment method. Legacy Hobby plans keep their old allowance. Fly.io still suits developers who want fast, global deployments and are ready to pay for ongoing usage.
+You install the `flyctl` command line tool, run `fly launch` in your project, and then `fly deploy`. A dashboard shows trial status and billing. It suits developers who are comfortable with containers and the command line.
+
+## What the free plan gives you
+
+There is no free plan for new organizations. The pricing docs say new organizations have no free tier or monthly free usage allowance. What you get is a free trial of up to 2 hours of Machine runtime or 7 days, whichever comes first. You do not need a credit card to start it.
+
+During the trial you can run up to 10 Machines with up to 2 vCPUs and 4GB of memory each, and use 20GB of volume storage. Trial Machines stop on their own after running for 5 minutes. Dedicated IPv4 addresses and performance-optimized vCPUs are not included. Some things stay free later, such as the first 10GB of volume snapshots, the first 10 single-hostname certificates, and inbound data.
+
+## When you hit a limit
+
+When the trial ends, or you use up its resources, your apps stop running. You cannot launch new Machines, attach volumes, or deploy changes until billing is set up. Adding a card is optional during the trial, but it ends the trial and starts billing from that point.
+
+After that you pay for what you use. The cheapest always-on app is a shared-cpu-1x Machine with 256MB of RAM, which costs $2.19 per 30 days of continuous runtime plus data transfer. Managed Postgres starts at $29 per month for Standard. The docs also say all organizations except Linked Organizations need a card on file.
+
+## Gotchas
+
+- Organizations on plans discontinued in October 2024 keep the free allowances from those plans, but new organizations do not.
+- Adding a card ends the free trial at once, and usage counts toward your bill from that point.
+- Outbound data to the internet is billed per GB, and the rate depends on the region group.
+
+## Alternatives in this atlas
+
+- [Koyeb](/services/koyeb/): when you want a free web service, though it asks for a card.
+- [Render](/services/render/): when you want a free web service without a card.
+- [Northflank](/services/northflank/): when you want containers with a free tier and a card on file.
+
+## Questions people ask
+
+### Is Fly.io free?
+
+Not for new organizations. They get a trial of up to 2 hours of Machine runtime or 7 days, then pay as they go.
+
+### Does Fly.io need a credit card?
+
+Not to start the trial. After the trial ends you need to add a credit card to keep using billable resources.
+
+### What happens when the Fly.io free trial ends?
+
+Your apps stop running. You cannot launch Machines, attach volumes, or deploy changes until you add a payment method.

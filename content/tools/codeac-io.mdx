@@ -1,8 +1,9 @@
 ---
 title: Codeac.io
 description: >-
-  Codeac.io provides automated code review and static analysis for
-  infrastructure-as-code and software projects.
+  Codeac runs static analysis on every commit and pull request and tracks code
+  quality over time. It covers application code and infrastructure-as-code, and
+  it is for developers on GitHub, Bitbucket, or GitLab.
 provider: Codeac.io
 category: devops
 domain: devops
@@ -16,61 +17,117 @@ audiences:
   - team
   - oss
 tags:
-  - security
-  - devops
-  - automation
+  - static analysis
+  - code review
+  - code quality
+  - sast
+  - infrastructure as code
+  - code duplication
+  - autofix
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Open-source plan is free forever with unlimited public repositories;
-    private repositories require the paid Pro plan.
+    The Open-source plan is $0 forever with unlimited public repositories.
+    Private repositories need the Pro plan, from $21 per user per month billed
+    annually. No credit card is required.
   limits:
     - Unlimited public repositories
-    - 0 private repositories (Pro plan required for private repos)
+    - No private repositories on the free plan
+    - 'Pro plan: unlimited private repositories at $21 per user per month billed
+      annually, or $25 billed monthly'
   caveats:
     - No credit card required
-    - Private repositories need the Pro plan (from $21/user/month)
+    - The Pro plan has a 14-day free trial that also needs no credit card
+    - You need admin rights on a repository the first time you add it
+    - Free plan covers public repositories only
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated code review for open source projects
-  - Static analysis for infrastructure-as-code
-  - Improving code quality in small teams
+  - Check each pull request for static analysis issues
+  - Scan Terraform, Ansible, or CloudFormation files for problems
+  - Find copy-pasted code
+  - Track code quality over time in reports
+  - Generate ready-to-review fix pull requests with Autofix
 quickstartSteps:
-  - Sign up for a Codeac.io account using GitHub or GitLab.
-  - Authorize Codeac.io to access your repositories.
-  - Select the repository you want to analyze.
-  - Configure analysis settings as needed.
-  - Review automated feedback and fix detected issues.
+  - Go to codeac.io, click Get started, and sign in with GitHub, Bitbucket, or
+    GitLab. No credit card is required.
+  - Make sure you have admin rights on the repository for the first import,
+    because Codeac registers a webhook on it.
+  - Pick your repository from the list and register the webhook. Press refresh
+    if the list is empty.
+  - Wait for the first analysis, then open the dashboard to read your first
+    report.
+  - Follow the tutorial for your language, such as ESLint or Pylint, to tune the
+    tool settings.
 whenToUse: >-
-  Use Codeac.io to automate code quality checks for public/open-source
-  repositories, especially for infrastructure-as-code.
+  Use Codeac when you maintain a public repository and want automatic static
+  analysis, security checks, and duplication reports on each commit.
 whenNotToUse: >-
-  Avoid if you need private repository support without paying, or require
-  advanced features for large teams.
+  Avoid it for private repositories on a free budget, because the Open-source
+  plan covers public repositories only. Avoid it if your Git host is not GitHub,
+  Bitbucket, or GitLab.
 bestFor:
   - open source maintainers
-  - small teams
-  - devops engineers
+  - infrastructure-as-code repositories
+  - small public projects
 avoidIf:
-  - large enterprise
-  - need private repos for free
-  - advanced customization needed
+  - private repositories without paying
+  - Git hosts other than GitHub, Bitbucket, or GitLab
+  - you cannot give admin rights on the repository for the first setup
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.codeac.io/infrastructure-as-code.html?ref=free-for-dev'
-docsUrl: 'https://docs.codeac.io'
+docsUrl: 'https://www.codeac.io/documentation/'
 sourceUrls:
-  - 'https://www.codeac.io/pricing.html'
-  - 'https://www.codeac.io/infrastructure-as-code.html?ref=free-for-dev'
+  - https://www.codeac.io/pricing.html
+  - https://www.codeac.io/documentation/getting-started.html
+  - https://www.codeac.io/
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.codeac.io/pricing.html'
 ---
-Codeac.io offers automated code review and static analysis for infrastructure-as-code and software projects, with a free tier for public/open-source repositories.
+You sign in with your Git host, import a repository, and read the findings on the Codeac dashboard and in pull requests. It suits maintainers of public repositories, including ones full of Terraform or Ansible files.
+
+## What the free plan gives you
+
+The Open-source plan costs $0 and is free forever. It covers unlimited public repositories. Private repositories are not part of it. The pricing page says to get started for free with an easy setup and no credit card.
+
+Codeac finds static analysis issues, code duplication, and possible security vulnerabilities in every commit. The docs list tool setups for ESLint, Pylint, RuboCop, PMD, and more. For infrastructure-as-code, they list Ansible Linter, CloudFormation Linter, and TFSec. The docs also describe pull request analysis, code coverage thresholds, and Autofix. Supported Git servers are GitHub, Bitbucket, and GitLab.
+
+## When you hit a limit
+
+The free plan has no usage cap on public repositories. The line is private code. For that, you need the Pro plan, which costs $21 per user per month when billed annually, or $25 per user per month when billed monthly. The annual price is 16% lower. The Pro plan includes unlimited private repositories and priority support.
+
+The Pro plan has a 14-day free trial with no credit card. The pricing page does not say what happens to a private repository on the free plan, so plan to switch to Pro before you add one.
+
+## Gotchas
+
+- You need admin rights on a repository the first time you add it, because Codeac registers a webhook there. After that, anyone with read access can see it.
+- Codeac says it will not make changes to your code or repository without your consent.
+- Codeac announced that its default TypeScript analysis moved from TSLint to ESLint, so old TSLint settings may need a check.
+
+## Alternatives in this atlas
+
+- [Codacy](/services/codacy/): when you want cloud scans plus an editor plugin for code quality.
+- [DeepSource](/services/deepsource/): when you want another code quality service with a free open source plan.
+- [SonarQube Cloud](/services/sonarcloud-io/): when you want a well-known quality gate for public open source projects.
+
+## Questions people ask
+
+### Is Codeac free?
+
+Yes, for public repositories. The Open-source plan costs $0 forever and covers unlimited public repositories. Private repositories need the Pro plan.
+
+### How much is Codeac for private repositories?
+
+The Pro plan costs $21 per user per month billed annually, or $25 billed monthly. It includes unlimited private repositories.
+
+### Does Codeac need a credit card?
+
+No. The pricing page says to get started for free with no credit card, and the 14-day trial of Pro needs none either.

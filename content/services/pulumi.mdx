@@ -1,8 +1,9 @@
 ---
 title: Pulumi
 description: >-
-  Pulumi is an infrastructure as code platform for provisioning and managing
-  cloud resources using familiar programming languages.
+  Pulumi lets you define cloud infrastructure in languages such as TypeScript,
+  Python, Go, and C#, and stores your state in Pulumi Cloud. It suits developers
+  who want infrastructure as real code.
 provider: Pulumi
 category: devops
 domain: devops
@@ -17,67 +18,113 @@ audiences:
   - team
   - oss
 tags:
+  - infrastructure as code
+  - iac
+  - terraform alternative
   - devops
-  - automation
   - cloud
+  - secrets
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Pulumi Cloud plan with unlimited projects/stacks and up to 500
-    workflow minutes per month, no credit card required.
+    The Free plan of Pulumi Cloud has unlimited projects, stacks, updates, and
+    environments, plus 500 workflow minutes per month. No credit card is needed.
   limits:
     - 'Unlimited projects, stacks, and environments'
+    - 'Unlimited updates and history'
     - 'Up to 500 workflow minutes/month'
-    - '10,000 free API calls/month'
+    - '10K free API calls/month'
     - '25 free managed secrets'
-    - '1 user, 1 admin, 1 organization'
+    - '5 concurrent stack updates'
   caveats:
-    - No team collaboration/CI-CD features (Essentials plan and up)
-    - No role-based access control
+    - Unlimited users, secure collaboration, and CI/CD start on the Essentials plan
+    - Free has one admin
+    - The pricing page does not say what happens when you pass a free limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automating cloud infrastructure deployments
-  - Managing multi-cloud resources
-  - Version-controlling infrastructure
-  - Integrating infrastructure with CI/CD pipelines
+  - Provisioning cloud resources with TypeScript, Python, Go, or C#
+  - Managing one codebase across several cloud providers
+  - Keeping infrastructure state in a hosted backend instead of your own bucket
+  - Storing secrets and configuration for each environment
 quickstartSteps:
-  - Sign up for a free Pulumi account.
-  - Install the Pulumi CLI on your local machine.
-  - 'Choose a supported programming language (e.g., TypeScript, Python, Go, C#).'
-  - Initialize a new Pulumi project using 'pulumi new'.
-  - Configure your cloud provider credentials.
-  - Run 'pulumi up' to provision your first stack.
+  - Install the Pulumi CLI. On macOS, run brew install pulumi/tap/pulumi; other systems use the download page.
+  - Make a project folder and set up your cloud credentials (the docs have a page for each cloud).
+  - Run pulumi new aws-typescript, or pick the template for your cloud and language, and answer the prompts.
+  - The first time you run Pulumi, sign in to Pulumi Cloud when it asks. This free service stores your state.
+  - Run pulumi up to preview and deploy your first stack.
 whenToUse: >-
-  Use Pulumi when you want to manage cloud infrastructure using familiar
-  programming languages and need version control for your infrastructure.
+  Use Pulumi when you want to write infrastructure in a normal programming
+  language and keep the state in a free hosted backend.
 whenNotToUse: >-
-  Avoid Pulumi if you require advanced team collaboration features or need
-  enterprise-grade access controls in the free tier.
+  Avoid the Free plan if you need unlimited users, shared team workflows, or
+  more than one admin. Those start on a paid plan.
 bestFor:
   - individual developers
   - students
   - open source projects
   - prototyping
 avoidIf:
-  - large teams
-  - strict compliance needs
-  - enterprise collaboration
+  - teams that need many users on one organization
+  - needing more than 10K API calls a month
+  - needing more than 25 managed secrets
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.pulumi.com/'
 docsUrl: 'https://www.pulumi.com/docs/'
 sourceUrls:
   - 'https://www.pulumi.com/pricing/'
-  - 'https://www.pulumi.com/docs/get-started/'
+  - 'https://www.pulumi.com/docs/iac/get-started/'
+  - 'https://www.pulumi.com/docs/iac/download-install/'
+  - 'https://www.pulumi.com/docs/iac/get-started/aws/create-project/'
 pricingUrl: 'https://www.pulumi.com/pricing/'
 featured: false
 ---
-Pulumi enables developers to define, deploy, and manage cloud infrastructure using real programming languages, supporting multiple clouds and offering a generous free tier for individuals.
+You work from the Pulumi CLI, write a program in your own language, and run it against your cloud. Pulumi Cloud keeps the state, secrets, and update history for you. It suits solo developers and small projects.
+
+## What the free plan gives you
+
+The Free plan costs $0 and does not ask for a credit card. It includes unlimited projects, stacks, and environments, and unlimited updates with history. Up to 5 stack updates can run at the same time.
+
+For secrets and configuration, you get 25 managed secrets, and plaintext config is free. You also get 10K API calls per month. Workflow minutes are capped at 500 per month. The Free plan has one admin. The pricing table also lists up to 10 custom policy packs.
+
+Paid plans add more. Essentials adds unlimited users and secure collaboration with CI/CD. It starts at $40 per month and includes 40 credits, where 1 credit equals $1.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you go past a free limit, such as the 10K API calls or 500 workflow minutes. It shows a cap of 10K API calls per month for the Free plan, and it shows unlimited API calls only on paid plans. Treat these as hard caps.
+
+Paid plans bill extra usage on demand from credits. Examples from the page: managed secrets cost $0.50 per month on Essentials, and extra workflow minutes cost $0.01 each. Because Free needs no card, nothing can be billed to you there. To stay safe, watch your usage in the Pulumi Cloud console.
+
+## Gotchas
+
+- The Pulumi CLI is free and open source. Only the hosted Pulumi Cloud backend has the plan limits above.
+- You do not need a Pulumi Cloud account to install the CLI. You can also pick a self-managed state backend such as S3 or a local folder.
+- Your cloud provider bills for the resources you create. Pulumi does not cover that cost.
+
+## Alternatives in this atlas
+
+- [Scalr](/services/scalr/): when you want a Terraform and OpenTofu workflow runner instead of a code-first tool.
+- [Terramate](/services/terramate/): when you already use Terraform and want orchestration and drift checks on top.
+- [Brainboard](/services/brainboard/): when you prefer drawing cloud diagrams that turn into infrastructure code.
+
+## Questions people ask
+
+### Is Pulumi free?
+
+Yes. The CLI is free and open source, and the Free plan of Pulumi Cloud costs $0 with no credit card. It has unlimited projects and stacks and 500 workflow minutes per month.
+
+### Does Pulumi need a credit card?
+
+No. The pricing page says no credit card is required for the Free plan. You only add a card if you move to a paid plan.
+
+### Can I use Pulumi without Pulumi Cloud?
+
+Yes. The install docs say you can pick a self-managed state backend, such as S3, Azure Blob, GCS, or local files. You only sign in to Pulumi Cloud if you want the hosted backend.

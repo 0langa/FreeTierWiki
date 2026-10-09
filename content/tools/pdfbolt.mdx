@@ -1,8 +1,8 @@
 ---
 title: PDFBolt
-description: >-
-  PDFBolt is an HTML/URL-to-PDF API and template designer for generating PDF
-  documents programmatically.
+description: PDFBolt is an API that turns HTML, web page URLs, or saved templates
+  into PDFs, with servers in the EU. It is for developers who want PDF output without
+  running a headless browser.
 provider: PDFBolt
 category: documents
 domain: documents
@@ -17,17 +17,24 @@ audiences:
   - team
   - agency
 tags:
-  - web
+  - html to pdf api
+  - url to pdf
+  - pdf generation api
+  - pdf templates
+  - ai pdf generator
+  - pdf/x
+  - puppeteer alternative
+  - gdpr
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free plan includes 100 document conversions per month with all
-    customization options and 1 AI template generation, no card required.
+  summary: Free plan includes 100 document conversions per month with all customization
+    options and 1 AI template generation, no card required.
   limits:
     - 100 documents/month
     - 20 requests/minute
     - 1 concurrent request
     - 'PDF file size limit: 2 MB'
+    - 1 template
     - 1 AI template generation
   caveats:
     - No credit card required
@@ -39,41 +46,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Convert Word or image files to PDF
-  - Share documents in a universal format
-  - Prepare assignments or reports
-  - Quick PDF creation without software install
+  - Converting HTML or a web page URL to a PDF
+  - Rendering invoices and receipts from saved templates and JSON
+  - Sending PDFs straight to an S3-compatible bucket
+  - Running long jobs through the async endpoint with a webhook
+  - Creating a template with the AI assistant
 quickstartSteps:
-  - 'Go to https://pdfbolt.com and register for free.'
-  - Design a template or send raw HTML/URL to convert.
-  - Call the API or use the playground to generate a PDF.
-  - Download or fetch the resulting PDF file.
-whenToUse: >-
-  Use PDFBolt when you need a fast HTML/URL-to-PDF API with up to 100
-  conversions per month for free.
-whenNotToUse: >-
-  Avoid if you need more than 100 documents/month, larger files, or team
-  features without upgrading.
+  - Register for free at pdfbolt.com; the free plan needs no credit card.
+  - Create an API key in the Dashboard.
+  - Send a request to the direct endpoint on api.pdfbolt.com with your API-KEY header
+    and either HTML, a URL, or a template ID with JSON data.
+  - Or use the Node.js, Python, or PHP SDK, or the Make, Zapier, n8n, Airtable, or
+    Bubble guides.
+  - Check your remaining conversions in the Dashboard or with the usage endpoint.
+whenToUse: Use it when you want an HTML or URL to PDF API with EU hosting and a free
+  plan that takes no card for PDF generation.
+whenNotToUse: Avoid it if your PDFs are larger than 2MB, if you need more than 100
+  documents a month, or if you need team features without paying.
 bestFor:
-  - students
-  - freelancers
-  - small teams
-  - agencies
+  - HTML or URL to PDF conversion
+  - small apps that need a few dozen PDFs a month
+  - developers who want a Puppeteer replacement
 avoidIf:
-  - need more than 100 documents/month
-  - require unlimited PDF file size
-  - need team collaboration
+  - your PDFs are larger than 2MB
+  - you need more than 100 documents a month for free
+  - you need more than 20 requests per minute
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://pdfbolt.com'
-docsUrl: 'https://docs.pdfbolt.com'
+docsUrl: https://pdfbolt.com/docs
 sourceUrls:
-  - 'https://pdfbolt.com'
-pricingUrl: 'https://pdfbolt.com'
+  - https://pdfbolt.com/pricing
+  - https://pdfbolt.com/docs
+  - https://pdfbolt.com/docs/api-endpoints
+  - https://pdfbolt.com
+pricingUrl: https://pdfbolt.com/pricing
 featured: false
 ---
-PDFBolt is an HTML/URL-to-PDF API with a free plan of 100 documents per month and no credit card required.
+You call the API from your own code with an API key, or through the Node.js, Python, or PHP SDK. You can also use automation tools such as Make, Zapier, and n8n. A dashboard holds your templates, keys, and request logs.
+
+## What the free plan gives you
+
+The free plan gives you 100 PDF documents per month and needs no credit card. You can send 20 requests per minute, with 1 request at a time. Each PDF can be up to 2MB, and each conversion counts as 1 document. You also get 1 template and 1 AI template generation. Only successful conversions count, so a failed request leaves your quota unchanged.
+
+Paid plans remove the file size cap. On them, each 5MB portion counts as 1 document, so a 7MB PDF uses 2 documents. Basic costs $19 per month for 2 000 documents. Growth costs $79 per month and Enterprise costs $249 per month. Documents are processed on EU-based servers.
+
+## When you hit a limit
+
+By default, overage is disabled on every plan. Requests past 100% of your quota are blocked with a 403 error. Your quota resets each billing cycle, and unused documents do not roll over. You can check what is left in the Dashboard or with the usage endpoint. Overage pricing is opt-in and only for paid plans, at $0.01 per extra PDF on Basic. Because the free plan has no overage charge and no card, the free plan cannot run up a bill.
+
+## Gotchas
+
+- AI template generation needs a card for verification. PDFBolt says it does not charge you.
+- The free plan caps each PDF at 2MB, and larger files are not allowed on it.
+- Storage on PDFBolt's side is short: if you use their storage, documents are deleted after 24 hours.
+
+## Alternatives in this atlas
+
+- [Doczilla](/services/doczilla/): when you want a PDF and screenshot API with a larger free allowance.
+- [CraftMyPDF](/tools/craftmypdf/): when you want a drag-and-drop template editor.
+- [PDF-API.io](/tools/pdf-api-io/): when you want a template-based API with a Zapier link.
+
+## Questions people ask
+
+### Is PDFBolt free?
+
+Yes. The free plan gives you 100 PDF documents per month, with no credit card for PDF generation. It also includes 1 AI template generation.
+
+### What happens when I go over the PDFBolt limit?
+
+Overage is off by default, so requests past 100% of your quota get a 403 error. Paid plans can opt in to overage pricing.
+
+### Does PDFBolt need a credit card?
+
+Not for the free plan. Only the AI template generation asks for a card for verification, and PDFBolt says you will not be charged.

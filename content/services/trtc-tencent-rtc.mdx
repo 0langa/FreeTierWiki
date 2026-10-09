@@ -1,8 +1,9 @@
 ---
 title: TRTC / Tencent RTC
 description: >-
-  TRTC provides real-time audio and video communication APIs for web, mobile,
-  and desktop applications.
+  Tencent RTC (TRTC) provides SDKs and APIs for real-time audio and video calls,
+  live streaming, and chat in web, mobile, and desktop apps. It is for
+  developers who add calling or live features to an app.
 provider: Tencent
 category: messaging
 domain: messaging
@@ -17,55 +18,63 @@ audiences:
   - student
   - indie
 tags:
-  - web
-  - video
-  - audio
+  - video call sdk
+  - webrtc
+  - live streaming
+  - voice chat
+  - rtc engine
   - sdk
+status: changed
 pricingModel: freemium
 freeTierDetails:
-  summary: '10,000 free minutes per month for audio/video via the RTC Engine SDK, forever free.'
+  summary: >-
+    10,000 free minutes per month across Tencent RTC audio and video products.
+    The docs say the monthly package is granted for a year.
   limits:
-    - '10,000 minutes/month for audio/video (RTC Engine)'
-    - Free forever, no trial expiry
+    - '10,000 free minutes/month for audio and video'
+    - Chat free plan covers 1,000 MAU
   caveats:
-    - Higher usage requires a paid monthly subscription plan
-    - Requires registration and verification
+    - The pricing FAQ calls the RTC Engine free trial forever free, but the free minutes doc says the 10,000 minute package is granted each month within a year
+    - Unused free minutes expire on the last day of the cycle
+    - Call, Room, Live, and Beauty AR have timed free trials, not a forever free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Without a paid subscription, service is suspended once the 10,000 free minutes/month are used
+    - Without a paid monthly plan, service is suspended once the free minutes are used. The free trial does not support pay-as-you-go
 useCases:
-  - Group video calls
-  - Live streaming events
-  - Online education platforms
-  - Remote collaboration tools
+  - One-to-one and group video calls inside an app
+  - Voice chat rooms
+  - Interactive live streaming
+  - In-app chat next to calls
+  - Online classes and remote meetings
 quickstartSteps:
-  - 'Sign up for a TRTC account at https://trtc.io/.'
-  - Create a new application in the TRTC console.
-  - Obtain your AppID and secret key from the dashboard.
-  - Download the appropriate SDK for your platform.
-  - Integrate the SDK and configure authentication in your app.
+  - Open trtc.io and choose Start Free Trial. The site says no credit card is required.
+  - Log in to the Tencent RTC console and click Create Application.
+  - Enter a name, select the product such as RTC Engine, pick a deployment region, and click Create.
+  - Open Basic Information to copy the SDKAppID and SDKSecretKey.
+  - Download the SDK for your platform and generate a UserSig on your server, since the secret key must not sit in client code in production.
+  - Join a room with the SDK and test a call between two devices.
 whenToUse: >-
-  Use TRTC when you need scalable, reliable real-time audio/video communication
-  for apps or live events with moderate usage.
+  Use Tencent RTC when you add audio or video calls or live streaming to an
+  app and want a free monthly allowance while you test.
 whenNotToUse: >-
-  Avoid if you require unlimited free usage, advanced analytics, or need
-  on-premise deployment options.
+  Avoid it if you need free minutes with no time limit that you can rely on,
+  since the docs say the monthly quota is granted for a year.
 bestFor:
-  - video conferencing
-  - live streaming
-  - education apps
+  - video call prototypes
+  - live streaming experiments
+  - education and chat apps
 avoidIf:
-  - need unlimited free minutes
-  - require on-premise deployment
-  - require advanced analytics
+  - you need unlimited free minutes
+  - you need on-premise deployment
+  - you cannot afford a paid plan after the first year
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://trtc.io/'
@@ -73,6 +82,53 @@ docsUrl: 'https://trtc.io/document'
 pricingUrl: 'https://trtc.io/pricing'
 sourceUrls:
   - 'https://trtc.io/pricing'
+  - 'https://trtc.io/document'
+  - 'https://trtc.io/document/42735'
+  - 'https://trtc.io/document/39077'
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: The docs say the 10,000 free minutes per month are granted within a year, not forever; the pricing FAQ still calls the RTC Engine trial forever free.
 featured: false
 ---
-TRTC (Tencent Real-Time Communication) offers APIs and SDKs for integrating real-time audio and video features into applications, with a generous free tier suitable for small to medium projects.
+You create an application in a web console, then add a client SDK to your app. Your server creates the user signatures that the SDK needs. It suits developers building call or live features.
+
+## What the free plan gives you
+
+Every account gets a monthly quota of 10,000 free minutes. The free minutes document says it can be used across Call, Conference, Live, RTC Engine, and Conversational AI products. The pricing page says no credit card is required.
+
+Chat starts at $0 per month with 1,000 MAU. Push starts at $0 with unlimited MAU. Call, Room, Live, and Beauty AR have timed free trials, of up to 70 days, up to 140 days, and up to 28 days, depending on the product.
+
+Unused free minutes do not carry over. They expire on the last day of the cycle. Free minutes are deducted at set ratios by usage type, so check the free minutes document for your product.
+
+## When you hit a limit
+
+The pricing FAQ says that without a monthly subscription, service is suspended once the free usage is used. The free trial does not support pay-as-you-go.
+
+With a paid monthly plan, usage beyond the plan is billed pay-as-you-go and service is not interrupted. Audio costs $0.99 per 1,000 minutes, and HD video costs $3.99 per 1,000 minutes. Make sure your account balance is enough to cover it.
+
+## Gotchas
+
+- The pricing page and the docs disagree. The FAQ says the RTC Engine trial is forever free, while the free minutes document says the package is granted each month within a year.
+- The secret key must stay on your server. The docs say a key put into client code can be decompiled and abused.
+- Which usage types the free minutes can offset depends on when your account was registered. Accounts registered on or after July 25, 2024 can offset more types, such as cloud recording.
+
+## Alternatives in this atlas
+
+- [Stream Chat](/services/stream-chat/): when you need chat features with ready-made UI kits more than calls.
+- [Ably](/services/ably/): when you need realtime messaging rather than audio and video.
+- [Zoho Meeting](/services/zoho-meeting/): when you want ready-made meetings and not an SDK.
+
+## Questions people ask
+
+### Is Tencent RTC free?
+
+Partly. Each account gets 10,000 free minutes per month, and Chat starts at $0 for 1,000 MAU. Call, Room, Live, and Beauty AR have timed free trials.
+
+### What happens when I use all the free minutes?
+
+Without a paid monthly plan, service is suspended. With a plan, extra usage is billed pay-as-you-go.
+
+### Does Tencent RTC need a credit card?
+
+The site says no credit card is required to start the free trial.

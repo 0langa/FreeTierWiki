@@ -1,6 +1,8 @@
 ---
 title: Hanko Cloud
-description: 'Open-source, passkey-first authentication with passwords, passwordless, and social login.'
+description: >-
+  Hanko Cloud is the hosted version of Hanko, an open-source login system built around passkeys,
+  with passwords, passwordless, social sign-in, and MFA.
 provider: Hanko
 category: auth
 domain: auth
@@ -13,47 +15,73 @@ audiences:
   - indie
   - startup
 tags:
+  - passkeys
+  - webauthn
+  - passwordless
   - auth
-  - identity
   - open-source
+  - mfa
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Starter plan is free: 10,000 monthly active users and 2 projects.'
+  summary: >-
+    Starter plan is free: 10,000 monthly active users and 2 projects, with passkeys, MFA, and a
+    custom domain.
   limits:
     - '10,000 MAU'
     - 2 projects
     - 'Passkeys, passwords, passwordless, social SSO'
+    - 'Multi-factor authentication, custom domain, and admin dashboard'
+    - Community support
   caveats:
     - Hanko does not block users over the limit; it asks you to upgrade after a month above it
+    - Hanko Cloud is hosted only in the AWS Frankfurt region in Germany
+    - 'Webhooks, the admin API, custom SMTP, and SAML SSO are on paid plans'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Add passkeys to an app
-  - Replace passwords
+  - Add passkey sign-in to a web app
+  - Replace passwords with passwordless login
+  - Social sign-in and multi-factor authentication
+  - Drop-in login web components for a frontend framework
+  - Self-host the same open-source code later
 quickstartSteps:
-  - Sign up at cloud.hanko.io.
-  - Create a project.
-  - Add the Hanko Elements web components.
-whenToUse: Use when you want passkeys with minimal work.
-whenNotToUse: Avoid if you need enterprise SAML on the free plan.
+  - Sign up at cloud.hanko.io and create an organization.
+  - 'Create a project, choose Authentication and user management, and enter your app''s URL.'
+  - Copy the API URL from the project dashboard.
+  - >-
+    Install the web components with `npm install @teamhanko/hanko-elements` or the package for your
+    framework.
+  - Add the Hanko API URL to your frontend and render the Hanko login component.
+whenToUse: >-
+  Use Hanko when you want passkey-first login with little work, and you want the option to self-host
+  the open-source code later.
+whenNotToUse: >-
+  Avoid it if you need SAML SSO, webhooks, or the admin API on the free plan, or need hosting
+  outside Frankfurt.
 bestFor:
   - passkeys
   - side projects
+  - open-source friendly teams
 avoidIf:
   - enterprise SSO
+  - webhooks or admin API on free
+  - hosting outside Frankfurt
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://www.hanko.io'
 docsUrl: 'https://docs.hanko.io'
 sourceUrls:
   - 'https://www.hanko.io/pricing'
+  - 'https://docs.hanko.io'
+  - 'https://docs.hanko.io/setup-hanko-cloud'
+  - 'https://docs.hanko.io/quickstarts/frontend/react'
 pricingUrl: 'https://www.hanko.io/pricing'
 featured: false
 changes:
@@ -61,4 +89,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Hanko can also be self-hosted; the cloud Starter plan is free.
+You create a project in the Hanko Cloud Console, then add the Hanko Elements web components or a backend SDK to your app. It suits developers who want passkeys and a login screen that they could also host themselves.
+
+## What the free plan gives you
+
+The Starter plan is free, and the page says no credit card is required. It includes 10,000 monthly active users and 2 projects. A monthly active user is anyone who gets a session token from Hanko at least once in a month, and later activity that month does not count again.
+
+The plan has passkeys, passwords, and passwordless login, plus social SSO and multi-factor authentication. You also get a custom domain, an admin dashboard, and community support. The Pro plan costs $29 per month, has 5 projects, and adds personal support, team invites, webhooks, the admin API, and custom SMTP. Startups can apply for a plan with one million monthly active users free.
+
+## When you hit a limit
+
+Hanko does not stop you. The FAQ says it does not enforce user limits and will not block sign-ups or logins. If you stay above the limit for more than one month in a row, the team reaches out and asks you to subscribe to a higher tier.
+
+When you upgrade from Free to Pro, you pay only for the monthly active users above 10,000. The Pro price is $0.01 per extra monthly active user. All Hanko Cloud tiers include the first 10,000 users free.
+
+## Gotchas
+
+- Hanko Cloud runs only in the AWS Frankfurt region in Germany today. If you need another region, look at self-hosting.
+- SAML SSO is a Pro feature at $49 per month for each connection.
+- A project counts toward the 2-project limit. Plan a dev and a production project with that in mind.
+
+## Alternatives in this atlas
+
+- [Stytch](/services/stytch/): when you want a hosted passwordless and passkey API with SDKs.
+- [SuperTokens](/services/supertokens/): when you want an open-source auth stack with a free hosted option.
+- [Logto](/services/logto/): when you want open-source auth with organizations and SSO options.
+
+## Questions people ask
+
+### Is Hanko free?
+
+Yes. The Hanko Cloud Starter plan is free for 10,000 monthly active users and 2 projects, and it needs no credit card.
+
+### What happens if I go over the Hanko free user limit?
+
+Nothing stops. Hanko does not block users, but if you stay above the limit for more than a month in a row, it asks you to subscribe to a higher tier.
+
+### Can I self-host Hanko?
+
+Yes. Hanko is open source, and the FAQ says you can use Hanko Cloud or self-host Hanko from GitHub.

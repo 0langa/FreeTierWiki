@@ -1,6 +1,9 @@
 ---
 title: Nhost
-description: 'Open-source backend: Postgres, GraphQL (Hasura), auth, storage, and functions.'
+description: >-
+  Nhost is an open-source backend platform with Postgres, GraphQL, auth, file
+  storage, and serverless functions. It is for developers who want one managed
+  backend for a web or mobile app.
 provider: Nhost
 category: database
 domain: database
@@ -13,50 +16,75 @@ audiences:
   - indie
   - startup
 tags:
-  - database
+  - nhost
+  - postgres
+  - graphql
+  - backend as a service
+  - firebase alternative
   - auth
-  - backend
   - open-source
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Starter plan is free: 1 active project with Postgres, GraphQL, auth, and storage.'
+  summary: >-
+    The Starter plan is $0 per month and limits you to 1 active project: 1 GB
+    database, 1 GB storage, and 5 GB egress. Nhost pauses the project after 1
+    week of inactivity.
   limits:
-    - 1 active project at a time
-    - 1 GB database
-    - 1 GB storage
-    - Functions with a 10-second run time
+    - 1 active project at a time (more projects can sit paused)
+    - 1 GB database and 1 GB storage
+    - 5 GB egress
+    - 10 functions, 1 GB-hours of execution, and 10 seconds per run
+    - Unlimited users, with social OAuth providers
+    - 1 workspace member
   caveats:
-    - Free projects pause after 1 week of inactivity
-    - No automated backups on the free plan
-  resetPeriod: none
+    - Nhost pauses a Starter project after 1 week of inactivity
+    - No automated backups or point in time recovery on Starter
+    - The pricing FAQ says Nhost never stops a project and charges for usage over the limits
+    - The pricing page does not say whether Starter needs a credit card
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - The pricing FAQ says exceeding limits is charged as pay as you grow, and Nhost does not stop the project
 useCases:
-  - GraphQL backend for a side project
-  - Auth plus database in one service
+  - A GraphQL backend for a side project or prototype
+  - Auth, database, and file storage in one service for a React, Next.js, Vue, or Svelte app
+  - Learning Hasura-style GraphQL on managed Postgres
+  - Building a small mobile app backend with React Native
 quickstartSteps:
-  - Sign up at app.nhost.io.
-  - Create a project.
-  - Use the Nhost SDK in your app.
-whenToUse: Use when you want a Postgres plus GraphQL backend with auth for a small app.
-whenNotToUse: Avoid for apps that must stay online without traffic; free projects pause.
+  - Sign up at nhost.io and open the Nhost Dashboard.
+  - Create a project. The Starter plan allows 1 active project.
+  - Open the SQL Editor of the database, create a table, and set permissions for it in the dashboard.
+  - Create your app, for example with `npm create vite@latest`, and run `npm install @nhost/nhost-js`.
+  - Create the client with `createClient` using your project's subdomain and region, then call `nhost.graphql.request` to run a query.
+whenToUse: >-
+  Use it when you want Postgres, GraphQL, auth, and storage from one managed
+  backend for a small app or a learning project.
+whenNotToUse: >-
+  Avoid the Starter plan for apps that must stay online without traffic, for
+  more than one live project, or for data that needs automated backups.
 bestFor:
   - side projects
   - GraphQL apps
+  - React and Next.js prototypes
 avoidIf:
   - always-on production
+  - more than one live project
+  - you need automated backups
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://nhost.io'
 docsUrl: 'https://docs.nhost.io'
 sourceUrls:
   - 'https://nhost.io/pricing'
+  - 'https://docs.nhost.io/getting-started'
+  - 'https://docs.nhost.io/getting-started/quickstart/react'
 pricingUrl: 'https://nhost.io/pricing'
 featured: false
 changes:
@@ -64,4 +92,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Nhost is an open-source Firebase alternative built on Postgres and Hasura.
+You manage projects in the Nhost Dashboard, run queries with GraphQL, and use the `@nhost/nhost-js` SDK from your frontend. Guides cover React, Next.js, Vue, Svelte, and React Native.
+
+## What the free plan gives you
+
+The Starter plan costs $0 per month. It allows 1 project, and your free organization can hold more projects as long as only 1 is active at a time. You can pause and unpause free projects as needed.
+
+Starter includes a 1 GB database and 1 GB of storage. Egress is 5 GB. For functions you get 10 included functions, 1 GB-hours of execution, and 10 seconds of run time per call. You also get realtime APIs, deployments, unlimited users, OAuth providers, and community support. The plan has 1 workspace member. Automated backups and point in time recovery start on the Pro plan.
+
+## When you hit a limit
+
+The pricing page FAQ says Nhost never stops your project when you exceed the limits. It says you are charged for the excess usage instead, and it calls this pay as you grow. The page does not say how this works for a Starter project with no payment method.
+
+The inactivity pause is a separate rule. Nhost pauses a Starter project after 1 week of inactivity. The FAQ says you can pause and unpause free projects as needed, so waking one up is a manual step in the dashboard.
+
+## Gotchas
+
+- Only 1 free project can be active at a time. A second project must stay paused, or you need a paid plan.
+- Starter has no automated backups. The FAQ says you have full access to your database and storage, so you can export data yourself.
+- Function runs end after 10 seconds on Starter. Pro allows 180 seconds.
+
+## Alternatives in this atlas
+
+- [Supabase](/services/supabase/): when you want Postgres with auth, storage, and edge functions and prefer REST over GraphQL.
+- [Appwrite Cloud](/services/appwrite/): when you want a backend with auth, databases, storage, and functions in one console.
+- [Firebase Firestore](/services/firebase-firestore/): when you want a hosted document database with client SDKs.
+
+## Questions people ask
+
+### Is Nhost free?
+
+Yes. The Starter plan costs $0 per month and allows 1 project with a 1 GB database and 1 GB of storage. It includes unlimited users and OAuth providers.
+
+### Does Nhost pause free projects?
+
+Yes. Nhost pauses a Starter project after 1 week of inactivity. You can pause and unpause free projects as needed.
+
+### What happens if I exceed the Nhost limits?
+
+The pricing FAQ says Nhost never stops your project and charges for the excess usage. Upgrading to Pro raises the included database to 10 GB and storage to 50 GB.

@@ -1,8 +1,8 @@
 ---
 title: Cloudflare AI Gateway
 description: >-
-  A proxy in front of AI providers (OpenAI, Anthropic, Workers AI, and more) that adds caching, rate
-  limits, logs, and analytics.
+  Cloudflare AI Gateway is a proxy in front of AI model providers. It adds caching, rate limits,
+  logs, and analytics to your requests. It is for developers who call one or more model APIs.
 provider: Cloudflare
 category: ai
 domain: ai
@@ -15,58 +15,127 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - llm
-  - observability
-  - api
+  - ai gateway
+  - llm proxy
+  - llm caching
+  - rate limiting
+  - llm observability
+  - cloudflare
+  - openai proxy
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The core features (analytics, caching, rate limiting) are free. The Workers Free plan keeps up
-    to 100,000 logs in total.
+    The core features (analytics, caching, rate limiting) are free. Logs depend on when you made
+    your first gateway: 200,000 per day with 3 days of retention for new customers, or 100,000 in
+    total for older ones.
   limits:
     - 'Dashboard analytics, caching, and rate limiting free'
-    - '100,000 stored logs in total across all gateways (Workers Free)'
+    - 10 gateways per account on the free plan
+    - >-
+      Logs for first gateways created on or after September 24, 2026: Workers Logs, 200,000 per day,
+      3 days retention on Workers Free
+    - 'Logs for older customers: 100,000 stored logs in total across all gateways (Workers Free)'
     - DLP scanning free with two predefined profiles
   caveats:
     - You still pay each AI provider for the model calls
     - Cloudflare says some future features may be paid
+    - 'Workers Logs moves to Cloudflare Observability pricing on December 1, 2026'
+    - The Unified Billing rate limit is 200 requests per 60 seconds per gateway
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Cache repeated LLM prompts to cut cost
-  - Rate-limit AI calls from your app
-  - Log and inspect prompts and responses
+  - Cache repeated model requests to save cost
+  - Rate limit calls to a model provider
+  - See logs and analytics for all your model traffic
+  - Route one app to several model providers
 quickstartSteps:
-  - Create a free Cloudflare account.
-  - Create a gateway in the AI Gateway dashboard.
-  - Change your provider base URL to the gateway URL.
-whenToUse: 'Use when your app calls one or more LLM APIs and you want caching, logs, and limits for free.'
-whenNotToUse: Avoid if you need long log retention or deep evaluation features.
+  - Sign up for a free Cloudflare account.
+  - Find your account ID in the Cloudflare dashboard.
+  - 'Create an API token with AI Gateway Read, AI Gateway Edit, and Workers AI Read permissions.'
+  - >-
+    Send a request to the AI Gateway endpoint with curl. For Workers AI models add the
+    cf-aig-gateway-id header. The default gateway is created on your first authenticated request.
+  - 'Or go to AI, then AI Gateway, in the dashboard, select Create Gateway, and name it.'
+  - Open the gateway dashboard to see analytics and logs.
+whenToUse: >-
+  Use when your app calls one or more model APIs and you want caching, rate limits, logs, and
+  analytics for free.
+whenNotToUse: Avoid if you need long log retention on the free plan or deep evaluation features.
 bestFor:
   - LLM apps
   - cost control
   - multi-provider apps
+  - teams starting with request analytics
 avoidIf:
-  - long-term log storage
+  - long-term log storage on the free plan
+  - deep evaluation and scoring
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/ai-gateway/'
 docsUrl: 'https://developers.cloudflare.com/ai-gateway/'
 sourceUrls:
   - 'https://developers.cloudflare.com/ai-gateway/reference/pricing/'
+  - 'https://developers.cloudflare.com/ai-gateway/reference/limits/'
+  - 'https://developers.cloudflare.com/ai-gateway/get-started/'
+  - 'https://developers.cloudflare.com/workers/observability/logs/workers-logs/'
 pricingUrl: 'https://developers.cloudflare.com/ai-gateway/reference/pricing/'
 featured: false
 changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-09'
+    kind: changed
+    note: >-
+      Log limits now depend on when you created your first gateway: new customers follow Workers
+      Logs (200,000 per day, 3 days on Workers Free), older ones keep 100,000 stored logs in total.
+status: changed
 ---
-AI Gateway sits between your app and AI providers. It is free to use; the model calls themselves are billed by each provider.
+You send your model requests to an AI Gateway endpoint instead of the provider, using a REST call or your Workers code. It suits teams that call several model providers and want caching, limits, and logs in one place.
+
+## What the free plan gives you
+
+AI Gateway is available on all plans. The pricing page says the core features are free: dashboard analytics, caching, and rate limiting. All you need is a Cloudflare account. The Free plan allows 10 gateways per account. Data Loss Prevention scanning is free too, with two predefined profiles: Financial Information and national identifier numbers.
+
+Logs depend on when you made your first gateway. New customers whose first gateway is dated on or after September 24, 2026 follow Workers Logs rules. On Workers Free that means 200,000 log events per day with 3 days of retention. Older customers use Legacy Logs, which store 100,000 logs in total across all gateways on Workers Free.
+
+You still pay each model provider for the calls.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop for the core features. For logs, the rules differ by customer type. With Legacy Logs, once you reach the storage limit, the service can stop saving logs or delete the oldest ones, if you turn on automatic deletion.
+
+Cloudflare says some new features may be part of a premium plan. The Unified Billing rate limit is 200 requests per 60 seconds per gateway, and a 429 error comes back above it. That limit does not apply when you bring your own provider keys.
+
+## Gotchas
+
+- Cloudflare says some future features may be paid, and it will announce them.
+- Workers Logs will move to Cloudflare Observability pricing starting December 1, 2026.
+- Logs are on by default for each gateway. You can turn them off in settings or per request with a header.
+
+## Alternatives in this atlas
+
+- [Portkey](/services/portkey/): when you want a different gateway with its own logging and controls.
+- [OpenRouter](/services/openrouter/): when you want one API key that reaches many model providers.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you also want Cloudflare to run the models.
+
+## Questions people ask
+
+### Is Cloudflare AI Gateway free?
+
+Yes. The core features, dashboard analytics, caching, and rate limiting, are free on all plans. You still pay your model provider.
+
+### How many logs does Cloudflare AI Gateway store for free?
+
+New customers follow Workers Logs, with 200,000 log events per day and 3 days of retention on Workers Free. Older customers store 100,000 logs in total.
+
+### Does Cloudflare AI Gateway need a credit card?
+
+No card is listed. The pricing page says all it takes is a Cloudflare account and one line of code.

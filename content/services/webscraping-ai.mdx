@@ -1,8 +1,8 @@
 ---
 title: WebScraping.AI
 description: >-
-  WebScraping.AI provides an API for extracting structured data from web pages
-  with built-in anti-bot protection.
+  WebScraping.AI is an HTTP API that fetches a web page through proxies and
+  headless Chrome, and can return the HTML, text, or AI-extracted fields.
 provider: WebScraping.AI
 category: scraping
 domain: scraping
@@ -17,9 +17,13 @@ audiences:
   - team
   - agency
 tags:
-  - automation
-  - api
-  - web
+  - web scraping api
+  - ai data extraction
+  - headless chrome
+  - proxy
+  - serp api
+  - html to markdown
+  - mcp server
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free tier includes 2,000 API credits per month (max 2 concurrent connections), no credit card required.'
@@ -27,9 +31,11 @@ freeTierDetails:
     - '2,000 API credits/month'
     - Max 2 concurrent connections
     - 1 credit per static request, 5 with JavaScript rendering
+    - Requests can take up to 30 seconds
   caveats:
-    - Premium proxies, AI endpoints, Google SERP, and social-media scraping cost more credits per request
-    - Pay-as-you-go credits can be bought separately if you exceed the free quota
+    - Residential and stealth proxies, AI extraction, Google SERP, and social-media scraping cost more credits per request
+    - Failed requests are free; you pay only for successful responses
+    - Pay-as-you-go credits can be bought separately, and are used after the monthly quota runs out
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -38,35 +44,36 @@ freeTierDetails:
   billingRiskNotes:
     - You are only billed if you choose to buy extra pay-as-you-go credits or subscribe to a paid plan
 useCases:
-  - Extracting data from web pages
-  - Automating data collection
-  - Building datasets
-  - Market research
-  - Competitor analysis
+  - Fetching the HTML of a JavaScript-heavy page
+  - Extracting named fields such as title and price with AI
+  - Asking a question about a web page
+  - Getting Google search results as JSON
+  - Converting a page to markdown for an AI app
 quickstartSteps:
-  - Sign up for a free account at webscraping.ai.
-  - Obtain your API key from the dashboard.
-  - Read the API documentation for request format and parameters.
-  - Send a test request to the API endpoint using your API key.
-  - Parse the JSON response to extract the desired data.
+  - Sign up at webscraping.ai with email or a social login; no credit card is required.
+  - Copy your API key; the free account comes with 2,000 credits.
+  - Make a first request to `https://api.webscraping.ai`, passing the API key as a query parameter, for example the question endpoint with a page URL.
+  - Use the API Request Builder in the dashboard to test options such as JavaScript rendering and proxy type.
+  - Switch to an SDK (for example `npm install webscraping-ai` or `gem install webscraping_ai`) or the fields endpoint to extract data.
 whenToUse: >-
-  Use when you need to automate web data extraction without managing proxies or
-  browser automation.
+  Use WebScraping.AI when you want rendered HTML or AI-extracted fields from a
+  page without running proxies or browsers yourself.
 whenNotToUse: >-
-  Avoid if you require scraping at very high volume, need custom browser logic,
-  or must comply with strict site-specific terms.
+  Avoid the free plan for steady scraping: 2,000 credits shrink fast once you
+  use JavaScript rendering, better proxies, or AI extraction.
 bestFor:
   - quick data extraction
   - prototyping
   - low-volume scraping
+  - AI agents that read pages
 avoidIf:
-  - need high-volume scraping
-  - require custom browser flows
-  - scraping restricted sites
+  - you need more than 2 concurrent requests
+  - you need steady high-volume scraping
+  - you need custom browser flows
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://webscraping.ai'
@@ -75,6 +82,45 @@ pricingUrl: 'https://webscraping.ai/pricing'
 sourceUrls:
   - 'https://webscraping.ai/pricing'
   - 'https://webscraping.ai/docs'
+  - 'https://webscraping.ai'
 featured: false
 ---
-WebScraping.AI offers a simple API for extracting structured data from web pages, handling anti-bot measures and browser emulation automatically.
+You call an HTTP API with your key, use one of the official SDKs, or route traffic through its proxy mode. There is also a request builder in the dashboard. It suits developers who want a page fetched or parsed without running browsers.
+
+## What the free plan gives you
+
+The free plan gives you 2,000 API credits every month, with a maximum of 2 concurrent connections. It needs no credit card. A request can take up to 30 seconds.
+
+Credits depend on the options. A request without JavaScript rendering costs 1 credit, and the default with JavaScript rendering costs 5. Residential proxies cost 10 to 25 credits, and stealth proxies cost 50. AI extraction adds 5 credits. A Google search through the SERP endpoint costs 15 credits, and a structured data page costs 15 credits too, or 50 for Reddit.
+
+## When you hit a limit
+
+The pricing page does not say what happens when the free credits run out. It does say that credits come from a monthly plan, from pay-as-you-go top-ups, or from both. Pay-as-you-go credits are used only after your plan quota runs out.
+
+You can buy credits with no subscription. One dollar buys 5,000 credits, the minimum top-up is $20, and the credits stay valid for 12 months. Paid plans start at $29 a month for 250,000 credits.
+
+## Gotchas
+
+- Failed requests are free. For the data endpoint, pages that come back parse_failed or not_found still count as successful and are charged.
+- The free plan allows 2 concurrent connections, while the first paid plan allows 10.
+- Refunds are possible within 7 days of a first purchase, minus the pay-as-you-go value of the credits you used.
+
+## Alternatives in this atlas
+
+- [ScrapingAnt](/services/scrapingant/): when you want a scraping API with more free credits and no concurrency cap.
+- [Zenscrape](/services/zenscrape/): when you want another proxy and browser rendering API to compare.
+- [SerpApi](/tools/serpapi/): when you only need parsed Google results.
+
+## Questions people ask
+
+### Is WebScraping.AI free?
+
+Yes. A free account gets 2,000 API credits per month with a maximum of 2 concurrent connections. No credit card is required.
+
+### How many pages can I scrape with the WebScraping.AI free tier?
+
+It depends on the options. A request without JavaScript costs 1 credit, and the default with JavaScript rendering costs 5. That is about 400 JavaScript pages or up to 2,000 plain pages a month.
+
+### Does WebScraping.AI charge for failed requests?
+
+No. Failed requests are free, and you pay only for successful responses.

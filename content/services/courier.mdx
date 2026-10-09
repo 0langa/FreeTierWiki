@@ -1,8 +1,8 @@
 ---
 title: Courier
 description: >-
-  Courier provides a unified API to send notifications across email, SMS, push,
-  and chat channels.
+  Courier is a notification platform. You design a message once, and Courier
+  sends it through the email, SMS, push, chat, and in-app providers you connect.
 provider: Courier
 category: messaging
 domain: messaging
@@ -16,54 +16,63 @@ audiences:
   - indie
   - oss
 tags:
+  - notifications
   - email
-  - messaging
+  - sms
+  - push
+  - in-app inbox
   - api
 pricingModel: freemium
 freeTierDetails:
   summary: 'Send up to 10,000 notifications per month for free.'
   limits:
-    - '10,000 notifications/month'
-    - All channels (email, SMS, push, in-app, chat)
+    - '10,000 sends/month on the Developer plan'
+    - All channels, with one send counting once per recipient
     - Journeys and broadcasts, CLI, SDKs, MCP server
+    - 7 days of log retention
   caveats:
-    - Beyond 10,000 sends, pay-as-you-go pricing is $0.005 per send
-    - Some integrations may require third-party accounts
+    - Sending more than 10,000 a month needs a credit card, which moves the workspace to the Business plan
+    - On Business, every send costs $0.005, including the first 10,000
+    - Providers such as SendGrid or Twilio bill you separately for their own fees
+    - AI journey nodes and AI translations are not available on the Developer plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
   billingRiskNotes:
-    - Extra sends cost $0.005 each on the pay-as-you-go plan
+    - Adding a card to the workspace switches it to pay as you go at $0.005 for every send, including the first 10,000.
+    - Test sends and bounced messages count as sends.
 useCases:
-  - Send transactional emails and SMS
+  - Sending transactional email and SMS from one API
   - Push notifications for apps
-  - Multi-channel user alerts
-  - Automated onboarding messages
-quickstartSteps:
-  - Sign up for a Courier account.
-  - Create a new notification template in the dashboard.
-  - 'Connect your preferred channels (email, SMS, push, chat).'
-  - Obtain your API key from the Courier dashboard.
-  - Integrate the Courier API into your application to send notifications.
+  - Onboarding and welcome journeys
+  - An in-app notification inbox
+  - Letting users choose which notifications they get
 whenToUse: >-
-  Use Courier when you need to send notifications across multiple channels with
-  a single API and manage templates easily.
+  Use Courier when you want one API and one template system for several
+  notification channels, with your own provider accounts behind it.
 whenNotToUse: >-
-  Avoid Courier if you require on-premise deployment or need unlimited free
-  notifications without risk of overage charges.
+  Avoid it if you need on-premises hosting, or if you plan to send more than
+  10,000 messages a month and want them free.
 bestFor:
   - multi-channel notifications
   - rapid prototyping
   - startups
 avoidIf:
-  - require on-premise
-  - need unlimited free usage
+  - you require on-premises hosting
+  - you need more than 10,000 free sends a month
+  - you only send one channel and want the cheapest option
+quickstartSteps:
+  - Sign up for a Courier account. The Developer plan is free and starts you with a Test environment.
+  - Copy your Test key from Settings, then API Keys.
+  - 'Install an SDK, for example `npm install @trycourier/courier` for Node.js or `pip install trycourier` for Python.'
+  - Connect an email, SMS, push, or chat provider, such as SendGrid or Twilio, in the workspace.
+  - Call `client.send.message` with a recipient and content, or post to `https://api.courier.com/send`, then check the message in the logs.
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.courier.com/'
@@ -71,7 +80,47 @@ docsUrl: 'https://docs.courier.com/'
 pricingUrl: 'https://www.courier.com/pricing/'
 sourceUrls:
   - 'https://www.courier.com/pricing/'
-  - 'https://docs.courier.com/docs/getting-started'
+  - 'https://docs.courier.com/'
+  - 'https://www.courier.com/docs/get-started/send-a-message.md'
+  - 'https://www.courier.com/docs/workspaces/billing.md'
 featured: false
 ---
-Courier is a notification service that lets you send messages via email, SMS, push, and chat using a single API and unified templates.
+You use Courier through its web app for templates and journeys, and through a REST API, SDKs for several languages, a CLI, and an MCP server. It suits product teams that want to change messages without shipping a release.
+
+## What the free plan gives you
+
+The Developer plan is free for 10,000 sends a month. It includes journeys, broadcasts, the MCP server, the CLI, and the SDKs, with single sign-on through Google and GitHub, and email and chat support. Logs are kept for 7 days on this plan.
+
+One send is one template sent to one recipient, so a multi-channel template counts as one send. A send to a list of 100 users counts as 100. Courier Inbox, the in-app channel, has no fee of its own. The providers you connect bill you separately under their own pricing.
+
+## When you hit a limit
+
+Sending more than 10,000 a month takes the Business plan, which you get by adding a credit card. Business charges $0.005 for every send, including the first 10,000. For example, 50,000 sends a month costs $250.
+
+The docs do not describe what Courier does if a workspace without a card goes past 10,000. A send counts whether or not the provider delivers it. Messages blocked by preferences and sends made with a Test key count too. AI journey nodes and AI translation credits are not available on the Developer plan.
+
+## Gotchas
+
+- Adding a card moves the whole workspace to Business, and the first 10,000 sends then cost money.
+- Test sends count the same as production sends, and so do bounced messages.
+- Courier sends through your own provider accounts, so SMS and email fees from those providers are extra.
+
+## Alternatives in this atlas
+
+- [Knock](/services/knock/): when you want another notification platform with a free developer plan.
+- [Novu](/services/novu/): when you want a notification workflow tool with a free plan and no card.
+- [SuprSend](/services/suprsend/): when you want another workflow-based notification tool with a free plan.
+
+## Questions people ask
+
+### Is Courier free?
+
+Yes. The Developer plan is free for 10,000 sends a month and needs no credit card. It includes journeys, broadcasts, the CLI, SDKs, and the MCP server.
+
+### What happens when I go over 10,000 sends on Courier?
+
+You add a credit card, which moves the workspace to the Business plan. Business charges $0.005 for every send, including the first 10,000.
+
+### Does a multi-channel message count as one send?
+
+Yes. One template sent to one recipient is one send, even when it goes out over email, SMS, and push.

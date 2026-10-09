@@ -17,10 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - llm
-  - monitoring
+  - llm-observability
+  - tracing
+  - evaluation
   - open-source
-  - ai
+  - ai-agents
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -40,31 +41,36 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Trace and debug LLM agent calls
-  - Evaluate LLM outputs with automated metrics
-  - Monitor production AI agent cost and performance
+  - Log traces of LLM calls, tool calls, and agent steps
+  - Score LLM answers with built-in evaluation metrics
+  - Compare prompts in the prompt playground
+  - Connect an AI coding assistant to read traces through the MCP server
+  - Self-host the platform on your own machine or Kubernetes cluster
 quickstartSteps:
-  - Create a free Comet account for Opik Cloud, or self-host from GitHub.
-  - Install the Opik SDK for Python or TypeScript.
-  - Add tracing calls around your LLM or agent code.
-  - Review traces, spans, and evaluation scores in the Opik dashboard.
+  - Create a free account at comet.com/opik, or self-host by cloning the `comet-ml/opik` repository and running `./opik.sh`.
+  - Install the Python SDK with `pip install opik`.
+  - Run `opik configure` to point the SDK at your cloud workspace or local server.
+  - Wrap a function in your app with the `@track` decorator from `opik`.
+  - Run your app and open the Opik dashboard to see the logged traces.
 whenToUse: >-
-  Use Comet Opik to trace, debug, and evaluate LLM-powered applications and
-  agents in development or production.
+  Use Opik to trace, debug, and score LLM apps and agents, either on the hosted
+  Free Cloud plan or on your own infrastructure.
 whenNotToUse: >-
-  Avoid if you need dedicated GPU compute for model training; Opik is an
-  observability and evaluation tool, not a training platform.
+  Avoid it for training classic ML models; use Comet ML for that. The
+  self-hosted version has no user management features, and Free Cloud stops
+  at 10 team members.
 bestFor:
   - LLM app developers
   - AI agent teams
-  - MLOps engineers
+  - self-hosting observability
 avoidIf:
-  - need GPU training compute
-  - need unlimited cloud spans without self-hosting
+  - you train models and need experiment tracking
+  - you need user management on a self-hosted install
+  - you need more than 60 days of trace history for free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.comet.com/site/products/opik/'
@@ -72,7 +78,45 @@ docsUrl: 'https://docs.comet.com'
 sourceUrls:
   - 'https://www.comet.com/site/pricing/'
   - 'https://www.comet.com/site/products/opik/'
+  - 'https://www.comet.com/docs/opik/quickstart'
+  - 'https://www.comet.com/docs/opik/self-host/overview'
 pricingUrl: 'https://www.comet.com/site/pricing/'
 featured: false
 ---
-Comet Opik is an open-source LLM observability and evaluation platform for tracing, debugging, and evaluating LLM-powered applications and agents.
+You use Opik through the Python or TypeScript SDK and a web dashboard, either on Comet's hosted cloud or on a server you run yourself. It suits developers who already call LLM APIs and want to see every step their app or agent takes.
+
+## What the free plan gives you
+
+There are two free routes. The open-source version has no span or retention limits on the pricing page, and you run it yourself. You download the code from GitHub and follow the README.
+
+The hosted Free Cloud plan costs $0. It allows up to 10 team members, 25k spans per month, and 60 days of data retention. A span is one tracked step, such as a model call or a tool call. The home page says you do not need a credit card to sign up. Free Cloud also includes the Agent Playground and a trial of the Ollie coding harness.
+
+## When you hit a limit
+
+The pricing page does not say what Free Cloud does when you pass 25k spans in a month. It only shows what the paid Pro Cloud plan does. Pro costs $19 per month, includes 100k spans, and sells extra spans at $5 per 100k. Longer retention is also a paid add-on: it extends storage from 60 days to 400 days at $29 per 100k spans. If you need unlimited spans and retention without paying, self-host the open-source version.
+
+## Gotchas
+
+- The 60-day retention on Free Cloud means old traces disappear. Pro sells longer retention as an add-on.
+- The page does not say what happens to Free Cloud traces after 25k spans, so watch your monthly count.
+- Self-hosting means you download the code and run the service yourself.
+
+## Alternatives in this atlas
+
+- [Langfuse](/services/langfuse/): when you want another LLM tracing tool with a hosted free plan.
+- [Braintrust](/services/braintrust/): when evaluation and datasets matter more than raw tracing.
+- [Comet ML](/services/comet-ml/): when you track classic model training runs, not LLM calls.
+
+## Questions people ask
+
+### Is Opik free?
+
+Yes. The open-source version is free to self-host, and the hosted Free Cloud plan costs $0 with 25k spans per month.
+
+### Does Comet Opik need a credit card?
+
+No. The Opik page says you do not need a credit card to sign up, and the free tier lasts as long as you like.
+
+### What happens when I go over the Opik free span limit?
+
+The pricing page does not say. On the paid Pro plan, extra spans cost $5 per 100k. To avoid limits, self-host the open-source version.

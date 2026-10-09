@@ -1,8 +1,9 @@
 ---
 title: Posthook
 description: >-
-  Posthook provides scheduled and delayed HTTP webhooks for background jobs and
-  workflows.
+  Posthook schedules HTTP webhooks to fire at a later time, with retries and
+  delivery logs. Developers use it for reminders, follow-ups, and expirations
+  instead of running cron jobs.
 provider: Posthook
 category: automation
 domain: automation
@@ -16,9 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - integration
-  - productivity
-  - automation
+  - webhooks
+  - scheduler
+  - delayed-jobs
+  - cron-alternative
+  - reminders
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier includes 1,000 scheduled hooks per month across 3 projects.
@@ -35,40 +38,84 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Schedule delayed webhooks
-  - Automate background tasks
-  - Trigger time-based workflows
+  - Sending onboarding drip emails at set times after sign-up
+  - Checking a trial and downgrading the account when it expires
+  - Nudging users who abandoned a cart after a delay
+  - Releasing a reservation hold after a set time
 quickstartSteps:
-  - Sign up for a free Posthook account.
-  - Create a new project in the dashboard.
-  - Obtain your API key from project settings.
-  - Use the API or dashboard to schedule a webhook.
-  - Monitor job status and logs in the dashboard.
+  - Create a free account at posthook.io and a project in the dashboard.
+  - Copy the API Secret Key from the project's Settings page.
+  - Log in with the Posthook CLI and enter the key when prompted.
+  - Schedule a hook with a POST to `https://api.posthook.io/v1/hooks` using the `X-API-Key` header and a body with `path`, `postIn`, and `data`.
+  - Start the Posthook listener to forward deliveries to your local app, and verify the `Posthook-Signature` header.
 whenToUse: >-
-  Use Posthook when you need to schedule HTTP webhooks or automate delayed tasks
-  without managing your own job queue.
+  Use it when your backend needs to run something later, such as a reminder or an
+  expiry check, and you do not want to maintain cron jobs and polling queries.
 whenNotToUse: >-
-  Avoid if you require more than 1,000 hooks/month, on-premise deployment, or
-  real-time sub-minute precision tasks.
+  Avoid it for more than 1,000 scheduled hooks a month on the free plan, for
+  on-premise needs, or for work that must run immediately.
 bestFor:
-  - background-job scheduling
-  - webhook automation
-  - simple workflow triggers
+  - reminders and follow-ups
+  - expiry checks
+  - replacing small cron setups
 avoidIf:
-  - need high-frequency jobs
-  - require on-premise
-  - need advanced workflow orchestration
+  - you need more than 1,000 hooks a month for free
+  - you need on-premise hosting
+  - you need events to run immediately
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://posthook.io'
 docsUrl: 'https://docs.posthook.io'
 sourceUrls:
   - 'https://posthook.io/pricing'
+  - 'https://docs.posthook.io'
+  - 'https://docs.posthook.io/quickstart'
+  - 'https://posthook.io'
 pricingUrl: 'https://posthook.io/pricing'
 featured: false
 ---
-Posthook is a simple service for scheduling HTTP webhooks and background jobs, ideal for automating delayed tasks and lightweight workflow triggers.
+You schedule a hook with one API call, and Posthook sends a signed HTTP request to your endpoint at the time you choose. You can also test locally with the Posthook listener. It suits backend developers who want delayed work without a job queue.
+
+## What the free plan gives you
+
+The Free plan costs $0 and includes 1,000 hooks a month, 3 projects, and email alerts. The site says it is for validating a scheduling pattern end to end before production. It needs no credit card, and it replaces a time-limited trial, so you can use it as long as you need.
+
+Only the first scheduling counts toward the quota. Deliveries, retries, and other API calls do not count. A 5-email drip campaign for one user counts as 5 hooks. The count resets on the first of each month, and unused hooks do not roll over. Every hook is kept and can be searched for up to 90 days.
+
+Paid plans start with Launch at $39 a month for 20,000 hooks and 5 projects.
+
+## When you hit a limit
+
+You get a heads-up email at 75% of your quota and another notice at 100%. Scheduling keeps working, and you can use up to 150% of your quota. Past 150%, new hooks are rejected until the first of the next month.
+
+The pricing page says there are no surprise bills. Hooks you already scheduled still get delivered. You can check your usage on the Account Page, and each POST to the hooks endpoint returns quota headers.
+
+## Gotchas
+
+- Past 150% of your quota, new hooks are rejected until the next month starts.
+- Annual billing is not offered at this time.
+- Delivery is at least once, so your endpoint should handle a repeated delivery of the same hook.
+
+## Alternatives in this atlas
+
+- [Hook0](/services/hook0/): when you need to send webhooks to your customers, not schedule them for later.
+- [Svix](/services/svix/): when you also send webhooks from your product and want a free plan for that.
+- [Make](/services/make/): when you want scheduled automations built in a visual editor, without backend code.
+
+## Questions people ask
+
+### Is Posthook free?
+
+Yes. The Free plan includes 1,000 hooks a month and 3 projects, with email alerts, and needs no credit card.
+
+### What happens when I hit the Posthook free limit?
+
+You get emails at 75% and 100%, and scheduling keeps working up to 150% of your quota. Beyond that, new hooks are rejected until the 1st of the next month.
+
+### Does Posthook count retries toward my quota?
+
+No. Only the initial scheduling of a hook counts. Deliveries, retries, and API calls are free.

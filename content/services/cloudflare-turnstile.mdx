@@ -1,6 +1,9 @@
 ---
 title: Cloudflare Turnstile
-description: A CAPTCHA alternative that checks visitors without puzzles.
+description: >-
+  Cloudflare Turnstile is a CAPTCHA alternative that checks whether a visitor
+  is human, with no puzzle in most cases. It works on any site, even if the site
+  is not on Cloudflare.
 provider: Cloudflare
 category: security
 domain: security
@@ -12,45 +15,67 @@ audiences:
   - indie
   - startup
 tags:
-  - security
-  - web
+  - captcha alternative
+  - bot protection
+  - spam prevention
+  - recaptcha alternative
+  - form protection
   - privacy
 pricingModel: freemium
 freeTierDetails:
   summary: Free plan with up to 20 widgets per account. Works without other Cloudflare services.
   limits:
     - Up to 20 widgets per account
+    - Unlimited challenges
+    - 10 hostnames per widget
+    - Analytics lookback of 7 days
     - Works without other Cloudflare services
   caveats:
-    - Some advanced options need Enterprise
+    - Any hostname widgets, ephemeral IDs, and removing Cloudflare branding (Offlabel) need Enterprise
+    - Support on the free plan comes from the community
+    - Server-side token validation is mandatory, and tokens expire after 300 seconds
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Protect sign-up and login forms
-  - Stop spam on contact forms
+  - Protecting sign-up and login forms from bots
+  - Stopping spam on contact forms
+  - Replacing reCAPTCHA or hCaptcha with a drop-in script
+  - Checking visitors on sites that are not proxied through Cloudflare
 quickstartSteps:
-  - Add a widget in the Turnstile dashboard.
-  - Add the script and widget to your form.
-  - Check the token on your server with siteverify.
-whenToUse: Use to protect forms from bots without annoying users.
-whenNotToUse: Avoid if you need more than 20 widgets for free.
+  - Sign in to a Cloudflare account; you do not need to move your site to Cloudflare.
+  - Create a widget in the Turnstile dashboard, or through the API or Terraform, to get a sitekey and a secret key.
+  - Add the script from challenges.cloudflare.com to your page and a div with the cf-turnstile class and your sitekey inside the form.
+  - Receive the cf-turnstile-response token with the form post on your server.
+  - Send the token and your secret key to the Siteverify API and accept the form only if validation succeeds.
+whenToUse: >-
+  Use it to protect forms from bots without showing visitors a puzzle, on any
+  website, including ones hosted outside Cloudflare.
+whenNotToUse: >-
+  Avoid it if you need more than 20 widgets, hostname rules for any hostname,
+  or custom branding, which are Enterprise features.
 bestFor:
   - forms
   - sign-up pages
-avoidIf: []
+avoidIf:
+  - you need more than 20 widgets
+  - you need to remove Cloudflare branding
+  - you want paid support on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.cloudflare.com/application-services/products/turnstile/'
 docsUrl: 'https://developers.cloudflare.com/turnstile/'
 sourceUrls:
   - 'https://developers.cloudflare.com/turnstile/plans/'
+  - 'https://developers.cloudflare.com/turnstile/'
+  - 'https://developers.cloudflare.com/turnstile/get-started/'
+  - 'https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/'
 pricingUrl: 'https://developers.cloudflare.com/turnstile/plans/'
 featured: false
 changes:
@@ -58,4 +83,43 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Turnstile is free for most sites.
+You create a widget in the Cloudflare dashboard, add a small script to your page, and check the token on your server. The same steps work through the API or Terraform. It suits anyone who runs forms on a website.
+
+## What the free plan gives you
+
+The Free plan covers up to 20 widgets per account and all widget types: managed, non-interactive, and invisible. Challenge volume is unlimited, so you do not pay by request. Each widget can have 10 hostnames, and analytics look back 7 days.
+
+Pre-clearance for single-page apps is included, and so is community support. The docs list the Free plan as suitable for personal sites, small and medium businesses, and most production applications.
+
+Enterprise adds unlimited widgets, up to 200 hostnames per widget, any hostname widgets, ephemeral IDs, Offlabel to remove Cloudflare branding, and 30 days of analytics.
+
+## When you hit a limit
+
+The plans page says free users are limited to 20 widgets per account. Customers with Enterprise Bot Management and Enterprise Turnstile can have that limit raised, and the page tells you to contact your account team.
+
+The page does not describe what happens if you try to create a widget beyond the limit. It lists no overage charge, because challenges are unlimited. If you upgrade to Enterprise, your existing widgets and settings are kept.
+
+## Gotchas
+
+- Validating the token on your server with Siteverify is mandatory. Without it, the setup is incomplete and your analytics show zeroes for token validation.
+- Tokens expire after 300 seconds (5 minutes), and each token can be validated only once.
+- Use a testing sitekey for development. Production secret keys reject the dummy tokens that testing keys produce.
+
+## Alternatives in this atlas
+
+- [hCaptcha](/services/hcaptcha/): when you want another CAPTCHA provider with a free plan of its own.
+- [Cloudflare](/services/cloudflare/): when you want bot and DDoS protection for a whole site and not only forms.
+
+## Questions people ask
+
+### Is Cloudflare Turnstile free?
+
+Yes. The Free plan gives you up to 20 widgets per account and unlimited challenges. The plans page says Turnstile works without other Cloudflare services.
+
+### Does Cloudflare Turnstile need my site on Cloudflare?
+
+No. The docs say you can use it on any website, whether or not the site is proxied through Cloudflare, and the widget and validation steps are self-contained.
+
+### How long does a Turnstile token last?
+
+A token expires after 300 seconds (5 minutes) and can be validated only once. Expired or used tokens must be replaced with a fresh challenge.

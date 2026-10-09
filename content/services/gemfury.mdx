@@ -1,8 +1,8 @@
 ---
 title: Gemfury
 description: >-
-  Gemfury is a cloud-hosted private package repository for npm, PyPI, RubyGems,
-  and more.
+  Gemfury is a hosted package repository for public and private packages. It works with RubyGems,
+  npm, PyPI, NuGet, Composer, and other package managers, so you skip running your own server.
 provider: Gemfury
 category: devops
 domain: devops
@@ -17,63 +17,120 @@ audiences:
   - oss
   - agency
 tags:
-  - sdk
-  - containers
-pricingModel: trial
+  - private npm registry
+  - private pypi
+  - private gem server
+  - package repository
+  - artifact hosting
+  - nuget
+  - composer
+pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Public packages are free forever. Private packages need a paid Personal
-    plan, with a 14-day free trial and no card required to start.
+    The Public plan is free at $0 per month with unlimited public packages. Private packages need a
+    paid plan, which starts with a 14-day free trial and no card.
   limits:
-    - 'Public plan: unlimited public packages, free forever'
-    - 14-day free trial of private package hosting, no credit card required
-    - Personal plans start at $9/month after the trial
-    - Collaborators (shared-account team members) are always free
+    - >-
+      Public plan: $0 per month, unlimited public packages, unlimited collaborators, no private
+      packages
+    - '14-day free trial of private packages, no credit card required'
+    - Personal plans start at $9 per month after the trial
+    - >-
+      Package files are limited to 300MB per upload; uploads through a repository endpoint are
+      limited to 20MB
   caveats:
-    - No permanently free tier for private packages
-    - Trial ends with a recommended paid plan to keep private packages
-  resetPeriod: monthly
+    - No private packages on the free Public plan
+    - 'After the trial, Gemfury tells you which paid plan it recommends'
+    - Being a collaborator on someone else's account is always free
+    - Git repositories used for builds have a 500MB size limit
+  resetPeriod: none
   requiresCard: false
-  freeTierType: trial
+  freeTierType: always-free
   trialDays: 14
   hasHardCap: true
   overageRisk: none
 useCases:
-  - 'Host private npm, PyPI, or RubyGems packages'
-  - Distribute internal libraries securely
-  - Simplify dependency management for small projects
+  - 'Hosting a private npm, PyPI, or RubyGems package for your company'
+  - Distributing public packages from your own account
+  - Installing private packages on a server with a secret repository URL
+  - Building a package from a Git push and publishing it to Gemfury
 quickstartSteps:
-  - Sign up for a free Gemfury account.
-  - Create a new private repository.
-  - Upload your package using the CLI or web interface.
-  - 'Configure your package manager (npm, pip, gem) to use your Gemfury repo.'
-  - Install your private package in your project.
+  - 'Sign up for a Gemfury account, or log in with GitHub.'
+  - Open your dashboard and click Upload to add a built package.
+  - 'Or install the Gemfury CLI, run `fury login`, then `fury push package-file-1.0.1.tgz`.'
+  - >-
+    Open the guide for your package type (for example npm, Python, or RubyGems) and point your
+    package manager at your private Repo URL.
+  - Install the package on a machine with your normal package manager commands.
 whenToUse: >-
-  Use Gemfury when you need a simple, cloud-hosted package registry: public
-  packages are free forever, and private packages get a 14-day trial.
+  Use Gemfury to host public packages for free, or to try private package hosting for 14 days before
+  choosing a paid plan.
 whenNotToUse: >-
-  Avoid if you need a permanently free private package registry; Gemfury only
-  offers a trial for private packages, not an always-free plan.
+  Avoid it if you need free private packages after the trial, or if you cannot keep the secret Repo
+  URL safe.
 bestFor:
-  - solo developers
-  - indie projects
-  - OSS maintainers testing private packages
+  - solo developers sharing public packages
+  - small teams that need a private npm or PyPI repository
+  - projects that mix several package types
 avoidIf:
-  - large teams
-  - enterprise needs
-  - multi-language package hosting
+  - you need free private packages for the long term
+  - you cannot pay for private hosting
+  - your packages are over 300MB
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://gemfury.com'
-docsUrl: 'https://docs.gemfury.com/article/34-getting-started'
+docsUrl: 'https://gemfury.com/help'
 sourceUrls:
   - 'https://gemfury.com/pricing'
-  - 'https://docs.gemfury.com/article/34-getting-started'
+  - 'https://gemfury.com'
+  - 'https://gemfury.com/help/getting-started'
+  - 'https://gemfury.com/help/upload-packages'
+  - 'https://gemfury.com/help/limits/'
 pricingUrl: 'https://gemfury.com/pricing'
 featured: false
 ---
-Gemfury hosts unlimited public packages for free. Private packages get a 14-day trial with no card, then paid plans from $9/month.
+You upload packages in the dashboard, with the `fury` command line tool, or with cURL. Then you install them with your normal package manager through a Repo URL. It suits solo developers and small teams.
+
+## What the free plan gives you
+
+The Public plan costs $0 per month. It gives you unlimited public packages and unlimited collaborators. It has no private packages. All plans come with unlimited versions, SSL protection, and free setup.
+
+If you want private packages, Gemfury offers a 14-day free trial that needs no credit card. During the trial you can use Gemfury without limits. At the end Gemfury tells you which paid plan fits your usage.
+
+The Personal plans start at $9 per month, and the Team plans start at $25 per month. Package files can be up to 300MB. Uploads through a repository endpoint are limited to 20MB.
+
+## When you hit a limit
+
+The trial is the main limit. The pricing page says Gemfury will notify you of the recommended plan after 14 days. It does not say what happens to your private packages if you do not pay.
+
+For file sizes, the Limits page says package files have an absolute limit of 300MB per file. Uploads to a repository endpoint stop at 20MB. Some package managers send files as Base64 text, which makes the payload more than 30% larger and lowers the real limit.
+
+## Gotchas
+
+- The free Public plan has no private packages. You need a paid plan, or the trial, for them.
+- Your Repo URL contains a secret token. Anyone with the URL can install your private packages, so keep it secret.
+- Git repositories that Gemfury builds have a 500MB size limit, with a 20MB limit for individual files.
+
+## Alternatives in this atlas
+
+- [Docker Hub](/tools/docker-hub/): when you need to host container images.
+- [GitLab](/services/gitlab/): when you want package hosting next to your code and CI.
+- [GitHub Actions](/services/github-actions/): when you want to build and publish packages from your own workflow.
+
+## Questions people ask
+
+### Is Gemfury free?
+
+Partly. The Public plan is free for unlimited public packages. Private packages need a paid plan after a 14-day free trial.
+
+### Does Gemfury need a credit card?
+
+No for the trial. The pricing page says the 14-day free trial needs no credit card.
+
+### What happens after the Gemfury trial ends?
+
+Gemfury tells you which paid plan it recommends for your usage. The pricing page does not say what happens to private packages if you do not upgrade.

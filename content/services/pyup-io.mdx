@@ -1,8 +1,9 @@
 ---
 title: Safety (formerly PyUp.io)
 description: >-
-  Safety (formerly PyUp.io) scans Python projects for vulnerable and malicious
-  packages, free for solo developers on non-commercial projects.
+  Safety (formerly PyUp.io) scans the packages in a Python project for known
+  vulnerabilities and malicious packages and suggests fixes. It is for Python
+  developers.
 provider: Safety
 category: security
 domain: security
@@ -17,59 +18,108 @@ audiences:
   - team
   - oss
 tags:
-  - security
-  - automation
+  - python
+  - pypi
+  - dependency-scanning
+  - vulnerability-scanner
+  - supply-chain-security
+  - safety-cli
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free forever for a single developer on non-commercial projects, using
-    open-source vulnerability data.
+    public vulnerability data.
   limits:
     - Single codebase, single user
     - '100 scans/month'
     - Project-specific security policies
+    - Scans use public vulnerability data
   caveats:
-    - Non-commercial use only; commercial/team use needs a paid plan
-    - Uses open-source vulnerability data only (paid plans use Safety's full database)
+    - Designed for non-commercial use, individual developers, and education
+    - Team and Enterprise plans use Safety's own vulnerability data, listed as 4x more comprehensive than public databases
+    - Firewall protection against malicious package installs is not on the Free plan
+    - Free email support has a 48-hour response time
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Scan Python projects for vulnerable or malicious packages
-  - Enforce project-specific security policies
-  - Learn secure dependency practices as a solo developer
+  - Scanning a Python project for vulnerable and malicious packages
+  - Getting fix recommendations for each vulnerable package
+  - Setting project-specific security policies in a policy file
+  - Learning dependency security as a solo developer or student
 quickstartSteps:
-  - Sign up for a free Safety account.
-  - Install the Safety CLI in your Python project.
-  - Run a scan against your codebase (up to 100 scans/month).
-  - Review and act on the vulnerability findings.
+  - Sign up for a free Safety account on the Safety site; the Free plan lists $0 per developer per month.
+  - Install the command line tool with `pip install safety`. It needs version 3 or newer.
+  - Run `safety auth login`. Your browser opens so you can sign in with your Safety account or with Google.
+  - Open your terminal in the root folder of a Python project and run `safety scan`.
+  - Read the summary of vulnerable packages and the recommended fixes. Name the project if the tool asks.
 whenToUse: >-
-  Use Safety to scan a single non-commercial Python codebase for vulnerable
-  packages at no cost.
+  Use Safety to scan one personal or educational Python codebase for known
+  vulnerable and malicious packages from the command line.
 whenNotToUse: >-
-  Do not use the free plan for commercial or team projects, or if you need
-  Safety's full proprietary vulnerability database.
+  Avoid the free plan for commercial work, for more than one developer or
+  codebase, or when you want the proprietary vulnerability database or the
+  install-time firewall.
 bestFor:
-  - solo developers
+  - solo Python developers
   - students
   - non-commercial open source projects
 avoidIf:
-  - commercial use
-  - multiple contributing developers
-  - need the full proprietary vulnerability database
+  - you use it for commercial projects
+  - you have several developers or codebases
+  - you want the firewall on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.getsafety.com'
 docsUrl: 'https://docs.safetycli.com'
 sourceUrls:
   - 'https://www.getsafety.com/pricing/'
+  - 'https://docs.safetycli.com'
+  - 'https://docs.safetycli.com/safety-docs/safety-cli/installation-and-authentication'
+  - 'https://docs.safetycli.com/safety-docs/safety-cli/scanning-for-vulnerable-and-malicious-packages'
 pricingUrl: 'https://www.getsafety.com/pricing/'
 featured: false
 ---
-Safety (formerly PyUp.io) scans Python projects for vulnerable and malicious packages, free forever for a single developer on non-commercial projects.
+You use Safety from a terminal: install the CLI with pip, sign in through your browser, and run a scan in your project folder. A GitHub Action is available for CI/CD. It suits Python developers who want a free dependency check.
+
+## What the free plan gives you
+
+The Free plan costs $0 and the pricing page says it is free forever. It is designed for non-commercial use, individual developers, and education. You get a single codebase and 100 scans per month for a single user. The plan includes project-specific security policies, vulnerability management and prioritization, and email support with a 48-hour response.
+
+Free scans use public vulnerability data. A scan reads your project folder for package files and virtual environments, checks the packages against known vulnerabilities and malicious package lists, and gives fix recommendations. Output can also be JSON.
+
+## When you hit a limit
+
+The pricing page does not say what happens after your 100th scan in a month. The plan has a fixed scan cap, no card, and no pay-as-you-go charge, so the page shows no way to get billed by accident. If you need more, the Team plan lists 5,000 scans per month, up to 25 codebases, and up to 20 contributing developers. It costs $25 per developer per month, or $240 per year.
+
+## Gotchas
+
+- The Free plan is for non-commercial use. A work project or a team needs a paid plan.
+- Free scans use public vulnerability data. Paid plans use Safety's own data, which the pricing page calls 4x more comprehensive.
+- Firewall protection, which blocks bad packages at install time, is a paid feature.
+
+## Alternatives in this atlas
+
+- [Snyk](/services/snyk/): when you also scan JavaScript or other languages, not only Python.
+- [Socket](/services/socket/): when you mainly worry about malicious packages in your dependency tree.
+- [Meterian.io](/services/meterian-io/): when you have open source projects in many languages and want one scanner.
+
+## Questions people ask
+
+### Is Safety (PyUp) free?
+
+Yes, for one developer. The Free plan covers a single codebase and 100 scans per month for non-commercial, individual, and education use.
+
+### Can I use Safety free for commercial projects?
+
+The pricing page says the Free plan is designed for non-commercial use. Commercial or team work belongs on the Team plan.
+
+### How do I run my first Safety scan?
+
+Install it with `pip install safety`, run `safety auth login`, then run `safety scan` in the root folder of your Python project.

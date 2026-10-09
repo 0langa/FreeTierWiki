@@ -1,8 +1,9 @@
 ---
 title: Arize AI
 description: >-
-  Arize AI provides observability and monitoring for machine learning models in
-  production environments.
+  Arize AX traces LLM agents and apps so you can see each retrieval, tool call,
+  and model call, then find recurring issues and test fixes with evals and
+  experiments.
 provider: Arize AI
 category: observability
 domain: observability
@@ -16,9 +17,11 @@ audiences:
   - enterprise
   - oss
 tags:
-  - ml
+  - llm-observability
+  - tracing
+  - evals
+  - ai-agents
   - monitoring
-  - analytics
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -38,32 +41,35 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor ML model performance in production
-  - Detect data and concept drift
-  - Analyze prediction errors
+  - Tracing every step of an LLM agent request
+  - Finding recurring failures with Signal issue grouping
+  - Scoring answer quality with evaluations
+  - Testing a prompt or model change with experiments
+  - Asking the built-in Alyx agent about your traces
 quickstartSteps:
-  - Sign up for an Arize AI account.
-  - Create a new organization and project.
-  - Integrate the Arize SDK into your ML pipeline.
-  - Log model predictions and actuals to Arize.
-  - View dashboards for drift and performance metrics.
+  - Sign up for a free Arize AX account at app.arize.com; the pricing page says no credit card is required.
+  - Install the tooling with one command from the docs, such as `npx evals` or `uvx arize-ax-cli instrument`.
+  - Let the setup sign you in and pick your space, so you do not copy a Space ID or API key by hand.
+  - Let it add the OpenInference packages for your stack and wire them into your Python or TypeScript app.
+  - Send a few representative requests through your app.
+  - Open your project in Arize AX and click a trace to see its span tree.
 whenToUse: >-
-  Use Arize AI when you need to monitor deployed ML models for drift,
-  performance, or data quality issues.
+  Use Arize AX when you build an LLM agent or app and want traces, evals, and
+  experiments in one place without paying at first.
 whenNotToUse: >-
-  Avoid if you need more than 25k trace spans or 1GB ingestion per month
-  without upgrading.
+  Avoid it if you send more than 25k trace spans or 1 GB of data a month, or
+  need to keep traces longer than 15 days.
 bestFor:
-  - ML engineers
-  - data scientists
-  - MLOps teams
+  - solo builders testing an LLM agent
+  - small teams that need unlimited users
+  - pilots before a paid plan
 avoidIf:
-  - You have high-volume production workloads
-  - You need custom integrations or enterprise support
+  - high-volume production traffic
+  - traces you must keep longer than 15 days
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://arize.com/'
@@ -71,7 +77,46 @@ docsUrl: 'https://docs.arize.com/'
 pricingUrl: 'https://arize.com/pricing/'
 sourceUrls:
   - 'https://arize.com/pricing/'
-  - 'https://docs.arize.com/'
+  - 'https://arize.com/docs/ax'
+  - 'https://arize.com/docs/ax/get-started/get-started-tracing'
 featured: false
 ---
-Arize AI's AX Free plan offers ML/LLM observability with 25k trace spans and 1GB ingestion per month, plus unlimited users and evals. It's ideal for small-scale production deployments or pilots, but larger workloads require a paid plan.
+You use Arize AX through its web app, a command line tool, and OpenInference instrumentation packages for Python and TypeScript. It suits people who build LLM agents and want to see what each request did.
+
+## What the free plan gives you
+
+The AX Free plan costs nothing, and the pricing page says no credit card is required. It includes 25k trace spans per month and 1 GB of ingestion per month. Data is kept for 15 days. You also get 10 issues per month from Signal, the feature that groups recurring failures in your traces.
+
+Users, evaluations, experiments, human annotations, labeling queues, playgrounds, datasets, and prompts are all listed as unlimited on the free plan. The Pro plan costs $50 per month and raises the numbers to 50k spans, 10 GB of ingestion, and 30 days of retention. The pricing page also mentions startup pricing, without giving details.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 25k spans or 1 GB in a month. It does not mention overage charges for the free plan, and it asks for no card, so a surprise bill looks unlikely. Plan for a stop or a prompt to upgrade instead.
+
+Retention works the same way as a limit. Traces older than 15 days are no longer kept on the free plan, so export anything you need to keep. The Pro plan keeps data for 30 days.
+
+## Gotchas
+
+- The pricing page shows 10 issues per month in the plan card but 25 issues per month in the comparison table row for the free column, so check the number in your account.
+- Retention is 15 days on the free plan, which is short for slow investigations.
+- The docs setup command starts a coding agent session that edits your app, so read the changes it makes before you run the app.
+
+## Alternatives in this atlas
+
+- [Langfuse](/services/langfuse/): when you want another tracing and evals tool for LLM apps.
+- [LangSmith](/services/langsmith/): when your app already uses LangChain.
+- [Helicone](/services/helicone/): when you mainly want to log and watch LLM requests.
+
+## Questions people ask
+
+### Is Arize AX free?
+
+Yes. The AX Free plan costs nothing, needs no credit card, and includes 25k trace spans and 1 GB of ingestion per month.
+
+### How long does Arize AX keep my traces on the free plan?
+
+The pricing page lists 15 days of retention for the free plan and 30 days for Pro.
+
+### What happens when I go over the Arize AX free limits?
+
+The pricing page does not say. It lists no overage price for the free plan, so check your account before you send a large batch of traces.

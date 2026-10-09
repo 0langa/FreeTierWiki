@@ -1,8 +1,8 @@
 ---
 title: Azure AI Content Safety
 description: >-
-  Detects and filters harmful, offensive, or inappropriate content in text and
-  images using AI models.
+  Azure AI Content Safety checks text and images for harmful content and returns severity scores. It
+  is for developers who need to moderate user posts, chat messages, or AI model output.
 provider: Azure
 category: ai
 domain: ai
@@ -17,9 +17,12 @@ audiences:
   - oss
   - agency
 tags:
-  - ai
-  - security
-  - images
+  - content moderation
+  - text moderation
+  - image moderation
+  - harmful content
+  - ai safety
+  - azure
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free (F0) tier includes 5,000 text records and 5,000 images per month.'
@@ -28,49 +31,99 @@ freeTierDetails:
     - '5,000 images/month'
   caveats:
     - Usage stops once the monthly free limit is reached; no overage billing on the F0 tier
-    - Upgrading to the paid S0 tier is a separate, explicit action
+    - 'Upgrading to the paid S0 tier is a separate, explicit action'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Moderate user-generated content
-  - Filter offensive language in chat apps
-  - Detect harmful images in uploads
+  - Screen user comments and chat messages before they appear
+  - Check images that users upload
+  - Filter the output of a language model
+  - Test thresholds in the Try it out page before you write code
 quickstartSteps:
-  - Sign in to the Azure portal and create an AI Content Safety resource.
-  - Obtain your API key and endpoint from the resource overview.
-  - Install the Azure AI Content Safety SDK or use the REST API.
-  - Send sample text or image data to the API for moderation.
-  - Review moderation results and integrate into your application workflow.
+  - 'Create an Azure account, or use an existing Azure subscription.'
+  - >-
+    In the Azure portal, create a Content Safety resource. Pick a subscription, a resource group, a
+    supported region, and the free F0 pricing tier.
+  - >-
+    When the deployment finishes, select Go to resource, then Subscription Key and Endpoint, and
+    copy the endpoint and one key.
+  - >-
+    Send a POST request to the text:analyze path under your endpoint, with the key in the
+    Ocp-Apim-Subscription-Key header and your text in the JSON body.
+  - >-
+    Read the severity values in the response, or try the same check first on the Try it out page in
+    the Azure AI Foundry portal.
 whenToUse: >-
-  Use when you need to automatically detect and filter harmful or inappropriate
-  content in user-generated text or images.
+  Use when you need to screen text and images in a small app and 5,000 records of each per month is
+  enough.
 whenNotToUse: >-
-  Avoid if you require moderation for video, audio, or need an on-premises
-  solution; not ideal for extremely high-volume, cost-sensitive use cases.
+  Avoid if you need moderation beyond text and images, need an on-premises solution, or handle high
+  volume. Free usage stops at the monthly limit.
 bestFor:
-  - moderating forums
-  - chat applications
-  - social platforms
+  - prototypes that moderate user content
+  - small community sites
+  - checking language model output
+  - learning how moderation thresholds behave
 avoidIf:
-  - requiring offline moderation
-  - needing video/audio analysis
-  - strict cost controls
+  - need moderation beyond text and images
+  - need on-premises deployment
+  - need more than 5 requests per second on the free tier
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
-officialUrl: >-
-  https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-content-safety/
+officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-content-safety/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/content-safety/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/content-safety/'
   - 'https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/content-safety/quickstart-text'
 featured: false
 ---
-Azure AI Content Safety provides AI-powered moderation for text and images, helping developers automatically detect and filter harmful or inappropriate content at scale. The free (F0) tier covers 5,000 text records and 5,000 images per month; usage simply stops once you hit the limit rather than billing you.
+You call it through a REST API or an SDK, and you can test it first in the Foundry portal. It suits developers who need to screen user posts or model output in a small app.
+
+## What the free plan gives you
+
+The Free tier is called F0. It includes 5,000 text records per month and 5,000 images per month. The counts reset each month. You need an Azure subscription and a Content Safety resource in a supported region.
+
+The docs also set a query rate for the F0 tier. Most features allow 5 requests per second, and a few features show no free access at all. That is enough for a prototype or a small site. It is not enough for a busy app that checks every message.
+
+The paid S0 tier has higher rate limits. The pricing page shows its per-1,000 prices as blank, so check the Azure pricing calculator for real numbers.
+
+## When you hit a limit
+
+The pricing page is clear. Usage stops when you reach the transaction limit on the Free tier, and customers cannot build up overages on the free tier. Your calls fail until the next month, or until you move to a paid tier.
+
+Moving to S0 is a separate step that you take on purpose. You will not be moved up on your own, so a surprise bill from the free resource is not the risk. The risk is that your moderation calls stop at the worst moment.
+
+## Gotchas
+
+- The F0 rate limit is 5 requests per second, even before you reach the monthly count.
+- Groundedness detection is a preview feature, and the docs say it works with English only.
+- Microsoft retires older API versions 90 days after a new version ships, so pin a current version and watch the What's new page.
+
+## Alternatives in this atlas
+
+- [Azure AI Language](/services/azure-ai-language/): when you need text analysis such as sentiment or entity detection, not only safety checks.
+- [Azure AI Vision](/services/azure-ai-vision/): when you need to read and describe images, not only filter them.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want to run your own classifier model without an Azure subscription.
+
+## Questions people ask
+
+### Is Azure AI Content Safety free?
+
+Yes, the F0 tier is free. It includes 5,000 text records and 5,000 images per month.
+
+### What happens when I go over the Content Safety free limit?
+
+Usage stops. The pricing page says customers cannot build up overages on the free tier. You must upgrade to a paid tier on purpose to keep going.
+
+### Does Azure AI Content Safety need a credit card?
+
+It needs an Azure subscription, and the atlas records that Azure sign-up asks for a card. The free tier itself does not bill you past the monthly amount.

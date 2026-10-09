@@ -1,8 +1,8 @@
 ---
 title: Braintrust
 description: >-
-  Braintrust offers managed open-source LLM evaluation and monitoring for AI
-  applications.
+  Braintrust is a platform for logging, evaluating, and monitoring language model applications. It
+  is for AI teams that trace production calls, score outputs, and compare prompts.
 provider: Braintrust
 category: ai
 domain: ai
@@ -16,25 +16,34 @@ audiences:
   - enterprise
   - oss
 tags:
-  - llm
-  - monitoring
-  - open-source
-  - ai
+  - llm evaluation
+  - llm observability
+  - ai tracing
+  - prompt evaluation
+  - llm monitoring
+  - evals
+  - autoevals
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Starter plan includes $10 in monthly model credits, 1 GB processed
-    data, and 10,000 scores, with unlimited users, projects, and experiments.
-    No credit card required.
+    Free Starter plan includes $10 in monthly model credits, 1 GB processed data, and 10,000 scores,
+    with unlimited users, projects, and experiments. No credit card required.
   limits:
     - '$10 model credits/month, then token rates'
     - '1 GB processed data/month, then $4/GB'
     - '10,000 scores/month, then $2.50/1,000'
-    - '14-day data retention'
-    - Unlimited users, projects, and experiments
+    - 14-day data retention
+    - 'Unlimited users, projects, datasets, playgrounds, and experiments'
+    - 1 human review score per project
   caveats:
-    - Usage above included credits, data, or scores bills at token/GB/score rates
-    - 30-day retention and priority support require the $249/month Pro plan
+    - 'Usage above included credits, data, or scores bills at token/GB/score rates'
+    - >-
+      On Starter, built-in model use and Topics pause when credits run out unless you turn on
+      on-demand usage or add a card
+    - >-
+      30-day retention, custom dashboards, environments, and priority support require the $249/month
+      Pro plan
+    - Built-in models need an owner with a work email address or a payment method on file
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -42,41 +51,87 @@ freeTierDetails:
   overageRisk: low
   monthlyCreditAmount: $10/month
 useCases:
-  - Track LLM output quality
-  - Monitor AI model performance
-  - Benchmark LLMs for research
-  - Automate regression testing for AI apps
+  - Trace language model calls in production
+  - Score outputs with autoevals or custom scorers
+  - Run experiments to compare prompts and models
+  - Build datasets from logged traces
 quickstartSteps:
-  - Sign up for a free Braintrust account.
-  - Connect your LLM application using the provided SDK or API.
-  - Configure evaluation criteria and monitoring settings.
-  - Send LLM outputs for evaluation via API.
-  - Review evaluation results and monitor performance in the dashboard.
+  - Sign up at braintrust.dev. The Starter plan needs no credit card.
+  - >-
+    Install the SDK for your language. For Python or TypeScript, run the setup script from the SDK
+    quickstart, or install and instrument manually.
+  - Run your app and make an AI call.
+  - Open Logs in your project and check that the trace appears.
+  - Add scorers and run an experiment to evaluate your outputs.
 whenToUse: >-
-  Use Braintrust to evaluate and monitor LLM outputs in development or
-  production for quality assurance and benchmarking.
+  Use when you want to log, score, and compare language model outputs and your volume fits in 1 GB
+  of data and 10,000 scores a month.
 whenNotToUse: >-
-  Avoid if you need evaluation for non-LLM models or require unlimited usage
-  without cost.
+  Avoid if you need to monitor models that are not language models, need more than 14 days of
+  retention for free, or want a flat bill with no on-demand rates.
 bestFor:
-  - AI teams
+  - AI teams starting to evaluate prompts
   - LLM app developers
   - QA engineers
-  - Researchers
+  - small teams with low trace volume
 avoidIf:
-  - You need non-AI model monitoring
-  - You require unlimited evaluations for free
+  - need non-language-model monitoring
+  - need retention longer than 14 days on the free plan
+  - require unlimited evaluations for free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.braintrustdata.com/'
 docsUrl: 'https://docs.braintrustdata.com'
 sourceUrls:
   - 'https://www.braintrust.dev/pricing'
+  - 'https://www.braintrust.dev/docs/plans-and-limits'
+  - 'https://braintrust.dev/docs/sdks/python/quickstart'
+  - 'https://www.braintrust.dev/docs'
 pricingUrl: 'https://www.braintrust.dev/pricing'
 featured: false
 ---
-Braintrust provides managed open-source tools for evaluating and monitoring large language model outputs, helping teams ensure AI quality and reliability.
+You add the Braintrust SDK for Python, TypeScript, Go, Java, Ruby, or C# to your app, and traces show up in the Braintrust web app. It suits AI teams that want to log, score, and compare model outputs.
+
+## What the free plan gives you
+
+The Starter plan has a $0 platform fee and needs no credit card. Each month it includes 1 GB of processed data, 10,000 scores, and $10 in model credits. Retention is 14 days. You get unlimited users, projects, datasets, playgrounds, and experiments.
+
+Model credits pay for built-in models that you use without your own API key, and for AI features such as Topics. They do not roll over from month to month. On Starter, your organization needs an owner with a work email address, or a payment method on file, to use built-in models.
+
+Starter has one human review score per project. Custom dashboards, environments, and dataset snapshots need the Pro plan.
+
+## When you hit a limit
+
+Above the included amounts, on-demand rates apply: $4 per extra GB of processed data and $2.50 per extra 1,000 scores. On Starter, if you use up the model credits and have not turned on on-demand usage, Topics and built-in model use pause until the next monthly cycle or until you add a card.
+
+Pro costs $249 per month. It includes 5 GB of processed data, 50,000 scores, 30-day retention, and $100 in model credits. The pricing page also lists 6 to 12 months of free Pro for qualifying startups.
+
+## Gotchas
+
+- Starter keeps data for 14 days. Longer retention comes with Pro.
+- Calling built-in models directly through the gateway needs a Pro or Enterprise plan.
+- Legacy plans: if you signed up before March 16, 2026, you may keep access to features you already created.
+
+## Alternatives in this atlas
+
+- [Comet Opik](/services/comet-opik/): when you want another tracing and evaluation tool for language model apps.
+- [Weights & Biases](/services/weights-biases/): when you also track classic machine learning experiments.
+- [Portkey](/services/portkey/): when you want a gateway with logging in front of model providers.
+
+## Questions people ask
+
+### Is Braintrust free?
+
+Yes. The Starter plan has a $0 platform fee, needs no credit card, and includes 1 GB of processed data, 10,000 scores, and $10 in model credits each month.
+
+### What happens when I go over the Braintrust free limits?
+
+On-demand rates apply: $4 per extra GB and $2.50 per extra 1,000 scores. Built-in model use pauses if you run out of credits and on-demand usage is off.
+
+### How long does Braintrust keep my data on the free plan?
+
+Starter keeps data for 14 days. Pro keeps it for 30 days.

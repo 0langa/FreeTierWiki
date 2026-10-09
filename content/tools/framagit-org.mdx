@@ -1,8 +1,8 @@
 ---
 title: Framagit.org
 description: >-
-  Framagit.org is a free, open-source Git repository hosting platform powered by GitLab for
-  collaborative software development.
+  Framagit is a free GitLab Community Edition server run by the French non-profit Framasoft. It
+  hosts Git repositories, issues, merge requests, and CI for free software and personal projects.
 provider: Framagit
 category: devops
 domain: devops
@@ -17,58 +17,113 @@ audiences:
   - startup
   - team
 tags:
-  - devops
-  - open-source
-  - collaboration
+  - gitlab
+  - git hosting
+  - free software
+  - gitlab ci
+  - issue tracker
+  - merge requests
+  - framasoft
 pricingModel: free
 freeTierDetails:
   summary: 'Free GitLab Community Edition hosting from Framasoft, up to 42 projects per account.'
   limits:
     - 42 projects per account
-    - 'Free GitLab CE features, including CI'
+    - GitLab Community Edition features
+    - Projects without a pipeline cleanup setting get a one-year cleanup
   caveats:
-    - New accounts are moderated and take 1 to 5 days to activate
-    - Old pipelines are cleaned up after one year by default
-    - Not for mirroring huge repositories or storing files
+    - New accounts are moderated and take between 1 and 5 days to activate
+    - Tor exit nodes are blocked
+    - >-
+      Old pipeline logs and artifacts are cleaned up after one year unless the project sets its own
+      cleanup
+    - >-
+      Not for IPTV link sharing, copyrighted non-free material, pure advertisement profiles,
+      mirroring huge repositories, or storing files like a drive
+    - Accounts that break these rules are banned without further warning
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Hosting open-source projects
-  - Collaborative software development
-  - Issue tracking and project management
-  - CI/CD pipelines for small teams
+  - Hosting a free-software project with issues and merge requests
+  - Keeping a personal or school project in a public Git repository
+  - Running CI pipelines for a small project
+  - 'Signing in with a GitHub, GitLab.com, or Bitbucket account to import work'
 quickstartSteps:
-  - 'Register for a free account at https://framagit.org.'
-  - Create a new project or import an existing Git repository.
-  - Invite collaborators by adding their usernames or emails.
-  - Push your code using Git remote URLs provided by Framagit.
-  - 'Configure issues, merge requests, and CI/CD pipelines as needed.'
-whenToUse: Use for open-source or personal projects that need a free GitLab with CI.
+  - >-
+    Open framagit.org and choose Register now (you can also sign in with GitHub, GitLab.com, or
+    Bitbucket).
+  - 'Wait for the moderation team to activate the new account, which takes between 1 and 5 days.'
+  - 'Create a new project, or import an existing repository.'
+  - Add your SSH key and push your code to the Git remote URL Framagit shows.
+  - 'Use issues, merge requests, and a `.gitlab-ci.yml` file for CI as in any GitLab.'
+whenToUse: >-
+  Use Framagit to host a free-software or personal project on a GitLab server run by a non-profit,
+  if you can wait a few days for account approval.
 whenNotToUse: >-
-  Avoid if you need enterprise support, commercial use, or guaranteed uptime, or if your project
-  requires heavy CI/CD resources.
+  Avoid it if you need an account right away, want to mirror a huge repository, want to store files
+  like a drive, or need guaranteed uptime and support.
 bestFor:
-  - open-source projects
+  - free and open-source projects
   - student projects
-  - privacy-focused teams
+  - people who prefer a non-profit host
 avoidIf:
-  - enterprise needs
-  - commercial projects
-  - large-scale CI/CD
+  - you need your account today
+  - you want to mirror huge repositories
+  - you need an uptime guarantee or paid support
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://framagit.org/'
-docsUrl: 'https://docs.framagit.org'
+docsUrl: 'https://framagit.org/help'
 sourceUrls:
-  - 'https://framagit.org/users/sign_up'
-  - 'https://framagit.org/framasoft/framagit/-/wikis/home'
+  - 'https://framagit.org/users/sign_in'
+  - 'https://framagit.org/help'
 featured: false
-pricingUrl: 'https://framagit.org/users/sign_up'
-lastVerified: '2026-10-01'
+pricingUrl: 'https://framagit.org/users/sign_in'
+lastVerified: '2026-10-09'
 ---
-Framagit is a GitLab instance run by the non-profit Framasoft. New accounts are reviewed by hand.
+You use Framagit like any GitLab server: in the web interface, or with Git over SSH or HTTPS. The service is run by Framasoft, a non-profit. It suits free-software projects and small personal repositories.
+
+## What the free plan gives you
+
+Framagit is a GitLab Community Edition instance that Framasoft offers for free. It has no price tiers. The sign-in page lists a single limit: 42 projects per account.
+
+You can register on the site, or sign in with a GitHub, GitLab.com, or Bitbucket account. Because it is GitLab, you get repositories, issues, merge requests, and CI pipelines through a `.gitlab-ci.yml` file.
+
+To limit the space that logs and pipeline artifacts take up, any project without an automatic cleanup setting gets a one-year cleanup of old pipelines.
+
+## When you hit a limit
+
+The page does not say what happens when you try to create more projects. It states that you can only have 42 projects per account.
+
+The page is also clear on abuse. Accounts that break the rules are banned without further warning. Framagit is not for IPTV link sharing, copyrighted non-free material, pure advertisement profiles, mirroring huge repositories, or storing files as if it were a drive.
+
+## Gotchas
+
+- Account creation is moderated because of spam. A new account only becomes active once the moderation team authorizes it, which takes between 1 and 5 days.
+- Tor exit nodes are blocked.
+- Old pipelines are cleaned up after one year when a project has no cleanup setting of its own, so do not keep artifacts there as an archive.
+
+## Alternatives in this atlas
+
+- [GitLab](/services/gitlab/): when you want the hosted GitLab.com service with no wait for approval.
+- [GerritHub.io](/services/gerrithub-io/): when you want Gerrit code review on top of your GitHub repositories.
+- [GitHub Actions](/services/github-actions/): when your code is on GitHub and you only need CI.
+
+## Questions people ask
+
+### Is Framagit free?
+
+Yes. Framasoft offers this GitLab Community Edition server for free. Each account can have up to 42 projects.
+
+### Why is my Framagit account not active?
+
+New accounts are moderated because of spam. The moderation team authorizes them, which takes between 1 and 5 days.
+
+### Can I mirror a big repository to Framagit?
+
+No. The sign-in page lists mirroring huge repositories as something Framagit is not for. Accounts that do so are banned without further warning.

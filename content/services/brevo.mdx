@@ -1,8 +1,9 @@
 ---
 title: Brevo
 description: >-
-  Brevo offers email marketing, transactional email, and SMS services with a
-  generous free tier for small-scale campaigns.
+  Brevo is an email and messaging platform. You can send marketing campaigns
+  from a contact list, or send transactional email from your app through an API
+  or SMTP relay.
 provider: Brevo
 category: messaging
 domain: messaging
@@ -17,7 +18,10 @@ audiences:
   - oss
 tags:
   - email
-  - messaging
+  - newsletter
+  - smtp
+  - transactional email
+  - email marketing
   - automation
 pricingModel: freemium
 freeTierDetails:
@@ -30,6 +34,7 @@ freeTierDetails:
   caveats:
     - Free emails carry the "Sent with Brevo" sticker
     - Sending starts after Brevo approves your account
+    - SMS credit is sold separately
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -37,29 +42,30 @@ freeTierDetails:
   overageRisk: none
 useCases:
   - Send newsletters to subscribers
-  - Automate welcome emails
-  - Deliver transactional emails
+  - Send welcome emails and automated follow-ups
+  - Send order confirmations and password resets through the API
+  - Relay mail from an app through the free SMTP server
   - Run basic email campaigns
 quickstartSteps:
-  - Sign up for a free Brevo account.
-  - Verify your email address.
-  - Create or import your contact list.
-  - Design your first email campaign using the template editor.
-  - Send a test email and launch your campaign.
+  - Sign up for a free Brevo account. A free plan is created for you, with no credit card.
+  - Wait for Brevo to approve your account for sending, and upload or create your contacts in the meantime.
+  - For marketing email, build a campaign with the drag and drop editor, then send it.
+  - For app email, set up your sending domain and sender, then get an API key or SMTP credentials.
+  - Send a transactional email with `POST https://api.brevo.com/v3/smtp/email`, or install the SDK with `npm install @getbrevo/brevo`.
 whenToUse: >-
-  Use Brevo when you need to send marketing or transactional emails at low
-  volume without upfront costs.
+  Use Brevo when you want campaigns and app email in one place, at low volume
+  and without a card.
 whenNotToUse: >-
-  Avoid Brevo if you require advanced automation, high daily sending limits, or
-  white-labeling on the free plan.
+  Avoid the Free plan when you need more than 300 emails a day, a footer
+  without the Brevo mention, or more than one user.
 bestFor:
   - newsletters
   - transactional email
   - small campaigns
 avoidIf:
-  - high-volume sending
-  - advanced automation
-  - white-labeling
+  - you send more than 300 emails a day
+  - you need the Brevo footer removed
+  - you need several users on one account
 difficulty: beginner
 productionReadiness: side-project
 status: changed
@@ -67,17 +73,56 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: Confirmed the stored-contact and automation caps in the official FAQ and added the one-user restriction.
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.brevo.com/'
-docsUrl: 'https://help.brevo.com/hc/en-us'
+docsUrl: 'https://developers.brevo.com/docs/getting-started'
 pricingUrl: 'https://www.brevo.com/pricing/'
 sourceUrls:
-  - 'https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan'
   - 'https://www.brevo.com/pricing/'
-  - 'https://help.brevo.com/hc/en-us/articles/360000197089'
+  - 'https://www.brevo.com/free-smtp-server/'
+  - 'https://developers.brevo.com/docs/getting-started'
+  - 'https://developers.brevo.com/docs/send-a-transactional-email'
 featured: false
 ---
-Brevo provides a robust free tier for email marketing and transactional messaging, making it suitable for small businesses and projects needing reliable email delivery without upfront costs.
+You use Brevo through its web app for contacts and campaigns, and through a REST API, an SMTP relay, and SDKs for Node.js, Python, and PHP for app email. It suits small senders who want newsletters and transactional email on one account.
+
+## What the free plan gives you
+
+The pricing page calls the Free plan free forever, with no credit card needed. When you create an account you get the Free plan, and once Brevo approves your account for sending you can send up to 300 emails per day.
+
+You can store up to 100,000 contacts without paying extra. The same limit applies to the free SMTP server, which works for bulk email, transactional messages, and testing. Paid plans start from 5,000 emails per month. SMS credit is sold separately, so SMS is not part of the free sending.
+
+## When you hit a limit
+
+The pages describe the 300 emails per day as the sending limit on the Free plan. They do not say what Brevo does with emails past that limit. The plan needs no card, so there is no bill to run up.
+
+To send more, you move to a paid plan. The Starter plan begins from 5,000 emails per month. Paid plans also remove the Brevo logo from the footer and add features such as marketing automation, A/B testing, and landing pages.
+
+## Gotchas
+
+- Sending starts only after Brevo approves your account, so you cannot send a campaign in the first minutes.
+- Free emails carry the Sent with Brevo footer. Removing it is a paid feature.
+- Before you send transactional email through the API, you must set up a sender and a sending domain.
+
+## Alternatives in this atlas
+
+- [MailerSend.com](/services/mailersend-com/): when your focus is transactional email from an app.
+- [Mailjet](/services/mailjet/): when you want another campaign and SMTP service with a free plan.
+- [Sender](/services/sender/): when you mainly send newsletters and want a free plan with no card.
+
+## Questions people ask
+
+### Is Brevo free?
+
+Yes. The Free plan is free forever with no credit card. It lets you send up to 300 emails per day after Brevo approves your account.
+
+### Does Brevo have a free SMTP server?
+
+Yes. The free SMTP server uses the same Free plan, with a sending limit of 300 emails per day. You can use it for bulk email, transactional messages, and testing.
+
+### How many contacts can I store on the Brevo free plan?
+
+You can store up to 100,000 contacts without paying extra, according to the free SMTP server page.

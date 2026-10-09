@@ -1,8 +1,8 @@
 ---
 title: Zenscrape
 description: >-
-  Zenscrape provides a web scraping API with rotating proxies and browser
-  emulation for extracting data from websites at scale.
+  Zenscrape is a web scraping API that loads a page with JavaScript rendering
+  and rotating IP addresses, so you get the page as a visitor sees it.
 provider: Zenscrape
 category: scraping
 domain: scraping
@@ -16,59 +16,105 @@ audiences:
   - team
   - agency
 tags:
-  - networking
-  - api
-  - automation
+  - web scraping api
+  - javascript rendering
+  - rotating proxies
+  - premium proxies
+  - geotargeting
+  - cloudflare bypass
 pricingModel: freemium
 freeTierDetails:
   summary: '1,000 free credits per month with IP rotation and browser rendering included.'
   limits:
     - '1,000 credits/month'
-    - IP rotation and browser rendering included
+    - IP rotation and JavaScript rendering included
   caveats:
-    - Higher concurrency and SLA only on paid plans
+    - The SLA comes with the larger paid plans, and concurrency limits grow with each paid plan
     - You get an email at 90% and 100% of your monthly usage
+    - Captcha-related errors are usually not deducted from your credits
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Extracting product data from e-commerce sites
-  - Market research and price monitoring
-  - Competitor analysis
-  - News aggregation
+  - Scraping a JavaScript-rendered page without running a browser
+  - Monitoring prices and product pages
+  - Collecting marketing and competitor data
+  - Scraping a site behind IP blocks with rotating addresses
+  - Geotargeted scraping on paid plans
 quickstartSteps:
-  - Sign up for a free Zenscrape account.
-  - Retrieve your API key from the dashboard.
-  - Review API documentation for usage examples.
-  - Send a test request to the API endpoint with your target URL.
-  - Parse the returned HTML or JSON response.
+  - Register for a free API key on zenscrape.com.
+  - Log in and open the documentation; the code snippets there include your private `apikey`.
+  - Read the Getting Started, Request Costs, and Basic Usage sections.
+  - Send a request with your `apikey` and the URL you want to scrape.
+  - Turn on JavaScript rendering or premium proxies when a page needs them, and check what each costs in Request Costs.
 whenToUse: >-
-  Use Zenscrape when you need reliable web scraping with proxy rotation and
-  browser emulation for moderate monthly volumes.
+  Use Zenscrape when you want rendered pages and IP rotation from one API call
+  and your volume is small.
 whenNotToUse: >-
-  Avoid if you require high-volume scraping, advanced anti-bot bypass, or need
-  to scrape sites with strict legal restrictions.
+  Avoid the free plan for high volume, or when you need an uptime guarantee,
+  since the SLA comes with the larger paid plans.
 bestFor:
-  - market-research
-  - data-extraction
-  - automation
+  - small scraping jobs
+  - price monitoring
+  - market research
+  - trying a scraping API
 avoidIf:
-  - high-volume
-  - strict-compliance
-  - real-time-scraping
+  - you need high-volume scraping
+  - you need an SLA on the free plan
+  - you need real-time scraping at scale
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://zenscrape.com/web-scraping-api'
-docsUrl: 'https://zenscrape.com/docs/'
+docsUrl: 'https://app.zenscrape.com/documentation'
 pricingUrl: 'https://zenscrape.com/web-scraping-api'
 sourceUrls:
   - 'https://zenscrape.com/web-scraping-api'
+  - 'https://app.zenscrape.com/documentation'
+  - 'https://zenscrape.com'
 featured: false
 ---
-Zenscrape offers a simple API for web scraping with built-in proxy rotation and browser emulation, suitable for moderate data extraction needs.
+You call the API with your own key and a target URL, and the docs generate code snippets with your key filled in. It suits developers who need a page fetched without running their own proxy setup.
+
+## What the free plan gives you
+
+The free plan costs $0 a month and gives you 1,000 credits every month. IP rotation and JavaScript rendering are part of it. Zenscrape says its system rotates IP addresses at regular intervals to avoid bans, and it detects Cloudflare protection and handles it without work on your side.
+
+Credits are tied to request types, and the docs have a Request Costs section for the exact amounts. The free plan is meant for getting started and does not list a concurrency figure. Paid plans show one, from 10 concurrent requests on the first paid plan up to 100 on the largest.
+
+## When you hit a limit
+
+The pricing page does not say what happens at 100% of your credits. It does say Zenscrape emails you when monthly usage hits 90% and again at 100%, so you can react and change plans.
+
+Errors tied to captchas are usually not deducted from your credit volume. If one is, you can contact Zenscrape and ask for the credits back. Paid plans start at $59.99 a month for 250,000 credits, and annual billing takes 10% off.
+
+## Gotchas
+
+- The SLA and unlimited support belong to the larger paid plans, not the free one.
+- Worldwide geotargeting is listed on the paid plans, not on the free plan.
+- The first paid plan has 10 concurrent requests, so heavy parallel jobs need an upgrade.
+
+## Alternatives in this atlas
+
+- [ScrapingAnt](/services/scrapingant/): when you want more monthly credits and no concurrency cap.
+- [WebScraping.AI](/services/webscraping-ai/): when you want AI extraction of named fields from a page.
+- [Microlink.io](/services/microlink-io/): when you only need previews, metadata, or screenshots.
+
+## Questions people ask
+
+### Is Zenscrape free?
+
+Yes. The free plan gives you 1,000 credits per month, with IP rotation and JavaScript rendering. Zenscrape's pricing page offers 1,000 free credits to try it.
+
+### Do failed requests count against my Zenscrape credits?
+
+It depends on the error code. Captcha-related errors are usually not deducted. If it happens anyway, contact Zenscrape and it will refund the credits.
+
+### Will Zenscrape warn me before my credits run out?
+
+Yes. It sends an email when your monthly usage reaches 90% and again at 100%.

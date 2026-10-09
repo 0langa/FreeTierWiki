@@ -1,8 +1,8 @@
 ---
 title: Microlink.io
 description: >-
-  Microlink.io provides an API to extract structured data, screenshots, and
-  metadata from any website URL.
+  Microlink.io is an HTTP API that turns a URL into metadata, a screenshot, a
+  PDF, or an embeddable preview card.
 provider: Microlink.io
 category: scraping
 domain: scraping
@@ -16,60 +16,109 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - images
-  - web
+  - link preview
+  - screenshot api
+  - metadata api
+  - open graph
+  - url to pdf
+  - url to markdown
 pricingModel: freemium
 freeTierDetails:
   summary: Free forever, no card required. 25 requests/day (~1,500/month).
   limits:
     - 25 requests/day (~1,500 requests/month)
-    - All capabilities included (screenshot, PDF, SDK)
-    - No credit card required
+    - Screenshot, PDF, and SDK included
+    - 30-second request timeout
+    - Limited, shared concurrency
   caveats:
-    - Requests pause at 100% of quota until the next cycle or upgrade, no overage fees
-    - Shared concurrency, 30-second request timeout
+    - Requests pause at 100% of quota until the next billing cycle or upgrade, no overage fees
+    - Free plan has community support and best-effort availability, with no SLA
+    - Responses served from cache do not count against the quota
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
+  billingRiskNotes:
+    - Microlink says it never bills by surprise; requests pause at the limit and there are no overage fees
 useCases:
-  - Generating website previews
-  - Extracting Open Graph or Twitter card data
-  - Taking website screenshots
-  - Embedding link previews in apps
+  - Showing link previews in a chat or social app
+  - Reading Open Graph and Twitter card data from a page
+  - Taking a screenshot of a website
+  - Generating a PDF from a URL
+  - Converting a page to markdown for an AI app
 quickstartSteps:
-  - Sign up for a free Microlink.io account.
-  - Obtain your API key from the dashboard.
-  - Read the API documentation for endpoint usage.
-  - Make a test request to the API with a sample URL.
-  - Integrate the API into your application.
+  - Open the API docs; the free plan uses the public endpoint and needs no card.
+  - Send a GET request to `https://api.microlink.io/` with a `url` query parameter, from a browser, cURL, or your language.
+  - Read the JSON response that comes back for that URL.
+  - Use the Microlink SDK from JavaScript, which wraps the same API in one method per product.
+  - Try the Microlink CLI to explore the API during local development.
 whenToUse: >-
-  Use Microlink.io when you need to quickly extract metadata, screenshots, or
-  previews from URLs without building your own scraper.
+  Use Microlink when you need link previews, screenshots, or page metadata and
+  do not want to run your own browser.
 whenNotToUse: >-
-  Avoid if you require high-volume usage, custom branding, or advanced scraping
-  features not available on the free plan.
+  Avoid the free plan for anything with real traffic: 25 requests a day is a
+  hard cap, and requests pause when it is reached.
 bestFor:
-  - link preview
+  - link preview cards
   - metadata extraction
-  - website screenshot
+  - website screenshots
+  - prototypes and side projects
 avoidIf:
-  - need unlimited requests
-  - require custom branding
-  - need advanced scraping
+  - you need more than 25 requests a day
+  - you need an uptime guarantee
+  - you need a dedicated endpoint
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://microlink.io/'
-docsUrl: 'https://microlink.io/docs/api/getting-started/overview/introduction'
+docsUrl: 'https://microlink.io/docs/api/getting-started/overview'
 pricingUrl: 'https://microlink.io/pricing'
 sourceUrls:
   - 'https://microlink.io/pricing'
+  - 'https://microlink.io/docs/api/getting-started/overview'
+  - 'https://microlink.io/'
 featured: false
 ---
-Microlink.io offers a simple API for extracting structured metadata, screenshots, and rich previews from any website URL, ideal for embedding link previews or extracting web data in apps.
+You call the API with one HTTP GET request, so it works from a browser, cURL, or any language. A JavaScript SDK and a command line tool wrap the same API, and developers who need previews or screenshots will find it quick to try.
+
+## What the free plan gives you
+
+The free plan costs $0 a month and needs no card. It allows 25 requests per day, which Microlink puts at about 1.5K requests a month. You get the same toolbox as paid plans for screenshots, PDFs, metadata, markdown, insights, and the SDK. The plan runs against the public endpoint with a 30-second request timeout.
+
+One request is one API call to any Microlink endpoint. Responses served from the cache do not count against your quota. Concurrency is limited and shared, and support comes from the community.
+
+## When you hit a limit
+
+Microlink says you are never billed by surprise. It notifies you at 80% of usage on paid plans. At 100%, requests pause until the next billing cycle or until you upgrade. There are no overage fees.
+
+The free plan has a daily quota of 25 requests, while Pro has no daily quota. Pro costs $49 a month for 46,000 requests a month. A free account cannot be billed because it has no card.
+
+## Gotchas
+
+- The free plan has a best-effort SLA, and the 99.9% uptime commitment applies to paid plans only.
+- The request timeout is 30 seconds on Free and 60 seconds on Pro.
+- The free plan uses the shared global cache, and a custom cache key is not part of it.
+
+## Alternatives in this atlas
+
+- [ScrapingAnt](/services/scrapingant/): when you need to scrape arbitrary pages with browser rendering and proxies, not only previews.
+- [WebScraping.AI](/services/webscraping-ai/): when you want an API that returns page content for your own parsing.
+- [Zenscrape](/services/zenscrape/): when you need IP rotation and browser rendering for general scraping.
+
+## Questions people ask
+
+### Is Microlink free?
+
+Yes. The free plan is free forever and needs no credit card. You get 25 requests per day against the public endpoint, with screenshot, PDF, metadata, and SDK access.
+
+### What happens when I exceed the Microlink free quota?
+
+Requests pause until the next billing cycle or until you upgrade. Microlink says there are no overage fees.
+
+### Does Microlink need an API key or credit card for the free plan?
+
+No card is needed. The free plan runs against the public endpoint, so you can send a request right away.

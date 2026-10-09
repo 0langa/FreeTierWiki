@@ -1,8 +1,8 @@
 ---
 title: Cloud Build
 description: >-
-  Google Cloud Build is a fully managed CI/CD platform for building, testing,
-  and deploying code at scale.
+  Google Cloud Build runs your builds, tests, and deploys on Google-managed
+  machines, so you do not run build servers yourself.
 provider: Google Cloud
 category: devops
 domain: devops
@@ -20,53 +20,62 @@ tags:
   - ci-cd
   - automation
   - cloud
+  - docker
+  - container-builds
+  - google-cloud
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    2,500 free build-minutes per month on e2-standard-2 machines, plus 100 GB
-    of free SSD storage.
+    2,500 free build-minutes per month on e2-standard-2 machines, up to 10
+    concurrent builds, and 100GB of extra SSD storage per build.
   limits:
-    - 2,500 build-minutes/month
-    - e2-standard-2 machine type only
-    - 100 GB free SSD storage
+    - 2,500 build-minutes/month (billing account level)
+    - e2-standard-2 machine type in the default pool only
+    - Up to 10 concurrent builds
+    - First 100GB of extra build SSD storage free
   caveats:
-    - Premium machine types and minutes beyond the free amount are billed
-    - Storage and network usage above the free amount incur costs
+    - The free build-minutes are a promotional tier and the limit is subject to change
+    - Billing must be enabled on the Google Cloud project
+    - Other machine types, private pools, and minutes beyond the free amount are billed
+    - Network egress is charged at standard rates
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above the free build-minutes and storage is billed automatically
+    - Build-minutes above the free 2,500 cost $0.006 per minute on e2-standard-2
+    - Other machine types have no free minutes
 useCases:
-  - Automated testing and deployment
-  - Container image builds
-  - Multi-cloud or hybrid CI/CD pipelines
+  - Build a Docker image from a Dockerfile and push it to Artifact Registry
+  - Run tests on every push to a repository
+  - Deploy a container to Cloud Run or Google Kubernetes Engine after a build
+  - Run build steps defined in a cloudbuild.yaml file
 quickstartSteps:
-  - Sign in to Google Cloud and create a project.
-  - Enable the Cloud Build API for your project.
-  - Install and configure the Google Cloud SDK.
-  - Create a cloudbuild.yaml file to define your build steps.
-  - Trigger a build via the Cloud Console or gcloud CLI.
+  - Sign in to Google Cloud and create or pick a project.
+  - Check that billing is enabled for the project.
+  - Enable the Cloud Build, Compute Engine, and Artifact Registry APIs.
+  - Install the Google Cloud CLI.
+  - Create a Docker repository in Artifact Registry and add a Dockerfile or a cloudbuild.yaml to your source folder.
+  - Run `gcloud builds submit` with your region and image tag, then read the result in the console.
 whenToUse: >-
-  Use Cloud Build for automated CI/CD pipelines, especially if you already use
-  Google Cloud services or need scalable build automation.
+  Use Cloud Build for CI/CD when your code, images, or deploys already live on
+  Google Cloud and you want builds without running servers.
 whenNotToUse: >-
-  Avoid if you require unlimited build minutes, advanced custom runners, or need
-  on-premises build infrastructure.
+  Avoid it if you need more than the free build-minutes on a tight budget, need
+  to avoid billing setup, or must build on your own hardware.
 bestFor:
   - Google Cloud users
-  - automated deployments
-  - container builds
+  - container image builds
+  - deploys to Cloud Run or GKE
 avoidIf:
-  - need unlimited free builds
-  - require custom build hardware
-  - on-premises only environments
+  - you cannot enable billing on a project
+  - you need unlimited free builds
+  - builds must run on-premises only
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/build'
@@ -74,6 +83,47 @@ docsUrl: 'https://cloud.google.com/build/docs'
 pricingUrl: 'https://cloud.google.com/build/pricing'
 sourceUrls:
   - 'https://cloud.google.com/build/pricing'
+  - 'https://cloud.google.com/build'
+  - 'https://cloud.google.com/build/docs'
+  - 'https://cloud.google.com/build/docs/build-push-docker-image'
 featured: false
 ---
-Cloud Build provides managed CI/CD pipelines with a generous free tier, supporting container builds, testing, and deployments tightly integrated with Google Cloud.
+You drive Cloud Build from the Google Cloud console or the `gcloud` command line. Each build is a list of steps, such as building a Docker image, and it fits teams that already use Google Cloud.
+
+## What the free plan gives you
+
+Each billing account gets 2,500 free build-minutes per month. The pricing page says this promotional free tier covers the `e2-standard-2` machine type in the default pool, and that the limit can change. The product page adds that up to 10 concurrent builds are included. Time spent waiting in the queue does not count as build time.
+
+You can also ask for extra SSD storage for the build machine. The first 100GB is free. Every other machine type, and every private pool, has a per-minute price with no free minutes.
+
+## When you hit a limit
+
+Cloud Build does not stop your builds when the free minutes run out. It keeps building and bills the billing account for the extra minutes. On `e2-standard-2` the price is $0.006 per minute. Partial minutes are billed by the second.
+
+Network egress is charged at standard rates. Because billing must be on for the project, set a budget alert in Google Cloud so a runaway build does not surprise you.
+
+## Gotchas
+
+- The free tier is called promotional and the pricing page says the limit is subject to change, so check the page before you rely on the number.
+- The free minutes only apply to `e2-standard-2` in the default pool. Bigger or other machine types are billed from the first minute.
+- Billing must be enabled on the Google Cloud project before you can run the quickstart builds.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when your code is on GitHub and you want CI without a cloud billing account.
+- [Buildkite](/services/buildkite/): when you want to run builds on your own agents and need no card.
+- [Appveyor](/services/appveyor/): when you build open-source projects and want a simple hosted CI.
+
+## Questions people ask
+
+### Is Google Cloud Build free?
+
+Partly. Each billing account gets 2,500 free build-minutes per month on `e2-standard-2` machines. Minutes beyond that are billed.
+
+### What happens when I go over the Cloud Build free minutes?
+
+Builds keep running and Google charges the billing account. The pricing page lists $0.006 per minute for `e2-standard-2`.
+
+### Does Cloud Build need a credit card?
+
+You need a Google Cloud project with billing enabled, which means a billing account. The quickstart tells you to verify billing before you start.

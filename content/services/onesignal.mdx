@@ -1,6 +1,9 @@
 ---
 title: OneSignal
-description: 'Push notifications, in-app messages, email, and SMS for web and mobile apps.'
+description: >-
+  OneSignal sends push notifications, in-app messages, email, and SMS from one
+  dashboard and API. It is for mobile and web app teams that want to message
+  their users without running their own push servers.
 provider: OneSignal
 category: messaging
 domain: messaging
@@ -13,47 +16,70 @@ audiences:
   - indie
   - startup
 tags:
-  - messaging
-  - mobile
+  - push notifications
+  - mobile push
+  - web push
+  - in-app messaging
   - email
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: unlimited mobile push, 10,000 email sends per month, and in-app messaging.'
+  summary: >-
+    Free plan: unlimited mobile push for organizations with up to 1,000 monthly
+    active users, 10,000 email sends per month, and in-app messaging.
   limits:
-    - Unlimited mobile push notifications
+    - Unlimited mobile push notifications for up to 1,000 monthly active users
     - '10,000 email sends per month'
-    - In-app messaging included with mobile push
+    - Unlimited in-app messaging with mobile push
+    - Web push with up to 10,000 subscribers per send
+    - 6 audience segments and 6 data tags
   caveats:
-    - SMS is paid
-    - Advanced segmentation needs a paid plan
+    - SMS and RCS are paid
+    - Growth plan starts at $19 per month
+    - The Free plan keeps only subscription records active in the past 18 months
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - The pricing page does not say what happens when you pass 1,000 monthly active users on Free; paid mobile push is charged per active user
 useCases:
-  - Push notifications for a mobile app
-  - Web push for a site
+  - Sending push notifications from a mobile app
+  - Sending web push to website visitors
+  - Showing in-app messages that prompt users or announce features
+  - Sending email campaigns from the same platform
 quickstartSteps:
-  - Sign up at onesignal.com.
-  - Create an app and add platform keys.
-  - Install the SDK.
-whenToUse: Use for mobile push at no cost.
-whenNotToUse: Avoid if you need SMS for free.
+  - Sign up for a free OneSignal account.
+  - Click New App/Website and pick the platforms you support, such as iOS, Android, or web.
+  - Enter your platform credentials, such as Firebase for Android or a p8 token for iOS.
+  - Copy your App ID and install the OneSignal SDK for your platform.
+  - Initialize the SDK with `OneSignal.initialize` and your App ID, and request notification permission.
+  - Send a test push from the dashboard to a test user.
+whenToUse: >-
+  Use OneSignal when you want push notifications for a mobile app or website,
+  with email and in-app messages on the same free account.
+whenNotToUse: >-
+  Avoid it if you need SMS for free, expect far more than 1,000 monthly active
+  mobile users on the free plan, or need advanced targeting.
 bestFor:
   - mobile apps
+  - small websites that want web push
+  - teams that want one messaging dashboard
 avoidIf:
-  - SMS
+  - free SMS needed
+  - large mobile audiences on a free budget
+  - complex segmentation
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://onesignal.com'
 docsUrl: 'https://documentation.onesignal.com'
 sourceUrls:
   - 'https://onesignal.com/pricing'
+  - 'https://documentation.onesignal.com/docs/en/mobile-sdk-setup'
 pricingUrl: 'https://onesignal.com/pricing'
 featured: false
 changes:
@@ -61,4 +87,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-OneSignal's mobile push is free with no send cap on the Free plan.
+You set up an app in the OneSignal dashboard, add its SDK to your mobile app or website, and then send from the dashboard or the API. It fits small teams that want push, email, and in-app messages without managing providers.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. The pricing page lists unlimited mobile push notifications for organizations with up to 1,000 monthly active users, and unlimited in-app messaging that comes with mobile push. Email is free up to 10,000 sends per month.
+
+Web push on the Free plan allows a maximum of 10,000 subscribers per send. The free plan allows 6 audience segments and 6 data tags, and more of both come with paid plans. On Free, OneSignal keeps subscription records that were active in the past 18 months.
+
+## When you hit a limit
+
+The pricing page does not say what OneSignal does when you pass 1,000 monthly active users on the Free plan. A monthly active user is a mobile subscription record that was active in your app in the last 30 days.
+
+Paid mobile push is charged per monthly active user, and the Growth plan starts at $19 per month. You can upgrade in the dashboard under Billing. Email beyond the free allowance is billed per 1,000 sends on paid plans.
+
+## Gotchas
+
+- SMS and RCS are not free. They are sold by volume on paid plans.
+- Web push, mobile push, and email are priced differently. Web push is charged by subscriber, mobile push by monthly active user, and email by sends.
+- You need platform credentials first, such as Firebase for Android or an APNs p8 token for iOS, before the SDK can deliver mobile push.
+
+## Alternatives in this atlas
+
+- [Webpushr](/services/webpushr/): when you only need web push for a website.
+- [Novu](/services/novu/): when you want an open source notification system with an in-app inbox.
+- [Knock](/services/knock/): when you want workflows across email, push, and in-app from one API.
+
+## Questions people ask
+
+### Is OneSignal free?
+
+Yes. The Free plan costs $0 per month and includes mobile push for organizations with up to 1,000 monthly active users, plus 10,000 email sends per month.
+
+### Does OneSignal charge for push notifications?
+
+On paid plans, mobile push is charged per monthly active user at $0.012 each, and web push per subscriber. Sends themselves are unlimited.
+
+### Does OneSignal need a credit card?
+
+No. You can sign up for a free account. You only add payment details if you upgrade to a paid plan.

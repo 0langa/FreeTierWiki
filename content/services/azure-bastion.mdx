@@ -1,8 +1,8 @@
 ---
 title: Azure Bastion
 description: >-
-  Azure Bastion provides secure RDP and SSH connectivity to Azure VMs without
-  exposing public IP addresses.
+  Azure Bastion lets you open an RDP or SSH session to an Azure virtual machine
+  from the Azure portal, without a public IP address on the VM.
 provider: Azure
 category: networking
 domain: networking
@@ -16,18 +16,27 @@ audiences:
   - enterprise
   - agency
 tags:
+  - bastion
+  - rdp
+  - ssh
+  - jump host
+  - remote access
+  - azure
   - security
   - cloud
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Azure Bastion Developer SKU is free, and the first 5 GB/month of
-    outbound data transfer is free on all SKUs.
+    The Developer SKU is free for development and test, with one VM connection
+    at a time. The first 5 GB/month of outbound data transfer is also free.
   limits:
     - Azure Bastion Developer SKU free
+    - Developer SKU connects to one VM at a time
     - First 5 GB/month outbound data transfer free
   caveats:
-    - Standard and Premium SKUs are billed hourly; only Developer SKU is free.
+    - Standard and Premium SKUs are billed hourly from the moment they are deployed; only the Developer SKU is free.
+    - The one-click Deploy Bastion option creates a Standard SKU host, not the free one.
+    - Developer SKU is not for production, has no virtual network peering, and runs only in select regions.
     - Additional outbound data transfer billed per GB.
   resetPeriod: monthly
   requiresCard: true
@@ -35,34 +44,37 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Charges accrue if usage exceeds free tier limits.
+    - A Basic, Standard, or Premium host bills hourly until you delete it, even with no traffic.
+    - Charges accrue if outbound data goes past the free amount.
 useCases:
-  - Secure VM access without public IPs
-  - Remote administration of Azure VMs
-  - Compliance-driven access control
+  - Reaching an Azure VM over RDP or SSH without a public IP
+  - Admin access to dev and test VMs from the browser
+  - Removing public IP addresses from VMs you already run
+  - Trying Bastion before paying for a dedicated host
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create or select a Virtual Network.
-  - Deploy Azure Bastion to the Virtual Network.
-  - Assign Bastion access permissions.
-  - Connect to your VM using Bastion via the Azure Portal.
+  - Sign up for an Azure account, or use an existing subscription, and sign in to the Azure portal.
+  - Create a virtual network and a virtual machine in a region that supports Bastion Developer.
+  - Open the virtual network and select Connect, then Bastion.
+  - Choose your authentication type, enter your credentials, and select Connect.
+  - Work in the session that opens in the portal, then remove the VM's public IP address if nothing else uses it.
 whenToUse: >-
-  Use Azure Bastion when you need secure, browser-based RDP or SSH access to
-  Azure VMs without exposing public IP addresses.
+  Use the free Developer SKU for dev and test VMs when you want browser-based
+  RDP or SSH without exposing a public IP, and one connection at a time is enough.
 whenNotToUse: >-
-  Avoid if you require access to on-premises or non-Azure VMs, or need advanced
-  session recording features.
+  Avoid it for production, for several simultaneous connections, for virtual
+  network peering, or in regions that do not offer the Developer SKU.
 bestFor:
-  - secure remote VM access
-  - compliance
-  - cloud-only environments
+  - dev and test VM access
+  - learning Azure networking
+  - removing public IPs from VMs
 avoidIf:
-  - managing non-Azure infrastructure
-  - need for advanced auditing
+  - production workloads
+  - needing more than one VM connection at once
+  - peered virtual networks
 difficulty: intermediate
-productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+productionReadiness: prototype
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-bastion/'
@@ -71,6 +83,48 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-bastion/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/azure-bastion/'
   - 'https://learn.microsoft.com/en-us/azure/bastion/bastion-overview'
+  - 'https://learn.microsoft.com/en-us/azure/bastion/quickstart-developer-sku'
+  - 'https://learn.microsoft.com/en-us/azure/bastion/bastion-sku-comparison'
 featured: false
 ---
-Azure Bastion enables secure, seamless RDP and SSH connectivity to Azure VMs directly from the Azure Portal, eliminating the need for public IP addresses and reducing exposure to threats. The Developer SKU is free.
+You use Bastion from the Azure portal. Open your virtual network, choose Connect, then Bastion, and the session opens in your browser. It suits people who run a few Azure VMs and want to keep them off the public internet.
+
+## What the free plan gives you
+
+Azure Bastion comes in four SKUs: Developer, Basic, Standard, and Premium. Only the Developer SKU is free. It runs on shared infrastructure, so you do not need a dedicated subnet, and it deploys in seconds when you first connect.
+
+The Developer SKU supports one VM connection at a time and does not support virtual network peering. It is available in select regions only, and the VM you connect to must be in one of them. Microsoft describes it as a no-cost option for development and test.
+
+The pricing page also lists the first 5 GB of outbound data transfer each month as free. Hourly charges for the paid SKUs are separate from that.
+
+## When you hit a limit
+
+The Developer SKU does not bill you when you reach a limit. It just cannot do more: a second VM connection, a peered network, or a region it does not cover is out of reach. Microsoft says it is not suitable for production workloads.
+
+The bill risk comes from the paid SKUs. They bill hourly from the moment you deploy them until you delete them, whatever your data use. Outbound data above the free amount is billed per gigabyte. To get more than one connection or peering, you must move to Basic, Standard, or Premium, which need a dedicated subnet and a public IP address.
+
+## Gotchas
+
+- The Deploy Bastion button in the portal creates a Standard SKU host. Pick the Developer SKU option on purpose if you want the free one.
+- Basic, Standard, and Premium bill every hour from deployment, even with no traffic, so delete test hosts when you finish.
+- The Developer SKU must be in a supported region, and the VM you connect to needs Reader roles and an open RDP or SSH port.
+
+## Alternatives in this atlas
+
+- [Tailscale](/services/tailscale/): when you want private access to machines on any cloud, not only Azure.
+- [ZeroTier](/services/zerotier/): when you want your own virtual network across VMs and laptops without a jump host.
+- [Azure Virtual Networks](/services/azure-virtual-networks/): when you first need the private network that Bastion connects into.
+
+## Questions people ask
+
+### Is Azure Bastion free?
+
+Only the Developer SKU is free. Basic, Standard, and Premium are billed hourly. The first 5 GB of outbound data each month is free.
+
+### What is the limit of the free Azure Bastion Developer SKU?
+
+It connects to one VM at a time and has no virtual network peering. It is for development and test, and only in select regions.
+
+### Does Azure Bastion need a credit card?
+
+The pages I read do not say. Bastion runs inside an Azure subscription, so you need an Azure account first, and the free Developer SKU needs no dedicated subnet or public IP.

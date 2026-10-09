@@ -1,8 +1,9 @@
 ---
 title: Socket
 description: >-
-  Socket provides automated open source supply chain security for JavaScript,
-  Python, and other package ecosystems.
+  Socket checks the open source packages your project depends on for malware,
+  vulnerabilities, and risky behavior such as install scripts, and comments on
+  pull requests that add them.
 provider: Socket
 category: security
 domain: security
@@ -16,9 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - open-source
-  - sdk
-  - security
+  - supply-chain-security
+  - npm
+  - malware-detection
+  - dependency-scanning
+  - github-app
+  - socket-cli
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,40 +33,45 @@ freeTierDetails:
     - 1,000 scans/month
     - 500 API requests/hour
     - 3 members, 1 repository label
+    - 14 days of scan retention
   caveats:
-    - Advanced automation, reachability analysis, and higher API quotas require paid plans
-    - Always free for open-source projects (contact Socket for a free Team account)
+    - Reachability analysis, Slack alerts, and higher API quotas need paid plans
+    - SSO, compliance integrations, and audit logs are on higher plans
+    - The pricing table also shows 5 members in a Free cell, while the plan card says 3 members
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detecting malicious or vulnerable dependencies
-  - Automated supply chain monitoring
-  - Securing open source projects
+  - Checking a pull request that adds a new npm or Python dependency
+  - Catching typosquats, install scripts, and known malware before they merge
+  - Scoring a package from the terminal before you install it
+  - Scanning a project in the VS Code extension
 quickstartSteps:
-  - Sign up at socket.dev with your GitHub account.
-  - Authorize Socket to access your repositories.
-  - Select repositories to monitor for vulnerabilities.
-  - Review security alerts and suggested remediations in the Socket dashboard.
+  - Create an account at socket.dev. The docs describe Socket for GitHub as the easiest way to start.
+  - Install Socket for GitHub on your repositories so it can check pull requests.
+  - Open a pull request that adds or changes a dependency. Socket watches manifest files such as package.json and package-lock.json and comments if a package is a risk.
+  - Optionally install the Socket CLI, run `socket login` with an API token, and try `socket scan create`.
+  - Review alerts and policies in the Socket dashboard.
 whenToUse: >-
-  Use Socket to monitor open source dependencies for vulnerabilities and malware
-  in JavaScript or Python projects, especially for public repos.
+  Use Socket when you want pull requests checked for risky new dependencies,
+  especially in JavaScript projects, and your team is small.
 whenNotToUse: >-
-  Avoid if you need more than 1,000 scans per month, more than 3 members, or
-  require advanced enterprise security features.
+  Avoid the Free plan if you need more than 1,000 scans per month, more than 3
+  members, reachability analysis, SSO, or audit logs.
 bestFor:
   - open source maintainers
-  - small teams
-  - startups
+  - small JavaScript and Python teams
+  - startups adding supply chain checks
 avoidIf:
-  - need unlimited private repo scanning
-  - require enterprise compliance
+  - you need many members on the free plan
+  - you need reachability analysis
+  - you need enterprise compliance features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://socket.dev'
@@ -70,7 +79,45 @@ docsUrl: 'https://docs.socket.dev/'
 sourceUrls:
   - 'https://socket.dev/pricing'
   - 'https://docs.socket.dev/'
+  - 'https://docs.socket.dev/docs/socket-for-github'
+  - 'https://docs.socket.dev/docs/socket-cli'
 pricingUrl: 'https://socket.dev/pricing'
 featured: false
 ---
-Socket offers automated supply chain security for open source projects, with a free tier covering unlimited developers and repositories, 1,000 scans/month, and 500 API requests/hour.
+You mostly use Socket through its GitHub app, which comments on pull requests, or through the Socket CLI and the VS Code extension. The dashboard shows alerts and policies. It suits maintainers and small teams that add dependencies often.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month, per developer. It lists unlimited developers and repositories, 1,000 scans per month, and 500 API requests per hour. You get 3 members and 1 repository label. The plan detects 70+ risk types, including malware, vulnerabilities, and license issues. It blocks malicious dependencies automatically and adds AI analysis that flags hidden dependency behavior.
+
+The comparison table also lists unlimited public and private repositories, a GitHub integration, an MCP server, 10,000 dependencies, and 14 days of scan retention for Free.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 1,000 scans or all 500 requests in an hour. The limits reset on a monthly and an hourly basis. The Free plan shows no card and no overage price, so the page shows no way to get billed by accident. The Team plan costs $25 per developer per month, with a minimum of 5 developers. It raises the limits to 5,000 scans per month and 2,500 API requests per hour.
+
+## Gotchas
+
+- Reachability analysis, which cuts false positives, starts on the Team plan. Slack alerts also start there.
+- The plan card says 3 members for Free, while a cell in the comparison table says 5 members. Check your dashboard.
+- Socket watches package manifest files such as package.json. It focuses on what a package does, such as install scripts, telemetry, and obfuscated code.
+
+## Alternatives in this atlas
+
+- [Snyk](/services/snyk/): when you also want code and container scanning.
+- [Safety (formerly PyUp.io)](/services/pyup-io/): when your project is Python only.
+- [Meterian.io](/services/meterian-io/): when you want a dependency scanner for several languages.
+
+## Questions people ask
+
+### Is Socket free?
+
+Yes. The Free plan has unlimited developers and repositories, 1,000 scans per month, and 500 API requests per hour.
+
+### What does Socket check in a pull request?
+
+Socket watches manifest files and analyzes newly added packages. It comments if a package shows risks such as typosquats, install scripts, telemetry, native code, or known malware.
+
+### Does Socket need a credit card?
+
+The pricing page shows a Get started button for the Free plan and no card step.

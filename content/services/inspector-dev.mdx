@@ -1,8 +1,9 @@
 ---
 title: Inspector.dev
 description: >-
-  Inspector.dev provides real-time application performance monitoring and error
-  tracking for web applications.
+  Inspector.dev gives real-time monitoring of PHP production apps: transactions,
+  slow queries, and errors. It targets teams on Laravel, Symfony, and similar
+  frameworks.
 provider: Inspector.dev
 category: observability
 domain: observability
@@ -16,55 +17,61 @@ audiences:
   - team
   - oss
 tags:
-  - observability
-  - monitoring
-  - analytics
+  - php
+  - laravel
+  - apm
+  - error-tracking
+  - performance-monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever plan includes 30,000 transactions per month with unlimited
-    events, hosts, and apps.
+    The free forever plan includes 30K transactions per month with unlimited
+    events, hosts, and apps, and up to 3 team members.
   limits:
-    - '30,000 transactions/month'
+    - '30K transactions/month'
     - Unlimited events
     - Unlimited hosts and apps
     - Up to 3 team members
   caveats:
     - Data is dropped once you hit the monthly transaction limit, unless you enable usage-based billing
     - No credit card required to register
+    - The paid Beginner plan starts at 300k transactions
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - Usage-based billing is off by default; you turn it on in the billing section to keep monitoring past the quota for a small fee
 useCases:
-  - Monitor web app performance
-  - Track and debug errors in production
+  - Monitor the performance of a PHP web app
+  - Find slow database queries and external service calls
+  - Track exceptions in production
+  - Watch scheduled tasks and background jobs
   - Get real-time alerts for failures
 quickstartSteps:
-  - Sign up for a free Inspector.dev account.
-  - Create a new application in the dashboard.
-  - Install the Inspector SDK in your application.
-  - Configure your app with the provided API key.
-  - Deploy your application and verify event tracking.
+  - Register a free account at inspector.dev; no credit card is needed.
+  - Create an application in the dashboard to get an ingestion key.
+  - Install the package for your framework, for example `composer require inspector-apm/inspector-laravel` for Laravel.
+  - Add the key to your `.env` file as `INSPECTOR_INGESTION_KEY`.
+  - Run `php artisan inspector:test` to confirm your app can send data.
 whenToUse: >-
-  Use Inspector.dev to monitor application health and catch errors in real time
-  for small projects or early-stage products.
+  Use Inspector.dev to watch performance and errors of a PHP app in production,
+  especially on Laravel or Symfony.
 whenNotToUse: >-
-  Avoid if you need more than 3 team members or more than 30,000 transactions a
-  month without enabling usage-based billing.
+  Avoid it for non-PHP stacks, or for traffic above 30K transactions a month
+  unless you enable usage-based billing or pay.
 bestFor:
+  - Laravel and Symfony apps
   - solo developers
-  - startups
-  - open source projects
+  - small teams
 avoidIf:
-  - large enterprises
-  - high-traffic production apps
-  - complex team workflows
+  - apps outside the supported frameworks
+  - high-traffic production apps on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.inspector.dev'
@@ -73,6 +80,47 @@ pricingUrl: 'https://inspector.dev/pricing/'
 sourceUrls:
   - 'https://inspector.dev/pricing/'
   - 'https://docs.inspector.dev/'
+  - 'https://www.inspector.dev'
+  - 'https://docs.inspector.dev/guides/laravel/installation'
 featured: false
 ---
-Inspector.dev offers a free-forever tier for application monitoring and error tracking, covering 30,000 transactions a month with unlimited hosts and apps.
+---
+You add the Inspector package for your framework, give it an ingestion key, and read traces and errors in the web dashboard. It suits PHP developers on Laravel, Symfony, CodeIgniter, Slim, or plain PHP.
+
+## What the free plan gives you
+
+The Free plan is free forever and has no deadline. It includes 30K transactions per month, unlimited events, unlimited hosts and apps, and up to 3 team members. The AI Bug Fixer is also listed on the free plan.
+
+A transaction is one execution cycle of your app, such as an HTTP endpoint call, a scheduled task, or a background job. Only transactions count toward the data volume. Single events inside a transaction are unlimited. The quota renews every month. Paid plans start with Beginner at 300k transactions.
+
+## When you hit a limit
+
+When your account reaches the transactions included in its plan, Inspector drops the data your app sends until the next monthly cycle. It does not bill you unless you turn on usage-based billing.
+
+You then have three options. Wait for the next cycle, upgrade to a higher plan, or enable usage-based billing, which keeps monitoring on for a small fee beyond the quota. You can turn usage-based billing on or off in the billing section.
+
+## Gotchas
+
+- Data is dropped, not queued, after you reach the limit. You lose traces until the cycle resets.
+- The pricing table says the free plan has up to 3 team members, while the FAQ says you can invite as many as you want, so check your account.
+- The home page describes the product as visibility into PHP production environments, so other stacks may not fit.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you need error tracking for many languages.
+- [Honeybadger.io](/services/honeybadger-io/): when you want errors plus uptime and cron checks.
+- [Bugsnag](/services/bugsnag/): when you want another hosted error monitor.
+
+## Questions people ask
+
+### Is Inspector.dev free?
+
+Yes. The free forever plan includes 30K transactions per month with unlimited events, hosts, and apps. The pricing page says no credit card or payment is required to register.
+
+### What happens when I reach the Inspector usage limit?
+
+Inspector drops the data your app sends until the next monthly cycle. You can wait, upgrade, or enable usage-based billing.
+
+### Which languages does Inspector.dev support?
+
+The docs list guides for Laravel, Symfony, CodeIgniter, Slim, Neuron AI, and plain PHP.

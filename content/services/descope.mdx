@@ -1,8 +1,8 @@
 ---
 title: Descope
 description: >-
-  Descope provides passwordless authentication, user management, and security
-  workflows for web and mobile applications.
+  Descope is a hosted authentication service where you design login and sign-up as visual flows,
+  with passwordless, social, MFA, and SSO built in.
 provider: Descope
 category: auth
 domain: auth
@@ -17,12 +17,16 @@ audiences:
   - oss
 tags:
   - auth
-  - security
+  - passwordless
+  - passkeys
+  - sso
+  - mfa
+  - b2b
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Forever plan includes 7,500 monthly active users, 10 active tenants,
-    and 3 SSO connections, with no overages.
+    Free Forever plan includes 7,500 monthly active users, 10 active tenants, and 3 SSO connections,
+    with no overages.
   limits:
     - '7,500 monthly active users (MAUs)'
     - 10 monthly active tenants
@@ -33,40 +37,43 @@ freeTierDetails:
   caveats:
     - No overages — you must upgrade to Pro to exceed limits
     - A grace period is given before an app loses access after exceeding limits
+    - 'SCIM provisioning, bot protection, and self-service SSO setup are on paid plans only'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add passwordless login to web or mobile apps
-  - Implement multi-factor authentication
-  - Manage user identities securely
+  - 'Passwordless login with magic links, one-time codes, or passkeys'
+  - Drag-and-drop login flows you change without redeploying
+  - SSO with SAML or OIDC for business customers
+  - Machine-to-machine tokens between your services
+  - Consent and access tokens for third-party apps
 quickstartSteps:
-  - Sign up for a Descope account.
-  - Create a new project in the Descope dashboard.
-  - 'Configure authentication flows (e.g., passwordless, social login).'
-  - Integrate Descope SDK into your app using provided guides.
-  - Test authentication and user management features.
+  - Sign up for a Descope account and create a project. No credit card is needed.
+  - Copy your Project ID from the project page in the Descope console.
+  - 'Pick or edit an authentication flow in the console, for example the sign-up-or-in flow.'
+  - 'Install the SDK for your framework, for example `npm i --save @descope/react-sdk`.'
+  - >-
+    Wrap your app in the `AuthProvider` with your Project ID and add the `Descope` component with
+    your flow ID.
 whenToUse: >-
-  Use Descope when you need to quickly add secure, passwordless authentication
-  and user management to your app without building from scratch.
+  Use Descope when you want to build login as a visual flow, add passwordless or passkeys quickly,
+  and keep B2B SSO for a few business customers.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment, advanced customization, or need to
-  support more than 7,500 monthly active users, 10 tenants, or 3 SSO connections
-  for free.
+  Avoid it if you need to host auth yourself, want to customize everything in code, or need more
+  than 7,500 monthly active users, 10 tenants, or 3 SSO connections for free.
 bestFor:
-  - startups
-  - indie developers
-  - open source projects
-  - small teams
+  - passwordless login
+  - early B2B apps with a few SSO customers
+  - small teams that want no-code auth flows
 avoidIf:
-  - require on-premise
-  - need advanced customization
-  - large enterprise scale
+  - self-hosted auth
+  - fully custom login code
+  - 'more than the free user, tenant, or SSO limits'
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.descope.com/'
@@ -74,8 +81,48 @@ docsUrl: 'https://docs.descope.com/'
 sourceUrls:
   - 'https://www.descope.com/pricing'
   - 'https://docs.descope.com/'
+  - 'https://docs.descope.com/getting-started'
+  - 'https://docs.descope.com/getting-started/react'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: '2026-10-09'
 pricingUrl: 'https://www.descope.com/pricing'
 ---
-Descope offers a developer-friendly platform for adding passwordless authentication, multi-factor authentication, and user management to web and mobile applications. The Free Forever plan covers up to 7,500 monthly active users, 10 tenants, and 3 SSO connections with no card required; exceeding it means upgrading rather than being billed.
+You build your login flow in the Descope console, then drop it into your app with a client SDK, a hosted login page, or a backend SDK. It suits teams that want to change login screens without shipping code.
+
+## What the free plan gives you
+
+The Free Forever plan costs $0 and has no overages. It includes 7,500 monthly active users, 10 monthly active tenants, and 3 SSO connections. You also get 10,000 M2M exchanges, 2,000 monthly active consents, and 2,000 monthly active tokens.
+
+Everything runs through flows, which you design visually. The Pro plan starts at $249 per month, billed annually, and it raises the limits to 35 tenants, 5 SSO connections, and 50,000 M2M exchanges. It also adds custom OIDC providers, SSO for third-party apps, and self-service SSO setup. Early-stage startups can apply for Pro free for one year.
+
+## When you hit a limit
+
+The pricing page says there are no overages on the Free Forever plan. If you want to go over a limit, you must upgrade. So you will not get a surprise bill on this plan.
+
+The free limits are caps for the month. When you pass them, you have to move to the Pro plan to keep going. Paid plans do have usage-based overages, which the detailed pricing section describes. Check your usage in the console before a launch so a busy month does not stop your login.
+
+## Gotchas
+
+- There are four separate counters on the free plan: users, tenants, SSO connections, and M2M exchanges. Passing any one of them means an upgrade.
+- SCIM provisioning and bot protection are not in Free or Pro. They start in a higher plan.
+- The old standalone React SDK repository is deprecated. The package name stays `@descope/react-sdk`, but issues now go to the descope-js repository.
+
+## Alternatives in this atlas
+
+- [Stytch](/services/stytch/): when you want passwordless and passkey APIs without a visual flow builder.
+- [Clerk](/services/clerk/): when you want prebuilt login components for a React or Next.js app.
+- [Auth0](/services/auth0/): when you want a larger, well-known platform with more integrations.
+
+## Questions people ask
+
+### Is Descope free?
+
+Yes. The Free Forever plan costs $0 and includes 7,500 monthly active users, 10 monthly active tenants, and 3 SSO connections.
+
+### What happens when I go over the Descope free limits?
+
+The pricing page says there are no overages on the free plan. You have to upgrade to a paid plan to go beyond the limits.
+
+### Does Descope need a credit card?
+
+The pricing page shows the Free Forever plan at $0 and does not mention a card for it. The atlas lists it as needing no card.

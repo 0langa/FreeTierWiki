@@ -1,8 +1,9 @@
 ---
 title: Azure Automation
 description: >-
-  Azure Automation provides cloud-based process automation, configuration
-  management, and update management for Azure and hybrid environments.
+  Azure Automation runs scripts called runbooks in the cloud, on a schedule or
+  on an event, to manage Azure and non-Azure resources. It is for admins who
+  want to remove repeated manual tasks.
 provider: Azure
 category: devops
 domain: devops
@@ -15,9 +16,11 @@ audiences:
   - team
   - enterprise
 tags:
-  - automation
-  - cloud
-  - devops
+  - azure
+  - runbooks
+  - powershell
+  - process automation
+  - configuration management
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -44,33 +47,34 @@ freeTierDetails:
     - Jobs, watchers, or non-Azure nodes beyond the free amounts are billed
       automatically.
 useCases:
-  - Automating cloud resource management
-  - Scheduling maintenance tasks
-  - Managing configuration drift
-  - Automating patch updates
+  - Run a PowerShell or Python runbook on a schedule to start, stop, or clean up resources
+  - Start a runbook when an Azure alert fires, through an action group
+  - Watch for an event and react with a runbook, using a watcher
+  - Track configuration changes and inventory on Azure and hybrid machines
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create an Automation Account.
-  - Add a Runbook or import a sample Runbook.
-  - Configure authentication and permissions.
-  - Start or schedule your Runbook.
+  - Sign in to the Azure portal with an account that has permission to create Automation resources.
+  - Select Create a resource and create an Automation account; choose a subscription, a resource group, and a region.
+  - Give the account a managed identity and the roles it needs for the resources it will manage.
+  - Create a runbook in PowerShell, Python, or the graphical editor, then test it.
+  - Publish the runbook, then start it by hand or attach a schedule.
 whenToUse: >-
-  Use when you need to automate repetitive Azure or hybrid cloud tasks, such as
-  resource provisioning or patch management.
+  Use it to schedule scripts that manage Azure resources, when 500 job minutes a
+  month cover your runs.
 whenNotToUse: >-
-  Avoid if you require automation outside Azure or need advanced orchestration
-  features not supported by Azure Automation.
+  Skip it if you need automation across other clouds only, or if your jobs run
+  longer than 500 minutes in total each month, because you pay for the rest.
 bestFor:
-  - teams automating Azure workloads
-  - enterprises managing hybrid environments
-  - startups with cloud infrastructure
+  - scheduled admin scripts
+  - Azure resource housekeeping
+  - hybrid server management
 avoidIf:
-  - you need cross-cloud automation
-  - you require advanced workflow orchestration
+  - your runbooks use more than 500 minutes a month
+  - you have no Azure subscription
+  - you want to avoid usage-based billing
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/automation/'
@@ -78,7 +82,47 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/automation/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/automation/'
   - 'https://learn.microsoft.com/en-us/azure/automation/'
+  - 'https://learn.microsoft.com/en-us/azure/automation/overview'
+  - 'https://learn.microsoft.com/en-us/azure/automation/automation-create-standalone-account'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/automation/'
 featured: false
 ---
-Azure Automation enables users to automate, configure, and update Azure and hybrid resources, reducing manual effort and improving operational efficiency.
+You create an Automation account in the Azure portal, then write runbooks in PowerShell, Python, or a graphical editor. One Automation account can manage resources across all regions and subscriptions in a tenant.
+
+## What the free plan gives you
+
+Each month includes free units that refresh every month. Process automation gives you 500 minutes of job run time and 744 hours of watcher time. A job counts for the minutes it runs, and a watcher counts for the hours it runs.
+
+Configuration management is free for Azure nodes and for the first 5 non-Azure nodes. The pricing page also says there is no charge for Update management itself. You only pay for log data stored in Azure Log Analytics. The free units are not available on rate plans with a flat discount or a fixed monthly credit.
+
+## When you hit a limit
+
+Usage past the free units is billed at the standard rates. Process automation bills only the minutes and hours above the free amount. Configuration management bills by the number of nodes, pro-rated hourly, once a node is registered, and the charge stops when you unregister it.
+
+Usage is added up across all the Automation accounts in your subscription. The pricing page does not show the per-minute prices as numbers in the text we read, so check the page for the current rate before you plan a large workload.
+
+## Gotchas
+
+- Free units are shared across all Automation accounts in a subscription, so many accounts do not give many free allowances.
+- Configuration management bills non-Azure nodes beyond the first 5, and the billing starts when a node registers.
+- The free units do not apply to subscribers on rate plans with a flat discount or fixed monthly credit.
+
+## Alternatives in this atlas
+
+- [Azure Functions](/services/azure-functions/): when you want code that runs on events or HTTP calls rather than admin scripts.
+- [Azure Logic Apps](/services/azure-logic-apps/): when you want to connect services with a visual workflow.
+- [Azure Arc](/services/azure-arc/): when you also need to manage machines outside Azure.
+
+## Questions people ask
+
+### Is Azure Automation free?
+
+Partly. Each month includes 500 minutes of job run time, 744 watcher hours, and configuration management for the first 5 non-Azure nodes. Usage past that is billed.
+
+### What happens when I go over the Azure Automation free minutes?
+
+You are billed at the standard rate for the minutes above 500. The charge applies to all Automation accounts in the subscription together.
+
+### Does Azure Automation need a credit card?
+
+You need an Azure subscription to create an Automation account, and this atlas marks the plan as requiring a card.

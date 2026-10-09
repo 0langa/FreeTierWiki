@@ -1,6 +1,8 @@
 ---
 title: JSON IP
-description: A simple API to get your public IP address in JSON format.
+description: >-
+  JSON IP returns the public IP address of the caller as a small JSON object. It
+  supports CORS and JSONP, so a web page can read it directly.
 provider: JSON IP
 category: networking
 domain: networking
@@ -15,54 +17,104 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
+  - public ip
+  - ip api
+  - json
+  - jsonp
+  - cors
+  - dynamic dns
 pricingModel: free
 freeTierDetails:
-  summary: 'Free, no-auth API for public IP lookup.'
+  summary: 'Free, no-auth API that returns your public IP address as JSON.'
   limits:
     - No authentication required
-    - Described as an unlimited IP address and geolocation API
+    - Described as an unlimited IP address API
     - No documented rate limits
+    - Separate hosts for IPv4 only and IPv6 only
   caveats:
-    - No SLA or uptime guarantee
+    - No SLA or uptime guarantee is stated
+    - The response holds the IP address only; the site points to IPinfo for geolocation
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Detect client IP in web apps
-  - Debugging network issues
-  - Automating IP-based scripts
+  - Reading a visitor's IP address in the browser with CORS
+  - Updating a dynamic DNS record when your IP changes
+  - Finding a server's outgoing IP in a script
+  - Network debugging
 quickstartSteps:
-  - 'Go to https://getjsonip.com in your browser or use curl.'
-  - Receive your public IP in JSON format.
-  - Integrate the API endpoint into your app or script as needed.
+  - 'Open `https://jsonip.com` in a browser or run `curl https://jsonip.com`.'
+  - Read the `ip` field in the JSON response.
+  - 'In a web page, call `fetch` on `https://jsonip.com` with `mode: cors` to get the visitor address.'
+  - 'For JSONP, add `?callback=` and your function name to the URL.'
+  - 'Use `ipv4.jsonip.com` or `ipv6.jsonip.com` when you need only one address family.'
 whenToUse: >-
-  Use when you need a quick, no-auth API to fetch your public IP address for
-  scripts or diagnostics.
+  Use it when a script or web page needs the caller's public IP as JSON, with no
+  account or key.
 whenNotToUse: >-
-  Avoid if you need geolocation, advanced metadata, or guaranteed uptime for
+  Avoid it if you need geolocation, other IP details, or a guaranteed uptime for
   production-critical systems.
 bestFor:
   - quick diagnostics
   - simple scripts
-  - testing
+  - browser-side IP lookup
 avoidIf:
   - need geolocation
   - require high availability
   - need authentication
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://getjsonip.com'
-docsUrl: 'https://docs.getjsonip.com'
+docsUrl: 'https://jsonip.com/about'
 pricingUrl: 'https://getjsonip.com'
 sourceUrls:
   - 'https://getjsonip.com'
+  - 'https://jsonip.com/about'
 featured: false
 ---
-JSON IP offers a free, no-auth API to instantly retrieve your public IP address in JSON format, ideal for quick diagnostics and scripting.
+You request `jsonip.com` from a browser, a script, or a web page and read the `ip` field in the answer. It suits small tools that need their own public address and nothing else.
+
+## What the free plan gives you
+
+JSON IP is free, with no account, key, or card. The home page calls it a free, unlimited API. It returns the client's address as an IPv4 or IPv6 value in a JSON object.
+
+A web page can call it directly. The API sends the header that allows any origin, so the JavaScript Fetch API works with CORS turned on. JSONP also works: add a callback name to the path or use the callback parameter. You can use the API to update dynamic DNS when your address changes.
+
+You can ask for one address family. The host `ipv4.jsonip.com` returns only IPv4, and `ipv6.jsonip.com` returns only IPv6. An IPv4-only client cannot connect to the IPv6 host.
+
+## When you hit a limit
+
+The site documents no limit, no quota, and no paid plan, so there is no stated point where you get blocked or billed. It also gives no uptime promise.
+
+The home page does not say how the service treats very heavy use. If your script calls the API often, store the answer and refresh it only when you need to. For location data, the page points to IPinfo, a service from another company.
+
+## Gotchas
+
+- Requests are secured by default. A request to the plain HTTP address gets a 301 redirect to HTTPS. Use the `no-tls.jsonip.com` host if you need plain HTTP.
+- The answer is the address your request comes from. Behind a proxy, VPN, or shared network, that may not be your own machine.
+- The response has the IP address only. The page title mentions geolocation, but the about endpoint says the service provides an IP address in a JSON object.
+
+## Alternatives in this atlas
+
+- [IP address.sh](/services/ip-address-sh/): when you prefer plain text output from a single URL.
+- [What Is My IP](/services/what-is-my-ip/): when you want a web page that shows your address and more.
+- [IPinfo](/services/ipinfo/): when you also need country-level location data.
+
+## Questions people ask
+
+### Is JSON IP free?
+
+Yes. It needs no sign-up, key, or card, and the site calls it an unlimited API.
+
+### Does JSON IP have a rate limit?
+
+The site documents none. It also gives no uptime promise, so cache the result in scripts.
+
+### Can I call JSON IP from a browser?
+
+Yes. The API allows cross-origin requests, so `fetch` with CORS works, and JSONP is also supported.

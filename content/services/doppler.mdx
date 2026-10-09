@@ -16,62 +16,113 @@ audiences:
   - team
   - oss
 tags:
-  - security
+  - secrets manager
+  - environment variables
+  - env files
   - devops
+  - ci-cd
+  - doppler cli
+  - config management
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Developer plan is free for 3 users, then $8/month per additional
-    user. Includes 5 config syncs.
+    Free Developer plan is free for 3 users, then $8/month per additional user.
+    Includes 5 config syncs.
   limits:
-    - Free for 3 users
-    - 5 config syncs
-    - 5 webhooks
-    - Up to 25 users, 10 projects, 4 environments
+    - Free for 3 users, up to 25 users in total
+    - 10 projects, 4 environments, and 10 configs per environment
+    - 5 config syncs and 5 webhooks
+    - 50 service tokens and 5 CLI tokens per user
+    - 3 days of activity logs
   caveats:
-    - No SSO or Change Requests on the Developer plan
+    - No SSO, Change Requests, or role-based access controls on the Developer plan
+    - Activity logs are kept for only 3 days
     - Team plan offers a 14-day trial before $21/month per user
+    - Support is through the community
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Centralized secrets management
-  - Syncing environment variables to CI/CD
-  - Managing secrets for multiple projects
+  - Replacing .env files with one shared source of secrets
+  - Injecting secrets into local development with the Doppler CLI
+  - Syncing secrets to CI/CD and cloud platforms
+  - Keeping separate secrets for dev, staging, and production
 quickstartSteps:
-  - Sign up for a free Doppler account.
-  - Create a new project and environment.
-  - Add your secrets and environment variables.
-  - Install the Doppler CLI on your local machine or CI/CD pipeline.
-  - Run 'doppler setup' to authenticate and sync secrets.
+  - Sign up for a Doppler account with Start for Free on doppler.com.
+  - Create a project; its environments (up to 4 on the Developer plan) hold your configs.
+  - Add secrets in the dashboard or import them.
+  - Install the Doppler CLI with Homebrew, Scoop, or the install script, then run doppler login.
+  - Run doppler setup in your project folder, then start your app with doppler run followed by your command.
 whenToUse: >-
-  Use Doppler when you need a secure, centralized way to manage and sync secrets
-  across projects or environments.
+  Use it when you want one place for secrets and environment variables that your
+  CLI and CI jobs read, for a team of up to 3 people.
 whenNotToUse: >-
-  Avoid Doppler if you require enterprise features like SSO, advanced audit
-  logs, or need to support more than 3 users for free.
+  Avoid it if you need SSO, Change Requests, role-based access, or more than 3
+  days of activity logs, which sit on the Team plan.
 bestFor:
   - small teams
   - indie developers
   - open source projects
 avoidIf:
-  - require enterprise compliance
-  - need advanced integrations
-  - large organizations
+  - you need SSO or role-based access
+  - you need long activity log history
+  - you have more than 25 users
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://doppler.com/'
 docsUrl: 'https://docs.doppler.com/'
 sourceUrls:
   - 'https://www.doppler.com/pricing'
-  - 'https://docs.doppler.com/docs/community-plan'
+  - 'https://docs.doppler.com/'
+  - 'https://docs.doppler.com/docs/start'
+  - 'https://docs.doppler.com/docs/cli'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.doppler.com/pricing'
 ---
-Doppler provides a simple, secure way to manage and sync secrets and environment variables for projects, supporting collaboration for small teams and individuals.
+You manage secrets in the Doppler dashboard and read them with the Doppler CLI, SDKs, or syncs to platforms such as AWS, Vercel, and GitHub Actions. It suits small teams who want to stop passing `.env` files around.
+
+## What the free plan gives you
+
+The Developer plan is free for 3 users, then $8 per month for each additional user, up to 25 users. It includes the CLI for local development, service tokens, secret referencing, API and webhook access, and email alerts.
+
+The plan limits are 10 projects, 4 environments, and 10 configs per environment. You can have 50 service tokens, 5 config syncs, 5 webhooks, and 5 CLI tokens per user. Activity logs are kept for 3 days.
+
+The Team plan costs $21 per month per user after a 14 day trial. It adds Change Requests, SAML SSO, role-based access controls, service accounts, and 90 days of activity logs.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach a project, environment, token, or sync limit. It only lists the numbers per plan, and the Team plan raises each of them. The page also does not say what happens when a fourth user joins.
+
+Additional users on the Developer plan are priced at $8 per month each, so a growing team sees a bill rather than a block. The Team plan lifts the user cap to 500. Enterprise plans are custom priced.
+
+## Gotchas
+
+- The Developer plan includes only 3 days of activity logs. The Team plan keeps them for 90 days.
+- SSO, Change Requests, role-based access controls, and automatic secret rotation are not on the Developer plan.
+- The Windows `doppler update` command does not work when you installed through Scoop. Doppler suggests winget there.
+
+## Alternatives in this atlas
+
+- [Infisical](/services/infisical/): when you want an open-source secrets manager with its own free tier.
+- [Bitwarden Secrets Manager](/services/bitwarden-secrets-manager/): when you want unlimited secrets from a company known for password management.
+- [SikkerKey](/services/sikkerkey/): when you want a free plan with unlimited secrets and projects.
+
+## Questions people ask
+
+### Is Doppler free?
+
+Yes. The Developer plan is free for 3 users. Extra users cost $8 per month each, and the plan includes 5 config syncs and 3 days of activity logs.
+
+### How many projects can I have on the free Doppler plan?
+
+The comparison table lists 10 projects, 4 environments per project, and 10 configs per environment on the Developer plan.
+
+### Does Doppler have a free trial of the Team plan?
+
+Yes. The Team plan has a 14 day free trial and then costs $21 per month per user.

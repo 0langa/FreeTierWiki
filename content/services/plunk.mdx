@@ -1,8 +1,9 @@
 ---
 title: Plunk
 description: >-
-  Plunk is an open-source email platform for sending transactional and
-  marketing emails, with click and open tracking.
+  Plunk is an open-source email platform for transactional email, campaigns,
+  and automated workflows against one contact list. It is for developers who
+  want to pay per email and not per contact.
 provider: Plunk
 category: messaging
 domain: messaging
@@ -16,59 +17,107 @@ audiences:
   - startup
   - oss
 tags:
-  - email
-  - open-source
-  - api
+  - transactional email
+  - email api
+  - open source email
+  - email automation
+  - self-hosted email
 pricingModel: freemium
 freeTierDetails:
-  summary: Free forever plan sends up to 1,000 emails per month with no credit card required.
+  summary: >-
+    Free forever plan sends up to 1,000 emails per month with no credit card
+    required. Inbound emails count toward the allowance.
   limits:
     - '1,000 emails/month'
     - Unlimited contacts
-    - Transactional emails
+    - Transactional emails with click and open tracking
     - Workflow automation and campaign broadcasts
   caveats:
     - Plunk branding appears on emails on the free plan (removed on the paid plan)
-    - Paid usage is pay-as-you-go at $0.001/email, with no base fee
+    - Inbound emails count toward the 1,000-email allowance
+    - Emails with attachments cost 2 credits each
+    - Paid usage is pay-as-you-go at $0.001 per email, with no base fee
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Sending transactional emails from an app
-  - Email click and open tracking
-  - Small newsletters or announcements
+  - Sending transactional emails from an app through the API
+  - Sending campaign broadcasts to a contact list
+  - Building a welcome series with the workflow builder
+  - Tracking opens and clicks on what you send
 quickstartSteps:
-  - Sign up at useplunk.com with your account.
-  - Create a project and get your API key.
-  - Verify your sending domain.
-  - Send transactional emails via the API or SMTP.
-  - Track opens and clicks from the dashboard.
+  - Click Start for free on useplunk.com and create an account; no credit card is required.
+  - Verify your sending domain by adding the DNS records Plunk shows, including DKIM.
+  - Copy an API key from the dashboard; secret keys start with `sk_` and public keys with `pk_`.
+  - Send a first email with a request to the `/v1/send` endpoint, or through the Node SDK or SMTP.
+  - Watch delivery, opens, and clicks in the dashboard, or through webhooks.
 whenToUse: >-
-  Use Plunk for sending transactional or small-scale marketing emails from an
-  app with minimal setup.
+  Use Plunk for transactional or small marketing email from an app, when 1,000
+  emails a month is enough or you prefer to pay per email.
 whenNotToUse: >-
-  Avoid if you need to send more than 1,000 emails/month without paying, or
-  need email without Plunk branding on the free plan.
+  Avoid it if you need more than 1,000 emails a month for free, or if the
+  Plunk branding on free emails is not acceptable.
 bestFor:
   - transactional email
   - indie projects
   - small newsletters
 avoidIf:
-  - high-volume sending
+  - high-volume sending on a free budget
   - unbranded free email
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://useplunk.com'
 docsUrl: 'https://docs.useplunk.com'
 sourceUrls:
   - 'https://useplunk.com/pricing'
+  - 'https://docs.useplunk.com/'
+  - 'https://docs.useplunk.com/concepts/billing'
+  - 'https://docs.useplunk.com/concepts/transactional-emails'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://useplunk.com/pricing'
 ---
-Plunk is an open-source email platform for transactional and marketing email, with a free-forever plan for up to 1,000 emails per month and no credit card required.
+You call a REST API, the official Node SDK, or SMTP to send, and you build campaigns and workflows in the dashboard. The software is open source under AGPL-3.0, and you can also self-host it.
+
+## What the free plan gives you
+
+The free plan sends up to 1,000 emails per month at no cost, with unlimited contacts. It includes transactional emails and click and open tracking. The docs also list campaigns and workflow automation as features on every plan.
+
+Free projects carry a Plunk-branded footer in marketing emails. Inbound emails count toward the 1,000-email allowance. An email with attachments costs 2 credits, no matter how large the files are. A transactional email can carry up to 10 attachments and 10MB in total by default.
+
+## When you hit a limit
+
+The docs say that when you exceed your plan allowance, outbound API calls return a 402 Payment Required error with the code `BILLING_LIMIT_EXCEEDED`. Your app should queue the work or show an error. Inbound emails are dropped silently until the limit resets, and they are not queued or replayed.
+
+Limits reset at the start of each billing period, and you get an email or in-app notice when you near or hit a cap. The paid plan costs $0.001 per email and lets you set a monthly spend cap.
+
+## Gotchas
+
+- The free plan puts Plunk branding on emails. Removing it needs the pay-as-you-go plan.
+- Activating a paid subscription places two charges of 1.00 on your card, which Plunk credits back to your balance in full.
+- Inbound emails over the allowance are dropped without a retry, so do not rely on the free plan for important inbound mail.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want a larger free monthly allowance and several sending domains.
+- [Loops](/services/loops/): when you want marketing sequences and transactional mail for a SaaS.
+- [Mailgun](/services/mailgun/): when you need inbound routing and a long-running email API.
+
+## Questions people ask
+
+### Is Plunk free?
+
+Yes. The free plan sends up to 1,000 emails per month with unlimited contacts, and it needs no credit card. Free emails carry Plunk branding.
+
+### What happens when I go over the Plunk free limit?
+
+Outbound API calls return a 402 error with the code `BILLING_LIMIT_EXCEEDED` until the limit resets. Inbound emails are dropped silently.
+
+### Can I self-host Plunk?
+
+Yes. Plunk is open source, and the docs have a self-hosting section. Self-hosted instances run on your own infrastructure and are not billed by Plunk.

@@ -1,6 +1,9 @@
 ---
 title: Hatchet
-description: 'Open-source task queue and workflow engine for Python, TypeScript, and Go.'
+description: >-
+  Hatchet is a task queue and workflow engine with durable execution, retries,
+  schedules, and a dashboard. It is for teams that run background jobs or AI
+  agent workflows in Python, TypeScript, or Go.
 provider: Hatchet
 category: compute
 domain: compute
@@ -12,55 +15,117 @@ audiences:
   - indie
   - startup
 tags:
-  - queue
-  - automation
-  - open-source
+  - task queue
+  - workflow engine
+  - background jobs
+  - durable execution
+  - orchestration
+  - cron
 pricingModel: freemium
 freeTierDetails:
-  summary: Pay-as-you-go plan includes 1M task runs and 1M events free every month.
+  summary: >-
+    Pay-as-you-go starts at $0. Without a card on file you get 2,000 task runs
+    and 2,000 events per day. With a card on file, 1M task runs and 1M events
+    per month are included, then $30 per million runs and $5 per million
+    events.
   limits:
-    - 1M task runs per month
-    - 1M events per month
-    - 500 MB active storage
-    - 10 GB logs and traces
+    - 2,000 task runs/day and 2,000 events/day without a card
+    - 1M task runs and 1M events per month with a card on file
+    - 500 MB active storage and 500 MB logs and traces without a card
+    - 10 workers, 1 tenant, 3 users, 1 day retention without a card
   caveats:
-    - Usage past the free amount is billed
+    - Exceeding a limit drops tasks and new task creation returns errors
     - Your workers run on your own infrastructure
-    - The page does not say whether a card is needed to start
+    - Failed runs count as runs, retries do not
   resetPeriod: monthly
-  requiresCard: true
+  requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: medium
+  hasHardCap: true
+  overageRisk: low
+  billingRiskNotes:
+    - Adding a card on file enables usage past the included million runs and events, billed per million
 useCases:
-  - Background tasks
-  - Durable workflows
-  - Fan-out jobs
+  - Background tasks and job queues
+  - Durable workflows that survive restarts and retries
+  - Fan-out jobs that spawn child tasks
+  - 'Cron and scheduled runs, and AI agent orchestration'
 quickstartSteps:
-  - Sign up at cloud.onhatchet.run.
-  - Install the SDK.
-  - Start a worker and push a task.
-whenToUse: Use when you want a hosted queue with a large free run count.
-whenNotToUse: Avoid if you want a plan that cannot bill you.
+  - 'Sign up for Hatchet Cloud; the pricing page says no card is needed to start.'
+  - 'Create your first organization and tenant in the dashboard.'
+  - 'Install the Hatchet CLI with the install script, then run hatchet profile add with the API token from the dashboard.'
+  - 'Run hatchet quickstart to create a sample project, then hatchet worker dev to start a worker.'
+  - 'Trigger a run with hatchet trigger simple and watch it in the dashboard.'
+whenToUse: >-
+  Use it when you want a hosted task queue and workflow engine with retries,
+  schedules, and observability for Python, TypeScript, or Go workers.
+whenNotToUse: >-
+  Avoid it if you want zero ops and no workers of your own, if you need more
+  than 2,000 task runs a day without adding a card, or if you want a plan that
+  can never bill you.
 bestFor:
   - background jobs
 avoidIf:
-  - no-card setups
+  - no workers of your own
+  - 'more than 2,000 task runs a day without a card'
+  - a plan that can never bill you
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://hatchet.run'
 docsUrl: 'https://docs.hatchet.run'
 sourceUrls:
   - 'https://hatchet.run/pricing'
+  - 'https://docs.hatchet.run'
+  - 'https://docs.hatchet.run/v1/quickstart'
 pricingUrl: 'https://hatchet.run/pricing'
 featured: false
 changes:
-  - date: '2026-10-01'
-    kind: new
-    note: Added to the atlas.
+  - date: 2026-10-09
+    kind: changed
+    note: >-
+      Hatchet announced pay-as-you-go pricing: accounts without a card get 2,000
+      task runs per day, and the 1M monthly runs need a card on file.
+status: changed
 ---
-Hatchet's hosted plan is pay-as-you-go with a large free monthly amount. Treat it as billable past that amount.
+You write tasks and workflows in Python, TypeScript, or Go, and run workers on your own machines that connect to Hatchet. The Hatchet CLI sets up a quickstart project and lets you trigger runs from the terminal. It suits teams that want a queue with retries, schedules, and a dashboard, without running one themselves.
+
+## What the free plan gives you
+
+Hatchet Cloud has a pay-as-you-go plan that starts at $0, in two forms. Without a card on file, you get 2,000 task runs and 2,000 events per day. You also get 10 workers, 2,000 worker slots, 1 tenant, 3 users, 500 MB of active storage, and 1 day of run history.
+
+With a card on file, the plan includes 1M task runs and 1M events per month, and 100 workers, 10 tenants, and 7 days of retention. A task that spawns another task counts as two runs. Failed runs count, but retries do not.
+
+## When you hit a limit
+
+The pricing FAQ says you get alerts by email or Slack as you approach a limit. If you exceed it, tasks get dropped and you see errors when you try to create new tasks. Without a card, that is a hard stop.
+
+With a card on file, you pay nothing until you pass the included million runs and million events. After that you pay $30 per million runs and $5 per million events, billed at the end of each billing cycle of 30 or 31 days. Storage and logs above the included amounts are billed by the GB-hour.
+
+## Gotchas
+
+- The no-card limits are per day: 2,000 task runs and 2,000 events. They are far below the 1M a month you get with a card on file.
+- Without a card, the queue backlog is 10,000 tasks. When the backlog is full, new tasks are rejected until it drains.
+- Your workers run on your own infrastructure. Hatchet orchestrates tasks but does not run your code for you.
+
+## Alternatives in this atlas
+
+- [Inngest](/services/inngest/): when you want event-driven functions and step workflows.
+- [Trigger.dev](/services/trigger-dev/): when you write background tasks in TypeScript.
+- [GitHub Actions](/services/github-actions/): when your background jobs are scheduled build or script tasks.
+
+## Questions people ask
+
+### Is Hatchet free?
+
+Yes, to start. Without a card you get 2,000 task runs and 2,000 events per day. With a card on file, the first 1M runs and 1M events each month are included.
+
+### Does Hatchet need a credit card?
+
+No, not to get started. The pricing page says no card is needed, but the larger 1M monthly allowance applies to accounts with a card on file.
+
+### What happens when I hit the Hatchet free limit?
+
+Tasks get dropped, and creating new tasks returns errors. Hatchet alerts you by email or Slack as you approach the limit.

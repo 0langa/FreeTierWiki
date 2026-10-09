@@ -1,6 +1,8 @@
 ---
 title: Exa
-description: 'A web search API built for AI agents, with search, content fetch, and research endpoints.'
+description: >-
+  Exa is a web search API for AI agents. It returns ranked pages with clean
+  content, and also offers page extraction, answers, and long research runs.
 provider: Exa Labs
 category: ai
 domain: ai
@@ -13,21 +15,25 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - api
-  - search
+  - search-api
+  - web-search
+  - ai-agents
+  - rag
+  - mcp
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Starter plan: $10 in free credits every month plus a $10 sign-up bonus. No payment method
-    needed.
+    Free tier: $10 in credits that reset every month, plus a one-time $10
+    onboarding bonus. No payment method needed.
   limits:
-    - $10 credits per month
-    - $10 one-time onboarding bonus
+    - $10 in credits per month, reset on the first of the month
+    - $10 one-time onboarding bonus for your first team
+    - 10 queries per second rate limit
     - MCP server access
   caveats:
-    - Credits are spent per search and per research run
-    - Paid use is pay-as-you-go
+    - Unused free credits do not carry into the next month
+    - Credits are spent per request at pay-as-you-go rates
+    - Only a user's first team gets the monthly grant
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -35,30 +41,43 @@ freeTierDetails:
   overageRisk: none
   monthlyCreditAmount: $10
 useCases:
-  - Give an agent web search
-  - Find similar pages
-  - Run deep research jobs
+  - Give an AI agent live web search
+  - Pull clean page text for RAG and LLM context
+  - Get an LLM answer with citations
+  - Run asynchronous research and list-building jobs
+  - Connect Claude, ChatGPT, Codex, or Cursor through the MCP server
 quickstartSteps:
-  - Sign up at exa.ai.
-  - Copy your API key.
-  - Call the /search endpoint.
-whenToUse: Use when an AI agent needs a search API with a monthly free allowance.
-whenNotToUse: Avoid for high-volume search; costs add up per call.
+  - Sign up at exa.ai and open the Exa Dashboard.
+  - Create an API key and set it as the `EXA_API_KEY` environment variable.
+  - Install an SDK with `pip install exa-py` or `npm install exa-js`.
+  - Call `exa.search(...)` with a query and `contents` set to highlights, or send a POST to `https://api.exa.ai/search`.
+  - To skip the API key, connect an agent such as Claude or Cursor through the Exa MCP server.
+whenToUse: >-
+  Use Exa when an AI agent or app needs web search that returns page content,
+  and a small monthly credit is enough to test it.
+whenNotToUse: >-
+  Avoid it for high-volume search on the free tier. Free credits stop at $10 a
+  month, and the free rate limit is 10 queries per second.
 bestFor:
   - AI agents
   - research tools
+  - RAG prototypes
 avoidIf:
-  - high-volume search
+  - you need high-volume search without paying
+  - you need credits that roll over
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://exa.ai'
 docsUrl: 'https://docs.exa.ai'
 sourceUrls:
   - 'https://exa.ai/pricing'
+  - 'https://docs.exa.ai/reference/pricing'
+  - 'https://docs.exa.ai/reference/rate-limits'
+  - 'https://docs.exa.ai/reference/quickstart'
 pricingUrl: 'https://exa.ai/pricing'
 featured: false
 changes:
@@ -66,4 +85,39 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Exa refills a small credit balance each month. Without a payment method, use stops when the credits run out.
+You use Exa through its REST API, the Python and JavaScript SDKs, or an MCP server that plugs into agents such as Claude, ChatGPT, Codex, and Cursor. It suits developers who build AI agents and research tools and want search results as clean text.
+
+## What the free plan gives you
+
+The Free tier gives you $10 in credits on the day you sign up. Your free balance resets to $10 on the first of every month, with no payment method needed. Your first team also earns a one-time $10 onboarding bonus when you finish onboarding in the dashboard, and that bonus does not expire. The docs say $10 covers up to 2,500 Instant searches.
+
+Free credits spend at the normal pay-as-you-go rates. Search starts at $4 per 1k requests. Contents costs $1 per 1k pages. The Free tier has a rate limit of 10 queries per second and allows 50 active Agent runs.
+
+## When you hit a limit
+
+When your team uses up its credits, requests return a 402 Payment Required error. An API key that reaches its own budget also returns 402. You can add credits in the billing dashboard, or wait for the free balance to reset on the first of the next month. Going over the rate limit is a separate limit, and the docs say limits are subject to change. Pay-as-you-go has no subscription and no minimum spend, so you only pay for credits you load.
+
+## Gotchas
+
+- The monthly grant does not stack. Unused free credits do not carry into the next month, so the balance never holds more than $10 from the grant.
+- Only a user's first team gets the monthly grant.
+- Extras cost more. Each search result above 10 adds $1 per 1k results, and AI page summaries add $1 per 1k pages.
+
+## Alternatives in this atlas
+
+- [Firecrawl](/services/firecrawl/): when you want to scrape and crawl known sites rather than search the whole web.
+- [Jina Reader](/services/jina-reader/): when you only need to turn a URL into clean text.
+
+## Questions people ask
+
+### Is Exa free?
+
+Yes, within limits. The Free tier gives you $10 in credits every month, plus a one-time $10 onboarding bonus. You do not need a payment method.
+
+### Does Exa need a credit card?
+
+No. The Free tier needs no payment method. You add credits later only if you want to go past the free balance.
+
+### What happens when I run out of Exa credits?
+
+Requests return a 402 Payment Required error until you add credits. The free balance resets to $10 on the first of the next month.

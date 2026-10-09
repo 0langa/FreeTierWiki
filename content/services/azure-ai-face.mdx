@@ -1,8 +1,8 @@
 ---
 title: Azure AI Face
 description: >-
-  Azure AI Face provides facial detection, recognition, and analysis APIs for
-  building secure and intelligent applications.
+  Azure AI Face detects and compares faces in photos and supports liveness checks. It is for
+  approved developers who build photo, identity, and attendance features.
 provider: Azure
 category: ai
 domain: ai
@@ -19,53 +19,64 @@ audiences:
   - oss
   - agency
 tags:
-  - ai
-  - images
-  - identity
-  - cloud
+  - face detection
+  - face recognition
+  - facial recognition
+  - liveness detection
+  - computer vision
+  - identity verification
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free (F0) tier includes 30,000 Face API transactions per month.'
   limits:
     - '30,000 transactions/month'
-    - '20 transactions/minute rate limit'
+    - 20 transactions/minute rate limit
   caveats:
     - Usage stops once the monthly free limit is reached; no overage billing on the F0 tier
     - Moving past the free limit requires the paid S0 tier
+    - >-
+      Face service access is limited: Microsoft says it is only available to managed customers and
+      partners, and you apply with the Face Recognition intake form
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - User authentication via facial recognition
-  - Photo organization by faces
-  - Attendance tracking
-  - Emotion analysis in images
+  - Detect faces in photos
+  - Find similar faces in a set of photos
+  - Check that a face in a video stream is a live person
+  - Group and organize photos by person
 quickstartSteps:
-  - Sign in to the Azure Portal and create a Face resource.
-  - Obtain your Face API endpoint and key from the Azure Portal.
-  - Install the Azure Face SDK or use the REST API.
-  - Authenticate using your API key.
-  - Send an image to the Face API for detection or analysis.
+  - >-
+    Apply for access with the Face Recognition intake form, because the Face service is limited to
+    approved customers.
+  - Create an Azure account or use an existing subscription.
+  - >-
+    In the Azure portal, create a Face resource and pick the free F0 tier, or use a Foundry
+    resource.
+  - Copy the key and endpoint from the resource and store them as environment variables.
+  - 'Install the Face client library for your language, or call the REST API.'
+  - Send a photo to the detect operation and read the face data it returns.
 whenToUse: >-
-  Use when you need reliable facial detection or recognition in cloud-based apps
-  with generous free monthly usage.
+  Use when you have been approved for the Face service and need face detection or similar-face
+  search in a cloud app with a small free monthly amount.
 whenNotToUse: >-
-  Avoid if you require on-premises processing, strict data residency, or need
-  unlimited free usage.
+  Avoid if you cannot get approval, need on-premises processing, or need emotion or gender
+  detection, which Microsoft retired.
 bestFor:
-  - identity verification
-  - photo management
-  - security apps
+  - approved identity and photo projects
+  - prototyping face detection
+  - liveness checks for approved apps
+  - photo organization
 avoidIf:
+  - need open self-service sign-up
   - offline-only apps
-  - strict privacy requirements
-  - unpredictable high-volume workloads
+  - need emotion or gender detection
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-services/ai-face/'
@@ -73,7 +84,49 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/ai-services/face/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/face-api/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/face-api/'
-  - 'https://learn.microsoft.com/en-us/azure/ai-services/face/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview-identity'
+  - >-
+    https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/quickstarts-sdk/identity-client-library
 featured: false
 ---
-Azure AI Face offers scalable facial detection and recognition APIs with a generous free (F0) tier of 30,000 transactions per month, suitable for authentication, analysis, and security use cases. Usage stops rather than bills once you hit the monthly limit.
+You call it through the REST API, a client SDK, or the Foundry portal, after Microsoft approves your access. It suits teams with a clear photo or identity use case.
+
+## What the free plan gives you
+
+The Free tier gives you 30,000 transactions per month. The pricing page lists a rate of 20 transactions per minute for the free web endpoint. The listed features include Face Detection and Similar Face Search.
+
+The paid tier charges per 1,000 transactions, and it also bills face storage per 1,000 faces per month. Face Liveness and Face Liveness plus Verification are billed per 1,000 transactions too. The price fields on the page are blank dashes, so use the Azure pricing calculator for real prices.
+
+Photos must be JPEG, PNG, WEBP, or BMP, and no larger than 6 MB.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 30,000 free transactions. Paid usage is a separate tier, so you must choose it on purpose.
+
+The harder limit is access. The docs say Face service access is limited by eligibility and usage criteria, and it is only available to Microsoft managed customers and partners. You apply through the Face Recognition intake form. The quickstart tells you to request the features you need before you follow its steps.
+
+## Gotchas
+
+- You need approval before you can use the Face service. A normal Azure sign-up is not enough.
+- Face liveness SDKs are gated. You must request access, and your Azure subscription must be granted it before you can download the SDK.
+- Microsoft retired emotion and gender detection. The service no longer offers them.
+
+## Alternatives in this atlas
+
+- [Azure AI Vision](/services/azure-ai-vision/): when you need image tags, captions, or text reading and do not need faces.
+- [Azure AI Custom Vision](/services/azure-ai-custom-vision/): when you want a model trained on your own labeled images.
+- [Hugging Face Hub](/services/hugging-face-hub/): when you want to find open face models that you can run yourself.
+
+## Questions people ask
+
+### Is Azure AI Face free?
+
+There is a Free tier with 30,000 transactions per month and 20 transactions per minute. Access to the service is limited, so you must apply first.
+
+### Can anyone use the Azure Face API?
+
+Not by default. The docs say access is limited by eligibility and usage criteria. You apply with the Face Recognition intake form.
+
+### Does Azure AI Face detect emotions?
+
+No. Microsoft retired the emotion and gender capabilities.

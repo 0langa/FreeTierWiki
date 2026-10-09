@@ -1,8 +1,9 @@
 ---
 title: Mailjet
 description: >-
-  Mailjet provides transactional and marketing email services with APIs, SMTP
-  relay, and analytics for developers and businesses.
+  Mailjet sends transactional and marketing email through an API, an SMTP
+  relay, and a web editor. It is for developers and small teams that want both
+  app email and newsletters in one service.
 provider: Mailjet
 category: messaging
 domain: messaging
@@ -19,62 +20,108 @@ audiences:
   - oss
   - agency
 tags:
-  - email
-  - api
+  - transactional email
+  - email api
+  - smtp relay
+  - email marketing
+  - newsletter
 pricingModel: freemium
 freeTierDetails:
-  summary: Send up to 200 emails per day for free with core features included.
+  summary: >-
+    Send up to 6,000 emails per month for free, with a maximum of 200 emails
+    per day. No credit card is needed at sign-up.
   limits:
     - 200 emails/day
     - '6,000 emails/month'
-    - Basic analytics
     - API & SMTP access
+    - Email templates and subscription forms
   caveats:
     - Daily sending limit resets every 24 hours
-    - No dedicated IP or advanced segmentation
-    - Mailjet branding on emails
+    - Segmentation starts on the Essential plan
+    - Online customer support is for the first month only
+    - No dedicated IP on the free plan
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Sending transactional emails
-  - Email marketing campaigns
-  - Automated notifications
-  - Newsletter distribution
+  - Sending transactional email from an app through the API or SMTP
+  - Sending a newsletter with the email editor
+  - Collecting subscribers with GDPR-compliant forms
+  - Tracking opens, clicks, and unsubscribes
 quickstartSteps:
-  - Sign up for a free Mailjet account.
-  - Verify your email address and domain.
-  - Create an API key from the dashboard.
-  - Integrate Mailjet API or SMTP with your app.
-  - Send a test email to confirm setup.
+  - Create a free Mailjet account; the free plan needs no credit card.
+  - Verify the domain or subdomain you will send from.
+  - Get your API key and secret key from your account.
+  - Pick a language library, or use plain SMTP.
+  - Send your first email with a POST to `https://api.mailjet.com/v3/send`, or with Send API v3.1.
+  - Check the sent message and its statistics.
 whenToUse: >-
-  Use Mailjet when you need reliable transactional or marketing email delivery
-  with easy API or SMTP integration and a generous free tier.
+  Use Mailjet when you want transactional and marketing email in one service,
+  and 200 emails a day (6,000 a month) is enough.
 whenNotToUse: >-
-  Avoid Mailjet if you require high daily volumes, advanced automation, or
-  white-labeling without branding on the free plan.
+  Avoid it if you need more than 200 emails a day for free, segmentation, or a
+  dedicated IP.
 bestFor:
   - transactional-email
   - small-newsletters
   - app-notifications
 avoidIf:
-  - high-volume-marketing
-  - advanced-segmentation
-  - white-labeling
+  - high daily volume on the free plan
+  - segmentation needed
+  - dedicated IP needed
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.mailjet.com/'
 docsUrl: 'https://dev.mailjet.com/'
 sourceUrls:
   - 'https://www.mailjet.com/pricing/'
+  - 'https://dev.mailjet.com/email/guides/getting-started/'
   - 'https://dev.mailjet.com/email/guides/send-api-v3/'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://www.mailjet.com/pricing/'
 ---
-Mailjet offers a straightforward, always-free tier for sending up to 200 emails per day, making it suitable for small projects, transactional notifications, and basic marketing campaigns. The platform provides both API and SMTP integration, with basic analytics and support for essential email features. The free plan includes Mailjet branding and lacks advanced segmentation or dedicated IPs, so it's best for low-volume or early-stage use cases.
+You send through the Email API, SMTP relay, or one of the language libraries, and you build campaigns and templates in the web app. It suits teams that want one account for app mail and newsletters.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month. It includes 6,000 emails a month, with a daily sending maximum of 200 emails. You get the API and SMTP relay, email templates, and GDPR-compliant subscription forms, so you can build a small mailing list and send to it from your own app.
+
+The pricing table lists segmentation, email address validation, and email previews as paid features. A dedicated IP is for the Premium plan or larger plans on request. Online customer support is included for the first month only on the Free plan.
+
+## When you hit a limit
+
+The pricing page says the free plan has a sending maximum of 200 emails per day, and the 6,000 emails per month. To get more features or send more, you must upgrade. Starter costs $9 per month and has no daily sending limit.
+
+The "go over your limit" answer on the pricing page covers paid plans: extra emails are billed per 1,000. It does not describe what happens to the free plan at 200 a day beyond the upgrade note. Email credits do not roll over to the next month.
+
+## Gotchas
+
+- The daily cap of 200 is separate from the monthly 6,000, so a busy day can stop sending before the month is used up.
+- Segmentation is not part of the free plan. The pricing table lists it from the Essential plan at $19 per month.
+- You must verify the domain or subdomain you send from before you send your first email.
+
+## Alternatives in this atlas
+
+- [Brevo](/services/brevo/): when you want a free plan with a higher daily sending cap for marketing email.
+- [Mailgun](/services/mailgun/): when you mostly need an email API and inbound routing.
+- [Sender](/services/sender/): when you send newsletters to a larger subscriber list.
+
+## Questions people ask
+
+### Is Mailjet free?
+
+Yes. The Free plan costs $0 and lets you send 6,000 emails a month, with a maximum of 200 per day. It does not need a credit card at sign-up.
+
+### Does Mailjet need a credit card?
+
+No. The pricing page says no credit card is required for the free plan at sign-up. You must upgrade to get more features or higher volume.
+
+### Does Mailjet have an SMTP relay on the free plan?
+
+Yes. The free plan includes the Email API and the SMTP relay, so you can send from an app with either one.

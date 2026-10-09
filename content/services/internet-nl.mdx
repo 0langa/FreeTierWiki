@@ -1,8 +1,9 @@
 ---
 title: Internet.nl
 description: >-
-  Internet.nl is a free online service to test websites, mail, and internet
-  connections for modern standards compliance.
+  Internet.nl tests a website, an email domain, or your own connection against
+  modern internet standards such as IPv6, DNSSEC, HTTPS, DMARC, and DANE. It is
+  run by the Dutch Internet Standards Platform.
 provider: Internet.nl
 category: security
 domain: security
@@ -18,51 +19,58 @@ audiences:
   - team
   - oss
 tags:
-  - security
-  - compliance
-  - testing
-  - privacy
+  - website test
+  - email security test
+  - IPv6
+  - DNSSEC
+  - DMARC
+  - HTTPS
+  - security headers
 pricingModel: free
 freeTierDetails:
   summary: 'Free web tests for websites, email, and connections; the batch API and dashboard are only for approved organizations.'
   limits:
-    - No account required for single tests
+    - No account required for single tests of a website, email domain, or connection
     - Batch API and dashboard by application only, not self-serve
-    - 'Batch fair use: 2 requests/week, 5,000 domains each'
+    - 'Batch fair use: 2 batch requests per week, 5000 domains each'
+    - Maximum of 3 batch accounts per organization
   caveats:
-    - 'Manual use only; batch access is for members, non-profits, students, and some sectors'
-    - Batch service is best effort with no guarantees
+    - 'Batch access is for platform members, non-profits, students, and some sectors'
+    - Batch service is best effort with no guarantees and is a compliance test, not a monitoring tool
+    - Accounts unused for more than 12 months are deleted
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Check website security compliance
-  - Test email server configuration
-  - 'Validate IPv6, DNSSEC, and HTTPS setup'
+  - Checking whether a website supports IPv6, DNSSEC, and HTTPS
+  - Testing email security: DMARC, DKIM, SPF, STARTTLS, and DANE
+  - Checking that your own connection reaches IPv6 sites and validates DNSSEC
+  - Earning a 100 percent badge or a place in the Hall of Fame
 quickstartSteps:
-  - 'Go to https://internet.nl.'
-  - 'Select ''Website'', ''Mail'', or ''Connection'' test.'
-  - Enter your domain or email address.
-  - Click 'Test' to view results and recommendations.
+  - Open internet.nl; no sign-up or account is needed for single tests.
+  - Choose Test your website, Test your email, or Test your connection.
+  - Enter your domain name or email address and select Start test.
+  - Read the report, which scores each standard and explains how to fix failures.
+  - For many domains, apply for a batch API and dashboard account through dashboard.internet.nl if you qualify.
 whenToUse: >-
-  Use Internet.nl to quickly check if your website or email meets modern
-  internet security standards.
+  Use it for a quick manual check of one site, one mail domain, or your own
+  connection against modern internet standards.
 whenNotToUse: >-
-  Do not use if you need automated, self-serve API access, or large-scale
-  compliance testing for many domains without applying for batch access.
+  Avoid it if you need self-serve automation or monitoring, or want to test many
+  domains without qualifying for batch access or hosting your own instance.
 bestFor:
   - security audits
   - compliance checks
   - educational use
 avoidIf:
-  - need self-serve automation
-  - require immediate API access
-  - need formal support
+  - you need self-serve API access
+  - you need continuous monitoring
+  - you need formal support
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-30
-lastUpdated: 2026-09-30
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://internet.nl'
@@ -73,6 +81,46 @@ sourceUrls:
   - 'https://internet.nl/faqs/batch-and-dashboard/'
   - 'https://github.com/internetstandards/Internet.nl'
   - 'https://github.com/internetstandards/Internet.nl-API-docs'
+  - 'https://raw.githubusercontent.com/internetstandards/Internet.nl-API-docs/main/terms-of-use.md'
+  - 'https://raw.githubusercontent.com/internetstandards/Internet.nl-API-docs/main/API-dashboard-access-request.md'
 featured: false
 ---
-Internet.nl provides a simple, free way to test your website, mail server, or internet connection for compliance with modern internet standards like IPv6, DNSSEC, and HTTPS. It is best for individuals or small teams needing quick, manual checks; a batch API exists for bulk testing but requires applying for access rather than self-serve signup.
+You type a domain name or email address into the test form on the site and read the report. For many domains there is a batch API and a web dashboard, and you can also run your own copy because the project is open source. The service suits site owners and administrators who want a quick standards check.
+
+## What the free plan gives you
+
+There is no paid plan. Single tests of a website, an email domain, or your connection are free and need no account. The test looks at standards such as IPv6, DNSSEC, HTTPS, security headers, DMARC, DKIM, SPF, STARTTLS, DANE, and RPKI route authorisation.
+
+The batch API and dashboard are also free, but only for approved users. The access page lists platform members, non-profits (including students with a school email), some Dutch community members, organizations in sectors of high criticality, and hosters in the Hall of Fame. Each organization gets at most 3 accounts.
+
+## When you hit a limit
+
+Single tests have no stated quota on the site. The batch terms ask users to follow fair use rules: at most 2 batch requests per week, with at most 5000 domain names in each.
+
+The terms say the service runs on a best effort basis with no guarantees about performance or availability. The Dutch Internet Standards Platform can withdraw API access, for example after misuse. Nothing is billed, so there is no overage charge.
+
+## Gotchas
+
+- The batch service is a compliance test, not a monitoring tool, and it must not be used to test a single domain per request.
+- Batch accounts unused for longer than 12 months are deleted, and so are accounts whose owner cannot be reached by email.
+- If you reuse the test results on your own site, the terms ask for attribution to Internet.nl.
+
+## Alternatives in this atlas
+
+- [IntoDNS.ai](/services/intodns-ai/): when you want a DNS and email security scanner with a public API.
+- [SSLabs.com](/services/sslabs-com/): when you only need an SSL/TLS analysis of a server.
+- [HTTP Observatory (MDN)](/tools/mozilla-observatory/): when you want a check of HTTP security headers.
+
+## Questions people ask
+
+### Is Internet.nl free?
+
+Yes. Testing a website, an email domain, or your connection is free and needs no account. The batch API and dashboard are free too, but only for approved users.
+
+### Does Internet.nl have an API?
+
+Yes, a batch API, but access is by application. If you do not qualify, the project's access page suggests running your own instance, because the code is open source.
+
+### How many domains can I test with the Internet.nl batch API?
+
+The terms ask for at most 2 batch requests per week, with at most 5000 domain names per request.

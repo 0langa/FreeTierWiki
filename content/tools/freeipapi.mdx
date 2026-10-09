@@ -1,8 +1,8 @@
 ---
 title: FreeIPAPI
 description: >-
-  FreeIPAPI provides a simple API for IP geolocation and related network
-  information.
+  FreeIPAPI is a REST API that turns an IP address into a country, city, time
+  zone, currency, and proxy flag. It needs no account for light use.
 provider: FreeIPAPI
 category: networking
 domain: networking
@@ -16,64 +16,109 @@ audiences:
   - startup
   - oss
 tags:
-  - networking
-  - api
+  - ip geolocation
+  - geoip api
+  - ip lookup
+  - proxy detection
+  - rest api
+  - json
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free tier allows 60 requests per minute with no account or card
-    required.
+    The free API allows 60 requests per minute, with no account, API key, or
+    card needed. Commercial use is allowed.
   limits:
     - '60 requests/minute'
     - '10 requests per 10 seconds burst limit'
     - No account required
     - Commercial use allowed
+    - Bulk lookup of up to 50 IP addresses per request
   caveats:
-    - No SLA or uptime guarantee
-    - Higher rate limits and bulk lookup require a paid subscription
+    - The free limit is shared per website domain in the browser and per outgoing IP address on a server
+    - Higher rate limits need a paid subscription and a paid regional server
+    - Free and paid plans use different server URLs
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detect user location for personalization
-  - Block or allow traffic by country
-  - Display user IP info in dashboards
+  - Detecting a visitor's country to personalize a page
+  - Blocking or allowing traffic by country
+  - Showing IP details in a dashboard
+  - Flagging proxy, VPN, or hosting traffic
+  - Looking up time zones, phone codes, or currencies by country
 quickstartSteps:
-  - 'Go to https://freeipapi.com.'
-  - Review API documentation for endpoint details.
-  - >-
-    Make a GET request to https://freeipapi.com/api/json/ using your preferred
-    HTTP client.
-  - Parse the JSON response for geolocation data.
-  - Integrate the API call into your application logic.
+  - 'No sign-up is needed for the free API; open the docs at freeipapi.com/docs.'
+  - 'Send a GET request to `https://free.freeipapi.com/api/v1/json/` followed by an IP address.'
+  - Leave the IP off to look up the address that sent the request.
+  - Read the JSON fields such as `countryName`, `cityName`, `timeZones`, and `isProxy`.
+  - Space your calls to stay within 10 requests per 10 seconds, or subscribe for paid access with an API key.
 whenToUse: >-
-  Use FreeIPAPI when you need basic, free IP geolocation for low to moderate
-  traffic apps or prototypes.
+  Use FreeIPAPI for light IP geolocation in prototypes, side projects, and small
+  apps that stay under the free rate limit.
 whenNotToUse: >-
-  Avoid if you need high request volumes, advanced geolocation data, or
-  guaranteed uptime for production-critical services.
+  Avoid it for high request volumes on the free server, or when you need a
+  published uptime guarantee for production-critical services.
 bestFor:
   - prototyping
   - personal projects
   - student apps
 avoidIf:
-  - enterprise workloads
   - high-traffic production
-  - advanced analytics
+  - more than 60 requests per minute
+  - need for an uptime guarantee
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://freeipapi.com'
-docsUrl: 'https://docs.freeipapi.com'
+docsUrl: 'https://freeipapi.com/docs/get-started/introduction'
 pricingUrl: 'https://app.freeipapi.com/'
 sourceUrls:
   - 'https://app.freeipapi.com/'
   - 'https://app.freeipapi.com/rate-limit'
   - 'https://freeipapi.com'
+  - 'https://freeipapi.com/docs/api-reference/get-ip-info'
 featured: false
 ---
-FreeIPAPI offers a simple, no-auth API for basic IP geolocation, ideal for small projects or prototypes needing quick location data.
+You call FreeIPAPI over plain HTTP from any language, and the free server needs no API key. It suits small projects that need quick location data for an IP address.
+
+## What the free plan gives you
+
+The free API lives at `free.freeipapi.com` and answers in JSON or XML. It allows 10 requests per 10 seconds, up to 60 requests per minute. You need no account, API key, or whitelisting. The service says it is free for commercial and non-commercial use.
+
+A lookup returns the country, region, city, coordinates, time zone, currency, language, phone code, ASN, and a proxy flag. The site also lists helper endpoints for countries, phone codes, time zones, languages, and the distance between two IPs. A bulk lookup takes up to 50 IP addresses in one request.
+
+## When you hit a limit
+
+The rate limit page says to spread your requests across the intervals, not send the whole minute at once. It does not say what the server returns when you go over, so expect your calls to be refused for a while.
+
+The allowance is shared. Requests from a website count against that domain, and requests from a server count against its public outgoing IP. Visitors do not get a separate allowance each. Paid plans remove the limits, but you must call a regional paid server on the `/api/` path and use an API key or a whitelisted IP or domain.
+
+## Gotchas
+
+- Free and paid plans use different URLs. Only the free server uses `/api/v1/`, so paid access does not work there.
+- Browser calls from your site share one allowance for the whole domain, so a busy page can use it up for every visitor.
+- Paying does not lift the limits on the free server. You must send requests to a paid server to get unlimited access.
+
+## Alternatives in this atlas
+
+- [IP2Location.io](/services/ip2location-io/): when you need a larger monthly quota and a free account is fine.
+- [IPLocate](/services/iplocate/): when you want a daily allowance with full data access.
+- [ipapi.is](/tools/ipapi-is/): when you want extra detail on whether an IP is a datacenter or proxy.
+
+## Questions people ask
+
+### Is FreeIPAPI free?
+
+Yes. The free API needs no account, key, or card. It is limited to 60 requests per minute, with a burst limit of 10 requests per 10 seconds.
+
+### Can I use FreeIPAPI for commercial projects?
+
+Yes. The home page says the service is free for commercial and non-commercial uses. If you need more than the free rate limit, you can subscribe to a paid plan.
+
+### What happens when I go over the FreeIPAPI limit?
+
+The pages do not say what the free server returns. They tell you to spread requests across the intervals. Paid plans have no rate limits.

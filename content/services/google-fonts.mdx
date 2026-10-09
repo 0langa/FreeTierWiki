@@ -1,8 +1,7 @@
 ---
 title: Google Fonts
 description: >-
-  Google Fonts offers a large library of free, open-source web fonts for easy
-  integration into websites and applications.
+  Google Fonts is a library of open-source fonts that you add to a page with one stylesheet link. The Google Fonts API serves the font files, and you can browse and pick families at fonts.google.com.
 provider: Google Cloud
 category: hosting
 domain: hosting
@@ -18,57 +17,104 @@ audiences:
   - oss
   - agency
 tags:
-  - web
-  - cdn
-  - open-source
+  - "google fonts"
+  - "web fonts"
+  - "typography"
+  - "font api"
+  - "open source fonts"
+  - "css"
+  - "font-display"
 pricingModel: free
 freeTierDetails:
   summary: All fonts are open source and free to use, including for commercial work.
   limits:
-    - All fonts are open source and without cost
-    - Commercial use is allowed
+    - "All fonts are released under open source licenses"
+    - "Use in any non-commercial or commercial project"
+    - "No API key needed for the stylesheet link"
   caveats:
-    - Usage and redistribution follow each font's license (most use the SIL Open Font License)
+    - "Usage and redistribution follow each font's own license"
+    - "The pages read here list no quota, rate limit, or SLA"
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Adding custom fonts to websites
-  - Improving web typography
-  - Rapid prototyping with diverse font choices
+  - "Adding a web font to a site with a single link tag"
+  - "Loading several families and weights in one stylesheet URL"
+  - "Limiting the characters loaded with the text parameter"
+  - "Controlling font loading with font-display"
+  - "Listing available families in an app through the Developer API"
 quickstartSteps:
-  - 'Visit https://fonts.google.com/ and browse available fonts.'
-  - Select a font and choose desired styles.
-  - Copy the provided embed code (link or CSS import).
-  - Paste the code into your website's HTML or CSS.
-  - Apply the font in your site's CSS using the specified font-family.
+  - "Browse fonts.google.com and pick a family; check which styles and weights it offers."
+  - "Add a stylesheet link such as `https://fonts.googleapis.com/css?family=Tangerine` to your HTML head."
+  - "Request several families by separating the names with a pipe character, and replace spaces in names with plus signs."
+  - "Add other styles or weights after a colon, for example `Tangerine:bold`."
+  - "Style an element with `font-family: 'Font Name', serif;` and always include a fallback font."
+  - "Optionally add the `display` parameter to control what happens while the font loads."
 whenToUse: >-
-  Use Google Fonts to quickly add high-quality, open-source fonts to your
-  website or app with minimal setup.
+  Use Google Fonts when you want a large library of open-source fonts you can add to a page with one link and no programming.
 whenNotToUse: >-
-  Avoid if you require custom, self-hosted, or licensed commercial fonts, or
-  need strict uptime guarantees.
+  Skip it if you need paid commercial typefaces, fonts you serve entirely yourself, or a service with a published uptime guarantee. The pages read here show no SLA.
 bestFor:
-  - web developers
-  - designers
-  - students
-  - startups
+  - "websites and blogs"
+  - "prototypes"
+  - "designers and students"
+  - "commercial projects that use open-source fonts"
 avoidIf:
-  - need commercial font licenses
-  - require self-hosting
-  - require SLA
+  - "you need paid commercial typefaces"
+  - "you need a published SLA"
+  - "you must serve every font file yourself"
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://fonts.google.com/'
-docsUrl: 'https://docs.fonts.google.com'
-pricingUrl: 'https://developers.google.com/fonts/faq'
+docsUrl: "https://developers.google.com/fonts/docs/getting_started"
+pricingUrl: "https://developers.google.com/fonts"
 sourceUrls:
-  - 'https://developers.google.com/fonts/faq'
+  - 'https://developers.google.com/fonts'
+  - 'https://developers.google.com/fonts/docs/getting_started'
+  - 'https://developers.google.com/fonts/docs/technical_considerations'
 featured: false
 ---
-Google Fonts provides a free, easy-to-use library of open-source fonts accessible via CDN, ideal for enhancing web typography without licensing costs.
+You pick a font on fonts.google.com, add a stylesheet link to your page, and use the font name in CSS. The docs say no programming is needed. It suits web developers and designers who want good type with little setup.
+
+## What the free plan gives you
+
+Google Fonts has no paid tier on the pages we read. The Google Fonts home page says all fonts are released under open source licenses and that you can use them in any non-commercial or commercial project. The Fonts API needs no API key for the normal stylesheet link, as the examples use the public URL with no key.
+
+The stylesheet URL can ask for several families separated by a pipe character, plus styles and weights after a colon. You can add a `display` parameter to control what happens while the font loads, and a `subset` parameter to pick script subsets. The `text` parameter loads only the characters you need. The API serves a stylesheet made for the browser that asks for it.
+
+## When you hit a limit
+
+The pages we read list no quota, rate limit, bandwidth cap, or paid plan. No account or card is involved, so there is nothing to bill. The pages do not describe what would happen under extreme traffic, so treat that as unknown.
+
+The limits that matter are about fonts and files. You can only use families in the library, and each family has its own license. Asking for many families can make your pages slow, and the docs warn that most pages do not need many fonts. If you need full control, you can look at the license of a family and host the files yourself.
+
+## Gotchas
+
+- The docs say requesting a lot of fonts may make your pages slow to load, so ask only for the families, styles, and weights you use.
+- Always list a fallback font such as serif or sans-serif in your CSS, so the browser can fall back while the font loads.
+- Browsers differ while a font loads. Some show blank space and others show the default font first, so set the `display` parameter on purpose.
+
+## Alternatives in this atlas
+
+- [Bunny Fonts](/services/bunny-fonts/): when you want a Google Fonts compatible API with no logging or tracking.
+- [Fontsensei](/services/fontsensei/): when you want to browse Google Fonts by style tags.
+- [cdnjs](/services/cdnjs/): when you need a free CDN for open-source libraries, not only fonts.
+
+## Questions people ask
+
+### Is Google Fonts free?
+
+Yes. The Google Fonts home page says all fonts are released under open source licenses and can be used in any non-commercial or commercial project.
+
+### Does Google Fonts need an API key?
+
+Not for the stylesheet link. The examples in the getting started guide use the public URL with no key.
+
+### Can I use Google Fonts on a commercial site?
+
+Yes. The home page says you can use the fonts in commercial projects. Each family has its own license, so check it.

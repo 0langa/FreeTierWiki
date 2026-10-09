@@ -1,8 +1,9 @@
 ---
 title: HTTP Observatory (MDN)
 description: >-
-  HTTP Observatory (formerly Mozilla Observatory) is a free web security scanner
-  that analyzes HTTP response headers and TLS configuration for best practices.
+  HTTP Observatory, built by Mozilla and hosted on MDN, scans a website's HTTP
+  security headers and gives a letter grade with fixes. It is for developers
+  and site owners.
 provider: Mozilla
 category: security
 domain: security
@@ -18,58 +19,103 @@ audiences:
   - oss
   - agency
 tags:
-  - security
-  - web
+  - security-headers
+  - csp
+  - hsts
+  - web-security-scanner
+  - http-headers
+  - observatory
 pricingModel: free
 freeTierDetails:
   summary: Free online tool; anyone can scan any domain, and scan history is public.
   limits:
     - Free to scan any domain
-    - Scan history is public
-    - Free v2 API for scans
+    - Scan history for each domain is public
+    - One new result per site every 60 seconds
+    - Command-line scanner and API available
   caveats:
-    - Scans are public
-    - No private scan option
-    - No private scan option
+    - Scan history is public, and there is no private scan option
+    - It tests headers and related settings, not software versions, SQL injection, or passwords
+    - The old Mozilla Observatory, with its TLS and SSH tests, was sunset in October 2024
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Check web app security headers
-  - Audit TLS configuration
-  - Benchmark security improvements
-  - Educate teams on web security best practices
+  - Checking a site's security headers such as Content-Security-Policy and Strict-Transport-Security
+  - Getting a grade and a list of fixes to share with your team
+  - Tracking whether a header change improved the score
+  - Scanning from a script or CI job with the command-line scanner
 quickstartSteps:
-  - 'Go to https://observatory.mozilla.org/'
-  - Enter your website URL in the input field.
-  - Click 'Scan Me' to start the analysis.
-  - Review the security report and recommendations.
+  - Open developer.mozilla.org/en-US/observatory in a browser. No sign-up is needed.
+  - Type your domain name or URL in the box and select Scan.
+  - Read the grade and the list of recommendations shown together on the report page.
+  - Fix the headers on your server, then scan again. A site can return a new result once every 60 seconds.
+  - To scan from a terminal, run `npx @mdn/mdn-http-observatory example.com` with your own domain.
 whenToUse: >-
-  Use when you need a quick, free assessment of your website's HTTP headers and
-  TLS security configuration.
+  Use it for a quick, free check of the security headers on a public site, and
+  to learn which headers to add first.
 whenNotToUse: >-
-  Avoid if you require private scans or in-depth
-  vulnerability testing beyond headers and TLS.
+  Avoid it if you need private results, a scan of non-public pages, or deep
+  testing for flaws such as SQL injection or outdated software.
 bestFor:
-  - security audits
-  - learning
-  - quick checks
-  - compliance reviews
+  - developers hardening headers
+  - quick checks before a launch
+  - learning web security
 avoidIf:
-  - need private results
-  - need deep vulnerability scanning
+  - you need private scan results
+  - you need to test for SQL injection or outdated software
+  - you need TLS or SSH testing from the same tool
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://developer.mozilla.org/en-US/observatory'
 docsUrl: 'https://developer.mozilla.org/en-US/observatory'
 sourceUrls:
   - 'https://developer.mozilla.org/en-US/observatory'
+  - 'https://developer.mozilla.org/en-US/observatory/docs/faq'
+  - 'https://developer.mozilla.org/en-US/observatory/docs/tests_and_scoring'
+  - 'https://github.com/mdn/mdn-http-observatory'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://developer.mozilla.org/en-US/observatory'
 ---
-HTTP Observatory (built by Mozilla, now hosted on MDN) is a free online tool that helps users assess and improve the security of their web applications by analyzing HTTP headers and TLS configuration. It has scanned over 6.9 million websites through 47 million scans. It is ideal for quick checks, educational purposes, and benchmarking security improvements, but is not suitable for private scans.
+You use it in a browser by typing a domain into the scan box on MDN. A command-line scanner and a self-hosted server are also available. It suits developers and site owners who want to fix security headers.
+
+## What the free plan gives you
+
+The tool is free and needs no account. Anyone can scan any domain. MDN says it has served over 6.9 million websites through 47 million scans since 2016. A scan checks the HTTP headers and other key security settings of a site and returns a score and a letter grade, with recommendations shown together on one page.
+
+Every site starts at a score of 100, then penalties and bonuses apply. The highest possible score is currently 145, and an A+ needs 100 or more. There is also an open-source command-line scanner you can run with `npx`.
+
+## When you hit a limit
+
+There is no plan to outgrow and no bill. The one limit is timing: a site can be scanned, and a new result returned, only once every 60 seconds. If you open a deep link to a report and the last scan is older than 24 hours, it starts a new scan. The pages do not give a cap on the number of scans per day.
+
+## Gotchas
+
+- Scan history for each domain is public. The old private option is gone, and there is no way to hide a scan.
+- An A+ does not mean a site is secure. The tool does not test for outdated software, SQL injection, weak password storage, and more.
+- The old Mozilla Observatory, which also had TLS and SSH tests, was sunset in October 2024. This tool covers HTTP behaviour only.
+
+## Alternatives in this atlas
+
+- [SSLabs.com](/services/sslabs-com/): when you want a deep check of the TLS setup on your server.
+- [TestTLS.com](/tools/testtls-com/): when you want another TLS and certificate check.
+- [Hostedscan.com](/tools/hostedscan-com/): when you want broader scans than headers alone.
+
+## Questions people ask
+
+### Is HTTP Observatory free?
+
+Yes. It is free to use, and you need no account or card. Anyone can scan any domain.
+
+### Can other people see my HTTP Observatory results?
+
+Yes. The scan history for each domain is public. The tool does not store user data related to each scan.
+
+### Can I scan an API with HTTP Observatory?
+
+You can, but it is designed for websites, so the results may not reflect the real security of the API. MDN gives a recommended header set for APIs that return only data.

@@ -21,27 +21,38 @@ that owns the Web Analytics site) plus the repository variables `CLOUDFLARE_ACCO
 the job ends early. Until the first run the hand-picked "Common first picks" card
 (`POPULAR_PICKS`) shows instead.
 
-## Deepen sweep, Day 0 — 2026-10-09 (read this first)
-Day 0 of the one-sweep plan (`docs/plans/2026-10-09-deepen-every-entry.md`) is done on branch
-`deepen/day0`; waiting for the owner's yes before the batches.
-- Validator: `scripts/verify/check-depth.mjs` (`npm run check:depth`, now a CI step after `npm test`),
-  rules in `scripts/verify/lib/depth.mjs`, tests in `tests/unit/verify-depth.test.ts` (also runs the
-  shape check over all real content). `--evidence` checks every body number against pages fetched by
-  `scripts/verify/fetch-evidence.mjs` (`npm run verify:evidence`), stored locally under
-  `development/verify/deepen/evidence/`, plus the fetch date against `lastVerified`/`lastUpdated`.
-- Rendering: a body with `##` sections renders without the "Overview" heading, in a region named
-  "About the free plan"; `.prose-lite` styles `h2`, `h3`, and list spacing. New e2e test in
-  `tests/e2e/detail.spec.ts`.
-- Five hand-made entries: `services/supabase`, `services/cloudflare-workers`, `services/koyeb`,
-  `services/oracle-always-free-compute`, `tools/formsubmit-co`. All pass `check:depth --evidence`.
-  Findings: Supabase's FAQ source URL was a 404 (replaced by three billing docs); Koyeb's FAQ says
-  sign-up selects the Pro plan and charges its pro-rated fee after the card check, and bandwidth
-  overage is not charged yet (frontmatter caveats corrected).
-- Gates: lint, typecheck, unit 149 (16 new), build, budget, e2e (67 passed, 5 skipped) all green.
-- Contributor guide (`CONTRIBUTING.md`) documents the body shape and the two commands.
+## Deepen sweep done — 2026-10-09 (read this first)
+The one-sweep plan (`docs/plans/2026-10-09-deepen-every-entry.md`) is done on branch `deepen/day0`
+(PR #32). Every live entry (696) has the five-section body and passes `npm run check:depth --
+--all --evidence`. 36 worker chunks, each checked against official pages fetched that day; the whole
+entry was reworked, not only pricing (description, use cases, fit text, sign-up and first steps,
+tags, sources). Many frontmatter facts were corrected; entries whose free offer changed got
+`status: changed` and a dated `changes` item.
+- Removed (redirects + changelog): Pastefy and PullFlow (antivirus warns about their sites);
+  Supermaven, Gemini Code Assist, Hugging Face Inference Providers, Huly, HeyForm, Atlas App
+  Services, AWS CodeCommit (free plan or product gone).
+- Site: entry pages have an "On this page" jump menu, fit cards first, a visible "How to get
+  started" list, provider and category links, all sources in the facts box, breadcrumb and FAQPage
+  structured data, and the free-tier summary as meta description. New provider pages
+  (`/provider/<slug>/`, providers with two or more entries) are in the sitemap. The explorer's
+  search text keeps each word once (`searchWords`), so `explorer.json` stays under its budget.
+- Tools: `npm run verify:evidence` (fetch sources), `npm run verify:show` (excerpts),
+  `npm run check:depth` (CI step). Evidence lives in `development/verify/deepen/` (gitignored).
+- Gates: lint, typecheck, unit (156), build, budget (4 of 4), e2e (73 passed, 5 skipped).
 
-Open items: owner yes on the rendered page; then batches of 100 by domain, up to 6 workers in
-worktrees; `--all` flips on after the last batch.
+Open items for the owner:
+1. Merge PR #32 (the merge was blocked for the agent).
+2. Skipped (bodies from frontmatter only, dates unchanged, no page readable): `tools/seotest-me`,
+   `services/contentful` (429 to every fetch), `services/localit`, `services/azure-blob-storage`,
+   `services/azure-disk-storage`.
+3. Worth a decision: `services/gcore` (no clearly labeled free CDN plan), `services/teamhood`
+   (free plan only on the Classic plans page), `services/waiverstevie-com` (free = watermarked test
+   environment), `services/pingbreak-com` (sign-in asks for broad X permissions),
+   `tools/virgil-security` (pages from 2020/2021), `services/azure-ai-face` (approval only),
+   trial-only entries (SendGrid, HostedScan, Seafile, CatchJS, elmah.io).
+4. Recheck by hand: `services/gtmetrix-com` (pricing 403), `services/cloudflare-zero-trust`
+   (50-user figure from a 2021 post), `tools/tomorrow-io-weather-api` (rate figures unverified),
+   `tools/zapier` (webhooks on Free: pricing table and help article disagree).
 
 ## Where things stand — 2026-10-09 (earlier)
 Discovery day. Real traffic measured for the first time: about 90 human visits per 30 days

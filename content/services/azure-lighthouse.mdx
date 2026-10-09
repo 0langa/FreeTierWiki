@@ -1,8 +1,9 @@
 ---
 title: Azure Lighthouse
 description: >-
-  Azure Lighthouse enables cross-tenant management and automation for service
-  providers and enterprises managing multiple Azure environments.
+  Azure Lighthouse lets a service provider or large company manage resources in
+  other Azure tenants from its own tenant, with delegated access that the
+  customer controls.
 provider: Azure
 category: devops
 domain: devops
@@ -16,8 +17,11 @@ audiences:
   - team
   - startup
 tags:
-  - automation
-  - cloud
+  - azure
+  - multitenant management
+  - msp
+  - delegated access
+  - governance
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -36,40 +40,34 @@ freeTierDetails:
   billingRiskNotes:
     - 'Only pay for Azure resources used, not for Lighthouse features'
 useCases:
-  - Managed service provider cross-tenant management
-  - Delegated resource access for clients
-  - Automated policy enforcement across tenants
-  - Centralized monitoring and governance
+  - Manage customer subscriptions and resource groups from your own tenant
+  - Give a service provider limited roles on a scope, which the customer can audit and remove
+  - Use Azure Policy, Microsoft Sentinel, and Azure Arc across several tenants
+  - Let a company with many tenants work from one place
 quickstartSteps:
-  - >-
-    Sign in to the Azure portal with an account that has the required
-    permissions.
-  - >-
-    Create an Azure Lighthouse delegation ARM template or use the Azure portal
-    to onboard a customer tenant.
-  - >-
-    Deploy the delegation template to the customer tenant or invite the customer
-    to onboard.
-  - >-
-    Verify delegated access and manage resources across tenants from your
-    service provider tenant.
+  - Make sure the customer tenant has an active Azure subscription, and collect the tenant IDs and the subscription IDs.
+  - Decide which users, groups, or service principals in your tenant get which Azure built-in roles.
+  - Create an Azure Resource Manager template for the delegation, or create it in the Azure portal.
+  - Deploy the template in the customer's tenant, or have the customer onboard through a Managed Service offer on Microsoft Marketplace.
+  - Check from your own tenant that the delegated subscriptions or resource groups appear and that you can manage them.
 whenToUse: >-
-  Use Azure Lighthouse when you need to manage resources across multiple Azure
-  tenants with delegated access and automation.
+  Use it when you manage Azure resources for other organizations, or for
+  several of your own tenants, and want to sign in once.
 whenNotToUse: >-
-  Avoid if you only manage a single Azure tenant or do not require cross-tenant
-  automation and governance.
+  Skip it if you run a single Azure tenant. The customer tenant also needs an
+  active Azure subscription.
 bestFor:
   - managed service providers
   - IT consultancies
-  - large enterprises
+  - companies with several Azure tenants
 avoidIf:
-  - single-tenant environments
-  - non-Azure workloads
+  - you only have one tenant
+  - the customer has no Azure subscription
+  - your workloads are not on Azure
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-lighthouse/'
@@ -78,6 +76,45 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-lighthouse/
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/azure-lighthouse/'
   - 'https://learn.microsoft.com/en-us/azure/lighthouse/overview'
+  - 'https://learn.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer'
 featured: false
 ---
-Azure Lighthouse provides secure, scalable cross-tenant management, enabling service providers and enterprises to automate and govern resources across multiple Azure environments from a single control plane.
+You set up Lighthouse in the Azure portal or with templates, and then work on customer resources from your own tenant using the tools you already know. Customers keep control of what they delegate.
+
+## What the free plan gives you
+
+Azure Lighthouse is free. The pricing page says it is available at no additional charge. Microsoft built it on Azure delegated resource management, and no tier or quota is listed for it.
+
+You can manage delegated subscriptions and resource groups in a customer's Microsoft Entra tenant from your own tenant. Customers choose the scopes and permissions they delegate, can audit what the service provider does, and can remove access at any time. Enterprises that manage several tenants of their own can use the same setup.
+
+## When you hit a limit
+
+The pricing page lists no limit or paid tier for Lighthouse itself. What you pay for is the services you use through it. Partners who use these capabilities on Azure services, such as Log Analytics and Microsoft Defender for Cloud, keep paying for those underlying services.
+
+If an underlying service is free, such as Azure Policy or Azure Resource Health, it stays free. So the cost risk is low, but it depends on which services you run in the customer's tenant.
+
+## Gotchas
+
+- The customer tenant must have an active Azure subscription to be onboarded.
+- Onboarding takes action in both the service provider's tenant and the customer's tenant.
+- Microsoft recommends assigning the Managed Services Registration Assignment Delete Role, so your users can remove the delegation later. Without it, only a user in the customer's tenant can remove delegated resources.
+
+## Alternatives in this atlas
+
+- [Azure Arc](/services/azure-arc/): when you need to manage servers and clusters outside Azure.
+- [Azure Advisor](/services/azure-advisor/): when you want free recommendations for one tenant's resources.
+- [Azure Cost Management](/services/azure-cost-management/): when you want to watch and budget spend across subscriptions.
+
+## Questions people ask
+
+### Is Azure Lighthouse free?
+
+Yes. Microsoft says Azure Lighthouse is available at no additional charge. You still pay for the underlying services you use through it.
+
+### Does Azure Lighthouse need an Azure subscription?
+
+Yes. The customer tenant needs an active Azure subscription to be onboarded.
+
+### Can customers remove Azure Lighthouse access?
+
+Yes. The docs say customers can audit service provider actions and remove access completely at any time.

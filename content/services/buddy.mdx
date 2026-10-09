@@ -1,8 +1,8 @@
 ---
 title: Buddy
 description: >-
-  Buddy is a CI/CD automation platform for building, testing, and deploying code
-  with pipelines.
+  Buddy runs your build, test, and deploy steps as pipelines that you set up in
+  a visual editor or in YAML, for small teams and solo developers.
 provider: Buddy
 category: devops
 domain: devops
@@ -16,63 +16,125 @@ audiences:
   - team
   - oss
 tags:
-  - ci-cd
-  - automation
+  - ci/cd
+  - pipelines
+  - deployment
+  - build automation
+  - continuous integration
+  - devops
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 1 seat, 1 concurrent pipeline, 300 pipeline GB-minutes,
-    1 GB of pipeline cache, and 730 sandbox GB-hours per month.
+    Free plan: 1 seat, 1 concurrent pipeline, 300 pipeline GB-minutes per month,
+    and 1 GB of pipeline cache. No credit card is required. The workspace is
+    frozen after 60 days without a login.
   limits:
     - 1 seat
     - 1 concurrent pipeline run
-    - 300 pipeline GB-minutes/month
+    - 300 pipeline GB-minutes per month
     - 1 GB pipeline cache
-    - 300 sandbox CPU-minutes/month
-    - 730 sandbox GB-hours/month
   caveats:
-    - No credit card required
-    - Extra seats, concurrency, and GB-minutes are billed per unit on paid plans
+    - No credit card required to sign up
+    - Free workspaces freeze after 60 days with no login and are deleted 30 days
+      later; running pipelines do not count as activity
+    - The pricing page lists sandbox allowances on Free, but the plans page says
+      the free plan excludes Sandboxes and 2FA
+    - After you spend all GB-minutes, Buddy charges per GB-minute once you add a
+      payment method
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - Extra GB-minutes cost $0.0015 each for container and Linux VM actions;
+      macOS and Windows VM actions cost more
+    - Buddy charges only after you add a payment method
 useCases:
-  - Automating code deployments
-  - Continuous integration for open source
-  - Testing code changes before release
+  - Build and test a web app on every push
+  - Deploy a site or app to a server or cloud service after a build
+  - Run automated tests before a release
+  - Chain build, test, and deploy steps in one visual pipeline
 quickstartSteps:
-  - Sign up for a free Buddy account.
-  - 'Connect your GitHub, GitLab, or Bitbucket repository.'
-  - Create a new project and select your repository.
-  - 'Set up a pipeline with build, test, and deploy actions.'
-  - Run the pipeline to automate your workflow.
+  - Go to buddy.works and choose Get Started on Cloud, then sign in with Google,
+    GitHub, GitLab, or Bitbucket. The page says no credit card is required.
+  - Create your workspace. A 14-day trial with Hyper features starts at once;
+    when it ends, pick the Free plan.
+  - Create a project in the workspace and open it. It starts on an empty
+    Pipelines tab.
+  - Click New pipeline. Give it an ID and a description, pick x64 or ARM64, and
+    set the RAM and vCPU for each run.
+  - Add actions such as build, test, or deploy, then run the pipeline and read
+    the log.
 whenToUse: >-
-  Use Buddy when you need simple, visual CI/CD pipelines for small projects or
-  open source repositories.
+  Use Buddy when you want a visual pipeline editor for one small project and can
+  live with one seat and one pipeline running at a time.
 whenNotToUse: >-
-  Avoid Buddy if you require advanced enterprise features, unlimited private
-  projects, or high concurrency for large teams.
+  Avoid it when several people need seats, when you need two pipelines to run at
+  once, or when you need two-factor login or Sandboxes, which the plans page
+  says the free plan lacks. Avoid it if you cannot log in at least every 60
+  days.
 bestFor:
-  - open source projects
-  - small teams
-  - indie developers
+  - solo developers
+  - one small project
+  - visual pipeline setup
 avoidIf:
-  - enterprise-scale needs
-  - high concurrency requirements
+  - more than one seat
+  - parallel pipelines
+  - two-factor login on the free plan
+  - long gaps without logging in
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://buddy.works/'
 docsUrl: 'https://buddy.works/docs'
 sourceUrls:
-  - 'https://buddy.works/pricing'
-  - 'https://buddy.works/docs'
+  - https://buddy.works/pricing
+  - https://buddy.works/docs/basics/billing-and-usage/features
+  - https://buddy.works/docs/basics/billing-and-usage/gbmin
+  - https://buddy.works/docs/pipelines/introduction/creating-pipeline/pipeline-ui
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://buddy.works/pricing'
 ---
-Buddy offers a user-friendly CI/CD platform with a generous free tier for automating builds, tests, and deployments, ideal for small teams and open source.
+You build pipelines in the web editor by adding actions one after another, or you define them in YAML. It suits a single developer who wants build, test, and deploy steps for one project.
+
+## What the free plan gives you
+
+The Free plan costs nothing and includes 1 seat, 1 concurrent pipeline run, 300 pipeline GB-minutes per month, and 1 GB of pipeline cache. A GB-minute is the RAM you give a pipeline multiplied by its run time. A pipeline with 3GB of RAM that runs for 10 minutes uses 30 GB-minutes. The pool resets every month.
+
+Buddy says the Free plan includes the base features, but not 2FA or Sandboxes. The pricing page still lists sandbox allowances for Free, so treat Sandboxes as unconfirmed. New workspaces start with a 14-day trial that has Hyper features. After the trial you pick Free, Pro, or Hyper, and the workspace stays read-only until you choose.
+
+## When you hit a limit
+
+Buddy says that once you spend all GB-minutes in your plan, it charges per minute by action type. The base price is $0.0015 per GB-minute for containers and Linux VMs. macOS and Windows VMs cost more. Buddy takes payment only after you add a payment method, so a free workspace without one has no card to charge.
+
+The pricing page does not say whether a free workspace stops or waits when the pool runs out. Only one pipeline can run at once, so a second run has to wait for the first.
+
+## Gotchas
+
+- A free workspace freezes after 60 days with no activity, and Buddy deletes it for good if you do nothing in the next 30 days. Only a login counts as activity, not scheduled pipeline runs.
+- The workspace goes read-only when the 14-day trial ends, until you select a plan.
+- The pricing page prices Pro in euros and lists extra seats and concurrency in dollars, so check the currency before you upgrade.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when your code is on GitHub and you want CI without leaving it.
+- [CircleCI](/tools/circleci/): when you need more concurrency and a larger free monthly pool.
+- [Buildkite](/services/buildkite/): when you need several users and more than one job running at once on a free plan.
+
+## Questions people ask
+
+### Is Buddy free?
+
+Yes. The Free plan costs nothing and gives you 1 seat, 1 concurrent pipeline, 300 pipeline GB-minutes per month, and 1 GB of cache. The pricing page says no credit card is required.
+
+### What happens when I run out of Buddy GB-minutes?
+
+Buddy says it then charges per minute at $0.0015 per GB-minute for container and Linux VM actions. Charging starts only after you add a payment method.
+
+### Does a free Buddy workspace get deleted?
+
+It can. After 60 days with no login the workspace is frozen, and Buddy deletes it permanently if you do nothing within the next 30 days.

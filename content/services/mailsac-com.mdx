@@ -1,8 +1,9 @@
 ---
 title: Mailsac.com
 description: >-
-  Mailsac provides disposable email inboxes and testing APIs for safe, automated
-  email testing and development.
+  Mailsac gives you test email addresses at mailsac.com that you read in a
+  browser or through a REST API. It is for developers and QA teams who test
+  sign-up and notification emails.
 provider: Mailsac
 category: devops
 domain: devops
@@ -17,67 +18,105 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - testing
-  - api
-  - devops
+  - disposable email
+  - temp mail
+  - email testing
+  - rest api
+  - test automation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes public inboxes, limited message retention, and basic API
-    access.
+    Any public @mailsac.com inbox works with no signup. A free account adds an
+    API key, 1 private address, and 1,500 operations a month.
   limits:
-    - Unlimited public inboxes
-    - '1,500 operations/month (emails received + API calls)'
-    - 50 messages stored before recycling
-    - 'Retention: 20 minutes'
-    - 1 user
+    - Public @mailsac.com inboxes, no signup needed
+    - 'Free account: API key, 1 private address, 1,500 operations/month'
+    - 'Public inbox messages are kept at most 4 days, up to 6 messages per inbox'
   caveats:
-    - No private domains on the free plan
-    - Public inboxes are visible to anyone
+    - Public inboxes are readable by anyone, so use made-up data
+    - No custom domains on the free plan; paid plans add them
+    - Service pauses until the 1st of next month once you pass 125% of the limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Testing email workflows in development
-  - QA for signup and notification emails
-  - Automated email integration tests
+  - Testing sign-up and password-reset emails in development
+  - Waiting for a message in an automated test and reading its code or link
+  - Checking notification emails in a CI pipeline
+  - Forwarding test mail to a webhook, Slack, or WebSocket
 quickstartSteps:
-  - 'Go to https://mailsac.com and sign up for a free account.'
-  - >-
-    Access a public inbox by choosing any email address ending with
-    @mailsac.com.
-  - Send a test email to the chosen address.
-  - Check the inbox for received messages and view email content.
-  - 'Optionally, use the API to automate inbox checks.'
+  - Pick any made-up address at `@mailsac.com`, such as `signup42@mailsac.com`. No inbox needs creating first.
+  - Enter that address in your app's sign-up form, then open the inbox on mailsac.com to read the mail.
+  - Create a free account to get an API key.
+  - Send your key in a `Mailsac-Key` header and call `https://mailsac.com/api/addresses/:email/messages` to list messages.
+  - Read a message body with the `/api/text/:email/:messageId` endpoint.
 whenToUse: >-
-  Use when you need to test email sending or workflows without using real email
-  addresses or risking spam.
+  Use it to test email flows with throwaway addresses and read the mail over a
+  REST API, when made-up data is enough.
 whenNotToUse: >-
-  Avoid if you require private inboxes, custom domains, or production-grade
-  email delivery and security.
+  Avoid it for sensitive data in public inboxes, for custom test domains, or for
+  more than the monthly operations on the free account.
 bestFor:
+  - developers testing sign-up emails
   - QA engineers
-  - developers
-  - test automation
+  - small automated email tests
 avoidIf:
-  - need private inboxes
-  - require custom domains
-  - handling sensitive data
+  - sensitive data in test mail
+  - custom domains on the free plan
+  - test suites that poll the API heavily
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://mailsac.com'
 docsUrl: 'https://docs.mailsac.com/'
 sourceUrls:
   - 'https://mailsac.com/pricing'
+  - 'https://mailsac.com'
   - 'https://docs.mailsac.com/'
+  - 'https://docs.mailsac.com/en/latest/api_examples/getting_started/getting_started.html'
+  - 'https://docs.mailsac.com/en/latest/services/message_storage/message_storage.html'
 pricingUrl: 'https://mailsac.com/pricing'
 featured: false
 ---
-Mailsac offers disposable public inboxes and APIs for safe, automated email testing, making it ideal for development and QA environments without risking real user data.
+You use Mailsac in a browser by picking an address at mailsac.com, or from your tests through its REST API with an API key. It suits developers and testers who need quick inboxes and can live with public mail.
+
+## What the free plan gives you
+
+Any @mailsac.com address works without signup. You make up a name, send mail to it, and read it in the inbox checker. Anyone can read these public inboxes, so use made-up data. The docs say public messages are kept for at most 4 days, with a limit of 6 messages per inbox.
+
+A free account adds an API key, 1 private address, and 1,500 operations a month. An operation is one email received, one API call, or one forward or push such as a webhook or WebSocket. A typical test that receives and reads one email uses about 3 operations. Counts reset on the 1st of each month (UTC).
+
+## When you hit a limit
+
+Mailsac emails you at 80% of your limit and again when you pass it. Service keeps working until 125% of the limit. After that, the API pauses until the 1st of the next month, unless you upgrade. The pricing page does not mention a bill for the free plan, and it asks for no card. Upgrades apply at once. Mail sent to public addresses is also throttled to keep the system available for everyone.
+
+## Gotchas
+
+- Polling the API for new mail spends operations fast. The pricing page suggests webhooks and WebSockets, which use one operation per email.
+- Custom domains are a paid feature. The free account gets 1 private address only.
+- Some websites block disposable email providers like Mailsac, so sign-up mail may never arrive.
+
+## Alternatives in this atlas
+
+- [Mailinator.com](/services/mailinator-com/): when you want public inboxes with no signup at all.
+- [Mailtrap.io](/services/mailtrap-io/): when you want a sandbox that catches mail sent by your own app.
+- [Ethereal Email](/services/ethereal-email/): when you need throwaway SMTP accounts for tests.
+
+## Questions people ask
+
+### Is Mailsac free?
+
+Yes. Public @mailsac.com inboxes need no signup. A free account adds an API key, 1 private address, and 1,500 operations a month.
+
+### What happens when I go over the Mailsac free limit?
+
+You get warning emails at 80% and when you pass the limit. The service continues until 125%, then pauses until the 1st of next month unless you upgrade.
+
+### Does Mailsac need a credit card?
+
+The pricing page lists no card for the free account. Paid plans are billed by card, invoice, or purchase order.

@@ -1,6 +1,9 @@
 ---
 title: Uploadcare
-description: 'File uploader, storage, and image CDN with on-the-fly transformations.'
+description: >-
+  Uploadcare gives you a ready-made file uploader, hosted storage, and a CDN
+  that resizes and converts images and video by URL. It suits product teams
+  that take uploads from users.
 provider: Uploadcare
 category: storage
 domain: storage
@@ -12,44 +15,66 @@ audiences:
   - indie
   - startup
 tags:
-  - storage
-  - images
-  - cdn
+  - file uploader
+  - upload widget
+  - image cdn
+  - image transformation
+  - user uploads
+  - video encoding
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 1,000 operations per month.'
+  summary: 'Free plan: 1,000 operations, 5 GB of traffic per month, and 1 GB of storage. Going over means a temporary suspension until next month.'
   limits:
-    - '1,000 operations per month (uploads, transformations, conversions)'
+    - '1,000 operations per month (uploads, requests, and image transformations)'
+    - 5 GB traffic per month
+    - 1 GB storage (cumulative, not reset each month)
   caveats:
-    - Traffic and storage limits on Free are small; check the plan table
+    - Exceeding the Free limits suspends the account until the start of the next month
+    - Storage counts the original files you keep and does not reset each billing cycle
+    - Different actions cost different numbers of operations, and video encoding uses more
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Drop-in file uploader
-  - Image transformations by URL
+  - A drop-in file upload widget for a web app
+  - Letting users upload from their device, camera, Google Drive, Dropbox, and more
+  - Resizing and optimizing images through URL options
+  - Encoding video in several sizes
 quickstartSteps:
-  - Sign up at uploadcare.com.
-  - Copy your public key.
-  - Add the File Uploader widget.
-whenToUse: Use for a quick upload widget on a small site.
-whenNotToUse: 'Avoid for busy apps; 1,000 operations is small.'
+  - Sign up for an Uploadcare account and create a project in the Dashboard.
+  - Install the File Uploader with npm i @uploadcare/file-uploader, or load it from a CDN such as jsDelivr.
+  - Register the components with UC.defineComponents(UC), and use npm i @uploadcare/react-uploader for React.
+  - Add the uploader to your page and set it up with the keys from your project.
+  - Upload a file, then view it in the Dashboard Files view and serve it from the Uploadcare CDN.
+whenToUse: >-
+  Use it for a quick upload widget and image CDN on a small site, when the free
+  usage is enough.
+whenNotToUse: >-
+  Avoid it for busy apps, because 1,000 operations and 1 GB of storage are
+  small and going over suspends the account.
 bestFor:
   - small sites
+  - side projects
+  - testing an uploader
 avoidIf:
   - high volume
+  - you cannot risk a suspension
+  - you store lots of originals
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 5
 officialUrl: 'https://uploadcare.com'
 docsUrl: 'https://uploadcare.com/docs/'
 sourceUrls:
   - 'https://uploadcare.com/pricing/'
+  - 'https://uploadcare.com/docs/'
+  - 'https://uploadcare.com/docs/file-uploader/'
+  - 'https://uploadcare.com/docs/file-uploader/installation/'
 pricingUrl: 'https://uploadcare.com/pricing/'
 featured: false
 changes:
@@ -57,4 +82,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Uploadcare counts every action on a file as an operation.
+You add the File Uploader web component to your page with npm or a CDN script, or use the React uploader package. Uploadcare then handles uploads, storage, processing, and delivery. It suits apps that take user files.
+
+## What the free plan gives you
+
+The Free plan costs $0 and is built for small-scale projects. It includes 1,000 operations per month, 5 GB of traffic per month, and 1 GB of storage.
+
+Operations are actions tied to your files and API use. Uploading a file, making requests, and asking for image transformations all count as operations, and different actions cost different amounts. Traffic means data moving from the Uploadcare CDN to your users, and between the CDN and Uploadcare's servers.
+
+Storage is the total size of the original files in your account. It is cumulative, so the counter does not reset at the start of a new billing cycle.
+
+## When you hit a limit
+
+Uploadcare says exceeding the Free plan limits results in a temporary suspension until the start of the next month. The service does not bill you on Free.
+
+Paid plans raise the limits and let you go past them, with extra usage billed. Pro costs $66 per month with 5,000 operations. The Business plan costs $166 per month with 50,000 operations. Uploadcare calls its paid limits soft, so overage fees apply automatically.
+
+## Gotchas
+
+- Video encoding costs many operations. A short video in several sizes can use up a large part of the 1,000 free operations.
+- Storage does not reset each month. Delete files you no longer need, or you may hit the 1 GB ceiling.
+- Uploadcare accepts major credit and debit cards on paid plans, but not PayPal or Bitcoin.
+
+## Alternatives in this atlas
+
+- [UploadThing](/services/uploadthing/): when you want an upload button for a TypeScript app with a simple storage limit.
+- [Cloudinary](/services/cloudinary/): when you want a credit-based plan for images and video.
+- [ImageKit](/services/imagekit/): when you want an image CDN with a free plan and a media library.
+
+## Questions people ask
+
+### Is Uploadcare free?
+
+Yes, for small projects. The Free plan includes 1,000 operations per month, 5 GB of traffic per month, and 1 GB of storage.
+
+### What happens when I reach the Uploadcare free limit?
+
+Uploadcare temporarily suspends the account until the start of the next month. Paid plans let you keep going and bill the extra usage.
+
+### Does Uploadcare need a credit card?
+
+The entry records that the Free plan needs no card. Paid plans accept major credit and debit cards.

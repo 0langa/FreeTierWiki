@@ -1,8 +1,9 @@
 ---
 title: Grafana Cloud
 description: >-
-  Managed observability platform offering dashboards, metrics, logs, and traces
-  with a generous always-free tier.
+  Grafana Cloud is a hosted observability stack for dashboards, metrics, logs,
+  traces, and profiles. It suits people who want Grafana and Prometheus-style
+  monitoring without running servers.
 provider: Grafana
 category: observability
 domain: observability
@@ -18,62 +19,64 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - analytics
-  - logging
+  - grafana
+  - prometheus
+  - loki
+  - dashboards
   - observability
-  - cloud
+  - log-management
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always-free plan includes 10k active series for metrics, 50GB logs
-    ingested/month, 50GB traces ingested/month, 3 active users, and 14-day
-    retention. No credit card required.
+    The always-free plan includes 10k active series for metrics, 50GB of logs
+    ingested per month, 50GB of traces ingested per month, 3 active users, and
+    14 days of retention. No credit card required.
   limits:
-    - '10,000 active series for metrics'
+    - '10k active series for metrics'
     - 50GB logs ingested/month
     - 50GB traces ingested/month
     - 3 active users/month (Grafana visualization)
-    - 14-day data retention
+    - 14 days retention for metrics, logs, traces, and profiles
   caveats:
     - No credit card required for the Free plan
     - Community support only on the Free plan
+    - The Pro plan has a platform fee of $19 per month plus usage
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - Usage above the Free limits requires upgrading to a paid plan; no automatic billing without adding payment
+    - Free is described as limited to its quotas; usage above them is pay as you go on the Pro plan, which you must choose yourself
 useCases:
-  - Visualizing application metrics
-  - Centralized log aggregation
-  - Distributed tracing
-  - Alerting and monitoring
+  - Build dashboards for application and server metrics
+  - Collect and search logs in one place
+  - Trace requests across services
+  - Set up alerts on metrics and logs
+  - Test APIs and sites with synthetic checks
 quickstartSteps:
-  - Sign up for a Grafana Cloud account.
-  - Create a new stack from the dashboard.
-  - 'Connect your data sources (Prometheus, Loki, Tempo, etc.).'
-  - Import or build dashboards to visualize your data.
-  - Set up alerts as needed.
+  - Create a Grafana Cloud account from the pricing page; the Free plan needs no credit card.
+  - Open your Grafana Cloud stack from your account page.
+  - 'Pick a path: connect an externally managed data source, or send telemetry to Grafana Cloud.'
+  - Use the Instrumentation Hub to find the integration for your service, or install Grafana Alloy as the collector.
+  - Create a dashboard to visualize the data you send.
 whenToUse: >-
-  Use Grafana Cloud to quickly set up dashboards, metrics, logs, and traces
-  without managing infrastructure.
+  Use Grafana Cloud when you want managed Grafana dashboards with metrics,
+  logs, and traces, and your volume fits inside the free quotas.
 whenNotToUse: >-
-  Avoid if you need unlimited data retention, advanced integrations, or want to
-  self-host for full control.
+  Avoid it if you need more than 14 days of retention, more than 3 active users,
+  or email support. Those need the paid Pro plan.
 bestFor:
-  - monitoring SaaS apps
-  - dev/test environments
-  - small teams
-  - open source projects
+  - side projects and open-source projects
+  - small teams starting with monitoring
+  - learning Grafana, Loki, and Prometheus
 avoidIf:
-  - need on-premise hosting
-  - require unlimited retention
-  - have strict data residency needs
+  - you need long retention
+  - you need more than 3 users
+  - you need on-premise hosting
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://grafana.com/products/cloud/'
@@ -81,8 +84,48 @@ docsUrl: 'https://grafana.com/docs/grafana-cloud/'
 sourceUrls:
   - 'https://grafana.com/pricing/'
   - 'https://grafana.com/docs/grafana-cloud/'
+  - 'https://grafana.com/docs/grafana-cloud/get-started/'
+  - 'https://grafana.com/docs/grafana-cloud/send-data/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://grafana.com/pricing/'
 ---
-Grafana Cloud provides a managed observability platform with free access to metrics, logs, and traces, ideal for small teams and projects.
+You work in the hosted Grafana web interface and send data with a collector such as Grafana Alloy or with data source connections. It fits people who already know Grafana or Prometheus.
+
+## What the free plan gives you
+
+The Always free plan costs $0 and needs no credit card. It includes all Grafana Cloud services, with usage limits. Metrics are limited to 10k active series per month. Logs and traces are each limited to 50 GB ingested per month. Grafana visualization is limited to 3 active users per month.
+
+Retention is 14 days for metrics, logs, traces, profiles, and k6 performance tests. Support comes from the community. The pricing page also lists free allowances for other products, such as 3 active IRM users per month.
+
+## When you hit a limit
+
+The pricing page describes the free plan as limited to these quotas, but it does not say what Grafana does when you go over them. Paying more is a choice you make: the Pro plan costs $19 per month plus usage, and above the free tier you pay as you go.
+
+Pro also brings 8x5 email support, 13 months of metrics retention, and 30 days of retention for logs, traces, and profiles. Check your usage in the Grafana Cloud portal before you send a lot of data.
+
+## Gotchas
+
+- Retention is short: 14 days on Free for every signal, against 13 months for metrics on Pro.
+- Only 3 active users fit in Grafana visualization on the Free plan, so a growing team will hit that first.
+- Usage is counted in different ways per product: active series for metrics, GB ingested for logs and traces.
+
+## Alternatives in this atlas
+
+- [Axiom](/services/axiom/): when you mainly need log storage and search.
+- [Honeycomb](/services/honeycomb/): when you want trace-first debugging.
+- [Datadog](/services/datadog/): when you want an all-in-one hosted monitoring product.
+
+## Questions people ask
+
+### Is Grafana Cloud free?
+
+Yes. The Always free plan costs $0 with no credit card. It has limits such as 10k active series for metrics and 50 GB of logs per month.
+
+### How long does Grafana Cloud keep free data?
+
+The Free plan keeps metrics, logs, traces, profiles, and k6 performance tests for 14 days. Pro keeps metrics for 13 months.
+
+### Does Grafana Cloud need a credit card?
+
+No. The pricing page says no credit card is required for the free tier.

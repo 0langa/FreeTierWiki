@@ -1,8 +1,9 @@
 ---
 title: Beeceptor
 description: >-
-  Beeceptor provides a free API endpoint for mocking, intercepting, and
-  inspecting HTTP requests during development.
+  Beeceptor gives you a public HTTP endpoint that records every request and can
+  answer with mock responses you define. Developers and testers use it to fake
+  APIs and inspect webhooks.
 provider: Beeceptor
 category: devops
 domain: devops
@@ -17,9 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - testing
-  - integration
+  - mock api
+  - api mocking
+  - webhook testing
+  - http inspector
+  - service virtualization
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,6 +30,8 @@ freeTierDetails:
     card required.
   limits:
     - 50 requests/day per endpoint
+    - 3 mock rules per endpoint
+    - Public endpoint access
     - AI Agents & Copilot features limited on free plan
   caveats:
     - Unclaimed free endpoints are deleted after 30 days; claiming an
@@ -39,33 +44,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Mocking APIs during frontend development
-  - Testing webhooks from third-party services
-  - Debugging HTTP requests without backend setup
+  - Fake a backend API while the frontend is being built
+  - Receive and inspect webhook calls from another service
+  - Return fixed errors or slow responses to test how a client copes
+  - Build a mock server from an OpenAPI specification
 quickstartSteps:
-  - Sign up at beeceptor.com with your email.
-  - Create a new endpoint and name it.
-  - Configure rules or mock responses as needed.
-  - Point your application's HTTP requests to the Beeceptor endpoint.
-  - Inspect requests and responses in the Beeceptor dashboard.
+  - Open beeceptor.com and choose Create Endpoint; the pricing page says the free plan needs no signup.
+  - Name the endpoint with 5 to 40 characters; only dashes are allowed as special characters, not at the start or end.
+  - Send an HTTP request to the URL it creates, for example `my-api.free.beeceptor.com`.
+  - Open the dashboard page at `app.beeceptor.com/console/` plus your endpoint name to see the request.
+  - Add a mock rule that matches a request and returns the status, headers, and body you need.
 whenToUse: >-
-  Use Beeceptor when you need to mock or inspect HTTP requests without setting
-  up a backend or during early development.
+  Use it to inspect a webhook or fake a small API for a test, when fewer than
+  50 requests a day reach each endpoint.
 whenNotToUse: >-
-  Avoid if you require high request volumes, custom domains, or advanced
-  integrations; consider alternatives for production APIs.
+  Skip it for load tests, for more than 3 mock rules, or for private endpoints on
+  the free plan. The free plan has 50 requests a day per endpoint and a public endpoint.
 bestFor:
-  - frontend developers
-  - QA engineers
-  - students
+  - webhook debugging
+  - small mocks for frontend work
+  - quick API experiments
 avoidIf:
-  - need high throughput
-  - require custom domains
-  - need advanced automation
+  - you send more than 50 requests a day to one endpoint
+  - you need more than 3 mock rules
+  - you need a private endpoint
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://beeceptor.com'
@@ -73,7 +79,46 @@ docsUrl: 'https://docs.beeceptor.com'
 sourceUrls:
   - 'https://beeceptor.com/pricing'
   - 'https://beeceptor.com/docs'
+  - 'https://beeceptor.com/docs/create-endpoint/'
 pricingUrl: 'https://beeceptor.com/pricing'
 featured: false
 ---
-Beeceptor is a user-friendly API mocking and request inspection tool, ideal for development and testing scenarios with limited traffic or simple requirements.
+You work in the Beeceptor web dashboard: create an endpoint, send requests to it, and add mock rules. Docs also cover a management API, OpenAPI imports, and an MCP mode for AI tools.
+
+## What the free plan gives you
+
+The free plan costs $0 per month and the pricing page calls it forever-free. It allows 50 requests per day per endpoint and 3 mock rules. The endpoint is public, and dynamic and conditional mock responses are enabled.
+
+The page says no signup and no credit card are required. AI Agents and Copilot are limited on this plan. You can use the free plan for commercial work as long as you stay within the daily request limit. Mock rules let you match a request and return the status, headers, body, and delay your test needs, and you can also import an API specification to get a mock server.
+
+## When you hit a limit
+
+The pricing page lists the daily limit of 50 requests but does not say what the endpoint does after the 50th request. It does not describe a bill for the free plan either, and it needs no card.
+
+To get more, the Individual plan costs $10 per month and allows 15,000 requests per month per endpoint. The Team plan costs $25 per month with 100,000 requests per month. Unclaimed free endpoints are deleted 30 days after creation, and claiming an endpoint extends that to 90 days from creation.
+
+## Gotchas
+
+- The endpoint access on the free plan is listed as public, while paid plans list private access.
+- An unclaimed endpoint is cleaned up after 30 days, and a claimed one after 90 days from creation.
+- The free plan has 3 mock rules per endpoint, while the Individual plan allows up to 50.
+
+## Alternatives in this atlas
+
+- [Webhook.site](/services/webhook-site/): when you only need to catch and read webhook calls.
+- [MockAPI](/tools/mockapi/): when you want a fake REST API with stored data.
+- [Mocko.dev](/tools/mocko-dev/): when you want another mock server service for tests.
+
+## Questions people ask
+
+### Is Beeceptor free?
+
+Yes. The free plan costs $0 and allows 50 requests per day per endpoint. It needs no credit card.
+
+### Does Beeceptor need a signup?
+
+The pricing page says the free plan needs no signup and no credit card. You can create an endpoint from the home page.
+
+### How long do Beeceptor free endpoints last?
+
+Unclaimed free endpoints are cleaned up 30 days after creation. Claiming an endpoint extends retention to 90 days from its creation date.

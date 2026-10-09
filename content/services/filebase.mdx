@@ -1,6 +1,9 @@
 ---
 title: Filebase
-description: S3-compatible object storage and IPFS pinning in one service.
+description: >-
+  Filebase gives you an S3-compatible object store and IPFS pinning in one
+  account. It suits developers who test IPFS projects or want S3 storage with
+  free downloads.
 provider: Filebase
 category: storage
 domain: storage
@@ -12,46 +15,71 @@ audiences:
   - indie
   - startup
 tags:
-  - storage
-  - cloud
+  - ipfs
+  - ipfs pinning
+  - object storage
+  - s3 compatible
+  - ipns
+  - bucket
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 5 GB shared across object storage and IPFS, for testing and learning.'
+  summary: 'Free plan: 5 GB of storage shared across object storage and IPFS, 500 pinned files, and 10 GB of IPFS egress, for testing and learning.'
   limits:
     - 5 GB storage (object storage and IPFS together)
+    - 500 pinned files
+    - 10 GB IPFS egress
     - '100,000 Class A operations'
-    - 1 IPNS name
+    - '1,000,000 Class B operations'
+    - 1 bucket and 1 IPNS name
   caveats:
     - Custom domains need Pro
+    - Extra storage, extra IPFS bandwidth, and extra operations are not offered on Free
+    - Image transformations are limited on Free, and delivery counts against the included egress
+    - Disposable email addresses are not accepted at sign-up
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Pin files to IPFS
-  - S3-compatible storage for tests
+  - Pinning files to IPFS and sharing them by CID
+  - S3-compatible storage for tests and small projects
+  - Hosting a small website on IPFS with an IPNS name
+  - Trying a switch away from AWS S3 by changing the endpoint
 quickstartSteps:
-  - Sign up at filebase.com.
-  - Create a bucket.
-  - Upload with the S3 API or the dashboard.
-whenToUse: Use to test IPFS pinning or S3 storage.
-whenNotToUse: Avoid for production storage on the free plan.
+  - Go to filebase.com/signup, enter an email address and a password, and click the confirmation link in the email. No card is needed.
+  - Sign in to the Filebase Console and click Buckets, then Create Bucket.
+  - Name the bucket and choose private or public access.
+  - Click Access Keys in the console to see your Access Key ID and Secret Access Key.
+  - Point the AWS CLI or an AWS SDK at the endpoint https://s3.filebase.io with region auto, and upload a file.
+whenToUse: >-
+  Use it to test IPFS pinning or S3-style storage on a small scale, with no
+  card.
+whenNotToUse: >-
+  Avoid it for production on the free plan, for more than one bucket, or if you
+  need a custom domain.
 bestFor:
   - IPFS projects
   - learning
+  - S3 tests
 avoidIf:
-  - production
+  - production use
+  - you need custom domains
+  - you need more than one bucket
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://filebase.com'
 docsUrl: 'https://docs.filebase.com'
 sourceUrls:
   - 'https://filebase.com/pricing/'
+  - 'https://filebase.com/docs/'
+  - 'https://filebase.com/docs/get-started/sign-up'
+  - 'https://filebase.com/docs/get-started/create-a-bucket'
+  - 'https://filebase.com/docs/get-started/access-keys'
 pricingUrl: 'https://filebase.com/pricing/'
 featured: false
 changes:
@@ -59,4 +87,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Filebase's free plan is meant for testing and learning.
+You use Filebase through its web console, any S3 client or AWS SDK, or the IPFS tools. It suits developers who want an easy place to pin files or to try S3 storage.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and is meant for testing and learning. It includes 5 GB of storage, shared across object storage and IPFS. You also get 500 pinned files, which are IPFS objects kept for persistence on the network.
+
+IPFS egress is 10 GB. Object egress, meaning downloads from object storage, is listed as free. Class A operations are write-heavy requests such as uploads, and Class B operations are reads such as downloads. The Free plan includes 100K Class A and 1M Class B operations.
+
+You get 1 bucket and 1 IPNS name. Image storage is 5 GB too, with limited transformations.
+
+## When you hit a limit
+
+The pricing page does not say what Filebase does when you reach a limit. It lists additional storage, extra IPFS bandwidth, and extra operations as not included on the Free plan, and no card is needed. So the entry records no overage bill.
+
+To get more, you move to Pro at $7.50 per month. Pro includes 500 GB of storage, unlimited pinned files, 250 GB of IPFS egress, and custom domains. Extra storage then costs $0.015 per GB.
+
+## Gotchas
+
+- The sign-up guide mentions 5 GB of bandwidth per month for S3 storage, but the pricing page lists object egress as free. Check your limits in the console.
+- Free accounts get one bucket and one access key pair per account.
+- Custom domains are a Pro feature, and disposable email addresses are not accepted at sign-up.
+
+## Alternatives in this atlas
+
+- [Backblaze B2](/services/backblaze-b2/): when you need more free storage for plain S3 use and no IPFS.
+- [Tigris](/services/tigris/): when you want S3 storage that spreads across regions.
+- [Cloudflare R2](/services/cloudflare-r2/): when you serve many downloads and can add a payment method.
+
+## Questions people ask
+
+### Is Filebase free?
+
+Yes, within limits. The Free plan gives you 5 GB of storage shared across object storage and IPFS, 500 pinned files, and 10 GB of IPFS egress.
+
+### Does Filebase need a credit card?
+
+No. The sign-up guide says a Filebase account is free to create with no credit card. You do need a confirmed email address.
+
+### What does Filebase Pro cost?
+
+Pro costs $7.50 per month and includes 500 GB of storage. Extra storage is $0.015 per GB.

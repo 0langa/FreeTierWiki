@@ -1,8 +1,9 @@
 ---
 title: Financial Data
 description: >-
-  Provides free access to real-time and historical financial market data via
-  APIs.
+  Financial Data is a REST API for stock, ETF, commodity, and OTC market data with a Python SDK. The
+  free plan covers symbol lists and daily historical prices. It suits learners, researchers, and
+  hobby developers.
 provider: Financial Data
 category: analytics
 domain: analytics
@@ -16,39 +17,57 @@ audiences:
   - startup
   - oss
 tags:
-  - api
+  - financial data api
+  - stock prices
+  - historical prices
+  - stock symbols
+  - python sdk
+  - market data
+  - etf
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan allows 300 requests per day with REST API and Python SDK access
-    to symbol lists and market/miscellaneous data.
+    Free plan allows 300 requests per day with REST API and Python SDK access to symbol lists and
+    daily historical price endpoints.
   limits:
-    - 300 requests/day
+    - 300 requests per day
     - REST API and Python SDK included
-    - Symbol lists and market/miscellaneous data endpoints
+    - 'Symbol lists for stocks, ETFs, commodities, and OTC'
+    - 'Daily historical stock, commodity, and OTC prices'
   caveats:
-    - Higher-volume paid plans use flat-rate subscriptions at 10, 30, or 50 requests/second
+    - Real-time quotes and many other endpoints need a paid plan
+    - The Free plan is listed under Personal Use; commercial use has its own plans
+    - 'Paid plans use flat-rate subscriptions at 10, 30, or 50 requests per second'
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Building stock market dashboards
-  - Academic research on financial data
-  - Prototyping trading bots
+  - Build a stock price chart from daily history
+  - 'List all tradable stock, ETF, or commodity symbols'
+  - Backtest a simple idea on historical prices
+  - Teach a data course with real market data
+  - Prototype a dashboard before paying for real-time data
 quickstartSteps:
-  - 'Sign up for a free account at https://financialdata.net/.'
-  - Verify your email and log in to the dashboard.
-  - Generate an API key from your account settings.
-  - Review API documentation for endpoint usage.
-  - Make your first API request using your key.
+  - Create a free account on financialdata.net and get your API key.
+  - >-
+    Open the documentation and pick an endpoint marked Free subscription, such as Stock Symbols or
+    Stock Prices.
+  - >-
+    Add your key to the end of the request URL as ?key=API_KEY, or &key=API_KEY if the URL already
+    has parameters.
+  - Use the offset parameter to page through endpoints that cap records per call.
+  - >-
+    Optionally call the API through the official Python SDK, which is on GitHub, or use the Excel
+    add-in or MCP server.
+  - Count your calls. The Free plan allows 300 requests per day.
 whenToUse: >-
-  Use when you need free, basic access to real-time or historical financial data
-  for prototyping or educational projects.
+  Use it when you need free symbol lists and daily historical prices for prototyping, learning, or
+  personal projects.
 whenNotToUse: >-
-  Avoid if you require high request volumes, premium data feeds, or guaranteed
-  real-time accuracy for production trading.
+  Avoid it if you need real-time quotes, option or futures data, high request volumes, or commercial
+  use, since those need paid plans.
 bestFor:
   - prototyping
   - learning
@@ -56,19 +75,63 @@ bestFor:
   - academic research
 avoidIf:
   - high-frequency trading
-  - enterprise analytics
+  - need real-time quotes
+  - commercial products on the free plan
   - mission-critical production
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://financialdata.net/'
-docsUrl: 'https://docs.financialdata.net'
+docsUrl: 'https://financialdata.net/documentation'
 sourceUrls:
   - 'https://financialdata.net/pricing'
+  - 'https://financialdata.net/'
+  - 'https://financialdata.net/documentation'
 pricingUrl: 'https://financialdata.net/pricing'
 featured: false
 ---
-Financial Data offers a free API for accessing real-time and historical market data, suitable for learning, prototyping, and non-commercial projects.
+
+You send HTTP requests to the REST API with your key at the end of the URL, or use the official Python SDK. There is also an Excel add-in and an MCP server. It suits students, researchers, and hobby builders who want market history without paying.
+
+## What the free plan gives you
+
+The Free plan costs $0 and allows 300 requests per day. It includes the REST API and the Python SDK. The pricing page lists it under Personal Use.
+
+Free covers a limited set of endpoints. In the documentation, they are stock symbols, international stock symbols, ETF symbols, commodity symbols, and OTC symbols. They also include daily stock prices, commodity prices, OTC prices, and OTC volume. Stock prices give more than 10 years of daily history, with a limit of 300 records per call. Symbol endpoints return up to 500 records per call, and you page with the offset parameter.
+
+Real-time quotes, minute prices, options, futures, and many other data sets need a paid plan. Paid plans are priced by speed, not by volume. Standard is $29 per month, Premium is $69, Professional is $149, and Enterprise is $299.
+
+## When you hit a limit
+
+The documentation says Free includes up to 300 requests per day. It does not say what the API returns after that. The site also says billing is flat-rate, with no overage charges, licensing fees, or other unexpected costs, so you will not get a bill.
+
+Paid tiers raise the rate to 10, 30, or 50 requests per second. The site says there are no bandwidth quotas on any plan. If you need more than 300 requests per day, you must move up.
+
+## Gotchas
+
+- Most endpoints are not free. Check the label next to each endpoint in the documentation before you plan around it.
+- Each call to a list or price endpoint returns a capped number of records, so one request may not return a full history. You page with offset, which uses up more of your 300 requests.
+- The Free plan sits under Personal Use. Commercial use has its own plans.
+
+## Alternatives in this atlas
+
+- [Market Data API](/tools/market-data-api/): when you want real-time and historical market data with spreadsheet formulas.
+- [Earnings Feed](/services/earnings-feed/): when you want SEC filings and insider trades instead of prices.
+- [RapidAPI](/tools/rapidapi/): when you want to compare other data APIs in one marketplace.
+
+## Questions people ask
+
+### Is the Financial Data API free?
+
+Yes, there is a Free plan with 300 requests per day, the REST API, and the Python SDK. It covers symbol lists and daily historical prices.
+
+### Does the Financial Data free plan include real-time prices?
+
+No. The documentation marks real-time stock quotes as a Premium endpoint. The Free plan covers daily historical data and symbol lists.
+
+### Will Financial Data charge me for going over the limit?
+
+The site says billing is flat-rate with no overage charges. The Free plan stops at 300 requests per day, so you move up to a paid plan for more.

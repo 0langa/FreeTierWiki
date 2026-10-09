@@ -1,8 +1,9 @@
 ---
 title: Logzab.com
 description: >-
-  LogZab provides managed audit trail as a service, with a free development
-  tier for developers and companies.
+  LogZab is a managed audit trail service: your app sends who did what, and
+  LogZab stores it for review. It is for developers and companies that need
+  audit logs for compliance or fraud checks.
 provider: LogZab
 category: observability
 domain: observability
@@ -17,51 +18,55 @@ audiences:
   - team
   - oss
 tags:
-  - logging
+  - audit-log
+  - audit-trail
   - compliance
-  - devops
-  - observability
+  - fraud-detection
+  - logging
 pricingModel: freemium
 freeTierDetails:
-  summary: Free development tier includes up to 5 apps and 1,000 audit log entries per month.
+  summary: 'The Always Free tier includes all audit trail features for up to 5 apps, with 1,000 audit logs per month and 1 month of retention. The home page says it is for development.'
   limits:
     - Up to 5 apps
-    - '1,000 audit log entries/month'
+    - '1,000 audit logs/month'
     - 1 month retention
   caveats:
-    - Free tier is for development purposes; production use needs a paid plan
-    - Not suitable for high-volume audit trail workloads
+    - The home page frames the free start as for development purpose; check before using it in production
+    - Deleting an app does not raise the audit log limit; it resets the next month
+    - Paid plans start at $29 per month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add audit trails to an app during development
-  - Detect internal fraud or data inconsistencies
+  - Record who created, edited, or deleted data in an app
+  - Spot internal fraud or data inconsistencies
   - Prototype compliance logging before choosing a paid plan
+  - Keep an audit trail for a third-party audit
 quickstartSteps:
-  - 'Go to https://logzab.com/ in your browser.'
-  - Create a free development account.
-  - Connect your app to send audit log entries.
-  - Review audit trail entries in the dashboard.
+  - Register for the free tier on logzab.com.
+  - Create your first project, which is the workspace for one application.
+  - Open the Overview tab in the project summary and copy the auto-generated API key.
+  - Send a POST request to `https://api.logzab.com/v1/addTrail` with a JSON body that has `apiKey`, `actor.name`, `object`, `action`, and `path`.
+  - Check the new entry in the dashboard.
 whenToUse: >-
-  Use Logzab.com to prototype audit trail and compliance logging for an app
-  during development.
+  Use LogZab to try audit trail logging in an app under development, where 1,000
+  entries a month are enough.
 whenNotToUse: >-
-  Avoid for production or high-volume audit trail needs, since the free tier is
-  scoped to development use only.
+  Avoid it for production or high-volume audit trails if you rely on the free
+  tier, since the home page presents it as a development start.
 bestFor:
   - development and prototyping
   - compliance logging trials
   - small apps
 avoidIf:
   - production audit trail workloads
-  - requiring long-term retention
+  - long-term retention
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://logzab.com/'
@@ -70,6 +75,47 @@ pricingUrl: 'https://logzab.com/pricing'
 sourceUrls:
   - 'https://logzab.com/'
   - 'https://logzab.com/pricing'
+  - 'https://logzab.com/pricing/'
+  - 'https://faleddo.gitbook.io/logzab/'
+  - 'https://faleddo.gitbook.io/logzab/api-endpoints/add-audit-log.md'
 featured: false
 ---
-Logzab.com (LogZab) offers managed audit trail as a service, with a free development tier for up to 5 apps and 1,000 audit log entries a month.
+You call a single HTTP endpoint from your app each time a user does something worth recording, and review the entries in the LogZab dashboard. It suits small apps that need an audit log without building one.
+
+## What the free plan gives you
+
+The Always Free tier includes all audit trail features. It allows up to 5 apps, 1,000 audit logs per month, and 1 month of retention. You register for free and can upgrade at any time.
+
+LogZab counts audit logs from the first day of the month to the last. The paid plans have unlimited apps. The first paid plan costs $29 per month with 10,000 audit logs per month and 1 year of retention. The next costs $49 per month with 20,000 audit logs and 3 years of retention.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 1,000 audit logs on the free tier. The limit is a monthly count, and it resets automatically the next month.
+
+Deleting an app does not give the limit back. Only the monthly reset does. To log more entries, move to a paid plan, which you can do at any time.
+
+## Gotchas
+
+- The home page says plans start free for development purpose, so do not plan production audit trails on the free tier.
+- Deleting an app does not raise the audit log limit.
+- Retention on Free is 1 month, which is short for audits.
+
+## Alternatives in this atlas
+
+- [Axiom](/services/axiom/): when you want general log storage and search.
+- [Logflare.app](/services/logflare-app/): when you want an HTTP log store with a free plan.
+- [Better Stack (Logtail)](/services/logtail-com/): when you want hosted log management.
+
+## Questions people ask
+
+### Is LogZab free?
+
+Yes. The Always Free tier gives you up to 5 apps and 1,000 audit logs per month, with 1 month of retention. You can register for free.
+
+### Can I use the LogZab free tier in production?
+
+The home page says plans start free for development purpose. Treat the free tier as a development start and move to a paid plan for production.
+
+### What does an audit log entry contain in LogZab?
+
+Each entry has the user who acted, the object, the action such as create or edit, and the app path. Fields such as description and tag are optional.

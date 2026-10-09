@@ -1,8 +1,8 @@
 ---
 title: Flagsmith
 description: >-
-  Feature flag and remote config management platform for web and mobile
-  applications.
+  Flagsmith lets you turn features on and off and change settings in a live app without a new
+  deploy. It is for developers on web, mobile, and server apps, and it is open source.
 provider: Flagsmith
 category: devops
 domain: devops
@@ -16,54 +16,77 @@ audiences:
   - team
   - oss
 tags:
-  - collaboration
-  - open-source
+  - feature flags
+  - feature toggles
+  - remote config
+  - a/b testing
+  - open source
+  - openfeature
+  - segments
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free tier for up to 50,000 requests/month, 1 team member, and unlimited feature flags.'
+  summary: >-
+    Free plan: up to 50,000 requests/month, 1 team member, 1 project, and unlimited feature flags,
+    environments, identities, and segments.
   limits:
-    - '50,000 requests/month'
+    - '50,000 requests per month'
     - 1 team member
-    - Unlimited feature flags, environments, identities and segments
+    - 1 project
+    - 'Unlimited feature flags, environments, identities, and segments'
+    - API access
   caveats:
-    - No SLA or premium support
-    - Self-hosting is limited on the free plan
-    - Free plan users get 7 days to upgrade before action is taken on overage
+    - Email technical support starts on the Start-Up plan, not on Free
+    - >-
+      No A/B or multivariate testing and no third-party integrations on the Free plan; those start
+      on Start-Up
+    - >-
+      If you go over, Flagsmith keeps serving flags; free-plan users have 7 days to upgrade before
+      any action is taken
+    - 'Start-Up costs $45 per month, or $40 per month if paid yearly, with a 14-day free trial'
+    - Unlimited flags and identities are covered by a fair usage policy
   billingRiskNotes:
-    - Extra requests are not billed automatically on the free plan; you get 7 days to upgrade before action is taken
+    - >-
+      Flagsmith keeps serving flags when you pass the free request limit, then asks you to upgrade
+      within 7 days
+    - Additional API calls on paid plans start at $50 per million per month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
 useCases:
-  - Toggle features without redeploying
-  - Segment-based targeting
-  - Gradual feature rollouts
-  - Remote configuration management
+  - Showing or hiding a feature without redeploying
+  - Rolling a feature out to a segment of users
+  - Changing a remote setting in a mobile app
+  - Running a gradual release and turning it off fast if it fails
 quickstartSteps:
-  - Sign up for a Flagsmith account.
-  - Create a new project and environment.
-  - Define feature flags in your environment.
-  - Integrate the Flagsmith SDK into your app.
-  - Use feature flags in your code to control features.
+  - Open the Flagsmith dashboard on the SaaS platform (or run a self-hosted instance with Docker).
+  - Create a Project and your first feature flag.
+  - Copy the Environment ID (the API key) from the Environment Settings page.
+  - >-
+    Add a Flagsmith SDK to your app, for example the JavaScript SDK, and call `flagsmith.init` with
+    that Environment ID.
+  - >-
+    Check the flag in your code, for example with `flagsmith.hasFeature`, then flip it in the
+    dashboard to see the app change.
 whenToUse: >-
-  Use Flagsmith when you need to manage feature flags or remote configuration
-  for web or mobile apps with minimal setup.
+  Use Flagsmith to control features and remote config in a small app, alone, with an open-source
+  tool you can also self-host.
 whenNotToUse: >-
-  Avoid if you need on-premise/self-hosted features in the free tier or require
-  advanced enterprise integrations.
+  Avoid the free plan if you need more than 1 team member or more than 1 project, or if you need A/B
+  testing, integrations, or support.
 bestFor:
-  - feature flag management
-  - remote config
-  - experimentation
+  - solo developers
+  - 'small apps under 50,000 requests a month'
+  - teams that want an open-source feature flag tool
 avoidIf:
-  - require self-hosted free tier
-  - need advanced enterprise features
+  - you need more than 1 team member
+  - you need A/B testing on the free plan
+  - you need an SLA or priority support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://flagsmith.com'
@@ -71,7 +94,48 @@ docsUrl: 'https://docs.flagsmith.com/'
 sourceUrls:
   - 'https://flagsmith.com/pricing'
   - 'https://docs.flagsmith.com/'
+  - 'https://docs.flagsmith.com/quickstart'
 pricingUrl: 'https://flagsmith.com/pricing'
 featured: false
 ---
-Flagsmith offers a generous free tier for feature flag management, supporting unlimited flags and environments with a monthly request cap. It's ideal for teams and projects needing remote configuration or experimentation without complex setup. The platform is easy to integrate and supports open-source usage, but advanced enterprise features and self-hosted options require paid plans.
+You work in the Flagsmith dashboard and read flags in your app through an SDK or the API. The code is open source, so you can also host it yourself. This entry suits solo developers and very small teams.
+
+## What the free plan gives you
+
+The Free plan costs $0. It includes up to 50,000 requests per month, 1 team member, 1 project, and API access. It also includes unlimited feature flags, unlimited environments, and unlimited identities and segments. A fair usage policy applies to the unlimited items.
+
+The Free plan does not list A/B or multivariate testing, third-party integrations, scheduled flags, or two-factor authentication. The Start-Up plan adds these, plus 1,000,000 requests per month, 3 team members, unlimited projects, and email support.
+
+The docs show SDKs for client-side and server-side apps, an API, and OpenFeature compatibility.
+
+## When you hit a limit
+
+The pricing FAQ says Flagsmith keeps serving flags to your users when you go over. It notifies you by email and in the app. On a free plan you then have 7 days to upgrade before any action is taken. The FAQ does not say what that action is.
+
+Paid plans work differently. Overage charges apply, and additional API calls start at $50 per million per month. The Start-Up plan costs $45 per month, or $40 per month when paid yearly, and it has a 14-day free trial.
+
+## Gotchas
+
+- The Free plan allows only 1 team member and 1 project. You cannot invite a teammate without upgrading.
+- Your app still gets flags after you pass 50,000 requests, but the 7-day clock to upgrade starts.
+- The pricing page lists self-hosted and private cloud as enterprise options. The docs say you can also self-host with Docker.
+
+## Alternatives in this atlas
+
+- [ConfigCat](/services/configcat/): when you want a free plan with more than one team member.
+- [GrowthBook](/services/growthbook/): when you want experiments together with flags.
+- [Rollgate](/services/rollgate/): when you want a high free request count.
+
+## Questions people ask
+
+### Is Flagsmith free?
+
+Yes. The Free plan costs $0 and includes up to 50,000 requests per month, 1 team member, and unlimited feature flags.
+
+### What happens if I go over the Flagsmith free limit?
+
+Flagsmith keeps serving your flags. You get a notice and 7 days to upgrade before any action is taken.
+
+### Can I self-host Flagsmith?
+
+Yes. The quickstart says you can use the SaaS platform or a self-hosted instance, and it points to Docker instructions for self-hosting.

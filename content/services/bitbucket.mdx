@@ -1,8 +1,8 @@
 ---
 title: Bitbucket
 description: >-
-  Bitbucket is a Git-based code hosting and CI/CD platform by Atlassian for
-  collaborative software development.
+  Bitbucket Cloud hosts Git repositories with pull requests and a built-in CI/CD
+  service called Pipelines. It is made by Atlassian and works with Jira.
 provider: Atlassian
 category: devops
 domain: devops
@@ -18,9 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - devops
-  - ci-cd
-  - collaboration
+  - git hosting
+  - private repositories
+  - bitbucket pipelines
+  - pull requests
+  - jira
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,6 +33,7 @@ freeTierDetails:
     - Unlimited public and private repositories
     - 50 build minutes/month
     - 1 GB Git LFS storage
+    - Up to 10 concurrent pipeline steps
   caveats:
     - Build minutes and storage are pooled across all users.
     - Advanced permissions and premium features require paid plans.
@@ -41,38 +44,37 @@ freeTierDetails:
   overageRisk: low
   billingRiskNotes:
     - >-
-      Exceeding build minutes or storage disables further usage until next
-      period or upgrade.
+      Extra build minutes and storage are sold separately (1,000 minutes or 100 GB for $10 a
+      month); the Pipelines docs list overage protection as not included on the Free plan.
 useCases:
-  - Host private or public Git repositories
-  - Collaborate on code with pull requests
-  - Automate builds and deployments with Pipelines
-  - Manage code reviews and issues
+  - Host private and public Git repositories for a small team
+  - Review code with branches and pull requests
+  - Build, test, and deploy with Bitbucket Pipelines from a file in the repository
+  - Link commits and pull requests to Jira work
 quickstartSteps:
-  - 'Sign up for a free Bitbucket account at https://bitbucket.org/.'
-  - Create a new repository or import an existing one.
-  - Clone the repository to your local machine.
-  - Push your code and collaborate using branches and pull requests.
-  - Set up Bitbucket Pipelines for CI/CD if needed.
+  - Click Get it Free on bitbucket.org and create an Atlassian account.
+  - Join or create a workspace, which holds your repositories and users.
+  - Create a repository in Bitbucket Cloud, or import an existing one.
+  - Clone the repository, create a branch, push your code, and open a pull request.
+  - To use CI/CD, add a `bitbucket-pipelines.yml` file to the repository and run your first pipeline.
 whenToUse: >-
-  Use Bitbucket for small teams or individuals needing private Git repositories
-  with integrated CI/CD and Atlassian ecosystem integration.
+  Use it for private Git repositories for up to 5 people, with pull requests and
+  a small amount of CI, especially if you already use Jira.
 whenNotToUse: >-
-  Avoid if you need advanced CI/CD, unlimited users, or enterprise-level
-  permissions without upgrading to a paid plan.
+  Skip it if more than 5 people need access on the free plan, or if you run
+  many builds, because the free plan has only 50 build minutes a month.
 bestFor:
-  - small teams
-  - startups
-  - students
-  - open source projects
+  - small private teams
+  - Jira users
+  - light CI on a few builds a month
 avoidIf:
-  - large enterprises
-  - teams needing advanced CI/CD
-  - organizations with more than 5 users on free tier
+  - your team has more than 5 users
+  - you run more than 50 build minutes a month
+  - you need Premium controls such as IP allowlisting
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://bitbucket.org/'
@@ -80,7 +82,48 @@ docsUrl: 'https://support.atlassian.com/bitbucket-cloud/docs/'
 sourceUrls:
   - 'https://bitbucket.org/product/pricing'
   - 'https://www.atlassian.com/software/bitbucket/pricing'
+  - 'https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/'
+  - 'https://support.atlassian.com/bitbucket-cloud/docs/limitations-of-bitbucket-pipelines/'
+  - 'https://support.atlassian.com/bitbucket-cloud/docs/create-a-git-repository/'
 pricingUrl: 'https://bitbucket.org/product/pricing'
 featured: false
 ---
-Bitbucket offers free private repositories and basic CI/CD for small teams, making it suitable for collaborative development and integration with Atlassian tools.
+You use Bitbucket in the browser, or from the command line with Git. Pipelines is configured by a YAML file in your repository.
+
+## What the free plan gives you
+
+Bitbucket is free for individuals and small teams with up to 5 users. You get unlimited public and private repositories. The plan includes 1 GB of file storage for LFS, in addition to 1 GB of storage per repository, and 50 build minutes to get started with Pipelines.
+
+Build minutes and storage are shared by everyone in the workspace. A step on a larger runner counts more: the page gives the example of a 5-minute step on a 2x runner counting as 10 build minutes. The Pipelines docs say a pipeline can have up to 100 steps and that up to 10 steps can run at once.
+
+## When you hit a limit
+
+The Pipelines docs list the Free plan at 50 build minutes per month and show overage protection as not included. The pricing page says you can buy more if your plan runs short. Extra allowances come as 1,000 minutes or 100 GB for $10 a month.
+
+The pages do not spell out what a pipeline does when the free minutes are gone. The docs also say Bitbucket does not run pipelines for a push that involves more than five tags, bookmarks, or branches, to keep a mistake from using up your minutes.
+
+## Gotchas
+
+- Build minutes are shared across all users in the workspace, so one busy repository can use the whole 50.
+- The Standard plan costs $3.65 per user per month, so going past 5 users means paying per user.
+- Community and academic subscriptions get more: 5 GB of LFS storage and 500 build minutes.
+
+## Alternatives in this atlas
+
+- [GitLab CI/CD](/services/gitlab-ci-cd/): when you want CI that sits in the same place as your repositories.
+- [AppVeyor](/services/appveyor/): when you need Windows builds for public projects.
+- [CircleCI](/tools/circleci/): when you want a separate CI service for code hosted elsewhere.
+
+## Questions people ask
+
+### Is Bitbucket free?
+
+Yes, for up to 5 users. The Free plan includes unlimited public and private repositories, 1 GB of LFS storage, and 50 build minutes.
+
+### How many build minutes does Bitbucket give for free?
+
+The Pipelines docs list 50 build minutes per month on the Free plan. You can buy 1,000 more minutes for $10 a month.
+
+### Does Bitbucket need a credit card?
+
+The pricing page says the Free plan is free forever for up to 5 users. It accepts credit cards at the end of signup for paid plans.

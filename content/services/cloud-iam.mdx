@@ -1,8 +1,8 @@
 ---
 title: Cloud-IAM
 description: >-
-  Cloud-IAM provides managed identity and access management services for cloud
-  applications and APIs.
+  Cloud-IAM is a managed Keycloak service. It runs the open-source Keycloak identity server for you,
+  with SSO, MFA, and social login.
 provider: Cloud-IAM
 category: auth
 domain: auth
@@ -17,59 +17,115 @@ audiences:
   - enterprise
   - oss
 tags:
+  - keycloak
+  - sso
   - identity
   - auth
+  - oidc
+  - saml
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes one Keycloak realm for up to 100 users, with MFA, SSO,
-    and social login, and no credit card required.
+    Free tier includes one Keycloak realm for up to 100 users on a shared Keycloak cluster, with
+    MFA, social login, and the Keycloak API, and no credit card required.
   limits:
-    - Up to 100 users, unlimited monthly active users
-    - One realm (mutualized HA deployment)
-    - MFA, SSO, and social login providers
+    - Up to 100 users
+    - One realm on a shared (mutualized) Keycloak cluster
+    - 'MFA with OTP and WebAuthn, and unlimited social identity providers'
+    - Unlimited integrations with AD and LDAP
+    - Access to the Keycloak API
   caveats:
-    - Community support only, no SLA
-    - Advanced features require paid plans
+    - 'Community support only, no SLA'
+    - 'The docs call the free plan a way to test and learn, not for production'
+    - 'No custom extensions, no Cloud-IAM API, no choice of cloud provider or region'
+    - Hitting the user limit is not a hard stop; Cloud-IAM contacts you to discuss other plans
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Add SSO to web apps
-  - Centralize user management
-  - Integrate OAuth2 for APIs
+  - Try Keycloak without running a server
+  - 'Learn SSO, OIDC, and SAML flows against a real identity server'
+  - A test realm for an app in development
+  - MFA and social login for a small internal tool
+  - Connect Active Directory or LDAP to a hosted Keycloak
 quickstartSteps:
-  - Sign up for a free Cloud-IAM account.
-  - Create a new application in the dashboard.
-  - Configure redirect URIs and authentication settings.
-  - Integrate Cloud-IAM SDK or endpoints in your app.
-  - Test user login and access flows.
+  - >-
+    Open the Cloud-IAM console and choose Sign Up. The form asks for your name, a professional
+    email, and a password.
+  - Click the verification link in the email that Cloud-IAM sends you.
+  - 'In the Deployments section, choose Create New Deployment and pick the Freemium plan.'
+  - >-
+    Open your new Keycloak admin console. Free deployments are an isolated realm on a shared
+    cluster.
+  - Create a client for your app and point your app to the realm's OIDC or SAML endpoints.
 whenToUse: >-
-  Use Cloud-IAM when you need simple, managed authentication and SSO for a small
-  app or team.
+  Use Cloud-IAM to test Keycloak, learn identity concepts, or run a small prototype with up to 100
+  users and no card.
 whenNotToUse: >-
-  Avoid if you require advanced IAM features, custom policies, or support for
-  large-scale enterprise deployments.
+  Avoid it for production, for anything that needs an SLA, custom extensions, more than one realm,
+  or a choice of region.
 bestFor:
-  - small teams
-  - startups
+  - testing and learning Keycloak
+  - small prototypes
   - open source projects
 avoidIf:
-  - enterprise with complex IAM needs
-  - custom policy requirements
+  - production traffic
+  - an SLA or expert support
+  - custom extensions or a chosen region
 difficulty: beginner
-productionReadiness: production-light
-lastUpdated: 2026-09-28
+productionReadiness: prototype
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.cloud-iam.com/'
-docsUrl: 'https://docs.cloud-iam.com'
+docsUrl: 'https://documentation.cloud-iam.com'
 sourceUrls:
-  - 'https://www.cloud-iam.com/'
   - 'https://www.cloud-iam.com/pricing/'
+  - 'https://documentation.cloud-iam.com'
+  - 'https://documentation.cloud-iam.com/get-started/access-to-cloud-iam-app.html'
+  - 'https://documentation.cloud-iam.com/get-started/deploy-my-keycloak.html'
+  - 'https://documentation.cloud-iam.com/faq/plan.html'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: '2026-10-09'
 pricingUrl: 'https://www.cloud-iam.com/pricing/'
 ---
-Cloud-IAM offers a managed identity and access management platform with a free tier suitable for small projects needing basic authentication and SSO.
+You manage deployments in the Cloud-IAM console, then use the Keycloak admin console and its standard OIDC, OAuth 2.0, and SAML endpoints from your app. It suits people who want Keycloak without hosting it.
+
+## What the free plan gives you
+
+The Freemium plan gives you one isolated realm on a shared Keycloak cluster. It supports up to 100 users. You get MFA with OTP and WebAuthn, unlimited social identity providers, unlimited integrations with AD and LDAP, and access to the Keycloak API.
+
+The pricing table lists active users as unlimited, so the 100 users limit is the one that matters. Support comes from the community and documentation. Paid plans start at 225 euros per month, and they add a dedicated deployment, a custom domain, and an uptime SLA. The docs say the free plan is meant for testing and learning.
+
+## When you hit a limit
+
+The user limit is not a hard stop. The Cloud-IAM FAQ says that if you reach it, the team contacts you to discuss a plan that suits you better, or to suggest reducing your user base.
+
+You can switch to a bigger plan later. The free plan has no built-in export and import, so you ask support to move your data to a new deployment, and your deployment URL changes. The free plan has no SLA, no on-call team, and no backups.
+
+## Gotchas
+
+- The free plan is shared infrastructure. Cloud-IAM does not recommend it for production.
+- You cannot upload custom extensions, use the Cloud-IAM API, or choose a cloud provider or region on the free plan.
+- To move to a paid plan, you create a new deployment and ask support to migrate your data. Your deployment URL changes.
+
+## Alternatives in this atlas
+
+- [Logto](/services/logto/): when you want a hosted open-source auth service with a simpler setup than Keycloak.
+- [ZITADEL Cloud](/services/zitadel-cloud/): when you want an open-source identity platform with a hosted free plan.
+- [Ory](/services/ory/): when you want open-source identity tools you can also self-host.
+
+## Questions people ask
+
+### Is Cloud-IAM free?
+
+Yes, with the Freemium plan. It gives you one realm on a shared Keycloak cluster for up to 100 users, and it needs no credit card.
+
+### What happens when I reach the Cloud-IAM free user limit?
+
+It is not a hard stop. Cloud-IAM contacts you to discuss other plans, or to suggest reducing your user base.
+
+### Can I use the Cloud-IAM free plan in production?
+
+The docs say the Freemium plan is for testing and learning and is not recommended for production. It has no SLA and only community support.

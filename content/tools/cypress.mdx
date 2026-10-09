@@ -1,8 +1,8 @@
 ---
 title: Cypress
 description: >-
-  Cypress is an open-source end-to-end testing framework for web applications
-  with a free tier for local and cloud test runs.
+  Cypress runs end-to-end and component tests for web apps in a real browser. It is for developers
+  and QA teams, with an optional cloud service for CI runs.
 provider: Cypress
 category: devops
 domain: devops
@@ -17,65 +17,122 @@ audiences:
   - team
   - oss
 tags:
-  - testing
-  - automation
-  - web
-  - open-source
-  - ci-cd
+  - end-to-end testing
+  - e2e
+  - browser testing
+  - test automation
+  - component testing
+  - ci testing
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free (Starter) plan includes 10 users, 500 Cypress Cloud test results per
-    month, and 100 AI prompt executions per month; local test runs with the
-    open-source Cypress App are unlimited.
+    Free (Starter) plan includes 10 users, 500 Cypress Cloud test results per month, and 100 AI
+    prompt executions per month; local test runs with the open-source Cypress App are unlimited.
   limits:
     - 10 users
     - 500 Cypress Cloud test results/month
     - 100 AI prompt executions/month
     - Unlimited local test runs (open-source Cypress App)
   caveats:
-    - Exceeding the free plan's test results requires upgrading; on-demand overage at $6/1,000 only applies to paid Team/Business plans
-    - Non-commercial open-source projects may qualify for an OSS plan with 100,000 test results/month
+    - >-
+      Only test results recorded to Cypress Cloud count toward the 500 a month; local runs do not
+      count
+    - >-
+      The Free plan has no on-demand test results; the $6 per 1000 overage rate is on the Team plan
+      and higher
+    - >-
+      Non-commercial open-source public projects can apply for an OSS plan with 100k test results
+      per month
+    - The Free plan stops at 10 users until you remove one or upgrade
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated browser testing
-  - Continuous integration test suites
-  - Regression testing for web apps
+  - Testing a web app end to end in a real browser
+  - 'Running component tests for React, Angular, Vue, or Svelte code'
+  - Running a test suite in CI and recording the results to Cypress Cloud
+  - Reproducing and debugging a failed test with the recorded run
 quickstartSteps:
-  - 'Install Cypress via npm: npm install cypress --save-dev'
-  - 'Open Cypress: npx cypress open'
-  - Write your first test in the generated integration folder
-  - Run tests locally or connect to Cypress Cloud for cloud runs
+  - >-
+    Check that you have a supported Node.js version and package manager, then open your project
+    root.
+  - Install Cypress as a dev dependency with `npm install cypress --save-dev`.
+  - Run `npx cypress open` to start the Launchpad and choose end-to-end or component testing.
+  - 'Use the Create new empty spec button to make your first spec, and run it from the list.'
+  - >-
+    For CI runs, create a free Cypress Cloud account (no card needed) and record runs with the
+    `--record` flag.
 whenToUse: >-
-  Use Cypress for fast, reliable end-to-end testing of modern web applications,
-  especially when you want easy local setup and CI integration.
+  Use Cypress when you want to write browser tests in JavaScript or TypeScript and watch them run
+  live while you code.
 whenNotToUse: >-
-  Avoid if you need to test non-browser environments, require advanced cloud
-  analytics, or need unlimited cloud parallelization.
+  Avoid it if you need to test native mobile apps, or if you record more than 500 test results a
+  month from CI and cannot pay.
 bestFor:
-  - web developers
-  - QA engineers
-  - CI/CD pipelines
+  - web developers writing end-to-end tests
+  - 'teams testing React, Vue, Angular, or Svelte components'
+  - small CI pipelines that record under 500 results a month
 avoidIf:
-  - testing mobile apps
-  - requiring advanced analytics
-  - needing unlimited cloud runs
+  - you test native mobile apps
+  - you need more than 10 users on the free cloud plan
+  - you record large CI suites on every commit and have no budget
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://www.cypress.io/'
 docsUrl: 'https://docs.cypress.io/'
 sourceUrls:
-  - 'https://www.cypress.io/pricing/'
-  - 'https://docs.cypress.io/guides/getting-started/installing-cypress'
+  - 'https://www.cypress.io/pricing'
+  - 'https://docs.cypress.io/app/get-started/install-cypress'
+  - 'https://docs.cypress.io/app/get-started/open-the-app'
+  - 'https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test'
+  - 'https://docs.cypress.io/cloud/get-started/introduction'
 pricingUrl: 'https://www.cypress.io/pricing'
 featured: false
 ---
-Cypress offers a robust free tier for local and limited cloud-based web application testing, making it ideal for individuals and small teams starting with automated testing.
+You install the open-source Cypress App with npm, open the Launchpad, and write tests in your editor. Cypress Cloud is an optional web service that stores the results of your CI runs. This entry suits web developers and small teams that test in a browser.
+
+## What the free plan gives you
+
+The Cypress App is free and open source under the MIT license. It runs your tests on your own machine with no limit.
+
+The free Cypress Cloud plan, called Starter, needs no credit card. It includes 10 users, 500 test results per month, and 100 prompt executions per month. A test result is one run of a single `it()` block that you record to Cloud with the `--record` flag. Local runs do not count. A test that retries counts once, and skipped tests do not count.
+
+The pricing page also offers a free 30-day trial of the premium features. Non-commercial open-source projects can apply for an OSS plan with 100k test results per month.
+
+## When you hit a limit
+
+The pricing page does not say what Cloud does when you pass 500 test results. It lists on-demand test results as not available on the Free plan. On-demand test results cost $6 per 1000 on the Team plan, so you would need to upgrade to buy more.
+
+For users, the page is clear. When you reach the limit, you cannot add another user until you remove one or upgrade. Your local test runs do not depend on any of these limits.
+
+## Gotchas
+
+- Only runs recorded with `--record` count toward the monthly results. A big CI suite that records every build can use up 500 results fast.
+- The Free plan lists on-demand test results as not available, so extra volume means a paid plan.
+- The pricing page says organizations you create start on the Free plan, and you add payment details only when you upgrade.
+
+## Alternatives in this atlas
+
+- [Postman](/tools/postman/): when you test APIs more than browser pages.
+- [Mockfly](/tools/mockfly/): when your tests need a mock API to call.
+- [GitHub Actions](/services/github-actions/): when you need somewhere to run the tests in CI.
+
+## Questions people ask
+
+### Is Cypress free?
+
+Yes. The Cypress App is free and open source, and Cypress Cloud has a free Starter plan with 10 users and 500 test results per month.
+
+### Does Cypress need a credit card?
+
+No. The pricing page says you do not need a credit card to create an account. You add payment details only when you upgrade.
+
+### What happens when I go over the Cypress Cloud free limit?
+
+The pricing page does not say. It shows no on-demand results on the Free plan, and it points you to upgrade for more.

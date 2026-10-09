@@ -1,8 +1,8 @@
 ---
 title: GitLab CI/CD
 description: >-
-  GitLab CI/CD automates code builds, tests, and deployments directly from your
-  GitLab repositories.
+  GitLab CI/CD runs build, test, and deploy pipelines from a .gitlab-ci.yml file in your GitLab
+  project. It is for teams and solo developers who host code on GitLab.
 provider: GitLab
 category: devops
 domain: devops
@@ -17,64 +17,127 @@ audiences:
   - team
   - oss
 tags:
-  - ci-cd
-  - automation
-  - devops
+  - ci/cd
+  - gitlab ci
+  - pipelines
+  - gitlab runner
+  - .gitlab-ci.yml
+  - build and test
+  - shared runners
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 400 compute minutes per month and 5 users per private
-    top-level group. A card is needed to use the shared runners.
+    Free tier includes 400 compute minutes per month and 5 users per top-level group. A card is
+    needed to use the shared runners.
   limits:
-    - 400 compute minutes/month
-    - 5 users per private top-level group
+    - 400 compute minutes per month
+    - 5 users per top-level group
+    - 10 GiB of adjustable storage
+    - Your own runners can be added and do not need a card
   caveats:
-    - Using GitLab shared runners needs a credit or debit card on file (no charge is made). Your own runners do not need one.
-    - Extra compute minutes cost $10 per 1,000 minutes (one-time payment)
+    - >-
+      Using GitLab shared runners needs a credit or debit card on file; GitLab verifies it with a
+      one-dollar authorization and makes no charge
+    - Bringing your own runner or disabling shared runners needs no card
+    - >-
+      You can purchase additional compute minutes; purchased minutes are used only after the monthly
+      quota runs out and roll over
+    - >-
+      Premium costs $29 per user per month, billed annually, and includes 10,000 compute minutes per
+      month
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - Extra compute minutes can be bought; there is no automatic overage charge.
+    - >-
+      Extra compute minutes are bought on purpose; the docs describe enforcement when you exceed the
+      quota, not an automatic bill
 useCases:
-  - Automating build and test pipelines
-  - Continuous deployment to staging or production
-  - Running code quality checks
-  - Open source project automation
+  - Running tests on every commit and merge request
+  - Building and deploying an app from a pipeline
+  - Running jobs on your own machine with a self-managed runner
+  - Running checks for an open-source project
 quickstartSteps:
-  - Sign up for a free GitLab account.
-  - Create or import a repository.
-  - Add a .gitlab-ci.yml file to define your pipeline.
-  - Push your code to trigger the pipeline.
-  - Monitor pipeline status in the GitLab UI.
+  - >-
+    Sign up for GitLab.com and create a project (or use an existing one) where you have the
+    Maintainer or Owner role.
+  - >-
+    Check Settings > CI/CD > Runners; GitLab.com provides instance runners, and shared runners need
+    a card on file.
+  - Create a `.gitlab-ci.yml` file at the root of the repository with a few jobs and stages.
+  - Commit the file; the pipeline starts by itself.
+  - Open Build > Pipelines to watch the stages and read each job log.
 whenToUse: >-
-  Use when you need integrated CI/CD for GitLab-hosted projects with moderate
-  build frequency and simple automation needs.
+  Use GitLab CI/CD when your code is on GitLab and you want pipelines next to it, with 400 free
+  compute minutes a month or your own runners.
 whenNotToUse: >-
-  Avoid if you require unlimited build minutes, advanced enterprise features, or
-  integration with non-GitLab repositories.
+  Avoid it if your code is not on GitLab, if you cannot give a card for shared runners and have no
+  runner of your own, or if you need more than 400 minutes a month for free.
 bestFor:
-  - small teams
-  - open source projects
-  - students
-  - startups
+  - GitLab-hosted projects
+  - small teams of up to 5 users per group
+  - people who can run their own runner
 avoidIf:
-  - large enterprise
-  - heavy CI/CD workloads
-  - multi-provider SCM
+  - your code lives on another Git host
+  - you run heavy pipelines on shared runners for free
+  - you cannot provide a card and have no runner
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/'
-docsUrl: 'https://docs.gitlab.com/ee/ci/'
+docsUrl: 'https://docs.gitlab.com/ci/'
 pricingUrl: 'https://about.gitlab.com/pricing/'
 sourceUrls:
   - 'https://about.gitlab.com/pricing/'
+  - 'https://docs.gitlab.com/ci/'
+  - 'https://docs.gitlab.com/ci/quick_start/'
+  - 'https://docs.gitlab.com/ci/pipelines/compute_minutes/'
+  - 'https://docs.gitlab.com/ci/runners/'
 featured: false
 ---
-GitLab CI/CD offers integrated pipelines for automating builds, tests, and deployments directly within GitLab, with a generous free tier for small teams and open source.
+You describe your pipeline in a `.gitlab-ci.yml` file and read the results under the Build menu, then Pipelines. GitLab.com supplies instance runners, or you can register your own. It suits small teams and solo developers on GitLab.
+
+## What the free plan gives you
+
+The Free plan is for personal projects and open-source work. It includes 5 users per top-level group, 400 compute minutes per month, source code management with CI/CD, 10 GiB of adjustable storage, and static application security testing.
+
+Free namespaces get 400 compute minutes each month. A job's compute usage is its duration divided by 60, times a cost factor that depends on the runner type and project settings. Usage resets on the first day of each month. Trigger jobs do not use compute minutes.
+
+You can also bring your own runners and storage. Runners can be Linux, Windows, or macOS machines. The Premium plan costs $29 per user per month, billed annually, and includes 10,000 compute minutes per month.
+
+## When you hit a limit
+
+On GitLab.com the compute quota is on by default for Free namespaces. You get notices as you near it, and GitLab applies enforcement measures once you exceed it.
+
+You can purchase additional compute minutes. The docs say purchased minutes are used only after the monthly quota runs out, and they roll over if unused. Your own self-managed runners do not use the quota.
+
+## Gotchas
+
+- The shared runners need a credit or debit card on file. GitLab verifies it with a one-dollar authorization and makes no charge. A bring-your-own runner needs no card.
+- GitLab says the card rule exists because of abuse of free compute minutes for crypto mining.
+- The quota applies to the top-level group, not to each user.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when your code is on GitHub, where public repositories run on standard runners for free.
+- [Buddy](/services/buddy/): when you want a visual pipeline builder with no card.
+- [CircleCI](/tools/circleci/): when you want CI apart from your Git host.
+
+## Questions people ask
+
+### Is GitLab CI/CD free?
+
+Yes, within limits. The Free plan includes 400 compute minutes per month and 5 users per top-level group.
+
+### Does GitLab CI/CD need a credit card?
+
+For the shared runners, yes. GitLab verifies the card with a one-dollar authorization and makes no charge. You need no card if you bring your own runner.
+
+### What happens when I run out of GitLab compute minutes?
+
+GitLab applies enforcement measures once you exceed the quota. You can purchase more compute minutes, or use your own runners.

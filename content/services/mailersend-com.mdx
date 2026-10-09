@@ -1,8 +1,9 @@
 ---
 title: MailerSend.com
 description: >-
-  MailerSend provides transactional email API and tools with a generous free
-  tier for developers and small businesses.
+  MailerSend is a transactional email service with an API and SMTP relay for
+  app emails such as password resets and receipts. It is for developers who
+  want to send mail from code.
 provider: MailerSend
 category: messaging
 domain: messaging
@@ -16,64 +17,112 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - api
+  - transactional email
+  - email api
+  - smtp relay
+  - email sending
+  - password reset email
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan includes 500 emails per month, 1 domain, and 100 daily API requests. A card is required at signup.'
+  summary: >-
+    Free plan includes 500 emails per month, 1 domain, and 100 daily API
+    requests. MailerSend asks for a credit card to prevent abuse.
   limits:
     - '500 emails/month'
     - 1 domain
     - 100 API requests/day
     - 1 user (plus 1 accountant)
+    - 1 template, 1 API token, and 1 webhook
   caveats:
-    - No dedicated IP on free tier
-    - Limited support
-    - 1 API token and 1 webhook only
+    - A credit card is required to subscribe to the Free plan, but MailerSend says you are not charged
+    - Your account must be approved before you can subscribe to the Free plan
+    - No dedicated IP on the free tier
+    - 1 day of log retention
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - 'Sending above 500 emails/month requires upgrading to a paid plan'
+    - Sending above 500 emails/month needs an upgrade to a paid plan
 useCases:
-  - Send transactional emails from web or mobile apps
-  - Integrate email notifications via API
-  - Automate password resets and receipts
+  - Sending password resets and receipts from a web or mobile app
+  - Sending app notifications through the email API or SMTP relay
+  - Designing emails in the drag and drop builder and sending them by API
+  - Testing an email setup before moving to a paid plan
 quickstartSteps:
-  - Sign up for a free MailerSend account.
-  - Verify your sending domain via DNS records.
-  - Generate an API token from the dashboard.
-  - Integrate MailerSend API or SMTP into your app.
-  - Send a test transactional email.
+  - Sign up for MailerSend and start with the 14-day Professional trial. You can test with the trial domain before adding your own.
+  - Wait for your account to be approved.
+  - Add your sending domain and add the DNS records MailerSend shows you.
+  - Generate an API token for that domain with the email permission.
+  - Send a message with a POST request to `https://api.mailersend.com/v1/email` or through an SDK or SMTP.
+  - To stay on the Free plan after the trial, open Plan and billing and enter your address and card details.
 whenToUse: >-
-  Use MailerSend when you need reliable transactional email delivery with a
-  generous free tier and simple API integration.
+  Use MailerSend for a small app that sends transactional email through an API
+  or SMTP and stays under 500 emails a month.
 whenNotToUse: >-
-  Avoid if you require advanced deliverability features, dedicated IPs, or
-  high-volume sending beyond the free tier.
+  Avoid it if you cannot give a credit card, need more than one domain or
+  webhook for free, or send more than 500 emails a month.
 bestFor:
   - developers
   - startups
   - indie projects
   - open source tools
 avoidIf:
-  - need dedicated IP
-  - require advanced analytics
-  - send high email volume
+  - no credit card
+  - more than 500 emails a month
+  - several domains on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mailersend.com'
 docsUrl: 'https://developers.mailersend.com/'
 sourceUrls:
   - 'https://www.mailersend.com/pricing'
-  - 'https://developers.mailersend.com/'
+  - 'https://developers.mailersend.com/general.html'
+  - 'https://developers.mailersend.com/api/v1/email.html'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://www.mailersend.com/pricing'
 ---
-MailerSend offers a transactional email platform with a free plan for testing and small-volume sending, requiring a card at signup to prevent abuse.
+You send mail through the REST API, an SDK, or the SMTP relay, and you design templates in the dashboard. It suits developers who want app emails to leave from their own domain.
+
+## What the free plan gives you
+
+The Free plan is for occasional email testing and sending. It includes 500 emails a month, the email API and SMTP relay, and the drag and drop email builder. Per account you get 1 template, 1 domain, 1 user plus 1 accountant, 1 API token, and 1 webhook.
+
+The API quota on Free is 100 requests per day, and the pricing table shows 1 day of log retention. Every new account also gets a 14-day trial of the Professional plan. When the trial ends, MailerSend moves you to the Free plan and does not charge you.
+
+## When you hit a limit
+
+The free plan has hard limits. When you reach the daily API quota, requests fail until the quota resets at midnight UTC. When the account reaches its monthly sending limit, sending resumes at the start of the next billing period.
+
+To raise the limits, you upgrade to the Hobby, Starter, or Professional plan. Hobby starts at $5.60 per month when billed yearly. MailerSend says it never charges you unless you choose to upgrade.
+
+## Gotchas
+
+- MailerSend asks for credit card details for the Free plan to prevent abuse. It says you are not charged for anything on the Free plan.
+- You can subscribe to the Free plan only after your account is approved, then you enter your address and card on the Plan and billing page.
+- The default API rate limit is 120 requests per minute on the email endpoints, so a burst of sends can return a 429 error.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want a free plan that needs no credit card.
+- [Mailgun](/services/mailgun/): when you want a free plan without a card and need a sending domain.
+- [Postmark](/services/postmark/): when you want a free developer plan for testing transactional mail.
+
+## Questions people ask
+
+### Is MailerSend free?
+
+Yes, within limits. The Free plan includes 500 emails a month and one domain, and it is meant for occasional testing and sending.
+
+### Does MailerSend need a credit card for the free plan?
+
+Yes. MailerSend asks for card details on the Free plan to prevent abuse, and says it does not charge you for the Free plan.
+
+### What happens if I go over the MailerSend free limit?
+
+Requests fail once you pass the daily API quota, which resets at midnight UTC. You upgrade to a paid plan to get higher limits.

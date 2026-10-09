@@ -1,8 +1,8 @@
 ---
 title: Okta
 description: >-
-  Okta provides secure authentication, authorization, and user management for
-  web and mobile applications.
+  Okta is an identity provider for workforce and customer sign-in. The free Integrator plan is a
+  small test org for building and testing integrations.
 provider: Okta
 category: auth
 domain: auth
@@ -16,62 +16,114 @@ audiences:
   - enterprise
   - oss
 tags:
+  - sso
+  - oidc
+  - saml
   - identity
-  - auth
+  - okta integration network
+  - mfa
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Okta Integrator Free Plan gives up to 10 active users in a
-    non-production environment, with a 100 authentications/minute rate limit;
-    a separate 30-day free trial covers the full platform.
+    The Okta Integrator Free Plan gives up to 10 active users in a non-production environment, with
+    a 100 authentications/minute rate limit; a separate 30-day free trial covers the full platform.
   limits:
     - Up to 10 active users (non-production only)
     - 100 authentications/minute rate limit
     - Org auto-expires after 90 consecutive days of inactivity
     - 30-day free trial of the full platform (separate from the Integrator plan)
   caveats:
-    - Integrator Free Plan is for building and testing, not production traffic
+    - 'Integrator Free Plan is for building and testing, not production traffic'
     - Marketing communications opt-in required at signup
+    - >-
+      The signup page and terms say the org expires after 90 days of inactivity; the pricing page
+      says 180 days
+    - Okta can change the free plan's limits and features at any time
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add secure login to web or mobile apps
-  - Implement SSO for internal tools
-  - Enable MFA for user accounts
+  - Build and test an app integration for the Okta Integration Network
+  - Try single sign-on with OIDC or SAML in a sandbox org
+  - Test sign-in code against the Okta APIs and SDKs
+  - Learn the Okta data model before a company rollout
+  - Automate an Okta org with Terraform in a test setup
 quickstartSteps:
-  - Sign up for a free Okta developer account.
-  - Create a new application in the Okta dashboard.
-  - Configure authentication settings and redirect URIs.
-  - Integrate Okta SDK or API into your app.
-  - Test login and user flows.
+  - Open developer.okta.com/signup and choose the Okta Integrator Free Plan.
+  - >-
+    Fill in first name, last name, work email, and country, and accept the Integrator Free Plan
+    agreement.
+  - Open your new org's admin console and create an app integration for your app.
+  - Follow a guide such as signing users in to your SPA or web app with the redirect model.
+  - 'Test sign-in with your own few test users, and keep the org active so it does not expire.'
 whenToUse: >-
-  Use Okta when you need robust, scalable authentication and user management for
-  your applications without building from scratch.
+  Use the Integrator Free Plan to build and test an Okta integration, or to learn Okta APIs and SDKs
+  before a real rollout.
 whenNotToUse: >-
-  Avoid Okta's free plan for production traffic, more than 10 active users, or
-  when you need dedicated support.
+  Avoid it for production traffic, for more than 10 active users, or when you need dedicated
+  support.
 bestFor:
-  - secure authentication
-  - user management
-  - SSO integration
+  - building Okta integrations
+  - testing SSO code
+  - learning Okta
 avoidIf:
-  - need on-premise auth
-  - require unlimited users for free
-  - must avoid external auth providers
+  - production traffic
+  - more than 10 active users
+  - dedicated support
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developer.okta.com/signup/'
 docsUrl: 'https://developer.okta.com/docs/'
 pricingUrl: 'https://www.okta.com/pricing/'
 sourceUrls:
-  - 'https://developer.okta.com/signup/'
   - 'https://www.okta.com/pricing/'
+  - 'https://developer.okta.com/signup/'
+  - 'https://developer.okta.com/docs/'
+  - 'https://developer.okta.com/terms/'
+  - 'https://developer.okta.com/docs/guides/'
 featured: false
 ---
-Okta's free developer tier is ideal for adding secure authentication, SSO, and user management to applications, with generous limits for most small projects.
+You work in the Okta admin console, plus the Okta APIs, SDKs, and the guides on the developer site. This plan suits developers who build or test an integration, not teams that need production sign-in.
+
+## What the free plan gives you
+
+The Okta Integrator Free Plan lets you explore the platform in a non-production environment, for up to 10 active users. It is free, and it has a default rate limit of 100 authentications per minute. Paid plans start with a default of 600 authentications per minute.
+
+The signup page describes it as a place to build, test, and manage integrations, and to test your code and apps. A separate free trial of the Okta platform gives access for 30 days. Okta can also change the plan's limits and features at any time, according to the terms. Okta has no duty to give support for this plan, and any support it gives is at its own choice.
+
+## When you hit a limit
+
+The pages do not say what Okta does when you pass 10 active users or the rate limit. The terms say Okta may end the agreement if you put an excessive burden on its systems. They also say the plan is free only for the number of active users and features Okta sets.
+
+Inactivity is the clearer limit. The signup page says access expires after 90 consecutive days of inactivity, and the terms say inactive orgs are deactivated after 90 days unless you submit an app to the Okta Integration Network. The pricing page says 180 days, so use the shorter time.
+
+## Gotchas
+
+- The plan is for non-production use only. Do not point real customer traffic at it.
+- You must accept marketing communications and an agreement when you sign up. Okta may also name you as a sign-up on its site.
+- Existing Okta Developer Edition orgs were set to be deactivated from July 18, 2025. Those users must sign up for a new Integrator org.
+
+## Alternatives in this atlas
+
+- [Auth0](/services/auth0/): when you want a free plan with a larger user allowance for customer-facing apps.
+- [Entra ID / Azure AD](/services/entra-id-azure-ad/): when your team already runs on Microsoft cloud services.
+- [Ory](/services/ory/): when you want open-source identity tools you can self-host.
+
+## Questions people ask
+
+### Is Okta free?
+
+Partly. The Okta Integrator Free Plan is free for up to 10 active users in a non-production org. A separate trial runs for 30 days.
+
+### Can I use the Okta free plan in production?
+
+No. The pricing page describes it as a non-production environment, and the terms say it is for building and testing integrations.
+
+### Does the Okta free org expire?
+
+Yes, if you do not use it. The signup page says access expires after 90 consecutive days of inactivity.

@@ -1,8 +1,8 @@
 ---
 title: Diawi
 description: >-
-  Diawi is a tool for developers to deploy ad hoc iOS and Android apps directly
-  to devices for testing.
+  Diawi gives you a link and QR code to install iOS and Android test builds straight on a device,
+  with no app store. It is for developers who send builds to testers and clients.
 provider: Diawi
 category: devops
 domain: devops
@@ -16,59 +16,123 @@ audiences:
   - startup
   - team
 tags:
-  - mobile
-  - testing
+  - ios beta testing
+  - android apk
+  - app distribution
+  - ad hoc
+  - test builds
+  - ipa
+  - over the air install
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 20 MB max upload size, 2 installations per app, 1-day link expiration.'
+  summary: >-
+    Without signup: 20 MB max upload, 2 installations per app, 1-day link life. A free account
+    raises that to 50 MB, 10 installations per app, and 3 days.
   limits:
-    - 20 MB maximum upload size
-    - 2 installations per app
-    - 1-day uploaded app expiration
+    - >-
+      No signup: 20 MB maximum upload size, 2 installations per app, 1 day of uploaded app
+      expiration
+    - >-
+      Free account: 50 MB maximum upload size, 10 installations per app, 3 days of uploaded app
+      expiration
+    - Free accounts include password-protected links
+    - Free account links can be re-enabled for 1 day after they expire
   caveats:
-    - Expired links get a 1-day grace period to re-enable before deletion
-    - Paid plans add custom URLs, APIs, stats, and no-expiration links
+    - >-
+      Expired links get a short grace period to re-enable before deletion; links without an account
+      cannot be re-enabled
+    - A link that is gone cannot be recovered because Diawi deletes the file
+    - >-
+      Paid plans add the dashboard, APIs, stats, and longer link life; the Starter plan costs 2,99€
+      per month
+    - Diawi accepts .ipa and .apk files; Android App Bundles (.aab) are not supported
+    - Diawi is not an app store; releasing apps to the general public is not allowed
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Distributing test builds to QA teams
-  - Sharing ad hoc app builds with clients
-  - Internal app testing on multiple devices
+  - Sending an iOS ad hoc or development build to testers
+  - Sharing an Android APK with a client for a quick check
+  - Handing out an in-house iOS app to a small team
+  - Giving testers a link and QR code instead of a store listing
 quickstartSteps:
-  - Sign up for a free Diawi account.
-  - Prepare your signed iOS (.ipa) or Android (.apk) app file.
-  - Upload the app file via the Diawi web interface.
-  - Share the generated download link with testers.
-  - Testers open the link on their device to install the app.
+  - >-
+    Open diawi.com and, for the dashboard and re-enable options, log in or sign up before you
+    upload.
+  - Drag and drop your .ipa (or a zipped .app) or your .apk onto the upload area.
+  - 'Optionally set a password, a comment, or an e-mail copy of the link before you send it.'
+  - Share the link or QR code that Diawi gives you after the upload.
+  - Testers open the link on the device (Safari on iOS) and tap Install.
 whenToUse: >-
-  Use Diawi when you need to quickly share test builds of mobile apps with a
-  small group of testers or clients.
+  Use Diawi to get a signed iOS or Android test build onto a few testers' devices quickly, with one
+  link.
 whenNotToUse: >-
-  Avoid Diawi if you require large-scale distribution, advanced analytics, or
-  long-lived download links.
+  Avoid it for public releases, for Android App Bundles, for builds above 50 MB on the free tier, or
+  when testers need links that last for weeks.
 bestFor:
-  - mobile developers
-  - QA testers
-  - small teams
+  - mobile developers sharing test builds
+  - QA testers who install builds by link
+  - small teams that need a quick over-the-air install
 avoidIf:
-  - need enterprise distribution
-  - require analytics
-  - need persistent links
+  - you need links that last longer than 3 days on the free tier
+  - you ship .aab files only
+  - you want to release to the general public
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.diawi.com'
 docsUrl: 'https://www.diawi.com/knowledge-base/index'
 sourceUrls:
-  - 'https://www.diawi.com'
   - 'https://www.diawi.com/features-services'
+  - 'https://www.diawi.com'
   - 'https://www.diawi.com/knowledge-base/Diawi/Links-duration-and-availability'
+  - 'https://www.diawi.com/knowledge-base/Diawi/Getting-started'
+  - 'https://www.diawi.com/knowledge-base/Android/APK-vs-AAB'
 pricingUrl: 'https://www.diawi.com/features-services'
 featured: false
 ---
-Diawi provides a simple way to distribute ad hoc iOS and Android app builds for testing, with a free tier suitable for small-scale use.
+You drag a build onto the Diawi web page, get a link and a QR code, and send them to your testers. Testers open the link on their phone and tap Install. It suits mobile developers and small test groups.
+
+## What the free plan gives you
+
+Diawi has two free levels. Without signup you get a 20 MB maximum upload size, 2 installations per app, and 1 day before the uploaded app expires. With a free account at 0,00€ you get a 50 MB maximum upload size, 10 installations per app, and 3 days before expiration.
+
+Both levels let you upload iOS and Android apps, send installation links, and protect a link with a password. iOS builds can be development, ad hoc, or in-house signed. Android builds can be any signed APK.
+
+The paid Starter plan costs 2,99€ per month. It raises the limits to 250 MB, 7 days, and 50 installations per app, and it adds the dashboard and API access.
+
+## When you hit a limit
+
+A link becomes "Not available" when its time runs out, when the installations run out, or when you disable it by hand. With an account you can re-enable a link for a short time: the free account gets 1 day. Add time or installations to bring it back.
+
+After that period the link turns "Gone", and Diawi deletes the file. A gone link cannot come back, so upload the build again. Links made without an account cannot be re-enabled at all.
+
+## Gotchas
+
+- Diawi takes APK files. It does not support Android App Bundles (.aab), so you must build an APK first.
+- On iOS, testers must open the link in Safari. Other browsers and in-app web views do not work.
+- Diawi is not an app store. The docs forbid deploying apps to the general public.
+
+## Alternatives in this atlas
+
+- [GetUpdraft](/services/getupdraft/): when you want app project pages and versions, not one-off links.
+- [GitHub Actions](/services/github-actions/): when you want your CI to build the app that you then share.
+- [Docker Hub](/tools/docker-hub/): when you distribute container images, not mobile apps.
+
+## Questions people ask
+
+### Is Diawi free?
+
+Yes. You can upload without signup (20 MB, 2 installations per app, 1 day), or make a free account for 50 MB, 10 installations per app, and 3 days.
+
+### What happens when a Diawi link expires?
+
+The link shows "Not available". With an account you can re-enable it for a short time, which is 1 day on the free account. After that it is "Gone" and the file is deleted.
+
+### Does Diawi need a credit card?
+
+No. The free level and the free account show a price of 0,00€, and the pricing table lists no payment step for them.

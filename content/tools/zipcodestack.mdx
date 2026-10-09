@@ -1,15 +1,13 @@
 ---
 title: Zipcodestack
-description: >-
-  Zipcodestack provides a free API for real-time postal code lookup and location
-  data enrichment.
+description: "Zipcodestack is a REST API for postal code search, validation, autocomplete, and distance calculation in 149 countries. It suits developers who add address checks to forms and checkouts."
 provider: Zipcodestack
 category: apis
 domain: apis
 subtypes:
-  - postal-code
-  - location
-  - address-validation
+  - "postal-code"
+  - "address-validation"
+  - "distance-calculation"
 audiences:
   - student
   - indie
@@ -17,8 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - search
+  - "zip code api"
+  - "postal code validation"
+  - "postal code autocomplete"
+  - "distance calculator"
+  - "address validation"
+  - "postal code lookup"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,7 +33,7 @@ freeTierDetails:
     - Basic location data
   caveats:
     - No SLA on free tier
-    - Advanced features require paid plan
+    - Paid plans add more credits, remove the rate limit, add e-mail support, and are the ones marked for commercial use
     - No daily cap; the rate-limit docs list only the monthly credit quota and the per-minute limit
   resetPeriod: monthly
   requiresCard: false
@@ -39,29 +41,30 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Validate user postal codes during signup
-  - Enrich user profiles with location data
-  - Build location-aware features for apps
+  - "Validate a postal code in a checkout form"
+  - "Suggest postal codes and cities while a customer types"
+  - "Look up the city and coordinates for a postal code"
+  - "Calculate the distance between two postal codes"
+  - "Find postal codes in a radius or by city"
 quickstartSteps:
-  - Sign up for a free Zipcodestack account.
-  - Obtain your API access key from the dashboard.
-  - Read the API documentation for endpoint details.
-  - Integrate the API into your app using your access key.
-  - Test postal code lookups to verify integration.
-whenToUse: >-
-  Use Zipcodestack when you need to validate or enrich postal code data in web
-  or mobile applications with minimal setup.
-whenNotToUse: >-
-  Avoid if you require high request volumes, advanced data, or guaranteed
-  uptime, as the free tier is limited and lacks SLA.
+  - "Open zipcodestack.com and choose Get Free API Key to sign up. No credit card is needed."
+  - "Copy your API key from your account."
+  - "Send a GET request to an endpoint such as search or validate, with a postal code and a country."
+  - "Pass the key in the apikey query parameter, or better in a request header, which keeps it out of access logs."
+  - "Check your quota with the free status endpoint, which does not count against your limits."
+  - "Use the SDKs listed in the docs if you prefer a client library."
+whenToUse: "Use when you want to validate or look up postal codes in a form or small app, and 300 credits a month is enough for testing or a personal project."
+whenNotToUse: "Avoid if you need more than 300 credits a month, no per-minute rate limit, or commercial use. The paid plans are the ones marked for commercial use."
 bestFor:
-  - address validation
-  - location enrichment
-  - signup forms
+  - "checkout address validation"
+  - "signup forms"
+  - "personal projects"
+  - "testing"
 avoidIf:
-  - high-volume needs
-  - enterprise-grade SLA
-  - advanced geolocation analytics
+  - "more than 300 credits per month"
+  - "more than 10 requests per minute"
+  - "need an SLA"
+  - "commercial production use on the free plan"
 difficulty: beginner
 productionReadiness: prototype
 status: changed
@@ -72,16 +75,58 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: Corrected monthly allowance units from requests to credits; the previously recorded daily cap remains unverified.
-lastUpdated: 2026-10-08
-lastVerified: 2026-10-08
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://zipcodestack.com'
-docsUrl: 'https://docs.zipcodestack.com'
-pricingUrl: 'https://zipcodestack.com'
+docsUrl: "https://zipcodestack.com/docs"
+pricingUrl: "https://zipcodestack.com/pricing"
 sourceUrls:
   - 'https://zipcodestack.com/docs/rate-limit/'
   - 'https://zipcodestack.com'
+  - 'https://zipcodestack.com/pricing'
+  - 'https://zipcodestack.com/docs/authentication/'
 featured: false
 ---
-Zipcodestack offers postal code lookup and location data enrichment with 300 free credits per month. Request costs vary by endpoint; the previously recorded daily cap remains unverified.
+You call Zipcodestack with a GET request and an API key, and the docs also list client SDKs. Pass the key in a header or as a query parameter. It suits developers who add postal code checks and autocomplete to forms and checkouts.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month and is described as for testing and personal projects. It includes 300 credits a month, 1 API key, and a limit of 10 requests per minute. The home page says no credit card is needed.
+
+Endpoints cost different amounts of credits. Search costs 1 credit per postal code found. Validate, autocomplete, and reverse lookups cost 1 credit per request. Radius and polygon requests cost 10 credits each. City and state lists cost 1 credit per 10 postal codes returned. The status endpoint, the provinces list, and the coverage list are free.
+
+Only successful calls count. Errors on the provider's side and validation errors do not use your quota.
+
+## When you hit a limit
+
+When you use all 300 credits, the API returns a 429 status code. You then upgrade your plan or wait until the end of the month. If you pass 10 requests in a minute on the free plan, you also get a 429 code and must wait until the minute ends.
+
+Response headers show your remaining monthly and per-minute quota. The docs list only these two limits, with no daily cap. Overage billing exists only on plans that have it enabled, and the free plan is not one of them.
+
+## Gotchas
+
+- A radius request costs 10 credits, so a few of them can use up a free month.
+- The free plan has 1 API key and no sandbox keys. The paid plans are the ones marked for commercial use.
+- Sending the key as a query parameter can expose it in access logs. The docs recommend a request header.
+
+## Alternatives in this atlas
+
+- [Zipcodebase](/tools/zipcodebase/): when you want a free plan counted in searches instead of credits.
+- [Country-State-City Microservice API](/tools/country-state-city-microservice-api/): when you only need country, state, and city lists.
+- [Vatcheckapi.com](/tools/vatcheckapi-com/): when you need to check VAT numbers on a similar plan style.
+
+## Questions people ask
+
+### Is Zipcodestack free?
+
+Yes. The Free plan costs $0 a month and includes 300 credits, 1 API key, and 10 requests per minute. It is for testing and personal projects.
+
+### What happens when I go over the Zipcodestack free limit?
+
+The API returns a 429 status code. You upgrade or wait until the end of the month. The per-minute limit also gives a 429 code until the minute ends.
+
+### Does Zipcodestack need a credit card?
+
+No. The home page says no credit card is required, and you get instant access to an API key.

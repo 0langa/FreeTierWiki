@@ -1,6 +1,9 @@
 ---
 title: MockAPI
-description: 'MockAPI provides hosted, ready-to-use REST APIs for prototyping and testing without backend setup.'
+description: >-
+  MockAPI hosts a fake REST API for you. You define resources, fill them with
+  generated data, and call the endpoints from your front end. It is for
+  developers who do not have a backend yet.
 provider: MockAPI
 category: devops
 domain: devops
@@ -15,9 +18,11 @@ audiences:
   - team
   - oss
 tags:
-  - testing
-  - api
-  - design
+  - mock api
+  - rest api
+  - fake data
+  - prototyping
+  - frontend
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan: 1 project with 2 resources.'
@@ -25,50 +30,85 @@ freeTierDetails:
     - 1 project
     - 2 resources
   caveats:
-    - More projects and resources cost $5 per month
+    - 'Paid plans ($5/month or $35/year) raise this to 20 projects and 50 resources'
+    - Custom endpoints and webhooks are listed as coming soon
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Frontend prototyping
-  - Testing API integrations
-  - Demoing apps without backend
-  - Learning REST API concepts
+  - Building a front end before the real backend exists
+  - Testing fetch or CRUD code against a hosted REST API
+  - Demoing an app with fake users, posts, or tasks
+  - Learning REST calls, filtering, and pagination
 quickstartSteps:
-  - Sign up for a free MockAPI account.
-  - 'Create a new project and define your resources (e.g., users, posts).'
-  - Add sample data to your resources.
-  - Access your generated REST endpoints for CRUD operations.
-  - Integrate the endpoints into your app or test tools.
+  - Sign up for a MockAPI account at mockapi.io.
+  - Create a project; it gets its own base URL of the form `https://PROJECT_TOKEN.mockapi.io/`.
+  - Add a resource such as `tasks` and give its fields a Faker.js generator, for example `lorem.sentences`.
+  - Click the record count under the resource to generate mock data, and use the Data button to check it.
+  - Call the endpoints with a `content-type: application/json` header, for example `GET /tasks` and `POST /tasks`.
 whenToUse: >-
-  Use MockAPI when you need a quick, hosted REST API for prototyping, demos, or frontend development
-  without backend setup.
+  Use it when you need a quick hosted REST API with fake data for a front end,
+  a demo, or a lesson, and two resources are enough.
 whenNotToUse: >-
-  Avoid if you require custom domains, advanced authentication, or production-grade performance and
-  reliability.
+  Avoid it for production, for more than 2 resources or 1 project on the free
+  plan, or if you need custom endpoints, which are still marked coming soon.
 bestFor:
-  - prototyping
-  - frontend development
-  - testing
-  - learning
+  - front-end prototypes
+  - learning REST
+  - small demos
 avoidIf:
   - production workloads
-  - custom domain needs
-  - complex authentication
+  - more than 2 resources on the free plan
+  - custom endpoints or webhooks
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-01'
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mockapi.io/'
 docsUrl: 'https://mockapi.io/docs'
 sourceUrls:
   - 'https://mockapi.io/pricing'
-  - 'https://www.mockapi.io/pricing'
-  - 'https://mockapi.io/docs'
+  - 'https://github.com/mockapi-io/docs/wiki/Quick-start-guide'
 featured: false
 pricingUrl: 'https://mockapi.io/pricing'
-lastVerified: '2026-10-01'
 ---
-MockAPI is a simple, hosted REST API generator ideal for quickly mocking endpoints and data for development, testing, and learning.
+You use MockAPI in a web dashboard to set up projects and resources, then call the generated endpoints with plain `fetch` or any HTTP client. It suits front-end developers and learners who need an API to talk to.
+
+## What the free plan gives you
+
+The free plan includes 1 project and 2 resources. A project is one API with its own base URL. A resource is one data type, such as tasks or users, and MockAPI generates the usual endpoints for it: list, get by ID, create, update, and delete.
+
+You pick a Faker.js generator for each field and let MockAPI create the records. The page also lists filtering, sorting, pagination, and relations between resources, which add nested URLs. The paid plans cost $5 per month or $35 per year. Both raise the limits to 20 projects and 50 resources and add custom responses and collaboration.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you try to add a third resource or a second project on the free plan. It lists only the plan limits. It also does not mention a request cap or any overage charge, so check the dashboard before you plan a larger test. The only upgrade path on the page is a paid plan, which costs $5 per month or $35 per year and gives you 20 projects and 50 resources.
+
+## Gotchas
+
+- Two resources go fast. A users and posts setup already uses both of them.
+- Custom endpoints and webhooks are marked as coming soon on the pricing page.
+- Requests need a `content-type: application/json` header, and data goes in the body as JSON.
+
+## Alternatives in this atlas
+
+- [Mockfly](/tools/mockfly/): when you want a mock API with a daily request limit instead of a resource limit.
+- [JSONing](/tools/jsoning/): when you want an instant mock API with no signup.
+- [Mocko.dev](/tools/mocko-dev/): when you also want an open-source version that runs on your own machine.
+
+## Questions people ask
+
+### Is MockAPI free?
+
+Yes. The free plan includes 1 project and 2 resources. Paid plans start at $5 per month.
+
+### How many resources can I create on the MockAPI free plan?
+
+Two resources in one project. The paid plans allow 50 resources in 20 projects.
+
+### What happens when I go over the MockAPI free limits?
+
+The pricing page does not say. You would need a paid plan to add more projects or resources.

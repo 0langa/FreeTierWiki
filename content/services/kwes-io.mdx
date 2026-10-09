@@ -1,77 +1,124 @@
 ---
 title: KwesForms
 description: >-
-  KwesForms (formerly Kwes.io) provides easy-to-integrate, spam-protected forms
-  for static and JAMstack websites.
+  KwesForms is a form service for developers. You write your own HTML form, add
+  its script for validation and special fields, and point the form at its
+  backend for spam protection and storage.
 provider: KwesForms
 category: forms
 domain: forms
 subtypes:
   - form backend
   - form validation
-  - spam protection
+  - static site
 audiences:
   - indie
   - startup
   - student
-  - team
+  - agency
   - oss
 tags:
-  - productivity
-  - web
+  - form backend
+  - form validation
+  - html form
+  - spam protection
+  - multistep form
+  - javascript
 pricingModel: freemium
 freeTierDetails:
-  summary: Free Forever plan allows 1 form with up to 100 submissions per month.
+  summary: The Free Forever plan is for smaller personal projects and allows 1 form with up to 100 submissions a month.
   limits:
     - 1 form
     - 100 submissions/month
-    - Webhooks and CSV export
   caveats:
     - Intended for smaller personal projects
-    - No credit card required
+    - The pricing page does not list which features the free plan includes
+    - Paid plans start with Bronze at $19 a month for 5 forms and 1K submissions
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Contact forms for static sites
-  - Newsletter signups
-  - Feedback collection
-  - Simple event registrations
+  - Contact forms on a static site
+  - Multistep forms and repeater fields
+  - Forms with frontend and backend validation
+  - Newsletter signups and feedback forms
+  - Forms on WordPress or single-page apps
 quickstartSteps:
-  - Sign up for a free KwesForms account.
-  - Create a new form in the KwesForms dashboard.
-  - Copy the provided form markup and add it to your website's HTML.
-  - Add a KwesForms form to your page using their markup.
-  - Test your form to ensure submissions are received.
+  - Sign up for a KwesForms account.
+  - On the dashboard, click Add a website and give it a name.
+  - Add a form to that website and name it.
+  - Build your form in your own HTML and CSS, and set its action to the endpoint KwesForms gives you. Give every field a unique name attribute.
+  - Optionally add the script, either with `npm install kwesforms` and `kwesforms.init()`, or with the CDN script tag. Then add the class `kf-form` to the form tag.
+  - Send your first submission to connect the form to the backend.
 whenToUse: >-
-  Use KwesForms when you need a quick, no-backend form solution for static or
-  JAMstack sites with built-in spam protection.
+  Use KwesForms when you hand-write forms and want built-in validation, spam
+  blocking, and stored submissions for one small project.
 whenNotToUse: >-
-  Avoid if you require more than 1 form or high submission volumes without
-  upgrading to a paid plan.
+  Avoid it if you want a drag-and-drop builder, need more than 1 form, or expect
+  more than 100 submissions a month without paying.
 bestFor:
   - static sites
   - JAMstack projects
-  - landing pages
-  - MVPs
+  - developer-built forms
 avoidIf:
-  - high-volume forms
-  - file uploads needed
-  - custom backend logic required
+  - want a drag-and-drop builder
+  - need more than 1 form
+  - need high submission volume
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
-popularityScore: 6
-usefulnessScore: 7
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
+popularityScore: 5
+usefulnessScore: 6
 officialUrl: 'https://kwesforms.com/'
-docsUrl: 'https://docs.kwes.io/'
+docsUrl: 'https://kwesforms.com/docs/v2/getting-started'
 pricingUrl: 'https://kwesforms.com/pricing'
 sourceUrls:
   - 'https://kwesforms.com/pricing'
-  - 'https://docs.kwes.io/'
+  - 'https://kwesforms.com/docs/v2/form-setup'
+  - 'https://kwesforms.com'
 featured: false
 ---
-KwesForms (formerly Kwes.io) offers a simple way to add validated, spam-protected forms to static and JAMstack sites, with a free-forever tier for small personal projects.
+You build the form in your own HTML and CSS, then add the KwesForms script and endpoint. The docs say it is not a drag-and-drop service, and the script works with any front end or CMS.
+
+## What the free plan gives you
+
+The pricing page calls the free plan Free Forever. It is meant for smaller personal projects and is limited to 1 form with 100 submissions a month. You do not need a credit card to try the product.
+
+The page does not list which features the free plan includes. Its feature table covers the four paid plans and names spam blocks, data retention, validation, file uploads, webhooks, Zapier, and CSV export. Check the dashboard before you rely on one of them.
+
+The script is plain JavaScript, so it works with static site generators, CMS platforms, single-page apps, and page builders. Docs say the V2 script is 20KB.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 100 submissions in a month, or when you try to add a second form. It shows no overage fee, and the free plan has no card on file.
+
+To go further you move to a paid plan. Bronze costs $19 a month for 5 forms and 1K submissions. Silver costs $39 a month for 20 forms and 5K submissions. Gold costs $99 a month for 100 forms and 10K submissions. Platinum costs $249 a month for 1000 forms and 100K submissions. All plans get a 14-day free trial.
+
+## Gotchas
+
+- KwesForms is for developers. You write the HTML and CSS yourself, and there is no drag-and-drop editor.
+- Each form field needs a unique name attribute, or its value will not be sent.
+- WordPress may strip custom attributes from forms in the page editor, so the docs suggest data-kw attributes, a template file, or a shortcode.
+
+## Alternatives in this atlas
+
+- [Formspree.io](/tools/formspree-io/): when you want unlimited forms on the free plan.
+- [FormKeep.com](/tools/formkeep-com/): when you want unlimited forms that share a monthly submission total.
+- [Formcarry.com](/tools/formcarry-com/): when you want a form backend with a free plan for a single form.
+
+## Questions people ask
+
+### Is KwesForms free?
+
+Yes. The Free Forever plan allows 1 form with 100 submissions a month. Paid plans start at $19 a month.
+
+### Is KwesForms a drag-and-drop form builder?
+
+No. The FAQ says you build forms with your own HTML and CSS plus its form tools. Then you point the form at its backend.
+
+### Does KwesForms need a credit card?
+
+No. The pricing page says the 14-day trial needs no card, and the free plan is free forever.

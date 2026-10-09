@@ -1,6 +1,9 @@
 ---
 title: DB-IP
-description: DB-IP provides a free API for IP geolocation and related data lookup.
+description: >-
+  DB-IP offers a free HTTP API that maps an IP address to country, state, and
+  city. Paid plans add detail and HTTPS. It is meant for prototypes and small
+  websites.
 provider: DB-IP
 category: apis
 domain: apis
@@ -14,9 +17,11 @@ audiences:
   - startup
   - oss
 tags:
-  - networking
-  - api
-  - search
+  - ip geolocation
+  - geoip
+  - ip to country
+  - ip to city
+  - rest api
 pricingModel: freemium
 freeTierDetails:
   summary: Free API tier for basic IP geolocation lookups.
@@ -32,33 +37,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Show user location on website
-  - Basic IP-based access control
-  - Personalization by country or city
+  - 'Show a visitor''s country or city on a website'
+  - Pick a default language or currency by country
+  - Run basic IP-based access checks
+  - 'Look up your own public IP with the `self` address'
 quickstartSteps:
-  - 'Go to https://db-ip.com/api/free.'
-  - Review the free API documentation and usage limits.
-  - Construct a GET request to the API endpoint with the target IP address.
-  - Parse the JSON response for geolocation data.
-  - Integrate the API call into your application.
+  - 'Open the free API page at `db-ip.com/api/free`.'
+  - 'Pick an IP address to look up, or use `self` for your own address.'
+  - 'Send a GET request to `http://api.db-ip.com/v2/free/8.8.8.8` over plain HTTP, with no key.'
+  - 'Read the JSON response for country, state, and city.'
+  - 'Add a paid key later if you need HTTPS, coordinates, or more requests.'
 whenToUse: >-
-  Use when you need simple, low-volume IP geolocation for websites, apps, or
-  prototypes.
+  Use DB-IP when you need country, state, or city lookups at low volume and
+  plain HTTP calls are fine.
 whenNotToUse: >-
-  Avoid if you need HTTPS, high request volumes, or advanced geolocation data
-  such as ASN or carrier info.
+  Avoid it if you need HTTPS, more than 500 requests a day for free, or detail
+  such as coordinates, timezone, or ASN.
 bestFor:
   - prototyping
   - student projects
   - personal sites
 avoidIf:
   - need HTTPS
-  - require advanced data
+  - require coordinates or ASN data
   - high traffic
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://db-ip.com/api/free'
@@ -67,6 +73,45 @@ pricingUrl: 'https://db-ip.com/api/free'
 sourceUrls:
   - 'https://db-ip.com/api/free'
   - 'https://db-ip.com/api/#free'
+  - 'https://db-ip.com/api/doc.php'
 featured: false
 ---
-DB-IP's free API tier enables basic IP geolocation lookups for up to 500 daily requests, suitable for prototypes and low-traffic applications.
+You call the free endpoint straight from `curl`, a browser script, or the PHP client, with no account in the examples. It suits small sites and prototypes that need a visitor's country, state, or city and can live with plain HTTP.
+
+## What the free plan gives you
+
+The free API maps an IP address to country, state, and city. It is limited to 500 requests per day. The free URL uses `free` in place of an API key, for example `http://api.db-ip.com/v2/free/8.8.8.8`. You can also pass `self` to look up the address that sends the request.
+
+The free API does not include the extra data of the paid Basic API, such as GPS coordinates, district, zip code, and timezone. Localized place names are for paid keys only. The Basic API starts at 8.29 EUR a month and adds HTTPS.
+
+## When you hit a limit
+
+The docs list an error `OVER_QUERY_LIMIT` for a key that has used its daily quota. A batch query that would go over the quota also raises it. The free API stops at the quota and does not bill you.
+
+The docs also list `TEMPORARY_BLOCKED` for the free API. DB-IP uses it when its systems see unusual or malicious activity, and it blocks the key for a while.
+
+## Gotchas
+
+- The free API works only over HTTP. Calling it over HTTPS returns the `HTTPS_NOT_ALLOWED` error, so a browser page served over HTTPS may block the call.
+- A batch query helps your quota: it gets a 10% bonus, so 10 addresses cost 9 queries.
+- Free responses carry less data than paid ones. For coordinates, timezone, or ASN data you need a paid API.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/): when you want country-level lookups with no request cap and HTTPS.
+- [IPLocate](/services/iplocate/): when you want a daily allowance with full data and no credit card.
+- [Geolocated.io](/services/geolocated-io/): when you want a larger daily allowance on a free plan.
+
+## Questions people ask
+
+### Is the DB-IP API free?
+
+Yes. The free API gives you country, state, and city for an IP address, limited to 500 requests per day.
+
+### Does the DB-IP free API support HTTPS?
+
+No. The docs say encrypted API access is only for paid service, and the free API returns `HTTPS_NOT_ALLOWED` over HTTPS.
+
+### What happens when I go over the DB-IP free limit?
+
+The API returns an `OVER_QUERY_LIMIT` error once you use your daily quota. The paid Starter plan raises the daily limit to between 2,000 and 50,000 requests.

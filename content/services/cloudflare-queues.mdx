@@ -1,6 +1,8 @@
 ---
 title: Cloudflare Queues
-description: Message queues for Cloudflare Workers with batching and retries.
+description: >-
+  Cloudflare Queues is a message queue for Cloudflare Workers. One Worker sends
+  messages to a queue, and another Worker receives them in batches, with retries.
 provider: Cloudflare
 category: messaging
 domain: messaging
@@ -11,7 +13,10 @@ audiences:
   - indie
   - startup
 tags:
+  - cloudflare
   - queue
+  - workers
+  - background jobs
   - serverless
   - messaging
 pricingModel: freemium
@@ -19,40 +24,56 @@ freeTierDetails:
   summary: 'Workers Free plan: 10,000 operations per day, with 24-hour message retention.'
   limits:
     - '10,000 operations per day'
-    - 'Message retention: 24 hours'
+    - 'Message retention: 24 hours, not configurable on the free plan'
+    - 'Message size up to 128 KB'
+    - 'Up to 10,000 queues per account'
   caveats:
-    - 'Each message uses about 3 operations (write, read, delete)'
+    - 'Most messages take 3 operations (write, read, delete)'
     - Each retry costs a read operation
+    - Each 64 KB of a message counts as one operation
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Background jobs from a Worker
-  - Buffer webhooks
-  - Batch writes
+  - Running background jobs from a Worker
+  - Buffering webhooks before processing
+  - Batching writes to R2 or D1
+  - Retrying failed work with a dead letter queue
+  - Pulling messages from outside Workers with a pull consumer
 quickstartSteps:
-  - Create a queue with wrangler queues create.
-  - Add producer and consumer bindings.
-  - Send messages with env.QUEUE.send().
-whenToUse: Use for light background work inside a Workers app.
-whenNotToUse: Avoid if you need long message retention on the free plan.
+  - Create a Cloudflare account and a Worker project with `npm create cloudflare@latest -- producer-worker`.
+  - Create a queue with `npx wrangler queues create` and a queue name.
+  - Add a producer binding for the queue to your `wrangler.jsonc` file.
+  - Send messages from the Worker with `env.MY_QUEUE.send()`, then deploy with `npx wrangler deploy`.
+  - Add a `queue` handler to a consumer Worker, connect it to the queue, and watch the messages with `wrangler tail`.
+whenToUse: >-
+  Use Queues for light background work inside a Workers app, such as buffering
+  webhooks or batching writes.
+whenNotToUse: >-
+  Avoid it if you need messages kept longer than a day on the free plan, or work
+  that does not run on Workers.
 bestFor:
   - Workers apps
   - background jobs
+  - batching writes
 avoidIf:
-  - high-volume queues
+  - you need retention beyond 24 hours for free
+  - you send high volumes of messages
+  - your code does not run on Cloudflare
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://developers.cloudflare.com/queues/'
 docsUrl: 'https://developers.cloudflare.com/queues/'
 sourceUrls:
   - 'https://developers.cloudflare.com/queues/platform/pricing/'
+  - 'https://developers.cloudflare.com/queues/platform/limits/'
+  - 'https://developers.cloudflare.com/queues/get-started/'
 pricingUrl: 'https://developers.cloudflare.com/queues/platform/pricing/'
 featured: false
 changes:
@@ -60,4 +81,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Queues is included in the Workers Free plan with a daily operation limit.
+You use Queues from Wrangler and your Worker code. A producer Worker binds to a queue and calls `send()`, and a consumer Worker handles batches. It suits developers who already build on Cloudflare Workers.
+
+## What the free plan gives you
+
+Queues is part of the Workers Free plan. It includes 10,000 operations per day. An operation is counted for each 64 KB of data that is written, read, or deleted, and operations are per message, not per batch.
+
+In most cases a message takes 3 operations: 1 write, 1 read, and 1 delete. That means only a few thousand messages a day fit in the free amount. Free plan messages are kept for 24 hours, and you cannot change that. The paid plan keeps them 4 days by default, and up to 14 days. There are no data transfer or bandwidth charges.
+
+## When you hit a limit
+
+The pricing and limits pages do not say what Queues does after the 10,000 daily operations on the Free plan. The free plan has no card, so the page lists no bill.
+
+Other limits are explicit. A message can be up to 128 KB, and a queue can take 5,000 messages per second. Past that rate, `send()` and `sendBatch()` throw a Too Many Requests error. A queue that reaches its 25GB backlog returns a Storage Limit Exceeded error on send. Each retry also costs a read operation.
+
+## Gotchas
+
+- Each queue can have only one consumer Worker connected to it.
+- A batch of 10 messages counts as 10 writes, 10 reads, and 10 deletes. Batching does not cut the operation count.
+- Without a consumer Worker, messages stay in the queue until they expire.
+
+## Alternatives in this atlas
+
+- [CloudAMQP](/services/cloudamqp/): when you want a hosted RabbitMQ or LavinMQ broker you can reach from any language.
+- [SQS](/services/sqs/): when your code runs on AWS.
+- [Pub/Sub](/services/pub-sub/): when your code runs on Google Cloud.
+
+## Questions people ask
+
+### Is Cloudflare Queues free?
+
+Yes, on the Workers Free plan. It includes 10,000 operations per day and keeps messages for 24 hours.
+
+### How many messages can I send on the free plan?
+
+Most messages use 3 operations, so the 10,000 daily operations cover only a few thousand messages a day. Larger messages and retries use more.
+
+### How long does Cloudflare Queues keep messages?
+
+On the Workers Free plan, messages are kept for 24 hours and you cannot change it. On the Workers Paid plan the default is 4 days, up to 14 days.

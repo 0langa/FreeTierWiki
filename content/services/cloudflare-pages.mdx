@@ -1,8 +1,7 @@
 ---
 title: Cloudflare Pages
 description: >-
-  Cloudflare Pages offers fast, secure, and scalable static site hosting with
-  built-in CI/CD and global CDN.
+  Cloudflare Pages builds and hosts websites from a GitHub or GitLab repository, or from files you upload, on Cloudflare's global network. Cloudflare now says new projects should start on Workers.
 provider: Cloudflare
 category: hosting
 domain: hosting
@@ -18,57 +17,62 @@ audiences:
   - team
   - oss
 tags:
-  - web
-  - cdn
-  - devops
-  - serverless
+  - "static site hosting"
+  - "jamstack"
+  - "git deploy"
+  - "pages.dev"
+  - "preview deployments"
+  - "cloudflare"
+  - "github pages alternative"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes 500 builds per month, up to 100 projects, automatic deployments, and global CDN
     for static assets.
   limits:
-    - 500 builds/month
-    - 100 projects per account
-    - 20,000 files per site
-    - 100 custom domains
-    - 1 concurrent build
+    - "500 builds/month"
+    - "1 build at a time; a build times out after 20 minutes"
+    - "100 projects per account"
+    - "20,000 files per site; 25 MiB per file"
+    - "100 custom domains per project"
   caveats:
-    - Build minutes and concurrent builds are limited on free tier.
-    - Functions requests count toward the Workers free quota
+    - "Cloudflare says Workers supports most Pages use cases and that new projects should start on Workers"
+    - "Functions requests count toward the Workers plan quota"
+    - "A Git-integrated project cannot be switched to Direct Upload later"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Personal portfolios
-  - Documentation sites
-  - Marketing pages
-  - Open source project sites
+  - "Hosting a portfolio, blog, or documentation site built with a static generator"
+  - "Deploying a React, Vue, Astro, or Hugo site on every Git push"
+  - "Reviewing changes through preview deployments before you merge"
+  - "Uploading a prebuilt folder with Direct Upload"
+  - "Adding small server routes with Pages Functions"
 quickstartSteps:
-  - Sign up or log in to Cloudflare.
-  - Connect your GitHub or GitLab repository.
-  - Configure build settings and output directory.
-  - Deploy your site and assign a custom domain if needed.
+  - "Log in to the Cloudflare dashboard and go to the Workers & Pages page."
+  - "Select Create application, then Pages, then Connect to Git."
+  - "Sign in with GitHub or GitLab and pick the repository to deploy; private and public repositories both work."
+  - "Choose a production branch and set the build command and build output directory, or pick a framework preset. Leave the build command empty if there is no build step."
+  - "Add environment variables if the build needs them, then select Save and Deploy."
+  - "Open the pages.dev address Cloudflare gives your project, and add a custom domain later if you want one."
 whenToUse: >-
-  Use when you need to deploy static sites or JAMstack apps with fast global
-  delivery and simple Git-based workflows.
+  Use Pages to publish a static site or Jamstack project from Git, with preview deployments and a global network, and no card.
 whenNotToUse: >-
-  Avoid if you need more than 500 builds per month or 100 projects, or heavy
-  server-side logic beyond Pages Functions.
+  Skip it for new projects that need server features, since Cloudflare says Workers is its primary platform and supports most Pages use cases. Also skip it if you need more than the 500 monthly builds or 100 projects.
 bestFor:
-  - static sites
-  - documentation
-  - landing pages
-  - open source projects
+  - "static sites"
+  - "documentation"
+  - "landing pages"
+  - "open-source project sites"
 avoidIf:
-  - dynamic web apps
-  - server-side rendering
-  - backend APIs
+  - "you want the platform Cloudflare recommends for new projects"
+  - "you need many builds a month"
+  - "you need heavy server-side logic"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/pages/'
@@ -76,8 +80,48 @@ docsUrl: 'https://developers.cloudflare.com/pages/'
 sourceUrls:
   - 'https://developers.cloudflare.com/pages/platform/limits/'
   - 'https://www.cloudflare.com/products/pages/'
+  - 'https://developers.cloudflare.com/pages/'
+  - 'https://developers.cloudflare.com/pages/get-started/git-integration/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://developers.cloudflare.com/pages/platform/limits/'
 ---
-Cloudflare Pages is a static site hosting platform with built-in CI/CD, global CDN, and seamless integration with Git providers for fast, secure deployments.
+You connect a GitHub or GitLab repository in the Cloudflare dashboard, or use Direct Upload or the C3 command line tool. Each push builds and deploys your site. The docs now say to start new projects with Workers, so Pages suits existing projects and simple static sites.
+
+## What the free plan gives you
+
+The Free plan allows 500 builds per month and 1 build at a time. A build times out after 20 minutes. You can have 100 projects per account, 100 custom domains per project, and up to 20,000 files per site, each up to 25 MiB. Preview deployments are unlimited, and an unlimited number of users can manage a site through the dashboard.
+
+Requests to Pages Functions count toward your Workers plan quota. A `_headers` file can hold 100 rules, and a `_redirects` file can hold 2,000 static and 100 dynamic redirects. The Pro plan raises builds to 5,000 per month, and Business raises them to 20,000.
+
+## When you hit a limit
+
+The limits page lists the caps but does not say what happens when you reach the build count. No card is needed for the Free plan, so the page shows no bill from Pages itself. To raise a limit, you can fill in the Limit Increase Request Form, or move to a paid Cloudflare plan.
+
+The project cap is firm. The page says it is not routinely increased, and points to Workers for Platforms if you need to host many sites. New accounts also face a short guard: Cloudflare limits how many new Pages projects you can create in the first 48 hours.
+
+## Gotchas
+
+- Cloudflare says Workers supports most Pages use cases and is its primary platform, so check Workers before you start a new project.
+- A project created with Git integration cannot be switched to Direct Upload later.
+- On GitLab you need the Maintainer role or higher on the repository to deploy with Pages.
+
+## Alternatives in this atlas
+
+- [GitHub Pages](/services/github-pages/): when a plain static site from a repository is enough.
+- [Netlify](/services/netlify/): when you want forms and other site features around a static site.
+- [Firebase Hosting](/services/firebase-hosting/): when your project already uses Firebase.
+
+## Questions people ask
+
+### Is Cloudflare Pages free?
+
+Yes. The Free plan allows 500 builds per month, 100 projects per account, and unlimited preview deployments.
+
+### Does Cloudflare Pages have a build limit?
+
+Yes. The Free plan allows 500 builds per month and one build at a time. The Pro plan allows 5,000 builds per month.
+
+### Should I use Cloudflare Pages or Workers for a new site?
+
+Cloudflare says Workers is its primary platform and supports most Pages use cases. It tells you to start new projects with Workers.

@@ -1,8 +1,8 @@
 ---
 title: ZITADEL Cloud
 description: >-
-  Managed cloud identity and access management with authentication,
-  authorization, and user self-service features.
+  ZITADEL Cloud is the hosted version of the open-source ZITADEL identity platform, with login, SSO,
+  organizations, and service users for apps and APIs.
 provider: ZITADEL
 category: auth
 domain: auth
@@ -18,13 +18,17 @@ audiences:
   - oss
 tags:
   - auth
-  - identity
-  - cloud
+  - open-source
+  - oidc
+  - saml
+  - multi-tenant
+  - passkeys
+  - service users
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 100 daily active users, unlimited stored users, and
-    unlimited organizations, with all security features.
+    Free tier includes 100 daily active users, unlimited stored users, and unlimited organizations,
+    with all security features.
   limits:
     - 100 daily active users
     - Unlimited stored users
@@ -33,48 +37,94 @@ freeTierDetails:
     - 'Data residency: EU, US, Switzerland, Australia'
   caveats:
     - No SLA on the free tier
-    - Pro plan ($100/mo) starts at 25,000 daily active users with an SLA
+    - 'Pro plan ($100/mo) starts at 25,000 daily active users with an SLA'
+    - The pricing page does not say what happens above 100 daily active users
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Add secure login to web or mobile apps
-  - Enable SSO for SaaS products
-  - Manage user roles and permissions
+  - 'Sign-in and SSO for web, mobile, and API projects'
+  - Many organizations in one instance for a multi-tenant app
+  - Service users and agents that call your APIs
+  - Custom workflows during login
+  - Keep data in a chosen region
 quickstartSteps:
-  - Sign up for a free ZITADEL Cloud account.
-  - Create a new project and configure your application.
-  - 'Set up authentication methods (e.g., email, social login).'
-  - Integrate ZITADEL SDK or OIDC endpoints into your app.
-  - Test user registration and login flows.
+  - 'Go to zitadel.com, select Sign Up, verify your email, and set up your Portal Team.'
+  - Answer the short onboarding questions.
+  - >-
+    In the Customer Portal, choose Create Instance, give it a name, pick a region, and create the
+    Instance Administrator.
+  - >-
+    Click Create your app to open the Management Console, then define a project and choose your
+    framework.
+  - Follow the framework guide to connect your app to the instance with OIDC.
 whenToUse: >-
-  Use ZITADEL Cloud when you need managed authentication, authorization, and
-  user management for your apps without running your own identity server.
+  Use ZITADEL Cloud when you want hosted, open-source-based identity with unlimited stored users,
+  and your daily sign-ins stay small.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment, advanced enterprise features, or
-  strict SLAs on the free tier.
+  Avoid it if you need more than 100 daily active users for free, an SLA on the free tier, or
+  on-premise hosting.
 bestFor:
-  - indie
-  - startup
-  - oss
-  - team
+  - side projects and small apps
+  - open-source projects
+  - multi-tenant apps with many organizations
 avoidIf:
-  - enterprise
-  - agency
+  - more than 100 daily active users for free
+  - an SLA on the free tier
+  - on-premise only
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://zitadel.com'
-docsUrl: 'https://docs.zitadel.com/'
+docsUrl: 'https://zitadel.com/docs'
 pricingUrl: 'https://zitadel.com/pricing'
 sourceUrls:
   - 'https://zitadel.com/pricing'
-  - 'https://docs.zitadel.com/'
+  - 'https://zitadel.com/docs/guides/start/quickstart'
+  - 'https://help.zitadel.com/how-is-daily-active-users-calculated'
 featured: false
 ---
-ZITADEL Cloud provides managed identity and access management with modern authentication protocols, user self-service, and scalable free tier for app developers.
+You create an instance in the ZITADEL Customer Portal and manage projects and applications in its Management Console. Your apps connect over standard OIDC or SAML. It suits developers who want open-source roots with a hosted option.
+
+## What the free plan gives you
+
+The Free plan costs US$ 0 per month and lets you try out all features. It includes all security features and unlimited stored users. You also get unlimited organizations, service users and agents, 3 identity providers, and custom workflows.
+
+The limit is 100 daily active users. Data residency covers the EU, US, Switzerland, and Australia. An authentication event is a login or a token refresh, and each unique user counts once per day. The monthly total is the sum of every day's count. The Pro plan costs US$ 100 per month. It starts with a much larger daily active user allowance included per month, a custom domain, and a 99.5% uptime guarantee.
+
+## When you hit a limit
+
+The pricing page does not say what happens when the Free plan passes 100 daily active users. The help article on how daily active users are counted does not cover the Free plan limit either. Ask ZITADEL before you plan a launch that could pass it.
+
+The Pro plan is the step up. It includes a much larger daily active user allowance per month and a response SLO of 1h. Enterprise has unlimited daily active users, a custom support SLA, and a 99.99% uptime guarantee, with custom pricing. Stored users are unlimited on every plan.
+
+## Gotchas
+
+- The limit counts daily active users, not monthly ones. A busy day with many unique sign-ins can pass 100 even if you have few total users.
+- The free tier has no SLA. Uptime guarantees start with the Pro plan.
+- Most developers use separate instances for development, test, and production, and each instance is a fully isolated environment.
+
+## Alternatives in this atlas
+
+- [Logto](/services/logto/): when you want open-source auth with a monthly active user limit that is much larger.
+- [Hanko Cloud](/services/hanko/): when you want passkey-first login with a larger free user allowance.
+- [Authgear](/services/authgear/): when you want open-source auth with unlimited monthly active users on the free plan.
+
+## Questions people ask
+
+### Is ZITADEL Cloud free?
+
+Yes. The Free plan costs US$ 0 per month and includes all security features, unlimited stored users, unlimited organizations, and 100 daily active users.
+
+### What counts as a ZITADEL daily active user?
+
+A user who logs in or refreshes a token. Each unique user counts once per day, and the monthly total sums the daily counts.
+
+### Does ZITADEL Cloud need a credit card?
+
+The pricing page shows a Start for free button and does not mention a card. The atlas lists the Free plan as needing no card.

@@ -1,8 +1,8 @@
 ---
 title: Keploy
 description: >-
-  Keploy is an open-source tool for generating test cases and mocks from API
-  calls to automate integration testing.
+  Keploy records real API traffic and turns it into editable tests and mocks,
+  then replays them to catch regressions in backend services.
 provider: Keploy
 category: devops
 domain: devops
@@ -18,63 +18,109 @@ audiences:
   - oss
 tags:
   - open-source
-  - testing
-  - api
-  - automation
-pricingModel: free
+  - api-testing
+  - test-generation
+  - mocks
+  - integration-testing
+  - regression-testing
+pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever cloud Playground plan (no card) plus a fully free,
-    self-hosted open-source version.
+    The free Playground plan has 30 test suite generations, 100 test runs, and
+    5,000 integration and sandbox runs a month, with no credit card.
   limits:
     - 30 test suite generations/month (Playground)
     - 100 test runs/month (Playground)
-    - '5,000 integration + sandbox runs/month (Playground)'
+    - 5,000 integration and sandbox runs/month (Playground)
     - 5 AI credits/month (Playground)
-    - Self-hosted open-source version has no enforced limits
+    - An open-source version is also listed in the plan comparison
   caveats:
-    - Community support only on free tiers
-    - Higher volume needs the paid Pro plan ($19/user/month + usage)
+    - The Pro plan is $19 per user per month plus additional usage
+    - Pro overage is $0.16 per test generation and $0.22 per test run
+    - Paid plans take credit cards only
+    - Open source projects can apply for free access through Keploy's sponsorship
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated API integration testing
-  - Generating test cases from real traffic
-  - Mocking backend services for local development
+  - Record API traffic and turn it into regression tests
+  - Generate API tests from an OpenAPI or Postman spec
+  - Mock databases, queues, caches, and external APIs for local runs
+  - Replay recorded tests against a new build in CI
 quickstartSteps:
-  - Install Keploy CLI or Docker image on your development machine.
-  - Instrument your application to route API calls through Keploy.
-  - Run your application and interact with APIs to record traffic.
-  - Use Keploy to generate and run test cases based on recorded calls.
+  - Install the Keploy CLI with the install script from keploy.io on Linux or macOS, or the PowerShell command on Windows.
+  - Run `keploy login` to sign in to a free Keploy account.
+  - Start your app through Keploy with `keploy record -c` and your app's run command.
+  - Send requests to your app so Keploy captures the traffic as tests and mocks.
+  - Replay them against a new build with `keploy test -c` and the same run command.
 whenToUse: >-
-  Use Keploy when you need to quickly generate integration tests and mocks from
-  real API traffic for backend services.
+  Use Keploy to build regression tests for a backend service from real traffic
+  instead of writing every test and mock by hand.
 whenNotToUse: >-
-  Avoid Keploy if you require managed cloud hosting, advanced enterprise
-  support, or need to test non-API-based workflows.
+  Avoid it for front-end flows without an API, or if you cannot run the CLI
+  next to your app.
 bestFor:
   - backend developers
   - QA engineers
-  - open-source contributors
+  - API-heavy projects
 avoidIf:
-  - require managed SaaS
-  - need UI-based test authoring
-  - testing non-API systems
+  - you test UI flows only
+  - you need more than 100 test runs a month for free
+  - you need a managed service with a support contract
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://keploy.io/'
 docsUrl: 'https://docs.keploy.io/'
 sourceUrls:
-  - 'https://github.com/keploy/keploy'
   - 'https://keploy.io/pricing'
+  - 'https://keploy.io/'
+  - 'https://docs.keploy.io/'
+  - 'https://docs.keploy.io/docs/server/installation/'
 pricingUrl: 'https://keploy.io/pricing'
 featured: false
 ---
-Keploy is an open-source tool that records API calls to automatically generate test cases and mocks, streamlining integration testing for backend services.
+You run the Keploy CLI in front of your app, send some requests, and it saves them as tests and mocks. It suits backend and QA engineers who want regression tests built from real traffic.
+
+## What the free plan gives you
+
+The free Playground plan is called the perfect starting place to try Keploy and generate your first tests, and it is free forever. Per month it includes 30 test suite generations, 100 test runs, and 5,000 integration and sandbox runs. You also get 5 AI credits for bug detection and self-healing.
+
+The plan generates API tests from OpenAPI or Postman specs, expands edge cases with AI, and produces human-editable YAML. The pricing page says no credit card is needed for Playground. The plan comparison also lists an open-source column.
+
+## When you hit a limit
+
+The pricing page lists the Playground limits but does not say what happens when you reach them. The free plan has no card on file, so no bill follows.
+
+Moving up means the Pro plan at $19 per user per month with $19 of included usage. After that, overage prices apply: $0.16 per test generation, $0.22 per test run, and $10 for each 10,000 integration and sandbox runs. Pro takes credit cards only.
+
+## Gotchas
+
+- On macOS, start your app itself, not a launcher such as `npm start`, or Keploy cannot record it.
+- Apple's own Python and Java are protected on macOS and record nothing, so use your own copies.
+- The Windows installer file is named enterprise_windows_amd64.exe for historical reasons, but the docs say it is the keploy CLI and a free account is all you need.
+
+## Alternatives in this atlas
+
+- [BugBug](/services/bugbug/): when you want to test the browser interface rather than an API.
+- [Hoppscotch](/services/hoppscotch/): when you want to send and script API requests by hand.
+- [Insomnia](/tools/insomnia/): when you want a desktop client to design and debug API requests.
+
+## Questions people ask
+
+### Is Keploy free?
+
+Yes, in part. The Playground plan is free forever and includes 30 test suite generations and 100 test runs a month. The Pro plan costs $19 per user per month.
+
+### Does Keploy need a credit card?
+
+No. The pricing page says there is no credit card for Playground. The docs say a free account is all you need for the CLI.
+
+### Does Keploy need code changes in my app?
+
+The home page FAQ says Keploy captures requests and dependency calls with eBPF and network-level interception, without application code changes.

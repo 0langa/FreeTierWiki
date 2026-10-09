@@ -1,8 +1,8 @@
 ---
 title: EmailJS
 description: >-
-  Send emails directly from client-side JavaScript without a backend using
-  pre-configured email services.
+  EmailJS sends email straight from browser code. You connect an email service
+  and a template once, then trigger the send with a short JavaScript call.
 provider: EmailJS
 category: messaging
 domain: messaging
@@ -17,21 +17,26 @@ audiences:
   - oss
 tags:
   - email
-  - frontend
-  - backend
-  - api
-  - integration
+  - contact form
+  - javascript
+  - no backend
+  - static site
+  - rest api
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier allows 200 email requests per month, no credit card required.
   limits:
     - 200 requests/month
     - 2 email templates
-    - Requests up to 50KB
+    - Requests up to 50Kb
     - 500 contacts
-    - 1 user seat, 7 days data retention
+    - 1 user seat
+    - 7 days of email history
+    - Rate limit of 1 request per second on emailjs.send
   caveats:
     - No attachments, domain whitelist, or logo removal on the free plan
+    - Community support only
+    - Requests past the monthly limit are dropped
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -40,32 +45,33 @@ freeTierDetails:
 useCases:
   - Contact forms on static sites
   - Feedback widgets
-  - Client-side notifications
+  - Notification emails from a front-end app
   - Portfolio site messaging
+  - Auto-reply emails after a form submit
 quickstartSteps:
-  - Sign up for a free EmailJS account.
-  - 'Connect your email service (e.g., Gmail, Outlook) in the dashboard.'
-  - Create an email template for your messages.
-  - Install the EmailJS SDK in your project.
-  - Configure and call the send function in your JavaScript code.
+  - Sign up for a free EmailJS account with your name and email address. No credit card is needed.
+  - Add an email service in the dashboard, which connects EmailJS to the mailbox that sends your mail.
+  - Create an email template. You can use dynamic variables such as the sender name in the subject or body.
+  - 'Install the SDK with `npm install --save @emailjs/browser`, or add the browser script, and call `emailjs.init` with your public key from the Account page.'
+  - 'Send with `emailjs.send(serviceID, templateID, templateParams)`, or use `emailjs.sendForm` for an HTML form.'
 whenToUse: >-
-  Use EmailJS when you need to send emails from frontend apps without a backend
-  server.
+  Use EmailJS when a front-end app, such as a static site, must send a few emails
+  and you have no backend.
 whenNotToUse: >-
-  Avoid if you need high email volumes, advanced deliverability, or
-  backend-triggered emails.
+  Avoid it for high volumes, for emails with attachments on the free plan, or for
+  mail triggered from a backend.
 bestFor:
   - static sites
   - simple forms
-  - frontend-only apps
+  - front-end only apps
 avoidIf:
-  - high-volume email
-  - transactional backend emails
-  - custom SMTP requirements
+  - you need more than 200 emails a month for free
+  - you need attachments
+  - you send transactional email from a backend
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.emailjs.com/'
@@ -73,7 +79,47 @@ docsUrl: 'https://www.emailjs.com/docs/'
 pricingUrl: 'https://www.emailjs.com/pricing/'
 sourceUrls:
   - 'https://www.emailjs.com/pricing/'
-  - 'https://www.emailjs.com/docs/'
+  - 'https://www.emailjs.com/docs/introduction/how-does-emailjs-work/'
+  - 'https://www.emailjs.com/docs/sdk/installation/'
+  - 'https://www.emailjs.com/docs/sdk/send/'
 featured: false
 ---
-EmailJS enables sending emails from client-side JavaScript by connecting to popular email services, ideal for static sites and simple frontend forms.
+You work in the EmailJS dashboard and call a JavaScript SDK or a REST API from your code. No server is required. It suits people who need a form to send mail without building a backend.
+
+## What the free plan gives you
+
+The Free plan costs $0 and allows 200 monthly requests. It includes 2 email templates, requests up to 50Kb, and a contact list of up to 500 people. The account has 1 user seat. The email history in the dashboard is kept for 7 days.
+
+You can use the REST API, dynamic content in templates, CC and BCC recipients, and tracking through internal analytics or Google Analytics. Support is community only. Attachments, the domain whitelist, and removing the EmailJS logo footer are not part of the Free plan. The pricing FAQ says no credit card is required.
+
+## When you hit a limit
+
+EmailJS does not charge overage fees. After you reach 100% of the monthly request limit, extra API requests are dropped by the servers. They are not queued and they do not cost you anything.
+
+EmailJS sends email notices when your account reaches 80%, 95%, and 100% of the quota, so you have time to upgrade. The Personal plan raises the limit to 2,000 requests for $9 per month. The SDK send method also has a rate limit of 1 request per second.
+
+## Gotchas
+
+- Requests over the monthly limit are dropped, so a form can stop sending mid-month. Watch the quota emails.
+- The Free plan has no domain whitelist, which is a paid feature on Personal and above.
+- You can turn off email history in a template's settings if you do not want request data stored.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you send from a backend and want an email API with a free plan.
+- [Brevo](/services/brevo/): when you want a larger daily sending allowance.
+- [Mailgun](/services/mailgun/): when you need a backend email API.
+
+## Questions people ask
+
+### Is EmailJS free?
+
+Yes. The Free plan allows 200 requests per month and 2 templates. No credit card is required, only your name and email address.
+
+### What happens when I hit the EmailJS monthly limit?
+
+Extra requests are dropped once you reach 100% of the monthly limit. EmailJS does not charge automatic overage fees, and it emails you at 80%, 95%, and 100%.
+
+### Can I send attachments with EmailJS for free?
+
+No. Attachments are not part of the Free plan. The Personal plan allows attachments up to 500kb.

@@ -1,8 +1,7 @@
 ---
 title: cdnjs
 description: >-
-  cdnjs is a free, public CDN for hosting popular JavaScript and CSS libraries
-  with fast global delivery.
+  cdnjs is a free, community-run CDN for popular open-source JavaScript, CSS, and font libraries, served from Cloudflare's network, so you can load a library with one script or link tag.
 provider: Cloudflare
 category: hosting
 domain: hosting
@@ -17,60 +16,106 @@ audiences:
   - oss
   - team
 tags:
-  - cdn
-  - frontend
-  - web
-  - open-source
+  - "cdn"
+  - "javascript cdn"
+  - "css cdn"
+  - "script tag"
+  - "open source libraries"
+  - "sri hash"
+  - "frontend"
 pricingModel: free
 freeTierDetails:
   summary: Completely free CDN for open-source libraries.
   limits:
-    - 'Only public, open-source libraries'
-    - JavaScript, CSS, and font files
+    - "Free CDN for open-source JavaScript, CSS, and font files"
+    - "Only libraries that the community has added to cdnjs"
+    - "Served from Cloudflare's global network"
+    - "API at api.cdnjs.com needs no authentication"
   caveats:
-    - No support for private or proprietary assets
+    - "No support for private or proprietary assets"
+    - "Curated list: a library must be added through a pull request to the cdnjs packages repository"
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Quickly include popular JS/CSS libraries in web projects
-  - Reduce server bandwidth by offloading static assets
-  - Speed up website load times with global CDN
-  - Simplify dependency management for static sites
+  - "Loading React, Vue, Bootstrap, or d3 with a script tag, no build step"
+  - "Adding a library to a CodePen, demo, or teaching page"
+  - "Using Subresource Integrity hashes for third-party scripts"
+  - "Looking up library files and versions through the free API"
+  - "Adding your own open-source library to the CDN"
 quickstartSteps:
-  - 'Visit https://cdnjs.com/ and search for the desired library.'
-  - Select the version you need from the list.
-  - Copy the provided CDN URL for the JS or CSS file.
-  - Paste the URL into your HTML file's <script> or <link> tag.
-  - Deploy your site; the asset will load from the CDN automatically.
+  - "Open cdnjs.com/libraries and search for the library you need."
+  - "Open the library page and pick a version."
+  - "Copy the script or link tag for the file, which includes its SRI hash."
+  - "Paste the tag into your HTML page."
+  - "Optional: query the API at api.cdnjs.com, which needs no authentication, to look up libraries and files."
 whenToUse: >-
-  Use cdnjs to quickly add popular open-source JS or CSS libraries to your
-  website without hosting them yourself.
+  Use cdnjs to load a popular open-source library into a page with one tag, with no npm install or build step.
 whenNotToUse: >-
-  Avoid cdnjs if you need to host private, proprietary, or custom files, or
-  require custom domain support.
+  Skip it for private or custom files, for libraries cdnjs does not carry, or for production setups where you need a support contract or want to control the files you serve.
 bestFor:
-  - static sites
-  - prototyping
-  - open-source projects
-  - student projects
+  - "quick prototypes"
+  - "static sites"
+  - "teaching and demo pages"
+  - "open-source projects"
 avoidIf:
-  - hosting private assets
-  - requiring custom domains
-  - needing SLAs
+  - "you need to host private or proprietary files"
+  - "your library is not on cdnjs"
+  - "you need a support contract"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://cdnjs.com/'
 docsUrl: 'https://docs.cdnjs.com'
 sourceUrls:
   - 'https://cdnjs.com/'
+  - 'https://cdnjs.com/about'
+  - 'https://cdnjs.com/libraries'
+  - 'https://cdnjs.com/api'
   - 'https://github.com/cdnjs/cdnjs'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://cdnjs.com/'
 ---
-cdnjs is a free, public CDN maintained by Cloudflare for hosting and delivering popular open-source JavaScript and CSS libraries. It is ideal for quickly including widely-used libraries in web projects, reducing server bandwidth, and improving load times with minimal setup. However, it does not support private or custom files, nor does it offer custom domains or SLAs, making it best suited for open-source and non-critical production use.
+You search the library list on cdnjs.com, copy a script or link tag, and paste it into your page. A free API also lists libraries and files. It suits front-end developers who want a library on the page with no build step.
+
+## What the free plan gives you
+
+There is no paid plan. cdnjs calls itself a free, open-source CDN for JavaScript, CSS, and font resources, and the site lists 4,616 libraries. Files are served from Cloudflare's global network, with support for HTTP/3, HTTP/2, QUIC, and Brotli and GZIP compression. The about page says cdnjs is trusted by 12.5% of all websites and serves more than 250 billion requests per month from over 330 edge locations.
+
+Every script and link tag comes with a Subresource Integrity hash, and the service is preloaded for HSTS so requests use HTTPS. The API at api.cdnjs.com needs no authentication. The project started in 2011.
+
+## When you hit a limit
+
+The pages list no request limit, bandwidth cap, or paid tier. No account or payment method is involved, so there is nothing to bill. The pages do not say what would happen if one site sent extreme traffic, so treat that as unknown.
+
+The real limit is the catalog. cdnjs is curated and does not pull libraries on demand from npm. If your library is missing, you add it by opening a pull request to the cdnjs packages repository on GitHub with a small JSON file. After it is merged, new versions are picked up on their own from npm or GitHub.
+
+## Gotchas
+
+- cdnjs serves only libraries that the community added. It does not fetch an arbitrary npm package for you.
+- The main cdnjs GitHub repository says it is no longer updated because it grew too large. The assets now live in a Cloudflare R2 bucket.
+- Mirror operators should note that syncing from the old GitHub repository no longer works; the repository asks them to open an issue to request access to the bucket.
+
+## Alternatives in this atlas
+
+- [Gcore](/services/gcore/): when you need a CDN for your own files, not only public libraries.
+- [Bunny Fonts](/services/bunny-fonts/): when you only need web fonts delivered from a CDN.
+- [Cloudflare Pages](/services/cloudflare-pages/): when you want to host and serve your own static site.
+
+## Questions people ask
+
+### Is cdnjs free?
+
+Yes. cdnjs describes itself as a free, open-source CDN for JavaScript, CSS, and font resources. No account is needed to copy a tag.
+
+### Who runs cdnjs?
+
+Cloudflare provides the infrastructure and project maintenance, and the project is community driven. The about page lists several other sponsors.
+
+### Can I upload my own files to cdnjs?
+
+Not directly. You can add an open-source library by opening a pull request with a JSON file, and cdnjs then picks up new versions automatically.

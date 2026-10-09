@@ -1,6 +1,6 @@
 ---
 title: Read the Docs
-description: 'Build and host documentation (Sphinx, MkDocs, and more) from your Git repository.'
+description: 'Read the Docs builds your documentation from a Git repository on every push and hosts it with search and versions, free for open-source projects.'
 provider: Read the Docs
 category: collaboration
 domain: collaboration
@@ -9,45 +9,67 @@ subtypes:
 audiences:
   - oss
 tags:
+  - documentation hosting
+  - sphinx
+  - mkdocs
   - docs
-  - ci-cd
-  - open-source
+  - open source
+  - github
+  - pull request previews
 pricingModel: freemium
 freeTierDetails:
-  summary: Read the Docs Community is free forever for open-source projects.
+  summary: Read the Docs Community is free forever for open-source projects, with ad-supported hosting of public repositories.
   limits:
     - Free for open-source projects
-    - Public repositories and public docs
+    - Clones public repositories only
+    - Ad-supported hosting
   caveats:
-    - Private docs need Read the Docs Business (30-day trial)
+    - Private repositories and private docs need Read the Docs Business, which starts at $50 per month with a 30-day trial
+    - Community hosting shows ads; the tutorial says ads are a main source of revenue
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Host docs for an open-source library
-  - Versioned docs per release
+  - Host the docs for an open-source library
+  - Publish a version of the docs for each release
+  - Preview doc changes on every pull request
+  - Offer PDF and EPUB downloads of the docs
 quickstartSteps:
-  - Sign in at readthedocs.org with GitHub.
-  - Import your repository.
-  - Add a .readthedocs.yaml file.
-whenToUse: Use for open-source documentation.
-whenNotToUse: Avoid for private or commercial docs.
+  - 'Put your docs in a public GitHub repository with a .readthedocs.yaml configuration file; the config file is required.'
+  - 'On the Sign Up page, choose Sign up with GitHub and click Authorize readthedocs.'
+  - 'Confirm your email and username, then click Sign Up to open your dashboard.'
+  - 'Click Import a Project and click the plus button next to your repository.'
+  - 'Enter a project name and the default branch, then click Next to create the project.'
+  - 'Open the first build log, then click View docs to see the live site.'
+whenToUse: >-
+  Use it for open-source documentation built with Sphinx or similar tools that
+  you want built and hosted from a public Git repository.
+whenNotToUse: >-
+  Skip it for private or commercial docs, or when you cannot accept ads on the
+  hosted site. Those cases need the paid Business plan.
 bestFor:
   - open-source libraries
+  - community projects
+  - docs with versions per release
 avoidIf:
-  - private docs
+  - private documentation
+  - commercial or non-free projects
+  - docs that must show no ads
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://about.readthedocs.com'
 docsUrl: 'https://docs.readthedocs.com'
 sourceUrls:
   - 'https://about.readthedocs.com/pricing/'
+  - 'https://about.readthedocs.com'
+  - 'https://docs.readthedocs.com'
+  - 'https://docs.readthedocs.com/platform/stable/tutorial/index.html'
 pricingUrl: 'https://about.readthedocs.com/pricing/'
 featured: false
 changes:
@@ -55,4 +77,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Read the Docs Community hosts open-source documentation for free.
+You connect a Git repository through GitHub, and Read the Docs builds and publishes your docs from a configuration file. The dashboard handles imports and builds, and there is a public REST API. It suits open-source maintainers.
+
+## What the free plan gives you
+
+Read the Docs Community is for free and open-source projects. The pricing page says it is free forever and that open-source documentation is always free. Community clones public repositories only, and the hosting is supported by ads.
+
+Every project gets automatic builds, versioning, search, pull request previews, and CDN hosting. The tutorial shows that pull request builds are on by default for new projects. Read the Docs has hosted open-source documentation since 2010. Read the Docs Business is for commercial and non-free projects, and it adds private repository support and single sign-on.
+
+## When you hit a limit
+
+The pricing page lists no usage caps for Community. The gate is the kind of project: open-source docs from public repositories. Private repositories and commercial docs need Business, which starts at $50 per month.
+
+The Business plans have a 30-day free trial. The pricing FAQ says it does not charge you automatically when the trial ends, so you only pay if you decide to continue.
+
+## Gotchas
+
+- Community hosting is supported by ads. The tutorial says ads are one of the main sources of revenue and asks readers not to block them.
+- The `.readthedocs.yaml` configuration file is required in your repository.
+- Private repositories, single sign-on, and private documentation are paid Business features.
+
+## Alternatives in this atlas
+
+- [GitBook](/services/gitbook/): when you want a hosted docs editor rather than building from a repository.
+- [Mintlify](/services/mintlify/): when you want a polished docs site with a free Starter plan.
+- [DocsSearch](/services/docssearch/): when you only need search over public developer docs.
+
+## Questions people ask
+
+### Is Read the Docs free?
+
+Yes, for open-source projects. Read the Docs Community is free forever and clones public repositories. Hosting is supported by ads.
+
+### Can I host private docs on Read the Docs for free?
+
+No. Private repositories need Read the Docs Business. Plans start at $50 per month and include a 30-day free trial.
+
+### Does Read the Docs build pull request previews?
+
+Yes. Every plan includes pull request previews. The tutorial says pull request builds are enabled by default on new projects.

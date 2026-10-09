@@ -1,8 +1,8 @@
 ---
 title: SuperTokens
 description: >-
-  SuperTokens provides open source authentication with prebuilt UI, social
-  login, and session management for web and mobile apps.
+  SuperTokens is an open-source login system with prebuilt sign-in screens, sessions, and social
+  login. You can run it yourself or use its managed cloud.
 provider: SuperTokens
 category: auth
 domain: auth
@@ -18,20 +18,25 @@ audiences:
 tags:
   - auth
   - open-source
-  - ci-cd
+  - self-hosted
+  - sessions
+  - passwordless
+  - social login
+  - rbac
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Self-hosting the open-source core is free with no user limit. The managed
-    cloud service is free for up to 5,000 monthly active users, then billed
-    per MAU.
+    Self-hosting the open-source core is free with no user limit. The managed cloud service is free
+    for up to 5,000 monthly active users, then billed per MAU.
   limits:
-    - Self-hosted core: unlimited users, free forever (open source)
+    - Self-hosted core: 'unlimited users, free forever (open source)'
     - 'Managed cloud: free under 5,000 monthly active users'
     - 3 free dashboard admin users
     - Email/password and social login included
   caveats:
-    - 'Multi-factor auth ($0.01/MAU) and account linking ($0.005/MAU) are paid add-ons with a $100/month minimum; multi-tenancy is contact-for-pricing'
+    - >-
+      Multi-factor auth ($0.01/MAU) and account linking ($0.005/MAU) are paid add-ons with a
+      $100/month minimum; multi-tenancy is contact-for-pricing
     - Self-hosting requires running your own infrastructure
     - 'Managed cloud beyond 5,000 MAU: $0.02 per MAU'
   resetPeriod: monthly
@@ -40,43 +45,86 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Add authentication to web or mobile apps
-  - Enable social login for users
-  - Manage user sessions securely
+  - 'Email and password, passwordless, and social login with prebuilt screens'
+  - Session management for a web or mobile app
+  - Roles and permissions with RBAC
+  - Self-host the auth core with no user limit
+  - A user management dashboard for your team
 quickstartSteps:
-  - Sign up at SuperTokens and create a new project.
-  - Install the SuperTokens SDK in your backend and frontend apps.
+  - Sign up for a SuperTokens account and open the dashboard.
   - >-
-    Configure connection info and authentication recipes (e.g., email/password,
-    social login).
-  - Integrate SuperTokens UI components or build your own using provided APIs.
-  - Test authentication flows locally and deploy to production.
+    Select Managed, name the deployment, pick the region closest to your backend, and click Deploy
+    Core.
+  - 'Open the deployment, go to Overview, and copy the Connection URI and an API key.'
+  - >-
+    Install the SDK, for example `npm i -s supertokens-auth-react` for a React frontend and
+    `supertokens-node` for a Node backend.
+  - >-
+    Initialise the backend with `supertokens.init` using your `connectionURI` and `apiKey`, then add
+    the prebuilt sign-in UI to your frontend.
 whenToUse: >-
-  Use SuperTokens when you need quick, secure authentication with social login
-  and session management for web or mobile apps.
-whenNotToUse: >-
-  Avoid if you require advanced enterprise features like SSO or multi-tenancy on
-  the free tier, or need extensive SLA-backed support.
+  Use SuperTokens when you want open-source auth with prebuilt UI and the choice to self-host with
+  no user limit, or to use a managed core under 5,000 monthly active users.
+whenNotToUse: 'Avoid it if you need SSO or multi-tenancy at no cost, or an SLA-backed support plan.'
 bestFor:
-  - indie
-  - startup
-  - oss
-  - team
+  - side projects and startups
+  - open-source projects
+  - teams that may self-host
 avoidIf:
-  - enterprise
-  - agency
+  - enterprise SSO on the free plan
+  - multi-tenancy without paying
+  - SLA-backed support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supertokens.com/'
-docsUrl: 'https://supertokens.com/docs/community/introduction'
+docsUrl: 'https://supertokens.com/docs/quickstart/introduction'
 sourceUrls:
   - 'https://supertokens.com/pricing'
-  - 'https://supertokens.com/docs/community/introduction'
+  - 'https://supertokens.com/'
+  - 'https://supertokens.com/docs/quickstart/introduction'
 pricingUrl: 'https://supertokens.com/pricing'
 featured: false
 ---
-SuperTokens is an open source authentication solution offering prebuilt UI, social login, and secure session management for modern web and mobile applications.
+You add a SuperTokens SDK to your frontend and backend, and the SDK talks to a SuperTokens core that you host or run in the managed cloud. It suits developers who want prebuilt login screens and the option to keep control of their data.
+
+## What the free plan gives you
+
+There are two ways to run SuperTokens. Self-hosting the open-source features is free with no limits and no cap on monthly active users. The managed cloud is free under 5,000 monthly active users, and it costs $0.02 per monthly active user after that. A monthly active user is a unique logged-in user in a month, including new sign-ups.
+
+The core features cover email and password, social login, passwordless magic links, SMS or email one-time passwords, and phone number login. You also get the sign-up and sign-in page UI, RBAC, a user management dashboard, and session management. Support comes from the community. Three dashboard users are free.
+
+## When you hit a limit
+
+On the managed cloud, there is no stop at 5,000 monthly active users. You pay $0.02 for each monthly active user past that, so the cost grows with your traffic.
+
+Add-ons have their own prices. Multi-factor authentication costs $0.01 per monthly active user, and account linking costs $0.005 per user, each with a minimum bill of $100 per month. Extra dashboard users cost $20 per user per month after the 3 free ones. Multi-tenancy needs a conversation with sales. If a bill worries you, self-host the open-source core instead.
+
+## Gotchas
+
+- The add-ons for MFA and account linking have a minimum bill of $100 per month, even for a small user base.
+- The first setup flow gives you a development environment only. For production, you create a separate deployment.
+- Self-hosting is free, but you run and patch the infrastructure yourself.
+
+## Alternatives in this atlas
+
+- [Hanko Cloud](/services/hanko/): when you want passkey-first login with a larger managed free allowance.
+- [Logto](/services/logto/): when you want open-source auth with a hosted free plan.
+- [Hexclave (formerly Stack Auth)](/services/stack-auth/): when you want an open-source auth platform with teams and roles.
+
+## Questions people ask
+
+### Is SuperTokens free?
+
+Yes, in two ways. Self-hosting the open-source core is free with no limit, and the managed cloud is free under 5,000 monthly active users.
+
+### How much does SuperTokens cost after the free tier?
+
+The managed cloud costs $0.02 per monthly active user after 5,000. MFA and account linking are paid add-ons with a $100 minimum per month.
+
+### Can I self-host SuperTokens?
+
+Yes. The pricing page says self-hosting the open-source features is free without any limits.

@@ -1,8 +1,9 @@
 ---
 title: Cloud Run functions
 description: >-
-  Cloud Run functions (formerly Google Cloud Functions) is a serverless
-  compute service for running event-driven code without managing servers.
+  Cloud Run functions, the new name for Google Cloud Functions, runs small
+  pieces of code in response to HTTP requests or events. It is for developers
+  who want Google Cloud to run and scale the code.
 provider: Google Cloud
 category: compute
 domain: compute
@@ -18,69 +19,115 @@ audiences:
   - oss
 tags:
   - serverless
-  - queue
-  - cloud
-  - compute
+  - functions
+  - google cloud
+  - cloud run functions
+  - event-driven
+  - pubsub
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always-free tier includes generous monthly limits for invocations, compute
-    time, and networking. Google renamed this product from Cloud Functions to
-    Cloud Run functions.
+    Google's Free Tier page lists 2 million invocations, 400,000 GB-seconds, and
+    200,000 GHz-seconds of compute, and 5 GB of outbound data per month. New
+    functions run on Cloud Run, whose free tier is 2 million requests, 360,000
+    GiB-seconds, and 180,000 vCPU-seconds per month.
   limits:
-    - 2 million invocations/month
+    - '2 million invocations/month (Free Tier page, linked to 1st gen pricing)'
     - '400,000 GB-seconds compute/month'
     - '200,000 GHz-seconds CPU/month'
-    - 5GB outbound data/month
+    - 5 GB outbound data/month
+    - '2 million requests, 360,000 GiB-seconds, 180,000 vCPU-seconds/month (Cloud Run request-based billing)'
   caveats:
     - 'Limits apply per billing account, not per project.'
-    - Outbound data over 5GB incurs charges.
+    - A Cloud Billing account is required to use the Free Tier.
+    - Google can change or remove Free Tier limits with 30 days' advance notice.
+    - The Free Tier page ties the 2 million invocations to 1st gen pricing; new functions use Cloud Run pricing.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Overages are billed automatically if limits are exceeded.
+    - Usage above the Free Tier is billed at standard rates on a Paid billing account.
+    - On a Free Trial billing account the $300 welcome credit pays for the overage.
 useCases:
-  - API backends
-  - Webhook processing
-  - Data transformation
-  - IoT event handling
+  - HTTP APIs and webhook handlers
+  - Reacting to Pub/Sub messages or Cloud Storage uploads
+  - Small data transformation steps
+  - Scheduled tasks through other Google Cloud services
 quickstartSteps:
-  - Sign in to Google Cloud Console and create a project.
-  - Enable the Cloud Functions API.
-  - Install and configure the Google Cloud SDK.
-  - Write your function code and deploy using the gcloud CLI.
-  - Test your function by triggering an event or HTTP request.
+  - 'Sign in to Google Cloud; new customers also get $300 in free credits.'
+  - 'Select or create a Google Cloud project and verify that billing is enabled.'
+  - 'Enable the Artifact Registry, Cloud Build, Cloud Run Admin API, and Cloud Logging APIs, and give the Cloud Build service account the Cloud Run Builder role.'
+  - 'In the Cloud Run page of the console, click Write a function, enter a service name, pick a region and runtime, and allow public access.'
+  - 'Click Create, then Save and redeploy on the Source tab, and open the URL shown after deployment.'
 whenToUse: >-
-  Use when you need to run code in response to events without managing servers,
-  especially for lightweight APIs or automation.
+  Use it to run event-driven code or small HTTP handlers on Google Cloud
+  without managing servers.
 whenNotToUse: >-
-  Avoid for long-running processes, heavy compute workloads, or when you need
-  fine-grained control over infrastructure.
+  Avoid it for long-running processes, for custom runtimes, or if you cannot
+  attach a Cloud Billing account to your project.
 bestFor:
   - event-driven workloads
   - rapid prototyping
   - microservices
   - automation
 avoidIf:
-  - require long-running tasks
-  - need custom runtimes
-  - require persistent connections
+  - long-running processes
+  - custom runtimes
+  - no Cloud Billing account
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/functions'
-docsUrl: 'https://cloud.google.com/functions/docs'
+docsUrl: 'https://cloud.google.com/functions/docs/concepts/overview'
 pricingUrl: 'https://cloud.google.com/free/docs/free-cloud-features'
 sourceUrls:
-  - 'https://cloud.google.com/functions/pricing'
   - 'https://cloud.google.com/free/docs/free-cloud-features'
-  - 'https://cloud.google.com/functions/docs/quickstart'
+  - 'https://cloud.google.com/run/pricing?hl=en'
+  - 'https://cloud.google.com/functions/docs/concepts/overview?hl=en'
+  - 'https://cloud.google.com/run/docs/quickstarts/functions/deploy-functions-console?hl=en'
 featured: false
 ---
-Cloud Run functions (Google's rename of Cloud Functions) offers a generous always-free tier for running event-driven serverless code, ideal for lightweight APIs, automation, and prototyping. It is easy to set up and integrates well with other Google Cloud services, but may not suit long-running or resource-intensive workloads.
+You deploy a Cloud Run function from the Google Cloud console with the Write a function button, or with the gcloud CLI. Triggers can be HTTP calls or events from services such as Pub/Sub and Cloud Storage. It suits developers who want small event handlers on Google Cloud.
+
+## What the free plan gives you
+
+Google's Free Tier page lists Cloud Run functions with 2 million invocations per month, covering both background and HTTP calls. It also lists 400,000 GB-seconds and 200,000 GHz-seconds of compute time, plus 5 GB of outbound data transfer per month. The same page links this entry to the 1st gen pricing page.
+
+New functions run on Cloud Run. Cloud Run's own free tier for request-based billing is 2 million requests, 360,000 GiB-seconds of memory, and 180,000 vCPU-seconds of compute, based on us-central1 pricing. It also gives 1 GiB of free data transfer within North America. The Free Tier has no end date, and it is calculated per billing account.
+
+## When you hit a limit
+
+Nothing stops your function at the free amounts. Google says usage above the Free Tier limits is billed at standard rates on a Paid billing account. On a Free Trial billing account, your $300 welcome credit pays for the overage, and you are limited to $300 worth of usage.
+
+You need a Cloud Billing account to use any Free Tier product. Google can also change or remove Free Tier limits with 30 days of advance notice.
+
+## Gotchas
+
+- Free Tier limits are per billing account, not per project. All your projects share one allowance.
+- The numbers differ between Cloud Run functions (1st gen) and Cloud Run. Check which one your function uses before you plan around a limit.
+- The quickstart asks you to verify that billing is enabled and to enable the Artifact Registry, Cloud Build, Cloud Run Admin API, and Cloud Logging APIs.
+
+## Alternatives in this atlas
+
+- [Cloud Run](/services/cloud-run/): when you want to run a full container, not just a function.
+- [Firebase Cloud Functions](/services/firebase-cloud-functions/): when your app already uses Firebase.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a free plan that does not need a billing account.
+
+## Questions people ask
+
+### Is Cloud Run functions free?
+
+Partly. Google's Free Tier page lists 2 million invocations, 400,000 GB-seconds, and 200,000 GHz-seconds per month. You pay standard rates above that.
+
+### Does Cloud Run functions need a credit card?
+
+You need a Cloud Billing account to use the Free Tier. New customers can start a Free Trial with $300 in credit to get one.
+
+### What happens when I go over the Cloud Run functions free tier?
+
+Google bills the overage at standard rates on a Paid billing account. On a Free Trial account, the $300 welcome credit pays for it.

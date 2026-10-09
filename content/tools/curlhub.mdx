@@ -1,8 +1,8 @@
 ---
 title: CurlHub
 description: >-
-  CurlHub provides a collaborative API request debugging and sharing platform with a free tier for
-  individuals and teams.
+  CurlHub is a debugger for API requests that needs no install. It shows you the
+  traffic sent to it and works as a simple request bin.
 provider: CurlHub
 category: devops
 domain: devops
@@ -17,10 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - collaboration
-  - logging
-  - testing
+  - request bin
+  - api debugging
+  - http requests
+  - webhook testing
+  - curl
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan: 10,000 API requests per month.'
@@ -28,47 +29,89 @@ freeTierDetails:
     - '10,000 API requests per month'
   caveats:
     - 'Paid plans start at $5 per month for 20,000 requests'
+    - 'Sign-up uses a GitHub account'
+    - 'The pricing page says the free tier grows as more people sponsor CurlHub on GitHub'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Debugging API requests
-  - Sharing API call examples
-  - Collaborating on API integrations
+  - Inspecting the requests your app or a third-party service sends
+  - Catching webhook calls in a throwaway request bin
+  - Checking what headers and body a curl command really sends
+  - Showing a teammate the exact request that fails
 quickstartSteps:
-  - Sign up for a free CurlHub account.
-  - Create a new project for your API testing.
-  - Copy your unique endpoint URL.
-  - Send API requests to the endpoint using curl or your HTTP client.
-  - View and share request logs in the CurlHub dashboard.
+  - Open curlhub.io and choose Sign up.
+  - Sign in with your GitHub account.
+  - Create a bucket, which is the endpoint that records your requests.
+  - Send a request to the bucket address from curl, your code, or a service that calls webhooks.
+  - Open the bucket in CurlHub and read the request that arrived.
 whenToUse: >-
-  Use CurlHub when you need to debug, log, or share API requests with collaborators or for
-  troubleshooting integrations.
+  Use CurlHub when you need to see what an HTTP client or a webhook sender
+  really sends, without installing anything.
 whenNotToUse: >-
-  Avoid CurlHub if you require unlimited request volume, advanced analytics, or strict data
-  retention beyond the free tier limits.
+  Avoid it if you need more than 10,000 requests a month on the free plan, a
+  working docs site, or a card-free sign-up path that skips GitHub.
 bestFor:
-  - students
-  - indie developers
-  - small teams
-  - open source projects
+  - one-off request debugging
+  - webhook testing
+  - students and small teams
 avoidIf:
-  - need high-volume logging
-  - require enterprise security
-  - need advanced analytics
+  - you have no GitHub account
+  - you log high-volume traffic
+  - you need published docs or a documented API
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://curlhub.io'
 docsUrl: 'https://docs.curlhub.io'
 sourceUrls:
   - 'https://curlhub.io/pricing'
+  - 'https://curlhub.io'
+  - 'https://curlhub.io/signup'
 featured: false
 pricingUrl: 'https://curlhub.io/pricing'
-lastVerified: '2026-10-01'
+lastVerified: 2026-10-09
 ---
-CurlHub is a collaborative API request logging and sharing tool suitable for debugging and lightweight team workflows, with a generous always-free tier.
+You sign in with GitHub, make a bucket, and point your requests at it. CurlHub then lists each request it receives. It suits one developer or a small team that debugs HTTP calls now and then.
+
+## What the free plan gives you
+
+The free plan includes 10,000 API requests per month. That is the only limit the pricing page shows for the free plan. The home page repeats the same number.
+
+CurlHub lists the plans by monthly request volume. The next step up is 20,000 requests for $5 per month. After that come 100,000 requests for $10 per month and 1,000,000 requests for $20 per month. A yearly plan costs half as much per month on the smaller tiers. The pricing page also says the free tier will get more requests as more people sponsor the project on GitHub.
+
+## When you hit a limit
+
+The pricing page does not say what happens after 10,000 requests. It does not mention a hard stop, a throttle, or a bill. The frontmatter keeps the free plan as a capped plan with no overage charge, and the pages do not contradict that.
+
+The page shows no payment step for the free plan. You sign up with GitHub, and the sign-up page does not ask for a card. If you need more room, pick a paid plan. If you only debug now and then, the free volume is probably enough.
+
+## Gotchas
+
+- Sign-up needs a GitHub account. The sign-up page offers no other way in.
+- The docs address at `docs.curlhub.io` returned a server error when we checked, so there is no working docs page to read.
+- The pricing page lists volumes only. It says nothing about how long CurlHub keeps your logged requests.
+
+## Alternatives in this atlas
+
+- [Webhook.site](/services/webhook-site/): when you want an anonymous URL with no account, and can live with the page limits on free URLs.
+- [Hoppscotch](/services/hoppscotch/): when you want to build and send API requests, not only look at incoming ones.
+- [Postman](/tools/postman/): when you need collections, tests, and monitors for an API.
+
+## Questions people ask
+
+### Is CurlHub free?
+
+Yes. The free plan includes 10,000 API requests per month. Paid plans start at $5 per month for 20,000 requests.
+
+### Does CurlHub need a credit card?
+
+The free plan shows no card step. You sign up with a GitHub account.
+
+### What happens when I go over the CurlHub free tier?
+
+The pricing page does not say. It lists the 10,000 request limit and the paid plans, and it describes no overage charge.

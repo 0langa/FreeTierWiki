@@ -1,8 +1,9 @@
 ---
 title: PostHog
 description: >-
-  PostHog is an open-source product analytics platform for tracking user
-  behavior and feature usage.
+  PostHog is a product analytics platform with session replay, feature flags, experiments, and
+  surveys in one tool. Every product has its own free monthly allowance. It suits startups, indie
+  developers, and small teams.
 provider: PostHog
 category: analytics
 domain: analytics
@@ -17,47 +18,60 @@ audiences:
   - oss
   - student
 tags:
-  - analytics
-  - open-source
-  - queue
+  - product analytics
+  - session replay
+  - feature flags
+  - experiments
+  - surveys
+  - open source
+  - event tracking
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Each PostHog product has its own free monthly allowance (analytics, replay, flags, and more),
     resetting monthly with no card required.
   limits:
-    - 1 million product analytics events/month
-    - 1 million feature-flag requests/month
-    - 5,000 session replay recordings/month
-    - 1,500 survey responses/month
-    - 10 GB of logs ingested/month
-    - 1 project, 1-year data retention
+    - 1 million product analytics events per month
+    - 1 million feature-flag requests per month
+    - '5,000 session replay recordings per month'
+    - '1,500 survey responses per month'
+    - 10 GB of logs ingested per month
+    - 1 project and 1-year data retention
   caveats:
     - Unlimited team members on the free plan
-    - Usage stops at the free tier limits, so you cannot be billed by surprise
-    - Add a card only when you need more than the free limits or more projects
+    - 'Usage stops at the free tier limits, so you cannot be charged by surprise'
+    - 'Add a card only when you need more than the free limits, more projects, or advanced features'
+    - Community support only
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Track product feature usage
-  - Analyze user journeys
-  - Monitor retention and conversion
-  - Self-host analytics for privacy
+  - Track product feature usage with events
+  - Analyze user journeys and funnels
+  - Watch session replays to see where users struggle
+  - Roll out features with flags and run experiments
+  - Collect survey responses inside the product
 quickstartSteps:
-  - Sign up for a free PostHog Cloud account or deploy self-hosted.
-  - Create a new project in the PostHog dashboard.
-  - Install the PostHog SDK in your app or website.
-  - Send your first event to verify integration.
-  - Explore dashboards and set up basic reports.
+  - 'Sign up free with Get started on posthog.com. No credit card is needed, and it is not a trial.'
+  - >-
+    Run the setup wizard in your project directory with npx @posthog/wizard. It installs PostHog for
+    you.
+  - >-
+    Or add the JavaScript snippet or library and call posthog.init with your project token and the
+    api_host for your region.
+  - Set up a reverse proxy so tracking blockers are less likely to intercept events.
+  - 'Send your first event, then open the dashboard to confirm it arrived.'
+  - >-
+    Turn on session replay, feature flags, or surveys when you need them. Each has its own free
+    allowance.
 whenToUse: >-
-  Use PostHog to quickly add product analytics and event tracking to web or
-  mobile apps without vendor lock-in.
+  Use PostHog to add product analytics, replay, flags, and surveys to a web or mobile app with one
+  setup and a free monthly allowance for each.
 whenNotToUse: >-
-  Avoid if you need advanced analytics at high scale or require enterprise-level
-  support and SLAs.
+  Avoid it if you need more than 1 project on the free plan, more than 1-year data retention, or
+  enterprise-level support and SLAs.
 bestFor:
   - startups
   - indie developers
@@ -65,17 +79,17 @@ bestFor:
   - small teams
 avoidIf:
   - enterprise with strict compliance
-  - very high event volumes
-  - need for advanced analytics
+  - very high event volumes without a card
+  - need for more than 1 project free
 difficulty: beginner
 productionReadiness: production-light
 status: changed
 changes:
-  - date: 2026-10-06
+  - date: '2026-10-06'
     kind: changed
-    note: "Separated product analytics events from feature-flag requests in the monthly quotas."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+    note: Separated product analytics events from feature-flag requests in the monthly quotas.
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://posthog.com/'
@@ -83,6 +97,49 @@ docsUrl: 'https://posthog.com/docs'
 pricingUrl: 'https://posthog.com/pricing'
 sourceUrls:
   - 'https://posthog.com/pricing'
+  - 'https://posthog.com/'
+  - 'https://posthog.com/docs/getting-started/install'
 featured: false
 ---
-PostHog provides open-source product analytics with a generous free tier, making it easy to track user behavior and product usage for small teams and projects.
+
+You sign up, run the setup wizard or add a snippet or library, and read results in the PostHog dashboard. A PostHog API also exists. It suits small teams that want several product tools without paying for each.
+
+## What the free plan gives you
+
+The Free plan needs no credit card, and PostHog says it is not a trial. Your free allowance renews every month. It is the same whether or not you have a card on file. Free includes unlimited team members, 1 project, and 1-year data retention, plus community support.
+
+Each product has its own monthly allowance. You get 1 million product analytics events and 1M feature-flag requests. You also get 5,000 session replay recordings and 1,500 survey responses. Logs allow 10 GB ingested, data warehouse allows 1M rows, and data pipelines allow 10K events. PostHog AI includes 500 credits.
+
+Experiments are billed with feature flags. PostHog says 97% of companies use it for free.
+
+## When you hit a limit
+
+On the Free plan, usage stops at the free tier limits, so you cannot be charged by surprise. To get more, you add a card and move to pay-as-you-go. It keeps the same free tier every month, and you only pay for what you use above it.
+
+Pay-as-you-go gives you unlimited usage, 6 projects, and 7-year data retention. You can set a billing limit for each product, so a viral week does not create a large bill. After the first 1M events each month, analytics events cost $0.00005 each.
+
+## Gotchas
+
+- Free covers 1 project only. More projects need a card and the pay-as-you-go plan.
+- Data is kept for 1 year on Free, and for 7 years after you add a card.
+- Product analytics events and feature-flag requests have separate allowances. A busy flag check does not use up your event count.
+
+## Alternatives in this atlas
+
+- [Mixpanel](/services/mixpanel/): when you want a focused product analytics tool with a simple free plan.
+- [Amplitude](/services/amplitude/): when you want unlimited seats and a larger free event count.
+- [Microsoft Clarity](/services/microsoft-clarity/): when you only need free heatmaps and recordings.
+
+## Questions people ask
+
+### Is PostHog free?
+
+Yes. The Free plan has a monthly allowance for every product, including 1 million events and 5,000 session replay recordings. It needs no credit card.
+
+### What happens when I go over the PostHog free limit?
+
+Usage stops at the free tier limits, so you are not charged by surprise. Add a card if you need more.
+
+### Does PostHog need a credit card?
+
+No. Only add a card if you need more than the free tier limits, advanced features, or more projects.

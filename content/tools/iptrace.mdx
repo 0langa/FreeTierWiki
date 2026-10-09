@@ -1,8 +1,8 @@
 ---
 title: ipstack (formerly IPTrace)
 description: >-
-  ipstack (the product formerly known as IPTrace) provides IP geolocation and
-  lookup APIs for developers and businesses.
+  ipstack is an IP geolocation API that returns the country, region, city, and
+  other details for an IP address from one endpoint.
 provider: ipstack
 category: networking
 domain: networking
@@ -17,64 +17,109 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
-  - search
+  - ip geolocation
+  - ipstack
+  - iptrace
+  - ip lookup api
+  - geoip
+  - rest api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan offers 100 IP geolocation API requests per month, no credit card
-    required, for non-commercial use.
+    required, for testing on non-production sites.
   limits:
     - '100 requests/month'
-    - SSL encryption included
-    - Location module only (no time zone, currency, security, or bulk modules)
+    - Location module only (no time zone, connection, currency, security, or bulk modules)
   caveats:
     - Commercial use is not allowed on the Free plan
     - Standard support is not included on the Free plan
+    - The FAQ says overage fees apply after 100% of the allowance; it does not say how the Free plan is treated
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - The FAQ says overage fees apply once the monthly allowance is used; confirm in your dashboard what happens on the Free plan
 useCases:
-  - Website visitor analytics
-  - Fraud prevention
-  - Personalized content by location
-  - Network diagnostics
-  - Security monitoring
+  - Showing a visitor's country or city in a prototype
+  - Testing IP-based personalization
+  - Learning how an IP geolocation API responds
+  - Small non-commercial projects that look up a few addresses
 quickstartSteps:
-  - 'Visit https://ipstack.com and sign up for a free API key.'
-  - Review the API documentation for endpoint details.
-  - Copy your API access key.
-  - Send a GET request to the ipstack endpoint with the target IP address.
-  - Parse the JSON response for geolocation data.
+  - Open ipstack.com and select Get Free API Key; no credit card is needed.
+  - Sign up and copy your API access key from the dashboard.
+  - 'Send a GET request to `https://api.ipstack.com/` followed by an IP address and `?access_key=` with your key.'
+  - Read the location fields in the JSON response.
+  - Watch your usage in the dashboard; ipstack emails you at 75%, 90%, and 100% of the allowance.
 whenToUse: >-
-  Use ipstack when you need quick, simple IP geolocation or lookup for
-  small-scale, non-commercial projects or prototyping.
+  Use it to test IP geolocation on a non-production site or a small
+  non-commercial project that needs very few lookups.
 whenNotToUse: >-
-  Avoid if you need commercial use, high request volumes, advanced modules, or
-  enterprise-grade SLAs on the free plan.
+  Avoid it for commercial use, production traffic, more than a few lookups a
+  month, or when you need time zone, currency, security, or bulk data.
 bestFor:
   - prototyping
-  - small websites
   - student projects
-  - basic analytics
+  - testing the API
 avoidIf:
+  - commercial products
   - high-traffic production
   - detailed threat intelligence
-  - enterprise compliance
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://ipstack.com'
-docsUrl: 'https://ipstack.com/documentation'
+docsUrl: 'https://docs.apilayer.com/ipstack/docs/api-documentation'
 pricingUrl: 'https://ipstack.com/pricing/'
 sourceUrls:
   - 'https://ipstack.com/pricing/'
+  - 'https://ipstack.com/documentation'
+  - 'https://ipstack.com/faq'
 featured: false
 ---
-ipstack (the product formerly known as IPTrace, which merged into ipstack) offers a free plan with 100 IP geolocation requests per month for non-commercial use.
+You call the ipstack endpoint over HTTP with your access key and an IP address. The free plan is a small test allowance, so it fits people who want to try the API before paying.
+
+## What the free plan gives you
+
+The Free plan costs $0, needs no credit card, and includes 100 requests a month. It has the Location module, which returns continent, country, region, and city for an IP address.
+
+The pricing table marks several things as not included on Free: standard support, commercial use, the Time Zone, Connection, and Currency modules, the Bulk endpoint, and the Security module. The FAQ describes the Free plan as a way to test the API on a non-production website or application.
+
+Paid plans start with Basic at $12.99 a month for 50,000 requests. Basic adds commercial use, standard support, and the Time Zone, Connection, and Currency modules. The Bulk endpoint and Security module are not on Basic.
+
+## When you hit a limit
+
+ipstack emails you and shows a notice on your dashboard when you reach 75%, 90%, and 100% of the monthly allowance. After 100%, the FAQ says overage fees apply, so that your app keeps running without a break.
+
+The FAQ speaks about plans in general and does not say how the Free plan is treated, since it has no card on file. Check your dashboard before you rely on the free allowance. With only 100 requests a month, cache every answer.
+
+## Gotchas
+
+- The free allowance is 100 requests a month, not a day. A single test page can use it up.
+- Commercial use is not allowed on the Free plan. You need a paid plan, starting with Basic, for a real product.
+- Free responses hold the Location module only, so time zone, currency, and connection fields are not part of what you get.
+
+## Alternatives in this atlas
+
+- [FreeIPAPI](/tools/freeipapi/): when you want a free API with no account and a per-minute limit.
+- [IPLocate](/services/iplocate/): when you want a daily allowance with full data access.
+- [IP2Location.io](/services/ip2location-io/): when you want a much larger monthly free quota.
+
+## Questions people ask
+
+### Is ipstack free?
+
+Yes, there is a Free plan with 100 requests a month and no credit card. It has the Location module only and does not allow commercial use.
+
+### What happens when I go over the ipstack limit?
+
+ipstack notifies you at 75%, 90%, and 100% of the allowance. After 100%, the FAQ says overage fees apply. It does not say how this works on the Free plan.
+
+### Can I use the ipstack free plan in production?
+
+No. The FAQ describes the Free plan as a way to test on a non-production website or application, and the pricing table lists commercial use as not included.

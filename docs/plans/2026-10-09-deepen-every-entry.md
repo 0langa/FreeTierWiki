@@ -7,6 +7,9 @@ below; the owner made them.
 
 ## Status
 
+- 2026-10-09 (later): sweep done. All 696 live entries deepened and checked; see the
+  2026-10-09 block in `NEXT_STEPS.md` for removals, skipped entries, and open items.
+
 - 2026-10-09: Day 0 done (validator, rendering, 5 hand-made entries, gates green). Waiting for the
   owner's yes before step 2. Note for workers: `npm run verify:evidence -- --ids <ids>` fetches the
   sources; read excerpts, not whole pages; run `npm run check:depth -- --ids <ids> --evidence`.

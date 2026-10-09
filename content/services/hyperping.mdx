@@ -1,6 +1,8 @@
 ---
 title: Hyperping
-description: 'Uptime, cron, SSL, and browser monitoring with status pages.'
+description: >-
+  Hyperping watches websites and APIs from many regions and sends alerts when
+  they fail. It also hosts status pages for small products and teams.
 provider: Hyperping
 category: observability
 domain: observability
@@ -13,43 +15,68 @@ audiences:
   - indie
   - startup
 tags:
-  - monitoring
-  - web
+  - uptime-monitoring
+  - status-page
+  - website-monitoring
+  - api-monitoring
+  - cron-monitoring
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 20 monitors. No card needed.'
+  summary: 'The Free plan gives you 20 monitors with 5-minute checks, 1 server monitoring agent, 1 basic status page, and 1 seat. No credit card required.'
   limits:
     - 20 monitors
+    - 5-minute checks
+    - 1 server monitoring agent
+    - 1 basic status page
+    - 1 seat included
   caveats:
-    - Browser checks and more monitors need a paid plan
+    - Free covers HTTP, port, ping, and keyword checks
+    - Browser checks, more status pages, and subscribers need a paid plan
+    - Essentials costs $24 per month when billed yearly
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Uptime alerts
-  - Status page for a small product
+  - Get alerts when a website or API goes down
+  - Publish a status page for a small product
+  - Catch missed cron jobs and failed backups
+  - Watch SSL certificate expiry
+  - Check CPU, memory, and disk with a server agent
 quickstartSteps:
-  - Sign up at hyperping.com.
-  - Add a monitor.
-  - Connect an alert channel.
-whenToUse: Use for uptime checks on a small product.
-whenNotToUse: Avoid if you need Playwright browser checks for free.
+  - Create a free account on hyperping.com; no credit card is required.
+  - In the dashboard, click the New monitor card.
+  - Give the monitor a name, enter its URL, and save.
+  - Connect an alert channel such as Slack, Teams, PagerDuty, or a webhook.
+  - Optionally create the same monitor with the API by sending a POST request to `https://api.hyperping.io/v1/monitors` with a bearer token.
+whenToUse: >-
+  Use Hyperping when you want simple uptime alerts and a status page for a small
+  product.
+whenNotToUse: >-
+  Avoid it if you need browser checks, several status pages, or more than 20
+  monitors on the free plan.
 bestFor:
   - small products
+  - side projects
+  - indie founders
 avoidIf:
   - browser checks
+  - more than 20 monitors
+  - subscriber lists on the status page
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://hyperping.com'
 docsUrl: 'https://hyperping.com/docs'
 sourceUrls:
   - 'https://hyperping.com/pricing'
+  - 'https://hyperping.com/docs'
+  - 'https://hyperping.com/docs/monitoring/quickstart'
+  - 'https://hyperping.com/docs/monitoring/getting-started'
 pricingUrl: 'https://hyperping.com/pricing'
 featured: false
 changes:
@@ -57,4 +84,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Hyperping combines monitoring and status pages.
+You work in the Hyperping dashboard, or script monitors through its API. It suits founders who want uptime alerts and a status page in one tool. The docs say a new monitor needs only a name and a URL.
+
+## What the free plan gives you
+
+The Free plan is for personal projects and trying out Hyperping. It includes 20 monitors with 5-minute checks. The page lists HTTP, port, ping, and keyword checks. You also get 1 server monitoring agent, 1 basic status page, and 1 seat.
+
+The pricing page says no credit card is required. Paid plans start with Essentials at $24 per month, billed yearly. It adds 50 monitors, 3 browser checks, 5 GB of logs a month, and a status page with a custom domain and 100 subscribers.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you try to add a 21st monitor. Higher counts sit on the paid plans, so expect to upgrade to add more monitors.
+
+Browser checks are not part of Free. The page lists 3 browser checks starting with the Essentials plan. Logs are in alpha and free until metered billing starts, according to a note on the pricing page.
+
+## Gotchas
+
+- The Free plan checks every 5 minutes, so short outages can pass between checks.
+- Browser checks and status page subscribers need a paid plan.
+- Plans bill by seat above the first: the paid plans include 3 seats and add $7 per month per additional user.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want another uptime monitor with a status page.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want uptime checks with incident handling.
+- [Instatus](/services/instatus/): when you mainly need a status page.
+
+## Questions people ask
+
+### Is Hyperping free?
+
+Yes. The Free plan includes 20 monitors with 5-minute checks and 1 basic status page. No credit card is required.
+
+### What does the Hyperping free plan not include?
+
+Browser checks, extra status pages, and subscribers are paid features. The free plan has 1 seat and 1 server monitoring agent.
+
+### Does Hyperping need a credit card?
+
+No. The pricing page and the quickstart both say no credit card is required to create an account.

@@ -1,6 +1,8 @@
 ---
 title: Frontegg
-description: 'User management and authentication for B2B SaaS, with a hosted login and admin portal.'
+description: >-
+  Frontegg is a customer identity platform for B2B SaaS. It gives you a hosted login, user and
+  tenant management, and a self-service portal for your customers.
 provider: Frontegg
 category: auth
 domain: auth
@@ -14,12 +16,20 @@ audiences:
   - startup
 tags:
   - auth
-  - identity
+  - b2b saas
+  - multi-tenant
+  - sso
+  - user management
+  - passwordless
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free up to 7,500 monthly active users with a fully customized hosted login.'
+  summary: >-
+    Free up to 7,500 monthly active users with a hosted login, 5 enterprise connections (SSO/SCIM),
+    and unlimited organizations.
   limits:
     - '7,500 MAU'
+    - 5 enterprise connections (SSO/SCIM)
+    - Unlimited organizations
     - Hosted login page
   caveats:
     - 'Entitlements, M2M, and advanced B2B features are paid add-ons'
@@ -29,28 +39,42 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Login for a B2B SaaS
-  - Tenant and user management
+  - Login and sign-up for a multi-tenant B2B SaaS
+  - Customer organizations with their own members and roles
+  - SSO with SAML or OIDC for enterprise customers
+  - A self-service portal where customers manage their own users
+  - 'Passwordless and social login, including passkeys and magic links'
 quickstartSteps:
-  - Sign up at frontegg.com.
-  - Configure the hosted login.
-  - Add the Frontegg SDK.
-whenToUse: Use for B2B SaaS that needs tenant-aware auth.
-whenNotToUse: Avoid for simple consumer apps.
+  - 'Go to frontegg.com, choose Start for free, and sign up with email, GitHub, or Google.'
+  - Open the Frontegg Portal. A default environment and an application are created for you.
+  - Pick hosted login (on by default) or switch to embedded login with the Frontegg SDKs.
+  - Set your app URL and redirect URLs in the environment settings.
+  - >-
+    Add the Frontegg SDK for your framework to your app, then validate the user's token in your
+    backend.
+whenToUse: >-
+  Use Frontegg for a B2B SaaS that needs tenant-aware login, enterprise SSO, and a self-service
+  admin portal for customer organizations.
+whenNotToUse: 'Avoid it for a simple consumer app with no organizations, or if you need to host auth yourself.'
 bestFor:
   - B2B SaaS
+  - apps with customer organizations
+  - early enterprise SSO requests
 avoidIf:
-  - consumer apps
+  - simple consumer apps
+  - self-hosted auth
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://frontegg.com'
-docsUrl: 'https://docs.frontegg.com'
+docsUrl: 'https://developers.frontegg.com/'
 sourceUrls:
   - 'https://frontegg.com/pricing'
+  - 'https://developers.frontegg.com/'
+  - 'https://developers.frontegg.com/ciam/guides/getting-started/quick-start'
 pricingUrl: 'https://frontegg.com/pricing'
 featured: false
 changes:
@@ -58,4 +82,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Frontegg focuses on B2B user management.
+You set up login in the Frontegg Portal and use a hosted login page or embed the login with a Frontegg SDK. It suits SaaS teams that sell to businesses and want organizations and SSO built in.
+
+## What the free plan gives you
+
+The free plan costs $0 per month. It covers 7,500 monthly active users and 5 enterprise connections for SSO or SCIM. You also get unlimited organizations, and Frontegg lists enterprise SSO and unlimited tenants on the page.
+
+Login runs on a hosted page by default. You can switch to an embedded login that lives inside your own app. Both styles support social login, SSO through SAML or OIDC, and passwordless methods such as passkeys and magic links. You can also use the self-service portal, which lets customers manage their own accounts. Entitlements, M2M tokens, and some advanced B2B features sit in paid plans.
+
+## When you hit a limit
+
+The pricing page says you pay only for what you use, starting free up to 7,500 users. It shows a calculator with sliders for monthly active users and monthly enterprise connections. The page does not give a price once you pass the free amount, and it does not say whether your app stops.
+
+For large or custom needs, the Enterprise plan uses a Contact sales button. If you expect more than 7,500 monthly active users, ask Frontegg what the next step costs before you launch.
+
+## Gotchas
+
+- The free amount counts monthly active users. A busy month can pass 7,500 even if few users sign up.
+- Entitlements, M2M tokens, and some advanced B2B features are not part of the free plan.
+- The pricing page does not state a price past the free amount. Use the calculator or ask sales.
+
+## Alternatives in this atlas
+
+- [WorkOS](/services/workos/): when you only need enterprise SSO and directory sync for B2B customers.
+- [Descope](/services/descope/): when you want a visual flow builder for login.
+- [Auth0](/services/auth0/): when you want a larger platform and a bigger free user allowance.
+
+## Questions people ask
+
+### Is Frontegg free?
+
+Yes, up to a point. The free plan costs $0 per month and covers 7,500 monthly active users and 5 enterprise connections.
+
+### Does Frontegg need a credit card?
+
+The pricing page shows a Start for free button and does not mention a card. The atlas lists the free plan as needing no card.
+
+### What happens when I pass the Frontegg free user limit?
+
+The pricing page says you pay for what you use after the free amount, but it does not publish a price. Contact Frontegg sales for the next plan.

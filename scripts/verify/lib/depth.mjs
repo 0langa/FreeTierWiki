@@ -61,7 +61,9 @@ export function extractFigures(text) {
     const digits = match[1].replace(/,(?=\d{3}\b)/g, "");
     const base = Number(digits.replace(/,/g, ""));
     if (!Number.isFinite(base)) continue;
-    const word = (match[2] ?? match[3] ?? "").toLowerCase();
+    // A lowercase single "m" or "b" is minutes, meters, or bits ("60m"), never million or billion.
+    const letter = match[3] === "m" || match[3] === "b" ? "" : match[3];
+    const word = (match[2] ?? letter ?? "").toLowerCase();
     out.push({ raw: match[0].trim(), value: word ? base * MULTIPLIERS[word] : base });
   }
   return out;

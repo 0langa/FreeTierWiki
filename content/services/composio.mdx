@@ -1,8 +1,9 @@
 ---
 title: Composio
 description: >-
-  Composio offers unified APIs and workflow automation for integrating SaaS apps
-  and services with minimal code.
+  Composio gives AI agents tools for more than 1000 apps. It handles tool
+  discovery, account connections, and execution, so developers do not build
+  each integration.
 provider: Composio
 category: automation
 domain: automation
@@ -16,9 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - automation
-  - integration
-  - api
+  - ai-agents
+  - tool-calling
+  - integrations
+  - oauth
+  - mcp
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -38,34 +41,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automate repetitive SaaS tasks
-  - Connect multiple apps with unified API
-  - Build internal tools with workflow automation
+  - Letting an AI agent send email or manage calendar events through connected accounts
+  - Giving a coding or support agent access to GitHub, Linear, or Notion
+  - Connecting users' own accounts to your product with managed sign-in
+  - Triggering an agent when something happens in a connected app
 quickstartSteps:
-  - Sign up for a free Composio account.
-  - Create a new workflow from the dashboard.
-  - Connect your desired SaaS apps using provided connectors.
-  - Configure workflow triggers and actions.
-  - Test and activate your workflow.
+  - Sign up at composio.dev and open the dashboard.
+  - Copy your API key from Settings in the dashboard and set it as `COMPOSIO_API_KEY`.
+  - Install the SDK, for example `pip install composio composio-openai-agents openai-agents` for Python or `npm install @composio/core @composio/openai-agents @openai/agents` for TypeScript.
+  - Create a session for a user with `composio.sessions.create(user_id=user_id)`.
+  - Call `session.tools()` and hand the tools to your agent.
 whenToUse: >-
-  Use Composio when you need to automate workflows or integrate multiple SaaS
-  apps without building custom integrations.
+  Use it when you build an AI agent that needs to act in many apps and you do
+  not want to write each integration and sign-in flow yourself.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment, more than 3 team members, or need
-  unlimited tool calls.
+  Avoid it for plain no-code automations, for projects with more than three team
+  members on the free plan, or if you need more than the free monthly calls.
 bestFor:
-  - automation enthusiasts
+  - AI agent builders
   - indie developers
-  - startups
-  - internal tool builders
+  - prototypes that need many app integrations
 avoidIf:
-  - require on-premise
-  - need unlimited runs
-  - require advanced connectors for free
+  - you want a no-code visual workflow builder
+  - you need more than three team members free
+  - you need higher rate limits on a free plan
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://composio.dev/'
@@ -74,6 +77,45 @@ pricingUrl: 'https://composio.dev/pricing'
 sourceUrls:
   - 'https://composio.dev/pricing'
   - 'https://docs.composio.dev/'
+  - 'https://docs.composio.dev/docs/quickstart'
 featured: false
 ---
-Composio simplifies SaaS integration and workflow automation with a unified API, enabling rapid prototyping and automation for developers and teams.
+You use Composio through its Python or TypeScript SDK, and you manage keys and accounts in a web dashboard. It suits developers who build AI agents that need to act in other people's apps.
+
+## What the free plan gives you
+
+The Hobby plan costs $0 and needs no credit card. Each month it includes 100,000 tool calls, 50,000 triggers, and 3 team members. You can connect unlimited accounts, such as a user's Gmail account. Creating sessions, the context an agent runs in, is free.
+
+The Hobby plan has a rate limit of 2,000 requests per minute. Pro raises that to 10,000. Composio also runs shared OAuth apps so you can skip app setup. The pricing page says these managed apps have lower allowances that count toward your free tier, and it advises bringing your own app as you grow.
+
+## When you hit a limit
+
+The pricing page says the Hobby plan stops at your included limit, so Composio will not charge you unexpectedly. Tool calls and triggers stop until the next month, and you do not get a bill.
+
+To go past the limits, you move to Pro at $29 a month. Pro includes a $29 monthly usage credit that expires at the end of each billing month. Past the free amounts, usage bills at the rates on the pricing page. Pro also gives you unlimited team members and spend controls.
+
+## Gotchas
+
+- Composio-managed OAuth apps are easy to start with, but their allowances are lower and they count toward your free tier.
+- Advanced white-labeling of the connection page is not on Hobby. On Pro it costs a one-time $0.30 per connection.
+- The Python package is `composio`. The quickstart warns you not to install `composio-core`.
+
+## Alternatives in this atlas
+
+- [Pipedream](/services/pipedream/): when you want workflows with code steps and a large app catalog without writing agent code.
+- [Make](/services/make/): when you want a visual builder for app-to-app automation.
+- [Zapier](/tools/zapier/): when you want no-code automations and do not build agents.
+
+## Questions people ask
+
+### Is Composio free?
+
+Yes, the Hobby plan costs $0 and needs no credit card. It includes 100,000 tool calls and 50,000 triggers each month, plus 3 team members.
+
+### What happens when I go over the Composio free limits?
+
+The Hobby plan stops at the included limit, and Composio says this means no unexpected charges. You can move to Pro at $29 a month for more.
+
+### Does Composio need a credit card?
+
+No. The pricing page says the Hobby plan needs no credit card.

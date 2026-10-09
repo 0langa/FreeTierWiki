@@ -1,8 +1,9 @@
 ---
 title: Geekflare API
 description: >-
-  Geekflare API is a web scraping, search, and screenshot API for AI agents
-  and developers, plus SEO, performance, and security check endpoints.
+  Geekflare API gives you web scraping, search, and screenshot endpoints, plus site checks such as
+  DNS lookup, load time, TLS scan, and broken links. It suits developers and AI agent builders who
+  want web data without running proxies or headless browsers.
 provider: Geekflare
 category: analytics
 domain: analytics
@@ -17,57 +18,72 @@ audiences:
   - startup
   - oss
 tags:
-  - api
-  - security
-  - web
+  - web scraping api
+  - screenshot api
+  - search api
+  - site audit api
+  - dns lookup
+  - lighthouse
+  - ai agents
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan (no card) gives 500 credits per month, 1 team member, 7-day
-    log retention, and 1 request/second across all endpoints.
+    Free plan (no card) gives 500 credits per month, 1 team member, 7-day log retention, and 1
+    request/second across all endpoints.
   limits:
-    - 500 credits/month
+    - 500 credits per month
     - 1 team member
     - 7-day log retention
-    - 1 request/second
+    - 1 request per second
+    - One credit pool for all 13 endpoints
   caveats:
     - Failed requests cost no credits
     - Credits renew every month; higher throughput needs a paid plan
+    - 'Screenshots and PDFs cost 5 credits each, search costs 2'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Website performance checks
-  - Basic security scans
-  - SEO audits
-  - Automated uptime monitoring
+  - Scrape a page to markdown for an AI agent or RAG pipeline
+  - Take screenshots of web pages
+  - 'Check load time, broken links, and TLS for a site'
+  - Look up DNS records and redirect chains
+  - Run Lighthouse and port scans from code
 quickstartSteps:
-  - Sign up for a free Geekflare account.
-  - Log in and navigate to the API dashboard.
-  - Generate your API key.
-  - Review available endpoints and limits.
-  - Make requests using your API key and preferred HTTP client.
+  - >-
+    Sign up for a free Geekflare account. No card is needed, and your API key is ready as soon as
+    you sign up.
+  - >-
+    Open the playground to try any endpoint before you write code, for example scrape, search, or
+    screenshot.
+  - >-
+    Send a POST request to the web scraping endpoint with the url you want and a format such as
+    markdown.
+  - 'Copy the cURL, Python, Node, Go, PHP, Java, or Ruby example from the quickstart.'
+  - 'Check the logs for each request: endpoint, URL, and HTTP status.'
+  - 'Watch your credits. Scraping costs 1 credit, search 2, and screenshots 5.'
 whenToUse: >-
-  Use when you need quick, automated website performance, security, or SEO
-  checks with minimal setup.
+  Use it when you want scraping, search, screenshots, and site checks from one API key and a small
+  monthly credit budget.
 whenNotToUse: >-
-  Avoid if you require high request volumes, advanced analytics, or guaranteed
-  uptime for critical production workflows.
+  Avoid it if you need more than 500 credits a month for free, more than 1 request per second, or
+  more than 1 team member on the free plan.
 bestFor:
-  - students
+  - AI agent builders
   - indie developers
   - small startups
-  - open source projects
+  - site audits
 avoidIf:
+  - high-volume scraping for free
+  - need more than one request per second
   - enterprise
-  - high-traffic production
-  - advanced analytics needs
+  - need guaranteed uptime
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://geekflare.com/api/'
@@ -77,4 +93,45 @@ sourceUrls:
 pricingUrl: 'https://geekflare.com/api/'
 featured: false
 ---
-Geekflare API provides a web scraping, search, and screenshot API plus SEO, performance, and security check endpoints, ideal for prototyping and AI agent data needs.
+
+You send requests with one API key from any language, or try them first in the playground. Logs show every call. It suits developers and AI agent builders who need web pages as clean data.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and needs no card. It gives you 500 credits per month, 1 team member, 7 days of log retention, and 1 request per second. All 13 endpoints share one credit pool and one API key.
+
+Credits are charged by endpoint. Web scraping, meta scraping, DNS lookup, and redirect checks cost 1 credit. Search costs 2. Screenshots and PDFs cost 5. Failed requests cost nothing.
+
+The scraping endpoint renders JavaScript when a page needs it. CAPTCHA solving and anti-bot bypass are included in the base scraping price. The other endpoints cover load time, TLS scans, broken link checks, Lighthouse, port scans, and site status.
+
+## When you hit a limit
+
+The free tier renews every month at 500 credits. If they run out, you can wait for the renewal. You can also pay for a plan or buy a credit pack. Paid plans start at $19 per month. Credit packs start at $10 and need no subscription.
+
+Speed has its own limit. Free allows 1 request per second, Starter 5, Growth 10, and Business 25. For more, the company asks you to contact them. The page does not say what happens when you go over the rate, so add a delay between calls.
+
+## Gotchas
+
+- Credit use depends on the endpoint. A batch of screenshots drains the 500 credits five times faster than scrapes.
+- The Free plan keeps logs for 7 days. Starter and Growth keep them for 30, and Business for 90.
+- The Free plan has one team member. Starter has 3 and Growth has 5.
+
+## Alternatives in this atlas
+
+- [Firecrawl](/services/firecrawl/): when you want an API focused on turning pages into content for AI tools.
+- [Browse AI](/services/browse-ai/): when you want no-code robots that scrape on a schedule.
+- [Zenscrape](/services/zenscrape/): when you want a scraping API with a larger free credit count.
+
+## Questions people ask
+
+### Is the Geekflare API free?
+
+Yes. The Free plan gives 500 credits per month with no card. It renews every month.
+
+### What happens when Geekflare free credits run out?
+
+The free tier renews every month at 500 credits. Paid plans start at $19 per month, or you can buy a credit pack from $10 without a subscription.
+
+### Do failed Geekflare API requests use credits?
+
+No. The site says failed requests cost nothing.

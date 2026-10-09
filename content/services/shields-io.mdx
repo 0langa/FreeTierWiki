@@ -1,8 +1,9 @@
 ---
 title: Shields.io
 description: >-
-  Shields.io provides customizable, open-source status badges for projects,
-  repositories, and documentation.
+  Shields.io makes small SVG status badges for README files and web pages. They
+  show things like build status, version, license, and coverage. It is free to
+  use and open source.
 provider: Shields.io
 category: devops
 domain: devops
@@ -10,66 +11,115 @@ subtypes:
   - status badges
   - open source
   - API
-audiences:
-  - student
-  - indie
-  - startup
-  - team
-  - oss
-tags:
   - open-source
   - monitoring
   - docs
   - api
+audiences:
+  - oss
+  - indie
+  - student
+  - team
+tags:
+  - readme badges
+  - status badges
+  - github badges
+  - build status badge
+  - version badge
+  - svg badge
 pricingModel: free
 freeTierDetails:
-  summary: Free public badge service with no paid plans, funded by donations.
+  summary: >-
+    A free public badge service with no paid plans. It is supported by donations,
+    and the code is open source so you can host your own copy.
   limits:
     - No paid plans; free public service
-    - Self-host with the official Docker image
+    - Self-host with the official Docker image or from source
   caveats:
-    - Self-hosting recommended for high-volume or private badge needs
+    - The site does not publish a usage limit or an uptime promise
+    - Badges that call third-party services depend on those services being available
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Display build status in README files
-  - Show version or license information
-  - Highlight test coverage
-  - Indicate project metrics
-  - Add custom informational badges
+  - Showing build or test status in a README
+  - Showing the latest package version or the license
+  - Showing code coverage or download counts
+  - Making a custom static badge with your own text and color
 quickstartSteps:
-  - 'Visit https://shields.io and search for the badge type you need.'
-  - 'Customize the badge style, label, and color as desired.'
-  - Copy the generated Markdown or SVG URL.
-  - Paste the badge code into your project's README or documentation.
+  - Open shields.io and go to Badges, then find your badge type by searching or by category.
+  - Click the badge and fill in the required values, such as your username or repository name.
+  - Optionally set the style, label, colors, and logo.
+  - Copy the badge URL or the Markdown snippet.
+  - Paste it into your README or web page. For a custom badge, use the img.shields.io/badge URL form with a label, message, and color.
 whenToUse: >-
-  Use Shields.io to add dynamic, informative badges to your open source
-  projects, documentation, or repositories for status and metrics display.
+  Use Shields.io to put status badges on a README or documentation site, for
+  projects that can live with a community-run service.
 whenNotToUse: >-
-  Avoid Shields.io if you need private, high-volume, or sensitive badge data, or
-  require guaranteed uptime for critical production dashboards.
+  Avoid depending on the public service for anything that needs a guaranteed
+  uptime, or for data that must stay private. Host your own copy in those cases.
 bestFor:
   - open source projects
   - documentation
   - GitHub repositories
 avoidIf:
-  - need private badge data
-  - require strict SLAs
-  - high-volume enterprise use
+  - private badge data
+  - strict uptime promises
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://shields.io'
-docsUrl: 'https://shields.io/category/quickstart'
+docsUrl: 'https://shields.io/docs'
 pricingUrl: 'https://shields.io'
 sourceUrls:
   - 'https://shields.io'
+  - 'https://shields.io/docs'
+  - 'https://shields.io/badges'
   - 'https://github.com/badges/shields'
+  - 'https://raw.githubusercontent.com/badges/shields/master/doc/self-hosting.md'
 featured: false
 ---
-Shields.io offers free, customizable status badges for open source projects and documentation, making it easy to display dynamic project information.
+You build a badge in the web page or write its URL by hand, then paste the image link into Markdown or HTML. There is no account to create.
+
+## What the free plan gives you
+
+There are no plans on Shields.io. The service is free to use. The home page asks visitors to consider donating to sustain the project, and the community page thanks the people and companies who donate money, services, or time. You do not need an account or an API key to use the public service.
+
+The service supports dozens of services: continuous integration, package registries, app stores, social networks, code coverage, and code analysis. The project README says it serves over 1.6 billion images each month.
+
+You can also make a static badge from the URL alone. The static badge takes a label, a message, and a color separated by dashes, and it supports styles such as flat, flat-square, plastic, for-the-badge, and social.
+
+## When you hit a limit
+
+The Shields.io pages do not publish a usage limit, a rate limit, or a bill. There is no paid tier to move to. Badge images are cached, and you can raise the cache time with the cacheSeconds parameter, which cuts repeated lookups.
+
+If you need more control, the home page offers a self-hosted option. You run the official Docker image behind your own firewall. The self-hosting guide also covers running from source, which needs Node 24, and deploying to Heroku or Vercel.
+
+## Gotchas
+
+- The public service is a community project, not a paid product. The pages show no uptime promise.
+- Many badges read data from other services, such as CI tools or package registries. If that service is down, the badge fails too.
+- Private or sensitive data should not go through the public service. Host your own server for that.
+
+## Alternatives in this atlas
+
+- [Coveralls](/services/coveralls/): when you want a coverage service that also produces a coverage badge.
+- [Codecov](/tools/codecov/): when you want coverage reports on pull requests along with a badge.
+
+## Questions people ask
+
+### Is Shields.io free?
+
+Yes. There are no paid plans. The service runs on donations, and the code is open source.
+
+### Do I need an account for Shields.io?
+
+No. You build a badge in the page or write its URL, then copy it into your README. No sign-up is described in the docs.
+
+### Can I host Shields.io myself?
+
+Yes. The project publishes a Docker image on Docker Hub and on the GitHub Container Registry. You can also run the server from source.

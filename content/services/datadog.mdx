@@ -1,8 +1,8 @@
 ---
 title: Datadog
 description: >-
-  Datadog provides cloud-based monitoring, observability, and security for
-  applications and infrastructure.
+  Datadog collects metrics, logs, and traces from your servers, containers, and
+  apps in one place, with dashboards and alerts on top.
 provider: Datadog
 category: observability
 domain: observability
@@ -17,10 +17,10 @@ audiences:
   - oss
 tags:
   - monitoring
-  - logging
-  - observability
-  - cloud
-  - analytics
+  - infrastructure
+  - apm
+  - logs
+  - dashboards
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -42,31 +42,34 @@ freeTierDetails:
     - Trial features stop after 14 days unless you upgrade; the Free plan itself does not expire
   trialDays: 14
 useCases:
-  - Monitor cloud infrastructure and applications
-  - Aggregate and analyze logs
-  - Track application performance metrics
+  - Watch CPU, memory, and disk on a few servers
+  - Build dashboards from out-of-the-box templates
+  - Alert on a metric that crosses a threshold
+  - Try logs and APM during the 14-day trial
 quickstartSteps:
-  - Sign up for a Datadog account and start the free trial.
-  - Install the Datadog Agent on your servers or cloud instances.
-  - Connect your cloud provider or services for automatic integration.
-  - Set up dashboards and alerts for key metrics.
-  - 'Explore logs, traces, and APM features in the Datadog UI.'
+  - Sign up for a free Datadog trial with your email; no credit card is required.
+  - Create or find your Datadog API key.
+  - Install the Datadog Agent on your hosts with Fleet Automation, the in-app install workflow.
+  - Put your API key and Datadog site into the Agent configuration.
+  - Check the Metrics Summary page for `datadog.agent.started` or `datadog.agent.running`; data can take a few minutes to appear.
+  - Open an out-of-the-box dashboard for your host.
 whenToUse: >-
-  Use Datadog when you need unified monitoring, logging, and APM for cloud
-  infrastructure or distributed applications.
+  Use Datadog's Free plan to watch up to 5 hosts with core dashboards, or use the
+  14-day trial to try the whole platform.
 whenNotToUse: >-
-  Avoid the free plan if you need more than 5 hosts, longer metric retention,
-  or log management and APM without upgrading or using the trial.
+  Avoid the Free plan if you need more than 5 hosts, more than 1 day of metric
+  retention, or log management and APM without the trial.
 bestFor:
-  - teams needing unified observability
-  - cloud-native applications
-  - DevOps workflows
+  - small setups with up to 5 hosts
+  - teams trying Datadog before buying
+  - cloud-native apps
 avoidIf:
-  - need more than 5 hosts on the free plan
-  - on-premises only environments
+  - more than 5 hosts on the free plan
+  - metric history longer than 1 day
+  - logs and APM without paying
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://www.datadoghq.com/'
@@ -74,8 +77,49 @@ docsUrl: 'https://docs.datadoghq.com/'
 sourceUrls:
   - 'https://www.datadoghq.com/pricing/'
   - 'https://www.datadoghq.com/free-datadog-trial/'
+  - 'https://docs.datadoghq.com/getting_started/agent/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.datadoghq.com/pricing/'
 ---
-Datadog offers a comprehensive observability platform with monitoring, logging, and APM, ideal for teams managing modern cloud infrastructure and applications.
+You install the Datadog Agent on your hosts, and it sends metrics and events to the Datadog web app, where you build dashboards and alerts. It suits small teams that want to watch a handful of servers before paying.
+
+## What the free plan gives you
+
+The Free Infrastructure Monitoring plan covers up to 5 hosts. It includes core collection and visualization features, standard events and metrics, and out-of-the-box dashboards. Metrics are kept for 1 day, while the paid plans list 15 months of full-resolution retention.
+
+A host is any physical or virtual OS instance that Datadog monitors, such as a server, a VM, or a Kubernetes node. The free plan does not include log management or APM. Those products are on the pricing page with paid rates.
+
+Separately, the free trial lasts 14 days and covers the whole platform. It needs no credit card.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you add a sixth host to the Free plan. It asks for no card, so a surprise bill is unlikely, but check your host count in Datadog.
+
+When the 14-day trial ends, the trial-only products stop unless you upgrade. The Free plan itself does not expire. Paid plans bill per host, and logs are priced by gigabytes of data ingested.
+
+## Gotchas
+
+- The Free plan keeps metrics for only 1 day, so you cannot look back at last week.
+- Log management, APM, and most integrations need a paid plan or the trial.
+- The page also lists AI credits as a separate paid product that you buy by the credit.
+
+## Alternatives in this atlas
+
+- [Grafana Cloud](/services/grafana-cloud/): when you want dashboards and logs together in another free stack.
+- [New Relic](/services/new-relic/): when you want one tool for metrics, logs, and traces.
+- [Honeycomb](/services/honeycomb/): when you care most about debugging distributed traces.
+
+## Questions people ask
+
+### Is Datadog free?
+
+Yes, in a limited form. The Free plan covers up to 5 hosts with 1 day of metric retention. There is also a 14-day trial of the full platform with no credit card.
+
+### How many hosts can I monitor on the Datadog free plan?
+
+Up to 5 hosts. A host is any physical or virtual OS instance you monitor, such as a server, VM, or Kubernetes node.
+
+### Does Datadog need a credit card for the trial?
+
+No. The trial sign-up page says no credit card is required and starts a 14-day trial.

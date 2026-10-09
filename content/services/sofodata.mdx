@@ -1,8 +1,8 @@
 ---
 title: Sofodata
 description: >-
-  Sofodata turns CSV files into secure, hosted RESTful APIs for quick
-  prototyping and data access, with a free tier for small datasets.
+  Sofodata turns an uploaded CSV file into a hosted REST API with no database to
+  run. Data scientists and prototypers use it to share a dataset over HTTP.
 provider: Sofodata
 category: automation
 domain: automation
@@ -16,60 +16,102 @@ audiences:
   - startup
   - oss
 tags:
-  - api
-  - integration
-  - data
+  - csv
+  - rest-api
+  - jupyter
+  - prototyping
+  - data-api
 pricingModel: freemium
 freeTierDetails:
-  summary: Free plan turns up to 2 CSV files into REST APIs with 2,500 API calls per month.
+  summary: Free plan turns up to 2 CSV files into REST APIs with 2,500 API calls per month and 10 MB of disk space.
   limits:
     - 2 APIs
     - '2,500 API calls/month'
-    - 10 MB CSV data per API
+    - 10 MB disk space
     - 1 API call/second rate limit
   caveats:
-    - More APIs, calls, and rate limit require a paid plan starting at €19.99/month
-    - Data is stored as uncompressed CSV, capped at 10 MB per API
+    - More APIs, calls, disk space, and rate limit require a paid plan starting at €19.99/month
+    - The pricing page does not say what happens at a limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Publish a CSV dataset as a REST API
-  - Deploy a Jupyter notebook dataframe as an API
-  - Prototype data access without building a database
+  - Publishing a CSV dataset as a REST API for a demo
+  - Sharing a dataframe from a Jupyter notebook as an API
+  - Prototyping an app against real data without building a database
+  - Giving a teammate HTTP access to a spreadsheet export
 quickstartSteps:
-  - Sign up for a free Sofodata account.
-  - Upload a CSV file via the UI or the Sofodata CLI.
-  - Sofodata automatically provisions a secure REST API.
-  - Call the API with Postman or your own client.
-  - Upgrade for more APIs, storage, or call volume as needed.
+  - Sign up or sign in at app.sofodata.com.
+  - Upload a CSV file in the web interface, or with the Sofodata CLI.
+  - Let Sofodata host the data behind a secure API; it detects common data types for you.
+  - Call the API from a client such as Postman.
 whenToUse: >-
-  Use Sofodata when you need to expose a CSV dataset as a REST API quickly,
-  without building or hosting a database.
+  Use it to expose a small CSV dataset as a read API quickly, without building or
+  hosting a database.
 whenNotToUse: >-
-  Avoid Sofodata if you need a real relational database, more than 10 MB per
-  dataset on the free plan, or high write volume.
+  Avoid it if you need a real database, more than 10 MB of data on the free
+  plan, or more than 2 APIs.
 bestFor:
   - prototyping
   - data scientists
   - quick API demos
 avoidIf:
-  - need a real database
-  - large datasets
-  - high write volume
+  - you need a real database
+  - your data is larger than 10 MB
+  - you need more than 1 call per second
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.sofodata.com/'
-docsUrl: 'https://docs.sofodata.com'
+docsUrl: 'https://www.sofodata.com/'
 sourceUrls:
   - 'https://www.sofodata.com/'
 pricingUrl: 'https://www.sofodata.com/'
 featured: false
 ---
-Sofodata is not a managed PostgreSQL host as this page previously said — it turns uploaded CSV files into secure, hosted REST APIs, with a free tier of 2 APIs and 2,500 calls/month.
+You upload a CSV in the web app or with the Sofodata CLI, and Sofodata hosts the data behind a secure API. You then call it from a client such as Postman. It suits people who want to share a dataset quickly.
+
+## What the free plan gives you
+
+The Free plan costs €0 a month. It allows 2 APIs, 2,500 API calls a month, 10 MB of disk space, and 1 API call per second. The site calls this enough to get started.
+
+The site says common data types in your CSV are detected for you, and that the data is end-to-end encrypted. It also says more plans and features are coming.
+
+Paid plans raise every limit. Starter costs €19.99 a month and allows 5 APIs, 100,000 calls, 100 MB of disk space, and 3 calls per second. Premium costs €39.99 a month and Business costs €79.99 a month.
+
+## When you hit a limit
+
+The site does not say what happens when you pass 2,500 calls, fill the 10 MB of disk space, or go over 1 call per second. It lists no pay-as-you-go option and no overage price.
+
+This entry therefore treats the free plan as a hard limit with no extra charge. Because the page is silent, test your own usage before you rely on it in a demo. If you need more room, the next plan up is Starter.
+
+## Gotchas
+
+- The 1 call per second rate is slow for a front end that makes several requests at once.
+- Disk space is only 10 MB, so large CSV files do not fit on the Free plan.
+- The site gives no documentation link, and the old documentation address no longer loads.
+
+## Alternatives in this atlas
+
+- [SmartParse](/services/smartparse/): when you need to push CSV rows into an existing API, not host one.
+- [Data Fetcher](/services/data-fetcher/): when your data lives in Airtable and you pull API data into it.
+- [Coupler](/services/coupler/): when you want to move app data into spreadsheets and dashboards.
+
+## Questions people ask
+
+### Is Sofodata free?
+
+Yes. The Free plan costs €0 a month with 2 APIs, 2,500 API calls, and 10 MB of disk space.
+
+### What is the Sofodata free API rate limit?
+
+The Free plan allows 1 API call per second. Starter raises it to 3 calls per second, and Business to 10.
+
+### Does Sofodata need a credit card?
+
+The pricing page does not say. This entry lists none as required.

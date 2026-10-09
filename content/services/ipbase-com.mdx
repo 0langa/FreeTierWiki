@@ -1,6 +1,8 @@
 ---
 title: ipbase.com
-description: 'ipbase.com provides a fast API for IP geolocation, ASN, and timezone lookups.'
+description: >-
+  ipbase is an IP geolocation API that returns country, city, time zone, ISP,
+  and ASN for an address in one JSON call. Paid plans add VPN and proxy flags.
 provider: ipbase.com
 category: apis
 domain: apis
@@ -14,8 +16,11 @@ audiences:
   - startup
   - team
 tags:
-  - networking
-  - api
+  - ip geolocation
+  - asn lookup
+  - timezone api
+  - geoip
+  - batch lookup
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan includes 150 requests per month with a 10 requests/minute limit.'
@@ -32,34 +37,35 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detect user location for personalization
-  - Restrict or customize content by region
-  - Analyze traffic by country or ASN
-  - Timezone-aware features
+  - 'Detect a visitor''s country for personalization'
+  - Block or allow users by country
+  - Enrich logs or sign-up lists with batch lookups
+  - Look up the network (ASN) behind an address
+  - Use the MCP server so an AI client can look up addresses
 quickstartSteps:
-  - Sign up for a free ipbase.com account.
-  - Log in and generate your API key from the dashboard.
-  - Read the API documentation to understand available endpoints.
-  - 'Make your first API request using your key (e.g., to /v2/info).'
-  - Integrate the API into your application as needed.
+  - Sign up for a free ipbase account; no credit card is needed.
+  - 'Copy your API key from the dashboard under App, then Dashboard.'
+  - 'Pick a client: `curl`, JavaScript, Python, PHP, or another SDK.'
+  - 'Send a GET request to `https://api.ipbase.com/v2/info` with your key in the `apikey` header and an `ip` parameter.'
+  - 'Read the JSON response, or POST a list to `/v2/batch` for up to 100 addresses.'
 whenToUse: >-
-  Use ipbase.com when you need reliable IP geolocation or ASN data for web or
-  mobile apps with moderate request volumes.
+  Use ipbase when you need occasional IP lookups for personalization or
+  analytics and 150 requests a month is enough.
 whenNotToUse: >-
-  Avoid if you need high request volumes, premium data, or guaranteed uptime, as
-  the free tier has strict limits and no SLA.
+  Avoid it if you need more than 150 requests a month for free, no per-minute
+  limit, or security flags without paying.
 bestFor:
   - location-based personalization
   - basic analytics
   - region restrictions
 avoidIf:
   - high-traffic production
-  - premium data needs
+  - need VPN or proxy flags for free
   - strict SLA requirements
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://ipbase.com'
@@ -67,7 +73,48 @@ docsUrl: 'https://ipbase.com/docs'
 pricingUrl: 'https://ipbase.com/pricing'
 sourceUrls:
   - 'https://ipbase.com/pricing'
-  - 'https://ipbase.com/docs'
+  - 'https://ipbase.com/docs/status-codes/'
+  - 'https://ipbase.com/docs/quickstart/'
+  - 'https://ipbase.com/docs/rate-limit/'
+  - 'https://ipbase.com'
 featured: false
 ---
-ipbase.com offers a simple, fast API for IP geolocation, ASN, and timezone lookups with a generous free tier for low-traffic projects.
+You register for an API key in the dashboard, then call the HTTP API with `curl` or one of the SDKs, or use the MCP server. It suits developers who need a few IP lookups a month and want location, time zone, and network data in one JSON call.
+
+## What the free plan gives you
+
+The Free plan costs $0 and gives you 150 requests a month with location data. It allows 10 requests per minute, includes 1 API key, and supports batch lookups of up to 100 addresses. No credit card is required.
+
+A batch call counts one request per address. The paid plans remove the per-minute limit and add volume. The first paid plan costs $9.99 a month for 65,000 requests, and the next costs $39.99 for 650,000. Time zone, currency, and security data such as VPN, proxy, and Tor flags need paid plans.
+
+## When you hit a limit
+
+Past the monthly quota, the API returns HTTP 429. You then upgrade or wait until the end of the month. On the free plan, going over 10 requests per minute also returns 429, and you wait until the minute ends.
+
+Only successful calls count against your quota. Errors on the provider side and validation errors do not count. The response headers show how many requests remain in the month and the minute.
+
+## Gotchas
+
+- A batch lookup of 100 addresses uses 100 of your 150 monthly requests. Use it sparingly on the free plan.
+- Time zone, currency, and security flags are not part of the free plan, even though the home page shows them in the sample response.
+- A 403 status means the endpoint is not allowed on your plan, so check the plan before you build on an endpoint.
+
+## Alternatives in this atlas
+
+- [IPLocate](/services/iplocate/): when you want a larger daily allowance with full data.
+- [Geolocated.io](/services/geolocated-io/): when you want a daily allowance and a choice of server region.
+- [ip2geo.dev](/services/ip2geo-dev/): when you want a larger monthly allowance and typed SDKs.
+
+## Questions people ask
+
+### Is ipbase free?
+
+Yes, within limits. The Free plan gives you 150 requests a month with location data, at up to 10 requests per minute, and needs no credit card.
+
+### What happens when I go over the ipbase free limit?
+
+The API returns HTTP 429 once you pass the monthly quota or the per-minute rate. You wait for the reset or upgrade.
+
+### Does ipbase support batch lookups on the free plan?
+
+Yes. The pricing page lists batch lookups of up to 100 addresses on the Free plan, and each address counts as one request.

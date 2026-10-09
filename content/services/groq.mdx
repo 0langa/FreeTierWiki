@@ -1,8 +1,8 @@
 ---
 title: Groq
 description: >-
-  Groq provides ultra-fast inference APIs for large language models with a focus
-  on low latency and high throughput.
+  Groq is a hosted API for running open language, speech, and moderation models
+  with a focus on fast responses, plus a free plan for developers.
 provider: Groq
 category: ai
 domain: ai
@@ -17,62 +17,105 @@ audiences:
   - enterprise
   - oss
 tags:
-  - llm
-  - api
-  - ai
+  - llm-api
+  - inference
+  - speech-to-text
+  - openai-compatible
+  - low-latency
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier rate limits vary per model, for example gpt-oss-120b/20b allow
-    30 requests/minute and 200,000 tokens/day; no card required.
+    Free plan with per-model rate limits, for example 30 requests/minute, 1,000 requests/day,
+    and 200,000 tokens/day on gpt-oss models; no card required.
   limits:
     - 'gpt-oss-120b / gpt-oss-20b: 30 requests/min, 1,000 requests/day, 8,000 tokens/min, 200,000 tokens/day'
     - 'whisper-large-v3: 20 requests/min, 2,000 requests/day'
-    - Limits vary significantly by model
+    - Limits apply to the whole organization and differ a lot by model
   caveats:
-    - Upgrade to the Developer plan for higher limits
+    - Upgrade to the Developer plan for higher limits; it needs a payment method
+    - Exceeding a limit returns a 429 error
+    - Exact limits for your account are shown on the limits page in your settings
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prototyping AI chatbots
-  - Integrating fast LLM inference into apps
-  - Experimenting with text generation
-  - Building AI-powered tools
+  - Prototype chatbots with fast responses
+  - Transcribe audio with Whisper models
+  - Call open models through an OpenAI-compatible API
+  - Moderate content with prompt guard models
+  - Try models in the browser Playground before coding
 quickstartSteps:
-  - 'Sign up for a Groq account at https://groq.com/.'
-  - Navigate to the API dashboard and generate an API key.
-  - Review available LLM endpoints and their documentation.
-  - Send a test request using your API key and preferred endpoint.
-  - Monitor usage in the dashboard to stay within free tier limits.
+  - Sign up for GroqCloud and open the API Keys page.
+  - Create an API key and set it as the `GROQ_API_KEY` environment variable.
+  - Install the Python library with `pip install groq`, or use the JavaScript, curl, or Vercel AI SDK options.
+  - Create a client with `Groq(api_key=os.environ.get("GROQ_API_KEY"))` and call `client.chat.completions.create` with a model and messages.
+  - Try prompts in the Playground, and check your limits in your account settings.
 whenToUse: >-
-  Use Groq when you need fast, low-latency LLM inference for prototypes, demos,
-  or early-stage product development.
+  Use Groq when you want fast hosted inference for prototypes, demos, or small
+  tools, and the free daily limits are enough.
 whenNotToUse: >-
-  Avoid if you require access to a wide variety of models, higher token limits,
-  or enterprise-grade SLAs on the free tier.
+  Avoid it for high-volume production on the free plan. Free limits are per
+  day and per minute, and the free plan has the lowest limits.
 bestFor:
   - rapid prototyping
   - developer testing
-  - low-latency AI apps
+  - speech-to-text tests
 avoidIf:
-  - need high-volume production
-  - require custom model fine-tuning
-  - need advanced model selection
+  - you need high-volume production
+  - you need a wide choice of models
+  - you need fine-tuning
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://groq.com/'
 docsUrl: 'https://docs.groq.com'
 sourceUrls:
   - 'https://console.groq.com/docs/rate-limits'
-  - 'https://groq.com/'
+  - 'https://console.groq.com/docs/rate-limits.md'
+  - 'https://console.groq.com/docs/quickstart'
+  - 'https://console.groq.com/docs/billing-faqs'
 pricingUrl: 'https://console.groq.com/docs/rate-limits'
 featured: false
 ---
-Groq offers a fast, developer-friendly API for LLM inference with a generous free tier suitable for experimentation and prototyping.
+You use Groq through an API key from the console, with the Python library, JavaScript, curl, or the Vercel AI SDK. It also has a browser Playground. It suits developers who want fast hosted models for prototypes.
+
+## What the free plan gives you
+
+The Free plan needs no credit card. Limits differ by model and apply to your whole organization, not to each user. For the gpt-oss-120b and gpt-oss-20b models, the docs list 30 requests per minute, 1,000 requests per day, 8K tokens per minute, and 200K tokens per day. The whisper-large-v3 speech model allows 20 requests per minute and 2,000 requests per day, plus 7.2K audio seconds per hour and 28.8K audio seconds per day.
+
+Some models are tighter. The Orpheus text-to-speech models allow 10 requests per minute and 100 requests per day. Cached tokens do not count toward your limits. Exact limits for your account are on the limits page in your settings.
+
+## When you hit a limit
+
+You can hit any limit type first: requests per minute, requests per day, or tokens. When you pass one, the API returns a 429 Too Many Requests error, with a `retry-after` header in seconds. Response headers show your remaining daily requests and per-minute tokens. To get higher limits, upgrade to the Developer plan. The upgrade needs a payment method and bills usage at month-end or at spend thresholds. You can return to Free at any time.
+
+## Gotchas
+
+- Limits are shared by everyone in the organization, so one busy script can use up the daily quota for your teammates.
+- Token limits vary a lot by model. The listed per-day limits for gpt-oss models are 200K, but other models differ.
+- Upgrading to the Developer plan means adding a credit card, US bank account, or SEPA debit account.
+
+## Alternatives in this atlas
+
+- [Mistral API](/services/mistral-api/): when you want a free plan with monthly API credits.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want models running next to your Workers code.
+- [Hugging Face Hub](/services/hugging-face-hub/): when you want to browse and host many open models.
+
+## Questions people ask
+
+### Is Groq free?
+
+Yes. The Free plan has no card requirement and gives per-model limits, such as 30 requests per minute and 1,000 requests per day on gpt-oss models.
+
+### What happens when I go over Groq's free limits?
+
+The API returns a 429 error until the limit resets. You can retry later or upgrade to the Developer plan for higher limits.
+
+### Does Groq need a credit card?
+
+Not for the Free plan. You need a payment method only when you upgrade to the Developer plan.

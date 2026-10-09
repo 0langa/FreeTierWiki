@@ -1,8 +1,8 @@
 ---
 title: PDF-API.io
-description: >-
-  PDF-API.io provides a simple API for generating, merging, and manipulating PDF
-  documents programmatically.
+description: PDF-API.io lets you design a PDF template in a drag-and-drop or HTML
+  editor and render it with JSON data through a REST API or Zapier. It suits developers
+  and no-code builders who need invoices, reports, or merged PDFs.
 provider: PDF-API.io
 category: documents
 domain: documents
@@ -17,7 +17,13 @@ audiences:
   - team
   - agency
 tags:
-  - api
+  - pdf api
+  - pdf generator
+  - merge pdf api
+  - html to pdf template
+  - invoice pdf
+  - zapier
+  - wysiwyg template editor
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,40 +43,78 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Automate PDF invoice generation
-  - Merge multiple PDFs into one
-  - Create downloadable reports
+  - Generating PDF invoices from order data
+  - Merging several rendered templates into one PDF
+  - Building downloadable reports
+  - Connecting a template to Zapier so no code is needed
 quickstartSteps:
-  - Sign up for a free PDF-API.io account.
-  - Obtain your API key from the dashboard.
-  - Review API documentation for endpoints and parameters.
-  - Make a test API request to generate or merge a PDF.
-  - Download and verify your generated PDF file.
-whenToUse: >-
-  Use PDF-API.io when you need to automate PDF creation or merging in web or
-  backend applications with minimal setup.
-whenNotToUse: >-
-  Avoid if you require more than 100 PDFs/month, multiple users, or multiple
-  templates without upgrading.
+  - Sign up for a free account on pdf-api.io; the free plan needs no credit card.
+  - Create a template in the WYSIWYG editor or the HTML editor, with variables like
+    items.name and total.
+  - Open the API Tokens page and create an API key; the key is shown only once.
+  - Send a POST request to the templates endpoint for your template ID, with an Authorization
+    Bearer header and your data as JSON.
+  - Use the Accept header to get the PDF file back, or JSON with the PDF as base64.
+whenToUse: Use it when you want to design one PDF template visually and fill it from
+  code or Zapier, or merge rendered templates into one file.
+whenNotToUse: Avoid it if you need more than 1 template or more than 100 PDFs a month,
+  or team access, without paying.
 bestFor:
-  - automated document workflows
-  - simple PDF generation
-  - small-scale integrations
+  - a single invoice or report template
+  - simple PDF generation from a script or Zapier
+  - trying a PDF API before paying
 avoidIf:
-  - need advanced PDF editing
-  - require high-volume processing
-  - need more than 1 template
+  - you need more than 1 template for free
+  - you need more than 100 PDFs a month
+  - you need team access on the free plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://pdf-api.io'
-docsUrl: 'https://docs.pdf-api.io'
+docsUrl: https://pdf-api.io/en/docs
 sourceUrls:
-  - 'https://pdf-api.io/pricing'
+  - https://pdf-api.io/pricing
+  - https://pdf-api.io/en/docs/guides/generate-a-pdf-using-the-api
+  - https://pdf-api.io/en/docs/api/rate-limits
+  - https://pdf-api.io
 pricingUrl: 'https://pdf-api.io/pricing'
 featured: false
 ---
-PDF-API.io offers a straightforward API for generating and merging PDFs, suitable for prototypes and small projects needing basic document automation.
+You design a template in the browser, then send a template ID and JSON data to a REST endpoint. A Postman collection and a Zapier connection are also available. It suits developers and no-code users.
+
+## What the free plan gives you
+
+The free plan needs no credit card. It gives you 100 PDFs per month, 1 user, and 1 template, with API and Zapier integration. The docs describe two editors, a WYSIWYG editor and an HTML editor, and an endpoint that merges templates into one PDF. Paid plans add more room. Basic is for freelancers and small businesses, and Pro adds team access and unlimited templates. Paid plans come with a 7-day free trial. The docs set a default rate limit of 60 requests per minute for the API. Some endpoints may differ.
+
+## When you hit a limit
+
+The pricing page says you get an email at 80% of your monthly PDF limit. If you go over, you cannot generate more PDFs until the first day of the next month. You can upgrade at any time to raise the limit. The API docs add detail. When you reach an endpoint quota, further requests get a 403 Forbidden error until the new period starts. If you go over the rate limit, you get a 429 Too Many Requests error, and you should wait for the counter to reset. The free plan takes no card, so no bill follows.
+
+## Gotchas
+
+- The API key is shown only once. If you lose it, you must create a new one.
+- The free plan has 1 template, so a second layout needs a paid plan.
+- Digital signature is listed as coming soon on the Pro plan, so do not plan around it.
+
+## Alternatives in this atlas
+
+- [CraftMyPDF](/tools/craftmypdf/): when you want a drag-and-drop editor and image output too.
+- [APITemplate.io](/tools/apitemplate-io/): when you want more than one template for free.
+- [PDFBolt](/tools/pdfbolt/): when you want a different PDF API with AI template generation.
+
+## Questions people ask
+
+### Is PDF-API.io free?
+
+Yes. The free plan gives you 100 PDFs per month, 1 user, and 1 template. It needs no credit card.
+
+### What happens if I go over the PDF-API.io limit?
+
+You get an email at 80% of your limit. After that you cannot make more PDFs until the first day of the next month, unless you upgrade.
+
+### Is there a PDF-API.io free trial for paid plans?
+
+Yes. Every paid plan has a 7-day free trial, and you are not charged until the trial ends.

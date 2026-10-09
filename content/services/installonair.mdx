@@ -1,8 +1,8 @@
 ---
 title: InstallOnAir
 description: >-
-  InstallOnAir provides a simple platform to distribute iOS and Android app
-  builds for testing and internal use.
+  InstallOnAir lets you upload an iOS IPA or Android APK and share one link or
+  QR code so testers can install the build on their phones.
 provider: InstallOnAir
 category: devops
 domain: devops
@@ -18,55 +18,106 @@ audiences:
 tags:
   - mobile
   - testing
+  - ios
+  - android
+  - ipa
+  - apk
+  - beta-distribution
+  - testflight-alternative
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free to upload and share iOS/Android builds up to 200 MB; links stay
+    Free to upload and share iOS and Android builds up to 200 MB; links stay
     active 3 days as a guest or 7 days with a free account, no card required.
   limits:
     - Builds up to 200 MB free (up to 1 GB with a $2 upload credit)
     - Links active 7 days (free account) or 3 days (guest)
+    - No limit on the number of builds you upload
     - No credit card, no trial
   caveats:
-    - Extending link expiry or uploading builds over 200 MB costs extra (one-time payments from $1.89)
+    - Extending link expiry costs extra, from $1.89 one-time per build
+    - Builds over 200 MB need a $2 upload credit, one credit per large upload
+    - Expired links stop working until you upload again or extend
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Distributing test builds to QA or clients
-  - Sharing beta versions with testers
-  - Internal app deployment for small teams
+  - Send a test build to QA or a client with one link
+  - Share a beta version with testers through a QR code
+  - Email a build straight to testers
+  - Find an iOS device UDID before you build for it
 quickstartSteps:
-  - Sign up for a free InstallOnAir account.
-  - Upload your iOS (.ipa) or Android (.apk) app build.
-  - Copy the generated public download link.
-  - Share the link with testers or team members.
+  - Open installonair.com and upload your IPA or APK as a guest, or register first with Google or a free account.
+  - Wait for the upload to finish and for the install link and QR code to appear.
+  - Share the link or QR code with testers, or email the build to them from the page.
+  - For iOS, use the UDID finder to collect device identifiers that your provisioning profile needs.
+  - Log in to see your App List and stats, and extend a link before it expires if testing runs long.
 whenToUse: >-
-  Use InstallOnAir when you need a quick, free way to share mobile app builds
-  under 200 MB for testing without complex setup.
+  Use InstallOnAir to hand a test build to a few people quickly, without a
+  store listing or a TestFlight invite.
 whenNotToUse: >-
-  Avoid if you require private distribution, builds over 1 GB, or need links
-  to stay active for longer than a week without paying.
+  Avoid it for long-lived distribution, for builds over 1 GB, or when your
+  testers need links that stay active for weeks without paying.
 bestFor:
   - mobile developers
   - QA testers
-  - small teams
+  - short test rounds
 avoidIf:
-  - enterprise
-  - large-scale distribution
-  - strict privacy needs
+  - you need links that last for weeks for free
+  - your build is over 1 GB
+  - you need store-grade release management
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.installonair.com'
-docsUrl: 'https://docs.installonair.com'
+docsUrl: 'https://www.installonair.com/faq'
 pricingUrl: 'https://www.installonair.com/pricing'
 sourceUrls:
   - 'https://www.installonair.com/pricing'
+  - 'https://www.installonair.com'
+  - 'https://www.installonair.com/faq'
+  - 'https://www.installonair.com/features'
 featured: false
 ---
-InstallOnAir is a straightforward service for distributing iOS and Android app builds over-the-air, ideal for small teams and beta testing workflows.
+You drag a build into the web uploader and send testers the install link. It suits developers who need a quick over-the-air install for a test round.
+
+## What the free plan gives you
+
+The pricing page says the service is free, with no card and no trial. You can upload IPA and APK builds, share install links and QR codes, install over the air, and email builds to testers. A UDID finder for iOS devices is included.
+
+Builds up to 200MB upload for free. Guest links stay active for 3 days. With a free account they stay active for 7 days, and you can manage every build from your App List. The FAQ says there is no limit on how many builds you upload. The site says these core features will stay free.
+
+## When you hit a limit
+
+When a link expires, testers see a message that the build has expired and they can no longer install it. You can upload the build again for a new free link, or extend the expiry date before it runs out to keep the same link and QR code.
+
+Extending costs one-time payments: $1.89 for 1 month, $4.99 for 6 months, or $9.99 for 1 year, per build. A build larger than 200MB, up to 1GB, needs a $2 upload credit. One credit covers one large upload. Payments go through Razorpay.
+
+## Gotchas
+
+- Expiry is short on the free plan: 3 days for guests and 7 days with an account.
+- A build over 200MB needs a paid upload credit, and you must log in to buy it.
+- iOS installs still follow your provisioning profile and device UDID rules, so the UDID finder helps but does not replace them.
+
+## Alternatives in this atlas
+
+- [Buddy](/services/buddy/): when you want a pipeline that builds the app for you before it reaches testers.
+- [Appveyor](/services/appveyor/): when you want hosted CI that builds the app first.
+
+## Questions people ask
+
+### Is InstallOnAir free?
+
+Yes. The pricing page says uploading, sharing and installing builds are free, with no trial and no card. Only longer links and very large builds cost extra.
+
+### How long does an InstallOnAir link last?
+
+Guest links last 3 days. Links from a free account last 7 days. You can extend any build with a one-time payment.
+
+### What is the InstallOnAir file size limit?
+
+Builds up to 200MB are free. Larger builds, up to 1GB, need a $2 upload credit.

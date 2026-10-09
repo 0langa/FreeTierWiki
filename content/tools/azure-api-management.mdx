@@ -1,8 +1,9 @@
 ---
 title: Azure API Management
 description: >-
-  Azure API Management enables organizations to publish, secure, transform, and
-  monitor APIs at scale.
+  Azure API Management is a managed API gateway on Azure. Teams use it to
+  publish, secure, throttle, and monitor APIs, and to give developers a portal
+  to find them.
 provider: Azure
 category: apis
 domain: apis
@@ -15,10 +16,11 @@ audiences:
   - team
   - enterprise
 tags:
-  - api
-  - networking
-  - cloud
-  - security
+  - api gateway
+  - api management
+  - azure
+  - rate limiting
+  - developer portal
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -27,8 +29,9 @@ freeTierDetails:
   limits:
     - '1,000,000 API operations/month free (Consumption tier)'
   caveats:
-    - Additional operations beyond 1 million/month are billed per 1M operations
-    - The separate Developer tier (for non-production evaluation) is a paid tier, not free
+    - Operations beyond 1 million per month are billed per 10,000 operations
+    - The Developer tier is for evaluation and test only and has no SLA; it is not a production tier
+    - The Consumption tier is the serverless tier billed per execution
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -37,33 +40,38 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above 1 million operations/month is billed
 useCases:
-  - Centralizing API access and security
-  - Creating developer portals
-  - Monitoring API usage
-  - Transforming and versioning APIs
+  - Put one gateway in front of several backend APIs
+  - Check API keys and apply rate limits and quotas
+  - Publish a developer portal with API documentation
+  - Transform requests and responses with policies
+  - Watch API usage with analytics
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new API Management instance using the Consumption tier.
-  - Add your API or import an OpenAPI specification.
-  - 'Configure policies for security, rate limiting, or transformation.'
-  - Publish the API and access the developer portal.
+  - Sign in to the Azure portal with an Azure account, or create a free Azure account first.
+  - Select Create a resource, then Integration, then API Management.
+  - On the Basics tab, set the subscription, resource group, region, resource name, organization name, and administrator email.
+  - Pick the Consumption pricing tier for the free monthly operations, then create the instance.
+  - Import an API from an OpenAPI definition or another supported source.
+  - Add policies such as rate limits or quotas, and open the developer portal to test the API.
 whenToUse: >-
-  Use when you need to centralize, secure, and monitor APIs and stay under 1
-  million calls per month, including production use.
+  Use it when your APIs already live on Azure and you want a gateway with
+  keys, quotas, and a developer portal, at low call volume on the Consumption
+  tier.
 whenNotToUse: >-
-  Avoid if you expect high-volume traffic beyond 1 million calls/month
-  without budgeting for overage billing.
+  Avoid it if you expect more than 1 million operations a month and have no
+  budget for overage, or if you need a tier built for production with an SLA
+  and a fixed price.
 bestFor:
-  - api management evaluation
-  - low-to-medium traffic production APIs
-  - testing api gateways
+  - low traffic production APIs
+  - trying out an API gateway
+  - Azure-centric teams
 avoidIf:
-  - need large-scale throughput
-  - need advanced enterprise features like isolated networking
+  - need predictable monthly cost at high volume
+  - need isolated networking on the free tier
+  - cannot provide payment details
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
@@ -72,6 +80,46 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
   - 'https://learn.microsoft.com/en-us/azure/api-management/'
+  - 'https://learn.microsoft.com/en-us/azure/api-management/get-started-create-service-instance'
+  - 'https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts'
 featured: false
 ---
-Azure API Management provides a centralized platform for managing, securing, and monitoring APIs. The Consumption tier includes 1 million free API operations per month and can be used in production, unlike the separate paid Developer tier.
+You set it up in the Azure portal, or with PowerShell, the Azure CLI, or a REST API, then import your APIs and add policies. It suits teams that run APIs on Azure, on premises, or in other clouds and want one place for keys, limits, and docs.
+
+## What the free plan gives you
+
+The Consumption tier includes the first 1 million API operations per month, per subscription. It is a lightweight, serverless version of the service that is billed per execution. A billing unit is one operation within an HTTP request. For normal REST and SOAP APIs, one request is one operation.
+
+Microsoft's FAQ says only the Developer tier is unfit for production because it has no SLA, so the Consumption tier can carry production traffic. The page shows no free allowance for the other classic tiers.
+
+## When you hit a limit
+
+There is no hard stop. After 1 million operations, the pricing page bills each further 10,000 API operations. The table on the page shows no dollar figure in its text, so use the Azure pricing calculator to estimate the cost.
+
+The page does not describe the service stopping. Plan for the bill to grow, and set an Azure budget alert before you send real traffic.
+
+## Gotchas
+
+- The 1 million free operations count per subscription, not per instance. Several Consumption instances share one allowance.
+- The Developer tier has no SLA. The pricing page says it is for evaluation, development, and test, not production.
+- The pricing page says an AI Gateway created in Azure AI Foundry is free for up to 100,000 requests. That is a separate offer from the Consumption allowance.
+
+## Alternatives in this atlas
+
+- [Zuplo](/services/zuplo/): when you want a gateway with a developer portal and no credit card.
+- [Postman](/tools/postman/): when you mainly want to design, test, and monitor APIs, not run a gateway.
+- [IBM API Connect](/tools/ibm-api-connect/): when you want to try another full API management product on a trial.
+
+## Questions people ask
+
+### Is Azure API Management free?
+
+Only the Consumption tier has a free amount. It includes the first 1 million API operations per month, per subscription. After that you pay per 10,000 operations.
+
+### What happens when I go over the Azure API Management free limit?
+
+The service keeps running and bills the extra operations. The pricing page does not describe a hard cap, so set an Azure budget alert.
+
+### Can I use Azure API Management Consumption in production?
+
+Yes. The pricing FAQ says the Developer tier has no SLA and is not suitable for production, which leaves the Consumption tier for production traffic. The Developer tier is for tests.

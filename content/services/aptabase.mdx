@@ -1,6 +1,9 @@
 ---
 title: Aptabase
-description: 'Open-source, privacy-first analytics for mobile, desktop, and web apps.'
+description: >-
+  Aptabase is open-source, privacy-first analytics for mobile, desktop, and web apps. It collects no
+  personal data, so you need no consent banner. It suits app developers who want simple event
+  counts.
 provider: Aptabase
 category: analytics
 domain: analytics
@@ -12,10 +15,13 @@ audiences:
   - indie
   - startup
 tags:
-  - analytics
-  - privacy
-  - mobile
-  - open-source
+  - app analytics
+  - privacy analytics
+  - mobile analytics
+  - desktop apps
+  - open source
+  - event tracking
+  - firebase alternative
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free plan: up to 20,000 events per month. No card needed and no overage fees.'
@@ -30,29 +36,44 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Usage stats for a desktop or mobile app
-  - Privacy-friendly app analytics
+  - Count how often users open features in a desktop or mobile app
+  - Track app launches and screen views without cookies
+  - Replace Firebase Analytics in a privacy-focused app
+  - Skip the consent banner by collecting no personal data
+  - Compare debug and release builds in separate views
 quickstartSteps:
-  - Sign up at aptabase.com.
-  - Create an app and copy the key.
-  - Add the SDK and call trackEvent.
-whenToUse: Use for privacy-friendly stats in a small app.
-whenNotToUse: Avoid for high-volume apps on the free plan.
+  - Create a free account in the EU or US region. The free plan needs no credit card.
+  - Create an app and copy its App Key from the Instructions menu in the dashboard.
+  - Install the SDK for your platform. For web apps the package is @aptabase/web.
+  - Call init with your App Key.
+  - 'Call trackEvent for the events you care about, for example trackEvent with the name app_started.'
+  - 'Open the dashboard. Events appear in real time, with debug and release builds kept apart.'
+whenToUse: >-
+  Use it when you want simple, anonymous event analytics for an app and do not need per-user
+  metrics.
+whenNotToUse: >-
+  Avoid it if you need user-level metrics such as monthly active users or retention, or if you send
+  high event volumes on the free plan.
 bestFor:
   - desktop apps
   - mobile apps
+  - privacy-first teams
+  - indie developers
 avoidIf:
   - high volume
+  - need user-level analytics
+  - need retention reports
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://aptabase.com'
 docsUrl: 'https://aptabase.com/docs'
 sourceUrls:
   - 'https://aptabase.com/pricing'
+  - 'https://aptabase.com/docs'
 pricingUrl: 'https://aptabase.com/pricing'
 featured: false
 changes:
@@ -60,4 +81,45 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Aptabase stops collecting at the limit instead of billing.
+
+You add a small SDK to your app, call a track function for each event, and read the counts in the Aptabase dashboard. It fits app developers who want simple usage numbers without consent banners.
+
+## What the free plan gives you
+
+The Free plan covers up to 20,000 events per month and needs no credit card. Every call to the SDK's track function counts as one event. Nothing is tracked automatically, so you decide how many events your app sends. Plan the events you send, because a few busy screens can use the budget quickly.
+
+Every plan, including Free, has unlimited apps. You can also pick EU or US data residency when you create your account. The free plan has no listed time limit, and the page names no trial period.
+
+Paid plans start at $10 per month for 200,000 events. Bigger tiers run up to $450 per month for 50,000,000 events. You pick the tier by how many events you send each month, and you can cancel any time.
+
+## When you hit a limit
+
+Aptabase does not bill overage fees. It sends you an email when you get close to your monthly limit. If you go over, it temporarily pauses your analytics until the start of the next month.
+
+That means a busy month does not cost you money, but it does cost you data. Events sent after the pause starts are not counted. To keep recording, move to a paid tier. Check the pricing table to see which tier fits your volume.
+
+## Gotchas
+
+- Aptabase has no unique user identifier by design, so user-level metrics such as monthly active users and retention are not available.
+- Going over the limit pauses analytics for the rest of the month. You lose that data instead of paying a bill.
+- Nothing is tracked automatically. You must add a track call for each event you care about.
+
+## Alternatives in this atlas
+
+- [Cloudflare Web Analytics](/services/cloudflare-web-analytics/): when you only need privacy-friendly page views for a website.
+- [Mixpanel](/services/mixpanel/): when you need user-level funnels and retention.
+- [PostHog](/tools/posthog/): when you want product analytics plus session replay and flags.
+
+## Questions people ask
+
+### Is Aptabase free?
+
+Yes, up to 20,000 events per month, with no credit card. Paid plans start at $10 per month.
+
+### What happens when I go over the Aptabase free limit?
+
+You pay no overage fee. Aptabase emails you near the limit and then pauses analytics until the start of the next month.
+
+### Does Aptabase show monthly active users?
+
+No. It collects anonymous data points without a unique user identifier, so user-level metrics such as monthly active users and retention are not possible.

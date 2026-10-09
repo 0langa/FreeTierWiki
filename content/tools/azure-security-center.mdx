@@ -1,9 +1,9 @@
 ---
 title: Microsoft Defender for Cloud (Azure Security Center)
 description: >-
-  Microsoft Defender for Cloud (formerly Azure Security Center) provides
-  unified security management and threat protection across multicloud and
-  hybrid workloads.
+  Microsoft Defender for Cloud, formerly Azure Security Center, checks the
+  security setup of your Azure, AWS, and Google Cloud resources and tells you
+  what to fix.
 provider: Microsoft
 category: security
 domain: security
@@ -16,53 +16,65 @@ audiences:
   - team
   - enterprise
 tags:
-  - security
-  - cloud
+  - cspm
+  - secure-score
+  - cloud-security
   - compliance
-  - monitoring
+  - azure-security
+  - misconfiguration
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Foundational CSPM is free forever: continuous assessment, Secure Score,
-    and security recommendations across Azure, AWS, and GCP.
+    Foundational CSPM is free: continuous assessment, Secure Score, and
+    security recommendations across Azure, AWS, and GCP.
   limits:
-    - Continuous security assessment (Azure, AWS, GCP)
-    - Secure Score and security recommendations
-    - Microsoft cloud security benchmark included
+    - Foundational CSPM at no cost
+    - Security recommendations and asset inventory
+    - Secure Score
+    - Regulatory compliance with the Microsoft cloud security benchmark
   caveats:
-    - Advanced CSPM and workload protection plans are billed per resource
-    - Paid Defender plans include a 30-day free trial, then auto-billed
+    - You need an Azure subscription, and this atlas treats Azure sign-up as needing a card
+    - Paid Defender plans are free for the first 30 days, or until a usage limit is reached, then they bill automatically
+    - Malware scanning in Defender for Storage is charged from the first day
+    - Advanced posture features such as attack path analysis need the paid Defender CSPM plan
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - The Enable all button in Environment settings turns on every paid plan, which bills after the 30-day trial
+    - Defender CSPM bills for compute, database, storage, and serverless resources
 useCases:
-  - Monitor Azure resources for security issues
-  - Receive security recommendations
-  - Assess compliance posture
+  - Reviewing the security posture of Azure subscriptions
+  - Getting a ranked list of security recommendations with a Secure Score
+  - Checking resources against the Microsoft cloud security benchmark
+  - Connecting AWS and Google Cloud accounts to see their posture in one place
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - Navigate to Microsoft Defender for Cloud from the left menu.
-  - Enable Defender for Cloud on your subscription.
-  - Review security recommendations and apply suggested actions.
+  - Sign in to the Azure portal with an account that has the Owner, Contributor, or Reader role on a subscription.
+  - Search for and select Microsoft Defender for Cloud.
+  - Open the overview page. Defender for Cloud is then enabled on the subscription with the Foundational CSPM plan.
+  - Within minutes, review the recommendations, the asset inventory, and the Secure Score.
+  - Optionally connect AWS or Google Cloud accounts, and leave the paid plans off unless you want them.
 whenToUse: >-
-  Use when you need free security posture management and recommendations
-  across Azure, AWS, or GCP without advanced threat protection.
+  Use it to get free posture checks and recommendations for an Azure
+  subscription, and optionally for AWS and Google Cloud accounts.
 whenNotToUse: >-
-  Avoid if you require advanced threat detection or workload protection, which
-  need a paid Defender plan.
+  Avoid the free tier if you need threat detection or workload protection for
+  servers, containers, storage, or databases, because those are paid Defender
+  plans.
 bestFor:
-  - Azure users
-  - security teams
-  - compliance monitoring
+  - Azure users who want a first security baseline
+  - small teams without a security tool
+  - checking compliance against a benchmark
 avoidIf:
-  - advanced threat analytics needed
-  - workload-level threat protection needed
+  - you need advanced threat detection
+  - you need attack path analysis without paying
+  - you do not have an Azure subscription
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/defender-for-cloud/'
@@ -71,8 +83,44 @@ docsUrl: >-
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/defender-for-cloud/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/defender-for-cloud/'
-  - >-
-    https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-cloud-introduction
+  - 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-cloud-introduction'
+  - 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/connect-azure-subscription'
+  - 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management'
 featured: false
 ---
-Azure Security Center's free tier provides basic security posture management and recommendations for Azure resources, making it suitable for monitoring and compliance needs without advanced protection.
+You use Defender for Cloud in the Azure portal. You search for it, open the overview page, and read the recommendations and the Secure Score. It suits Azure users who want a first security baseline, and teams that also run AWS or Google Cloud.
+
+## What the free plan gives you
+
+The free part is called Foundational CSPM, short for cloud security posture management. Microsoft lists it as available at no cost. It covers continuous security assessment, security recommendations, the Secure Score, an asset inventory, and regulatory compliance checks against the Microsoft cloud security benchmark. You can connect AWS and Google Cloud accounts too.
+
+The free plan has no resource quota on the pages. It also shows basic Azure DevOps recommendations. Deeper features, such as attack path analysis and pull request annotations, need the paid Defender CSPM plan.
+
+## When you hit a limit
+
+Foundational CSPM has no usage limit to hit. The cost risk comes from the paid plans. Microsoft says they are free for the first 30 days, or until a usage limit is reached, whichever comes first. After that, charges begin for the plans you enabled. The Enable all button in Environment settings turns on every plan, so leave it alone unless you want paid protection. Malware scanning in Defender for Storage is charged from the first day.
+
+## Gotchas
+
+- You need an Azure subscription, and viewing resources needs the Owner, Contributor, or Reader role.
+- Defender CSPM bills only for compute, database, storage, and serverless resources, but it protects workloads across clouds.
+- Defender for Cloud is also moving into the Microsoft Defender portal, so some screens differ between the two portals.
+
+## Alternatives in this atlas
+
+- [Azure Policy](/services/azure-policy/): when you want to enforce rules on resources instead of only reading recommendations.
+- [Azure Advisor](/services/azure-advisor/): when you want broader Azure advice that also covers cost and reliability.
+
+## Questions people ask
+
+### Is Microsoft Defender for Cloud free?
+
+Partly. Foundational CSPM is free, with recommendations and a Secure Score. The paid plans are free for the first 30 days, then they bill.
+
+### Do I need a credit card for Defender for Cloud?
+
+You need an Azure subscription, and this atlas treats Azure sign-up as needing a card. The Foundational CSPM plan itself has no charge.
+
+### Does Defender for Cloud cover AWS and Google Cloud?
+
+Yes. The free Foundational CSPM plan assesses Azure, AWS, and GCP resources once you connect the accounts.

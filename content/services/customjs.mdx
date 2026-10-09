@@ -1,8 +1,9 @@
 ---
 title: CustomJS
 description: >-
-  CustomJS enables serverless JavaScript functions for dynamic web applications
-  without backend infrastructure.
+  CustomJS is a web API that runs your JavaScript, turns HTML into PDFs, takes
+  screenshots, and scrapes pages. It is for no-code and AI automation builders
+  who want these jobs as a single request.
 provider: CustomJS
 category: compute
 domain: compute
@@ -17,66 +18,110 @@ audiences:
   - team
   - oss
 tags:
-  - serverless
-  - frontend
-  - api
-  - web
+  - pdf generation
+  - html to pdf
+  - screenshot api
+  - javascript api
+  - make.com
+  - n8n
+  - mcp server
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes 20 requests/day (about 600/month) covering JavaScript
-    execution, PDF generation, screenshots, forms, and hosted pages. No credit
+    execution and PDF generation, plus 3 forms and 5 hosted pages. No credit
     card required.
   limits:
     - '20 requests/day (~600/month)'
     - 3 forms with 500 monthly responses
-    - 1 mail hook, 10 emails/day
-    - 5 hosted pages, unlimited bandwidth
+    - 5 hosted pages, unlimited bandwidth under a fair usage policy
   caveats:
-    - PDF output includes a watermark on the free tier
-    - 30-second request timeout, email support only
+    - PDF output includes a small watermark on the free tier
+    - 30-second request timeout
+    - Forms and hosted pages carry the CustomJS logo
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - API endpoints for web apps
-  - Webhook handlers
-  - Prototyping backend logic
+  - Generating invoice or report PDFs from HTML templates in Make or n8n
+  - Taking screenshots of web pages
+  - Scraping page content from a URL
+  - Running a short JavaScript snippet as a step in an automation
 quickstartSteps:
-  - Sign up at customjs.space and verify your email.
-  - Create a new project from the dashboard.
-  - Write your JavaScript function in the online editor.
-  - Deploy the function and copy the generated endpoint URL.
-  - Test your function using the provided endpoint.
+  - 'Sign up at app.customjs.space; no credit card is needed.'
+  - 'Copy your API key from the dashboard.'
+  - 'Send a POST request to https://e.customjs.io/html2pdf with the x-api-key header and an input html field, or to /__js1- with a code field to run JavaScript.'
+  - 'Or add the MCP server URL https://mcp.customjs.space/customjs/mcp with the x-api-key header to Claude, Cursor, or n8n.'
+  - 'Read the rate limit headers on each response to track your usage.'
 whenToUse: >-
-  Use CustomJS when you need quick, serverless JavaScript APIs for web or mobile
-  projects without managing backend servers.
+  Use CustomJS to add PDF, screenshot, scraping, or small JavaScript steps to
+  a no-code or AI automation without hosting any code.
 whenNotToUse: >-
-  Avoid if you need more than 20 requests/day, or high concurrency beyond free
-  tier limits.
+  Avoid it if you need more than 20 requests a day, PDFs without a watermark,
+  or JavaScript that runs longer than 30 seconds.
 bestFor:
   - prototyping
   - MVPs
   - student projects
   - small web apps
 avoidIf:
-  - enterprise workloads
-  - custom domain needs
-  - heavy compute
+  - more than 20 requests a day
+  - watermark-free PDFs on the free plan
+  - long-running code
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.customjs.space'
-docsUrl: 'https://docs.customjs.io'
+docsUrl: 'https://www.customjs.space/integration/native-api/documentation'
 sourceUrls:
+  - 'https://www.customjs.space/pricing'
   - 'https://www.customjs.space'
-  - 'https://docs.customjs.io'
+  - 'https://www.customjs.space/integration/native-api/documentation'
+  - 'https://www.customjs.space/integration/mcp'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.customjs.space/pricing'
 ---
-CustomJS offers a simple way to deploy serverless JavaScript functions, ideal for lightweight APIs, webhooks, and rapid prototyping without backend management.
+You get an API key from the CustomJS app and send authenticated HTTP requests to its endpoints. You can also add its MCP server URL to an AI client such as Claude or Cursor. It suits people who wire up no-code automations and need PDFs, screenshots, or custom code steps.
+
+## What the free plan gives you
+
+The Free plan has no cost and the pricing page says no credit card is needed. It allows 20 requests per day, which the site describes as 600 requests per month. Each JavaScript execution or PDF rendering counts as 1 request. The MCP server says the 600 free operations a month are shared across all tools.
+
+JavaScript runs with a request timeout of 30 seconds. PDF output includes a small watermark. The plan also includes 3 forms with 500 form responses per month, and 5 hosted pages. Forms and hosted pages carry the CustomJS logo. Bandwidth is unlimited under a fair usage policy.
+
+## When you hit a limit
+
+The pricing page does not say what happens after the 20th request in a day. Every API response carries rate limit headers that show the limit, the requests used, and the requests remaining. Watch those headers in your automation.
+
+The free plan has no card on file, so it cannot bill you. Paid plans start at $9 per month for 100 requests a day. The fair usage note says CustomJS may throttle or suspend accounts that use more than 100 GB of bandwidth per month or abuse the service.
+
+## Gotchas
+
+- Each JavaScript execution and each PDF rendering counts as 1 request, so a workflow that does both uses 2.
+- Free PDFs include a small watermark, and free forms and hosted pages show the CustomJS logo.
+- The 30 second request timeout on the free plan is half of the 60 seconds on paid plans.
+
+## Alternatives in this atlas
+
+- [Doppio](/services/doppio/): when you mainly need PDFs or screenshots from a headless browser.
+- [Val Town](/services/val-town/): when you want to host small JavaScript functions and scripts.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want to run your own code with more control over limits.
+
+## Questions people ask
+
+### Is CustomJS free?
+
+Yes. The Free plan includes 20 requests per day, described as 600 requests per month, with no credit card.
+
+### Does CustomJS need a credit card?
+
+No. The pricing page says no credit card is required for the free plan.
+
+### What happens when I go over the CustomJS free limit?
+
+The pricing page does not say. Check the rate limit headers on each response, and upgrade if you need more than 20 requests a day.

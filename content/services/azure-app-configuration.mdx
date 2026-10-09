@@ -1,8 +1,9 @@
 ---
 title: Azure App Configuration
 description: >-
-  Centralized service for managing application settings and feature flags across
-  Azure environments.
+  Azure App Configuration stores your app settings and feature flags in one
+  place, so you can change them without a redeploy. It is for developers who
+  build on Azure.
 provider: Azure
 category: devops
 domain: devops
@@ -15,8 +16,11 @@ audiences:
   - team
   - enterprise
 tags:
-  - cloud
-  - devops
+  - azure
+  - app settings
+  - feature flags
+  - configuration management
+  - key-value
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -28,6 +32,8 @@ freeTierDetails:
     - 10 MB storage per store
   caveats:
     - No SLA on the free tier.
+    - Microsoft calls the Free tier a way to evaluate the service in non-production environments.
+    - A single key-value, including its label and other metadata, can be at most 10 KB.
     - Once the daily request quota is used, the store returns HTTP 429 until
       the next day.
   resetPeriod: daily
@@ -36,32 +42,36 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Centralized management of app settings
-  - Feature flag rollout
-  - Dynamic configuration updates
+  - Keep settings for several apps and environments in one store
+  - Turn features on and off with feature flags
+  - Change a setting at run time and let the app refresh it
+  - Replay settings as they were at an earlier point in time
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new App Configuration resource.
-  - Add key-value pairs for your application settings.
-  - Integrate the App Configuration SDK or REST API into your app.
-  - Test retrieving configuration values from your application.
+  - Sign in to the Azure portal with an account that has an active Azure subscription.
+  - Search for App Configuration and choose Create.
+  - Pick or create a resource group, give the store a unique name, and choose the Free pricing tier.
+  - Open the new store and add a key-value in the configuration explorer.
+  - Connect your app with an App Configuration provider or SDK, or the REST API, and read the value.
+  - Optional - create the store from the command line with `az appconfig create`.
 whenToUse: >-
-  Use when you need centralized, scalable management of application settings or
-  feature flags across multiple Azure services.
+  Use it to try centralized settings and feature flags for a small, non-production
+  Azure app that makes few requests each day.
 whenNotToUse: >-
-  Avoid if your app has minimal configuration needs or you require on-premises
-  configuration management.
+  Skip it for production traffic. The Free tier stops at 1,000 requests a day
+  per store, has no SLA, and is meant for evaluation. It also needs an Azure
+  subscription.
 bestFor:
-  - teams managing multiple environments
-  - feature flag management
-  - dynamic configuration
+  - evaluating the service
+  - dev and test environments
+  - small apps with few config reads
 avoidIf:
-  - single-environment apps
-  - strict on-premises requirements
+  - you serve production traffic
+  - your app reads settings more than 1,000 times a day
+  - you need an SLA
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/app-configuration/'
@@ -69,7 +79,47 @@ docsUrl: 'https://learn.microsoft.com/en-us/azure/azure-app-configuration/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/app-configuration/'
   - 'https://learn.microsoft.com/en-us/azure/azure-app-configuration/'
+  - 'https://learn.microsoft.com/en-us/azure/azure-app-configuration/faq'
+  - 'https://learn.microsoft.com/en-us/azure/azure-app-configuration/quickstart-azure-app-configuration-create'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/app-configuration/'
 featured: false
 ---
-Azure App Configuration provides a centralized way to manage application settings and feature flags, supporting dynamic updates and integration with Azure services.
+You create a store in the Azure portal or with the Azure CLI, then read it from your app through a client library or the REST API. The portal also has a page for managing feature flags.
+
+## What the free plan gives you
+
+The Free tier gives each configuration store 10 MB of regular storage and 10 MB of snapshot storage. Each store can handle 1,000 requests per day. A subscription can have 3 free stores per region.
+
+Revision history is kept for seven days on the Free and Developer tiers. A single key-value can be at most 10 KB, including its label, content type, and tags. The FAQ describes the Free tier as a way to evaluate the service in non-production environments.
+
+## When you hit a limit
+
+When a Free tier store reaches 1,000 requests in a day, it returns HTTP status code 429 for all requests until midnight UTC. Your app then gets errors instead of settings until the next day. The pricing page shows the same rule, with the quota ending at the end of the day.
+
+To get more room, move to a paid tier. The Developer tier allows 6,000 requests per hour per store and 500 MB of storage. The Standard tier allows 30,000 requests per hour and 1 GB of storage. Paid tiers bill a charge per store per day plus an overage charge per 10,000 requests.
+
+## Gotchas
+
+- The Free tier is limited to 3 stores per region per subscription. Paid tiers have no limit on stores.
+- The Free tier has no SLA.
+- The Free tier does not include features such as geo-replication and soft-delete, which come with other tiers.
+
+## Alternatives in this atlas
+
+- [ConfigCat](/services/configcat/): when you want feature flags that do not depend on one cloud.
+- [GrowthBook](/services/growthbook/): when you want flags and experiments for a small team.
+- [Abby](/services/abby/): when you want typed flags and remote config for React or Next.js.
+
+## Questions people ask
+
+### Is Azure App Configuration free?
+
+Yes, there is a Free tier. Each store gets 1,000 requests per day and 10 MB of storage, and you can have 3 free stores per region per subscription.
+
+### What happens when I go over the Azure App Configuration free quota?
+
+The store returns HTTP status 429 for all requests until midnight UTC. The pricing page lists the Free tier as free, with no overage charge.
+
+### Does Azure App Configuration need an Azure subscription?
+
+Yes. The quickstart asks for an Azure account with an active subscription, and this atlas lists the plan as needing a card.

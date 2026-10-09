@@ -1,6 +1,9 @@
 ---
 title: Knock
-description: 'Notification infrastructure for product messages across email, in-app, push, SMS, and Slack.'
+description: >-
+  Knock is notification infrastructure that handles product messages across
+  email, in-app feeds, push, SMS, and Slack. It is for developers who do not
+  want to build a notification system themselves.
 provider: Knock
 category: messaging
 domain: messaging
@@ -12,46 +15,70 @@ audiences:
   - indie
   - startup
 tags:
+  - notification api
+  - in-app notifications
+  - transactional email
+  - notification workflows
   - messaging
-  - email
-  - api
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Developer plan is free: up to 10,000 messages per month and 500 guide active users.'
+  summary: >-
+    Developer plan is free: up to 10,000 messages per month, 500 guide active
+    users, and 500 AI agent credits, with unlimited workflows and channels.
   limits:
     - '10,000 messages per month'
     - 500 guide active users
+    - 500 AI agent credits
+    - Unlimited workflows, broadcasts, channels, and team members
   caveats:
     - Knock does not hard-cap; it contacts you to add billing if you go over
+    - Extra AI agent credits cost $.01 each
+    - Messages from guide views do not count toward the message limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - Past the limit Knock asks you to add a billing method; the pricing page does not say it stops sending
 useCases:
-  - Cross-channel notifications
-  - In-app feeds
-  - Slack notifications
+  - Sending transactional notifications such as password resets and order updates
+  - Building an in-app notification feed or inbox
+  - Sending one-off announcements to a group of users with broadcasts
+  - Routing one event to email, push, SMS, or Slack from one workflow
 quickstartSteps:
-  - Sign up at knock.app.
-  - Configure a channel and a workflow.
-  - Trigger it from your backend.
-whenToUse: Use for product notifications in a small app.
-whenNotToUse: 'Avoid if you need more than 10,000 messages for free.'
+  - Click Sign up on knock.app and create an account on the free Developer plan.
+  - In the dashboard, set up a delivery channel such as email, push, or an in-app feed.
+  - Create a workflow that uses that channel and write the message template.
+  - Identify your users to Knock so they exist as recipients.
+  - Trigger the workflow from your backend with the trigger API or an SDK, passing the workflow key, the recipients, and any data the template needs.
+  - Check the message status in the dashboard.
+whenToUse: >-
+  Use Knock when a small app needs notifications over several channels with
+  workflows, batching, and user preferences, and you want to avoid building
+  that yourself.
+whenNotToUse: >-
+  Avoid it if you send more than 10,000 messages a month for free, or if you
+  only need a single email send with no workflow logic.
 bestFor:
   - SaaS apps
+  - apps that need an in-app inbox
+  - teams that want non-developers to edit templates
 avoidIf:
-  - high volume
+  - high message volume on a free budget
+  - a single email send is all you need
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://knock.app'
 docsUrl: 'https://docs.knock.app'
 sourceUrls:
   - 'https://knock.app/pricing'
+  - 'https://docs.knock.app/getting-started/what-is-knock'
+  - 'https://docs.knock.app/send-notifications/triggering-workflows/api'
 pricingUrl: 'https://knock.app/pricing'
 featured: false
 changes:
@@ -59,4 +86,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Knock's free plan is for testing and small deployments.
+You design workflows and templates in the Knock dashboard, then trigger them from your own backend with the REST API or an SDK. It suits developers who want product and engineering to share one notification system.
+
+## What the free plan gives you
+
+The Developer plan costs $0 per month. It includes up to 10,000 messages a month, counted as messages sent from workflows and broadcasts, and 500 guide active users. A guide active user is a user who sees at least one in-app guide in the month. The plan also includes 500 AI agent credits.
+
+Workflows, broadcasts, delivery channels, team members, recipients, and environments are unlimited on this plan. You also get batching and delay steps, and sign-in with Google SSO. Email client previews start on the Starter plan.
+
+## When you hit a limit
+
+Knock says it does not hard cap your notifications. If you go over the free limit, it gets in touch with you about adding a billing method for next month. The pricing page does not say that sending stops.
+
+Extra AI agent credits cost $.01 each. Paid plans bill extra messages and active users per unit. Messages that come from guide views do not count toward your message total.
+
+## Gotchas
+
+- A message means one successful send to one user on one channel, so one event sent to a user over two channels counts as two messages.
+- The pricing page lists email client previews only from the Starter plan, which costs $250 per month.
+- The trigger API limits the data payload to 10MB, and any single string longer than 1024 bytes is cut short in your logs.
+
+## Alternatives in this atlas
+
+- [Novu](/services/novu/): when you want an open source notification system you could also self-host.
+- [Courier](/services/courier/): when you want a similar multi-channel notification API with its own free allowance.
+- [SuprSend](/services/suprsend/): when you want a free tier that counts notifications across all channels.
+
+## Questions people ask
+
+### Is Knock free?
+
+Yes. The Developer plan costs $0 per month and includes 10,000 messages and 500 guide active users. Workflows and channels are unlimited.
+
+### What happens when I go over the Knock free limit?
+
+Knock does not hard cap notifications. It contacts you about adding a billing method rather than turning sending off.
+
+### How do I send a notification with Knock?
+
+Create a workflow in the dashboard, then call the trigger API with the workflow key, the recipients, and a data object. You can make that call through the REST API or an SDK.

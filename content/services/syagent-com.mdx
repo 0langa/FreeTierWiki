@@ -1,8 +1,8 @@
 ---
 title: SyAgent
 description: >-
-  SyAgent is a free server and uptime monitoring tool for tracking Linux
-  servers, processes, disks, network, and website uptime.
+  SyAgent monitors Linux servers and website uptime with a small agent and a web
+  dashboard. It is a free beta tool for hobbyists and small deployments.
 provider: SyAgent
 category: server & uptime monitoring
 domain: observability
@@ -16,8 +16,13 @@ audiences:
   - startup
   - oss
 tags:
-  - monitoring
-  - observability
+  - server-monitoring
+  - linux
+  - uptime
+  - alerts
+  - telegram
+  - self-hosted-agent
+  - bash
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -37,40 +42,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor Linux server health (CPU, disk, network)
-  - Track website and service uptime
-  - Get alerted via Telegram, email, Pushover, or webhook on downtime
+  - Watching CPU, disk, and network on a Linux server
+  - Checking that a website or service answers
+  - Getting a Telegram or Pushover message when something fails
+  - Sending alarms to a webhook
+  - Monitoring a few personal servers for free
 quickstartSteps:
-  - Create a free SyAgent account.
-  - Install the monitoring agent on your Linux server(s).
-  - Add uptime checks for your websites or services.
-  - Configure alert channels (email, Telegram, Pushover, webhook).
-  - View metrics and alarms from the dashboard.
+  - 'Create a free account at app.syagent.com/register.'
+  - 'Add a server in the dashboard to get its server ID.'
+  - 'On the Linux server run wget -q https://raw.githubusercontent.com/syagent/agent-2/main/install.sh && sudo bash install.sh SERVER_ID, with your own server ID.'
+  - 'Add an uptime monitor for each website or service you want checked.'
+  - 'Pick your alert channel (email, Telegram, Pushsafer, Pushover, or webhook) and watch metrics and alarms in the dashboard.'
 whenToUse: >-
-  Use SyAgent for free server and uptime monitoring on personal projects or
-  small deployments.
+  Use SyAgent for free monitoring of a few Linux servers and websites, if you
+  accept that a single developer runs it as a hobby.
 whenNotToUse: >-
-  Avoid if you need long metric retention, enterprise SLAs, or monitoring
-  beyond 25 servers/checks.
+  Avoid it for monitoring that needs long metric history, a support contract,
+  or more than 25 servers or 25 uptime checks per user.
 bestFor:
-  - personal servers
-  - small projects
-  - hobbyists
+  - personal Linux servers
+  - hobby projects
+  - free alerts to Telegram or Pushover
 avoidIf:
-  - need long-term metrics retention
-  - need enterprise support
-  - large server fleets
+  - you need metrics kept for longer than 7 days
+  - you need enterprise support
+  - you manage a large server fleet
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://syagent.com/'
 docsUrl: 'https://syagent.com/'
 sourceUrls:
   - 'https://syagent.com/'
+  - 'https://github.com/syagent/agent-2'
 pricingUrl: 'https://syagent.com/'
 featured: false
 ---
-SyAgent is not a static-site host as this page previously said — it is a free server and uptime monitoring tool run as a hobby project, covering up to 25 servers and 25 uptime checks per user.
+You manage servers and uptime checks in the SyAgent web dashboard. On each Linux server you install a small Bash agent that sends data once a minute. It suits hobbyists with a few servers.
+
+## What the free plan gives you
+
+SyAgent is free, and the FAQ says alarms are free too. The listed limits are 25 servers and 25 uptime monitors per user. Metrics are stored for 7 days, and unread alarms are stored for 2 months.
+
+Notifications go out by email, Telegram, Pushsafer, Pushover, and webhook, and the FAQ says more will be added soon. The site is marked beta. It covers Linux servers, processes, disks, network, and uptime, with charts and alarms in the dashboard. The agent runs as an unprivileged user, collects host data every minute, and sends it over HTTPS.
+
+## When you hit a limit
+
+The FAQ lists the limits as current limitations, but it does not say what happens when you reach 25 servers or 25 uptime monitors. It describes no paid plan, so there is no bill to fear.
+
+The FAQ explains why the service is free: it is a hobby project run by one person. It answers yes to the question of whether it will stay free. There is no SLA, so keep a second alert path for anything important.
+
+## Gotchas
+
+- Metrics are kept for only 7 days, so you cannot look back far.
+- Unread alarms are stored for 2 months, so read important alarms within that time.
+- The service is in beta and one person runs it. The agent installs from a public script, and the GitHub readme says the simple flow trusts GitHub and the main branch; it also describes a signed-release flow.
+
+## Alternatives in this atlas
+
+- [Netdata.cloud](/services/netdata-cloud/): when you want richer server metrics and dashboards on a free plan.
+- [UptimeRobot](/services/uptimerobot/): when you only need website uptime checks from a larger service.
+- [Healthchecks.io](/services/healthchecks-io/): when you need to monitor cron jobs and scheduled tasks.
+
+## Questions people ask
+
+### Is SyAgent free?
+
+Yes. The site says it is free because the project is a hobby run by one person, and it says it will stay free. The limits are 25 servers and 25 uptime monitors per user.
+
+### How long does SyAgent keep my metrics?
+
+Metrics are stored for 7 days. Unread alarms are stored for 2 months.
+
+### What does the SyAgent agent need?
+
+It is a Bash-based agent for Linux. It runs as its own unprivileged user and sends host data over HTTPS once a minute.

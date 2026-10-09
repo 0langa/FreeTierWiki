@@ -1,8 +1,8 @@
 ---
 title: Tickgit.com
 description: >-
-  Tickgit scans your codebase for TODO comments and helps you track and manage
-  them efficiently.
+  Tickgit finds TODO comments in a codebase and lists them as pending work, with
+  who added each one and when. It suits developers who track tasks in code.
 provider: Tickgit.com
 category: devops
 domain: devops
@@ -12,63 +12,109 @@ subtypes:
   - developer tools
 audiences:
   - indie
-  - team
   - oss
-  - startup
+  - team
+  - student
 tags:
-  - search
-  - productivity
-  - devops
-  - open-source
+  - todo comments
+  - technical debt
+  - code todo tracker
+  - git blame
+  - project management in code
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free for public repositories with no login required; private repositories
-    cost $3/month after a 3-day free trial.
+    Free for public repositories with no login. Private repositories cost $3 per
+    month after a 3 day free trial.
   limits:
-    - Free for public repositories only
-    - No login required for public repos
-    - Private repos: $3/month after a 3-day trial
+    - Free for public repositories
+    - No login required for public repositories
+    - 'Private repositories: $3/month after a 3 day free trial'
   caveats:
-    - Private repo scanning requires payment after the trial
+    - Private repository scanning requires payment after the trial
+    - The hosted site finds TODO comments only; FIXME and custom phrases are marked as coming soon
+    - The command line tool is open source and runs on your own machine
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Track TODOs in codebases
-  - Surface technical debt
-  - Improve code review processes
+  - Listing all TODO comments in a public repository
+  - Seeing who added a TODO and when, using git history
+  - Tracking progress on pending work kept in code comments
+  - Adding a TODO badge to a README
 quickstartSteps:
-  - Sign up at tickgit.com using your GitHub account.
-  - Authorize Tickgit to access your repositories.
-  - Select repositories to scan for TODOs.
-  - Review and manage TODOs from the Tickgit dashboard.
+  - Open tickgit.com and use the Try a repository box, or click See an Example. A public repository needs no login.
+  - Enter a public repository, such as one on GitHub, to browse its TODOs.
+  - For a private repository, click Login with GitHub and start the 3 day free trial.
+  - To scan locally, install the command line tool with brew tap augmentable-dev/tickgit, then brew install tickgit.
+  - Run tickgit on a project folder to get a report of pending TODOs, and use tickgit --help for options.
 whenToUse: >-
-  Use Tickgit when you want to track, search, and manage TODO comments across
-  your codebase, especially for team collaboration.
+  Use Tickgit when your team leaves TODO comments in code and you want one list
+  of them, without a separate ticket system.
 whenNotToUse: >-
-  Avoid if you need private-repo scanning without paying, or support for
-  non-GitHub repositories.
+  Avoid it when you need a full project management tool, or private repository
+  scanning without paying.
 bestFor:
-  - teams managing technical debt
-  - open source maintainers
   - developers tracking TODOs
+  - open source maintainers
+  - small teams with code-based tasks
 avoidIf:
-  - you require advanced analytics
-  - you use non-GitHub repositories
-  - you need enterprise compliance
+  - needing FIXME or custom phrase tracking today
+  - needing free private repository scanning
+  - needing advanced analytics
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.tickgit.com/'
-docsUrl: 'https://docs.tickgit.com'
+docsUrl: 'https://github.com/augmentable-dev/tickgit'
 pricingUrl: 'https://www.tickgit.com/'
 sourceUrls:
   - 'https://www.tickgit.com/'
+  - 'https://github.com/augmentable-dev/tickgit'
+  - 'https://raw.githubusercontent.com/augmentable-dev/tickgit/master/README.md'
 featured: false
 ---
-Tickgit helps developers and teams find, track, and manage TODO comments in their codebase, improving visibility and collaboration around technical debt.
+You use the hosted site in a browser for a repository you pick, or run the open source `tickgit` command in a terminal. The project is built mainly for software engineers.
+
+## What the free plan gives you
+
+Public repositories are free, and you do not need to log in. The site shows an example, and you can try a repository of your own by entering it.
+
+For private repositories, the site charges $3 per month and offers a 3 day free trial. You sign in with GitHub to start. The page does not ask for a credit card before the trial, but it does not describe how billing starts either.
+
+Tickgit scans a codebase for TODO items in comments. It reports where each TODO is, and it uses git history to show how long ago it was added and by whom. The authors say the tool does not replace project tools such as Jira or Trello. It adds a way to keep work next to the code.
+
+## When you hit a limit
+
+The site lists no usage limit, so there is nothing to hit on public repositories. The line is private versus public. The pricing text does not say what happens when the 3 day trial ends beyond the $3 per month price.
+
+The site also does not say what happens to a private repository if you do not pay. The command line tool is separate and can scan a local folder on your own machine.
+
+## Gotchas
+
+- Only TODO comments are matched. The README lists FIXME, XXX, HACK, and custom phrases as not done yet.
+- Login is with GitHub, so the hosted site is aimed at GitHub repositories.
+- The sign-up page and the README are the only sources of detail. The docs address in older notes does not resolve.
+
+## Alternatives in this atlas
+
+- [CodeFactor](/tools/codefactor/): when you want code quality checks on pull requests instead of a TODO list.
+- [GitDailies](/tools/gitdailies/): when you want a view of pull request activity across repositories.
+
+## Questions people ask
+
+### Is Tickgit free?
+
+For public repositories, yes. They are free with no login. Private repositories cost $3 per month after a 3 day free trial.
+
+### What does Tickgit scan for?
+
+TODO comments in a codebase. The README says FIXME, XXX, HACK, and custom phrases are planned.
+
+### Can I run Tickgit on my own machine?
+
+Yes. The project has an open source command line tool you can install with Homebrew and run on a local folder.

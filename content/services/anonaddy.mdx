@@ -1,8 +1,9 @@
 ---
 title: addy.io (AnonAddy)
 description: >-
-  addy.io (formerly AnonAddy) provides free, open-source email aliasing to
-  protect your real email address from spam and tracking.
+  addy.io (formerly AnonAddy) forwards mail from throwaway aliases to your real
+  inbox, so you can sign up for sites without giving out your main address.
+  It is open source and can be self-hosted.
 provider: addy.io
 category: security
 domain: security
@@ -16,9 +17,12 @@ audiences:
   - startup
   - oss
 tags:
-  - email
+  - email alias
+  - email forwarding
   - privacy
   - open-source
+  - anonymous email
+  - spam
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,49 +35,92 @@ freeTierDetails:
     - 1 recipient
     - 10MB monthly bandwidth
   caveats:
-    - Custom domains and additional recipients require a paid plan
-    - Sending and replying from aliases require a paid plan
-    - Free plan has 1 recipient and 10 new aliases per hour
+    - Custom domains and additional usernames require a paid plan
+    - Replying to and sending from aliases require a paid plan
+    - Free plan can create 10 new aliases per hour
+    - Over the monthly bandwidth limit, incoming mail is rejected until the next calendar month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Protecting your real email from spam
-  - Signing up for online services anonymously
-  - Managing multiple email identities
-quickstartSteps:
-  - 'Sign up for a free AnonAddy account at https://anonaddy.com.'
-  - Verify your email address and log in to the dashboard.
-  - Add your real email as a recipient.
-  - Create a new alias or use a generated alias for signups.
-  - Forward emails from aliases to your real inbox.
+  - Giving each website or newsletter its own alias instead of your real address
+  - Switching off one alias when it starts receiving spam
+  - Finding out which company leaked or sold your address
+  - Creating random aliases from a browser extension or the API
 whenToUse: >-
-  Use AnonAddy when you want to shield your real email from spam or tracking
-  while signing up for online services.
+  Use it when you want a separate forwarding address for each sign-up and a
+  quick way to switch one off, and you only need to receive mail.
 whenNotToUse: >-
-  Avoid if you need more than 10MB of monthly bandwidth or custom domains
-  without upgrading to a paid plan.
+  Avoid it if you need to reply or send from an alias, use your own domain, or
+  receive more than 10MB of forwarded mail a month, since those need a paid plan.
 bestFor:
   - privacy-conscious users
   - open-source advocates
-  - students
+  - sign-up and newsletter addresses
 avoidIf:
-  - need custom domains
-  - require high email bandwidth
-  - large teams
+  - you need to send mail from an alias
+  - you need a custom domain
+  - you receive heavy mail volume
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://addy.io/'
-docsUrl: 'https://addy.io/docs/'
+docsUrl: 'https://addy.io/faq/'
 pricingUrl: 'https://addy.io/'
 sourceUrls:
   - 'https://addy.io/'
+  - 'https://addy.io/faq/'
 featured: false
+quickstartSteps:
+  - Click Get started free on addy.io and register an account.
+  - Choose a username; every alias then looks like anything@yourusername.addy.io.
+  - Add and verify your real email address as the recipient that receives forwarded mail.
+  - Invent a new alias for each site when you sign up, or generate a random one from the dashboard.
+  - If an alias starts getting junk, deactivate it in the dashboard, or delete it so senders get a bounce.
 ---
-addy.io (formerly AnonAddy) is an open-source email aliasing service that lets you create unlimited standard aliases to protect your real email address from spam and tracking. The free tier is suitable for individuals who want basic email privacy and are comfortable with bandwidth limits. It's easy to set up and ideal for students, indie users, or anyone needing simple, privacy-focused email forwarding.
+You manage aliases in the web dashboard. You can also use the mobile apps, a browser extension, or an API key from your account settings. It suits people who only need to receive mail on throwaway addresses.
+
+## What the free plan gives you
+
+The free plan costs $0 per month. It allows unlimited standard aliases under your username and 10 active aliases on the shared domains. You can pick from 2 shared alias domains. Mail forwards to 1 recipient, which is your real email address.
+
+Forwarded mail counts against a bandwidth limit of 10MB per month. The FAQ says that is roughly 140 average emails. The counter resets to zero at the start of each calendar month, and blocked mail does not count. You can create 10 new aliases per hour, and the server throttles forwarding to 200 emails per hour.
+
+Custom domains, extra usernames, and extra recipients are not on the free plan.
+
+## When you hit a limit
+
+Free accounts get an email warning when they pass 80 percent of the bandwidth limit. After the limit, the server rejects delivery attempts to your aliases with a "User over quota" message. That lasts until the next calendar month, or until you upgrade to Lite or Pro. There is no bill on the free plan, so nothing is charged.
+
+If you create more than 10 aliases in an hour, the extra emails are deferred until you are back under the limit.
+
+## Gotchas
+
+- You cannot reply to or send from an alias on the free plan. The message is not delivered, and you get an email saying the feature needs a paid plan.
+- Deactivated aliases silently discard mail. The sender does not see an error.
+- The FAQ says having multiple free accounts is not acceptable use, and such accounts may be disabled.
+
+## Alternatives in this atlas
+
+- [SimpleLogin](/services/simplelogin/): when you need to reply from aliases and want unlimited bandwidth.
+- [anon.li Alias](/services/anon-li-alias/): when you want a different alias service with its own free plan.
+- [ImprovMX](/services/improvmx/): when you want forwarding on your own domain.
+
+## Questions people ask
+
+### Is addy.io free?
+
+Yes. The free plan costs $0 per month and needs no credit card. It allows unlimited standard aliases, 10 active shared-domain aliases, and 10MB of bandwidth per month.
+
+### What happens when I go over the addy.io bandwidth limit?
+
+The server rejects mail to your aliases until the next calendar month, or until you upgrade. It emails you a warning once you pass 80 percent of the limit.
+
+### Can I send email from an addy.io alias on the free plan?
+
+No. Replying and sending from an alias are paid features. On a free account the message is not delivered, and addy.io sends you a notice.

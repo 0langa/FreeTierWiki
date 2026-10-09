@@ -1,8 +1,7 @@
 ---
 title: Cosmic
 description: >-
-  Cosmic is a headless CMS for managing and delivering content via API to
-  websites and apps.
+  Cosmic is a headless CMS. You model content in a dashboard, then read and write it through a REST API, a JavaScript SDK, a CLI, or AI agents, to feed websites and apps.
 provider: Cosmic
 category: hosting
 domain: hosting
@@ -17,22 +16,29 @@ audiences:
   - team
   - oss
 tags:
-  - api
-  - web
+  - "headless cms"
+  - "cms api"
+  - "content management"
+  - "rest api"
+  - "javascript sdk"
+  - "media library"
+  - "ai agents"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free forever plan, no card required: 1 bucket, 1,000 objects, 2 team
     members, 10,000 uncached and 100,000 cached API requests per month.
   limits:
-    - 1 bucket, 1,000 objects
-    - 2 team members
-    - '10,000 uncached / 100,000 cached API requests per month'
-    - 1 GB storage, 1 GB bandwidth per month
+    - "1 bucket, 1,000 objects"
+    - "2 team members"
+    - "10,000 uncached / 100,000 cached API requests per month"
+    - "1,000 media files, 1 GB media storage"
+    - "1 GB API bandwidth per month"
   caveats:
-    - Usage above the free allowance is metered and billed per unit, not blocked
-    - Free plan includes 300k AI tokens/month, 1 AI agent, and 1 workflow per project
-    - Webhooks, localization, revision history, and backups are paid add-ons
+    - "The pricing page says every allowance is metered and never blocked, but the Free column lists no overage rate"
+    - "Free plan includes 300k AI tokens in and out per month, 1 AI agent, and 1 workflow per project"
+    - "Webhooks, localization, revision history, and backups are paid add-ons"
+    - "Insights events on Free keep data for 30 days"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -41,33 +47,34 @@ freeTierDetails:
   billingRiskNotes:
     - Objects, buckets, and media usage above the free allowance are billed automatically at published per-unit rates
 useCases:
-  - Blog or marketing site content management
-  - Prototyping headless CMS integrations
-  - Managing structured content for web/mobile apps
+  - "A content backend for a blog or marketing site"
+  - "Modeling pages, posts, authors, and categories as object types"
+  - "Serving content to a Next.js or Astro site through the API"
+  - "Managing images and video in a media library"
+  - "Letting a small team edit content with set roles"
 quickstartSteps:
-  - Sign up for a free Cosmic account.
-  - Create a new bucket for your project.
-  - Add content models and objects to your bucket.
-  - Retrieve content using the provided API keys.
-  - Integrate Cosmic API into your website or app.
+  - "Create a free Cosmic account; the pricing page says no card is required."
+  - "In the Dashboard, choose New Project, start empty or from a template, and create a Bucket for your content."
+  - "Create an Object type, model its fields with Metafields, and add Objects with the Add Object button."
+  - "Install the SDK with `npm install @cosmicjs/sdk --save`, or use cURL."
+  - "Copy your keys from Bucket Settings, API Access, and call `createBucketClient` with your bucket slug and read key."
+  - "Fetch content with `cosmic.objects.find` for an Object type, then invite team members under Project, Team."
 whenToUse: >-
-  Use Cosmic when you need a simple, API-driven CMS for small projects or
-  prototypes with limited users and content.
+  Use Cosmic when you want a headless CMS with an API and SDK for a small site, and one bucket and 1,000 objects are enough.
 whenNotToUse: >-
-  Avoid if you need more than 2 team members and 1 bucket without paying, or
-  enterprise features like SSO and custom SLAs.
+  Skip it if you need SSO, which the pricing page shows only on the custom plan, or if you expect traffic well above the free request and bandwidth amounts.
 bestFor:
-  - prototyping
-  - content-driven apps
-  - blogs
-  - landing pages
+  - "blogs and landing pages"
+  - "prototypes"
+  - "developers who want an API and SDK"
+  - "small content teams"
 avoidIf:
-  - enterprise compliance
-  - large teams
-  - high-traffic apps
+  - "you need single sign-on"
+  - "you need more than 1 bucket on the free plan"
+  - "you expect heavy traffic on the free plan"
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.cosmicjs.com/'
@@ -75,8 +82,47 @@ docsUrl: 'https://www.cosmicjs.com/docs'
 sourceUrls:
   - 'https://www.cosmicjs.com/pricing'
   - 'https://www.cosmicjs.com/docs'
+  - 'https://www.cosmicjs.com/docs/quickstart'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.cosmicjs.com/pricing'
 ---
-Cosmic offers a developer-friendly headless CMS with a generous free tier, ideal for small projects, prototypes, and learning API-based content management.
+You work in the Cosmic dashboard to build a project, a bucket, object types, and objects, then fetch content through the REST API or the `@cosmicjs/sdk` JavaScript package. It suits developers who want an API-first CMS with a small team of editors.
+
+## What the free plan gives you
+
+The Free plan costs $0 and is labeled free forever, with no card required. It includes 2 team members, 1 bucket, and 1,000 objects. API reads are metered in two groups: 10k uncached requests and 100k cached requests per month. API bandwidth is 1GB per month. For media you get 1,000 files and 1GB of storage.
+
+AI is part of every plan. Free gives 300k input and 300k output tokens, plus 1 agent and 1 workflow per project. Every plan, Free included, has comments, an audit log, unlimited extensions, and all 4 user roles. Insights analytics allows 100k events per month on Free.
+
+## When you hit a limit
+
+The pricing page says every allowance is metered and never blocked. Paid plans list a rate for use above their included amount, such as $0.23 per 10k uncached requests and $0.36 per GB of API bandwidth. The Free column lists no such rate, and the page does not say how extra use on Free is billed or whether a card is then needed.
+
+Object, bucket, and team limits are different from usage. The Builder plan costs $99 per month and raises you to 3 team members, 2 buckets, and 5,000 objects. Extra team members cost $29 each per month on paid plans. Check the usage view in your project as you grow.
+
+## Gotchas
+
+- Webhooks, localization, revision history, and automatic backups are paid add-ons, not part of Free.
+- Single sign-on is listed as not available except on the custom plan.
+- Cached and uncached reads are metered separately, so a cache-friendly site stretches the free allowance further.
+
+## Alternatives in this atlas
+
+- [Contentful](/services/contentful/): when you want a widely used headless CMS with its own free plan.
+- [Hygraph](/services/hygraph/): when you want another headless content API with a free plan.
+- [DatoCMS](/services/datocms/): when you want a headless CMS that also offers a free plan.
+
+## Questions people ask
+
+### Is Cosmic free?
+
+Yes. The Free plan costs $0 per month and the pricing page says no credit card is required. It includes 1 bucket, 1,000 objects, and 2 team members.
+
+### What are the Cosmic free tier API limits?
+
+Free includes 10k uncached and 100k cached API requests per month, and 1GB of API bandwidth. Cached and uncached reads are metered separately.
+
+### What happens when I go over the Cosmic free tier?
+
+The pricing page says allowances are metered and never blocked. It does not list an overage rate for the Free plan.

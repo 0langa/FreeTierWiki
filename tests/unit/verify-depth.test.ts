@@ -43,6 +43,10 @@ describe("figures", () => {
     expect(extractFigures("2 million, 2,000,000, 2M and $25.50").map((f) => f.value)).toEqual([2e6, 2e6, 2e6, 25.5]);
   });
 
+  it("reads a lowercase m as minutes, not million", () => {
+    expect(extractFigures("60m and 1M and 5k").map((f) => f.value)).toEqual([60, 1e6, 5e3]);
+  });
+
   it("does not take MB or GB for a multiplier", () => {
     expect(extractFigures("500 MB and 1GB").map((f) => f.value)).toEqual([500, 1]);
   });

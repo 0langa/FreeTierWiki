@@ -1,8 +1,9 @@
 ---
 title: OnlineOrNot.com
 description: >-
-  OnlineOrNot.com offers website uptime and performance monitoring with instant
-  alerts and simple setup.
+  OnlineOrNot monitors websites, APIs, and heartbeats for uptime, and publishes
+  status pages. It is for people running home labs, side projects, and small
+  production apps.
 provider: OnlineOrNot.com
 category: observability
 domain: observability
@@ -16,62 +17,111 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
+  - uptime-monitoring
+  - status-page
+  - api-monitoring
+  - heartbeat
+  - website-monitoring
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Hobby (free) plan includes 3 uptime monitors with a 3-minute check
-    interval, 1,000 browser check runs/month, and 1 status page.
+    The Hobby (free) plan includes 3 uptime monitors with a 3-minute check
+    interval, 1,000 browser check runs per month, 14 days of data retention,
+    and a limited status page.
   limits:
     - 3 uptime monitors
     - 3-minute check interval
     - 1,000 browser check runs/month
-    - 14-day data retention
-    - 1 status page, 100 email subscribers
-    - Up to 2 users
+    - 14 days data retention
+    - 1 status page with 100 email subscribers
+    - 2 users
   caveats:
-    - No SMS, webhooks, or on-call integrations on the Hobby plan
-    - Email, Slack, Discord, and Telegram alerts are included free
+    - No SMS alerts on the Hobby plan
+    - 'The free tier docs list notifications via Slack, Discord, and email only'
+    - 'The pricing page shows a Start trial button for Hobby; it does not state a trial length'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor website uptime
-  - Receive downtime alerts
-  - Track basic site performance
+  - Monitor website and API uptime
+  - Get downtime alerts in Slack, Discord, or email
+  - Run browser checks on a user flow
+  - Watch cron jobs with heartbeats
+  - Publish a status page
 quickstartSteps:
-  - Sign up for a free OnlineOrNot.com account.
-  - Add your website URL to create a new monitor.
-  - Configure alert email address.
-  - Save and activate monitoring.
-  - Check dashboard for status and alerts.
+  - Start a free trial on onlineornot.com; you can downgrade to the free tier at any time from the Team settings page.
+  - Create your first uptime check, either in the app or by running the CLI installer `curl -fsSL https://onlineornot.com/install | bash`.
+  - 'If the CLI asks you to authenticate, choose Google or GitHub in the terminal.'
+  - Add a notification channel; the free tier supports Slack, Discord, and email.
+  - Check the dashboard for the status of your checks.
 whenToUse: >-
-  Use when you need simple, reliable uptime monitoring and instant alerts for a
-  single website.
+  Use OnlineOrNot to monitor a home lab or a few personal sites with simple
+  alerts and a small status page.
 whenNotToUse: >-
-  Avoid if you need advanced integrations, SMS alerts, or more than 3
-  monitors on the free tier.
+  Avoid it if you need more than 3 monitors, SMS or webhook alerts, or faster
+  checks than every 3 minutes on the free tier.
 bestFor:
   - personal sites
+  - home labs
   - side projects
-  - open source projects
 avoidIf:
-  - need multi-site monitoring
-  - require SMS or webhook alerts
-  - need detailed performance analytics
+  - multi-site monitoring
+  - SMS or webhook alerts
+  - fast check intervals
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://onlineornot.com/'
-docsUrl: 'https://docs.onlineornot.com'
+docsUrl: 'https://onlineornot.com/docs/welcome'
 sourceUrls:
   - 'https://onlineornot.com/pricing'
+  - 'https://onlineornot.com/pricing/'
+  - 'https://onlineornot.com/docs/free-tier/'
+  - 'https://onlineornot.com/docs/how-to/cli/install/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://onlineornot.com/pricing'
 ---
-OnlineOrNot.com provides easy uptime and performance monitoring for websites, with a free Hobby tier (3 monitors, 1,000 browser check runs/month) suitable for individuals and small projects.
+You manage checks in the OnlineOrNot web app, through an HTTP API, or with the `onlineornot` command line tool. It suits solo developers who run a few sites at home or in small projects.
+
+## What the free plan gives you
+
+The Hobby plan is free and aimed at home labs and personal projects. It includes 3 uptime monitors with a 3-minute check interval, and 1,000 browser check runs per month. Data is kept for 14 days. You get a limited status page with 100 email subscribers, and 2 users.
+
+The free tier docs say notifications go through Slack, Discord, and email only. SMS alerts are not on Hobby. Pro costs from $15 per month with 10 monitors and 30-second checks, and keeps data for 12 months.
+
+## When you hit a limit
+
+Neither the pricing page nor the free tier docs say what happens when you pass the free limits. The docs describe the free tier as a limited plan, so plan to upgrade for more monitors.
+
+On Pro, usage above the plan quota is billed at add-on rates. The page says that the bill shows what you see in the estimate, with no surprises. Hobby shows no usage billing.
+
+## Gotchas
+
+- The pricing page shows a Start trial button for Hobby and does not say how long the trial lasts. The docs say you can downgrade from a trial to the free tier.
+- Alerts reach only Slack, Discord, and email on the free tier.
+- The status page is limited, with 100 email subscribers.
+
+## Alternatives in this atlas
+
+- [UptimeRobot](/services/uptimerobot/): when you want more monitor types with a free plan.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want uptime with incident handling.
+- [Hyperping](/services/hyperping/): when you want uptime checks plus a status page.
+
+## Questions people ask
+
+### Is OnlineOrNot free?
+
+Yes, in a limited form. The Hobby plan includes 3 uptime monitors with 3-minute checks, 2 users, and 14 days of data retention.
+
+### Does OnlineOrNot have a free trial?
+
+The pricing page shows a Start trial button, and the docs say that during a trial you can downgrade to the free tier at any time from the Team settings page.
+
+### Which alerts does the OnlineOrNot free tier support?
+
+The free tier docs list notifications via Slack, Discord, and email only. SMS is not available on Hobby.

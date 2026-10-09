@@ -1,8 +1,9 @@
 ---
 title: Aikido
 description: >-
-  Aikido provides automated security scanning and vulnerability management for
-  code repositories and cloud infrastructure.
+  Aikido scans your code, dependencies, containers, and cloud setup for
+  security problems and shows them in one dashboard. It is built for small
+  dev teams without a security staff.
 provider: Aikido
 category: security
 domain: security
@@ -16,57 +17,64 @@ audiences:
   - oss
   - indie
 tags:
-  - security
-  - cloud
-  - automation
+  - security scanner
+  - vulnerability scanning
+  - SAST
+  - dependency scanning
+  - secrets detection
+  - devsecops
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Developer plan includes 10 repos, 2 container images, 10 AI
     AutoFixes/month, and 250k protected requests/month for 2 users.
   limits:
-    - 10 repos (fair-usage)
-    - 2 container images
-    - 10 AI AutoFixes/month
-    - 250,000 protected requests/month
     - 2 users included
+    - 10 repos (fair-usage limits)
+    - 2 container images
+    - 1 domain
+    - 1 cloud account
+    - 10 AI AutoFixes per month
+    - 250,000 protected requests per month
+    - Rescans every 3 days
   caveats:
-    - AI Code Audit (SAST) is credit-based, even on the free plan
-    - Advanced features require a paid plan
+    - PR security review, Jira and Linear sync, and reports need a paid plan
+    - The credits for AI pentests and Deep PR Reviews start on the Pro plan
+    - The free plan includes only 2 users
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated vulnerability scanning for open source projects
-  - Continuous security checks for small private repositories
-  - Integrating security into CI/CD pipelines
+  - Scanning dependencies for known vulnerabilities in GitHub, GitLab, or Bitbucket repos
+  - Finding leaked secrets in code before they ship
+  - Checking code with static analysis (SAST)
+  - Checking a cloud account for misconfigurations
 quickstartSteps:
-  - 'Sign up for a free Aikido account at https://www.aikido.dev.'
-  - 'Connect your GitHub, GitLab, or Bitbucket account.'
-  - 'Select up to 10 repositories to scan under fair-usage limits.'
-  - Review automated security scan results in the dashboard.
-  - Set up notifications or integrations as needed.
+  - Click Start Free on aikido.dev and sign up with your Git provider; no credit card is needed.
+  - Pick the repositories to scan, or give access to none and use the demo repo to look around first.
+  - Wait for the first scan; Aikido has read-only access and proposes fixes as pull requests you review.
+  - Open the dashboard and work through the findings from dependency, SAST, secrets, and cloud scans.
+  - Connect a cloud account, a domain, or Slack alerts if you want more than code scanning.
 whenToUse: >-
-  Use Aikido to automate security scanning for up to 10 repos with minimal
-  setup.
+  Use Aikido when a small team wants one dashboard for dependency, secrets, code,
+  and cloud scanning without running several tools.
 whenNotToUse: >-
-  Avoid if you need scanning for more than 10 repos or advanced enterprise
-  security features.
+  Avoid it if you need more than 10 repos or 2 users, PR security review, or
+  Jira and Linear sync, which sit on paid plans.
 bestFor:
-  - open source maintainers
   - small teams
   - startups
-  - indie developers
+  - solo developers with a few repos
 avoidIf:
-  - large enterprises
-  - multiple private repos
-  - advanced compliance needs
+  - you have more than 10 repos
+  - you need PR security review
+  - you need compliance reporting
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.aikido.dev'
@@ -74,6 +82,47 @@ docsUrl: 'https://docs.aikido.dev'
 pricingUrl: 'https://www.aikido.dev/pricing'
 sourceUrls:
   - 'https://www.aikido.dev/pricing'
+  - 'https://www.aikido.dev'
+  - 'https://help.aikido.dev/'
 featured: false
+
 ---
-Aikido offers automated security scanning for code repositories on its free Developer plan, covering 10 repos with fair-usage limits.
+You sign up with your Git account, pick repositories, and read the results in the Aikido web dashboard. It also has IDE plugins, a pre-commit secrets hook, and an API. It suits solo developers and small teams.
+
+## What the free plan gives you
+
+The Developer plan costs $0 and is free forever, with 2 users included. The pricing page says no credit card is required. It covers 10 repos under fair-usage limits, 2 container images, 1 domain, and 1 cloud account.
+
+The free features include dependency scanning, SAST and AI SAST, secrets detection, cloud misconfiguration checks, container scanning, IaC scanning, DAST, and IDE plugins. You also get 10 AI AutoFixes per month and 250k protected requests per month. Free repos are rescanned every 3 days.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass the repo, image, or request limits. It only calls the repo limit "fair-usage". The page lists no overage price for the Developer plan. To add more repos or users you move to a paid plan, which starts with Basic.
+
+Features such as PR security review, Jira and Linear sync, and reports need a paid plan. Credits for AI pentests and Deep PR Reviews are listed from the Pro plan up.
+
+## Gotchas
+
+- The free plan includes only 2 users. A larger team has to pay.
+- Free repos are rescanned every 3 days, not on every push.
+- The pricing page FAQ says Aikido connects with read-only access and never changes your code. Fixes arrive as pull requests that you review and merge.
+
+## Alternatives in this atlas
+
+- [Snyk](/services/snyk/): when you want a developer-first scanner with a free plan of its own.
+- [GitGuardian](/tools/gitguardian/): when you only need secret scanning.
+- [Semgrep](/tools/semgrep/): when you mainly want static code analysis and supply chain scanning.
+
+## Questions people ask
+
+### Is Aikido free?
+
+Yes. The Developer plan is free forever and includes 2 users, 10 repos, 2 container images, and 1 cloud account. No credit card is required.
+
+### What happens when I go over the Aikido free limits?
+
+The pricing page does not say. It describes the repo limit as fair-usage. For more repos or users you need a paid plan.
+
+### Can I try Aikido without connecting my repository?
+
+Yes. The pricing page FAQ says you can sign up with your Git account, give access to no repo, and pick the demo repo instead.

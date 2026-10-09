@@ -1,6 +1,9 @@
 ---
 title: Cloudflare Images
-description: 'Image resizing and optimization on Cloudflare, for images stored anywhere (for example R2).'
+description: >-
+  Cloudflare Images resizes, converts, and optimizes pictures at Cloudflare's
+  edge. It suits site owners and developers who want responsive images without
+  storing many copies.
 provider: Cloudflare
 category: storage
 domain: storage
@@ -12,9 +15,12 @@ audiences:
   - indie
   - startup
 tags:
-  - images
-  - cdn
-  - storage
+  - image optimization
+  - image resizing
+  - webp
+  - avif
+  - image cdn
+  - cloudflare
 pricingModel: freemium
 freeTierDetails:
   summary: 'Images Free: 5,000 unique transformations per month. You are never charged past the limit.'
@@ -23,35 +29,50 @@ freeTierDetails:
     - Transform images stored outside Cloudflare Images
   caveats:
     - Storing images in Cloudflare Images needs the paid plan
-    - 'Past 5,000, new transformations stop; cached ones keep working'
+    - 'Past 5,000, new transformations return a 9422 error'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Resize and convert images on the fly
-  - Serve WebP or AVIF
+  - Resizing and cropping pictures on the fly for thumbnails and banners
+  - Serving WebP or AVIF to browsers that support them
+  - Optimizing images that live in R2 or on your own origin
+  - Adding blur, overlays, or background fills at the edge
 quickstartSteps:
-  - Turn on transformations for your zone.
-  - Request images with /cdn-cgi/image/ options.
-  - Or call the binding from a Worker.
-whenToUse: Use when your site is on Cloudflare and needs basic image resizing.
-whenNotToUse: Avoid if you need hosted image storage for free.
+  - Sign up for a Cloudflare account and add your domain as a zone.
+  - Enable transformations on the zone in the Cloudflare dashboard.
+  - Request an image through a URL that starts with /cdn-cgi/image/, followed by your options and the source image.
+  - Or bind the Images API to a Worker, or set cf.image options on a fetch subrequest.
+  - Watch your monthly unique transformations so you stay under the free limit.
+whenToUse: >-
+  Use it when your site is on Cloudflare and you want to resize and convert
+  images that are stored elsewhere, such as R2.
+whenNotToUse: >-
+  Avoid it if you need free hosted image storage, or if you serve more
+  distinct image sizes than the free limit allows.
 bestFor:
   - websites on Cloudflare
+  - images kept in R2
+  - responsive image sizes
 avoidIf:
-  - image hosting
+  - you need free image hosting
+  - your domain is not on Cloudflare
+  - you serve many distinct sizes
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://developers.cloudflare.com/images/'
 docsUrl: 'https://developers.cloudflare.com/images/'
 sourceUrls:
   - 'https://developers.cloudflare.com/images/pricing/'
+  - 'https://developers.cloudflare.com/images/'
+  - 'https://developers.cloudflare.com/images/get-started/'
+  - 'https://developers.cloudflare.com/images/transform-images/transform-via-url/'
 pricingUrl: 'https://developers.cloudflare.com/images/pricing/'
 featured: false
 changes:
@@ -59,4 +80,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Cloudflare says Images Free users are not charged for going over the limit.
+You write a URL or a Worker call that names the size and format you want. Cloudflare fetches the original, changes it at the edge, and caches the result. It suits developers who already run a site on Cloudflare.
+
+## What the free plan gives you
+
+Everyone starts on the Images Free plan. It includes the transformations feature, which optimizes images stored outside Images, such as files in R2 or on your own server.
+
+On the Free plan you can request up to 5,000 unique transformations each month. A unique transformation is one original image with one set of options. The same thumbnail at 100x100 and at 200x200 counts as two. Repeat requests for the same transformation in the same month count once. The format parameter counts as one transformation, even if some users get AVIF and others get WebP.
+
+Storing images inside Cloudflare Images is not part of the Free plan. That needs the Paid plan.
+
+## When you hit a limit
+
+Cloudflare says you will not be charged for going over the Free plan limits. Once you pass 5,000 unique transformations, new transformations return a 9422 error. If the source image comes from the same domain that serves the transformation, you can use the onerror parameter to send visitors to the original image instead.
+
+To go past 5,000, you buy the Images Paid plan. It includes the first 5,000 and then charges $0.50 per 1,000 unique transformations each month.
+
+## Gotchas
+
+- The free limit counts unique combinations of image and options. Many sizes of many images add up fast.
+- Hosted storage, with its delivery domain and variants, belongs to the Paid plan. On Free you keep the originals somewhere else.
+- Transformations run on a Cloudflare zone, so your domain needs to be on Cloudflare.
+
+## Alternatives in this atlas
+
+- [Cloudinary](/services/cloudinary/): when you want hosted images and transformations from one service.
+- [ImageKit](/services/imagekit/): when you want an image CDN with its own free plan and storage.
+- [Cloudflare R2](/services/cloudflare-r2/): when you only need a place to keep the originals, and you will pair it with Images.
+
+## Questions people ask
+
+### Is Cloudflare Images free?
+
+Partly. The Free plan lets you request up to 5,000 unique transformations each month on images stored outside Cloudflare Images. Hosted storage needs the Paid plan.
+
+### What happens when I go over the Cloudflare Images free limit?
+
+Cloudflare does not charge you. New transformations return a 9422 error until the next month, unless you buy the Paid plan.
+
+### Does Cloudflare Images need a credit card?
+
+The entry records that the Free plan needs no card. Cloudflare says you are not charged for going over the Free plan limits.

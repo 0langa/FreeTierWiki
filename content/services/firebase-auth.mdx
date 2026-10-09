@@ -1,8 +1,8 @@
 ---
 title: Firebase Auth
 description: >-
-  Firebase Auth provides authentication services for web and mobile apps with
-  support for multiple identity providers.
+  Firebase Authentication signs users in to web, iOS, and Android apps with email and password,
+  social providers, anonymous sessions, and phone numbers.
 provider: Google Cloud
 category: auth
 domain: auth
@@ -19,16 +19,21 @@ audiences:
   - oss
 tags:
   - auth
-  - identity
+  - firebase
+  - google
+  - social login
+  - email password
+  - mobile
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Email/password, anonymous, and social sign-in are included at no cost on the Spark plan. Phone/SMS
-    verification needs the paid Blaze plan.
+    Email/password, anonymous, and social sign-in are included at no cost on the Spark plan.
+    Phone/SMS verification needs the paid Blaze plan.
   limits:
-    - Email/password, anonymous, and social sign-in at no cost
+    - 'Email/password, anonymous, and social sign-in at no cost'
     - Phone/SMS verification requires the Blaze (pay-as-you-go) plan
     - 150 password reset emails/day on Spark
+    - 5 email link sign-in emails/day on Spark
     - 'Identity Platform on Spark: 3,000 tier-1 daily active users'
     - 'Identity Platform on Spark: 2 tier-2 (SAML/OIDC) daily active users'
     - 'Identity Platform on Blaze: 50,000 tier-1 and 50 SAML/OIDC monthly active users at no cost'
@@ -43,23 +48,25 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Upgrading to Blaze enables paid usage, including phone/SMS charges.
+    - 'Upgrading to Blaze enables paid usage, including phone/SMS charges.'
 useCases:
-  - Add user authentication to web or mobile apps
-  - 'Enable social login (Google, Facebook, etc.)'
-  - Implement email/password or anonymous sign-in
+  - Email and password sign-in for a web or mobile app
+  - 'Google, Apple, Facebook, and other social sign-in'
+  - Anonymous accounts that you upgrade later
+  - Protecting Firestore and Storage data with security rules
+  - Phone number sign-in on the Blaze plan
 quickstartSteps:
-  - Create a Firebase project in the Firebase Console.
-  - Enable Authentication and select desired sign-in methods.
-  - 'Add Firebase SDK to your app (web, iOS, or Android).'
-  - Configure authentication providers in your app code.
-  - Test user sign-up and sign-in flows.
+  - Create a Firebase project in the Firebase console.
+  - 'Register your web, iOS, or Android app in the project and copy its config.'
+  - 'Open Authentication and turn on the sign-in methods you want, such as email and password.'
+  - 'Install the SDK, for example `firebase` for the web, then call `initializeApp` and `getAuth`.'
+  - Call `createUserWithEmailAndPassword` or `signInWithEmailAndPassword` from your sign-in form.
 whenToUse: >-
-  Use when you need quick, secure authentication for web or mobile apps with
-  minimal backend setup.
+  Use Firebase Auth when you build a web or mobile app and want sign-in with minimal backend code,
+  especially next to other Firebase products.
 whenNotToUse: >-
-  Avoid if you require advanced enterprise SSO, custom auth flows, or need to
-  avoid vendor lock-in.
+  Avoid it if you need enterprise SSO on the free plan, fully custom auth flows, or no ties to
+  Google's platform.
 bestFor:
   - MVPs
   - mobile apps
@@ -72,24 +79,67 @@ avoidIf:
 difficulty: beginner
 productionReadiness: production-light
 status: changed
-lastVerified: 2026-10-06
-lastUpdated: 2026-10-06
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/auth'
 docsUrl: 'https://firebase.google.com/docs/auth'
 pricingUrl: 'https://firebase.google.com/pricing'
 sourceUrls:
-  - "https://firebase.google.com/docs/auth/limits"
+  - 'https://firebase.google.com/docs/auth/limits'
   - 'https://firebase.google.com/pricing'
   - 'https://firebase.google.com/docs/auth'
+  - 'https://firebase.google.com/docs/auth/web/start'
 changes:
-  - date: 2026-10-06
+  - date: 2026-10-06T00:00:00.000Z
     kind: changed
-    note: "Separated Identity Platform Spark daily limits from Blaze monthly allowances and clarified Spark billing protection."
-  - date: 2024-09-01
+    note: >-
+      Separated Identity Platform Spark daily limits from Blaze monthly allowances and clarified
+      Spark billing protection.
+  - date: 2024-09-01T00:00:00.000Z
     kind: changed
-    note: Phone/SMS verification moved off the free Spark plan; it now requires the Blaze plan and billing, with SMS billed per message.
+    note: >-
+      Phone/SMS verification moved off the free Spark plan; it now requires the Blaze plan and
+      billing, with SMS billed per message.
 featured: false
 ---
-Firebase Auth offers a simple way to add authentication to apps. Email/password, anonymous, and social sign-in stay free on the Spark plan, but phone/SMS verification now requires the paid Blaze plan.
+You turn on sign-in methods in the Firebase console and call the Firebase client SDKs from your web, iOS, or Android app. It suits developers who already use Firebase or want sign-in without writing a backend.
+
+## What the free plan gives you
+
+The free Spark plan covers email and password, anonymous, and social sign-in at no cost. Registered user accounts are unlimited, and the docs cap anonymous accounts at 100 million. Phone number verification is not on Spark. It needs the pay-as-you-go Blaze plan, and each SMS is billed.
+
+Authentication with Identity Platform on Spark has daily limits: 3000 tier 1 daily active users and 2 tier 2 daily active users, which cover SAML and OIDC. On the Blaze plan, the allowances are monthly: 50K tier 1 monthly active users and 50 SAML or OIDC users at no cost. Email sending is also capped on Spark. Spark allows 150 password reset emails per day and 1000 address verification emails per day.
+
+## When you hit a limit
+
+Spark limits are daily, and they refresh at midnight. Firebase says no-cost limits are enforced daily. The pages do not say exactly what happens when you pass them. Plan to upgrade to Blaze if you expect to. The email link sign-in limit is very low on Spark, at 5 emails per day. The docs say you must add a billing instrument to go beyond it.
+
+Moving to Blaze means a billing account is attached. After that, usage above the monthly no-cost amounts is billed by volume, and SMS messages are billed per message. Set a budget alert before you turn on phone sign-in.
+
+## Gotchas
+
+- Phone and SMS sign-in is not free. It needs Blaze, and each SMS costs money.
+- Spark has a daily active user cap, while Blaze has a monthly one. Do not mix the two when you plan for growth.
+- Email link sign-in is limited to 5 emails per day on Spark, so it cannot carry real traffic without a billing account.
+
+## Alternatives in this atlas
+
+- [Supabase Auth](/services/supabase-auth/): when you want auth in the same project as a Postgres database.
+- [Clerk](/services/clerk/): when you want prebuilt sign-in screens for a React or Next.js app.
+- [Amazon Cognito](/services/aws-cognito/): when your app already runs on AWS.
+
+## Questions people ask
+
+### Is Firebase Authentication free?
+
+Partly. Email and password, anonymous, and social sign-in are free on the Spark plan, within daily limits. Phone sign-in needs the paid Blaze plan.
+
+### Does Firebase Auth need a credit card?
+
+Not on the Spark plan. Phone and SMS sign-in need Blaze, which needs a billing account.
+
+### How many users can Firebase Auth have for free?
+
+Registered user accounts are unlimited. On Spark, the Identity Platform limit is 3000 tier 1 daily active users. On Blaze, 50K monthly active users are free.

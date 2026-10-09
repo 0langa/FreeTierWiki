@@ -1,8 +1,9 @@
 ---
 title: Appcircle
 description: >-
-  Appcircle is a mobile CI/CD platform for building, testing, and distributing
-  iOS and Android apps in the cloud.
+  Appcircle is a cloud service that builds iOS and Android apps, sends them to
+  testers, and publishes them to the app stores. It is for mobile teams that
+  want a CI/CD pipeline.
 provider: Appcircle
 category: devops
 domain: devops
@@ -16,9 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - mobile
-  - ci-cd
-  - automation
+  - mobile ci/cd
+  - ios build
+  - android build
+  - flutter
+  - react native
+  - testflight
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -40,33 +44,37 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automate mobile app builds
-  - Distribute beta apps to testers
-  - Run basic CI/CD pipelines for mobile projects
+  - Build an iOS, Android, React Native, Flutter, or Ionic app on every push
+  - Send builds to testers by email, QR code, or webhook
+  - Publish a release to the App Store, Google Play, or Huawei AppGallery
+  - Keep iOS certificates and Android keystores in one place
+  - Push over-the-air updates with CodePush
 quickstartSteps:
-  - Sign up for a free Appcircle account.
-  - Connect your GitHub or Bitbucket repository.
-  - Configure your build workflow for iOS or Android.
-  - Start a build and monitor progress in the dashboard.
-  - Distribute the built app to testers or download the artifact.
+  - Click Start for Free on appcircle.io and create an account.
+  - Open the Build module and create a build profile.
+  - Connect your repository from GitHub, Bitbucket, or GitLab and pick a branch.
+  - Set up the build configuration and workflow for your platform (iOS, Android, React Native, Flutter, or Ionic).
+  - Start a build and watch the result in Build History.
+  - Send the build to testers from the Testing Distribution module, or to the stores from the Publish module.
 whenToUse: >-
-  Use Appcircle to automate building and distributing mobile apps when you need
-  a simple, cloud-based CI/CD solution.
+  Use it when you build a mobile app and want a hosted pipeline that goes from
+  commit to tester build to store release, with a small number of builds per
+  month.
 whenNotToUse: >-
-  Avoid if you require advanced build minutes, macOS builds, or deep integration
-  with enterprise tools.
+  Skip it if you build more than 20 times a month, need builds longer than 30
+  minutes, or need advanced cache support or full reporting.
 bestFor:
-  - mobile developers
-  - small teams
-  - open source projects
+  - solo mobile developers
+  - small apps with few releases
+  - trying a mobile pipeline before paying
 avoidIf:
-  - need macOS builds
-  - require unlimited build minutes
-  - enterprise compliance needs
+  - you run more than 20 builds a month
+  - a build takes more than 30 minutes
+  - you need full reporting and activity logs
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://appcircle.io'
@@ -74,7 +82,46 @@ docsUrl: 'https://docs.appcircle.io/'
 sourceUrls:
   - 'https://appcircle.io/pricing'
   - 'https://docs.appcircle.io/'
+  - 'https://docs.appcircle.io/build'
 pricingUrl: 'https://appcircle.io/pricing'
 featured: false
 ---
-Appcircle provides a cloud-based CI/CD platform focused on mobile app development, offering easy setup for automating builds and distributing apps to testers.
+You work in the Appcircle web dashboard, which has separate modules for Build, Testing Distribution, Publish, and CodePush. There is also an API and a command line tool, and you can run builds on your own machines with runner scripts.
+
+## What the free plan gives you
+
+The Starter plan is listed as always free. It allows 1 concurrent build, 20 builds per month, and a maximum of 30 minutes per build. You can use an unlimited number of apps.
+
+The other modules have their own monthly caps. CodePush allows 1000 updates per month. Testing Distribution allows 100 downloads per month, and so does the Enterprise App Store. You can publish to the stores 5 times per month. Reporting and activity logs are marked limited on this plan.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach a monthly cap or the 30 minute build limit. It says limits renew every month and that you can track what is left in the Billing section of the dashboard, which shows builds, publishes, and other module usage.
+
+To raise a limit, you move to the Corporate plan. That plan is tailored, so you contact the Appcircle team for it. The page lists no price.
+
+## Gotchas
+
+- The 20 builds per month cap and the 30 minute build cap are the first limits most teams reach.
+- Reporting and activity logs are limited on Starter, in every module.
+- Corporate is the only upgrade path on the page, and it has no listed price.
+
+## Alternatives in this atlas
+
+- [Bitrise](/services/bitrise/): when you want another mobile-focused CI service with a free plan.
+- [CodeMagic](/tools/codemagic/): when you build Flutter or other cross-platform apps and want a different free quota.
+- [CircleCI](/tools/circleci/): when you want general CI for more than mobile apps.
+
+## Questions people ask
+
+### Is Appcircle free?
+
+Yes. The Starter plan is always free and includes 20 builds per month with 1 concurrent build. Each build can run for up to 30 minutes.
+
+### Does Appcircle build iOS apps on the free plan?
+
+The docs describe building iOS and Android apps in the cloud with build profiles. The pricing page lists no platform restriction for the Starter plan.
+
+### What happens when I go over the Appcircle free limits?
+
+The pricing page does not say. Limits renew each month, and you can check your remaining usage in the Billing section of the dashboard.

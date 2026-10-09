@@ -1,8 +1,9 @@
 ---
 title: Hostedscan.com
 description: >-
-  Hostedscan.com provides automated vulnerability scanning for websites and
-  servers, with a 14-day free trial of its paid plans.
+  HostedScan runs vulnerability scans on websites, servers, networks, and APIs
+  and tracks the findings. It has no permanent free plan, only a 14-day free
+  trial of its paid plans.
 provider: HostedScan
 category: security
 domain: security
@@ -16,9 +17,13 @@ audiences:
   - team
   - oss
 tags:
-  - security
-  - web
-  - backend
+  - vulnerability scanner
+  - OpenVAS
+  - OWASP ZAP
+  - nmap
+  - security scan
+  - attack surface
+  - pentest
 pricingModel: trial
 freeTierDetails:
   summary: >-
@@ -28,9 +33,11 @@ freeTierDetails:
     - 14-day free trial
     - No credit card required
     - 'Cheapest paid plan (Basic): $39/month, 5 targets, unlimited scanning'
+    - Premium is $109/month and Professional is $189/month
   caveats:
     - No always-free tier
     - A paid plan is required to continue scanning after the trial ends
+    - The Professional plan has a Request a trial button instead of a 14-day trial button
   resetPeriod: none
   requiresCard: false
   freeTierType: trial
@@ -38,39 +45,81 @@ freeTierDetails:
   overageRisk: low
   trialDays: 14
 useCases:
-  - Basic website vulnerability assessment
-  - Initial server security checks
-  - Periodic security monitoring for small projects
+  - Scanning a website for common web vulnerabilities with OWASP ZAP
+  - Checking servers and routers for known CVEs with OpenVAS and Nuclei
+  - Testing the TLS setup of a domain with SSLyze
+  - Producing scan reports for an audit
 quickstartSteps:
-  - Sign up for a free Hostedscan.com account.
-  - Add your website or server as a scan target.
-  - Configure scan settings (choose scan type and options).
-  - Start your first vulnerability scan.
-  - Review the scan results and recommended actions.
+  - Click Start free trial on hostedscan.com; the home page says the 14 days are free with no credit card.
+  - Create your account and add a target, such as a website, a server, or an API.
+  - Pick which scanners to run; the platform includes OWASP ZAP, OpenVAS, Nuclei, SSLyze, and Nmap.
+  - Run a scan, or schedule scans, and review the findings in the dashboard.
+  - Accept or remediate each risk, then export or share a report before the trial ends.
 whenToUse: >-
-  Use Hostedscan.com to try automated vulnerability scanning during the
-  14-day free trial before committing to a paid plan.
+  Use it to test full-power scanners on your own sites and servers for 14 days
+  before you decide to pay.
 whenNotToUse: >-
-  Avoid if you need an always-free plan, since HostedScan has no permanent
-  free tier.
+  Avoid it if you need a permanent free plan or more than a short trial, since the
+  cheapest paid plan is $39 per month.
 bestFor:
   - indie
   - startup
   - oss
 avoidIf:
-  - enterprise
-  - agency
+  - you need an always-free plan
+  - you need to scan after the trial without paying
+  - you have no authority to scan the target
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://hostedscan.com'
 docsUrl: 'https://docs.hostedscan.com'
 sourceUrls:
   - 'https://hostedscan.com/pricing'
+  - 'https://hostedscan.com'
+  - 'https://docs.hostedscan.com'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://hostedscan.com/pricing'
 ---
-Hostedscan.com offers a simple way to run automated vulnerability scans on your website or server. There is no permanent free plan, but a 14-day free trial of paid plans is available with no credit card required, making it a good fit for evaluating the service before committing to a subscription.
+You use the HostedScan web dashboard to add targets, run scans, and read reports. There is also a developer API with webhooks on the Premium plan and above. It suits small IT teams who want several scanners in one place.
+
+## What the free plan gives you
+
+HostedScan has no permanent free plan. Instead, you get a 14 day free trial of its paid plans. The home page says the 14 days are free and no credit card is required. The pricing page puts a "Try 14 days for free" button on the Basic and Premium plans.
+
+The paid plans each include 5 targets and unlimited scanning of those targets. Basic costs $39 per month and covers full-power scans, scheduled scans, custom reporting, and unlimited team members. Premium costs $109 per month and adds authenticated scans, internal network scanning, and a developer API. Professional costs $189 per month and adds SAML SSO and white-label reports.
+
+## When you hit a limit
+
+The pricing page does not say what happens when the trial ends or what the trial limits are. A paid plan is needed to keep scanning in the way the trial allowed. The FAQ says that with any paying account you can create unlimited targets, but you can only scan the number you pay for each month.
+
+That rule keeps your historical risk, scan, and target data in one place without ongoing cost. Extra targets cost more, and a Flex plan starts at $3,500 per year for high-volume scanning.
+
+## Gotchas
+
+- The Professional plan shows a Request a trial button, not an instant 14 day trial.
+- Prices on the pricing page differ between monthly and yearly billing, and annual billing saves up to 34 percent.
+- Scan only systems you own or have permission to test. Authenticated scans and internal network scanning are Premium features.
+
+## Alternatives in this atlas
+
+- [Sucuri SiteCheck](/services/sucuri-sitecheck/): when you want a free one-off scan of a public website for malware and blacklisting.
+- [HTTP Observatory (MDN)](/tools/mozilla-observatory/): when you want free checks of a site's security headers.
+- [Aikido](/services/aikido/): when you want a free plan that scans code, containers, and cloud settings.
+
+## Questions people ask
+
+### Is HostedScan free?
+
+Not permanently. HostedScan offers a 14 day free trial of its paid plans, with no credit card required according to its home page. The cheapest paid plan is Basic at $39 per month.
+
+### What does HostedScan include in each plan?
+
+Every plan includes 5 targets with unlimited scans of them, and the OWASP ZAP, OpenVAS, Nuclei, SSLyze, and Nmap scanners. Higher plans add authenticated scans, a developer API, and SSO.
+
+### What counts toward the HostedScan target limit?
+
+The FAQ says you can create unlimited targets on a paying account, but you can only scan the number of targets that you pay for each month.

@@ -1,8 +1,9 @@
 ---
 title: Cloud Storage
 description: >-
-  Google Cloud Storage offers scalable, secure object storage for any amount of
-  data with global accessibility.
+  Google Cloud Storage keeps files as objects in buckets, with options for
+  hot and cold data. It suits developers and teams that build on Google Cloud
+  or need storage for backups, media, and data lakes.
 provider: Google Cloud
 category: storage
 domain: storage
@@ -19,22 +20,27 @@ audiences:
   - oss
   - agency
 tags:
-  - storage
-  - cloud
-  - cdn
+  - object storage
+  - google cloud storage
+  - gcs
+  - bucket
+  - backup
+  - static hosting
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always-free tier includes limited storage, network, and operations per
-    month.
+    Always Free: 5 GB-months of regional storage, 5,000 Class A and 50,000
+    Class B operations, and 100 GB of outbound transfer per month, in three US
+    regions only.
   limits:
     - 5 GB Regional Storage (US regions only)
     - 100 GB outbound data/month (from North America)
     - '5,000 Class A operations/month'
     - '50,000 Class B operations/month'
   caveats:
-    - 'Free tier applies only to us-east1, us-west1, and us-central1.'
+    - 'Free tier applies only to us-east1, us-west1, and us-central1, and usage is added up across the 3 regions.'
     - Overages billed at standard rates.
+    - Always Free quotas do not apply to Rapid Storage class, and Google says Always Free is subject to change.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -44,43 +50,85 @@ freeTierDetails:
     - Exceeding free limits incurs charges.
     - No hard cap; monitor usage to avoid unexpected costs.
 useCases:
-  - Static website hosting
-  - Backup and archival
-  - Serving media assets
-  - Data lake storage
+  - Hosting static website files
+  - Backups and archives
+  - Serving images, video, and downloads
+  - Storing data for analytics and machine learning
 quickstartSteps:
-  - Sign up for a Google Cloud account and enable billing.
-  - Navigate to Cloud Storage in the Google Cloud Console.
-  - Create a new storage bucket in a supported US region.
-  - Upload files or configure bucket permissions as needed.
-  - Monitor usage to stay within free tier limits.
+  - Sign in to Google Cloud with a Google account and set up billing. New customers also get free credits.
+  - In the Google Cloud console, select or create a project, and verify that billing is enabled for it.
+  - Open Cloud Storage and create a bucket in us-east1, us-west1, or us-central1 so the free quota applies.
+  - Upload objects in the console, or use the gcloud CLI or a client library.
+  - Set API request caps and watch usage in the billing details to stay within the free limits.
 whenToUse: >-
-  Use when you need reliable, scalable object storage for static files, backups,
-  or serving assets with global access.
+  Use it when you want object storage in Google Cloud, with a small free
+  amount in a US region.
 whenNotToUse: >-
-  Avoid if you require storage outside US regions for the free tier, or need
-  strict hard caps to prevent overages.
+  Avoid it if you need free storage outside the three US regions, a hard
+  spending cap, or no billing account.
 bestFor:
   - static assets
   - backups
   - media hosting
   - data lakes
 avoidIf:
-  - need free tier outside US
-  - require hard usage caps
-  - prefer local storage
+  - you need the free tier outside the US
+  - you need a hard usage cap
+  - you cannot enable billing
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/storage'
 docsUrl: 'https://cloud.google.com/storage/docs'
 pricingUrl: 'https://cloud.google.com/free/docs/free-cloud-features'
 sourceUrls:
-  - 'https://cloud.google.com/free/docs/free-cloud-features#storage'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
   - 'https://cloud.google.com/storage/pricing'
+  - 'https://cloud.google.com/storage/docs/discover-object-storage-console'
+  - 'https://cloud.google.com/storage/docs/creating-buckets'
 featured: false
 ---
-Google Cloud Storage provides secure, highly available object storage with an always-free tier for small-scale use in select US regions. It is suitable for hosting static websites, storing backups, and serving media files, but users should monitor usage to avoid overages as there is no hard cap on the free tier.
+You work with Cloud Storage in the Google Cloud console, with the gcloud command-line tool, through client libraries, or through the JSON and XML APIs. It needs a Google Cloud project with billing turned on.
+
+## What the free plan gives you
+
+Cloud Storage has Always Free quotas that last beyond any free trial. Each month you get 5 GB-months of regional storage, which is 5 GB stored for a month. You also get 5,000 Class A operations and 50,000 Class B operations, and 100 GB of outbound data transfer from North America to all regions.
+
+The quotas apply only to usage in us-east1, us-west1, and us-central1. Google adds up the usage across those 3 regions. The quotas do not apply to the Rapid Storage class, and Google says Always Free is subject to change.
+
+The free quotas are tracked per billing account.
+
+## When you hit a limit
+
+Google does not stop your buckets at the free amounts. Usage beyond the Always Free limits is charged according to the pricing tables, once any trial credit is gone.
+
+There is no hard cap on the free tier, so a busy bucket can run up a bill. Google suggests setting API request caps to avoid being billed for usage beyond the Always Free limits. Check your usage in the billing details for the project.
+
+## Gotchas
+
+- A bucket in any other region, such as one in Europe or Asia, gets no free quota.
+- Tag operations are not eligible for the Always Free program, and general network usage applies to data read out to the internet beyond the free transfer.
+- You must have billing enabled on the project, even if you plan to stay inside the free limits.
+
+## Alternatives in this atlas
+
+- [Cloudflare R2](/services/cloudflare-r2/): when you want no egress fees and an S3 API.
+- [Backblaze B2](/services/backblaze-b2/): when you want object storage without a card at sign-up.
+- [Azure Blob Storage](/services/azure-blob-storage/): when your other services run on Azure.
+
+## Questions people ask
+
+### Is Google Cloud Storage free?
+
+Partly. The Always Free tier gives you 5 GB-months of regional storage per month in us-east1, us-west1, and us-central1, plus 5,000 Class A and 50,000 Class B operations.
+
+### Does Google Cloud Storage need a credit card?
+
+Yes. Your project needs billing enabled, which means a payment method on the billing account.
+
+### What happens when I go over the free Cloud Storage limits?
+
+Google bills the extra at the normal prices. There is no hard cap, so use API request caps and check your billing details.

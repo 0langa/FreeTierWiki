@@ -1,8 +1,8 @@
 ---
 title: Form.taxi
 description: >-
-  Form.taxi provides a free, no-backend form endpoint for static sites and
-  JAMstack projects.
+  Form.taxi is a form backend. You point a plain HTML form at its URL, and it
+  delivers each submission to you. It suits static sites that have no server.
 provider: Form.taxi
 category: forms
 domain: forms
@@ -16,62 +16,112 @@ audiences:
   - startup
   - oss
 tags:
-  - productivity
-  - web
-  - backend
-  - email
+  - form backend
+  - static site forms
+  - html form
+  - email notifications
+  - webhooks
+  - gdpr
 pricingModel: freemium
 freeTierDetails:
-  summary: Free plan allows up to 3 forms and 40 submissions per month.
+  summary: The free plan allows 3 forms and 40 submissions, with email notifications to 5 recipient addresses and webhooks.
   limits:
     - 3 forms
     - 40 submissions/month
-    - Basic spam protection
+    - Email notifications to 5 recipient addresses
+    - Spam Shield and a custom success page
+    - Webhooks and no-code automation tools
+    - Monthly submission archive
   caveats:
-    - Over the limit, new entries are stored but viewable only after upgrading
-    - Paid plans start around €12/month (Standard) and €47/month (Premium) with annual billing
+    - Over the limit, new entries are still stored but you can read them only after upgrading
+    - File uploads, auto response mail, WhatsApp notifications, and the API need a paid plan
+    - Standard costs €15 a month (€12 with annual billing) and Premium €58 (€47 with annual billing)
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: none
 useCases:
-  - Collecting contact form submissions on static sites
-  - Receiving feedback from JAMstack projects
-  - Simple email forwarding for forms
+  - Contact forms on a static site
+  - Feedback forms on JAMstack projects
+  - Forwarding form submissions to email
+  - Sending submissions to a webhook or an automation tool
+  - Adding a form to a site you already have without rebuilding it
 quickstartSteps:
-  - 'Go to https://form.taxi/ and register your email address.'
-  - >-
-    Create a form on your static site with the action set to your Form.taxi
-    endpoint.
-  - Deploy your site and test the form submission.
-  - Check your email inbox for form submission notifications.
+  - Create a free Form.taxi user account at form.taxi.
+  - Build your form in plain HTML on your own site, or keep the form you already have.
+  - Register the form in your Form.taxi account.
+  - Copy the form endpoint from the connection details on the form's overview page.
+  - Paste the endpoint into the form tag as the action, with method POST, in the shape `https://form.taxi/s/FORM_CODE`.
+  - Submit a test entry and check your inbox.
 whenToUse: >-
-  Use Form.taxi when you need a quick, backend-free way to handle form
-  submissions on static or JAMstack sites.
+  Use Form.taxi when you have a plain HTML form on a static site and want
+  submissions by email without writing a server.
 whenNotToUse: >-
-  Avoid if you need more than 3 forms, more than 40 submissions a month, or
-  advanced workflows without upgrading.
+  Avoid it if you need more than 3 forms, more than 40 submissions a month, file
+  uploads, or auto response mails without paying.
 bestFor:
   - static sites
   - personal projects
   - prototypes
 avoidIf:
+  - need file uploads on the free plan
   - high-volume forms
-  - custom domain requirements
-  - complex backend logic
+  - need auto response mails on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://form.taxi/'
-docsUrl: 'https://form.taxi/docs'
+docsUrl: 'https://docs.form.taxi'
 pricingUrl: 'https://form.taxi/en/plans'
 sourceUrls:
-  - 'https://form.taxi/'
   - 'https://form.taxi/en/plans'
+  - 'https://docs.form.taxi'
+  - 'https://docs.form.taxi/en/form-setup'
+  - 'https://docs.form.taxi/en/limitations'
 featured: false
 ---
-Form.taxi is a form backend service for static sites, with a free plan for 3 forms and 40 submissions/month, and paid plans for higher volume.
+You write the form yourself in HTML and set its action to your Form.taxi endpoint. A management panel then shows settings and the submission archive.
+
+## What the free plan gives you
+
+The free plan costs €0. It allows 3 forms and 40 submissions. The plans page presents this as a monthly quota.
+
+You get email notifications to up to 5 recipient addresses, a Spam Shield filter, a custom success page, and a monthly submission archive. Webhooks and no-code automation tools are listed as free features too. The FAQ says you can use the free plan for commercial projects if you follow the terms.
+
+The docs also set technical limits for every plan. One submission can carry at most 500 form fields, and one field can hold at most 10,000 characters. Email headers are not supported in submissions.
+
+## When you hit a limit
+
+When you reach the monthly quota, Form.taxi keeps accepting new submissions and stores them securely. You can read their contents only after you upgrade to a plan with a higher limit. So you do not lose entries, but you lose access to them until you pay.
+
+Paid plans are billed through Paddle. Standard costs €15 a month, or €12 with annual billing. Premium costs €58 a month, or €47 with annual billing. You can cancel at any time in the online panel.
+
+## Gotchas
+
+- Entries past the free quota are stored but hidden until you upgrade, so a busy month can lock you out of your own data.
+- File uploads, auto response mail, WhatsApp notifications, and API access are listed as paid features.
+- You need a user account before the form works, and you must register each form there to get its endpoint.
+
+## Alternatives in this atlas
+
+- [Formspree.io](/tools/formspree-io/): when you want a larger, well known form backend with a free tier.
+- [FormKeep.com](/tools/formkeep-com/): when you want unlimited free forms that share a monthly submission total.
+- [Formcarry.com](/tools/formcarry-com/): when one form is enough and you want another form backend.
+
+## Questions people ask
+
+### Is Form.taxi free?
+
+Yes. The free plan costs €0 and includes 3 forms and 40 submissions. Paid plans add more forms, uploads, and a longer archive.
+
+### What happens when I exceed the Form.taxi submission limit?
+
+Form.taxi still accepts and stores new submissions. You can read them only after you upgrade to a plan with a higher limit.
+
+### Does Form.taxi need a credit card?
+
+The plans page asks you to register for the free plan and shows no card step. Only the paid plans go through Paddle for payment.

@@ -1,8 +1,8 @@
 ---
 title: Scalekit
 description: >-
-  Scalekit provides authentication and authorization for B2B SaaS apps: SSO,
-  SCIM provisioning, RBAC, and passwordless login.
+  Scalekit adds sign-in, organizations, roles, SSO, and SCIM provisioning to B2B SaaS apps, with
+  hosted login pages and SDKs for several languages.
 provider: Scalekit
 category: auth
 domain: auth
@@ -18,13 +18,17 @@ audiences:
   - oss
 tags:
   - auth
-  - identity
   - sso
+  - scim
+  - rbac
+  - b2b saas
+  - saml
+  - mcp auth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan for Auth for SaaS: 25,000 monthly active users (hard cap, no
-    overages), 25 organizations, 1 SSO and 1 SCIM connection.
+    Free plan for Auth for SaaS: 25,000 monthly active users (hard cap, no overages), 25
+    organizations, 1 SSO and 1 SCIM connection.
   limits:
     - '25,000 monthly active users (hard cap, no overages)'
     - Up to 25 organizations
@@ -32,38 +36,45 @@ freeTierDetails:
     - 1 SCIM connection
   caveats:
     - Scalekit branding appears on auth widgets and emails on the free plan
-    - More than 1 SSO/SCIM connection or 25,000 MAUs requires the paid Growth plan
+    - 'More than 1 SSO/SCIM connection or 25,000 MAUs requires the paid Growth plan'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Adding SSO/SCIM to a B2B SaaS app
-  - Multi-tenant user and organization management
-  - Passwordless and social login
+  - 'Hosted login for a B2B SaaS, with social and passwordless options'
+  - Enterprise SSO over SAML or OIDC for your first business customer
+  - SCIM user provisioning from a customer's directory
+  - 'Organizations, roles, and permissions inside your app'
+  - OAuth for an MCP server
 quickstartSteps:
-  - Sign up for a Scalekit account.
-  - Create a new project/environment in the dashboard.
-  - Configure an SSO or SCIM connection for an organization.
-  - Integrate the SDK or API into your app.
-  - Test login and provisioning flows with a test organization.
+  - Sign up with Start for free on scalekit.com and open the Scalekit dashboard.
+  - >-
+    Install the SDK for your stack, for example `npm install @scalekit-sdk/node` or `pip install
+    scalekit-sdk-python`.
+  - 'Add your environment URL, client ID, and client secret to your environment file.'
+  - 'Register your redirect URLs in the dashboard under Authentication, then Redirect URLs.'
+  - >-
+    Redirect users to the Scalekit hosted login page, then handle the callback to get the user's
+    profile and session tokens.
 whenToUse: >-
-  Use Scalekit to add SSO, SCIM provisioning, or passwordless login to a B2B
-  SaaS app without building identity infrastructure from scratch.
+  Use Scalekit when you build a B2B SaaS and need your first SSO and SCIM connection without a sales
+  process.
 whenNotToUse: >-
-  Avoid if you need more than 1 SSO/SCIM connection or more than 25,000 MAUs
-  without upgrading to a paid plan.
+  Avoid it if you need more than 1 SSO or SCIM connection, more than 25,000 monthly active users, or
+  unbranded widgets without paying.
 bestFor:
   - B2B SaaS startups
-  - indie developers
-  - small teams needing SSO
+  - first enterprise SSO deals
+  - small teams
 avoidIf:
-  - need multiple SSO connections free
-  - need unbranded auth on the free plan
+  - several SSO connections on free
+  - unbranded auth on the free plan
+  - more than 25 organizations on free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.scalekit.com'
@@ -71,8 +82,48 @@ docsUrl: 'https://docs.scalekit.com'
 sourceUrls:
   - 'https://www.scalekit.com/pricing/auth-for-saas'
   - 'https://scalekit.com/pricing'
+  - 'https://docs.scalekit.com'
+  - 'https://docs.scalekit.com/authenticate/fsa/quickstart/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: '2026-10-09'
 pricingUrl: 'https://www.scalekit.com/pricing/auth-for-saas'
 ---
-Scalekit offers authentication and authorization for B2B SaaS apps (SSO, SCIM, RBAC, passwordless), free for up to 25,000 monthly active users with 1 SSO and 1 SCIM connection.
+You set up Scalekit in its dashboard and add one of its SDKs to your backend, which sends users to a hosted login page. It suits small B2B teams that need enterprise login features early.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and has no commitment. It includes 25,000 monthly active users, 25 organizations, 1 SSO connection, and 1 SCIM connection. Support comes through the community and email.
+
+Scalekit branding appears on the auth widgets and emails. The Growth plan costs $99 per month and drops the branding. It includes 100,000 monthly active users, 100 organizations, audit logs, and priority Slack and email support. A SCIM connection automates user provisioning from an external directory such as Azure AD or Okta. You are billed only for connections that are enabled.
+
+## When you hit a limit
+
+The Free plan is a hard cap with no overages. The pricing page says that when you hit 25,000 monthly active users or 25 organizations, or need more than 1 SSO connection, you upgrade to Growth. It does not say what your app does at the cap, so plan the upgrade before you get there.
+
+On Growth, usage past the included limits is billed at published per-unit rates, so there are no sudden plan jumps. Extra users cost $0.05 each, and extra SSO or SCIM connections start at $60 per connection per month.
+
+## Gotchas
+
+- The free plan includes exactly 1 SSO connection and 1 SCIM connection. A second customer with SSO means Growth.
+- Scalekit branding appears on auth widgets and emails on the free plan.
+- Node.js and Python use the `/callback` redirect path, while Go and Java use `/auth/callback`. Register the one for your stack.
+
+## Alternatives in this atlas
+
+- [WorkOS](/services/workos/): when your main need is enterprise SSO and directory sync.
+- [Frontegg](/services/frontegg/): when you want tenant-aware login with a hosted admin portal.
+- [PropelAuth](/services/propelauth/): when you want B2B auth with unlimited organizations on the free plan.
+
+## Questions people ask
+
+### Is Scalekit free?
+
+Yes. The Free plan costs $0 per month for 25,000 monthly active users, 25 organizations, and one SSO and one SCIM connection.
+
+### What happens when I reach the Scalekit free limit?
+
+The Free plan is a hard cap with no overages. You upgrade to the Growth plan, which costs $99 per month, to go past it.
+
+### Does Scalekit charge for SSO?
+
+The first SSO connection is free. After that, pricing applies per connection per month, with volume discounts that apply on their own.

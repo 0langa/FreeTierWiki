@@ -1,8 +1,7 @@
 ---
 title: TinyMCE
-description: >-
-  TinyMCE is a cloud-hosted rich text editor for embedding WYSIWYG editing in
-  web applications.
+description: TinyMCE is a rich text editor you add to a web page or app so users can
+  write and format content. Tiny Cloud hosts it for you and counts how often it loads.
 provider: TinyMCE
 category: documents
 domain: documents
@@ -17,61 +16,107 @@ audiences:
   - team
   - oss
 tags:
-  - frontend
-  - web
+  - wysiwyg editor
+  - rich text editor
+  - html editor
+  - javascript editor
+  - embed editor
+  - tiny cloud
+  - cms editor
+  - textarea
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free tier allows basic editor features for up to 1 domain and 1000 monthly
+  summary: Free tier allows basic editor features for up to 1 domain and 1000 monthly
     editor loads.
   limits:
     - 1 domain
     - 1000 editor loads/month
     - Basic features only
   caveats:
-    - Premium plugins and advanced features require paid plans
-    - Exceeding 1,000 loads/month costs $40 per additional 1,000 loads
+    - The free plan goes read-only until the end of the month once the 1,000 loads
+      are used, unless you attach a card
+    - With a card attached, extra loads cost $40 per 1,000
+    - Premium plugins and advanced features require paid plans; the free plan includes
+      a 14-day trial of them
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Embed a WYSIWYG editor in a web app
-  - Enable rich text editing for user-generated content
-  - Rapid prototyping with text input
+  - Adding a rich text box to a web form or admin panel
+  - Letting users write formatted comments, posts, or emails
+  - Editing blog or CMS content in the browser
+  - Prototyping a content tool before choosing a plan
 quickstartSteps:
-  - 'Sign up for a free TinyMCE Cloud account at https://www.tiny.cloud.'
-  - Register your domain in the TinyMCE dashboard.
-  - Copy the provided TinyMCE API script tag.
-  - Add the script tag to your web page.
-  - Initialize TinyMCE on your desired textarea or div.
-whenToUse: >-
-  Use TinyMCE when you need a quick, embeddable rich text editor with minimal
-  setup and basic features for low-traffic projects.
-whenNotToUse: >-
-  Avoid if you need advanced plugins, high editor load, or require unbranded or
-  self-hosted solutions.
+  - Create a free Tiny account to get an API key.
+  - Add the Tiny Cloud script tag to the head of your page and replace the no-api-key
+    placeholder with your key.
+  - Call tinymce.init with a selector such as a textarea to turn it into an editor.
+  - Add your site's domain to the approved domains for the key; localhost works without
+    this.
+  - Check your editor loads in the TinyMCE Subscription tab of your account.
+whenToUse: Use it when you need a ready-made rich text editor for a low-traffic site
+  and are happy to host it from Tiny Cloud.
+whenNotToUse: Avoid it on pages with many editors or high traffic, for more than one
+  domain, or if you cannot accept a read-only editor once the monthly loads run out.
 bestFor:
-  - prototyping
-  - internal tools
-  - student projects
+  - internal tools and admin screens
+  - prototypes and student projects
+  - small sites with one domain
 avoidIf:
-  - need advanced plugins
-  - require high volume
-  - must remove branding
+  - you have more than one domain on the free plan
+  - your pages load several editors at once
+  - you need premium plugins without a trial
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://www.tiny.cloud'
 docsUrl: 'https://www.tiny.cloud/docs/'
 sourceUrls:
-  - 'https://www.tiny.cloud/pricing/'
-  - 'https://www.tiny.cloud/docs/tinymce/6/cloud-configuration-options/'
+  - https://www.tiny.cloud/pricing/
+  - https://www.tiny.cloud/docs/
+  - https://www.tiny.cloud/docs/tinymce/latest/cloud-quick-start/
+  - https://www.tiny.cloud/docs/tinymce/latest/understanding-editor-loads/
+  - https://www.tiny.cloud/ubb
 pricingUrl: 'https://www.tiny.cloud/pricing/'
 featured: false
 ---
-TinyMCE Cloud provides a free, easy-to-integrate WYSIWYG editor for web apps, suitable for basic editing needs and low-traffic use cases.
+You add a script tag with your API key to a page, then start the editor on a text box with a few lines of JavaScript. You count usage in editor loads, not users. It suits developers who want a quick editor.
+
+## What the free plan gives you
+
+The free plan costs $0 and gives you a cloud-hosted version of the open source editor with core editing features. It includes 1,000 editor loads per month and one domain. It also includes a 14-day free trial of advanced features. An editor load happens each time an editor instance starts and fires its init event. If a page has ten editors, one refresh counts as ten loads. The Essential plan includes 5,000 loads and costs $79 per month when paid annually. The Professional plan includes 20,000 loads.
+
+## When you hit a limit
+
+The free plan is the only plan that goes read-only when it reaches the limit. It stays read-only until the end of the month. To avoid this, you can attach a card. Then extra loads cost $40 for every 1,000, rounded up, and the charge comes on your invoice after the billing cycle. Tiny sends email notices at 50%, 70%, and 100% of your loads. The count can take 2 to 4 hours to update. You can check it in the Subscription tab of your account. Without a card, you cannot be billed.
+
+## Gotchas
+
+- Each editor on a page counts as one load, so pages with several editors use up the free loads quickly.
+- Until your domain is approved for the key, the editor shows a notice that the domain is not registered. Localhost works without this step.
+- If you attach a card to keep the editor working, extra loads bill at $40 per 1,000.
+
+## Alternatives in this atlas
+
+- [SimplePDF](/tools/simplepdf-eu/): when you want visitors to edit and sign PDFs rather than write rich text.
+- [Zoho Sign](/services/zoho-sign/): when your goal is getting documents signed.
+- [DynamicDocs](/services/dynamicdocs/): when you need documents generated from data.
+
+## Questions people ask
+
+### Is TinyMCE free?
+
+Yes. Tiny Cloud has a free plan with 1,000 editor loads per month and one domain. The open source editor can also be self-hosted without editor load limits.
+
+### What happens when I use up my free TinyMCE editor loads?
+
+The editor switches to read-only until the end of the month. You can attach a card to keep it working, and extra loads then cost $40 per 1,000.
+
+### What counts as a TinyMCE editor load?
+
+Each time an editor instance starts and fires its init event, that is one load. Ten editors on one page make ten loads per refresh.

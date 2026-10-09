@@ -1,8 +1,9 @@
 ---
 title: Supabase Edge Functions
 description: >-
-  Supabase Edge Functions let you run TypeScript or JavaScript serverless
-  functions close to your users.
+  Supabase Edge Functions run TypeScript functions on a Deno-based runtime
+  close to your users, next to your Supabase project. They are for developers
+  who need webhooks, API endpoints, or small integrations.
 provider: Supabase
 category: compute
 domain: compute
@@ -17,10 +18,12 @@ audiences:
   - team
   - oss
 tags:
+  - edge functions
+  - deno
+  - typescript
+  - supabase
+  - webhooks
   - serverless
-  - cdn
-  - frontend
-  - api
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier includes 500,000 function invocations per month.
@@ -41,22 +44,22 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above free tier is blocked unless you upgrade
 useCases:
-  - API endpoints
-  - Webhooks
-  - Custom authentication logic
-  - Data processing
+  - Webhook receivers for Stripe or GitHub
+  - HTTP API endpoints with Supabase Auth checks
+  - Sending transactional emails and calling LLM APIs
+  - 'Bots for Slack, Discord, or Telegram'
 quickstartSteps:
-  - Sign up for a free Supabase account.
-  - Create a new project in the Supabase dashboard.
-  - Install the Supabase CLI and initialize functions in your project directory.
-  - Write your TypeScript or JavaScript function in the 'functions' folder.
-  - Deploy your function using the Supabase CLI.
+  - 'Sign up for Supabase and create a project in the dashboard.'
+  - 'Install the Supabase CLI and Docker, then run supabase init in a project folder.'
+  - 'Run supabase functions new hello-world to create a function.'
+  - 'Test it locally with supabase start and supabase functions serve hello-world.'
+  - 'Run supabase login, supabase link with your project ref, then supabase functions deploy hello-world.'
 whenToUse: >-
-  Use when you need to deploy lightweight serverless APIs or event-driven logic
-  close to your Supabase project.
+  Use it for small webhooks and API endpoints close to a Supabase project, in
+  TypeScript.
 whenNotToUse: >-
-  Avoid if you require long-running processes, advanced compute resources, or
-  need to run non-JS/TS code.
+  Avoid it for long-running or CPU-heavy jobs, for non-JavaScript runtimes, or
+  for projects that must never pause.
 bestFor:
   - API endpoints
   - event-driven logic
@@ -64,7 +67,7 @@ bestFor:
 avoidIf:
   - heavy compute workloads
   - non-JS/TS runtimes
-  - long-running jobs
+  - projects that must never pause
 difficulty: beginner
 productionReadiness: production-light
 status: changed
@@ -72,8 +75,8 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Distinguished the CLI and server-side function-bundle size limits."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/docs/guides/functions'
@@ -81,7 +84,47 @@ docsUrl: 'https://supabase.com/docs/guides/functions'
 sourceUrls:
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/functions/limits'
+  - 'https://supabase.com/docs/guides/functions'
+  - 'https://supabase.com/docs/guides/functions/quickstart'
 pricingUrl: 'https://supabase.com/pricing'
 featured: false
 ---
-Supabase Edge Functions provide a simple way to run serverless TypeScript or JavaScript code at the edge, tightly integrated with your Supabase project.
+You write functions as TypeScript files that run on Supabase's Deno-based Edge Runtime. You create them with the Supabase CLI, test them locally, and deploy them from the CLI or the dashboard. They suit developers who already use Supabase and want webhooks or API endpoints near their database.
+
+## What the free plan gives you
+
+The Free plan includes 500,000 Edge Function invocations per month. A function can use up to 256MB of memory. The wall-clock limit is 150s on Free and 400s on paid plans. A request gets up to 2s of CPU time, which does not count time spent waiting on async input and output. The request idle timeout is 150s.
+
+A function bundle can be up to 20MB when built locally with the CLI, or 5MB when bundled server-side. The Free plan allows up to 100 functions per project. Free projects pause after 1 week of inactivity, and you can have 2 active projects.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 500,000 invocations on Free. It shows that paid plans include 2 Million invocations and then charge $2 per 1 Million.
+
+For runtime limits, the docs say that a function that sends no response before the idle timeout returns a 504 Gateway Timeout. Paused projects stop until you restore them. Plan for a short wait on a first request, because the docs warn that cold starts are possible.
+
+## Gotchas
+
+- Free projects pause after 1 week of inactivity, so a webhook receiver on a quiet project can stop working.
+- The CPU limit is 2s per request. Heavy work, and libraries that need multithreading such as sharp, are not supported.
+- Outgoing connections on ports 25 and 587 are blocked, so you cannot send mail over SMTP directly. Use an email API instead.
+
+## Alternatives in this atlas
+
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a free plan with its own request limits and no project pausing.
+- [Netlify Functions](/services/netlify-functions/): when your site is on Netlify.
+- [Vercel Edge Functions](/services/vercel-edge-functions/): when your app is on Vercel.
+
+## Questions people ask
+
+### Are Supabase Edge Functions free?
+
+Yes, within limits. The Free plan includes 500,000 invocations per month.
+
+### Do Supabase Edge Functions sleep or pause?
+
+Free projects pause after 1 week of inactivity. Cold starts can also happen, so expect a slower first request.
+
+### What is the Supabase Edge Function time limit?
+
+The wall-clock limit is 150s on the Free plan and 400s on paid plans. CPU time is 2s per request.

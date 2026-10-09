@@ -1,8 +1,6 @@
 ---
 title: Numlookupapi.com
-description: >-
-  Numlookupapi.com provides phone number lookup and validation APIs for
-  verifying and enriching contact data.
+description: "Numlookupapi.com is an HTTP API that checks whether a phone number is real and returns its carrier, line type, and time zones. It suits developers who want to stop fake sign-ups and failed SMS."
 provider: Numlookupapi.com
 category: apis
 domain: apis
@@ -16,9 +14,12 @@ audiences:
   - team
   - agency
 tags:
-  - productivity
-  - api
-  - search
+  - "phone number validation"
+  - "phone lookup api"
+  - "carrier lookup"
+  - "voip detection"
+  - "sms verification"
+  - "e164 format"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,47 +30,87 @@ freeTierDetails:
     - 1 API key
     - 10 requests/min
   caveats:
-    - Advanced features require a paid plan
+    - Paid plans remove the rate limit and add requests, API keys, and support
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Validate user phone numbers during signup
-  - Enrich CRM contact data
-  - Prevent fraudulent registrations
+  - "Check phone numbers on a sign-up form"
+  - "Spot VoIP numbers to cut fake registrations"
+  - "Convert numbers to E.164 format before sending SMS"
+  - "Clean a contact list with batch validation"
+  - "Pick a sensible local time to call or message customers"
 quickstartSteps:
-  - Sign up for a free Numlookupapi.com account.
-  - Access your API key from the dashboard.
-  - Review API documentation for endpoint usage.
-  - Send a test request to the lookup endpoint with your API key.
-  - Integrate the API into your application workflow.
-whenToUse: >-
-  Use when you need to validate or enrich phone number data in your app or
-  service with minimal setup.
-whenNotToUse: >-
-  Avoid if you need bulk processing, advanced analytics, or unlimited lookups
-  without cost.
+  - "Open numlookupapi.com and choose Get Free API Key to register an account."
+  - "Copy your API key from your account."
+  - "Send a GET request to https://api.numlookupapi.com/v1/validate/ followed by the number in international format, with your key in the apikey parameter."
+  - "Read the JSON response and check the valid field, not the HTTP status code."
+  - "Use the batch validation endpoint from the docs when you want to clean a list in fewer requests."
+whenToUse: "Use when you need to check phone numbers in a sign-up flow or contact list and a small monthly request count is enough for a test or small project."
+whenNotToUse: "Avoid if you need more lookups than the monthly request limit, more than the free rate limit, or email support from the provider."
 bestFor:
-  - contact validation
-  - user onboarding
-  - CRM enrichment
+  - "contact validation"
+  - "user onboarding"
+  - "fake sign-up checks"
+  - "small CRM cleanups"
 avoidIf:
-  - need bulk lookups
-  - require advanced analytics
-  - need unlimited usage
+  - "high-volume validation on the free plan"
+  - "more than the free rate limit"
+  - "need support from the provider"
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://numlookupapi.com'
-docsUrl: 'https://docs.numlookupapi.com'
+docsUrl: "https://numlookupapi.com/docs"
 sourceUrls:
   - 'https://numlookupapi.com/pricing/'
+  - 'https://numlookupapi.com'
+  - 'https://numlookupapi.com/docs'
+  - 'https://numlookupapi.com/docs/validate'
 pricingUrl: 'https://numlookupapi.com/pricing/'
 featured: false
 ---
-Numlookupapi.com offers a simple API for phone number validation and lookup, suitable for basic contact verification and enrichment needs with a generous free tier.
+You use Numlookupapi.com with a GET request and an API key from any language, or with the client SDKs the docs list. It suits developers who add phone checks to a sign-up form or clean a contact list.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month and is meant for testing and personal projects. You get 100 requests per month, 1 API key, and a rate limit of 10 requests per minute. Batch validation is included, so you can send up to 100 numbers in one request.
+
+Each lookup returns the carrier and line type, such as mobile, landline, or toll-free. It also flags VoIP and other special number types, which helps against fake sign-ups. The service covers more than 230 countries. The site says the free plan is enough to build and test your integration before you pay.
+
+## When you hit a limit
+
+The pricing page does not say what happens after your 100 monthly requests are used. It does not mention overage charges on the free plan. The plan takes the form of a fixed allowance, so expect lookups to stop until the next month or until you upgrade.
+
+The rate limit is separate. Paid plans have no rate limit, so more than 10 requests in a minute is a reason to upgrade. The paid plans start with Basic at $9.99 a month, and you can cancel from your dashboard.
+
+## Gotchas
+
+- 100 requests a month runs out fast in a live sign-up form. Treat the free plan as a test setup.
+- The free plan has 1 API key. The Basic plan also has 1 key, and sandbox keys start at the next plan.
+- Email support starts on paid plans. The free plan lists no support.
+
+## Alternatives in this atlas
+
+- [Abstract API](/tools/abstract-api/): when you want phone and email validation from one provider on separate free allowances.
+- [Verimail.io](/services/verimail-io/): when you need to verify email addresses instead of phone numbers.
+- [Vatcheckapi.com](/tools/vatcheckapi-com/): when you want another small lookup API with a free plan and the same style of rate limit.
+
+## Questions people ask
+
+### Is Numlookupapi free?
+
+Yes, up to a point. The Free plan costs $0 a month and includes 100 requests, 1 API key, and 10 requests per minute.
+
+### What happens when I go over the Numlookupapi free limit?
+
+The pricing page does not say. Paid plans start at $9.99 a month and add more requests, and they remove the rate limit.
+
+### Does Numlookupapi need a credit card?
+
+The pricing page does not mention a card for the free plan. You get a free API key from the sign-up button.

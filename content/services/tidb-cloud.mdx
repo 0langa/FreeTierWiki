@@ -1,6 +1,8 @@
 ---
 title: TiDB Cloud Starter
-description: Serverless MySQL-compatible distributed SQL database with row and column storage.
+description: >-
+  TiDB Cloud Starter is a serverless, MySQL-compatible distributed SQL database
+  with row and column storage. It suits apps with variable workloads and vector search.
 provider: PingCAP
 category: database
 domain: database
@@ -13,52 +15,73 @@ audiences:
   - indie
   - startup
 tags:
-  - database
+  - tidb
+  - mysql compatible
   - serverless
-  - analytics
+  - distributed sql
+  - vector search
+  - database
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free each month per organization: 25 GiB row storage, 25 GiB column storage, and 250M Request
-    Units.
+    Each organization gets 25 GiB of row storage, 25 GiB of column storage, and
+    250M Request Units free per month, across up to 5 instances. A free
+    instance that uses up its quota is throttled until the next month.
   limits:
-    - 25 GiB row storage
-    - 25 GiB column storage
-    - 250 million Request Units per month
+    - 25 GiB of row storage per organization
+    - 25 GiB of column storage per organization
+    - 250M Request Units per month per organization
+    - Free quota per instance of 5 GiB row storage, 5 GiB column storage, and 50 million Request Units per month
+    - Up to 5 free instances per organization
   caveats:
-    - 'Past the free amount, storage and Request Units are billed'
-    - Set a spend limit to control cost
+    - A free instance that uses up its quota denies new connections and throttles existing ones until you raise the quota or the month resets
+    - To raise the quota or create a sixth instance you must add a credit card and set a monthly spending limit
+    - Past the free amount, extra storage and Request Units are billed
+    - Starter is on AWS, and in public preview on Alibaba Cloud
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - Extra storage costs $0.20 per GiB and extra usage costs $0.10 per 1M Request Units, but only if you add a card and a spending limit
 useCases:
-  - MySQL-compatible app database
-  - Mixed app and analytics queries
-  - Vector search
+  - A MySQL-compatible database for a side project or small app
+  - Mixed app and analytics queries on row and column storage
+  - Vector search and RAG with the same database
+  - Trying TiDB before moving to a larger plan
 quickstartSteps:
-  - Sign up at tidbcloud.com.
-  - Create a Starter cluster.
-  - Connect with any MySQL client.
-whenToUse: Use when you want a large free MySQL-compatible database.
-whenNotToUse: Avoid if you need Postgres features.
+  - Sign up for TiDB Cloud with an email and password, or with Google, GitHub, or Microsoft single sign-on.
+  - Open the My TiDB page. New accounts get a default Starter instance named Instance0.
+  - To make another one, click Create Resource, keep Starter selected, name it, pick the cloud provider and region, and click Create.
+  - Open the SQL Editor in the console and run queries without a local client.
+  - Or connect with the `mysql` command line client, a MySQL driver, or an ORM using the connection details in the console.
+whenToUse: >-
+  Use it when you want a MySQL-compatible serverless database with a large free
+  quota and no card, for side projects or apps with uneven traffic.
+whenNotToUse: >-
+  Avoid it if your stack needs Postgres features, if you need a region outside
+  AWS, or if you cannot accept connections being blocked at the quota.
 bestFor:
   - MySQL apps
   - side projects
-  - HTAP
+  - vector search prototypes
 avoidIf:
   - Postgres-only stacks
+  - a hard need for uptime when the quota runs out
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 8
 officialUrl: 'https://www.pingcap.com/tidb-cloud-starter/'
 docsUrl: 'https://docs.pingcap.com/tidbcloud/'
 sourceUrls:
   - 'https://www.pingcap.com/pricing/'
+  - 'https://www.pingcap.com/tidb-cloud-starter-pricing-details/'
+  - 'https://docs.pingcap.com/tidbcloud/manage-serverless-spend-limit'
+  - 'https://docs.pingcap.com/tidbcloud/tidb-cloud-quickstart'
 pricingUrl: 'https://www.pingcap.com/pricing/'
 featured: false
 changes:
@@ -66,4 +89,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-TiDB Cloud Starter has one of the largest free storage amounts of any serverless SQL database. Spend limits control billing above it.
+You work in the TiDB Cloud console, where an AI-assisted SQL Editor runs queries in the browser, or you connect with any MySQL tool, driver, or ORM. It suits developers who want MySQL compatibility with room to grow and optional vector search.
+
+## What the free plan gives you
+
+The pricing page lists Starter from $0 a month. Each organization gets 25 GiB of row storage, 25 GiB of column storage, and 250M Request Units for free every month. The pricing details page splits this per instance: each of your first 5 instances gets 5 GiB of row storage, 5 GiB of column storage, and 50 million Request Units a month.
+
+Starter scales down to zero, and you pay only for storage and capacity you use beyond the free amount. An organization also includes capacity for up to 100 active instances and branches at no extra charge. Starter is generally available on AWS.
+
+## When you hit a limit
+
+A free instance that uses up its quota is throttled. Once it reaches the quota, it denies new connection attempts until you raise the quota or the usage resets at the start of a new month. Existing connections stay open but are throttled. For example, a free instance with more than 5 GiB of row storage restricts new connections.
+
+You can raise the quota by setting a monthly spending limit. This needs a credit card. Extra storage then costs $0.20 per GiB and extra usage costs $0.10 per 1M Request Units. The instance is not throttled until it reaches the spending limit.
+
+## Gotchas
+
+- The free quota covers only the first 5 instances in an organization. A sixth needs a credit card and a spending limit, unless you delete an earlier instance first.
+- Reaching the quota blocks new connections, not only slows them. An app that opens a connection per request can fail until the month resets.
+- Starter runs on AWS, and the Alibaba Cloud version is in public preview.
+
+## Alternatives in this atlas
+
+- [Aiven](/services/aiven/): when you want a free managed MySQL or Postgres plan with no card.
+- [Turso](/services/turso/): when your app fits SQLite and you want many small databases.
+- [Supabase Database](/services/supabase-database/): when you need Postgres features instead of MySQL.
+
+## Questions people ask
+
+### Is TiDB Cloud Starter free?
+
+Yes, up to a quota. Each organization gets 25 GiB of row storage, 25 GiB of column storage, and 250M Request Units free per month.
+
+### What happens when I go over the TiDB Cloud Starter free quota?
+
+A free instance that reaches its quota denies new connections and throttles existing ones until the month resets or you raise the quota. Raising it needs a credit card and a spending limit.
+
+### Does TiDB Cloud Starter need a credit card?
+
+Not for the free quota. You need a card to create more than 5 instances or to set a spending limit that raises the quota.

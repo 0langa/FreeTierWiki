@@ -1,8 +1,9 @@
 ---
 title: Azure AI Custom Vision
 description: >-
-  Train, deploy, and improve custom image classification and object detection
-  models with minimal code using Azure's managed service.
+  Azure AI Custom Vision lets you train your own image classification and object detection models by
+  uploading and labeling images. It is for developers who need a model for their own pictures and
+  have a small amount of data.
 provider: Azure
 category: ai
 domain: ai
@@ -19,69 +20,120 @@ audiences:
   - oss
   - agency
 tags:
-  - ai
-  - images
-  - storage
+  - image classification
+  - object detection
+  - custom vision
+  - computer vision
+  - image recognition
   - ml
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes limited training hours and prediction transactions per
+    Free (F0) tier includes 2 projects, 1 hour of training per month, and 10,000 predictions per
     month.
   limits:
     - 2 projects per resource
     - '5,000 training images per project'
+    - 50 tags per project
     - 1 hour training per month
     - '10,000 prediction transactions per month'
   caveats:
-    - Free (F0) tier is limited to 2 transactions per second
+    - Free (F0) tier is limited to 2 transactions per second for prediction and training
     - Standard (S0) tier is paid per use
+    - >-
+      Microsoft plans to retire Custom Vision; full support for existing customers runs until
+      9/25/2028
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Classifying product images
-  - Detecting objects in photos
-  - Building custom visual search
-  - Prototyping AI-powered apps
+  - Sort product photos into categories
+  - Detect objects in photos and get their coordinates
+  - Prototype an image model with a small labeled set
+  - Export a compact model to run offline on a device
 quickstartSteps:
-  - Sign in to the Azure Portal and create a Custom Vision resource.
-  - Upload and label your training images in the Custom Vision portal.
-  - Train your model using the provided interface.
-  - Test your model with new images to evaluate performance.
-  - Export or deploy the model as needed for your application.
+  - Create an Azure account or use an existing subscription.
+  - >-
+    In the Azure portal, use the Create Custom Vision page to make a training resource and a
+    prediction resource. Pick the F0 free tier.
+  - Go to the Custom Vision web page and sign in with the same account you use for the Azure portal.
+  - >-
+    Select New Project, name it, choose your training resource, pick Classification or Object
+    Detection, and pick a domain such as Generic.
+  - 'Upload training images with at least 30 per tag, tag them, and select Train.'
+  - 'Test the model with a new image, then publish it for predictions or export it.'
 whenToUse: >-
-  Use when you need to quickly build and deploy custom image classification or
-  object detection models without deep ML expertise.
+  Use when you need a small custom image model for a prototype and you can live with the free
+  training hour.
 whenNotToUse: >-
-  Avoid if you require large-scale training, advanced customization, or
-  on-premises deployment beyond the free tier limits.
+  Avoid for new long-term projects, because Microsoft plans to retire the service. Also avoid if you
+  need large-scale training or fast prediction rates above 2 per second.
 bestFor:
-  - rapid prototyping
-  - small-scale production
-  - educational projects
+  - prototyping image classifiers
+  - object detection demos
+  - small labeled image sets
+  - students learning computer vision
 avoidIf:
-  - need high-volume training
-  - require advanced ML customization
-  - must run fully offline
+  - need a service that lasts past 2028
+  - need large-scale training
+  - need more than 2 predictions per second on the free tier
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
-officialUrl: >-
-  https://azure.microsoft.com/en-us/pricing/details/cognitive-services/custom-vision-service/
-docsUrl: >-
-  https://learn.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/
+officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/custom-vision-service/'
+docsUrl: 'https://learn.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/custom-vision-service/'
 sourceUrls:
+  - 'https://azure.microsoft.com/en-us/pricing/details/cognitive-services/custom-vision-service/'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/limits-and-quotas'
+  - 'https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/overview'
   - >-
-    https://azure.microsoft.com/en-us/pricing/details/cognitive-services/custom-vision-service/
-  - >-
-    https://learn.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/overview
+    https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/getting-started-build-a-classifier
 featured: false
 ---
-Azure AI Custom Vision enables users to train and deploy custom image classification and object detection models with minimal setup, ideal for rapid prototyping and small-scale applications.
+You work in the Custom Vision web portal, a client SDK, or the REST API. It suits developers who want a small custom image model, but the service is planned for retirement.
+
+## What the free plan gives you
+
+The F0 tier lets you create 2 projects. Each project can hold 5,000 training images and 50 tags, with up to 20 iterations. You get 1 hour of training per month and 10,000 predictions per month.
+
+Rate limits are low. Prediction calls and training calls run at 2 per second on F0, and other API calls run at 10 per second. Prediction images are stored for 30 days. Training images can be up to 6 MB, and prediction images up to 4 MB. The service accepts jpg, png, bmp, and gif files.
+
+The paid S0 tier allows 100 projects, 100,000 training images per project, and unlimited predictions.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use up the monthly predictions or the training hour. The limits page only lists the F0 numbers next to the S0 numbers. S0 is billed per 1,000 transactions, and the price on the page is blank.
+
+You move to S0 yourself in the Azure portal. Nothing on the pages says that F0 changes tier on its own.
+
+## Gotchas
+
+- Microsoft plans to retire Custom Vision. It promises full support for existing customers until 9/25/2028, and it points new work to Azure Machine Learning AutoML or Foundry models.
+- You must create a training resource and a prediction resource in Azure. Both need an Azure subscription.
+- Use at least 30 images per tag for a first model, and more is better. The overview suggests 50 per tag as a start.
+
+## Alternatives in this atlas
+
+- [Azure AI Vision](/services/azure-ai-vision/): when a prebuilt image analysis model is enough and you do not need to train your own.
+- [Hugging Face Hub](/services/hugging-face-hub/): when you want to find or host open image models.
+- [Google Colab](/services/google-colab/): when you want to train a model yourself on a free notebook.
+
+## Questions people ask
+
+### Is Azure AI Custom Vision free?
+
+Yes, the F0 tier is free. It gives you 2 projects, 5,000 training images per project, 1 hour of training per month, and 10,000 predictions per month.
+
+### Is Azure AI Custom Vision being retired?
+
+Microsoft has announced a planned retirement. Existing customers keep full support until 9/25/2028, so a new project still works for now.
+
+### What happens when I go over the Custom Vision free limits?
+
+The pages do not say. The S0 tier has higher limits and is billed per 1,000 transactions.

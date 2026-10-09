@@ -1,8 +1,9 @@
 ---
 title: Canopy
 description: >-
-  Canopy provides a REST, GraphQL, and MCP API for real-time Amazon product
-  data: pricing, reviews, rankings, and sales estimates.
+  Canopy is a REST, GraphQL, and MCP API for real-time Amazon.com product data:
+  prices, Buy Box, reviews, rankings, and sales estimates. It is for apps and AI
+  agents that need Amazon data.
 provider: Canopy
 category: apis
 domain: apis
@@ -16,7 +17,11 @@ audiences:
   - team
   - oss
 tags:
-  - api
+  - amazon api
+  - product data
+  - price tracking
+  - graphql
+  - mcp
 pricingModel: freemium
 freeTierDetails:
   summary: Free Hobby plan includes 100 Amazon product data API requests per month.
@@ -24,40 +29,40 @@ freeTierDetails:
     - 100 requests/month
   caveats:
     - Pay-as-you-go plan charges $0.01 per request after the first 100
-    - Premium plan starts at $400/month
+    - Premium plan starts at $99/month and includes 20K requests
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Pull real-time Amazon product, pricing, and review data
-  - Track competitor pricing and Buy Box status
-  - Estimate product sales volume
-  - Power AI agents with Amazon data via MCP
+  - 'Pull live Amazon product, price, and review data'
+  - Track competitor prices and Buy Box status
+  - Estimate sales volume for a product
+  - Give an AI agent Amazon data through MCP
 quickstartSteps:
-  - 'Sign up for a Canopy account at https://www.canopyapi.co/.'
-  - Create a new application in the Canopy dashboard.
-  - Obtain your API key from the dashboard.
-  - Review the API documentation for endpoint details.
-  - Make test API calls to rest.canopyapi.co using your API key.
+  - Sign up for a Canopy account on the Canopy site.
+  - Sign in to the dashboard and copy your API key.
+  - 'Choose REST or GraphQL; both need the key in an `API-KEY` header or an `Authorization: Bearer` header.'
+  - 'Send a GET request to `https://rest.canopyapi.co/api/amazon/product` with an `asin` and a `domain`.'
+  - 'Read the JSON response for title, price, rating, and more.'
 whenToUse: >-
-  Use Canopy when you need real-time Amazon product, pricing, review, or
-  sales-estimate data without building your own scraper.
+  Use Canopy when you need current Amazon product, price, review, or sales-
+  estimate data and do not want to run your own scraper.
 whenNotToUse: >-
-  Avoid if you need more than 100 free requests per month without moving to a
-  paid or pay-as-you-go plan.
+  Avoid it if you need more than 100 requests a month for free, data from sites
+  other than Amazon, or a production workload with no budget.
 bestFor:
   - Amazon price and rank tracking
-  - ecommerce prototyping
-  - AI agents needing Amazon data
+  - ecommerce prototypes
+  - AI agents that need Amazon data
 avoidIf:
   - need high-volume production without paying
-  - need data outside Amazon.com
+  - need data from sites other than Amazon
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.canopyapi.co/'
@@ -66,7 +71,43 @@ pricingUrl: 'https://www.canopyapi.co/'
 sourceUrls:
   - 'https://www.canopyapi.co/'
   - 'https://docs.canopyapi.co/'
-  - 'https://www.canopyapi.co/blog/real-time-amazon-pricing-data-canopy-api'
 featured: false
 ---
-Canopy is now an Amazon Product Data API (pricing, reviews, sales estimates via REST, GraphQL, and MCP), not a banking/payments aggregator. The Hobby plan gives 100 free requests per month, forever, with no card required.
+You sign up in the dashboard, copy an API key, and call REST or GraphQL endpoints, or use the MCP server from an AI agent. It suits developers who want Amazon listing data without building a scraper or waiting for Amazon's official access.
+
+## What the free plan gives you
+
+The Hobby plan is free forever and gives you 100 requests per month. The pricing page says it has no additional charges. Canopy says it covers real-time data for any of 350 million products, including pricing, Buy Box data, sales and stock estimates, and reviews.
+
+You get the same API key for REST, GraphQL, and MCP. The paid plans add volume. The pay-as-you-go plan includes the same 100 free requests and adds $0.01 per extra request. The Premium plan starts at $99 a month and includes 20K requests.
+
+## When you hit a limit
+
+On the Hobby plan, the pricing page lists no additional charges, so the plan does not turn into a bill by itself. The pricing page does not say exactly what the API returns once you use up the 100 requests.
+
+To get more requests, move to the pay-as-you-go plan or to Premium. Both are billed monthly, and the page says volume discounts apply automatically as you grow. Check the dashboard before you run a large batch.
+
+## Gotchas
+
+- Both API styles need your key in an `API-KEY` header or an `Authorization: Bearer` header. The docs say not to share the key.
+- Pay-as-you-go starts billing after the first 100 requests each month. Switching to it turns the free plan into a metered one.
+- Canopy covers Amazon.com data only. The pricing page describes data from Amazon.com listings, not other shops.
+
+## Alternatives in this atlas
+
+- [Abstract API](/tools/abstract-api/): when you need a general lookup API for IP, email, or phone data instead of Amazon data.
+- [News API](/tools/news-api/): when you need headline data and a free developer plan.
+
+## Questions people ask
+
+### Is Canopy API free?
+
+Yes, within limits. The Hobby plan gives you 100 requests per month, forever, with no additional charges.
+
+### What happens when I go over the Canopy free limit?
+
+The pricing page lists no additional charges on the Hobby plan and does not say how the API responds past 100 requests. Move to pay-as-you-go to get extra requests at $0.01 each.
+
+### Does Canopy have an MCP server for AI agents?
+
+Yes. The pricing page says one API key works for REST, GraphQL, and MCP, and it lists an MCP server and Skills for AI agents.

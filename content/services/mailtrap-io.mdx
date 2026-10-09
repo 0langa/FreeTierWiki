@@ -1,8 +1,9 @@
 ---
 title: Mailtrap.io
 description: >-
-  Mailtrap.io provides a safe email testing environment for staging and
-  development, preventing accidental email delivery to real users.
+  Mailtrap Email Sandbox catches the emails your app sends in development and
+  staging, so you can inspect them without reaching real inboxes. It is for
+  developers and QA testers.
 provider: Mailtrap
 category: devops
 domain: devops
@@ -17,62 +18,106 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - testing
+  - email testing
+  - email sandbox
+  - smtp
+  - fake smtp server
+  - staging
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan gives 50 test emails per month in a single sandbox, for one
-    user.
+    Free Email Sandbox plan: 50 test emails per month in 1 sandbox, for 1 user.
+    The same free account also has a separate Email API/SMTP plan.
   limits:
     - 50 test emails/month
-    - 1 sandbox that holds 10 messages at a time
+    - 1 sandbox that holds 10 emails at a time
     - 1 user
-    - 1 email per 10 seconds sending rate
+    - 1 email per 10 seconds sending rate into a sandbox
+    - Unlimited Sandbox API calls
   caveats:
-    - No email forwarding on the free plan
-    - Limited to non-production use
+    - No email forwarding to real inboxes on the free plan
+    - No dedicated email address per sandbox on the free plan
+    - 'Email API/SMTP is a separate free plan, sold apart from Email Sandbox: 4,000 emails/month, 150 emails/day'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Testing email functionality in development
-  - Validating email templates
-  - Preventing accidental email delivery
-  - Debugging SMTP integration
+  - Catching staging emails so they never reach real users
+  - Checking the HTML, headers, and text of a transactional email
+  - Running automated email tests through the Sandbox API
+  - Testing sign-up and reset flows during development
 quickstartSteps:
-  - Sign up for a free Mailtrap.io account.
-  - Create a new inbox in your Mailtrap dashboard.
-  - Copy the SMTP credentials provided for your inbox.
-  - Configure your application to use Mailtrap's SMTP settings.
-  - Send a test email and verify it appears in your Mailtrap inbox.
+  - Sign up for a free Mailtrap account; the pricing page asks for no card on the free plans.
+  - Open Email Sandbox, where you get a project with a sandbox in it.
+  - Copy the SMTP credentials from the sandbox, or create an API token for the Sandbox API.
+  - Point your app's SMTP settings at the sandbox, or use a Mailtrap client library.
+  - Send a test email and open it in the sandbox to check its content.
 whenToUse: >-
-  Use Mailtrap.io when you need to safely test and debug email sending in
-  development or staging environments.
+  Use it to catch and inspect emails from a dev or staging app, when 50 test
+  emails a month is enough for one person.
 whenNotToUse: >-
-  Do not use for sending emails to real users or in production environments, as
-  emails are not delivered externally.
+  Avoid it for team projects, for more than 10 stored emails, or if you need
+  forwarding to real inboxes or an address per sandbox.
 bestFor:
-  - developers
-  - QA engineers
-  - teams testing email flows
+  - solo developers
+  - testing a few email templates
+  - small staging checks
 avoidIf:
-  - you need to send real emails
-  - production email delivery is required
+  - several team members
+  - heavy email testing
+  - forwarding test mail to real inboxes
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mailtrap.io/'
 docsUrl: 'https://mailtrap.io/docs/'
 sourceUrls:
   - 'https://mailtrap.io/pricing'
-  - 'https://mailtrap.io/docs/'
+  - 'https://mailtrap.io/email-sandbox/'
+  - 'https://docs.mailtrap.io/'
+  - 'https://docs.mailtrap.io/email-sandbox/features-and-limits'
 pricingUrl: 'https://mailtrap.io/pricing'
 featured: false
 ---
-Mailtrap.io is a developer-focused tool for safely testing and debugging email sending without risk of spamming real users. Its free tier is ideal for individual developers needing to validate email flows in non-production environments, offering one sandbox with 50 test emails per month. Mailtrap is easy to integrate with most frameworks and languages, making it a popular choice for email testing during development.
+You point your app's SMTP settings at a Mailtrap sandbox, or use the Sandbox API, and every email lands in the sandbox instead of a real inbox. It suits a single developer checking staging emails.
+
+## What the free plan gives you
+
+The free Email Sandbox plan includes 50 test emails per month for 1 user. You get 1 sandbox, and it holds 10 emails at a time. When it is full, Mailtrap cleans out the oldest messages first. You can send 1 email per 10 seconds into a sandbox, and the Sandbox API has unlimited calls.
+
+The same free account also has an Email API/SMTP plan for real sending. It is sold separately and allows 4,000 emails per month and 150 emails per day. No credit card is needed for the free plans.
+
+## When you hit a limit
+
+If you send faster than the rate limit, Mailtrap rejects the message with a "too many emails per second" error. For the 50 monthly test emails, the pricing page does not say what happens at the cap. For the separate Email API/SMTP plan, the docs say you get a "Monthly messages limit reached" SMTP error, and you must upgrade or wait for the next period. The free plans ask for no card, so no bill appears.
+
+## Gotchas
+
+- Email Sandbox, Email API/SMTP, and Email Marketing are sold separately, each with its own free plan.
+- The free sandbox has no dedicated email address and no forwarding. Those start on paid plans.
+- The sandbox holds 10 emails, so a busy test run pushes out older messages fast.
+
+## Alternatives in this atlas
+
+- [Mailinator.com](/services/mailinator-com/): when you want public disposable inboxes with no signup.
+- [Mailsac.com](/services/mailsac-com/): when you want inboxes you read through a REST API.
+- [Ethereal Email](/services/ethereal-email/): when you need throwaway SMTP accounts with no monthly cap.
+
+## Questions people ask
+
+### Is Mailtrap free?
+
+Yes. The free Email Sandbox plan gives 50 test emails per month for 1 user. A separate free Email API/SMTP plan allows 4,000 emails per month.
+
+### Does Mailtrap need a credit card?
+
+No. The docs say the free plan needs no credit card.
+
+### What happens when I go over the Mailtrap free limit?
+
+For sandbox testing the pricing page does not say. On the Email API/SMTP plan, sending stops with a monthly limit error until you upgrade or the next period starts.

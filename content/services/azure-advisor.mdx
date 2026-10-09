@@ -1,8 +1,9 @@
 ---
 title: Azure Advisor
 description: >-
-  Azure Advisor provides personalized best practices and recommendations to
-  optimize your Azure resources for cost, security, and performance.
+  Azure Advisor reads how your Azure resources are set up and used, then lists
+  recommendations to save money and improve reliability, security, and
+  performance. It is for anyone who runs workloads on Azure.
 provider: Azure
 category: devops
 domain: devops
@@ -15,8 +16,11 @@ audiences:
   - team
   - enterprise
 tags:
-  - cloud
-  - security
+  - azure
+  - cloud cost
+  - recommendations
+  - well-architected
+  - best practices
 pricingModel: free
 freeTierDetails:
   summary: Azure Advisor is available at no additional cost for all Azure customers.
@@ -30,34 +34,35 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Identifying cost-saving opportunities
-  - Improving security posture
-  - Enhancing resource performance
-  - Ensuring high availability
+  - Find resources that cost more than they need to
+  - Spot security and reliability gaps in a subscription
+  - Track a score for each category and work on the lowest one
+  - Export recommendations as CSV or PDF for a review
+  - Query recommendations with Azure Resource Graph
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Navigate to 'Advisor' from the left-hand menu.
-  - >-
-    Review personalized recommendations across cost, security, reliability, and
-    performance.
-  - Apply suggested actions to optimize your resources.
+  - Sign in to the Azure portal with an account that has an Azure subscription.
+  - Search for Advisor, or select the Advisor icon, to open the Advisor Overview page.
+  - Filter by subscription, resource group, or resource type, and read the tiles for each category.
+  - Open a recommendation and choose its recommended action to see the steps to fix it.
+  - Mark a recommendation as postponed or dismissed, or download the list as CSV or PDF.
 whenToUse: >-
-  Use Azure Advisor when you want automated, actionable recommendations to
-  optimize your Azure environment for cost, security, and performance.
+  Use it when you already run resources on Azure and want a free list of fixes
+  for cost, reliability, security, performance, and operations.
 whenNotToUse: >-
-  Avoid if you need optimization for non-Azure environments or require highly
-  customized, non-standard recommendations.
+  Skip it if your workloads are not on Azure, or if you need custom analytics.
+  It only reviews resources in Azure subscriptions.
 bestFor:
-  - cost-conscious teams
-  - security-focused organizations
   - Azure administrators
+  - small teams that watch cloud cost
+  - security and reliability reviews
 avoidIf:
-  - using non-Azure cloud providers
-  - requiring deep custom analytics
+  - your workloads run on another cloud
+  - you need custom analytics
+  - you have no Azure subscription
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/advisor/'
@@ -66,6 +71,46 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/advisor/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/advisor/'
   - 'https://learn.microsoft.com/en-us/azure/advisor/advisor-overview'
+  - 'https://learn.microsoft.com/en-us/azure/advisor/advisor-get-started'
+  - 'https://learn.microsoft.com/en-us/azure/advisor/advisor-azure-resource-graph'
 featured: false
 ---
-Azure Advisor offers actionable recommendations to help you optimize your Azure resources for cost, security, performance, and reliability, at no additional charge.
+You use Advisor in the Azure portal, where the Overview page shows recommendations and a score for each category. It also has a REST API, and you can query recommendations with Azure Resource Graph.
+
+## What the free plan gives you
+
+Azure Advisor costs nothing. The pricing page says you can access recommendations at no additional cost. Advisor is a digital cloud assistant that analyzes your resource configuration and usage data, then recommends fixes for cost, performance, reliability, and security.
+
+The dashboard groups recommendations into five categories: reliability, security, performance, cost, and operational excellence. You can see recommendations if you are the Owner, Contributor, or Reader of a subscription, resource group, or resource. Each recommendation opens into details and a recommended action, and you can postpone or dismiss ones you do not want. Advisor shows a score for each category on its overview page.
+
+## When you hit a limit
+
+The pricing page and the docs do not describe a quota or a paid tier for Advisor. There is no limit to hit on the Advisor service itself.
+
+The cost sits in the resources you act on. If you follow a recommendation, such as changing a resource, you pay for the resource you change under its own pricing. Advisor also needs an Azure subscription, so you must have an Azure account to open it. New resources can take up to 24 hours to appear in recommendations, and an applied action can take up to a day to register.
+
+## Gotchas
+
+- Advisor only reviews resources in Azure subscriptions. It will not look at other clouds.
+- New resources can take up to 24 hours to show up in recommendations.
+- You need a role on the subscription, resource group, or resource: Owner, Contributor, or Reader.
+
+## Alternatives in this atlas
+
+- [Azure Cost Management](/services/azure-cost-management/): when you want to track and budget spend, not just get recommendations.
+- [Azure Arc](/services/azure-arc/): when you want to manage servers and clusters outside Azure from Azure.
+- [Azure Lighthouse](/services/azure-lighthouse/): when you manage many customer tenants from one place.
+
+## Questions people ask
+
+### Is Azure Advisor free?
+
+Yes. Microsoft says you can access Advisor recommendations at no additional cost.
+
+### Do I need an Azure subscription to use Azure Advisor?
+
+Yes. Advisor shows recommendations for the resources in your Azure subscriptions, so you need a subscription and a role on it.
+
+### How long does Azure Advisor take to show recommendations?
+
+It runs in the background to find new resources. It can take up to 24 hours to give recommendations on newly created resources.

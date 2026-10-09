@@ -1,8 +1,9 @@
 ---
 title: Verifalia
 description: >-
-  Verifalia provides an API for real-time and bulk email address validation and
-  verification.
+  Verifalia checks whether email addresses are real and can receive mail. You
+  upload a list or call the API to catch typos, dead mailboxes, and disposable
+  addresses.
 provider: Verifalia
 category: security
 domain: security
@@ -18,61 +19,102 @@ audiences:
   - agency
   - oss
 tags:
-  - email
-  - productivity
-  - api
-  - security
+  - email-verification
+  - email-validation
+  - list-cleaning
+  - bounce-reduction
+  - email-api
+  - javascript-widget
 pricingModel: freemium
 freeTierDetails:
   summary: Free tier includes 25 email validations per day.
   limits:
     - 25 validations/day
     - API access
-    - Bulk and real-time modes
+    - Bulk list upload and real-time modes
   caveats:
-    - Unused validations do not roll over
-    - Rate limits apply
+    - Unused daily free credits expire at the end of the day and do not accumulate
+    - Daily credits reset at midnight Greenwich Mean Time
+    - Higher quality levels use 2 or 4 credits per address instead of 1
+    - Purchased credit packs never expire
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Validate user signups
-  - Clean mailing lists
-  - Prevent fake or mistyped emails
-  - Improve email deliverability
+  - Checking an address at sign-up with the API or the JavaScript widget
+  - Cleaning a mailing list before a campaign
+  - Flagging free and disposable addresses on a form
+  - Removing duplicate addresses from a list
 quickstartSteps:
-  - Sign up for a free Verifalia account.
-  - Log in and obtain your API credentials from the dashboard.
-  - Read the API documentation for integration details.
-  - Send email addresses to the API endpoint for validation.
-  - Review validation results in the dashboard or via API response.
+  - Sign up for a free account on verifalia.com. You need an account even to buy credits.
+  - Pick how to use it. Upload a list file (text, CSV, TSV, or Excel) in the client area, or use the API.
+  - For the API, use one of the open source SDKs (.NET, Java, Node.js, Ruby, PHP, or Go) or call the REST API with HTTP Basic or Bearer authentication.
+  - Or add the free JavaScript widget to a form for real-time checks without coding.
+  - Submit addresses and read the result status for each address in the client area or in the API response.
 whenToUse: >-
-  Use Verifalia when you need to validate email addresses in real time or clean
-  up mailing lists before campaigns.
+  Use Verifalia to test the service or to check a few addresses a day, and buy
+  credits when you need to clean a whole list once.
 whenNotToUse: >-
-  Avoid if you need to validate more than 25 emails per day for free or require
-  on-premise deployment.
+  Avoid the free plan for lists with thousands of addresses or for regular
+  high-volume checks, because only 25 verifications a day are free.
 bestFor:
-  - email list hygiene
-  - signup validation
-  - small campaigns
+  - testing email verification
+  - small sign-up forms
+  - one-time list cleaning with purchased credits
 avoidIf:
-  - need high-volume free validation
-  - require offline processing
+  - you need large free daily volume
+  - you need offline processing
+  - you only need to detect disposable domains, not mailbox checks
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://verifalia.com/email-verification-api'
-docsUrl: 'https://verifalia.com/developers/email-verification-api'
+docsUrl: 'https://verifalia.com/developers'
 sourceUrls:
   - 'https://verifalia.com/pricing'
-  - 'https://verifalia.com/developers/email-verification-api'
+  - 'https://verifalia.com/email-verification-api'
+  - 'https://verifalia.com/developers'
 pricingUrl: 'https://verifalia.com/pricing'
 featured: false
 ---
-Verifalia offers a simple API for validating email addresses, helping reduce bounces and improve deliverability for web apps and marketing lists.
+You can upload a list in the client area, call the REST API through open source SDKs, or add a JavaScript widget to a form. It suits developers who want to check sign-ups and teams who clean mailing lists.
+
+## What the free plan gives you
+
+The Free plan issues 25 verification credits per day. One credit buys one standard email verification, so you can check 25 addresses a day. The pricing page says that is enough for most testing needs. The free account gets you into the client area, the API, and the bulk list tools, which accept plain text, TSV, CSV, and Excel files.
+
+Free credits expire at the end of each day and do not accumulate. They reset at midnight Greenwich Mean Time. The service also detects free addresses such as Gmail or Yahoo, and it removes duplicates for free.
+
+## When you hit a limit
+
+When the daily credits are gone, you can wait for the reset or buy credits. Purchased credit packs never expire, and the service uses your daily free credits before it uses purchased packs. Higher quality levels cost more per address: High takes 2 credits and Extreme takes 4, compared with 1 for Standard. Paid plans also exist with larger daily free credits. Nothing is charged unless you buy credits or upgrade.
+
+## Gotchas
+
+- You must create an account to verify emails or to buy credits, even for a one-time list.
+- Unused free credits expire daily, so a quiet day does not give you extra credits the next day.
+- A higher quality level uses more credits per address, so plan your credit use.
+
+## Alternatives in this atlas
+
+- [TempMailDetector.com](/services/tempmaildetector-com/): when you only need to block disposable domains at sign-up.
+- [Antideo](/services/antideo/): when you want email, IP, and phone validation from one API.
+
+## Questions people ask
+
+### Is Verifalia free?
+
+Partly. The Free plan includes 25 email verifications per day. You buy credit packs for more.
+
+### Do unused Verifalia credits roll over?
+
+Free daily credits do not. They expire each day. Credits from purchased packs do not expire.
+
+### Does Verifalia have an API?
+
+Yes. It has a REST API and free open source SDKs for .NET, Java, Node.js, Ruby, PHP, and Go.

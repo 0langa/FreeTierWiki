@@ -1,8 +1,8 @@
 ---
 title: Gerrithub.io
 description: >-
-  Gerrithub.io provides free code review hosting for open source projects using Gerrit and GitHub
-  integration.
+  GerritHub adds Gerrit code review on top of your GitHub repositories. You sign in with GitHub,
+  import a repository, and review changes in Gerrit, which mirrors them back to GitHub.
 provider: Gerrithub.io
 category: devops
 domain: devops
@@ -17,52 +17,111 @@ audiences:
   - startup
   - team
 tags:
-  - devops
-  - open-source
+  - gerrit
+  - code review
+  - github
+  - pull request review
+  - patch sets
+  - gerritforge
+  - git replication
 pricingModel: free
 freeTierDetails:
-  summary: 'Free Gerrit code review for your GitHub repositories, hosted by GerritForge.'
+  summary: >-
+    Free Gerrit code review for your GitHub repositories, hosted by GerritForge. The pages show no
+    usage numbers.
   limits:
     - Free sign-up with GitHub
-    - Gerrit code review on GitHub repositories
+    - Gerrit code review on your GitHub repositories
+    - The pages publish no usage limits
   caveats:
-    - No SLA is published
+    - The GerritForge page claims high uptime but publishes no SLA for the free service
+    - 'Sign-in asks for the GitHub user:email and public_repo scopes'
+    - >-
+      Push to Gerrit, not directly to GitHub; direct pushes stop the replication until you merge the
+      changes back
+    - 'The intro page mentions a 30-day trial, and the pages do not explain it'
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Open source code review
-  - Collaborative development
-  - Integrating Gerrit with GitHub
+  - Reviewing changes in the Gerrit patch set workflow on a GitHub project
+  - Syncing GitHub pull requests into Gerrit for review
+  - Learning the Gerrit workflow on your own repositories
+  - Keeping a GitHub repository public while reviewing in Gerrit
 quickstartSteps:
-  - Sign in to Gerrithub.io using your GitHub account.
-  - Authorize Gerrithub.io to access your public repositories.
-  - Import a public repository you want to review.
-  - Push changes to the Gerrithub-managed repository.
-  - Review and manage code using the Gerrit web interface.
-whenToUse: Use Gerrithub.io when you need Gerrit-based code review for open source projects hosted on GitHub.
-whenNotToUse: 'Avoid if you require private repository support, enterprise features, or guaranteed uptime.'
+  - Open the GerritHub intro page and choose Sign In using GitHub credentials.
+  - Allow GerritHub to access your GitHub profile.
+  - Select the SSH public keys you want to import.
+  - Select the Git repositories you want to use in Gerrit.
+  - >-
+    Push your changes to GerritHub (the Gerrit URL), not to GitHub, and review them in the Gerrit
+    web interface.
+whenToUse: >-
+  Use GerritHub to try the Gerrit review workflow on GitHub repositories without running a Gerrit
+  server yourself.
+whenNotToUse: >-
+  Avoid it if you need a published SLA or support terms, if you need private repository support that
+  the pages do not document, or if your team will keep pushing straight to GitHub.
 bestFor:
-  - open-source projects
-  - student projects
-  - collaborative teams
+  - open-source maintainers who like Gerrit review
+  - teams that want to learn Gerrit
+  - GitHub projects that want patch set review
 avoidIf:
-  - need private repo support
-  - require enterprise SLAs
+  - you need an SLA for the free service
+  - your workflow pushes directly to GitHub
+  - you want a plain pull request flow
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
+lastUpdated: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 5
 officialUrl: 'https://review.gerrithub.io/'
-docsUrl: 'https://docs.review.gerrithub.io'
+docsUrl: 'https://review.gerrithub.io/static/intro.html'
 sourceUrls:
   - 'https://www.gerritforge.com/'
-  - 'https://review.gerrithub.io/'
-  - 'https://github.com/GerritCodeReview/gerrit'
+  - 'https://review.gerrithub.io/static/intro.html'
+  - 'http://gerrithub.io/'
 featured: false
 pricingUrl: 'https://www.gerritforge.com/'
-lastVerified: '2026-10-01'
+lastVerified: '2026-10-09'
 ---
-GerritHub adds Gerrit code review to GitHub repositories. It is run by GerritForge.
+You sign in with your GitHub account, pick repositories, and use the Gerrit web interface at review.gerrithub.io for review. GerritHub replicates reviewed commits back to GitHub. It suits people who prefer Gerrit's patch set review to pull requests.
+
+## What the free plan gives you
+
+GerritForge, the company behind GerritHub, says you can learn and experience the Gerrit workflow for free on your GitHub repositories. It points to a free sign-up. The service signs you in with GitHub, imports your repositories, and syncs GitHub pull requests into Gerrit for review.
+
+The pages show no price table and no usage limits. They do not give a number for repositories, users, or storage. The GerritForge page says GerritHub is hosted by GerritForge, integrated with GitHub authentication, and runs on several sites around the world.
+
+## When you hit a limit
+
+The pages do not say what happens at a limit, because they publish none. They also publish no terms for the free service beyond the terms and privacy links.
+
+One rule matters in daily use. The intro page says you should push to Gerrit and use GitHub only for pulls and pull requests. A direct push to GitHub makes the replication stop. To resume, clone from Gerrit, pull and merge the latest GitHub changes, and push the merged branch to Gerrit.
+
+## Gotchas
+
+- Replication stops if someone pushes directly to GitHub. Your team has to agree to push to GerritHub.
+- GerritHub asks for the GitHub user:email and public_repo scopes. The intro page says it reads only your name, email, and SSH public keys from your profile.
+- The intro page also mentions a 30-day free trial, but the pages do not explain it. Treat the service as free, and check the GerritHub sign-up flow for current terms.
+
+## Alternatives in this atlas
+
+- [GitLab](/services/gitlab/): when you want merge requests and CI in one hosted service.
+- [Framagit.org](/tools/framagit-org/): when you want a free GitLab server run by a non-profit.
+- [GitHub Actions](/services/github-actions/): when you only need automation on GitHub pull requests.
+
+## Questions people ask
+
+### Is GerritHub free?
+
+GerritForge says you can experience the Gerrit workflow for free on your GitHub repositories. The pages publish no price or usage limits.
+
+### Does GerritHub need a credit card?
+
+The pages show no payment step. You sign in with a GitHub account and allow GerritHub to access it.
+
+### Why did GerritHub stop syncing with my GitHub repository?
+
+Someone probably pushed directly to GitHub. The intro page says that stops replication, and it explains how to merge the GitHub changes and push them to Gerrit.

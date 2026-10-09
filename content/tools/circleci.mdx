@@ -1,8 +1,9 @@
 ---
 title: CircleCI
 description: >-
-  CircleCI is a cloud-based continuous integration and delivery platform for
-  automating software builds, tests, and deployments.
+  CircleCI runs your build, test, and deploy jobs in the cloud from a config
+  file in your repository. It is made for developers and teams that use GitHub,
+  GitLab, or Bitbucket.
 provider: CircleCI
 category: devops
 domain: devops
@@ -17,65 +18,126 @@ audiences:
   - team
   - oss
 tags:
-  - ci-cd
-  - automation
-  - testing
+  - ci/cd
+  - continuous integration
+  - circleci config
+  - docker builds
+  - github ci
+  - bitbucket pipelines alternative
+  - open source ci
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 30,000 credits per month (about 3,000 Linux Medium
-    build minutes), up to 5 active users, and 30 concurrent job runs, with no
-    credit card required.
+    Free plan: 30,000 credits per month (about 3,000 build minutes on Linux
+    Medium), 5 active users, and 30 concurrent jobs. No credit card required.
+    Personal builds stop when credits reach 0.
   limits:
-    - '30,000 credits/month (about 3,000 build minutes on Linux Medium)'
+    - 30,000 credits per month (about 3,000 minutes on Linux Medium at 10
+      credits per minute)
     - Up to 5 active users
-    - 30 concurrent job runs
-    - 2 GB storage, 1 GB network transfer (self-hosted runners)
+    - 30 concurrent job runs on Docker, Linux VM, Arm, and Windows; 1 on macOS
+    - 1 GB of network transfer and 2 GB-months of storage; use beyond that draws
+      from your credits
+    - Flaky test detection for up to 5 tests
   caveats:
     - No credit card required
-    - Credits expire monthly and do not roll over
-    - Open-source projects get up to 400,000 credits/month on Linux/Arm/Docker
+    - Free credits expire each month and do not roll over
+    - Open source organizations on the Free plan get up to 400,000 credits per
+      month for Linux open source builds
+    - When credits reach 0, personal builds are blocked until the next month;
+      open source builds keep running
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated testing for code changes
-  - Continuous deployment to cloud platforms
-  - Building and packaging applications
+  - Run tests on every push or pull request
+  - Build Docker images and push them to a registry
+  - Deploy to cloud platforms after tests pass
+  - Build open source projects on a larger free credit allowance
+  - Detect flaky tests
 quickstartSteps:
-  - Sign up for a CircleCI account using GitHub or Bitbucket.
-  - Connect your repository to CircleCI.
-  - Add a .circleci/config.yml file to your project.
-  - Push changes to trigger your first build.
-  - Monitor build status and logs in the CircleCI dashboard.
+  - Sign up for a free account at circleci.com and connect GitHub, Bitbucket, or
+    GitLab. No credit card is required.
+  - In the CircleCI web app, select your organization, choose Create project,
+    and pick the repository to connect.
+  - Follow the in-app steps to set up a pipeline, and pick a starter config.yml
+    such as Hello World in the config editor.
+  - Select Commit and Run. CircleCI adds .circleci/config.yml on a new branch
+    named update-circleci-config and starts a build.
+  - Open the pipeline, expand a job to read each step's output, and invite
+    teammates under Org, People.
 whenToUse: >-
-  Use CircleCI to automate testing and deployment for projects hosted on GitHub
-  or Bitbucket with straightforward CI/CD needs.
+  Use CircleCI when your code is on GitHub, GitLab, or Bitbucket and you want a
+  hosted CI service with a clear monthly credit allowance and many machine
+  types.
 whenNotToUse: >-
-  Avoid if you require advanced self-hosted runners, unlimited concurrency, or
-  deep integration with non-supported VCS providers.
+  Avoid it if you need more than 5 active users, or if your jobs would use more
+  than 30,000 credits a month on private code. Private builds stop when credits
+  reach zero. Avoid it when you need on-premises CI; that is the separate Server
+  plan.
 bestFor:
-  - automated testing
-  - cloud deployments
   - open source projects
+  - small teams with up to 5 active users
+  - Docker based builds
 avoidIf:
-  - need on-premises CI
-  - require unlimited concurrency
-  - complex custom runners
+  - more than 5 active users on private code
+  - heavy private builds that burn credits fast
+  - you need SSO or config policies, which are Scale features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://circleci.com/'
 docsUrl: 'https://circleci.com/docs/'
 sourceUrls:
-  - 'https://circleci.com/pricing/'
-  - 'https://circleci.com/docs/'
+  - https://circleci.com/pricing/
+  - https://circleci.com/docs/guides/plans-pricing/credits/
+  - https://circleci.com/docs/guides/plans-pricing/plan-overview/
+  - https://circleci.com/docs/guides/getting-started/getting-started/
+  - https://circleci.com/open-source/
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://circleci.com/pricing/'
 ---
-CircleCI provides a user-friendly platform for automating builds, tests, and deployments, with a generous free tier suitable for small teams and open source projects.
+You describe your jobs in a `.circleci/config.yml` file in your repository, and CircleCI runs them on its own machines. You manage projects and read logs in the web app. It suits developers who want hosted CI without running servers.
+
+## What the free plan gives you
+
+The Free plan costs $0 and includes 30,000 credits each month. Credits pay for compute by the second. At 10 credits per minute on Linux Medium, 30,000 credits equal 3,000 minutes. Larger machines cost more per minute.
+
+The plan allows 5 active users and 30 concurrent job runs on Docker, Linux VM, Arm, and Windows. macOS allows 1. Self-hosted runners can run 5 concurrent tasks. You also get 1 GB of network transfer and 2 GB-months of storage; use beyond that draws from your credits. Flaky test detection covers up to 5 tests. Open source organizations on the Free plan can use up to 400,000 credits per month for Linux open source builds if the repository is public.
+
+## When you hit a limit
+
+When your credits reach 0, personal builds are blocked until the credits refill at the start of the next month. Jobs fail to run in the meantime. Open source builds are not subject to this block and keep running even when the balance is empty.
+
+The Performance plan starts at $15 per month and adds credits at $15 for every 25,000 credits. If you queue more jobs than your concurrency allows, the extra jobs wait until a slot opens.
+
+## Gotchas
+
+- Free credits expire after a month and do not roll over.
+- The Free plan includes only 5 active users. On the Performance plan, each extra user costs 25,000 credits per month.
+- A minute on a bigger machine uses more credits than a minute on a small one, so the 3,000 minutes is a Linux Medium estimate.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when your code is on GitHub and you want CI built into the same service.
+- [Buildkite](/services/buildkite/): when you want pipelines as code with your own agents and up to 10 concurrent jobs.
+- [Buddy](/services/buddy/): when you want a visual pipeline editor for one small project.
+
+## Questions people ask
+
+### Is CircleCI free?
+
+Yes. The Free plan costs $0 and gives you 30,000 credits per month, 5 active users, and 30 concurrent jobs. No credit card is required.
+
+### What happens when I run out of CircleCI credits?
+
+On the Free plan, your personal builds are blocked until the credits refill at the start of the next month. Open source builds keep running.
+
+### Is CircleCI free for open source?
+
+Yes, within limits. Organizations on the Free plan with public repositories can use up to 400,000 credits per month for Linux open source builds.

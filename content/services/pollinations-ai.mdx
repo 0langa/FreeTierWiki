@@ -1,8 +1,6 @@
 ---
 title: Pollinations.AI
-description: >-
-  Pollinations.AI provides AI-powered image generation and creative tools for
-  artists, developers, and content creators.
+description: 'Pollinations is an open-source platform with one API for generating text, images, video, audio, and more. It suits developers and hobbyists who want to build on many models and earn credits instead of paying up front.'
 provider: Pollinations.AI
 category: ai
 domain: ai
@@ -17,9 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - ai
-  - images
-  - design
+  - 'ai image generation'
+  - 'text to image'
+  - 'free ai api'
+  - 'openai compatible'
+  - 'text to speech'
+  - 'pollen credits'
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,34 +38,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Generating AI art for inspiration
-  - Creating concept images for projects
-  - Rapid prototyping of visual ideas
+  - 'Generating images from text prompts in an app'
+  - 'Calling text models through an OpenAI-compatible API'
+  - 'Making speech or audio from text'
+  - 'Building a small creative app where users pay for their own usage'
+  - 'Running coding tools against Pollinations models'
 quickstartSteps:
-  - Visit the Pollinations.AI website or GitHub project.
-  - Create an app key (pk_) or secret key (sk_) for API access.
-  - Earn free Pollen credits via a Quest, or add funds ($1 ≈ 1 Pollen).
-  - Call the image or text generation API with your key.
-  - Monitor your Pollen balance and spend on the dashboard.
-whenToUse: >-
-  Use Pollinations.AI when you want a pay-as-you-go image/text generation API
-  and can earn or top up Pollen credits as you go.
-whenNotToUse: >-
-  Avoid if you need a large ongoing free quota without earning credits or
-  spending money.
+  - 'Sign up at enter.pollinations.ai and create a secret API key; keys that start with sk_ are for backend use only.'
+  - 'Earn Pollen by completing Quests, or buy Pollen at about $1 per Pollen. No credit card is needed to start.'
+  - 'Send a request to https://gen.pollinations.ai, for example GET /text/Hello%20world?key=YOUR_API_KEY for text.'
+  - 'For images, request https://gen.pollinations.ai/image/ followed by your prompt, with the key in the Authorization header.'
+  - 'To use an OpenAI SDK, set its base URL to https://gen.pollinations.ai/v1 and pass your sk_ key.'
+  - 'Or try the CLI with npx @pollinations/cli.'
+whenToUse: 'Use Pollinations when you want one open API for text, image, audio, and video generation and you can earn Pollen through Quests or pay as you go.'
+whenNotToUse: 'Avoid it if you need a fixed, published free quota each month. The free Pollen amounts are not published, and a key with no balance gets a 402 error.'
 bestFor:
-  - artists
-  - students
-  - indie creators
-  - hackathons
+  - 'creative prototypes'
+  - 'image generation experiments'
+  - 'side projects'
+  - 'apps where users bring their own Pollen'
 avoidIf:
-  - need a large free monthly quota
-  - cannot use pay-as-you-go billing
-  - large-scale generation without cost
+  - 'you need a large fixed free monthly quota'
+  - 'you cannot use pay-as-you-go billing'
+  - 'you need published uptime guarantees'
+  - 'you want to ship a secret key in browser code'
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://pollinations.ai/'
@@ -73,6 +74,48 @@ pricingUrl: 'https://enter.pollinations.ai/news'
 sourceUrls:
   - 'https://enter.pollinations.ai/news'
   - 'https://github.com/pollinations/pollinations'
+  - 'https://raw.githubusercontent.com/pollinations/pollinations/main/APIDOCS.md'
 featured: false
 ---
-Pollinations.AI now runs on a pay-as-you-go "Pollen" credit system, with free Pollen earned through Quests and community contribution instead of a flat free quota.
+You call a plain HTTP API at gen.pollinations.ai, point an OpenAI SDK at it, or run the `npx @pollinations/cli` command line tool. You create keys on the enter.pollinations.ai site. This page covers how the free Pollen credits work.
+
+
+## What the free plan gives you
+
+Pollinations has no flat free quota. It uses Pollen credits instead, and the docs put the price at about $1 per Pollen. You can earn free Pollen by completing Quests. The API lists the Quests, and each one shows how much Pollen it pays.
+
+The project says you can earn Pollen by contributing and that no credit card is required. The pages do not publish how much free Pollen a new account gets, and the amount varies by Quest.
+
+One key gives access to every model the account may use, including image, text, audio, and video models. Secret keys that start with `sk_` work for backend use. App keys let your users pay for their own usage, so you pay nothing for them.
+
+## When you hit a limit
+
+When a key has no balance left, the API returns a 402 error. That means the account or the per-key budget is used up. The docs list no automatic overage billing, so treat it as a hard stop. Earn more Pollen or buy a pack to continue.
+
+The API can also return 429 or 503. The `Retry-After` header tells you how long to wait. Older public keys that start with `pk_` have a rate limit of 1 Pollen per IP per hour.
+
+## Gotchas
+
+- The free Pollen amount is not published. Check the Quest list and your balance in the dashboard before you plan a project.
+- Never put an `sk_` key in browser code, a repository, or a public URL. Use an app key with the user wallet flow for client apps.
+- Model IDs now follow the publisher/model form, such as `black-forest-labs/flux.1-schnell`. Old IDs still work as aliases.
+
+## Alternatives in this atlas
+
+- [OpenRouter](/services/openrouter/): when you want a published daily limit on free text models.
+- [Cloudflare Workers AI](/services/cloudflare-workers-ai/): when you want a daily free allowance with no card.
+- [Groq](/services/groq/): when you want fast hosted open models with a free API key.
+
+## Questions people ask
+
+### Is Pollinations free?
+
+Partly. You can earn free Pollen through Quests with no credit card. After that, usage costs about $1 per Pollen.
+
+### What happens when I run out of Pollen?
+
+Requests fail with a 402 error until you earn or buy more Pollen.
+
+### Does Pollinations need a credit card?
+
+No. The project says you can earn Pollen by contributing, with no credit card required.

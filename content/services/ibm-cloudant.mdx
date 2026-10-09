@@ -1,8 +1,9 @@
 ---
 title: IBM Cloudant
 description: >-
-  IBM Cloudant is a fully managed NoSQL JSON document database optimized for
-  web, mobile, and serverless applications.
+  IBM Cloudant is a managed JSON document database built on Apache CouchDB,
+  with a compatible API and replication. It is for developers who need a
+  scalable document store for web, mobile, or IoT data.
 provider: IBM
 category: database
 domain: database
@@ -18,57 +19,65 @@ audiences:
   - enterprise
   - oss
 tags:
-  - database
-  - cloud
+  - couchdb
+  - nosql
+  - json documents
+  - document database
+  - ibm cloud
+  - replication
+  - cloudant lite
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Lite plan offers 1 GB storage with throughput caps; new users can also
-    claim a separate USD 250 signup credit.
+    The free Lite plan offers 1 GB of storage with limited capacity. Writes stop
+    at the storage limit. New users can also claim a USD 250 sign-up credit.
   limits:
     - 1 GB storage (Lite plan)
-    - 20 lookups/sec
-    - 10 writes/sec
-    - 5 queries/sec
+    - Limited throughput capacity on the Lite plan
+    - 1 Lite instance per IBM Cloud account
     - 'New users: USD 250 credit (code DSFREE250)'
   caveats:
     - Lite plan limited to one instance per account
-    - No SLA on Lite plan
+    - Past 1 GB, creating and updating documents is blocked until you delete data or upgrade
+    - The Lite plan is meant for evaluation, and the pages show no SLA for it
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
+  billingRiskNotes:
+    - Lite never bills; at the storage limit writes return a 402 error until you upgrade or delete data
 useCases:
-  - Mobile app data storage
-  - Web app backends
+  - Storing app data as JSON documents
+  - Mobile app backends that sync with replication
+  - Web app and API storage
   - IoT data ingestion
-  - Rapid prototyping
+  - Prototyping on a small free database
 quickstartSteps:
-  - Sign up for an IBM Cloud account.
-  - Navigate to the Cloudant service in the IBM Cloud catalog.
-  - Create a new Cloudant Lite instance.
-  - Obtain your service credentials from the dashboard.
-  - Connect to Cloudant using your preferred SDK or REST API.
+  - Sign up for a free IBM Cloud account and log in to the IBM Cloud dashboard.
+  - 'Click Create resource, search for Cloudant, and open it.'
+  - 'Select the Lite plan and an environment, name the instance, and choose IAM authentication (or IAM and legacy credentials).'
+  - Click Create and wait until the instance status shows Active.
+  - 'Create service credentials, then connect with the Cloudant SDK or the REST API.'
 whenToUse: >-
-  Use when you need a scalable, managed NoSQL database for JSON documents with
-  minimal setup and generous free limits.
+  Use the Lite plan to evaluate Cloudant or run a small document database,
+  knowing you can move to Standard without changing the app.
 whenNotToUse: >-
-  Avoid if you require high throughput, advanced analytics, or strict SLAs on
-  the free tier.
+  Skip it if you need a service level agreement, more than 1 GB of data, or
+  more than one free instance per account. Skip it for high-throughput
+  workloads on Lite.
 bestFor:
-  - prototyping
-  - learning
+  - evaluation and learning
   - low-traffic apps
-  - mobile backends
+  - mobile and IoT prototypes
 avoidIf:
-  - high-throughput workloads
-  - strict SLA needs
-  - large-scale production
+  - You need an SLA on the free plan
+  - You need more than 1 GB of data
+  - You need more than one Lite instance
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.ibm.com/products/cloudant'
@@ -76,8 +85,47 @@ docsUrl: 'https://cloud.ibm.com/docs/Cloudant'
 pricingUrl: 'https://www.ibm.com/products/cloudant/pricing'
 sourceUrls:
   - 'https://www.ibm.com/products/cloudant/pricing'
-  - 'https://cloud.ibm.com/docs/Cloudant'
   - 'https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-ibm-cloud-public'
+  - 'https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-usage-and-charges'
+  - 'https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-getting-started-with-cloudant'
 featured: false
 ---
-IBM Cloudant provides a managed, scalable NoSQL document database with a free Lite plan suitable for prototyping, learning, and low-traffic applications.
+You create a Cloudant instance in the IBM Cloud dashboard, then use the REST API or an official SDK to read and write JSON documents. It suits developers who like CouchDB-style replication and want a managed service.
+
+## What the free plan gives you
+
+The Lite plan is free and meant for evaluation, with limited capacity and storage. It includes 1 GB of data storage. You can have 1 Lite instance per IBM Cloud account. Storage counts JSON data, secondary indexes, and attachments.
+
+New users of IBM Cloudant can also get a USD 250 credit by applying the code DSFREE250. The pricing page shows this offer separately from the Lite plan. The Standard plan includes 20 GB of storage and is billed by the hour for provisioned throughput.
+
+## When you hit a limit
+
+At 1 GB, Cloudant blocks creating and updating documents. New writes return a 402 error saying the account exceeded its data usage quota and needs a paid plan. Reads and deletes still work, so you can pull data out or free space.
+
+You can upgrade to Standard for immediate write access. If you delete data to get under 1 GB, access returns within 24 hours. When requests exceed your throughput, Cloudant returns HTTP 429 responses.
+
+## Gotchas
+
+- The Lite plan limits you to one instance per IBM Cloud account.
+- The official client libraries do not retry a 429 response by default, so handle it in your app.
+- Storage counts indexes and attachments, not only documents.
+
+## Alternatives in this atlas
+
+- [MongoDB Atlas](/services/mongodb-atlas/): when you want MongoDB documents and a free cluster.
+- [Couchbase Capella](/services/couchbase-capella/): when you want a JSON database with SQL++ queries and mobile sync.
+- [Firebase Firestore](/services/firebase-firestore/): when you want realtime client SDKs for a document database.
+
+## Questions people ask
+
+### Is IBM Cloudant free?
+
+Yes. The Lite plan is free and includes 1 GB of storage. You can have one Lite instance per IBM Cloud account.
+
+### What happens when I hit the Cloudant Lite storage limit?
+
+Creating and updating documents is blocked, and writes return a 402 error. Reads and deletes keep working. Upgrade to Standard or delete data to restore writes.
+
+### How do I get the IBM Cloudant USD 250 credit?
+
+New users can apply the code DSFREE250 on the Cloudant page. The pricing page lists it as a credit for new users.

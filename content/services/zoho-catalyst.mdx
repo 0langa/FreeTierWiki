@@ -1,8 +1,9 @@
 ---
 title: Zoho Catalyst
 description: >-
-  Zoho Catalyst is a serverless platform for building, deploying, and scaling
-  backend applications with integrated authentication and storage.
+  Zoho Catalyst is a serverless platform for building backends with functions,
+  data storage, file storage, hosting, and AI services. It is for developers
+  and small teams who want one place to build and deploy an app.
 provider: Zoho
 category: compute
 domain: compute
@@ -19,45 +20,53 @@ audiences:
   - team
 tags:
   - serverless
-  - backend
-  - auth
-  - storage
+  - backend as a service
+  - functions
+  - zoho
+  - appsail
+  - data store
+  - faas
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier renews every month forever and includes 25,000 GB-seconds of
-    Functions compute plus 5 GB each of Data Store and Stratus storage.
+    Free tier renews every month forever with no card required, and includes
+    25,000 GB-seconds of Functions compute and 5 GB of Stratus file storage.
   limits:
-    - 25,000 GB-sec Functions compute/month
-    - 5 GB Data Store storage (10,000 reads / 5,000 inserts free)
-    - 5 GB Stratus object storage
-    - 300,000 Slate (CDN) requests/month
+    - '25,000 GB-seconds Functions compute/month'
+    - 10,000 Data Store SELECT requests and 5,000 INSERT requests/month
+    - 5 GB Stratus file storage
+    - 300,000 web client hosting requests/month
+    - 100,000 API Gateway requests/month
   caveats:
-    - A separate 180-day free trial with extra credits requires adding a card
-    - 'Exceeding the free tier fails calls for the rest of the month, with no rollover'
+    - The free tier page lists the card required as none
+    - A separate six-month free trial with $250 in credits requires adding a card
+    - A project that exceeds the free tier limits has a minimum monthly billing
+    - Limits assume the whole free tier is used on one component alone
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - A project that goes past the free tier limits has a minimum monthly billing per project
 useCases:
-  - Build serverless APIs
-  - Add authentication to web/mobile apps
-  - Store and serve files
-  - Automate backend tasks
+  - Serverless APIs and backend functions
+  - Storing and serving files and app data
+  - Hosting a front end and its backend together
+  - Cron jobs and integrations with other Zoho services
 quickstartSteps:
-  - Sign up for a Zoho account and access Catalyst Console.
-  - Create a new Catalyst project.
-  - Set up a function using the Functions module.
-  - Configure authentication and storage as needed.
-  - Deploy your function and test via the console or API.
+  - 'Sign up for a Zoho account and open the Catalyst console.'
+  - 'Create a new Catalyst project.'
+  - 'Add a function, choosing a type such as Basic I/O or Advanced I/O and a language: Java, Node.js, or Python.'
+  - 'Use the Catalyst CLI to log in, initialize your project and functions, and serve them locally.'
+  - 'Deploy the function with the CLI or the console and call it through the console or the API.'
 whenToUse: >-
-  Use Zoho Catalyst to quickly build and deploy serverless backends with
-  integrated authentication and storage, especially for small to medium
-  projects.
+  Use it to build a small serverless backend with functions, data storage, and
+  hosting in one Zoho platform.
 whenNotToUse: >-
-  Avoid if you need more than 25,000 GB-sec of compute or 5 GB of storage per
-  month without upgrading to a paid subscription.
+  Avoid it for enterprise-scale workloads, for custom runtimes beyond Java,
+  Node.js, and Python functions, or when any minimum project billing is
+  unacceptable.
 bestFor:
   - prototyping
   - MVPs
@@ -66,11 +75,11 @@ bestFor:
 avoidIf:
   - enterprise-scale workloads
   - strict cost controls
-  - custom runtime requirements
+  - 'functions in languages other than Java, Node.js, and Python'
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://catalyst.zoho.com'
@@ -78,7 +87,48 @@ docsUrl: 'https://docs.catalyst.zoho.com/en/'
 pricingUrl: 'https://catalyst.zoho.com/pricing.html'
 sourceUrls:
   - 'https://catalyst.zoho.com/pricing.html'
-  - 'https://docs.catalyst.zoho.com/en/'
+  - 'https://catalyst.zoho.com/free-tier/'
+  - 'https://catalyst.zoho.com'
+  - 'https://docs.catalyst.zoho.com/en/serverless/help/functions/introduction/'
+  - 'https://docs.catalyst.zoho.com/en/cli/v1/cli-command-reference/'
 featured: false
 ---
-Zoho Catalyst offers a simple serverless platform with built-in authentication and storage, ideal for quickly launching backend services and APIs with minimal setup.
+You work in the Catalyst console or use the Catalyst CLI to create a project, add functions, and deploy. Functions can be written in Java, Node.js, or Python. Catalyst also offers a data store, file storage, hosting for front ends, and AI services in the same project. It suits small teams that already use Zoho or want one platform for a backend.
+
+## What the free plan gives you
+
+The free tier renews every month, forever, with no expiry. The free tier page lists the card required as none. Because the limits assume the whole free tier goes to one component, usage changes when you mix components.
+
+For Functions, you get 25,000 GB-seconds a month. AppSail gets 900 GB-minutes, and Circuits get 2,000 state transitions. Data Store allows 10,000 SELECT requests and 5,000 INSERT requests. Stratus file storage includes 5 GB. API Gateway allows 100,000 requests, web client hosting allows 300,000 requests, and mail allows 100 emails a month. Slate front ends get 500 MB of CDN storage.
+
+## When you hit a limit
+
+The free tier page says a minimum billing applies per project if it exceeds the free tier limits, to cover hosting and infrastructure. The fetched pages do not show the amount. The page suggests deleting projects you no longer use.
+
+The pricing page adds that on subscription plans, once you reach the plan limits and do not move to the next tier, application calls fail for the rest of the month. Counters reset at the end of the month with no rollover. Zoho sends notices at 50% and 80% of your quota.
+
+## Gotchas
+
+- Staying inside the free tier is the only way to pay nothing. A project that passes it can carry a minimum monthly charge.
+- A separate six-month free trial with $250 in credits needs you to add a card to claim it.
+- Limits are per component and the page assumes you use the whole free tier on that one component. Mixed use gives you less of each.
+
+## Alternatives in this atlas
+
+- [Firebase Cloud Functions](/services/firebase-cloud-functions/): when you want functions inside the Firebase platform.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you only need edge functions with a free plan.
+- [Supabase Edge Functions](/services/supabase-edge-functions/): when your data lives in Supabase.
+
+## Questions people ask
+
+### Is Zoho Catalyst free?
+
+Yes, there is a free tier that renews every month with no expiry. Functions get 25,000 GB-seconds a month.
+
+### Does Zoho Catalyst need a credit card?
+
+No for the free tier. The extra six-month free trial with $250 in credits needs you to add a card.
+
+### What happens when I exceed the Zoho Catalyst free tier?
+
+A minimum monthly billing applies per project that goes past the free tier limits. On subscription plans, calls fail once you reach the plan limit.

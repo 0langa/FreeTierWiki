@@ -1,8 +1,8 @@
 ---
 title: Reviewable.io
 description: >-
-  Reviewable.io provides advanced code review tools for GitHub repositories with
-  customizable workflows and real-time collaboration.
+  Reviewable is a code review tool for GitHub pull requests. It tracks what each
+  reviewer has seen, per file and per revision, and keeps discussions organized.
 provider: Reviewable.io
 category: devops
 domain: devops
@@ -16,52 +16,58 @@ audiences:
   - team
   - oss
 tags:
-  - devops
-  - collaboration
+  - code review
+  - github pull requests
+  - pull request review tool
+  - review discussions
+  - open source maintainers
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever for unlimited reviews on public repositories and on personal
-    (non-organization) private repositories.
+    The Open Source and Personal plan is free forever, with unlimited reviews for
+    public repositories and personal private repositories.
   limits:
     - Unlimited reviews for public repositories
     - Unlimited reviews for personal private repositories
-    - 10 MB file upload limit
+    - 10MB file upload limit
     - Email support only
   caveats:
-    - Private repo free use applies only to individual accounts, not organizations
-    - Organizations need a paid plan (from $8/contributor/month) for private repos
+    - Private repositories owned by an organization need the paid Team plan
+    - The Team plan costs $8 per contributor per month, billed annually
+    - Sign-in uses a GitHub account
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Reviewing open source projects
-  - Managing small team code reviews
-  - Improving GitHub pull request workflows
+  - Reviewing pull requests on open source projects
+  - Tracking which files and revisions each reviewer has already seen
+  - Keeping long review discussions organized with dispositions and resolution
+  - Reviewing pull requests that change over many commits and rebases
 quickstartSteps:
-  - Sign in to Reviewable.io with your GitHub account.
-  - Authorize access to your repositories.
-  - Select a repository to enable Reviewable integration.
-  - Open a pull request and start a review using Reviewable's interface.
+  - Click Sign in on reviewable.io and sign in with your GitHub account. Create the GitHub account from there if you need one.
+  - Grant the GitHub authorizations Reviewable asks for. The docs explain each scope, such as public_repo and repo.
+  - Open the Admin Center and connect the repositories you want to review.
+  - Open a pull request in Reviewable from its GitHub page, or find it in the Reviews dashboard.
+  - Review the files, start discussions, publish your review, and merge the pull request from Reviewable.
 whenToUse: >-
-  Use Reviewable.io when you need advanced code review features for GitHub,
-  especially for open source or small private projects.
+  Use Reviewable when you review GitHub pull requests that get many revisions
+  and you want per-file tracking, for public or personal repositories.
 whenNotToUse: >-
-  Avoid if you require reviews for many private repos or large teams without
-  paying, or need support for non-GitHub platforms.
+  Avoid the Free plan for private repositories owned by an organization. Avoid
+  Reviewable if you do not use GitHub.
 bestFor:
   - open source maintainers
-  - small teams
-  - indie developers
+  - solo developers
+  - small teams with public repositories
 avoidIf:
-  - large enterprises
-  - Bitbucket or GitLab users
-  - teams with many private repos
+  - private organization repositories on a free plan
+  - teams that do not use GitHub
+  - needing chat support
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://reviewable.io/'
@@ -69,7 +75,48 @@ docsUrl: 'https://docs.reviewable.io'
 pricingUrl: 'https://reviewable.io/pricing'
 sourceUrls:
   - 'https://reviewable.io/pricing'
-  - 'https://reviewable.io/docs/index.html'
+  - 'https://docs.reviewable.io'
+  - 'https://docs.reviewable.io/registration'
 featured: false
 ---
-Reviewable.io streamlines GitHub code reviews with real-time collaboration, custom workflows, and a generous free tier for public and small private repositories.
+You review inside the Reviewable web app, which sits on top of your GitHub pull requests and posts your comments back to GitHub. You sign in with GitHub and connect repositories in the Admin Center.
+
+## What the free plan gives you
+
+The Open Source and Personal plan is free forever. It gives you unlimited reviews on all public repositories and on private repositories owned by an individual account. File uploads are limited to 10MB, and support is by email.
+
+The pricing FAQ says a repository qualifies when it is public or attached to a person instead of an organization. The free plan does not need a card.
+
+The Team plan costs $8 per contributor per month, billed annually. It adds unlimited reviews on all repositories, a removable Reviewable badge in pull requests, and chat support. The Business plan costs $16 per contributor per month.
+
+## When you hit a limit
+
+The free plan does not have a usage meter. The line it draws is repository ownership. Private repositories owned by an organization are not part of the free plan.
+
+For those repositories, the pricing page points you to the Team plan. A trial can start with no credit card, and anyone in the organization can then enter a card to begin a subscription. You can change plans or cancel at any time, but the FAQ says there are no refunds.
+
+## Gotchas
+
+- A contributor is anyone in your GitHub organization who creates a pull request. Admins, reviewers, and people who only use reports do not count.
+- Reviewable needs GitHub authorizations. The docs list each scope and why it is needed, including reading private repository data and posting comments for you.
+- OAuth app access restrictions in a GitHub organization can block Reviewable. If pull requests are missing, check this first.
+
+## Alternatives in this atlas
+
+- [CodeRabbit](/tools/coderabbit/): when you want automated review comments on pull requests.
+- [Mergify](/services/mergify/): when you want rules to automate merging pull requests.
+- [Gerrithub.io](/services/gerrithub-io/): when you prefer Gerrit style change review on top of GitHub.
+
+## Questions people ask
+
+### Is Reviewable free?
+
+Yes, for public repositories and for private repositories owned by a personal account. The Open Source and Personal plan is free forever.
+
+### Does Reviewable work with private organization repositories for free?
+
+No. Repositories attached to an organization are not part of the free plan. The Team plan costs $8 per contributor per month, billed annually.
+
+### Does Reviewable need a credit card?
+
+Not for the free plan or the trial. The pricing FAQ says no credit card is required to start a trial.

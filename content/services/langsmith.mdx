@@ -1,6 +1,8 @@
 ---
 title: LangSmith
-description: 'Tracing, evaluation, and deployment for LLM apps and agents, from the LangChain team.'
+description: >-
+  LangSmith traces, evaluates, and deploys LLM apps and agents. It comes from
+  the LangChain team and also works without LangChain.
 provider: LangChain
 category: observability
 domain: observability
@@ -13,50 +15,68 @@ audiences:
   - indie
   - startup
 tags:
-  - ai
-  - llm
-  - observability
-  - testing
+  - llm-observability
+  - langchain
+  - langgraph
+  - tracing
+  - evals
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Developer plan is free for 1 seat with 5,000 base traces per month, then pay-as-you-go.'
+  summary: 'The Developer plan is free for 1 seat with up to 5,000 base traces per month and community support. No credit card needed to start.'
   limits:
     - 1 seat
     - '5,000 base traces per month'
+    - 14-day retention for base traces
     - Community support
   caveats:
-    - More traces are billed pay-as-you-go
-    - Managed deployment needs the Plus plan
+    - 'Personal organizations are limited to 5,000 traces per month until you add a credit card'
+    - Once you add a card, excess traces are charged at the pricing page rates
+    - 'Managed deployment and unlimited seats need the Plus plan at $39 per seat per month'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - The 5,000 trace limit lifts only after you add a credit card, and then extra traces are charged
 useCases:
-  - Trace agent runs
-  - Evaluate prompts on datasets
+  - Trace every step of an LLM or agent run
   - Debug LangChain and LangGraph apps
+  - Evaluate prompts on datasets
+  - Review LLM calls and feedback in one place
+  - Test a prompt in a playground
 quickstartSteps:
-  - Sign up at smith.langchain.com.
-  - Create an API key.
-  - Set the LangSmith environment variables in your app.
-whenToUse: Use when a solo developer wants tracing and evals for an LLM app.
-whenNotToUse: Avoid if you need several seats for free.
+  - Sign up or log in at smith.langchain.com; no credit card is required.
+  - Create a LangSmith API key in the app.
+  - Install the SDK, for example `pip install -U langsmith openai` for Python or `npm install langsmith openai` for TypeScript.
+  - Export `LANGSMITH_TRACING=true` and your `LANGSMITH_API_KEY` as environment variables.
+  - Wrap your function with `@traceable` (or `traceable` in TypeScript) and wrap the OpenAI client, then run it and open the trace in LangSmith.
+whenToUse: >-
+  Use LangSmith when a solo developer wants tracing and evaluation for an LLM
+  app, with or without LangChain.
+whenNotToUse: >-
+  Avoid it if you need several seats for free or traces kept longer than 14
+  days, since Developer has 1 seat and base traces last 14 days.
 bestFor:
   - solo developers
   - agent debugging
+  - LangChain and LangGraph users
 avoidIf:
-  - teams
+  - teams on the free plan
+  - long trace retention
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://www.langchain.com/langsmith'
 docsUrl: 'https://docs.smith.langchain.com'
 sourceUrls:
   - 'https://www.langchain.com/pricing'
+  - 'https://docs.smith.langchain.com'
+  - 'https://docs.langchain.com/langsmith/billing'
+  - 'https://docs.langchain.com/langsmith/observability-quickstart/'
 pricingUrl: 'https://www.langchain.com/pricing'
 featured: false
 changes:
@@ -64,4 +84,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-LangSmith works with or without LangChain. The free Developer plan covers one person.
+You add the LangSmith SDK to your Python or TypeScript code, mark the functions you want traced, and read the traces in the web app. It suits a solo developer who builds agents or LLM apps.
+
+## What the free plan gives you
+
+The Developer plan costs $0 per seat per month and is meant for solo users getting started. It includes 1 seat, community support, and up to 5k base traces per month. A trace is one execution of your app, such as an agent run, an evaluator, or a playground session.
+
+Base traces have a short retention of 14 days. Extended traces last 180 days, and you can upgrade a base trace to an extended trace for an extra fee. The Plus plan costs $39 per seat per month, adds unlimited seats, and includes 10k base traces.
+
+## When you hit a limit
+
+The billing docs say personal organizations are limited to 5,000 traces per month until a credit card is added. After you add a card, you are no longer rate limited at 5,000 traces, and you are charged for any excess traces at the pricing page rates.
+
+So you do not get a surprise bill unless you add the card. You can also set a spend limit for a workspace under Usage limits in the billing settings.
+
+## Gotchas
+
+- The 5,000 trace limit is lifted by adding a credit card, and extra traces then cost money.
+- Base traces vanish after 14 days. Extended traces cost more.
+- Developer has 1 seat. Adding teammates needs the Plus plan.
+
+## Alternatives in this atlas
+
+- [Langfuse](/services/langfuse/): when you want an open-source tracing tool you can self-host.
+- [Helicone](/services/helicone/): when you want request logging through a gateway.
+- [LangWatch](/services/langwatch/): when you want LLM evaluation and monitoring.
+
+## Questions people ask
+
+### Is LangSmith free?
+
+Yes, for one person. The Developer plan costs $0 per seat per month and includes up to 5k base traces per month and community support.
+
+### What happens when I go over the LangSmith free trace limit?
+
+Personal organizations are limited to 5,000 traces per month until a credit card is added. After that, excess traces are charged.
+
+### Does LangSmith need a credit card?
+
+Not to sign up. The docs say you can sign up without one. You add a card only to go past 5,000 traces per month.

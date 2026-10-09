@@ -1,8 +1,6 @@
 ---
 title: Country-State-City Microservice API
-description: >-
-  Provides a free REST API for retrieving country, state, and city data for use
-  in applications.
+description: "The Country-State-City Microservice API is a free REST API that returns countries, states, cities, and postal code matches as JSON. It suits developers who need location data for forms and small projects."
 provider: Rebuscando
 category: apis
 domain: apis
@@ -16,8 +14,12 @@ audiences:
   - startup
   - oss
 tags:
-  - api
-  - ci-cd
+  - "country state city api"
+  - "location data"
+  - "postal code lookup"
+  - "address form dropdown"
+  - "rest api"
+  - "geography api"
 pricingModel: free
 freeTierDetails:
   summary: >-
@@ -33,34 +35,33 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Populate country/state/city dropdowns
-  - Build location-based forms
-  - Geographical data enrichment
+  - "Fill country, state, and city dropdowns in a form"
+  - "Look up the state and cities for a postal code"
+  - "Check addresses in a shipping or checkout form"
+  - "Add localized content based on a user's location"
+  - "Prototype a geography feature without a database"
 quickstartSteps:
-  - Visit the official API documentation page.
-  - 'Review available endpoints for countries, states, and cities.'
-  - Make a GET request to the desired endpoint using your preferred HTTP client.
-  - Parse the JSON response in your application.
-  - Integrate the data into your forms or workflows.
-whenToUse: >-
-  Use when you need quick, free access to country, state, and city data for
-  forms or simple location features.
-whenNotToUse: >-
-  Avoid if you require guaranteed uptime, advanced filtering, or official
-  support for production-critical systems.
+  - "Open the Country-State-City site and read the free tier page: the free tier allows up to 100 requests per day."
+  - "No account or key step is shown in the docs; the examples call the public endpoints directly."
+  - "Send a GET request to https://api.country-state-city.rebuscando.info/public/getCountries to list countries."
+  - "Call getStates with the idcountry parameter, then getCities with the idstate parameter."
+  - "Use getStateAndCitiesByPostalCodeAndCountryId with idcountry and postalcode to find the state and cities for a postal code."
+  - "For Python, install the requests library with pip and use the examples on the Python usage page."
+whenToUse: "Use when you need country, state, and city data for forms or a small location feature, and 100 requests a day is enough for development or a small project."
+whenNotToUse: "Avoid if you need more than 100 requests per day without contacting the provider, or a service with a guaranteed uptime and official support."
 bestFor:
-  - prototyping
-  - student projects
-  - MVPs
-  - open source apps
+  - "form dropdowns"
+  - "prototyping"
+  - "student projects"
+  - "small apps"
 avoidIf:
-  - enterprise production
-  - strict data accuracy needs
-  - SLA requirements
+  - "traffic above 100 requests per day"
+  - "uptime guarantees"
+  - "official support needs"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://country-state-city.rebuscando.info/'
@@ -68,7 +69,46 @@ docsUrl: 'https://country-state-city.rebuscando.info/'
 sourceUrls:
   - 'https://country-state-city.rebuscando.info/'
   - 'https://country-state-city.rebuscando.info/free-tier/'
+  - 'https://country-state-city.rebuscando.info/python-usage-examples/'
 pricingUrl: 'https://country-state-city.rebuscando.info/free-tier/'
 featured: false
 ---
-Country-State-City Microservice API offers a free REST API for retrieving hierarchical location data, capped at 100 requests/day, ideal for forms and quick integrations.
+You call four public endpoints with plain GET requests from any language. The docs show Python examples that use the requests library. It suits developers who need location data for dropdowns, forms, and small apps.
+
+## What the free plan gives you
+
+The free tier allows up to 100 requests per day. The site says this is enough for development and small projects. There is no price on the free tier page, and the docs examples call the public endpoints with no API key.
+
+The four endpoints list countries, list the states of a country, list the cities of a state, and find the state and cities for a postal code within a country. The site also links to a free geocoding API and a Python examples page that uses the requests library.
+
+## When you hit a limit
+
+The free tier page does not say what happens after you pass 100 requests in a day. It does not describe overage charges or an error code. It asks you to email the provider for larger projects and for information about higher usage plans.
+
+Because the page lists no paid plan and no billing step, a charge looks unlikely. Still, plan for requests to fail or be refused above the daily limit. Cache the country and state lists in your app so each page view does not use a request.
+
+## Gotchas
+
+- The free tier page only gives the daily request count. It does not set out uptime promises or support terms.
+- Higher usage plans are not listed. You must contact the provider to ask about them.
+- The endpoints take database IDs, such as an id for a country, so you call countries first and then use the returned IDs for states and cities.
+
+## Alternatives in this atlas
+
+- [Zipcodebase](/tools/zipcodebase/): when you mainly need postal code lookups and distance search.
+- [Zipcodestack](/tools/zipcodestack/): when you need postal code lookups with a monthly credit allowance.
+- [Geolocated.io](/services/geolocated-io/): when you need to find a user's location from their IP address instead.
+
+## Questions people ask
+
+### Is the Country-State-City API free?
+
+Yes. The free tier includes up to 100 requests per day. The site calls this enough for development and small projects.
+
+### What happens when I go over the Country-State-City API limit?
+
+The free tier page does not say. It tells you to contact the provider for larger projects and for higher usage plans.
+
+### Do I need an API key for the Country-State-City API?
+
+The docs examples call the public endpoints with a plain GET request and no key. The pages do not describe a sign-up step.

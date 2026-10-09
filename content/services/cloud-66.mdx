@@ -1,8 +1,9 @@
 ---
 title: Cloud 66
 description: >-
-  Cloud 66 provides deployment, management, and scaling services for
-  containerized and Rails applications on your own cloud servers.
+  Cloud 66 deploys and manages apps on servers in your own cloud account or on
+  your own hardware. It handles Rails and container apps, and static sites, so
+  you skip hand-built deployment scripts.
 provider: Cloud 66
 category: devops
 domain: devops
@@ -16,63 +17,122 @@ audiences:
   - indie
   - agency
 tags:
-  - ci-cd
-  - containers
-  - devops
+  - rails deployment
+  - docker deployment
+  - heroku alternative
+  - static site hosting
+  - paas
+  - server management
+  - devops platform
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 1 deployment server, 1 static site, and 5 deployments
-    per 24 hours, with no payment information required.
+    Free plan: 1 deployment server, 1 static site, 5 deployments per 24 hours,
+    50 build minutes, 1GB of static site traffic, and 1 team member. No payment
+    information is required. You pay your own cloud provider for the server.
   limits:
     - 1 deployment server
     - 1 static site
-    - 5 deployments/24 hours
-    - 50 free build minutes/month
-    - 1 GB free static site traffic/month
+    - 5 deployments per 24 hours
+    - 50 free build minutes, no overage
+    - 1GB static site traffic
+    - 100MB managed backup storage
+    - 1 team member
   caveats:
     - No payment information required to start
-    - Extra servers, sites, minutes, and team members are billed per unit on paid plans
+    - 'Cloud 66 does not provide servers: you pay your own cloud provider for
+      them'
+    - Extra servers, sites, build minutes, and team members are billed per unit
+      on paid plans
+    - Metrics history is kept for 1 hour on the free plan
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - The server itself runs in your own cloud account and that provider bills
+      you directly
 useCases:
-  - Deploy Rails apps
-  - Manage Docker containers
-  - Automate cloud infrastructure
-  - Scale web applications
+  - Deploy a Ruby on Rails app to your own cloud server
+  - Run Docker container apps with a managed deploy flow
+  - Host a static site built with Jekyll, Hugo, or Gatsby
+  - Move an app off Heroku onto servers you control
 quickstartSteps:
-  - Sign up for a Cloud 66 account.
-  - 'Connect your cloud provider (e.g., AWS, DigitalOcean).'
-  - Create a new stack for your application.
-  - 'Connect your code repository (GitHub, GitLab, Bitbucket).'
-  - Deploy your application using the Cloud 66 dashboard.
+  - Sign up at app.cloud66.com. The docs say your first server is free and no
+    credit card is required.
+  - Have your code in a publicly accessible git repository, or a pre-built image
+    in a public image repository.
+  - Have an account with a supported cloud provider, or your own servers ready.
+  - Click New Application, choose your source, pick the repository and branch,
+    name the app, and click Analyze.
+  - Check the analysis, add environment variables, configure ports for each
+    service, pick your cloud provider, and deploy from the dashboard.
 whenToUse: >-
-  Use Cloud 66 when you want to deploy and manage Rails or containerized apps on
-  your own cloud servers with minimal setup.
+  Use Cloud 66 when you want Heroku-style deploys but on a server in your own
+  cloud account, and one server and one static site are enough.
 whenNotToUse: >-
-  Avoid if you need more than one server or static site for free, or require
-  deep customization beyond supported frameworks and providers.
+  Avoid it when you need more than 1 server, 1 static site, or 1 team member on
+  the free plan, or when you do not want to pay a cloud provider for the server.
+  Avoid it if you need more than 5 deployments in 24 hours.
 bestFor:
-  - Rails developers
-  - Teams deploying to own cloud
-  - Startups needing managed deployments
+  - solo Rails developers
+  - one small app on your own cloud server
+  - trying a Heroku alternative
 avoidIf:
-  - You need more than 1 server or static site without paying
-  - You require support for non-standard stacks
+  - more than 1 server
+  - frequent deploys, over 5 per day
+  - team of several people on the free plan
+  - you want the platform to provide the servers
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.cloud66.com/'
 docsUrl: 'https://help.cloud66.com/'
 sourceUrls:
-  - 'https://www.cloud66.com/pricing'
-  - 'https://help.cloud66.com/docs/getting-started'
+  - https://www.cloud66.com/pricing/
+  - https://help.cloud66.com/rails/getting-started/deploy-your-first-app
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.cloud66.com/pricing/'
 ---
-Cloud 66 offers a managed platform for deploying and scaling Rails and containerized applications on your own cloud infrastructure, with an always-free plan for small projects.
+You connect a git repository and a cloud account in the Cloud 66 dashboard, then Cloud 66 analyzes your code and deploys it. It suits developers who want a managed deploy flow on servers they own.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and is meant for personal projects. It allows deploying to 1 server and 1 static site, with 5 deployments per 24 hours. Static sites are sites made with tools such as Jekyll, Hugo, or Gatsby.
+
+You also get 50 free build minutes. Build minutes count only for containerized apps and static sites. Static site traffic is free up to 1GB, and only outgoing traffic from static sites counts. The plan includes 100MB of managed backup storage with daily backups and 1 team member. Metrics are kept for 1 hour. The Developer plan costs $23 per month and allows 2 servers and 2 static sites.
+
+## When you hit a limit
+
+The pricing page shows "No overage" for build minutes on the Free plan, so the 50 minutes are a fixed cap. The page does not say what the Free plan does when you ask for a second server, a second static site, or a sixth deployment in 24 hours.
+
+Paid plans bill overages per unit. Extra build minutes cost $0.03 each, extra team members cost $5 per month, and extra static site traffic costs $0.02 per GB. Cloud 66 does not provide servers. You use your own cloud provider and pay it directly for the server.
+
+## Gotchas
+
+- The free plan covers the Cloud 66 platform only. The server in AWS, Google Cloud, Azure, or another provider is your own bill.
+- The 5 deployments in 24 hours cap can slow a team that deploys often. The Developer plan raises it to 50.
+- The docs expect your code in a publicly accessible git repository, and pre-built images in public image repositories.
+
+## Alternatives in this atlas
+
+- [Ploi.io](/services/ploi-io/): when you want a server manager for your own servers with a free plan.
+- [Render](/services/render/): when you want the platform to host the app for you with no server of your own.
+- [Koyeb](/services/koyeb/): when you want a free hosted web service without your own cloud account.
+
+## Questions people ask
+
+### Is Cloud 66 free?
+
+Yes, there is a Free plan for personal projects. It covers 1 server, 1 static site, and 5 deployments per 24 hours, with no payment information required.
+
+### Does Cloud 66 provide the servers?
+
+No. You connect your own cloud provider, such as AWS, Google Cloud, or Azure, and pay it directly for the servers. Cloud 66 charges only for its platform.
+
+### What happens when I exceed my Cloud 66 plan limits?
+
+Most features have overage prices, such as $0.03 per extra build minute. The Free plan shows no overage on its 50 build minutes.

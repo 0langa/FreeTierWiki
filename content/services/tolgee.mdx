@@ -1,8 +1,8 @@
 ---
 title: Tolgee
 description: >-
-  Tolgee is an open-source localization platform for managing and translating
-  app content collaboratively.
+  Tolgee is an open source localization platform. Translators edit text inside
+  your running app, and AI and machine translation give first drafts.
 provider: Tolgee
 category: localization
 domain: localization
@@ -16,60 +16,114 @@ audiences:
   - team
   - oss
 tags:
+  - localization
+  - translation
+  - i18n
   - open-source
-  - collaboration
+  - self-hosted
+  - react
+  - in-context-editing
+  - ai-translation
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan includes 30,000 hosted words, 3 seats, and unlimited projects; no credit card required.'
+  summary: 'Free plan includes 30,000 hosted words, 10,000 MT credits, 3 seats, and unlimited projects; no credit card required.'
   limits:
     - '30,000 hosted words'
+    - '10,000 MT credits'
     - 3 seats
     - Unlimited projects
   caveats:
-    - Exceeding the word limit auto-upgrades your plan to a paid tier
+    - The FAQ says word-based plans auto-upgrade by default when you pass the word limit
+    - The pricing page does not say whether the Free plan follows the same auto-upgrade rule
+    - The free self-hosted version includes up to 10 seats and needs your own machine translation keys
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
   billingRiskNotes:
-    - Going over the free word limit moves your subscription to a paid tier at the next renewal unless you reduce usage first.
+    - Tolgee says word-based plans move to a higher paid tier at the end of the billing period when you pass the word limit; check this before you import large files
 useCases:
-  - Collaborative translation for web and mobile apps
-  - Managing localization keys in open-source projects
-  - Streamlining i18n workflows for small teams
+  - Translating a React, Vue, Angular, Svelte, or Next.js app from inside the running app
+  - Syncing keys and translations with the Tolgee CLI
+  - Getting first drafts from AI translation and machine translation
+  - Self-hosting the platform on your own server with Docker
 quickstartSteps:
-  - Sign up for a free Tolgee account at tolgee.io.
-  - Create a new project and define your source language.
-  - Add translation keys manually or import from your codebase.
-  - Invite collaborators to help translate.
-  - Integrate Tolgee SDK into your app for in-context localization.
+  - Sign up for Tolgee Cloud. The site says no card is required.
+  - Press Add in the project list, name the project, and pick its languages. Choose one as the base language.
+  - Add keys by hand, or import your files.
+  - Install the SDK for your framework, for example the React package, and connect it to your project with an API key.
+  - Use the in-context editor to translate the text right in your app.
+  - Use the Tolgee CLI to push and pull translations, or the REST API for automation.
 whenToUse: >-
-  Use Tolgee when you need a collaborative, open-source localization tool for
-  small projects or open-source apps.
+  Use Tolgee when you want to translate text inside your running app, or when
+  you want an open source tool you can also host yourself.
 whenNotToUse: >-
-  Avoid if you require advanced enterprise features, custom domains, or need to
-  manage large-scale localization projects.
+  Avoid it if you need more than 30,000 hosted words or 10,000 MT credits on the
+  free cloud plan, or if you need single sign-on without a paid plan.
 bestFor:
-  - open-source projects
-  - small teams
-  - indie developers
+  - open source projects
+  - JavaScript apps with in-context editing
+  - small teams that may self-host
 avoidIf:
-  - enterprise
-  - large-scale localization
-  - custom domain required
+  - you need more than 3 seats on the free cloud plan
+  - you need SSO on a free plan
+  - you cannot risk a plan upgrade
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://tolgee.io'
-docsUrl: 'https://tolgee.io/docs'
+docsUrl: 'https://tolgee.io/platform'
 pricingUrl: 'https://tolgee.io/pricing'
 sourceUrls:
   - 'https://tolgee.io/pricing'
-  - 'https://tolgee.io/docs/platform/introduction'
+  - 'https://tolgee.io'
+  - 'https://tolgee.io/platform/getting_started/creating_project'
+  - 'https://tolgee.io/js-sdk/get_started'
+  - 'https://tolgee.io/platform/self_hosting/getting_started'
 featured: false
 ---
-Tolgee offers a free, open-source localization platform ideal for small teams and open-source projects, providing collaborative translation management with a generous free tier.
+You use Tolgee as a web platform, with SDKs in your app, with a CLI, or through a REST API. It suits developers who want translators to edit text inside the running app.
+
+## What the free plan gives you
+
+The home page offers Tolgee for free with 30,000 hosted words, 10,000 MT credits, and 3 seats. The pricing page adds unlimited projects. You get the Free plan automatically when you sign up, and it asks for no credit card.
+
+Hosted words are the pricing metric. Keys are not, so you can make as many keys as you need. One MT credit is about one translated character for providers such as Google Translate, AWS, and DeepL. For the AI translator, credits follow LLM token use.
+
+You can also self-host Tolgee. The free self-hosted version includes core features, up to 10 seats, and machine translation with your own API keys. SSO and granular permissions need a licensed plan.
+
+## When you hit a limit
+
+The FAQ says word-based plans come in tiers, and auto-upgrade is on by default. If you add or import content past the word limit, Tolgee lets the change through. About a day later it emails you that your subscription will move to the higher tier. The move happens at the end of the billing period, based on your word count then.
+
+If you delete content before then and get back under the limit, nothing changes. The word limits have no pay-as-you-go overage. The pricing page does not say whether the Free plan follows this auto-upgrade rule, so check your word count before large imports.
+
+## Gotchas
+
+- The free plan has 3 seats. The paid cloud plans list unlimited seats.
+- Going over the limit can move you to a paid tier. The word count is checked at the end of the billing period.
+- Self-hosting needs a machine with at least 2 CPU cores and 4 GB of RAM, and the docs recommend more.
+
+## Alternatives in this atlas
+
+- [Localazy.com](/services/localazy-com/): when you want unlimited seats on a free plan and a hard source key limit.
+- [POEditor](/services/poeditor/): when you want a free plan counted in strings with a clear upgrade path.
+- [Localhero.ai](/services/localhero-ai/): when you want AI translation inside pull requests.
+
+## Questions people ask
+
+### Is Tolgee free?
+
+Yes. The cloud Free plan has 30,000 hosted words, 10,000 MT credits, 3 seats, and unlimited projects. It needs no credit card.
+
+### What happens when I exceed the Tolgee word limit?
+
+For word-based plans, Tolgee lets the change through. It emails you about a day later and moves you to a higher tier at the end of the billing period, unless you drop under the limit first.
+
+### Can I self-host Tolgee for free?
+
+Yes. The free self-hosted version includes core localization features and up to 10 seats. Advanced features such as SSO need a licensed plan.

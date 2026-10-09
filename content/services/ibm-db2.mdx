@@ -1,8 +1,9 @@
 ---
 title: IBM Db2
 description: >-
-  IBM Db2 is a managed SQL database service for transactional and analytical
-  workloads on IBM Cloud.
+  IBM Db2 SaaS is a managed relational database on IBM Cloud, with a free Lite
+  plan for learning and development. It is for developers who want to try Db2
+  and SQL without installing a server.
 provider: IBM
 category: database
 domain: database
@@ -16,59 +17,115 @@ audiences:
   - enterprise
   - student
 tags:
-  - database
-  - cloud
+  - db2
+  - sql
+  - relational database
+  - ibm cloud
+  - managed database
+  - lite plan
+  - jdbc
 pricingModel: freemium
 freeTierDetails:
-  summary: Lite plan offers 200 MB storage with limited connections and features.
+  summary: >-
+    The free Lite plan gives a small shared Db2 database with 200 MB of
+    storage. It has no time limit, but you must re-extend it every 30 days.
   limits:
     - 200 MB storage
-    - 5 connections
-    - 1 instance per account
+    - 5 connections on the pricing page; the docs list 15 connections per user
+    - 1 database schema, on a shared multi-tenant system
+    - Available in the Dallas and London regions
   caveats:
-    - No high availability or backups on Lite plan
-    - Limited to development and testing
+    - You must re-extend the Lite plan every 30 days, or the service is deleted 60 days later
+    - Community support only, no admin authority, and performance can vary on the shared system
+    - Federation, Oracle compatibility, row and column access control, HIPAA, and GDPR are not supported
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Prototyping SQL apps
-  - Learning relational databases
+  - Learning Db2 and SQL
+  - Prototyping an app on a small relational database
   - Testing IBM Cloud integrations
+  - Trying Db2 before a paid plan
+  - Running small JDBC test workloads
 quickstartSteps:
-  - Sign up for an IBM Cloud account.
-  - Navigate to the IBM Db2 service in the IBM Cloud catalog.
-  - Select the Lite plan and create a new Db2 instance.
-  - Provision credentials and connect using your preferred SQL client.
-  - Create tables and start loading or querying data.
+  - Create a free IBM Cloud account and log in to the IBM Cloud catalog.
+  - 'Search for Db2, choose the Lite plan, and use the Dallas or London region.'
+  - 'Create the service, then open the Service credentials tab and select New credential.'
+  - Click Go to UI on the Manage tab to open the web console.
+  - 'Create database users under Administration, User Management, then connect with a SQL client or JDBC and load your data.'
 whenToUse: >-
-  Use IBM Db2 Lite for prototyping, learning SQL, or testing IBM Cloud
-  integrations with minimal resource needs.
+  Use the Lite plan to learn Db2 or prototype a small SQL app, and keep a
+  reminder to re-extend the plan every 30 days.
 whenNotToUse: >-
-  Avoid for production workloads, high availability, or large-scale data needs
-  due to strict resource and feature limits.
+  Skip it for production or performance-sensitive work, since Lite runs on a
+  shared multi-tenant system with community support only. Skip it if you need
+  Federation, Oracle compatibility, or HIPAA and GDPR coverage.
 bestFor:
-  - prototyping
-  - learning
+  - learning SQL and Db2
+  - prototypes
   - testing
 avoidIf:
-  - production
-  - high-availability
-  - large-data
+  - You need production or high availability
+  - You need a plan that never needs reactivation
+  - You need admin authority or Federation
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.ibm.com/products/db2'
-docsUrl: 'https://cloud.ibm.com/docs/db2'
+docsUrl: 'https://cloud.ibm.com/docs/db2-saas'
 pricingUrl: 'https://www.ibm.com/products/db2/pricing'
 sourceUrls:
   - 'https://www.ibm.com/products/db2/pricing'
-  - 'https://cloud.ibm.com/docs/db2'
+  - 'https://cloud.ibm.com/docs/db2-saas?topic=db2-saas-free_plan'
+  - 'https://cloud.ibm.com/docs/db2-saas?topic=db2-saas-getting-started'
 featured: false
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: The Lite plan must be re-extended every 30 days, and services not reactivated are deleted 60 days later.
 ---
-IBM Db2 on IBM Cloud provides a managed SQL database with a free Lite plan suitable for development, learning, and testing, but not for production use.
+You provision Db2 SaaS from the IBM Cloud catalog, manage it in a web console, and connect with SQL clients or JDBC. It suits learners and prototypers who want a real Db2 database.
+
+## What the free plan gives you
+
+The Lite plan is the free tier of Db2 SaaS and has no time limit. IBM says it is meant for developing or learning about Db2 without charge. You get 200 MB of storage and one database schema on a shared multi-tenant system. The pricing page lists 5 connections, while the docs list 15 connections per user.
+
+The plan is available in the Dallas and London regions. Only community support is available. The paid dedicated plan starts at USD 630 per month. IBM also offers a free Db2 Community Edition to download, with limits of 4 CPU cores and 16 GB of memory.
+
+## When you hit a limit
+
+The docs list the Lite limits as restrictions but do not say what error you see at 200 MB. The limit that matters most is time. You must re-extend the Lite plan every 30 days. If you do not reactivate it, IBM deletes the service 60 days later.
+
+Because the system is shared, performance can change with other users' workloads. IBM recommends an enterprise-level plan for mission-critical or performance-sensitive work.
+
+## Gotchas
+
+- Reactivation is required every 30 days, or the Lite service is deleted after a further 60 days.
+- You do not get administrative authority, and Federation and Oracle compatibility are not supported.
+- The pricing page and the docs give different connection numbers, so test your connection count early.
+
+## Alternatives in this atlas
+
+- [Azure SQL Database](/services/azure-sql-database/): when you want a free SQL Server database with a monthly allowance and no reactivation.
+- [Azure PostgreSQL Flexible Server](/services/azure-postgresql-flexible-server/): when you prefer PostgreSQL and are a new Azure customer.
+- [Cloudflare D1](/services/cloudflare-d1/): when you want a small serverless SQL database without a shared multi-tenant plan.
+
+## Questions people ask
+
+### Is IBM Db2 free?
+
+Yes. The Lite plan of Db2 SaaS is free with 200 MB of storage and no time limit. You must re-extend it every 30 days.
+
+### What happens if I do not renew the Db2 Lite plan?
+
+If the Lite plan is not reactivated, the service is deleted 60 days later. Reactivation is required every 30 days.
+
+### Can I run IBM Db2 for free on my own machine?
+
+Yes. IBM lists a free Db2 Community Edition on the pricing page, with limits of 4 CPU cores and 16 GB of memory.

@@ -1,8 +1,9 @@
 ---
 title: Lambda
 description: >-
-  AWS Lambda runs code in response to events without provisioning or managing
-  servers.
+  AWS Lambda runs your code when an event happens, such as a web request, a
+  file upload, or a timer. AWS runs the servers, and you pay for requests and
+  run time.
 provider: AWS
 category: compute
 domain: compute
@@ -20,9 +21,10 @@ audiences:
   - agency
 tags:
   - serverless
-  - queue
+  - functions
+  - aws lambda
+  - event-driven
   - cloud
-  - compute
 pricingModel: freemium
 freeTierDetails:
   summary: '1M free requests and 400,000 GB-seconds compute time per month.'
@@ -40,35 +42,35 @@ freeTierDetails:
   billingRiskNotes:
     - Overages are billed automatically if limits are exceeded.
 useCases:
-  - API backends
-  - Event-driven automation
-  - Scheduled tasks
-  - Data processing
+  - Backends for web and mobile APIs
+  - Running code when a file lands in storage or a message arrives
+  - Scheduled jobs such as nightly clean-ups
+  - Small data processing steps
 quickstartSteps:
-  - Sign in to the AWS Management Console.
-  - Navigate to AWS Lambda and click 'Create function'.
-  - 'Choose ''Author from scratch'', enter a function name, and select a runtime.'
-  - Write or upload your function code.
-  - 'Configure a trigger (e.g., API Gateway, S3 event).'
-  - Deploy and test your Lambda function.
+  - 'Create an AWS account.'
+  - 'Open the Functions page of the Lambda console and choose Create function.'
+  - 'Select Author from scratch, enter a function name, and pick the Node.js or Python runtime.'
+  - 'Replace the Hello world code in the built-in code editor with your own handler and choose Deploy.'
+  - 'Create a test event with a small JSON document, run it, and read the log output in CloudWatch Logs.'
 whenToUse: >-
-  Use Lambda for event-driven workloads, APIs, or automation where you want to
-  avoid server management and scale automatically.
+  Use Lambda for short, event-driven jobs and small APIs where you want AWS to
+  scale the code and you do not want to manage servers.
 whenNotToUse: >-
-  Avoid Lambda for long-running processes, heavy compute workloads, or when you
-  need predictable, sustained performance.
+  Avoid Lambda for work that runs longer than 15 minutes in one call, for
+  steady heavy compute, or if you cannot add a payment method to an AWS
+  account.
 bestFor:
   - event-driven apps
   - microservices
   - automation scripts
 avoidIf:
-  - need long-running compute
-  - require low-latency at scale
-  - prefer dedicated servers
+  - jobs that run longer than 15 minutes
+  - 'steady, heavy compute'
+  - no payment method for an AWS account
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 9
 usefulnessScore: 9
 officialUrl: 'https://aws.amazon.com/lambda/'
@@ -76,6 +78,47 @@ docsUrl: 'https://docs.aws.amazon.com/lambda/latest/dg/welcome.html'
 pricingUrl: 'https://aws.amazon.com/lambda/pricing/'
 sourceUrls:
   - 'https://aws.amazon.com/lambda/pricing/'
+  - 'https://docs.aws.amazon.com/lambda/latest/dg/welcome.html'
+  - 'https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html'
+  - 'https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html'
 featured: false
 ---
-AWS Lambda lets you run code in response to events without managing servers, with a generous free tier suitable for many workloads and easy scaling.
+You work in the Lambda console or deploy code from your own tools, and a trigger such as a web endpoint or a storage event starts each run. It suits developers who want to run small pieces of backend code without keeping a server online.
+
+## What the free plan gives you
+
+Lambda has a monthly free tier on Functions. It includes one million requests and 400,000 GB-seconds of run time each month. A GB-second is one second of running with 1 GB of memory, so a function with more memory uses the allowance faster.
+
+You pick the memory for each function, from 128 MB up to 10,240 MB, and CPU power grows with the memory you choose. One call can run for up to 15 minutes. The listed default limit is 1,000 concurrent executions per Region. New AWS accounts start with lower concurrency and memory quotas, and AWS raises them as you use the service.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop. It shows that usage above the free amounts is billed. The examples subtract the free 1 million requests and 400,000 GB-seconds from the bill, then charge for the rest. Nothing on the page says AWS blocks your functions when the free amounts run out, so treat overage as a bill and watch your usage.
+
+Quotas are different. When requests exceed your concurrency limit, Lambda throttles them, and the docs tell you to retry with exponential backoff. You can ask for higher quotas.
+
+## Gotchas
+
+- The free amounts apply to the account and to Functions. Provisioned Concurrency and other features have their own prices.
+- New accounts have reduced concurrency and memory quotas until AWS raises them based on your usage.
+- Memory sets both cost and speed, because CPU grows with memory and the GB-second allowance is shared across all your functions.
+
+## Alternatives in this atlas
+
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want a free plan without a credit card and fast starts at the edge.
+- [Cloud Run functions](/services/cloud-functions/): when you want the same style of function on Google Cloud.
+- [Azure Functions](/services/azure-functions/): when the rest of your stack runs on Azure.
+
+## Questions people ask
+
+### Is AWS Lambda free?
+
+Partly. The free tier includes one million requests and 400,000 GB-seconds per month, and you pay for usage above that.
+
+### What happens when I go over the Lambda free tier?
+
+AWS bills the usage above the free amounts. The pricing page does not describe a hard cap that stops your functions.
+
+### How long can a Lambda function run?
+
+A single call can run for up to 15 minutes. For longer jobs, split the work or use another service.

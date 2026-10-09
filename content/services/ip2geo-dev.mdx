@@ -1,8 +1,8 @@
 ---
 title: ip2geo.dev
 description: >-
-  A free API for IP geolocation lookup with a monthly free allowance and no signup
-  required.
+  ip2geo.dev is an IP-to-location API with a REST endpoint, typed SDKs, and a
+  CLI. A free account includes a monthly allowance of lookups.
 provider: ip2geo.dev
 category: apis
 domain: apis
@@ -16,9 +16,11 @@ audiences:
   - startup
   - oss
 tags:
-  - networking
-  - api
-  - search
+  - ip geolocation
+  - geoip
+  - ip to location
+  - sdk
+  - rest api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -31,28 +33,30 @@ freeTierDetails:
   caveats:
     - Requires creating an account, not fully anonymous
     - Higher volumes need a paid plan starting at $10/month
+    - Once the monthly quota is used, conversions return HTTP 429 until reset or upgrade
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Show user location on a website
+  - 'Show a visitor''s location on a website'
   - Personalize content by region
-  - Basic analytics by IP
-  - Fraud detection heuristics
+  - Add location to analytics events
+  - Convert a list of addresses from the command line
+  - Add rough location signals to fraud checks
 quickstartSteps:
-  - 'Create a free account at https://ip2geo.dev.'
-  - Get your API key from the dashboard.
-  - Use the REST API or an SDK (Node.js, Bun, Deno) to make requests.
-  - Parse the JSON response for geolocation data.
-  - Integrate the API call into your application logic.
+  - Create a free ip2geo.dev account and sign in with a sign-in code.
+  - Open your default project in the dashboard.
+  - 'Create a secret key for server use, or register a website for client use with a public key.'
+  - 'Install an SDK such as `npm install @ip2geo/sdk@latest`, or call the REST endpoint.'
+  - 'Send a request to `https://api.ip2geo.dev/convert?ip=8.8.8.8` with your key in the `x-api-key` header.'
 whenToUse: >-
-  Use when you need a simple IP-to-location API with a generous free monthly
-  quota and no credit card.
+  Use ip2geo.dev when you want an IP-to-location API with SDKs and a monthly
+  free allowance, and you accept creating an account.
 whenNotToUse: >-
-  Avoid if you require guaranteed uptime, advanced data fields, or enterprise
-  support for mission-critical applications.
+  Avoid it if you need more than 1,000 lookups a month for free, a guaranteed
+  uptime SLA, or no sign-up at all.
 bestFor:
   - prototyping
   - side-projects
@@ -61,18 +65,60 @@ bestFor:
 avoidIf:
   - enterprise
   - strict SLA needs
-  - detailed geodata requirements
+  - need no sign-up
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ip2geo.dev'
-docsUrl: 'https://ip2geo.dev'
+docsUrl: 'https://ip2geo.dev/docs'
 pricingUrl: 'https://ip2geo.dev'
 sourceUrls:
   - 'https://ip2geo.dev'
+  - 'https://ip2geo.dev/docs/getting-started'
+  - 'https://ip2geo.dev/docs/rate-limiting'
+  - 'https://ip2geo.dev/docs/api/convert-ip'
+  - 'https://ip2geo.dev/docs/sdk/introduction'
 featured: false
 ---
-ip2geo.dev offers a simple, always-free IP geolocation API with generous daily limits, ideal for prototypes, demos, and lightweight applications.
+You sign in to a cloud dashboard, create a project and a secret key, then call one REST endpoint or use an official SDK or CLI. It suits developers who want a typed SDK for IP lookups and a monthly allowance with no card.
+
+## What the free plan gives you
+
+The Free plan gives you 1,000 conversions every month, and you do not add a credit card. A conversion turns one IP address into location data. Each account starts with a default project, and the site says all plans, including the free one, get support by email.
+
+The response includes the country, city, coordinates, timezone, currency, and EU flag, among other fields. Paid plans give more conversions: Starter has 10,000, Growth has 100,000, and Scale is unlimited. The site shows the Starter price as $10 a month.
+
+## When you hit a limit
+
+On a metered plan, once you reach the quota, further conversions return HTTP 429 with the message "Plan conversion limit exceeded". They stop until your limit resets or you upgrade. The CLI stops there, keeps what it already converted, and exits with code 5.
+
+The docs say there are no strict rate limits per second, but the monthly quota is real. The site also says it may contact you if it sees unusual usage. The free plan does not bill you.
+
+## Gotchas
+
+- You need an account to get a key. The service is not anonymous.
+- A secret key (`i2g_sk_...`) is for server code. A public key (`i2g_pk_...`) is for client code, and websites must be registered for client-side use.
+- Bulk calls use conversions too, so a long list can use the 1,000 quickly.
+
+## Alternatives in this atlas
+
+- [IPLocate](/services/iplocate/): when you want a daily allowance instead of a monthly one.
+- [IPinfo](/services/ipinfo/): when country-level data is enough and you want no request cap.
+- [Geolocated.io](/services/geolocated-io/): when you want a daily allowance and a choice of server region.
+
+## Questions people ask
+
+### Is ip2geo.dev free?
+
+Yes, within limits. The Free plan gives you 1,000 conversions a month with no credit card. You do need an account.
+
+### What happens when I go over the ip2geo.dev free limit?
+
+Further conversions return HTTP 429 with the message "Plan conversion limit exceeded" until your limit resets or you upgrade.
+
+### Does ip2geo.dev have an SDK?
+
+Yes. The docs list official SDKs for TypeScript or JavaScript, Ruby, Python, and PHP, plus a CLI.

@@ -1,8 +1,9 @@
 ---
 title: Scaledrone.com
 description: >-
-  Scaledrone provides real-time messaging and pub/sub for web and mobile apps
-  with simple APIs and managed infrastructure.
+  Scaledrone is a hosted realtime messaging service for chat, live updates,
+  data sync, and collaboration, using WebSockets. It is for developers who want
+  rooms and presence without running their own socket servers.
 provider: Scaledrone
 category: messaging
 domain: messaging
@@ -17,61 +18,104 @@ audiences:
   - team
   - oss
 tags:
-  - realtime
-  - messaging
-  - queue
+  - websockets
+  - realtime messaging
+  - pub/sub
+  - live chat
+  - presence
 pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes 20 concurrent connections and 100,000 events per day.
+    All features are available on the free plan.
   limits:
     - 20 concurrent connections
     - '100,000 events/day'
   caveats:
-    - No SLA on free tier
-    - 7 days to upgrade before capping if limits are exceeded
+    - A message sent to many users counts as one event per delivery plus the send
+    - If you exceed the limits, you get 7 days to upgrade before traffic is capped
+    - All traffic is SSL encrypted
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Live chat for web/mobile apps
-  - Collaborative editing
-  - Real-time notifications
-  - IoT device messaging
+  - Live chat in a web or mobile app
+  - Real-time notifications and data sync
+  - Collaboration features such as shared state
+  - Tracking who is online in a room
 quickstartSteps:
-  - Sign up for a free Scaledrone account.
-  - Create a new channel in the Scaledrone dashboard.
-  - Copy your channel ID for use in your app.
-  - Install the Scaledrone client library in your project.
-  - Connect to Scaledrone and subscribe/publish to a room.
+  - Create a free account on scaledrone.com; no credit card is required.
+  - Create a channel in the admin panel and copy its channel ID.
+  - Add the Scaledrone JavaScript library from the Scaledrone CDN to your page, or use a server library.
+  - Connect with `new Scaledrone('CHANNEL_ID')` and subscribe to a room with `drone.subscribe`.
+  - Send a message with `drone.publish` and listen for it with the room's `message` event.
 whenToUse: >-
-  Use Scaledrone when you need simple, scalable real-time messaging for chat,
-  notifications, or collaborative features in your app.
+  Use Scaledrone when you want rooms, message history, and presence for a small
+  app, with up to 20 users connected at once.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment, advanced message routing, or
-  guaranteed message delivery for critical systems.
+  Avoid it if you expect more than 20 simultaneous connections for free, need
+  on-premise hosting, or need advanced routing.
 bestFor:
   - real-time chat
   - notifications
-  - collaboration tools
+  - small collaboration tools
 avoidIf:
-  - need on-premise
-  - require advanced routing
-  - need strict delivery guarantees
+  - more than 20 simultaneous users on a free budget
+  - on-premise hosting needed
+  - advanced routing
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.scaledrone.com/'
 docsUrl: 'https://www.scaledrone.com/docs/'
 sourceUrls:
   - 'https://www.scaledrone.com/pricing'
-  - 'https://www.scaledrone.com/docs/'
+  - 'https://www.scaledrone.com/'
+  - 'https://www.scaledrone.com/docs/api-clients/javascript'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://www.scaledrone.com/pricing'
 ---
-Scaledrone is a managed real-time messaging service offering easy pub/sub APIs and a generous free tier, ideal for adding chat or live features to apps.
+You use a client library in the browser or app to connect, subscribe to rooms, and publish messages, and a server library or REST call to publish from your backend. It suits small apps that want realtime features with little setup.
+
+## What the free plan gives you
+
+The free plan allows 20 concurrent connections and 100,000 events per day. A concurrent connection is one WebSocket or fallback connection, usually one per browser tab or app. The pricing page says all features are available on every plan, including the free one.
+
+An event is each message and each observable event sent and delivered. If one user sends a message to 10 other users, it counts as 11 events. The home page lists realtime messaging, message history, and user presence as built-in features.
+
+## When you hit a limit
+
+Scaledrone does not cap your traffic right away. The pricing page says it notifies you by email and gives you seven days to upgrade to a bigger plan before it caps you.
+
+The next plan up, Hobby, costs $19 per month for 100 concurrent connections. The pricing page lets you change your subscription plan at any time and says no credit card is required.
+
+## Gotchas
+
+- Each browser tab usually opens its own connection, so 20 connections go fast with a few testers.
+- Event counts grow with the audience. One message to 10 users uses 11 events, so a busy room uses its 100,000 daily events faster than the number of sends suggests.
+- Calling `drone.close()` ends the connection, and Scaledrone does not reconnect automatically after the close event.
+
+## Alternatives in this atlas
+
+- [Pusher](/services/pusher/): when you want more messages per day on a free plan and server libraries in many languages.
+- [Ably](/services/ably/): when you need a free plan with more concurrent connections and channels.
+- [Pubnub.com](/services/pubnub-com/): when you want to test presence, storage, and Functions on a free account.
+
+## Questions people ask
+
+### Is Scaledrone free?
+
+Yes. It is free for up to 20 concurrent connections and 100,000 events per day, with all features included.
+
+### What counts as an event on Scaledrone?
+
+Each message and observable event that is sent and delivered. A message from one user to 10 other users counts as 11 events.
+
+### What happens when I exceed the Scaledrone free limit?
+
+Your traffic is not capped right away. Scaledrone emails you and gives you seven days to upgrade before it caps you.

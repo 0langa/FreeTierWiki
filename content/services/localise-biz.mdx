@@ -1,8 +1,9 @@
 ---
 title: Loco (Localise.biz)
 description: >-
-  Loco (formerly Localise.biz) provides cloud-based translation management for
-  web and mobile apps with automation and collaboration features.
+  Loco (formerly Localise.biz) is a web dashboard and API for translating
+  software. It imports and exports many file formats, so one project can serve
+  several platforms.
 provider: Loco
 category: localization
 domain: localization
@@ -17,8 +18,14 @@ audiences:
   - agency
   - oss
 tags:
-  - automation
-  - collaboration
+  - localization
+  - translation
+  - i18n
+  - api
+  - gettext
+  - po-editor
+  - wordpress
+  - ai-translation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -32,38 +39,43 @@ freeTierDetails:
     - Unlimited translators
   caveats:
     - Revision history keeps only the previous edit on the free plan
+    - API access is rate limited on the free plan
+    - The translation limit counts everything stored in the account, not a monthly amount
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Manage app localization workflows
-  - Automate string imports and exports
-  - Collaborate with translators
-  - Integrate with CI/CD pipelines
+  - Managing the translations of an Android, iOS, web, or WordPress project
+  - Publishing translation files into a build with the Loco API
+  - Translating with DeepL, Google Translate, or an LLM using your own key
+  - Giving translators and clients a simple dashboard
 quickstartSteps:
-  - Register for a free Loco account by email.
-  - Create a new project for your app or website.
-  - Upload your resource files or connect your repository.
-  - Invite collaborators or translators to your project.
-  - Integrate the Loco API or SDK into your app.
+  - Register by email at localise.biz, or sign up with GitHub or Google.
+  - Create a project from the dashboard and add some assets by hand or import a file.
+  - Add the languages you want to translate into, up to 10 per project on the free plan.
+  - Invite translators, who are unlimited on all plans.
+  - Create an API key in the project settings.
+  - Export with the API, for example `curl -u $API_KEY: https://localise.biz/api/export/template.pot`.
 whenToUse: >-
-  Use Loco when you need to manage translations for web or mobile apps with
-  team collaboration and automation, within its free translation quota.
+  Use Loco when you have one or two small or medium projects, and want a simple
+  dashboard plus an API to publish translation files in your build.
 whenNotToUse: >-
-  Avoid if you need more than 2,000 translations, more than 2 private
-  projects, or more than 10 languages per project on the free plan.
+  Avoid it if you need more than 2,000 translations stored at once, more than 2
+  projects, more than 1,000 assets in a project, or more than 10 languages in a
+  project, unless you pay.
 bestFor:
   - small teams managing app localization
   - indie developers
-  - startups needing automation
+  - WordPress theme and plugin authors
 avoidIf:
-  - you need more than 2,000 translations/month
+  - you need more than 2,000 translations stored at once
+  - you need full revision history
   - you need on-premise hosting
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://localise.biz/'
@@ -71,7 +83,49 @@ docsUrl: 'https://localise.biz/docs'
 pricingUrl: 'https://localise.biz/plans'
 sourceUrls:
   - 'https://localise.biz/plans'
-  - 'https://localise.biz/'
+  - 'https://localise.biz/about'
+  - 'https://localise.biz/help/accounts/quotas'
+  - 'https://localise.biz/api/docs'
 featured: false
 ---
-Loco (formerly Localise.biz) offers a free-forever plan (2,000 translations, 2 private projects, 10 languages/project) for its cloud-based translation management platform.
+You use Loco in its dashboard, or you call its API to publish translation files during a build. It suits developers, translators, and project managers who share one set of translations.
+
+## What the free plan gives you
+
+Loco is free for up to 2,000 translations. The free plan also allows 2 private projects, 1,000 translatable assets per project, and 10 languages per project. Translators are unlimited. API access is rate limited. Revision history keeps the current translation and the previous edit.
+
+A translation is one asset in one language. One asset in five languages uses five translations. Untranslated assets do not count, but your source language text does. The limit applies to the total stored in your whole account.
+
+The Pro plans remove the extra limits. They start at $5.95 per month, with prices also shown in pounds and euros. Loco says it charges for resources, not features.
+
+## When you hit a limit
+
+The pages tell you to go Pro when you need more. They do not say what happens when you pass the free quota. The plans page lists extra translations as a paid add-on for the Pro plans.
+
+To stay free, download your translations when a project is done, delete it, and start a new project with a fresh quota. You can re-import the translations if the project starts again. Loco also says you can ask for more free quota while you evaluate the service.
+
+## Gotchas
+
+- Quotas apply to accounts, not to users. Loco says it may merge the users of an account syndicate that abuses free accounts.
+- Emptying a string does not free quota. An empty translation still counts, so delete the translation and its history with the eraser icon.
+- You bring your own key for AI translation. Loco connects to DeepL, Google Translate, Microsoft Translator, and LLMs from OpenAI, Google, and Anthropic, and it does not charge for this.
+
+## Alternatives in this atlas
+
+- [POEditor](/services/poeditor/): when you want a free plan with unlimited projects, counted in strings.
+- [Tolgee](/services/tolgee/): when you want a free plan with unlimited projects and a few seats.
+- [Localizely.com](/services/localizely-com/): when you want a free plan with unlimited users and languages.
+
+## Questions people ask
+
+### Is Loco free?
+
+Yes. Loco is free for up to 2,000 translations, with 2 private projects. Free accounts need no card, and you can register by email.
+
+### How does Loco count translations?
+
+One asset in one language is one translation. An asset in five languages uses five. Source language text counts, but untranslated assets do not.
+
+### Does Loco have an API on the free plan?
+
+Yes. Loco says API access is rate limited on the free plan and unlimited on Pro plans.

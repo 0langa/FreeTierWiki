@@ -1,8 +1,8 @@
 ---
 title: SSLabs.com
 description: >-
-  SSLabs.com provides free, detailed analysis of SSL/TLS configuration and
-  security for public web servers.
+  SSL Labs, run by Qualys, tests the SSL/TLS setup of any public web server and
+  shows a graded report. It is for site owners and admins who run HTTPS.
 provider: SSL Labs
 category: security
 domain: security
@@ -18,51 +18,100 @@ audiences:
   - oss
   - agency
 tags:
-  - security
-  - analytics
+  - ssl-test
+  - tls-test
+  - ssl-checker
+  - https
+  - certificate
+  - qualys
 pricingModel: free
 freeTierDetails:
   summary: Free online SSL/TLS analysis of any SSL web server on the public internet.
   limits:
     - Public internet servers only
     - No signup or fee
+    - Free APIs and an open source command-line scanner, with restrictions
   caveats:
     - Tests public servers only, not private/internal sites
+    - The test form has an option to keep your result off the public boards
+    - The APIs are free to use with restrictions set in the terms and conditions
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Check SSL/TLS configuration of a website
-  - Verify certificate chain and expiration
-  - Identify security vulnerabilities in HTTPS setup
+  - Checking the TLS configuration of a public website
+  - Verifying the certificate and its chain after an install or renewal
+  - Getting a letter grade to track while you harden a server
+  - Running scheduled or bulk checks through the SSL Labs API or the ssllabs-scan tool
 quickstartSteps:
-  - 'Go to https://www.ssllabs.com/ssltest/'
-  - Enter your website domain in the input box.
-  - Click 'Submit' to start the analysis.
-  - Wait for the scan to complete and review the detailed report.
+  - Open ssllabs.com/ssltest in a browser. No account is needed.
+  - Type the hostname of your public server in the Hostname box.
+  - Tick the box to keep the result off the boards if you do not want the hostname listed.
+  - Submit the form and wait while the server is tested.
+  - Read the report and fix the issues it lists. SSL/TLS Deployment Best Practices on the SSL Labs documentation page helps.
 whenToUse: >-
-  Use when you need a quick, in-depth SSL/TLS security analysis for a public
-  website.
+  Use it for a deep one-off check of the HTTPS setup of a public server, for
+  example after you install or change a certificate.
 whenNotToUse: >-
-  Avoid if you need to test private/internal servers.
+  Avoid it for private or internal servers, because it can only test servers on
+  the public internet.
 bestFor:
-  - security-audits
-  - compliance-checks
-  - website-owners
+  - website owners
+  - sysadmins hardening HTTPS
+  - security audits
 avoidIf:
-  - testing-private-sites
+  - testing private or internal sites
+  - you need bulk testing without reading the API terms first
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://www.ssllabs.com/ssltest/'
-docsUrl: 'https://docs.ssllabs.com'
+docsUrl: 'https://www.ssllabs.com/projects/documentation/'
 sourceUrls:
   - 'https://www.ssllabs.com/ssltest/'
+  - 'https://www.ssllabs.com/projects/documentation/'
+  - 'https://www.ssllabs.com/projects/ssllabs-apis/index.html'
 pricingUrl: 'https://www.ssllabs.com/ssltest/'
 featured: false
 ---
-SSL Labs' SSL Test is a widely used, free tool for analyzing the SSL/TLS configuration and security of public web servers. It provides a comprehensive report on certificate validity, protocol support, cipher strength, and known vulnerabilities, making it valuable for website owners and security professionals.
+You use it in a browser: enter a hostname and wait for the report. For scheduled or bulk checks, Qualys offers APIs and an open source command-line scanner. It suits anyone who runs a public HTTPS site.
+
+## What the free plan gives you
+
+SSL Server Test is a free online service. It performs a deep analysis of the configuration of any SSL web server on the public internet. You do not need to sign up or pay. The page says the information you submit is used only to provide the service, and that Qualys does not use the domain names or test results.
+
+For automation, SSL Labs APIs expose the full testing function so you can run scheduled and bulk assessments. They are free to use, with restrictions. The site also maintains ssllabs-scan, an open source command-line tool that doubles as the reference API client. A guide called SSL/TLS Deployment Best Practices and an SSL Server Rating Guide explain the results.
+
+## When you hit a limit
+
+The test page lists no daily limit and no price. The free API comes with restrictions that the site points to in its terms and conditions, a PDF that this atlas could not read, so the exact limits are not known here. Read those terms before you build a bulk or scheduled job. The tool only reaches servers on the public internet, so a private or internal host cannot be tested at all.
+
+## Gotchas
+
+- The home page shows recently tested hostnames. The form has a checkbox, "Do not show the results on the boards", so tick it if you do not want your hostname listed.
+- Only public servers can be tested. Internal sites are out of reach.
+- The APIs are free with restrictions. Read the terms before bulk use.
+
+## Alternatives in this atlas
+
+- [TestTLS.com](/tools/testtls-com/): when you want another TLS scanner for a second opinion.
+- [HTTP Observatory (MDN)](/tools/mozilla-observatory/): when you want to check HTTP security headers instead of TLS.
+- [Internet.nl](/services/internet-nl/): when you want website and email checks together.
+
+## Questions people ask
+
+### Is SSL Labs free?
+
+Yes. The SSL Server Test is a free online service. It needs no signup.
+
+### Can I test an internal server with SSL Labs?
+
+No. The service tests servers on the public internet only.
+
+### Does SSL Labs publish my test results?
+
+The home page lists recently tested hostnames, but the form has an option to keep your result off the boards. The page says Qualys does not use the domain names or the test results.

@@ -1,8 +1,9 @@
 ---
 title: Conversion Tools
-description: >-
-  Conversion Tools offers free online utilities for converting, merging, and
-  splitting files in various formats.
+description: Conversion Tools is a website and REST API that converts files between
+  more than 100 formats, including Office documents, PDF, images, and data files like
+  XML and CSV. It suits people who need a quick one-off conversion and developers
+  who want to add conversion to an app.
 provider: Conversion Tools
 category: documents
 domain: documents
@@ -19,8 +20,13 @@ audiences:
   - team
   - oss
 tags:
-  - storage
-  - images
+  - file converter
+  - pdf converter
+  - csv to json
+  - xml to excel
+  - document conversion api
+  - online converter
+  - json to excel
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -45,50 +51,88 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Convert PDF to Word or Excel
-  - Merge or split PDF files
-  - Convert images between formats
-  - Transform CSV to JSON or XML
-  - Compress or extract files
+  - Converting a PDF, Word, or Excel file without installing software
+  - Turning XML, CSV, or JSON data into Excel
+  - Converting images between formats
+  - Testing a conversion API integration with sandbox mode
+  - Calling conversions from Node.js, Python, or PHP code
 quickstartSteps:
-  - 'Go to https://conversiontools.io/'
-  - Select the desired conversion tool from the homepage.
-  - Upload your file or paste data as required.
-  - Configure any tool-specific options.
-  - Click the convert button and download the result.
-whenToUse: >-
-  Use when you need quick, free file conversions or manipulations without
-  installing software.
-whenNotToUse: >-
-  Avoid if you require bulk automation, large file handling, or strict data
-  privacy for sensitive documents.
+  - Open conversiontools.io and pick a converter, such as JSON to Excel; you can convert
+    without an account.
+  - Upload your file and start the conversion, then download the result within 24
+    hours.
+  - To raise your limits, sign up and activate the account through the confirmation
+    email.
+  - For the API, get your API key after sign-up and run npm install conversiontools
+    (Python and PHP libraries also exist).
+  - Create a ConversionToolsClient with your API token and call convert with a type
+    such as convert.xml_to_excel, setting sandbox to true while you test.
+whenToUse: Use it for quick file conversions in the browser, or to test a conversion
+  API with unlimited sandbox calls before you pay.
+whenNotToUse: Avoid it for large files or heavy daily use on the free plan, which
+  allows 20 MB per file and 100 conversions a month after you register.
 bestFor:
-  - quick conversions
-  - students
-  - light office tasks
-  - one-off file edits
+  - one-off conversions
+  - developers testing a conversion API in sandbox mode
+  - small data export jobs
 avoidIf:
-  - need for automation
-  - large files
-  - sensitive data
+  - your files are bigger than 20 MB
+  - you need more than 100 real conversions a month for free
+  - you need an uptime guarantee on the free plan
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-06
+lastVerified: 2026-10-09
 status: changed
 changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified the shared registered web/API quota and sandbox behavior; removed stale paid starting prices."
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://conversiontools.io/'
 docsUrl: 'https://docs.conversiontools.io'
 pricingUrl: 'https://conversiontools.io/pricing'
 sourceUrls:
-  - 'https://conversiontools.io/pricing'
-  - 'https://conversiontools.io/api-pricing'
-  - 'https://conversiontools.io/convert/json-to-excel'
+  - https://conversiontools.io/pricing
+  - https://conversiontools.io/api-pricing
+  - https://conversiontools.io/convert/json-to-excel
 featured: false
 ---
-Conversion Tools provides free online utilities for converting, merging, and splitting files, plus a developer-first conversion API with unlimited free sandbox testing before paid plans.
+Most people use the website: pick a converter, upload a file, and download the result. Developers can call the same service through a REST API or the official Node.js, Python, and PHP libraries.
+
+## What the free plan gives you
+
+You can convert without an account. Unregistered users get 5 conversions per day, up to 50 per month, with 10 MB per file. If you sign up and activate your account through the confirmation email, you get 10 conversions per day, up to 100 per month, and 20 MB per file. Converted files stay on the server for 24 hours, and uploaded source files are deleted right after conversion.
+
+The API has its own free plan: 10 API calls per day and 100 per month, 20 MB per file. Web and API use share one quota. Sandbox mode is unlimited. Add sandbox: true to a request and you get mock data back in 2 to 5 seconds, without using quota. Registered users also get 100 AI credits per month.
+
+## When you hit a limit
+
+The limits are hard stops, and the free plans need no credit card. On the API, a request over your quota returns a 429 rate limit error. The error includes details about your quota and when it resets. You can upgrade from the dashboard, and the change takes effect at once. Daily and monthly limits both apply and reset at the start of each period, so you can reach the monthly limit before the month ends. Only successful conversions count toward the API quota. Failed ones are not charged.
+
+## Gotchas
+
+- Sandbox requests return mock data. They do not convert your real file.
+- A signed-up account that you have not activated by email still counts as unregistered, with the lower limits.
+- The free plan has no uptime guarantee. The uptime SLAs start on higher paid plans.
+
+## Alternatives in this atlas
+
+- [Cloudmersive](/services/cloudmersive/): when you want one API key that also covers virus scanning and OCR.
+- [Doczilla](/services/doczilla/): when your main job is making PDFs or screenshots through an API.
+- [PDFBolt](/tools/pdfbolt/): when you want to generate PDFs from templates.
+
+## Questions people ask
+
+### Is Conversion Tools free?
+
+Yes, with limits. You can convert without an account, and a free registered account gets 10 conversions per day and 100 per month. No credit card is needed.
+
+### What is the file size limit on Conversion Tools?
+
+It is 10 MB per file for unregistered users and 20 MB per file for registered free users. Paid plans raise the limit.
+
+### What happens when I go over my Conversion Tools limit?
+
+Web conversions stop at the daily or monthly limit. API requests return a 429 error until your quota resets or you upgrade.

@@ -1,8 +1,8 @@
 ---
 title: Elmah.io
 description: >-
-  Elmah.io provides cloud-based error logging and monitoring for .NET
-  applications with real-time notifications and diagnostics.
+  elmah.io is a hosted error log for .NET applications, with real-time alerts,
+  diagnostics, and integrations such as Slack and email.
 provider: Elmah.io
 category: observability
 domain: observability
@@ -16,9 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - logging
-  - monitoring
-  - cloud
+  - dotnet
+  - error-logging
+  - asp-net-core
+  - nuget
+  - exceptions
 pricingModel: trial
 freeTierDetails:
   summary: >-
@@ -39,33 +41,34 @@ freeTierDetails:
   overageRisk: low
   trialDays: 21
 useCases:
-  - Monitor .NET application errors
-  - Receive real-time error alerts
-  - Analyze error trends
-  - Integrate with Slack or email
+  - Log all uncaught errors from an ASP.NET Core app
+  - Get an alert in Slack or email when an error happens
+  - Look at error trends over time
+  - Search messages with full-text search
+  - Watch a website with uptime monitoring
 quickstartSteps:
-  - Sign up for a free Elmah.io account.
-  - Create a new log in your dashboard.
-  - Install the Elmah.io NuGet package in your .NET project.
-  - Add your API key and log ID to your application configuration.
-  - Deploy your application and verify error logging.
+  - Start the 21-day free trial at elmah.io; no credit card is required.
+  - Create a log in your elmah.io account and find its log ID and your API key.
+  - Install the package in your ASP.NET Core project with `dotnet add package Elmah.Io.AspNetCore`.
+  - Set your API key and log ID in the elmah.io options or in appSettings.
+  - Run the app, cause an error, and look for it in elmah.io.
 whenToUse: >-
-  Use Elmah.io to quickly add error monitoring and alerting to .NET projects
-  without managing infrastructure.
+  Use elmah.io to add hosted error logging and alerts to a .NET app, during the
+  21-day trial or with a free open source or MVP subscription.
 whenNotToUse: >-
-  Avoid if you need an always-free tier, high-volume logging, or support for
-  non-.NET platforms.
+  Avoid it if you need an always-free plan without applying, or error tracking
+  that is not centered on .NET.
 bestFor:
   - .NET developers
-  - small teams
-  - side projects
+  - open source .NET projects
+  - Microsoft MVPs
 avoidIf:
-  - large enterprise
-  - multi-language stacks
-  - high-volume production
+  - an always-free tier with no application
+  - non-.NET stacks
+  - high message volumes on a small budget
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://elmah.io/'
@@ -73,8 +76,47 @@ docsUrl: 'https://docs.elmah.io/'
 sourceUrls:
   - 'https://elmah.io/pricing/'
   - 'https://docs.elmah.io/'
+  - 'https://docs.elmah.io/logging-to-elmah-io-from-aspnet-core/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://elmah.io/pricing/'
 ---
-Elmah.io is a cloud-based error logging and monitoring platform tailored for .NET applications, offering a 21-day free trial with real-time notifications, diagnostics, and integrations.
+You add an elmah.io NuGet package to your .NET app, set your API key and log ID, and errors then appear in the elmah.io web app. It suits .NET developers who want hosted error logging without running their own server.
+
+## What the free plan gives you
+
+There is no permanent free plan. Everyone can try elmah.io for 21 days, and no credit card is required. After that you pick a paid plan, unless you qualify for a free subscription.
+
+Open source projects can apply for a free Small Business subscription. Microsoft MVPs can apply for a free Personal subscription. The Small Business plan costs $26 per month and includes 3 users, unlimited applications, 10,000 messages per month, 400 emails per month, and 30 days of retention. Startups get 12 months at a discounted price, and non-profits get a discount.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass the monthly message limit. It does mention top-ups, which you can buy with a credit card to add log messages, and a bigger annual plan as the other route.
+
+The trial itself ends after 21 days, so decide on a plan or an application before then. The docs also list tips for staying below your message limit.
+
+## Gotchas
+
+- The free path is by application. Open source and MVP subscriptions are not automatic at sign-up.
+- Top-ups are only available when a credit card is added to the subscription. Without one, you must upgrade to a larger annual plan for more messages.
+- Bugster's analysis of your log data is available on Business and up, and on Business and Business+ it runs on your own AI provider key.
+
+## Alternatives in this atlas
+
+- [Sentry](/services/sentry/): when you want error tracking beyond .NET and a free plan.
+- [Exceptionless](/services/exceptionless/): when you want to compare another error tracker that also fits .NET apps.
+- [Bugsnag](/services/bugsnag/): when you want error and crash reports across platforms.
+
+## Questions people ask
+
+### Is elmah.io free?
+
+Not permanently. You get a 21-day free trial with no credit card. Open source projects and Microsoft MVPs can apply for a free subscription.
+
+### How much does elmah.io cost after the trial?
+
+The Small Business plan costs $26 per month and includes 10,000 messages per month and 30 days of retention. Bigger plans cost more.
+
+### Does elmah.io work with ASP.NET Core?
+
+Yes. The docs say to install the `Elmah.Io.AspNetCore` NuGet package to log warnings and errors from ASP.NET Core.

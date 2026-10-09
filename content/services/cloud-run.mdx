@@ -1,8 +1,8 @@
 ---
 title: Cloud Run
 description: >-
-  Cloud Run is a fully managed serverless platform for running containerized
-  applications on Google Cloud.
+  Cloud Run runs containers and source code on Google Cloud without servers to
+  manage. It is for developers who host web apps, APIs, jobs, or workers.
 provider: Google Cloud
 category: compute
 domain: compute
@@ -16,55 +16,63 @@ audiences:
   - startup
   - team
 tags:
-  - serverless
   - containers
+  - serverless
+  - docker
+  - google cloud
+  - cloud run
 pricingModel: freemium
 freeTierDetails:
-  summary: Cloud Run offers a generous always-free tier with monthly resource limits.
+  summary: >-
+    Request-based billing: the first 2 million requests, 360,000 GiB-seconds of
+    memory, and 180,000 vCPU-seconds each month are free. Instance-based
+    billing: the first 240,000 vCPU-seconds and 450,000 GiB-seconds are free.
   limits:
     - 2 million requests per month
-    - '360,000 GB-seconds memory per month'
+    - '360,000 GiB-seconds memory per month'
     - '180,000 vCPU-seconds compute per month'
-    - 1 GB egress per month (North America)
+    - 1 GiB outbound data per month (North America)
   caveats:
-    - Free amounts apply to request-based billing and are counted per billing account
+    - Free amounts are calculated per billing account and aggregated across projects
     - Outbound data transfer beyond 1 GiB is billed
+    - A Cloud Billing account is required to use the Free Tier
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above free limits is automatically billed
+    - Usage above the free tier is billed automatically
+    - Minimum instances are billed at an idle rate even when they handle no requests
     - No hard cap; monitor usage to avoid unexpected charges
 useCases:
-  - Deploying stateless web APIs
-  - Running background jobs
-  - Hosting event-driven microservices
+  - Hosting a stateless web app or API from a container
+  - Deploying a service from source code with gcloud run deploy
+  - Running batch work as Cloud Run jobs
+  - Hosting a webhook target or an event-driven service
 quickstartSteps:
-  - Install and configure the Google Cloud CLI.
-  - Containerize your application using Docker.
-  - Push your container image to Google Container Registry or Artifact Registry.
-  - Deploy the container to Cloud Run via the Google Cloud Console or CLI.
-  - Test your deployed service using the provided HTTPS endpoint.
+  - 'Sign in to Google Cloud and install the gcloud CLI; new customers get $300 in free credits.'
+  - 'Create or select a project, verify that billing is enabled, and enable the Cloud Run and Cloud Build APIs.'
+  - 'Write a small web app, for example the Node.js sample from the docs.'
+  - 'Run gcloud run deploy with the source option from the app folder and answer the prompts for service name and region.'
+  - 'Open the HTTPS URL that the command prints.'
 whenToUse: >-
-  Use Cloud Run when you need to deploy containerized applications without
-  managing servers or infrastructure, especially for stateless workloads.
+  Use Cloud Run when you want to host a container or a small web service on
+  Google Cloud and let Google run it without you managing servers.
 whenNotToUse: >-
-  Avoid Cloud Run if your application requires persistent local storage,
-  stateful workloads, or specialized networking beyond HTTP(S).
+  Avoid it for stateful workloads, or if you cannot attach a billing account
+  to your project.
 bestFor:
   - stateless APIs
   - microservices
   - event-driven apps
 avoidIf:
   - stateful workloads
-  - persistent disk needs
-  - custom networking
+  - no billing account
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://cloud.google.com/run'
@@ -73,7 +81,46 @@ pricingUrl: 'https://cloud.google.com/free/docs/free-cloud-features'
 sourceUrls:
   - 'https://cloud.google.com/run/pricing'
   - 'https://cloud.google.com/free/docs/free-cloud-features'
-  - 'https://cloud.google.com/run/docs/quickstarts/build-and-deploy'
+  - 'https://cloud.google.com/run/docs'
+  - 'https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service'
 featured: false
 ---
-Cloud Run enables you to deploy and scale containerized applications easily, paying only for resources used, with a generous always-free tier for low-traffic workloads.
+You deploy a container image or your source code to Cloud Run with the Google Cloud console or the gcloud CLI. Cloud Run gives the service an HTTPS URL and runs it for you. It suits developers who want to host web apps and APIs without managing servers or clusters.
+
+## What the free plan gives you
+
+Cloud Run has a monthly free tier that Google applies as a spending discount. For services with request-based billing, the free tier is the first 180,000 vCPU-seconds, 360,000 GiB-seconds of memory, and 2 million requests each month. These figures use us-central1 pricing.
+
+For services with instance-based billing, the free tier is the first 240,000 vCPU-seconds and 450,000 GiB-seconds each month. Outbound data transfer has a free tier of 1 GiB within North America per month. Google aggregates the free tier across projects by billing account, and it resets every month.
+
+## When you hit a limit
+
+Nothing stops your service at the free amounts. You are billed only for usage past the free tier, rounded up to the nearest 100 milliseconds. Google Cloud needs a billing account for the Free Tier, and a Free Trial billing account uses its $300 welcome credit for any overage.
+
+With request-based billing, you pay while an instance handles requests. If you set minimum instances, Google bills a lower idle rate for those warm instances. Idle instances that are not minimum instances are not charged.
+
+## Gotchas
+
+- The free amounts are shared by all your projects under one billing account. A second service uses the same pool.
+- Setting minimum instances keeps instances warm and adds idle charges, even with no traffic.
+- Deploying from source uses Cloud Build and Artifact Registry. Artifact Registry has its own free tier of storage.
+
+## Alternatives in this atlas
+
+- [Cloud Run functions](/services/cloud-functions/): when you only want to deploy a single function, not a container.
+- [Koyeb](/services/koyeb/): when you want a small free service outside the large clouds.
+- [Azure Container Apps](/services/azure-container-apps/): when your account and tools are on Azure.
+
+## Questions people ask
+
+### Is Google Cloud Run free?
+
+Within limits. The request-based free tier is 2 million requests, 360,000 GiB-seconds, and 180,000 vCPU-seconds per month. You pay for use beyond that.
+
+### Does Cloud Run need a credit card?
+
+It needs a Cloud Billing account, which is how you reach the Free Tier. New customers can start a Free Trial with $300 in credit to get one.
+
+### What happens when I go over the Cloud Run free tier?
+
+Google bills only the usage past the free tier. Nothing in the pricing docs says your service stops.

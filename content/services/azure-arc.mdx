@@ -1,8 +1,9 @@
 ---
 title: Azure Arc
 description: >-
-  Azure Arc enables management and governance of servers, Kubernetes clusters,
-  and databases across on-premises, multi-cloud, and edge environments.
+  Azure Arc connects servers, virtual machines, and Kubernetes clusters that run
+  outside Azure, so you can manage them from the Azure portal. It is for admins
+  with on-premises or multi-cloud machines.
 provider: Azure
 category: devops
 domain: devops
@@ -15,9 +16,11 @@ audiences:
   - team
   - startup
 tags:
-  - cloud
-  - compliance
+  - azure arc
+  - hybrid cloud
+  - multicloud
   - kubernetes
+  - server management
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -39,36 +42,34 @@ freeTierDetails:
   billingRiskNotes:
     - Enabling paid add-on management or security services generates charges
 useCases:
-  - Centralized management of hybrid and multi-cloud resources
-  - Applying governance and compliance policies
-  - Inventory and monitoring of on-premises servers
+  - See servers and virtual machines from outside Azure in one inventory
+  - Tag resources and query them at scale with Azure Resource Graph
+  - Run commands on remote servers with SSH Arc, Run Command, or the Custom Script Extension
+  - Create, resize, and restart VMware or System Center virtual machines from Azure
 quickstartSteps:
-  - Sign in to the Azure Portal and ensure you have an active subscription.
-  - Register the Azure Arc resource provider in your subscription.
-  - >-
-    Download and install the Azure Connected Machine agent on your server or
-    cluster.
-  - >-
-    Connect your on-premises or multi-cloud resources to Azure Arc following the
-    guided setup.
-  - Verify resource appearance and status in the Azure Portal.
+  - Create an Azure account with an active subscription and sign in to the Azure portal.
+  - Check the Connected Machine agent prerequisites and the supported Azure regions.
+  - In the portal, add a server with Azure Arc and pick the subscription, resource group, and operating system.
+  - Download the generated script (`OnboardingScript.ps1` for Windows, `OnboardingScript.sh` for Linux) and run it on the machine.
+  - Check that the machine shows up in the Azure portal as an Azure Arc-enabled server.
 whenToUse: >-
-  Use Azure Arc to manage, monitor, and govern resources across on-premises,
-  multi-cloud, and edge environments from a single Azure control plane.
+  Use it to bring servers and clusters that run outside Azure into the Azure
+  portal for inventory, tagging, and remote management at no charge.
 whenNotToUse: >-
-  Avoid if you only use native Azure resources or require advanced features
-  without incurring additional costs.
+  Skip it if everything already runs in Azure. Also skip it if you cannot afford
+  the add-on services, which are billed when you turn them on.
 bestFor:
-  - hybrid environments
-  - multi-cloud management
-  - centralized governance
+  - on-premises server fleets
+  - hybrid and multicloud admins
+  - teams that want one inventory
 avoidIf:
-  - Azure-only workloads
-  - cost-sensitive projects needing advanced features
+  - all your workloads are already in Azure
+  - you cannot pay for add-on management services
+  - you have no Azure subscription
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-arc/'
@@ -77,6 +78,46 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-arc/core-co
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/azure-arc/core-control-plane/'
   - 'https://learn.microsoft.com/en-us/azure/azure-arc/'
+  - 'https://learn.microsoft.com/en-us/azure/azure-arc/overview'
+  - 'https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-portal'
 featured: false
 ---
-Azure Arc extends Azure management and governance to on-premises, multi-cloud, and edge resources. The core control plane (inventory, manage, VM self-service) is free; add-on services are billed separately.
+You work in the Azure portal. For servers, you run a generated script on each machine, and the same machines then show up next to your Azure resources.
+
+## What the free plan gives you
+
+The Azure Arc core control plane is free. The pricing page lists three free parts. Inventory lets you tag resources, group them into resource groups, subscriptions, and management groups, and query them at scale with Azure Resource Graph. Manage covers administering servers with SSH Arc, Run Command, and the Custom Script Extension.
+
+VM self-service is the third. It covers create, resize, update, and delete, plus start, stop, and restart for VMware vCenter and System Center Virtual Machine Manager virtual machines. All three show a price of FREE.
+
+## When you hit a limit
+
+The pricing page lists no quota on the core control plane. The cost comes from add-ons. Add-on management services, such as Azure Update Manager, Azure Policy guest configuration, Azure Monitor, Microsoft Defender for Cloud, and Microsoft Sentinel, are charged for Azure Arc-enabled servers when you enable them.
+
+The monthly price of an Arc-enabled server depends on how many management and security services you run on it and on the plan you buy. Check each add-on's pricing page before you switch it on.
+
+## Gotchas
+
+- Add-on services are charged when enabled, so a connected server can start costing money after you turn on monitoring or security.
+- Defender for Cloud Plan 2 includes Azure Policy guest configuration and Azure Update Manager at no extra cost, but Plan 1 does not.
+- Windows Server licenses with active Software Assurance or an active subscription license can use some features at no additional cost, though log ingestion, compute, and storage may still be charged.
+
+## Alternatives in this atlas
+
+- [Azure Lighthouse](/services/azure-lighthouse/): when you manage many customer tenants inside Azure rather than machines outside it.
+- [Azure Advisor](/services/azure-advisor/): when you want free recommendations for resources already in Azure.
+- [Azure Cost Management](/services/azure-cost-management/): when you want to watch the spend that add-ons create.
+
+## Questions people ask
+
+### Is Azure Arc free?
+
+The core control plane is free: inventory, management with SSH Arc and Run Command, and VM self-service. Add-on services such as Azure Monitor and Defender for Cloud are billed when you enable them.
+
+### Does Azure Arc need an Azure subscription?
+
+Yes. The docs tell you to create an Azure account if you do not have a subscription before you connect machines.
+
+### Which services cost extra with Azure Arc?
+
+Azure Update Manager, Azure Policy guest configuration, Azure Monitor, Microsoft Defender for Cloud, and Microsoft Sentinel are charged for Arc-enabled servers when you enable them.

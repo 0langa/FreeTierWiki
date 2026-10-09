@@ -1,8 +1,10 @@
 ---
 title: CockroachDB Cloud
 description: >-
-  CockroachDB Cloud offers a fully managed, distributed SQL database with
-  PostgreSQL compatibility and high resilience.
+  CockroachDB Cloud is a managed, distributed SQL database that speaks the
+  PostgreSQL wire protocol. It is for developers and teams who want a
+  resilient SQL database that scales across regions without running it
+  themselves.
 provider: CockroachDB
 category: database
 domain: database
@@ -17,8 +19,13 @@ audiences:
   - team
   - oss
 tags:
-  - database
-  - cloud
+  - distributed sql
+  - postgresql compatible
+  - managed database
+  - cockroachdb
+  - cockroach continuum
+  - free trial
+  - multi-region
 pricingModel: trial
 freeTierDetails:
   summary: >-
@@ -32,6 +39,7 @@ freeTierDetails:
   caveats:
     - Mission Critical edition requires a credit card
     - Clusters pause when the trial ends or the credit runs out
+    - An idle cluster is still billed, because billing follows what you provision and store
   requiresCard: false
   freeTierType: trial
   hasHardCap: true
@@ -41,33 +49,36 @@ freeTierDetails:
   trialDays: 30
   monthlyCreditAmount: $400 one-time
 useCases:
-  - Building resilient web apps
-  - Prototyping distributed systems
-  - Learning SQL and distributed databases
+  - A resilient SQL database for a web app
+  - Prototyping a distributed or multi-region system
+  - Learning distributed SQL
+  - 'Banking, payments, or order data that must stay available'
+  - Trying CockroachDB before a paid plan
 quickstartSteps:
-  - Sign up for a CockroachDB Cloud account.
-  - Create a new free cluster from the dashboard.
-  - Configure network access and obtain connection string.
-  - Connect using a PostgreSQL-compatible client.
-  - Start creating databases and tables.
+  - 'Sign up for a CockroachDB Cloud account. A new organization gets a 30-day trial with $400 in credit, and no card is needed for Standard.'
+  - 'On the Get Started page, choose Create cluster and select the Standard plan.'
+  - 'Pick a cloud provider (AWS or GCP) and one or more regions, then set the capacity.'
+  - Create a SQL user and copy the connection details.
+  - Connect with a PostgreSQL-compatible client or the cockroach SQL shell and run your first queries.
 whenToUse: >-
-  Use when you need a resilient, scalable SQL database with minimal operational
-  overhead and PostgreSQL compatibility.
+  Use it to try distributed SQL on a managed cluster for 30 days, when
+  PostgreSQL compatibility and high availability matter more than a permanent
+  free tier.
 whenNotToUse: >-
-  Avoid if you need advanced PostgreSQL extensions, require on-premise
-  deployment, or need a database beyond the 30-day trial without paying.
+  Skip it if you need a database that stays free after the trial, since
+  clusters pause when the trial ends. Skip it for Mission Critical tests
+  without a card, because that edition needs one.
 bestFor:
-  - prototyping
-  - learning
-  - small apps
-  - distributed SQL exploration
+  - learning distributed SQL
+  - short prototypes
+  - evaluating CockroachDB
 avoidIf:
-  - require advanced PostgreSQL features
-  - need on-premise
-  - require high storage or compute
+  - You need a database that stays free after 30 days
+  - You need on-premise deployment
+  - You want an idle cluster that costs nothing
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.cockroachlabs.com/product/cockroachdb/'
@@ -75,13 +86,52 @@ docsUrl: 'https://www.cockroachlabs.com/docs/cockroachcloud'
 sourceUrls:
   - 'https://www.cockroachlabs.com/pricing/'
   - 'https://www.cockroachlabs.com/docs/cockroachcloud'
+  - 'https://www.cockroachlabs.com/docs/cockroachcloud/quickstart'
 featured: false
 status: changed
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.cockroachlabs.com/pricing/'
 changes:
   - date: 2026-09-15
     kind: changed
     note: CockroachDB replaced its permanent free cluster tier with Cockroach Continuum pricing, giving new Cloud organizations a 30-day trial with $400 in credit instead.
 ---
-CockroachDB Cloud provides a managed, distributed SQL database service with a 30-day, $400-credit free trial suitable for learning, prototyping, and small-scale applications.
+You manage clusters in the CockroachDB Cloud Console and connect with PostgreSQL-compatible drivers and clients. It suits teams that want to test distributed SQL without setting up servers.
+
+## What the free plan gives you
+
+There is no permanent free cluster. Every new Cloud organization gets a 30-day free trial with $400 in credit. The pricing page says you do not need a credit card to try the Standard edition. Standard is billed from $0.057 per vCPU-hour, and credits apply to your usage during the trial.
+
+The Mission Critical edition requires a credit card because it runs on dedicated infrastructure. Cockroach Continuum pricing applies to new Cloud organizations created on or after September 15, 2026. The trial ends after 30 days, or once you use the $400 credit.
+
+## When you hit a limit
+
+When the trial ends, your clusters are paused. You then have a 30-day grace period to add a payment method. If you add one, the clusters resume on usage-based pricing. If you do not, they are deleted.
+
+Billing follows what you provision and store, not how much you query. An idle cluster still costs money after the trial. Managed backups are kept for their retention period after you delete a cluster, and you pay for that storage until they expire.
+
+## Gotchas
+
+- Standard has no card requirement, but Mission Critical does.
+- After the trial, you must add a payment method within 30 days or lose the clusters.
+- You cannot change a cluster's edition in place. To move between Standard and Mission Critical, you create a new cluster and restore your data into it.
+
+## Alternatives in this atlas
+
+- [Neon](/services/neon/): when you want serverless Postgres with a free plan that does not expire.
+- [Supabase](/services/supabase/): when you want Postgres with auth and storage on a permanent free plan.
+- [Nhost](/services/nhost/): when you want Postgres with GraphQL, auth, and storage in a free Starter plan.
+
+## Questions people ask
+
+### Is CockroachDB Cloud free?
+
+Not permanently. New Cloud organizations get a 30-day trial with $400 in credit, and no card is required for Standard.
+
+### What happens after the CockroachDB trial ends?
+
+Your clusters are paused. You have 30 days to add a payment method, and clusters resume on usage-based pricing. Without one, they are deleted.
+
+### Do I pay for an idle CockroachDB cluster?
+
+Yes. Billing follows what you provision and store, not how much you query. Scale down or delete the cluster to cut charges.

@@ -1,9 +1,9 @@
 ---
 title: Cloudflare Zero Trust
 description: >-
-  Cloudflare Zero Trust provides secure access to internal and external
-  applications without a VPN, using identity-based policies and network
-  filtering.
+  Cloudflare Zero Trust puts apps, DNS lookups, and web traffic behind identity
+  checks, so teams can drop a traditional VPN. It is the Zero Trust part of
+  Cloudflare One.
 provider: Cloudflare
 category: security
 domain: security
@@ -18,22 +18,27 @@ audiences:
   - oss
   - agency
 tags:
-  - auth
-  - networking
-  - identity
-  - security
+  - zero trust
+  - ZTNA
+  - VPN replacement
+  - secure web gateway
+  - DNS filtering
+  - cloudflare access
+  - cloudflare tunnel
 pricingModel: freemium
 freeTierDetails:
   summary: Free plan for up to 50 users with core Zero Trust features.
   limits:
-    - Up to 50 users
-    - Gateway DNS filtering
-    - Access policies
-    - Device posture checks
+    - Up to 50 users (seats)
+    - Zero Trust security for internal and SaaS applications
+    - DNS content and security filtering for several network locations
+    - 24-hour log retention
+    - 10 DEX tests and 100 remote captures per day on Zero Trust Free
   caveats:
-    - Some advanced features require paid plans
-    - Limited support on free tier
-    - 24-hour log retention on the free plan
+    - Setup asks for a subscription plan and payment details; on the Free plan you are not charged
+    - Once all seats are used, additional users who try to log in are blocked
+    - The 50-user figure comes from Cloudflare's launch post; the current pricing page does not list plan details
+    - Higher account limits and some limit increases are for Enterprise accounts
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -45,31 +50,29 @@ useCases:
   - Enforce identity-based access
   - Protect SaaS and self-hosted services
 quickstartSteps:
-  - Sign up for a Cloudflare account and select Zero Trust.
-  - Add your domain or application to Cloudflare.
-  - 'Configure identity provider integration (e.g., Google Workspace, Azure AD).'
-  - Define access policies for your applications.
-  - >-
-    Deploy the Cloudflare WARP client to user devices if device posture checks
-    are needed.
+  - Sign up for a Cloudflare account and enable two-factor authentication.
+  - Select Zero Trust in the dashboard and choose a team name for your organization.
+  - Pick the Zero Trust Free plan and enter payment details; the setup says you will not be charged on Free.
+  - Choose a use case in the guided setup: replace a VPN, reach private apps from a browser, filter DNS, or secure web traffic.
+  - Add a one-time PIN or connect an identity provider, then write Access or Gateway policies for your users.
 whenToUse: >-
-  Use when you need to secure application access for distributed teams without
-  traditional VPNs, or want granular, identity-driven access controls.
+  Use it when a small team of up to 50 users wants identity-based access to
+  internal apps, or DNS and web filtering, without running a VPN.
 whenNotToUse: >-
-  Avoid if you require advanced features like CASB, or need support for more
-  than 50 users on the free tier.
+  Avoid it for more than 50 users on the free plan, for 24-hour log history that
+  is too short for audits, or if you cannot enter payment details at setup.
 bestFor:
   - teams replacing VPN
   - startups securing internal tools
   - remote-first organizations
 avoidIf:
-  - need advanced enterprise features
-  - require unlimited users
-  - must self-host
+  - you have more than 50 users
+  - you need longer log retention
+  - you cannot enter payment details at setup
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://www.cloudflare.com/products/zero-trust/'
@@ -78,9 +81,49 @@ pricingUrl: 'https://www.cloudflare.com/plans/zero-trust-services/'
 sourceUrls:
   - 'https://www.cloudflare.com/plans/zero-trust-services/'
   - 'https://blog.cloudflare.com/teams-plans/'
-  - 'https://www.cloudflare.com/products/zero-trust/'
-  - 'https://developers.cloudflare.com/cloudflare-one/'
-  - 'https://www.cloudflare.com/plans/zero-trust/'
+  - 'https://developers.cloudflare.com/cloudflare-one/setup/'
+  - 'https://developers.cloudflare.com/cloudflare-one/team-and-resources/users/seat-management/'
+  - 'https://developers.cloudflare.com/cloudflare-one/account-limits/'
 featured: false
 ---
-Cloudflare Zero Trust offers a free plan for up to 50 users, enabling secure, identity-based access to applications without a VPN. It is ideal for startups and teams seeking to modernize access controls, but advanced enterprise features and higher user limits require paid plans.
+You set it up in the Cloudflare dashboard under Zero Trust, with a guided onboarding for four use cases. You can also use the API and Terraform. It suits small teams that want to secure internal apps and web traffic without running their own VPN.
+
+## What the free plan gives you
+
+Cloudflare launched the Free plan to protect up to 50 users at no cost. The launch post says it brings Zero Trust security to internal and SaaS applications and works with identity providers such as Azure AD and GitHub. It also includes DNS content and security filtering for multiple network locations, with 24 hour log retention.
+
+The account limits page shows what the Free plan can run for Digital Experience Monitoring: 10 tests per account and 100 remote captures per day. Other account limits, such as 500 Access applications, apply to every plan unless Enterprise raises them.
+
+Cloudflare's pricing page for Zero Trust currently shows no plan table. It only says to start a proof of concept with the free plan.
+
+## When you hit a limit
+
+The seat management docs say a user takes one seat the first time they log in to Access or connect a device through Gateway. Once all seats are used, additional users who try to log in are blocked. You can remove a user to free a seat, and inactive users do not count toward billing.
+
+Seat expiration can remove users who have not logged in for a period between one month and one year. The docs do not describe an overage bill for the Free plan. To add seats you change your subscription in Zero Trust settings.
+
+## Gotchas
+
+- Onboarding asks you to choose a plan and enter payment details. The setup page says that on the Free plan this step is still needed but you will not be charged.
+- The 50-user figure comes from Cloudflare's launch announcement. The current pricing page does not repeat it, so check the plan in your dashboard.
+- Removing a user frees the seat but does not stop them signing in. You must change your policies or identity provider for that.
+
+## Alternatives in this atlas
+
+- [Tailscale](/services/tailscale/): when you want a private network between devices rather than a gateway and access proxy.
+- [ZeroTier](/services/zerotier/): when you want a simple virtual network for personal devices.
+- [Cloudflare](/services/cloudflare/): when you want CDN, DNS, and DDoS protection for a public site.
+
+## Questions people ask
+
+### Is Cloudflare Zero Trust free?
+
+Yes, there is a Free plan. Cloudflare's launch post says it protects up to 50 users at no cost. Setup still asks for payment details, but the docs say you are not charged on Free.
+
+### Does Cloudflare Zero Trust need a credit card?
+
+The setup guide says you must select a plan and enter payment details to finish onboarding. If you chose the Free plan, you will not be charged.
+
+### What happens when I go over 50 users on Cloudflare Zero Trust?
+
+Once all seats are used, additional users who try to log in are blocked. You can remove inactive users to free seats, or buy more seats in your subscription settings.

@@ -1,8 +1,8 @@
 ---
 title: Pinecone
 description: >-
-  Pinecone is a managed vector database for building fast, scalable similarity
-  search and AI applications.
+  Pinecone is a managed vector database for semantic search, recommendations,
+  and RAG apps. The Starter plan is for developers testing ideas on a small dataset.
 provider: Pinecone
 category: database
 domain: database
@@ -17,66 +17,115 @@ audiences:
   - indie
   - oss
 tags:
-  - database
+  - vector database
+  - semantic search
+  - rag
+  - embeddings
   - ai
-  - search
+  - database
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Starter plan is free forever with up to 2 GB of database storage and
-    monthly usage allowances, for trying out and small applications.
+    The Starter plan is free and has up to 2 GB of storage, 2M write units and
+    1M read units per month, 5 serverless indexes, and 1 project. Indexes run
+    in AWS us-east-1 only.
   limits:
-    - Up to 2 GB database storage
-    - Up to 2M write units/month
-    - Up to 1M read units/month
-    - Up to 1 GB egress/month
-    - Up to 5 indexes, 1 project, AWS us-east-1 only
+    - Up to 2 GB of serverless index storage per organization
+    - Up to 2M write units and 1M read units per month
+    - Up to 5M embedding tokens per month per model
+    - Up to 5 serverless indexes in 1 project
+    - Up to 100 namespaces per index
+    - 2 users per organization
+    - Indexes only in AWS us-east-1
   caveats:
-    - Community support via Discord only
-    - No production SLAs on the Starter plan (response SLAs are a paid add-on)
-    - Pods are deprecated; storage/compute are now serverless usage units
+    - Community support via Discord only on Starter
+    - Reaching a monthly usage limit returns a 429 error until you upgrade
+    - Going over an object limit returns a 403 error
+    - No backups on Starter; backups start on the Standard plan
+    - Pods are deprecated; storage and compute are serverless usage units
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Semantic search
-  - Recommendation systems
-  - AI-powered search
-  - Similarity matching
+  - Semantic search over documents or a knowledge base
+  - Retrieval for RAG chatbots and AI assistants
+  - Recommendation features for a small catalog
+  - Hybrid and full-text search experiments
 quickstartSteps:
-  - Sign up for a Pinecone account.
-  - Create a new project and select the free Starter environment.
-  - Set up your first index with default settings.
-  - Integrate Pinecone SDK in your application.
-  - Insert and query vectors using the API.
+  - Sign up for a free Pinecone account and create an API key.
+  - Set the key as the `PINECONE_API_KEY` environment variable.
+  - Pick a quickstart path, such as ingesting your own files, bringing your own vectors, or trying full-text search.
+  - Create a serverless index. On Starter it must live in AWS us-east-1.
+  - Upsert your records, then run your first search with one of the Pinecone SDKs or the CLI.
 whenToUse: >-
-  Use Pinecone when you need a managed vector database for prototyping or
-  small-scale AI search and similarity applications.
+  Use it to prototype semantic search or RAG on a small dataset that fits in
+  2 GB, when you want a managed vector index and no servers to run.
 whenNotToUse: >-
-  Avoid Pinecone if you need high-throughput, production SLAs, or advanced
-  features not available in the free tier.
+  Avoid the Starter plan for production traffic, for data that needs backups or
+  a choice of region, or for teams with more than 2 users.
 bestFor:
-  - Developers building AI prototypes
-  - Teams testing vector search
-  - Startups exploring semantic search
+  - AI prototypes
+  - testing vector search
+  - small RAG apps
 avoidIf:
-  - You require high-availability SLAs
-  - You need large-scale storage
-  - You need advanced security features
+  - production SLAs
+  - more than 2 GB of vectors
+  - you need a region other than us-east-1
+  - you need backups
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.pinecone.io/'
 docsUrl: 'https://docs.pinecone.io/'
 sourceUrls:
   - 'https://www.pinecone.io/pricing/'
-  - 'https://docs.pinecone.io/docs/overview'
-featured: false
-lastVerified: 2026-09-28
+  - 'https://docs.pinecone.io/reference/api/database-limits/rate-limits'
+  - 'https://docs.pinecone.io/reference/api/database-limits/object-limits'
+  - 'https://docs.pinecone.io/guides/get-started/quickstart'
 pricingUrl: 'https://www.pinecone.io/pricing/'
+featured: false
 ---
-Pinecone provides a fully managed vector database for fast similarity search, ideal for prototyping AI and semantic search applications with a free-forever Starter plan (up to 2 GB storage).
+You work with Pinecone through its console, REST API, SDKs for Python, Node.js, Java, and Go, or the CLI. It suits developers who need a hosted vector index for an AI feature and do not want to run one themselves.
+
+## What the free plan gives you
+
+The Starter plan is free and is meant for trying things out and small applications. It includes dense, sparse, and full-text indexes, Pinecone Inference, Pinecone Assistant, and console metrics. Support comes from the Pinecone community on Discord.
+
+Storage is capped at 2 GB per organization. Each month you get up to 2M write units, 1M read units, and 5M embedding tokens per model. An organization can have 1 project, 2 users, and up to 5 serverless indexes, with up to 100 namespaces per index. Starter indexes must be in the AWS us-east-1 region. Reranking with the `bge-reranker-v2-m3` model is limited to 500 requests.
+
+## When you hit a limit
+
+Pinecone stops the request instead of billing you. When you reach a monthly read or write limit, the API returns a 429 error and asks you to upgrade your plan. When you exceed an object limit, such as the number of projects or indexes, it returns a 403 error.
+
+For the storage limit, you can also delete records to get back under it. Monthly usage limits are counted per organization, so a busy test can use up your reads early in the month.
+
+## Gotchas
+
+- Starter indexes are only available in AWS us-east-1. Choosing another cloud or region needs the Builder plan or higher.
+- Use namespaces to split data inside one index instead of creating many indexes. The Starter plan allows only 5 indexes.
+- Backups are not available on Starter. The limits page lists serverless backups only for Standard and Enterprise.
+
+## Alternatives in this atlas
+
+- [Qdrant](/services/qdrant/): when you want a free single-node cluster and more disk than 2 GB.
+- [Weaviate Cloud](/services/weaviate-cloud/): when you want a second always-free vector cluster to compare.
+- [Upstash Vector](/services/upstash-vector/): when you want another serverless vector index to compare on price.
+
+## Questions people ask
+
+### Is Pinecone free?
+
+Yes. The Starter plan is free and is for trying out Pinecone and small applications. It includes up to 2 GB of storage and monthly read and write allowances.
+
+### What happens when I go over the Pinecone free tier limits?
+
+Reaching a monthly usage limit returns a 429 error until you upgrade. Exceeding an object limit returns a 403 error.
+
+### Can I choose a region on the Pinecone free plan?
+
+No. On the Starter plan, all serverless indexes must be in the AWS us-east-1 region. Builder and higher plans can pick any supported region.

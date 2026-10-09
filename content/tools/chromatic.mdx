@@ -1,6 +1,8 @@
 ---
 title: Chromatic
-description: 'Visual testing and review for Storybook, Playwright, and Cypress, from the Storybook team.'
+description: 'Chromatic runs visual tests on your Storybook, Playwright, or
+  Cypress UI and shows you each change so your team can approve or reject it. It
+  is made by the Storybook team and is for front-end developers and designers.'
 provider: Chromatic
 category: devops
 domain: devops
@@ -12,47 +14,78 @@ audiences:
   - indie
   - startup
 tags:
-  - testing
-  - frontend
-  - ci-cd
+  - visual testing
+  - visual regression
+  - storybook
+  - ui review
+  - playwright
+  - cypress
+  - snapshot testing
+  - turbosnap
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan: 5,000 billed snapshots per month with your whole team. No card needed.'
+  summary: 'Free plan: 5,000 billed snapshots per month for unlimited projects and
+    users, tested on Chrome. No credit card required. Testing pauses when the
+    snapshots run out.'
   limits:
-    - '5,000 snapshots per month (about 25,000 TurboSnaps)'
-    - Unlimited projects
+    - 5,000 billed snapshots per month
+    - Unlimited projects, users, and collaborators
+    - Tests run on Chrome only
+    - About 25,000 TurboSnaps, since a TurboSnap copy counts as 0.2 billed
+      snapshots
   caveats:
-    - 'Safari, Firefox, and Edge need a paid plan'
-    - Free for open source on request
+    - No credit card required
+    - Safari, Firefox, and Edge testing needs the Starter plan or higher
+    - Review and testing pause when the 5,000 snapshots are used, until the
+      month resets or you upgrade
+    - 'Free for open source: contact Chromatic to see if you qualify'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Catch visual changes in pull requests
-  - Review UI with designers
+  - Catch unplanned visual changes in pull requests
+  - Review UI changes with designers and product owners
+  - Test a Storybook component library in CI
+  - Add visual checks to Playwright or Cypress tests
 quickstartSteps:
-  - Sign up at chromatic.com with GitHub.
-  - Run npx chromatic --project-token=<token>.
-  - Add it to CI.
-whenToUse: Use for visual tests on a Storybook project.
-whenNotToUse: Avoid if you need many browsers for free.
+  - Sign in at chromatic.com with GitHub, GitLab, Bitbucket, or email, and
+    create a project to get a project token.
+  - Install the package in your Storybook project with npm install --save-dev
+    chromatic.
+  - Run your first build with npx chromatic --project-token and your token. It
+    sets the baselines.
+  - Change the UI a little, run another build, and open the review link that the
+    command prints.
+  - Accept or deny each change in the Tests table, then add the chromatic
+    command to your CI and keep the token in the CHROMATIC_PROJECT_TOKEN
+    variable.
+whenToUse: Use Chromatic when you already have Storybook, Playwright, or Cypress
+  tests and want pixel-level review on every pull request in Chrome.
+whenNotToUse: Avoid it when you need Safari, Firefox, or Edge testing on a free
+  plan, or when your builds use more than 5,000 billed snapshots a month.
+  Testing pauses at that point until the month resets or you upgrade.
 bestFor:
   - design systems
-  - frontend teams
+  - component libraries on Storybook
+  - front-end teams reviewing UI in pull requests
 avoidIf:
-  - cross-browser needs
+  - free cross-browser testing
+  - very large snapshot volume on the free plan
+  - no Storybook, Playwright, or Cypress in your project
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.chromatic.com'
 docsUrl: 'https://www.chromatic.com/docs/'
 sourceUrls:
-  - 'https://www.chromatic.com/pricing'
+  - https://www.chromatic.com/pricing
+  - https://www.chromatic.com/docs/billing
+  - https://www.chromatic.com/docs/quickstart
 pricingUrl: 'https://www.chromatic.com/pricing'
 featured: false
 changes:
@@ -60,4 +93,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Chromatic counts snapshots, not users.
+You install the `chromatic` npm package, run it in CI, and review the changes in the Chromatic web app. It suits front-end teams that already write stories or end-to-end tests.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and includes 5,000 billed snapshots. Projects, users, and collaborators are unlimited, and tests run on Chrome. It also includes Git and CI integrations.
+
+A billed snapshot is one captured test result. Visual and accessibility tests use billed snapshots; interaction tests do not. Counts add up across all projects in your account. TurboSnap can cut usage: a copied snapshot counts as 0.2 of a billed snapshot, and a bypassed snapshot counts as 0. Chromatic also says its free Publish Storybook service uses no billed snapshots when UI tests and UI review are off.
+
+## When you hit a limit
+
+On the Free plan, review and testing pause once you use all 5,000 billed snapshots in a month. You can start again by upgrading to a paid plan or by waiting until the count resets at the end of the billing cycle. The free plan does not bill you for extra snapshots.
+
+Paid plans work differently. Their testing does not stop, and extra billed snapshots are charged at the end of the period. The Starter plan costs $179 per month and includes 35,000 billed snapshots. Extra snapshots cost $0.008 each. You can set a usage alert that emails you at a snapshot count you choose.
+
+## Gotchas
+
+- Free tests run on Chrome only. Safari, Firefox, and Edge need the Starter plan.
+- One test can create many snapshots, because the count is tests times builds times browsers times modes. A busy repository can use up 5,000 snapshots quickly.
+- Projects not linked to a supported Git host miss automatic pull request checks. You must set up statuses yourself in CI.
+
+## Alternatives in this atlas
+
+- [Percy.io](/tools/percy-io/): when you want a visual testing service with a free screenshot allowance for public and private projects.
+- [Lost-pixel.com](/services/lost-pixel-com/): when you want visual regression tests with a free monthly screenshot allowance.
+- [Argos](/services/argos/): when you want screenshot comparison with CI integration.
+
+## Questions people ask
+
+### Is Chromatic free?
+
+Yes. The Free plan costs $0 per month and gives you 5,000 billed snapshots with unlimited projects and users. It needs no credit card.
+
+### What happens when I use all my Chromatic snapshots?
+
+On the Free plan, review and testing pause until your count resets at the end of the billing cycle or you upgrade. You are not billed for extra snapshots.
+
+### Does Chromatic test in Safari and Firefox for free?
+
+No. The Free plan tests on Chrome. Safari, Firefox, and Edge testing starts on the Starter plan.

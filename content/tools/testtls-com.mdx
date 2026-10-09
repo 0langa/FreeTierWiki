@@ -1,8 +1,9 @@
 ---
 title: TestTLS.com
 description: >-
-  TestTLS.com provides free online TLS/SSL server testing and analysis tools for
-  websites.
+  TestTLS.com is a free web scanner that checks the TLS setup of a server on
+  any port, including mail and other STARTTLS services, and lets you download
+  the server certificate.
 provider: TestTLS.com
 category: security
 domain: security
@@ -18,55 +19,99 @@ audiences:
   - team
   - oss
 tags:
-  - security
+  - tls-test
+  - ssl-checker
+  - starttls
+  - certificate
+  - testssl
+  - mail-server-tls
 pricingModel: free
 freeTierDetails:
   summary: Free online scanner for the TLS configuration of public servers.
   limits:
     - Free scan by domain name or IP address
-    - Covers HTTPS and STARTTLS connections
+    - Any TCP port, including HTTPS and STARTTLS connections
+    - Download of the server's X.509 certificate
   caveats:
     - Publicly accessible servers only
+    - The site gives no guarantee that results are correct or complete
+    - No API is described on the page
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Check TLS/SSL configuration of a website
-  - Verify certificate chain and expiration
-  - Identify protocol and cipher support
-  - Detect common misconfigurations
+  - Checking the TLS settings of a web server
+  - Testing the STARTTLS setup of a mail server on its mail port
+  - Finding expired certificates, outdated SSL versions, and unpatched TLS flaws
+  - Downloading a server's X.509 certificate for inspection
 quickstartSteps:
-  - 'Go to https://testtls.com.'
-  - Enter your server domain or IP address in the search box.
-  - Click the 'Test' button to start the scan.
-  - Review the detailed TLS/SSL report generated.
+  - Open testtls.com. No account is needed.
+  - Enter a domain name or IP address in the box.
+  - For a non-web service, open Advanced Options and set the TCP port, and pick the STARTTLS protocol if autodetect by port is not right.
+  - Optionally use Force IP-Address to test a specific address.
+  - Run the test and read the configuration and vulnerability results. Download the certificate if you need it.
 whenToUse: >-
-  Use when you need a quick, free check of a public server's TLS/SSL
-  configuration.
+  Use it for a quick check of a public server's TLS settings, especially for
+  services other than websites, such as mail, FTP, or LDAP servers.
 whenNotToUse: >-
-  Avoid if you need automated API access, private/internal server testing, or
-  advanced enterprise reporting.
+  Avoid it if you need an API, private server testing, or a result you can
+  treat as complete without a second tool.
 bestFor:
+  - mail server admins
   - quick checks
-  - learning
-  - troubleshooting
-  - security audits
+  - learning TLS
 avoidIf:
-  - need API
-  - testing private servers
-  - enterprise compliance
+  - you need an API
+  - you test private or internal servers
+  - you need reports for compliance
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://testtls.com'
-docsUrl: 'https://docs.testtls.com'
+docsUrl: 'https://testtls.com'
 sourceUrls:
   - 'https://testtls.com'
 pricingUrl: 'https://testtls.com'
 featured: false
 ---
-TestTLS.com is a free online tool for analyzing and reporting on the TLS/SSL configuration of public servers, ideal for quick security checks.
+You use it in a browser: enter a host and, if needed, a port and protocol, then read the results. It suits admins who run mail or other TLS services as well as websites.
+
+## What the free plan gives you
+
+Test TLS is a free online scanner for the TLS configuration of servers. You enter a domain name or an IP address. The tool checks the server's configuration settings and security vulnerabilities, and you can download the server's X.509 certificate.
+
+It is not limited to websites. Under Advanced Options you set the TCP port and choose how to connect: plain SSL/TLS, or STARTTLS for services such as FTP, SMTP, POP3, IMAP, LDAP, MySQL, XMPP, and Postgres. By default it detects the protocol from the port. You can also force an IP address. The site is a project by Oliver Brahmstädt, and it builds on the open source testssl.sh tool.
+
+## When you hit a limit
+
+The page lists no price, no account, and no scan quota. The page also does not say if there is a rate limit or what happens if you scan very often. The practical limit is reach: the server must be publicly accessible. The site also warns that it cannot guarantee that results are correct or complete, so treat a clean result as one input, not as proof.
+
+## Gotchas
+
+- Only publicly reachable servers can be tested.
+- The site gives no guarantee that its results are correct or complete.
+- The page describes a web form only and mentions no API, so it is not a fit for automated checks.
+
+## Alternatives in this atlas
+
+- [SSLabs.com](/services/sslabs-com/): when you want a graded report for a public website.
+- [HTTP Observatory (MDN)](/tools/mozilla-observatory/): when you want to check HTTP security headers instead of TLS.
+- [Internet.nl](/services/internet-nl/): when you want website and email checks in one run.
+
+## Questions people ask
+
+### Is TestTLS.com free?
+
+Yes. It is a free online scanner for the TLS configuration of servers, and the page shows no sign-up or price.
+
+### Can TestTLS.com test a mail server?
+
+Yes. Set the port in Advanced Options and pick a STARTTLS protocol such as SMTP, POP3, or IMAP, or let it detect the protocol from the port.
+
+### Are TestTLS.com results guaranteed?
+
+No. The site says it cannot give any guarantee that results are correct or complete.

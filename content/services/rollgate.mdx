@@ -1,8 +1,8 @@
 ---
 title: Rollgate
 description: >-
-  Rollgate is a feature-flag platform for engineering teams, with scheduled
-  changes, instant rollback, and sub-millisecond flag evaluation.
+  Rollgate is a feature-flag service hosted in Germany. Flags are evaluated in
+  your own app with SDKs for React, Node.js, Go, Python, and more.
 provider: Rollgate
 category: devops
 domain: devops
@@ -14,67 +14,113 @@ audiences:
   - indie
   - startup
   - team
-  - student
   - oss
 tags:
-  - devops
-  - collaboration
+  - feature flags
+  - feature toggles
+  - gradual rollout
+  - launchdarkly alternative
+  - eu hosting
+  - gdpr
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever plan includes 500,000 requests per month with unlimited
-    flags, no credit card required.
+    The free plan costs €0 and includes 500K requests per month, unlimited flags,
+    3 environments, and 3 projects. No credit card is needed.
   limits:
-    - '500,000 requests/month'
+    - '500K requests/month'
     - Unlimited flags
     - 3 environments
     - 3 projects
-    - 3 seats
+    - Discord support
   caveats:
-    - Discord-only support on free plan
-    - Scheduled changes and A/B testing need a paid plan
+    - Scheduled changes start on the Starter plan
+    - A/B testing and RBAC start on the Pro plan
+    - The pricing page does not say what happens above 500K requests
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Gradual feature rollouts
-  - Instant rollback without redeploying
-  - Toggle features per environment
+  - Rolling out a new feature to a share of users
+  - Turning a feature off fast without a redeploy
+  - Using different flag values per environment
+  - Targeting users by plan, country, or app version
 quickstartSteps:
-  - Sign up for a free Rollgate account (no card required).
-  - Create a project and environment.
-  - Install the Rollgate SDK for your language.
-  - Create a feature flag in the dashboard.
-  - Evaluate the flag in your app in real time.
+  - Sign up for a free Rollgate account at rollgate.io. No credit card is required.
+  - Click Create Flag and enter a key, a name, and a status such as Disabled.
+  - Open Settings, then API Keys, and create a client key for frontend apps or a server key for backend apps.
+  - Install an SDK, for example npm install @rollgate/sdk-react for React.
+  - Wrap your app in the provider with your key, check the flag with the useFlag hook, then enable the flag in the dashboard.
 whenToUse: >-
-  Use Rollgate when you need feature flags with fast, local evaluation and
-  EU-hosted data.
+  Use Rollgate when you want feature flags evaluated inside your app, with
+  EU-hosted data and a free plan sized by request volume.
 whenNotToUse: >-
-  Avoid if you need scheduled changes, A/B testing, or more than 500,000
-  requests per month without upgrading.
+  Avoid the free plan if you need scheduled changes, A/B testing, role-based
+  access control, or more than 500K requests per month.
 bestFor:
   - developers
   - startups
-  - students
-  - open source projects
+  - side projects
+  - EU data hosting needs
 avoidIf:
   - need scheduled changes
   - need A/B testing
   - high-traffic production
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://rollgate.io'
-docsUrl: 'https://docs.rollgate.io'
+docsUrl: 'https://rollgate.io/docs'
 sourceUrls:
   - 'https://rollgate.io'
-  - 'https://docs.rollgate.io'
+  - 'https://rollgate.io/docs'
+  - 'https://rollgate.io/docs/quickstart'
 featured: false
-lastVerified: 2026-09-28
 pricingUrl: 'https://rollgate.io'
 ---
-Rollgate is an EU-hosted feature-flag platform with sub-millisecond local evaluation, scheduled changes, and instant rollback, free forever for 500,000 requests per month with no credit card required.
+You create flags in the Rollgate dashboard and read them in your app through an SDK. The docs list SDKs for frontend, backend, and mobile.
+
+## What the free plan gives you
+
+The free plan costs €0 per month and is labeled free forever. It is meant for side projects and trying things out. It allows 500K requests per month and unlimited flags, with 3 environments and 3 projects. Support is through Discord.
+
+Rollgate prices by requests, not by seats or monthly active users. The paid Starter plan costs €45 per month and raises the volume to 1M requests per month, and it adds scheduled changes. Pro costs €119 per month with 3M requests, A/B testing, RBAC, and 15 seats.
+
+Data is hosted in the EU, in Germany, and the site says it is GDPR compliant by default.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 500K requests in a month. The pricing model is built on request volume, so that count is the number to watch.
+
+The free plan needs no card, so Rollgate cannot bill you by surprise. If you outgrow it, you pick a plan by request volume. The site says flag evaluation happens locally in your app, which keeps your request count down compared with a call for every check.
+
+## Gotchas
+
+- Seat counts are tied to plans. The pricing page lists 15 seats for Pro and 50 for Growth, but it does not list a seat number for Free.
+- Server keys must stay out of frontend code. The docs tell you to use client keys for React apps.
+- The docs list a self-hosted option as coming soon. Today the service is hosted.
+
+## Alternatives in this atlas
+
+- [GrowthBook](/services/growthbook/): when you want unlimited flags and experiments for a small team.
+- [Flagsmith](/tools/flagsmith/): when you want another free tier that is counted in requests.
+- [ConfigCat](/services/configcat/): when you want a free plan counted in flags and environments instead of requests.
+
+## Questions people ask
+
+### Is Rollgate free?
+
+Yes. The free plan costs €0 and includes 500K requests per month, unlimited flags, 3 environments, and 3 projects.
+
+### Does Rollgate need a credit card?
+
+No. The site says to start free with no card required.
+
+### Where does Rollgate host my data?
+
+In the EU, specifically in Germany. The FAQ says no data leaves the region and there are no US sub-processors in the request path.

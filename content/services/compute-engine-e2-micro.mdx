@@ -1,8 +1,9 @@
 ---
 title: Compute Engine e2-micro
 description: >-
-  Google Cloud's always-free virtual machine instance for lightweight compute
-  workloads and prototyping.
+  Compute Engine's e2-micro is a small Google Cloud virtual machine, and one
+  per month can run free in three US regions. It is for learners and hobbyists
+  who want a small always-on Linux server.
 provider: Google Cloud
 category: compute
 domain: compute
@@ -16,13 +17,19 @@ audiences:
   - startup
   - oss
 tags:
-  - compute
-  - cloud
+  - vm
+  - virtual machine
+  - linux
+  - e2-micro
+  - google cloud
+  - compute engine
+  - vps
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    1 e2-micro VM instance per month in select regions, always free within usage
-    limits.
+    1 non-preemptible e2-micro VM instance per month in Oregon, Iowa, or South
+    Carolina, with 30 GB-months of standard persistent disk and 1 GB of
+    outbound data, free within the Free Tier limits.
   limits:
     - 1 non-preemptible e2-micro VM instance per month
     - 30 GB-months standard persistent disk
@@ -31,50 +38,91 @@ freeTierDetails:
     - 'Only us-west1 (Oregon), us-central1 (Iowa), or us-east1 (South Carolina)'
     - Free amount is by time, not by instance (hours equal to the hours in the month)
     - GPUs and TPUs are never included in the Free Tier
+    - A Cloud Billing account is required to use the Free Tier
+    - Google can change or remove Free Tier limits with 30 days' advance notice
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Charges apply if limits exceeded or non-eligible regions used
+    - Charges apply if limits are exceeded or non-eligible regions or machine types are used
 useCases:
-  - Web server prototyping
-  - Learning cloud infrastructure
-  - Hosting small static sites
-  - Running lightweight background jobs
+  - A personal web or app server
+  - Learning Linux and cloud basics
+  - Running a small bot or background job
+  - Testing a setup before moving it to a bigger machine
 quickstartSteps:
-  - Sign up for a Google Cloud account and verify billing.
-  - Navigate to Compute Engine in the Google Cloud Console.
-  - >-
-    Create a new VM instance, selecting e2-micro machine type and eligible
-    region.
-  - Choose a supported Linux OS image.
-  - 'Configure firewall and storage settings as needed, then launch the instance.'
+  - 'Sign in to Google Cloud; new customers get $300 in free credits and a billing account.'
+  - 'In the console, open the Create an instance page for Compute Engine.'
+  - 'In Machine configuration, pick the e2-micro machine type and a free region: us-west1, us-central1, or us-east1.'
+  - 'In OS and storage, choose a Linux image and keep the standard persistent boot disk within 30 GB.'
+  - 'In Networking, set the firewall options you need, then click Create.'
 whenToUse: >-
-  Use when you need a free, low-resource VM for development, testing, or
-  learning cloud basics in eligible US regions.
+  Use it when you want one small always-on Linux VM for learning, testing, or
+  a hobby project, in one of the three eligible US regions.
 whenNotToUse: >-
-  Avoid for production workloads, high-availability needs, or if you require
-  more resources or regions outside the eligible US regions.
+  Avoid it for production workloads, for high availability, or when you need
+  more resources or regions outside the three US regions.
 bestFor:
   - learning
   - prototyping
   - personal projects
 avoidIf:
-  - need high performance
-  - need global region support
+  - production workloads
+  - high availability
+  - regions outside the three US regions
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://cloud.google.com/compute'
-docsUrl: 'https://cloud.google.com/compute/docs/instances/tiers'
+docsUrl: 'https://cloud.google.com/compute/docs'
 pricingUrl: 'https://cloud.google.com/free/docs/free-cloud-features'
 sourceUrls:
-  - 'https://cloud.google.com/free/docs/free-cloud-features#compute'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+  - 'https://cloud.google.com/compute/docs?hl=en'
+  - 'https://cloud.google.com/compute/docs/instances/create-start-instance?hl=en'
 featured: false
 ---
-Compute Engine e2-micro provides a free, always-available VM instance suitable for learning, prototyping, and lightweight workloads in select US regions.
+You create the VM on the Create an instance page of the Google Cloud console, or with the gcloud compute instances create command. After that you connect to it like any Linux server. It suits learners and hobbyists who want one small always-on machine for tests, bots, or a personal project.
+
+## What the free plan gives you
+
+The Compute Engine Free Tier covers 1 non-preemptible e2-micro VM instance per month. The instance must run in one of three US regions: Oregon (us-west1), Iowa (us-central1), or South Carolina (us-east1). The offer also includes 30 GB-months of standard persistent disk.
+
+You also get 1 GB of outbound data transfer from North America to all region destinations, excluding China and Australia, each month. The limit is by time, not by instance. Eligible use of all your e2-micro instances is free until the hours you use equal the total hours in the current month. Usage is combined across the supported regions.
+
+## When you hit a limit
+
+Google bills anything past the free amounts at standard rates. That includes a second instance running at the same time, a different machine type, a region outside the three listed, extra disk, and extra outbound data. GPUs and TPUs are never part of the Free Tier, so you are always charged for them.
+
+The Free Tier page says there is no cost while you stay within the monthly limits. It also says a Paid billing account is billed for overage, and a Free Trial account uses its $300 welcome credit.
+
+## Gotchas
+
+- The free e2-micro must be non-preemptible and must run in us-west1, us-central1, or us-east1. A VM in another region is billed.
+- The free hours are shared across all your e2-micro instances, so two instances running for the whole month use up the allowance in half the time.
+- Google can change or end Free Tier limits with 30 days of advance notice, and limits are calculated per billing account.
+
+## Alternatives in this atlas
+
+- [Oracle Always Free Compute](/services/oracle-always-free-compute/): when you want a larger always-free VM from another provider.
+- [Virtual Machines](/services/virtual-machines/): when you want a full VM on Azure.
+- [Cloud Run](/services/cloud-run/): when you can run your app as a container and skip managing a VM.
+
+## Questions people ask
+
+### Is Compute Engine e2-micro free?
+
+Yes, 1 non-preemptible e2-micro VM instance per month in Oregon, Iowa, or South Carolina is free. You also get 30 GB-months of standard persistent disk.
+
+### Does the Google Cloud free VM need a credit card?
+
+You need a Cloud Billing account to use the Free Tier. New customers can start a Free Trial with $300 in credit to get one.
+
+### What happens when I go over the e2-micro free limit?
+
+Google bills the extra usage at standard rates. That includes extra hours, other regions, other machine types, and GPUs or TPUs.

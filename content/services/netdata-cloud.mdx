@@ -1,8 +1,9 @@
 ---
 title: Netdata.cloud
 description: >-
-  Netdata.cloud provides real-time infrastructure and application monitoring
-  with intuitive dashboards and alerting.
+  Netdata.cloud is the web console for Netdata, an open-source agent that
+  collects per-second metrics and logs from your servers. It suits sysadmins and
+  DevOps people who want real-time dashboards with little setup.
 provider: Netdata
 category: observability
 domain: observability
@@ -18,62 +19,107 @@ audiences:
   - team
   - oss
 tags:
-  - monitoring
-  - analytics
-  - devops
+  - server-monitoring
+  - infrastructure-monitoring
+  - real-time
+  - open-source
+  - homelab
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Community tier is capped at 5 connected nodes with 1 custom dashboard per room;
-    a 14-day trial of the unlimited Business tier is available to new accounts.
+    The free Community plan allows up to 5 connected nodes and 1 custom
+    dashboard per room, and the pricing page marks it non-commercial. New
+    accounts get a 14-day Business trial with no limits.
   limits:
-    - Up to 5 connected nodes
+    - Up to 5 active connected nodes
     - 1 active custom dashboard per room
     - 14-day trial of Business tier (all nodes, no limits)
   caveats:
-    - Business plan required for more than 5 nodes ($4.50/node/month)
-    - Homelab plan is $90/year for unlimited nodes, non-commercial use only
+    - 'The pricing page lists the Community plan as free forever, 5 nodes, non-commercial'
+    - 'Business costs $4.50 per node per month for more nodes'
+    - 'The Homelab plan costs $90 per year for unlimited nodes under a fair usage policy'
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Monitor server health and performance
-  - Visualize real-time infrastructure metrics
-  - Set up basic alerting for incidents
+  - Monitor server health and performance in real time
+  - Visualize infrastructure metrics per second
+  - Get alerts on anomalies and incidents
+  - Watch a homelab or a few small servers
 quickstartSteps:
-  - Sign up for a free Netdata.cloud account.
-  - Install the Netdata Agent on your server or VM.
-  - Connect your agent to Netdata.cloud using the provided claim token.
-  - Access your dashboard to view real-time metrics.
-  - Configure basic alerts as needed.
+  - Sign up for Netdata Cloud; new accounts get a 14-day Business trial.
+  - Install the agent on a Linux server with the one-line kickstart script from `https://get.netdata.cloud/kickstart.sh`.
+  - Answer yes when the installer asks to connect the node to Netdata Cloud.
+  - Get a claim token from your Space under Space Settings, Nodes, Add Node, or pass it with `--claim-token`.
+  - Open your Space in Netdata Cloud to see the node's dashboards.
 whenToUse: >-
-  Use Netdata.cloud for quick, real-time monitoring of servers or applications
-  with easy setup and basic alerting.
+  Use Netdata.cloud to watch up to 5 servers or VMs with real-time dashboards
+  and little configuration.
 whenNotToUse: >-
-  Avoid if you need advanced analytics, long-term retention, or enterprise
-  integrations beyond the free tier.
+  Avoid it for commercial fleets larger than 5 nodes on the free plan, or when
+  you need long retention that the paid plans offer.
 bestFor:
+  - homelabs
   - individual developers
-  - small teams
-  - open source projects
+  - small non-commercial setups
 avoidIf:
-  - require advanced analytics
-  - need long-term data retention
-  - require enterprise support
+  - commercial use on the free plan
+  - more than 5 nodes without paying
+  - enterprise support needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.netdata.cloud/'
 docsUrl: 'https://learn.netdata.cloud/docs/overview'
 sourceUrls:
   - 'https://www.netdata.cloud/pricing/'
+  - 'https://www.netdata.cloud/pricing'
   - 'https://learn.netdata.cloud/docs/overview'
+  - 'https://learn.netdata.cloud/docs/netdata-agent/installation/linux/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.netdata.cloud/pricing/'
 ---
-Netdata.cloud's free Community tier now caps out at 5 connected nodes and 1 custom dashboard, with unlimited nodes reserved for the paid Business or Homelab plans.
+You install the Netdata Agent on each machine and open Netdata Cloud to see all of them in one place. The agent stores the data on your own systems.
+
+## What the free plan gives you
+
+The Community plan is free forever and allows a maximum of 5 active connected nodes. It allows 1 active custom dashboard per room, and infrastructure-wide dashboards are limited to 5 nodes. The pricing page marks the plan as non-commercial.
+
+Your data stays on-prem, and you reach it from anywhere through the cloud. The page gives no retention figure for Community. When you sign up, you get a 14-day trial of Netdata Business for as many nodes as you want, with no limits.
+
+## When you hit a limit
+
+The pricing page does not say what happens if you connect more than 5 nodes on Community. It states the limit of 5 active connected nodes, so plan on upgrading beyond that.
+
+Business costs $4.50 per node per month, with unlimited data retention and unlimited custom dashboards. A billable node is each running agent. Offline nodes are not billed. The Homelab plan costs $90 per year with unlimited nodes, under a fair usage policy.
+
+## Gotchas
+
+- The pricing page marks Community as non-commercial, so check the terms before using it for a business.
+- Only 1 custom dashboard fits in each room on the free plan.
+- The installer asks whether to connect to Netdata Cloud, and the default is disabled, so you must opt in.
+
+## Alternatives in this atlas
+
+- [Grafana Cloud](/services/grafana-cloud/): when you want a hosted dashboard stack for metrics and logs.
+- [Datadog](/services/datadog/): when you want a larger commercial monitoring product.
+- [Middleware.io](/services/middleware-io/): when you want a hosted observability platform with a free plan.
+
+## Questions people ask
+
+### Is Netdata Cloud free?
+
+Yes, within limits. The Community plan is free forever for up to 5 connected nodes, and the pricing page marks it non-commercial.
+
+### How many nodes does the free Netdata plan allow?
+
+A maximum of 5 active connected nodes, plus 1 active custom dashboard per room. Business adds more nodes at $4.50 per node per month.
+
+### Do I need a credit card for Netdata Cloud?
+
+The pricing page does not mention a credit card for the free plan, and it offers a 14-day Business trial when you sign up.

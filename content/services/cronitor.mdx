@@ -1,6 +1,8 @@
 ---
 title: Cronitor
-description: 'Monitoring for cron jobs, background workers, websites, and APIs.'
+description: >-
+  Cronitor watches cron jobs, heartbeats, websites, and APIs, and alerts you
+  when a job fails or stops running.
 provider: Cronitor
 category: observability
 domain: observability
@@ -12,43 +14,65 @@ audiences:
   - indie
   - startup
 tags:
-  - monitoring
-  - automation
+  - cron-monitoring
+  - heartbeat
+  - uptime
+  - cron-jobs
+  - alerts
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Hacker plan is free forever: 5 monitors.'
+  summary: 'Hacker plan is free forever: 5 monitors, 1 user, and 1 status page.'
   limits:
     - 5 monitors
+    - 1 dashboard user
+    - 1 status page
+    - 100,000 web analytics and error events free
   caveats:
-    - SMS and on-call alerts need a paid plan
+    - SMS and on-call alerts need the paid Business plan
+    - Synthetic browser checks are not on the free plan
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Watch a few cron jobs
-  - Simple uptime checks
+  - Get an alert when a nightly cron job fails or never runs
+  - Watch a backup script with a heartbeat
+  - Check that a website or API answers
+  - Show a status page for a small service
 quickstartSteps:
-  - Sign up at cronitor.io.
-  - Create a monitor.
-  - Add the ping or the CronitorCLI wrapper to your job.
-whenToUse: Use for a homelab or a few scheduled jobs.
-whenNotToUse: Avoid if you have more than 5 things to watch.
+  - Sign up at cronitor.io; the Hacker plan needs no card.
+  - Create a monitor for your job, either in the web app or with the Monitor API.
+  - Choose a type of job and give it a schedule such as `7 0 * * *`.
+  - Make the job call its telemetry URL with `state=run` when it starts, then `state=complete` or `state=fail` when it ends.
+  - Add an alert channel such as Slack, Discord, Teams, or a webhook.
+whenToUse: >-
+  Use Cronitor to watch a few cron jobs or heartbeats in a homelab or small
+  project and get chat or email alerts when one fails.
+whenNotToUse: >-
+  Avoid it if you have more than 5 things to watch, or need SMS or on-call
+  alerts on a free plan.
 bestFor:
   - homelabs
+  - small projects with a few cron jobs
+  - solo developers
 avoidIf:
-  - many jobs
+  - more than 5 monitors
+  - SMS or on-call alerts
+  - synthetic browser checks
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://cronitor.io'
 docsUrl: 'https://cronitor.io/docs'
 sourceUrls:
   - 'https://cronitor.io/pricing'
+  - 'https://cronitor.io/pricing#compare'
+  - 'https://cronitor.io/docs'
+  - 'https://cronitor.io/docs/cron-job-monitoring'
 pricingUrl: 'https://cronitor.io/pricing'
 featured: false
 changes:
@@ -56,4 +80,44 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Cronitor's free plan is small but has no time limit.
+You create monitors in the Cronitor web app or through its API, then make each cron job or script call a ping URL when it runs. It suits homelabs and small projects with a few scheduled jobs.
+
+## What the free plan gives you
+
+The Hacker plan is free forever and is meant for homelabs and small projects. It includes 5 monitors, which can be cron jobs, heartbeats, websites, or API checks. It has 1 dashboard user and 1 status page.
+
+Alerts go to email and chat tools: Slack, Discord, Teams, and webhooks. SMS alerts and synthetic browser checks are not included. Web analytics and error tracking come with 100,000 events free.
+
+The paid Business plan costs $2 per month for each monitor plus $5 per month for each user. It starts with a 14 day free trial and adds SMS and on-call alerts and 12 months of data retention.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you try to add a sixth monitor on the Hacker plan. It asks for no card and lists no overage charge for the free plan, so a surprise bill looks unlikely.
+
+The paid Business plan has no base fee or minimum. You pay only for the monitors and users you have, billed monthly with no contract. Plan on upgrading, or on removing a monitor, when you pass 5.
+
+## Gotchas
+
+- Only 5 monitors are free, and the count includes every cron job, website, and API monitor together.
+- SMS and on-call alerts need the paid Business plan.
+- The docs example for creating a monitor uses the API with your account API key, so keep that key out of your repo.
+
+## Alternatives in this atlas
+
+- [Healthchecks.io](/services/healthchecks-io/): when you mainly watch cron jobs with simple pings.
+- [Deadmanssnitch](/services/deadmanssnitch/): when you want a small tool for scheduled-job check-ins.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want heartbeats plus uptime checks and a status page.
+
+## Questions people ask
+
+### Is Cronitor free?
+
+Yes. The Hacker plan is free forever and includes 5 monitors for homelabs and small projects.
+
+### Does Cronitor need a credit card?
+
+Not for the Hacker plan. The Business plan has a 14 day free trial, then bills for the monitors and users you use.
+
+### What happens when I go over 5 Cronitor monitors?
+
+The pricing page does not say. The Business plan costs $2 per month for each monitor.

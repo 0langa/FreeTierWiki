@@ -1,8 +1,9 @@
 ---
 title: SonarQube Cloud
 description: >-
-  SonarQube Cloud (formerly SonarCloud) provides cloud-based static code
-  analysis and code quality monitoring for multiple programming languages.
+  SonarQube Cloud, formerly SonarCloud, is a hosted service that scans pull
+  requests and branches for bugs, vulnerabilities, and code smells. It works with
+  GitHub, Bitbucket, GitLab, and Azure DevOps.
 provider: Sonar
 category: devops
 domain: devops
@@ -10,77 +11,124 @@ subtypes:
   - static analysis
   - code quality
   - CI integration
-audiences:
-  - student
-  - indie
-  - startup
-  - team
-  - oss
-tags:
   - security
   - cloud
   - ci-cd
   - open-source
+audiences:
+  - oss
+  - indie
+  - student
+  - team
+  - startup
+tags:
+  - sonarcloud
+  - sonarqube cloud
+  - static code analysis
+  - code quality
+  - quality gate
+  - code smells
+  - security hotspots
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free for public, OSI-licensed open-source projects with unlimited size; private projects are free
-    up to 50,000 lines of code, no card required.
+    Free for public, OSI-licensed open-source projects with unlimited size.
+    Private projects are free up to 50k lines of code, with no card and no expiry.
   limits:
     - Unlimited analysis for public, OSI-licensed open-source projects
-    - 50,000 lines of code free for private projects
+    - '50k lines of code free for private projects'
     - No credit card required, no expiry
   caveats:
-    - Team plan (from $34/month) needed beyond 50k LOC or for more features
-    - 14-day free trial available for the Team plan
+    - The Team plan starts at $34 per month for up to 100k lines of code
+    - There is a 14-day trial of the paid plan, with no credit card
+    - There is no SonarQube Cloud-only account; you sign in with your DevOps platform
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated code quality checks for open source projects
-  - Continuous integration static analysis
-  - Detecting code smells and vulnerabilities
+  - Checking every pull request for bugs and security issues
+  - Blocking merges with a quality gate
+  - Tracking code smells, duplication, and test coverage over time
+  - Analyzing an open source project for free
 quickstartSteps:
-  - >-
-    Sign up at sonarcloud.io using your GitHub, Bitbucket, GitLab, or Azure
-    DevOps account.
-  - Import your public repository into Sonarcloud.
-  - >-
-    Configure your CI pipeline to include Sonarcloud analysis using provided
-    instructions.
-  - Review analysis results and address identified issues.
+  - Click Start Free and choose the DevOps platform to connect, such as GitHub, Bitbucket Cloud, GitLab, or Azure DevOps.
+  - Sign in with your existing account on that platform. There is no SonarQube Cloud-only account.
+  - Import your organization, then import the repositories you want. Each repository becomes a project.
+  - Follow the in-product tutorial to connect analysis to your CI pipeline or use the automatic setup it offers.
+  - Open the project Overview page to see the first analysis, then set a new code definition so the quality gate can run.
 whenToUse: >-
-  Use SonarQube Cloud to automatically analyze and monitor code quality for
-  open source or small private codebases integrated with your CI pipeline.
+  Use SonarQube Cloud to scan open source projects, or private projects under 50k
+  lines, with a quality gate on every pull request.
 whenNotToUse: >-
-  Avoid if your private codebase is over 50,000 lines, or you require
-  on-premise deployment.
+  Avoid the free tier for private codebases over 50k lines of code. Avoid it if
+  you need analysis to run on your own servers.
 bestFor:
   - open source maintainers
   - students
-  - small teams
+  - small private projects
 avoidIf:
-  - private codebases over 50k LOC
-  - organizations needing on-premise analysis
+  - private codebases over 50k lines
+  - needing self-hosted analysis
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-10-06
+lastVerified: 2026-10-09
 status: changed
 changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified OSI-licensed public-project eligibility and removed the incorrect annual-billing condition."
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://sonarcloud.io'
-docsUrl: 'https://docs.sonarcloud.io/'
+docsUrl: 'https://docs.sonarsource.com/sonarqube-cloud/getting-started'
 pricingUrl: 'https://www.sonarsource.com/plans-and-pricing/'
 sourceUrls:
   - 'https://www.sonarsource.com/plans-and-pricing/'
-  - 'https://sonarcloud.io'
-  - 'https://docs.sonarcloud.io/'
+  - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started'
+  - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started/sign-up'
+  - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started/first-analysis'
 featured: false
 ---
-SonarQube Cloud offers cloud-based static code analysis and code quality monitoring, free for open source and up to 50k LOC private projects, with easy CI integration.
+You sign in with your DevOps platform account and read the results on the web. You can also add the SonarQube for IDE extension to your editor.
+
+## What the free plan gives you
+
+Sonar runs two free offers. Public repositories with an OSI-licensed open source license get the open source plan, free forever. The pricing page says they get the same features as the paid Pro plan.
+
+For private code, the free tier covers private projects up to 50k lines of code. The pricing page says no card and no expiry. It is the Team plan, free up to that size. Sonar counts only the largest branch, and analyzing more often does not change the count.
+
+The free tier supports many languages and DevOps integrations. Paid Team plans start at $34 per month for analysis of up to 100k lines of code, and other size steps are available.
+
+## When you hit a limit
+
+The private limit is a size limit, not a usage meter. The FAQ says that if you get close to the threshold, you are notified to either upgrade your plan or reduce the lines of code in your projects. The pricing page does not describe a block.
+
+Because the free tier takes no card, nothing is charged by accident. A paid private organization is billed monthly by credit card. You can cancel, delete a paid organization, or downgrade to the free tier to keep analyzing public projects.
+
+## Gotchas
+
+- The open source offer is for public repositories under an OSI-licensed license. Check your license before you rely on it.
+- Only the largest branch counts toward your lines of code. Extra branches do not add to the total.
+- The docs warn that Atlassian is retiring the Bitbucket Connect app on a set date, and Bitbucket users must move to the Forge app.
+
+## Alternatives in this atlas
+
+- [Codacy](/services/codacy/): when you want a free plan for public repositories plus a local IDE plugin.
+- [DeepSource](/services/deepsource/): when you want a free open source plan with unlimited team members.
+- [Scrutinizer-ci.com](/tools/scrutinizer-ci-com/): when your project is open source and you also want hosted CI.
+
+## Questions people ask
+
+### Is SonarQube Cloud free?
+
+Yes, for open source and small private projects. Public OSI-licensed repositories are free forever, and private projects are free up to 50k lines of code.
+
+### Is SonarCloud the same as SonarQube Cloud?
+
+Yes. SonarCloud is the former name of SonarQube Cloud.
+
+### Does SonarQube Cloud need a credit card?
+
+No. The free tier asks for no card and has no expiry. The 14 day paid-plan trial also asks for no credit card.

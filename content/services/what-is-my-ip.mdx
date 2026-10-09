@@ -1,8 +1,8 @@
 ---
 title: What Is My IP
 description: >-
-  A free service to instantly check your public IP address and related network
-  information.
+  WhatIsMyIP.HELP shows your public IPv4 and IPv6 address with country, ISP, and
+  ASN, and offers plain text, JSON, and XML endpoints for scripts.
 provider: What Is My IP
 category: networking
 domain: networking
@@ -17,53 +17,104 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - search
+  - what is my ip
+  - public ip
+  - ipv6
+  - ip checker
+  - ping test
+  - isp lookup
 pricingModel: free
 freeTierDetails:
   summary: Free IP address checker with no account, no ads, and no trackers.
   limits:
     - No account or registration required
-    - Shows public IPv4 and IPv6 address
+    - Shows public IPv4 and IPv6 address, country, ISP, and ASN
+    - Text, JSON, and XML endpoints for scripts
   caveats:
-    - Manual use only; automated requests get a notice page and should use the official tools
+    - Scripts should use the official text, JSON, and XML endpoints; automated page requests get a notice page
+    - No rate limit or uptime promise is published
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Quickly check your public IP address
-  - Diagnose network issues
-  - Verify VPN or proxy connections
+  - Checking your public IP address
+  - Seeing whether your connection uses IPv4, IPv6, or both
+  - Verifying that a VPN or proxy changed your visible address
+  - Diagnosing wrong-country or CAPTCHA problems on websites
+  - Getting your IP in a script with curl
 quickstartSteps:
-  - 'Open https://whatismyip.help in your web browser.'
-  - View your public IP address displayed on the homepage.
-  - 'Optionally, review additional network details provided.'
+  - Open whatismyip.help in a browser; no sign-up is needed.
+  - Read your IPv4 and IPv6 address, country, ISP, and ASN.
+  - Scroll to the privacy details to compare your language, time zone, and browser against your IP location.
+  - 'For scripts, open the Tools page and use the `/txt`, `/json`, or `/xml` endpoint.'
+  - Try the Ping Test page for a quick connection check.
 whenToUse: >-
-  Use when you need to quickly check your public IP address or confirm your
-  network's external visibility.
+  Use it when you want to see your public IP, ISP, and location signals in the
+  browser, or fetch your IP in a script through the official endpoints.
 whenNotToUse: >-
-  Avoid if you require bulk or automated IP lookups or need advanced network
-  diagnostics.
+  Avoid it for bulk lookups of other addresses, for scraping the HTML page, or
+  when you need geolocation data through a documented API with limits.
 bestFor:
   - quick checks
-  - manual diagnostics
+  - VPN checks
   - network verification
 avoidIf:
   - need bulk automated lookups
-  - require automation
+  - scraping the web page
   - need advanced analytics
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://whatismyip.help'
-docsUrl: 'https://docs.whatismyip.help'
+docsUrl: 'https://whatismyip.help/tools'
 pricingUrl: 'https://whatismyip.help'
 sourceUrls:
   - 'https://whatismyip.help'
+  - 'https://whatismyip.help/tools'
 featured: false
 ---
-What Is My IP provides a simple, free way to instantly view your public IP address and basic network information in your browser.
+You open the site in a browser and the page shows your address at once. Developers can call a text, JSON, or XML endpoint instead of reading the HTML page.
+
+## What the free plan gives you
+
+The service is free, with no account, no ads, and no ad trackers. The home page shows your public IPv4 and IPv6 address, which can be one or both. For each address it shows the country, the ISP name, the ASN, and whether the connection is primary or a fallback.
+
+Below that, a privacy section compares signals your browser sends with your IP location. It checks language, time zone, the browser and operating system from the HTTP header and from JavaScript, and the HTTP version. This helps when a site shows the wrong country or a CAPTCHA.
+
+The site also has a Ping Test page, a FAQ with over 100 short answers about IP addresses, and a Tools page. The Tools page lists three endpoints for scripts and CLI tools: text, JSON, and XML.
+
+## When you hit a limit
+
+The site publishes no price, quota, or rate limit, so there is no stated point where you are billed or blocked. It also gives no uptime promise.
+
+One rule does apply. The service says automated requests to the web page get an Automated Access Notice page instead of your IP. It tells scripts to use the official tools, the text, JSON, and XML endpoints, and not to crawl HTML pages. If you still see the notice from the official tools, the site asks you to contact it.
+
+## Gotchas
+
+- Do not scrape the home page. A script that requests it gets a notice page, not your address.
+- Behind a VPN, proxy, or shared network, the page shows the address of that network, not your own machine.
+- The pages state no rate limit for the endpoints, so cache the result in any script that runs often.
+
+## Alternatives in this atlas
+
+- [IP address.sh](/services/ip-address-sh/): when you want one URL that answers in plain text, JSON, or JSONP.
+- [JSON IP](/tools/json-ip/): when you need CORS or JSONP to read the IP in a web page.
+- [IPinfo](/services/ipinfo/): when you want country-level data through an API with a free plan.
+
+## Questions people ask
+
+### Is WhatIsMyIP.HELP free?
+
+Yes. It needs no account, shows no ads, and uses no ad trackers.
+
+### Can I get my IP address in a script?
+
+Yes. Use the text, JSON, or XML endpoint listed on the Tools page. The site asks scripts not to crawl the HTML page.
+
+### Does WhatIsMyIP.HELP show IPv6?
+
+Yes. It shows your IPv4 and IPv6 addresses, and says when an IPv6 address is not available.

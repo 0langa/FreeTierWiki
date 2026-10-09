@@ -30,6 +30,20 @@ export type ListItem = {
   rank: number;
 };
 
+// Filler words no one filters by; dropping them keeps the explorer JSON small.
+const STOP_WORDS = new Set(["a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "in", "is", "it", "its", "of", "on", "or", "that", "the", "to", "with", "you", "your"]);
+
+/** Each search word once, lowercase. Search matches words by substring, so order and repeats do not matter. */
+export function searchWords(parts: string[]): string {
+  const words = parts
+    .join(" ")
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}.+#-]+/u)
+    .map((word) => word.replace(/^[.-]+|[.-]+$/g, ""))
+    .filter((word) => word && !STOP_WORDS.has(word));
+  return [...new Set(words)].join(" ");
+}
+
 export function offerParts(entry: AtlasEntry): string[] {
   return entry.freeTierDetails.limits.slice(0, 3);
 }
@@ -77,7 +91,7 @@ export function toListItem(entry: AtlasEntry, now: Date): ListItem {
     ready: entry.productionReadiness,
     status: entry.status,
     freshness: getFreshness(entry, now),
-    haystack: [entry.title, entry.provider, DOMAIN_LABELS[entry.domain], entry.description, ...entry.tags].join(" ").toLowerCase(),
+    haystack: searchWords([entry.title, entry.provider, DOMAIN_LABELS[entry.domain], entry.description, ...entry.tags]),
     rank: Math.round((entry.usefulnessScore * 0.65 + entry.popularityScore * 0.35) * 10) / 10,
   };
 }

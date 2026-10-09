@@ -1,8 +1,9 @@
 ---
 title: Paperspace
 description: >-
-  Paperspace, now part of DigitalOcean, offers cloud GPUs and infrastructure for
-  machine learning, AI, and high-performance computing workloads.
+  Paperspace, now part of DigitalOcean, runs Jupyter notebooks and GPU
+  machines in the cloud for machine learning. It is for learners and ML
+  developers who want a GPU notebook without owning hardware.
 provider: Paperspace
 category: compute
 domain: compute
@@ -18,64 +19,110 @@ audiences:
   - team
   - oss
 tags:
-  - compute
-  - cloud
-  - ml
-  - ai
+  - gpu
+  - jupyter notebook
+  - machine learning
+  - gradient
+  - digitalocean
+  - cloud gpu
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan with public projects, basic instances, 5 GB storage, and
-    auto-shutdown after 12 hours.
+    Free plan with public projects, free CPU and M4000 GPU machines for
+    notebooks, 5 GB storage, and auto-shutdown after 12 hours.
   limits:
     - Public projects only
     - Auto-shutdown after 12 hours
     - 5 GB storage (team free plan: 10 GB, 10 notebooks, 1 running notebook)
-    - Basic instances only; other instances are billed per hour
+    - Free CPU (C4) and Free GPU (M4000) machines for notebooks; other instances are billed per hour
   caveats:
-    - Storage above the free amount is billed at $0.29/GB on the team plan
+    - Storage above the free amount is billed at $0.29/GB per month
     - Projects and notebooks on the free plan are public
-    - Paperspace was acquired by DigitalOcean; utilization on paid instance types is billed per hour
+    - Free machines depend on availability; a notebook can wait in a queue
+    - Paperspace was acquired by DigitalOcean; paid instance types are billed per hour
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Training small machine learning models
-  - Experimenting with deep learning frameworks
-  - Running Jupyter notebooks with GPU acceleration
+  - Learning machine learning in a hosted Jupyter notebook
+  - Prototyping a small model on a free GPU
+  - Running example notebooks such as Fast.ai tutorials
+  - Moving to a paid GPU machine for a bigger run
 quickstartSteps:
-  - Sign up for a Paperspace account.
-  - Navigate to the 'Notebooks' section in the dashboard.
-  - Create a new notebook and select a free GPU type.
-  - Choose a machine learning framework template.
-  - Launch the notebook and start your project.
+  - 'Sign up free at paperspace.com, for example with Google.'
+  - 'Open Notebooks in the console and use the New button.'
+  - 'Choose a template, then choose a machine; pick a free machine to avoid hourly charges.'
+  - 'Set an auto-shutdown timeout, then click Start notebook.'
+  - 'Open the Jupyter environment once it starts and run your code.'
 whenToUse: >-
-  Use Paperspace when you need free, GPU-powered Jupyter notebooks for
-  prototyping or learning machine learning and AI.
+  Use it to try GPU notebooks for learning or small experiments when you
+  accept public projects and free machine availability.
 whenNotToUse: >-
-  Avoid if you require persistent, high-performance GPU access, large-scale
-  training, or advanced networking features.
+  Avoid it if you need private projects on the free plan, guaranteed GPU
+  access, or long unattended runs beyond the 12 hour limit.
 bestFor:
   - students
   - learners
   - individuals prototyping ML models
 avoidIf:
-  - need 24/7 GPU access
-  - require large-scale distributed training
+  - private projects on the free plan
+  - guaranteed GPU access
+  - runs longer than 12 hours
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.paperspace.com/'
-docsUrl: 'https://docs.paperspace.com/'
+docsUrl: 'https://docs.digitalocean.com/products/paperspace/'
 sourceUrls:
   - 'https://www.paperspace.com/pricing'
-  - 'https://docs.paperspace.com/'
+  - 'https://docs.digitalocean.com/products/paperspace/'
+  - 'https://docs.digitalocean.com/products/paperspace/pricing/'
+  - 'https://docs.digitalocean.com/products/paperspace/notebooks/getting-started/quickstart/'
+  - 'https://docs.digitalocean.com/products/paperspace/notebooks/how-to/create-notebooks/'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://www.paperspace.com/pricing'
 ---
-Paperspace, now part of DigitalOcean, provides free access to GPU-powered Jupyter notebooks (public projects, auto-shutdown after 12 hours), ideal for learning and prototyping machine learning or AI projects with limited compute needs.
+You work in a web-based Jupyter notebook. You create it from a template, pick a machine, and click Start notebook. Paperspace, now part of DigitalOcean, also sells paid machines you can use from the console, an API, and a CLI. The free plan suits learners who want to try a GPU notebook.
+
+## What the free plan gives you
+
+The Free plan costs $0. It has public projects, auto-shutdown with a 12 hour limit, and 5 GB of storage. It lets you use the free machine types, which are a Free CPU (C4) and a Free GPU (M4000). The docs say free machines give limited resources for development and testing, and only work for Notebooks in private workspaces.
+
+The team free plan lists 10 GB of persistent storage, 10 notebooks in total, and 1 running notebook at a time, plus low instance types and public notebooks. Storage above the free amount costs $0.29 per GB per month. Paid plans start at $8 per month for individuals on the plan page.
+
+## When you hit a limit
+
+Notebooks shut down automatically at the 12 hour limit on the Free plan. Storage above the included amount is billed at $0.29 per GB per month.
+
+If no free machine is available, your notebook stays pending in a queue until one frees up. The docs suggest a paid machine type if you need access right away. Machines outside the free tier are billed per hour. The FAQ says you can set billing alerts and limits on the billing tab.
+
+## Gotchas
+
+- Free machines depend on availability. The create-notebook page says a pending notebook waits for the next free machine.
+- Free projects and notebooks are public. Private projects need a paid plan.
+- Picking a paid machine, such as an A100 at $3.09 per hour, bills you per hour of use, separately from the plan fee.
+
+## Alternatives in this atlas
+
+- [Google Colab](/services/google-colab/): when you want a free notebook with no setup.
+- [Modal](/services/modal/): when you want to run Python jobs on GPUs with per-second billing.
+- [Hugging Face Spaces](/services/hugging-face-spaces/): when you want to host a small model demo.
+
+## Questions people ask
+
+### Is Paperspace free?
+
+Partly. The Free plan includes a free CPU and a free M4000 GPU for notebooks, 5 GB of storage, and a 12 hour auto-shutdown.
+
+### How long can a free Paperspace notebook run?
+
+Free notebooks auto-shutdown after a 12 hour limit.
+
+### Does Paperspace need a credit card?
+
+The pricing page does not say a card is needed for the Free plan. Paid instances are billed per hour, so you would add a payment method to use them.

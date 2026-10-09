@@ -1,8 +1,9 @@
 ---
 title: Statsig
 description: >-
-  Statsig provides feature flagging, experimentation, and analytics for rapid
-  product iteration and data-driven decisions.
+  Statsig is a platform for feature flags, experiments, product analytics, and session replay. Teams
+  use it to roll out features safely and measure their impact. The free Developer tier suits
+  startups and small teams.
 provider: Statsig
 category: analytics
 domain: analytics
@@ -16,43 +17,59 @@ audiences:
   - indie
   - oss
 tags:
-  - testing
-  - analytics
+  - feature flags
+  - a/b testing
+  - experimentation
+  - product analytics
+  - session replay
+  - feature gates
+  - dynamic config
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Developer tier includes unlimited seats, 2 million events/month, and
-    50,000 session replays/month, with no credit card required.
+    Free Developer tier includes unlimited seats, 2 million events/month, and 50,000 session
+    replays/month, with no credit card required.
   limits:
     - Unlimited seats
     - 2 million events/month
-    - 50,000 session replays/month
+    - '50,000 session replays/month'
     - Unlimited feature flag & config checks
   caveats:
     - Free tier keeps 1 year of analytics retention (Pro has unlimited retention)
     - Going over 2M events prompts you to add a card to upgrade to Pro
+    - >-
+      If you stay on Developer over the limit, Metric Lift calculations stop but gates and configs
+      keep working
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Roll out new features safely
-  - Run A/B tests
-  - Analyze product metrics
-  - Control feature access
+  - Roll out a feature to a share of users with a feature gate
+  - 'Target a feature by device, country, or email domain'
+  - Run A/B tests and read the results
+  - Analyze product metrics with core analytics
+  - Watch session replays of real visits
 quickstartSteps:
-  - Sign up for a free Statsig account.
-  - Create a new project and add your teammates.
-  - Integrate the Statsig SDK into your application.
-  - Define and configure your first feature flag.
-  - Deploy your app and monitor flag usage and analytics.
+  - >-
+    Create a free account at statsig.com. You start on the Developer tier automatically, with no
+    credit card.
+  - >-
+    Open Feature Gates, click Get Started, and name your gate. New gates return false until you add
+    targeting.
+  - 'Add a rule, such as Operating System any of Android and iOS at 100%, then save.'
+  - >-
+    Copy the Client API key from Project Settings, API Keys. Keep server secret keys on backends
+    only.
+  - 'Install a client SDK, for example the browser StatsigClient, and call initializeAsync.'
+  - Call checkGate with your gate name and open the gate's Diagnostics tab to confirm the exposure.
 whenToUse: >-
-  Use Statsig when you need to manage feature rollouts, run experiments, or
-  analyze product impact with minimal setup.
+  Use Statsig when you need feature flags, experiments, and analytics in one tool with unlimited
+  seats and a large free event allowance.
 whenNotToUse: >-
-  Avoid if you require advanced analytics, enterprise integrations, or unlimited
-  event volume without upgrading.
+  Avoid it if you need more than 1 year of analytics retention, advanced product analytics, change
+  reviews and approvals, or more than 2 million events a month without a card.
 bestFor:
   - startups
   - indie developers
@@ -61,11 +78,12 @@ bestFor:
 avoidIf:
   - enterprise
   - large-scale analytics
-  - custom compliance needs
+  - need change approvals
+  - need more than 1 year of analytics retention
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.statsig.com'
@@ -73,6 +91,49 @@ docsUrl: 'https://docs.statsig.com/'
 pricingUrl: 'https://www.statsig.com/pricing'
 sourceUrls:
   - 'https://www.statsig.com/pricing'
+  - 'https://docs.statsig.com/'
+  - 'https://docs.statsig.com/guides/first-feature'
 featured: false
 ---
-Statsig offers a generous free tier for teams needing feature flags, experimentation, and analytics, making it easy to iterate and measure product changes.
+
+You create gates and experiments in the Statsig console and call them from an SDK in your app. It suits developers and small product teams who want flags and experiments without paying per seat.
+
+## What the free plan gives you
+
+The Developer tier is free and needs no credit card. When you sign up, you start on it automatically. It gives you free access to gates, configs, experimentation, and analytics. You get 2 million events per month at no charge, unlimited flag and config checks, 50,000 session replays per month, and unlimited seats.
+
+Statsig bills by metered events, which are the events and exposures your app sends. Experiment checks with no allocation, and flags that are fully shipped or disabled, do not generate metered events. Statsig also dedupes repeat exposure events for the same user. By default, one event dimension with each log event is free.
+
+The Developer tier keeps 1 year of analytics data. The Pro tier, at $150 per month, includes 5M events and unlimited analytics retention.
+
+## When you hit a limit
+
+If you go over the 2 million event limit, Statsig shows you a prompt to enter a credit card and upgrade to Pro. If you stay on Developer, gate and config targeting keep working. Metric Lift calculations stop, and you get several warning notifications before that happens.
+
+Pro includes 5M events a month. Past that, you pay $0.05 per additional 1K events. The overage appears on the next bill, charged to the card on file. The Pro base fee of $150 is charged at the start of each period.
+
+## Gotchas
+
+- Going over 2M events does not turn off your flags. It stops Metric Lift results, which are the numbers behind your experiments.
+- Statsig calls feature flags feature gates in its console and SDKs. Search for both terms in the docs.
+- New gates return false until you add a targeting rule, so a gate with no rule will look broken.
+
+## Alternatives in this atlas
+
+- [PostHog](/tools/posthog/): when you want flags, analytics, and replay with a separate free allowance for each.
+- [Mixpanel](/services/mixpanel/): when analytics is your main need and flags are secondary.
+- [Amplitude](/services/amplitude/): when you want product analytics with unlimited seats and experiments.
+
+## Questions people ask
+
+### Is Statsig free?
+
+Yes. The Developer tier is free, with 2 million events per month, unlimited flag and config checks, and unlimited seats. It needs no credit card.
+
+### What happens if I exceed the Statsig free event limit?
+
+You are prompted to add a credit card to upgrade to Pro. If you stay on Developer, targeting keeps working and Metric Lift computations stop.
+
+### How much does Statsig Pro cost?
+
+Pro is $150 per month and includes 5M events. Additional events cost $0.05 per 1K.

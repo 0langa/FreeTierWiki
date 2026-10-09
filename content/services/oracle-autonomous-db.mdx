@@ -1,8 +1,8 @@
 ---
 title: Oracle Autonomous DB
 description: >-
-  Fully managed, self-driving cloud database with built-in security, patching,
-  and scaling for transactional and analytical workloads.
+  Oracle Autonomous AI Database is a managed Oracle database in Oracle Cloud.
+  The Always Free option gives two small instances for SQL, JSON, and APEX apps.
 provider: Oracle Cloud
 category: database
 domain: database
@@ -16,68 +16,116 @@ audiences:
   - startup
   - team
 tags:
-  - cloud
+  - oracle
+  - oracle cloud
+  - autonomous database
+  - apex
+  - sql
+  - json database
   - database
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always Free includes two Oracle Autonomous AI Database instances, each with
-    a fixed 1 OCPU and 20 GB storage that cannot be scaled up.
+    Always Free includes two Oracle Autonomous AI Database instances per
+    tenancy, each with a fixed 1 OCPU and 20 GB of storage that you cannot scale.
+    Oracle stops an instance after 7 days of inactivity.
   limits:
-    - 2 Autonomous AI Database instances per account
-    - 20 GB storage per database (fixed, cannot be scaled)
-    - 1 OCPU per database (fixed, cannot be scaled)
-    - Up to 20 concurrent sessions per database
+    - 2 Always Free Autonomous AI Database instances per tenancy
+    - 20 GB of storage per database, fixed
+    - 1 OCPU per database, fixed
+    - Simultaneous sessions capped at 20 or 30 depending on the Oracle docs page
+    - About 3 to 6 simultaneous users on the APEX, REST, and Database Actions web tools
+    - Home region only
   caveats:
-    - Performance and storage are fixed and cannot be scaled on Always Free
-    - No SLA for Always Free resources
-    - Requires a phone number and credit card to sign up; not charged unless you upgrade
-  resetPeriod: monthly
+    - Oracle stops an inactive instance after 7 days and may delete it after 90 days of inactivity or stoppage
+    - No backups, restore, private endpoints, or Autonomous Data Guard on Always Free
+    - Most users need a mobile phone number and a credit card to create an account; the card is not charged unless you upgrade
+    - Always Free databases cannot be scaled; to scale, you upgrade to a paid instance
+    - Always Free is offered only in a subset of regions, and you can create it only in your home region
+  resetPeriod: none
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Learning SQL and Oracle Cloud
-  - Prototyping cloud-native apps
-  - Testing Oracle database features
+  - Learning SQL and Oracle Database on a real cloud instance
+  - Building small apps with Oracle APEX
+  - Running a JSON document database for a prototype
+  - Testing Oracle database features before moving to paid resources
 quickstartSteps:
-  - Sign up for an Oracle Cloud Free Tier account.
-  - 'Verify your email and provide required details, including a credit card.'
-  - Navigate to the Oracle Cloud Console and select 'Autonomous Database'.
-  - >-
-    Create a new Autonomous Database instance using the always-free
-    configuration.
-  - >-
-    Download the database credentials and connect using your preferred SQL
-    client.
+  - Sign up for Oracle Cloud Free Tier and choose your home region with care. Most users need a mobile phone number and a credit card for the account.
+  - Open the Oracle Cloud Console, open the navigation menu, and go to Oracle AI Database, then Autonomous AI Database.
+  - Pick your compartment and click Create Autonomous AI Database.
+  - Give the database a display name and database name, then choose a workload type such as Transaction Processing, JSON, APEX, or Lakehouse.
+  - Turn on the Always Free option, choose a database version, set the admin password, and create the instance.
+  - Connect with the Oracle tools, Database Actions, or a SQL client once the instance is available.
 whenToUse: >-
-  Use when you need a managed Oracle database for development, learning, or
-  prototyping with minimal setup and no cost.
+  Use it when you want a managed Oracle database to learn SQL, build an APEX
+  app, or test Oracle features at no cost and you can give a card at sign-up.
 whenNotToUse: >-
-  Avoid if you require high performance, large storage, or production SLAs, as
-  the free tier has strict resource limits.
+  Avoid it for production, for apps that need backups or private networking, for
+  projects that sit idle for weeks, or if you cannot give a card and phone number.
 bestFor:
-  - learning
-  - prototyping
-  - testing
+  - learning Oracle SQL
+  - APEX prototypes
+  - testing Oracle features
 avoidIf:
-  - high-throughput workloads
-  - large-scale production
-  - strict uptime requirements
+  - production workloads
+  - you need backups
+  - the database sits idle for weeks
+  - no credit card or phone
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.oracle.com/cloud/free/'
 docsUrl: 'https://docs.oracle.com/en/cloud/paas/atp/index.html'
 pricingUrl: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
 sourceUrls:
-  - 'https://www.oracle.com/cloud/free/'
-  - 'https://docs.oracle.com/en/cloud/paas/atp/index.html'
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+  - 'https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-always-free.html'
+  - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm'
+  - 'https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-provision.html'
 featured: false
 ---
-Oracle Autonomous DB offers a fully managed, always-free cloud database ideal for learning, prototyping, and testing Oracle database features with minimal setup.
+You create and manage instances in the Oracle Cloud Console, then connect with Oracle APEX, Database Actions, or a SQL client. It suits learners and developers who already want an Oracle database and are fine giving Oracle a card at sign-up.
+
+## What the free plan gives you
+
+Every tenancy can create up to two Always Free Autonomous AI Database instances. Each has 1 OCPU and 20 GB of storage, and neither can be scaled by hand or automatically. You choose a workload type for each one: Transaction Processing, JSON, APEX, or Lakehouse. The two instances can use the same type or different types.
+
+Oracle's docs cap simultaneous sessions at 20 on one page and 30 on another. The web tools are also rate limited, with about 3 to 6 simultaneous users across APEX, REST Data Services, and Database Actions. You can create the databases only in your home region, which you pick at sign-up.
+
+## When you hit a limit
+
+Oracle says you are never billed for an Always Free instance until you update it to a paid database. If you go over the session or user limits, you see errors, such as HTTP status 429 on the web tools. Oracle suggests upgrading to a paid service to get more resources.
+
+Inactivity is the bigger risk. After 7 days of inactivity Oracle stops the database and keeps the data. If it stays inactive or stopped for 90 days, Oracle may reclaim and permanently delete it. Starting the instance from the console resets the count.
+
+## Gotchas
+
+- Most users need a mobile phone number and a credit card to create the account. Oracle says the card is not charged unless you upgrade.
+- Always Free databases do not support long-term backups, manual backups to object storage, or restore. Back up your data yourself.
+- You cannot create an Always Free database in a region you subscribe to later. It must live in your home region, and not every region supports it.
+
+## Alternatives in this atlas
+
+- [Azure SQL Database](/services/azure-sql-database/): when you want a free relational database on Azure and are fine with a card.
+- [Neon](/services/neon/): when you want serverless Postgres with no credit card.
+- [Aiven](/services/aiven/): when you want a free managed Postgres or MySQL without a card.
+
+## Questions people ask
+
+### Is Oracle Autonomous Database free?
+
+Yes, through Always Free. Every tenancy can create two instances with 1 OCPU and 20 GB of storage each. Oracle says you are never billed for them until you upgrade.
+
+### Does Oracle Autonomous Database need a credit card?
+
+Most users need a mobile phone number and a credit card to create an Oracle Cloud account. The docs say the card is not charged unless you upgrade.
+
+### Does an Always Free Autonomous Database stop?
+
+Yes. Oracle stops it after 7 days of inactivity and keeps the data. If it stays inactive or stopped for 90 days, Oracle may delete it permanently.

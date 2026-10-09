@@ -1,8 +1,9 @@
 ---
 title: Azure Logic Apps
 description: >-
-  Azure Logic Apps enables automated workflows to integrate apps, data, and
-  services across cloud and on-premises environments.
+  Azure Logic Apps builds automated workflows that connect apps, data, and
+  services in the cloud and on premises, using prebuilt connectors. Teams use it
+  to skip writing glue code.
 provider: Azure
 category: automation
 domain: automation
@@ -16,10 +17,11 @@ audiences:
   - enterprise
   - agency
 tags:
-  - automation
+  - workflow-automation
   - integration
   - serverless
-  - queue
+  - connectors
+  - azure
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -39,34 +41,36 @@ freeTierDetails:
   billingRiskNotes:
     - Usage above 4,000 actions and managed connector calls are billed; there is no hard cap.
 useCases:
-  - Automating business workflows
-  - Integrating SaaS and on-premises apps
-  - Processing and routing data
-  - Event-driven notifications
+  - Checking an RSS feed on a schedule and emailing each new item
+  - Routing messages between SaaS apps and internal systems
+  - Sending notifications when a data source changes
+  - Monitoring data sources and acting without custom code
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Create a new Logic App resource.
-  - Choose a workflow template or start from blank.
-  - Add triggers and actions to define your workflow.
-  - Save and run the Logic App to test automation.
+  - Create or sign in to an Azure account with a subscription.
+  - In the Azure portal, create a Logic App resource and choose the Consumption plan.
+  - Open the designer and add a trigger, for example the RSS connector to check a feed on a schedule.
+  - Add an action, for example the Office 365 Outlook connector to send an email.
+  - Save the workflow and run it to test.
 whenToUse: >-
-  Use when you need to automate workflows or integrate multiple services without
-  writing custom code.
+  Use it to wire together SaaS and on-premises systems with prebuilt connectors
+  when a light workflow is enough and the free built-in operations cover your
+  volume.
 whenNotToUse: >-
-  Avoid if you require complex, low-latency, or highly customized integrations
-  beyond what connectors provide.
+  Avoid it for high-volume workflows on the free amount, for workflows that lean
+  on managed connectors you do not want to pay for, or if you cannot give Azure
+  a payment method.
 bestFor:
-  - workflow automation
-  - integration
-  - event-driven processes
+  - small event-driven workflows
+  - notifications and routing between apps
+  - low-code integration
 avoidIf:
-  - real-time processing
-  - heavy customization
-  - unsupported connectors
+  - heavy use of managed connectors on a free budget
+  - you need a hard spending cap
+  - logic that needs custom code
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/logic-apps/'
@@ -75,6 +79,46 @@ pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/logic-apps/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/logic-apps/'
   - 'https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-pricing'
+  - 'https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview'
+  - 'https://learn.microsoft.com/en-us/azure/logic-apps/quickstart-create-example-consumption-workflow'
 featured: false
 ---
-Azure Logic Apps provides a serverless way to automate workflows and integrate cloud or on-premises systems using a visual designer and prebuilt connectors.
+You build a workflow in the Azure portal designer by adding a trigger and then actions from a gallery of connectors. You can also use Visual Studio Code or the Azure CLI. It suits teams that want automation without writing custom code.
+
+## What the free plan gives you
+
+The Consumption plan runs workflows in multitenant Azure Logic Apps and bills per execution. The pricing page lists the first 4,000 actions as free and included. Microsoft's pricing docs say the free built-in operations are counted per Azure subscription, so every workflow in the subscription shares them.
+
+Built-in operations include the HTTP and Request triggers, the HTTP and Response actions, loops, conditions, and data operations. The Standard plan, which runs on a hosting plan you pay for, includes unlimited free built-in operations, but you pay for the hosting plan itself. The pricing page text we could read shows its dollar rates only as placeholders, so this page gives no prices.
+
+## When you hit a limit
+
+Nothing stops your workflows at the free amount. Above it, the Consumption plan meters each execution and bills it, whether or not the workflow finishes or even starts. A polling trigger counts as one execution each time it checks, even when it finds no new data.
+
+Managed connector operations are never part of the free built-in operations. Microsoft bills them at standard or enterprise connector rates from the first call. A frequent polling trigger on a managed connector can therefore produce a bill quickly.
+
+## Gotchas
+
+- The free amount covers built-in operations only. Managed connector operations are billed as soon as you use them.
+- Some managed connector operations also exist as built-in ones. The built-in version uses the free amount, and above it billing follows the actions price, not the connector price.
+- A Consumption logic app resource holds only one workflow. The Standard type holds many workflows but bills through a hosting plan.
+
+## Alternatives in this atlas
+
+- [Azure Data Factory](/services/azure-data-factory/): when your job is moving and transforming data on a schedule, not app-to-app workflows.
+- [Make](/services/make/): when you want a visual builder without an Azure account.
+- [Pipedream](/services/pipedream/): when you want workflows with code steps and no Azure setup.
+
+## Questions people ask
+
+### Is Azure Logic Apps free?
+
+Partly. The Consumption plan lists the first 4,000 actions as free, and you pay for everything above that. Managed connector calls are billed from the start.
+
+### Does Azure Logic Apps need a credit card?
+
+You need an Azure account and subscription, and Microsoft points new users to a free Azure account. This entry lists a payment method as required, and the pricing pages do not say otherwise.
+
+### What happens when I go over the free actions in Logic Apps?
+
+Nothing blocks the workflow. Azure bills each extra execution at the actions price, so watch your cost reports.

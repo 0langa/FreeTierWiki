@@ -1,8 +1,9 @@
 ---
 title: Azure Virtual Networks
 description: >-
-  Azure Virtual Networks provide secure, isolated, and scalable networking for
-  Azure resources and services.
+  Azure Virtual Network is the private network in Azure where your virtual
+  machines and other resources talk to each other, the internet, and your
+  on-premises sites.
 provider: Azure
 category: networking
 domain: networking
@@ -16,19 +17,25 @@ audiences:
   - enterprise
   - indie
 tags:
+  - virtual network
+  - vnet
+  - subnet
+  - vpc
+  - private network
+  - azure
   - networking
-  - security
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Virtual Networks are free; charges apply for resources like VPN gateways,
-    peering, or IP addresses.
+    Virtual Networks are free, up to 1,000 per subscription. Peering, VPN
+    Gateway, and Application Gateway are charged.
   limits:
     - Up to 1,000 virtual networks per subscription (all regions)
-    - No charge for VNet creation
-    - 'Charges for VNet peering, VPN and application gateways, and IP addresses'
+    - No charge for creating a virtual network
+    - 'Charges for VNet peering and for network appliances such as VPN Gateway and Application Gateway'
   caveats:
-    - 'VNet peering, VPN and application gateways, and IP addresses incur additional costs'
+    - 'VNet peering is billed on traffic at both ends of the peered networks'
+    - 'Network appliances that run inside the network, such as VPN Gateway and Application Gateway, are charged'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -36,27 +43,27 @@ freeTierDetails:
   overageRisk: medium
   billingRiskNotes:
     - >-
-      Charges accrue if you use VPN gateways, application gateways, peering, or
-      IP addresses
+      Charges accrue if you peer networks or run a VPN Gateway or Application
+      Gateway inside the network
 useCases:
-  - Isolating cloud resources
-  - Setting up secure private networks
+  - Isolating cloud resources in their own private network
+  - Splitting a network into subnets with traffic rules
   - Connecting on-premises networks to Azure
-  - Enabling service-to-service communication
+  - Letting VMs and services talk to each other on private addresses
 quickstartSteps:
-  - Sign in to the Azure Portal.
-  - Navigate to 'Virtual Networks' and click 'Create'.
-  - 'Enter a name, select a region, and define the address space.'
-  - Add one or more subnets as needed.
-  - Review and create the virtual network.
+  - Sign up for an Azure account and sign in to the Azure portal.
+  - Create a resource group.
+  - Search for Virtual networks, select Create, and enter a name and a region.
+  - On the IP addresses tab, set the address space and edit the default subnet.
+  - Select Review + create, then Create, and add VMs to the network to test it.
 whenToUse: >-
-  Use when you need secure, private networking for Azure resources or to connect
-  on-premises infrastructure to Azure.
+  Use it for any Azure setup where VMs or services need a private network, rules
+  between subnets, or a link to your own network.
 whenNotToUse: >-
-  Avoid if you only need public-facing resources or are not using Azure-hosted
-  services.
+  Avoid it if you only run public-facing services with no private traffic, or if
+  you do not use Azure at all.
 bestFor:
-  - secure networking
+  - private networking
   - hybrid cloud
   - resource isolation
 avoidIf:
@@ -64,8 +71,8 @@ avoidIf:
   - non-Azure environments
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/virtual-network/'
@@ -76,6 +83,45 @@ sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/virtual-network/'
   - >-
     https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+  - 'https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal'
 featured: false
 ---
-Azure Virtual Networks (VNets) enable secure, isolated, and scalable networking for Azure resources, supporting hybrid connectivity and granular network segmentation.
+You create a virtual network in the Azure portal, or with the CLI, PowerShell, or a template, and then place VMs and other resources in it. It suits anyone who runs more than a single public VM on Azure.
+
+## What the free plan gives you
+
+A virtual network costs nothing to create. Each subscription can hold up to 1,000 virtual networks across all regions. Resources inside a network can reach the internet outbound by default, and you can split the network into subnets and filter traffic between them with network security groups. You can also set your own routes with route tables.
+
+You can link a network to your own site with a point-to-site VPN, a site-to-site VPN, or ExpressRoute. The network spans all availability zones in a region, so you do not split it by zone. Microsoft also says most networking limits are at their maximum values, and some can be raised on request.
+
+## When you hit a limit
+
+The network itself has no usage meter, so you do not get a bill for the network alone. You pay for what you add to it.
+
+Peering links two networks, in one region or in two. The pricing page calls the charge nominal, and it applies to traffic at both ends. Global peering across regions uses zone-based rates. Network appliances that run inside a network, such as VPN Gateway and Application Gateway, are also charged. If you need more than 1,000 networks in a subscription, the pricing page does not say how to get more.
+
+## Gotchas
+
+- The page lists no peering rate in plain text, so price a peering link in the Azure pricing calculator before you build it.
+- Peering charges both sides: ingress and egress traffic is billed at each end of the link.
+- Peering adds no compute charges, but you still pay for the other resources you run in the network as usual.
+
+## Alternatives in this atlas
+
+- [Azure Bastion](/services/azure-bastion/): when you need browser-based access to VMs inside the network.
+- [Tailscale](/services/tailscale/): when you want a private network across clouds and laptops, not only Azure.
+- [ZeroTier](/services/zerotier/): when you want a virtual network you can set up without any cloud account.
+
+## Questions people ask
+
+### Is Azure Virtual Network free?
+
+Yes, creating one is free. You can have up to 1,000 per subscription. Peering, VPN Gateway, and Application Gateway are charged.
+
+### Does Azure Virtual Network need a credit card?
+
+The pages I read do not say. The network runs inside an Azure subscription, so you need an Azure account first.
+
+### Is VNet peering free?
+
+No. Peering carries a charge, and traffic is billed at both ends of the link. Global peering between regions is priced by zone.

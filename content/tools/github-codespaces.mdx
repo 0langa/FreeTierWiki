@@ -1,6 +1,8 @@
 ---
 title: GitHub Codespaces
-description: 'Cloud development environments in the browser or VS Code, from any GitHub repository.'
+description: >-
+  GitHub Codespaces gives you a cloud development environment for a repository that you open in the
+  browser or in VS Code. It is for developers who want a ready setup without local installs.
 provider: GitHub
 category: devops
 domain: devops
@@ -12,49 +14,80 @@ audiences:
   - indie
   - oss
 tags:
-  - devops
-  - cloud
-  - productivity
+  - cloud ide
+  - dev containers
+  - cloud development environment
+  - vs code in browser
+  - github codespaces
+  - remote development
 pricingModel: freemium
 freeTierDetails:
-  summary: Personal accounts get 120 core-hours of compute and 15 GB-month of storage per month.
+  summary: >-
+    Personal accounts get 120 core-hours of compute and 15 GB-month of storage per month on GitHub
+    Free, and 180 hours and 20 GB-month on GitHub Pro.
   limits:
-    - 120 core-hours per month (60 hours on a 2-core machine)
-    - 15 GB-month storage
+    - 120 core-hours of compute per month on GitHub Free (60 hours on a 2-core machine)
+    - 15 GB-month of storage per month
+    - GitHub Pro raises this to 180 hours and 20 GB-month
   caveats:
-    - Organization plans have no free quota
-    - Use past the quota is billed to your account; GitHub lets you set a budget to stop it
+    - Organization and enterprise plans have no free quota
+    - 'Without a valid payment method, usage is blocked once you use up your quota'
+    - 'With a payment method, use past the quota is billed to your account'
+    - >-
+      A running codespace is billed until it times out, whether or not you use it; the default idle
+      timeout is 30 minutes
+    - Codespaces is not available for repositories owned by managed user accounts
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - Compute above the quota starts at $0.18 per hour on a 2-core machine
+    - Storage above the quota costs $0.07 per GB-month
 useCases:
-  - Code from any device
-  - Ready-made dev environments for a repo
-  - Try a project without local setup
+  - Coding on a repository from any device with a browser
+  - Trying a project without local setup
+  - Giving contributors a ready environment with a dev container
+  - Making a quick fix on a repo from a tablet or borrowed laptop
 quickstartSteps:
-  - Open a repository on GitHub.
-  - 'Click Code, then Codespaces, then Create.'
-  - Stop the codespace when you are done.
-whenToUse: Use for short sessions or to work on repos without local setup.
-whenNotToUse: Avoid as a full-time dev machine; the hours run out.
+  - 'Open a repository on GitHub, or the github/haikus-for-codespaces template repository.'
+  - >-
+    Click Code, then Codespaces, then create a codespace; for the template, click Use this template
+    and Open in a codespace.
+  - Wait for the browser version of VS Code to open with the repository cloned.
+  - >-
+    Run the project in the terminal, for example `npm run dev` for the template, and open the
+    forwarded port.
+  - 'Commit and push your changes, then stop the codespace when you are done.'
+whenToUse: >-
+  Use Codespaces for short sessions, quick fixes, or onboarding a contributor to a repo with a dev
+  container.
+whenNotToUse: >-
+  Avoid it as a full-time dev machine, since the free hours run out, and avoid it for
+  organization-owned work that has no billing set up.
 bestFor:
-  - students
-  - open source
-  - quick fixes
+  - students and learners
+  - open-source contributors
+  - quick fixes from any device
 avoidIf:
-  - full-time use
+  - 'you code in it all day, every day, on the free quota'
+  - your work is owned by an organization with no Codespaces budget
+  - you leave codespaces running
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://github.com/features/codespaces'
 docsUrl: 'https://docs.github.com/en/codespaces'
 sourceUrls:
   - 'https://docs.github.com/en/billing/concepts/product-billing/github-codespaces'
+  - 'https://docs.github.com/en/codespaces'
+  - 'https://docs.github.com/en/codespaces/quickstart'
+  - >-
+    https://docs.github.com/en/codespaces/setting-your-user-preferences/setting-your-timeout-period-for-github-codespaces
 pricingUrl: 'https://docs.github.com/en/billing/concepts/product-billing/github-codespaces'
 featured: false
 changes:
@@ -62,4 +95,43 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Every personal GitHub account has a monthly Codespaces quota. Stop idle codespaces to save hours.
+You start a codespace from a repository page on GitHub and work in the browser version of VS Code. You can also connect from VS Code on your computer or from the GitHub CLI. It suits students, contributors, and anyone who wants a quick ready-made setup.
+
+## What the free plan gives you
+
+All personal GitHub accounts include free Codespaces usage each month. On GitHub Free, that is 120 hours of compute and 15 GB-month of storage. GitHub Pro raises this to 180 hours and 20 GB-month.
+
+The compute hours scale with the machine size. A 2-core machine uses 2 included hours for each hour, so the quota lasts half as many real hours on a 2-core machine. A 4-core machine uses it twice as fast again. Your included compute resets at the start of each billing cycle.
+
+Organization and enterprise plans do not include a free quota.
+
+## When you hit a limit
+
+If your account has no valid payment method, usage is blocked once you use up the quota. If you cannot resume a codespace, you can export your changes to a branch, add a payment method, or wait for the next billing cycle.
+
+With a payment method on file, usage above the quota is billed to your account. Compute starts at $0.18 per hour for a 2-core machine, and storage costs $0.07 per GB-month. You can set a budget to control spending.
+
+## Gotchas
+
+- A codespace that stays running is billed for the time it was active, even if you were not using it. It stops after 30 minutes of inactivity by default, and you can set between 5 and 240 minutes.
+- A codespace has a maximum lifetime of 12 hours, whatever your idle timeout.
+- Storage keeps counting while a codespace exists, so delete codespaces you no longer need.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when the job is a build or test run and not an interactive session.
+- [GitLab](/services/gitlab/): when your code is on GitLab, not GitHub.
+
+## Questions people ask
+
+### Is GitHub Codespaces free?
+
+Yes, for personal accounts, within a monthly quota. GitHub Free includes 120 hours of compute and 15 GB-month of storage.
+
+### Does GitHub Codespaces need a credit card?
+
+Not for the free quota. Without a payment method, usage is blocked when the quota runs out. With one, extra usage is billed.
+
+### What happens when my Codespaces hours run out?
+
+Usage is blocked if you have no payment method. You can export your changes to a branch, add a payment method, or wait for the quota to reset.

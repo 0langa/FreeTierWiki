@@ -1,8 +1,8 @@
 ---
 title: TemplateFox
-description: >-
-  TemplateFox provides a free API for generating PDFs from HTML templates with
-  customizable data.
+description: TemplateFox lets you design a template visually, then generate PDFs and
+  images from it by sending JSON to an API, an SDK, or Zapier, Make, or n8n. It suits
+  developers and no-code builders who make invoices, certificates, and social cards.
 provider: TemplateFox
 category: documents
 domain: documents
@@ -17,12 +17,22 @@ audiences:
   - team
   - oss
 tags:
-  - api
+  - pdf generation api
+  - image generation api
+  - invoice generator
+  - og image generator
+  - certificate maker
+  - zapier pdf
+  - html to pdf
+  - pdf sdk
 pricingModel: free
 freeTierDetails:
   summary: Free tier includes 60 PDFs and images per month, no credit card required.
   limits:
     - 60 PDFs & images/month
+    - 3 templates
+    - 50 pages and 2 MB per PDF
+    - 10 requests/minute
     - PDF and image (PNG/JPEG/WebP) generation
     - No-code integrations (Zapier, Make, n8n, Airtable)
   caveats:
@@ -33,41 +43,81 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Generate invoices or reports as PDFs
-  - Automate document creation from web apps
-  - Send templated PDFs via email
+  - Generating invoices and receipts from order data
+  - Making certificates, shipping labels, and packing slips
+  - Rendering social cards and Open Graph images from the same template
+  - Running PDF jobs from Zapier, Make, or n8n
 quickstartSteps:
-  - Sign up for a free TemplateFox account.
-  - Create or upload an HTML template in the dashboard.
-  - Obtain your API key from the account settings.
-  - Send a POST request to the API endpoint with your template and data.
-  - Download the generated PDF from the response.
-whenToUse: >-
-  Use TemplateFox when you need to automate PDF generation from HTML templates
-  with minimal setup and no infrastructure management.
-whenNotToUse: >-
-  Avoid if you require more than 60 PDFs/images a month without upgrading to a
-  paid plan.
+  - Sign up free at templatefox.com; the free plan needs no credit card.
+  - Design a template in the visual editor, or start from a ready-made invoice, receipt,
+    or certificate template.
+  - Create an API key and copy your template ID.
+  - Run npm install @templatefox/sdk, create a TemplateFox client with your API key,
+    and call pdf.generate with the template ID and your data.
+  - Use the returned pdfUrl, or download the file directly; the REST endpoint is POST
+    /v1/pdf/generate.
+whenToUse: Use it when you want one visual template to produce both PDFs and images,
+  from code or from Zapier, Make, or n8n.
+whenNotToUse: Avoid it for more than 60 PDFs or images a month, for PDFs over 50 pages
+  or 2 MB, or for bursts above 10 requests a minute on the free plan.
 bestFor:
-  - automated PDF workflows
-  - web app integrations
-  - prototyping document features
+  - invoices and certificates from one template
+  - developers who want an SDK in TypeScript, Python, Go, PHP, Ruby, Java, or C#
+  - no-code workflows
 avoidIf:
-  - need more than 60 PDFs/images per month
-  - require high throughput
-  - need advanced template logic
+  - you need more than 60 PDFs or images a month for free
+  - you need PDFs longer than 50 pages
+  - you need more than 10 requests a minute
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://pdftemplateapi.com'
 docsUrl: 'https://docs.pdftemplateapi.com'
 sourceUrls:
-  - 'https://pdftemplateapi.com'
-  - 'https://templatefox.com/'
-pricingUrl: 'https://templatefox.com/'
+  - https://templatefox.com/pricing
+  - https://templatefox.com/
+  - https://templatefox.com/pdf-generation-api
+  - https://templatefox.com/docs
+pricingUrl: https://templatefox.com/pricing
 featured: false
 ---
-TemplateFox offers a free, easy-to-use API for converting HTML templates into PDFs, ideal for automating document workflows in small projects or prototypes.
+You design a template in a visual editor, then send its ID and your JSON data to the API. Native libraries exist for several languages. Zapier, Make, and n8n work without code.
+
+## What the free plan gives you
+
+The free plan costs $0 and needs no credit card. It gives you 60 PDFs and images per month and 3 templates. One PDF is 1 credit no matter how many pages it has, and images cost the same. The limits per file are 50 pages and 2 MB. The rate limit is 10 requests per minute. The free plan has 1 team member and 1 API key, and keeps usage analytics for 7 days. Support is community support.
+
+You can get the result as a download, a time-limited signed URL, or an upload to your S3 bucket. Starter has 1,000 PDFs per month and 10 templates. Pro has 3,000 PDFs and 25 templates. TemplateFox does not store the data you send. It uses the data to render the file and then discards it.
+
+## When you hit a limit
+
+PDF generation simply stops until your credits reset or you upgrade. There is no automatic overage charge and no surprise bill. Upgrading is instant and prorated. Credits reset at the start of each billing cycle, and unused credits do not roll over. If you go over the per-minute cap, you get a clear error and your credits are not touched, so a short pause clears it. Failed PDFs are refunded automatically, so only successful ones cost a credit.
+
+## Gotchas
+
+- The free plan stops at 50 pages and 2 MB per PDF, so long reports need a paid plan.
+- Unused credits do not roll over to the next month.
+- Free support is community support. Live support starts on Starter.
+
+## Alternatives in this atlas
+
+- [CraftMyPDF](/tools/craftmypdf/): when you want a similar template editor with a Zapier link.
+- [Doczilla](/services/doczilla/): when you would rather send HTML and get a PDF or screenshot.
+- [DynamicDocs](/services/dynamicdocs/): when you want JSON-driven templates for PDFs.
+
+## Questions people ask
+
+### Is TemplateFox free?
+
+Yes. The free plan gives you 60 PDFs and images per month and 3 templates, with no credit card.
+
+### What happens when I run out of TemplateFox credits?
+
+PDF generation stops until credits reset or you upgrade. There is no overage charge.
+
+### Does a long PDF cost more on TemplateFox?
+
+No. One PDF is 1 credit regardless of page count. The free plan caps PDFs at 50 pages and 2 MB.

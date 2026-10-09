@@ -1,8 +1,10 @@
 ---
 title: DynamicDocs
 description: >-
-  DynamicDocs provides automated PDF and document generation from templates and
-  data via API or web interface.
+  DynamicDocs is an API from Advicement that turns JSON data into PDF documents,
+  using ready-made templates or LaTeX templates you write yourself. It suits
+  developers who need invoices, reports, or labels without building a PDF
+  engine.
 provider: Advicement
 category: documents
 domain: documents
@@ -16,8 +18,12 @@ audiences:
   - enterprise
   - indie
 tags:
-  - automation
-  - api
+  - pdf api
+  - json to pdf
+  - latex
+  - pdf generator
+  - invoice generator
+  - document automation
 pricingModel: freemium
 freeTierDetails:
   summary: Free plan allows 50 API calls per month for JSON-to-PDF generation.
@@ -34,34 +40,35 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated invoice generation
-  - Report creation from data
-  - Bulk document processing
-  - Template-based PDF creation
+  - Generating invoices, receipts, and statements from JSON data
+  - Creating tickets and name tags from ready-made templates
+  - Building branded reports with charts and tables
+  - Compiling your own LaTeX templates into PDFs through an API
 quickstartSteps:
-  - Sign up for a free DynamicDocs account at advicement.io.
-  - Create or upload a document template using the web interface.
-  - Connect your data source or prepare sample data.
-  - Use the API or web interface to generate documents from your template.
-  - Download or share the generated PDFs.
+  - Register an account on advicement.io with a valid email address.
+  - Open the verification email Advicement sends, then sign in to the dashboard.
+  - Generate your API key (adv-security-token) in the dashboard.
+  - Pick a ready-made JSON to PDF template and note its template token.
+  - Send a request with the template JSON payload as the body and your API key as the Adv-Security-Token header.
+  - Download the finished PDF from the signed URL link in the Progress JSON.
 whenToUse: >-
-  Use DynamicDocs when you need to automate PDF or document creation from
-  templates and structured data.
+  Use DynamicDocs when you want to make PDFs from JSON data through an API and
+  a ready-made template is close enough to what you need.
 whenNotToUse: >-
-  Avoid if you require high-volume, unbranded documents or advanced
-  customization beyond the free tier limits.
+  Avoid it if you need your own LaTeX template, which the free plan does not
+  include, or if you need more than 50 documents a month.
 bestFor:
-  - automating reports
-  - generating invoices
-  - teams needing quick document workflows
+  - trying a JSON to PDF API with ready-made templates
+  - low-volume invoices and reports
+  - developers who know LaTeX and plan to upgrade later
 avoidIf:
-  - need unlimited document generation
-  - require white-label output
-  - need advanced template logic
+  - you need private LaTeX templates on the free plan
+  - you need more than 50 API calls a month
+  - your template files are larger than 3Mb
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://advicement.io'
@@ -69,6 +76,47 @@ docsUrl: 'https://advicement.io/dynamic-documents-api/documentation/getting-star
 pricingUrl: 'https://advicement.io/dynamic-documents-api/pricing'
 sourceUrls:
   - 'https://advicement.io/dynamic-documents-api/pricing'
+  - 'https://advicement.io/dynamic-documents-api/documentation/getting-started'
+  - 'https://advicement.io/dynamic-documents-api/documentation/security-and-limitations'
+  - 'https://advicement.io'
 featured: false
 ---
-DynamicDocs is a user-friendly platform for automating document and PDF generation from templates, suitable for small teams and startups needing basic workflows.
+You call the API from your own code with a template token and a JSON payload, and you get back a PDF. You manage your account and API key in a web dashboard.
+
+## What the free plan gives you
+
+The free plan gives you 50 API calls per month and 0 private LaTeX templates. You can still use every ready-made JSON to PDF template, because those are on all plans. They need no LaTeX knowledge. The JSON you send controls the content. The trade-off is that you cannot change a template beyond what the library already offers.
+
+Paid plans add volume and private templates. Individual gives you 500 calls and 1 private LaTeX template. Startup gives you 3000 calls and 3 templates. Business gives you 20000 calls and 10 templates. The Business plan also lists dynamic charts and custom fonts. Two technical limits apply to every plan: a compile run times out after 60 seconds, and template files can be at most 3Mb.
+
+## When you hit a limit
+
+The pricing page does not say what happens after your 50th call in a month. You never enter a card, so the free plan cannot turn into a bill. Check the dashboard before you rely on a specific behavior.
+
+Two limits are stated clearly. A document that takes longer than 60 seconds to compile stops with a time-out. This protects the API from very long documents. A template file larger than 3Mb breaks the size limit. Large images are the usual cause, so shrink them first. Not every LaTeX package is available, so a package you need may be missing.
+
+## Gotchas
+
+- The free plan includes no private LaTeX templates, so you are limited to the ready-made JSON to PDF library.
+- Some LaTeX packages are not available in the compiler, and you must find an alternative if yours is missing.
+- Your account needs email verification before you can generate an API key.
+
+## Alternatives in this atlas
+
+- [Doczilla](/services/doczilla/): when you want a larger monthly allowance of PDF and screenshot requests.
+- [TemplateFox](/services/templatefox/): when you need images as well as PDFs from the same API.
+- [PDF-API.io](/tools/pdf-api-io/): when you want a larger free allowance and a Zapier link.
+
+## Questions people ask
+
+### Is DynamicDocs free?
+
+Yes, there is a free plan with 50 API calls per month. It includes the ready-made JSON to PDF templates but no private LaTeX templates.
+
+### Does DynamicDocs need a credit card?
+
+The pages we read do not mention a card for the free plan. You register with a valid email address and verify it.
+
+### Can I use my own LaTeX template on the free plan?
+
+No. The free plan lists 0 private LaTeX templates. The Individual plan is the first one with a private template slot.

@@ -1,8 +1,9 @@
 ---
 title: Pubnub.com
 description: >-
-  Pubnub provides real-time messaging APIs and infrastructure for building chat,
-  notifications, and live collaboration features.
+  PubNub is a real-time messaging platform for chat, live updates, presence,
+  and device messaging. It is for teams that want publish and subscribe
+  channels without running their own servers.
 provider: Pubnub
 category: messaging
 domain: messaging
@@ -17,53 +18,67 @@ audiences:
   - student
   - oss
 tags:
-  - realtime
-  - queue
-  - collaboration
-  - api
+  - realtime messaging
+  - pub/sub
+  - in-app chat
+  - presence
+  - websocket alternative
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier includes 200 MAUs and 1M transactions per month.
+  summary: >-
+    Free tier includes 200 MAUs or 1M transactions per month, but only on
+    Testing keysets that cannot carry live traffic.
   limits:
-    - 200 monthly active users
-    - 1 million transactions per month
+    - 200 monthly active users or 1 million transactions per month, whichever comes first
     - 1 GB storage, 7-day retention
+    - Testing keysets only; Production keysets need the Starter plan
   caveats:
-    - Data retention capped at 7 days on free plan
-    - Going over the limits does not stop service; PubNub bills the overage or asks you to upgrade
+    - Testing keysets are rate-limited and are not meant for live traffic
+    - Data retention is capped at 7 days on the free plan
+    - Auto Moderation and Event Forwarding need a paid plan even for testing
+    - The Starter plan costs $98 per month for 1,000 MAU
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - The free plan has no Production keysets, so live traffic means the paid Starter plan
 useCases:
-  - In-app chat
-  - Live notifications
-  - Collaborative editing
-  - IoT device messaging
+  - Prototyping in-app chat
+  - Testing live notifications and presence
+  - Building a collaboration feature before launch
+  - Trying IoT device messaging
 quickstartSteps:
-  - Sign up for a free Pubnub account.
-  - Create a new app and obtain publish/subscribe keys.
-  - Install the Pubnub SDK for your platform.
-  - Initialize the SDK with your keys.
-  - Send and receive messages using the SDK.
+  - Sign up in the Admin Portal with a username and password, Google single sign-on, or your own SSO provider.
+  - Create an app, then create a keyset and choose Testing.
+  - Copy the publish key (starts with `pub-c-`) and the subscribe key (starts with `sub-c-`).
+  - Turn on the features your app needs on the keyset, such as Presence or Message Persistence.
+  - Check the keyset in the Debug Console by subscribing to a channel and publishing a message.
+  - Install a PubNub SDK, initialize it with your keys and a stable User ID, then publish and subscribe.
 whenToUse: >-
-  Use Pubnub when you need reliable, scalable real-time messaging for chat,
-  notifications, or live collaboration with minimal infrastructure management.
+  Use PubNub to prototype and test real-time features on a Testing keyset
+  before you pick a paid plan.
 whenNotToUse: >-
-  Avoid if you need on-premise deployment, strict data residency, or require
-  more than 200 MAUs or 1M transactions without upgrading.
+  Avoid it for live traffic on the free plan, since Production keysets need the
+  Starter plan, or if you need on-premise hosting.
 bestFor:
-  - real-time chat
-  - notifications
+  - prototypes
+  - real-time chat tests
   - collaboration tools
 avoidIf:
+  - live production traffic on a free budget
   - self-hosting required
   - strict compliance
-  - high-volume free usage
 difficulty: beginner
-productionReadiness: production-light
-lastUpdated: 2026-09-28
+productionReadiness: prototype
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: The docs say the free plan is limited to Testing keysets, and Production keysets need the Starter plan.
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.pubnub.com/'
@@ -71,8 +86,47 @@ docsUrl: 'https://www.pubnub.com/docs'
 sourceUrls:
   - 'https://www.pubnub.com/pricing/'
   - 'https://www.pubnub.com/docs'
-featured: false
-lastVerified: 2026-09-28
+  - 'https://www.pubnub.com/docs/pricing/overview'
+  - 'https://www.pubnub.com/docs/general/setup/account-setup'
 pricingUrl: 'https://www.pubnub.com/pricing/'
+featured: false
 ---
-Pubnub offers a developer-friendly platform for integrating real-time messaging, notifications, and collaboration features into web and mobile applications with minimal setup.
+You work in the Admin Portal to create keysets, then use one of the many PubNub SDKs to publish and subscribe to channels from your app. The free account suits a developer who wants to try the platform.
+
+## What the free plan gives you
+
+A free PubNub account covers up to 200 monthly active users or 1 million transactions at no cost, whichever limit you reach first. A monthly active user is one unique User ID that connects to your keyset in a calendar month. The plan has no time limit and needs no credit card.
+
+You get 1GB of data storage with 7 days of retention. The plan includes unlimited channels. A Testing keyset gives you Pub/Sub, Presence, data storage, and Functions, so you can build and try a real application.
+
+## When you hit a limit
+
+The docs say a free account is limited to Testing keysets, which are rate-limited and not suitable for live traffic. Creating a Production keyset requires at least the Starter plan.
+
+The pricing pages do not say what happens when you pass 200 users or 1 million transactions on a Testing keyset. The Starter plan costs $98 per month for 1,000 monthly active users, and you can buy more by credit card month to month.
+
+## Gotchas
+
+- Free accounts cannot create Production keysets. Plan for the paid tier before you launch.
+- A single User ID counts as one monthly active user, however often it reconnects. Reuse a stable User ID, or the same person counts more than once.
+- Auto Moderation and Event Forwarding need a paid plan even when you only test.
+
+## Alternatives in this atlas
+
+- [Pusher](/services/pusher/): when you want a free sandbox plan with a daily message budget.
+- [Ably](/services/ably/): when you want a free plan with a monthly message allowance.
+- [Scaledrone.com](/services/scaledrone-com/): when you want a simple realtime service with a daily event allowance.
+
+## Questions people ask
+
+### Is PubNub free?
+
+Yes, for testing. A free account covers up to 200 monthly active users or 1 million transactions at no cost, on Testing keysets.
+
+### Can I use PubNub free in production?
+
+No. Production keysets need at least the Starter plan, which costs $98 per month. Testing keysets are rate-limited and not for live traffic.
+
+### What counts as a monthly active user on PubNub?
+
+One unique User ID that connects to your keyset at least once in a calendar month. Several devices that share a User ID count as one.

@@ -1,8 +1,9 @@
 ---
 title: Tugboat
 description: >-
-  Tugboat provides on-demand, ephemeral staging environments for web
-  applications and websites.
+  Tugboat builds a working preview of a website for each branch, tag, commit, or
+  pull request in a git repository. Web teams use it to review changes before
+  they merge.
 provider: Tugboat
 category: devops
 domain: devops
@@ -13,56 +14,64 @@ subtypes:
 audiences:
   - team
   - startup
+  - indie
   - oss
-  - agency
 tags:
-  - ci-cd
-  - collaboration
+  - preview environments
+  - staging environments
+  - pull request previews
+  - ephemeral environments
+  - drupal
+  - qa
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier is $0, no card required, for validating Tugboat as a
-    workflow tool: 5GB preview storage, unlimited users, unlimited
-    previews. Paid plans start at Intro, $39/month for 15GB storage.
+    The Free tier is $0 with 5GB of preview storage, unlimited users, and
+    unlimited previews, as far as storage allows. Paid plans start at Intro, $39
+    per month for 15GB.
   limits:
     - 5GB preview storage (Free tier)
     - Unlimited users
     - Unlimited previews (storage-limited)
-    - Previews idle 30+ days are auto-deleted to reclaim space
+    - Previews not accessed or changed for 30 days are deleted on the Free tier
   caveats:
-    - Free tier is not shown as a card on the public pricing page; reach it by signing up or by downgrading from a paid plan
-    - No card required for the Free tier
+    - Previews have a soft bandwidth limit of 10GB per month
+    - The terms say Tugboat may not serve a site that exceeds usage quotas
+    - Pricing is per project, not per account or user
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Test website changes before merging
-  - Share live previews with stakeholders
-  - Automate staging environment creation
+  - Reviewing a pull request on a live copy of the site before it merges
+  - Giving stakeholders a link to test a branch
+  - Running visual diffs between preview builds
+  - Building a preview from a commit or tag, not only a pull request
 quickstartSteps:
-  - 'Sign up at tugboatqa.com and connect your GitHub, GitLab, or Bitbucket account.'
-  - Create a new project and link it to your repository.
-  - Configure your Tugboat setup using the provided YAML file.
-  - Push a pull request or branch to trigger a preview environment build.
-  - Share the preview URL with collaborators for review.
+  - Go to the Tugboat sign-in and pick GitHub, GitLab, or Bitbucket, then authorize Tugboat. A generic git server also works.
+  - You land on the Create a Tugboat Project screen. Create a project and pick a plan for your storage needs.
+  - Add the repositories to the project and choose the repository settings, such as building pull requests automatically.
+  - Commit a Tugboat config file at .tugboat/config.yml in the branch you want to build. The starter configs in the docs help here.
+  - Open a pull request to build a preview, or run the Tugboat CLI command to create one.
 whenToUse: >-
-  Use Tugboat when you need automated, shareable preview environments for web
-  projects integrated with your version control system.
+  Use Tugboat when your team wants a live preview for every pull request and a
+  few gigabytes of preview storage is enough.
 whenNotToUse: >-
-  Avoid the Free tier if you need more than 5GB of preview storage; paid
-  plans start at $39/month for 15GB.
+  Avoid it for sensitive data such as health or card data, which the terms say
+  should not go into non-production environments. Avoid the Free tier for large
+  sites that need more than 5GB.
 bestFor:
-  - collaborative teams
   - agencies
+  - collaborative web teams
   - open source projects
 avoidIf:
-  - need more than 5GB of preview storage on the free tier
-  - need on-premise or dedicated hardware
+  - needing more than 5GB of preview storage for free
+  - needing on-premise or dedicated hardware
+  - regulated data in previews
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.tugboatqa.com'
@@ -71,7 +80,48 @@ sourceUrls:
   - 'https://www.tugboatqa.com/pricing'
   - 'https://www.tugboatqa.com/terms'
   - 'https://www.tugboatqa.com/blog/upcoming-changes-to-plans-and-pricing'
+  - 'https://docs.tugboatqa.com/setting-up-tugboat/index.html'
+  - 'https://docs.tugboatqa.com/tugboat-billing/tugboat-pricing/index.html'
 pricingUrl: 'https://www.tugboatqa.com/pricing'
 featured: false
 ---
-Tugboat lets teams and developers create on-demand preview environments for web applications, making it easy to review changes before deployment. The Free tier is $0, no card required, for validating Tugboat as a workflow tool, with unlimited previews but limited storage. Integration with popular version control systems streamlines the workflow, but larger storage and premium features require a paid plan.
+You work in the Tugboat dashboard, the command line tool, or the API. Each preview is a copy of your site built from the config file in your repository.
+
+## What the free plan gives you
+
+The Tugboat blog says the Free tier costs $0 and has 5GB of storage. All plans include unlimited users and unlimited previews. Previews are limited by how much storage they take, not by count.
+
+Pricing works per project, not per account or user. When you create a project, you pick a plan for your preview storage and build performance. You can then link as many repositories and add as many users as you want under that plan. Project storage is the total size of all previews in the project, including base previews.
+
+Paid plans from the blog are Intro at $39 per month for 15GB, Plus at $119 per month for 60GB, and Premium from $599 per month for 300GB and more.
+
+## When you hit a limit
+
+On the Free tier, the terms say Tugboat deletes previews that have not been accessed or changed for 30 days, to reclaim disk space. No data in your repository is removed.
+
+The terms also set a soft bandwidth limit of 10GB per month for previews. If your site passes usage quotas, Tugboat may not be able to serve it, or support may email you suggestions. Tugboat bills in advance monthly and upgrades from the free plan are billed immediately. If you cancel a paid plan, your account stays active on the Free tier.
+
+## Gotchas
+
+- Preview size is the size of the whole container after the build, so large databases and images count, not only your code.
+- Do not use health data, card data, or other regulated data in previews. The terms list these as data that should not go into non-production environments.
+- Data imported into a preview is not backed up. When a preview is deleted or rebuilt, that data is destroyed.
+
+## Alternatives in this atlas
+
+- [Deployment.io](/services/deployment-io/): when you want preview deployments for each pull request.
+- [Buddy](/services/buddy/): when you want a CI/CD pipeline tool with its own free tier.
+
+## Questions people ask
+
+### Is Tugboat free?
+
+Yes, there is a Free tier. It costs $0 and has 5GB of preview storage, unlimited users, and unlimited previews within that storage.
+
+### What happens to old previews on the Tugboat free tier?
+
+Tugboat deletes previews that have not been accessed or modified for 30 days, to reclaim disk space. Your repository data stays.
+
+### Does Tugboat work with GitHub, GitLab, and Bitbucket?
+
+Yes. It connects to all three, and it also supports a generic git repository that you link manually.

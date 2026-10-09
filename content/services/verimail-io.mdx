@@ -1,8 +1,6 @@
 ---
 title: Verimail.io
-description: >-
-  Verimail.io provides real-time email verification and validation APIs for
-  reducing bounce rates and improving email deliverability.
+description: "Verimail.io is an email verification service with a real-time API and bulk list cleaning. It suits developers and marketers who want to remove undeliverable and risky addresses before they send."
 provider: Verimail.io
 category: apis
 domain: apis
@@ -16,57 +14,99 @@ audiences:
   - team
   - agency
 tags:
-  - email
-  - productivity
-  - api
+  - "email verification"
+  - "email validation api"
+  - "bounce rate"
+  - "email list cleaning"
+  - "typo correction"
+  - "catch-all detection"
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free tier includes 100 email verifications per month, free forever, no credit card required.'
   limits:
     - 100 verifications/month
   caveats:
-    - Bulk verification beyond 100/month requires paid volume pricing
+    - Past 100/month the API returns a 402 status until you buy credits or move to a paid plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Validate user emails during signup
-  - Clean mailing lists
-  - Reduce email bounce rates
-  - Integrate with CRM systems
+  - "Check an email address at sign-up"
+  - "Clean a mailing list before a campaign"
+  - "Fix typos such as gmal.com"
+  - "Flag catch-all domains and risky addresses"
+  - "Keep CRM contacts deliverable"
 quickstartSteps:
-  - Sign up for a free Verimail.io account.
-  - Log in and generate your API key from the dashboard.
-  - Read the API documentation for integration details.
-  - Send email addresses to the API endpoint for validation.
-  - Review results and handle invalid emails in your application.
-whenToUse: >-
-  Use Verimail.io when you need to verify email addresses in real time to
-  prevent invalid signups or reduce bounce rates.
-whenNotToUse: >-
-  Avoid if you require bulk verification of large lists beyond 100/month or need
-  advanced deliverability analytics.
+  - "Open verimail.io and choose Sign Up Free to create an account. No credit card is needed."
+  - "Open your control panel and copy your API key."
+  - "Send a GET request to https://api.verimail.io/v3/verify with the email and key parameters."
+  - "Read the JSON response. A status of success or error shows if the request ran, and a typo hint appears when a common typo is found."
+  - "Remember that each request with your key deducts 1 credit, and keep the key out of client-side code."
+whenToUse: "Use when you want to check email addresses at sign-up or clean a small list and 100 verifications a month is enough."
+whenNotToUse: "Avoid if you need to check more than 100 addresses a month for free. After that the API returns a 402 status until you buy credits or move to a paid plan."
 bestFor:
-  - signup validation
-  - small mailing lists
-  - CRM integrations
+  - "sign-up validation"
+  - "small mailing lists"
+  - "CRM contact checks"
+  - "typo correction"
 avoidIf:
-  - bulk email cleaning
-  - high-volume marketing
-  - advanced analytics
+  - "bulk email cleaning on the free plan"
+  - "high-volume marketing lists"
+  - "need live-chat support"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://verimail.io/'
-docsUrl: 'https://docs.verimail.io'
-pricingUrl: 'https://verimail.io/'
+docsUrl: "https://verimail.io/docs/v3"
+pricingUrl: "https://verimail.io/pricing"
 sourceUrls:
   - 'https://verimail.io/'
+  - 'https://verimail.io/pricing'
+  - 'https://verimail.io/docs/v3'
 featured: false
 ---
-Verimail.io offers a simple API for real-time email address validation, helping reduce bounce rates and improve email list quality for small projects.
+You use Verimail.io through a web control panel for bulk lists and through a REST API for real-time checks. The API takes a GET request with your key and returns JSON, and the docs show code examples. It suits developers and teams that want clean email data at sign-up or before a send.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month and gives you 100 verifications a month with email support. The home page says it is free forever and needs no credit card.
+
+Each API request with your key deducts 1 credit from your balance. Syntax checks and duplicate removal are listed as free steps on the home page. The service also detects catch-all domains and suggests a fix for common typos in free email providers.
+
+Paid plans start at $15 a month for 10 000 verifications. You can also buy pay-as-you-go credit packs that never expire. If you have both a plan and credits, the plan is used first.
+
+## When you hit a limit
+
+When you reach the monthly limit, the API responds with a 402 status code. The pricing page says you can buy pay-as-you-go credits to keep going. A key that goes over its quota is marked inactive and requests with it are refused.
+
+Nothing renews on its own to charge you. You decide when to buy credits. The free plan has no card on file, so no bill can follow.
+
+## Gotchas
+
+- Do not share your API key in public code or client-side code. Every request that carries it spends a credit.
+- A key can become inactive when the usage quota is exceeded or a payment is overdue.
+- Free support is by email only. Live chat starts on the Starter plan.
+
+## Alternatives in this atlas
+
+- [Numlookupapi.com](/tools/numlookupapi-com/): when you need to check phone numbers instead of email addresses.
+- [Vatcheckapi.com](/tools/vatcheckapi-com/): when you need to check VAT numbers in a billing flow.
+
+## Questions people ask
+
+### Is Verimail free?
+
+Yes, up to a point. The Free plan costs $0 a month and includes 100 verifications. It is free forever, and it needs no credit card.
+
+### What happens when I go over the Verimail free limit?
+
+The API answers with a 402 status code. You can buy pay-as-you-go credits or move to a paid plan to continue.
+
+### Do Verimail pay-as-you-go credits expire?
+
+No. The pricing page says the credits never expire. A monthly plan is always used up before your credits.

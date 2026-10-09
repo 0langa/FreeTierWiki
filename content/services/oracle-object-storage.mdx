@@ -1,8 +1,9 @@
 ---
 title: Oracle Object Storage
 description: >-
-  Oracle Object Storage provides scalable, secure cloud storage for unstructured
-  data, supporting backup, archiving, and application data needs.
+  Oracle Object Storage keeps files as objects in buckets inside Oracle Cloud,
+  with an Amazon S3 compatibility API. It suits developers who use Oracle Cloud
+  or want an always-free place for backups.
 provider: Oracle Cloud
 category: storage
 domain: storage
@@ -19,8 +20,12 @@ audiences:
   - oss
   - agency
 tags:
-  - storage
-  - cloud
+  - object storage
+  - oracle cloud
+  - oci
+  - s3 compatible
+  - archive storage
+  - backup
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -32,26 +37,30 @@ freeTierDetails:
   caveats:
     - Requires an Oracle Cloud Free Tier account (phone number and credit card at signup)
     - Exceeding Always Free limits requires upgrading to a paid account; the account itself is never charged automatically
+    - If you use more than 20 GB when a Free Trial ends without upgrading, all objects are deleted
+    - Always Free resources live in the home region of your tenancy
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Backup and archive files
-  - Store application data
-  - Host static website assets
+  - Backups and archives of files and databases
+  - Application data and user uploads
+  - Static website assets
+  - Using existing S3 tools through the S3 compatibility API
 quickstartSteps:
   - Sign up for an Oracle Cloud Free Tier account.
-  - Navigate to the Object Storage service in the Oracle Cloud Console.
-  - Create a new bucket and set access permissions.
-  - Upload files or connect via S3-compatible tools.
+  - In the Oracle Cloud Console, open Object Storage and pick your home region.
+  - Create a bucket. Oracle suggests a default name, and you can replace it.
+  - Upload objects in the Console, or use the OCI CLI, an SDK, or the REST API.
+  - To use S3 tools, create a customer secret key and point the tool at the Amazon S3 Compatibility API endpoint.
 whenToUse: >-
-  Use when you need reliable, S3-compatible cloud storage for backups, archives,
-  or serving static assets with a generous free tier.
+  Use it for small backups, archives, or app files when you already use Oracle
+  Cloud, or want a small always-free store.
 whenNotToUse: >-
-  Avoid if you need high-throughput, multi-region replication, or advanced CDN
-  integration not natively supported by Oracle.
+  Avoid it if you need more than 20 GB for free, multi-region replication, or
+  a built-in CDN.
 bestFor:
   - backups
   - archiving
@@ -63,8 +72,8 @@ avoidIf:
   - require ultra-low latency
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.oracle.com/cloud/free/'
@@ -76,6 +85,48 @@ sourceUrls:
   - >-
     https://docs.oracle.com/en-us/iaas/Content/Object/Concepts/objectstorageoverview.htm
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/managingbuckets.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/s3compatibleapi.htm'
 featured: false
 ---
-Oracle Object Storage offers always-free cloud storage with S3 compatibility, ideal for backups, archives, and static content with simple setup and management.
+You use Object Storage through the Oracle Cloud Console, the OCI command-line tool, SDKs, or the REST API. The Amazon S3 Compatibility API lets existing S3 tools work with few changes.
+
+## What the free plan gives you
+
+Every tenancy gets a total of 20 GB of Always Free object and archive storage. Once your Free Trial has ended and the account is in an Always Free only state, you get 20 GB of combined Standard, Infrequent Access, and Archive tier data. You also get 50,000 Object Storage API requests per month.
+
+If you have a paid account or free trial credits, the 20 GB is split into 10 GB of Standard tier, 10 GB of Infrequent Access, and 10 GB of Archive tier data. The same 50,000 requests apply.
+
+Always Free resources are free of charge in the home region of your tenancy, for the life of the account. They show an Always Free-eligible label in the Console.
+
+## When you hit a limit
+
+During a Free Trial you can store unlimited data, and the first 20 GB takes nothing from your trial credit. Upgrade to a paid account to keep unlimited storage.
+
+If you do not upgrade before the trial ends, the account is limited to 20 GB. If you are using more than 20 GB when the trial ends, all of your objects are deleted. You can then upload again up to the Always Free limit. Oracle says it will not charge for Always Free resources after an upgrade, only for use above the limits.
+
+## Gotchas
+
+- Going over 20 GB at the end of a trial wipes your objects. Check usage before the trial ends.
+- Always Free resources must be in your home region. Resources made elsewhere bill at regular rates.
+- Access runs through compartments and IAM policies. A tenancy administrator must grant you rights before you can create buckets or upload objects.
+
+## Alternatives in this atlas
+
+- [Backblaze B2](/services/backblaze-b2/): when you want S3 tools and no card at sign-up.
+- [Cloudflare R2](/services/cloudflare-r2/): when you serve many downloads and want no egress fees.
+- [Cloud Storage](/services/cloud-storage/): when your other services run on Google Cloud.
+
+## Questions people ask
+
+### Is Oracle Object Storage free?
+
+Yes, in part. Every tenancy gets 20 GB of combined Standard, Infrequent Access, and Archive storage and 50,000 API requests per month under Always Free.
+
+### Does Oracle Object Storage need a credit card?
+
+The entry records that an Oracle Cloud Free Tier account asks for a phone number and a credit card at sign-up.
+
+### What happens when my Oracle free trial ends?
+
+The account is limited to 20 GB of Always Free storage. If you use more than 20 GB at that point, Oracle deletes all of your objects.

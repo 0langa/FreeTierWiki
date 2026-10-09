@@ -1,8 +1,8 @@
 ---
 title: CrewAI
 description: >-
-  CrewAI lets you build AI agent teams that collaborate to automate complex
-  workflows and tasks.
+  CrewAI is a Python framework for building teams of AI agents that work
+  together on research and automation tasks, with an optional hosted platform.
 provider: CrewAI
 category: ai
 domain: ai
@@ -16,7 +16,9 @@ audiences:
   - team
   - oss
 tags:
-  - ai
+  - ai-agents
+  - multi-agent
+  - python
   - automation
   - open-source
 pricingModel: free
@@ -28,42 +30,44 @@ freeTierDetails:
   limits:
     - No enforced limits for self-hosted open-source use
     - 'CrewAI Cloud Basic (free): 50 workflow executions/month'
-    - CrewAI Cloud Basic includes visual editor, AI copilot, and GitHub integration
+    - CrewAI Cloud Basic includes GitHub integration
   caveats:
-    - CrewAI Cloud Enterprise adds SSO, RBAC, and dedicated support
+    - The Custom plan adds governance tools such as SSO, RBAC, workload identity, and PII redaction
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automating research tasks
-  - Building multi-agent AI workflows
-  - Prototyping collaborative AI assistants
+  - Build a crew of agents that research a topic and write a report
+  - Chain agent steps into a Flow with shared state
+  - Add human review to an agent workflow
+  - Connect agents to tools and MCP servers
+  - Run agent workflows on your own machine or on CrewAI's hosted platform
 quickstartSteps:
-  - Install Python and required dependencies.
-  - Clone the CrewAI repository from GitHub.
-  - Install CrewAI using pip.
-  - Configure your agents and tasks in a Python script.
-  - Run your script to launch the agent crew.
+  - Check that you have a supported Python version, then install uv, the package tool the docs use.
+  - Install the CLI with `uv tool install crewai`.
+  - Create a project with `crewai create crew <your_project_name>`, or `crewai create flow <name>` for a Flow.
+  - Put your model API keys in the project's `.env` file and edit `crew.jsonc` and the files in `agents/`.
+  - Start the project with `crewai run` and read the output it writes.
 whenToUse: >-
-  Use CrewAI when you need to coordinate multiple AI agents for complex,
-  multi-step automation or research tasks.
+  Use CrewAI when you want several AI agents with different roles to work
+  through a multi-step task, and you are happy to write Python or JSON config.
 whenNotToUse: >-
-  Avoid CrewAI if you need a managed, production-ready SaaS platform or require
-  strict enterprise support.
+  Avoid it if you want a no-code SaaS product, or if you cannot pay for the
+  model API calls your agents make. The hosted Basic plan stops at a small
+  number of workflow executions.
 bestFor:
-  - prototyping
-  - automation
-  - AI research
+  - prototyping agent workflows
+  - research automation
   - open-source projects
 avoidIf:
-  - seeking managed SaaS
-  - requiring enterprise SLAs
-  - avoiding Python
+  - you want a managed SaaS with no code
+  - you need enterprise governance without contacting sales
+  - you do not use Python
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.crewai.com/'
@@ -71,8 +75,45 @@ docsUrl: 'https://docs.crewai.com/'
 sourceUrls:
   - 'https://crewai.com/pricing'
   - 'https://github.com/joaomdmoura/crewAI'
-  - 'https://docs.crewai.com/'
+  - 'https://docs.crewai.com/en/quickstart'
+  - 'https://docs.crewai.com/en/installation'
 pricingUrl: 'https://crewai.com/pricing'
 featured: false
 ---
-CrewAI is an open-source framework for building collaborative AI agent teams to automate and orchestrate complex workflows. It is ideal for prototyping, research, and open-source projects, but may not suit users needing managed, production-grade solutions.
+You use CrewAI from the command line and from config files in a Python project: create a project, define agents, and run it. It suits developers who are comfortable with Python and want to script agent workflows themselves. A hosted platform exists for teams that prefer not to run everything on their own.
+
+## What the free plan gives you
+
+There are two free routes. The framework is open source under the MIT license, so you can install it and run it yourself with no usage limits from CrewAI. You still pay for any model API your agents call.
+
+The hosted platform has a free Basic plan. The pricing page lists GitHub integration and 50 workflow executions per month. It does not list any other Basic features. The Custom plan is for large organizations. It adds governance tools such as SSO, RBAC, workload identity, PII redaction, and policies, plus engineering and training help that you buy as needed. Pricing for Custom is by request.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you use all 50 workflow executions on Basic. It gives no overage price and no upgrade rule. The self-hosted framework has no execution cap, so you can move heavy runs there. The Custom plan has no public price, so you would need to contact CrewAI to scale up the hosted platform.
+
+## Gotchas
+
+- Self-hosted use is free, but the model calls your agents make are billed by whichever model provider you use.
+- The Basic cloud plan lists only 50 workflow executions and GitHub integration. Check the pricing page before you rely on other features.
+- The pricing page does not say whether Basic needs a credit card, and it describes no pause or expiry for the free plan.
+
+## Alternatives in this atlas
+
+- [E2B](/services/e2b/): when your agents need a safe sandbox to run code.
+- [Langfuse](/services/langfuse/): when you want to trace what your agents do.
+- [LangSmith](/services/langsmith/): when you want another tracing and evaluation tool for agent runs.
+
+## Questions people ask
+
+### Is CrewAI free?
+
+Yes. The open-source framework is free under the MIT license, and the hosted Basic plan is free with 50 workflow executions per month.
+
+### What happens when I go over the CrewAI Basic limit?
+
+The pricing page does not say. For unlimited runs, install the open-source framework and run it yourself.
+
+### Can I self-host CrewAI?
+
+Yes. The framework is open source on GitHub, and you can run it on your own machine or servers. The pricing page lists no usage limits for that route.

@@ -1,8 +1,8 @@
 ---
 title: Libraries.io
 description: >-
-  Libraries.io tracks open source libraries across multiple package managers for
-  discovery, monitoring, and analysis.
+  Libraries.io is a search site and API for open source packages. You can find
+  packages by license or language and read their metadata.
 provider: Libraries.io
 category: devops
 domain: devops
@@ -18,57 +18,59 @@ audiences:
   - team
 tags:
   - open-source
-  - sdk
-  - monitoring
-  - analytics
+  - package-search
+  - dependencies
+  - package-managers
+  - api
+  - licenses
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free access to search, browse, and monitor open source libraries and
-    dependencies.
+    Free search of open source packages across many package managers, plus a
+    free API for registered users at 60 requests per minute.
   limits:
-    - Unlimited searches
-    - Unlimited browsing
-    - Dependency insights are limited and not validated for accuracy
+    - Search and browse packages for free
+    - API access is free to registered users
     - 60 API requests/minute per API key
+    - Dependency insights are limited and not validated for accuracy
   caveats:
-    - API rate limits apply
-    - No commercial support
+    - Data is scraped from the internet and not validated, corrected, or curated
+    - Requests over the rate limit get a 429 response
+    - Larger scale data access is sold by Tidelift
   resetPeriod: minute
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Discovering open source libraries
-  - Tracking project dependencies
-  - Monitoring library updates
-  - Analyzing package popularity
+  - Search packages by license or language
+  - Look up package metadata for a project
+  - Find new, trending, or popular packages
+  - Pull package data with the API for your own scripts
 quickstartSteps:
-  - 'Visit https://libraries.io/'
-  - Search for a library or package by name or keyword.
-  - Browse results and select a package to view details.
-  - 'Optionally, sign up for a free account to monitor updates.'
-  - Use the API for automated queries (API key required).
+  - Open libraries.io and search by package name, license, or language.
+  - Open a package page to read its details and links.
+  - Log in with GitHub, GitLab, or Bitbucket to use the API and account features.
+  - Copy your API key from your account page.
+  - Call the API with the api_key parameter on every request, and keep to 60 requests per minute.
 whenToUse: >-
-  Use Libraries.io to find, track, and monitor open source libraries and their
-  dependencies across many package managers.
+  Use Libraries.io to search open source packages across package managers and
+  to pull package metadata through its free API.
 whenNotToUse: >-
-  Do not use if you need private package analysis, commercial support, or deep
-  security vulnerability scanning.
+  Avoid it for checked, curated package data or high-volume API use. The site
+  points those users to the paid Tidelift Subscription.
 bestFor:
   - open source maintainers
   - developers
-  - students
   - researchers
 avoidIf:
-  - need private package analysis
-  - require enterprise support
-  - require advanced security scanning
+  - you need validated dependency data
+  - you need more than 60 API requests a minute
+  - you need private package analysis
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://libraries.io/'
@@ -80,4 +82,42 @@ sourceUrls:
 pricingUrl: 'https://libraries.io/'
 featured: false
 ---
-Libraries.io is a free service for discovering and monitoring open source libraries and their dependencies across numerous package managers, with a public API for automation.
+You use Libraries.io in the browser to search for packages, or call its REST API with a key. It suits developers and researchers who need public package information.
+
+## What the free plan gives you
+
+The home page calls Libraries.io a free service that collects publicly available open source package information from the internet. You can search 9.96M packages by license and language, or look at new, trending, or popular packages. It tracks packages across 32 package managers.
+
+API access is free to all registered users. You create a login, take the API key from your account page, and pass it as the `api_key` parameter. The site offers dependency insights too, but it says they are limited and not validated for accuracy.
+
+## When you hit a limit
+
+All API requests share a limit of 60 requests per minute for each API key. Extra requests in that minute get a 429 response, so your script is slowed rather than billed.
+
+For larger scale access to the data, the API page points you to Tidelift. The home page says the paid Tidelift Subscription has curated, human-validated data, more complete dependency insights, and rate limits you can customize.
+
+## Gotchas
+
+- The data is scraped and not validated, corrected, or curated for accuracy, so check anything important before you rely on it.
+- Dependency insights on the free site are limited and carry the same accuracy warning.
+- You log in with GitHub, GitLab, or Bitbucket, and you accept the terms of service and privacy policy when you do.
+
+## Alternatives in this atlas
+
+- [Aikido](/services/aikido/): when you want security scanning of your own repositories and dependencies.
+- [Gemfury](/services/gemfury/): when you want to host your own packages, not search public ones.
+- [JitPack](/services/jitpack-io/): when you want to build and serve JVM libraries from Git.
+
+## Questions people ask
+
+### Is Libraries.io free?
+
+Yes. The home page calls it a free service for searching open source packages. API access is free to registered users.
+
+### What is the Libraries.io API rate limit?
+
+All requests are limited to 60 requests per minute for each API key. Going over gets a 429 response.
+
+### Is Libraries.io data accurate?
+
+The site says its data is scraped from the internet and not validated, corrected, or curated for accuracy. It offers the paid Tidelift Subscription for curated data.

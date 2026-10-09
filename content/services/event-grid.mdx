@@ -1,8 +1,8 @@
 ---
 title: Event Grid
 description: >-
-  Azure Event Grid is a fully managed event routing service for building
-  event-based architectures.
+  Azure Event Grid routes events between Azure services, your own apps, and
+  partner systems, and it also runs an MQTT broker for IoT clients.
 provider: Azure
 category: messaging
 domain: messaging
@@ -16,10 +16,12 @@ audiences:
   - enterprise
   - oss
 tags:
-  - queue
-  - serverless
-  - integration
-  - cloud
+  - event grid
+  - events
+  - mqtt
+  - webhooks
+  - azure
+  - pub/sub
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -30,44 +32,49 @@ freeTierDetails:
     - '100,000 operations/month (Basic tier)'
     - '1,000,000 MQTT operations/month (Standard tier namespace)'
     - '1,000,000 event operations/month (Standard tier namespace)'
+    - 'Event retention is free for 1 day on Basic and 7 days on a namespace topic'
   caveats:
-    - 'Operations include event ingress, advanced matches, and delivery attempts.'
+    - 'Operations include published events, advanced filtering, and delivery attempts.'
+    - Each operation is charged per 64 KB unit of data.
+    - A Standard tier namespace also bills throughput units by the hour; the free amounts cover operations only.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Charges apply if you exceed the free tier operation limit.
+    - Operations past the free amounts are charged per million.
+    - A Standard namespace bills throughput units per hour, so an idle namespace can still cost money.
 useCases:
-  - Event-driven microservices
-  - Serverless workflows
-  - Real-time notifications
-  - Cloud automation
+  - Reacting to Azure resource events, such as a new blob or a finished deployment
+  - Sending events to webhooks and Azure Functions
+  - Connecting IoT devices over MQTT
+  - Routing MQTT messages to Azure services for storage or analysis
+  - Pulling events from a namespace topic at your own pace
 quickstartSteps:
-  - Sign in to the Azure portal.
-  - Create an Event Grid Topic or Domain.
-  - Register an event publisher or connect an Azure resource.
-  - 'Add one or more event subscribers (e.g., Azure Functions, Webhooks).'
-  - Publish test events and verify delivery.
+  - Sign in to the Azure portal with an Azure subscription.
+  - Search for Event Grid Topics, select Create, and fill in the subscription, resource group, a unique topic name, and a location.
+  - Create an endpoint for the events, such as a web app that shows messages.
+  - On the topic page, select Event Subscription, choose Web Hook as the endpoint type, and enter the endpoint URL.
+  - Send a sample event to the topic and check that the endpoint receives it.
 whenToUse: >-
-  Use Event Grid to connect services with event-driven workflows or to decouple
-  components using publish/subscribe patterns.
+  Use Event Grid to route events from Azure services or your own apps to
+  webhooks and functions, or to run an MQTT broker for devices on Azure.
 whenNotToUse: >-
-  Avoid if you need high-throughput streaming, strict ordering, or on-premises
-  event routing; consider Azure Service Bus or Event Hubs instead.
+  Avoid it if you do not want an Azure subscription or if you need a plain work
+  queue that consumers pull from on another cloud.
 bestFor:
-  - event-driven architectures
-  - cloud automation
-  - serverless integration
+  - event-driven Azure apps
+  - routing system events to functions
+  - MQTT device messaging on Azure
 avoidIf:
-  - require high-throughput streaming
-  - need strict message ordering
-  - on-premises only deployments
+  - you do not want an Azure subscription
+  - you need a free tier without a card
+  - you run mostly outside Azure
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/services/event-grid/'
@@ -75,7 +82,46 @@ docsUrl: 'https://learn.microsoft.com/azure/event-grid/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/event-grid/'
 sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/details/event-grid/'
-  - 'https://learn.microsoft.com/azure/event-grid/'
+  - 'https://learn.microsoft.com/en-us/azure/event-grid/overview'
+  - 'https://learn.microsoft.com/en-us/azure/event-grid/custom-event-quickstart-portal'
 featured: false
 ---
-Azure Event Grid offers scalable, serverless event routing for integrating cloud services and building event-driven applications with minimal management overhead.
+You set Event Grid up in the Azure portal or the Azure CLI. You create a topic or a namespace, add subscriptions, and publish over HTTP or MQTT. It suits teams that build event-driven apps on Azure.
+
+## What the free plan gives you
+
+Event Grid has two tiers. The Basic tier is pay-per-use for events on custom topics, system topics, partner topics, and domains. It includes 100,000 operations per month for free.
+
+The Standard tier uses an Event Grid namespace. It gives you an MQTT broker, plus push and pull delivery of events. Each month it includes 1,000,000 MQTT operations and 1,000,000 event operations for free. Operations are counted per 64 KB of data, so an event of 256 KB counts as 4 operations.
+
+## When you hit a limit
+
+The pricing page lists no hard stop at the free amounts. You pay per million operations after them. The pricing page shows the rates in a calculator, so check the live page.
+
+A Standard namespace has a second cost. You pre-purchase throughput units, and they are billed per hour per unit. The free amounts cover operations only, so a namespace that sits idle can still cost money. You can choose up to 40 throughput units for each namespace. Each throughput unit allows 10,000 MQTT client connections.
+
+## Gotchas
+
+- Event retention is free for 1 day on Basic. On a namespace topic it is free for 7 days.
+- On Basic, event type matching and filtering on the start of the subject are free. Advanced filtering on the data payload counts as operations.
+- MQTT client connections have no extra charge, but connects, subscribes, and publishes are MQTT operations.
+
+## Alternatives in this atlas
+
+- [SNS](/services/sns/): when you run on AWS and want topics that fan out to queues and functions.
+- [Pub/Sub](/services/pub-sub/): when you run on Google Cloud and want a managed publish and subscribe service.
+- [EMQX Serverless](/services/emqx-serverless/): when you only need an MQTT broker and want no Azure subscription.
+
+## Questions people ask
+
+### Is Azure Event Grid free?
+
+Partly. The Basic tier includes 100,000 operations per month. A Standard namespace includes 1,000,000 MQTT operations and 1,000,000 event operations per month.
+
+### What counts as an operation in Event Grid?
+
+On Basic, published events, advanced filtering, and delivery attempts count. Each operation covers up to 64 KB of data, so larger events count as several.
+
+### What is the difference between Basic and Standard Event Grid?
+
+Basic publishes and subscribes to discrete events through topics and domains. Standard adds a namespace with an MQTT broker and pull delivery.

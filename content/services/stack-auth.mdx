@@ -1,8 +1,8 @@
 ---
 title: Hexclave (formerly Stack Auth)
 description: >-
-  Hexclave (formerly Stack Auth) provides authentication and user management
-  with teams, RBAC, and built-in analytics for web and mobile apps.
+  Hexclave, formerly Stack Auth, is an open-source auth platform with user management, teams, roles,
+  emails, and analytics for web and mobile apps.
 provider: Hexclave
 category: auth
 domain: auth
@@ -18,63 +18,110 @@ audiences:
   - oss
 tags:
   - auth
-  - api
+  - open-source
+  - teams
+  - rbac
+  - magic links
+  - passkeys
+  - stack auth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes up to 10,000 authentication users, one dashboard
-    admin, and core auth, analytics, and RBAC features, with no credit card
-    required.
+    Free plan includes up to 10,000 authentication users, one dashboard admin, and core auth,
+    analytics, and RBAC features, with no credit card required.
   limits:
-    - Up to 10,000 auth users
+    - 'Up to 10,000 auth users'
     - 1 dashboard admin
     - '1,000 emails/month'
     - '100,000 analytics events/month'
     - '2,500 session replays/month'
   caveats:
     - Additional dashboard admins are a paid add-on ($29/month each on paid plans)
-    - Custom branding, higher limits, and priority support require a paid plan
+    - 'Custom branding, higher limits, and priority support require a paid plan'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Add passwordless login to web apps
-  - Enable social login for mobile apps
-  - Manage user accounts, teams, and RBAC permissions
+  - 'Email, social, and magic link sign-in for a web app'
+  - Teams and role-based access control inside an app
+  - Passkey sign-in
+  - Send transactional emails to your users
+  - Self-host the open-source core on your own servers
 quickstartSteps:
-  - Sign up for a Hexclave account.
-  - Create a new project in the dashboard.
-  - Configure allowed redirect URLs and authentication methods.
-  - Integrate the SDK or API into your app.
-  - Test authentication flow in your development environment.
+  - Create a free project in the Hexclave dashboard at hexclave.com.
+  - 'Install the Hexclave SDK for your framework with npm, and the CLI with `npm i -D @hexclave/cli`.'
+  - >-
+    Choose a local development environment run by `hexclave dev`, or connect to a Hexclave Cloud
+    project.
+  - Put the project ID and keys in your environment variables for cloud projects.
+  - 'Add the Hexclave provider and sign-in pages to your app, then create your first user.'
 whenToUse: >-
-  Use Hexclave when you need quick, passwordless authentication and user
-  management for small to medium web or mobile apps.
+  Use Hexclave when you want auth with teams and roles for a small web or mobile app, and want the
+  option to self-host it.
 whenNotToUse: >-
-  Avoid if you need more than one dashboard admin on the free plan, custom
-  domains, or on-premises deployment (self-hosting the open-source core is
-  also an option).
+  Avoid it if you need more than one dashboard admin on the free plan, need priority support, or
+  need on-premises support from the vendor.
 bestFor:
-  - indie
-  - startup
-  - oss
+  - side projects
+  - startups
+  - open-source projects
 avoidIf:
-  - enterprise
-  - need multiple free dashboard admins
-  - on-premises
+  - several dashboard admins on free
+  - priority support
+  - vendor-managed on-premises
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.hexclave.com/'
 docsUrl: 'https://docs.hexclave.com'
 sourceUrls:
   - 'https://www.hexclave.com/pricing'
+  - 'https://docs.hexclave.com'
+  - 'https://docs.hexclave.com/guides/getting-started/setup'
 pricingUrl: 'https://www.hexclave.com/pricing'
 featured: false
 ---
-Stack Auth was rebranded to Hexclave; the same authentication platform is now offered under the Hexclave name at hexclave.com (the API and dashboard still live under stack-auth.com). The free plan covers up to 10,000 auth users with one dashboard admin, and the core is open source and self-hostable.
+You add the Hexclave SDK to your app and manage users, teams, and settings in the Hexclave dashboard. It suits developers who want auth they can run locally, host in the cloud, or self-host.
+
+## What the free plan gives you
+
+The Free plan costs $0 forever. It includes up to 10,000 auth users and 1 dashboard admin. You get email, OAuth, and magic link sign-in, plus 1,000 emails per month and community support.
+
+The plan also covers 100K analytics events per month and 2,500 session replays per month, with a 10 second analytics timeout. An auth user is any account in your project. Inactive users still count, but you can delete accounts you no longer need. The Team plan costs $49 per month, with 50,000 auth users, 4 dashboard admins, and 25,000 emails per month. Hexclave is open source, so you can also self-host it for free.
+
+## When you hit a limit
+
+The pricing page promises no surprise bills but does not describe what happens when you pass 10,000 auth users, 1,000 emails, or the analytics limits. Plans change any time from the dashboard, and changes are prorated to the day.
+
+The paid tiers are the way past the limits. The Team plan raises auth users to 50,000 and emails to 25,000, and the Growth plan, at $299 per month, has unlimited auth users. Extra dashboard admins cost $29 per month each on those paid plans. Check your usage in the dashboard before you launch.
+
+## Gotchas
+
+- The Free plan has 1 dashboard admin. A second person who manages the project needs a paid plan.
+- Inactive users count as auth users. Delete accounts you no longer need to stay under the limit.
+- The server code is under AGPLv3 and the client SDKs are under MIT. Ask about a commercial license if AGPL does not fit.
+
+## Alternatives in this atlas
+
+- [Supabase Auth](/services/supabase-auth/): when you also want a Postgres database in the same project.
+- [SuperTokens](/services/supertokens/): when you want another open-source, self-hostable auth option.
+- [Logto](/services/logto/): when you want open-source auth with organization features.
+
+## Questions people ask
+
+### Is Hexclave (Stack Auth) free?
+
+Yes. The Free plan costs $0 forever and covers up to 10,000 auth users and 1 dashboard admin, with no credit card.
+
+### Can I self-host Hexclave?
+
+Yes. Hexclave is open source, and you can run the whole stack on your own infrastructure for free. Commercial licenses are available if AGPL does not fit.
+
+### Can I migrate users from another auth service to Hexclave?
+
+Yes. The pricing FAQ says Hexclave imports from Clerk, Auth0, Firebase Auth, and Supabase Auth without forcing users to reset their passwords.

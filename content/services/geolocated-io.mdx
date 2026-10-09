@@ -1,8 +1,9 @@
 ---
 title: Geolocated.io
 description: >-
-  Geolocated.io provides free IP geolocation API services for identifying user
-  locations by IP address.
+  Geolocated.io is an IP geolocation API that returns country, city, ISP, and
+  coordinates as JSON, with API servers in several regions. A free Hobby plan
+  covers small projects.
 provider: Geolocated.io
 category: apis
 domain: apis
@@ -17,10 +18,12 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
-  - integration
-pricingModel: free
+  - ip geolocation
+  - geoip
+  - ip lookup
+  - ip to location
+  - rest api
+pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Hobby plan offers up to 2,000 API requests per day with no credit
@@ -30,7 +33,7 @@ freeTierDetails:
     - 100 requests/minute
     - No batch IP lookup or data modules on the free plan
   caveats:
-    - No credit card required
+    - No credit card required; an account and API key are needed
     - Higher volumes require a paid plan starting at $25/month
   resetPeriod: daily
   requiresCard: false
@@ -38,22 +41,23 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Show user location on websites
+  - 'Show a visitor''s country or city on a website'
   - Personalize content by region
-  - Basic fraud detection
-  - Analytics enrichment
+  - Check the origin of a sign-up for fraud signals
+  - Restrict or allow access by region
+  - Enrich analytics events with location
 quickstartSteps:
-  - 'Go to https://geolocated.io.'
-  - Review API documentation for endpoint usage.
-  - Send a GET request to the API endpoint with an IP address.
-  - Parse the JSON response for location data.
-  - Integrate the API call into your application.
+  - Create a Geolocated.io account; no credit card is needed for the Hobby plan.
+  - 'Log in, open the API key page in the dashboard, and choose an API server location.'
+  - Copy the key when it is shown; it is displayed only once.
+  - 'Send a GET request to `https://{api-server-code}.geolocated.io/{endpoint}?api-key=YOUR_API_KEY` with the `ip-address` parameter.'
+  - 'Read the JSON response, or use the Self Lookup endpoint to see your own address.'
 whenToUse: >-
-  Use Geolocated.io for simple, low-volume IP geolocation needs without
-  authentication or payment setup.
+  Use Geolocated.io when you want a small IP lookup with HTTPS and a choice of
+  API server region, at up to 2,000 requests a day.
 whenNotToUse: >-
-  Avoid if you need high request volumes, advanced data fields, or guaranteed
-  uptime for production-critical applications.
+  Avoid it if you need more than 2,000 requests a day for free, batch lookups,
+  or data modules without paying.
 bestFor:
   - prototyping
   - side-projects
@@ -62,19 +66,60 @@ bestFor:
 avoidIf:
   - enterprise production
   - high-traffic apps
-  - detailed geodata needs
+  - need batch lookups for free
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://geolocated.io'
-docsUrl: 'https://docs.geolocated.io'
+docsUrl: 'https://geolocated.io/docs/index.html'
 pricingUrl: 'https://geolocated.io/pricing.html'
 sourceUrls:
-  - 'https://geolocated.io'
   - 'https://geolocated.io/pricing.html'
+  - 'https://geolocated.io/faq.html'
+  - 'https://geolocated.io/docs/limits.html'
+  - 'https://geolocated.io/docs/authentication.html'
+  - 'https://geolocated.io/docs/errors.html'
 featured: false
 ---
-Geolocated.io offers a simple, free API for basic IP geolocation, suitable for low-volume and non-critical use cases.
+You create an account, generate an API key in the dashboard, and call HTTPS endpoints from any language. It suits developers who want a small IP lookup with a choice of server region and no card on file.
+
+## What the free plan gives you
+
+The Hobby plan costs $0 a month and needs no credit card. It gives you 2,000 requests per day at a rate of 100 requests per minute. The data level is Essentials, and the free plan can use the US and Asia API servers.
+
+The limits apply across all endpoints together. Paid plans start at $25 a month for 50,000 requests per day at 800 requests per minute. The Growth plan costs $49 for 150K a day, and the Scale plan costs $99 for 350K a day.
+
+## When you hit a limit
+
+The API answers with HTTP 429. The `RateLimitExceeded` code means you passed the per-minute rate. The `DailyLimitExceeded` code means you used the daily quota, and requests stay blocked until the reset time. Response headers such as `Daily-Request-Remaining` show how much is left.
+
+The pricing page lists no overage charge, and the docs describe blocked requests, not extra bills. If you need more room, upgrade the plan or contact Geolocated.io about a custom setup.
+
+## Gotchas
+
+- Every request needs an API key. The key is tied to the API server you choose, so switching the server region invalidates the key.
+- The dashboard shows the 40 character key once. Geolocated.io stores only a hash, so a lost key must be regenerated.
+- The FAQ allows commercial use but forbids reselling the IP data or service as a standalone offering. The batch lookup accepts at most 25 addresses per request and is a feature of the paid tiers.
+
+## Alternatives in this atlas
+
+- [IPLocate](/services/iplocate/): when you want full data with no credit card.
+- [IPinfo](/services/ipinfo/): when country-level data is enough and you want no request cap.
+- [ip2geo.dev](/services/ip2geo-dev/): when you want a small monthly allowance and an account-based key.
+
+## Questions people ask
+
+### Is Geolocated.io free?
+
+Yes. The Hobby plan is $0 a month and gives you 2,000 requests per day, with no credit card required.
+
+### Does Geolocated.io need an API key?
+
+Yes. The docs say all requests need an API key, which you generate in the dashboard after you log in.
+
+### Can I use Geolocated.io in a commercial project?
+
+The FAQ says yes, if it fits their terms of service. You may not resell the IP geolocation data or service as a standalone offering.

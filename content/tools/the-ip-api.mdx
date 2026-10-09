@@ -1,15 +1,13 @@
 ---
 title: The IP API
-description: >-
-  A simple API for IP geolocation, ASN, and threat intelligence lookups with a
-  generous free tier.
+description: "The IP API is a JSON API that returns country, city, coordinates, ASN, and company data for an IP address. It suits developers who need IP geolocation in apps, fraud checks, or analytics."
 provider: The IP API
 category: apis
 domain: apis
 subtypes:
-  - ip-geolocation
-  - threat-intelligence
-  - asn-lookup
+  - "ip-geolocation"
+  - "asn-lookup"
+  - "batch-lookup"
 audiences:
   - student
   - indie
@@ -17,9 +15,12 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - api
-  - security
+  - "ip geolocation"
+  - "ip address api"
+  - "asn lookup"
+  - "ip lookup"
+  - "geolocation api"
+  - "ipv6"
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -37,41 +38,82 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - IP-based geolocation for websites
-  - Fraud detection and threat analysis
-  - Personalizing content by location
+  - "Show local currency and language by visitor location"
+  - "Flag suspicious logins by country or network"
+  - "Look up the ASN and company behind an IP address"
+  - "Check many IP addresses at once with the batch endpoint"
+  - "Filter or route traffic by country"
 quickstartSteps:
-  - Sign up for a free account at theipapi.com.
-  - Retrieve your API key from the dashboard.
-  - Read the API documentation for endpoint details.
-  - Make a GET request to the API with your IP and key.
-  - Parse the JSON response in your application.
-whenToUse: >-
-  Use when you need reliable IP geolocation or threat data for low-traffic apps
-  or prototypes (up to 1,000 requests/day free).
-whenNotToUse: >-
-  Avoid if you need high-volume, enterprise-grade SLAs or advanced analytics
-  features.
+  - "Sign up for a free account at theipapi.com. No card is needed to start."
+  - "Copy your API key from your account."
+  - "Send a GET request to https://api.theipapi.com/v1/ip/ followed by the IP address, with your key in the api_key parameter."
+  - "Read the JSON response: check that status is OK, then use the fields under body."
+  - "Call the asn endpoint for AS number lookups, or the batch endpoint with a POST request to check many IPs at once."
+  - "Watch your usage in the dashboard. Handle a 429 error as a sign you passed the quota."
+whenToUse: "Use when you need IP geolocation for a low-traffic app, prototype, or small commercial project that stays within 1,000 requests a day."
+whenNotToUse: "Avoid if you need more than 1,000 requests a day on the free plan, since extra requests are refused with a 429 error. Paid plans start with a monthly request count."
 bestFor:
-  - prototyping
-  - side-projects
-  - low-traffic apps
+  - "prototyping"
+  - "side-projects"
+  - "low-traffic apps"
+  - "login and fraud checks"
 avoidIf:
-  - enterprise SLA required
-  - very high request volumes
-  - need for advanced analytics
+  - "more than 1,000 requests per day on the free plan"
+  - "very high request volumes"
+  - "need a single plan with no daily cap"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://theipapi.com/'
-docsUrl: 'https://theipapi.com/docs/'
+docsUrl: "https://theipapi.com/documentation"
 sourceUrls:
   - 'https://theipapi.com/pricing'
-  - 'https://theipapi.com/docs/'
+  - 'https://theipapi.com/documentation'
+  - 'https://theipapi.com/'
 pricingUrl: 'https://theipapi.com/pricing'
 featured: false
 ---
-The IP API offers a generous free tier for IP geolocation, ASN, and threat intelligence, making it suitable for developers needing reliable location and security data in their apps.
+You call The IP API with a GET request and an API key, from curl or a language such as Python, JavaScript, or PHP. A batch endpoint takes a POST request for many addresses at once. It suits developers who add location checks to apps, logins, or analytics.
+
+## What the free plan gives you
+
+The Free plan costs $0, lasts forever, and needs no card. It allows 1,000 requests per day. All plans include commercial use, daily data updates, and both IPv4 and IPv6 addresses.
+
+The API returns country, city, latitude, longitude, ASN, and the company that owns the address. The batch endpoint takes up to 100 IP addresses in one request. Each unique IP in a batch counts as one request, and repeated IPs count once.
+
+The pricing page says there are no hidden fees and no surprise overages. Paid plans start at $19 a month for 600,000 requests a month.
+
+## When you hit a limit
+
+The docs say the Free plan limit resets daily, and an over-limit request gets a 429 error. The pricing page lists no overage charge, so the free plan stops instead of billing you.
+
+A batch is checked before it runs. If you do not have enough quota left for all its unique IPs, the whole batch is rejected with a 429 error. The docs advise you to back off and track your usage. The dashboard shows your usage. Caching frequent lookups in your app saves requests.
+
+## Gotchas
+
+- A batch with one invalid IP address is rejected in full, because the API validates every address first.
+- The batch endpoint needs a POST request. A GET request returns a 405 error.
+- Paid plans reset monthly, but the Free plan resets daily. Plan your bursts around that.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/): when country-level data is enough and you want a free plan with no request cap.
+- [IPLocate](/services/iplocate/): when you want another daily-limit free plan with full data access.
+- [ip2geo.dev](/services/ip2geo-dev/): when a monthly allowance suits your traffic better than a daily one.
+
+## Questions people ask
+
+### Is The IP API free?
+
+Yes. The Free plan costs $0 forever and allows 1,000 requests per day. It needs no card, and it allows commercial use.
+
+### What happens when I go over The IP API free limit?
+
+You get a 429 error until the daily limit resets. The pricing page lists no overage charges.
+
+### Does The IP API need a credit card?
+
+No. The pricing page says no card is required to start on the free plan. You sign up for an account to get your API key.

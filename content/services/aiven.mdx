@@ -1,8 +1,9 @@
 ---
 title: Aiven
 description: >-
-  Aiven provides managed open source data infrastructure services on major
-  clouds with automated operations and scaling.
+  Aiven runs managed open source data services such as PostgreSQL, MySQL, Kafka,
+  OpenSearch, and Valkey on the major clouds. It is for developers and teams who
+  do not want to run their own database servers.
 provider: Aiven
 category: database
 domain: database
@@ -10,7 +11,7 @@ subtypes:
   - PostgreSQL
   - Kafka
   - MySQL
-  - Redis
+  - Valkey
   - OpenSearch
 audiences:
   - startup
@@ -19,62 +20,68 @@ audiences:
   - indie
   - oss
 tags:
-  - database
+  - managed database
+  - postgresql
+  - mysql
+  - kafka
+  - opensearch
+  - valkey
   - open-source
-  - cloud
-  - devops
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always-free plans for PostgreSQL, MySQL, OpenSearch, Kafka, and Valkey, no
-    credit card needed (PostgreSQL: 1 CPU, 1 GB RAM, 1 GB storage), plus an
-    optional 30-day trial with credits for larger plans.
+    Always-free plans for PostgreSQL, MySQL, OpenSearch, Kafka, and Valkey with
+    no credit card. The PostgreSQL plan has 1 CPU, 1 GB RAM, and 1 GB storage.
+    A separate 30-day trial with credits covers paid plans.
   limits:
     - '1 CPU, 1 GB RAM per VM (PostgreSQL Free plan)'
     - '1 GB total storage (PostgreSQL Free plan)'
+    - 'Kafka Free plan: up to 250 kb/s data in and out, retention up to 3 days'
+    - 'OpenSearch Free plan: 20 GB storage, 4 GB RAM, up to 20 shards'
+    - One free service per service type per account
     - Cannot choose cloud or region on the Free plan
-    - 30-day trial with credits (larger plans)
   caveats:
-    - Aiven may shut down Free plan services left unused for a long time
-    - Free plan has no integrations or connection pooling
-    - Free services run on a fixed configuration with capped throughput
+    - Aiven can power off free services that see no activity; it sends a notice first and you can power them back on
+    - Free services are a single node, with capped throughput and connection limits, and no high availability
+    - Aiven can shut down free services that break its acceptable use policy
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - No charges unless you explicitly upgrade to a paid plan
+    - No charges unless you add a payment method and upgrade to a paid plan
   trialDays: 30
 useCases:
-  - Prototype data pipelines
-  - Evaluate managed databases
-  - Test open source data tools
-  - Short-term analytics workloads
-quickstartSteps:
-  - Sign up at aiven.io and verify your email.
-  - 'Create a new Free plan service (e.g., PostgreSQL, Kafka) from the dashboard.'
-  - Configure service settings; the Free plan cannot choose a cloud or region.
-  - Connect your application using the provided connection details.
-  - Optionally start the 30-day trial for larger plans.
+  - Learning PostgreSQL, MySQL, or Kafka on a real managed service
+  - Backing a prototype or side project with a small database
+  - Trying a managed Kafka topic for a streaming demo
+  - Testing a microservice setup against real managed services
 whenToUse: >-
-  Use Aiven to quickly deploy and test managed open source databases or
-  streaming services without infrastructure management, with a free plan for
-  ongoing small workloads.
+  Use the Free plan to learn a managed database, build a prototype, or run a
+  small side project. Move to a paid plan when you need always-on service,
+  high availability, or more room.
 whenNotToUse: >-
-  Avoid if you need production-grade capacity for free or wish to self-host for
-  full control and cost savings.
+  Skip it for production apps or anything that must stay up, since Aiven can
+  power off idle free services. Skip it if you need to pick a cloud or region,
+  or need more than one free service of the same type.
 bestFor:
-  - Prototyping
-  - Learning and small workloads
-  - Testing managed data services
+  - Learning and tutorials
+  - Prototypes and side projects
+  - Trying managed Kafka or OpenSearch
 avoidIf:
-  - Need production-grade capacity for free
-  - Require on-premises deployment
-  - Long-term production on a free plan
+  - You need production uptime on a free plan
+  - You need to choose a cloud or region
+  - You need high availability
+quickstartSteps:
+  - 'Sign up for a free Aiven account at aiven.io. No payment details are needed.'
+  - 'Open the Aiven Console and choose to create a new service.'
+  - 'Pick a service type such as PostgreSQL, MySQL, Kafka, OpenSearch, or Valkey, then select the Free plan. You cannot choose a cloud or region on it.'
+  - 'Wait for the service to start, then open its overview page to find the connection details.'
+  - 'Connect with the standard client for that service, for example `psql` with the service URI for PostgreSQL.'
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://aiven.io/'
@@ -83,6 +90,46 @@ pricingUrl: 'https://aiven.io/pricing'
 sourceUrls:
   - 'https://aiven.io/pricing'
   - 'https://aiven.io/free-tier'
+  - 'https://aiven.io/docs/platform/concepts/free-plan'
+  - 'https://aiven.io/docs/products/postgresql/get-started'
 featured: false
 ---
-Aiven offers always-free plans for PostgreSQL, Kafka, MySQL, OpenSearch, and Valkey with no credit card required. The PostgreSQL plan has 1 CPU, 1 GB RAM, and 1 GB storage. A separate 30-day trial with credits is also available for larger plans, but is not required for ongoing free use.
+You create and manage services in the Aiven Console, and you can also use the CLI, API, or Terraform provider. It suits learners and small projects that want a real managed database.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and has no time limit. You get a free service for PostgreSQL, MySQL, Kafka, OpenSearch, or Valkey. You can run one free service per type on each account.
+
+The PostgreSQL Free plan has 1 CPU, 1 GB of RAM, and 1 GB of total storage. MySQL also gets 1 GB of storage and 1 GB of RAM. Kafka allows up to 250 kb/s of data in and out, with retention up to 3 days. OpenSearch gets 20 GB of storage, 4 GB of RAM, and up to 20 shards. You cannot pick the cloud or region. Backups are included. The 30-day trial is separate and uses credits for paid plans.
+
+## When you hit a limit
+
+Free services run on a fixed setup, so you cannot scale them in place. Throughput and connections are capped. To get more, you add a payment method to the billing group and upgrade to a paid plan. The upgrade keeps your data and connection details.
+
+The bigger risk is idle services. Aiven can power off a free service that shows no activity, and it sends a notice first. You can power it back on at any time. Aiven can also shut services down if they break its acceptable use policy.
+
+## Gotchas
+
+- Free services are single node and have no high availability, so treat them as learning and prototype tools.
+- You cannot choose the cloud or region, and the Free plan has no integrations or connection pooling.
+- Deleting a free service removes its data, though you can create a new free service later.
+
+## Alternatives in this atlas
+
+- [Neon](/services/neon/): when you only need hosted PostgreSQL and no other engines.
+- [Redis Cloud](/services/redis-cloud/): when you mainly want a managed Redis-style cache.
+- [Upstash](/services/upstash/): when you want a serverless queue or Kafka-style messaging service.
+
+## Questions people ask
+
+### Is Aiven free?
+
+Yes. Aiven has always-free plans for PostgreSQL, MySQL, Kafka, OpenSearch, and Valkey, with no trial period and no expiry date.
+
+### Does the Aiven free tier need a credit card?
+
+No. You can sign up and create a free service with no payment details. You are not charged automatically.
+
+### Will Aiven shut down my free database?
+
+It can. Aiven reserves the right to power off free services that see no activity, and it sends a notification first. You can power the service back on at any time.

@@ -1,8 +1,9 @@
 ---
 title: Metalama
 description: >-
-  Metalama is a code generation and aspect-oriented programming tool for .NET
-  projects.
+  Metalama generates and checks C# code at compile time, so you write a pattern
+  once and apply it across a .NET project. It is for .NET developers who want
+  less boilerplate.
 provider: PostSharp
 category: devops
 domain: devops
@@ -18,57 +19,104 @@ audiences:
   - enterprise
   - oss
 tags:
-  - automation
+  - metalama
+  - aspect-oriented programming
+  - c#
+  - roslyn
+  - code generation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Community edition for individuals, non-commercial use, or companies
+    Two free editions: Metalama Open Source (MIT) and Metalama Community, which
+    adds closed-source tooling for individuals, non-commercial use, or companies
     with up to 3 users.
   limits:
-    - Free for individuals and non-commercial use
-    - Free for companies with up to 3 users total
-    - Includes all Metalama Open Source packages
+    - 'Metalama Open Source: free under the MIT license, with all open-source packages'
+    - 'Metalama Community: free for individuals, non-commercial use, or companies of up to 3 users'
+    - Community adds closed-source productivity tooling
   caveats:
-    - Commercial use above 3 users needs a paid Metalama license
+    - 'Commercial use above 3 users needs a paid license (Professional is $119 per user, or Enterprise)'
+    - 'Architecture validation needs a Metalama Professional license'
+    - Metalama follows an open core model, so convenience features sit behind paid licenses
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
 useCases:
-  - Automating repetitive code patterns in .NET
-  - Implementing cross-cutting concerns like logging or validation
-  - Reducing boilerplate in C# projects
+  - Writing logging or caching once as an aspect and applying it with an attribute
+  - Generating INotifyPropertyChanged code at compile time
+  - Enforcing dependency and naming rules in C# as you type
+  - Cutting boilerplate in a .NET codebase
 quickstartSteps:
-  - Sign up for a Metalama account on the official website.
-  - Install the Metalama NuGet package in your .NET project.
-  - Review the documentation for basic usage and supported features.
-  - Add aspects or code generation logic to your codebase.
-  - Build and run your project to verify integration.
+  - Add the `Metalama.Framework` NuGet package to your .NET project.
+  - Optional - install Visual Studio Tools for Metalama if you use Visual Studio.
+  - Write an aspect class such as `LogAttribute` that derives from `OverrideMethodAspect` and overrides `OverrideMethod()`.
+  - Put `[Log]` on a method; Metalama changes the compiled code and leaves your source file alone.
+  - Build the project and run it to see the aspect work.
 whenToUse: >-
-  Use Metalama when you need to automate code generation or implement
-  cross-cutting concerns in .NET projects with minimal boilerplate.
+  Use it in a .NET project to apply repeated patterns with aspects, as an
+  individual, a non-commercial project, or a company with up to 3 users.
 whenNotToUse: >-
-  Avoid if your project is not .NET-based or if you require advanced features
-  only available in paid tiers.
+  Avoid it outside .NET, for commercial teams above 3 users without a paid
+  license, or if you need architecture validation without Professional.
 bestFor:
   - .NET developers
-  - teams automating code patterns
-  - projects needing AOP
+  - small teams
+  - open source projects
 avoidIf:
   - non-.NET projects
-  - require advanced features for large teams
+  - commercial teams of more than 3 users on a free license
+  - architecture validation without a paid license
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.postsharp.net/metalama'
 docsUrl: 'https://doc.postsharp.net/metalama'
 sourceUrls:
-  - 'https://www.postsharp.net/metalama'
   - 'https://www.postsharp.net/metalama/pricing'
+  - 'https://www.postsharp.net/metalama'
+  - 'https://doc.postsharp.net/metalama'
+  - 'https://doc.postsharp.net/metalama/conceptual/getting-started'
 pricingUrl: 'https://www.postsharp.net/metalama/pricing'
 featured: false
 ---
-Metalama provides aspect-oriented programming and code generation for .NET, helping developers automate repetitive patterns and reduce boilerplate with a free community edition for small teams and open-source projects.
+You add Metalama as a NuGet package, write aspects in C#, and the compiler applies them during the build. Visual Studio Tools for Metalama are optional. It suits .NET developers who repeat the same patterns in many places.
+
+## What the free plan gives you
+
+Metalama has two free editions. Metalama Open Source is free under the MIT license and includes all the open-source packages. Metalama Community is also free, and it adds closed-source productivity tooling. The pricing page says Community is for individuals, for companies of up to 3 users, or for non-commercial use.
+
+Metalama follows an open core model. Most features are free and open source, while convenience features and extension packages need a commercial license. Metalama Professional costs $119 per user. Build servers are free, and the license never expires, though updates and support last 1 year.
+
+## When you hit a limit
+
+The pricing page does not describe enforcement. It states who the Community edition is for, so the limit is about who you are rather than a quota. A company with more than 3 users needs a paid license. The docs also say architecture validation requires a Metalama Professional license. The pages ask for no card for the free editions, and the open source packages stay under the MIT license.
+
+## Gotchas
+
+- The Community terms depend on your situation: individual, non-commercial, or a company with up to 3 users. Check them before you ship commercial work.
+- Architecture validation uses a separate package and needs a Professional license.
+- Aspects run at compile time, so your source files stay unchanged and the effect shows in the built code.
+
+## Alternatives in this atlas
+
+- [Codacy](/services/codacy/): when you want automated code quality checks rather than code generation.
+- [DeepSource](/services/deepsource/): when you want static analysis for pull requests.
+- [CodeFactor](/tools/codefactor/): when you want code review feedback on your repositories.
+
+## Questions people ask
+
+### Is Metalama free?
+
+Yes, in two editions. Metalama Open Source is free under the MIT license. Metalama Community is free for individuals, non-commercial use, and companies of up to 3 users.
+
+### Does Metalama need a credit card?
+
+The pricing page lists the free editions without asking for a card.
+
+### Do I need a paid license for Metalama architecture validation?
+
+The docs say architecture validation requires a Metalama Professional license.

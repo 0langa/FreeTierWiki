@@ -1,9 +1,8 @@
 ---
 title: Deployment.io
 description: >-
-  Deployment.io pairs senior engineers with AI agents to plan, build, verify,
-  and deploy software into your own cloud on a fixed, outcome-based scope.
-  Its self-serve Platform option has a free tier.
+  Deployment.io turns an outcome you describe into pull requests and cloud deployments, using AI
+  coding agents that run in your own AWS account. The self-serve Platform has a free tier.
 provider: Deployment.io
 category: devops
 domain: devops
@@ -16,66 +15,124 @@ audiences:
   - startup
   - team
 tags:
-  - ci-cd
-  - automation
-  - web
-  - devops
+  - ai coding agent
+  - deployment
+  - mcp server
+  - ci/cd
+  - aws deploy
+  - preview deployments
+  - pull request automation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Platform, the self-serve option for teams that operate delivery
-    themselves, has a free tier for exploring the plan-build-verify-deploy
-    loop; no card is mentioned for signup. Managed delivery (senior
-    engineers plus AI agents doing the work for you) is custom, outcome-based
-    pricing with no free option.
+    Platform, the self-serve option for teams that operate delivery themselves, has a free tier for
+    exploring the plan-build-verify-deploy loop; no card is mentioned for signup. Managed delivery
+    (senior engineers plus AI agents doing the work for you) is custom, outcome-based pricing with
+    no free option.
   limits:
-    - Free tier applies to the self-serve Platform only
-    - Managed delivery is custom-priced with no free tier
-    - Exact plan limits are shown in the app after signup
+    - The free tier covers the self-serve Platform only
+    - Managed delivery is priced per engagement with no free option
+    - >-
+      The pricing page does not list the free limits; it says current plans and limits are in the
+      app
   caveats:
-    - Deployment.io pivoted from simple app hosting to AI-driven managed
-      software delivery
-    - No credit card is mentioned for the free Platform signup
+    - Deployment.io pivoted from simple app hosting to AI-driven managed software delivery
+    - 'The runner installs in your own AWS account, and AWS bills that usage'
+    - 'Agents call an LLM on your own vendor account, and the vendor bills the tokens'
+    - The pricing page does not mention a credit card for the free sign-up
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - AWS charges for the runner and the infrastructure it creates in your account
+    - 'Anthropic, OpenAI, or AWS Bedrock bill the model usage, not Deployment.io'
 useCases:
-  - Evaluate the AI-orchestrated plan, build, verify, deploy loop on your own repositories
-  - Run delivery yourself on the self-serve Platform before hiring managed delivery
-  - Preview production-style deployment workflows before a paid engagement
+  - Handing a feature or a fix to an AI coding agent and reviewing the pull request it opens
+  - Deploying static sites and web services to your own AWS account without writing YAML
+  - Getting a preview deployment for each pull request
+  - 'Letting Claude Code, Cursor, or Codex deploy through the Deployment.io MCP server'
 quickstartSteps:
-  - Sign up for the Platform free tier at app.deployment.io.
-  - Connect a repository so a session can read it.
-  - Review the AI-generated specification before anything is built.
-  - Approve the deploy after build and verification finish.
-  - Explore paid managed delivery in the app for larger engagements.
+  - Sign up at app.deployment.io/signup.
+  - Connect your GitHub or GitLab account and give access to the repositories you want.
+  - >-
+    In Org Settings, add a runner: launch the CloudFormation stack in your AWS account, which takes
+    about 5 minutes.
+  - >-
+    In Org Settings, add an LLM provider key (Anthropic or OpenAI) or enable AWS Bedrock; Tasks stay
+    blocked without one.
+  - >-
+    Open Tasks and click Create Task, or start an Assistant session first and convert its spec to a
+    Task, then review the pull request.
 whenToUse: >-
-  Use Deployment.io's free Platform tier to try an AI-orchestrated
-  plan-build-verify-deploy workflow on your own repositories before
-  considering paid managed delivery.
+  Use the free Platform tier to try an AI plan, build, verify, and deploy loop on your own
+  repositories and your own AWS account.
 whenNotToUse: >-
-  Avoid if you want a simple, low-cost CI/CD deploy button; Deployment.io is
-  now an outcome-based AI delivery service, not a basic hosting platform.
+  Avoid it if you want a simple hosting button, have no AWS account, or do not want to pay a model
+  vendor for agent runs.
 bestFor:
-  - indie
-  - startup
-  - team
+  - teams that want AI agents to open reviewable pull requests
+  - 'developers who already use Claude Code, Cursor, or Codex and want deploy actions over MCP'
+  - small teams on AWS that want deployments in their own cloud
 avoidIf:
-  - want a simple low-cost hosting/CI tool
-  - want a traditional PaaS deploy button
+  - you want a basic low-cost hosting or CI deploy button
+  - you have no AWS account
+  - you cannot pay for LLM usage on your own vendor account
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://deployment.io'
-docsUrl: 'https://docs.deployment.io'
+docsUrl: 'https://deployment.io/docs/'
 sourceUrls:
   - 'https://deployment.io/pricing'
   - 'https://deployment.io/platform'
+  - 'https://deployment.io/docs/introduction/what-is-deployment/'
+  - 'https://deployment.io/docs/runner-installation/aws-setup/'
+  - 'https://deployment.io/docs/ai-providers/llm-providers/'
 pricingUrl: 'https://deployment.io/pricing'
 featured: false
 ---
-Deployment.io pairs senior engineers with AI agents to plan, build, verify, and deploy software into your own cloud under a fixed, outcome-based scope. Platform, its self-serve option, has a free tier for running the same loop yourself.
+You work in a web dashboard at app.deployment.io, or you drive it from a coding agent through its MCP server. It runs jobs on a runner in your AWS account. It suits small teams that want AI-written pull requests and deploys in their own cloud.
+
+## What the free plan gives you
+
+Deployment.io offers a free tier on Platform, the self-serve option for teams that operate the delivery system themselves. The platform page says the free tier is enough to see the whole loop: shared context, a session, a Task, and a deploy that waits for your approval.
+
+The pricing page does not list the free limits. It says current paid plans and limits are in the app, so check them after you sign up. Managed delivery is a separate service. It is priced per engagement with a fixed-price proposal, and it has no free option.
+
+The pricing page does not mention a credit card for the free sign-up. Static sites and web services deploy to your own AWS account.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you reach a free tier limit. Those limits show in the app.
+
+The costs outside the free tier matter more. The runner lives in your AWS account, so AWS bills the compute it uses. The agents also call a model on your own vendor account, and the vendor bills that usage directly. The docs say Deployment.io does not resell tokens. Tasks stay blocked until you add a model provider.
+
+## Gotchas
+
+- You must install a runner in your AWS account with a CloudFormation stack before deploys and Tasks work. The docs say it takes about 5 minutes.
+- Tasks run one at a time in the order you create them. If a Task fails the build and tests, nothing is committed and no pull request appears.
+- The company moved from simple app hosting to AI-driven managed delivery, so the product is not a basic deploy button anymore.
+
+## Alternatives in this atlas
+
+- [Koyeb](/services/koyeb/): when you want a simple web service host without running your own runner.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you want to deploy code to an edge platform with no cloud account to manage.
+- [GitHub Actions](/services/github-actions/): when you want build and deploy jobs in your own CI workflow.
+
+## Questions people ask
+
+### Is Deployment.io free?
+
+Partly. The self-serve Platform has a free tier, and the limits are shown in the app. Managed delivery has no free option.
+
+### Does Deployment.io need a credit card?
+
+The pricing page does not mention a credit card for the free sign-up. You still pay AWS and your model vendor for what you use.
+
+### Does Deployment.io deploy to my own cloud?
+
+Yes. The runner installs in your AWS account, and the docs say the infrastructure runs in your own cloud account through a scoped role you can revoke.

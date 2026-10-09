@@ -1,8 +1,9 @@
 ---
 title: Antideo
 description: >-
-  Antideo provides free APIs for IP geolocation, email validation, and phone
-  number validation to help prevent fraud and improve data quality.
+  Antideo is an API that checks IP addresses, email addresses, and phone numbers
+  for spam, disposable email, proxies, and location. It helps you block fake
+  sign-ups and inquiries.
 provider: Antideo
 category: security
 domain: security
@@ -16,9 +17,12 @@ audiences:
   - team
   - oss
 tags:
-  - networking
-  - email
-  - security
+  - email validation
+  - disposable email
+  - IP reputation
+  - IP geolocation
+  - phone validation
+  - fraud prevention
   - api
 pricingModel: freemium
 freeTierDetails:
@@ -26,53 +30,96 @@ freeTierDetails:
     Free, life-long account includes 10 requests/hour across IP, email, and
     phone validation endpoints.
   limits:
-    - 10 requests/hour
+    - 10 requests per hour
     - Email, IP, and phone validation included
-    - HTTPS access
+    - HTTP and HTTPS access
+    - Email support
   caveats:
-    - No SLA or guaranteed uptime on free tier
-    - Strict rate limits (no soft-limit buffer like paid plans)
+    - Strict limits on the free plan; paid plans get a soft limit that adds a 10 percent buffer
+    - Paid plans add an MX records check and priority support
+    - The email check detects disposable and spam addresses but does not verify that a mailbox exists
   resetPeriod: hourly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Block fraudulent signups
-  - Validate user contact details
-  - Enrich user profiles with location data
+  - Blocking disposable email addresses on a sign-up form
+  - Checking whether a visitor's IP is a known proxy or spammer
+  - Looking up the country and carrier of a phone number
+  - Filtering fake inquiries from a contact form
 quickstartSteps:
-  - 'Sign up for a free Antideo account at https://www.antideo.com.'
-  - Log in and navigate to the API dashboard.
-  - Copy your API key from the dashboard.
-  - Review the API documentation for endpoint details.
-  - Integrate the API into your application using your API key.
+  - Create a free account on antideo.com; no credit card is needed.
+  - Log in to your account section, where you manage your plan.
+  - Get your API key; the FAQ says it is sent to the email address you register with.
+  - Read the API documentation for the email, IP, and phone endpoints.
+  - Call an endpoint from your sign-up or contact form, keeping to 10 requests per hour.
 whenToUse: >-
-  Use Antideo when you need basic, free validation of IP addresses, emails, or
-  phone numbers to reduce spam or fraud.
+  Use it for a low-traffic form where you want a quick check for disposable
+  emails, spam IPs, or phone numbers and 10 requests per hour are enough.
 whenNotToUse: >-
-  Avoid if you require high request volumes, guaranteed uptime, or advanced data
-  enrichment beyond basic validation.
+  Avoid it if you need more than 10 requests per hour, confirmation that a
+  mailbox exists, or a soft limit before requests are refused.
 bestFor:
   - spam prevention
   - basic fraud detection
   - user data validation
 avoidIf:
-  - enterprise-grade SLAs needed
-  - very high API throughput
-  - advanced analytics required
+  - you need more than 10 requests per hour
+  - you need to confirm a mailbox exists
+  - you need busy production traffic
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.antideo.com'
-docsUrl: 'https://www.antideo.com/api-documentation/'
+docsUrl: 'https://www.antideo.com/email-validation/'
 pricingUrl: 'https://www.antideo.com/pricing/'
 sourceUrls:
-  - 'https://www.antideo.com/api-documentation/'
   - 'https://www.antideo.com/pricing/'
+  - 'https://www.antideo.com'
+  - 'https://www.antideo.com/email-validation/'
+  - 'https://www.antideo.com/ip-health-check/'
 featured: false
 ---
-Antideo offers a free, life-long account with 10 requests/hour for IP, email, and phone validation, making it easy to add basic fraud prevention checks to your apps.
+You call Antideo over HTTP or HTTPS with an API key, and you manage your plan in the account section. There is also a WordPress plugin for email validation. It suits small sites that want a basic spam check.
+
+## What the free plan gives you
+
+The free plan costs $0 and lasts as long as you want. The pricing page says the only restriction is the hourly rate limit of 10 requests per hour. You can use the email, IP, and phone endpoints, over HTTP or HTTPS, and you get email support. No credit card is required.
+
+The email check looks for disposable, free-provider, generic, and spam addresses. The IP check covers reputation, proxies, and location. The phone check returns the country, carrier, and time zone. Paid plans start at $5 per month for 50 requests per hour.
+
+## When you hit a limit
+
+The free plan has strict limits. The pricing page does not say what the API returns once you pass 10 requests in an hour. It describes the soft limit on paid plans: an extra 10 percent buffer before a 429 "Too many requests" response. That implies free accounts have no buffer.
+
+You cannot be billed on the free plan, since no payment is attached. To get more requests, subscribe to a paid plan, which goes up to $80 per month for 2000 requests per hour.
+
+## Gotchas
+
+- The email check detects disposable, free, and spam addresses, but the site says it does not verify that an address exists.
+- The FAQ says the API key is emailed to the address you enter, so use a mailbox you can open.
+- Paid plans come with a 30 day money back guarantee. The free plan needs no payment details at all.
+
+## Alternatives in this atlas
+
+- [Verifalia](/services/verifalia/): when you need real email validation with a daily allowance.
+- [TempMailDetector.com](/services/tempmaildetector-com/): when you only need to catch disposable email domains.
+- [IPinfo](/services/ipinfo/): when you only need IP geolocation with a bigger free allowance.
+
+## Questions people ask
+
+### Is Antideo free?
+
+Yes. The free account costs $0 and has no time limit. It allows 10 requests per hour across the email, IP, and phone endpoints, and it needs no credit card.
+
+### What happens when I go over the Antideo rate limit?
+
+The pricing page does not say what the free plan returns. It says paid plans get a 10 percent buffer before a 429 error, and the free plan has strict limits.
+
+### Does Antideo check that an email address exists?
+
+No. The email page says it detects disposable, free, and spam or scam addresses. It says verification that a mailbox exists is still planned.

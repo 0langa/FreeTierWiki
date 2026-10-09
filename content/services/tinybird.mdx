@@ -1,6 +1,8 @@
 ---
 title: Tinybird
-description: 'Managed ClickHouse for real-time analytics: ingest events and publish SQL as APIs.'
+description: >-
+  Tinybird is managed ClickHouse for real-time analytics. You ingest events, write SQL, and publish
+  the queries as HTTP API endpoints. It suits developers who add analytics to their own product.
 provider: Tinybird
 category: analytics
 domain: analytics
@@ -13,49 +15,76 @@ audiences:
   - indie
   - startup
 tags:
-  - analytics
-  - database
-  - api
-  - data
+  - clickhouse
+  - real-time analytics
+  - analytics api
+  - sql endpoints
+  - event ingestion
+  - mcp server
+  - data platform
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Free plan with 10 GB storage, 0.25 vCPU, and 1,000 API requests per day. No card needed.'
+  summary: >-
+    Free plan with 10 GB storage, 0.25 vCPU, and 1,000 requests per day per organization. No card
+    needed and no time limit.
   limits:
-    - 10 GB storage
-    - 0.25 vCPU
-    - '1,000 requests per day'
+    - 10 GB of included storage
+    - 0.25 vCPU with up to 3x burst
+    - '1,000 requests per day per organization'
+    - 1 thread per query
+    - 25 dollars of LLM credits per billing cycle
   caveats:
-    - vCPU bursts are billed on paid plans only
+    - 'The vCPU limit is hard: requests that exceed burst capacity return HTTP 429'
+    - LLM requests stop until the next billing cycle once the credits run out
+    - 'Support is community Slack only, on a best-effort basis'
+    - 'vCPU overages are billed on paid plans, not on Free'
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Real-time dashboards
-  - Event analytics APIs
-  - Usage metering
+  - Serve real-time analytics from an HTTP endpoint
+  - Ingest events with the Events API or a connector
+  - Power user-facing dashboards
+  - Meter product usage
+  - Let an AI agent query your data through the MCP server
 quickstartSteps:
-  - Sign up at tinybird.co.
-  - Create a workspace and ingest data.
-  - Publish a SQL pipe as an API endpoint.
-whenToUse: Use when you need fast analytics APIs over event data.
-whenNotToUse: 'Avoid if you need more than 1,000 API requests a day for free.'
+  - Sign up at tinybird.co with Try for free. No credit card is needed.
+  - >-
+    Install the Tinybird CLI: run curl https://tinybird.co | sh on macOS and Linux, or use the
+    Windows install command from the docs.
+  - Run tb build to create your resources in your Tinybird development environment.
+  - 'Send events with the Events API: POST to your host at /v0/events with a name and token.'
+  - Publish a SQL pipe as an API endpoint and call it from your app.
+  - Deploy the project to Tinybird Cloud when it works.
+whenToUse: >-
+  Use Tinybird when you need fast analytics APIs over event data and your traffic fits within 1,000
+  requests a day.
+whenNotToUse: >-
+  Avoid it if you need more than 1,000 requests a day, more than 10 GB, or more than 1 thread per
+  query without paying.
 bestFor:
   - analytics APIs
   - dashboards
+  - developers adding analytics to a product
+  - prototyping
 avoidIf:
   - high request volume
+  - need more than 10 GB
+  - need dedicated infrastructure
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.tinybird.co'
 docsUrl: 'https://www.tinybird.co/docs'
 sourceUrls:
   - 'https://www.tinybird.co/pricing'
+  - 'https://www.tinybird.co/docs/forward/pricing/free'
+  - 'https://www.tinybird.co/docs/forward/get-started/quick-start'
 pricingUrl: 'https://www.tinybird.co/pricing'
 featured: false
 changes:
@@ -63,4 +92,47 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Tinybird turns SQL over ClickHouse into API endpoints. The free plan has a daily request cap.
+
+You work with the Tinybird CLI and datafiles, or with SDKs, and call published endpoints over HTTP. It suits developers who add analytics features to their own products.
+
+## What the free plan gives you
+
+The Free plan is a production-grade Tinybird instance with no time limit. Ingest connectors, real-time querying, and managed endpoints are all available. It runs on shared infrastructure with no credit card.
+
+You get 0.25 vCPU with up to 3x burst, 10 GB of included storage, and 1,000 requests per day per organization. Queries through API endpoints and the Query API use at most 1 thread. Support is through the community Slack, watched by the Tinybird team on a best-effort basis.
+
+AI tools in the MCP server and the Explorations UI include $25 of LLM credits per billing cycle. When the credits run out, LLM requests stop until the next billing cycle.
+
+The Developer plan is the next step up. The pricing page lists it from $25 or $49 per month, depending on the section, with 25 GB of storage.
+
+## When you hit a limit
+
+The vCPU limit is hard. Requests that exceed the burst capacity return HTTP 429. The LLM limit is a soft stop, and requests resume in the next billing cycle. The docs do not spell out what happens when you pass 1,000 requests per day.
+
+Paid plans handle bursts differently. Instead of throttling, the Developer and SaaS plans let queries burst beyond their vCPUs and charge $0.0002 per second for the extra compute. To upgrade, go to Organization settings and Billing, then pick a vCPU size.
+
+## Gotchas
+
+- The limit is per organization, so all your projects and workspaces share 1,000 requests a day.
+- Clients should retry 429 responses with exponential backoff. Tinybird can also return them when it applies concurrency limits.
+- The pricing page shows two different starting prices for the Developer plan, $25 and $49, so check the current price before you upgrade.
+
+## Alternatives in this atlas
+
+- [MotherDuck](/services/motherduck/): when you want a small cloud warehouse built on DuckDB.
+- [Cube](/services/cube/): when you want a semantic layer with APIs over your own warehouse.
+- [Aptabase](/services/aptabase/): when you want simple privacy-first event counts for an app.
+
+## Questions people ask
+
+### Is Tinybird free?
+
+Yes. The Free plan has no time limit and needs no credit card. It includes 10 GB of storage, 0.25 vCPU, and 1,000 requests per day.
+
+### What happens if I exceed the Tinybird free plan limits?
+
+Requests that exceed the vCPU burst capacity return HTTP 429. LLM requests stop until the next billing cycle when the credits run out.
+
+### How do I upgrade Tinybird from Free?
+
+Go to Organization settings and Billing, then select your vCPU size for the Developer plan. SaaS and Enterprise plans go through sales.

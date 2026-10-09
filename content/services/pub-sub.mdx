@@ -1,8 +1,9 @@
 ---
 title: Pub/Sub
 description: >-
-  Google Cloud Pub/Sub is a fully managed messaging service for real-time event
-  ingestion and delivery.
+  Google Cloud Pub/Sub is a messaging service where publishers send events to a
+  topic and Pub/Sub delivers them to every subscription, so services can talk to
+  each other without waiting.
 provider: Google Cloud
 category: messaging
 domain: messaging
@@ -16,17 +17,22 @@ audiences:
   - enterprise
   - oss
 tags:
+  - pub/sub
+  - google cloud
   - messaging
+  - event streaming
   - queue
-  - cloud
+  - bigquery
 pricingModel: freemium
 freeTierDetails:
   summary: '10 GiB of Pub/Sub message throughput free every month.'
   limits:
-    - '10 GiB throughput/month (Message Delivery Basic SKU)'
+    - '10 GiB throughput/month per billing account (Message Delivery Basic SKU)'
     - '$40 per TiB after the free amount'
   caveats:
-    - Overages are billed per usage.
+    - The free 10 GiB does not apply to BigQuery subscriptions, Cloud Storage subscriptions, or import topics.
+    - A minimum of 1 KB is assessed for each request, so batch small messages.
+    - Storage for retained messages is charged at $0.27 per GiB-month.
     - Pub/Sub Lite is deprecated (closed to new customers since September 24, 2024; turned down March 18, 2026); this free tier applies to standard Pub/Sub topics.
   resetPeriod: monthly
   requiresCard: true
@@ -34,38 +40,39 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above free tier is automatically billed.
+    - Usage above the free amount is billed automatically.
     - No hard cap; monitor usage to avoid unexpected charges.
 useCases:
-  - Real-time event streaming
   - Decoupling microservices
-  - Data pipeline ingestion
-  - IoT device messaging
-quickstartSteps:
-  - Sign up for a Google Cloud account and enable billing.
-  - Enable the Pub/Sub API in your Google Cloud project.
-  - Create a Pub/Sub topic in the Cloud Console.
-  - Add a subscription to your topic (pull or push).
-  - Publish a test message to the topic.
-  - Consume messages from your subscription.
+  - Ingesting events from apps and servers into a data pipeline
+  - Fanning one event out to several subscribers
+  - Parallelizing tasks as a work queue
+  - Loading messages straight into BigQuery or Cloud Storage
 whenToUse: >-
-  Use when you need scalable, reliable, real-time messaging between services or
-  components, especially for event-driven architectures.
+  Use Pub/Sub to pass events between services on Google Cloud, or to feed a
+  streaming or analytics pipeline.
 whenNotToUse: >-
-  Avoid if you require strict FIFO ordering, extremely low latency, or want to
-  avoid potential overage charges from high message volumes.
+  Avoid it if you cannot enable billing on a Google Cloud project, if you need
+  on-premises hosting, or if your traffic spikes are hard to predict and you
+  need a fixed bill.
 bestFor:
   - event-driven systems
   - microservices
   - data pipelines
 avoidIf:
-  - need strict FIFO
-  - require on-prem deployment
-  - have unpredictable high-volume spikes
+  - you need on-premises hosting
+  - you cannot enable billing
+  - you have unpredictable high-volume spikes
+quickstartSteps:
+  - Sign in to your Google Cloud account, then select or create a Google Cloud project.
+  - Verify that billing is enabled for the project and enable the Pub/Sub API.
+  - In the console, open the Pub/Sub Topics page, select Create topic, and enter a Topic ID. A default subscription is created with it.
+  - Publish a message from the Messages tab of the topic page with Publish message.
+  - Open the subscription, go to its Messages tab, and select Pull to read the message. You can also use the client libraries or the gcloud CLI.
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/pubsub'
@@ -74,6 +81,45 @@ pricingUrl: 'https://cloud.google.com/pubsub/pricing'
 sourceUrls:
   - 'https://cloud.google.com/pubsub/pricing'
   - 'https://cloud.google.com/pubsub/docs/overview'
+  - 'https://cloud.google.com/pubsub/docs/publish-receive-messages-console'
 featured: false
 ---
-Google Cloud Pub/Sub offers scalable, managed publish/subscribe messaging for building event-driven systems, with a generous free tier for moderate workloads.
+You use Pub/Sub in the Google Cloud console, with the gcloud CLI, or with client libraries. You create a topic, add subscriptions, and publish. It suits teams that build event-driven systems or data pipelines on Google Cloud.
+
+## What the free plan gives you
+
+Every calendar month, the first 10 GiB of throughput billed as the Message Delivery Basic SKU is free for a billing account. Throughput is the total bytes written to a topic plus the bytes read from a subscription. After the free amount the price is $40 per TiB in all Google Cloud regions.
+
+A minimum of 1 KB is assessed for each request, no matter how small the messages are. For messages under 1 KB it is cheaper to batch several messages in one request. The free amount does not cover BigQuery subscriptions, Cloud Storage subscriptions, or import topics.
+
+## When you hit a limit
+
+The pricing page lists no hard stop at the free amount. Usage past 10 GiB is billed at $40 per TiB, and some kinds of subscriptions and topics cost more. BigQuery and Cloud Storage subscriptions cost $50 per TiB. Import topics cost $50 or $80 per TiB depending on the source.
+
+Storage is a separate cost. Pub/Sub charges $0.27 per GiB-month when a topic retains messages, a subscription retains acknowledged messages, or you take a snapshot. Data transfer that crosses a zone or region boundary has its own charge. Pub/Sub has no hard cap, so watch your usage in the console.
+
+## Gotchas
+
+- The 10 GiB is per billing account, not per project, so projects on the same billing account share it.
+- A subscription whose backlog sits unacknowledged for more than 1 day can start to incur storage charges.
+- The console quickstart says one pull can return zero messages for a low message volume. Click Pull a few times.
+
+## Alternatives in this atlas
+
+- [SNS](/services/sns/): when you run on AWS and want topics that push to queues and functions.
+- [Event Grid](/services/event-grid/): when you run on Azure and route events between Azure services.
+- [SQS](/services/sqs/): when you want a queue that consumers pull from on AWS.
+
+## Questions people ask
+
+### Is Google Cloud Pub/Sub free?
+
+Partly. The first 10 GiB of throughput each month is free for a billing account. After that it costs $40 per TiB.
+
+### Does Pub/Sub need a credit card?
+
+You need a Google Cloud project with billing enabled. The quickstart tells you to verify that billing is enabled for the project.
+
+### How is Pub/Sub throughput counted?
+
+Throughput is the total bytes written to a topic and read from a subscription. Each request is assessed at a minimum of 1 KB.

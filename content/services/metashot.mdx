@@ -1,8 +1,8 @@
 ---
 title: Metashot
 description: >-
-  Metashot is an API that renders Open Graph (social preview) images from
-  templates and live data.
+  Metashot is an API that renders Open Graph social preview images from a URL,
+  using built-in themes, custom SVG templates, and live JSON data.
 provider: Metashot
 category: ai
 domain: ai
@@ -17,20 +17,23 @@ audiences:
   - team
   - oss
 tags:
-  - ai
-  - images
-  - design
-  - automation
+  - open-graph
+  - og-image
+  - social-preview
+  - image-api
+  - svg-templates
 pricingModel: freemium
 freeTierDetails:
   summary: Free forever plan allows 1,000 rendered images per month.
   limits:
-    - '1,000 images/month'
+    - '1,000 images/month, reset on the 1st of each month (UTC)'
     - 2 API keys
     - 3 custom templates
     - No signed URLs (Pro feature)
   caveats:
     - No credit card required
+    - The keyless demo endpoint adds a watermark
+    - Images are cached for 24 hours
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -38,40 +41,76 @@ freeTierDetails:
   overageRisk: none
 useCases:
   - Generate Open Graph images for blog posts and pages
-  - Render social preview cards from custom templates
-  - Fill templates with live JSON data
+  - Render social preview cards from custom SVG templates
+  - Fill templates with live JSON data such as GitHub star counts
+  - Use brand fonts and colors on every preview image
 quickstartSteps:
-  - 'Sign up for a free Metashot account at https://metashot.io.'
-  - Log in and create an API key in the dashboard.
-  - Pick a built-in theme or create a custom template.
-  - Add the image URL with your data to your page's Open Graph tags.
-  - Check the rendered image.
+  - Create a free Metashot account and copy your API key. It starts with `msk_`.
+  - Try the keyless demo URL `https://api.metashot.io/demo?title=My+Post+Title&theme=gradient` first.
+  - Add the image URL with your key and title to your page's `og:image` meta tag, for example `https://api.metashot.io/og?key=msk_YOUR_KEY&title=My+Post+Title&theme=gradient`.
+  - Pick one of the built-in themes, or create a custom SVG template in the dashboard.
+  - Open the page and check the rendered 1200 by 630 PNG.
 whenToUse: >-
-  Use Metashot when you need automated Open Graph images for your pages
-  without manual design work.
+  Use Metashot when you want automatic Open Graph images for your pages without
+  manual design work or running your own browser.
 whenNotToUse: >-
-  Avoid if you need more than 1,000 renders a month, more than 3 custom
+  Avoid it if you need more than 1,000 renders a month, more than 3 custom
   templates, or signed URLs without upgrading.
 bestFor:
   - blogs
   - marketing sites
   - social media previews
-  - prototyping
 avoidIf:
-  - need more than 1,000 images a month
-  - need signed URLs
-  - need more than 3 custom templates
+  - you need more than 1,000 images a month
+  - you need signed URLs
+  - you need more than 3 custom templates
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://metashot.io'
-docsUrl: 'https://docs.metashot.io'
+docsUrl: 'https://metashot.io/docs'
 pricingUrl: 'https://metashot.io/'
 sourceUrls:
   - 'https://metashot.io/'
+  - 'https://metashot.io/docs'
 featured: false
 ---
-Metashot renders Open Graph images through an API, with a free plan of 1,000 images per month.
+You use Metashot with a single URL: put `https://api.metashot.io/og` with your key and a title into an `og:image` tag, and it returns a 1200 by 630 PNG. There is no SDK to install. It suits bloggers and site owners who want social preview images without a design tool.
+
+## What the free plan gives you
+
+The free plan costs $0 and needs no credit card. It allows 1,000 images per month, 2 API keys, and 3 custom templates. You get seven built-in themes: gradient, dark, light, code, minimal, article, and profile. You can override the background and text colors. The `data_url` option pulls fields from a public JSON endpoint into your image, with a 2 second timeout.
+
+Images render at Cloudflare's edge and are cached for 24 hours, so a repeat request returns the cached PNG in about 50 to 150 ms. A keyless demo endpoint lets you test a design before you sign up, with a watermark.
+
+## When you hit a limit
+
+When you use all 1,000 images in a month, the API returns an HTTP 429 error that says the monthly rate limit was exceeded. The limit resets on the 1st of the next UTC month. Metashot emails you at 80% and again at 100% of your monthly limit. Current usage comes back in the `X-RateLimit-Used` and `X-RateLimit-Remaining` headers. To get more, the Pro plan costs $12 per month for 50,000 images, and Scale costs $49 per month for 250,000.
+
+## Gotchas
+
+- Signed URLs, which stop others from reusing your key or changing your parameters, are only on Pro and Scale.
+- Domain restrictions on keys also need Pro. On Free, keep your key out of places where others can copy it.
+- Titles are capped at 70 characters and subtitles at 100. The `data_url` option only supports flat JSON objects.
+
+## Alternatives in this atlas
+
+- [Doppio](/services/doppio/): when you need rendered PDFs or screenshots, not social preview images.
+- [Lumenfall.ai](/services/lumenfall-ai/): when you want AI-generated images, not template-based ones.
+
+## Questions people ask
+
+### Is Metashot free?
+
+Yes. The free plan allows 1,000 rendered images per month with no credit card. Paid plans start at $12 per month.
+
+### What happens when I go over Metashot's monthly limit?
+
+The API returns a 429 error until the 1st of the next UTC month. You get email warnings at 80% and 100% of the limit.
+
+### Does Metashot need an SDK?
+
+No. You use a plain image URL with query parameters, so it works in any meta tag or framework.

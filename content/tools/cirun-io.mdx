@@ -1,8 +1,9 @@
 ---
 title: Cirun.io
 description: >-
-  Cirun.io provides cloud-based ephemeral GPU runners for CI/CD pipelines and
-  development workflows.
+  Cirun starts GitHub Actions runners in your own cloud account on demand and
+  shuts them down when the job ends. It is for teams that want GPU, ARM, or
+  large machines for CI without keeping servers running.
 provider: Cirun.io
 category: devops
 domain: devops
@@ -17,62 +18,124 @@ audiences:
   - team
   - oss
 tags:
-  - compute
-  - ci-cd
-  - cloud
-  - automation
+  - github actions
+  - self-hosted runners
+  - gpu runners
+  - arm runners
+  - ci runners
+  - ephemeral runners
+  - cloud runners
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Open Source plan is free forever: unlimited runners, including ARM and GPU
-    runners, on unlimited public repositories. Private repositories need a
-    paid plan.
+    Open Source plan: $0 forever, with unlimited runners, ARM and GPU runners,
+    and all supported clouds on unlimited public repositories. Runners run in
+    your own cloud account, so your cloud provider bills the compute.
   limits:
-    - Unlimited public/open-source repositories
+    - Unlimited public repositories
     - Unlimited runners, including ARM and GPU runners
     - All supported cloud providers
-    - Private repos require a paid plan (from $29/month for 3 repos)
+    - 'Private repositories need a paid plan: Startup is $29 per month for 3
+      private repositories, Business is $79 per month for 10'
   caveats:
-    - Free tier is for public/open-source repos only
-    - Requires GitHub or GitLab integration
+    - Cirun charges $0 on the Open Source plan, but the runners run in your own
+      cloud account and that provider bills you
+    - Works with GitHub Actions only
+    - Free plan is for public repositories only
+    - The pricing page does not mention a card for the Open Source plan; your cloud provider may ask for one
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Runners are real machines in your cloud, so a long or large job costs
+      money at your provider's price
+    - Cirun says runners are shut down right after each job finishes
 useCases:
-  - Run GPU-accelerated CI/CD jobs
-  - Test machine learning models in pipelines
-  - Automate GPU-based build and test workflows
+  - Run GitHub Actions jobs on GPU machines in your own cloud
+  - Build ARM packages on ARM-based runners
+  - Use large-memory or custom-image runners for heavy builds
+  - Register existing on-prem hardware as a runner pool
+  - Speed up workflows with an S3-backed Actions cache
 quickstartSteps:
-  - Sign up at cirun.io with your GitHub or GitLab account.
-  - Connect your repository and authorize Cirun.io access.
-  - Configure your CI/CD workflow to use Cirun GPU runners.
-  - Push a commit to trigger a GPU-enabled pipeline job.
-  - Monitor job status and GPU usage in the Cirun dashboard.
+  - Log in at cirun.io and open the Dashboard.
+  - Open the Repositories section and connect Cirun to GitHub, which installs
+    the GitHub application on the repositories you pick.
+  - Activate Cirun for each repository by entering its name and clicking
+    Activate.
+  - Open the Cloud section and add credentials for the cloud that will run your
+    runners, such as AWS, GCP, Azure, DigitalOcean, Hetzner, Oracle, OpenStack,
+    or Vast.ai.
+  - Add a .cirun.yml file at the root of the repository, and set runs-on in your
+    GitHub Actions workflow to the label you defined there. Then push a commit
+    to start a job.
 whenToUse: >-
-  Use Cirun.io when you need GPU resources for CI/CD or development without
-  managing hardware.
+  Use Cirun when you run GitHub Actions on public repositories and want GPU,
+  ARM, or big runners that you pay for directly at your cloud's prices.
 whenNotToUse: >-
-  Avoid if you require persistent GPU servers, or need runners on private
-  repositories without paying.
+  Avoid it if you do not have an account with a supported cloud, because the
+  runners live there and the cloud bills you. Avoid it for free runners on
+  private repositories, which need a paid Cirun plan. It supports GitHub Actions
+  only.
 bestFor:
-  - ML engineers
-  - open-source projects
-  - startups testing GPU workflows
+  - open source projects that need ARM or GPU runners
+  - ML teams testing on GPUs
+  - teams already paying for a cloud account
 avoidIf:
-  - need persistent GPU access
-  - need private-repo runners for free
+  - no cloud account
+  - free private-repository runners
+  - CI that is not GitHub Actions
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://cirun.io'
 docsUrl: 'https://docs.cirun.io'
 sourceUrls:
-  - 'https://cirun.io/pricing'
+  - https://cirun.io/pricing
+  - https://docs.cirun.io/
+  - https://docs.cirun.io/quickstart
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://cirun.io/pricing'
 ---
-Cirun.io offers ephemeral cloud GPU runners for CI/CD and development, enabling easy access to GPU resources without infrastructure management.
+You describe your runners in a `.cirun.yml` file and point your GitHub Actions workflow at them. Cirun starts a machine in your cloud for each job. This suits teams that need GPU or ARM runners and are happy to use their own cloud account.
+
+## What the free plan gives you
+
+The Open Source plan costs $0 and is free forever. You can install Cirun on unlimited public repositories. It allows unlimited runners, including ARM-based runners and GPU runners, on all supported cloud providers.
+
+Cirun is a managed runner platform for GitHub Actions. You bring credentials for AWS, GCP, Azure, Hetzner, DigitalOcean, Oracle, OpenStack, or Vast.ai. You can also register existing Linux, macOS, or Windows machines as a runner pool. Private repositories are not part of the free plan. The Startup plan costs $29 per month for 3 private repositories, and Business costs $79 per month for 10.
+
+## When you hit a limit
+
+The Open Source plan has no usage cap on the pricing page, only the public-repository rule. The pricing page does not say what happens if you install Cirun on a private repository without a paid plan.
+
+The real cost sits in your cloud account. Cirun says you pay only your cloud provider for what you use, and that runners are shut down right after a job ends. A large GPU machine or a long job still costs money at your provider's rates. Set budgets and alerts in your cloud console, because Cirun does not cap that spending.
+
+## Gotchas
+
+- Cirun supports GitHub Actions. The docs describe no GitLab or other CI setup.
+- You need cloud credentials, or your own machines registered as a pool, before the first job can run.
+- The file name is `.cirun.yml`, not `cirun.yml`. A wrong name means your jobs will not find a runner.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/): when the standard GitHub-hosted runners are enough and you do not want a cloud account.
+- [CircleCI](/tools/circleci/): when you want hosted CI with machine types included in the plan.
+- [Buildkite](/services/buildkite/): when you want to run agents on your own machines under a CI service.
+
+## Questions people ask
+
+### Is Cirun free?
+
+Yes, for public repositories. The Open Source plan costs $0 forever and includes unlimited runners, including ARM and GPU runners. Private repositories need a paid plan.
+
+### Does Cirun pay for the GPU?
+
+No. Cirun starts runners in your own cloud account, and you pay that provider for the machine. Cirun's own fee is $0 on the Open Source plan.
+
+### How much is Cirun for private repositories?
+
+The Startup plan costs $29 per month and covers 3 private repositories. The Business plan costs $79 per month and covers 10.

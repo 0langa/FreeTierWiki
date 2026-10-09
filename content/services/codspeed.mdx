@@ -1,8 +1,9 @@
 ---
 title: CodSpeed
 description: >-
-  CodSpeed provides automated benchmarking and performance regression detection
-  for your CI pipelines.
+  CodSpeed runs your benchmarks in CI and reports performance changes on every
+  pull request, so slowdowns are caught before merge. It supports Rust, C++, Go,
+  Python, Node.js, and Java.
 provider: CodSpeed
 category: devops
 domain: devops
@@ -16,61 +17,118 @@ audiences:
   - team
   - oss
 tags:
-  - ci-cd
-  - testing
-  - automation
+  - performance testing
+  - benchmarking
+  - performance regression
+  - continuous benchmarking
+  - pull request checks
+  - rust benchmarks
+  - python benchmarks
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan gives unlimited repositories and runs, up to 5 users (unlimited
-    for open source), 3-month history, and 600 macro runner minutes/month.
+    Free plan: unlimited runs and repositories, up to 5 users on private
+    repositories (unlimited for open source), 3 months of history, and 600 macro
+    runner minutes per month. Public repositories have no user limit.
   limits:
-    - Unlimited repositories and runs
-    - Up to 5 users (unlimited for open-source projects)
-    - 3-month benchmark history
-    - 600 macro runner minutes/month
+    - Unlimited runs and repositories
+    - Up to 5 users, unlimited for open-source projects
+    - 3 months of history
+    - 600 macro runner minutes per month
   caveats:
-    - Macro runner overage is an optional paid add-on ($0.032/minute after 600 min)
+    - No credit card required
+    - Pro costs $15 per user per month with unlimited history and a 14-day free
+      trial
+    - Macro runner usage after 600 minutes is an add-on at $0.032 per minute
+    - On a private repository, a user without a seat is disabled and their runs
+      are blocked
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
 useCases:
-  - Detecting performance regressions in CI
-  - Automated benchmarking of code changes
-  - Monitoring open source project performance
+  - Catch slowdowns in a pull request before merging
+  - Track benchmark results across commits
+  - Benchmark a Rust, Python, or Node.js library
+  - Set up benchmarks with an AI wizard that opens a setup pull request
+  - Run timing benchmarks on dedicated macro runners
 quickstartSteps:
-  - Sign up for a CodSpeed account.
-  - Connect your GitHub or GitLab repository.
-  - Install the CodSpeed agent in your CI pipeline.
-  - Push a commit to trigger benchmarking.
-  - Review performance results on the CodSpeed dashboard.
+  - Log in at app.codspeed.io/login.
+  - Open the CodSpeed settings and install the CodSpeed GitHub App with the
+    Import button.
+  - Choose the organization or user and add the repositories you want to use
+    with CodSpeed.
+  - Click Setup on a repository and choose Start AI Setup so the Wizard
+    configures benchmarks and a CI workflow, or follow the manual setup.
+  - Merge the setup pull request, then open a pull request and read the CodSpeed
+    performance report in the comments.
 whenToUse: >-
-  Use CodSpeed to automatically benchmark code and catch performance regressions
-  during CI, for public repos or a small private team of up to 5 users.
+  Use CodSpeed when you have benchmarks or performance-sensitive code and want
+  automatic reports and checks on pull requests, especially on public
+  repositories.
 whenNotToUse: >-
-  Avoid if you need more than 5 users on a private repo, or need advanced
-  analytics without a paid plan.
+  Avoid it for private repositories with more than 5 users unless you pay for
+  Pro. Avoid it if you need history longer than 3 months on the free plan.
 bestFor:
-  - open source projects
-  - small teams
-  - performance-focused workflows
+  - open source libraries
+  - performance-sensitive projects
+  - small private teams of up to 5 users
 avoidIf:
-  - need more than 5 private-repo users
-  - require enterprise features
+  - more than 5 users on private repositories
+  - long benchmark history on the free plan
+  - no benchmarks and no wish to write any
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://codspeed.io'
 docsUrl: 'https://docs.codspeed.io'
 sourceUrls:
-  - 'https://codspeed.io/pricing'
-  - 'https://docs.codspeed.io'
+  - https://codspeed.io/pricing
+  - https://codspeed.io/docs
+  - https://codspeed.io/docs/features/seats-and-billing
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://codspeed.io/pricing'
 ---
-CodSpeed integrates with your CI to benchmark code and detect performance regressions, offering an unlimited-repository free plan for small teams and open source projects.
+You install the CodSpeed GitHub App, add benchmarks to your tests, and run them in CI. CodSpeed then comments on each pull request with a performance report. It suits library authors who care about speed.
+
+## What the free plan gives you
+
+The Free plan is free forever, at $0 per user per month. It allows unlimited runs and unlimited repositories. It also includes CI integration, pull request reports and checks, and the wall-time instrument with 600 macro runner minutes per month. Benchmark history is kept for 3 months.
+
+Users are capped at 5 on private repositories. CodSpeed is free and unlimited on public repositories, with no limit on the number of users. A user is anyone who triggers a run on a private repository of an organization, or opens that organization's dashboard. Bot accounts do not count as users.
+
+## When you hit a limit
+
+On a private repository, the Free plan covers up to 5 users. For more, you need the Pro plan, where each active user takes one seat. A user without a seat is disabled, loses access to CodSpeed for that organization, and sees their runs blocked on private repositories.
+
+For macro runners, the Free plan lists 600 minutes per month. The Pro plan lists the same 600 minutes and then $0.032 per minute. You can set a monthly budget for macro runner usage in the Billing tab. The pricing page does not say what happens on the Free plan after the 600 minutes.
+
+## Gotchas
+
+- The 5-user cap applies to private repositories only. Public repositories have no user cap.
+- A person who only opens the organization dashboard counts as a user.
+- Pro costs $15 per user per month and adds unlimited history. It has a 14-day free trial.
+
+## Alternatives in this atlas
+
+- [Codecov](/tools/codecov/): when you want coverage reports on pull requests instead of benchmarks.
+- [GitHub Actions](/services/github-actions/): when you want a general CI service to run your own benchmark jobs.
+- [Nx Cloud](/services/nx-cloud/): when you want build caching and CI speedups for a monorepo.
+
+## Questions people ask
+
+### Is CodSpeed free?
+
+Yes. The Free plan costs $0 and gives unlimited runs and repositories. Up to 5 users are included on private repositories, and public repositories have no user limit.
+
+### Is CodSpeed free on private repositories?
+
+Yes, for up to 5 users. Beyond that, you need the Pro plan at $15 per user per month.
+
+### What are macro runner minutes?
+
+They are time on dedicated bare-metal machines used for the wall-time instrument. The Free plan includes 600 minutes per month.

@@ -1,8 +1,9 @@
 ---
 title: Firebase Firestore
 description: >-
-  A scalable, serverless NoSQL document database for building web and mobile
-  apps in real time.
+  Cloud Firestore is a serverless NoSQL document database from Firebase that
+  syncs data to web and mobile apps in realtime. It is for app developers who
+  want a managed database with client SDKs and security rules.
 provider: Google Cloud
 category: database
 domain: database
@@ -17,11 +18,13 @@ audiences:
   - team
   - oss
 tags:
-  - database
-  - serverless
-  - mobile
+  - nosql
+  - document database
   - realtime
-  - cloud
+  - firebase
+  - mobile backend
+  - serverless
+  - firestore
 pricingModel: freemium
 freeTierDetails:
   summary: 'Free Spark plan includes limited reads, writes, and storage per month.'
@@ -31,42 +34,47 @@ freeTierDetails:
     - '20,000 deletes/day'
     - 1 GiB storage
     - 10 GiB/month network egress
+    - One free database per project
   caveats:
-    - Limits are per project. Reads, writes, and deletes reset daily; egress is per month.
+    - Limits are per project. Reads, writes, and deletes reset daily around midnight Pacific time; egress is per month.
+    - TTL deletes, point-in-time recovery data, backups, restores, and clones need billing enabled
+    - 'More quota needs billing on the project (Blaze pay-as-you-go plan)'
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Real-time chat apps
-  - Collaborative editing
-  - Mobile app backends
-  - Syncing user data
+  - Chat and messaging apps
+  - Syncing user data across devices
+  - Mobile and web app backends
+  - Collaborative apps with live updates
+  - Storing app data behind Firebase Authentication
 quickstartSteps:
-  - Create a Firebase project at the Firebase Console.
-  - Add Firestore to your project and select the Spark (free) plan.
-  - 'Register your app (web, iOS, or Android) in the Firebase Console.'
-  - Install the Firebase SDK in your app.
-  - Initialize Firestore in your code and start reading/writing data.
+  - Create a Firebase project in the Firebase console with Add project.
+  - 'In the left panel, go to Databases and Storage, then Firestore, and click Create database.'
+  - 'Select a location for the database and a starting mode for Security Rules: test mode or production mode.'
+  - 'Add the SDK to your app, for example `npm install firebase` for the web.'
+  - 'Initialize Firebase and Firestore with `initializeApp` and `getFirestore`, then read and write documents.'
 whenToUse: >-
-  Use Firestore when you need a serverless, real-time NoSQL database for web or
-  mobile apps with moderate usage.
+  Use Firestore for realtime or offline-friendly app data when you want a
+  managed NoSQL database with client SDKs and a no-cost daily quota.
 whenNotToUse: >-
-  Avoid if you require complex queries, strict relational data, or need to
-  exceed free tier limits without incurring costs.
+  Skip it for heavy analytics, SQL joins, or large workloads that pass the
+  daily free reads and writes. Skip it if you need backups or point-in-time
+  recovery without enabling billing.
 bestFor:
-  - real-time apps
+  - realtime apps
   - mobile backends
-  - prototyping
+  - prototypes
 avoidIf:
-  - heavy analytics
-  - complex joins
-  - large-scale enterprise workloads
+  - You need SQL joins
+  - You need backups without billing
+  - 'You expect more than 50,000 reads a day on the free plan'
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/firestore'
@@ -75,6 +83,46 @@ pricingUrl: 'https://firebase.google.com/pricing'
 sourceUrls:
   - 'https://firebase.google.com/pricing'
   - 'https://firebase.google.com/docs/firestore/quotas'
+  - 'https://firebase.google.com/docs/firestore'
+  - 'https://firebase.google.com/docs/firestore/quickstart'
 featured: false
 ---
-Firebase Firestore is a fully managed, serverless NoSQL document database that enables real-time data sync for web and mobile applications. Its generous free tier is ideal for prototyping, student projects, and small-scale production apps, but be mindful of daily operation limits and lack of advanced relational features.
+You set up Firestore in the Firebase console and use it through Firebase client SDKs for web, Apple platforms, and Android, or through server client libraries. It suits app developers who want realtime data without running a server.
+
+## What the free plan gives you
+
+Firestore has a daily free quota on the no-cost Spark plan. Each project gets 1 GiB of stored data, 50,000 document reads per day, 20,000 writes per day, and 20,000 deletes per day. Outbound data transfer is 10 GiB per month. The Firebase pricing page describes this as the no-cost Spark plan, with generous no-cost usage limits.
+
+Firestore allows exactly one free database per project. Daily quotas reset around midnight Pacific time. Some features have no free usage at all and need billing: TTL deletes, point-in-time recovery data, backups, restore operations, and clone operations.
+
+## When you hit a limit
+
+If you need more quota, you must enable billing for your Google Cloud project. On the Blaze pay-as-you-go plan, usage past the free amounts is billed at Google Cloud pricing. The Firebase pricing page says no-cost limits are enforced daily.
+
+The pages do not describe the exact error your app sees when the free daily quota runs out. Plan for failed reads and writes late in a busy day.
+
+## Gotchas
+
+- Reads, writes, and deletes reset daily, but network egress is counted per month.
+- Only one free database is allowed per project.
+- Backups, point-in-time recovery, and clones are not part of the free usage.
+
+## Alternatives in this atlas
+
+- [Firebase Realtime Database](/services/firebase-realtime-database/): when you want a simpler JSON tree with realtime sync.
+- [Appwrite Cloud](/services/appwrite/): when you want an open-source backend with a database, auth, and storage.
+- [MongoDB Atlas](/services/mongodb-atlas/): when you prefer MongoDB documents and richer queries.
+
+## Questions people ask
+
+### Is Firebase Firestore free?
+
+Yes, within a daily quota. Each project gets 1 GiB of storage, 50,000 reads, 20,000 writes, and 20,000 deletes per day, plus 10 GiB of egress per month.
+
+### What happens when I exceed the Firestore free quota?
+
+You need to enable billing on the Google Cloud project to get more quota. Past the free amounts, usage is billed at Google Cloud pricing on the Blaze plan.
+
+### Does Firestore need a credit card?
+
+Not for the free quota. Enabling billing for more quota, or for backups and point-in-time recovery, needs a billing account.

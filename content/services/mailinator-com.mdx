@@ -1,8 +1,9 @@
 ---
 title: Mailinator.com
 description: >-
-  Mailinator provides public and private disposable email inboxes for testing
-  and temporary email needs.
+  Mailinator gives you public disposable inboxes and a free Verified Pro plan
+  with a private domain. It is for developers and QA testers who need to check
+  email flows.
 provider: Mailinator
 category: devops
 domain: devops
@@ -18,21 +19,25 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - testing
-  - automation
+  - disposable email
+  - temp mail
+  - email testing
+  - qa
+  - test automation
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Public inboxes are free with no signup and include API access; a $0
-    Verified Pro plan (identity check) adds a private domain.
+    Public inboxes are free with no signup; a $0 Verified Pro plan (identity
+    check) adds API access and a private domain with tight daily limits.
   limits:
-    - Public inboxes, no signup required, temporary storage
-    - Public plan includes API access, webhooks, and SMS testing
-    - 'Verified Pro ($0, identity check): 1 private domain, 10MB permanent storage'
+    - Public inboxes, no signup required, temporary storage; inbox names up to 50 characters
+    - 'Verified Pro ($0, identity check): 1 private domain, unlimited private inboxes, API access'
+    - 'Verified Pro: 10MB permanent storage, 1K emails/month, 60 emails/day'
+    - 'Verified Pro: 60 reads per day, 10 messages per second API read rate'
   caveats:
     - Public inbox messages are visible to anyone
     - Verified Pro needs identity verification, not payment
+    - Exceeding Verified Pro limits results in suspension
     - Not suitable for sensitive data
   resetPeriod: continuous
   requiresCard: false
@@ -40,33 +45,34 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Testing email flows in development
-  - Receiving temporary verification emails
-  - Demoing signup processes
-  - QA automation for email delivery
+  - Testing sign-up and password-reset emails in development
+  - Receiving a throwaway verification email without signup
+  - Reading test emails from code through the API
+  - Checking email delivery with a private test domain
 quickstartSteps:
-  - 'Go to https://www.mailinator.com/.'
-  - Enter any public inbox name in the search bar.
-  - Send a test email to <chosen-inbox>@mailinator.com.
-  - Refresh the inbox to view received emails.
+  - 'Public use: open mailinator.com and type any inbox name, up to 50 characters, into the search field. No signup is needed.'
+  - Send a test email to that name at `@mailinator.com`, then open the inbox to read it.
+  - 'Private use: choose Get Verified on the Verified Pro plan and finish the identity check. No payment is taken.'
+  - Use your private domain so that mail to any inbox at that domain stays private to you.
+  - 'Read messages from code with the API, for example `GET https://mailinator.com/api/v2/domains/:domain/inboxes/:inbox`.'
 whenToUse: >-
-  Use when you need to quickly test email delivery or receive disposable emails
-  without sign-up.
+  Use it to check email flows in development, or to grab a disposable address,
+  and you can accept public inboxes or a small verified plan.
 whenNotToUse: >-
-  Avoid for sensitive or private data, or if you require a private domain
-  without identity verification.
+  Avoid it for sensitive or private data on the public system, for more than 60
+  reads a day on Verified Pro, or if you cannot pass the identity check.
 bestFor:
   - QA engineers
-  - developers
-  - students
-  - test automation
+  - developers testing email flows
+  - one-person test setups
 avoidIf:
   - handling sensitive data
-  - requiring a private domain without identity verification
+  - more than 60 reads a day
+  - no identity verification
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.mailinator.com/'
@@ -74,7 +80,45 @@ docsUrl: 'https://docs.mailinator.com'
 sourceUrls:
   - 'https://www.mailinator.com/'
   - 'https://www.mailinator.com/pricing/'
+  - 'https://www.mailinator.com/verified-pro/'
+  - 'https://www.mailinator.com/docs/'
 pricingUrl: 'https://www.mailinator.com/pricing/'
 featured: false
 ---
-Mailinator is a disposable email service offering public inboxes with API access for testing, plus a free verified plan for a private domain.
+You use Mailinator in a browser by typing an inbox name, or from code through its HTTP API with the Verified Pro plan. It suits one developer or tester who needs a quick inbox to check email flows.
+
+## What the free plan gives you
+
+The public system needs no signup. You type any inbox name, up to 50 characters, and read what arrives. Anyone can read a public inbox, and storage is temporary.
+
+The Verified Pro plan costs $0 but needs an identity check. It gives you unlimited private inboxes on 1 private domain, API access, and 10MB of permanent storage. The limits fit one person. You get 1K emails per month, 60 emails per day, and 60 reads per day, whether through the API or the browser. The API read rate is 10 messages per second, and daily limits reset at 00:00 UTC.
+
+## When you hit a limit
+
+On Verified Pro, going over the limits will result in suspension, according to the plan page. Repeated suspensions can end your place in the program for good. The page also says false information on the application can lead to suspension. Nothing here bills you, because no card is needed. The public system is meant for personal and occasional use, and its docs say usage limits apply there too.
+
+## Gotchas
+
+- Public inbox mail is visible to anyone who guesses the inbox name, so never send secrets to it.
+- Addresses such as info@ or admin@ will not be approved for Verified Pro.
+- The Verified Pro plan is for single users. Team seats start on the paid plans.
+
+## Alternatives in this atlas
+
+- [Mailsac.com](/services/mailsac-com/): when you want another disposable inbox service with an API.
+- [Mailtrap.io](/services/mailtrap-io/): when you want a sandbox that catches mail from your app instead of public inboxes.
+- [Ethereal Email](/services/ethereal-email/): when you need throwaway SMTP accounts for testing.
+
+## Questions people ask
+
+### Is Mailinator free?
+
+Yes. Public inboxes are free and need no signup. The Verified Pro plan also costs $0 and adds a private domain, but you must pass an identity check.
+
+### Does Mailinator need a credit card?
+
+No. The Verified Pro plan asks for verification, not payment.
+
+### What happens when I go over the Mailinator Verified Pro limits?
+
+The plan page says exceeding the limits will result in suspension. Repeated suspensions may end your access to the program.

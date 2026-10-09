@@ -1,8 +1,9 @@
 ---
 title: Pipedream
 description: >-
-  Pipedream is a workflow automation platform for integrating APIs, apps, and
-  data with serverless code.
+  Pipedream Connect gives developers an API, SDK, and MCP server to add app
+  integrations and tools to their own product or AI agent. The older Workflows
+  product is shutting down.
 provider: Pipedream
 category: automation
 domain: automation
@@ -16,9 +17,10 @@ audiences:
   - team
   - oss
 tags:
-  - automation
-  - integration
-  - serverless
+  - ai-agents
+  - integrations
+  - mcp
+  - oauth
   - api
 pricingModel: freemium
 freeTierDetails:
@@ -41,31 +43,30 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Automating API workflows
-  - Connecting SaaS tools
-  - Processing webhooks
-  - Building serverless integrations
+  - Letting your users connect their own Slack, Gmail, or GitHub accounts to your app
+  - Giving an AI agent prebuilt tools through MCP
+  - Sending custom requests to a connected API through the Connect proxy
+  - Building and testing an integration before it serves real users
 quickstartSteps:
-  - Sign up for a free Pipedream account.
-  - >-
-    Create a new workflow and select a trigger (e.g., webhook, schedule, app
-    event), or use Connect for agent/API integrations.
-  - Add steps to connect APIs or run custom code.
-  - Test the workflow and deploy it.
-  - Monitor executions and view logs in the dashboard.
+  - Sign up for a free Pipedream account; the docs say no credit card is needed.
+  - Install the Pipedream CLI and run `pd login`.
+  - Run `pd init connect` to create a Connect project and a Pipedream OAuth client.
+  - Choose a demo app, such as the Next.js managed auth app, the SDK Playground, or the MCP Chat App.
+  - Run `npm run dev` in the project folder and open http://localhost:3000.
 whenToUse: >-
-  Use Pipedream to quickly automate workflows between APIs, SaaS apps, and
-  custom code without managing infrastructure.
+  Use it to build and test app integrations or AI agent tools in development,
+  with full API, SDK, and MCP access, before you decide to pay for production.
 whenNotToUse: >-
-  Avoid Workflows for new long-lived integrations because it shuts down on March 31,
-  2027. Connect remains supported, but production use requires a paid plan.
+  Avoid it for new long-lived workflows, since Workflows shuts down on March 31,
+  2027, and for serving real users in production without a paid plan.
 bestFor:
-  - automation
-  - API integration
-  - webhook processing
+  - AI agent builders
+  - developers adding integrations to a product
+  - building and testing in development
 avoidIf:
-  - high-throughput workloads
-  - strict on-premise requirements
+  - you want new no-code workflows that last
+  - you need production use on a free plan
+  - you cannot plan a move off Workflows before March 31, 2027
 difficulty: beginner
 productionReadiness: production-light
 status: changed
@@ -73,18 +74,58 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Recorded the announced Workflows/String shutdown and replaced unsupported numeric allowances with current official terms."
-lastUpdated: 2026-10-06
-lastVerified: 2026-10-06
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://pipedream.com/'
 docsUrl: 'https://pipedream.com/docs/'
 sourceUrls:
-  - "https://pipedream.com/docs/pricing/"
   - 'https://pipedream.com/pricing'
-  - 'https://pipedream.com/docs/pricing'
-  - 'https://pipedream.com/'
+  - 'https://pipedream.com/docs/pricing/'
+  - 'https://pipedream.com/docs/'
+  - 'https://pipedream.com/docs/connect/quickstart'
 pricingUrl: 'https://pipedream.com/pricing'
 featured: false
 ---
-Pipedream enables users to automate workflows by connecting APIs, SaaS apps, and custom code using a serverless, event-driven platform with a generous free tier.
+You use Pipedream Connect through its CLI, a TypeScript SDK, an API, and an MCP server. It suits developers who add integrations or agent tools to their own apps. Pipedream Workflows and String are shutting down.
+
+## What the free plan gives you
+
+The pricing page says the Free plan costs $0, needs no credit card, and is free to build on. It includes 10,000+ prebuilt tools and triggers, unlimited team members, and community support. Usage on Free is for development only: you get full API, SDK, and MCP access to build and test.
+
+For Workflows, the docs say free workspaces have a daily limit of free credits that cannot be exceeded. They also limit connected accounts, such as Slack, Google Sheets, and GitHub, and the public docs give no number. Credits are not charged for workflows during development or testing.
+
+The Startup plan runs integrations in production. It costs $99 a month billed annually, or $150 billed monthly. It includes 100 users and 10,000 usage credits.
+
+## When you hit a limit
+
+Free workspaces cannot go over their daily credit limit, so the Free plan stops rather than bills. The docs say to lift the limit, add features, or use Connect in production, you upgrade to a paid plan.
+
+On Startup, nothing breaks past the included amounts. Each extra user costs $2 a month, and each extra credit costs $0.012. A credit is one per 30 seconds of compute for actions, tool calls, proxy requests, and deployed trigger emits.
+
+## Gotchas
+
+- Workflows and String shut down on March 31, 2027. Connect is not affected.
+- Serving real external users in production needs the Startup plan. Free is development only.
+- The `.env` file that the CLI creates holds your OAuth client credentials, so do not commit it.
+
+## Alternatives in this atlas
+
+- [Make](/services/make/): when you want a no-code visual automation builder that lasts.
+- [Composio](/services/composio/): when you want tools for AI agents on a free plan that the pricing page does not limit to development.
+- [Zapier](/tools/zapier/): when you want no-code automations between apps.
+
+## Questions people ask
+
+### Is Pipedream free?
+
+Yes, to build and test. The Free plan costs $0 with no credit card and unlimited team members. Production use needs the Startup plan.
+
+### Is Pipedream shutting down?
+
+Pipedream Workflows and String are shutting down on March 31, 2027. Pipedream Connect is not affected and remains supported.
+
+### Does Pipedream need a credit card?
+
+No. The pricing page says the Free plan needs no credit card and has no paid plan until you move to production.

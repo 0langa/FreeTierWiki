@@ -53,7 +53,14 @@ function sourceList(data) {
   return urls.slice(0, 6);
 }
 
-const targets = selectEntries(readEntries(), { domains: parseListArg(argv, "domains"), ids: parseListArg(argv, "ids") });
+const domains = parseListArg(argv, "domains");
+const ids = parseListArg(argv, "ids");
+// Fetching every entry takes minutes and rewrites every evidence file; make it an explicit choice.
+if (!domains && !ids && !argv.includes("--all")) {
+  console.log("usage: fetch-evidence.mjs --ids services/a,tools/b | --domains hosting | --all | --add <id> --url <url> [--file <txt>]");
+  process.exit(2);
+}
+const targets = selectEntries(readEntries(), { domains, ids });
 const thin = [];
 let next = 0;
 async function worker() {

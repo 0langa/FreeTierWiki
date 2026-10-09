@@ -1,8 +1,9 @@
 ---
 title: Roundsphere
 description: >-
-  Roundsphere (DKIMValidator.com) is a free tool that checks DKIM, SPF, and
-  SpamAssassin scores of test emails.
+  Roundsphere runs DKIMValidator.com, a free page where you send a test email
+  and see its DKIM, SPF, and SpamAssassin results. It is for people who set up
+  email authentication.
 provider: Roundsphere
 category: security
 domain: security
@@ -17,55 +18,100 @@ audiences:
   - team
   - oss
 tags:
-  - email
-  - security
-  - productivity
+  - dkim
+  - spf
+  - spamassassin
+  - email-authentication
+  - email-deliverability
+  - dns
 pricingModel: free
 freeTierDetails:
   summary: 'Free DKIM, SPF, and SpamAssassin checks of test emails, no registration.'
   limits:
     - No registration required
     - Test messages are deleted a few hours after they arrive
+    - Messages sent to any address at dkimvalidator.com are accepted
   caveats:
-    - Manual web interface only; no API mentioned
+    - Manual web interface only; the pages mention no API
+    - The page runs the tests again each time you load it, so you can change DNS and recheck the same message
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Debugging email authentication issues
-  - Validating DKIM signatures
-  - Checking SPF records and SpamAssassin scores
+  - Checking that outgoing mail passes DKIM after a DNS change
+  - Checking that an SPF record is valid for the server you send from
+  - Reading the SpamAssassin score of a real message
+  - Debugging why a mail service signs messages in an unexpected way
 quickstartSteps:
-  - 'Go to https://dkimvalidator.com/'
-  - Copy the provided email address.
-  - Send a test email from your system to the address.
-  - View the analysis results on the website.
+  - Open dkimvalidator.com. No sign-up is needed.
+  - Copy the random address shown on the page, or use any address at dkimvalidator.com.
+  - Send a test email to that address from the mail system you want to check.
+  - Reload the results page to see the DKIM, SPF, and SpamAssassin results for your message.
+  - If DKIM or SPF fails, change your DNS records and reload the page to test the same message again.
 whenToUse: >-
-  Use Roundsphere when you need to quickly validate DKIM and SPF setup for
-  outgoing emails without registration.
+  Use it to test the real end-to-end DKIM and SPF setup of your mail, because
+  the test message travels through ordinary mail servers, and you can recheck
+  it after each DNS change.
 whenNotToUse: >-
-  Do not use if you require automated or API-based validation, or need to test
-  high email volumes programmatically.
+  Avoid it if you need an API, bulk checks, or a record that you can keep, since
+  messages are deleted a few hours after they arrive.
 bestFor:
-  - email admins
-  - developers
-  - IT support
+  - mail admins setting up DKIM
+  - developers testing a mail service
+  - one-off deliverability checks
 avoidIf:
-  - need API access
-  - require bulk validation
-  - need enterprise support
+  - you need API access
+  - you need to keep results for longer than a few hours
+  - you need to test many messages in bulk
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-09-28
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://dkimvalidator.com/'
-docsUrl: 'https://docs.dkimvalidator.com'
+docsUrl: 'https://dkimvalidator.com/setting-up-dkim'
 sourceUrls:
   - 'https://dkimvalidator.com/'
+  - 'https://dkimvalidator.com/what-is-dkim'
+  - 'https://dkimvalidator.com/setting-up-dkim'
 featured: false
-lastVerified: 2026-09-28
+lastVerified: 2026-10-09
 pricingUrl: 'https://dkimvalidator.com/'
 ---
-Roundsphere offers a free, web-based tool for validating DKIM and SPF records and SpamAssassin scores, helping users troubleshoot and verify email authentication configurations.
+You use it in a browser and with your own mail system. You send one email to an address at dkimvalidator.com, then open the page to read the results. It suits mail admins and developers who set up DKIM or SPF.
+
+## What the free plan gives you
+
+The service is free and needs no registration. It accepts messages sent to any address at dkimvalidator.com. Your mail travels through regular mail servers, so the headers the tools see match what your real recipients see. The page shows your DKIM and SPF validity and your SpamAssassin score together.
+
+The tests run each time you load the page, while the message is saved once. That lets you change your DNS records and check the same message again without resending it. The tool also looks up DKIM and SPF records directly from the authoritative servers where it can, which avoids long waits for cached DNS records. SpamAssassin rules are updated daily.
+
+## When you hit a limit
+
+The page does not give a daily message cap or a rate limit, and there is no paid plan. The one stated limit is time: messages are deleted a few hours after they arrive. After that, you send a new test email. There is no card and no bill. The page does not say what happens if you send a very large number of messages.
+
+## Gotchas
+
+- Test messages are deleted a few hours after they arrive, so results are not a lasting record.
+- The pages describe a web page only, and they mention no API.
+- The checks cover DKIM, SPF, and SpamAssassin only.
+
+## Alternatives in this atlas
+
+- [Internet.nl](/services/internet-nl/): when you want a web test of your email and website setup from a public site.
+- [Verifalia](/services/verifalia/): when you want to check whether email addresses are valid, not whether your mail is signed.
+
+## Questions people ask
+
+### Is DKIMValidator.com free?
+
+Yes. The service is free and needs no registration. You send a test email and read the results on the page.
+
+### How long does DKIMValidator.com keep my test email?
+
+It deletes messages a few hours after they arrive. Send a new test email if you need to check again later.
+
+### Do I have to resend the email after I change my DNS records?
+
+No. The message is saved once and the tests run each time you load the page, so you can fix DNS and reload.

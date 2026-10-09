@@ -1,8 +1,8 @@
 ---
 title: Jitpack.io
 description: >-
-  Jitpack.io builds and hosts Maven/Gradle packages directly from Git
-  repositories for easy Java dependency management.
+  JitPack is a package repository for JVM and Android projects. It builds a
+  library from your Git repository on demand and serves the jar or aar.
 provider: Jitpack.io
 category: devops
 domain: devops
@@ -18,55 +18,59 @@ audiences:
   - startup
   - oss
 tags:
-  - sdk
-  - ci-cd
+  - java
+  - android
+  - maven
+  - gradle
+  - package-repository
+  - github
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Always free for public Git repositories; private repositories need a
-    paid plan starting at $12/month.
+    Always free for open-source (public) repositories; private repositories
+    need a paid plan starting at $12 a month for 3 private repos.
   limits:
-    - Unlimited public repo builds
-    - Global CDN-served build artifacts
-    - Weekly/monthly download stats for maintainers
+    - Builds for public repositories are free
+    - Build artifacts are served from a CDN
+    - Weekly and monthly download stats for maintainers
+    - Builds can take up to 15 minutes
   caveats:
-    - No free tier for private repositories (plans start at $12/month for 3 repos)
+    - Private repositories need a paid plan, from $12 a month for 3 private repos
+    - Paid plans are priced per month, excluding VAT, with a trial
+    - Public artifacts become immutable 7 days after publishing
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: none
 useCases:
-  - Distributing Java libraries from GitHub
-  - Quickly sharing Java builds without publishing to Maven Central
-  - Testing Java dependencies from feature branches
+  - Share a Java or Android library straight from GitHub
+  - Use a specific commit, tag, or branch as a dependency
+  - Test a pull request build as a dependency
+  - Publish a library without uploading to Maven Central
 quickstartSteps:
-  - 'Push your Java project to a public Git repository (e.g., GitHub).'
-  - 'Visit https://jitpack.io and search for your repository.'
-  - >-
-    Follow the instructions to add the Jitpack repository and dependency to your
-    build.gradle or pom.xml.
-  - >-
-    Trigger a build by referencing a commit, tag, or branch in your dependency
-    declaration.
-  - Verify the build status and download artifacts from Jitpack.io.
+  - Push a project with a working Gradle, Maven, Sbt, or Leiningen build file to Git.
+  - Look up your repository by URL on jitpack.io to start a build and see its status.
+  - Add the JitPack maven repository (https://jitpack.io) to your build file.
+  - Add the dependency with group com.github.Username, your repository name as the artifact, and a release tag, commit hash, or master-SNAPSHOT as the version.
+  - Build your project; JitPack builds the library on the first request and sends the jar back.
 whenToUse: >-
-  Use Jitpack.io to quickly distribute Java/Gradle/Maven projects from Git
-  repositories without publishing to Maven Central.
+  Use JitPack to share a JVM or Android library from a Git repository without
+  uploading to Maven Central.
 whenNotToUse: >-
-  Avoid if you need free private repository builds, guaranteed uptime, or
-  advanced access controls.
+  Avoid it if you need free private repository builds, or a formal publishing
+  flow such as signed releases on Maven Central.
 bestFor:
   - open source libraries
-  - prototyping
-  - feature branch testing
+  - Android libraries
+  - quick sharing of snapshot builds
 avoidIf:
-  - enterprise compliance
-  - large private package hosting
-  - strict SLAs required
+  - you need free private builds
+  - you need signed artifacts for a release
+  - builds take longer than 15 minutes
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://jitpack.io/'
@@ -75,6 +79,44 @@ pricingUrl: 'https://jitpack.io/private'
 sourceUrls:
   - 'https://jitpack.io/'
   - 'https://jitpack.io/private'
+  - 'https://docs.jitpack.io/'
 featured: false
 ---
-Jitpack.io offers a simple way to build and host Java packages directly from Git repositories, ideal for open source and rapid prototyping.
+You add the JitPack repository and a dependency line to your build file, and the first request triggers a build from Git. It suits open source Java and Android maintainers.
+
+## What the free plan gives you
+
+The pricing page says JitPack is always free for open-source projects. It checks out your code the first time someone requests it, builds it, and serves the build artifacts from a CDN. Maintainers see weekly and monthly download stats.
+
+JitPack builds Gradle, Maven, Sbt, and Leiningen projects. You can ask for a release tag, a commit hash, a branch snapshot, or a pull request build. The docs say builds can take up to 15 minutes. The pages list no cap on the number of public repositories or builds.
+
+## When you hit a limit
+
+The pages describe no usage limits for public repositories, so there is no quota to hit. The limits that exist are about access and time. A build can take up to 15 minutes.
+
+Private repositories need a subscription. The Individual plan is $12 a month for 3 private repos. Larger plans cost $29 a month for 10 private repos, $45 for 25, and $85 for 200. Prices exclude VAT, and enterprise plans are available on request.
+
+## Gotchas
+
+- Public artifacts are frozen after 7 days. Within the first 7 days you can rebuild to fix a release, but the docs recommend a patch release instead.
+- If you delete a tag or repository on GitHub after JitPack built it, JitPack keeps serving the existing artifacts.
+- Add the JitPack repository last in your Gradle repository list, because Gradle checks repositories in order.
+
+## Alternatives in this atlas
+
+- [Gemfury](/services/gemfury/): when you want to host your own packages and not build them from Git.
+- [GitHub Actions](/services/github-actions/): when you want your own build workflow and release step.
+
+## Questions people ask
+
+### Is JitPack free?
+
+Yes for open-source projects. The pricing page says JitPack is always free for open-source. Private repositories need a paid subscription.
+
+### How much does JitPack cost for private repositories?
+
+The Individual plan is $12 a month for 3 private repos. Larger plans go up to $85 a month for 200 private repos.
+
+### How long can a JitPack build take?
+
+The FAQ says builds can take up to 15 minutes.

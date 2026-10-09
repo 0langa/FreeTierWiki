@@ -1,8 +1,8 @@
 ---
 title: Gridlastic.com
 description: >-
-  Gridlastic provides Selenium Grid cloud hosting for automated browser testing
-  with free limited usage.
+  Gridlastic hosts a Selenium Grid on Amazon infrastructure, so your browser
+  tests run on remote machines instead of your own.
 provider: Gridlastic
 category: devops
 domain: devops
@@ -20,59 +20,105 @@ tags:
   - testing
   - automation
   - cloud
+  - selenium
+  - selenium-grid
+  - browser-testing
+  - cross-browser
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan offers 5 grid starts per month, 2 concurrent nodes, and a
-    2-hour runtime limit per grid start.
+    Free plan offers 5 free grid starts, 2 parallel grid nodes, and a 2-hour
+    runtime limit per grid start.
   limits:
-    - 5 free grid starts/month
+    - 5 free grid starts
     - 2 hours max runtime per grid start
     - 2 concurrent grid nodes (parallelization)
   caveats:
-    - Email-only support on the free plan
-    - Free grid starts are counted per 30 days
+    - Email-only support on the free plan, handled after paying customers
+    - The free plan has no phone support
+    - Paid plans start at $795 per month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Automated browser testing
-  - CI/CD integration for web apps
-  - Cross-browser compatibility checks
+  - Run Selenium tests in Chrome, Firefox, or Microsoft Edge on remote machines
+  - Point a CI job at a hosted Selenium Grid endpoint
+  - Run a few tests in parallel without managing your own nodes
+  - Try the demo Jenkins server with a ready-made Selenium suite
 quickstartSteps:
-  - Sign up for a free Gridlastic account.
-  - Create a new Selenium Grid from the dashboard.
-  - Select your desired browser and version (within free tier limits).
-  - Copy the provided Selenium Grid endpoint URL.
-  - Configure your test scripts to use the Gridlastic endpoint.
+  - Sign up for a free Gridlastic account on the website.
+  - Open the dashboard grid configuration page and pick an Amazon region, node size, and on-demand or spot nodes.
+  - Click the start grid button; the grid is ready in about 2 minutes.
+  - Point your Selenium tests at the grid hub from your dashboard.
+  - Request a browser by setting platform, browser, and browser version, such as "latest" for Chrome, Firefox, or Edge.
 whenToUse: >-
-  Use Gridlastic when you need quick, cloud-based Selenium Grid access for basic
-  browser automation or CI/CD testing within a few grid starts a month.
+  Use Gridlastic to try hosted Selenium Grid testing or run a small test suite
+  in a few short sessions each month.
 whenNotToUse: >-
-  Avoid if you require more than 5 grid starts a month, longer than 2-hour
-  runs, or enterprise-level features.
+  Avoid it for daily test runs, sessions longer than 2 hours, or more than 2
+  parallel nodes. Paid plans are priced for professional teams.
 bestFor:
-  - web developers
-  - QA engineers
-  - students
-  - open source projects
+  - trying a hosted Selenium Grid
+  - occasional cross-browser checks
+  - small test suites
 avoidIf:
-  - need high concurrency
-  - require advanced browser support
-  - need enterprise SLAs
-difficulty: beginner
+  - you run tests every day
+  - you need more than 2 parallel nodes
+  - you need phone support
+difficulty: intermediate
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.gridlastic.com/'
-docsUrl: 'https://docs.gridlastic.com'
+docsUrl: 'https://www.gridlastic.com/documentation.html'
 pricingUrl: 'https://www.gridlastic.com/pricing.html'
 sourceUrls:
   - 'https://www.gridlastic.com/pricing.html'
+  - 'https://www.gridlastic.com/how-it-works.html'
+  - 'https://www.gridlastic.com/test-environments.html'
+  - 'https://www.gridlastic.com/documentation.html'
 featured: false
 ---
-Gridlastic offers a free Selenium Grid cloud service ideal for basic browser automation and testing, with strict limits on concurrency and browser selection.
+You control Gridlastic from a web dashboard, then point your existing Selenium tests at the grid hub it gives you. It suits QA engineers who have Selenium scripts and want hosted browsers without running nodes.
+
+## What the free plan gives you
+
+The pricing page lists the Free Plan at $0 per month with 5 free grid starts and 2 parallel grid nodes. Each grid start runs for at most 2 hours, because the free plan limits the time your Selenium Grid runs.
+
+The hub server normally runs 24/7 on paid plans. On the free plan, the 2-hour limit applies to each start. You choose the Amazon region and node size from the dashboard. The pricing page says you do not need an Amazon account, since the AWS costs are part of the subscription. Free plan support is by email only.
+
+## When you hit a limit
+
+The free plan stops your grid after 2 hours of runtime per start. When you use up your 5 free starts, you need a paid plan or you wait for the monthly refresh. The pricing page does not say what happens to a grid that is still running at the 2-hour mark beyond that limit.
+
+Paid plans use credits that refresh monthly. The page says extra credits on a paid plan cost 3 cents each, but this does not apply to the free plan, so no overage bill is described for free accounts.
+
+## Gotchas
+
+- Email support tickets are ranked by your plan, so free accounts wait behind paying ones.
+- Phone support is for paid plans only.
+- You must pass the platform, browser, and browser version for each test, because the auto scaling needs all three to launch a node.
+
+## Alternatives in this atlas
+
+- [BugBug](/services/bugbug/): when you want a no-code test recorder instead of writing Selenium scripts.
+- [GitHub Actions](/services/github-actions/): when your tests run well on a CI runner and you do not need a hosted grid.
+- [Buildkite](/services/buildkite/): when you want to run tests on your own agents with a free CI plan.
+
+## Questions people ask
+
+### Is Gridlastic free?
+
+There is a free plan at $0 per month. It gives you 5 free grid starts, 2 parallel nodes, and 2 hours per grid start.
+
+### What happens when I go over the Gridlastic free limits?
+
+Your grid stops at the 2-hour runtime limit. After the 5 free starts, you need a paid plan. The cheapest paid plan on the pricing page is $795 per month.
+
+### Does Gridlastic need a credit card?
+
+The pricing page does not ask for a card on the free plan. Paid subscription plans are billed monthly by credit card.

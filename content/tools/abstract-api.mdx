@@ -1,8 +1,9 @@
 ---
 title: Abstract API
 description: >-
-  Abstract API offers simple, scalable APIs for common developer needs like IP
-  geolocation, email validation, and more.
+  Abstract API sells separate REST APIs for IP geolocation, email validation,
+  phone validation, and company data. Developers use them to check and enrich
+  sign-up data.
 provider: Abstract API
 category: apis
 domain: apis
@@ -18,8 +19,10 @@ audiences:
   - oss
 tags:
   - api
-  - productivity
-  - email
+  - ip geolocation
+  - email validation
+  - phone validation
+  - rest api
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,46 +32,48 @@ freeTierDetails:
     - 100 requests/month (email, phone validation)
     - '1,000 requests/month (IP geolocation)'
     - Full API response on the free plan
-    - 1-3 requests/second rate limit
+    - 1 request/second on free IP geolocation, 3 requests/second on free email and phone
   caveats:
-    - No SLA or priority support on the free plan
+    - Free tiers may not be used in commercial projects, according to the FAQ on the API page
     - Free limits vary by API
+    - Each API has its own key; a key for one API does not work for another
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - IP geolocation for user analytics
-  - Email address validation
-  - Phone number validation
-  - Timezone lookup
-  - User sign-up verification
+  - Look up the country, city, and timezone of a visitor's IP address
+  - Check an email address when someone signs up
+  - Check that a phone number is real and find its carrier
+  - Flag VPN, proxy, or Tor traffic on a sign-up form
+  - Enrich a company domain with headcount and location
 quickstartSteps:
-  - Sign up for a free Abstract API account.
-  - Select the API you want to use from the dashboard.
-  - Copy your unique API key.
-  - Read the API documentation for endpoint details.
-  - Make requests using your API key and review responses.
+  - Sign up for a free Abstract API account; no credit card is asked for.
+  - Open the dashboard and pick the API you need, such as IP Intelligence.
+  - Copy the API key for that API. Each API has its own key.
+  - Send a GET request to `https://ip-intelligence.abstractapi.com/v1` with your `api_key` and an `ip_address` parameter.
+  - Read the JSON response. Add a `fields` parameter to get only the keys you want.
 whenToUse: >-
-  Use Abstract API when you need quick, reliable validation or enrichment APIs
-  without managing infrastructure.
+  Use Abstract API when you want one vendor for a few small validation or
+  lookup calls, and your traffic stays within a hundred or a thousand calls a
+  month on a non-commercial project.
 whenNotToUse: >-
-  Avoid if you need high request volumes, enterprise SLAs, or on-premise
-  deployment options.
+  Avoid it for commercial products on the free plan, for high request volumes,
+  or when you need more than one request per second on IP lookups.
 bestFor:
   - prototyping
   - side-projects
-  - MVPs
   - student projects
+  - testing response quality before paying
 avoidIf:
-  - enterprise compliance
-  - high-volume production
-  - self-hosting required
+  - the project is commercial and you stay on the free plan
+  - you need high volume lookups
+  - you need self-hosting
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.abstractapi.com'
@@ -76,6 +81,47 @@ docsUrl: 'https://www.abstractapi.com/api'
 pricingUrl: 'https://www.abstractapi.com/pricing'
 sourceUrls:
   - 'https://www.abstractapi.com/pricing'
+  - 'https://www.abstractapi.com/api'
+  - 'https://docs.abstractapi.com/'
+  - 'https://docs.abstractapi.com/api/ip-intelligence'
 featured: false
 ---
-Abstract API provides a suite of plug-and-play APIs for common developer needs, with a generous free tier suitable for testing and small projects.
+You work with it in two places: a web dashboard for keys and plans, and plain HTTPS calls from your code. It suits developers who need a few lookups or checks and want to start without a card.
+
+## What the free plan gives you
+
+Every API has its own free plan, and Abstract bills each API on its own. The free IP geolocation plan gives you 1,000 requests a month and a limit of 1 request per second. The free email validation plan and the free phone validation plan give you 100 requests a month each, at 3 requests per second.
+
+The free plans return the full API response, the same payload that paid plans return. Abstract says you can test the real data before you pay. No credit card is needed to sign up. Free plans have no priority support.
+
+## When you hit a limit
+
+The free plans are quotas, not bills. The docs list two errors for free plans. A 422 error means you ran out of credits. A 429 error means you sent more than the allowed requests per second; on free plans that limit is 1 per second for the IP API.
+
+The pricing page does not say what happens to usage over the monthly free quota. An FAQ on the API page says a paid plan pays a fee for each call over its limit. Your free plan has no card on file, so the usual outcome is that calls fail until the next month.
+
+## Gotchas
+
+- Each API has its own key. Your IP key will not work for the email API.
+- The FAQ on the API page says free tiers may not be used in commercial projects. The pricing page lists a commercial license only on the custom plan.
+- The free plans are small. A single bulk list clean will use up the 100 email requests quickly.
+
+## Alternatives in this atlas
+
+- [IP Geolocation API](/tools/ip-geolocation-api/): when you only need IP lookups and want the same 1,000 monthly requests from a focused service.
+- [ipapi.is](/tools/ipapi-is/): when you need a larger daily allowance for IP lookups.
+- [Verimail.io](/services/verimail-io/): when you only need email checks.
+
+## Questions people ask
+
+### Is Abstract API free?
+
+Yes, within limits. Each API has a permanent free plan, with 1,000 IP requests or 100 email or phone requests a month. No credit card is needed.
+
+### What happens when I go over the Abstract API free limit?
+
+The docs say requests fail with a 422 error when you run out of credits, and with a 429 error when you send more than 1 request per second on the free IP plan. The pricing page does not describe a bill for free users.
+
+### Can I use the Abstract API free plan in a commercial project?
+
+The FAQ on the API page says no. Free tiers are for testing. Move to a paid plan before you ship a commercial product.

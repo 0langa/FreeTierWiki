@@ -1,8 +1,9 @@
 ---
 title: ManageEngine Log360 Cloud
 description: >-
-  Cloud-based SIEM platform offering log management, threat detection, and
-  compliance for IT environments.
+  Log360 Cloud is ManageEngine's cloud SIEM. It collects logs from servers and
+  cloud accounts, searches them, and raises alerts and compliance reports for
+  security and IT teams.
 provider: ManageEngine
 category: security
 domain: security
@@ -15,56 +16,60 @@ audiences:
   - team
   - startup
 tags:
-  - logging
-  - cloud
-  - security
+  - siem
+  - log-management
+  - threat-detection
   - compliance
-pricingModel: trial
+  - active-directory-auditing
+pricingModel: freemium
 freeTierDetails:
   summary: >-
-    30-day free trial of Log360 Cloud, no credit card required. After the
-    trial you need a paid yearly subscription.
+    Free plan at $0 with 50 GB of storage, 7 days of search retention, and 15
+    days of archival retention. No credit card required.
   limits:
-    - 30-day free trial
+    - 50 GB storage (50 GB search plus 150 GB archival)
+    - 7 days search retention
+    - 15 days archival retention
     - No credit card required
-    - Paid plans start at 50 GB search storage
   caveats:
-    - No permanent free plan is shown on the official pages
-    - Every paid license includes archival storage of 3x the search storage
+    - The sign-up form still shows a 30 day free trial banner next to the free plan
+    - Paid plans start at $120 per year and are billed yearly
+    - Alert profiles, correlation rules, and anomaly rules are listed only on paid plans
+    - Imports are limited to 512 MB at a time
   requiresCard: false
-  freeTierType: trial
-  trialDays: 30
+  freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Centralized log management
-  - Threat detection and response
-  - Compliance reporting
-  - Cloud infrastructure monitoring
+  - Collecting logs from Windows servers through an installed agent
+  - Searching log data from one place
+  - Auditing security events for compliance reports
+  - Pulling AWS logs into a SIEM through a cloud account
 quickstartSteps:
-  - Sign up for a ManageEngine Log360 Cloud account.
-  - Verify your email and log in to the dashboard.
-  - Add your cloud or on-premises log sources.
-  - Configure log collection and parsing settings.
-  - Set up alert rules and compliance reports.
+  - Open the Log360 Cloud page and choose Sign up. Pick the Standard edition unless you manage customers as an MSSP, because an MSSP account cannot be changed back.
+  - Sign up with your email or with a Zoho, Google, Facebook, LinkedIn, Twitter, or Office365 account, and check the country and data center shown.
+  - Enter the one-time password sent to your email to verify the sign-up.
+  - Under setup, download the agent, run Log360CloudAgent.exe on the machine, and approve the agent in Log360 Cloud so it starts sending logs.
+  - Or choose Configure Cloud Account and enter an AWS access key ID and secret access key to pull cloud logs.
 whenToUse: >-
-  Use when you want to try centralized log management, threat detection, and
-  compliance monitoring for cloud or hybrid IT environments for 30 days.
+  Use Log360 Cloud to try a cloud SIEM on a small log volume, with short
+  retention, before you decide on a paid yearly plan.
 whenNotToUse: >-
-  Avoid if you need a permanent free plan; access after the 30-day trial needs
-  a paid subscription.
+  Avoid the free plan if you must keep logs for longer than 15 days, or if you
+  need alert profiles, correlation rules, or anomaly rules, which are listed
+  only on paid plans.
 bestFor:
-  - enterprise
-  - security teams
-  - IT compliance
+  - small IT teams testing a SIEM
+  - compliance pilots
+  - labs and proofs of concept
 avoidIf:
-  - needing a permanent free plan
-  - on-premises only
-  - unsupported log sources
+  - you need long log retention on the free plan
+  - you need correlation or anomaly rules for free
+  - you want a self-service tool with no sales contact for large volumes
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: 2026-10-09
+lastUpdated: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.manageengine.com/cloud-siem/'
@@ -73,6 +78,48 @@ pricingUrl: 'https://www.manageengine.com/cloud-siem/'
 sourceUrls:
   - 'https://www.manageengine.com/cloud-siem/'
   - 'https://www.manageengine.com/cloud-log-management/help/setting-up/subscription.html'
+  - 'https://www.manageengine.com/cloud-log-management/help/setting-up/starting-log360-cloud.html'
 featured: false
+status: changed
+changes:
+  - date: 2026-10-09
+    kind: changed
+    note: The official pricing section lists a permanent Free plan with 50 GB of storage, so the entry no longer describes only a 30-day trial.
 ---
-ManageEngine Log360 Cloud provides a cloud-based SIEM solution for centralized log management, threat detection, and compliance, with a 30-day free trial that needs no credit card.
+You sign up in a browser and then connect log sources: you install an agent on a machine, or add an AWS account. After that you work in the web console, which has search, dashboards, and reports. It suits small security and IT teams.
+
+## What the free plan gives you
+
+The pricing section on the official page lists a Free plan at $0 with no credit card. It has 50 GB of storage, made of 50 GB of search storage and 150 GB of archival storage. Search retention is 7 days and archival retention is 15 days.
+
+Search storage is the hot copy you can query at once. Archival storage keeps older logs for compliance, and you pull them back with the Reload Archive Logs option. For every unit of search storage, Log360 Cloud adds three times as much archival storage at no extra cost. The Basic plan costs $120 per year, and the Standard plan costs $540 per year.
+
+## When you hit a limit
+
+The pages do not say what happens when you fill the 50 GB. Pricing is based on the volume of logs stored, and paid subscriptions run for one year. Log retention is limited to the subscription period, so on the Free plan old logs age out after the retention days above. You enter no card for the Free plan, so the pages show no way to get a surprise charge.
+
+## Gotchas
+
+- The sign-up form still shows a 30 day free trial banner, while the pricing section shows a Free plan. Check which one your new account gets.
+- Alert profiles, correlation rules, and anomaly rules appear only in the paid plan lists. The Free plan list does not show them.
+- The help page says only 512 MB can be imported at once, and the storage used can be larger than the file because parsed logs also take space.
+
+## Alternatives in this atlas
+
+- [Axiom](/services/axiom/): when you want log search and storage without a SIEM focus.
+- [Grafana Cloud](/services/grafana-cloud/): when you want logs next to metrics and dashboards.
+- [OpenObserve.ai](/tools/openobserve-ai/): when you want to run a log platform on your own servers.
+
+## Questions people ask
+
+### Is ManageEngine Log360 Cloud free?
+
+Yes, there is a Free plan at $0 with 50 GB of storage, 7 days of search retention, and 15 days of archival retention. The official page says no credit card is required.
+
+### How long does Log360 Cloud keep logs on the free plan?
+
+Search retention is 7 days and archival retention is 15 days on the Free plan. Paid plans list longer periods.
+
+### Does Log360 Cloud need a credit card?
+
+No. The pricing section says no credit card is required to get started with the free plan.

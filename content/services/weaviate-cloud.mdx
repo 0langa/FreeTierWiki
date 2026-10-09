@@ -1,6 +1,8 @@
 ---
 title: Weaviate Cloud
-description: Managed Weaviate vector database with hybrid search and built-in embedding options.
+description: >-
+  Weaviate Cloud is a managed vector database with hybrid search and built-in
+  embedding services. The free cluster is for trying Weaviate and small RAG apps.
 provider: Weaviate
 category: database
 domain: database
@@ -12,49 +14,74 @@ audiences:
   - indie
   - startup
 tags:
-  - database
-  - ai
-  - search
+  - weaviate
+  - vector database
+  - hybrid search
+  - semantic search
+  - rag
   - open-source
+  - database
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Always-free plan: 1 cluster with 100,000 objects, 1 GB memory, and 10 GB disk. No card needed.'
+  summary: >-
+    The Free plan is always $0 with no credit card. You get 1 cluster per user
+    with 100,000 objects, 1 GB of memory, and 10 GB of disk. Weaviate suspends it
+    after 7 days of inactivity and deletes it after 30 days.
   limits:
     - 1 cluster per user
-    - '100,000 objects, 1 GB memory, 10 GB disk'
-    - '1 collection, up to 3 tenants'
-    - 'Query Agent: 1,000 requests per month'
+    - 100,000 objects, 1 GB of memory, and 10 GB of disk
+    - 1 collection and up to 3 tenants
+    - Weaviate Embeddings at 2,000 requests per day
+    - Query Agent at 1,000 requests per month
+    - AWS only, with limited regions
   caveats:
-    - Embeddings from Weaviate are usage-based
+    - Weaviate suspends a free cluster after 7 days of inactivity and permanently deletes it after 30 days of total inactivity
+    - No backups, replication, or high availability on the Free plan
+    - Free clusters use the Cost Optimized (HFresh) index profile and you cannot change it
+    - Availability is best effort with no uptime SLA
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - RAG vector store
+  - A vector store for RAG prototypes
   - Hybrid keyword and vector search
+  - Trying natural-language queries with the Query Agent
+  - Multi-tenant demos with up to 3 tenants
 quickstartSteps:
-  - Sign up at console.weaviate.cloud.
-  - Create the free cluster.
-  - Connect with a Weaviate client and import data.
-whenToUse: Use for small vector search projects with a fixed free cap.
-whenNotToUse: 'Avoid if you need more than one collection or 100,000 objects.'
+  - Create an account in the Weaviate Cloud console.
+  - Click the plus button next to CLUSTER in the sidebar, select Free, and choose a name.
+  - Optionally open the advanced settings to pick an AWS region, then click Create cluster.
+  - Copy the REST endpoint URL and the admin API key from the cluster's API keys tab.
+  - Connect with a Weaviate client library using the endpoint and key, create a collection, and import data.
+whenToUse: >-
+  Use it for small vector search projects and RAG prototypes that fit in 100,000
+  objects and one collection, when you can keep the cluster active.
+whenNotToUse: >-
+  Avoid it for production, for more than one collection, or for projects you
+  leave alone for weeks, since idle free clusters are deleted.
 bestFor:
   - RAG prototypes
   - small search apps
+  - learning Weaviate
 avoidIf:
   - large datasets
+  - more than one collection
+  - projects left idle for weeks
+  - you need backups
 difficulty: beginner
-productionReadiness: side-project
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+productionReadiness: prototype
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://weaviate.io'
 docsUrl: 'https://weaviate.io/developers/weaviate'
 sourceUrls:
   - 'https://weaviate.io/pricing'
+  - 'https://docs.weaviate.io/cloud/manage-clusters/create'
+  - 'https://docs.weaviate.io/cloud/quickstart'
 pricingUrl: 'https://weaviate.io/pricing'
 featured: false
 changes:
@@ -62,4 +89,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-Weaviate Cloud now has an always-free cluster with fixed limits.
+You create clusters in the Weaviate Cloud console and work with them through client libraries or the REST endpoint with an API key. It suits developers who want hybrid search and a managed vector store for a small project.
+
+## What the free plan gives you
+
+The Free plan is always $0 and needs no credit card. You get 1 cluster per user, with 100,000 objects, 1 GB of memory, and 10 GB of disk. The cluster supports 1 collection and up to 3 tenants, and it includes hybrid search, vector compression, and multi-tenancy.
+
+Weaviate Embeddings allow 2,000 requests per day, and the Query Agent allows 1,000 requests per month. Free clusters run only on AWS in a limited set of regions. Support is by email.
+
+## When you hit a limit
+
+The pricing page shows hard numbers for objects and collections, but it does not say what happens when you pass them. The compare table lists the Free object limit as 100,000 and the collection limit as 1, while Flex has no object limit. Upgrade to Flex, which starts at $45 a month, to remove them.
+
+The limit you meet sooner is inactivity. After 7 days of inactivity, Weaviate suspends the cluster and keeps your data. You can reactivate it from the console. After 30 days of total inactivity, Weaviate deletes the cluster for good and sends a warning email 1 day before.
+
+## Gotchas
+
+- A free cluster has no backups or replication. Backups start on Flex with 7 days of retention.
+- Free clusters use the Cost Optimized profile with the HFresh index. To choose Performance Optimized, upgrade to Shared Cloud.
+- Shared Cloud clusters require billing details, but the Free cluster does not.
+
+## Alternatives in this atlas
+
+- [Qdrant](/services/qdrant/): when you want a free cluster that is sized by memory and disk, not by object count.
+- [Pinecone](/services/pinecone/): when you want a serverless index with monthly read and write allowances.
+- [Zilliz Cloud](/services/zilliz-cloud/): when you want a serverless vector database with a free plan.
+
+## Questions people ask
+
+### Is Weaviate Cloud free?
+
+Yes. The Free plan is always $0 with no credit card. It gives 1 cluster per user with 100,000 objects, 1 GB of memory, and 10 GB of disk.
+
+### Does the Weaviate Cloud free cluster get deleted?
+
+Yes, if you stop using it. Weaviate suspends a free cluster after 7 days of inactivity and deletes it after 30 days of total inactivity.
+
+### What does the Weaviate Cloud free plan not include?
+
+It has no backups, replication, or uptime SLA, and it allows only 1 collection. Flex starts at $45 a month and raises the object and collection limits.

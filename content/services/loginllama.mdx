@@ -1,8 +1,8 @@
 ---
 title: LoginLlama
 description: >-
-  LoginLlama provides suspicious login detection and fraud prevention via a
-  simple API integration for your authentication flows.
+  LoginLlama is an API that scores each login for risk, so your app can block, ask for MFA, or allow
+  it. It targets account takeover, credential stuffing, and bot traffic.
 provider: LoginLlama
 category: auth
 domain: auth
@@ -16,8 +16,11 @@ audiences:
   - team
   - oss
 tags:
-  - auth
-  - security
+  - login security
+  - fraud detection
+  - account takeover
+  - credential stuffing
+  - risk scoring
   - api
 pricingModel: freemium
 freeTierDetails:
@@ -27,40 +30,49 @@ freeTierDetails:
     - Full API with risk scoring and risk codes
   caveats:
     - No credit card required
+    - API requests are rate limited to 100 requests per minute per API key
+    - The pricing page could not be read in full; the free amount comes from the home page
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Detect suspicious logins in web or mobile apps
-  - Add fraud prevention to authentication flows
-  - Protect user accounts from credential stuffing
+  - Detect account takeover when a stolen password is used
+  - Spot credential stuffing and bot logins
+  - 'Flag impossible travel, new devices, and known VPN or Tor traffic'
+  - 'Decide whether to block, ask for MFA, or allow a login'
+  - Add a risk check next to Auth0 or Supabase sign-in
 quickstartSteps:
-  - Sign up for a free LoginLlama account.
-  - Create a project and obtain your API key.
-  - Integrate the LoginLlama API in your authentication backend.
-  - Send login events to the API and review risk scores.
-  - Act on suspicious logins based on API responses.
+  - Sign up free at loginllama.app/signup. No card is needed.
+  - Copy your API key from the API settings in your account.
+  - >-
+    Install the SDK, for example `npm install loginllama` for Node.js or `pip install loginllama`
+    for Python.
+  - >-
+    Send a POST to `https://loginllama.app/api/v1/login/check` with the `X-API-KEY` header and an
+    `identity_key`.
+  - >-
+    Read the `risk_score` and `risk_codes` in the reply, then block, step up to MFA, or allow the
+    login.
 whenToUse: >-
-  Use LoginLlama when you need to quickly add suspicious login detection to your
-  app without building your own risk engine.
+  Use LoginLlama when you already have a login system and want a simple risk score on each sign-in,
+  without building your own fraud model.
 whenNotToUse: >-
-  Avoid if you require on-premise deployment, advanced customization, or need to
-  process more than 1,000 logins monthly for free.
+  Avoid it if you need a full login system, self-hosting, or more than the free login checks each
+  month.
 bestFor:
+  - small apps that already have auth
   - indie developers
-  - startups
-  - small teams
-  - open source projects
+  - adding risk checks to an existing login
 avoidIf:
-  - require self-hosting
-  - need unlimited login checks
-  - must meet strict compliance
+  - self-hosting
+  - unlimited login checks on free
+  - a full auth provider
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://loginllama.app'
@@ -69,6 +81,45 @@ pricingUrl: 'https://loginllama.app/pricing'
 sourceUrls:
   - 'https://loginllama.app/pricing'
   - 'https://loginllama.app'
+  - 'https://loginllama.app/docs'
 featured: false
 ---
-LoginLlama offers a simple API to detect suspicious login attempts and prevent fraud, suitable for small projects and early-stage apps.
+LoginLlama is not a login system. You call its REST API, or an SDK for Node.js, Python, or PHP, right before you finish a login, and act on the score it returns.
+
+## What the free plan gives you
+
+The home page says you get 1,000 free checks every month, with no card. Each check scores one login from 0 to 10 and returns risk codes such as impossible travel, new device, and known VPN. Your app then decides to block the login, step up to MFA, or allow it.
+
+The pricing page itself loads without plan details, so the free amount comes from the home page. Requests are rate limited to 100 per minute per API key, or 200 for staging keys. The home page says a check responds in under 500 milliseconds and fails open, so a slow call does not lock users out.
+
+## When you hit a limit
+
+The pages we could read do not say what happens when the 1,000 free checks run out. The docs mention that a call can fail with an out-of-credits error when no API credits remain. They also say the API answers with a 429 error when you pass the rate limit, and they suggest backoff.
+
+Because your login flow calls this API, plan for both cases. Decide in your code whether a failed check should allow the login or block it, and watch your credit use in the dashboard.
+
+## Gotchas
+
+- The pricing page does not show plan details when we fetch it. Confirm the free amount and paid prices in your account before you rely on them.
+- The rate limit is 100 requests per minute per API key. A login burst can reach it.
+- LoginLlama scores logins only. You still need your own auth provider to sign users in.
+
+## Alternatives in this atlas
+
+- [Auth0](/services/auth0/): when you need a full hosted login system and not only a risk score.
+- [Supabase Auth](/services/supabase-auth/): when you want sign-in bundled with a database and are fine without a separate risk API.
+- [Stytch](/services/stytch/): when you want a hosted API that handles sign-in itself, including passwordless methods.
+
+## Questions people ask
+
+### Is LoginLlama free?
+
+Yes, to start. The home page lists 1,000 free checks every month with no card.
+
+### Does LoginLlama need a credit card?
+
+The home page says the free checks need no card.
+
+### Does LoginLlama replace my login system?
+
+No. It gives a risk score for a login that your own system handles. You call it once before you finalize the login.

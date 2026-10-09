@@ -1,8 +1,8 @@
 ---
 title: Auth0
 description: >-
-  Auth0 provides authentication and authorization as a service for web, mobile,
-  and legacy applications.
+  Auth0 is a hosted identity platform that adds login, user management, and
+  access control to web, mobile, and API projects.
 provider: Auth0
 category: auth
 domain: auth
@@ -18,7 +18,11 @@ audiences:
   - oss
 tags:
   - auth
-  - security
+  - authentication
+  - sso
+  - social login
+  - passwordless
+  - oauth
 pricingModel: freemium
 freeTierDetails:
   summary: >-
@@ -29,47 +33,49 @@ freeTierDetails:
     - '25,000 monthly active users'
     - 5 organizations
     - 'Unlimited social connections (subject to system limits)'
+    - Passwordless authentication
     - SCIM support
   caveats:
     - 22-day trial of paid features runs automatically before dropping to the Free plan
     - No SLA or enterprise support on the Free plan
     - Custom domains require credit card verification
+    - The pricing page does not say what happens above the user limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
-  - Add secure login to web or mobile apps
-  - 'Enable social login (Google, Facebook, etc.)'
-  - Implement multi-factor authentication
-  - Centralize user management
+  - Add login and sign-up to a React, web, or mobile app
+  - Social login with Google, Facebook, and other providers
+  - Passwordless sign-in
+  - Protect your own API with access tokens
+  - Give each customer organization its own members in a B2B app
 quickstartSteps:
-  - Sign up for a free Auth0 account.
-  - Create a new application in the Auth0 dashboard.
-  - Configure allowed callback URLs for your app.
-  - Install the Auth0 SDK for your platform.
-  - Integrate Auth0 authentication into your app using provided guides.
+  - Sign up for a free Auth0 account. No credit card is needed, and the 22-day trial of paid features starts on its own.
+  - Create a tenant, then register an application in the Auth0 Dashboard. Auth0 gives it a client ID.
+  - Set the allowed callback URLs for your app in the application settings.
+  - Install the Auth0 SDK for your stack, for example `@auth0/auth0-react` for a React app.
+  - Wrap your app in the Auth0 provider with your domain and client ID, then add login and logout buttons.
 whenToUse: >-
-  Use Auth0 when you need to quickly add secure, standards-compliant
-  authentication to your applications without building your own auth system.
+  Use Auth0 when you want hosted, standards-based login for an app or API, with
+  social and passwordless sign-in, and your user count stays inside the free
+  limit.
 whenNotToUse: >-
-  Avoid Auth0 if you require full on-premises control, need advanced
-  customization, or expect to exceed 25,000 monthly active users without
-  budget.
+  Avoid it if you need to host auth yourself, need an SLA on the free plan, or
+  expect to pass the free user limit without a budget.
 bestFor:
-  - secure login
-  - MFA
-  - social login
-  - user management
+  - login for web, mobile, and API projects
+  - social and passwordless sign-in
+  - small B2B apps that need organizations
 avoidIf:
   - self-hosted auth
-  - custom protocols
-  - strict data residency
+  - an SLA on the free plan
+  - a custom domain with no card
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-09-28
-lastVerified: 2026-09-28
+lastUpdated: 2026-10-09
+lastVerified: 2026-10-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://auth0.com/'
@@ -77,6 +83,47 @@ docsUrl: 'https://auth0.com/docs'
 pricingUrl: 'https://auth0.com/pricing'
 sourceUrls:
   - 'https://auth0.com/pricing'
+  - 'https://auth0.com/docs/get-started'
+  - 'https://auth0.com/docs/quickstart/spa/react'
+  - 'https://auth0.com/docs/get-started/auth0-overview/create-applications'
 featured: false
 ---
-Auth0 offers a robust authentication platform with a free plan for up to 25,000 monthly active users, making it easy to add secure login and user management to your apps.
+You register an app in the Auth0 Dashboard, then add one of the Auth0 SDKs or follow a quickstart for your stack. It fits developers who want login without running their own auth server.
+
+## What the free plan gives you
+
+The Free plan costs $0 per month and says no credit card is needed to sign up. It covers up to 25,000 monthly active users. You get passwordless authentication, unlimited social connections (subject to system limitations), 5 organizations, and SCIM support.
+
+New accounts first get a trial of paid features. The trial lasts 22 days. After that, the Free plan activates on its own, unless you pick a paid plan. The paid Essentials and Professional plans add higher limits and extra features such as multi-factor authentication. An SLA and enterprise support belong to the Enterprise plan, not the Free plan.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass 25,000 monthly active users. It shows a user slider that runs past 30,000 and points larger teams to paid plans and to sales. Plan for a move to a paid plan before you reach the cap.
+
+The paid plans list higher authentication, API, and feature limits than the Free plan. Custom domains need a credit card check even on the Free plan.
+
+## Gotchas
+
+- The 22-day trial runs first, so some features you see early on drop away when the Free plan starts.
+- A custom domain needs credit card verification, even though sign-up itself needs no card.
+- The Free plan has no SLA. Auth0 attaches a 99.99% SLA to its Enterprise plan.
+
+## Alternatives in this atlas
+
+- [Clerk](/services/clerk/): when you want ready-made sign-in components for a React or Next.js app.
+- [Supabase Auth](/services/supabase-auth/): when you also need a Postgres database in the same project.
+- [Logto](/services/logto/): when you want an open-source option you can also self-host.
+
+## Questions people ask
+
+### Is Auth0 free?
+
+Yes, within limits. The Free plan includes up to 25,000 monthly active users and needs no credit card to sign up.
+
+### Does Auth0 need a credit card?
+
+Not to sign up for the Free plan. Custom domains are the exception, because they require credit card verification.
+
+### What happens after the Auth0 trial ends?
+
+The trial lasts 22 days. After that, the Free plan activates automatically unless you choose a paid plan.

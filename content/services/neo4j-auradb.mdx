@@ -1,6 +1,8 @@
 ---
 title: Neo4j AuraDB Free
-description: Managed Neo4j graph database in the cloud.
+description: >-
+  Neo4j AuraDB is a managed graph database that you query with Cypher. The Free
+  tier gives one small instance for learning graph data and building prototypes.
 provider: Neo4j
 category: database
 domain: database
@@ -12,47 +14,73 @@ audiences:
   - indie
   - startup
 tags:
+  - neo4j
+  - graph database
+  - cypher
+  - knowledge graph
   - database
-  - data
+  - graphrag
 pricingModel: freemium
 freeTierDetails:
-  summary: 'AuraDB Free: one free graph database instance per account at $0.'
+  summary: >-
+    AuraDB Free costs $0 and needs no credit card. You get one Free instance per
+    account, with limits on node and relationship counts. Aura pauses it after
+    72 hours of inactivity.
   limits:
-    - 1 free instance per account
-    - '$0, for learning and exploring graphs'
+    - 1 Free instance per account
+    - Limits on node and relationship counts; the pricing page does not list the numbers
+    - Single availability zone, one database per instance
+    - Aura Console, Data Importer, Query API, Dashboards, and Aura Agent included
+    - Basic version of Bloom visualization
   caveats:
-    - Neo4j does not list the Free instance size on the pricing page
-    - Paid tiers start at about $65 per month
+    - Aura pauses a Free instance after 72 hours of inactivity, and you cannot pause it by hand
+    - A Free instance that stays paused for more than 30 days is deleted with all its data
+    - No backups, no point-in-time recovery, no SLA, and no monitoring on the Free tier
+    - The instance password shows once at creation and cannot be recovered
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Learn Cypher
-  - Prototype a knowledge graph
-  - Graph RAG experiments
+  - Learning Cypher and graph data modeling
+  - Prototyping a knowledge graph
+  - Graph RAG and AI agent experiments
+  - Visualizing connected data such as networks and recommendations
 quickstartSteps:
-  - Sign up at console.neo4j.io.
-  - Create a Free instance and save the password.
-  - Connect with Neo4j Browser or a driver.
-whenToUse: Use to learn graph databases or prototype a small graph.
-whenNotToUse: Avoid for production; the Free instance is for learning.
+  - Open the Neo4j Aura console and register, accept the terms, and verify your email address.
+  - Aura creates an organization, a project, and your first instance for you. Pick the Free tier if you create another one.
+  - Copy or download the generated password and the credentials file. You cannot recover the password later.
+  - In the console, open Import, Query, Bloom, or Dashboards and connect to the instance from the connection bar.
+  - From code, connect with a Neo4j driver or the Query API using the connection URI, user name, and password.
+whenToUse: >-
+  Use it to learn Cypher, try graph data modeling, or prototype a small
+  knowledge graph or graph RAG demo.
+whenNotToUse: >-
+  Avoid it for production, for data you cannot lose, or for projects that sit
+  idle for weeks, because Aura deletes a Free instance left paused too long.
 bestFor:
-  - learning
+  - learning Cypher
   - graph prototypes
+  - GraphRAG demos
 avoidIf:
   - production
+  - you need backups
+  - the project sits idle for weeks
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-01'
-lastVerified: '2026-10-01'
+lastUpdated: '2026-10-09'
+lastVerified: '2026-10-09'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://neo4j.com/product/auradb/'
 docsUrl: 'https://neo4j.com/docs/aura/'
 sourceUrls:
   - 'https://neo4j.com/pricing/'
+  - 'https://neo4j.com/docs/aura/managing-instances/instance-actions/'
+  - 'https://neo4j.com/docs/aura/getting-started/create-account/'
+  - 'https://neo4j.com/docs/aura/getting-started/create-instance/'
+  - 'https://neo4j.com/docs/aura/getting-started/connect-instance/'
 pricingUrl: 'https://neo4j.com/pricing/'
 featured: false
 changes:
@@ -60,4 +88,42 @@ changes:
     kind: new
     note: Added to the atlas.
 ---
-AuraDB Free is a single small Neo4j instance for learning and prototypes.
+You work in the Aura console, which has tools for importing, querying, and visualizing, or you connect from code with a Neo4j driver. It suits students and developers who want to try graph databases without installing anything.
+
+## What the free plan gives you
+
+AuraDB Free costs $0, and the pricing page says no credit card or other payment method is required. Each account can create one Free instance. To create more, you must upgrade.
+
+The free plan places limits on the number of nodes and relationships. The pricing page does not list the exact counts. The instance runs in a single availability zone and holds one database. It includes the Aura Console, Data Importer, Query API, Dashboards, and Aura Agent, and it gives you the basic version of Bloom. It does not include monitoring, backups, point-in-time recovery, or an SLA. Support comes from the community.
+
+## When you hit a limit
+
+The pricing page does not say what happens when you pass the node or relationship limit. Check the Aura console for the current numbers and the error you see. Nothing in the sources shows a bill for the Free tier, so the risk is lost access, not a charge.
+
+Inactivity is the limit that bites more often. Aura pauses a Free instance after 72 hours of inactivity. You cannot pause it yourself. If it stays paused for more than 30 days, Aura deletes the instance and all its data.
+
+## Gotchas
+
+- The generated instance password appears once. Copy it or download the credentials file, because Aura cannot recover it later.
+- Free instances do not resume on their own after a long pause. You resume them with the Play button on the instance card, and resuming can take a few minutes to a few hours.
+- The Free tier has no backups. Export your data yourself if it matters, since a long pause deletes the instance.
+
+## Alternatives in this atlas
+
+- [MongoDB Atlas](/services/mongodb-atlas/): when your data fits documents better than a graph.
+- [Supabase Database](/services/supabase-database/): when you want a relational Postgres database and your queries are mostly joins.
+- [Aiven](/services/aiven/): when you want a free managed Postgres, MySQL, or Valkey service.
+
+## Questions people ask
+
+### Is Neo4j AuraDB free?
+
+Yes. AuraDB Free costs $0 and needs no credit card. Each account gets one Free instance, with limits on nodes and relationships.
+
+### Does Neo4j AuraDB Free pause or delete my data?
+
+Aura pauses a Free instance after 72 hours of inactivity. If it stays paused for more than 30 days, Aura deletes the instance and its data.
+
+### How many Neo4j AuraDB Free instances can I create?
+
+You can create one Free instance per account. To create more instances, you need to upgrade your tier.

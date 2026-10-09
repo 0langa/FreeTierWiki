@@ -1,8 +1,8 @@
 ---
 title: GitLab
 description: >-
-  GitLab offers cloud-based Git repositories, CI/CD pipelines, and DevOps tools
-  for collaborative software development.
+  GitLab.com hosts Git repositories with issues, merge requests, and CI/CD pipelines in one place.
+  It is for individuals, open-source maintainers, and small teams.
 provider: GitLab
 category: devops
 domain: devops
@@ -17,57 +17,72 @@ audiences:
   - team
   - oss
 tags:
-  - devops
-  - ci-cd
-  - collaboration
+  - git hosting
+  - gitlab
+  - merge requests
+  - ci/cd
+  - issue tracking
+  - devops platform
+  - private repositories
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 400 compute minutes per month and 5 users per private
-    top-level group. A card is needed to use the shared runners.
+    Free tier includes 400 compute minutes per month, 10 GiB of storage, and 5 users per top-level
+    group. A card is needed to use the shared runners.
   limits:
     - 400 compute minutes per month
-    - 5 users per private top-level group
-    - 10 GiB storage
+    - 5 users per top-level group
+    - 10 GiB of adjustable storage
+    - Static application security testing is included
   caveats:
-    - Using GitLab shared runners needs a credit or debit card on file (no charge is made). Your own runners do not need one.
-    - Extra minutes cost $10 per 1,000 (one-time payment)
-    - Some advanced features require paid tiers
+    - >-
+      Using GitLab shared runners needs a credit or debit card on file; GitLab verifies it with a
+      one-dollar authorization and makes no charge
+    - Your own runners and storage need no card
+    - You can purchase additional compute minutes
+    - >-
+      The Premium plan costs $29 per user per month, billed annually, and has unlimited licensed
+      users
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - No automatic charges; must upgrade or purchase more minutes
+    - Nothing is billed unless you buy more compute minutes or move to a paid plan
 useCases:
-  - Collaborative code hosting
-  - Automated CI/CD pipelines
-  - Open source project management
-  - Issue tracking
+  - Hosting private and public Git repositories
+  - Reviewing code with merge requests
+  - Tracking work with issues in the same project
+  - Running CI/CD pipelines from a .gitlab-ci.yml file
 quickstartSteps:
-  - 'Sign up for a free GitLab account at https://gitlab.com.'
-  - Create a new project or import an existing repository.
-  - Push your code to the GitLab repository using Git.
-  - Configure a .gitlab-ci.yml file for CI/CD pipelines.
-  - Monitor pipeline runs and manage issues within the project.
+  - 'Sign up for GitLab.com, with an email address or another login.'
+  - >-
+    Create a project: choose Create new, then New project/repository, and pick blank, template, or
+    import.
+  - >-
+    Set the project name, slug, and visibility level, and tick the README option to create the first
+    branch.
+  - 'Clone the repository with Git, add your code, and push it to GitLab.'
+  - Optionally add a `.gitlab-ci.yml` file at the root to start a pipeline.
 whenToUse: >-
-  Use GitLab when you need integrated Git hosting and CI/CD for collaborative
-  software projects with generous free usage for individuals and small teams.
+  Use GitLab when you want Git hosting, merge requests, and CI/CD in one hosted service for a small
+  team.
 whenNotToUse: >-
-  Avoid if you require unlimited CI/CD minutes, advanced enterprise features, or
-  need to self-host without using GitLab.com.
+  Avoid the free plan for groups of more than 5 users, for heavy CI on shared runners, or when you
+  cannot give a card but have no runner of your own.
 bestFor:
-  - collaborative teams
-  - open source projects
-  - indie developers
+  - solo developers and small teams
+  - open-source projects
+  - teams that want code and CI in one place
 avoidIf:
-  - require unlimited CI/CD
-  - need advanced enterprise controls
+  - your group has more than 5 users and no budget
+  - you need more than 400 shared-runner minutes for free
+  - you cannot provide a card for shared runners
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-09-28
-lastUpdated: 2026-09-28
+lastVerified: '2026-10-09'
+lastUpdated: '2026-10-09'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://about.gitlab.com/'
@@ -75,6 +90,49 @@ docsUrl: 'https://docs.gitlab.com/'
 pricingUrl: 'https://about.gitlab.com/pricing/'
 sourceUrls:
   - 'https://about.gitlab.com/pricing/'
+  - 'https://docs.gitlab.com/ci/pipelines/compute_minutes/'
+  - 'https://docs.gitlab.com/user/project/'
+  - 'https://docs.gitlab.com/ci/quick_start/'
 featured: false
 ---
-GitLab provides an all-in-one DevOps platform with free private repositories, built-in CI/CD, and project management tools suitable for individuals and small teams.
+You use GitLab.com in the browser and push code with Git. Each project has its own repository, issues, and merge requests. It suits solo developers, open-source maintainers, and groups of up to 5 people.
+
+## What the free plan gives you
+
+The Free plan is for personal projects and open-source work. It includes 5 users per top-level group, 400 compute minutes per month, source code management with CI/CD, 10 GiB of adjustable storage, and static application security testing. When you create a project you can also turn on Secret Detection.
+
+The compute quota is on by default for Free namespaces on GitLab.com. Usage resets on the first day of each month. You can bring your own runners and storage.
+
+The Premium plan costs $29 per user per month, billed annually. It has unlimited licensed users and 10,000 compute minutes per month.
+
+## When you hit a limit
+
+When a compute quota is on, you get notices as you near it. GitLab applies enforcement measures once you exceed it.
+
+You can purchase additional compute minutes. The docs say purchased minutes are used only after the monthly quota runs out, and they roll over if unused. Runners that you host yourself do not use the quota, so a self-hosted runner is the way to keep running pipelines without paying for more minutes.
+
+## Gotchas
+
+- The shared runners need a credit or debit card on file. GitLab verifies it with a one-dollar authorization and makes no charge. A bring-your-own runner needs no card.
+- The free plan allows 5 users per top-level group. The compute quota applies to the group, no matter how many users it has.
+- AI features come from a separate credits add-on and are not part of the Free plan.
+
+## Alternatives in this atlas
+
+- [Bitbucket](/services/bitbucket/): when your team already uses Atlassian tools.
+- [Framagit.org](/tools/framagit-org/): when you want a free GitLab server run by a non-profit and can wait for approval.
+- [GitHub Actions](/services/github-actions/): when your code is on GitHub and you want its built-in CI.
+
+## Questions people ask
+
+### Is GitLab free?
+
+Yes. The Free plan includes 5 users per top-level group, 400 compute minutes per month, and 10 GiB of storage.
+
+### Does GitLab need a credit card?
+
+The pricing page says no card is needed for the Free plan. You do need a credit or debit card to use the shared runners, and GitLab verifies it with a one-dollar authorization and makes no charge.
+
+### What happens when I use up my GitLab CI minutes?
+
+GitLab applies enforcement measures once you exceed the quota. You can buy more compute minutes or run your own runners.
