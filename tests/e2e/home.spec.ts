@@ -68,3 +68,11 @@ test("home has no horizontal scroll", async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test("the header buttons fit on a phone screen", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "phone", "desktop has room");
+  await page.goto("/");
+  const width = page.viewportSize()?.width ?? 0;
+  const toggle = await page.locator("header button").last().boundingBox();
+  expect(toggle && toggle.x + toggle.width <= width).toBe(true);
+});

@@ -27,3 +27,11 @@ export function liveComparisons(comparisons: Comparison[], liveIds: ReadonlySet<
 export function comparisonsFor(entryId: string, comparisons: Comparison[]): Comparison[] {
   return comparisons.filter((comparison) => comparison.entries.includes(entryId));
 }
+
+/** Comparison tables where most entries belong to one category, for that category's page. */
+export function comparisonsForDomain(domain: string, comparisons: Comparison[], domainOf: ReadonlyMap<string, string>): Comparison[] {
+  return comparisons.filter((comparison) => {
+    const inDomain = comparison.entries.filter((id) => domainOf.get(id) === domain).length;
+    return inDomain > 0 && inDomain * 2 >= comparison.entries.length;
+  });
+}

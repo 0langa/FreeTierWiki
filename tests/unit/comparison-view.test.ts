@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { Comparison } from "@/lib/comparisons-file";
-import { comparisonsFor, jobLabel, liveComparisons } from "@/lib/comparison-view";
+import { comparisonsFor, comparisonsForDomain, jobLabel, liveComparisons } from "@/lib/comparison-view";
 
 const postgres: Comparison = { slug: "postgres-hosting", title: "Free Postgres hosting compared", intro: "Managed Postgres.", entries: ["services:neon", "services:supabase", "services:gone"] };
 const email: Comparison = { slug: "email-sending", title: "Free transactional email APIs compared", intro: "Email.", entries: ["services:resend", "services:neon"] };
@@ -30,5 +30,16 @@ describe("comparisonsFor", () => {
     expect(comparisonsFor("services:neon", [postgres, email]).map((c) => c.slug)).toEqual(["postgres-hosting", "email-sending"]);
     expect(comparisonsFor("services:resend", [postgres, email]).map((c) => c.slug)).toEqual(["email-sending"]);
     expect(comparisonsFor("services:nope", [postgres, email])).toEqual([]);
+  });
+});
+
+describe("comparisonsForDomain", () => {
+  it("keeps tables where at least half the entries are in the category", () => {
+    const tables = [
+      { slug: "a", title: "A", intro: "", entries: ["x", "y"] },
+      { slug: "b", title: "B", intro: "", entries: ["x", "z", "w"] },
+    ];
+    const domainOf = new Map([["x", "database"], ["y", "database"], ["z", "hosting"], ["w", "hosting"]]);
+    expect(comparisonsForDomain("database", tables, domainOf).map((t) => t.slug)).toEqual(["a"]);
   });
 });
