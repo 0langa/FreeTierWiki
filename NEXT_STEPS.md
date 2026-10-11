@@ -3,7 +3,8 @@ _State refreshed: 2026-10-11._
 
 ## Coverage sweep — 2026-10-11 (Day 0, waves 1 and 2 in PR #36)
 Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Owner decisions: Opus 5.5 at effort high for every
-worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep. Network access for
+worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep (lifted on
+2026-10-11: the run uses promotional credits). Network access for
 the cloud environment was set to Full on 2026-10-11; before that the proxy refused almost every
 vendor pricing host. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
 - Candidate list: 226 names in 9 jobs, deduped against slugs, titles, providers, URL hosts, the
@@ -76,9 +77,8 @@ Open items:
    entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
    until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
    uses 500 and notes the conflict), 8base (pricing page footer says 2023).
-3. Size: `explorer.json` is 96.0 of 100 KB at 835 entries (about 0.11 KB per entry), so about 30
-   more fit. The remaining candidates could add about 40; raise the budget with the owner's yes, or
-   find another lossless trim, before the last wave.
+3. Size: `explorer.json` is 96.0 KB at 835 entries (about 0.11 KB per entry). The owner raised its
+   budget from 100 to 110 KB on 2026-10-11 (`scripts/check-budget.mjs`), room for about 125 more.
 4. Left in the candidate list: 50 names (developer tooling 28, team chat, project management, and
    CMS 22) plus three successors found in wave 2: SolarWinds Incident Response (was Squadcast),
    Xurrent IMR (was Zenduty), IBM watsonx Orchestrate (absorbed watsonx Assistant).
