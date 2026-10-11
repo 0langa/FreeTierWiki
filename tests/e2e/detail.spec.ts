@@ -1,10 +1,11 @@
 import { expect, test, type APIRequestContext } from "@playwright/test";
 
-type Row = { url: string; status: string; freshness: { state: string } };
+type Row = { id: string; url: string; status: string; freshness: { state: string } };
 
+// explorer.json leaves out `url`; the id ("services:neon") carries the kind and slug.
 async function findEntry(request: APIRequestContext, match: (row: Row) => boolean): Promise<Row | undefined> {
-  const rows: Row[] = await (await request.get("/data/explorer.json")).json();
-  return rows.find(match);
+  const rows: Omit<Row, "url">[] = await (await request.get("/data/explorer.json")).json();
+  return rows.map((row) => ({ ...row, url: `/${row.id.replace(":", "/")}/` })).find(match);
 }
 
 test("detail page shows the facts label and the pricing link", async ({ page }) => {

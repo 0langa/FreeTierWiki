@@ -1,6 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { compareSafety, offerParts, pricingUrl, relatedItems, safetyScore, searchWords, toListItem } from "@/lib/entry-view";
+import {
+  compareSafety,
+  fromExplorerRow,
+  offerParts,
+  pricingUrl,
+  relatedItems,
+  safetyScore,
+  searchWords,
+  toExplorerRow,
+  toListItem,
+} from "@/lib/entry-view";
 import { makeEntry, makeItem } from "../support/fixtures";
 
 const now = new Date("2026-09-25T00:00:00Z");
@@ -69,6 +79,21 @@ describe("toListItem", () => {
     expect(item.haystack).toContain("database");
     expect(item.haystack).toBe(item.haystack.toLowerCase());
     expect(item.rank).toBe(8);
+  });
+});
+
+describe("explorer rows", () => {
+  it("ship without url and kind, and rebuild both from the id", () => {
+    const item = toListItem(makeEntry(), now);
+    const row = toExplorerRow(item);
+    expect(row).not.toHaveProperty("url");
+    expect(row).not.toHaveProperty("kind");
+    expect(fromExplorerRow(row)).toEqual(item);
+  });
+
+  it("rebuilds a tools url", () => {
+    const item = toListItem(makeEntry({ id: "tools:postman", kind: "tools", slug: "postman", url: "/tools/postman/" }), now);
+    expect(fromExplorerRow(toExplorerRow(item))).toMatchObject({ kind: "tools", url: "/tools/postman/" });
   });
 });
 

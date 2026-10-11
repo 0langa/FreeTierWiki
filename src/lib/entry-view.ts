@@ -96,6 +96,22 @@ export function toListItem(entry: AtlasEntry, now: Date): ListItem {
   };
 }
 
+/** A list row as shipped in explorer.json: `url` and `kind` are left out because the id carries both. */
+export type ExplorerRow = Omit<ListItem, "url" | "kind">;
+
+export function toExplorerRow(item: ListItem): ExplorerRow {
+  const { url, kind, ...row } = item;
+  void url;
+  void kind;
+  return row;
+}
+
+/** Rebuilds `kind` and `url` from an id such as `services:neon`. */
+export function fromExplorerRow(row: ExplorerRow): ListItem {
+  const [kind, slug] = row.id.split(":") as [ContentKind, string];
+  return { ...row, kind, url: `/${kind}/${slug}/` };
+}
+
 /** Other live entries in the same category, safest first. Ended offers are never suggested. */
 export function relatedItems(entry: AtlasEntry, all: AtlasEntry[], now: Date, limit = 4): ListItem[] {
   return all

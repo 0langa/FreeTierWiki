@@ -7,7 +7,7 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import { EntryList } from "@/components/entry/entry-list";
 import { FilterPanel, type FacetCountMaps } from "@/components/explorer/filter-panel";
 import { Modal } from "@/components/ui/modal";
-import type { ListItem } from "@/lib/entry-view";
+import { fromExplorerRow, type ExplorerRow, type ListItem } from "@/lib/entry-view";
 import {
   activeFilterCount,
   applyQuery,
@@ -54,10 +54,10 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
     fetch("/data/explorer.json")
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json() as Promise<ListItem[]>;
+        return response.json() as Promise<ExplorerRow[]>;
       })
       .then((data) => {
-        if (!cancelled) setItems(data);
+        if (!cancelled) setItems(data.map(fromExplorerRow));
       })
       .catch(() => {
         if (!cancelled) setLoadFailed(true);
