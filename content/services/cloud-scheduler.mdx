@@ -1,0 +1,121 @@
+---
+title: Cloud Scheduler
+description: >-
+  Cloud Scheduler is Google Cloud's managed cron service. A job runs one
+  activity on the schedule you define, and you pay per job, not per run.
+provider: Google Cloud
+category: automation
+domain: automation
+subtypes:
+  - cron
+  - job scheduling
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - cron
+  - scheduler
+  - scheduled-jobs
+  - google-cloud
+  - automation
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Each Google billing account gets 3 Cloud Scheduler jobs per month free.
+    Executions are not billed; each job past the free three costs $0.10 per 31
+    days.
+  limits:
+    - 3 jobs per month per billing account
+    - Executions are not billed
+  caveats:
+    - The free jobs are counted per billing account, not per project
+    - A paused job still counts as a job
+    - A Cloud Billing account is required to use the Free Tier
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - Each job past the free three is billed per day it exists, including paused jobs
+useCases:
+  - Calling an endpoint every night to run a cleanup or report
+  - Starting a batch task on a fixed schedule
+  - Replacing a cron entry on a server you no longer want to run
+quickstartSteps:
+  - Sign in to the Google Cloud console and create or select a project.
+  - Create a Cloud Scheduler job with a schedule and the activity it should run.
+  - Delete jobs you no longer need, since paused jobs are still billed past the free three.
+whenToUse: >-
+  Use Cloud Scheduler when your app runs on Google Cloud and you need up to
+  three scheduled jobs without keeping a server running for cron.
+whenNotToUse: >-
+  Avoid it if you cannot attach a billing account, or if you want many
+  scheduled jobs for free.
+bestFor:
+  - a few cron jobs on Google Cloud
+  - nightly or hourly tasks
+avoidIf:
+  - no billing account
+  - dozens of scheduled jobs
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://cloud.google.com/scheduler'
+docsUrl: 'https://cloud.google.com/scheduler/docs'
+sourceUrls:
+  - 'https://cloud.google.com/scheduler/pricing'
+  - 'https://cloud.google.com/free'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+pricingUrl: 'https://cloud.google.com/scheduler/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Cloud Scheduler is a managed cron job scheduler for task automation on Google Cloud. A job defines a single activity that runs at the frequency you set, and Google keeps the schedule running for you. It suits developers who need a few timed tasks and do not want a server that exists only to run cron.
+
+## What the free plan gives you
+
+Cloud Scheduler pricing is based only on jobs. Each Google billing account gets 3 jobs per month free, and the actual runs of a job, called executions, are not billed at all. A job that runs every minute costs the same as a job that runs once a day.
+
+The free tier is measured at the account level, not the project level. If your account has 5 projects with 2 jobs each, you have 3 free jobs and 7 paid jobs. The pricing table expresses the free amount as 93 job-days per month, which is three jobs kept for 31 days.
+
+## When you hit a limit
+
+Nothing stops your jobs when you create a fourth one. Each job past the free three is billed $0.10 per 31 days, which is $0.003 per day for each billable job.
+
+Billed usage is calculated per day. If you define a job and delete it 10 days later, Google bills $0.1/31 times 10, which is $0.03. A paused job is still counted as a job, so pausing does not stop the charge; deleting the job does.
+
+## Gotchas
+
+- The 3 free jobs are shared by every project on the billing account, so jobs in a second project use the same allowance.
+- A paused job counts as a job and is billed past the free three.
+- A job is billed for each day it exists past the free three, whether it runs that day or not.
+
+## Alternatives in this atlas
+
+- [Posthook](/services/posthook/): when you want to schedule webhooks from any host, not only Google Cloud.
+- [Val Town](/services/val-town/): when you want to write a small script and run it on a schedule.
+- [Windmill.dev](/services/windmill-dev/): when you want scheduled scripts and workflows in one place.
+
+## Questions people ask
+
+### Is Google Cloud Scheduler free?
+
+For up to 3 jobs per billing account each month. Each job past that costs $0.10 per 31 days.
+
+### Does Cloud Scheduler charge per run?
+
+No. Executions are not billed, so you pay for jobs, not for how often they run.
+
+### Does pausing a job stop the charge?
+
+No. A paused job is counted as a job, so delete jobs you no longer need.

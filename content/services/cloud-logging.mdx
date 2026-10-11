@@ -1,0 +1,124 @@
+---
+title: Cloud Logging
+description: >-
+  Cloud Logging is Google Cloud's managed log store. It collects logs from your
+  services, keeps them in log buckets, and lets you search them with queries
+  or SQL.
+provider: Google Cloud
+category: observability
+domain: observability
+subtypes:
+  - log management
+  - log analytics
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - logging
+  - logs
+  - observability
+  - google-cloud
+  - monitoring
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The first 50 GiB of logs streamed into log buckets per project each month
+    is free and is kept for up to 30 days. Querying, Log Analytics, and log
+    routing have no extra charge.
+  limits:
+    - 50 GiB of log storage per project per month
+    - 30 days of retention included
+    - Querying and Log Analytics at no extra charge
+  caveats:
+    - The free amount is per project, not per billing account
+    - Keeping logs past 30 days is billed per GiB per month
+    - A Cloud Billing account is required to use the Free Tier
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Logs past 50 GiB per project are billed per GiB as they are stored
+    - Verbose or debug logging raises log volume, and every GiB past the free amount is billed
+useCases:
+  - Searching request and error logs from Cloud Run or Cloud Run functions
+  - Running SQL over logs with Log Analytics
+  - Routing logs to another destination for long-term storage
+quickstartSteps:
+  - Sign in to the Google Cloud console and create or select a project.
+  - Deploy a service that writes logs, or send entries with the Cloud Logging API.
+  - Open Logs Explorer to search them, and check the log volume against the 50 GiB free amount.
+whenToUse: >-
+  Use Cloud Logging when your services run on Google Cloud and their logs fit
+  in 50 GiB a month per project, with 30 days of history.
+whenNotToUse: >-
+  Avoid relying on the free amount if your services log verbosely, or if you
+  need to keep logs for months without paying retention.
+bestFor:
+  - apps on Google Cloud
+  - 30 days of searchable logs
+avoidIf:
+  - very chatty debug logging
+  - long retention for free
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://cloud.google.com/logging'
+docsUrl: 'https://cloud.google.com/logging/docs'
+sourceUrls:
+  - 'https://cloud.google.com/stackdriver/pricing'
+  - 'https://cloud.google.com/free'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+pricingUrl: 'https://cloud.google.com/stackdriver/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Cloud Logging stores the logs your Google Cloud services write and lets you search, analyze, and route them. Logs land in log buckets, where you query them in Logs Explorer or with SQL in Log Analytics. It suits developers whose apps already run on Google Cloud and who want logs in the same console.
+
+## What the free plan gives you
+
+Cloud Logging is part of the Google Cloud Free Tier, priced on the Google Cloud Observability pricing page. The first 50 GiB of logs per project each month is free. Storage is a one-time charge for streaming logs into a log bucket, and it includes up to 30 days of storage.
+
+There is no additional charge for querying and analyzing log data, for upgrading a bucket to Log Analytics and running SQL queries, for routing logs, or for using the Cloud Logging API. Logs in the _Required log bucket are not charged and are kept for a fixed 400 days.
+
+## When you hit a limit
+
+The pricing page does not describe a stop at 50 GiB. Logs past the free amount are billed at $0.50/GiB as they are streamed into log bucket storage, and vended network logs at $0.25/GiB.
+
+For the _Default bucket and user-defined buckets, keeping logs longer than the default retention period of 30 days costs $0.01 per GiB per month. Logs kept only for the default period have no retention cost. Storage volume counts the size of the log entries before indexing.
+
+## Gotchas
+
+- The 50 GiB free amount is per project, so a busy project can pay while a quiet one stays free.
+- Raising retention past 30 days adds a monthly charge for every GiB you keep.
+- Routing is free in Cloud Logging, but the destination you route logs to bills its own storage.
+
+## Alternatives in this atlas
+
+- [Better Stack (Logtail)](/services/logtail-com/): when you want hosted logs that work the same from any cloud.
+- [Grafana Cloud](/services/grafana-cloud/): when you want logs, metrics, and traces in one free stack.
+- [CloudWatch](/services/cloudwatch/): when your services run on AWS instead.
+
+## Questions people ask
+
+### Is Google Cloud Logging free?
+
+Up to 50 GiB of logs per project each month, kept for 30 days. Logs past that are billed per GiB.
+
+### Does querying logs cost extra?
+
+No. Querying and analyzing log data, including SQL in Log Analytics, has no additional charge.
+
+### How long are logs kept for free?
+
+Logs in the _Default bucket and user-defined buckets are kept for the default 30 days at no retention cost. Logs in the _Required bucket are kept for 400 days at no charge.

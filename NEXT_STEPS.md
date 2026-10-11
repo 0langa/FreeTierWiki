@@ -1,5 +1,24 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-09._
+_State refreshed: 2026-10-11._
+
+## Coverage sweep, Day 0 — 2026-10-11 (not committed)
+Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Defaults confirmed (Opus 5.5, effort high, batches
+of about 25, up to 6 workers); the owner has not yet named the dollar cap.
+- Candidate list: 226 names in 9 jobs, deduped against slugs, titles, providers, URL hosts, the
+  removals, and `public/_redirects` (`development/verify/reports/2026-10-11-coverage-candidates.md`,
+  gitignored). Sources: the brief, names the bodies mention without an entry, the big providers'
+  per-product free lists, free-for.dev (names only).
+- 5 new entries: `services/google-secret-manager`, `services/bigquery`, `services/cloud-scheduler`,
+  `services/cloud-vision-api`, `services/cloud-logging`. Gates green: lint, typecheck, unit 157,
+  depth 690 of 690, build, budget, e2e 74 passed (6 skipped).
+- Blocker for the batches: the cloud environment's network policy refused almost every vendor
+  pricing host (airtable.com, aws.amazon.com, cloudflare.com, azure.microsoft.com,
+  docs.cloud.google.com, and others); only cloud.google.com answered. Widen Network access for the
+  environment before step 1. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
+- `explorer.json` is 89.6 of 100 KB gzip at 690 entries, about 0.13 KB per entry, so roughly 80 more
+  entries fit before `check:budget` fails; plan the trim (or a raise, with the owner's yes) early.
+- E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
+  `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
 
 ## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),

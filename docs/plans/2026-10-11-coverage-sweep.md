@@ -8,6 +8,11 @@ this one adds entries instead of rewriting them.
 ## Status
 
 - 2026-10-11: brief written. Nothing started. Day 0 waits for the owner's yes on the defaults below.
+- 2026-10-11: defaults confirmed by the owner (dollar cap not yet named). Day 0 done, not committed:
+  226 candidates in `development/verify/reports/2026-10-11-coverage-candidates.md`; 5 Google Cloud
+  entries added (Secret Manager, BigQuery, Cloud Scheduler, Cloud Vision API, Cloud Logging); full
+  gates green. The session's network policy refused most vendor hosts, so batches need wider
+  network access first. Waiting for the owner's yes before step 1.
 
 ## Why
 
