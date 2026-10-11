@@ -1,0 +1,122 @@
+---
+title: Google Cloud Speech-to-Text
+description: >-
+  Google Cloud Speech-to-Text is an API that turns recorded or streamed audio
+  into text. You send audio to the V1 or V2 API and get back a transcript.
+provider: Google Cloud
+category: ai
+domain: ai
+subtypes:
+  - speech recognition
+  - transcription API
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - speech-to-text
+  - transcription
+  - speech recognition
+  - audio
+  - google-cloud
+  - api
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    60 minutes of audio per month are free for the Speech-to-Text V1 API under
+    the Google Cloud Free Tier.
+  limits:
+    - 60 minutes of audio per month (V1 API)
+    - Audio is measured in increments of one second
+  caveats:
+    - The free minutes apply to the V1 API; the V2 tables start billing from the first minute
+    - A Cloud Billing account is required to use the Free Tier
+    - Requests that end in a server error are not counted
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Audio past 60 minutes a month is billed per minute
+    - Opting out of data logging raises the V1 price per minute
+useCases:
+  - Transcribing short voice notes or support calls
+  - Adding captions to a small number of videos
+  - Prototyping voice commands in an app
+quickstartSteps:
+  - Create a Google Cloud project with a billing account.
+  - Enable the Speech-to-Text API.
+  - Send a short audio file to the V1 recognize method from a client library or the REST API.
+  - Read the transcript in the response and check your monthly minutes in the billing console.
+whenToUse: >-
+  Use it to prototype transcription or voice features with about an hour of
+  audio a month, when you already have a Google Cloud billing account.
+whenNotToUse: >-
+  Skip it if you need to transcribe many hours a month for free, or if you
+  want the newer V2 API inside a free amount.
+bestFor:
+  - prototyping transcription
+  - low-volume voice features
+avoidIf:
+  - many hours of audio a month
+  - no billing account
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://cloud.google.com/speech-to-text'
+docsUrl: 'https://cloud.google.com/speech-to-text/docs/overview'
+sourceUrls:
+  - 'https://cloud.google.com/speech-to-text/pricing'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+  - 'https://cloud.google.com/speech-to-text/docs/overview'
+pricingUrl: 'https://cloud.google.com/speech-to-text/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Speech-to-Text is a Google Cloud API for transcription. You send recorded audio, or stream it, and the API returns text, using models such as default, phone_call, video, and the medical models. It suits developers adding transcription or voice input to an app who want a managed API instead of hosting a model.
+
+## What the free plan gives you
+
+Speech-to-Text is part of the Google Cloud Free Tier. The free amount is 60 minutes per month per account for the Speech-to-Text V1 API, and it lasts after the free trial ends. The V1 pricing tables show the first 60 minutes at $0.00 for the standard models and for the medical models.
+
+Audio is measured in increments of one second, and each request is rounded up to the nearest second. Only audio that the service processes counts. An empty response still counts, but a request that ends in a server error does not. A Google Cloud billing account is required to access the Free Tier.
+
+## When you hit a limit
+
+Nothing stops the API at 60 minutes. After the free minutes, V1 standard recognition with data logging costs $0.016 per minute, and without data logging $0.024 per minute. The medical models cost $0.078 per minute after the free minutes.
+
+The V2 API has its own price table, starting at $0.016 per minute for standard recognition models, with no free minutes listed. Volume discounts apply at higher monthly totals, and you can watch usage in the billing console.
+
+## Gotchas
+
+- The free minutes are for the V1 API, so moving to V2 or its Chirp model means paying from the first minute.
+- An empty response counts as processed audio, so sending silence still uses your minutes.
+- The free amount is counted per billing account, not per project.
+
+## Alternatives in this atlas
+
+- [Azure AI Speech](/services/azure-ai-speech/): when you are on Azure and want speech to text and text to speech in one service.
+- [Hugging Face Hub](/services/hugging-face-hub/): when you want to try open speech recognition models yourself.
+
+## Questions people ask
+
+### Is Google Speech-to-Text free?
+
+Within limits. The V1 API includes 60 minutes of audio per month for free, and minutes past that are billed.
+
+### Does the V2 API have free minutes?
+
+The Free Tier lists the 60 free minutes for the V1 API. The V2 pricing table starts billing from the first minute.
+
+### Am I charged for failed requests?
+
+Requests that end in a server error are not counted. An empty response, where the audio was processed but nothing was transcribed, does count.

@@ -1,0 +1,122 @@
+---
+title: Metered TURN
+description: >-
+  Metered runs global STUN and TURN servers for WebRTC. A free account gets
+  the Open Relay TURN server with 20 GB a month, and the TURN plans start with
+  a free 500 MB tier.
+provider: Metered
+category: messaging
+domain: messaging
+subtypes:
+  - TURN server
+  - WebRTC
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - metered
+  - turn
+  - stun
+  - webrtc
+  - open-relay
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    A free account gives you the Open Relay TURN server with 20 GB of free TURN
+    usage every month. The TURN server plans start with a $0 tier of 500 MB a
+    month, and STUN is free. No credit card is required.
+  limits:
+    - Open Relay 20 GB of TURN usage per month
+    - TURN server free tier 500 MB per month, ingress plus egress
+    - Unlimited STUN
+  caveats:
+    - The 500 MB tier is labeled Free Trial on the pricing page
+    - Open Relay needs a free account to get an API key
+    - Paid plans list historical uptime figures and per-GB overage
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - The pricing page does not say what happens when a free tier's monthly TURN usage runs out
+useCases:
+  - A free TURN relay for a WebRTC side project
+  - Testing calls through corporate firewalls on ports 80 and 443
+  - Signaling plus TURN for a small peer-to-peer app
+quickstartSteps:
+  - Sign up for a free Metered account; the pricing page says no credit card is required.
+  - Copy your TURN REST API key from the dashboard.
+  - Call the endpoint to fetch the iceServers array and pass it to your RTCPeerConnection.
+whenToUse: >-
+  Use Metered when you need a TURN relay for a WebRTC app and want a free
+  monthly allowance large enough for real testing.
+whenNotToUse: >-
+  Avoid relying on the free tiers when uptime matters; the historical uptime
+  figures on the pricing page are listed for the paid plans.
+bestFor:
+  - WebRTC side projects
+  - getting through strict firewalls
+avoidIf:
+  - you need an uptime guarantee for free
+  - you relay heavy video for many users
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 7
+officialUrl: 'https://www.metered.ca/stun-turn'
+docsUrl: 'https://www.metered.ca/tools/openrelay/'
+sourceUrls:
+  - 'https://www.metered.ca/stun-turn'
+  - 'https://www.metered.ca/tools/openrelay/'
+pricingUrl: 'https://www.metered.ca/stun-turn'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Metered sells a global TURN server network for WebRTC, with automatic routing to the nearest server. It also runs Open Relay, a free TURN server, and offers a managed signalling service and realtime SDKs.
+
+## What the free plan gives you
+
+There are two free options. Open Relay is a free TURN server provided by Metered Video with 20 GB of free TURN usage every month. It runs on ports 80 and 443 to get through corporate firewalls, supports TURNS over SSL, and routes to the nearest server. You need a free account to get an API key.
+
+On the TURN server pricing, the first tier costs $0 a month and includes 500 MB of monthly TURN usage, counting ingress and egress, with global TURN server access and email support. The page says no credit card is required, and STUN usage is unlimited and free.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a free tier's monthly TURN usage runs out. The paid plans show what comes next: Growth costs $99 a month for 150 GB with overage at $0.40 per GB, and Business costs $199 a month for 500 GB with overage at $0.20 per GB.
+
+The page also describes projects with their own bandwidth quotas, where you choose what happens when a quota is exceeded: notify only, disable credentials, or none. Quota alert webhooks can warn you as usage approaches a limit.
+
+## Gotchas
+
+- The 500 MB tier is labeled Free Trial even though it is priced at $0 a month, so confirm in the dashboard that it continues.
+- TURN usage counts both ingress and egress, so relayed media is counted in both directions.
+- The Open Relay key and the signalling publishable key are separate keys in the dashboard.
+
+## Alternatives in this atlas
+
+- [Xirsys](/services/xirsys/): when you want a free TURN account with a stated hard cap.
+- [Cloudflare Realtime](/services/cloudflare-realtime/): when you want a large free monthly egress allowance shared by TURN and an SFU.
+- [LiveKit Cloud](/services/livekit/): when you want a full WebRTC backend, not only a relay.
+
+## Questions people ask
+
+### Is there a free TURN server from Metered?
+
+Yes. Open Relay gives 20 GB of free TURN usage every month once you sign up for a free account.
+
+### Do I need a credit card?
+
+No. The TURN pricing page says no credit card is required for the free tier.
+
+### Is STUN free?
+
+Yes. The pricing page says unlimited STUN usage is included free.

@@ -16,6 +16,10 @@ this one adds entries instead of rewriting them.
 - 2026-10-11: owner set the cap at $100 and widened network access to Full. Day 0 committed
   (`302e142`). Wave 1 (no-code, maps, analytics; 80 candidates) done, not committed: 74 added,
   6 rejected; all gates green; `explorer.json` at 99.1 of 100 KB, so trim before wave 2.
+- 2026-10-11: explorer trims (no `url`/`kind`, search text without covered words) took
+  `explorer.json` from 99.1 to 88.2 KB with search results unchanged. Wave 2 (big-provider
+  products, on-call and no-plan names, media; 78 candidates): 71 added, 23 rejected; all gates
+  green; `explorer.json` at 96.0 KB. All in PR #36.
 
 ## Why
 

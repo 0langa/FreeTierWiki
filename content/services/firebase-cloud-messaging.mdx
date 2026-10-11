@@ -1,0 +1,125 @@
+---
+title: Firebase Cloud Messaging
+description: >-
+  Firebase Cloud Messaging (FCM) sends push notifications and data messages
+  to Android, Apple, and web apps. Your server or a Cloud Function calls the
+  FCM API and Google delivers the message.
+provider: Google Cloud
+category: messaging
+domain: messaging
+subtypes:
+  - push notifications
+  - mobile messaging
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - fcm
+  - firebase
+  - push notifications
+  - mobile push
+  - android
+  - ios
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    FCM is a no-cost product on both the Spark and Blaze plans. The default
+    sending quota is 600k messages per minute per project.
+  limits:
+    - No charge for sending messages on the Spark or Blaze plan
+    - Default quota of 600k downstream messages per minute per project
+    - Payload of up to 4096 bytes per message
+  caveats:
+    - Over the per-minute quota, FCM returns HTTP 429 until the quota refills the next minute
+    - Client errors count against the quota
+    - The limits are subject to change, according to Google
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - FCM itself has no charge; a backend you run to send messages, such as Cloud Functions, is billed on its own terms
+useCases:
+  - Push notifications for an Android or iOS app
+  - Notifying a web app when new data is ready to sync
+  - Sending a message to every device subscribed to a topic
+quickstartSteps:
+  - Create a Firebase project and add your Android, Apple, or web app to it.
+  - Add the FCM SDK to the app and request notification permission.
+  - Get the device's registration token.
+  - Send a test message from the Firebase console or from your server with the HTTP v1 API.
+whenToUse: >-
+  Use FCM when your app needs push notifications on Android, Apple platforms,
+  or the web and you want the delivery service at no cost.
+whenNotToUse: >-
+  Skip it if you need email or SMS as well as push from one service, or if
+  you need a full notification inbox with templates and analytics built in.
+bestFor:
+  - mobile push notifications
+  - free push at any app size
+avoidIf:
+  - you need email or SMS from the same service
+  - you want a hosted notification inbox
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 8
+usefulnessScore: 9
+officialUrl: 'https://firebase.google.com/products/cloud-messaging'
+docsUrl: 'https://firebase.google.com/docs/cloud-messaging'
+sourceUrls:
+  - 'https://firebase.google.com/pricing'
+  - 'https://firebase.google.com/docs/cloud-messaging'
+  - 'https://firebase.google.com/docs/cloud-messaging/throttling-and-quotas'
+pricingUrl: 'https://firebase.google.com/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+FCM is the push messaging service in Firebase. You add the SDK to an Android, Apple, web, Flutter, Unity, or C++ app, collect a registration token, and send messages from the Firebase console or your server through the HTTP v1 API. It suits app developers who need push notifications without running their own delivery service.
+
+## What the free plan gives you
+
+The Firebase pricing page lists Cloud Messaging as a no-cost product. It costs nothing on the no-cost Spark plan and on the pay-as-you-go Blaze plan, so you do not need a billing account to send messages.
+
+You can send notification messages, which the device shows to the user, or data messages, which your app handles in code. For uses such as instant messaging, a message can carry a payload of up to 4096 bytes. You can send to one device, to device groups, or to every device subscribed to a topic.
+
+## When you hit a limit
+
+There is no bill to hit. The limit is a sending rate: the HTTP v1 API has a per-project quota for downstream messages, with a default of 600k messages per minute, which Google says covers over 99% of FCM developers.
+
+Over the quota, FCM returns HTTP status 429 RESOURCE_EXHAUSTED until the quota refills in the following minute. The quota counts messages, not requests, and client errors in the 400 to 499 range count too, except 429s. You can view quota and usage in the Google Cloud console.
+
+## Gotchas
+
+- Quota minutes are not aligned to the clock, so a burst near the top of the minute can still be throttled.
+- Collapsible messages are limited to a burst of 20 messages per app per device.
+- FCM is free, but the backend that sends messages is not; Cloud Functions, for example, needs the Blaze plan.
+
+## Alternatives in this atlas
+
+- [OneSignal](/services/onesignal/): when you want push, email, and in-app messages with a dashboard for non-developers.
+- [Azure Notification Hubs](/services/azure-notification-hubs/): when your backend runs on Azure and you send push to many platforms.
+- [SNS](/services/sns/): when your backend runs on AWS and you also want to fan messages out to queues.
+
+## Questions people ask
+
+### Is Firebase Cloud Messaging free?
+
+Yes. The Firebase pricing page lists Cloud Messaging as no-cost on both the Spark and Blaze plans.
+
+### Is there a limit on how many push messages I can send?
+
+Yes, a rate limit. The default quota is 600k messages per minute per project, and FCM returns 429 errors above it until the next minute.
+
+### Do I need the Blaze plan to use FCM?
+
+No. FCM is no-cost on the Spark plan, though a backend such as Cloud Functions that sends the messages needs Blaze.

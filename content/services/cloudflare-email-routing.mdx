@@ -1,0 +1,126 @@
+---
+title: Cloudflare Email Routing
+description: >-
+  Cloudflare Email Routing receives email for your domain and forwards it to
+  your own inbox, to a Worker, or to other destinations. It is part of
+  Cloudflare Email Service.
+provider: Cloudflare
+category: messaging
+domain: messaging
+subtypes:
+  - email forwarding
+  - inbound email
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - cloudflare
+  - email routing
+  - email forwarding
+  - custom domain email
+  - inbound email
+  - workers
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    Email Routing is available on the Workers Free and Workers Paid plans,
+    with unlimited inbound emails. Sending to verified destination addresses
+    in your account is free on all plans.
+  limits:
+    - Unlimited inbound emails on Workers Free
+    - 200 routing rules per domain
+    - 200 destination addresses per account
+    - Inbound message size of 25 MiB
+  caveats:
+    - Messages larger than 25 MiB are rejected
+    - Workers that handle incoming email count toward the Workers Free CPU and memory limits
+    - Sending to arbitrary recipients needs the Workers Paid plan
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Inbound routing has no charge; Workers you attach are billed under Workers pricing if you are on the paid plan
+useCases:
+  - Forwarding hello@ and support@ on your domain to a personal inbox
+  - Receiving email in a Worker to parse and process it
+  - Creating addresses for a side project without paying for mailboxes
+quickstartSteps:
+  - Use Cloudflare DNS for your domain.
+  - Open Email Routing in the dashboard, select Onboard Domain, and let Cloudflare add the MX and SPF records.
+  - Add and verify a destination address, such as your personal inbox.
+  - Create a routing rule that maps a custom address on your domain to that destination or to a Worker.
+whenToUse: >-
+  Use Email Routing when your domain is on Cloudflare and you want custom
+  addresses that forward to an inbox you already have, at no cost.
+whenNotToUse: >-
+  Skip it if you need real mailboxes with storage and a webmail client, or if
+  you need to send email to anyone, which needs Workers Paid.
+bestFor:
+  - custom domain forwarding
+  - processing inbound email in Workers
+avoidIf:
+  - you need hosted mailboxes
+  - you need to send to arbitrary recipients for free
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 8
+officialUrl: 'https://www.cloudflare.com/developer-platform/products/email-routing/'
+docsUrl: 'https://developers.cloudflare.com/email-routing/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/email-service/platform/pricing/'
+  - 'https://developers.cloudflare.com/email-service/platform/limits/'
+  - 'https://developers.cloudflare.com/email-routing/'
+  - 'https://developers.cloudflare.com/email-service/get-started/route-emails/'
+pricingUrl: 'https://developers.cloudflare.com/email-service/platform/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Email Routing receives mail sent to addresses on your domain and routes it to custom addresses, Workers, or external destinations, such as your existing inbox. It now sits inside Cloudflare Email Service, next to the paid sending feature. It suits developers and small teams with a domain on Cloudflare who want addresses like support@ without paying for mailboxes.
+
+## What the free plan gives you
+
+Email Routing is available on both the Workers Free and Workers Paid plans. Inbound emails handled by Email Routing are unlimited on both plans. Sending to verified destination addresses in your account is free on all plans, even when only Email Routing is configured.
+
+Each domain can have 200 routing rules, and each rule maps an email pattern to one destination address or one Worker. An account can have 200 verified destination addresses, shared across all its domains. A zone can have 30 domains configured for Email Routing or Email Sending, including the apex domain.
+
+## When you hit a limit
+
+There is no bill for inbound email. The limits are hard ones: messages larger than 25 MiB are rejected, and you cannot add rules or destinations past the counts above.
+
+If a Worker handles incoming email, it counts toward the standard Workers CPU and memory limits. On the Workers Free plan, a complex handler may exceed those limits and fail to process a message. Sending email to arbitrary recipients is a separate feature that requires the Workers Paid plan, with 3,000 emails included per month.
+
+## Gotchas
+
+- Each routing rule sends to one destination; to forward one pattern to several inboxes you need a Worker that calls forward() once per destination.
+- Every destination must be verified before it receives mail.
+- You must be using Cloudflare DNS for your domain to use Email Service.
+
+## Alternatives in this atlas
+
+- [ImprovMX](/services/improvmx/): when your domain is not on Cloudflare and you want simple forwarding.
+- [SimpleLogin](/services/simplelogin/): when you want email aliases that hide your real address.
+
+## Questions people ask
+
+### Is Cloudflare Email Routing free?
+
+Yes. Email Routing is available on the Workers Free plan, and inbound emails are unlimited.
+
+### Can I send email with Email Routing for free?
+
+Only to verified destination addresses in your account. Sending to arbitrary recipients requires the Workers Paid plan.
+
+### How large can an incoming email be?
+
+The inbound message size limit is 25 MiB, and larger messages are rejected.

@@ -1,7 +1,7 @@
 # FreeTierWiki — Status & Roadmap
 _State refreshed: 2026-10-11._
 
-## Coverage sweep — 2026-10-11 (Day 0 committed; wave 1 not committed)
+## Coverage sweep — 2026-10-11 (Day 0, waves 1 and 2 in PR #36)
 Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Owner decisions: Opus 5.5 at effort high for every
 worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep. Network access for
 the cloud environment was set to Full on 2026-10-11; before that the proxy refused almost every
@@ -25,6 +25,14 @@ vendor pricing host. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
   title, or the provider already covers (search matches by substring, so results do not change; a
   unit test checks every entry): 88.2 KB, room for about 90 more entries at about 0.13 KB each.
 
+- Wave 2, three parallel batches (78 candidates): 71 added, 23 rejected. Big-provider products 26
+  (AWS always-free amounts, Google Cloud and Firebase, Azure, Cloudflare, Oracle, IBM), on-call,
+  status, and monitoring 13 plus 12 from the likely-no-plan list (mostly trials, which the inclusion
+  rule counts; DigitalOcean became three product entries for Functions, App Platform, and Container
+  Registry instead of one account-credit entry), video, voice, TURN, and media 20. Thirteen are
+  trial-only. Gates after wave 2: lint, typecheck, unit 161, depth 835 of 835, build, budget, e2e
+  74 passed (6 skipped). `explorer.json` is 96.0 of 100 KB.
+
 Checked but not added (2026-10-11):
 - Webstudio: no readable pricing page; a Cloudflare bot check blocks plain fetches and headless Chromium.
 - Glide: the GlideOS Free plan allows 0 published apps and 0 enabled workflows; a sandbox, not a free
@@ -33,20 +41,52 @@ Checked but not added (2026-10-11):
 - Smartlook: shutting down; paid plans end 31 August 2027 and accounts are deactivated 30 September 2027.
 - Census: now part of Fivetran; the URL shows Fivetran's pricing. Fivetran is a new candidate.
 - Usermaven: no free plan or trial; Business and Enterprise are by demo only.
+- Transloadit: the page calls the Community plan "meant as a free trial"; images are watermarked and
+  audio and video trimmed (same reasoning as api.video and the WaiverStevie removal).
+- api.video: the free option is a sandbox; videos last 30 seconds, are watermarked, and are deleted
+  after 24 hours.
+- ImageEngine: now ImageEngine Kube, a paid licence on your own AWS; only a pre-deploy sandbox is free.
+- Opsgenie: new sign-ups and sales have ended; data must move to Jira Service Management before
+  5 April 2027.
+- Rootly, Robusta: sales-led pricing; any trial goes through sales.
+- Squadcast: now SolarWinds Incident Response, no free plan (the successor has a 14-day trial).
+- Zenduty: now Xurrent IMR, 14-day trial only (a possible candidate under its new name).
+- PlanetScale: still paid only, from $5 a month; the 2026 removal stands.
+- Replicate, RunPod, Together AI: pay per use; Together AI's docs say no free trial and a $15 minimum.
+- Payload Cloud: Payload joined Figma and new Cloud deployments are paused.
+- Heroku, Hetzner Cloud: paid only.
+- Vultr: no readable pricing page (a Cloudflare bot check blocks fetch and headless Chromium).
+- Amazon SES: only the general AWS sign-up credit; the earlier removal stands.
+- AWS CodeArtifact: the page mentions a Free Tier but states no free amount.
+- AWS Amplify Hosting: "Free for 12 months" under the credit-era Free Tier, which the atlas does not list.
+- Firebase Test Lab: deprecated, shutting down on 30 September 2027.
+- Azure Event Hubs: no free amount, only free AMQP connections.
+- Oracle APEX: a workload type of the existing `oracle-autonomous-db` entry.
+- IBM watsonx Assistant: merged into watsonx Orchestrate (30-day trial, then from $530 a month).
 
 Open items:
-1. Owner review: Nominatim (a public OSM service whose policy limits who may point users at it; the
+1. Card rule mismatch, found in wave 2: the AWS Free Tier FAQ fetched on 2026-10-11 says "A payment
+   method isn't required to sign up for most new customers", so the six new AWS entries say
+   `requiresCard: false`, while eight older AWS entries (lambda, dynamodb, sns, sqs, cloudwatch,
+   codebuild, codepipeline, aws-cognito) still say `true`. IBM is the reverse: the new IBM entries
+   cite IBM's account docs ("you provide your credit card information") for `true`, while
+   `ibm-cloudant`, `ibm-db2`, and `ibm-api-connect` say `false`. Recheck the older entries against
+   those pages.
+2. Owner review: Nominatim (a public OSM service whose policy limits who may point users at it; the
    entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
    until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
    uses 500 and notes the conflict), 8base (pricing page footer says 2023).
-2. Size: the rest of the candidate list could add about 95 entries, about 12 KB, against about
-   11.8 KB left. If the last wave does not fit, raise the budget with the owner's yes.
-3. Left in the candidate list: 141 names (video and media 23, on-call and monitoring 18, big-provider
-   products 33, developer tooling 28, team chat and CMS 22, likely-no-plan 17) plus Fivetran.
-4. Final step, with the owner's yes: comparison tables. Wave 1 adds enough entries for no-code
-   databases and app builders, maps and geocoding, web analytics, and session replay; recheck each
-   against the entries, not the subtype labels.
-5. E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
+3. Size: `explorer.json` is 96.0 of 100 KB at 835 entries (about 0.11 KB per entry), so about 30
+   more fit. The remaining candidates could add about 40; raise the budget with the owner's yes, or
+   find another lossless trim, before the last wave.
+4. Left in the candidate list: 50 names (developer tooling 28, team chat, project management, and
+   CMS 22) plus three successors found in wave 2: SolarWinds Incident Response (was Squadcast),
+   Xurrent IMR (was Zenduty), IBM watsonx Orchestrate (absorbed watsonx Assistant).
+5. Final step, with the owner's yes: comparison tables. Wave 1 adds enough entries for no-code
+   databases and app builders, maps and geocoding, web analytics, and session replay; wave 2 adds
+   on-call and incident management, uptime monitoring, video and voice APIs, and image CDNs. Recheck
+   each against the entries, not the subtype labels.
+6. E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
    `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
 
 ## Visitor-first pass — 2026-10-08 (on main, live)

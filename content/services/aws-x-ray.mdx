@@ -1,0 +1,123 @@
+---
+title: AWS X-Ray
+description: >-
+  AWS X-Ray collects traces of the requests your application serves on AWS. It
+  shows a trace map of your services and the calls between them so you can
+  find slow or failing parts.
+provider: AWS
+category: observability
+domain: observability
+subtypes:
+  - distributed tracing
+  - APM
+audiences:
+  - startup
+  - team
+  - enterprise
+tags:
+  - x-ray
+  - tracing
+  - distributed tracing
+  - aws
+  - observability
+  - lambda
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The first 100,000 traces recorded and the first 1,000,000 traces retrieved
+    or scanned each month are free.
+  limits:
+    - '100,000 traces recorded per month'
+    - '1,000,000 traces retrieved or scanned per month'
+  caveats:
+    - X-Ray pricing now sits on the Amazon CloudWatch pricing page
+    - Traces recorded depend on your request volume and sampling rate
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Traces past the free amounts are billed per trace recorded, retrieved, or scanned
+    - A high sampling rate on a busy app can pass the free traces quickly
+useCases:
+  - Tracing requests through Lambda functions and other AWS services
+  - Finding the slow call in a chain of microservices
+  - Seeing a map of which services call which
+quickstartSteps:
+  - Create an AWS account.
+  - Turn on tracing for a supported service, such as a Lambda function, or instrument your app with an X-Ray SDK or agent.
+  - Send some requests to your app.
+  - Open the trace map in the console to view traces and the calls inside them.
+whenToUse: >-
+  Use X-Ray when your app runs on AWS services such as Lambda and you want
+  request traces without running a tracing backend yourself.
+whenNotToUse: >-
+  Skip it if your app runs outside AWS, or if a high-traffic app would record
+  far more traces than the free amount at the sampling rate you need.
+bestFor:
+  - tracing Lambda and AWS service calls
+  - finding latency in microservices
+avoidIf:
+  - apps that do not run on AWS
+  - high-traffic apps with full sampling
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://aws.amazon.com/xray/'
+docsUrl: 'https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html'
+sourceUrls:
+  - 'https://aws.amazon.com/cloudwatch/pricing/'
+  - 'https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+pricingUrl: 'https://aws.amazon.com/cloudwatch/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+X-Ray receives trace data from your application and from AWS services that already integrate with it, such as Lambda. You view the traces and a trace map in the AWS console. It suits developers running on AWS who want to see where a request spends its time across functions, databases, and APIs.
+
+## What the free plan gives you
+
+X-Ray pricing now appears on the Amazon CloudWatch pricing page, in the CloudWatch free tier. Each month the first 100,000 traces recorded are free, and the first 1,000,000 traces retrieved or scanned are free.
+
+A trace represents one request to your application and can include many data points, such as calls to other services and to a database. You can set a sampling rate so that only part of your requests are recorded. Instrumenting often needs only configuration changes, and the X-Ray daemon is included on Lambda.
+
+## When you hit a limit
+
+Nothing stops tracing at the free amounts. Past them, traces recorded cost $0.000005 per trace, and traces retrieved or scanned cost $0.0000005 per trace.
+
+AWS gives an example: 2,000 requests per hour with a 10% sampling rate over 31 days records 148,800 traces. After the 100,000 free traces, 48,800 are billable, for a bill of $0.244 that month. Lowering the sampling rate is the simplest way to stay inside the free amount.
+
+## Gotchas
+
+- The number of traces follows your traffic and sampling rate, so a traffic spike raises the count without any change to your code.
+- The newer transaction search and Application Signals features are priced separately from classic X-Ray traces.
+- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+
+## Alternatives in this atlas
+
+- [CloudWatch](/services/cloudwatch/): when you need AWS metrics, logs, and alarms rather than request traces.
+- [Honeycomb](/services/honeycomb/): when you want tracing that works the same across clouds.
+- [Grafana Cloud](/services/grafana-cloud/): when you want traces, metrics, and logs in one hosted stack.
+
+## Questions people ask
+
+### Is AWS X-Ray free?
+
+Within limits. The first 100,000 traces recorded and the first 1,000,000 traces retrieved or scanned each month are free.
+
+### How do I keep X-Ray inside the free tier?
+
+Lower the sampling rate so that fewer requests are recorded. AWS's own example records 148,800 traces at a 10% sampling rate.
+
+### Where is the X-Ray pricing page?
+
+The old X-Ray pricing address now leads to CloudWatch, and the X-Ray trace prices are listed on the Amazon CloudWatch pricing page.

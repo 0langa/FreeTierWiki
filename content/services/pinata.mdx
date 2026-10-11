@@ -1,0 +1,126 @@
+---
+title: Pinata
+description: >-
+  Pinata stores files on IPFS and serves them through dedicated gateways. The
+  Free plan includes 1GB of storage, 500 files, 10GB of bandwidth, and 10K
+  requests.
+provider: Pinata
+category: storage
+domain: storage
+subtypes:
+  - IPFS
+  - file storage
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - pinata
+  - ipfs
+  - file-storage
+  - gateway
+  - web3
+  - nft
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan costs $0 a month and includes 1GB of storage for up to 500
+    files, 10GB of gateway bandwidth, 10K requests, and 1 gateway. Bandwidth and
+    requests reset each month.
+  limits:
+    - 1GB storage
+    - 500 files
+    - 10GB bandwidth per month
+    - 10K requests per month
+    - 60 API requests per minute
+  caveats:
+    - Uploads and the Dedicated Gateway stop once a Free account goes 25% over its limit
+    - HTML files can only be retrieved through a Dedicated Gateway with a custom domain
+    - Agents are not included on Free
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - On Free, uploads and the Dedicated Gateway stop once usage is 25% over the limit; the free plan is not billed for overage
+useCases:
+  - Storing NFT metadata and images on IPFS
+  - Hosting small files for a web3 app behind a gateway
+  - Testing IPFS uploads from a Node.js app
+quickstartSteps:
+  - In the Pinata app, open API Keys and click New Key to get an API key, secret, and JWT.
+  - Copy your Gateway domain from the Gateways tab.
+  - Install the SDK with npm i pinata, initialize it with the JWT and gateway, and upload a file.
+whenToUse: >-
+  Use Pinata when you need files on IPFS with a gateway to fetch them, and
+  your project fits in 1GB and 500 files.
+whenNotToUse: >-
+  Avoid the Free plan for anything with more than a few hundred files or steady
+  public traffic, since requests and bandwidth are capped.
+bestFor:
+  - NFT and web3 prototypes
+  - small IPFS file sets
+avoidIf:
+  - you store many small files
+  - you need to serve HTML pages for free
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://pinata.cloud'
+docsUrl: 'https://docs.pinata.cloud/quickstart'
+sourceUrls:
+  - 'https://pinata.cloud/pricing'
+  - 'https://docs.pinata.cloud/account-management/limits'
+  - 'https://docs.pinata.cloud/account-management/billing'
+  - 'https://docs.pinata.cloud/quickstart'
+pricingUrl: 'https://pinata.cloud/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Pinata stores files on IPFS, the content-addressed file network, and serves them through gateways it runs for you. It offers public and private IPFS APIs, an SDK, and dedicated gateways, and its paid plans now include AI agents as well.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month. It includes 1GB of storage for up to 500 files, 10GB of bandwidth, 10K requests, and 1 gateway. The billing docs say gateway bandwidth and requests reset each month on your billing cycle date.
+
+The API limits page sets the Free plan's rate limit at 60 requests per minute on both the Private IPFS API and the IPFS API. Some data endpoints have their own limit of 30 requests per minute. Agents are not included on Free; the paid plans start with 1 agent.
+
+## When you hit a limit
+
+At 80% of your usage you start to receive emails and warnings. The billing docs say that on the Free plan, your account can no longer upload or use the Dedicated Gateway once it has gone above the limit by 25%. There is no overage billing on Free.
+
+To keep going you upgrade. The Picnic plan costs $20 a month with 1TB of storage, 500GB of bandwidth, and extra storage at $0.07 per GB. Upgrading mid-cycle is charged as a prorated amount, and Pinata accepts standard debit and credit cards.
+
+## Gotchas
+
+- The 500-file cap can bite before the 1GB does if you store many small files such as NFT metadata.
+- HTML files can be uploaded on any plan but only retrieved through a Dedicated Gateway with a custom domain.
+- Binary files are allowed only case by case, so check before uploading executables.
+
+## Alternatives in this atlas
+
+- [Filebase](/services/filebase/): when you want IPFS pinning through an S3-compatible API.
+- [Cloudflare R2](/services/cloudflare-r2/): when you need ordinary object storage without IPFS.
+- [Backblaze B2](/services/backblaze-b2/): when you want cheap object storage for larger files.
+
+## Questions people ask
+
+### Is Pinata free?
+
+Yes. The Free plan costs $0 a month with 1GB of storage, 500 files, 10GB of bandwidth, and 10K requests.
+
+### What happens if I go over the free limits?
+
+You get warnings at 80%, and once you are 25% over the limit the account can no longer upload or use the Dedicated Gateway.
+
+### What is the API rate limit on Free?
+
+60 requests per minute on the Private IPFS API and the IPFS API.

@@ -1,0 +1,128 @@
+---
+title: OCI Email Delivery
+description: >-
+  OCI Email Delivery is Oracle Cloud's service for sending transactional and
+  bulk email over SMTP. It handles bounce collection, a suppression list, and
+  SPF authentication.
+provider: Oracle Cloud
+category: messaging
+domain: messaging
+subtypes:
+  - transactional email
+  - SMTP relay
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - email
+  - smtp
+  - transactional email
+  - oracle
+  - oci
+  - email delivery
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Always Free resources include 3000 emails per month. The service
+    limits table sets the Always Free tenancy to 0 emails a day, so sending
+    needs a Trial or Pay As You Go account.
+  limits:
+    - 3000 emails per month in the Always Free resources
+    - 'Trial accounts: 200 emails in the last 24 hours'
+    - 'Pay As You Go: 50,000 emails in the last 24 hours by default'
+    - 2 MB message size by default
+  caveats:
+    - The Limits by Service table lists 0 emails per day for an Always Free tenancy
+    - Each recipient, and each 2 MB chunk of a message, counts as one email
+    - Most users need a mobile phone number and a credit card to create an Oracle Cloud account
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - On a Pay As You Go account, emails past the free monthly amount are billed
+    - A message to 10 recipients counts as 10 emails
+useCases:
+  - Sending sign-up and password reset emails from an app on OCI
+  - Relaying email from an app over SMTP
+  - Small transactional email volumes alongside other OCI resources
+quickstartSteps:
+  - Sign up for Oracle Cloud; most users need a mobile phone number and a credit card. Sending needs a Trial or Pay As You Go account.
+  - Create an approved sender, your From address, in the region you will send from.
+  - Generate SMTP credentials for a user and set up SPF for your sending domain.
+  - Point your app at the regional SMTP endpoint and send a test message.
+whenToUse: >-
+  Use it when your app already runs on Oracle Cloud on a Pay As You Go account
+  and sends a few thousand transactional emails a month.
+whenNotToUse: >-
+  Skip it if you want to send email from a free account that has never been
+  upgraded, since the Always Free daily limit is 0.
+bestFor:
+  - transactional email from OCI apps
+  - SMTP relay on Oracle Cloud
+avoidIf:
+  - you will not upgrade to Pay As You Go
+  - you need a large free sending volume
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 5
+officialUrl: 'https://www.oracle.com/cloud/free/'
+docsUrl: 'https://docs.oracle.com/en-us/iaas/Content/Email/Concepts/overview.htm'
+sourceUrls:
+  - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/General/service-limits/default.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/Email/Concepts/overview.htm'
+  - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm'
+pricingUrl: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Email Delivery sends email from your applications through Oracle's mail transfer agents over SMTP. You create an approved sender for your From address, generate SMTP credentials, and point your app at a regional endpoint. It suits developers whose apps run on Oracle Cloud and need transactional email.
+
+## What the free plan gives you
+
+Oracle's Always Free resources page says you can send 3000 emails for free per month with Email Delivery. The service includes bounce collection, a suppression list that stops sends to addresses with permanent failures or complaints, list-unsubscribe handling, and SPF authentication.
+
+There is a catch. The Limits by Service table lists 0 emails sent in the last 24 hours for an Always Free tenancy, with 10 emails per minute and 10 approved senders. Trial accounts can send 200 emails in the last 24 hours, and Pay As You Go accounts 50,000. In practice, the free monthly emails are usable on a Trial or Pay As You Go account.
+
+## When you hit a limit
+
+On a Pay As You Go account, emails past the free monthly amount are billed. The daily sending limit caps your volume, and to raise it you open a limit increase request. Increases need SPF and DKIM set up for each sending domain, and the always-free limits for a tenancy cannot be increased.
+
+The default message size limit is 2 MB on every account type. An email is counted per recipient in the To, CC, or BCC fields, or per 2 MB chunk, so a single request to 10 recipients counts as 10 emails.
+
+## Gotchas
+
+- Approved senders exist only in the region where you create them, so sending from another region needs another approved sender.
+- An Always Free tenancy that was never upgraded cannot send any email under the published limits.
+- Tenancies cannot send through outbound TCP port 25 to the internet by default, so use the Email Delivery SMTP endpoint.
+
+## Alternatives in this atlas
+
+- [Mailgun](/services/mailgun/): when you want a sending API with a free plan outside a cloud provider.
+- [Postmark](/services/postmark/): when transactional delivery speed matters most.
+- [SNS](/services/sns/): when your app runs on AWS and you need notifications rather than full email sending.
+
+## Questions people ask
+
+### Is OCI Email Delivery free?
+
+The Always Free resources include 3000 emails per month, but the limits table sets an Always Free tenancy to 0 emails a day. Sending needs a Trial or Pay As You Go account.
+
+### How many emails can a trial account send?
+
+Trial accounts can send 200 emails in the last 24 hours, at 10 emails per minute.
+
+### How does Oracle count emails?
+
+Each recipient in the To, CC, or BCC fields counts as one email, and so does each 2 MB chunk of a message.

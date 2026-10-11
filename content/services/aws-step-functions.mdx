@@ -1,0 +1,123 @@
+---
+title: AWS Step Functions
+description: >-
+  AWS Step Functions runs workflows as state machines on AWS. Each step can
+  call a Lambda function or another AWS service, with retries, branches, and
+  waits handled by the service.
+provider: AWS
+category: automation
+domain: automation
+subtypes:
+  - workflow orchestration
+  - state machine
+audiences:
+  - startup
+  - team
+  - enterprise
+tags:
+  - step functions
+  - workflows
+  - orchestration
+  - state machine
+  - aws
+  - serverless
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    4,000 free state transitions per month for Standard Workflows. The Step
+    Functions Free Tier does not expire and is open to new and existing AWS
+    customers.
+  limits:
+    - '4,000 state transitions per month (Standard Workflows)'
+  caveats:
+    - Each retry counts as an extra state transition
+    - The pricing page lists no free amount for Express Workflows
+    - Lambda functions and other services a workflow calls are billed separately
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - State transitions past the free amount are charged, metered daily and billed monthly
+    - Workflows that retry often use transitions faster than the step count suggests
+useCases:
+  - Chaining Lambda functions into an ordered process
+  - Order or sign-up flows with branches and error handling
+  - Waiting for a human approval or an external callback
+quickstartSteps:
+  - Create an AWS account.
+  - Open the Step Functions console and create a state machine, choosing the Standard type.
+  - Add states that call your Lambda functions or other AWS services.
+  - Start an execution and watch each state transition in the console.
+whenToUse: >-
+  Use Step Functions when you already run on AWS and want to coordinate a few
+  services in a workflow that runs a modest number of times each month.
+whenNotToUse: >-
+  Skip it for high-volume event processing on a free budget, or when you want
+  a workflow engine that is not tied to AWS.
+bestFor:
+  - orchestrating Lambda functions
+  - long-running business processes
+avoidIf:
+  - high-volume workflows on a free budget
+  - you do not want an AWS account
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 7
+officialUrl: 'https://aws.amazon.com/step-functions/'
+docsUrl: 'https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html'
+sourceUrls:
+  - 'https://aws.amazon.com/step-functions/pricing/'
+  - 'https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+pricingUrl: 'https://aws.amazon.com/step-functions/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Step Functions lets you describe a workflow as a state machine in the AWS console or in code. Each state can call a Lambda function or another AWS service, and the service handles retries, branches, parallel steps, and waits. It suits developers on AWS who want an ordered process without writing the glue code themselves.
+
+## What the free plan gives you
+
+The Step Functions Free Tier includes 4,000 free state transitions per month for Standard Workflows. A state transition is counted each time a step of your workflow runs, across all your state machines. AWS says this free amount does not expire at the end of the 12-month Free Tier term and is available to both new and existing customers indefinitely.
+
+To size it: a workflow with four steps uses four transitions per run, so 4,000 transitions cover about 1,000 runs a month. All charges are metered daily and billed monthly.
+
+## When you hit a limit
+
+Nothing stops your workflows at the free amount. Transitions past 4,000 are charged per state transition; the pricing page example uses $0.000025 per transition in US East (N. Virginia). In its example, 100,000 runs of a four-step workflow use 400,000 transitions, of which 396,000 are billable.
+
+Express Workflows are priced differently, by the number of requests and their duration and memory, and the pricing page lists no free amount for them. Services your workflow calls, such as Lambda, bill on their own.
+
+## Gotchas
+
+- Retries in your error handling count as extra state transitions, so a flaky step costs more than its run count suggests.
+- Express Workflows bill a request for every run, including tests you start from the console.
+- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+
+## Alternatives in this atlas
+
+- [Azure Logic Apps](/services/azure-logic-apps/): when you run on Azure and want workflows with connectors.
+- [Inngest](/services/inngest/): when you want durable step functions in your own code on any host.
+- [Trigger.dev](/services/trigger-dev/): when you want background jobs and workflows written in TypeScript.
+
+## Questions people ask
+
+### Is AWS Step Functions free?
+
+Partly. Standard Workflows get 4,000 free state transitions per month, and usage past that is charged per transition.
+
+### Does the Step Functions free tier expire after 12 months?
+
+No. AWS says the Step Functions Free Tier does not expire at the end of the 12-month term and stays available to new and existing customers.
+
+### Do retries count against the free transitions?
+
+Yes. Each retry in your error handling is charged as an additional state transition.

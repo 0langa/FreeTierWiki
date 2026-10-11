@@ -1,0 +1,127 @@
+---
+title: Firebase Remote Config
+description: >-
+  Firebase Remote Config lets you change your app's behavior and appearance
+  from the Firebase console without shipping an update. The app fetches
+  parameter values and you can target them to groups of users.
+provider: Google Cloud
+category: devops
+domain: devops
+subtypes:
+  - remote configuration
+  - feature flags
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - remote config
+  - firebase
+  - feature flags
+  - a/b testing
+  - rollouts
+  - mobile
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Up to 100,000 fetch requests per day per project at no cost on the Spark
+    plan, under the pricing that starts September 1, 2026. A/B Testing,
+    Rollouts, and Personalization are included.
+  limits:
+    - '100,000 fetch requests per day per project'
+    - A/B Testing, Rollouts, and Personalization included on both plans
+  caveats:
+    - On Spark, a project that keeps exceeding the daily limit is throttled from the 31st day after the first time
+    - Only fetch requests made through the client SDKs or REST APIs count
+    - Existing Spark projects get a grace period before billing enforcement begins on December 1, 2026
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - On the Blaze plan, fetch requests past 100,000 a day are billed per request
+useCases:
+  - Turning a feature on or off without an app store release
+  - Rolling a change out to a percentage of users
+  - Running an A/B test on onboarding text or prices
+quickstartSteps:
+  - Create a Firebase project and add your app to it.
+  - Add the Remote Config SDK and set in-app default values for your parameters.
+  - Create the parameters and any conditions in the Firebase console and publish the template.
+  - Fetch and activate the values in your app.
+whenToUse: >-
+  Use Remote Config when your app already uses Firebase and you want feature
+  flags and A/B tests without paying, for apps that fetch under 100,000 times
+  a day.
+whenNotToUse: >-
+  Skip it if your app fetches far more than 100,000 times a day and you want
+  to stay on a no-cost plan, or if you need flags for a backend outside
+  Firebase.
+bestFor:
+  - mobile feature flags
+  - A/B tests with Firebase
+avoidIf:
+  - very high daily fetch counts on a no-cost plan
+  - you want flags without a Firebase project
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 7
+officialUrl: 'https://firebase.google.com/products/remote-config'
+docsUrl: 'https://firebase.google.com/docs/remote-config'
+sourceUrls:
+  - 'https://firebase.google.com/pricing'
+  - 'https://firebase.google.com/docs/remote-config/pricing'
+  - 'https://firebase.google.com/docs/remote-config'
+pricingUrl: 'https://firebase.google.com/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Remote Config stores parameters in your Firebase project that your app fetches at run time. You change the values in the Firebase console, target them with conditions, and the app picks them up on its next fetch. It suits app developers who want feature flags, gradual rollouts, and A/B tests without building their own config service.
+
+## What the free plan gives you
+
+Starting September 1st 2026, Remote Config has a no-cost plan and a pay-as-you-go tier based on daily usage. On the no-cost Spark plan, each project gets up to 100,000 fetch requests per day. On the Blaze plan, the first 100,000 per day are also no-cost.
+
+Both plans include A/B Testing, Rollouts, and Personalization. Only fetch requests that the Remote Config service handles directly, through the client SDKs or REST APIs, count toward the quota. Fetches, network calls, or metrics generated internally by other Firebase services do not count.
+
+## When you hit a limit
+
+On the Spark plan, a project that exceeds 100,000 fetch requests in a day gets 30 days of uninterrupted service after the first time. Throttling begins on the 31st day, and to prevent it you must upgrade to Blaze. You are not billed on Spark.
+
+On Blaze, requests past the daily free amount cost $0.000006 each for usage between 100,001 and 10,000,000 per day, and $0.000001 each above 10,000,000. Existing Spark projects get a grace period, with standard billing enforcement starting December 1, 2026.
+
+## Gotchas
+
+- The quota is per day per project, so an app that fetches on every launch can pass it with a modest user base.
+- Fetching less often keeps you under the daily limit; Firebase has a guide on optimizing fetch frequency.
+- Remote Config is free on Spark today, but upgrading to Blaze for another product puts the paid rates in force for fetches past the free amount.
+
+## Alternatives in this atlas
+
+- [ConfigCat](/services/configcat/): when you want feature flags for any app or backend without Firebase.
+- [GrowthBook](/services/growthbook/): when you want open source feature flags and experiments.
+- [Azure App Configuration](/services/azure-app-configuration/): when your app runs on Azure and needs central settings and flags.
+
+## Questions people ask
+
+### Is Firebase Remote Config free?
+
+Yes, up to 100,000 fetch requests per day per project on the Spark plan. On Blaze, the same amount is no-cost and extra fetches are billed per request.
+
+### What happens if my app goes over 100,000 fetches a day on Spark?
+
+You get 30 days of uninterrupted service after the first time, and throttling begins on the 31st day unless you upgrade to Blaze.
+
+### Does A/B Testing cost extra?
+
+No. A/B Testing, Rollouts, and Personalization are included on both the Spark and Blaze plans.
