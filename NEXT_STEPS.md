@@ -1,24 +1,49 @@
 # FreeTierWiki — Status & Roadmap
 _State refreshed: 2026-10-11._
 
-## Coverage sweep, Day 0 — 2026-10-11 (not committed)
-Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Defaults confirmed (Opus 5.5, effort high, batches
-of about 25, up to 6 workers); the owner has not yet named the dollar cap.
+## Coverage sweep — 2026-10-11 (Day 0 committed; wave 1 not committed)
+Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Owner decisions: Opus 5.5 at effort high for every
+worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep. Network access for
+the cloud environment was set to Full on 2026-10-11; before that the proxy refused almost every
+vendor pricing host. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
 - Candidate list: 226 names in 9 jobs, deduped against slugs, titles, providers, URL hosts, the
   removals, and `public/_redirects` (`development/verify/reports/2026-10-11-coverage-candidates.md`,
   gitignored). Sources: the brief, names the bodies mention without an entry, the big providers'
   per-product free lists, free-for.dev (names only).
-- 5 new entries: `services/google-secret-manager`, `services/bigquery`, `services/cloud-scheduler`,
-  `services/cloud-vision-api`, `services/cloud-logging`. Gates green: lint, typecheck, unit 157,
-  depth 690 of 690, build, budget, e2e 74 passed (6 skipped).
-- Blocker for the batches: the cloud environment's network policy refused almost every vendor
-  pricing host (airtable.com, aws.amazon.com, cloudflare.com, azure.microsoft.com,
-  docs.cloud.google.com, and others); only cloud.google.com answered. Widen Network access for the
-  environment before step 1. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
-- `explorer.json` is 89.6 of 100 KB gzip at 690 entries, about 0.13 KB per entry, so roughly 80 more
-  entries fit before `check:budget` fails; plan the trim (or a raise, with the owner's yes) early.
-- E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
-  `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
+- Day 0 (commit `302e142` on `cld/fervent-bardeen-4b0pc9`): `services/google-secret-manager`,
+  `services/bigquery`, `services/cloud-scheduler`, `services/cloud-vision-api`,
+  `services/cloud-logging`. The Free Tier docs page was re-read in English after access widened; it
+  confirms the billing-account and card rule behind `requiresCard: true` on four of them.
+- Wave 1, three parallel batches (80 candidates): 74 added, 6 rejected. No-code and internal tools
+  24 (`database` for no-code databases and BaaS, `hosting` for app builders), maps, geocoding, and
+  weather 24 (`apis`), analytics and session replay 26 (`analytics`; consent tools in `security`,
+  UXtweak in `design`, Hightouch in `automation`). Nine of them are trial-only offers.
+- Gates after wave 1: lint, typecheck, unit 157, depth 764 of 764, build, budget, e2e 74 passed
+  (6 skipped). `explorer.json` is 99.1 of 100 KB gzip: trim fields the explorer list does not show
+  before the next wave (or raise the budget with the owner's yes).
+
+Checked but not added (2026-10-11):
+- Webstudio: no readable pricing page; a Cloudflare bot check blocks plain fetches and headless Chromium.
+- Glide: the GlideOS Free plan allows 0 published apps and 0 enabled workflows; a sandbox, not a free
+  plan (same reasoning as the WaiverStevie removal).
+- Radar: the pricing page says "Radar does not currently offer a free tier".
+- Smartlook: shutting down; paid plans end 31 August 2027 and accounts are deactivated 30 September 2027.
+- Census: now part of Fivetran; the URL shows Fivetran's pricing. Fivetran is a new candidate.
+- Usermaven: no free plan or trial; Business and Enterprise are by demo only.
+
+Open items:
+1. Owner review: Nominatim (a public OSM service whose policy limits who may point users at it; the
+   entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
+   until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
+   uses 500 and notes the conflict), 8base (pricing page footer says 2023).
+2. Trim `explorer.json` before wave 2.
+3. Left in the candidate list: 141 names (video and media 23, on-call and monitoring 18, big-provider
+   products 33, developer tooling 28, team chat and CMS 22, likely-no-plan 17) plus Fivetran.
+4. Final step, with the owner's yes: comparison tables. Wave 1 adds enough entries for no-code
+   databases and app builders, maps and geocoding, web analytics, and session replay; recheck each
+   against the entries, not the subtype labels.
+5. E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
+   `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
 
 ## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),

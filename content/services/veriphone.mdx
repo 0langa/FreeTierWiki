@@ -1,0 +1,109 @@
+---
+title: Veriphone
+description: >-
+  Veriphone is a phone number validation and carrier lookup API. Free
+  accounts get a monthly number of validations with no credit card.
+provider: Veriphone
+category: apis
+domain: apis
+subtypes:
+  - phone validation
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - phone-validation
+  - carrier-lookup
+  - phone-lookup
+  - list-cleaning
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    A free account includes 1,000 validations a month with no credit card
+    required. At the monthly limit the API returns a 402 status and
+    validations pause until you top up.
+  limits:
+    - 1,000 validations per month
+    - 1 credit per standard validation, 10 credits per Current Carrier Lookup
+  caveats:
+    - Paid credits come from monthly plans or pay-as-you-go packs
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - At the monthly limit the API returns 402 and validations pause; nothing is billed automatically
+useCases:
+  - Validating phone numbers at signup
+  - Checking line type before sending SMS
+  - Cleaning a small contact list
+quickstartSteps:
+  - Sign up free; no credit card is required.
+  - Copy your API key and call the verify endpoint with a phone number.
+  - Buy a credit pack or plan only if you need more than 1,000 validations a month.
+whenToUse: >-
+  Use Veriphone when you need phone validation for a small app and up to
+  1,000 lookups a month covers it.
+whenNotToUse: >-
+  Avoid relying on the free tier if you need many live carrier lookups,
+  since each one costs 10 credits.
+bestFor:
+  - signup form phone validation
+  - a free tier that pauses instead of billing
+avoidIf:
+  - high-volume list cleaning on the free tier
+difficulty: beginner
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://veriphone.io'
+docsUrl: 'https://veriphone.io/docs'
+sourceUrls:
+  - 'https://veriphone.io/pricing'
+pricingUrl: 'https://veriphone.io/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Veriphone validates phone numbers and looks up carriers. You send a number and get back whether it is valid, its type, and carrier details, either one at a time through the API or by cleaning a list. It sells monthly plans and pay-as-you-go credit packs, and every account can start free.
+
+## What the free plan gives you
+
+Signing up is free and includes 1,000 validations a month, with no credit card required. Credits are shared across features: 1 credit is one standard validation, and 10 credits are one Current Carrier Lookup. A Current Carrier Lookup that cannot be resolved is charged as a standard validation. Paid options start with the Starter plan at $12.99 a month for 10,000 credits, or pay-as-you-go packs such as 10,000 credits for $24 that never expire. If you have a monthly plan and credit packs, the page explains how both draw on credits for validations and lookups.
+
+## When you hit a limit
+
+The FAQ says that when you use the API and hit the monthly limit, it returns a 402 status code and validations pause until you top up. Buying a pay-as-you-go credit pack gets you running again immediately, with no plan change required. Because the free account needs no card and pauses at the limit, there is no surprise bill. Subscription credits reset each month, so the free allowance comes back at the start of the next month.
+
+## Gotchas
+
+- Current Carrier Lookups cost 10 credits each, so the free allowance covers far fewer of them.
+- A 402 response means you are out of credits, so handle it in your signup flow instead of rejecting the number.
+- Monthly plan credits reset each month, while pay-as-you-go credits never expire.
+
+## Alternatives in this atlas
+
+- [Numverify](/services/numverify/): when you want a smaller free plan from APILayer.
+- [Numlookupapi.com](/tools/numlookupapi-com/): when you want another phone lookup API to compare.
+- [Abstract API](/tools/abstract-api/): when you want phone validation alongside other utility APIs.
+
+## Questions people ask
+
+### Is Veriphone free?
+
+Yes. A free account includes 1,000 validations a month with no credit card required.
+
+### What happens when I use up my free validations?
+
+The API returns a 402 status code and validations pause until you top up or the month resets.
+
+### How many credits does a carrier lookup use?
+
+A Current Carrier Lookup uses 10 credits, while a standard validation uses 1.

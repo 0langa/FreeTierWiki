@@ -13,6 +13,9 @@ this one adds entries instead of rewriting them.
   entries added (Secret Manager, BigQuery, Cloud Scheduler, Cloud Vision API, Cloud Logging); full
   gates green. The session's network policy refused most vendor hosts, so batches need wider
   network access first. Waiting for the owner's yes before step 1.
+- 2026-10-11: owner set the cap at $100 and widened network access to Full. Day 0 committed
+  (`302e142`). Wave 1 (no-code, maps, analytics; 80 candidates) done, not committed: 74 added,
+  6 rejected; all gates green; `explorer.json` at 99.1 of 100 KB, so trim before wave 2.
 
 ## Why
 
