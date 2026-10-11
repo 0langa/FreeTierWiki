@@ -1,0 +1,121 @@
+---
+title: Pinggy
+description: >-
+  Pinggy gives a localhost service a public URL with a single SSH command, no
+  download needed. The free plan is free for life, with random subdomains and
+  a 60-minute tunnel timeout.
+provider: Pinggy
+category: networking
+domain: networking
+subtypes:
+  - tunnels
+  - localhost sharing
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - pinggy
+  - tunnel
+  - localhost
+  - ssh tunnel
+  - webhooks
+  - udp tunnel
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The free plan is free for life. It supports HTTP(S), TCP, UDP, and TLS
+    tunnels started with one command, request inspection and replay, random
+    subdomains, and a 60-minute tunnel timeout.
+  limits:
+    - 60 minutes tunnel timeout
+    - Random subdomains that change when the tunnel reconnects
+    - HTTP(S), TCP, UDP, and TLS tunnels
+  caveats:
+    - Persistent URLs and custom subdomains need Pro
+    - Pro has a 7-day free trial
+  resetPeriod: per session
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The free plan has no usage charges; tunnels simply time out after 60 minutes
+useCases:
+  - Testing webhooks from a third-party service against a local server
+  - Showing a teammate or client a site running on your laptop
+  - Exposing a local TCP or UDP service for a quick test
+quickstartSteps:
+  - Start your app on a local port.
+  - 'Run the SSH command from the Pinggy docs, for example `ssh -p 443 -R0:localhost:8000 free.pinggy.io`, replacing 8000 with your port.'
+  - Open the public URL Pinggy prints; start the command again after the tunnel times out.
+whenToUse: >-
+  Use Pinggy's free plan to share a local service for under an hour without
+  installing anything, since it works over plain SSH.
+whenNotToUse: >-
+  Avoid it when you need a stable URL, such as a webhook endpoint registered
+  with a provider, because free URLs change and tunnels time out.
+bestFor:
+  - quick localhost sharing
+  - webhook testing without installs
+avoidIf:
+  - you need a URL that stays the same
+  - you need a tunnel open for hours
+difficulty: beginner
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://pinggy.io'
+docsUrl: 'https://pinggy.io/docs/'
+sourceUrls:
+  - 'https://pinggy.io/'
+  - 'https://pinggy.io/docs/'
+pricingUrl: 'https://pinggy.io/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Pinggy is a tunneling service that gives a service on your machine a public URL. You start a tunnel with a single SSH command, so there is no binary to download, though apps for Windows, Mac, and Linux, a CLI, Docker image, and Node.js and Python SDKs exist too. Developers use it for webhook testing and quick demos.
+
+## What the free plan gives you
+
+The free plan is listed at 0 a month and marked free for life. It includes single command tunneling, HTTP(S), TCP, UDP, and TLS tunnels, live header manipulation, request and response inspection with replays, random subdomains, and a 60 minutes tunnel timeout. HTTPS tunnels come with Let's Encrypt certificates.
+
+The docs show the free command connecting to free.pinggy.io, and the URLs it prints are on a pinggy-free.link domain. The Web Debugger for inspecting, modifying, and replaying traffic is built into the Pinggy Dashboard.
+
+## When you hit a limit
+
+A free tunnel times out after 60 minutes. The home page says that when the tunnel reconnects, your public URL will change, and that persistent URLs need Pinggy Pro. So after the timeout you start the tunnel again and share the new address.
+
+Pro adds persistent tunnels and custom subdomains and has a 7 days free trial. Enterprise adds dedicated or on-premise servers, unlimited persistent tunnels and custom subdomains, and an API to monitor and manage tunnels. The free plan has no usage charges on the page.
+
+## Gotchas
+
+- The public URL changes every time the tunnel reconnects, so webhook settings at the provider need updating each time.
+- The 60-minute timeout cuts off long debugging sessions; plan to restart the command.
+- Free tunnels get random subdomains on a pinggy-free.link domain; choosing your own subdomain needs Pro.
+
+## Alternatives in this atlas
+
+- [ngrok](/tools/ngrok/): when you want the best-known tunnel agent with a free dev domain.
+- [localhost.run](/tools/localhost-run/): when you want another SSH-only tunnel with no sign-up for short tunnels.
+- [LocalXpose](/tools/localxpose/): when you want a tunnel client with HTTP and HTTPS tunnels on a free plan.
+
+## Questions people ask
+
+### Is Pinggy free?
+
+Yes. The free plan is free for life, with HTTP(S), TCP, UDP, and TLS tunnels and a 60-minute tunnel timeout.
+
+### Do I need to install anything to use Pinggy?
+
+No. You can start a tunnel with an SSH command; apps, a CLI, Docker, and SDKs are optional.
+
+### Does my Pinggy URL stay the same?
+
+Not on the free plan. The URL changes when the tunnel reconnects. Persistent URLs need Pro.

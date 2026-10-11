@@ -1,0 +1,121 @@
+---
+title: Unkey
+description: >-
+  Unkey issues and verifies API keys for your API, with usage limits and
+  analytics. Its free API management plan covers 1k API keys and 150K valid
+  requests a month.
+provider: Unkey
+category: auth
+domain: auth
+subtypes:
+  - API key management
+  - API authentication
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - unkey
+  - api keys
+  - api authentication
+  - rate limiting
+  - api management
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The free API management plan includes 1k API keys, 150K valid requests a
+    month, unlimited APIs, 1-day log retention, and 3-day audit log
+    retention.
+  limits:
+    - 1k API keys
+    - 150K valid requests per month
+    - 1-day log retention
+    - 3-day audit log retention
+    - Unlimited APIs
+  caveats:
+    - Workspaces with team members need Pro
+    - The pricing page does not say what happens at the request limit for API management
+    - Unkey Deploy, its app hosting product, is priced separately
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - Pro is usage-based with included credits, so a paid account's bill can grow with traffic
+useCases:
+  - Issuing API keys to customers of a public API
+  - Verifying keys on each request from your backend
+  - Revoking or expiring keys without building key storage yourself
+quickstartSteps:
+  - Sign up for Unkey and create an API in the dashboard.
+  - Create a root key and keep it on your server, never in client code.
+  - Create keys for your users from your server, and check each request with keys.verifyKey before your handler runs.
+whenToUse: >-
+  Use Unkey when you are launching an API and want key creation, verification,
+  and revocation handled for you within 150K valid requests a month.
+whenNotToUse: >-
+  Avoid the free plan if you need logs older than a day, team members in the
+  workspace, or more than 1k keys.
+bestFor:
+  - API keys for a new public API
+  - indie developers selling API access
+avoidIf:
+  - you need long log retention for free
+  - several teammates need dashboard access for free
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://www.unkey.com'
+docsUrl: 'https://www.unkey.com/docs'
+sourceUrls:
+  - 'https://www.unkey.com/pricing'
+pricingUrl: 'https://www.unkey.com/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Unkey is an API key management service. Your backend creates keys for your users through Unkey, and on each incoming request it asks Unkey whether the key is valid. That spares you from building key storage, hashing, expiry, and revocation yourself. Unkey also sells Unkey Deploy, a separate hosting product with its own plans.
+
+## What the free plan gives you
+
+On the pricing page's API Management tab, the Free plan is described as everything you need to start fast, with the core tools to protect and manage your API. It includes 1k API keys, 150K valid requests per month, 1-day log retention, 3-day audit log retention, and unlimited APIs.
+
+Pro raises that to 1M API keys and 250K valid requests a month, with 7-day log retention, 14-day audit log retention, and workspaces with team members. Enterprise adds custom quotas, IP whitelisting, and a dedicated Slack channel.
+
+## When you hit a limit
+
+The limit is counted in valid requests per month, and the pricing page does not define the term further. The pricing page's FAQ answer about plan limits describes Unkey Deploy, where a new deployment that would exceed a limit fails with a clear error. It does not say what happens when an API management account passes 150K valid requests, so check your usage in the dashboard as traffic grows.
+
+The page describes Pro as usage-based billing with included credits, so moving up means your bill follows your traffic rather than a fixed price.
+
+## Gotchas
+
+- Logs on the free plan are kept for 1 day, so debugging yesterday's failed verifications is not possible.
+- The free plan has no workspaces with team members, so a second developer cannot share the dashboard.
+- The pricing page has two tabs, Unkey Deploy and API Management, and their limits are different; this entry covers API Management.
+
+## Alternatives in this atlas
+
+- [Zuplo](/services/zuplo/): when you want an API gateway that also handles API keys and rate limits.
+- [Clerk](/services/clerk/): when you mostly need user sign-in rather than API keys for machine clients.
+
+## Questions people ask
+
+### Is Unkey free?
+
+Yes. The free API management plan includes 1k API keys and 150K valid requests a month, with unlimited APIs.
+
+### What counts toward Unkey's request limit?
+
+The plans count valid requests per month. The pricing page does not define a valid request further, so check the docs or dashboard for how verifications are counted.
+
+### How long does Unkey keep logs on the free plan?
+
+1 day for logs and 3 days for audit logs. Pro keeps logs for 7 days and audit logs for 14 days.

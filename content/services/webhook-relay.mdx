@@ -1,0 +1,119 @@
+---
+title: Webhook Relay
+description: >-
+  Webhook Relay receives webhooks on public endpoints and forwards them to
+  public destinations or to servers behind a firewall. The Free Starter plan
+  includes 150 webhooks a month and needs no credit card.
+provider: Webhook Relay
+category: messaging
+domain: messaging
+subtypes:
+  - webhook forwarding
+  - webhook relay
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - webhook-relay
+  - webhooks
+  - webhook forwarding
+  - localhost
+  - home automation
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free Starter plan costs $0.00 a month with no credit card. It includes
+    150 webhooks a month, 1 input endpoint, secure webhooks, and MCP access,
+    but no bidirectional tunnels.
+  limits:
+    - 150 webhooks per month
+    - 1 input
+    - 0 bidirectional tunnels
+  caveats:
+    - At the free limit, buckets are temporarily suspended from receiving webhooks
+    - Custom subdomains and tunnels start with the Basic plan
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The free plan stops receiving webhooks at the limit instead of billing for extra webhooks
+useCases:
+  - Forwarding webhooks from a SaaS service to a development machine
+  - Receiving webhooks in a home automation server behind a router
+  - Fanning one webhook out to another public endpoint
+quickstartSteps:
+  - Sign up for Webhook Relay on the Free Starter plan; no credit card is needed.
+  - Create an input endpoint and set it as the webhook URL in the sending service.
+  - Add a destination, and run the Webhook Relay agent locally if the destination is on an internal network.
+whenToUse: >-
+  Use Webhook Relay's free plan to get a small number of webhooks a month to
+  a machine that is not reachable from the internet.
+whenNotToUse: >-
+  Avoid the free plan for anything that sends more than 150 webhooks a month,
+  because your endpoints stop receiving at the limit.
+bestFor:
+  - home automation webhooks
+  - low-volume webhook forwarding
+avoidIf:
+  - you receive more than 150 webhooks a month
+  - you need bidirectional tunnels for free
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://webhookrelay.com'
+docsUrl: 'https://webhookrelay.com/docs'
+sourceUrls:
+  - 'https://webhookrelay.com/pricing'
+pricingUrl: 'https://webhookrelay.com/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Webhook Relay gives you public input endpoints that receive webhooks and forward them to one or more destinations. A destination can be a public URL or, with its agent running, a server on an internal network. It also offers bidirectional tunnels on paid plans. Individual developers and home automation users are its free plan's audience.
+
+## What the free plan gives you
+
+The Free Starter plan is $0.00 a month and is aimed at individual developers and home automation enthusiasts. It includes 150 webhooks per month, secure webhooks, and MCP access for managing buckets, destinations, functions, and replays from coding agents. The quota table lists 1 input and 0 bidirectional tunnels.
+
+Each webhook delivery counts towards the monthly quota. The FAQ says an agent is needed only for internal destinations; proxying webhooks or fanning them out to public destinations works without one. The pricing page says you start on the free plan with no credit card required.
+
+## When you hit a limit
+
+The FAQ says that when you reach the webhooks limit on the free plan, your buckets are temporarily suspended from receiving webhooks, and you can upgrade to a paid plan to continue. Paid plans are treated differently: they keep working over the quota under a fair-use policy.
+
+Basic is $8.99 a month with 5,000 webhooks, custom subdomains, 10 destinations, and 8 bidirectional tunnels, and extra webhooks at $5 per 1k. The FAQ also mentions a discounted Basic plan for hobbyists doing non-commercial work.
+
+## Gotchas
+
+- 150 webhooks a month is about five a day, so a chatty integration can use it up in hours.
+- When the quota runs out, webhooks stop arriving until you upgrade, and the pricing page does not say whether missed webhooks can be recovered.
+- Tunnels are not part of the free plan; the quota table lists 0 bidirectional tunnels.
+
+## Alternatives in this atlas
+
+- [Hookdeck](/services/hookdeck/): when you want an event gateway that queues webhooks and delivers them to your API with retries.
+- [Webhook.site](/services/webhook-site/): when you only need to inspect incoming webhook requests.
+- [ngrok](/tools/ngrok/): when you want a general tunnel to a local server rather than a webhook relay.
+
+## Questions people ask
+
+### Is Webhook Relay free?
+
+Yes. The Free Starter plan costs $0.00 a month and includes 150 webhooks a month with no credit card.
+
+### What happens when I reach the free webhook limit?
+
+Your buckets are temporarily suspended from receiving webhooks. You can upgrade to a paid plan to continue.
+
+### Do I need to run an agent?
+
+Only for internal destinations. Forwarding to public destinations works without an agent.

@@ -1,0 +1,116 @@
+---
+title: Estuary
+description: >-
+  Estuary moves data between databases, SaaS apps, and warehouses in real
+  time or batch, with change data capture. The free Developer plan covers
+  10 GB a month on 2 connector instances.
+provider: Estuary
+category: automation
+domain: automation
+subtypes:
+  - data integration
+  - change data capture
+  - ELT
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - etl
+  - cdc
+  - data pipeline
+  - real-time
+  - data warehouse
+  - kafka
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Developer plan is free with no time limit: up to 10 GB of data moved a
+    month across up to 2 connector instances.
+  limits:
+    - 10 GB of data per month
+    - 2 concurrent connector instances
+  caveats:
+    - A connector instance is one source or one destination, so 2 instances is a single pipeline
+    - The Cloud plan has a separate 30-day free trial
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Streaming changes from one Postgres database to a warehouse
+  - Trying change data capture before buying a pipeline tool
+  - Feeding fresh data to a dashboard or AI app
+quickstartSteps:
+  - Sign up for the free Developer plan on estuary.dev.
+  - Create a capture from your source and a materialization to your destination.
+  - Watch the data volume so the pipeline stays under 10 GB a month.
+whenToUse: >-
+  Use Estuary when you want one real-time or batch pipeline, such as database
+  change data capture into a warehouse, at a few gigabytes a month.
+whenNotToUse: >-
+  Avoid the free plan if you need more than one source and one destination,
+  or move large volumes each month.
+bestFor:
+  - database change data capture
+  - one small real-time pipeline
+avoidIf:
+  - several sources or destinations
+  - large monthly data volumes
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 7
+officialUrl: 'https://estuary.dev/'
+docsUrl: 'https://docs.estuary.dev/'
+sourceUrls:
+  - 'https://estuary.dev/pricing/'
+pricingUrl: 'https://estuary.dev/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Estuary is a managed data movement platform. It captures data from databases, SaaS apps, and streams, using log-based change data capture where it can, and delivers it to warehouses, data lakes, and other destinations in real time or in batch. It also offers Kafka compatibility and a CLI, flowctl, for managing pipelines from a terminal.
+
+## What the free plan gives you
+
+The pricing page lists a Developer plan that is free, for launching your first pipelines. It covers up to 10 GB a month and 2 concurrent connector instances. The FAQ confirms the free tier allows indefinite use with a 10 GB a month limit for up to 2 connector instances.
+
+A connector instance is a connection to one source, called a capture, or one destination, called a materialization. Two instances is therefore one source feeding one destination. Usage is measured on the volume of data sourced, transformed, and delivered.
+
+## When you hit a limit
+
+The pricing page does not say what happens when a Developer pipeline passes 10 GB in a month. The paid Cloud plan charges $0.50 per GB plus $100 per connector, with a 30-day free trial. On Cloud, the first 6 connector instances cost $100 a month each and additional instances $50 a month each.
+
+Pay-as-you-go billing runs through Stripe, and the FAQ says a credit card can be added for it.
+
+## Gotchas
+
+- Change data capture of a busy database can move more data than you expect, because every change counts toward the volume.
+- Adding a second destination for the same source needs a third connector instance, which is past the free limit.
+- The Cloud trial and the free Developer plan are different things; check which one your account is on.
+
+## Alternatives in this atlas
+
+- [Fivetran](/services/fivetran/): when you want managed ELT with a large connector catalogue.
+- [Zapier](/tools/zapier/): when you are moving individual records between apps rather than bulk data.
+
+## Questions people ask
+
+### Is Estuary free?
+
+Yes. The Developer plan allows indefinite use up to 10 GB a month on up to 2 connector instances.
+
+### What is a connector instance?
+
+A connection to a source or a destination. One pipeline from one database to one warehouse uses two.
+
+### Is there a trial of the paid plan?
+
+Yes. The Cloud plan has a 30-day free trial.

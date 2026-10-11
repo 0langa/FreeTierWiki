@@ -1,7 +1,7 @@
 # FreeTierWiki — Status & Roadmap
 _State refreshed: 2026-10-11._
 
-## Coverage sweep — 2026-10-11 (Day 0, waves 1 and 2 in PR #36)
+## Coverage sweep — 2026-10-11 (Day 0 and waves 1 to 3 in PR #36)
 Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Owner decisions: Opus 5.5 at effort high for every
 worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep (lifted on
 2026-10-11: the run uses promotional credits). Network access for
@@ -34,6 +34,14 @@ vendor pricing host. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
   trial-only. Gates after wave 2: lint, typecheck, unit 161, depth 835 of 835, build, budget, e2e
   74 passed (6 skipped). `explorer.json` is 96.0 of 100 KB.
 
+- Wave 3, five parallel batches (124 candidates: the rest of the list plus names triaged from
+  free-for.dev and three successors found in wave 2): 108 added, 16 rejected. Developer tooling 25,
+  team tools and headless CMS 19, email, DNS, and public CDNs 23, hosting and data 20, forms,
+  screenshot APIs, comments, auth, and the rest 21. Six are trial-only. Every stored page was checked
+  to name its own product (workers shared a scratch folder; one page was confirmed by rendering it
+  again). Gates after wave 3: lint, typecheck, unit 161, depth 943 of 943, build, budget, e2e 74
+  passed (6 skipped). `explorer.json` is 107.5 of 110 KB.
+
 Checked but not added (2026-10-11):
 - Webstudio: no readable pricing page; a Cloudflare bot check blocks plain fetches and headless Chromium.
 - Glide: the GlideOS Free plan allows 0 published apps and 0 enabled workflows; a sandbox, not a free
@@ -64,6 +72,19 @@ Checked but not added (2026-10-11):
 - Azure Event Hubs: no free amount, only free AMQP connections.
 - Oracle APEX: a workload type of the existing `oracle-autonomous-db` entry.
 - IBM watsonx Assistant: merged into watsonx Orchestrate (30-day trial, then from $530 a month).
+- Discord: no page states a developer offer (API or bots); the app is consumer chat.
+- Taiga, Zonomi, Static Forms, SnapAPI: no readable pricing page (CAPTCHA, 404, bot check, domain gone).
+- Element (Matrix): self-hosted only; the free Community edition is not for production.
+- NextDNS: DNS filtering for people's devices, not a service developers build on.
+- IntenseDebate: no fetched page states a free plan or any pricing.
+- Pantheon: sandbox sites only; going live needs a paid plan.
+- Clever Cloud: only a platform-wide sign-up credit, amount not stated.
+- Flightcontrol: replaced by Ravion (a possible candidate).
+- Ampt: the free Preview tier names its quotas but publishes no numbers.
+- Bonsai: paid only, from $15 a month.
+- IFTTT: consumer automation; webhooks and developer tools are paid.
+- Whimsical: the vendor calls the free plan "For evaluating Whimsical"; exports are watermarked.
+- Cloudcraft: free only inside a Datadog subscription.
 
 Open items:
 1. Card rule mismatch, found in wave 2: the AWS Free Tier FAQ fetched on 2026-10-11 says "A payment
@@ -77,15 +98,17 @@ Open items:
    entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
    until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
    uses 500 and notes the conflict), 8base (pricing page footer says 2023).
-3. Size: `explorer.json` is 96.0 KB at 835 entries (about 0.11 KB per entry). The owner raised its
-   budget from 100 to 110 KB on 2026-10-11 (`scripts/check-budget.mjs`), room for about 125 more.
-4. Left in the candidate list: 50 names (developer tooling 28, team chat, project management, and
-   CMS 22) plus three successors found in wave 2: SolarWinds Incident Response (was Squadcast),
-   Xurrent IMR (was Zenduty), IBM watsonx Orchestrate (absorbed watsonx Assistant).
+3. Size: `explorer.json` is 107.5 of 110 KB at 943 entries (about 0.11 KB per entry), so about 20
+   more fit. Raise the budget again or trim before the next additions.
+4. The candidate list is used up. What is left on free-for.dev is mostly utilities and very small
+   products. Possible later candidates named by vendors during the sweep: Ravion (Flightcontrol's
+   successor). Owner calls from wave 3: Tyk (a 48-hour trial only), UNPKG (its page never says
+   "free"; listed on the cdnjs precedent), No-IP (leans toward consumer remote access).
 5. Final step, with the owner's yes: comparison tables. Wave 1 adds enough entries for no-code
    databases and app builders, maps and geocoding, web analytics, and session replay; wave 2 adds
-   on-call and incident management, uptime monitoring, video and voice APIs, and image CDNs. Recheck
-   each against the entries, not the subtype labels.
+   on-call and incident management, uptime monitoring, video and voice APIs, and image CDNs; wave 3
+   adds project management, DNS hosting and dynamic DNS, screenshot APIs, tunnels, and test
+   automation. Recheck each against the entries, not the subtype labels.
 6. E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
    `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
 

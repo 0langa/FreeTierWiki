@@ -1,0 +1,119 @@
+---
+title: ApiFlash
+description: >-
+  ApiFlash is a website screenshot API built on Chrome and AWS Lambda. The
+  free plan gives you 100 screenshots a month with no credit card.
+provider: ApiFlash
+category: scraping
+domain: scraping
+subtypes:
+  - screenshot API
+  - website capture
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - screenshot api
+  - website screenshot
+  - headless chrome
+  - full page screenshot
+  - url to image
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    100 screenshots per month for free, no credit card required, with full
+    page and mobile screenshots, ad blocking, and export to S3.
+  limits:
+    - 100 screenshots per month
+    - PNG, JPEG, and WebP output
+    - Full page and mobile screenshots
+    - 20 requests per second with a burst of 400
+  caveats:
+    - Paid plans add support; the free plan lists none
+    - Repeated failing captures of the same URL are limited to 5 requests per hour
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Once the monthly quota is used, the API returns a 402 Payment Required error
+useCases:
+  - Thumbnails of user-submitted links
+  - Social preview images of your own pages
+  - Visual checks of a page in a small script
+quickstartSteps:
+  - Sign up for free on apiflash.com and copy your access key.
+  - Call the urltoimage endpoint with your access key and the page URL.
+  - Read the X-Quota-Remaining header to track how many captures you have left.
+whenToUse: >-
+  Use ApiFlash when you need a few website screenshots a month from a simple
+  HTTP call and want the API to stop rather than bill you at the limit.
+whenNotToUse: >-
+  Avoid the free plan for anything that captures pages on every user action;
+  the monthly quota is small.
+bestFor:
+  - occasional website screenshots
+  - link thumbnails
+avoidIf:
+  - high-volume capture
+  - needing support on a free plan
+difficulty: beginner
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://apiflash.com/'
+docsUrl: 'https://apiflash.com/documentation'
+sourceUrls:
+  - 'https://apiflash.com/'
+  - 'https://apiflash.com/documentation'
+pricingUrl: 'https://apiflash.com/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+ApiFlash is an HTTP API that returns a screenshot of a web page. You call one endpoint with your access key and a URL, and it renders the page in an up-to-date Chrome instance running on AWS Lambda. It suits apps that need link thumbnails or page captures without running a headless browser themselves.
+
+## What the free plan gives you
+
+The pricing section on the home page lists a Free Plan at $0 a month with 100 screenshots. It includes PNG, JPEG, and WebP output, full page screenshots, mobile screenshots, ad blocking, hiding cookie banners, and export to S3. The page says you get 100 screenshots per month for free with no credit card required. Paid plans start with the Lite Plan at 1,000 screenshots for $7 a month.
+
+The documentation sets a rate limit for every account: 20 requests per second with a burst size of 400 requests, using a leaky bucket. Requests above the rate are delayed, and requests past the burst size get a 429 status code.
+
+## When you hit a limit
+
+The quota is per billing period. Every successful capture returns X-Quota-Limit, X-Quota-Remaining, and X-Quota-Reset headers, and a dedicated quota endpoint returns the same numbers. When the monthly screenshot quota is used up, the API answers with a 402 Payment Required error, so captures stop instead of creating a bill.
+
+The X-Quota-Reset header gives the time, in UTC epoch seconds, at which the current billing period ends and the remaining calls reset. A job that checks it can wait for the reset or ask you to upgrade.
+
+## Gotchas
+
+- Calls with the exact same parameters that keep failing, for example on an unreachable site, are limited to 5 requests per hour.
+- A burst over the rate limit is delayed first and then refused with 429, so a batch job should pace itself.
+- The free plan lists no support; Basic support starts on the Lite Plan.
+
+## Alternatives in this atlas
+
+- [Microlink.io](/services/microlink-io/): when you also want link metadata and preview cards from the same API.
+- [Screenshot Machine](/services/screenshotmachine/): when cached captures that do not count toward the quota suit you.
+- [PhantomJsCloud](/services/phantomjscloud/): when you want a daily allowance and full browser automation, not only screenshots.
+
+## Questions people ask
+
+### Is ApiFlash free?
+
+Yes, for 100 screenshots per month. The page says no credit card is required.
+
+### What happens when I use all 100 screenshots?
+
+The API returns 402 Payment Required until the billing period resets or you upgrade.
+
+### How do I check my remaining quota?
+
+Read the X-Quota-Remaining header on any successful capture, or call the quota endpoint.

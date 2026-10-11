@@ -1,0 +1,123 @@
+---
+title: FreeDNS (afraid.org)
+description: >-
+  FreeDNS at afraid.org hosts DNS for your domains and gives out subdomains
+  from a shared registry, with dynamic DNS updates by URL. Free accounts are
+  the default; premium costs $5 a month.
+provider: afraid.org
+category: networking
+domain: networking
+subtypes:
+  - dns hosting
+  - dynamic dns
+  - free subdomain
+audiences:
+  - student
+  - indie
+  - oss
+tags:
+  - dns hosting
+  - dynamic dns
+  - free subdomain
+  - free dns
+  - web forwarding
+  - home server
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    A free FreeDNS account hosts your own domains, with an unlimited number of
+    domains per account, and lets you attach subdomains from a shared registry
+    of domains other members offer. Records update with a single curl request.
+  limits:
+    - Unlimited number of domains per account
+    - Free subdomain hosting from the shared domain registry
+    - Free URL redirection, backup DNS, and IPv6 reverse DNS
+  caveats:
+    - The fetched pages do not state how many subdomains a free account gets
+    - Wildcard DNS and stealth flags are premium features
+    - Subdomains in the shared registry belong to other members' domains
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Hosting DNS for a domain you own at no cost
+  - Getting a free subdomain for a home server from the shared registry
+  - Updating a record's IP with one curl request from a cron job
+  - Pointing names at private LAN addresses for use inside your network
+quickstartSteps:
+  - Choose Sign up Free on freedns.afraid.org.
+  - Add your own domain, or attach a subdomain from the shared domain registry.
+  - Open Dynamic DNS for the record to get its update URL.
+  - Run curl against the sync.afraid.org update URL from a cron job, or v6.sync.afraid.org for IPv6.
+whenToUse: >-
+  Use FreeDNS when you want free DNS for several domains, or a free subdomain
+  with dynamic updates, and you are happy with a no-frills interface.
+whenNotToUse: >-
+  Avoid it if you need wildcard records without paying, documented free
+  limits, or a support contract.
+bestFor:
+  - home servers
+  - several personal domains
+  - dynamic DNS by curl
+avoidIf:
+  - you need wildcard DNS for free
+  - you need an SLA
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://freedns.afraid.org/'
+docsUrl: 'https://freedns.afraid.org/faq/'
+sourceUrls:
+  - 'https://freedns.afraid.org/'
+  - 'https://freedns.afraid.org/premium/'
+pricingUrl: 'https://freedns.afraid.org/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+FreeDNS, run at afraid.org, is a long-running DNS host for dynamic DNS, static DNS, subdomains, and whole domains. Members can share their domains in a registry so other members can create subdomains under them.
+
+## What the free plan gives you
+
+A free account covers DNS hosting for your own domains, and the home page says the number of domains per account is unlimited. You can also attach subdomains from the shared domain registry, where members offer their domains for others to use. Free features include subdomain and domain hosting, backup DNS, IPv6 reverse DNS, and URL redirection.
+
+Dynamic updates are a single request: you curl your record's update URL at sync.afraid.org and the record changes to your current IP, or use v6.sync.afraid.org for IPv6. Records can point at private LAN addresses too. The site describes itself as engineer operated, with no ads, solicitations, or upsells.
+
+## When you hit a limit
+
+The fetched pages do not say how many subdomains a free account can create, or what happens if you reach that number. The premium offer, at $5 a month, adds 50 subdomains, 3 stealth flags, and wildcard DNS, which suggests the free account has a smaller subdomain allowance.
+
+The pages show no metered pricing for DNS queries or updates. There is no usage-based billing: going past a free limit means upgrading to premium or removing records, not an overage charge.
+
+## Gotchas
+
+- A subdomain from the shared registry lives under someone else's domain, and that owner controls the domain.
+- Wildcard DNS is a premium feature, so free accounts need a record per name.
+- Keep the email address on your account current; the site says it is the only way to recover a forgotten password.
+
+## Alternatives in this atlas
+
+- [Duck DNS](/services/duckdns/): when you only need one simple dynamic subdomain.
+- [deSEC](/services/desec/): when you want free DNS hosting with DNSSEC and a modern API.
+- [Hurricane Electric Free DNS](/services/he-free-dns/): when you want free DNS for your own domains with reverse zones.
+
+## Questions people ask
+
+### Is FreeDNS at afraid.org free?
+
+Yes. Free accounts host DNS and subdomains, and premium membership costs $5 a month for extra features.
+
+### How do I update a FreeDNS record from a script?
+
+Request the record's update URL at sync.afraid.org with curl, for example from a cron job. Use v6.sync.afraid.org for IPv6.
+
+### Does the FreeDNS free plan include wildcard DNS?
+
+No. Wildcard DNS is listed as a premium feature.

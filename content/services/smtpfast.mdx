@@ -1,0 +1,125 @@
+---
+title: SMTPfast
+description: >-
+  SMTPfast is a transactional email API built on AWS SES, with an SMTP bridge
+  and per-email tracing. The free tier sends 3,000 emails a month with no card.
+provider: SMTPfast
+category: messaging
+domain: messaging
+subtypes:
+  - transactional email
+  - email API
+  - SMTP relay
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - transactional email
+  - email api
+  - smtp
+  - broadcasts
+  - email sending
+  - resend alternative
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan is $0 forever with 3,000 emails a month, up to 1,000
+    contacts, 2 broadcasts a month, and 1 sending domain. The site says no card
+    is required.
+  limits:
+    - 3,000 emails per month
+    - Up to 1,000 contacts and 2 contact segments
+    - 2 broadcasts per month
+    - 1 sending domain
+    - 30-day content retention
+  caveats:
+    - The page does not say what happens on the free plan when the 3,000 emails are used
+    - Prepaid extra credits are for active accounts and cost $0.001 per extra email
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - Extra volume is sold as prepaid credits, so it is bought up front rather than billed after the fact
+useCases:
+  - Sending sign-up and password reset emails from a small app
+  - Moving off Resend with a compatible sending API
+  - Pointing an older app's SMTP settings at an SMTP bridge
+  - Sending a small newsletter to up to 1,000 contacts
+quickstartSteps:
+  - Start sending free on smtpfa.st; the site says no card is required.
+  - Verify your sending domain with the guided DNS setup.
+  - Create an API key and send over the REST API, or use the key as the password for the SMTP bridge.
+  - Open the email logs to trace each send, bounce, and open.
+whenToUse: >-
+  Use SMTPfast when a side project sends up to 3,000 emails a month and you
+  want to see what happened to every message.
+whenNotToUse: >-
+  Avoid the free plan if you need more than 1 sending domain, more than 1,000
+  contacts, or more than 2 broadcasts a month.
+bestFor:
+  - side projects
+  - Resend-compatible code
+  - SMTP for legacy apps
+avoidIf:
+  - you need several sending domains for free
+  - you send more than 3,000 emails a month
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 3
+usefulnessScore: 6
+officialUrl: 'https://smtpfa.st/'
+docsUrl: 'https://smtpfa.st/docs'
+sourceUrls:
+  - 'https://smtpfa.st/'
+pricingUrl: 'https://smtpfa.st/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+SMTPfast is a transactional email API for developers, built on AWS SES. You verify a domain, get an API key, and send over a REST API or SMTP, and the dashboard traces every send, bounce, open, and webhook for each email.
+
+## What the free plan gives you
+
+The Free plan is $0 forever and is aimed at testing and side projects. It includes 3,000 emails a month, up to 1,000 contacts, 2 contact segments, 2 broadcasts a month, 1 sending domain, email logs, 30-day content retention, basic analytics, and community support. The site says no card is required to start.
+
+Sending works over the JSON REST API or through the SMTP bridge, where your API key is the SMTP password, so older apps can send without code changes. The sending API is Resend-compatible, and the site also lists contact forms, a hosted MCP server, and an OpenAPI spec.
+
+## When you hit a limit
+
+The pricing section does not say what happens on the Free plan when you use the 3,000 emails in a month. It does not describe a hard stop or automatic charges.
+
+If you only need extra volume for a spike, active accounts can buy prepaid email credits at $0.001 per extra email, which works out at $1 for 1,000 extra emails. For a steady increase, the Starter plan is $9 a month for 10,000 emails, 5,000 contacts, and 3 sending domains.
+
+## Gotchas
+
+- Only 1 sending domain is free, so a second project needs Starter or a shared domain.
+- Broadcasts are capped at 2 a month, so the free plan is not a newsletter tool for regular sends.
+- Message content is kept for 30 days, so older logs lose the body of the email.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/): when you want the API SMTPfast is compatible with, from the original provider.
+- [Maileroo](/services/maileroo/): when you want SMTP and an API with 2 free sending domains.
+- [Plunk](/services/plunk/): when you want transactional and marketing email in one open-source product.
+
+## Questions people ask
+
+### Is SMTPfast free?
+
+Yes. The Free plan is $0 forever with 3,000 emails a month.
+
+### Do I need a credit card for SMTPfast?
+
+No. The site says no credit card is required to start.
+
+### Can I use SMTPfast over SMTP?
+
+Yes. You can point an SMTP client at the SMTP bridge and use your API key as the password.

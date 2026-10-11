@@ -1,0 +1,123 @@
+---
+title: UserCheck
+description: >-
+  UserCheck, formerly MailCheck.ai, is an API that flags disposable, relay,
+  and mistyped email addresses at sign-up. The free plan includes 1,000
+  credits a month.
+provider: UserCheck
+category: security
+domain: security
+subtypes:
+  - disposable email detection
+  - email validation
+  - fraud prevention
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - disposable email detection
+  - email validation api
+  - fake signups
+  - temporary email
+  - mx records
+  - signup protection
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The free plan includes 1,000 credits per month at 1 request per second,
+    with multiple API keys and unlimited user seats. The page says no credit
+    card is required.
+  limits:
+    - 1,000 credits per month
+    - 1 request per second
+    - Limited request log
+  caveats:
+    - Bulk validation, custom blocklists, and provider information are on the Pro plan
+    - The page does not say what happens when the monthly credits run out
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Blocking disposable email addresses at sign-up
+  - Spotting forwarding and relay addresses that hide a real inbox
+  - Suggesting a fix when a user mistypes their email domain
+  - Checking that a domain has working MX records
+quickstartSteps:
+  - Choose Sign up for free on usercheck.com; the page says no credit card is required.
+  - Create an API key in the dashboard.
+  - Send an address to the email endpoint at api.usercheck.com and read the disposable, relay_domain, and mx fields.
+whenToUse: >-
+  Use UserCheck when you want to block throwaway sign-ups on an app that
+  checks up to a thousand addresses a month.
+whenNotToUse: >-
+  Avoid the free plan if you need bulk list validation, a full request log, or
+  more than 1 request per second.
+bestFor:
+  - sign-up forms
+  - SaaS trials
+  - small apps
+avoidIf:
+  - bulk list cleaning
+  - high request rates
+difficulty: beginner
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://www.usercheck.com/'
+docsUrl: 'https://www.usercheck.com/docs'
+sourceUrls:
+  - 'https://www.usercheck.com/'
+  - 'https://www.mailcheck.ai/'
+pricingUrl: 'https://www.usercheck.com/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas. UserCheck is the current name of MailCheck.ai.
+---
+
+UserCheck, which used to be called MailCheck.ai, is an API that tells you whether an email address is disposable, a forwarding relay, or a likely typo. The old mailcheck.ai site now says MailCheck.ai is UserCheck.com.
+
+## What the free plan gives you
+
+The free plan costs $0 a month and is described as for small projects or trying out the service. It includes 1,000 credits per month, 1 request per second, a limited request log, unlimited user seats, multiple API keys, and UserCheck Gates. The page says you can sign up without a credit card.
+
+One API call returns fields such as disposable, relay_domain, public_domain, free_subdomain, alias, and mx, plus the domain's MX records. That covers disposable email detection, forwarding detection, MX record validation, and typo suggestions. Integrations listed include the HTTP API, WordPress, and Laravel.
+
+## When you hit a limit
+
+The page counts credits per month but does not say what the API returns when the 1,000 free credits are used up. The free plan also caps you at 1 request per second, so a burst of sign-ups may need to queue checks.
+
+The Pro plan costs $50 a month and raises the allowance to 200,000 credits per month and 5 requests per second. It adds a 30-day request log, bulk email and domain validation, a custom blocklist, and provider information. Larger plans are custom through sales.
+
+## Gotchas
+
+- The free request log is limited, while Pro keeps 30 days, so debugging a blocked sign-up is harder on the free plan.
+- At 1 request per second you cannot validate a list in bulk on the free plan; bulk validation is a Pro feature.
+- Old links, docs, and packages may still use the MailCheck.ai name for the same service.
+
+## Alternatives in this atlas
+
+- [TempMailDetector.com](/services/tempmaildetector-com/): when you only need disposable email detection.
+- [Verimail.io](/services/verimail-io/): when you want full email verification, not just disposable checks.
+- [Emailvalidation.io](/services/emailvalidation-io/): when you also want an email finder.
+
+## Questions people ask
+
+### Is UserCheck the same as MailCheck.ai?
+
+Yes. The mailcheck.ai site says MailCheck.ai is now UserCheck.com.
+
+### Is UserCheck free?
+
+Yes, within limits. The free plan includes 1,000 credits per month at 1 request per second, with no credit card required.
+
+### What does UserCheck detect?
+
+It flags disposable addresses, forwarding and relay domains, missing MX records, and common typos.

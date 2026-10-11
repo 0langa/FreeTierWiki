@@ -1,0 +1,124 @@
+---
+title: deSEC
+description: >-
+  deSEC is a free DNS hosting service run by a Berlin non-profit, with DNSSEC
+  on every zone, anycast name servers, and a REST API. It has no paid plan.
+provider: deSEC e.V.
+category: networking
+domain: networking
+subtypes:
+  - dns hosting
+  - managed dns
+  - dnssec
+audiences:
+  - student
+  - indie
+  - startup
+  - oss
+tags:
+  - dns hosting
+  - dnssec
+  - free dns
+  - dns api
+  - terraform
+  - lets encrypt
+  - non-profit
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    deSEC is free for everyone to use. You host your own domains on its
+    anycast name servers with DNSSEC always on and manage them in a web
+    interface or through a REST API.
+  limits:
+    - Free for everyone; there is no paid plan
+    - Each account has a maximum number of domains, and support can raise it for a legitimate use
+    - All API operations are rate limited
+  caveats:
+    - New dedyn.io dynDNS registrations are suspended until further notice because of abuse
+    - The domain cap per account is not stated as a number on the fetched pages
+    - Run by a non-profit that asks for donations, with no service-level agreement stated
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Hosting DNS for your own domains with DNSSEC switched on
+  - Managing records from Terraform or a CI/CD pipeline through the API
+  - Automating Let's Encrypt DNS challenges with certbot, acme.sh, or lego
+  - Publishing TLSA and other modern record types
+quickstartSteps:
+  - Choose Create Account on desec.io.
+  - Add a managed domain, or import your existing domain's records in the web interface.
+  - Point your domain's name servers at deSEC, following the deSEC documentation.
+  - Create an API token if you want to manage records from scripts or Terraform.
+whenToUse: >-
+  Use deSEC when you want free DNS hosting with DNSSEC and an API for domains
+  you already own.
+whenNotToUse: >-
+  Avoid it if you need a free dynDNS subdomain right now, since dedyn.io sign-ups
+  are suspended, or if you need a support contract.
+bestFor:
+  - DNSSEC
+  - infrastructure as code
+  - open-source projects
+avoidIf:
+  - you need a free dedyn.io hostname today
+  - you need an SLA
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 7
+officialUrl: 'https://desec.io/'
+docsUrl: 'https://desec.readthedocs.io/'
+sourceUrls:
+  - 'https://desec.io/'
+  - 'https://desec.readthedocs.io/en/latest/dns/domains.html'
+pricingUrl: 'https://desec.io/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+deSEC is a DNS hosting service run by deSEC e.V., a non-profit based in Berlin. It runs on free and open-source software and hosts your domain's records on global anycast name servers, signed with DNSSEC.
+
+## What the free plan gives you
+
+There is no paid plan: the site says deSEC is free for everyone to use. You host domains you own as managed domains, and every zone is signed with DNSSEC using elliptic-curve cryptography. Queries are answered from anycast frontend servers around the world, and record changes are published within a few seconds.
+
+You manage records in the web interface or through a REST API that supports bulk operations, with Terraform providers and Go, Python, and JavaScript bindings. Record types include HTTPS and SVCB, CDS and CDNSKEY, TLSA, and OPENPGPKEY. Accounts support 2FA with TOTP tokens, and there is Let's Encrypt integration for certbot, acme.sh, and lego.
+
+## When you hit a limit
+
+The API documentation says every account has a maximum number of domains. When you reach it, creating another domain returns 403 Forbidden, and you can contact support if you have a legitimate use case for more. All API operations are also rate limited.
+
+Subdomains that deSEC offers itself, such as names under dedyn.io, are limited to one per account. The home page currently says dedyn.io registration is suspended until further notice after a spike of abusive registrations, so today deSEC is for domains you already own.
+
+## Gotchas
+
+- Free dedyn.io dynDNS names are not available while registration is suspended; bring your own domain.
+- The fetched pages do not give the per-account domain cap as a number, only the 403 response when you reach it.
+- deSEC is donation-funded with grants and sponsors, and the pages state no service-level agreement.
+
+## Alternatives in this atlas
+
+- [Hetzner DNS](/services/hetzner-dns/): when you want free DNS from a hosting company, with an API.
+- [Cloudflare](/services/cloudflare/): when you want DNS together with a CDN and proxy.
+- [ClouDNS](/services/cloudns/): when you want a provider with free and paid DNS plans.
+
+## Questions people ask
+
+### Is deSEC really free?
+
+Yes. The site says deSEC is free for everyone to use, and it is run by a non-profit that asks for donations.
+
+### Can I get a free dedyn.io subdomain from deSEC?
+
+Not at the moment. The home page says dedyn.io registration is suspended until further notice because of abusive registrations.
+
+### Does deSEC support DNSSEC?
+
+Yes. The site says DNS information hosted at deSEC is always signed with DNSSEC.

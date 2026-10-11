@@ -1,0 +1,119 @@
+---
+title: UNPKG
+description: >-
+  UNPKG is a public CDN that mirrors every file on npm, served by URL with no
+  account. It also builds browser-ready ES modules at esm.unpkg.com.
+provider: UNPKG
+category: hosting
+domain: hosting
+subtypes:
+  - cdn
+  - static assets
+  - javascript libraries
+audiences:
+  - student
+  - indie
+  - startup
+  - oss
+tags:
+  - cdn
+  - npm cdn
+  - javascript cdn
+  - esm
+  - open source libraries
+  - frontend
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    UNPKG serves any file from any npm package by URL. The site shows no plans,
+    prices, or sign-up, and it runs on Cloudflare Workers as an open-source
+    project.
+  limits:
+    - Every package on npm, available within minutes of publishing
+    - No account or API key
+  caveats:
+    - The site states no service-level agreement, usage limits, or support channel beyond its maintainer
+    - UNPKG is not affiliated with or supported by npm
+    - Short URLs with a version range redirect, so they are not direct cache hits
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Loading a library from npm with a script tag in a demo or prototype
+  - Importing TypeScript or JSX packages in the browser through esm.unpkg.com
+  - Listing a package's files, sizes, and integrity hashes with the meta API
+quickstartSteps:
+  - Build a URL in the form unpkg.com/package@version/file, using a full version number.
+  - Add it to a script or link tag in your page.
+  - For browser modules, import from esm.unpkg.com/package@version instead.
+  - Append ?meta to a package URL to see its files and integrity values.
+whenToUse: >-
+  Use UNPKG to load any npm package's files into a page or a browser module
+  import, especially for demos, docs, and prototypes.
+whenNotToUse: >-
+  Avoid relying on it alone for a production site that needs a support
+  contract or a stated uptime commitment.
+bestFor:
+  - prototypes and demos
+  - browser ES modules
+  - documentation examples
+avoidIf:
+  - you need an SLA
+  - you need private packages
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 7
+officialUrl: 'https://unpkg.com/'
+docsUrl: 'https://unpkg.com/'
+sourceUrls:
+  - 'https://unpkg.com/'
+pricingUrl: 'https://unpkg.com/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+UNPKG is a content delivery network for everything on npm. You load a file with a URL made of the package name, a version, and a path, and UNPKG serves it from Cloudflare's edge network.
+
+## What the free plan gives you
+
+UNPKG has no plans. Its home page shows no prices, no sign-up, and no API keys: you request a URL. It is an open-source project from @mjackson, and it mirrors everything on npm, so every file is available within minutes of being published.
+
+You can use an exact version, an npm dist-tag, or a semver range in the URL; without a version you get the latest tag. The esm.unpkg.com subdomain turns packages that are not browser-ready into ES modules, transforming TypeScript and JSX, bundling package internals, and rewriting dependency imports to permanent UNPKG URLs. Appending ?meta returns a package's file list with sizes, types, and subresource integrity values.
+
+## When you hit a limit
+
+The home page states no request limits, bandwidth limits, or fair use terms, and it does not say what happens to very heavy users. UNPKG runs on Cloudflare Workers, which it says lets it serve billions of requests a day and scale for traffic spikes.
+
+The practical limit is caching. Files are cached by their permanent URL with the full version. A URL with a range or tag, like a major version only, always redirects to the permanent URL first, so it is not a direct cache hit and is slower. Use full version numbers and file paths.
+
+## Gotchas
+
+- UNPKG is not affiliated with or supported by npm, and npm cannot help with UNPKG problems.
+- There is no stated SLA, so a production site depends on a community-run service.
+- URLs without a fixed version change when a new release ships, which can break a page without warning.
+
+## Alternatives in this atlas
+
+- [jsDelivr](/services/jsdelivr/): when you want a public CDN with a written acceptable use policy that covers commercial use.
+- [cdnjs](/services/cdnjs/): when you want a curated CDN of popular libraries.
+
+## Questions people ask
+
+### Is UNPKG free?
+
+The site shows no prices, plans, or sign-up; you load files by URL. It is an open-source project.
+
+### Is UNPKG part of npm?
+
+No. UNPKG says it is not affiliated with or supported by npm in any way.
+
+### How do I get the best cache performance from UNPKG?
+
+Use a full package version and file path in the URL. Ranges and tags redirect to the permanent URL first.

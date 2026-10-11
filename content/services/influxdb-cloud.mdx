@@ -1,0 +1,123 @@
+---
+title: InfluxDB Cloud Serverless
+description: >-
+  InfluxDB Cloud Serverless is InfluxData's multi-tenant hosted time series
+  database. Its Free Plan has rate-limited writes and reads, 2 buckets, and 30
+  days of data retention.
+provider: InfluxData
+category: database
+domain: database
+subtypes:
+  - time series
+  - serverless
+  - cloud database
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - influxdb
+  - time-series
+  - metrics
+  - iot
+  - sql
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free Plan allows writes at 5 MB per 5 minutes and query responses of
+    300 MB per 5 minutes, with 2 buckets and 30 days of data retention. No
+    credit card is required to start.
+  limits:
+    - Writes of 5 MB per 5 minutes
+    - Query responses of 300 MB per 5 minutes
+    - 2 buckets
+    - 30 days of data retention
+  caveats:
+    - Requests over a rate get an error until the five-minute window resets
+    - Data older than 30 days is not kept on the Free Plan
+    - A database holds at most 500 tables of 200 columns each
+  resetPeriod: five-minute window
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The usage-based plan bills data in, queries, storage, and data out; the Free Plan returns errors instead
+useCases:
+  - Storing sensor or IoT readings for a hobby project
+  - Collecting app or server metrics with Telegraf
+  - Learning time series queries with SQL or InfluxQL
+quickstartSteps:
+  - Choose Start for Free under Cloud Serverless on the InfluxDB pricing page; no credit card is required.
+  - Create one of your 2 buckets and write line protocol with Telegraf, the CLI, or a client library.
+  - Query the data with SQL or InfluxQL, keeping within the five-minute rate limits.
+whenToUse: >-
+  Use the Free Plan for low-volume time series such as a few sensors or app
+  metrics where 30 days of history is enough.
+whenNotToUse: >-
+  Avoid it when you need to keep data longer than 30 days or write more than
+  about 17 kb a second on average.
+bestFor:
+  - low-volume IoT data
+  - learning time series databases
+avoidIf:
+  - long-term data retention
+  - high write rates
+difficulty: intermediate
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://www.influxdata.com/products/influxdb-overview/'
+docsUrl: 'https://docs.influxdata.com/influxdb3/cloud-serverless/'
+sourceUrls:
+  - 'https://www.influxdata.com/influxdb-pricing/'
+  - 'https://docs.influxdata.com/influxdb3/cloud-serverless/admin/billing/limits/'
+pricingUrl: 'https://www.influxdata.com/influxdb-pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+InfluxDB Cloud Serverless is the hosted, multi-tenant version of InfluxDB, a database built for time series such as metrics, events, and sensor readings. You write points with Telegraf, the CLI, or client libraries, and query them with SQL or InfluxQL. The Free Plan suits small IoT projects and learning, with tight rate limits and short retention.
+
+## What the free plan gives you
+
+The pricing page says Cloud Serverless has a free tier with limited data ingestion rates and 30-day retention, and you start without a credit card. The service quotas page lists the Free Plan in detail.
+
+Writes are limited to a rate of 5 MB per 5 minutes, an average of 17 kb/s of uncompressed line protocol. Query responses are limited to 300 MB per 5 minutes, an average of 1000 kb/s. You get 2 buckets, not counting the system buckets, and 30 days of data retention. Storage-level limits apply to every plan: at most 500 tables per database and 200 columns per table, and a query may touch at most 500 partitions and 1000 Parquet files.
+
+## When you hit a limit
+
+The Free Plan is a hard cap. All write and query rates are counted in a fixed five-minute window, and once a rate is exceeded, an error response is returned until the current five-minute window resets.
+
+The usage-based plan lifts these limits and bills data in at $0.0025 per MB, queries at $0.012 per 100 executions, storage at $0.002 per GB-hour, and data out at $0.09 per GB. New paid accounts receive $250 in credits applied to the first 30 days.
+
+## Gotchas
+
+- Data older than 30 days is dropped on the Free Plan, so it does not suit long-term history.
+- Bursty writers can hit the 5 MB per 5 minutes limit even when their daily total is small, and the excess writes are rejected.
+- Only 2 buckets are available, so separate projects or environments share them.
+
+## Alternatives in this atlas
+
+- [Grafana Cloud](/services/grafana-cloud/): when you mainly want hosted metrics with dashboards and alerting.
+- [Tinybird](/services/tinybird/): when you want SQL over event data published as API endpoints.
+- [MotherDuck](/services/motherduck/): when your time-based data is analysed in batches with DuckDB SQL.
+
+## Questions people ask
+
+### Is InfluxDB Cloud free?
+
+InfluxDB Cloud Serverless has a Free Plan with limited write and query rates, 2 buckets, and 30 days of data retention.
+
+### What happens when I write too fast on the Free Plan?
+
+You get an error response until the current five-minute window resets.
+
+### How long is data kept on the free plan?
+
+The Free Plan keeps 30 days of data.

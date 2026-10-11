@@ -20,6 +20,10 @@ this one adds entries instead of rewriting them.
   `explorer.json` from 99.1 to 88.2 KB with search results unchanged. Wave 2 (big-provider
   products, on-call and no-plan names, media; 78 candidates): 71 added, 23 rejected; all gates
   green; `explorer.json` at 96.0 KB. All in PR #36.
+- 2026-10-11: owner lifted the dollar cap and raised the `explorer.json` budget to 110 KB. Wave 3
+  (five batches, 124 candidates): 108 added, 16 rejected; all gates green; `explorer.json` at
+  107.5 KB; 943 live entries. The candidate list is used up; comparison tables are next, with
+  the owner's yes.
 
 ## Why
 

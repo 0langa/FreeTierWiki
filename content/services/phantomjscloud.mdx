@@ -1,0 +1,115 @@
+---
+title: PhantomJsCloud
+description: >-
+  PhantomJsCloud is a hosted headless browser API for screenshots, PDFs, and
+  scraping. The free plan covers about 500 pages a day.
+provider: PhantomJsCloud
+category: scraping
+domain: scraping
+subtypes:
+  - headless browser API
+  - screenshot API
+  - web scraping
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - headless browser
+  - screenshot api
+  - web scraping
+  - html to pdf
+  - browser automation
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free Plan costs $0 a month and gives about 500 pages a day, estimated
+    at 2 seconds of browser time and 50KB of data out per page.
+  limits:
+    - About 500 pages per day
+    - Pages per day estimated at 2 seconds and 50KB per page
+  caveats:
+    - The daily amount is a credit of browser time and egress, so heavy pages give fewer than 500
+    - A demo key for the docs examples is limited to 100 requests per day
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - When the account is out of credits the API returns 402 Payment Required; prepaid credit is used only if you buy it
+useCases:
+  - Screenshots or PDFs of pages that need JavaScript to render
+  - Small scraping jobs that need a real browser
+  - Testing browser automation without running Chrome yourself
+quickstartSteps:
+  - Create a free account at Dashboard.PhantomJsCloud.com and copy your API key.
+  - Try the docs examples, replacing the demo key with your own.
+  - Watch for HTTP 402 responses, which mean the account is out of credits.
+whenToUse: >-
+  Use PhantomJsCloud when you need a hosted browser for a few hundred pages a
+  day and want requests to stop, not bill, when the free credit runs out.
+whenNotToUse: >-
+  Avoid it for slow or heavy pages at volume, since each page's browser time
+  and data out eat into the daily credit.
+bestFor:
+  - hosted headless browser
+  - daily small scraping jobs
+avoidIf:
+  - heavy pages at high volume
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://phantomjscloud.com/'
+docsUrl: 'https://phantomjscloud.com/docs/'
+sourceUrls:
+  - 'https://phantomjscloud.com/pricing.html'
+  - 'https://phantomjscloud.com/docs/'
+pricingUrl: 'https://phantomjscloud.com/pricing.html'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+PhantomJsCloud runs a headless browser for you behind an HTTP API. You send a page request and get back a screenshot, a PDF, the rendered HTML, or other output, without hosting a browser yourself. It suits scripts and small services that need pages rendered with JavaScript.
+
+## What the free plan gives you
+
+The pricing page lists The Free Plan at $0 a month with about 500 pages a day. The docs say the same: create a free account to get 500 Pages/Day at the dashboard. The page count is an estimate. Each request uses browser time and data out, and the estimate assumes 2 seconds of browser time and 50KB of data out per page. Pages that take longer or return more data give you fewer pages a day; lighter pages give you more.
+
+Paid subscriptions bill browser time at $0.15 an hour and egress at $0.25 per GB, about $0.000095 a page. For bursts you can buy Prepaid Credit in $20 steps, which the page says never expires.
+
+## When you hit a limit
+
+The free amount is a daily credit. When your account is out of credits, the API returns HTTP 402 Payment Required, and the docs tell you to upgrade your subscription or add prepaid credits. A test key, ak-test-key-no-credits, lets you see that 402 response before it happens for real. Prepaid Credit, if you buy some, is used when you exceed your daily subscription credit.
+
+## Gotchas
+
+- The 500 figure is an estimate; a slow single-page app can use several times the assumed 2 seconds of browser time.
+- The demo key in the docs examples is limited to 100 requests per day, so switch to your own key early.
+- The official Node.js client handles rate limiting and autoscaling for you; other clients must back off on their own.
+
+## Alternatives in this atlas
+
+- [Apify](/tools/apify/): when you want ready-made scrapers and a platform to schedule them.
+- [ScrapingAnt](/services/scrapingant/): when you want a scraping API with headless browsers and proxies.
+- [ApiFlash](/services/apiflash/): when all you need is screenshots with a monthly quota.
+
+## Questions people ask
+
+### Is PhantomJsCloud free?
+
+Yes. The Free Plan is $0 a month and gives about 500 pages a day.
+
+### What happens when the daily credit runs out?
+
+The API returns 402 Payment Required until you have credit again, from the next day's allowance, an upgrade, or prepaid credit.
+
+### Why do I get fewer than 500 pages a day?
+
+The figure assumes 2 seconds of browser time and 50KB of data out per page. Heavier pages use more of the credit each.

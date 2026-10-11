@@ -1,0 +1,123 @@
+---
+title: wsrv.nl
+description: >-
+  wsrv.nl, formerly images.weserv.nl, is a free image cache and resize
+  service. You pass an image URL and parameters, and it returns the resized
+  image from Cloudflare's CDN.
+provider: wsrv.nl
+category: storage
+domain: storage
+subtypes:
+  - image proxy
+  - image resizing
+  - cdn
+audiences:
+  - student
+  - indie
+  - startup
+  - oss
+tags:
+  - image resizing
+  - image proxy
+  - image cdn
+  - thumbnails
+  - webp
+  - open source
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    wsrv.nl is free for use to anyone, offered as-is. Uncached requests are
+    limited to 2500 images per 10 minutes per visitor IP, after which that IP
+    is blocked for 1 hour.
+  limits:
+    - 2500 uncached images per 10 minutes per visitor IP
+    - Some origin domains are filtered and refused
+  caveats:
+    - Going over the rate limit blocks the IP address for 1 hour
+    - Support is best-effort and there is no uptime guarantee
+    - The code is open source if you need to run it without limits on your own server
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Making thumbnails of remote images on the fly by URL
+  - Converting images to WebP or another format for a web page
+  - Serving HTTP-only images on an HTTPS site through a proxy
+  - Resizing images in a side project without running an image server
+quickstartSteps:
+  - Read the wsrv.nl documentation for the URL parameters.
+  - Build a URL to wsrv.nl that passes your image URL, URL-encoded if it has a querystring, plus parameters such as width.
+  - Use that URL as the image source in your page.
+whenToUse: >-
+  Use wsrv.nl when you want free on-the-fly resizing and caching of public
+  images without running an image server.
+whenNotToUse: >-
+  Avoid it if one server will make many uncached requests from a single IP, or
+  if you need an uptime guarantee or support contract.
+bestFor:
+  - thumbnails
+  - static sites
+  - side projects
+avoidIf:
+  - server-side batch processing from one IP
+  - you need an SLA
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 7
+officialUrl: 'https://wsrv.nl/'
+docsUrl: 'https://wsrv.nl/docs/'
+sourceUrls:
+  - 'https://images.weserv.nl/'
+  - 'https://wsrv.nl/faq/'
+  - 'https://wsrv.nl/docs/'
+pricingUrl: 'https://wsrv.nl/faq/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+wsrv.nl is an image cache and resize service that used to live at images.weserv.nl. Its servers fetch an image from a URL you give, resize or convert it with libvips, cache it worldwide, and serve it through Cloudflare's CDN.
+
+## What the free plan gives you
+
+There is no plan or account. The FAQ says wsrv.nl is an image service that is free for use to anyone, offered as-is. It has been privately funded since 2011 and says it has never accepted compensation or donations. Using the free service in your own products is permitted, with best-effort support.
+
+It handles JPEG, PNG, BMP, GIF, TIFF, WebP, PDF, and SVG, including animated WebP and GIF. Images are cached and delivered from 300+ Cloudflare datacenters. It supports IPv6 and HTTPS, which also helps when you need to show an HTTP-only image on an HTTPS page.
+
+## When you hit a limit
+
+The FAQ states the rule: there is a request limit per visitor IP for uncached requests of 2500 images per 10 minutes, after which the IP address is blocked for 1 hour. Cached images do not count toward that limit.
+
+There is also a filter on origin domains, handled by OpenDNS domain tagging, so wsrv.nl refuses to download images from some websites. If you need no filtering and no limits, the FAQ suggests running the open-source code, released under the BSD 3-Clause license, on your own server.
+
+## Gotchas
+
+- The rate limit is per visitor IP, so a backend that requests many new images from one server IP can be blocked for an hour.
+- There is no uptime guarantee; the FAQ says the service runs on best effort from all sides.
+- Request logs are kept for 7 days on the processing server, so check the privacy policy if your image URLs are sensitive.
+
+## Alternatives in this atlas
+
+- [ImageKit](/services/imagekit/): when you want an image CDN with an account, a dashboard, and support.
+- [Cloudinary](/services/cloudinary/): when you need uploads, storage, and transformations in one product.
+- [Cloudflare Images](/services/cloudflare-images/): when your site already runs on Cloudflare.
+
+## Questions people ask
+
+### Is wsrv.nl free?
+
+Yes. The FAQ says it is free for use to anyone, offered as-is, with no plan or account.
+
+### What is the wsrv.nl rate limit?
+
+Uncached requests are limited to 2500 images per 10 minutes per visitor IP. Past that, the IP is blocked for 1 hour.
+
+### Can I use wsrv.nl in a commercial product?
+
+Yes. The FAQ says using the free service in your products is permitted, with best-effort support.

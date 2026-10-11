@@ -1,0 +1,127 @@
+---
+title: jsDelivr
+description: >-
+  jsDelivr is a free public CDN that serves any file from npm packages and
+  GitHub repositories by URL, free for personal and commercial use with no
+  bandwidth or request limits.
+provider: Volentio JSD Limited
+category: hosting
+domain: hosting
+subtypes:
+  - cdn
+  - static assets
+  - javascript libraries
+audiences:
+  - student
+  - indie
+  - startup
+  - oss
+  - team
+tags:
+  - cdn
+  - javascript cdn
+  - npm cdn
+  - github cdn
+  - esm
+  - open source libraries
+  - frontend
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    Free for personal and commercial use, with no limits on bandwidth or
+    number of requests, as long as you follow its rules. Files come from npm
+    and GitHub with no sign-up.
+  limits:
+    - No limits on bandwidth or number of requests
+    - Packages larger than 150 MB are not supported by default
+    - Single GitHub files larger than 20 MB are not supported by default
+  caveats:
+    - Not for image hosting sites, videos, file backups, or other files in large quantities
+    - Requests that break a hard limit get an error response with the reason
+    - Files once served may stay in permanent storage after upstream deletion
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Loading a library from npm with a script tag and no build step
+  - Importing ES modules in the browser straight from a CDN URL
+  - Serving files from a public GitHub repository for a demo or docs site
+  - Combining several library files into one request
+quickstartSteps:
+  - Build a URL in the form cdn.jsdelivr.net/npm/package@version/file for an npm package.
+  - Pin a full version number for production; the docs say not to omit the version there.
+  - Add the URL to a script or link tag in your page.
+  - Optional: query data.jsdelivr.com to look up a package's versions, files, and entry points.
+whenToUse: >-
+  Use jsDelivr to load open-source files from npm or GitHub into a page with
+  one URL, from a prototype up to a high-traffic site.
+whenNotToUse: >-
+  Avoid it for private files, user uploads, media hosting, or anything the
+  acceptable use policy names as prohibited.
+bestFor:
+  - open-source libraries
+  - static sites and demos
+  - ESM in the browser
+avoidIf:
+  - you need to serve private files
+  - you want to host images or videos for users
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 8
+usefulnessScore: 8
+officialUrl: 'https://www.jsdelivr.com/'
+docsUrl: 'https://www.jsdelivr.com/documentation'
+sourceUrls:
+  - 'https://www.jsdelivr.com/'
+  - 'https://www.jsdelivr.com/terms/acceptable-use-policy-jsdelivr-net'
+  - 'https://www.jsdelivr.com/documentation'
+pricingUrl: 'https://www.jsdelivr.com/terms/acceptable-use-policy-jsdelivr-net'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+jsDelivr is a public CDN for open-source files. It is tightly integrated with npm and GitHub, so almost any published package or public repository file has a CDN URL without any setup, and it has been operating since 2012.
+
+## What the free plan gives you
+
+There is no plan to choose. jsDelivr's acceptable use policy says that, as long as you follow its rules, using the CDN is free for both personal and commercial use, and there are no limits on bandwidth or number of requests. The documentation adds that there are no premium features and that the CDN can be used in production on sites with huge amounts of traffic.
+
+You load files by URL from npm or GitHub, with version ranges, automatic minification when you add .min, a default file when you omit the path, and a combine endpoint for several files in one request. Once a file is first accessed it is stored permanently, so it keeps working even if the package is later deleted.
+
+## When you hit a limit
+
+jsDelivr has hard limits on file size, files per package, package size, and some file extensions. The docs say packages larger than 150 MB or single GitHub files larger than 20 MB are not supported by default. A request past a hard limit gets an error response with the reason, and limits can be raised for legitimate projects on request.
+
+For the GitHub proxy there are soft limits that are not enforced automatically: it recommends at most ten thousand actively accessed files per repository and sets a soft limit of one hundred thousand files.
+
+## Gotchas
+
+- Using the CDN as storage for an image hosting site, for videos, or for file backups is prohibited.
+- Omitting the version gets the latest release, which the docs say you should not do in production.
+- Purging a cached file is rate limited, and the docs say purge access is given after an email request.
+
+## Alternatives in this atlas
+
+- [cdnjs](/services/cdnjs/): when the library you need is in its curated list.
+- [UNPKG](/services/unpkg/): when you want another CDN that mirrors every npm package.
+- [Cloudflare](/services/cloudflare/): when you need a CDN for your own private files.
+
+## Questions people ask
+
+### Is jsDelivr free for commercial use?
+
+Yes. The acceptable use policy says jsDelivr is free for personal and commercial use as long as you follow its rules.
+
+### Does jsDelivr have bandwidth limits?
+
+No. The policy says there are no limits on bandwidth or number of requests, though files and packages have size limits.
+
+### Can I host my images on jsDelivr?
+
+Not as an image host. Using jsDelivr as storage for an image hosting site, or for videos and backups, is prohibited.
