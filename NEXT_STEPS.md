@@ -21,7 +21,9 @@ vendor pricing host. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
 - Gates after wave 1: lint, typecheck, unit 157, depth 764 of 764, build, budget, e2e 74 passed
   (6 skipped). `explorer.json` reached 99.1 of 100 KB gzip, so the explorer rows now ship without
   `url` and `kind` (the id carries both; `toExplorerRow` and `fromExplorerRow` in
-  `src/lib/entry-view.ts`): 94.7 KB, room for about 40 more entries at about 0.13 KB each.
+  `src/lib/entry-view.ts`), and the shipped search text leaves out words that a longer word, the
+  title, or the provider already covers (search matches by substring, so results do not change; a
+  unit test checks every entry): 88.2 KB, room for about 90 more entries at about 0.13 KB each.
 
 Checked but not added (2026-10-11):
 - Webstudio: no readable pricing page; a Cloudflare bot check blocks plain fetches and headless Chromium.
@@ -37,9 +39,8 @@ Open items:
    entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
    until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
    uses 500 and notes the conflict), 8base (pricing page footer says 2023).
-2. Size: the rest of the candidate list could add about 95 entries, about 12 KB, more than the
-   5 KB left. The next lever is the search haystack (49 KB of the file); otherwise raise the
-   budget with the owner's yes.
+2. Size: the rest of the candidate list could add about 95 entries, about 12 KB, against about
+   11.8 KB left. If the last wave does not fit, raise the budget with the owner's yes.
 3. Left in the candidate list: 141 names (video and media 23, on-call and monitoring 18, big-provider
    products 33, developer tooling 28, team chat and CMS 22, likely-no-plan 17) plus Fivetran.
 4. Final step, with the owner's yes: comparison tables. Wave 1 adds enough entries for no-code

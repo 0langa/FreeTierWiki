@@ -11,6 +11,7 @@ import {
   toExplorerRow,
   toListItem,
 } from "@/lib/entry-view";
+import { listContentFiles, readEntryFile } from "@/lib/content-files";
 import { makeEntry, makeItem } from "../support/fixtures";
 
 const now = new Date("2026-09-25T00:00:00Z");
@@ -88,7 +89,32 @@ describe("explorer rows", () => {
     const row = toExplorerRow(item);
     expect(row).not.toHaveProperty("url");
     expect(row).not.toHaveProperty("kind");
-    expect(fromExplorerRow(row)).toEqual(item);
+    expect({ ...fromExplorerRow(row), haystack: item.haystack }).toEqual(item);
+  });
+
+  it("drop haystack words that a longer word or the title already covers, without changing what search finds", () => {
+    const entry = makeEntry({ title: "Neon Postgres", description: "Serverless Postgres database with data branching and branches." });
+    const item = toListItem(entry, now);
+    const row = toExplorerRow(item);
+    const shipped = row.haystack.split(" ");
+    expect(shipped).not.toContain("data");
+    expect(shipped).not.toContain("neon");
+    expect(shipped).toContain("database");
+    const restored = fromExplorerRow(row).haystack;
+    for (const word of item.haystack.split(" ")) expect(restored).toContain(word);
+    for (const word of restored.split(" ")) expect(item.haystack.split(" ")).toContain(word);
+  });
+
+  it("find the same entries for every haystack word across the whole atlas", async () => {
+    const problems: string[] = [];
+    for (const file of await listContentFiles()) {
+      const item = toListItem((await readEntryFile(file)).entry, now);
+      const restored = fromExplorerRow(toExplorerRow(item)).haystack;
+      const words = item.haystack.split(" ");
+      for (const word of words) if (!restored.includes(word)) problems.push(`${item.id}: lost "${word}"`);
+      for (const word of restored.split(" ")) if (!words.includes(word)) problems.push(`${item.id}: added "${word}"`);
+    }
+    expect(problems).toEqual([]);
   });
 
   it("rebuilds a tools url", () => {
