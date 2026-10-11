@@ -1,5 +1,116 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-09._
+_State refreshed: 2026-10-11._
+
+## Coverage sweep — 2026-10-11 (Day 0 and waves 1 to 3 in PR #36)
+Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Owner decisions: Opus 5.5 at effort high for every
+worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep (lifted on
+2026-10-11: the run uses promotional credits). Network access for
+the cloud environment was set to Full on 2026-10-11; before that the proxy refused almost every
+vendor pricing host. Node's fetch needs `NODE_USE_ENV_PROXY=1` behind the proxy.
+- Candidate list: 226 names in 9 jobs, deduped against slugs, titles, providers, URL hosts, the
+  removals, and `public/_redirects` (`development/verify/reports/2026-10-11-coverage-candidates.md`,
+  gitignored). Sources: the brief, names the bodies mention without an entry, the big providers'
+  per-product free lists, free-for.dev (names only).
+- Day 0 (commit `302e142` on `cld/fervent-bardeen-4b0pc9`): `services/google-secret-manager`,
+  `services/bigquery`, `services/cloud-scheduler`, `services/cloud-vision-api`,
+  `services/cloud-logging`. The Free Tier docs page was re-read in English after access widened; it
+  confirms the billing-account and card rule behind `requiresCard: true` on four of them.
+- Wave 1, three parallel batches (80 candidates): 74 added, 6 rejected. No-code and internal tools
+  24 (`database` for no-code databases and BaaS, `hosting` for app builders), maps, geocoding, and
+  weather 24 (`apis`), analytics and session replay 26 (`analytics`; consent tools in `security`,
+  UXtweak in `design`, Hightouch in `automation`). Nine of them are trial-only offers.
+- Gates after wave 1: lint, typecheck, unit 157, depth 764 of 764, build, budget, e2e 74 passed
+  (6 skipped). `explorer.json` reached 99.1 of 100 KB gzip, so the explorer rows now ship without
+  `url` and `kind` (the id carries both; `toExplorerRow` and `fromExplorerRow` in
+  `src/lib/entry-view.ts`), and the shipped search text leaves out words that a longer word, the
+  title, or the provider already covers (search matches by substring, so results do not change; a
+  unit test checks every entry): 88.2 KB, room for about 90 more entries at about 0.13 KB each.
+
+- Wave 2, three parallel batches (78 candidates): 71 added, 23 rejected. Big-provider products 26
+  (AWS always-free amounts, Google Cloud and Firebase, Azure, Cloudflare, Oracle, IBM), on-call,
+  status, and monitoring 13 plus 12 from the likely-no-plan list (mostly trials, which the inclusion
+  rule counts; DigitalOcean became three product entries for Functions, App Platform, and Container
+  Registry instead of one account-credit entry), video, voice, TURN, and media 20. Thirteen are
+  trial-only. Gates after wave 2: lint, typecheck, unit 161, depth 835 of 835, build, budget, e2e
+  74 passed (6 skipped). `explorer.json` is 96.0 of 100 KB.
+
+- Wave 3, five parallel batches (124 candidates: the rest of the list plus names triaged from
+  free-for.dev and three successors found in wave 2): 108 added, 16 rejected. Developer tooling 25,
+  team tools and headless CMS 19, email, DNS, and public CDNs 23, hosting and data 20, forms,
+  screenshot APIs, comments, auth, and the rest 21. Six are trial-only. Every stored page was checked
+  to name its own product (workers shared a scratch folder; one page was confirmed by rendering it
+  again). Gates after wave 3: lint, typecheck, unit 161, depth 943 of 943, build, budget, e2e 74
+  passed (6 skipped). `explorer.json` is 107.5 of 110 KB.
+
+Checked but not added (2026-10-11):
+- Webstudio: no readable pricing page; a Cloudflare bot check blocks plain fetches and headless Chromium.
+- Glide: the GlideOS Free plan allows 0 published apps and 0 enabled workflows; a sandbox, not a free
+  plan (same reasoning as the WaiverStevie removal).
+- Radar: the pricing page says "Radar does not currently offer a free tier".
+- Smartlook: shutting down; paid plans end 31 August 2027 and accounts are deactivated 30 September 2027.
+- Census: now part of Fivetran; the URL shows Fivetran's pricing. Fivetran is a new candidate.
+- Usermaven: no free plan or trial; Business and Enterprise are by demo only.
+- Transloadit: the page calls the Community plan "meant as a free trial"; images are watermarked and
+  audio and video trimmed (same reasoning as api.video and the WaiverStevie removal).
+- api.video: the free option is a sandbox; videos last 30 seconds, are watermarked, and are deleted
+  after 24 hours.
+- ImageEngine: now ImageEngine Kube, a paid licence on your own AWS; only a pre-deploy sandbox is free.
+- Opsgenie: new sign-ups and sales have ended; data must move to Jira Service Management before
+  5 April 2027.
+- Rootly, Robusta: sales-led pricing; any trial goes through sales.
+- Squadcast: now SolarWinds Incident Response, no free plan (the successor has a 14-day trial).
+- Zenduty: now Xurrent IMR, 14-day trial only (a possible candidate under its new name).
+- PlanetScale: still paid only, from $5 a month; the 2026 removal stands.
+- Replicate, RunPod, Together AI: pay per use; Together AI's docs say no free trial and a $15 minimum.
+- Payload Cloud: Payload joined Figma and new Cloud deployments are paused.
+- Heroku, Hetzner Cloud: paid only.
+- Vultr: no readable pricing page (a Cloudflare bot check blocks fetch and headless Chromium).
+- Amazon SES: only the general AWS sign-up credit; the earlier removal stands.
+- AWS CodeArtifact: the page mentions a Free Tier but states no free amount.
+- AWS Amplify Hosting: "Free for 12 months" under the credit-era Free Tier, which the atlas does not list.
+- Firebase Test Lab: deprecated, shutting down on 30 September 2027.
+- Azure Event Hubs: no free amount, only free AMQP connections.
+- Oracle APEX: a workload type of the existing `oracle-autonomous-db` entry.
+- IBM watsonx Assistant: merged into watsonx Orchestrate (30-day trial, then from $530 a month).
+- Discord: no page states a developer offer (API or bots); the app is consumer chat.
+- Taiga, Zonomi, Static Forms, SnapAPI: no readable pricing page (CAPTCHA, 404, bot check, domain gone).
+- Element (Matrix): self-hosted only; the free Community edition is not for production.
+- NextDNS: DNS filtering for people's devices, not a service developers build on.
+- IntenseDebate: no fetched page states a free plan or any pricing.
+- Pantheon: sandbox sites only; going live needs a paid plan.
+- Clever Cloud: only a platform-wide sign-up credit, amount not stated.
+- Flightcontrol: replaced by Ravion (a possible candidate).
+- Ampt: the free Preview tier names its quotas but publishes no numbers.
+- Bonsai: paid only, from $15 a month.
+- IFTTT: consumer automation; webhooks and developer tools are paid.
+- Whimsical: the vendor calls the free plan "For evaluating Whimsical"; exports are watermarked.
+- Cloudcraft: free only inside a Datadog subscription.
+
+Open items:
+1. Card rule mismatch, found in wave 2: the AWS Free Tier FAQ fetched on 2026-10-11 says "A payment
+   method isn't required to sign up for most new customers", so the six new AWS entries say
+   `requiresCard: false`, while eight older AWS entries (lambda, dynamodb, sns, sqs, cloudwatch,
+   codebuild, codepipeline, aws-cognito) still say `true`. IBM is the reverse: the new IBM entries
+   cite IBM's account docs ("you provide your credit card information") for `true`, while
+   `ibm-cloudant`, `ibm-db2`, and `ibm-api-connect` say `false`. Recheck the older entries against
+   those pages.
+2. Owner review: Nominatim (a public OSM service whose policy limits who may point users at it; the
+   entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
+   until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
+   uses 500 and notes the conflict), 8base (pricing page footer says 2023).
+3. Size: `explorer.json` is 107.5 of 110 KB at 943 entries (about 0.11 KB per entry), so about 20
+   more fit. Raise the budget again or trim before the next additions.
+4. The candidate list is used up. What is left on free-for.dev is mostly utilities and very small
+   products. Possible later candidates named by vendors during the sweep: Ravion (Flightcontrol's
+   successor). Owner calls from wave 3: Tyk (a 48-hour trial only), UNPKG (its page never says
+   "free"; listed on the cdnjs precedent), No-IP (leans toward consumer remote access).
+5. Final step, with the owner's yes: comparison tables. Wave 1 adds enough entries for no-code
+   databases and app builders, maps and geocoding, web analytics, and session replay; wave 2 adds
+   on-call and incident management, uptime monitoring, video and voice APIs, and image CDNs; wave 3
+   adds project management, DNS hosting and dynamic DNS, screenshot APIs, tunnels, and test
+   automation. Recheck each against the entries, not the subtype labels.
+6. E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
+   `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
 
 ## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),

@@ -1,0 +1,124 @@
+---
+title: AWS Glue Data Catalog
+description: >-
+  The AWS Glue Data Catalog stores table definitions and other metadata for
+  data in S3 and other sources. Athena and other AWS analytics services read
+  it to know how to query your files.
+provider: AWS
+category: analytics
+domain: analytics
+subtypes:
+  - data catalog
+  - metadata store
+audiences:
+  - startup
+  - team
+  - enterprise
+tags:
+  - glue
+  - data catalog
+  - metadata
+  - data lake
+  - athena
+  - aws
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The first million metadata objects stored and the first million metadata
+    requests each month are free.
+  limits:
+    - 1 million metadata objects stored
+    - 1 million metadata access requests per month
+    - Schema Registry is offered at no additional charge
+  caveats:
+    - Glue crawlers and ETL jobs are billed by the hour and are not part of the free amount
+    - Objects include tables, table versions, partitions, partition indexes, statistics, databases, and catalogs
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Objects past one million are billed $1.00 per 100,000 objects per month
+    - Running a crawler to fill the catalog is billed separately by the second
+useCases:
+  - Defining tables over CSV, JSON, or Parquet files in S3 for Athena
+  - A shared schema store for several AWS analytics services
+  - Keeping track of partitions in a small data lake
+quickstartSteps:
+  - Create an AWS account.
+  - In the AWS Glue console, create a database in the Data Catalog.
+  - Add a table by hand, or run a crawler (billed separately) to infer tables from your S3 data.
+  - Query the table from Amazon Athena.
+whenToUse: >-
+  Use it when you keep data files in S3 and want Athena or other AWS analytics
+  tools to query them through shared table definitions.
+whenNotToUse: >-
+  Skip it if your data is not on AWS, or if you expect the free amount to cover
+  crawlers and ETL jobs, which bill by the hour.
+bestFor:
+  - S3 data lakes
+  - shared table metadata for Athena
+avoidIf:
+  - data outside AWS
+  - expecting free ETL jobs or crawlers
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://aws.amazon.com/glue/'
+docsUrl: 'https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html'
+sourceUrls:
+  - 'https://aws.amazon.com/glue/pricing/'
+  - 'https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+pricingUrl: 'https://aws.amazon.com/glue/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+The Data Catalog is the metadata store inside AWS Glue. It holds databases, tables, and partitions that describe where your data lives and what its columns are, and Amazon Athena and other AWS services read those definitions to query the data. It suits developers who keep data files in S3 and want to query them with SQL.
+
+## What the free plan gives you
+
+You can store up to a million metadata objects in the Data Catalog for free. A metadata object is a table, table version, partition, partition index, statistics, database, or catalog. The first million metadata access requests each month are also free; common requests include CreateTable, CreatePartition, GetTable, and GetPartitions.
+
+The pricing page example: if you store a million metadata objects and make 1 million metadata requests in a month, you pay $0, because the Data Catalog free tier covers that usage. Usage of the AWS Glue Schema Registry is offered at no additional charge.
+
+## When you hit a limit
+
+Nothing stops the catalog at the free amounts. Past a million objects stored, you pay $1.00 per 100,000 objects per month. Past a million requests in a month, you pay $1.00 per million requests.
+
+Other parts of Glue are billed from the first second. Crawlers and ETL jobs are billed at an hourly rate by the second, based on the Data Processing Units they use, and Spark jobs need a minimum of 2 DPUs.
+
+## Gotchas
+
+- Every table version and partition counts as an object, so a table with many partitions uses the free million faster than the table count suggests.
+- Filling the catalog with a crawler is convenient but billed; you can add tables by hand or through the API instead.
+- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+
+## Alternatives in this atlas
+
+- [BigQuery](/services/bigquery/): when you want a serverless SQL warehouse on Google Cloud instead of tables over S3 files.
+- [MotherDuck](/services/motherduck/): when you want to query files with DuckDB in a hosted service.
+- [Microsoft Purview](/services/azure-purview/): when you need a data catalog and governance on Azure.
+
+## Questions people ask
+
+### Is the AWS Glue Data Catalog free?
+
+Within limits. The first million objects stored and the first million requests each month are free.
+
+### Are Glue crawlers free?
+
+No. Crawlers are billed at an hourly rate, by the second, and are not part of the Data Catalog free amount.
+
+### What counts as a metadata object?
+
+A table, table version, partition, partition index, statistics, database, or catalog each counts as one object.

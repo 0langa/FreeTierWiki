@@ -1,0 +1,131 @@
+---
+title: Amazon CloudFront
+description: >-
+  Amazon CloudFront is AWS's content delivery network. It caches and serves
+  your site, files, and APIs from edge locations near your visitors, with
+  DDoS protection built in.
+provider: AWS
+category: networking
+domain: networking
+subtypes:
+  - CDN
+  - edge network
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - cloudfront
+  - cdn
+  - aws
+  - edge
+  - ddos protection
+  - static hosting
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    A $0/month flat-rate Free plan with 1M requests, 100GB of data transfer,
+    and 5GB of S3 storage credit, or pay-as-you-go with an Always Free 1 TB of
+    data transfer out and 10 million requests each month.
+  limits:
+    - 'Free plan: 1M requests and 100GB data transfer per month'
+    - 'Free plan: 5GB of included S3 storage'
+    - 'Pay-as-you-go Always Free: 1 TB data transfer out per month'
+    - 'Pay-as-you-go Always Free: 10,000,000 HTTP or HTTPS requests per month'
+    - '2,000,000 CloudFront Function invocations per month'
+    - Up to 3 Free plans per AWS account
+  caveats:
+    - Flat-rate plans have no overage charges, but delivery might be adjusted if you keep exceeding the allowance
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - Pay-as-you-go usage past the Always Free amounts is billed per GB and per request
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - On the flat-rate Free plan there are no overage charges, even during traffic spikes or attacks
+    - On pay-as-you-go pricing, data transfer and requests past the Always Free amounts are billed
+useCases:
+  - Serving a static site or single-page app from S3 with HTTPS
+  - Caching images, scripts, and downloads near users
+  - Putting DDoS protection and a WAF in front of an API
+quickstartSteps:
+  - Create an AWS account.
+  - Open the CloudFront console and create a distribution that points at your origin, such as an S3 bucket or a public URL.
+  - Pick the $0/month Free plan for the distribution, or keep pay-as-you-go pricing.
+  - Point your domain or app at the distribution's domain name.
+whenToUse: >-
+  Use CloudFront when your app or files already live on AWS, or when you want
+  a CDN with DDoS protection and a monthly price that does not bill overages.
+whenNotToUse: >-
+  Skip it if you want a CDN set up without an AWS account, or if a busy site
+  would keep exceeding the Free plan allowance month after month.
+bestFor:
+  - static sites on S3
+  - CDN in front of AWS apps
+  - predictable CDN cost
+avoidIf:
+  - you do not want an AWS account
+  - your traffic is far above the Free plan allowance
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 8
+usefulnessScore: 8
+officialUrl: 'https://aws.amazon.com/cloudfront/'
+docsUrl: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html'
+sourceUrls:
+  - 'https://aws.amazon.com/cloudfront/pricing/'
+  - 'https://aws.amazon.com/cloudfront/pricing/pay-as-you-go/'
+  - 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/flat-rate-pricing-plan.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+  - 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html'
+pricingUrl: 'https://aws.amazon.com/cloudfront/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+CloudFront is the CDN inside AWS. You create a distribution in front of an origin, such as an S3 bucket, a load balancer, or any public URL, and CloudFront serves it from edge locations near your visitors. It suits developers who host on AWS and want caching, HTTPS, and DDoS protection in one place.
+
+## What the free plan gives you
+
+There are two ways to use CloudFront for free. The first is the flat-rate Free plan at $0/month per distribution. It includes 1M requests and 100GB of data transfer each month, 5GB of S3 storage, always-on DDoS protection, a TLS certificate, DNS, and serverless edge compute. You can have up to 3 Free plans per AWS account.
+
+The second is pay-as-you-go pricing with the Always Free tier: 1 TB of data transfer out to the internet, 10,000,000 HTTP or HTTPS requests, 2,000,000 CloudFront Function invocations, and 2,000,000 KeyValueStore reads each month, with free SSL certificates. Origin fetches from AWS origins such as S3 are free.
+
+## When you hit a limit
+
+On the flat-rate Free plan you are not charged overages, however much you exceed the allowance. AWS sends notifications as you approach and pass it. Your first traffic spike up to 3x the allowance does not affect service that month. If you keep exceeding it without upgrading, traffic delivery might be adjusted, for example served from fewer edge locations.
+
+On pay-as-you-go pricing nothing stops at the Always Free amounts. Data transfer and requests past them are billed at the listed rates per GB and per request.
+
+## Gotchas
+
+- A new AWS account on the Free plan closes after 6 months or when its credits run out. Upgrade to a Paid plan to keep using CloudFront after that.
+- You cannot delete a distribution that is on a pricing plan until you cancel the plan. Free plans cancel immediately.
+- Each distribution has its own plan, so a second site needs a second Free plan.
+
+## Alternatives in this atlas
+
+- [Cloudflare](/services/cloudflare/): when you want a CDN and DNS without an AWS account.
+- [CacheFly](/services/cachefly/): when you want a standalone CDN that is not tied to a cloud provider.
+
+## Questions people ask
+
+### Is Amazon CloudFront free?
+
+Yes, within limits. The flat-rate Free plan costs $0/month with 1M requests and 100GB of data transfer, and pay-as-you-go includes an Always Free 1 TB of data transfer out each month.
+
+### Will I be charged if my site goes viral on the Free plan?
+
+No. Flat-rate plans have no overage charges, though sustained use far above the allowance can lead AWS to adjust delivery.
+
+### Do I need a credit card for AWS?
+
+AWS says a payment method is not required to sign up for most new customers. In some cases it may ask for one to verify your identity.

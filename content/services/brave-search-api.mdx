@@ -1,0 +1,117 @@
+---
+title: Brave Search API
+description: >-
+  The Brave Search API returns web search results from Brave's own index, for
+  apps and AI agents. Each plan includes $5 in free credits every month.
+provider: Brave
+category: apis
+domain: apis
+subtypes:
+  - search API
+  - web search
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - search api
+  - web search
+  - ai agents
+  - rag
+  - llm grounding
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    $5 in free credits every month, applied automatically. At $5 per 1,000
+    Search requests, that covers about 1,000 requests a month.
+  limits:
+    - $5 in free credits every month
+    - Search at $5 per 1,000 requests, up to 50 queries per second
+    - Answers at $4 per 1,000 requests plus $5 per million tokens, up to 2 queries per second
+  caveats:
+    - A credit card is required to subscribe, even to a free plan
+    - Brave says the card on a free plan is only used to confirm identity and will not be charged
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: credit
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - The pricing page does not say whether usage past the monthly credit is billed or blocked
+useCases:
+  - Giving an AI agent or chatbot live web search
+  - Grounding LLM answers with citations
+  - Adding web results to a search feature
+quickstartSteps:
+  - Sign up for the Brave Search API and add a credit card, which Brave uses to confirm identity.
+  - Create an API key in the dashboard.
+  - Call the web search endpoint and track spend against the $5 monthly credit.
+whenToUse: >-
+  Use the Brave Search API when an app or agent needs web search results from
+  an independent index and about a thousand searches a month is enough.
+whenNotToUse: >-
+  Avoid it if you cannot put a card on file, or if your agent may loop on
+  searches without a spending guard.
+bestFor:
+  - AI agent web search
+  - LLM grounding
+avoidIf:
+  - no credit card available
+  - unbounded automated searches
+difficulty: beginner
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://brave.com/search/api/'
+docsUrl: 'https://api-dashboard.search.brave.com/app/documentation'
+sourceUrls:
+  - 'https://brave.com/search/api/'
+pricingUrl: 'https://brave.com/search/api/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+The Brave Search API gives developers results from Brave's own web index, the same index behind Brave Search. Apps use it for traditional search features, AI search, and agents that need fresh web data. Brave says its index holds 40+ billion pages and gets 100+ million page updates every day.
+
+## What the free plan gives you
+
+Each plan on the pricing page includes $5 in free credits every month, applied to your account automatically. The Search plan costs $5 per 1,000 requests, so the credit covers about 1,000 searches a month. It returns full results with URLs, text, news, and images, extra LLM context, up to five snippets per result, Goggles for custom re-ranking, and capacity of 50 queries per second.
+
+The Answers plan costs $4 per 1,000 requests plus $5 per million input and output tokens, with capacity of 2 queries per second. It returns answers grounded on one or more searches with citations, supports streaming, and is OpenAI SDK compatible. The same $5 monthly credit applies, but tokens make each answer cost more than a plain search.
+
+## When you hit a limit
+
+The pricing page does not say whether requests past the $5 monthly credit are blocked or billed to your card. The rate caps are fixed per plan: 50 queries per second for Search and 2 for Answers.
+
+Because a card is on file, treat usage past the credit as possibly billable and keep an eye on spend in the dashboard.
+
+## Gotchas
+
+- You must add a credit card even for the free plan. Brave says it is an anti-fraud measure and that a free plan's card is only used to confirm your identity and will not be charged.
+- Answers requests use the credit faster than Search requests because tokens are billed on top.
+- An agent that retries or searches in a loop can use a month's credit in minutes.
+
+## Alternatives in this atlas
+
+- [Tavily AI](/services/tavily-ai/): when you want a search API built around AI agents and RAG.
+- [Exa](/services/exa/): when you want neural search over the web for LLM apps.
+- [SerpApi](/tools/serpapi/): when you need results scraped from Google and other engines.
+
+## Questions people ask
+
+### Is the Brave Search API free?
+
+Each plan includes $5 in free credits every month. On the Search plan that is about 1,000 requests.
+
+### Why does Brave ask for a credit card?
+
+As an anti-fraud measure. Brave says the card on a free plan only confirms your identity and will not be charged.
+
+### How fast can I send requests?
+
+Up to 50 queries per second on Search and 2 queries per second on Answers.

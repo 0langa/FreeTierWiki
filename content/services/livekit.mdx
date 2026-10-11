@@ -1,0 +1,128 @@
+---
+title: LiveKit Cloud
+description: >-
+  LiveKit Cloud is a hosted WebRTC network for voice and video calls and voice
+  AI agents. The free Build plan includes monthly minutes and stops at its
+  limits instead of billing.
+provider: LiveKit
+category: messaging
+domain: messaging
+subtypes:
+  - WebRTC
+  - voice and video calls
+  - voice AI agents
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - livekit
+  - webrtc
+  - video-calls
+  - voice-agents
+  - sfu
+  - realtime
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Build plan costs $0 a month and needs no credit card. Each month it
+    includes 5,000 WebRTC minutes, 50GB of downstream data transfer, and 1,000
+    agent session minutes, and the allowance is a hard cap.
+  limits:
+    - '5,000 WebRTC minutes per month'
+    - 100 concurrent connections
+    - 50GB downstream data transfer per month
+    - '1,000 agent session minutes per month and 5 concurrent agent sessions'
+    - $2.50 in LiveKit Inference credits
+  caveats:
+    - All of your free projects share one set of allowances
+    - Allowances reset on the first day of each calendar month and do not roll over
+    - Build has community support only
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - On the Build plan new requests fail once an allowance is used up; there are no overage charges
+useCases:
+  - Group video or voice calls inside a web or mobile app
+  - A voice AI agent that talks to users over WebRTC or a phone number
+  - Prototyping a live audio room before choosing a paid plan
+quickstartSteps:
+  - Sign up for LiveKit Cloud on the Build plan; the pricing page says no credit card is required.
+  - Create a project and find its Project URL on the Project Settings page.
+  - Create an access token for each participant; it encodes the room name, identity, and permissions.
+  - Connect a client SDK to the project URL with the token to join the room.
+whenToUse: >-
+  Use LiveKit Cloud when you want a WebRTC backend for calls or voice agents
+  without running media servers, and a free plan that stops instead of billing.
+whenNotToUse: >-
+  Avoid the free plan for a live product with more than 100 people connected at
+  once, or when traffic could run past the monthly minutes mid-month.
+bestFor:
+  - voice AI agent prototypes
+  - small group calls
+avoidIf:
+  - you need email support on the free plan
+  - you cannot accept calls failing at the cap
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 8
+officialUrl: 'https://livekit.io'
+docsUrl: 'https://docs.livekit.io'
+sourceUrls:
+  - 'https://livekit.io/pricing'
+  - 'https://livekit.com/pricing.md'
+  - 'https://docs.livekit.io/deploy/admin/quotas-and-limits/'
+pricingUrl: 'https://livekit.io/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+LiveKit Cloud is the hosted version of LiveKit, an open-source WebRTC media server. Your app connects users to rooms over WebRTC, and LiveKit routes the audio and video. It also hosts voice AI agents and can bridge phone calls into rooms.
+
+## What the free plan gives you
+
+The Build plan costs $0 a month, and the pricing page says no credit card is required. Each month it includes 5,000 WebRTC minutes, which is the time end users spend connected, with up to 100 concurrent connections and 50GB of downstream data transfer.
+
+For agents, Build includes 1,000 agent session minutes, 5 concurrent agent sessions, one agent deployment, and $2.50 in LiveKit Inference credits, which the page estimates at about 50 minutes. It also gives you 1 free US local phone number with 50 inbound minutes, 1,000 third-party SIP minutes, and 60 transcode minutes shared between stream import and recording.
+
+## When you hit a limit
+
+LiveKit's quota docs say that on the free Build plan the included allowance acts as a hard cap: after you exceed it, new requests fail rather than incurring overage charges. Allowances reset on the first day of each calendar month and do not roll over.
+
+Concurrency limits work the same way at any moment: once 100 users are connected, new connections fail until someone leaves. The Ship plan costs $50 a month, includes 150,000 WebRTC minutes, and bills $0.0005 per minute past that.
+
+## Gotchas
+
+- All of your free projects share one set of allowances, so creating more projects does not add minutes.
+- Self-hosted agents that connect to LiveKit Cloud count against WebRTC participant minutes.
+- Build has community support only; email support starts on Ship.
+
+## Alternatives in this atlas
+
+- [Daily](/services/daily/): when you want more free participant minutes each month and pay-as-you-go past them.
+- [Agora](/services/agora/): when you want a large free minute allowance across voice, video, and live streaming.
+- [Tencent RTC](/services/trtc-tencent-rtc/): when you also want in-app chat from the same provider.
+
+## Questions people ask
+
+### Is LiveKit Cloud free?
+
+Yes, within limits. The Build plan costs $0 a month and includes 5,000 WebRTC minutes and 1,000 agent session minutes each month.
+
+### Will LiveKit charge me if I go over the free minutes?
+
+No. On the Build plan the allowance is a hard cap, so new requests fail instead of creating overage charges.
+
+### Do I need a credit card to start?
+
+No. The pricing page says the Build plan needs no credit card.

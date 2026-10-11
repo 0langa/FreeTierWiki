@@ -1,0 +1,122 @@
+---
+title: TinyPNG API
+description: >-
+  The TinyPNG Developer API from Tinify compresses, resizes, and converts AVIF,
+  WebP, JPEG, and PNG images. It includes 500 free compressions each month with
+  no payment method.
+provider: Tinify
+category: apis
+domain: apis
+subtypes:
+  - image compression
+  - image optimization
+audiences:
+  - student
+  - indie
+  - startup
+  - agency
+tags:
+  - tinypng
+  - tinify
+  - image-compression
+  - webp
+  - avif
+  - api
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Developer API includes 500 free compressions each month, and the
+    developers page says no payment method is required. You sign up with a name
+    and email address to get an API key.
+  limits:
+    - 500 compressions per month
+    - Resizing and converting each count as one additional compression
+  caveats:
+    - Preserving metadata does not count as an extra compression
+    - The developers page does not list the price past 500 compressions
+    - The page does not say what happens at 500 compressions
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+  billingRiskNotes:
+    - No payment method is required for the free compressions, so the free tier alone cannot create charges
+useCases:
+  - Compressing images on upload in a web app
+  - A build step that shrinks site images before deploy
+  - Converting images to WebP or AVIF in a script
+quickstartSteps:
+  - Enter your name and email address on the TinyPNG developers page to request an API key.
+  - Click the button in the activation email to open the API dashboard and copy your key.
+  - Install an official client library, such as the Node.js or Python one, or send an image to the shrink endpoint with HTTP Basic Auth.
+whenToUse: >-
+  Use the TinyPNG API when you compress a few hundred images a month from code
+  and want a simple API with client libraries.
+whenNotToUse: >-
+  Avoid relying on the free tier for a site that uploads many images a month,
+  especially if you also resize or convert each one.
+bestFor:
+  - small image compression jobs
+  - build scripts
+avoidIf:
+  - you process thousands of images a month for free
+  - you want images served from a CDN
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://tinypng.com/developers'
+docsUrl: 'https://tinypng.com/developers/reference'
+sourceUrls:
+  - 'https://tinypng.com/developers'
+  - 'https://tinypng.com/developers/reference'
+pricingUrl: 'https://tinypng.com/developers'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+The TinyPNG Developer API, run by Tinify, compresses images from your server. You send an image, the API compresses it, and it responds with a URL where you can download the result. It can also resize, convert between AVIF, WebP, JPEG, and PNG, and store results in Amazon S3.
+
+## What the free plan gives you
+
+The developers page offers 500 free compressions each month and says no payment method is required. You register with your name and email address, click the button in the activation email, and find your API key in the API dashboard.
+
+Official client libraries are available for Ruby, PHP, Node.js, Python, Java, and .NET, and any HTTPS client works too. You can create several API keys in the dashboard to track compressions separately for each site or app. Each response carries a Compression-Count header so you can see how many you have used.
+
+## When you hit a limit
+
+The developers page does not say what happens when you reach 500 compressions in a month or what extra compressions cost. Since no payment method is needed for the free tier, the free account by itself cannot run up charges.
+
+Plan for how operations are counted. Resizing counts as one additional compression, and so does converting. The API reference gives an example: uploading one image and retrieving the optimized version plus 2 resized versions counts as 3 compressions.
+
+## Gotchas
+
+- Each resize or format conversion uses another compression, so the 500 go faster than the number of images suggests.
+- Requests are rate limited; on a rate limit error the reference says to add some delay between requests.
+- The API key is the only credential, sent with HTTP Basic Auth, so keep it on your server.
+
+## Alternatives in this atlas
+
+- [Kraken.io](/services/kraken-io/): when you want a free testing quota measured in megabytes instead of a count of images.
+- [Cloudflare Images](/services/cloudflare-images/): when you want images optimized on delivery instead of before upload.
+- [ImageKit](/services/imagekit/): when you want an image CDN that compresses and resizes on the fly.
+
+## Questions people ask
+
+### How many free compressions does the TinyPNG API give?
+
+500 free compressions each month, with no payment method required.
+
+### Does resizing count as a compression?
+
+Yes. Resizing counts as one additional compression, and converting the format counts as one more.
+
+### Which languages have official clients?
+
+Ruby, PHP, Node.js, Python, Java, and .NET, and you can call the API from any HTTPS client.

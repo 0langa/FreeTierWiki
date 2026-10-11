@@ -1,0 +1,129 @@
+---
+title: Cloudflare Workflows
+description: >-
+  Cloudflare Workflows runs durable, multi-step processes on Cloudflare
+  Workers. Each step is retried on failure, and a workflow can sleep for days
+  or wait for events without using CPU time.
+provider: Cloudflare
+category: compute
+domain: compute
+subtypes:
+  - durable execution
+  - workflow engine
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - cloudflare
+  - workflows
+  - durable execution
+  - workers
+  - background jobs
+  - serverless
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Included in the Workers Free plan: 100,000 requests per day shared with
+    Workers, 3,000 steps per day, 1 GB-month of storage, and 10 milliseconds
+    of CPU time per invocation.
+  limits:
+    - '100,000 requests per day, shared with Workers requests'
+    - '3,000 steps per day'
+    - 1 GB-month of storage
+    - 10 ms CPU time per invocation
+    - '1,024 steps per Workflow and 100 concurrent instances'
+  caveats:
+    - Billing for steps and storage applies starting August 10th, 2026
+    - Instance state is kept for 3 days on the Free plan by default
+    - An instance that tries to store state past the Free plan storage limit throws an error
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The Free plan has fixed limits; billing for extra usage applies only on Workers Paid
+useCases:
+  - Sign-up or order flows with several API calls and retries
+  - Waiting hours or days for an approval before continuing
+  - Processing a file in steps that each resume after a failure
+quickstartSteps:
+  - Create a new Worker project with npm create cloudflare.
+  - Write your Workflow as a class that extends WorkflowEntrypoint, with its steps in the run method.
+  - Configure the Workflow in your Wrangler configuration, develop locally, and deploy.
+  - Trigger an instance from the Workers API, the Wrangler CLI, or the REST API.
+whenToUse: >-
+  Use Workflows when you already build on Cloudflare Workers and need a
+  process with retries and waits that survives failures.
+whenNotToUse: >-
+  Skip it if each step needs much CPU on the Free plan, which allows 10
+  milliseconds per invocation, or if you need more than 3,000 steps a day
+  without paying.
+bestFor:
+  - durable multi-step jobs on Workers
+  - long waits and retries
+avoidIf:
+  - CPU-heavy steps on the Free plan
+  - very high step counts for free
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://developers.cloudflare.com/workflows/'
+docsUrl: 'https://developers.cloudflare.com/workflows/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/workflows/reference/pricing/'
+  - 'https://developers.cloudflare.com/workflows/reference/limits/'
+  - 'https://developers.cloudflare.com/workflows/'
+  - 'https://developers.cloudflare.com/workflows/get-started/guide/'
+pricingUrl: 'https://developers.cloudflare.com/workflows/reference/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Workflows lets you write a multi-step process as code in a Cloudflare Worker. Each step runs and is retried on its own, state is saved between steps, and a workflow can sleep or wait on an API response without using CPU time. It suits developers on Cloudflare who need background processes that pick up where they left off after a failure.
+
+## What the free plan gives you
+
+Workflows is included in both the Free and Paid Workers plans. On Workers Free you get 100,000 requests per day, shared with Workers requests, 10 milliseconds of CPU time per invocation, 1 GB-month of storage, and 3,000 steps per day. Billing for steps and storage applies starting August 10th, 2026.
+
+The Free plan allows up to 1,024 steps per Workflow, 100 concurrent instances per account, and 100MB of persisted state per instance. A step.sleep can last up to 365 days, and instance state is retained for 3 days by default.
+
+## When you hit a limit
+
+The Free plan has fixed limits rather than overage charges. An instance that attempts to store state when you have reached the Free plan storage limit throws an error. Deleting instances frees storage, though it may take a few minutes for the limit to update.
+
+On Workers Paid, the plan includes 10 million requests and 30 million CPU milliseconds per month, 1 GB-month of storage, and 500,000 steps. Extra steps cost $0.80 per 100,000, and extra storage $0.20 per GB-month.
+
+## Gotchas
+
+- Storage counts running, errored, sleeping, and completed instances, so set a shorter retention period if you do not need old state.
+- Waiting on a response or sleeping uses no CPU time, but each step still counts toward the 3,000 per day.
+- Workflows cannot be deployed to Workers for Platforms namespaces.
+
+## Alternatives in this atlas
+
+- [Inngest](/services/inngest/): when you want durable step functions in your own code on any host.
+- [Trigger.dev](/services/trigger-dev/): when you want background jobs and workflows written in TypeScript.
+- [Hatchet](/services/hatchet/): when you want a task queue and workflow engine you can also self-host.
+
+## Questions people ask
+
+### Are Cloudflare Workflows free?
+
+Yes, on the Workers Free plan, with 3,000 steps per day, 1 GB-month of storage, and 100,000 requests per day shared with Workers.
+
+### What happens when a Workflow runs out of storage on the Free plan?
+
+An instance that tries to store state past the Free plan storage limit throws an error. Deleting instances frees up storage.
+
+### Does a sleeping Workflow use CPU time?
+
+No. A Workflow that is waiting on an API response, paused by step.sleep, or otherwise idle does not incur CPU time.

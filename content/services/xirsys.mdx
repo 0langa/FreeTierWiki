@@ -1,0 +1,122 @@
+---
+title: Xirsys
+description: >-
+  Xirsys is a hosted STUN and TURN service for WebRTC NAT traversal. The free
+  Developer account starts with a 30-day production trial, then keeps 500 MB of
+  TURN a month with a hard cap.
+provider: Xirsys
+category: messaging
+domain: messaging
+subtypes:
+  - TURN server
+  - WebRTC
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - xirsys
+  - turn
+  - stun
+  - webrtc
+  - nat-traversal
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The free Developer account never expires. For the first 30 days it has all
+    12 regions; after that it keeps one testing region, 2 channels, unlimited
+    STUN, and 500 MB of TURN a month, with a hard cap.
+  limits:
+    - 500 MB of TURN per month after day 30
+    - 1 testing region after day 30
+    - 2 channels for usage reports
+    - Unlimited STUN
+  caveats:
+    - The first 30 days are a production trial with all 12 regions and user-geo routing
+    - Xirsys calls the post-trial limits testing limits
+    - Static TURN credentials come with paid plans after the trial
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - On the free account the TURN relay stops at 500 MB until the monthly reset; there is no overage
+useCases:
+  - A TURN relay while developing a WebRTC app
+  - Testing calls between users behind strict NATs or firewalls
+  - A STUN server for peer-to-peer connections
+quickstartSteps:
+  - Choose Start Free Trial or Sign Up Free on the Xirsys pricing page to open a free Developer account.
+  - Follow the Quick Start in the docs to create a channel and set up a secure backend.
+  - Have your backend request TURN (ICE) servers from the Xirsys API, then test the channel.
+whenToUse: >-
+  Use Xirsys when you need TURN and STUN for WebRTC testing and want the relay
+  to stop at the free limit rather than bill you.
+whenNotToUse: >-
+  Avoid the free account for a live app with real users, since 500 MB of TURN
+  a month and one region are meant for testing.
+bestFor:
+  - WebRTC development and testing
+  - prototypes that need a TURN relay
+avoidIf:
+  - you serve users in many regions
+  - your relay traffic is more than a few hundred megabytes a month
+difficulty: intermediate
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://xirsys.com'
+docsUrl: 'https://docs.xirsys.com'
+sourceUrls:
+  - 'https://xirsys.com/pricing/'
+pricingUrl: 'https://xirsys.com/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Xirsys runs STUN and TURN servers for WebRTC. STUN helps peers find each other, and TURN relays media when two endpoints cannot connect directly. Xirsys bills for TURN bandwidth, not for minutes or sessions.
+
+## What the free plan gives you
+
+The free Developer account starts with every production feature for the first 30 days: all 12 regions, user-geo routing, static credentials, and up to 2 channels. Channels separate apps, environments, or customers for usage reports.
+
+After day 30 the account stays active, and Xirsys says it never expires. It drops to testing limits: one region, 2 channels, unlimited STUN, and 500 MB of TURN a month. Xirsys describes this free tier as great for testing and prototypes. Direct peer-to-peer traffic and STUN do not count toward the TURN allowance.
+
+## When you hit a limit
+
+The pricing page says the 500 MB of monthly TURN on the free account is a hard cap: the relay stops until the monthly reset. STUN stays unlimited, so peers that can connect directly are not affected by the TURN cap.
+
+Production plans remove the hard cap and bill per-GB overage instead. The smallest costs $39 a month, includes 50 GB of monthly TURN bandwidth with $0.50 per GB over, and adds all 12 regions, 10 channels, and a 99.99% uptime SLA.
+
+## Gotchas
+
+- The first month looks like a production plan; plan for the drop to one region and 500 MB when the trial ends.
+- Video relayed through TURN uses the 500 MB quickly, so the free tier suits short test calls, not real usage.
+- The 2-channel cap applies during and after the trial.
+
+## Alternatives in this atlas
+
+- [Metered TURN](/services/metered-turn/): when you want a free Open Relay TURN server with a larger monthly allowance.
+- [Cloudflare Realtime](/services/cloudflare-realtime/): when you want a large free monthly TURN allowance on a pay-per-GB service.
+- [LiveKit Cloud](/services/livekit/): when you want a hosted WebRTC backend rather than only a relay.
+
+## Questions people ask
+
+### Is Xirsys free?
+
+Yes. The Developer account is free forever, with 500 MB of TURN a month after a 30-day production trial.
+
+### What happens when I use the free TURN allowance?
+
+The relay stops until the monthly reset. The free account has a hard cap and no overage.
+
+### Does STUN count toward the free limit?
+
+No. The free account includes unlimited STUN; the 500 MB limit applies to TURN relay traffic.

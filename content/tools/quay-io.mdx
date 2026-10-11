@@ -1,0 +1,120 @@
+---
+title: Quay.io
+description: >-
+  Quay.io is a hosted container image registry that can also build images from
+  Git pushes. Public repositories are free with unlimited storage and serving;
+  private repositories are paid after a 30-day trial.
+provider: Red Hat
+category: devops
+domain: devops
+subtypes:
+  - container registry
+  - image builds
+audiences:
+  - indie
+  - startup
+  - team
+  - oss
+tags:
+  - quay
+  - container registry
+  - docker images
+  - oci
+  - image builds
+  - red hat
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Public repositories are free, with unlimited storage and serving.
+    Private repositories need a paid plan, starting at $15 a month for 5, and
+    paid plans begin with a 30-day free trial.
+  limits:
+    - Unlimited public repositories
+    - Unlimited storage and serving for public repositories
+    - No private repositories without a paid plan
+  caveats:
+    - Paid plans are priced by the number of private repositories
+    - Payment for paid plans is by card through Stripe
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+  billingRiskNotes:
+    - Public repositories have no charges on the plans page; costs start only with a private repository plan
+useCases:
+  - Publishing an open source project's container images
+  - Building images automatically on each Git commit
+  - Giving a CI pipeline a robot account to push images
+quickstartSteps:
+  - Create a Quay.io account and a public repository.
+  - Log in with Docker, tag an image with the quay.io repository name, and push it.
+  - Optionally connect GitHub, Bitbucket, or GitLab so Quay builds the image on each commit.
+whenToUse: >-
+  Use Quay.io to host public container images for an open source project,
+  with free storage and serving and optional builds from Git.
+whenNotToUse: >-
+  Avoid it if you need private images for free, since every private
+  repository plan is paid.
+bestFor:
+  - public images for open source projects
+  - image builds from Git commits
+avoidIf:
+  - you need free private repositories
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://quay.io'
+docsUrl: 'https://docs.quay.io'
+sourceUrls:
+  - 'https://quay.io/plans/'
+pricingUrl: 'https://quay.io/plans/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Quay.io is a hosted registry for container images. You push images to it with Docker or another OCI client, or let it build them on each commit from GitHub, Bitbucket, GitLab, or a self-hosted Git server. Teams, robot accounts, and audit logs control who can push and pull. Red Hat also sells Quay for self-hosting.
+
+## What the free plan gives you
+
+There is no named free plan, but the plans page FAQ answers the question directly: you can use Quay for free, with unlimited storage and serving of public repositories. A public repository gets a public download page for your container, and the page calls public repositories free.
+
+The plans page says all plans include continuous integration builds from Git pushes, robot accounts for automated deployments, teams, SSL encryption between Quay and your servers, and logging and auditing of API and UI actions. The page does not say which of these apply to an account with only public repositories.
+
+## When you hit a limit
+
+Public repositories have no stated limits, so the boundary is privacy rather than usage. A private repository needs a paid plan: Developer is $15 a month for 5 private repositories, Micro is $30 for 10, and Small is $60 for 20, all with unlimited public repositories. Larger plans run up to thousands of private repositories.
+
+Your first 30 days on a paid plan are free. You can change plans at any time and the account is pro-rated for the difference. The plans page does not say what happens to private repositories if a trial ends without payment.
+
+## Gotchas
+
+- Anything in a public repository can be pulled by anyone, so check images for secrets before pushing.
+- Private repositories are never free, even one, so a small private project starts at the Developer plan.
+- Paid plans count private repositories, not users or storage, so splitting images across many repositories raises the bill.
+
+## Alternatives in this atlas
+
+- [Docker Hub](/tools/docker-hub/): when you want the default registry most tools pull from.
+- [DigitalOcean Container Registry](/services/digitalocean-container-registry/): when you deploy to DigitalOcean and want a registry next to it.
+- [Artifact Registry](/services/artifact-registry/): when you deploy on Google Cloud.
+
+## Questions people ask
+
+### Is Quay.io free?
+
+Yes, for public repositories. Quay offers unlimited storage and serving of public repositories at no cost.
+
+### Can I have a private repository on Quay.io for free?
+
+No. Private repositories need a paid plan, starting with Developer at $15 a month for 5 private repositories, after a 30-day free trial.
+
+### Can Quay.io build my images?
+
+Yes. The plans page says Quay can build containers on each commit, with GitHub, Bitbucket, GitLab, and self-hosted Git repositories supported.

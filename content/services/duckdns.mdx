@@ -1,0 +1,120 @@
+---
+title: Duck DNS
+description: >-
+  Duck DNS is a free dynamic DNS service that points a subdomain of
+  duckdns.org at your changing IP address. You update it with one HTTPS
+  request and a token.
+provider: Duck DNS
+category: networking
+domain: networking
+subtypes:
+  - dynamic dns
+  - free subdomain
+audiences:
+  - student
+  - indie
+  - oss
+tags:
+  - dynamic dns
+  - ddns
+  - free subdomain
+  - home server
+  - self-hosting
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    Duck DNS is free. It points subdomains of duckdns.org at an IP of your
+    choice, and you update them with an HTTPS request carrying your account
+    token. It is funded by its two developers and Patreon supporters.
+  limits:
+    - Subdomains of duckdns.org only
+    - Updates over HTTP or HTTPS with your token
+  caveats:
+    - The fetched pages do not state how many subdomains an account can have
+    - IPv6 addresses are not detected automatically; you pass them yourself
+    - Reverse DNS is not possible, since your ISP controls it
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Reaching a home server or Raspberry Pi whose IP address changes
+  - Giving a cloud server that changes IP on reboot a stable name
+  - Pointing your own domain at a home connection with a CNAME
+  - Updating DNS from a router that can only send simple HTTPS requests
+quickstartSteps:
+  - Sign in on duckdns.org and add a subdomain.
+  - Copy your account token.
+  - Schedule a request to www.duckdns.org/update with your domain and token; leave the ip parameter blank to use the address the request comes from.
+whenToUse: >-
+  Use Duck DNS when you need a free, stable hostname for a home server or a
+  machine whose IP address changes.
+whenNotToUse: >-
+  Avoid it if you need your own domain hosted directly, reverse DNS, or a
+  service with a support contract.
+bestFor:
+  - home servers
+  - Raspberry Pi projects
+  - self-hosting
+avoidIf:
+  - you need DNS for your own domain's apex
+  - you need an SLA
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 6
+officialUrl: 'https://www.duckdns.org/'
+docsUrl: 'https://www.duckdns.org/spec.jsp'
+sourceUrls:
+  - 'https://www.duckdns.org/'
+  - 'https://www.duckdns.org/faqs.jsp'
+  - 'https://www.duckdns.org/about.jsp'
+pricingUrl: 'https://www.duckdns.org/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Duck DNS is a free dynamic DNS service hosted on AWS. It gives you subdomains of duckdns.org and points them at an IP address of your choice, so a server whose address changes keeps an easy name.
+
+## What the free plan gives you
+
+There are no plans: the service is free. The FAQ says the team built a service it wanted for itself and aims to keep it free or as cheap as possible to cover running costs, with support from Patreon and donations. The team is two software engineers.
+
+You update a record with a single HTTP or HTTPS request that carries your domain and your account token. You can comma-separate several domains in one update, and if you leave the ip parameter blank, Duck DNS uses the address the request came from. There is also a short URL form for routers that can only send basic HTTPS GET requests. To use your own domain, you point it at your duckdns.org name with a CNAME.
+
+## When you hit a limit
+
+The fetched pages do not give a number of subdomains per account or a rate limit on updates, and they do not describe what happens if you update very often. The FAQ says Duck DNS will block, as much as it can, anyone who abuses the service, under its Terms of Use.
+
+Automatic detection works for IPv4 only. Because the service runs behind AWS load balancers that do not support IPv6 for its setup, you must pass an IPv6 address yourself if you want an AAAA record.
+
+## Gotchas
+
+- Your token is the only secret in the update URL, so keep it out of public scripts and recreate it from the Account page if it leaks.
+- Reverse lookups of your IP will not return your Duck DNS name; the FAQ says only your ISP can set that.
+- You can receive email on a Duck DNS name only if you run your own mail server; the MX record matches your A record.
+
+## Alternatives in this atlas
+
+- [dynv6](/services/dynv6/): when you want dynamic DNS with good IPv6 support and an API.
+- [No-IP](/services/no-ip/): when you want a dynamic DNS provider with paid upgrades and update clients.
+- [ngrok](/tools/ngrok/): when you want to expose a local service without opening ports on your router.
+
+## Questions people ask
+
+### Is Duck DNS free?
+
+Yes. Duck DNS is a free dynamic DNS service supported by Patreon and donations.
+
+### Can I use my own domain with Duck DNS?
+
+Yes, indirectly. At your domain provider you set a CNAME record that points to your duckdns.org name.
+
+### Does Duck DNS support IPv6?
+
+You can set an IPv6 address, but you have to send it yourself, because Duck DNS cannot detect it automatically.

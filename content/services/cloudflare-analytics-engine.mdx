@@ -1,0 +1,125 @@
+---
+title: Cloudflare Workers Analytics Engine
+description: >-
+  Workers Analytics Engine stores custom data points that your Cloudflare
+  Workers write, and lets you query them with SQL. It is built for
+  high-cardinality metrics such as per-customer usage.
+provider: Cloudflare
+category: analytics
+domain: analytics
+subtypes:
+  - time series analytics
+  - custom metrics
+audiences:
+  - indie
+  - startup
+  - team
+tags:
+  - cloudflare
+  - analytics engine
+  - time series
+  - sql
+  - metrics
+  - usage-based billing
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    On Workers Free, 100,000 data points written and 10,000 read queries
+    included per day. Cloudflare does not bill for Analytics Engine yet.
+  limits:
+    - '100,000 data points written per day'
+    - '10,000 read queries per day'
+    - Data is stored for three months
+    - 250 data points per Worker invocation
+  caveats:
+    - Cloudflare currently does not bill for Analytics Engine; the prices are published in advance
+    - The pricing page does not say what happens past the daily amounts on Workers Free
+    - Each data point can hold up to twenty blobs, twenty doubles, and one index
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+  billingRiskNotes:
+    - No charges today; on Workers Paid, published prices apply past the monthly included amounts once billing starts
+useCases:
+  - Recording API usage per customer for usage-based billing
+  - Showing customers their own analytics in your app
+  - Instrumenting a busy Worker without slowing it down
+quickstartSteps:
+  - Name your dataset and add it to your Worker as an Analytics Engine binding.
+  - Write data points from your Worker with writeDataPoint.
+  - Create an API token and query your data with the SQL API.
+  - Optionally query the same data from Grafana or from a Worker.
+whenToUse: >-
+  Use it when your app runs on Cloudflare Workers and you want custom metrics
+  per user or customer, queried with SQL, at no cost today.
+whenNotToUse: >-
+  Skip it if you need to keep raw data longer than three months, or if your
+  app does not run on Workers.
+bestFor:
+  - per-customer usage metrics
+  - analytics inside Workers apps
+avoidIf:
+  - long-term data retention
+  - apps outside Cloudflare Workers
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://developers.cloudflare.com/analytics/analytics-engine/'
+docsUrl: 'https://developers.cloudflare.com/analytics/analytics-engine/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/analytics/analytics-engine/pricing/'
+  - 'https://developers.cloudflare.com/analytics/analytics-engine/limits/'
+  - 'https://developers.cloudflare.com/analytics/analytics-engine/'
+  - 'https://developers.cloudflare.com/analytics/analytics-engine/get-started/'
+pricingUrl: 'https://developers.cloudflare.com/analytics/analytics-engine/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Workers Analytics Engine gives your Cloudflare Workers a built-in API to write data points and a SQL API to query them. Cloudflare describes it as unlimited-cardinality analytics at scale. It suits developers who want custom metrics per customer or per user, such as usage for billing, without running a time series database.
+
+## What the free plan gives you
+
+Analytics Engine is priced on two metrics: data points written and read queries. On Workers Free, 100,000 data points written and 10,000 read queries are included per day. Workers Paid includes 10 million data points and 1 million read queries per month.
+
+Right now you will not be billed for Analytics Engine at all. Cloudflare publishes the prices in advance so you can estimate costs once it starts billing in the coming months. Data you write is stored for three months, and you can query it from the SQL API, from Grafana, or from a Worker.
+
+## When you hit a limit
+
+The pricing page does not say what happens past the daily amounts on Workers Free. Billing has not started, so there is no charge today.
+
+Per-write limits are fixed. Each call to writeDataPoint takes up to twenty blobs, twenty doubles, and one index. The blobs in a data point must not exceed 16 KB in total, and each index must be 96 bytes or less. A Worker can write a maximum of 250 data points per invocation. Once billing starts, Workers Paid adds $0.25 per million extra data points written and $1.00 per million extra read queries.
+
+## Gotchas
+
+- Data is kept for three months, so export anything you need for longer.
+- Each call to writeDataPoint counts toward the 250 per invocation limit, so batch carefully in busy request handlers.
+- Pricing could change when billing starts, since the published prices are an advance notice.
+
+## Alternatives in this atlas
+
+- [Tinybird](/services/tinybird/): when you want SQL over event data published as API endpoints.
+- [Axiom](/services/axiom/): when you want to store and query events and logs from any platform.
+- [BigQuery](/services/bigquery/): when you need a full data warehouse with long retention.
+
+## Questions people ask
+
+### Is Workers Analytics Engine free?
+
+Yes, for now. Cloudflare does not bill for it yet, and Workers Free includes 100,000 data points written and 10,000 read queries per day.
+
+### How long is data kept?
+
+Data written to Workers Analytics Engine is stored for three months.
+
+### How many data points can one request write?
+
+A Worker can write up to 250 data points per invocation, and each data point can hold up to twenty blobs, twenty doubles, and one index.

@@ -96,6 +96,31 @@ export function toListItem(entry: AtlasEntry, now: Date): ListItem {
   };
 }
 
+/**
+ * A list row as shipped in explorer.json. `url` and `kind` are left out because the id carries both.
+ * The haystack leaves out every word that sits inside a longer haystack word or inside the title or
+ * provider: search matches words by substring, so those words never change what a query finds.
+ */
+export type ExplorerRow = Omit<ListItem, "url" | "kind">;
+
+export function toExplorerRow(item: ListItem): ExplorerRow {
+  const { url, kind, ...row } = item;
+  void url;
+  void kind;
+  const named = searchWords([item.title, item.provider]).split(" ");
+  const words = item.haystack.split(" ");
+  const pool = [...words, ...named];
+  const haystack = words.filter((word) => !pool.some((other) => other !== word && other.includes(word)) && !named.includes(word));
+  return { ...row, haystack: haystack.join(" ") };
+}
+
+/** Rebuilds `kind` and `url` from an id such as `services:neon`, and puts the title and provider back into the haystack. */
+export function fromExplorerRow(row: ExplorerRow): ListItem {
+  const [kind, slug] = row.id.split(":") as [ContentKind, string];
+  const haystack = [searchWords([row.title, row.provider]), row.haystack].filter(Boolean).join(" ");
+  return { ...row, kind, url: `/${kind}/${slug}/`, haystack };
+}
+
 /** Other live entries in the same category, safest first. Ended offers are never suggested. */
 export function relatedItems(entry: AtlasEntry, all: AtlasEntry[], now: Date, limit = 4): ListItem[] {
   return all

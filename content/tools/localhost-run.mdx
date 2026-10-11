@@ -1,0 +1,120 @@
+---
+title: localhost.run
+description: >-
+  localhost.run puts a local web app on the internet through a plain SSH
+  command, with no client to install. Its forever free tier gives free
+  domains, with no sign-up needed for short-lived tunnels.
+provider: localhost.run
+category: networking
+domain: networking
+subtypes:
+  - tunnels
+  - localhost sharing
+audiences:
+  - student
+  - indie
+tags:
+  - localhost-run
+  - tunnel
+  - localhost
+  - ssh tunnel
+  - webhooks
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The forever free plan needs no client download and no sign-up for
+    short-lived tunnels. Free domain names change regularly and there is a
+    speed limit.
+  limits:
+    - Free domain names change regularly
+    - Speed limit on free domains
+    - HTTP, HTTPS, and TLS apps
+  caveats:
+    - Signing up and adding an SSH key gives a free domain a longer life
+    - Stable custom domains need the paid custom domain plan
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+  billingRiskNotes:
+    - The free tier has no usage charges; the only paid plan is a custom domain subscription
+useCases:
+  - Sharing a web app running on your computer with a client
+  - Opening a local app on your phone or tablet
+  - Testing a webhook against a local server
+quickstartSteps:
+  - Start your web app on a local port.
+  - 'Run `ssh -R 80:localhost:8080 localhost.run`, replacing 8080 with your port.'
+  - Open the URL the command prints; sign up and add your SSH key if you want the free domain to last longer.
+whenToUse: >-
+  Use localhost.run when you need a public URL for a local app in seconds and
+  already have SSH, with no account or install.
+whenNotToUse: >-
+  Avoid the free tier when the URL must stay the same or transfers must be
+  fast, since free domains change and are speed limited.
+bestFor:
+  - instant localhost sharing over SSH
+  - no-install demos
+avoidIf:
+  - you need a stable URL for free
+  - you move large files through the tunnel
+difficulty: beginner
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://localhost.run'
+docsUrl: 'https://localhost.run/docs/'
+sourceUrls:
+  - 'https://localhost.run/'
+  - 'https://localhost.run/docs/'
+  - 'https://localhost.run/docs/forever-free/'
+pricingUrl: 'https://localhost.run/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+localhost.run is a tunneling service that uses the SSH client already on your computer. You run one ssh command, and it prints an internet address that forwards to an app on your machine, with TLS termination. Developers use it to show work to clients, open a local app on a phone, or test webhooks.
+
+## What the free plan gives you
+
+The home page says free domains will always be free, and the docs describe a forever free plan that needs no client download and no sign-up for short-lived tunnels. All major operating systems already have SSH, so you can start right away with a command such as ssh -R 80:localhost:8080 localhost.run, replacing the port with yours.
+
+The docs cover HTTP, HTTPS, and TLS apps. If you want a free domain name to last longer, the forever free page says to sign up at the admin console and add your SSH key. The site also suggests uses beyond web apps, such as giving a Raspberry Pi a home on the internet.
+
+## When you hit a limit
+
+The free tier has two stated limits: domain names change regularly, and there is a speed limit. The docs say these limits exist to stop phishing sites from establishing themselves on localhost.run domains. The pages do not give the speed limit as a number or say how often names change.
+
+These limits do not apply to the custom domain plans. Attaching your own domain, or a stable lhr.rocks one, is a subscription of $9 per month when billed annually.
+
+## Gotchas
+
+- Free domain names change regularly, so a webhook endpoint registered with a provider will stop matching.
+- The speed limit makes large downloads through a free tunnel slow, and the docs do not give a number.
+- SSH connections can drop on timeouts or routing changes; the FAQ suggests enabling SSH keepalives or wrapping the command in a loop.
+
+## Alternatives in this atlas
+
+- [ngrok](/tools/ngrok/): when you want a tunnel agent with request inspection and a free dev domain.
+- [Pinggy](/tools/pinggy/): when you want an SSH tunnel that also supports TCP and UDP.
+- [Tailscale](/services/tailscale/): when you want private access between your own devices instead of a public URL.
+
+## Questions people ask
+
+### Is localhost.run free?
+
+Yes. It has a forever free tier, and free domains will always be free.
+
+### Do I need an account for localhost.run?
+
+Not for short-lived tunnels. Signing up and adding an SSH key gives a free domain a longer life.
+
+### Why does my localhost.run URL keep changing?
+
+Free domain names change regularly by design, to stop phishing sites from settling on localhost.run domains. A custom domain plan gives a stable name.

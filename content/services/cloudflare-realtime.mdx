@@ -1,0 +1,124 @@
+---
+title: Cloudflare Realtime
+description: >-
+  Cloudflare Realtime runs a WebRTC SFU and a TURN service on Cloudflare's
+  network. The first 1,000 GB of egress each month is free, shared between
+  the SFU and TURN.
+provider: Cloudflare
+category: messaging
+domain: messaging
+subtypes:
+  - WebRTC
+  - TURN server
+  - SFU
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - cloudflare
+  - webrtc
+  - turn
+  - sfu
+  - realtime
+  - video-calls
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Realtime SFU and TURN service share 1,000 GB of free egress each month.
+    After that, egress costs $0.05 per GB. Traffic sent into Cloudflare is free.
+  limits:
+    - '1,000 GB of egress per month, shared by the SFU and TURN'
+    - Ingress traffic is free
+  caveats:
+    - SFU and TURN do not have separate free tiers
+    - RealtimeKit, the prebuilt meetings SDK, is billed per participant minute and has no free amount on its pricing page
+    - Workers, Durable Objects, and other services your app uses are billed separately
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Egress past 1,000 GB a month is billed at $0.05 per GB; the pricing page describes no stop
+useCases:
+  - A TURN relay for a WebRTC app whose users sit behind strict NATs or firewalls
+  - A selective forwarding unit for custom group calls or live audio
+  - Streaming media between browsers, devices, and AI pipelines
+quickstartSteps:
+  - Create a Cloudflare account; the get-started guide lists it as the main prerequisite.
+  - In the Cloudflare dashboard, go to Realtime and then Serverless SFU to create an SFU app.
+  - Generate TURN credentials from the TURN Service section when clients need a relay.
+whenToUse: >-
+  Use Cloudflare Realtime when you can handle WebRTC signaling yourself and
+  want a large free monthly egress allowance for an SFU or TURN relay.
+whenNotToUse: >-
+  Avoid it if you want a ready-made meeting UI for free; RealtimeKit is billed
+  per participant minute from the first minute.
+bestFor:
+  - TURN relay for WebRTC apps
+  - custom WebRTC backends
+avoidIf:
+  - you are new to WebRTC and want prebuilt UI for free
+  - you need a hard spending cap
+difficulty: advanced
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://developers.cloudflare.com/realtime/'
+docsUrl: 'https://developers.cloudflare.com/realtime/'
+sourceUrls:
+  - 'https://developers.cloudflare.com/realtime/sfu/pricing/'
+  - 'https://developers.cloudflare.com/realtime/'
+  - 'https://developers.cloudflare.com/realtime/realtimekit/pricing/'
+  - 'https://developers.cloudflare.com/realtime/sfu/get-started/'
+pricingUrl: 'https://developers.cloudflare.com/realtime/sfu/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Cloudflare Realtime is a set of WebRTC services on Cloudflare's global network. Realtime SFU forwards audio, video, and data between endpoints while your app handles signaling, the TURN service relays traffic when two peers cannot connect directly, and RealtimeKit adds prebuilt meeting UI and SDKs.
+
+## What the free plan gives you
+
+Realtime is billed on data sent from Cloudflare to your application. The first 1,000 GB each month is free, and the SFU and TURN share this allowance rather than having separate free tiers. Traffic published into Cloudflare is free, including when no client subscribes to it.
+
+The WebSocket adapter, which moves audio between the SFU and a WebSocket service, is tracked in the same Realtime billing and shares the free tier. Traffic between Realtime TURN and the Realtime SFU or Cloudflare Stream WHIP and WHEP is not charged twice. The get-started guide lists a Cloudflare account as the prerequisite.
+
+## When you hit a limit
+
+Past the free 1,000 GB in a month, SFU and TURN egress costs $0.05 per GB, and usage appears as a single line item on your Cloudflare bill. The pricing page does not describe a stop at the free allowance, so watch the Realtime analytics if your traffic grows.
+
+RealtimeKit is priced separately: an audio and video participant costs $0.002 per minute, an audio-only participant $0.0005 per minute, and recording or streaming export $0.010 per minute. Its pricing page lists no free minutes.
+
+## Gotchas
+
+- Realtime SFU leaves signaling, permissions, and session state to your application, so it suits developers who already know WebRTC.
+- Video egress adds up fast: every subscriber to a stream counts toward the 1,000 GB.
+- Workers, Durable Objects, Containers, and AI services that your app uses alongside Realtime are billed under their own pricing.
+
+## Alternatives in this atlas
+
+- [LiveKit Cloud](/services/livekit/): when you want a managed SFU with SDKs and a free plan that stops at its cap.
+- [Daily](/services/daily/): when you want calls with prebuilt UI and free participant minutes.
+- [Cloudflare Workers](/services/cloudflare-workers/): when you need a place to run your signaling server on the same network.
+
+## Questions people ask
+
+### Is Cloudflare TURN free?
+
+Up to a point. The first 1,000 GB of egress each month is free, shared between TURN and the SFU, then it costs $0.05 per GB.
+
+### Do the SFU and TURN have separate free tiers?
+
+No. They share one monthly allowance of 1,000 GB.
+
+### Is RealtimeKit included in the free egress?
+
+No. RealtimeKit is billed per participant minute, for example $0.002 per minute for an audio and video participant.

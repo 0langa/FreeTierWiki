@@ -1,0 +1,115 @@
+---
+title: DigitalOcean Container Registry
+description: >-
+  DigitalOcean Container Registry stores private Docker and OCI images. The
+  free Starter plan has 1 repository and 500 MiB of storage.
+provider: DigitalOcean
+category: devops
+domain: devops
+subtypes:
+  - container registry
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - digitalocean
+  - container-registry
+  - docker
+  - kubernetes
+  - images
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Starter plan costs $0 a month: one registry with 1 repository and 500
+    MiB of storage, meant to let you try out the registry.
+  limits:
+    - 1 registry
+    - 1 repository
+    - 500 MiB storage per month
+  caveats:
+    - Storage overage is listed as N/A on Starter
+    - The storage allowance is prorated by the days the registry is active
+    - Untagged images count toward storage
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+useCases:
+  - A private image for one small app
+  - Pulling images into a DigitalOcean Kubernetes cluster
+  - Trying a managed registry before a larger plan
+quickstartSteps:
+  - Create a DigitalOcean account and open Container Registry.
+  - Create a registry on the Starter plan with a globally unique name.
+  - Log in with Docker, then tag and push your image to the repository.
+whenToUse: >-
+  Use the Starter plan for one private repository of small images, especially
+  if you deploy to DigitalOcean Kubernetes or App Platform.
+whenNotToUse: >-
+  Avoid it if you need several repositories or images larger than a few hundred
+  MiB in total.
+bestFor:
+  - one private image repository
+  - DigitalOcean Kubernetes users
+avoidIf:
+  - many repositories on a free plan
+  - large images
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 5
+officialUrl: 'https://www.digitalocean.com/products/container-registry'
+docsUrl: 'https://docs.digitalocean.com/products/container-registry/'
+sourceUrls:
+  - 'https://www.digitalocean.com/pricing/container-registry'
+  - 'https://docs.digitalocean.com/products/container-registry/details/pricing/'
+  - 'https://docs.digitalocean.com/products/container-registry/details/limits/'
+pricingUrl: 'https://www.digitalocean.com/pricing/container-registry'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+DigitalOcean Container Registry, or DOCR, is a private registry for container images. You push images to it and pull them into DigitalOcean Kubernetes, App Platform, or any Docker host. It suits developers who already deploy on DigitalOcean and want images close to their clusters.
+
+## What the free plan gives you
+
+The pricing page lists the Starter plan at $0 a month with 1 repository and 500 MiB of storage. The docs describe Starter as "a free offering with a single registry and repository to let you try out DOCR."
+
+The storage allowance is monthly and prorated by how many days the registry is active, against a standard 28 days. The docs give an example: a Starter registry active for 16 days receives about 285 MiB of allowance. Registry credentials apply to every registry your account owns, and a Kubernetes cluster integrated with one registry can pull images from all of them.
+
+## When you hit a limit
+
+The pricing page lists storage overage as N/A for Starter, while Basic and Professional charge $0.02 per GiB over their allowance. The docs say extra storage is charged at the end of the day and prorated by the number of days storage exceeds the quota. If you need more room, Basic costs $5.00 a month for 5 repositories and 5 GiB, and Professional $20.00 a month for unlimited repositories and 100 GiB.
+
+## Gotchas
+
+- Untagged images count toward your storage quota, so clean up old pushes.
+- Destroying a registry early shortens its active days and can cause a small overage charge.
+- Registry names must be globally unique across all DigitalOcean users.
+
+## Alternatives in this atlas
+
+- [Docker Hub](/tools/docker-hub/): when you want the default public registry with a free personal plan.
+- [DigitalOcean App Platform](/services/digitalocean-app-platform/): when you want to deploy static sites from Git without managing images.
+- [DigitalOcean Functions](/services/digitalocean-functions/): when you want to run small functions without building images.
+
+## Questions people ask
+
+### Is DigitalOcean Container Registry free?
+
+Yes, on the Starter plan: 1 repository and 500 MiB of storage at $0 a month.
+
+### Do untagged images count toward storage?
+
+Yes. The docs say untagged images count toward your storage quota.
+
+### What is the largest image I can push?
+
+The limits page says you cannot upload images over 100 GB, with a maximum of 20 GB per image layer.

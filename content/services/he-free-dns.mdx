@@ -1,0 +1,123 @@
+---
+title: Hurricane Electric Free DNS
+description: >-
+  Hurricane Electric Free DNS hosts forward and reverse DNS zones for your own
+  domains on HE's dual-stack name servers, with dynamic DNS updates. A free
+  account is enough.
+provider: Hurricane Electric
+category: networking
+domain: networking
+subtypes:
+  - dns hosting
+  - dynamic dns
+  - reverse dns
+audiences:
+  - student
+  - indie
+  - startup
+  - oss
+tags:
+  - dns hosting
+  - free dns
+  - dynamic dns
+  - reverse dns
+  - ipv6
+  - secondary dns
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    The Free DNS portal hosts forward and reverse zones for multiple domains
+    per free account, with dual-stack name servers, secondary (slave) zones,
+    and dynamic A, AAAA, and TXT updates.
+  limits:
+    - Multiple domains per account
+    - Forward and reverse zones, including IPv6 reverse zones
+    - Dynamic DNS updates over HTTPS
+  caveats:
+    - The portal page does not state a zone or query limit as a number
+    - The page describes dynamic DNS as a basic implementation with documentation still being written
+    - No DNSSEC is mentioned on the portal page
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Hosting DNS for a domain you own at no cost
+  - Running a secondary zone that pulls from your own primary server
+  - Updating an A or AAAA record from a home server with dynamic DNS
+  - Publishing dynamic TXT records for Let's Encrypt DNS-01 validation
+quickstartSteps:
+  - Sign up for a free account from the dns.he.net portal.
+  - Add your domain as a zone and create its records.
+  - Point your domain's name servers at Hurricane Electric's.
+  - For dynamic DNS, create the record in the interface first, then update it with a request to dyn.dns.he.net/nic/update.
+whenToUse: >-
+  Use Hurricane Electric Free DNS when you want free DNS for several of your
+  own domains, especially with IPv6 or reverse zones.
+whenNotToUse: >-
+  Avoid it if you need DNSSEC, a written limit you can plan around, or a
+  polished dynamic DNS client.
+bestFor:
+  - IPv6 and reverse DNS
+  - several personal domains
+  - secondary DNS
+avoidIf:
+  - you need DNSSEC
+  - you need documented limits or an SLA
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://dns.he.net/'
+docsUrl: 'https://dns.he.net/'
+sourceUrls:
+  - 'https://dns.he.net/'
+pricingUrl: 'https://dns.he.net/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Hurricane Electric, the network operator, runs a Free DNS Hosting portal at dns.he.net. You sign up for a free account, add your domains, and HE's name servers answer forward and reverse DNS queries for them.
+
+## What the free plan gives you
+
+The portal is free: if you do not have an account, you can sign up for a free one from the home page. The service is dual-stack, answering queries over both IPv4 and native IPv6, and the servers are geographically diverse. It supports A, AAAA, ALIAS, CNAME, CAA, MX, NS, TXT, SRV, SSHFP, SPF, RP, NAPTR, HINFO, LOC, and PTR records.
+
+You can host multiple domains per account. Reverse zones have a smart mode for IPv4 and IPv6 and several formats, slave (secondary) zones are supported, and the portal checks delegation and field syntax. Dynamic DNS lets a script or router update a record, and dynamic TXT records help with Let's Encrypt DNS-01 validation.
+
+## When you hit a limit
+
+The portal page lists features but no numbers: it does not state a zone limit, a record limit, or a query limit, and it does not describe what happens if an account uses a lot. Treat it as a free service with unwritten limits.
+
+For dynamic TXT records, the page warns of a propagation delay of up to 5 minutes while the record's TTL expires, so wait before asking for DNS-01 validation. You must create a dynamic record in the web interface before you can update it, and you cannot create or delete those TXT records dynamically.
+
+## Gotchas
+
+- Dynamic DNS is described as a basic implementation, with documentation still being written, so expect to read examples rather than full docs.
+- The portal page does not mention DNSSEC.
+- Existing admin.he.net customers must contact support for a password instead of signing up again.
+
+## Alternatives in this atlas
+
+- [deSEC](/services/desec/): when you want free DNS with DNSSEC and a documented API.
+- [Hetzner DNS](/services/hetzner-dns/): when you want free DNS with written limits and an API.
+- [Cloudflare](/services/cloudflare/): when you want DNS together with a CDN and proxy.
+
+## Questions people ask
+
+### Is Hurricane Electric DNS free?
+
+Yes. The dns.he.net portal is free DNS hosting, and you can sign up for a free account.
+
+### Does Hurricane Electric Free DNS support dynamic DNS?
+
+Yes. It supports dynamic updates of address and TXT records, plus a checkip service at checkip.dns.he.net.
+
+### How many domains can I host?
+
+The portal says multiple domains per account but does not give a number.

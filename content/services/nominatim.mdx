@@ -1,0 +1,114 @@
+---
+title: Nominatim
+description: >-
+  Nominatim is the OpenStreetMap geocoder. The public server at
+  nominatim.openstreetmap.org is free to use for light, occasional lookups
+  under a strict usage policy.
+provider: OpenStreetMap Foundation
+category: apis
+domain: apis
+subtypes:
+  - geocoding
+audiences:
+  - student
+  - indie
+  - oss
+tags:
+  - geocoding
+  - reverse-geocoding
+  - openstreetmap
+  - open-data
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    The public Nominatim API is free under an acceptable use policy: an
+    absolute maximum of 1 request per second, a valid User-Agent or Referer,
+    attribution, and no heavy, bulk, or autocomplete use.
+  limits:
+    - Absolute maximum of 1 request per second per application
+    - Scripts running longer than a day or on a schedule are limited to 4 requests per minute
+    - Single thread on one machine for one-time bulk tasks
+  caveats:
+    - Runs on donated servers with very limited capacity
+    - Autocomplete, systematic queries, and reselling results are forbidden and get you banned
+    - The policy may change without notice and access can be withdrawn
+  resetPeriod: continuous
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+  billingRiskNotes:
+    - There is no billing; breaking the policy can get your application banned
+useCases:
+  - Occasional address search triggered by a user in a low-traffic app
+  - Reverse geocoding a few points in a personal project
+  - Small one-time geocoding jobs that follow the bulk rules
+quickstartSteps:
+  - Read the Nominatim usage policy before you write any code.
+  - Send search or reverse requests with a User-Agent that identifies your application, at most 1 request per second.
+  - Cache results, show OpenStreetMap attribution, and make the geocoder switchable without a software update.
+whenToUse: >-
+  Use the public Nominatim server for light, user-triggered lookups in a
+  low-traffic app when you have read and can follow its usage policy.
+whenNotToUse: >-
+  Avoid it for autocomplete, regular bulk geocoding, commercial services that
+  depend on it, or anything built by a no-code or vibe-coding platform.
+bestFor:
+  - occasional user-triggered geocoding
+  - open data projects
+avoidIf:
+  - search-as-you-type autocomplete
+  - bulk or scheduled geocoding
+difficulty: beginner
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 6
+officialUrl: 'https://nominatim.openstreetmap.org'
+docsUrl: 'https://nominatim.org/release-docs/latest/api/Overview/'
+sourceUrls:
+  - 'https://operations.osmfoundation.org/policies/nominatim/'
+pricingUrl: 'https://operations.osmfoundation.org/policies/nominatim/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Nominatim is the geocoder behind the search bar on openstreetmap.org. It turns place names and addresses into coordinates and back, using OpenStreetMap data. The OpenStreetMap Foundation lets external users call the public server for free, but only under an acceptable use policy, because the service runs on donated servers with very limited capacity.
+
+## What the free plan gives you
+
+There is no plan or account. The public API at nominatim.openstreetmap.org is free to use if you follow the usage policy. The rules: no heavy uses, with an absolute maximum of 1 request per second; a valid HTTP Referer or User-Agent that identifies your application; clear attribution; and respect for the ODbL data licence. Use that is directly triggered by an end user, such as a user searching for something, is fine if your number of users is moderate, and the limits apply to the sum of traffic from all your users. Apps must be able to switch to another service at the foundation's request, ideally without a software update.
+
+## When you hit a limit
+
+The policy is enforced by blocking, not billing. Clients that send the same query repeatedly may be classified as faulty and blocked, and forbidden uses get you banned. Smaller one-time bulk tasks may be allowed on a single thread on one machine, and scripts running longer than a day or at regular intervals are limited to 4 requests per minute, with results cached on your side. The foundation says the policy may change without notice and access can be withdrawn, so commercial apps should not rely on it to serve paying customers.
+
+## Gotchas
+
+- Autocomplete search is strictly forbidden, so you cannot build search-as-you-type on the public server.
+- Periodic requests from apps count as bulk geocoding and are strongly discouraged.
+- The public API must not be offered through no-code, low-code, or vibe-coding platforms as a generic geocoding service.
+
+## Alternatives in this atlas
+
+- [LocationIQ](/services/locationiq/): when you need autocomplete or steady daily volume on a free plan.
+- [Geoapify](/services/geoapify/): when a commercial app needs geocoding with a free daily allowance.
+- [OpenCage](/services/opencage/): when you want an OpenStreetMap-based geocoder with a paid path for production.
+
+## Questions people ask
+
+### Is Nominatim free?
+
+The public server is free to use under its usage policy, with an absolute maximum of 1 request per second.
+
+### Can I use Nominatim for address autocomplete?
+
+No. The policy forbids auto-complete search on the public API and says it will get you banned.
+
+### Can I geocode a large list with Nominatim?
+
+Bulk geocoding of larger amounts of data is not encouraged. Smaller one-time tasks may be fine on one thread, and long or scheduled scripts are limited to 4 requests per minute.

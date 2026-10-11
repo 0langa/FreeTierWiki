@@ -1,0 +1,123 @@
+---
+title: Artifact Registry
+description: >-
+  Artifact Registry is Google Cloud's managed registry for container images
+  and language packages. Cloud Run, GKE, and Cloud Build pull images and
+  packages from it.
+provider: Google Cloud
+category: devops
+domain: devops
+subtypes:
+  - container registry
+  - package registry
+audiences:
+  - startup
+  - team
+  - enterprise
+tags:
+  - artifact registry
+  - container registry
+  - docker
+  - package registry
+  - google-cloud
+  - ci-cd
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    0.5 GB of storage per month is free under the Google Cloud Free Tier.
+    Data transfer within the same region or to Google products is free.
+  limits:
+    - 0.5 GB storage per month
+    - The storage free tier is shared across all projects on one billing account
+  caveats:
+    - A Cloud Billing account is required to use the Free Tier
+    - Vulnerability scanning is billed when enabled
+    - Data transfer out to the internet is billed
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Storage past 0.5 GB is billed per GB, and old image versions keep counting until you delete them
+    - Turning on the Container Scanning API bills vulnerability scanning
+useCases:
+  - Storing container images for Cloud Run or GKE
+  - Hosting private npm, Maven, or Python packages
+  - A remote repository that caches Docker Hub images
+quickstartSteps:
+  - Create a Google Cloud project with a billing account.
+  - Enable the Artifact Registry API and create a repository in the region where your services run.
+  - Configure Docker or your package manager to authenticate with gcloud.
+  - Push an image or package and pull it from Cloud Run, GKE, or Cloud Build.
+whenToUse: >-
+  Use Artifact Registry when you deploy to Cloud Run or GKE and want your
+  images in the same region, with a few hundred megabytes stored.
+whenNotToUse: >-
+  Skip it if you store many large images, since the free storage is half a
+  gigabyte, or if you do not want a Google Cloud billing account.
+bestFor:
+  - images for Cloud Run and GKE
+  - private packages on Google Cloud
+avoidIf:
+  - many large images
+  - no billing account
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://cloud.google.com/artifact-registry'
+docsUrl: 'https://cloud.google.com/artifact-registry/docs/overview'
+sourceUrls:
+  - 'https://cloud.google.com/artifact-registry/pricing'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+  - 'https://cloud.google.com/artifact-registry/docs/overview'
+pricingUrl: 'https://cloud.google.com/artifact-registry/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Artifact Registry stores container images and language packages, such as Docker images, Go modules, and npm or Maven packages, in repositories inside your Google Cloud project. Cloud Run, GKE, and Cloud Build can pull from it directly. It suits developers deploying on Google Cloud who want their images close to where they run.
+
+## What the free plan gives you
+
+Artifact Registry is part of the Google Cloud Free Tier, which lasts after the free trial ends. Storage from 0 to 0.5 GB per month is free, and the pricing is the same for regional and multi-regional repositories.
+
+Data transfer into Google Cloud is free, and so is data transfer to Google products such as YouTube, Maps, and Drive. Moving data within the same location, or from a region to a multi-region on the same continent, is also free. A Google Cloud billing account is required to access the Free Tier, and new customers can start one with a Free Trial that includes $300 in credit.
+
+## When you hit a limit
+
+Nothing stops your repositories at the free storage. Storage past 0.5 GB is billed per GB, and the free tier is counted per billing account, not per project. So several projects on one billing account share the same half gigabyte.
+
+Data transfer between locations that do not qualify as free is billed, for example $0.01 per GB between US regions and $0.02 per GB within Europe. Outbound internet transfer, such as pulling images to your own laptop or server, is billed at Premium tier rates.
+
+## Gotchas
+
+- Container images are often hundreds of megabytes, so one or two versions can use the free storage.
+- Enabling the Container Scanning API turns on vulnerability scanning and bills it for both Artifact Registry and Container Registry.
+- Keep repositories in the same region as Cloud Run or GKE to avoid cross-region transfer costs.
+
+## Alternatives in this atlas
+
+- [Docker Hub](/tools/docker-hub/): when you want a public or personal container registry without a cloud billing account.
+- [Gemfury](/services/gemfury/): when you mostly need private language packages rather than container images.
+- [Repsy](/services/repsy-io/): when you want a hosted Maven or other package repository outside a cloud provider.
+
+## Questions people ask
+
+### Is Artifact Registry free?
+
+Within limits. The first 0.5 GB of storage each month is free, and data transfer within the same region is free.
+
+### Does Artifact Registry need a billing account?
+
+Yes. A Google Cloud billing account is required for the Free Tier, and the Free Trial asks for a credit card or other payment method at sign-up.
+
+### Is the free storage per project?
+
+No. Pricing applies to billing accounts, so the 0.5 GB is shared across all projects attached to the same billing account.

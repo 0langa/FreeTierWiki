@@ -1,0 +1,122 @@
+---
+title: AWS Key Management Service
+description: >-
+  AWS Key Management Service (KMS) creates and holds encryption keys on AWS.
+  Your code and AWS services call it to encrypt, decrypt, sign, and generate
+  data keys without the key ever leaving the service.
+provider: AWS
+category: security
+domain: security
+subtypes:
+  - key management
+  - encryption
+audiences:
+  - startup
+  - team
+  - enterprise
+tags:
+  - kms
+  - encryption
+  - key management
+  - aws
+  - envelope encryption
+  - security
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    20,000 requests per month free across all Regions. AWS managed keys are
+    free to create and store; each key you create yourself costs $1/month.
+  limits:
+    - '20,000 requests per month, across all Regions'
+    - AWS managed and AWS owned keys have no storage charge
+  caveats:
+    - Each KMS key you create costs $1/month, prorated hourly, so a customer managed key is never free
+    - Requests that use asymmetric keys, such as Sign and Verify, are excluded from the free tier
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - A key you create is billed every month it exists, even with no requests
+    - Requests past the free amount are billed per 10,000 requests
+useCases:
+  - Encrypting S3 objects and EBS volumes with keys you control
+  - Envelope encryption of secrets in your own app
+  - Signing and verifying data with asymmetric keys
+quickstartSteps:
+  - Create an AWS account.
+  - Turn on encryption in an AWS service such as S3; it can use an AWS managed key with no key charge.
+  - To control the key yourself, create a customer managed key in the KMS console.
+  - Call Encrypt, Decrypt, or GenerateDataKey from an AWS SDK with that key.
+whenToUse: >-
+  Use KMS when your app runs on AWS and you need encryption keys that AWS
+  services and your own code can share under IAM permissions.
+whenNotToUse: >-
+  Skip it if you need a key that costs nothing at all, since every key you
+  create is billed monthly, or if your app does not run on AWS.
+bestFor:
+  - encryption for AWS services
+  - envelope encryption
+avoidIf:
+  - you need a free customer managed key
+  - apps outside AWS
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 7
+officialUrl: 'https://aws.amazon.com/kms/'
+docsUrl: 'https://docs.aws.amazon.com/kms/latest/developerguide/overview.html'
+sourceUrls:
+  - 'https://aws.amazon.com/kms/pricing/'
+  - 'https://docs.aws.amazon.com/kms/latest/developerguide/overview.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+pricingUrl: 'https://aws.amazon.com/kms/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+KMS is the AWS service that stores encryption keys and runs cryptographic operations with them. You call it from an AWS SDK or let services such as S3 and EBS call it for you. It suits developers on AWS who need encryption with keys controlled through IAM, without running their own key server.
+
+## What the free plan gives you
+
+KMS has a free tier of 20,000 requests per month, counted across all Regions where the service runs. Requests include calls such as Encrypt, Decrypt, and GenerateDataKey.
+
+Some things cost nothing at all. AWS managed and AWS owned keys, which AWS services create on your behalf when you first encrypt a resource, have no creation or storage charge. Data keys and data key pairs that KMS generates have no monthly charge beyond the API call. Customer managed keys that are scheduled for deletion are not charged.
+
+## When you hit a limit
+
+Nothing stops your requests at the free amount. Past 20,000 requests a month, the pricing page examples bill $0.03 per 10,000 requests.
+
+The bigger cost is often the keys. Each KMS key you create costs $1/month, prorated hourly, whether or not you use it. Rotating a key adds $1/month for the first and second rotation, and later rotations are not billed. An S3 example on the pricing page with one key and 2,000,000 decrypt requests comes to $6.97/month.
+
+## Gotchas
+
+- Requests to GenerateDataKeyPair, and requests such as Sign, Verify, Encrypt, and Decrypt that use asymmetric keys, are excluded from the free tier.
+- Canceling a scheduled key deletion bills the key as though it was never scheduled for deletion.
+- You cannot manage the lifecycle or the permissions of AWS managed keys; you need a paid customer managed key for that.
+
+## Alternatives in this atlas
+
+- [Google Secret Manager](/services/google-secret-manager/): when you need to store app secrets on Google Cloud rather than manage encryption keys.
+- [Infisical](/services/infisical/): when you want a secrets manager that works across clouds and local development.
+
+## Questions people ask
+
+### Is AWS KMS free?
+
+The first 20,000 requests each month are free, and AWS managed keys have no storage charge. Each key you create yourself costs $1/month.
+
+### Do AWS managed keys cost money?
+
+No. Creating and storing AWS managed or AWS owned keys is free; you pay only for requests past the free tier.
+
+### Do asymmetric key operations count toward the free tier?
+
+No. Requests such as Sign and Verify that use asymmetric keys are excluded from the free tier.

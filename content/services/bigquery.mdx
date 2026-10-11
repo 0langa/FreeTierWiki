@@ -1,0 +1,123 @@
+---
+title: BigQuery
+description: >-
+  BigQuery is Google Cloud's serverless data warehouse. You load tables and
+  query them with SQL, and pay by data stored and data scanned.
+provider: Google Cloud
+category: analytics
+domain: analytics
+subtypes:
+  - data warehouse
+  - SQL analytics
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - bigquery
+  - data-warehouse
+  - sql
+  - analytics
+  - google-cloud
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Each month the first 10 GiB of storage and the first 1 TiB of query data
+    processed are free. You can try the free tier in the BigQuery sandbox
+    without a credit card.
+  limits:
+    - 10 GiB storage per month
+    - 1 TiB of query data processed per month
+    - Batch loading through the shared slot pool is free
+  caveats:
+    - The no-card path is the BigQuery sandbox
+    - Each query is billed for at least 10 MB per table it references
+    - Pricing applies per account, not per project
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - With billing attached, on-demand queries past 1 TiB are billed per TiB scanned
+    - Canceling a running query can still incur up to the full cost of the query
+useCases:
+  - Running SQL over app events or logs you export
+  - Learning SQL analytics on public or sample datasets
+  - Small reporting tables for a dashboard
+quickstartSteps:
+  - Open BigQuery in the Google Cloud console and start in the BigQuery sandbox if you have no billing account.
+  - Create a dataset and load a file into a table with a batch load.
+  - Run a SQL query in the console; each query counts toward the free query data.
+whenToUse: >-
+  Use BigQuery when you want to run SQL over a few gigabytes of data without
+  managing a database server, and can keep scans under a terabyte a month.
+whenNotToUse: >-
+  Avoid it for an app's live database with many small reads and writes, or if
+  wide scans of large tables could push you past the free query amount.
+bestFor:
+  - SQL analytics without a server
+  - learning data warehousing
+avoidIf:
+  - transactional app databases
+  - frequent full scans of large tables
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 8
+usefulnessScore: 8
+officialUrl: 'https://cloud.google.com/bigquery'
+docsUrl: 'https://cloud.google.com/bigquery/docs'
+sourceUrls:
+  - 'https://cloud.google.com/bigquery/pricing'
+  - 'https://cloud.google.com/free'
+pricingUrl: 'https://cloud.google.com/bigquery/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+BigQuery is a data warehouse you open in the Google Cloud console. You load data into tables and query it with SQL, and Google runs the servers. It suits developers and analysts who want SQL over app events, logs, or exports without running a database.
+
+## What the free plan gives you
+
+BigQuery is part of the Google Cloud Free Tier, and its free amounts last after the free trial ends. Each month the first 10 GiB of storage is free, and the first 1 TiB of query data processed is free under on-demand pricing. BigQuery ML models and training data stored in BigQuery count toward the storage free tier.
+
+Some operations are free in every location: batch loading data through the shared slot pool costs nothing, though quotas and limits apply. You can try the free tier in the BigQuery sandbox without a credit card. Queries that return an error or are served from the cache are not charged.
+
+## When you hit a limit
+
+The pricing page does not describe a hard stop for the free amounts. With a billing account attached, usage past them is charged at the listed rates, for example $6.25 per TiB of on-demand query data after the first 1 TiB each month.
+
+Charges are rounded up to the nearest MB, with a minimum of 10 MB processed per table a query references and per query. Canceling a running query might still incur charges up to the full cost of the query. Pricing models apply to accounts, not individual projects, so all your projects draw on the same free amounts.
+
+## Gotchas
+
+- A query is billed by the bytes it processes, not the rows it returns, so scanning many columns of a large table uses the free terabyte fast.
+- Loading data from Cloud Storage means you also pay Cloud Storage for keeping the source files.
+- Streaming reads and writes are billed, unlike batch loading through the shared slot pool.
+
+## Alternatives in this atlas
+
+- [MotherDuck](/services/motherduck/): when you want a DuckDB-based warehouse with a simple free plan.
+- [Tinybird](/services/tinybird/): when you want SQL over event data published as API endpoints.
+- [PostHog](/tools/posthog/): when you only need product analytics, not a general warehouse.
+
+## Questions people ask
+
+### Is BigQuery free?
+
+Within limits. Each month the first 10 GiB of storage and the first 1 TiB of query data processed are free, and you pay for use past that.
+
+### Can I use BigQuery without a credit card?
+
+Yes. Google says you can try BigQuery's free tier in the BigQuery sandbox without a credit card.
+
+### Do failed queries count against the free terabyte?
+
+No. You are not charged for queries that return an error or for queries served from the cache.

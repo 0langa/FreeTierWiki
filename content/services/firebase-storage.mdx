@@ -1,0 +1,128 @@
+---
+title: Cloud Storage for Firebase
+description: >-
+  Cloud Storage for Firebase stores user-generated files such as photos and
+  videos in Google Cloud Storage buckets. Firebase SDKs upload and download
+  them from your app under Security Rules.
+provider: Google Cloud
+category: storage
+domain: storage
+subtypes:
+  - object storage
+  - file uploads
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - firebase
+  - cloud storage
+  - file uploads
+  - object storage
+  - security rules
+  - mobile
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Needs the pay-as-you-go Blaze plan. Blaze includes no-cost usage: for new
+    buckets, 5 GB-months stored, 100 GB downloaded, 5K uploads, and 50K
+    downloads per month in three US regions.
+  limits:
+    - '5 GB-months stored per month (new buckets in us-central1, us-west1, or us-east1)'
+    - 100 GB downloaded per month
+    - 5K upload operations and 50K download operations per month
+    - 'Legacy *.appspot.com buckets: 5 GB stored, 1 GB/day downloaded, 20K uploads/day, 50K downloads/day'
+  caveats:
+    - Projects on the no-cost Spark plan have no access to Cloud Storage buckets
+    - No-cost quotas for new buckets apply only in us-central1, us-west1, and us-east1
+    - Blaze needs a Cloud Billing account
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Usage past the no-cost amounts is billed at Cloud Storage pricing
+    - A bucket outside the three US regions has no no-cost quota
+useCases:
+  - Storing profile photos and other user uploads in a mobile app
+  - Serving images or videos to signed-in users
+  - Keeping app files next to Firestore data in one Firebase project
+quickstartSteps:
+  - Create a Firebase project and upgrade it to the Blaze plan with a Cloud Billing account.
+  - Create the default bucket in us-central1, us-west1, or us-east1 to get the no-cost quota.
+  - Write Security Rules that say who can read and write which files.
+  - Upload and download files from your app with the Firebase SDK for Cloud Storage.
+whenToUse: >-
+  Use it when your Firebase app needs user file uploads and you are willing to
+  put the project on Blaze, staying inside a few gigabytes in a US region.
+whenNotToUse: >-
+  Skip it if you need to stay on the no-cost Spark plan with no billing
+  account, or if your users and data must live outside the three US regions.
+bestFor:
+  - user uploads in Firebase apps
+  - files guarded by Security Rules
+avoidIf:
+  - you cannot enable billing
+  - buckets outside the US regions
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 7
+officialUrl: 'https://firebase.google.com/products/storage'
+docsUrl: 'https://firebase.google.com/docs/storage'
+sourceUrls:
+  - 'https://firebase.google.com/pricing'
+  - 'https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024'
+  - 'https://firebase.google.com/docs/storage'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+pricingUrl: 'https://firebase.google.com/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Cloud Storage for Firebase is object storage for app developers who need to store and serve user-generated content, such as photos or videos. Files live in Google Cloud Storage buckets, and the Firebase SDKs handle uploads and downloads from iOS, Android, web, Flutter, C++, and Unity apps, with Security Rules deciding who can access what.
+
+## What the free plan gives you
+
+Cloud Storage for Firebase now requires the pay-as-you-go Blaze plan, even for default buckets, but no-cost usage is still available on Blaze. For new *.firebasestorage.app buckets, the no-cost amounts are 5 GB-months stored, 100 GB downloaded per month, 5K upload operations per month, and 50K download operations per month. These quotas apply only to buckets in us-central1, us-west1, or us-east1, and follow the Always Free tier for Google Cloud Storage.
+
+A legacy *.appspot.com default bucket keeps its earlier no-cost level: 5 GB stored, 1 GB/day downloaded, 20K uploads per day, and 50K downloads per day.
+
+## When you hit a limit
+
+Nothing stops your bucket at the no-cost amounts. On Blaze, usage past them is billed: new buckets at Cloud Storage pricing, and legacy *.appspot.com buckets at $0.026/GB stored and $0.12/GB downloaded. The legacy no-cost limits are enforced daily and refresh at midnight.
+
+If your project is on the Spark plan, you have no access to any Cloud Storage buckets. The console redirects you to an upgrade page, and calls from your app return 402 or 403 errors.
+
+## Gotchas
+
+- Blaze needs a Cloud Billing account, and the Google Cloud Free Trial asks for a credit card or other payment method at sign-up.
+- A bucket created outside us-central1, us-west1, or us-east1 has no no-cost quota.
+- Downloads are counted per month for new buckets but per day for legacy buckets, so moving buckets changes how the limit works.
+
+## Alternatives in this atlas
+
+- [Cloud Storage](/services/cloud-storage/): when you want the same Google buckets without the Firebase SDKs.
+- [Supabase Storage](/services/supabase-storage/): when you want file storage with access rules and no billing account.
+- [Cloudflare R2](/services/cloudflare-r2/): when you serve many downloads and want no egress fees.
+
+## Questions people ask
+
+### Is Firebase Storage free on the Spark plan?
+
+No. Cloud Storage for Firebase requires the Blaze plan, and Spark projects lose access to their buckets, but Blaze includes no-cost usage.
+
+### How much storage is free on Blaze?
+
+New buckets in us-central1, us-west1, or us-east1 get 5 GB-months stored, 100 GB downloaded, 5K uploads, and 50K downloads per month at no cost.
+
+### Why does my app get 402 errors from Storage?
+
+A 402 or 403 error means the project is on the Spark plan, which no longer has access to Cloud Storage. Upgrading to Blaze restores access.

@@ -1,0 +1,120 @@
+---
+title: dynv6
+description: >-
+  dynv6 is a free dynamic DNS service with strong IPv6 support. You get a free
+  hostname or delegate your own domain, and update it through several APIs.
+provider: Digineo GmbH
+category: networking
+domain: networking
+subtypes:
+  - dynamic dns
+  - free subdomain
+  - ipv6
+audiences:
+  - student
+  - indie
+  - oss
+tags:
+  - dynamic dns
+  - ddns
+  - ipv6
+  - free subdomain
+  - home server
+  - nsupdate
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    dynv6 is free for everyone. You choose a free hostname or delegate your own
+    domain, and update its IPv4 and IPv6 addresses through a REST API, an
+    update API, the DynDNS API, SSH, or TSIG-signed DNS updates.
+  limits:
+    - Free hostnames, or your own delegated domain
+    - Updates by REST API, update API, DynDNS API, SSH, or RFC2136 updates with TSIG keys
+  caveats:
+    - dynv6 says it does not offer enterprise-grade DDoS protection or SLAs, and not to use it for critical services
+    - The fetched pages do not state a limit on zones or update rate
+    - The DynDNS-compatible API updates only the IPv4 address
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Giving home servers public IPv6 hostnames that follow a changing prefix
+  - Reaching a private host without NAT or port forwarding when it has IPv6
+  - Getting Let's Encrypt certificates with lego or Caddy through DNS updates
+  - Calling a webhook whenever your IP address changes
+quickstartSteps:
+  - Sign up on dynv6.com and choose a free hostname, or delegate your own domain.
+  - Copy the HTTP token for your zone.
+  - Call ipv4.dynv6.com/api/update or ipv6.dynv6.com/api/update with your zone, token, and ipv4=auto or ipv6=auto.
+whenToUse: >-
+  Use dynv6 when you want free dynamic DNS that handles IPv6 prefixes well and
+  lets you script updates in several ways.
+whenNotToUse: >-
+  Avoid it for critical services; dynv6 itself says it has no enterprise-grade
+  DDoS protection or SLA.
+bestFor:
+  - IPv6 home networks
+  - self-hosting
+  - Let's Encrypt DNS challenges
+avoidIf:
+  - critical production services
+  - you need an SLA
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 4
+usefulnessScore: 6
+officialUrl: 'https://dynv6.com/'
+docsUrl: 'https://dynv6.com/docs/apis'
+sourceUrls:
+  - 'https://dynv6.com/'
+  - 'https://dynv6.com/docs/apis'
+pricingUrl: 'https://dynv6.com/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+dynv6 is a free dynamic DNS service run by Digineo GmbH. It gives public hostnames to machines with changing IPv4 and IPv6 addresses within seconds, and it is built around how IPv6 prefixes change.
+
+## What the free plan gives you
+
+The home page says dynv6 is free for everyone. You can choose a free hostname to start, or delegate your own domain to dynv6. It combines your devices' MAC addresses or host IDs with your dynamic IPv6 prefix, so every host on a network keeps a public name when the prefix changes, without NAT or port forwarding.
+
+Updates can come through a REST API, an update API, the DynDNS API, SSH with public key authentication, or DNS updates signed with TSIG keys. Webhooks can update other services whenever your IP address changes. The docs note that any RFC2136-compliant software works, including lego and Caddy for free Let's Encrypt certificates.
+
+## When you hit a limit
+
+The fetched pages do not state a limit on hostnames, zones, or update frequency, and there is no paid plan to move to. The real limit is the one dynv6 states itself: it does not offer enterprise-grade DDoS protection or SLAs yet, and it says not to use it for critical services.
+
+Some APIs have narrower scope. The DynDNS-compatible API can only update the IPv4 address of a zone, so for IPv6 you use the update API with ipv6=auto, ipv6prefix, or 6to4. TSIG updates are rejected if the zone in the update does not match the key.
+
+## Gotchas
+
+- With nsupdate, a blank line acts as a send command, so a script with blank lines between statements will likely fail.
+- Each zone has its own HTTP token, so keep it out of public scripts.
+- There is no SLA, so a dynv6 outage takes your hostnames down with no recourse.
+
+## Alternatives in this atlas
+
+- [Duck DNS](/services/duckdns/): when you only need a simple free subdomain updated by one URL.
+- [Hurricane Electric Free DNS](/services/he-free-dns/): when you want dynamic records on your own domain alongside regular DNS hosting.
+- [Tailscale](/services/tailscale/): when you want to reach private hosts over a private network instead of public DNS.
+
+## Questions people ask
+
+### Is dynv6 free?
+
+Yes. The home page says it is free for everyone and that dynv6 is a free service by Digineo GmbH.
+
+### Can I use my own domain with dynv6?
+
+Yes. You can delegate your own domain to dynv6 instead of using a free hostname.
+
+### Should I use dynv6 for a production service?
+
+dynv6 says not to use it for critical services, because it does not offer enterprise-grade DDoS protection or SLAs yet.

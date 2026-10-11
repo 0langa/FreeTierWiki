@@ -1,0 +1,122 @@
+---
+title: Cloud Vision API
+description: >-
+  Cloud Vision API is Google Cloud's image analysis API. It detects labels,
+  text, faces, landmarks, logos, and objects in images and PDF pages.
+provider: Google Cloud
+category: ai
+domain: ai
+subtypes:
+  - image analysis
+  - OCR
+  - object detection
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - vision
+  - ocr
+  - image-recognition
+  - google-cloud
+  - computer-vision
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The first 1,000 units of each feature every month are free. A unit is one
+    feature applied to one image, and each page of a PDF counts as an image.
+  limits:
+    - 1,000 units per feature per month
+    - Safe Search is free with Label Detection
+  caveats:
+    - Each feature applied to an image is a separate billable unit
+    - Each page of a multi-page file counts as one image
+    - A Cloud Billing account is required to use the Free Tier
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Units past the free 1,000 are billed per 1,000 at the listed feature price
+    - A large PDF or a batch job can use the free units in one request
+useCases:
+  - Reading text from photos and scanned pages
+  - Tagging uploaded images with labels
+  - Flagging explicit content in user uploads
+quickstartSteps:
+  - Sign in to the Google Cloud console and create or select a project.
+  - Enable the Cloud Vision API for the project.
+  - Send an image with the features you need, such as Label Detection or Text Detection, and count one unit per feature.
+whenToUse: >-
+  Use Cloud Vision API when you need labels, text, or explicit-content flags
+  for a few hundred images a month and already have a Google Cloud project.
+whenNotToUse: >-
+  Avoid it if you process large PDFs or many images, since every page and
+  every feature counts as a unit, or if you cannot attach a billing account.
+bestFor:
+  - OCR on a few images a month
+  - image labels for uploads
+avoidIf:
+  - large PDF batches
+  - no billing account
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://cloud.google.com/vision'
+docsUrl: 'https://cloud.google.com/vision/docs'
+sourceUrls:
+  - 'https://cloud.google.com/vision/pricing'
+  - 'https://cloud.google.com/free'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+pricingUrl: 'https://cloud.google.com/vision/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Cloud Vision API analyzes images you send it and returns what it finds: labels, printed text, faces, landmarks, logos, objects, and explicit-content flags. You choose the features for each request. It suits developers who need image tagging or text extraction in an app without training a model.
+
+## What the free plan gives you
+
+Cloud Vision API is part of the Google Cloud Free Tier. Pricing is tiered, and the first 1,000 units used each month are free; the price table lists that free block for every feature, including Label Detection, Text Detection, Document Text Detection, Facial Detection, Web Detection, and Object Localization.
+
+A unit is one feature applied to one image. If you apply Face Detection and Label Detection to the same image, that is one unit of each. For files with several pages, such as PDF files, each page is treated as an individual image. Safe Search detection is free when you also run Label Detection on the image.
+
+## When you hit a limit
+
+Nothing stops your requests after the free units. Units 1,001 to 5,000,000 each month are billed per 1,000 units: $1.50 for Label Detection, Text Detection, Document Text Detection, and Facial Detection, $2.25 for Object Localization, and $3.50 for Web Detection.
+
+Past 5,000,000 units the price drops, for example to $0.60 for Text Detection. The final block of 1,000 units is prorated, so you pay only for the units you use in it.
+
+## Gotchas
+
+- Every feature on an image is billed separately, so asking for three features on one image uses three units.
+- Each page of a PDF counts as one image, so OCR on long documents uses the free units quickly.
+- Safe Search is free only alongside Label Detection; on its own it is billed like the other features.
+
+## Alternatives in this atlas
+
+- [Azure AI Vision](/services/azure-ai-vision/): when your account and tools are on Azure.
+- [OCR.space](/tools/ocr-space/): when you only need text from images and want a simple free OCR key.
+
+## Questions people ask
+
+### Is the Google Cloud Vision API free?
+
+Partly. The first 1,000 units each month are free, and units past that are billed per 1,000 at the feature's price.
+
+### What counts as one unit?
+
+One feature applied to one image. Each page of a PDF counts as a separate image.
+
+### Is Safe Search detection free?
+
+It is free when you run Label Detection on the same image. Otherwise it is billed like the other features.

@@ -1,0 +1,121 @@
+---
+title: Packagecloud
+description: >-
+  Packagecloud hosts package repositories for npm, Debian, RPM, Maven, Python,
+  RubyGems, and Helm. The limited Free plan includes 10 GB of bandwidth and
+  2 GB of storage for public repositories.
+provider: Packagecloud
+category: devops
+domain: devops
+subtypes:
+  - package registry
+  - artifact repository
+audiences:
+  - indie
+  - oss
+  - startup
+tags:
+  - packagecloud
+  - package registry
+  - debian repository
+  - rpm repository
+  - npm registry
+  - maven repository
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan includes 10 GB of bandwidth and 2 GB of storage, unlimited
+    users and repositories, and public repositories. Private repositories and
+    API access start with the paid plans, which have 14-day trials.
+  limits:
+    - 10 GB bandwidth
+    - 2 GB storage
+    - Public repositories only
+    - No API access
+  caveats:
+    - Storage is measured as a high watermark of everything pushed in the billing period
+    - Paid plans bill overage at the start of the next month
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: low
+  billingRiskNotes:
+    - The pricing page does not say whether the Free plan has overage billing; paid plans add overage to the next bill up to a maximum you set
+useCases:
+  - Publishing Debian or RPM packages for an open source command-line tool
+  - Hosting a public Helm chart or Maven artifact
+  - Giving users an apt or yum repository instead of a download link
+quickstartSteps:
+  - Sign up for Packagecloud on the Free plan.
+  - Create a public repository for your package type.
+  - Push a package and share the repository's install instructions with users.
+whenToUse: >-
+  Use Packagecloud's Free plan to publish public Linux packages or other
+  artifacts as a proper repository that package managers can install from.
+whenNotToUse: >-
+  Avoid the Free plan for private packages or for packages downloaded more
+  than 10 GB a month.
+bestFor:
+  - public apt and yum repositories
+  - open source package distribution
+avoidIf:
+  - you need private repositories for free
+  - your packages are large or downloaded often
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://packagecloud.io'
+docsUrl: 'https://packagecloud.io/docs'
+sourceUrls:
+  - 'https://packagecloud.io/pricing'
+pricingUrl: 'https://packagecloud.io/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Packagecloud hosts package repositories, so users can install your software with apt, yum, npm, pip, Maven, gem, or Helm instead of downloading files by hand. It supports Debian, RPM, npm, Maven, Python, RubyGems, and Helm repositories. It suits projects that ship Linux packages or libraries to other developers.
+
+## What the free plan gives you
+
+The pricing FAQ says Packagecloud offers a limited Free Plan, and the plan card lists 10 GB of bandwidth, 2 GB of storage, and unlimited CI/CD minutes. The comparison table shows unlimited users and unlimited repositories on every plan, and marks public repositories as included on Free while private repositories and API access are not.
+
+Uploads to Packagecloud are free; bandwidth counts only bytes sent out for downloads, and conditional GETs, HEAD requests, and cancelled requests are not counted. Bandwidth usage is updated every 5 minutes, and you can see current and past usage in account settings.
+
+## When you hit a limit
+
+You get notifications at 50%, 90%, and 99% of your bandwidth, storage, or maximum overage amount. On paid plans, overage is added to the next month's bill, and you can set a maximum overage amount; past it, the account gets disabled until a new billing period, an upgrade, or a higher maximum. The pricing page does not say whether this overage billing applies to the Free plan.
+
+Starter is $89 a month with 20 GB of bandwidth and 5 GB of storage, and every paid plan has a 14 day trial.
+
+## Gotchas
+
+- Storage is a high watermark: if you upload 100GB and delete 90GB, you still used 100GB for that billing period.
+- Free repositories are public, so do not push internal builds to them.
+- The jump from Free to Starter is $89 a month, a big step for a hobby project.
+
+## Alternatives in this atlas
+
+- [Gemfury](/services/gemfury/): when you want a hosted package repository with a free plan for public packages.
+- [Repsy](/services/repsy-io/): when you need a cloud artifact repository for Maven, npm, PyPI, or Docker.
+- [Docker Hub](/tools/docker-hub/): when you ship container images rather than packages.
+
+## Questions people ask
+
+### Is Packagecloud free?
+
+Yes, with a limited Free Plan: 10 GB of bandwidth and 2 GB of storage for public repositories.
+
+### Can I host private packages on the free plan?
+
+No. The comparison table marks private repositories as not included on Free; they start with Starter.
+
+### Do uploads count toward bandwidth?
+
+No. Uploads are free, and only outgoing download bytes count.

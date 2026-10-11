@@ -1,0 +1,127 @@
+---
+title: Amazon EventBridge
+description: >-
+  Amazon EventBridge is AWS's serverless event bus and scheduler. It routes
+  events from AWS services, SaaS apps, and your own code to targets such as
+  Lambda, and runs scheduled invocations.
+provider: AWS
+category: messaging
+domain: messaging
+subtypes:
+  - event bus
+  - scheduler
+  - event-driven
+audiences:
+  - startup
+  - team
+  - enterprise
+tags:
+  - eventbridge
+  - event bus
+  - scheduler
+  - cron
+  - aws
+  - event-driven
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    AWS management events are ingested for free, EventBridge Scheduler
+    includes 14,000,000 free invocations per month, and Schema Discovery
+    includes 5 million ingested events per month.
+  limits:
+    - AWS management events ingested by the event bus at no charge
+    - '14,000,000 EventBridge Scheduler invocations per month'
+    - 5 million events ingested by Schema Discovery per month
+    - Delivery to a service in the same account is free
+  caveats:
+    - Custom events, partner events, and opt-in data events are billed from the first event
+    - Each 64 KB chunk of a payload is billed as one event
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Publishing your own custom events has no free amount
+    - Scheduler invocations past 14 million a month are billed per million
+useCases:
+  - Running a Lambda function on a cron schedule with EventBridge Scheduler
+  - Reacting to management operations in your AWS account
+  - Routing events between decoupled services
+quickstartSteps:
+  - Create an AWS account.
+  - Open EventBridge in the console and create a schedule in EventBridge Scheduler, or a rule on the default event bus.
+  - Pick a target, such as a Lambda function or an SQS queue.
+  - Check the target's logs to confirm each invocation or event arrives.
+whenToUse: >-
+  Use EventBridge to run scheduled jobs on AWS or to react to AWS service
+  events, both of which fit inside its free amounts for most small apps.
+whenNotToUse: >-
+  Skip it if you plan to publish many of your own custom events on a free
+  budget, since those are billed from the first event.
+bestFor:
+  - cron jobs on AWS
+  - reacting to AWS service events
+avoidIf:
+  - high volumes of custom events on a free budget
+  - you do not want an AWS account
+difficulty: intermediate
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 7
+usefulnessScore: 7
+officialUrl: 'https://aws.amazon.com/eventbridge/'
+docsUrl: 'https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html'
+sourceUrls:
+  - 'https://aws.amazon.com/eventbridge/pricing/'
+  - 'https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+pricingUrl: 'https://aws.amazon.com/eventbridge/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+EventBridge has two parts most developers use: an event bus that routes events to targets by rules, and EventBridge Scheduler, which invokes a target on a schedule. Over 250 AWS services send events to the bus automatically. It suits developers on AWS who need cron jobs or want to react to changes in their account.
+
+## What the free plan gives you
+
+AWS management events, the control plane operations that over 250 AWS services send to the default event bus, are ingested for free. Delivering events to a service in the same account is free.
+
+EventBridge Scheduler has its own Free Tier: you can make 14,000,000 invocations per month for free. The Schema Discovery feature of the Schema Registry includes a Free Tier of 5 million ingested events per month, and the Schema Registry itself is free for AWS and custom schemas. Free Tier usage is calculated each month across all Regions, except GovCloud, and unused free usage does not roll over.
+
+## When you hit a limit
+
+Nothing stops EventBridge at the free amounts. Scheduler invocations past 14 million are billed per million; the pricing page example of 20M invocations comes to $6.00 for the month.
+
+Custom events you publish, partner events from SaaS apps, and opt-in data events have no free amount. The examples bill partner event ingestion at $1.00 per million, and delivering 5M AWS management events to a different account costs $5.00. Data transfer between Regions is charged separately.
+
+## Gotchas
+
+- Each 64 KB chunk of a payload counts as one event, so a 256 KB event is billed as 4 events.
+- Delivering events to a different account is billed even when ingestion was free.
+- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+
+## Alternatives in this atlas
+
+- [Event Grid](/services/event-grid/): when you run on Azure and route events between Azure services.
+- [Pub/Sub](/services/pub-sub/): when you run on Google Cloud and want publish and subscribe messaging.
+- [SNS](/services/sns/): when you want to fan one message out to many subscribers on AWS.
+
+## Questions people ask
+
+### Is Amazon EventBridge free?
+
+Partly. AWS management events and same-account delivery are free, and Scheduler includes 14,000,000 free invocations a month, but custom events are billed from the first one.
+
+### Can I run cron jobs on EventBridge for free?
+
+Yes, within the Scheduler Free Tier of 14,000,000 invocations per month. The targets it calls, such as Lambda, bill on their own.
+
+### Does unused free usage carry over?
+
+No. Free Tier usage is calculated each month and unused free usage does not roll over to the next month.

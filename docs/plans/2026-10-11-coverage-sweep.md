@@ -8,6 +8,22 @@ this one adds entries instead of rewriting them.
 ## Status
 
 - 2026-10-11: brief written. Nothing started. Day 0 waits for the owner's yes on the defaults below.
+- 2026-10-11: defaults confirmed by the owner (dollar cap not yet named). Day 0 done, not committed:
+  226 candidates in `development/verify/reports/2026-10-11-coverage-candidates.md`; 5 Google Cloud
+  entries added (Secret Manager, BigQuery, Cloud Scheduler, Cloud Vision API, Cloud Logging); full
+  gates green. The session's network policy refused most vendor hosts, so batches need wider
+  network access first. Waiting for the owner's yes before step 1.
+- 2026-10-11: owner set the cap at $100 and widened network access to Full. Day 0 committed
+  (`302e142`). Wave 1 (no-code, maps, analytics; 80 candidates) done, not committed: 74 added,
+  6 rejected; all gates green; `explorer.json` at 99.1 of 100 KB, so trim before wave 2.
+- 2026-10-11: explorer trims (no `url`/`kind`, search text without covered words) took
+  `explorer.json` from 99.1 to 88.2 KB with search results unchanged. Wave 2 (big-provider
+  products, on-call and no-plan names, media; 78 candidates): 71 added, 23 rejected; all gates
+  green; `explorer.json` at 96.0 KB. All in PR #36.
+- 2026-10-11: owner lifted the dollar cap and raised the `explorer.json` budget to 110 KB. Wave 3
+  (five batches, 124 candidates): 108 added, 16 rejected; all gates green; `explorer.json` at
+  107.5 KB; 943 live entries. The candidate list is used up; comparison tables are next, with
+  the owner's yes.
 
 ## Why
 

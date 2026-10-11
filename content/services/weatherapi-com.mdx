@@ -1,0 +1,113 @@
+---
+title: WeatherAPI.com
+description: >-
+  WeatherAPI.com provides realtime weather, forecast, history, astronomy, and
+  related APIs. Its Free plan includes a monthly call allowance.
+provider: WeatherAPI.com
+category: apis
+domain: apis
+subtypes:
+  - weather API
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - weather-api
+  - weather-forecast
+  - historical-weather
+  - air-quality
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan costs $0 and includes 100K calls a month, a 3 day forecast,
+    and historical weather for the past 1 day. When you go over, you stop
+    receiving data for that month.
+  limits:
+    - 100K calls per month
+    - 3 day forecast
+    - Historical weather for the past 1 day
+    - 95.5% uptime
+  caveats:
+    - WeatherAPI.com asks free plan users for a link back, but the page words it as a request
+    - Paid plans add longer forecasts and history
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Going over the monthly calls stops data for the rest of the month instead of billing
+useCases:
+  - Current conditions and a 3 day forecast in a small app
+  - Weather widgets on a personal site
+  - Learning to call a weather API
+quickstartSteps:
+  - Sign up for the Free plan and copy your API key.
+  - Call the realtime or forecast endpoint with a location.
+  - Cache responses, since realtime data updates every 10-15 minutes.
+whenToUse: >-
+  Use WeatherAPI.com's Free plan for current weather and short forecasts in
+  apps that stay under 100K calls a month.
+whenNotToUse: >-
+  Avoid it if you need long-range forecasts or deep history, which need a
+  paid plan.
+bestFor:
+  - current weather and short forecasts
+  - a free plan with a hard monthly stop
+avoidIf:
+  - forecasts beyond 3 days
+  - an uptime commitment above 95.5%
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://www.weatherapi.com'
+docsUrl: 'https://www.weatherapi.com/docs/'
+sourceUrls:
+  - 'https://www.weatherapi.com/pricing.aspx'
+pricingUrl: 'https://www.weatherapi.com/pricing.aspx'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+WeatherAPI.com serves realtime weather, forecasts, historical weather, marine, astronomy, time zone, and related data over a JSON API. It has a Free plan and monthly or yearly paid plans, with a 14-day trial on paid tiers. The Free plan suits small apps, widgets, and learning projects that need current conditions and a short forecast.
+
+## What the free plan gives you
+
+The Free plan costs $0 a month and includes 100K calls per month. Its forecast covers 3 days, its historical weather covers the past 1 day, and its listed uptime is 95.5%. Realtime weather comes from live weather stations and is updated every 10-15 minutes, while forecast data is updated every 4-6 hours. WeatherAPI.com asks free plan users to add a link back to its service and provides text and image snippets for it. Paid plans start with Starter at $7 a month for 3 Million calls, with a 7 day forecast and the past 7 days of history.
+
+## When you hit a limit
+
+The FAQ says that if you go over your calls or requests per month, you stop receiving data for that month. You can upgrade to a higher plan at any time, and no changes are needed in your code. The page describes a stop, not an overage charge, so on the Free plan your app simply gets no data until the next month. Plan for this by caching responses and falling back gracefully when the API stops returning weather.
+
+## Gotchas
+
+- Historical weather is archived forecast data, not observed actuals.
+- The Free plan's 95.5% uptime is lower than the paid plans' figures.
+- The 3 day forecast limit on the Free plan rules out week-ahead views.
+
+## Alternatives in this atlas
+
+- [OpenWeatherMap](/services/openweathermap/): when you need a higher monthly call allowance.
+- [Visual Crossing Weather](/services/visual-crossing-weather/): when you need long history and 15-day forecasts on a free plan.
+- [Open-Meteo](/services/open-meteo/): when your project is non-commercial and you want no account.
+
+## Questions people ask
+
+### Is WeatherAPI.com free?
+
+Yes. The Free plan includes 100K calls a month with a 3 day forecast.
+
+### What happens if I go over 100K calls?
+
+You stop receiving data for the rest of that month, unless you upgrade to a higher plan.
+
+### Is WeatherAPI.com historical data observed?
+
+No. The FAQ says its historical weather is an archive of forecast data, not actuals.

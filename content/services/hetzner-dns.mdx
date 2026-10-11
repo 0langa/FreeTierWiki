@@ -1,0 +1,122 @@
+---
+title: Hetzner DNS
+description: >-
+  Hetzner DNS is free DNS management in the Hetzner Console, with a REST API
+  and the hcloud CLI. You host up to 25 zones by default, with up to 500
+  records each.
+provider: Hetzner
+category: networking
+domain: networking
+subtypes:
+  - dns hosting
+  - managed dns
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - dns hosting
+  - managed dns
+  - free dns
+  - dns api
+  - hetzner
+  - hcloud
+pricingModel: free
+freeTierDetails:
+  summary: >-
+    DNS management in the Hetzner Console is completely free. By default you
+    can add up to 25 zones across all projects, with up to 500 records per
+    zone, and manage them through the console or the API.
+  limits:
+    - Up to 25 zones across all projects, raisable by support ticket
+    - Up to 500 records per zone, raisable on justified demand
+    - Up to 50 records per RRset
+    - Minimum TTL of 60 seconds
+  caveats:
+    - DNSSEC is not supported
+    - You must own the domain, registered at Hetzner or elsewhere
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+useCases:
+  - Hosting DNS for domains that point at Hetzner servers
+  - Managing DNS records from scripts or CI through the Hetzner API
+  - Creating zones with the hcloud command-line tool
+  - Running secondary zones that pull from your own primary name server
+quickstartSteps:
+  - Create a free Hetzner account, or sign in with your existing Robot account.
+  - Open DNS in the Hetzner Console and enter your zone name to import its records.
+  - Point your domain's name servers at the Hetzner name servers listed in the docs.
+  - Create an API token if you want to manage zones with curl or hcloud.
+whenToUse: >-
+  Use Hetzner DNS when you want free DNS with an API for a few dozen domains,
+  especially if your servers already run at Hetzner.
+whenNotToUse: >-
+  Avoid it if you need DNSSEC, which the Hetzner Console does not support.
+bestFor:
+  - Hetzner customers
+  - infrastructure as code
+  - several domains at no cost
+avoidIf:
+  - you need DNSSEC
+  - you need more than 25 zones without asking support
+difficulty: intermediate
+productionReadiness: production-light
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://www.hetzner.com/dns-console'
+docsUrl: 'https://docs.hetzner.com/dns-console/dns/general/dns-overview/'
+sourceUrls:
+  - 'https://www.hetzner.com/dns-console'
+  - 'https://docs.hetzner.com/dns-console/dns/general/dns-overview/'
+pricingUrl: 'https://www.hetzner.com/dns-console'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Hetzner DNS is the DNS management built into the Hetzner Console. You list, add, change, and remove zones and records in the console or through the Hetzner API, and Hetzner's name servers answer queries for your domains.
+
+## What the free plan gives you
+
+Hetzner says DNS management in the Hetzner Console is completely free, and its docs say it does not charge for DNS zones. New customers can create a free account, and existing Robot customers can use their account.
+
+By default you can add up to 25 zones across all projects, with up to 500 records per zone and up to 50 records per RRset. The console supports A, AAAA, CAA, CNAME, MX, TXT, SRV, HTTPS, SVCB, TLSA, and more, and you can import BIND files. Every console feature is also in the REST API, and the hcloud command-line tool can create zones. Secondary zones can pull from up to 4 primary name servers.
+
+## When you hit a limit
+
+When you need more than 25 zones, Hetzner asks you to write a support ticket explaining why, and it can raise the limit. The docs say the zone and per-zone record limits can be increased if there is a justified demand.
+
+Some limits are fixed per record: a value can be up to 4096 characters, and the TTL must be at least 60 seconds. Because the service is free, there is no charge for going past a limit; you ask support instead.
+
+## Gotchas
+
+- Hetzner Console does not support DNSSEC, according to its own FAQ.
+- You need to own the domain; Hetzner DNS does not give out free subdomains.
+- The minimum TTL of 60 seconds rules out very short TTLs for fast failover tricks.
+
+## Alternatives in this atlas
+
+- [deSEC](/services/desec/): when you need DNSSEC on free DNS hosting.
+- [Cloudflare](/services/cloudflare/): when you want DNS together with a CDN and proxy.
+- [ClouDNS](/services/cloudns/): when you want a DNS provider with free and paid plans.
+
+## Questions people ask
+
+### Is Hetzner DNS free?
+
+Yes. Hetzner says DNS management in the Hetzner Console is completely free.
+
+### How many domains can I host on Hetzner DNS?
+
+By default up to 25 zones across all projects. You can ask support to raise the limit.
+
+### Does Hetzner DNS support DNSSEC?
+
+No. Hetzner's FAQ says the Hetzner Console does not currently support DNSSEC.

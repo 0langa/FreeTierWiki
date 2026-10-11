@@ -1,0 +1,115 @@
+---
+title: OpenCage
+description: >-
+  OpenCage is a forward and reverse geocoding API built on open data. Its free
+  trial has a daily request cap and is meant for testing.
+provider: OpenCage
+category: apis
+domain: apis
+subtypes:
+  - geocoding
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - geocoding
+  - reverse-geocoding
+  - openstreetmap
+  - address-lookup
+pricingModel: trial
+freeTierDetails:
+  summary: >-
+    The free trial allows 2,500 geocoding requests a day at 1 request a
+    second, with no credit card. It is for testing only and has no set end
+    date while you are testing.
+  limits:
+    - 2,500 requests per day, reset at 24:00 UTC
+    - 1 request per second
+    - Spreadsheet uploads up to 100 rows
+    - Only one API key
+  caveats:
+    - The free trial is for testing only, not production
+    - Inactive free trial accounts are deleted after three months
+    - Geosearch has no free trial
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: trial
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Free trial accounts get a 402 quota exceeded response at the hard limit
+useCases:
+  - Testing geocoding quality on your own addresses before buying
+  - Reverse geocoding a small batch of coordinates during development
+quickstartSteps:
+  - Sign up for the free trial; no credit card is needed.
+  - Send a request to the geocode endpoint with your query and API key.
+  - Become a paying customer before you use it in production.
+whenToUse: >-
+  Use the OpenCage free trial to test geocoding results and integration
+  before you pick a paid plan.
+whenNotToUse: >-
+  Avoid it for a live app on the free trial; OpenCage says production use
+  needs a paid plan.
+bestFor:
+  - evaluating a geocoder
+  - development and testing
+avoidIf:
+  - production apps without a paid plan
+  - autocomplete search on a free account
+difficulty: beginner
+productionReadiness: prototype
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 6
+usefulnessScore: 6
+officialUrl: 'https://opencagedata.com'
+docsUrl: 'https://opencagedata.com/api'
+sourceUrls:
+  - 'https://opencagedata.com/pricing'
+  - 'https://opencagedata.com/api'
+pricingUrl: 'https://opencagedata.com/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+OpenCage is a geocoding API that turns addresses and place names into coordinates and coordinates into addresses, using OpenStreetMap and other open data sources. It sells one-time plans and subscriptions. The free trial suits developers who want to test results and wire up the API before paying.
+
+## What the free plan gives you
+
+The free trial is free while testing and needs no credit card. It allows 2,500 requests a day at 1 request a second, spreadsheet uploads of up to 100 rows, and only one API key. You may store the data permanently. OpenCage says you can use the trial as long as you need for testing, but inactive free trial accounts are deleted after three months. The day is based on UTC, and daily counts reset at 24:00 UTC. Geosearch, the autosuggest service, has no free trial.
+
+## When you hit a limit
+
+Free trial accounts have a hard limit. A request sent after you reach it gets a 402 quota exceeded response. Free trial accounts that keep requesting beyond the hard limit will eventually be blocked and see a 403 disabled response. Sending more than the requests-per-second rate can return a 429 too many requests response. Real-time usage for accounts with hard limits comes back in each response and in HTTP headers, so your code can slow down before the cap.
+
+## Gotchas
+
+- The trial is for testing only; OpenCage asks you to become a paying customer for production use.
+- Bad requests and requests with no results still count toward the daily limit.
+- OpenCage asks you not to open multiple free trial accounts.
+
+## Alternatives in this atlas
+
+- [LocationIQ](/services/locationiq/): when you want a free plan you may use in production with attribution.
+- [Geocodio](/services/geocodio/): when your addresses are in the US, Canada, or Mexico.
+- [Geoapify](/services/geoapify/): when you want a free plan for commercial production use.
+
+## Questions people ask
+
+### Is OpenCage free?
+
+It has a free trial for testing with 2,500 requests a day. Production use needs a paid plan.
+
+### Do I need a credit card for the OpenCage free trial?
+
+No. The pricing page says no credit card is required to sign up for the free trial.
+
+### What happens when the free trial reaches its daily limit?
+
+The API returns a 402 quota exceeded response until the count resets at 24:00 UTC.

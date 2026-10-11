@@ -1,0 +1,116 @@
+---
+title: CronAlive
+description: >-
+  CronAlive alerts you when a scheduled job fails or stops running, and also
+  runs HTTP uptime checks. The Free plan has 10 checks, free forever.
+provider: CronAlive
+category: observability
+domain: observability
+subtypes:
+  - cron monitoring
+  - uptime monitoring
+  - heartbeat monitoring
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - cronalive
+  - cron-monitoring
+  - heartbeat
+  - uptime-monitoring
+  - scheduled-jobs
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan costs $0: 10 checks, HTTP checks from every 5 minutes, 30
+    days of history, and 50k pings a month. No credit card required.
+  limits:
+    - 10 checks
+    - HTTP check interval from 5 minutes
+    - 30 days of history
+    - 50k pings per month
+  caveats:
+    - API access and HMAC signing are listed from Pro
+    - Pings over the quota are not dropped, but heavy overuse can suspend new checks
+    - A 14-day Pro trial needs no card
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Alerting when a nightly backup or cron job does not run
+  - Watching Laravel scheduler or Kubernetes CronJobs
+  - Simple HTTP uptime checks for a side project
+quickstartSteps:
+  - Choose Start for free on cronalive.com; no credit card is required.
+  - Create a check and add a ping to the end of your cron job with curl.
+  - Set a grace period so small schedule drift does not alert you.
+whenToUse: >-
+  Use the Free plan to watch up to 10 scheduled jobs or URLs when 30 days of
+  history is enough.
+whenNotToUse: >-
+  Avoid it if you need more than 10 checks, the API, or history longer than a
+  month without paying.
+bestFor:
+  - cron and backup jobs
+  - side projects with a few scheduled tasks
+avoidIf:
+  - more than 10 checks
+  - API access on a free plan
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 2
+usefulnessScore: 6
+officialUrl: 'https://cronalive.com/'
+docsUrl: 'https://cronalive.com/docs'
+sourceUrls:
+  - 'https://cronalive.com/'
+pricingUrl: 'https://cronalive.com/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+CronAlive is a monitoring service for scheduled jobs. Your job pings a CronAlive URL each time it runs, and if the ping does not arrive on schedule, or the job reports a failure, you get an alert. It also runs HTTP uptime checks from three regions. It suits developers with cron jobs, backups, or queue workers that can fail silently.
+
+## What the free plan gives you
+
+The Free plan costs $0 and includes 10 checks, HTTP checks at an interval from 5 minutes, 30 days of history, and 50k pings a month. The site says 10 checks are free forever, and no credit card is required.
+
+Checks work with crontab, systemd timers, Laravel, Kubernetes CronJobs, and anything else that can make an HTTP request. A grace period after each deadline avoids alerts for small schedule drift, and an explicit fail signal alerts immediately. Ping bodies and HTTP check headers are encrypted at the application level and purged when your plan's retention expires.
+
+## When you hit a limit
+
+The FAQ says pings are never dropped when you go over the ping quota; you get an email suggesting an upgrade. Only after exceeding the quota more than 3x for two months in a row, and a 7-day heads-up, does CronAlive suspend creating new checks, and existing checks keep being monitored and alerting. If a paid plan is cancelled, the account drops to Free and checks over the Free limit are paused, not deleted.
+
+## Gotchas
+
+- The REST API and HMAC signing are listed on Pro, not Free.
+- History on the Free plan is 30 days.
+- HTTP checks on Free run no more often than every 5 minutes.
+
+## Alternatives in this atlas
+
+- [Healthchecks.io](/services/healthchecks-io/): when you want a long-running free cron monitor with more checks.
+- [Cronitor](/services/cronitor/): when you want cron monitoring with a different free plan and integrations.
+- [Better Stack Uptime](/services/better-stack-uptime/): when you want heartbeats plus on-call alerts and status pages.
+
+## Questions people ask
+
+### Is CronAlive free?
+
+Yes. The Free plan has 10 checks, free forever, with no credit card required.
+
+### What happens if I send more pings than my plan allows?
+
+Pings are never dropped. You get an upgrade email, and only repeated heavy overuse leads to new checks being suspended.
+
+### Can my team use the Free plan?
+
+The FAQ says Pro includes up to 5 members and Business has no member limit; it does not list members for Free.

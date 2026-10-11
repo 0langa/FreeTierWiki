@@ -1,0 +1,126 @@
+---
+title: Google Cloud Natural Language
+description: >-
+  Google Cloud Natural Language is an API that analyzes text. It finds
+  entities, sentiment, syntax, and content categories, and flags harmful
+  content.
+provider: Google Cloud
+category: ai
+domain: ai
+subtypes:
+  - text analysis
+  - NLP API
+audiences:
+  - indie
+  - startup
+  - team
+  - enterprise
+tags:
+  - natural language
+  - nlp
+  - sentiment analysis
+  - entity extraction
+  - text classification
+  - google-cloud
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    5,000 units per month free for entity, sentiment, syntax, and entity
+    sentiment analysis, plus 30,000 units of content classification and
+    50,000 units of text moderation.
+  limits:
+    - '5,000 units per month each for entity, sentiment, syntax, and entity sentiment analysis'
+    - '30,000 units per month for content classification'
+    - '50,000 units per month for text moderation'
+    - 'A unit is 1,000 characters (100 characters for text moderation)'
+  caveats:
+    - A Cloud Billing account is required to use the Free Tier
+    - An annotateText call is charged as if each feature were requested separately
+    - Units are rounded per request, so many short requests use more units than their total length suggests
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Units past the free amounts are billed per unit, by feature
+    - Requesting several features in one annotateText call bills each feature
+useCases:
+  - Scoring the sentiment of reviews or support tickets
+  - Pulling people, places, and products out of text
+  - Flagging harmful user-generated content before it is shown
+quickstartSteps:
+  - Create a Google Cloud project with a billing account.
+  - Enable the Cloud Natural Language API.
+  - Call a method such as analyzeSentiment or analyzeEntities from a client library or the REST API.
+  - Check units used per feature in the billing console.
+whenToUse: >-
+  Use it to add sentiment, entity, or moderation checks to a small app, when
+  a few thousand short texts a month fit inside the free units.
+whenNotToUse: >-
+  Skip it for large text volumes on a free budget, or if you want an LLM that
+  you can prompt for any kind of text task.
+bestFor:
+  - sentiment and entity analysis
+  - text moderation
+avoidIf:
+  - large text volumes for free
+  - no billing account
+difficulty: beginner
+productionReadiness: production-ready
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 5
+usefulnessScore: 6
+officialUrl: 'https://cloud.google.com/natural-language'
+docsUrl: 'https://cloud.google.com/natural-language/docs'
+sourceUrls:
+  - 'https://cloud.google.com/natural-language/pricing'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
+  - 'https://cloud.google.com/natural-language/docs'
+pricingUrl: 'https://cloud.google.com/natural-language/pricing'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+The Natural Language API takes a block of text and returns analysis: entities such as people and places, sentiment, syntax with parts of speech, content categories, and moderation labels for harmful content. You call it from a client library or the REST API. It suits developers who want text analysis features without training or hosting a model.
+
+## What the free plan gives you
+
+The Cloud Natural Language API is part of the Google Cloud Free Tier, which lists 5,000 units per month. The pricing page shows the free units by feature: the first 5,000 units each month are free for entity analysis, sentiment analysis, syntax analysis, and entity sentiment analysis. Content classification is free up to 30,000 units, and text moderation up to 50,000 units.
+
+A unit is 1,000 Unicode characters for most features and 100 characters for text moderation. Whitespace and markup such as HTML tags count as characters. A Google Cloud billing account is required to access the Free Tier.
+
+## When you hit a limit
+
+Nothing stops the API at the free units. Past them, each feature is billed per unit at its own listed price. In the price table, entity sentiment analysis costs twice as much as entity or sentiment analysis, and syntax analysis half as much. Prices drop at 1,000,000 units and again at 5,000,000 units a month.
+
+Requests are rounded up per request. Google's example: three sentiment requests of 800, 1,500, and 600 characters are charged as four units, not three. Prices are computed monthly per feature.
+
+## Gotchas
+
+- An annotateText call that asks for several features is charged as if you requested each one separately.
+- Short texts round up to a full unit each, so many tweets or titles use more units than their total length.
+- The free units are counted per billing account, not per project.
+
+## Alternatives in this atlas
+
+- [Azure AI Language](/services/azure-ai-language/): when you are on Azure and want sentiment, entity, and key phrase analysis.
+- [Cohere API](/services/cohere-api/): when you want embeddings, classification, or an LLM for text tasks.
+
+## Questions people ask
+
+### Is the Google Natural Language API free?
+
+Within limits. Entity, sentiment, and syntax analysis each include 5,000 free units per month, classification 30,000, and moderation 50,000.
+
+### What is a unit?
+
+A unit is 1,000 Unicode characters, or 100 characters for text moderation, rounded up per request.
+
+### Does annotateText cost less than separate calls?
+
+No. An annotateText request is charged as if you had requested each feature separately.

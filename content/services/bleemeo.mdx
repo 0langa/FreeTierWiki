@@ -1,0 +1,117 @@
+---
+title: Bleemeo
+description: >-
+  Bleemeo is a hosted infrastructure monitoring service from France with an
+  agent that discovers services on its own. The Free plan covers 3 servers.
+provider: Bleemeo
+category: observability
+domain: observability
+subtypes:
+  - infrastructure monitoring
+  - server monitoring
+  - alerting
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - bleemeo
+  - server-monitoring
+  - infrastructure-monitoring
+  - prometheus
+  - metrics
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan costs 0 € per month for personal projects and experiments: up
+    to 3 servers, 60-second resolution, 1 day of data retention, and basic
+    dashboards.
+  limits:
+    - Up to 3 servers
+    - 60s resolution
+    - 1 day of data retention
+    - Basic dashboards
+  caveats:
+    - SMS alerts are listed from the Starter plan
+    - Data and events are stored in the Paris region
+    - Paid plans are billed hourly per server
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: none
+useCases:
+  - Watching CPU, memory, disk, and network on a few servers
+  - Monitoring a home lab or side project VPS
+  - Trying agent-based monitoring before a larger rollout
+quickstartSteps:
+  - Choose Get Started under the Free plan on the Bleemeo pricing page.
+  - Install the open source agent on up to 3 servers.
+  - Check the auto-discovered services and core metrics on the dashboards.
+whenToUse: >-
+  Use the Free plan to watch a handful of servers in near real time when a day
+  of history is enough.
+whenNotToUse: >-
+  Avoid it if you need history beyond one day, more than three servers, or SMS
+  alerts without paying.
+bestFor:
+  - personal servers and experiments
+  - teams in the EU wanting EU-hosted monitoring
+avoidIf:
+  - long metric history on a free plan
+  - more than 3 servers
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
+popularityScore: 3
+usefulnessScore: 5
+officialUrl: 'https://bleemeo.com/'
+docsUrl: 'https://docs.bleemeo.com/'
+sourceUrls:
+  - 'https://bleemeo.com/pricing/'
+pricingUrl: 'https://bleemeo.com/pricing/'
+featured: false
+changes:
+  - date: '2026-10-11'
+    kind: new
+    note: Added to the atlas.
+---
+
+Bleemeo is a hosted monitoring service for servers, containers, and cloud resources. You install its open source agent, Glouton, which discovers the services on each machine and sends metrics to dashboards with default alert thresholds. It suits developers who want server monitoring without running Prometheus and Grafana themselves.
+
+## What the free plan gives you
+
+The Free plan costs 0 € per month and is meant for personal projects and experiments. It covers up to 3 servers, with 60s resolution, 1 day of data retention, and basic dashboards.
+
+A server is any machine running the monitoring agent: a physical server, a virtual machine, or a cloud instance. The FAQ says users, dashboards, alerts, and API access are never billed. The agent natively scrapes Prometheus exporters, and Bleemeo exposes a PromQL-compatible API that Grafana can query. Metrics and logs are stored in the EU, in the Paris region.
+
+## When you hit a limit
+
+The pricing page does not say what happens if you install the agent on a fourth server while on the Free plan. The limits are plan limits rather than metered usage, so moving past them means choosing Starter or Professional, which are priced per server per month and billed hourly. A 1 day retention window means older data is simply gone on the Free plan.
+
+## Gotchas
+
+- 1 day of retention makes the Free plan useless for comparing this week with last week.
+- SMS alerts are listed on the paid plans, not on Free.
+- Logs are pay-as-you-go on paid plans, so turning on log collection later adds cost.
+
+## Alternatives in this atlas
+
+- [Netdata Cloud](/services/netdata-cloud/): when you want per-second infrastructure metrics with a free plan.
+- [Grafana Cloud](/services/grafana-cloud/): when you want hosted Prometheus and longer retention on a free tier.
+- [New Relic](/services/new-relic/): when you want infrastructure and application monitoring in one free account.
+
+## Questions people ask
+
+### Is Bleemeo free?
+
+Yes. The Free plan costs 0 € per month for up to 3 servers with 1 day of data retention.
+
+### What counts as a server?
+
+Any machine running the agent: a physical server, a virtual machine, or a cloud instance.
+
+### Where is the data stored?
+
+The FAQ says metrics and logs are stored in the EU, in the Paris region.
