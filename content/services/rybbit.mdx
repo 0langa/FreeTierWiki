@@ -22,22 +22,23 @@ tags:
 pricingModel: trial
 freeTierDetails:
   summary: >-
-    Paid plans start with a 7-day free trial. The pricing page says there are
-    no credit card charges until the trial ends.
+    Paid plans start with a 7-day free trial. Checkout takes a card, and the
+    pricing page says there are no credit card charges until the trial ends.
   limits:
     - 7-day free trial
     - Standard covers up to 5 websites and 3 team members
     - Pro adds unlimited websites, session replays, and 5 year data retention
   caveats:
     - There is no permanent free plan on the pricing page
-    - The page's wording suggests a card may be taken at signup and charged after the trial
+    - The trial starts in a card checkout, and the subscription is charged when the 7 days end
+    - One free trial per organization
   resetPeriod: none
-  requiresCard: false
+  requiresCard: true
   freeTierType: trial
   hasHardCap: false
-  overageRisk: low
+  overageRisk: high
   billingRiskNotes:
-    - If a card is entered for the trial, charges can start when the 7 days end
+    - The card from checkout is charged when the 7-day trial ends unless you cancel first
 useCases:
   - Trying cookieless web analytics with funnels and custom events
   - Testing session replay alongside page analytics on the Pro plan
@@ -51,7 +52,7 @@ whenToUse: >-
   funnels and replay before paying a small monthly fee.
 whenNotToUse: >-
   Avoid it if you need analytics that stays free after a week, or if you do
-  not want to risk a charge when the trial ends.
+  not want to give a card that is charged when the trial ends.
 bestFor:
   - evaluating privacy-friendly analytics
   - small businesses with several sites
@@ -60,14 +61,15 @@ avoidIf:
   - you do not want billing after a trial
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: 2026-10-12
+lastVerified: 2026-10-12
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://www.rybbit.io/'
 docsUrl: 'https://www.rybbit.io/docs'
 sourceUrls:
   - 'https://www.rybbit.io/pricing'
+  - 'https://github.com/rybbit-io/rybbit/blob/master/server/src/api/stripe/createCheckoutSession.ts'
 pricingUrl: 'https://www.rybbit.io/pricing'
 featured: false
 changes:
@@ -80,19 +82,19 @@ Rybbit is a web analytics tool that runs without cookies and is open source. It 
 
 ## What the free plan gives you
 
-Rybbit offers a free trial rather than a permanent free plan. You start a 7-day free trial on a paid plan, and the pricing page says there are no credit card charges until the trial ends.
+Rybbit offers a free trial rather than a permanent free plan. You start a 7-day free trial on a paid plan through a card checkout, and the pricing page says there are no credit card charges until the trial ends.
 
 During the trial you use the plan you picked. Standard, from $13 a month billed annually, covers up to 5 websites and up to 3 team members with custom events, funnels, advanced filtering, bot filtering, journeys, retention, and email reports, and keeps data for 3 years. Pro, from $26 a month billed annually, adds unlimited websites and team members, session replays, 5 year data retention, a higher API rate limit, and priority support.
 
 ## When you hit a limit
 
-The trial lasts 7 days. The wording on the pricing page, no credit card charges until the trial ends, suggests that billing can begin once the trial is over, so cancel before then if you do not plan to keep it. The page does not describe what happens to your data if you cancel.
+The trial lasts 7 days. Rybbit's open-source checkout code starts the subscription with a 7-day trial before charging, so the card you entered is billed once the trial is over. Cancel before then if you do not plan to keep it. The pricing page does not describe what happens to your data if you cancel.
 
 On paid plans, price is set by monthly pageviews, from 100,000 up to 50M and more, and you pick the tier that fits your traffic. The page does not say what happens if a site goes over the pageviews of its tier.
 
 ## Gotchas
 
-- There is no free plan to fall back to after the 7 days on the current pricing page.
+- You need a card to start the trial, there is no free plan to fall back to, and each organization gets only one trial.
 - Session replay is a Pro feature, not part of Standard.
 - Annual billing is what the headline prices assume; monthly billing costs more.
 
@@ -110,7 +112,7 @@ Not permanently on the hosted service. Paid plans start with a 7-day free trial.
 
 ### Will I be charged after the Rybbit trial?
 
-The pricing page says there are no credit card charges until the trial ends, so expect billing to start after the 7 days unless you cancel.
+Yes, unless you cancel. The trial starts in a card checkout, and the card is charged when the 7 days end.
 
 ### Does Rybbit include session replay?
 
