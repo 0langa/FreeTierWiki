@@ -99,10 +99,18 @@ Open items:
    was an atlas error, not an offer change. `ibm-api-connect` stays `false`: its trial uses an IBMid,
    not an IBM Cloud account, and no page or the trial form mentions a card; only its dates moved.
    Depth with evidence: 11 of 11 pass.
-2. Owner review: Nominatim (a public OSM service whose policy limits who may point users at it; the
-   entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
-   until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry
-   uses 500 and notes the conflict), 8base (pricing page footer says 2023).
+2. Owner review: done 2026-10-12, pages fetched the same day; depth with evidence 4 of 4 pass.
+   - Rybbit: now `requiresCard: true`, `overageRisk: high`. Rybbit's own open-source checkout code
+     (`server/src/api/stripe/createCheckoutSession.ts`, now cited) opens a Stripe card checkout with
+     `trial_period_days: 7`, one trial per organization, so the card is charged when the trial ends.
+   - Nominatim: kept as is. The policy allows end-user-triggered use and asks LLMs to point at the
+     policy and its limits; the entry states the limits and cites the policy page.
+   - Foursquare: kept at 500 free Pro calls. The price table and the dated June 1, 2026 rate change
+     both say 500; only the pricing page intro still says 10,000. The caveat now says which one wins.
+   - 8base: kept, with a caveat, a gotcha, and an avoid-if: the newest blog post is from August 2024,
+     the pricing footer says 2023, the GitHub org's last push was April 2024, and status.8base.com did
+     not load. The app and pricing page still load, so the product is not proven gone. Remove it if
+     a later check finds sign-up closed.
 3. Size: `explorer.json` is 107.5 of 110 KB at 943 entries (about 0.11 KB per entry), so about 20
    more fit. Raise the budget again or trim before the next additions.
 4. The candidate list is used up. What is left on free-for.dev is mostly utilities and very small
