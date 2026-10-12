@@ -24,6 +24,10 @@ this one adds entries instead of rewriting them.
   (five batches, 124 candidates): 108 added, 16 rejected; all gates green; `explorer.json` at
   107.5 KB; 943 live entries. The candidate list is used up; comparison tables are next, with
   the owner's yes.
+- 2026-10-12: done. Merged and live as #36 (258 entries), #37 (AWS and IBM card recheck), and #38
+  (owner review). Session meter $136.36, about $0.53 per added entry, mostly the orchestrator's own
+  long context (see the `NEXT_STEPS.md` block). Left for the owner: comparison tables (step 4) and
+  the wave 3 calls on Tyk, UNPKG, and No-IP.
 
 ## Why
 
