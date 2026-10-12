@@ -1,7 +1,16 @@
 # FreeTierWiki — Status & Roadmap
-_State refreshed: 2026-10-11._
+_State refreshed: 2026-10-12._
 
-## Coverage sweep — 2026-10-11 (Day 0 and waves 1 to 3 in PR #36)
+## Coverage sweep — 2026-10-11 to 12 (done; merged and live as #36, #37, #38)
+Live on freetier.wiki since 2026-10-12: 943 entries (258 new), the explorer trims, the AWS and IBM
+card recheck (#37), and the owner review of Rybbit, Nominatim, Foursquare, and 8base (#38). All
+gates green on `main` at `11fcf1d`: lint, typecheck, unit 161, depth 943 of 943, build, budget
+(`explorer.json` 107.5 of 110 KB), e2e 74 passed (6 skipped).
+Cost: the orchestrating session's meter read $136.36 at the end (437M cache-read, 3.4M
+cache-write, 1.5M output tokens), about $0.53 per added entry, well above the brief's $0.15 to
+$0.40. Most of it is the orchestrator re-reading its own long context on every turn, not the
+workers: run each wave from a fresh orchestrator session with the candidate rows and the worker
+brief as its only context.
 Brief: `docs/plans/2026-10-11-coverage-sweep.md`. Owner decisions: Opus 5.5 at effort high for every
 worker, batches of about 25, up to 6 workers, budget cap $100 for the whole sweep (lifted on
 2026-10-11: the run uses promotional credits). Network access for
