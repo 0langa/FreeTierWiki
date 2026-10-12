@@ -35,8 +35,9 @@ freeTierDetails:
       included in the free tier.
     - Free tier does not expire after the standard 12-month AWS Free Tier term.
     - The Lambda free tier covers only the lambda.arm.1GB and lambda.x86-64.1GB compute types.
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
   resetPeriod: monthly
-  requiresCard: true
+  requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
@@ -59,7 +60,7 @@ whenToUse: >-
   without managing servers, with a small monthly amount of free build time.
 whenNotToUse: >-
   Skip it if you want builds that never cost money, or if you do not want an
-  AWS account with a payment method. Only 100 EC2 build minutes a month are free.
+  AWS account. Only 100 EC2 build minutes a month are free.
 bestFor:
   - AWS-based projects
   - teams that use CodePipeline
@@ -70,8 +71,8 @@ avoidIf:
   - you need Reserved Capacity or Sandbox for free
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codebuild/'
@@ -80,8 +81,14 @@ sourceUrls:
   - 'https://aws.amazon.com/codebuild/pricing/'
   - 'https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html'
   - 'https://docs.aws.amazon.com/codebuild/latest/userguide/getting-started-overview.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
 pricingUrl: 'https://aws.amazon.com/codebuild/pricing/'
 featured: false
+status: changed
+changes:
+  - date: 2026-10-11
+    kind: changed
+    note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
 ---
 You create a build project in the AWS console and describe the build commands in a `buildspec.yml` file. You can also start builds from the AWS CLI, the AWS SDKs, or a CodePipeline stage.
 
@@ -101,7 +108,7 @@ The pricing page gives an example. If you run 100 builds of 5 minutes each on bu
 
 - A larger runner is not free. Only the small instance types and the 1GB Lambda types count toward the free tier.
 - The getting-started tutorial can create other resources, such as an S3 bucket and CloudWatch Logs, and the docs warn they may add charges.
-- The free tier needs an AWS account, and this atlas lists the plan as requiring a card.
+- AWS says most new customers can sign up without a payment method. A new account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
 
 ## Alternatives in this atlas
 

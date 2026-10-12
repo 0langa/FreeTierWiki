@@ -87,13 +87,18 @@ Checked but not added (2026-10-11):
 - Cloudcraft: free only inside a Datadog subscription.
 
 Open items:
-1. Card rule mismatch, found in wave 2: the AWS Free Tier FAQ fetched on 2026-10-11 says "A payment
-   method isn't required to sign up for most new customers", so the six new AWS entries say
-   `requiresCard: false`, while eight older AWS entries (lambda, dynamodb, sns, sqs, cloudwatch,
-   codebuild, codepipeline, aws-cognito) still say `true`. IBM is the reverse: the new IBM entries
-   cite IBM's account docs ("you provide your credit card information") for `true`, while
-   `ibm-cloudant`, `ibm-db2`, and `ibm-api-connect` say `false`. Recheck the older entries against
-   those pages.
+1. Card rule mismatch: done 2026-10-12, pages fetched 2026-10-11. AWS: the Free Tier FAQ says a
+   payment method is not needed to sign up for most new customers, and mentions a new sign-up
+   experience from October 2026. The eight older entries (lambda, dynamodb, sns, sqs, cloudwatch,
+   codebuild, codepipeline, aws-cognito) now say `requiresCard: false`, cite the FAQ, carry the
+   6-month Free plan caveat, and have a `changed` changelog item. CodeBuild, CodePipeline, and
+   Cognito lost their "plan for a card" sentences. IBM: the account docs say every new IBM Cloud
+   account gives card details for identity checks, even for Lite plans. `ibm-cloudant` and `ibm-db2`
+   now say `requiresCard: true` and `overageRisk: low` (a card on file rules out `none`), cite the
+   account docs, and name the card in a gotcha. No changelog item: the rule dates from 2021, so it
+   was an atlas error, not an offer change. `ibm-api-connect` stays `false`: its trial uses an IBMid,
+   not an IBM Cloud account, and no page or the trial form mentions a card; only its dates moved.
+   Depth with evidence: 11 of 11 pass.
 2. Owner review: Nominatim (a public OSM service whose policy limits who may point users at it; the
    entry states the rules), Rybbit (`requiresCard: false`, but the page says "No credit card charges
    until the trial ends"), Foursquare (the page says both 10,000 and 500 free Pro calls; the entry

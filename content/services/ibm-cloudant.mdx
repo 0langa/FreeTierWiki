@@ -40,13 +40,15 @@ freeTierDetails:
     - Lite plan limited to one instance per account
     - Past 1 GB, creating and updating documents is blocked until you delete data or upgrade
     - The Lite plan is meant for evaluation, and its throughput is fixed at 20 reads/sec, 10 writes/sec, and 5 global queries/sec
+    - An IBM Cloud account asks for credit card information at registration
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
   billingRiskNotes:
     - Lite is free; at the storage limit writes return a 402 error until you upgrade or delete data
+    - The IBM Cloud account keeps a card on file, so any paid plan you add to it is billed
 useCases:
   - Storing app data as JSON documents
   - Mobile app backends that sync with replication
@@ -54,7 +56,7 @@ useCases:
   - IoT data ingestion
   - Prototyping on a small free database
 quickstartSteps:
-  - Sign up for a free IBM Cloud account and log in to the IBM Cloud dashboard.
+  - Sign up for an IBM Cloud account (registration asks for credit card information) and log in to the IBM Cloud dashboard.
   - 'Click Create resource, search for Cloudant, and open it.'
   - 'Select the Lite plan and an environment, name the instance, and choose IAM authentication (or IAM and legacy credentials).'
   - Click Create and wait until the instance status shows Active.
@@ -76,8 +78,8 @@ avoidIf:
   - You need more than one Lite instance
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-09
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-11
+lastUpdated: 2026-10-11
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.ibm.com/products/cloudant'
@@ -88,6 +90,7 @@ sourceUrls:
   - 'https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-ibm-cloud-public'
   - 'https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-usage-and-charges'
   - 'https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-getting-started-with-cloudant'
+  - 'https://cloud.ibm.com/docs/account?topic=account-accounts'
 featured: false
 ---
 You create a Cloudant instance in the IBM Cloud dashboard, then use the REST API or an official SDK to read and write JSON documents. It suits developers who like CouchDB-style replication and want a managed service.
@@ -106,7 +109,7 @@ You can upgrade to Standard for immediate write access. If you delete data to ge
 
 ## Gotchas
 
-- The Lite plan limits you to one instance per IBM Cloud account.
+- IBM Cloud registration asks for credit card information for identity verification, even if you use only the Lite plan.
 - The official client libraries do not retry a 429 response by default, so handle it in your app.
 - Storage counts indexes and attachments, not only documents.
 

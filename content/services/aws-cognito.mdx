@@ -37,8 +37,9 @@ freeTierDetails:
     - No free tier for the Plus tier or for machine-to-machine tokens
     - Usage past the free amount is billed automatically
     - No free tier pricing in the AWS GovCloud (US) Regions
+    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
   resetPeriod: monthly
-  requiresCard: true
+  requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
@@ -55,23 +56,22 @@ quickstartSteps:
   - Create an app client, for example a traditional web application, and note its client ID.
   - Use the managed login page, the AWS SDKs, or the Amplify libraries to sign users in from your app.
 whenToUse: >-
-  Use Cognito when your app already runs on AWS, you want users and tokens in the
-  same account as the rest of your stack, and you are fine with a card on file (the pricing page does not describe a card-free option).
+  Use Cognito when your app already runs on AWS and you want users and tokens in
+  the same account as the rest of your stack.
 whenNotToUse: >-
-  Avoid it if you want a free plan with no card, a quick setup with little AWS
-  knowledge, or a free path for machine-to-machine tokens.
+  Avoid it if you want a quick setup with little AWS knowledge, or a free path
+  for machine-to-machine tokens.
 bestFor:
   - apps already on AWS
   - social login for consumer apps
   - APIs behind API Gateway
 avoidIf:
-  - no-card projects
   - machine-to-machine token use on the free tier
   - SAML-heavy B2B on the free tier
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-11
+lastVerified: 2026-10-11
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cognito/'
@@ -81,9 +81,14 @@ sourceUrls:
   - 'https://aws.amazon.com/cognito/'
   - 'https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html'
   - 'https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-user-pools.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
 pricingUrl: 'https://aws.amazon.com/cognito/pricing/'
 featured: false
+status: changed
 changes:
+  - date: 2026-10-11
+    kind: changed
+    note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -110,9 +115,9 @@ The Plus tier has no free tier at all. Machine-to-machine token requests have no
 
 ## Alternatives in this atlas
 
-- [Supabase Auth](/services/supabase-auth/): when you want sign-in without an AWS account or a card.
+- [Supabase Auth](/services/supabase-auth/): when you want sign-in without an AWS account.
 - [Firebase Auth](/services/firebase-auth/): when your app is mobile first and you want a simpler SDK setup.
-- [Auth0](/services/auth0/): when you want a hosted login with no card and more B2B features.
+- [Auth0](/services/auth0/): when you want a hosted login with more B2B features.
 
 ## Questions people ask
 
@@ -122,7 +127,7 @@ Partly. The Lite and Essentials tiers include 10,000 MAU free each month, and th
 
 ### Does Amazon Cognito need a credit card?
 
-You need an AWS account to use Cognito. The Cognito pricing page does not say whether a card is required and does not describe a card-free option, so plan for a card.
+Not for most new customers. AWS says a payment method is not required to sign up for most new customers, but it may ask for one to verify your identity. A new account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
 
 ### What happens when I go over the Cognito free tier?
 
