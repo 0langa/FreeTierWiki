@@ -16,6 +16,12 @@ The home page is built for a first visit: a search box, quick filter chips, "Mos
 
 Open **Explorer** to filter and search every entry. Every filter — search text, category, type, risk, and sort — lives in the URL, so a link or the back button always returns the same view. Results are paged 50 at a time.
 
+When a filter returns no results, the explorer adds `noindex, follow` to the rendered page head.
+Clearing or changing the filters removes that tag when results return. Loading and failed data
+requests do not trigger it. This follows Google's [client-rendered soft 404 guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics#avoid-soft-404s).
+The static export cannot vary HTTP status by query string, so this rule requires JavaScript rendering.
+The canonical URL remains `/explorer/`; category and entry pages remain eligible for indexing.
+
 ### Category pages
 
 Each category (Hosting, Database, AI, and so on) has its own page listing just its entries.

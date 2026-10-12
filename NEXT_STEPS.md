@@ -134,6 +134,36 @@ Open items:
 6. E2E locally: the pinned Playwright wants headless shell build 1243; the container has 1194. A
    `PLAYWRIGHT_BROWSERS_PATH` folder that maps 1243 to the 1194 binary runs the suite.
 
+## Indexing follow-up — 2026-10-12
+
+Search Console's 2026-10-09 report lists 999 Soft 404 URLs. All 999 exported examples
+are explorer filters. The explorer now adds a rendered `noindex, follow` tag only after
+the loaded data confirms zero results. Nonempty results, loading/error states, and
+category/detail pages keep their existing indexing behavior. Regression coverage is in
+`tests/e2e/seo.spec.ts`.
+
+The separate "Crawled - currently not indexed" export contains 203 URLs still in the live
+sitemap (179 services and 24 tools), within Google's capped 1,000-example export. This is
+not a complete inventory or proof that all 203 remain unindexed today. Direct inspection
+confirms Database and Hosting categories are indexed. Vercel remains unindexed, with its
+last recorded crawl on 2026-08-04; Google's live test on 2026-10-12 says it can be indexed.
+HTTP checks of all 20 current categories and eight important service pages pass (200,
+self-canonical, no noindex, heading present). Preserve the current content and canonical
+tags; follow up on recrawling the improved service pages rather than treating their status
+as an empty-filter error. Private exports and checks: `development/indexing-2026-10-12/`.
+
+After deployment, confirm the rendered tag on an affected live URL and use Search Console
+to check recrawling. Google must fetch and render the changed pages before reports update;
+do not mark validation complete based only on local tests.
+
+Integrated with main `a20aff19`, preserving all 943 entries, 1,016 sitemap URLs, and compact
+explorer payload decoding. Local gates: 161 unit tests passed; e2e 82 passed, 6 conditional
+skips; lint, typecheck, build, four size budgets, and 943 content-depth checks passed.
+Evidence and deployment checks: `development/indexing-2026-10-12/deploy/`.
+The initial audit is in `development/indexing-2026-10-12/REPORT.md`. A separate test found
+that clicking Explore after Clear filters and browser Back can retain the filtered view;
+this navigation issue is deferred.
+
 ## Visitor-first pass — 2026-10-08 (on main, live)
 Home: a trust line under the hero ("Every entry is checked against its official pricing page"),
 a "Pick by job" grid with one card per comparison table (`liveComparisons` in

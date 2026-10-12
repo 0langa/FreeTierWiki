@@ -119,6 +119,8 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
 
   return (
     <div className="grid gap-10 pt-6 lg:grid-cols-[244px_minmax(0,1fr)] lg:pt-8">
+      {/* React hoists this into <head>. Only exclude a confirmed empty result, never loading or failed data. */}
+      {results?.length === 0 ? <meta name="robots" content="noindex, follow" /> : null}
       <aside aria-label="Filters" className="hidden lg:block">
         <div className="sticky top-20">
           <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
