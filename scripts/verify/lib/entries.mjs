@@ -85,3 +85,23 @@ export function parseListArg(argv, name) {
   const i = argv.indexOf(`--${name}`);
   return i >= 0 && argv[i + 1] ? argv[i + 1].split(",").map((s) => s.trim()).filter(Boolean) : undefined;
 }
+
+/**
+ * Moves `lastVerified` in a file's frontmatter forward to `date` (YYYY-MM-DD) and changes nothing else:
+ * the line keeps its position, and the rest of the file keeps its formatting and line endings.
+ * Returns false when the file has no frontmatter date or the date is already `date` or later.
+ * @param {string} file
+ * @param {string} date
+ * @returns {boolean}
+ */
+export function setLastVerified(file, date) {
+  const text = fs.readFileSync(file, "utf8");
+  const end = text.startsWith("---") ? text.indexOf("\n---", 3) : -1;
+  if (end < 0) return false;
+  const head = text.slice(0, end);
+  const line = /^lastVerified:[ \t]*(['"]?)(\d{4}-\d{2}-\d{2})\1[ \t]*(\r?)$/m;
+  const match = head.match(line);
+  if (!match || match[2] >= date) return false;
+  fs.writeFileSync(file, head.replace(line, `lastVerified: ${date}$3`) + text.slice(end));
+  return true;
+}

@@ -90,7 +90,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative grid items-start gap-12 pb-12 pt-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 lg:pb-16 lg:pt-14">
+      <section className="relative grid items-start gap-12 pb-12 pt-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 lg:pb-16 lg:pt-14 2xl:grid-cols-[minmax(0,1fr)_460px] 2xl:gap-24">
         {/* A soft glow behind the hero. Decorative, and kept inside the page column so it never widens the page. */}
         <div
           aria-hidden
@@ -182,7 +182,7 @@ export default async function HomePage() {
       {jobs.length > 0 ? (
         <section className="mt-6" aria-labelledby="jobs-title">
           <SectionHeading id="jobs-title" title="Pick by job" note="One table per need, safest free plan first" link={{ href: "/compare/", label: "All comparisons" }} />
-          <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-4">
+          <ul className="tile-grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
             {jobs.map((job) => (
               <li key={job.slug} className="bg-surface">
                 <Link href={job.href} className="flex h-full items-center gap-3 px-3.5 py-3 text-[14px] font-medium transition-colors hover:bg-surface-2 sm:px-5 sm:text-[14.5px]">
@@ -200,7 +200,7 @@ export default async function HomePage() {
 
       <section className="mt-16" aria-labelledby="categories-title">
         <SectionHeading id="categories-title" title="Browse by category" link={{ href: "/explorer/", label: "All entries" }} />
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4">
+        <div className="tile-grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6">
           {categories.map((category) => (
             <Link key={category.domain} href={`/category/${category.domain}/`} className="flex items-start gap-3 bg-surface px-3.5 py-4 transition-colors hover:bg-surface-2 sm:px-5">
               <span className="mt-0.5 hidden h-8 w-8 shrink-0 place-items-center rounded-lg bg-surface-2 text-ink-2 sm:grid">

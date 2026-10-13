@@ -19,7 +19,7 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-line bg-surface">
-      <div className="mx-auto grid w-full max-w-[1240px] gap-10 px-4 py-10 sm:px-6 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:px-8">
+      <div className="container-x grid gap-10 py-10 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
         <div>
           <p className="font-mono text-[17px] font-semibold tracking-tight">
             freetier<span className="text-brand">.</span>wiki
@@ -72,7 +72,7 @@ export function SiteFooter() {
         </Group>
       </div>
       <div className="border-t border-line">
-        <p className="mx-auto w-full max-w-[1240px] px-4 py-4 font-mono text-[12.5px] text-ink-3 sm:px-6 lg:px-8">
+        <p className="container-x py-4 font-mono text-[12.5px] text-ink-3">
           Data built {formatDay(BUILD_DAY)} · MIT
         </p>
       </div>

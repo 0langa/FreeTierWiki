@@ -22,7 +22,7 @@ export default async function CompareIndexPage() {
         title="Compare free tiers"
         lede="One table per job. Each row shows what you get free, whether a card is needed, the billing risk, and how fresh the data is."
       />
-      <ul className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
+      <ul className="tile-grid mt-7 sm:grid-cols-2 2xl:grid-cols-3">
         {comparisons.map((comparison) => (
           <li key={comparison.slug} className="bg-surface">
             <Link href={comparison.href} className="flex h-full items-start gap-3.5 px-4 py-4 transition-colors hover:bg-surface-2 sm:px-5">

@@ -1,8 +1,8 @@
 name: Weekly pricing check
 
 # Reads every official pricing page once a week (Sunday 19:23 UTC), hashes the price-related text, and opens an
-# issue when the text changed or the page is gone. The hashes live on the `freshness-data` branch, so
-# `main` (and the Cloudflare production deploy) never changes because of this job.
+# issue when the text changed or the page is gone. The hashes live on the `freshness-data` branch. The only
+# change this job makes to `main` is the weekly lastVerified refresh for entries whose text did not change.
 # The page text is only hashed: it is never run, never sent to a model, and never put in the issue.
 # The Sunday slot gives the Monday 08:00 UTC review routine (claude.ai) time to find the issue: GitHub has
 # started this schedule up to eight hours late.
@@ -30,6 +30,9 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history: the refresh commit below is rebased onto whatever landed on main during the run.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -48,7 +51,7 @@ jobs:
 
       - name: Check pricing pages
         id: check
-        run: node scripts/verify/check-freshness.mjs --hashes data/source-hashes.json --report freshness-report.md
+        run: node scripts/verify/check-freshness.mjs --hashes data/source-hashes.json --report freshness-report.md --mark-verified
 
       - name: Show the report in the job summary
         run: cat freshness-report.md >> "$GITHUB_STEP_SUMMARY"
@@ -61,6 +64,22 @@ jobs:
         run: |
           gh label create freshness --description "Weekly pricing check" --color FBCA04 --force
           gh issue create --label freshness --title "Pricing check $(date -u +%F): $FLAGGED to look at" --body-file freshness-report.md
+
+      # Entries whose page text is unchanged since their last review get lastVerified set to today, so the
+      # freshness label on the site moves every week. A date-only change, checked by the unit tests, pushed
+      # straight to main (a push with the workflow token starts no other workflow; Cloudflare still deploys).
+      - name: Record the confirmed entries on main
+        if: steps.check.outputs.verified != '0'
+        env:
+          VERIFIED: ${{ steps.check.outputs.verified }}
+        run: |
+          npm test
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content
+          git commit -m "content: weekly check $(date -u +%F), $VERIFIED entries confirmed unchanged"
+          git pull --rebase origin main
+          git push origin HEAD:main
 
       - name: Save this week's hashes
         run: |

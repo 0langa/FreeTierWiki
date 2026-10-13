@@ -59,7 +59,7 @@ export default function AboutPage() {
         <Section title="Freshness labels">
           <dl className="grid gap-4">
             <Term name={<FreshnessLabel freshness={{ state: "checked", date: "2026-09-25" }} />}>
-              A date with a check mark is the day someone compared the entry with the official pricing page. If a check is more than 6 months
+              A date with a check mark is the day the entry was last compared with the official pricing page: by a person, or by the weekly check that confirms the page text has not changed since the last review. If a check is more than 6 months
               older than the site build, it shows as stale.
             </Term>
             <Term name={<FreshnessLabel freshness={{ state: "imported", date: "2024-06-09" }} />}>

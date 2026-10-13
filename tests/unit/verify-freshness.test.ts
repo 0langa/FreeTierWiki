@@ -4,6 +4,7 @@ import {
   DEAD_AFTER_RUNS,
   NOISY_AFTER_RUNS,
   classifyFetch,
+  confirmedUnchanged,
   compareRuns,
   hashExcerpt,
   renderReport,
@@ -100,5 +101,32 @@ describe("renderReport", () => {
     expect(md).toContain("- `services/s0` — Title services/s0 — `https://s0.test/pricing`");
     expect(md).toContain("… and 2 more");
     expect(md).not.toContain("Text keeps changing");
+  });
+});
+
+describe("confirmedUnchanged", () => {
+  const stored = (hash: string, extra = {}) => ({ hash, checkedAt: "2026-10-12", failures: 0, flaps: 0, state: "ok", ...extra });
+  const previous = { "services/a": stored("h1"), "services/b": stored("h1"), "services/c": stored("h1"), "services/d": stored("h1") };
+
+  it("confirms an entry whose text matches the previous run", () => {
+    const next = { "services/a": stored("h1", { checkedAt: NOW }) };
+    expect(confirmedUnchanged(previous, next, { "services/a": "2026-10-09" })).toEqual(["services/a"]);
+  });
+
+  it("skips changed text, unreadable pages, and entries nobody checked", () => {
+    const next = {
+      "services/a": stored("h2", { checkedAt: NOW, changedAt: NOW }),
+      "services/b": { ...stored("h1"), state: "thin" },
+      "services/c": stored("h1", { checkedAt: NOW }),
+      "services/e": stored("h1", { checkedAt: NOW }),
+    };
+    expect(confirmedUnchanged(previous, next, { "services/a": "2026-10-09", "services/b": "2026-10-09", "services/e": "2026-10-09" })).toEqual([]);
+  });
+
+  it("waits for the review when the text changed after the last check", () => {
+    const next = { "services/d": stored("h1", { checkedAt: NOW, changedAt: "2026-10-12T19:23:00.000Z" }) };
+    expect(confirmedUnchanged(previous, next, { "services/d": "2026-10-09" })).toEqual([]);
+    expect(confirmedUnchanged(previous, next, { "services/d": "2026-10-12" })).toEqual(["services/d"]);
+    expect(confirmedUnchanged(previous, next, { "services/d": "2026-10-13" })).toEqual(["services/d"]);
   });
 });

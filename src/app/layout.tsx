@@ -61,7 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <AppProviders>
           <SiteHeader />
-          <main id="main" className="mx-auto w-full max-w-[1240px] flex-1 px-4 sm:px-6 lg:px-8">
+          <main id="main" className="container-x flex-1">
             {children}
           </main>
           <SiteFooter />
