@@ -24,11 +24,11 @@ tags:
   - url to markdown
 pricingModel: freemium
 freeTierDetails:
-  summary: Free forever, no card required. 25 requests/day (~1,500/month).
+  summary: Free forever, no card required. 100 requests per month with a free API key.
   limits:
-    - 25 requests/day (~1,500 requests/month)
+    - 100 requests per month (monthly quota only, no daily quota)
     - Screenshot, PDF, and SDK included
-    - 30-second request timeout
+    - 60-second request timeout
     - Limited, shared concurrency
   caveats:
     - Requests pause at 100% of quota until the next billing cycle or upgrade, no overage fees
@@ -48,7 +48,7 @@ useCases:
   - Generating a PDF from a URL
   - Converting a page to markdown for an AI app
 quickstartSteps:
-  - Open the API docs; the free plan uses the public endpoint and needs no card.
+  - Sign up at dashboard.microlink.io to get a free API key; no card is needed.
   - Send a GET request to `https://api.microlink.io/` with a `url` query parameter, from a browser, cURL, or your language.
   - Read the JSON response that comes back for that URL.
   - Use the Microlink SDK from JavaScript, which wraps the same API in one method per product.
@@ -57,7 +57,7 @@ whenToUse: >-
   Use Microlink when you need link previews, screenshots, or page metadata and
   do not want to run your own browser.
 whenNotToUse: >-
-  Avoid the free plan for anything with real traffic: 25 requests a day is a
+  Avoid the free plan for anything with real traffic: 100 requests a month is a
   hard cap, and requests pause when it is reached.
 bestFor:
   - link preview cards
@@ -65,13 +65,13 @@ bestFor:
   - website screenshots
   - prototypes and side projects
 avoidIf:
-  - you need more than 25 requests a day
+  - you need more than 100 requests a month
   - you need an uptime guarantee
   - you need a dedicated endpoint
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-13
+lastVerified: 2026-10-13
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://microlink.io/'
@@ -82,12 +82,17 @@ sourceUrls:
   - 'https://microlink.io/docs/api/getting-started/overview'
   - 'https://microlink.io/'
 featured: false
+status: changed
+changes:
+  - date: 2026-10-13
+    kind: changed
+    note: The catalog listed 25 requests per day; the pricing page now lists 100 requests per month on the free plan, used with a free API key.
 ---
 You call the API with one HTTP GET request, so it works from a browser, cURL, or any language. A JavaScript SDK and a command line tool wrap the same API, and developers who need previews or screenshots will find it quick to try.
 
 ## What the free plan gives you
 
-The free plan costs $0 a month and needs no card. It allows 25 requests per day, which Microlink puts at about 1.5K requests a month. You get the same toolbox as paid plans for screenshots, PDFs, metadata, markdown, insights, and the SDK. The plan runs against the public endpoint with a 30-second request timeout.
+The free plan costs $0 a month and needs no card. You sign up at dashboard.microlink.io and get a free API key with 100 requests per month. The quota is monthly only, with no daily quota. You get the same toolbox as Pro for screenshots, PDFs, metadata, markdown, search, insights, and the SDK. The request timeout is 60 seconds.
 
 One request is one API call to any Microlink endpoint. Responses served from the cache do not count against your quota. Concurrency is limited and shared, and support comes from the community.
 
@@ -95,13 +100,13 @@ One request is one API call to any Microlink endpoint. Responses served from the
 
 Microlink says you are never billed by surprise. It notifies you at 80% of usage. At 100%, requests pause until the next billing cycle or until you upgrade. There are no overage fees.
 
-The free plan has a daily quota of 25 requests, while Pro has no daily quota. Pro costs $49 a month for 46,000 requests a month. A free account cannot be billed because it has no card.
+Pro costs $49 a month for 46,000 requests a month, and it has no daily quota. Upgrades take effect immediately and are pro-rated. A free account cannot be billed because it has no card, so the worst case is a paused API until the next cycle.
 
 ## Gotchas
 
-- The free plan has a best-effort SLA, and the 99.9% uptime commitment applies to paid plans only.
-- The request timeout is 30 seconds on Free and 60 seconds on Pro.
-- The free plan uses the shared global cache, and a custom cache key is not part of it.
+- 100 requests a month is small. Every call to any endpoint counts, so lean on the cache, since cached responses do not count.
+- The free plan has a best-effort SLA, and the 99.9% SLA applies to paid plans.
+- The free plan uses the shared global edge cache, and a custom cache key is a Pro feature.
 
 ## Alternatives in this atlas
 
@@ -113,7 +118,7 @@ The free plan has a daily quota of 25 requests, while Pro has no daily quota. Pr
 
 ### Is Microlink free?
 
-Yes. The free plan is free forever and needs no credit card. You get 25 requests per day against the public endpoint, with screenshot, PDF, metadata, and SDK access.
+Yes. The free plan is free forever and needs no credit card. You get 100 requests per month with screenshot, PDF, metadata, and SDK access.
 
 ### What happens when I exceed the Microlink free quota?
 
@@ -121,4 +126,4 @@ Requests pause until the next billing cycle or until you upgrade. Microlink says
 
 ### Does Microlink need an API key or credit card for the free plan?
 
-No card is needed. The free plan runs against the public endpoint, so you can send a request right away.
+You need a free API key, which you get by signing up at dashboard.microlink.io. No credit card is needed.
