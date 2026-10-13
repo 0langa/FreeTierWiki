@@ -1,13 +1,15 @@
 name: Weekly pricing check
 
-# Reads every entry's official pricing page once a week, hashes the price-related text, and opens an
+# Reads every official pricing page once a week (Sunday 19:23 UTC), hashes the price-related text, and opens an
 # issue when the text changed or the page is gone. The hashes live on the `freshness-data` branch, so
 # `main` (and the Cloudflare production deploy) never changes because of this job.
 # The page text is only hashed: it is never run, never sent to a model, and never put in the issue.
+# The Sunday slot gives the Monday 08:00 UTC review routine (claude.ai) time to find the issue: GitHub has
+# started this schedule up to eight hours late.
 
 on:
   schedule:
-    - cron: "17 4 * * 1"
+    - cron: "23 19 * * 0"
   workflow_dispatch:
 
 env:
