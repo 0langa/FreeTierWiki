@@ -152,7 +152,6 @@ GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, th
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
