@@ -118,7 +118,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
   const activeCount = activeFilterCount(query);
 
   return (
-    <div className="grid gap-8 pt-8 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-12 lg:pt-10">
+    <div className="grid gap-8 pt-8 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-12 lg:pt-10 2xl:grid-cols-[280px_minmax(0,1fr)] 2xl:gap-16">
       {/* React hoists this into <head>. Only exclude a confirmed empty result, never loading or failed data. */}
       {results?.length === 0 ? <meta name="robots" content="noindex, follow" /> : null}
       <aside aria-label="Filters" className="hidden lg:block">

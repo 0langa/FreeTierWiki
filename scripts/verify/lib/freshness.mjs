@@ -107,3 +107,26 @@ export function renderReport(run, { date, titles, urls, max = 80 }) {
     .replace(/\n{3,}/g, "\n\n")
     .trimEnd()}\n`;
 }
+
+/**
+ * Entries whose page text is the same as in the previous run and whose last detected change, if any, has
+ * been reviewed since (the entry's `lastVerified` is on or after the day the change was seen). Their
+ * `lastVerified` can move to the check date. `lastVerifiedById` holds the current frontmatter dates
+ * (YYYY-MM-DD); entries without one are never confirmed, because nobody ever checked them.
+ * @param {Record<string, StoredEntry>} previous
+ * @param {Record<string, StoredEntry>} next
+ * @param {Record<string, string | undefined>} lastVerifiedById
+ * @returns {string[]}
+ */
+export function confirmedUnchanged(previous, next, lastVerifiedById) {
+  /** @type {string[]} */
+  const ids = [];
+  for (const [id, entry] of Object.entries(next)) {
+    const before = previous[id];
+    const verified = lastVerifiedById[id];
+    if (!verified || entry.state !== "ok" || !entry.hash || !before?.hash || before.hash !== entry.hash) continue;
+    if (entry.changedAt && entry.changedAt.slice(0, 10) > verified) continue;
+    ids.push(id);
+  }
+  return ids.sort();
+}

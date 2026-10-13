@@ -18,5 +18,7 @@ export default defineConfig({
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
     { name: "phone", use: { ...devices["Pixel 7"] } },
+    // Wide screens get a third column on entry pages and more tiles per row; only the pages that change.
+    { name: "wide", use: { ...devices["Desktop Chrome"], viewport: { width: 1920, height: 1080 } }, testMatch: /(detail|home)\.spec\.ts/ },
   ],
 });

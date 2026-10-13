@@ -52,6 +52,12 @@ function FitCard({ good, title, text, items }: { good: boolean; title: string; t
 
 type EntryPageProps = { entry: AtlasEntryWithBody; related: ListItem[]; comparisons?: Comparison[]; providerHref?: string };
 
+/**
+ * Layout by width. Phone: one column in DOM order (title, facts label, buttons, body). From lg: the facts
+ * label and the jump menu share a right column. From 2xl: the jump menu moves to a left column of its own,
+ * so a wide screen shows menu, body, and facts side by side. The jump menu is rendered once per placement
+ * and only one of them is visible at a time.
+ */
 export function EntryPage({ entry, related, comparisons = [], providerHref }: EntryPageProps) {
   const freshness = getFreshness(entry, BUILD_NOW);
   const pricing = pricingUrl(entry);
@@ -69,9 +75,8 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
   const showJumps = sectioned && jumps.length > 1;
 
   return (
-    <article className="grid gap-y-7 pt-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-14 lg:pt-8 xl:grid-cols-[minmax(0,1fr)_360px]">
-      {/* On a phone the DOM order is what shows: title, then the facts label, then the buttons, then the body. */}
-      <header className="grid content-start gap-4 lg:col-start-1 lg:row-start-1">
+    <article className="grid gap-y-7 pt-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-14 lg:pt-8 xl:grid-cols-[minmax(0,1fr)_360px] 2xl:grid-cols-[220px_minmax(0,1fr)_400px] 2xl:gap-x-16">
+      <header className="grid content-start gap-4 lg:col-start-1 lg:row-start-1 2xl:col-start-2">
         <Breadcrumb
           crumbs={[
             { href: "/explorer/", label: "Explore" },
@@ -117,16 +122,24 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
         <FreshnessNotice entry={entry} freshness={freshness} hasAlternatives={related.length > 0} />
       </header>
 
-      <div className="lg:col-start-2 lg:row-span-3 lg:row-start-1">
+      <div className="lg:col-start-2 lg:row-span-3 lg:row-start-1 2xl:col-start-3">
         <FactsLabel entry={entry} freshness={freshness} />
         {showJumps ? (
-          <div className="hidden lg:sticky lg:top-24 lg:mt-8 lg:block">
+          <div className="hidden lg:sticky lg:top-24 lg:mt-8 lg:block 2xl:hidden">
             <OnThisPage items={jumps} />
           </div>
         ) : null}
       </div>
 
-      <div className="grid content-start gap-4 lg:col-start-1 lg:row-start-2">
+      {showJumps ? (
+        <div className="hidden 2xl:col-start-1 2xl:row-span-3 2xl:row-start-1 2xl:block">
+          <div className="sticky top-24">
+            <OnThisPage items={jumps} />
+          </div>
+        </div>
+      ) : null}
+
+      <div className="grid content-start gap-4 lg:col-start-1 lg:row-start-2 2xl:col-start-2">
         <div className="flex flex-wrap gap-2">
           {pricing ? (
             <a className="btn btn-primary" href={pricing} {...EXTERNAL}>
@@ -151,7 +164,7 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
         {showJumps ? <OnThisPage items={jumps} variant="strip" className="lg:hidden" /> : null}
       </div>
 
-      <div className="grid content-start gap-9 lg:col-start-1 lg:row-start-3 lg:gap-10">
+      <div className="grid content-start gap-9 lg:col-start-1 lg:row-start-3 lg:gap-10 2xl:col-start-2">
         {!ended ? (
           <section id="fit" aria-labelledby="fit-title" className="scroll-mt-24">
             <h2 id="fit-title" className="sr-only">

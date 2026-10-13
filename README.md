@@ -66,7 +66,7 @@ See [`/about/`](https://freetier.wiki/about/) for the full explanation. Summary:
 - **Time-limited** — free for a set period after sign-up, then it changes.
 
 **Freshness labels**
-- Checked (date with a check mark) — compared against the official pricing page on that date; turns stale after 180 days.
+- Checked (date with a check mark) — compared against the official pricing page on that date, by a person or by the weekly check that confirms the page text is unchanged since the last review; turns stale after 180 days.
 - Imported (gray date) — the entry's data is from that date and has not been re-checked since.
 
 **Status**
@@ -120,7 +120,7 @@ NEXT_BUILD_CPUS=2 npm run build
 
 Entries live under `content/services/` and `content/tools/` as MDX files with frontmatter. Key fields:
 
-- `lastVerified` — ISO date (`2026-09-25`) someone last checked the entry against the official pricing page. Drives the freshness label; stale after 180 days (`STALE_AFTER_DAYS`).
+- `lastVerified` — ISO date (`2026-09-25`) the entry was last checked against the official pricing page: by a person, or by the weekly check when the page text is unchanged since the last review. Drives the freshness label; stale after 180 days (`STALE_AFTER_DAYS`).
 - `status` — `active`, `changed`, or `ended`.
 - `pricingUrl` — link to the provider's current pricing page.
 - `changes` — a list of `{ date, kind, note }` entries, where `kind` is `ended`, `changed`, or `new`. Feeds the changelog.
@@ -136,7 +136,7 @@ Every entry should match its official pricing page. The tools under `scripts/ver
 - `npm run verify:fetch -- --domains hosting,database` saves the pricing-page text under `development/verify/pages/`.
 - `npm run verify:list -- --domains hosting --size 20` prints the work chunks.
 - `npm run verify:remove -- --from deletes.json --date YYYY-MM-DD` deletes entries, adds 301 redirects to their category, and records them in `content/changelog.json`.
-- `npm run verify:freshness` reads every entry's pricing page, hashes the price-related text, and reports what changed since the last run. The weekly workflow `.github/workflows/freshness.yml` runs it and opens an issue.
+- `npm run verify:freshness` reads every entry's pricing page, hashes the price-related text, and reports what changed since the last run. The weekly workflow `.github/workflows/freshness.yml` runs it on Sunday evening, opens an issue for the entries whose text changed, and, with `--mark-verified`, sets `lastVerified` to the check date on every entry whose text is unchanged since its last review (that commit goes straight to `main`). A cloud routine reviews the flagged entries on Monday and opens a PR.
 
 Rules: an entry stays only if developers can use it free (always-free plan, credit, or trial). Paid-only, closed, off-topic, and duplicate entries are removed.
 

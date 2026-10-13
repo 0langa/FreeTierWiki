@@ -1,12 +1,14 @@
 // Weekly pricing check: fetch every entry's official page, hash the price-related text, and report what changed.
-// Usage: node scripts/verify/check-freshness.mjs [--hashes data/source-hashes.json] [--report freshness-report.md] [--ids services/neon,...] [--limit N]
+// Usage: node scripts/verify/check-freshness.mjs [--hashes data/source-hashes.json] [--report freshness-report.md] [--ids services/neon,...] [--limit N] [--mark-verified]
+// With --mark-verified, every entry whose page text is unchanged since the last run (and whose last change was
+// reviewed) gets lastVerified set to today in its frontmatter; the weekly workflow commits that to main.
 // The fetched text is only hashed. It is never executed, and it never goes into the report.
 import fs from "node:fs";
 import path from "node:path";
 
-import { readEntries, selectEntries } from "./lib/entries.mjs";
+import { readEntries, selectEntries, setLastVerified } from "./lib/entries.mjs";
 import { fetchText } from "./lib/fetch.mjs";
-import { classifyFetch, compareRuns, hashExcerpt, renderReport } from "./lib/freshness.mjs";
+import { classifyFetch, compareRuns, confirmedUnchanged, hashExcerpt, renderReport } from "./lib/freshness.mjs";
 import { candidateUrls, excerpt, isThin } from "./lib/pages.mjs";
 
 const CONCURRENCY = 6;
@@ -25,6 +27,7 @@ const ids = arg("ids")
   .filter(Boolean);
 const limit = Number(arg("limit") ?? 0);
 const subset = Boolean(ids) || limit > 0;
+const markVerified = argv.includes("--mark-verified");
 
 let targets = selectEntries(readEntries(), { ids });
 targets = targets.filter((entry) => candidateUrls(/** @type {never} */ (entry.data)).length > 0);
@@ -74,3 +77,20 @@ console.log(`checked ${results.length}: ${run.changed.length} changed, ${run.dea
 console.log(`report: ${reportFile}\nhashes: ${hashesFile}`);
 // GitHub Actions reads this to decide whether to open an issue.
 if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `flagged=${flagged}\n`);
+
+if (markVerified) {
+  const today = now.slice(0, 10);
+  // Frontmatter dates come back as Date objects when unquoted and as strings when quoted.
+  const asDate = (/** @type {unknown} */ value) =>
+    value instanceof Date ? value.toISOString().slice(0, 10) : typeof value === "string" ? value.slice(0, 10) : undefined;
+  const live = readEntries().filter((entry) => entry.data.status !== "ended");
+  const lastVerifiedById = Object.fromEntries(live.map((entry) => [entry.id, asDate(entry.data.lastVerified)]));
+  const files = new Map(live.map((entry) => [entry.id, entry.file]));
+  let marked = 0;
+  for (const id of confirmedUnchanged(previous, merged, lastVerifiedById)) {
+    const file = files.get(id);
+    if (file && setLastVerified(file, today)) marked += 1;
+  }
+  console.log(`marked ${marked} entries as checked on ${today}: page text unchanged since the last review`);
+  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `verified=${marked}\n`);
+}
