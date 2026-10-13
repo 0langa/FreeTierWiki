@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { ChangePill, FreshnessLabel, RiskPill } from "@/components/entry/labels";
 import { OfferText } from "@/components/entry/offer-text";
 import { HeroSearchButton } from "@/components/site/hero-search-button";
+import { DomainIcon, JobIcon } from "@/components/site/icons";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { liveComparisons } from "@/lib/comparison-view";
@@ -43,6 +44,27 @@ const POPULAR_PICKS: { need: string; slug: string; limit: number; short?: string
   { need: "Error tracking", slug: "sentry", limit: 0 },
 ];
 
+// The hero card lists this many rows on desktop; phones see five, so "Pick by job" stays within one scroll.
+const HERO_ROWS = 6;
+
+function SectionHeading({ id, title, note, link }: { id: string; title: string; note?: string; link?: { href: string; label: string } }) {
+  return (
+    <div className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+      <div>
+        <h2 id={id} className="text-[22px] font-semibold tracking-tight sm:text-[24px]">
+          {title}
+        </h2>
+        {note ? <p className="mt-1 text-[14px] text-ink-3">{note}</p> : null}
+      </div>
+      {link ? (
+        <Link href={link.href} className="text-[14px] text-ink-2 underline decoration-line underline-offset-[3px] hover:text-ink hover:decoration-ink">
+          {link.label}
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
 export default async function HomePage() {
   const entries = await getAllEntries();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
@@ -60,64 +82,68 @@ export default async function HomePage() {
   const jobs = liveComparisons(await getComparisons(), new Set(entries.filter((entry) => entry.status !== "ended").map((entry) => entry.id)));
   // The hero card shows real visits once content/popular.json exists with enough live entries.
   const popular = await getPopular();
-  const visited = popular ? mostVisited(popular.paths, items, 8) : [];
+  const visited = popular ? mostVisited(popular.paths, items, HERO_ROWS) : [];
   const picks = POPULAR_PICKS.flatMap((pick) => {
     const entry = entries.find((candidate) => candidate.slug === pick.slug && candidate.status !== "ended");
     return entry ? [{ ...pick, entry, text: pick.short ?? entry.freeTierDetails.limits[pick.limit] ?? entry.freeTierDetails.limits[0] }] : [];
-  });
+  }).slice(0, HERO_ROWS);
 
   return (
     <>
-      <section className="grid items-start gap-14 pb-10 pt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:pt-[72px]">
+      <section className="relative grid items-start gap-12 pb-12 pt-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 lg:pb-16 lg:pt-14">
+        {/* A soft glow behind the hero. Decorative, and kept inside the page column so it never widens the page. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 -top-14 -z-10 h-[480px] bg-[radial-gradient(60%_60%_at_30%_0%,var(--brand-glow),transparent_70%)]"
+        />
         <div>
           <p className="eyebrow">{activeCount} free plans for developers</p>
-          <h1 className="mt-4 max-w-[14ch] text-[38px] font-bold leading-[1.02] tracking-tight sm:text-[56px]">
+          <h1 className="mt-4 max-w-[14ch] text-[40px] font-bold leading-[1.02] tracking-tight sm:text-[56px] lg:text-[60px]">
             Free tiers, with the <em className="not-italic text-brand">fine print.</em>
           </h1>
-          <p className="mb-7 mt-5 max-w-[60ch] text-base text-ink-2 sm:text-lg">
+          <p className="mb-7 mt-5 max-w-[56ch] text-[17px] leading-relaxed text-ink-2 sm:text-lg">
             Find a free plan you can build on. Each entry shows the limits, whether it needs a card, what happens when you go over, and how
             fresh the data is.
           </p>
           <HeroSearchButton />
           <div className="mt-4 flex flex-wrap gap-2">
             {QUICK_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="inline-flex h-8 items-center rounded-full border border-line bg-surface px-3 text-[13.5px] text-ink-2 hover:border-ink-3 hover:text-ink">
+              <Link key={link.href} href={link.href} className="chip">
                 {link.label}
               </Link>
             ))}
           </div>
-          <p className="mt-5 flex items-start gap-2 text-[13.5px] text-ink-2">
-            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" aria-hidden />
+          <p className="mt-6 flex items-start gap-2 text-[14px] leading-relaxed text-ink-2">
+            <CheckCircle2 className="mt-[3px] h-4 w-4 shrink-0 text-brand" aria-hidden />
             <span>
               Every entry is checked against its official pricing page. The check date is on each entry.{" "}
-              <Link href="/about/" className="underline decoration-line underline-offset-2 hover:text-ink">
+              <Link href="/about/" className="underline decoration-line underline-offset-[3px] hover:text-ink hover:decoration-ink">
                 How we rate
               </Link>
             </span>
           </p>
         </div>
         {popular && visited.length >= 5 ? (
-          <section aria-labelledby="visited-title" className="rounded-2xl border border-line bg-surface p-5">
-            <h2 id="visited-title" className="text-[15px] font-semibold">
+          <section aria-labelledby="visited-title" className="rounded-2xl border border-line bg-surface p-5 shadow-card sm:p-6">
+            <h2 id="visited-title" className="text-[16px] font-semibold">
               Most visited
             </h2>
-            <p className="mb-3 mt-0.5 text-[13px] text-ink-3">
+            <p className="mb-2 mt-0.5 text-[13px] text-ink-3">
               What people opened in the last {popular.days} days · updated {formatDay(popular.updated)}
             </p>
             <ol className="divide-y divide-line">
               {visited.map((item, index) => (
-                // Phones see five rows, so "Pick by job" stays within one scroll; desktop has room for eight.
                 <li key={item.id} className={index >= 5 ? "hidden lg:block" : undefined}>
-                  <Link href={item.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-2.5">
+                  <Link href={item.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-3">
                     <span className="flex min-w-0 items-baseline justify-between gap-3">
-                      <span className="truncate font-semibold group-hover:underline">{item.title}</span>
+                      <span className="truncate text-[15px] font-semibold group-hover:underline">{item.title}</span>
                       <span className="shrink-0 text-xs text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
                     </span>
                     {item.offer.length > 0 ? (
-                      <span className="line-clamp-2 font-mono text-[12.5px] leading-5 text-ink-2">
+                      <span className="line-clamp-2 text-[13.5px] leading-5 text-ink-2">
                         {item.offer.slice(0, 2).map((part, index) => (
                           <span key={index}>
-                            {index > 0 ? " · " : ""}
+                            {index > 0 ? <span className="text-ink-3"> · </span> : ""}
                             <OfferText text={part} />
                           </span>
                         ))}
@@ -129,20 +155,20 @@ export default async function HomePage() {
             </ol>
           </section>
         ) : picks.length > 0 ? (
-          <section aria-labelledby="picks-title" className="rounded-2xl border border-line bg-surface p-5">
-            <h2 id="picks-title" className="text-[15px] font-semibold">
+          <section aria-labelledby="picks-title" className="rounded-2xl border border-line bg-surface p-5 shadow-card sm:p-6">
+            <h2 id="picks-title" className="text-[16px] font-semibold">
               Common first picks
             </h2>
-            <p className="mb-3 mt-0.5 text-[13px] text-ink-3">One well-known free plan per need, picked by hand</p>
+            <p className="mb-2 mt-0.5 text-[13px] text-ink-3">One well-known free plan per need, picked by hand</p>
             <ul className="divide-y divide-line">
               {picks.map((pick, index) => (
                 <li key={pick.slug} className={index >= 5 ? "hidden lg:block" : undefined}>
-                  <Link href={pick.entry.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-2.5">
+                  <Link href={pick.entry.url} className="group grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 py-3">
                     <span className="flex min-w-0 items-baseline justify-between gap-3">
-                      <span className="truncate font-semibold group-hover:underline">{pick.entry.title}</span>
+                      <span className="truncate text-[15px] font-semibold group-hover:underline">{pick.entry.title}</span>
                       <span className="shrink-0 text-xs text-ink-3">{pick.need}</span>
                     </span>
-                    <span className="line-clamp-2 font-mono text-[12.5px] leading-5 text-ink-2">
+                    <span className="line-clamp-2 text-[13.5px] leading-5 text-ink-2">
                       <OfferText text={pick.text} />
                     </span>
                   </Link>
@@ -154,23 +180,16 @@ export default async function HomePage() {
       </section>
 
       {jobs.length > 0 ? (
-        <section className="mt-14" aria-labelledby="jobs-title">
-          <div className="mb-4 flex items-baseline justify-between gap-4">
-            <div>
-              <h2 id="jobs-title" className="text-xl font-semibold tracking-tight">
-                Pick by job
-              </h2>
-              <p className="mt-0.5 text-[13px] text-ink-3">One table per need, safest free plan first</p>
-            </div>
-            <Link href="/compare/" className="text-sm text-ink-2 hover:text-ink">
-              All comparisons →
-            </Link>
-          </div>
+        <section className="mt-6" aria-labelledby="jobs-title">
+          <SectionHeading id="jobs-title" title="Pick by job" note="One table per need, safest free plan first" link={{ href: "/compare/", label: "All comparisons" }} />
           <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-4">
             {jobs.map((job) => (
               <li key={job.slug} className="bg-surface">
-                <Link href={job.href} className="flex h-full items-baseline justify-between gap-2 px-5 py-3.5 text-[14.5px] font-medium hover:bg-surface-2">
-                  <span>{job.label}</span>
+                <Link href={job.href} className="flex h-full items-center gap-3 px-3.5 py-3 text-[14px] font-medium transition-colors hover:bg-surface-2 sm:px-5 sm:text-[14.5px]">
+                  <span className="hidden h-8 w-8 shrink-0 place-items-center rounded-lg bg-surface-2 text-ink-2 sm:grid">
+                    <JobIcon slug={job.slug} className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0 flex-1 leading-snug">{job.label}</span>
                   <span className="font-mono text-[13px] font-medium text-ink-3">{job.count}</span>
                 </Link>
               </li>
@@ -179,46 +198,45 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="mt-14" aria-labelledby="categories-title">
-        <div className="mb-4 flex items-baseline justify-between gap-4">
-          <h2 id="categories-title" className="text-xl font-semibold tracking-tight">
-            Browse by category
-          </h2>
-          <Link href="/explorer/" className="text-sm text-ink-2 hover:text-ink">
-            All entries →
-          </Link>
-        </div>
+      <section className="mt-16" aria-labelledby="categories-title">
+        <SectionHeading id="categories-title" title="Browse by category" link={{ href: "/explorer/", label: "All entries" }} />
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4">
           {categories.map((category) => (
-            <Link key={category.domain} href={`/category/${category.domain}/`} className="grid gap-1 bg-surface px-5 py-[18px] hover:bg-surface-2">
-              <span className="flex items-baseline justify-between gap-2 font-semibold">
-                {DOMAIN_LABELS[category.domain]}
-                <span className="font-mono text-[13px] font-medium text-ink-3">{category.count}</span>
+            <Link key={category.domain} href={`/category/${category.domain}/`} className="flex items-start gap-3 bg-surface px-3.5 py-4 transition-colors hover:bg-surface-2 sm:px-5">
+              <span className="mt-0.5 hidden h-8 w-8 shrink-0 place-items-center rounded-lg bg-surface-2 text-ink-2 sm:grid">
+                <DomainIcon domain={category.domain} className="h-4 w-4" />
               </span>
-              <span className="truncate text-[13px] text-ink-3">{category.examples.join(", ")}</span>
+              <span className="grid min-w-0 flex-1 gap-0.5">
+                <span className="flex items-baseline justify-between gap-2 text-[15px] font-semibold">
+                  {DOMAIN_LABELS[category.domain]}
+                  <span className="font-mono text-[13px] font-medium text-ink-3">{category.count}</span>
+                </span>
+                <span className="truncate text-[13px] text-ink-3">{category.examples.join(", ")}</span>
+              </span>
             </Link>
           ))}
         </div>
       </section>
 
       {safePicks.length >= 3 ? (
-        <section className="mt-14" aria-labelledby="safe-title">
-          <h2 id="safe-title" className="text-xl font-semibold tracking-tight">
-            Safe places to start
-          </h2>
-          <p className="mb-4 mt-0.5 text-[13px] text-ink-3">Checked recently · no card · hard cap</p>
+        <section className="mt-16" aria-labelledby="safe-title">
+          <SectionHeading id="safe-title" title="Safe places to start" note="Checked recently · no card · hard cap" />
           <div className="grid gap-3 md:grid-cols-3">
             {safePicks.map((item) => (
-              <Link key={item.id} href={item.url} className="grid grid-cols-[1fr_auto] content-start gap-x-4 gap-y-1.5 rounded-xl border border-line bg-surface px-[18px] py-4 hover:border-ink-3">
+              <Link
+                key={item.id}
+                href={item.url}
+                className="grid grid-cols-[1fr_auto] content-start gap-x-4 gap-y-2 rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-ink-3"
+              >
                 <span>
-                  <span className="block font-semibold">{item.title}</span>
+                  <span className="block text-[16px] font-semibold">{item.title}</span>
                   <span className="text-[13px] text-ink-3">{DOMAIN_LABELS[item.domain]}</span>
                 </span>
                 <RiskPill risk={item.risk} />
-                <span className="col-span-2 font-mono text-[13px] text-ink-2">
+                <span className="col-span-2 text-[14px] leading-relaxed text-ink-2">
                   {item.offer.map((part, index) => (
                     <span key={index}>
-                      {index > 0 ? " · " : ""}
+                      {index > 0 ? <span className="text-ink-3"> · </span> : ""}
                       <OfferText text={part} />
                     </span>
                   ))}
@@ -233,17 +251,17 @@ export default async function HomePage() {
       ) : null}
 
       {/* A footnote, not a feature: the few plans that changed or ended lately. The changelog page has the rest. */}
-      <section aria-labelledby="changelog-title" role="region" className="mt-16 border-t border-line pt-6">
+      <section aria-labelledby="changelog-title" role="region" className="mt-16 border-t border-line pt-7">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h2 id="changelog-title" className="text-[15px] font-semibold">
+          <h2 id="changelog-title" className="text-[16px] font-semibold">
             Free tier changelog
           </h2>
-          <Link href="/changelog/" className="text-[13px] text-ink-2 hover:text-ink">
-            All changes →
+          <Link href="/changelog/" className="text-[14px] text-ink-2 underline decoration-line underline-offset-[3px] hover:text-ink hover:decoration-ink">
+            All changes
           </Link>
         </div>
         {changes.length > 0 ? (
-          <ol className="mt-3 grid gap-x-8 gap-y-2 text-[13.5px] md:grid-cols-2">
+          <ol className="mt-4 grid gap-x-8 gap-y-2.5 text-[14px] md:grid-cols-2">
             {changes.map((change) => (
               <li key={`${change.url}-${change.date}`} className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
                 <span className="shrink-0 font-mono text-xs text-ink-3">{formatMonth(change.date)}</span>
@@ -259,7 +277,6 @@ export default async function HomePage() {
           <p className="mt-3 text-sm text-ink-3">No changes recorded yet.</p>
         )}
       </section>
-
     </>
   );
 }

@@ -5,8 +5,8 @@ import { OfferText } from "@/components/entry/offer-text";
 import { DOMAIN_LABELS } from "@/lib/content";
 import type { ListItem } from "@/lib/entry-view";
 
-const COLS_WITH_CHECK = "lg:grid-cols-[minmax(180px,1.1fr)_minmax(0,1.6fr)_92px_78px_112px]";
-const COLS_NO_CHECK = "lg:grid-cols-[minmax(160px,1fr)_minmax(0,1.6fr)_92px_78px]";
+const COLS_WITH_CHECK = "lg:grid-cols-[minmax(180px,1.1fr)_minmax(0,1.6fr)_92px_84px_118px]";
+const COLS_NO_CHECK = "lg:grid-cols-[minmax(160px,1fr)_minmax(0,1.6fr)_92px_84px]";
 
 type EntryListProps = { items: ListItem[]; showChecked?: boolean; showCap?: boolean; label?: string };
 
@@ -16,11 +16,11 @@ export function EntryList({ items, showChecked = true, showCap = false, label = 
     <div
       role="table"
       aria-label={label}
-      className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface [&>*:nth-child(2)]:!border-t-0 lg:[&>*:nth-child(2)]:!border-t"
+      className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface [&>*:nth-child(2)]:!border-t-0 lg:[&>*:nth-child(2)]:!border-t"
     >
       <div
         role="row"
-        className={`hidden h-[38px] items-center gap-4 bg-surface-2 px-[18px] font-mono text-[11px] font-medium uppercase tracking-[0.06em] text-ink-3 lg:grid ${cols}`}
+        className={`hidden h-10 items-center gap-4 bg-surface-2 px-5 font-mono text-[11px] font-medium uppercase tracking-[0.06em] text-ink-3 lg:grid ${cols}`}
       >
         <span role="columnheader">Free tier</span>
         <span role="columnheader">What you get free</span>
@@ -34,24 +34,24 @@ export function EntryList({ items, showChecked = true, showCap = false, label = 
           <div
             key={item.id}
             role="row"
-            className={`relative grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1.5 px-4 py-3.5 hover:bg-surface-2 lg:min-h-16 lg:items-center lg:gap-4 lg:px-[18px] lg:py-2.5 ${cols} ${ended ? "opacity-80" : ""}`}
+            className={`relative grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-2 px-4 py-4 transition-colors hover:bg-surface-2 lg:min-h-[68px] lg:items-center lg:gap-4 lg:px-5 lg:py-3 ${cols} ${ended ? "opacity-80" : ""}`}
           >
             <div role="cell" className="col-start-1 row-start-1 min-w-0 lg:col-auto lg:row-auto">
               <div className="flex flex-wrap items-center gap-1.5">
-                <Link href={item.url} className={`text-[14.5px] font-semibold after:absolute after:inset-0 ${ended ? "line-through decoration-1" : ""}`}>
+                <Link href={item.url} className={`text-[15.5px] font-semibold leading-snug after:absolute after:inset-0 ${ended ? "line-through decoration-1" : ""}`}>
                   {item.title}
                 </Link>
                 <StatusPill status={item.status} />
               </div>
-              <div className="text-[12.5px] text-ink-3">
+              <div className="mt-0.5 text-[13px] text-ink-3">
                 {item.provider} · {DOMAIN_LABELS[item.domain]}
               </div>
             </div>
-            <div role="cell" className="col-span-2 row-start-2 line-clamp-2 font-mono text-[12.5px] leading-normal text-ink-2 lg:col-auto lg:row-auto">
+            <div role="cell" className="col-span-2 row-start-2 line-clamp-2 text-[14px] leading-snug text-ink-2 lg:col-auto lg:row-auto">
               {item.offer.length > 0 ? (
                 item.offer.map((part, index) => (
                   <span key={index}>
-                    {index > 0 ? " · " : ""}
+                    {index > 0 ? <span className="text-ink-3"> · </span> : ""}
                     <OfferText text={part} />
                   </span>
                 ))

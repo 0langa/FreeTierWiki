@@ -23,6 +23,7 @@
     --bg: #f6f6f3;
     --surface: #ffffff;
     --surface-2: #efefea;
+    --surface-3: #e5e5de;
     --ink: #15171a;
     --ink-2: #4b5058;
     --ink-3: #6a7079;
@@ -30,6 +31,8 @@
     --line-strong: #15171a;
     --brand: #0a7a50;
     --brand-ink: #ffffff;
+    --brand-soft: #e3f3ea;
+    --brand-glow: rgb(10 122 80 / 0.11);
     --none: #0a7a50;
     --none-bg: #e3f3ea;
     --low: #2563a8;
@@ -41,6 +44,7 @@
     --warn: #9a5b00;
     --warn-bg: #fdf5e6;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.03), 0 4px 14px rgb(0 0 0 / 0.04);
     color-scheme: light;
   }
 
@@ -48,6 +52,7 @@
     --bg: #0d0f11;
     --surface: #14171a;
     --surface-2: #1b1f23;
+    --surface-3: #23282d;
     --ink: #eceef0;
     --ink-2: #a8aeb6;
     --ink-3: #8a919a;
@@ -55,6 +60,8 @@
     --line-strong: #eceef0;
     --brand: #34d399;
     --brand-ink: #06281a;
+    --brand-soft: rgb(52 211 153 / 0.12);
+    --brand-glow: rgb(52 211 153 / 0.09);
     --none: #4ade9a;
     --none-bg: rgb(74 222 154 / 0.12);
     --low: #86b9f5;
@@ -66,6 +73,7 @@
     --warn: #f2b45a;
     --warn-bg: rgb(242 180 90 / 0.08);
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 14px rgb(0 0 0 / 0.3);
     color-scheme: dark;
   }
 
@@ -77,12 +85,18 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     background: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -97,11 +111,30 @@
   samp {
     font-family: var(--font-mono), ui-monospace, monospace;
   }
+
+  /* <details> keeps the native toggle; the marker is drawn by the component instead. */
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-line bg-surface px-3.5 text-sm font-medium text-ink transition-colors hover:border-ink-3;
+    @apply inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-lg border border-line bg-surface px-4 text-[14.5px] font-medium text-ink transition-colors hover:border-ink-3;
   }
   .btn-primary {
     @apply border-ink bg-ink text-bg hover:border-ink hover:opacity-90;
@@ -109,8 +142,15 @@
   .btn-ghost {
     @apply border-transparent bg-transparent text-ink-2 hover:border-transparent hover:text-ink;
   }
+  /* A small round link: a quick filter, a comparison table, a provider. */
+  .chip {
+    @apply inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-full border border-line bg-surface px-3 text-[13.5px] text-ink-2 transition-colors hover:border-ink-3 hover:text-ink;
+  }
   .eyebrow {
     @apply font-mono text-xs font-medium uppercase tracking-[0.06em] text-ink-3;
+  }
+  .section-title {
+    @apply text-[22px] font-semibold leading-tight tracking-tight sm:text-[24px];
   }
   .pill {
     @apply inline-flex h-[22px] items-center gap-1.5 whitespace-nowrap rounded-full px-2 text-xs font-medium;
@@ -118,6 +158,24 @@
   .pill::before {
     content: "";
     @apply h-1.5 w-1.5 rounded-full bg-current;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Numbered steps with a round counter instead of the list number. */
+  .steps {
+    counter-reset: step;
+  }
+  .steps > li {
+    @apply relative pl-10;
+    counter-increment: step;
+  }
+  .steps > li::before {
+    content: counter(step);
+    @apply absolute left-0 top-0 grid h-7 w-7 place-items-center rounded-full bg-surface-2 font-mono text-[12.5px] font-semibold text-ink-2;
   }
   /* Changelog filter: radio inputs in the page, rows carry data-kind. Works without JavaScript. */
   .changelog:has(#kind-new:checked) li:not([data-kind="new"]),
@@ -141,28 +199,57 @@
   .changelog ol:not(:has(li)) {
     display: none;
   }
-  .prose-lite p {
-    @apply text-ink-2;
+  /* Long-form text: the entry body, the about page. Ink rather than gray, at a reading size. */
+  .reading {
+    @apply text-[16px] leading-[1.65] text-ink;
   }
-  .prose-lite p + p {
-    @apply mt-3;
+  .reading-lede {
+    @apply text-[17px] leading-[1.6] text-ink-2;
   }
-  .prose-lite a {
-    @apply underline underline-offset-2 hover:text-ink;
+  .reading p + p {
+    @apply mt-4;
   }
-  .prose-lite ul {
-    @apply mt-2 list-disc pl-5 text-ink-2;
+  .reading a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--brand) 40%, transparent);
+    text-underline-offset: 3px;
   }
-  .prose-lite li + li {
-    @apply mt-1.5;
+  .reading a:hover {
+    text-decoration-color: currentColor;
   }
-  .prose-lite h2 {
-    @apply mb-2.5 mt-9 text-lg font-semibold text-ink;
+  .reading ul {
+    @apply mt-3 list-disc pl-5;
   }
-  .prose-lite h3 {
-    @apply mb-1 mt-5 text-[15px] font-semibold text-ink;
+  .reading ol {
+    @apply mt-3 list-decimal pl-5;
   }
-  .prose-lite > :first-child {
+  .reading li + li {
+    @apply mt-2;
+  }
+  .reading li::marker {
+    color: var(--ink-3);
+  }
+  .reading h2 {
+    @apply mb-3 mt-10 text-[22px] font-semibold leading-tight tracking-tight;
+  }
+  .reading h3 {
+    @apply mb-1.5 mt-6 text-[16.5px] font-semibold;
+  }
+  .reading > :first-child {
+    @apply mt-0;
+  }
+  .reading code {
+    @apply rounded bg-surface-2 px-1.5 py-0.5 text-[0.9em];
+  }
+  .reading strong {
+    @apply font-semibold text-ink;
+  }
+  /* A section whose list items render as cards (gotchas, alternatives): no bullets, no indent. */
+  .reading-cards ul {
+    @apply grid list-none gap-2.5 pl-0;
+  }
+  .reading-cards li + li {
     @apply mt-0;
   }
 }
