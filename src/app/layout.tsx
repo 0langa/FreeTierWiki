@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable} font-sans`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} flex min-h-dvh flex-col font-sans`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2"
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <AppProviders>
           <SiteHeader />
-          <main id="main" className="mx-auto w-full max-w-[1240px] px-4 sm:px-6">
+          <main id="main" className="mx-auto w-full max-w-[1240px] flex-1 px-4 sm:px-6 lg:px-8">
             {children}
           </main>
           <SiteFooter />

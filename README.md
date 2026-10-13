@@ -32,7 +32,7 @@ Each category (Hosting, Database, AI, and so on) has its own page listing just i
 
 ### Detail pages
 
-Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. On a phone the label comes right after the title. Below it: links to the official pricing page and docs, "Compared in" links to every comparison table the entry is in, when to use it, when not to, a quickstart, and other free options in the same category.
+Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. On a phone the label comes right after the title; on a desktop it sits in the right column with an "On this page" menu that follows you down the page. Below the title: links to the official pricing page and docs, "Compared in" links to every comparison table the entry is in, "Good fit" and "Not a fit" cards, then the entry body in clearly separated sections: what the free plan gives you, what happens at the limit, gotchas, alternatives, and questions people ask (each answer opens on tap). After that come the sign-up steps and other free options in the same category.
 
 Every detail page also has a **freshness label**:
 - A green date with a check mark means someone compared the entry with the official pricing page on that date.

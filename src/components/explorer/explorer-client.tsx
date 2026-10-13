@@ -118,7 +118,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
   const activeCount = activeFilterCount(query);
 
   return (
-    <div className="grid gap-10 pt-6 lg:grid-cols-[244px_minmax(0,1fr)] lg:pt-8">
+    <div className="grid gap-8 pt-8 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-12 lg:pt-10">
       {/* React hoists this into <head>. Only exclude a confirmed empty result, never loading or failed data. */}
       {results?.length === 0 ? <meta name="robots" content="noindex, follow" /> : null}
       <aside aria-label="Filters" className="hidden lg:block">
@@ -128,9 +128,10 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
       </aside>
 
       <section className="min-w-0">
-        <h1 className="text-[28px] font-bold tracking-tight">Explore free tiers</h1>
-        <label className="mt-3.5 flex h-11 items-center gap-2.5 rounded-[10px] border border-line bg-surface px-3.5 focus-within:border-ink-3">
-          <Search className="h-4 w-4 shrink-0 text-ink-3" aria-hidden />
+        <h1 className="text-[30px] font-bold tracking-tight sm:text-[36px]">Explore free tiers</h1>
+        <p className="mt-2 max-w-[60ch] text-[15px] text-ink-2">Every free plan in the catalog. Narrow it down by category, card rules, billing risk, and freshness.</p>
+        <label className="mt-5 flex h-12 items-center gap-3 rounded-xl border border-line bg-surface px-4 shadow-card focus-within:border-ink-3">
+          <Search className="h-[18px] w-[18px] shrink-0 text-ink-3" aria-hidden />
           <input
             data-slash-focus
             type="search"
@@ -138,18 +139,18 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
             onChange={(event) => setText(event.target.value)}
             placeholder="Search name, provider, or need…"
             aria-label="Search the explorer"
-            className="h-full w-full bg-transparent outline-none placeholder:text-ink-3"
+            className="h-full w-full bg-transparent text-base outline-none placeholder:text-ink-3"
           />
           <kbd className="hidden rounded border border-line bg-surface-2 px-1.5 py-0.5 text-[11px] text-ink-3 sm:inline">/</kbd>
         </label>
 
-        <div className="mt-3.5 flex flex-wrap items-center gap-2 text-sm text-ink-2">
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-[14.5px] text-ink-2">
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
             aria-haspopup="dialog"
             aria-expanded={sheetOpen}
-            className="btn lg:hidden"
+            className="btn h-9 px-3 lg:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" aria-hidden />
             Filters{activeCount > 0 ? ` · ${activeCount}` : ""}
@@ -166,27 +167,23 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
               type="button"
               onClick={() => update(chip.patch)}
               aria-label={`Remove filter: ${chip.label}`}
-              className="inline-flex h-[26px] items-center gap-1 rounded-md bg-surface-2 pl-2.5 pr-1.5 text-[13px] text-ink"
+              className="inline-flex h-8 items-center gap-1 rounded-md bg-surface-2 pl-2.5 pr-1.5 text-[13.5px] text-ink transition-colors hover:bg-surface-3"
             >
               {chip.label}
               <X className="h-3.5 w-3.5 text-ink-3" aria-hidden />
             </button>
           ))}
           {chips.length > 1 ? (
-            <button
-              type="button"
-              onClick={() => navigate({ ...DEFAULT_QUERY, sort: query.sort })}
-              className="text-[13px] text-ink-3 hover:text-ink"
-            >
+            <button type="button" onClick={() => navigate({ ...DEFAULT_QUERY, sort: query.sort })} className="text-[13.5px] text-ink-3 hover:text-ink">
               Clear all
             </button>
           ) : null}
-          <label className="ml-auto flex items-center gap-1.5 text-[13px]">
+          <label className="ml-auto flex items-center gap-1.5 text-[13.5px]">
             Sort
             <select
               value={query.sort}
               onChange={(event) => update({ sort: event.target.value as SortMode })}
-              className="h-8 rounded-lg border border-line bg-surface px-2 text-[13px] text-ink"
+              className="h-9 rounded-lg border border-line bg-surface px-2 text-[13.5px] text-ink"
             >
               <option value="safest">Safest first</option>
               <option value="recent">Recently checked</option>
@@ -203,11 +200,11 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
 
         <div className="mt-4">
           {waiting ? (
-            <p className="rounded-xl border border-line bg-surface p-6 text-sm text-ink-3">Loading…</p>
+            <p className="rounded-2xl border border-line bg-surface p-6 text-sm text-ink-3">Loading…</p>
           ) : shown.length > 0 ? (
             <EntryList items={shown} />
           ) : (
-            <div className="rounded-xl border border-dashed border-line p-8 text-center text-sm text-ink-3">
+            <div className="rounded-2xl border border-dashed border-line p-8 text-center text-sm text-ink-3">
               <p>No free tiers match these filters.</p>
               <button type="button" onClick={() => navigate({ ...DEFAULT_QUERY, sort: query.sort })} className="btn mt-3">
                 Clear filters
@@ -217,7 +214,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
         </div>
 
         {results && results.length > limit ? (
-          <div className="mt-3 flex items-center justify-between text-[13px] text-ink-3">
+          <div className="mt-4 flex items-center justify-between text-[13.5px] text-ink-3">
             <span>
               Showing {limit} of {results.length}
             </span>
@@ -226,7 +223,6 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
             </button>
           </div>
         ) : null}
-
       </section>
 
       <Modal
@@ -239,7 +235,7 @@ export function ExplorerClient({ initialItems, initialTotal }: { initialItems: L
         <h2 className="mb-4 text-lg font-semibold">Filters</h2>
         <FilterPanel query={query} counts={counts} onChange={update} disabled={loadFailed} />
         <div className="sticky bottom-0 mt-4 bg-surface pt-3">
-          <button type="button" onClick={() => setSheetOpen(false)} className="btn btn-primary h-11 w-full justify-center">
+          <button type="button" onClick={() => setSheetOpen(false)} className="btn btn-primary h-12 w-full justify-center">
             Show {total} results
           </button>
         </div>

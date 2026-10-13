@@ -35,6 +35,23 @@ test("the jump menu links to the sections on the page", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 2, name: "How to get started" })).toBeVisible();
 });
 
+test("the jump menu marks the section on screen", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "the phone strip uses the same marker; one project is enough");
+  await page.goto("/services/supabase/");
+  const jumps = page.getByRole("navigation", { name: "On this page" });
+  await jumps.getByRole("link", { name: "Gotchas" }).click();
+  await expect(jumps.getByRole("link", { name: "Gotchas" })).toHaveAttribute("aria-current", "location");
+  await expect(jumps.getByRole("link", { name: "Fit" })).not.toHaveAttribute("aria-current", "location");
+});
+
+test("a question opens its answer on tap", async ({ page }) => {
+  await page.goto("/services/supabase/");
+  const answer = page.getByText(/shows no end date/);
+  await expect(answer).toBeHidden();
+  await page.getByText("Is Supabase free forever?").click();
+  await expect(answer).toBeVisible();
+});
+
 test("a deepened entry carries breadcrumb and FAQ structured data", async ({ page }) => {
   await page.goto("/services/supabase/");
   const data = JSON.parse((await page.locator('script[type="application/ld+json"]').first().textContent()) ?? "{}");

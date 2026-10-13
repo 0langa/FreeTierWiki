@@ -37,14 +37,18 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
   return (
-    <button type="button" role="switch" aria-checked={checked} onClick={() => onChange(!checked)} className="flex w-full items-center justify-between py-1.5 text-left">
+    <button type="button" role="switch" aria-checked={checked} onClick={() => onChange(!checked)} className="flex w-full items-center justify-between py-2 text-left">
       <span>{label}</span>
-      <span aria-hidden className={`relative h-[18px] w-[30px] shrink-0 rounded-full border transition-colors ${checked ? "border-brand bg-brand" : "border-line bg-surface-2"}`}>
-        <span className={`absolute top-[2px] h-3 w-3 rounded-full transition-all ${checked ? "left-[14px] bg-brand-ink" : "left-[2px] bg-ink-3"}`} />
+      <span aria-hidden className={`relative h-5 w-9 shrink-0 rounded-full border transition-colors ${checked ? "border-brand bg-brand" : "border-line bg-surface-2"}`}>
+        <span className={`absolute top-[3px] h-3 w-3 rounded-full transition-all ${checked ? "left-[18px] bg-brand-ink" : "left-[3px] bg-ink-3"}`} />
       </span>
     </button>
   );
 }
+
+const OPTION = "h-8 rounded-md border px-2.5 text-[13.5px] transition-colors";
+const OPTION_ON = "border-ink bg-surface-2 text-ink";
+const OPTION_OFF = "border-line bg-surface text-ink-2 hover:text-ink";
 
 function Chips<T extends string>({ options, values, onChange, labels }: { options: readonly T[]; values: T[]; onChange: (next: T[]) => void; labels: Record<T, string> }) {
   return (
@@ -57,7 +61,7 @@ function Chips<T extends string>({ options, values, onChange, labels }: { option
             type="button"
             aria-pressed={on}
             onClick={() => onChange(toggleValue(values, option, !on, options))}
-            className={`h-7 rounded-md border px-2.5 text-[13px] ${on ? "border-ink bg-surface-2 text-ink" : "border-line bg-surface text-ink-2 hover:text-ink"}`}
+            className={`${OPTION} ${on ? OPTION_ON : OPTION_OFF}`}
           >
             {labels[option]}
           </button>
@@ -88,7 +92,7 @@ export function FilterPanel({ query, counts, onChange, disabled = false }: Props
   const visibleCats = showAllCats ? cats : cats.slice(0, VISIBLE_CATS);
 
   return (
-    <div className="grid gap-6 text-sm">
+    <div className="grid gap-6 text-[14.5px]">
       <fieldset disabled={disabled} className="contents">
       <Group title="Quick">
         <Toggle label="No card needed" checked={query.noCard} onChange={(value) => onChange({ noCard: value })} />
@@ -103,7 +107,7 @@ export function FilterPanel({ query, counts, onChange, disabled = false }: Props
               type="button"
               aria-pressed={query.type === value}
               onClick={() => onChange({ type: value })}
-              className={`h-7 rounded-md border px-2.5 text-[13px] ${query.type === value ? "border-ink bg-surface-2 text-ink" : "border-line bg-surface text-ink-2 hover:text-ink"}`}
+              className={`${OPTION} ${query.type === value ? OPTION_ON : OPTION_OFF}`}
             >
               {label}
             </button>
@@ -112,7 +116,7 @@ export function FilterPanel({ query, counts, onChange, disabled = false }: Props
       </Group>
       <Group title="Category">
         {visibleCats.map((domain) => (
-          <label key={domain} className="flex cursor-pointer items-center gap-2.5 py-1 text-ink-2 hover:text-ink">
+          <label key={domain} className="flex cursor-pointer items-center gap-2.5 py-1.5 text-ink-2 hover:text-ink">
             <input
               type="checkbox"
               checked={query.cats.includes(domain)}
@@ -124,7 +128,7 @@ export function FilterPanel({ query, counts, onChange, disabled = false }: Props
           </label>
         ))}
         {cats.length > VISIBLE_CATS ? (
-          <button type="button" onClick={() => setShowAllCats((value) => !value)} className="pt-1 text-[13px] text-ink-3 hover:text-ink">
+          <button type="button" onClick={() => setShowAllCats((value) => !value)} className="pt-1.5 text-[13.5px] text-ink-3 hover:text-ink">
             {showAllCats ? "Show fewer" : `+ ${cats.length - VISIBLE_CATS} more`}
           </button>
         ) : null}

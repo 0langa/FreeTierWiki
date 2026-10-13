@@ -1,29 +1,80 @@
 import Link from "next/link";
 
 import { BUILD_DAY } from "@/lib/build-info";
+import { FEED_PATH } from "@/lib/feed";
 import { formatDay } from "@/lib/format";
 import { REPO_URL } from "@/lib/links";
 
+const EXTERNAL = { target: "_blank", rel: "noopener noreferrer" } as const;
+
+function Group({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h2 className="eyebrow mb-3">{title}</h2>
+      <ul className="grid gap-2 text-[14.5px] text-ink-2">{children}</ul>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer className="mt-20 border-t border-line">
-      <div className="mx-auto flex w-full max-w-[1240px] flex-wrap gap-x-6 gap-y-2 px-4 py-6 text-[13px] text-ink-3 sm:px-6">
-        <Link href="/about/" className="hover:text-ink">
-          How we rate
-        </Link>
-        <Link href="/compare/" className="hover:text-ink">
-          Comparisons
-        </Link>
-        <Link href="/changelog/" className="hover:text-ink">
-          Changelog
-        </Link>
-        <a href={`${REPO_URL}/issues/new?template=outdated-info.yml`} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-          Report outdated info
-        </a>
-        <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-          GitHub
-        </a>
-        <span className="font-mono sm:ml-auto">Data built {formatDay(BUILD_DAY)} · MIT</span>
+    <footer className="mt-20 border-t border-line bg-surface">
+      <div className="mx-auto grid w-full max-w-[1240px] gap-10 px-4 py-10 sm:px-6 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:px-8">
+        <div>
+          <p className="font-mono text-[17px] font-semibold tracking-tight">
+            freetier<span className="text-brand">.</span>wiki
+          </p>
+          <p className="mt-2 max-w-[34ch] text-[14.5px] leading-relaxed text-ink-2">
+            Free plans for developers, with the limits, card rules, and billing risk spelled out. Always confirm on the provider&apos;s
+            pricing page before you build on a plan.
+          </p>
+        </div>
+        <Group title="Browse">
+          <li>
+            <Link href="/explorer/" className="hover:text-ink">
+              All free tiers
+            </Link>
+          </li>
+          <li>
+            <Link href="/compare/" className="hover:text-ink">
+              Comparisons
+            </Link>
+          </li>
+          <li>
+            <Link href="/changelog/" className="hover:text-ink">
+              Changelog
+            </Link>
+          </li>
+        </Group>
+        <Group title="About">
+          <li>
+            <Link href="/about/" className="hover:text-ink">
+              How we rate
+            </Link>
+          </li>
+          <li>
+            <a href={FEED_PATH} className="hover:text-ink">
+              RSS feed
+            </a>
+          </li>
+        </Group>
+        <Group title="Contribute">
+          <li>
+            <a href={`${REPO_URL}/issues/new?template=outdated-info.yml`} {...EXTERNAL} className="hover:text-ink">
+              Report outdated info
+            </a>
+          </li>
+          <li>
+            <a href={REPO_URL} {...EXTERNAL} className="hover:text-ink">
+              GitHub
+            </a>
+          </li>
+        </Group>
+      </div>
+      <div className="border-t border-line">
+        <p className="mx-auto w-full max-w-[1240px] px-4 py-4 font-mono text-[12.5px] text-ink-3 sm:px-6 lg:px-8">
+          Data built {formatDay(BUILD_DAY)} · MIT
+        </p>
       </div>
     </footer>
   );

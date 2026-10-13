@@ -24,12 +24,12 @@ export default async function ExplorerPage() {
   return (
     <Suspense
       fallback={
-        <div className="pt-6 lg:pt-8">
-          <h1 className="text-[28px] font-bold tracking-tight">Explore free tiers</h1>
-          <p className="mt-3.5 text-sm text-ink-2">
+        <div className="pt-8 lg:pt-10">
+          <h1 className="text-[30px] font-bold tracking-tight sm:text-[36px]">Explore free tiers</h1>
+          <p className="mt-3 text-[15px] text-ink-2">
             <strong className="text-ink">{initial.length}</strong> results, safest first
           </p>
-          <div className="mt-4">
+          <div className="mt-5">
             <EntryList items={firstPage} />
           </div>
         </div>

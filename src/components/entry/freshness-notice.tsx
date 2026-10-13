@@ -13,8 +13,8 @@ const TONES = {
 function Notice({ tone, children }: { tone: keyof typeof TONES; children: React.ReactNode }) {
   const Icon = tone === "neutral" ? Clock : TriangleAlert;
   return (
-    <div role="note" className={`flex max-w-3xl gap-2.5 rounded-xl border px-3.5 py-3 text-sm ${TONES[tone]}`}>
-      <Icon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+    <div role="note" className={`flex max-w-[68ch] gap-2.5 rounded-xl border px-3.5 py-3 text-[14.5px] leading-relaxed ${TONES[tone]}`}>
+      <Icon className="mt-[3px] h-4 w-4 shrink-0" aria-hidden />
       <p>{children}</p>
     </div>
   );
