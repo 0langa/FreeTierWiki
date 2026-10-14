@@ -21,7 +21,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...providers.map((group) => ({ url: absoluteUrl(`/provider/${group.slug}/`), changeFrequency: "weekly" as const, priority: 0.6 })),
     ...entries.map((entry) => ({
       url: absoluteUrl(entry.url),
-      lastModified: entry.lastVerified ?? entry.lastUpdated,
+      // When the entry's content last changed. Not lastVerified: the weekly check moves that date on every
+      // entry whose pricing page is unchanged, which would tell crawlers that hundreds of pages changed weekly.
+      lastModified: entry.lastUpdated,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),

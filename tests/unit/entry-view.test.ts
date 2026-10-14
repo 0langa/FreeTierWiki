@@ -2,12 +2,14 @@ import { describe, expect, it } from "vitest";
 
 import {
   compareSafety,
+  fromExplorerData,
   fromExplorerRow,
   offerParts,
   pricingUrl,
   relatedItems,
   safetyScore,
   searchWords,
+  toExplorerData,
   toExplorerRow,
   toListItem,
 } from "@/lib/entry-view";
@@ -92,14 +94,16 @@ describe("explorer rows", () => {
     expect({ ...fromExplorerRow(row), haystack: item.haystack }).toEqual(item);
   });
 
-  it("drop haystack words that a longer word or the title already covers, without changing what search finds", () => {
+  it("drop haystack words that a longer word, the title, or the category already covers, without changing what search finds", () => {
     const entry = makeEntry({ title: "Neon Postgres", description: "Serverless Postgres database with data branching and branches." });
     const item = toListItem(entry, now);
     const row = toExplorerRow(item);
     const shipped = row.haystack.split(" ");
     expect(shipped).not.toContain("data");
     expect(shipped).not.toContain("neon");
-    expect(shipped).toContain("database");
+    // "database" is the category name (domain: database), which the browser adds back from the row.
+    expect(shipped).not.toContain("database");
+    expect(shipped).toContain("serverless");
     const restored = fromExplorerRow(row).haystack;
     for (const word of item.haystack.split(" ")) expect(restored).toContain(word);
     for (const word of restored.split(" ")) expect(item.haystack.split(" ")).toContain(word);
@@ -120,6 +124,48 @@ describe("explorer rows", () => {
   it("rebuilds a tools url", () => {
     const item = toListItem(makeEntry({ id: "tools:postman", kind: "tools", slug: "postman", url: "/tools/postman/" }), now);
     expect(fromExplorerRow(toExplorerRow(item))).toMatchObject({ kind: "tools", url: "/tools/postman/" });
+  });
+
+  it("drop every word of a multi-word category name and add them back", () => {
+    const item = toListItem(makeEntry({ domain: "devops", description: "Hosted CI pipelines for DevOps teams.", tags: ["ci"] }), now);
+    const shipped = toExplorerRow(item).haystack.split(" ");
+    expect(shipped).not.toContain("devops");
+    expect(shipped).not.toContain("ci");
+    expect(fromExplorerRow(toExplorerRow(item)).haystack.split(" ")).toEqual(expect.arrayContaining(["devops", "ci", "pipelines"]));
+  });
+});
+
+describe("explorer data", () => {
+  const items = [
+    toListItem(makeEntry(), now),
+    toListItem(makeEntry({ id: "tools:postman", kind: "tools", slug: "postman", url: "/tools/postman/", title: "Postman", provider: "Postman", status: "ended", lastVerified: "2026-09-01" }), now),
+  ];
+
+  it("ships one array per field instead of one object per row", () => {
+    const data = toExplorerData(items);
+    expect(Object.keys(data).sort()).toEqual(
+      ["cap", "card", "domain", "freshness", "haystack", "id", "offer", "plan", "provider", "rank", "ready", "risk", "status", "title"],
+    );
+    for (const column of Object.values(data)) expect(column).toHaveLength(items.length);
+    expect(data.id).toEqual(["services:neon", "tools:postman"]);
+    expect(data.status).toEqual(["active", "ended"]);
+  });
+
+  it("round-trips through JSON to the same list items", () => {
+    const restored = fromExplorerData(JSON.parse(JSON.stringify(toExplorerData(items))));
+    expect(restored.map((item) => ({ ...item, haystack: "" }))).toEqual(items.map((item) => ({ ...item, haystack: "" })));
+    restored.forEach((item, index) => expect(item.haystack.split(" ").sort()).toEqual(items[index].haystack.split(" ").sort()));
+  });
+
+  it("rejects anything else, such as the row array an older build shipped", () => {
+    expect(() => fromExplorerData(items.map(toExplorerRow))).toThrow(/expected columns/);
+    expect(() => fromExplorerData(null)).toThrow(/expected columns/);
+    expect(() => fromExplorerData({ ...toExplorerData(items), rank: [1] })).toThrow(/expected columns/);
+  });
+
+  it("is smaller than the same rows as objects", () => {
+    const all = Array.from({ length: 50 }, (_, index) => toListItem(makeEntry({ id: `services:neon-${index}`, slug: `neon-${index}` }), now));
+    expect(JSON.stringify(toExplorerData(all)).length).toBeLessThan(JSON.stringify(all.map(toExplorerRow)).length * 0.8);
   });
 });
 
