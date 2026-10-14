@@ -90,7 +90,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative grid items-start gap-12 pb-12 pt-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 lg:pb-16 lg:pt-14 2xl:grid-cols-[minmax(0,1fr)_460px] 2xl:gap-24">
+      <section className="relative grid grid-cols-[minmax(0,1fr)] items-start gap-12 pb-12 pt-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 lg:pb-16 lg:pt-14 2xl:grid-cols-[minmax(0,1fr)_460px] 2xl:gap-24">
         {/* A soft glow behind the hero. Decorative, and kept inside the page column so it never widens the page. */}
         <div
           aria-hidden

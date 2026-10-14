@@ -77,3 +77,24 @@ test("the header buttons fit on a phone screen", async ({ page }, testInfo) => {
   const toggle = await page.locator("header button").last().boundingBox();
   expect(toggle && toggle.x + toggle.width <= width).toBe(true);
 });
+
+test("the header fits narrow phones and tablets without a sideways scroll", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "phone", "one project is enough: the test sets its own widths");
+  // 320px is the WCAG reflow width, 360px a common Android width, 768px a tablet held upright.
+  for (const width of [320, 360, 768]) {
+    await page.setViewportSize({ width, height: 740 });
+    await page.goto("/compare/");
+    const fit = await page.evaluate(() => {
+      const nav = document.querySelector("header nav");
+      return {
+        page: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        links: nav ? nav.scrollWidth - nav.clientWidth : 0,
+      };
+    });
+    expect(fit.page, `${width}px page`).toBeLessThanOrEqual(0);
+    // Below 360px the links may scroll inside the header; from 360px every link shows in full.
+    if (width >= 360) expect(fit.links, `${width}px links`).toBeLessThanOrEqual(0);
+    const toggle = await page.locator("header button").last().boundingBox();
+    expect(toggle && toggle.x + toggle.width <= width, `${width}px toggle`).toBe(true);
+  }
+});
