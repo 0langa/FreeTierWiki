@@ -102,6 +102,7 @@ Before pushing, run the same checks CI runs:
 npm test
 npm run lint
 npm run typecheck
+npm run check:depth
 npm run build
 npm run check:budget
 npx playwright install chromium
@@ -146,12 +147,13 @@ Rules: an entry stays only if developers can use it free (always-free plan, cred
 
 Cloudflare Pages builds the `main` branch with `npm run build`, serving the `out/` directory, using the Node version pinned in `.nvmrc`. `public/_redirects` holds the 301 redirects for URLs removed or moved during the redesign.
 
-GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build, the size budget check, and end-to-end tests on every push to `main` and every pull request. It only checks — it does not deploy.
+GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the entry-body check, the build, the size budget check, and end-to-end tests on every push to `main` and every pull request. It only checks — it does not deploy.
 
 ---
 
 ## Contributing
 
+Spotted an outdated limit? Use **Report outdated info** on the entry, or open an issue with a link to the official pricing page that shows the current terms. To fix an entry yourself, edit its file as described under [Content](#content), cite only the provider's official pricing page or docs, and run the checks under [Local development](#local-development). `npm run check:depth` checks the entry body against the sections defined in `scripts/verify/lib/depth.mjs`.
 
 ---
 

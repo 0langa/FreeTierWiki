@@ -1,4 +1,4 @@
-// Checks every deepened entry body against the shape in docs/plans/2026-10-09-deepen-every-entry.md.
+// Checks every deepened entry body against the shape in scripts/verify/lib/depth.mjs.
 // Usage: node scripts/verify/check-depth.mjs [--ids services/supabase,...] [--domains hosting] [--evidence] [--all]
 //   --evidence  also check every number against the fetched source text and the fetch date (local runs;
 //               the text lives under development/, which CI does not have)
