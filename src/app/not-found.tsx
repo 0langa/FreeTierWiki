@@ -1,4 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+// Without this the 404 page carries the home page title. Next adds the noindex tag itself.
+export const metadata: Metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (

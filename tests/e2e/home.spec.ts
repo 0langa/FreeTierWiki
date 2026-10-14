@@ -61,6 +61,7 @@ test("unknown pages show the 404 page", async ({ page }) => {
   const response = await page.goto("/nope/");
   expect(response?.status()).toBe(404);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Page not found");
+  await expect(page).toHaveTitle("Page not found · freetier.wiki");
 });
 
 test("home has no horizontal scroll", async ({ page }) => {
