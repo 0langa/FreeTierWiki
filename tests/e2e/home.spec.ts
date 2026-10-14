@@ -80,9 +80,9 @@ test("the header buttons fit on a phone screen", async ({ page }, testInfo) => {
 
 test("the header fits narrow phones and tablets without a sideways scroll", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "phone", "one project is enough: the test sets its own widths");
-  // 320px is the WCAG reflow width, 360px a common Android width, 768px a tablet held upright,
-  // 1024px the first width that shows every link.
-  for (const width of [320, 360, 768, 1024]) {
+  // 320px is the WCAG reflow width, 360px a common Android width, 768px a tablet held upright (the first
+  // width that shows every link), 1023px the last width before the full search box, 1024px the first with it.
+  for (const width of [320, 360, 768, 900, 1023, 1024]) {
     await page.setViewportSize({ width, height: 740 });
     await page.goto("/compare/");
     // Measure with the self-hosted fonts, not the wider fallback a slow font load would leave in place.
@@ -111,5 +111,12 @@ test("the header fits narrow phones and tablets without a sideways scroll", asyn
     expect(fit.wrapped, `${width}px labels on more than one line`).toEqual([]);
     const toggle = await page.locator("header button").last().boundingBox();
     expect(toggle && toggle.x + toggle.width <= width, `${width}px toggle`).toBe(true);
+    // Tablets and small laptops reach every page from the header, not only from the footer.
+    if (width >= 768) {
+      const nav = page.getByRole("navigation", { name: "Main" });
+      for (const name of ["Explore", "Compare", "Changelog", "How we rate"]) {
+        await expect(nav.getByRole("link", { name, exact: true }), `${width}px ${name}`).toBeVisible();
+      }
+    }
   }
 });

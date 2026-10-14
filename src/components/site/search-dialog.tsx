@@ -153,11 +153,11 @@ export function SearchDialog() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Search free tiers"
-        className="flex h-9 items-center gap-2.5 rounded-lg border border-line bg-surface px-2.5 text-sm text-ink-3 hover:border-ink-3 md:w-60"
+        className="flex h-9 items-center gap-2.5 rounded-lg border border-line bg-surface px-2.5 text-sm text-ink-3 hover:border-ink-3 lg:w-60"
       >
         <Search className="h-4 w-4" aria-hidden />
-        <span className="hidden md:inline">Search free tiers…</span>
-        <kbd className="ml-auto hidden rounded border border-line bg-surface-2 px-1.5 py-0.5 text-[11px] text-ink-3 md:inline">
+        <span className="hidden lg:inline">Search free tiers…</span>
+        <kbd className="ml-auto hidden rounded border border-line bg-surface-2 px-1.5 py-0.5 text-[11px] text-ink-3 lg:inline">
           Ctrl K
         </kbd>
       </button>

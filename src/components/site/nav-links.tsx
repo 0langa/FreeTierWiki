@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // `match` marks the link as current. Entry, category, and provider pages all belong to "Explore".
-// `wide` links wait for lg: from md the search box takes 240px, and at 768px "How we rate" did not fit.
+// `wide` links wait for md. From md to lg the search button stays an icon (see SearchDialog): with the 240px
+// search box beside all four links, "How we rate" did not fit at 768px.
 const LINKS = [
   { href: "/explorer/", label: "Explore", match: /^\/(explorer|category|provider|services|tools)(\/|$)/, wide: false },
   { href: "/compare/", label: "Compare", match: /^\/compare(\/|$)/, wide: false },
@@ -25,7 +26,7 @@ export function NavLinks() {
             key={link.href}
             href={link.href}
             aria-current={active ? "page" : undefined}
-            className={`${link.wide ? "hidden lg:inline-flex" : "inline-flex"} h-8 shrink-0 items-center whitespace-nowrap rounded-md px-1.5 transition-colors sm:px-2 ${
+            className={`${link.wide ? "hidden md:inline-flex" : "inline-flex"} h-8 shrink-0 items-center whitespace-nowrap rounded-md px-1.5 transition-colors sm:px-2 ${
               active ? "bg-surface-2 font-medium text-ink" : "text-ink-2 hover:text-ink"
             }`}
           >
