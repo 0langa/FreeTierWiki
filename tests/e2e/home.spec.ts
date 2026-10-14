@@ -84,7 +84,9 @@ test("the header fits narrow phones and tablets without a sideways scroll", asyn
   for (const width of [320, 360, 768]) {
     await page.setViewportSize({ width, height: 740 });
     await page.goto("/compare/");
-    const fit = await page.evaluate(() => {
+    // Measure with the self-hosted fonts, not the wider fallback a slow font load would leave in place.
+    const fit = await page.evaluate(async () => {
+      await document.fonts.ready;
       const nav = document.querySelector("header nav");
       return {
         page: document.documentElement.scrollWidth - document.documentElement.clientWidth,
