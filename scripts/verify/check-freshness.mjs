@@ -45,16 +45,19 @@ async function worker() {
     let best;
     for (const url of candidateUrls(/** @type {never} */ (entry.data))) {
       const fetched = await fetchText(url);
-      tried.push({ url, status: fetched.status, chars: fetched.text.length, error: fetched.error });
-      if (!best || fetched.text.length > best.text.length) best = fetched;
-      if (fetched.status === 200 && !isThin(fetched.text)) break;
+      const kept = excerpt(fetched.text);
+      tried.push({ url, status: fetched.status, chars: fetched.text.length, excerptChars: kept.length, error: fetched.error });
+      // Prefer a page with price-related text, then the longest one.
+      if (!best || (kept && !best.kept) || (Boolean(kept) === Boolean(best.kept) && fetched.text.length > best.text.length)) best = { ...fetched, kept };
+      // A page with no price-related line (a script shell, a bot check) is no answer: try the next address.
+      if (fetched.status === 200 && !isThin(fetched.text) && kept) break;
     }
     const state = classifyFetch(tried);
     results.push({
       id: entry.id,
       state,
       url: best?.finalUrl ?? best?.url ?? null,
-      hash: state === "ok" ? hashExcerpt(excerpt(best?.text ?? "")) : undefined,
+      hash: state === "ok" ? hashExcerpt(best?.kept ?? "") : undefined,
     });
     if (results.length % 50 === 0) console.log(`${results.length}/${targets.length}`);
   }

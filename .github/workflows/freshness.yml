@@ -42,11 +42,19 @@ jobs:
       - name: Load last week's hashes
         run: |
           mkdir -p data
-          if git ls-remote --exit-code --heads origin freshness-data >/dev/null 2>&1; then
+          # Exit code 2 means the branch does not exist yet. Any other failure (network, auth) stops the run:
+          # going on without last week's hashes would start a new baseline, miss a week of changes, and drop
+          # the record of changes nobody has reviewed yet.
+          found=0
+          git ls-remote --exit-code --heads origin freshness-data >/dev/null || found=$?
+          if [ "$found" -eq 0 ]; then
             git fetch --depth=1 origin freshness-data
             git show FETCH_HEAD:source-hashes.json > data/source-hashes.json
-          else
+          elif [ "$found" -eq 2 ]; then
             echo "No baseline yet: this run creates it."
+          else
+            echo "::error::Could not read the freshness-data branch (git ls-remote exit $found)."
+            exit 1
           fi
 
       - name: Check pricing pages

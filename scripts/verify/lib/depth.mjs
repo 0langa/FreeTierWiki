@@ -1,5 +1,5 @@
 // @ts-check
-// Pure rules for a "deep" entry body (see docs/plans/2026-10-09-deepen-every-entry.md).
+// Pure rules for a "deep" entry body: the `##` sections in SECTIONS, in that order, and 350 to 700 words in all.
 // The CLI in scripts/verify/check-depth.mjs feeds real files in; the unit tests feed fixtures.
 
 export const SECTIONS = [
