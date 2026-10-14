@@ -17,12 +17,15 @@ export function hashExcerpt(excerptText) {
 }
 
 /**
- * @param {Array<{ status: number, chars: number, error?: string }>} tried
+ * `excerptChars` is the length of the page's price-related excerpt. A page without a single such line (a script
+ * shell, a bot check, a sign-in page) is not a reading of the pricing: its hash would never change, so it counts
+ * as thin, never as ok, and the weekly run cannot confirm the entry from it.
+ * @param {Array<{ status: number, chars: number, excerptChars?: number, error?: string }>} tried
  * @param {number} [thinBelow]
  * @returns {"ok" | "thin" | "dead" | "blocked"}
  */
 export function classifyFetch(tried, thinBelow = 400) {
-  if (tried.some((t) => t.status === 200 && t.chars >= thinBelow)) return "ok";
+  if (tried.some((t) => t.status === 200 && t.chars >= thinBelow && t.excerptChars !== 0)) return "ok";
   if (tried.some((t) => t.status === 200)) return "thin";
   const gone = (/** @type {{ status: number, error?: string }} */ t) =>
     t.status === 404 || t.status === 410 || t.error === "ENOTFOUND" || t.error === "ERR_INVALID_URL";
@@ -97,7 +100,7 @@ export function renderReport(run, { date, titles, urls, max = 80 }) {
   return `${[
     `# Pricing check ${date}`,
     "",
-    `Read ${total} entries: ${run.counts.ok} readable, ${run.counts.thin} with almost no text, ${run.counts.blocked} blocked, ${run.counts.dead} not found.`,
+    `Read ${total} entries: ${run.counts.ok} readable, ${run.counts.thin} with almost no text or no price-related text, ${run.counts.blocked} blocked, ${run.counts.dead} not found.`,
     section("Pricing page text changed: re-check these entries", run.changed),
     section(`Official page not found for ${DEAD_AFTER_RUNS}+ runs: fix the link or remove the entry`, run.dead),
     section("Text keeps changing every week (probably noise, not a price change)", run.noisy),

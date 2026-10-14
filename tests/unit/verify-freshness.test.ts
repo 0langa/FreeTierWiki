@@ -28,6 +28,12 @@ describe("classifyFetch", () => {
     expect(classifyFetch([{ status: 200, chars: 40 }])).toBe("thin");
   });
 
+  it("is thin when a long page has no price-related line, so its fixed hash can never confirm the entry", () => {
+    // A script shell or a bot check: plenty of text, none of it about prices.
+    expect(classifyFetch([{ status: 200, chars: 900, excerptChars: 0 }])).toBe("thin");
+    expect(classifyFetch([{ status: 200, chars: 900, excerptChars: 0 }, { status: 200, chars: 5000, excerptChars: 1200 }])).toBe("ok");
+  });
+
   it("is dead only when every attempt says the page is gone", () => {
     expect(classifyFetch([{ status: 404, chars: 0 }, { status: 0, chars: 0, error: "ENOTFOUND" }])).toBe("dead");
     expect(classifyFetch([{ status: 404, chars: 0 }, { status: 403, chars: 0 }])).toBe("blocked");
