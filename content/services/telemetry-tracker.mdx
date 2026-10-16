@@ -1,0 +1,130 @@
+---
+title: Telemetry Tracker
+description: >-
+  Telemetry Tracker is an open-source error tracker for JavaScript and
+  TypeScript apps. Use the free hosted plan or self-host with Docker and
+  PostgreSQL.
+provider: Telemetry Tracker
+category: observability
+domain: observability
+subtypes:
+  - error-tracking
+  - exception monitoring
+  - alerting
+audiences:
+  - indie
+  - startup
+  - team
+  - oss
+tags:
+  - open-source
+  - error-tracking
+  - sentry-alternative
+  - self-hosted
+  - monitoring
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    The Free plan costs €0 forever with 250K ingest units per month, 14-day
+    retention, 1 project and 2 API keys. No credit card. At the cap, new ingest
+    is rejected with HTTP 429 until the next month; there is no overage charge.
+  limits:
+    - '250K ingest units/month'
+    - '14-day retention'
+    - 1 project
+    - 2 API keys
+    - Community support
+  caveats:
+    - An ingest unit is one event, one batch item, one error, or one session
+    - 'At the monthly cap, ingest returns HTTP 429 until the next calendar month or a higher plan'
+    - Stored data stays only for the plan retention window
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Ingest stops at the plan cap with HTTP 429; there is no overage charge on the Free plan
+useCases:
+  - Track application errors from a Next.js, React, Vue, or Node app
+  - Group repeated exceptions into issues and upload source maps
+  - Record events, sessions and Web Vitals next to errors
+  - Get alerts by email, webhook, Slack, Discord, Teams or Telegram
+quickstartSteps:
+  - Create a free account at telemetry-tracker.com without a credit card, or self-host from the GitHub repository.
+  - Create a project and copy an API key plus the ingest URL.
+  - Install an SDK such as `@telemetry-tracker/next` or `@telemetry-tracker/node`.
+  - Configure the provider with the ingest URL, app name and API key.
+  - Trigger a test error and open the dashboard to see the grouped issue.
+whenToUse: >-
+  Use Telemetry Tracker when you want open-source error tracking for a
+  JavaScript or TypeScript side project, with a free hosted plan or full
+  self-hosting.
+whenNotToUse: >-
+  Avoid the Free plan if one project and 250K ingest units per month are not
+  enough, or if you need native iOS/Android SDKs rather than JavaScript ones.
+bestFor:
+  - side projects
+  - small teams on JS/TS stacks
+  - self-hosters who want PostgreSQL and Docker
+avoidIf:
+  - you need more than 1 project on the free plan
+  - very high event volumes on the free plan
+  - non-JavaScript native mobile SDKs
+difficulty: beginner
+productionReadiness: production-light
+lastUpdated: 2026-10-16
+lastVerified: 2026-10-16
+popularityScore: 5
+usefulnessScore: 7
+officialUrl: 'https://telemetry-tracker.com'
+docsUrl: 'https://telemetry-tracker.com/docs'
+pricingUrl: 'https://telemetry-tracker.com/pricing'
+sourceUrls:
+  - 'https://telemetry-tracker.com/pricing'
+  - 'https://telemetry-tracker.com'
+  - 'https://github.com/Telemetry-Tracker/telemetry-tracker'
+featured: false
+changes:
+  - date: '2026-10-16'
+    kind: new
+    note: Added to the atlas.
+---
+You point a Telemetry Tracker SDK in your JavaScript or TypeScript app at the hosted ingest URL or at your own self-hosted endpoint. Errors, events and sessions then show up in the dashboard, with source maps for readable stacks when you upload them.
+
+## What the free plan gives you
+
+The Free plan costs €0 forever and the pricing page says there is no credit card. It covers 250K ingest units per month, 14-day retention, 1 project and 2 API keys, with community support.
+
+An ingest unit is one accepted telemetry item: one event, one item inside a batch, one error, or one session. A calendar month is the quota window. The free plan is aimed at solo developers and side projects. You can also self-host the MIT open-source stack with Docker and PostgreSQL if you want the data on your own servers.
+
+## When you hit a limit
+
+Ingest stops at your plan cap. At the cap, new ingest is rejected with HTTP 429 (`monthly_ingest_quota`) until the next month or a higher plan. Stored data stays for the plan retention window. There is no overage charge.
+
+Paid plans raise the limits. Pro is 15 € per org per month with 5M ingest units, 90-day retention and up to 10 projects. Business is 99 € per org per month with 50M ingest units, 365-day retention and up to 50 projects.
+
+## Gotchas
+
+- One project on Free means a second app needs its own paid project slot or a self-hosted deploy.
+- Ingest units count errors, events and sessions together, so high-volume event instrumentation can burn the free quota quickly.
+- SDKs target JavaScript and TypeScript stacks; there are no native iOS or Android SDKs.
+
+## Alternatives in this atlas
+
+- [GlitchTip](/services/glitchtip/): when you want Sentry-SDK-compatible error tracking with a smaller free event quota.
+- [Bugsink](/services/bugsink/): when you want a Sentry-compatible tracker with a higher hosted free event count or unlimited self-hosted users.
+
+## Questions people ask
+
+### Is Telemetry Tracker free?
+
+Yes. The Free plan is €0 forever with 250K ingest units per month, 14-day retention, 1 project and 2 API keys, and no credit card. The product is also MIT open source if you prefer to self-host.
+
+### What happens when I exceed the free quota?
+
+New ingest is rejected with HTTP 429 until the next calendar month or until you move to a higher plan. Stored data is kept for the retention window and there is no overage charge.
+
+### Can I self-host instead of using the free hosted plan?
+
+Yes. The GitHub repository ships Docker and PostgreSQL deployment docs. Self-hosting puts the API, dashboard and database on infrastructure you control.
