@@ -23,64 +23,61 @@ tags:
   - daily digest
   - code review analytics
   - slack alerts
-pricingModel: freemium
+pricingModel: trial
 freeTierDetails:
-  summary: >-
-    Free Community plan includes 50 PRs per month across 2 repos with unlimited users, 7 days of
-    history, daily digests, PR metrics, partial DORA metrics, and 2 shared alert rules.
+  summary: Pro and Team offer a 14-day free trial; ongoing plans start at $59 per month and require payment after the trial.
   limits:
-    - 50 PRs per month
-    - 2 repos
-    - Unlimited users
-    - 7 days of history
-    - Daily digests and PR metrics
-    - Partial DORA metrics
-    - 'Shared alerts, limited to 2 rules'
+    - 14-day free trial on Pro and Team
+    - Pro includes up to 15 contributors and 3 months of history
+    - Unlimited repositories and pull requests on current plans
+    - Pro includes up to 50 smart alert rules
+    - MCP access included on every current plan
   caveats:
-    - >-
-      Full DORA metrics (4 of 4), private alerts, and priority support need the Pro plan at $49 per
-      month
-    - The MCP server and Metrics API are listed on the Max plan
-    - GitDailies reads GitHub metadata only; it does not clone repos or read source code
-    - The pricing section does not say what happens after 50 PRs
-  resetPeriod: monthly
-  requiresCard: false
-  freeTierType: always-free
+    - No ongoing free Community plan is listed on current pricing or GitHub Marketplace
+    - GitHub Marketplace trials require a payment method and convert to paid unless canceled
+    - GitDailies reads GitHub metadata, not source code
+    - Max trials require contacting the provider
+  resetPeriod: none
+  requiresCard: true
+  freeTierType: trial
+  trialDays: 14
   hasHardCap: false
-  overageRisk: none
+  overageRisk: high
+  billingRiskNotes:
+    - Marketplace subscriptions begin billing after the 14-day trial unless canceled
 useCases:
   - 'Getting a daily digest of open PRs and waiting reviews by email, Slack, or Telegram'
   - Alerting the right person when a PR gets stale
   - Tracking PR review times and trends
-  - Checking partial DORA metrics for a team on a small budget
+  - Evaluating PR and DORA metrics during a short trial
 quickstartSteps:
-  - 'Open GitHub Marketplace, find GitDailies, and choose the free plan.'
+  - 'Open the GitDailies Marketplace listing and review the 14-day Pro or Team trial and payment terms.'
   - >-
     Pick the GitHub organization to install the GitDailies app in; the app asks for minimal
     permissions.
   - Sign in to the GitDailies web app with your GitHub login.
-  - Choose the repositories to follow (the free plan covers 2).
+  - Choose the repositories to follow; current plans allow unlimited repos.
   - >-
     Set up a project, then optionally connect Slack, Telegram, or an AI agent, and read the first
     daily digest.
 whenToUse: >-
-  Use GitDailies to see pull request and review metrics and get daily summaries for up to 2 GitHub
-  repositories at no cost.
+  Use the 14-day trial to evaluate pull request metrics, DORA dashboards, and daily summaries
+  for a GitHub organization before paying for a subscription.
 whenNotToUse: >-
-  Avoid the free plan if you follow more than 2 repos, need full DORA metrics, need more than 7 days
-  of history, or do not use GitHub.
+  Avoid it if you need a permanent free plan, cannot provide a Marketplace payment method,
+  or do not use GitHub.
 bestFor:
-  - small teams with 2 active repos
-  - open-source projects that want PR reminders
-  - teams that want review metrics without changing workflow
+  - teams evaluating PR analytics
+  - engineering squads that want automatic review reminders
+  - GitHub organizations considering paid DORA reporting
 avoidIf:
-  - you need more than 2 repos
-  - you need full DORA metrics
+  - you need a free plan after the trial
+  - you cannot manage trial cancellation and billing
   - you use GitLab or Bitbucket
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: '2026-10-09'
-lastUpdated: '2026-10-09'
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://gitdailies.com'
@@ -91,46 +88,57 @@ sourceUrls:
   - 'https://gitdailies.com/docs'
   - 'https://gitdailies.com/docs/getting-started/installation'
   - 'https://gitdailies.com/docs/getting-started/github-permissions'
+  - 'https://github.com/marketplace/gitdailies'
+  - 'https://docs.github.com/en/billing/concepts/third-party-payments/github-marketplace-apps'
+  - 'https://docs.github.com/en/apps/github-marketplace/selling-your-app-on-github-marketplace/pricing-plans-for-github-marketplace-apps'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Replaced the obsolete Community allowance with the current 14-day paid-plan trial and Marketplace billing terms.
 ---
-You install GitDailies as a GitHub app, sign in to its web app, and pick repositories to follow. Results show in the dashboard, in Slack or Telegram, and in a daily digest. It suits small teams on GitHub.
+You install GitDailies as a GitHub app, sign in to its web app, and pick repositories to follow. Results appear in dashboards, daily digests, and connected notification tools. The current free offer is an evaluation period for paid plans.
 
 ## What the free plan gives you
 
-The Community plan costs $0 per month. It covers 50 PRs per month and 2 repos, with unlimited users. It keeps 7 days of history.
+Pro and Team have a 14-day free trial. The pricing page and GitHub Marketplace listing offer Pro, Team, and Max, with no ongoing free Community plan listed. The old 50-PR and 2-repository allowance should not be used to plan a new account.
 
-The plan includes daily digests, PR metrics, and DORA metrics in a partial form. It also includes shared alerts, limited to 2 rules. You can send digests by email, Slack, or Telegram.
+Current plans have unlimited repositories and pull requests. Pro includes up to 15 contributors, 3 months of history, daily digests, PR and code review metrics, DORA metrics, up to 50 smart alert rules, and MCP access. A contributor is someone who opened a PR or left a review during the last 30 days; bots do not count.
 
-GitDailies uses only GitHub metadata, such as PR titles, reviewers, timestamps, and status checks. It says it does not clone your repos or read source code.
+Team allows 60 contributors and 6 months of history. Max allows 200 contributors, 18 months of history, multiple organizations, and the Metrics API. Ask about Max trials.
+
+GitDailies reads metadata and says it does not clone repositories or read source code.
 
 ## When you hit a limit
 
-The pricing section does not say what happens after 50 PRs in a month. It also does not say what happens if you follow a third repo.
+The trial is time-limited. Through GitHub Marketplace, you need an existing payment method or must add one. GitHub automatically enrolls you in the selected paid plan after 14 days unless you cancel. Canceling a trial ends access immediately. Review the trial end date before enabling it.
 
-The Pro plan lifts the limits. It costs $49 per month and covers 250 PRs per month, 25 repos, and 3 months of history. It adds full DORA metrics, unlimited private alerts, and priority support. The Max plan costs $299 per month and adds the MCP server for AI agents and the Metrics API.
+Pro costs $59 per month billed monthly, Team $149, and Max $349. The provider offers annual billing at a discount. Marketplace subscriptions use GitHub billing; existing subscriptions can make the first post-trial charge prorated.
+
+Exceeding a contributor band for a month does not immediately break the service: GitDailies says it will notify you and help choose a suitable plan. This is different from a permanent free quota or an automatic per-PR overage fee.
 
 ## Gotchas
 
-- You install it from GitHub Marketplace into a GitHub organization, and you choose a plan there. The docs say the app asks for the minimal permissions.
-- A user only sees a repo in GitDailies if the user has read access to it on GitHub and GitDailies follows it.
-- The MCP server for AI agents is listed on the Max plan, not on Community.
+- The 14-day trial becomes a paid Marketplace subscription unless canceled; signing in with GitHub does not make the ongoing service free.
+- Contributor counts include reviewers as well as PR authors, based on the previous 30 days.
+- MCP is included on all current plans, while the Metrics API is on Max. They are separate access methods.
 
 ## Alternatives in this atlas
 
-- [GitHub Actions](/services/github-actions/): when you want your own workflows to post alerts on pull requests.
-- [GitHub Codespaces](/tools/github-codespaces/): when you want a cloud dev environment for the same repos.
-- [DeepSource](/services/deepsource/): when you want automated review of the code in each PR.
+- [GitHub Actions](/services/github-actions/): when you want to build your own PR reminders.
+- [GitHub Codespaces](/tools/github-codespaces/): when you need a cloud development environment for those repositories.
+- [DeepSource](/services/deepsource/): when you want code analysis rather than review-flow metrics.
 
 ## Questions people ask
 
 ### Is GitDailies free?
 
-Yes. The Community plan is free and covers 50 PRs per month and 2 repos, with unlimited users.
+Pro and Team offer a 14-day trial. Current official pricing lists paid subscriptions rather than an ongoing free Community plan.
 
-### Does GitDailies need a credit card?
+### Does GitDailies require payment details for the trial?
 
-The page says you sign in with your GitHub account and shows the Community plan at $0. It lists no card step for the free plan.
+Yes, through GitHub Marketplace. GitHub requires a payment method and bills the selected plan after the trial unless canceled.
 
-### What does GitDailies read from my repositories?
+### What does GitDailies read from repositories?
 
-Only GitHub metadata, such as PR titles, reviewers, timestamps, and status checks. It says it does not clone your repos or read your source code.
+It reads GitHub metadata and says it does not clone repositories or read source code.

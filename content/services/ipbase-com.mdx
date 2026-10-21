@@ -27,7 +27,7 @@ freeTierDetails:
   limits:
     - '150 requests/month'
     - 10 requests/minute rate limit
-    - 1 API key
+    - Location, connection, time zone, and currency data
   caveats:
     - HTTPS encryption included
     - Higher volumes require a paid plan starting at $9.99/month
@@ -47,7 +47,7 @@ quickstartSteps:
   - 'Copy your API key from the dashboard under App, then Dashboard.'
   - 'Pick a client: `curl`, JavaScript, Python, PHP, or another SDK.'
   - 'Send a GET request to `https://api.ipbase.com/v2/info` with your key in the `apikey` header and an `ip` parameter.'
-  - 'Read the JSON response, or POST a list to `/v2/batch` for up to 100 addresses.'
+  - 'Read the JSON response, or POST a list to `/v2/batch` for up to 1,000 addresses in a POST body.'
 whenToUse: >-
   Use ipbase when you need occasional IP lookups for personalization or
   analytics and 150 requests a month is enough.
@@ -64,8 +64,8 @@ avoidIf:
   - strict SLA requirements
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-13
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://ipbase.com'
@@ -77,15 +77,20 @@ sourceUrls:
   - 'https://ipbase.com/docs/quickstart/'
   - 'https://ipbase.com/docs/rate-limit/'
   - 'https://ipbase.com'
+status: changed
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Free data access to include time zone and currency data, and distinguished 1,000-IP POST batches from 100-IP GET batches."
 ---
 You register for an API key in the dashboard, then call the HTTP API with `curl` or one of the SDKs, or use the MCP server. It suits developers who need a few IP lookups a month and want location, time zone, and network data in one JSON call.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and gives you 150 requests a month with location data. It allows 10 requests per minute, includes 1 API key, and supports batch lookups of up to 100 addresses. No credit card is required.
+The Free plan costs $0 and gives you 150 requests a month with location data. It allows 10 requests per minute and supports batch lookups of up to 1,000 addresses in a POST body, or 100 in a GET query string. No credit card is required.
 
-A batch call counts one request per address. The paid plans remove the per-minute limit and add volume. The first paid plan costs $9.99 a month for 65,000 requests, and the next costs $39.99 for 650,000. Time zone, currency, and security data such as VPN, proxy, and Tor flags need paid plans.
+A batch call counts one request per address. The paid plans remove the per-minute limit and add volume. The first paid plan costs $9.99 a month for 65,000 requests, and the next costs $39.99 for 650,000. Time zone and currency data are included on Free. Security data such as VPN, proxy, and Tor flags starts on Small, the $9.99 plan.
 
 ## When you hit a limit
 
@@ -96,7 +101,7 @@ Only successful calls count against your quota. Errors on the provider side and 
 ## Gotchas
 
 - A batch lookup of 100 addresses uses 100 of your 150 monthly requests. Use it sparingly on the free plan.
-- Time zone, currency, and security flags are not part of the free plan, even though the home page shows them in the sample response.
+- Security flags are not part of the free plan. The response includes a security object with null fields; VPN, proxy, and Tor detection needs Small or above.
 - A 403 status means the endpoint is not allowed on your plan, so check the plan before you build on an endpoint.
 
 ## Alternatives in this atlas
@@ -117,4 +122,4 @@ The API returns HTTP 429 once you pass the monthly quota or the per-minute rate.
 
 ### Does ipbase support batch lookups on the free plan?
 
-Yes. The pricing page lists batch lookups of up to 100 addresses on the Free plan, and each address counts as one request.
+Yes. The Free plan supports up to 1,000 addresses in a POST body or 100 in a GET query string. Each address counts as one request, and a batch that exceeds your remaining quota is refused.

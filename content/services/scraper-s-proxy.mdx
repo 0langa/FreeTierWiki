@@ -27,17 +27,17 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Basic plan on RapidAPI includes 100 requests/month with a hard request cap and a 5-request/second
-    limit. A card is required for the freemium plan, and bandwidth overages can be billed.
+    limit. Bandwidth overages can be billed, and RapidAPI warns that providers may require a card for plans with overage fees.
   limits:
     - 100 requests/month
     - 5 requests/second rate limit
-    - Proxy and cookie sessions, JavaScript rendering, and email support included
+    - Proxy and cookie sessions and JavaScript rendering included; email support excluded on Basic
     - 10,240 MB/month bandwidth, then $0.001 per MB
   caveats:
     - Requires a RapidAPI account to get an API key
-    - RapidAPI asks for a credit card even on the free plan
+    - RapidAPI says a provider may require a credit card when a quota has overage fees
     - The request quota has a hard limit, but the separate bandwidth quota has an overage fee
-    - Failed requests (5xx responses) are free and do not count toward the quota
+    - Failed requests are free and do not count toward the quota
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -53,10 +53,10 @@ useCases:
   - Turning a web page into JSON with the parser endpoint
 quickstartSteps:
   - Sign up for a free RapidAPI account from the RapidAPI home page.
-  - Open the Scraper's Proxy listing and select the Basic plan on the Pricing tab; RapidAPI asks for a credit card.
+  - Open the Scraper's Proxy listing and select the Basic plan on the Pricing tab and review any card requirement and bandwidth-overage terms.
   - Back on the Endpoints tab, pick Standard Fetch Raw Webpages, enter a target page, and select Test Endpoint.
   - Switch to Code Snippets, choose your language, and copy the request into your scraper.
-  - Set a timeout of at least 30 seconds and send `accept-encoding` as gzip to save bandwidth.
+  - Choose a suitable timeout for the endpoint and handle quota or request failures in your client.
 whenToUse: >-
   Use it to test a scraper or fetch a few hundred pages a year through
   proxies, when a RapidAPI account with a card on file is fine.
@@ -79,7 +79,10 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Corrected the no-card/no-overage claim: RapidAPI freemium billing and a separate bandwidth fee apply."
-lastUpdated: 2026-10-09
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Basic email support to excluded and documented conflicting current listing and older general credit-card wording."
+lastUpdated: 2026-10-21
 lastVerified: 2026-10-09
 popularityScore: 5
 usefulnessScore: 6
@@ -97,11 +100,11 @@ You call Scraper's Proxy through the RapidAPI hub with an HTTP request, and you 
 
 ## What the free plan gives you
 
-The Basic plan costs $0 a month and sits on RapidAPI. It includes 100 requests a month with a hard limit, and a rate limit of 5 requests per second. It also includes proxy and cookie sessions, JavaScript rendering, and email support. Failed requests, which return a 5xx status, are free and do not count toward the quota.
+The Basic plan costs $0 a month and sits on RapidAPI. It includes 100 requests a month with a hard limit, and a rate limit of 5 requests per second. It also includes proxy and cookie sessions and JavaScript rendering. Email support is not included on Basic. Failed requests are free and do not count toward the quota.
 
-The API has endpoints to fetch raw pages by GET or POST, to fetch pages with a rendered browser, and to turn a page into JSON. The listing recommends a timeout of at least 30 seconds, because most sites take 2 to 8 seconds to answer.
+The API has endpoints to fetch raw pages by GET or POST, to fetch pages with a rendered browser, and to turn a page into JSON. Allow for the extra time browser rendering takes when choosing a request timeout.
 
-RapidAPI asks for a credit card for every freemium API, even on the free plan. The paid plans start at $40 a month for 5.000 requests.
+The current listing warns that providers may require a card for overage plans. Its older general guide says freemium APIs require one; confirm before subscribing.
 
 ## When you hit a limit
 
@@ -111,7 +114,7 @@ RapidAPI's own rules also apply. Its docs say freemium plans can charge overage 
 
 ## Gotchas
 
-- Your credit card is on file from the first day, so heavy bandwidth use can create a charge.
+- Basic includes paid bandwidth overages. Confirm card requirements and billing controls before subscribing.
 - The 100 requests are a hard limit, but the bandwidth fee is not, so the two limits behave differently.
 - Large pages use more of the bandwidth quota. The listing advises setting the accept-encoding header to gzip, which uses less bandwidth.
 
@@ -125,7 +128,7 @@ RapidAPI's own rules also apply. Its docs say freemium plans can charge overage 
 
 ### Is Scraper's Proxy free?
 
-There is a free Basic plan with 100 requests a month. You still need a RapidAPI account and a credit card, and extra bandwidth is billed.
+There is a free Basic plan with 100 requests a month. You need a RapidAPI account, extra bandwidth is billed, and the listing warns that a card may be required.
 
 ### What happens when I go over the Scraper's Proxy free limit?
 
@@ -133,4 +136,4 @@ The Basic plan has a hard limit on requests, so it stops at 100 a month. Bandwid
 
 ### Does Scraper's Proxy need a credit card?
 
-Yes. RapidAPI requires a credit card for freemium APIs, even on the free plan, and overage fees can apply.
+The current listing says providers may require a card for plans with overage fees, while older general docs say freemium APIs require one. Basic has bandwidth overages, so confirm the requirement before subscribing.

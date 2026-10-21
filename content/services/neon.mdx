@@ -78,11 +78,14 @@ difficulty: beginner
 productionReadiness: production-light
 status: changed
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Replaced unknown Free quota behavior with documented compute suspension, failed storage-increasing operations and branch-creation limits.'
   - date: 2026-10-06
     kind: changed
     note: "Updated free Postgres storage from 0.5 GB to 1 GB per project."
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://neon.tech/'
@@ -106,14 +109,14 @@ Storage is 1 GB of Postgres data per project, and the total across your Free pro
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a Free project passes its compute or storage allowance. It does say you pay nothing on this plan. The Free plan needs no credit card.
+The plan docs say compute is suspended when a project uses up its monthly CU-hours or public network transfer, until the next billing period or an upgrade. Exceeding either the per-project or total storage cap makes operations that increase storage fail until you free space or upgrade. These limits do not delete your data, and Free needs no credit card.
 
 The limit you will notice first is sleep. Neon scales a compute to zero after 5 minutes of inactivity, and on Free you cannot disable it. When you need more, you move to a paid plan, where usage is metered from zero at the paid rates.
 
 ## Gotchas
 
 - The 1 GB storage limit applies per project, and a separate 20 GB cap covers all your Free projects together. Both limits are enforced.
-- The Free plan allows 10 branches per project. The pricing page does not say what happens past 10, so delete old branches before you reach that count.
+- The Free plan allows 10 branches per project. Further branch creation fails at that limit, so delete old branches or upgrade before creating another.
 - Instant restore on Free defaults to a 6 hour history window, and scheduled backups are not available. Take your own dumps if the data matters.
 
 ## Alternatives in this atlas
@@ -134,4 +137,4 @@ Yes. Neon scales a compute to zero after 5 minutes of inactivity, and you cannot
 
 ### What happens when I go over the Neon free tier limits?
 
-The pricing page does not describe what happens at the limit. Free plan quotas do not carry over when you upgrade, because paid plans meter usage from zero.
+Compute suspends at the monthly CU-hour or network-transfer limit. Storage-increasing operations fail at a storage cap, and branch creation fails at 10 branches; your data is retained. Paid plans meter usage from zero after an upgrade.

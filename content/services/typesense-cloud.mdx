@@ -25,20 +25,23 @@ freeTierDetails:
   summary: >-
     Free credits with no credit card: the pricing page shows the first 720
     hours of the smallest cluster free and the first 10 GB of bandwidth out
-    free.
+    free, once per account for eligible configurations.
   limits:
     - First 720 hours of cluster time free
     - First 10 GB of bandwidth out free
     - Smallest cluster is 0.5 GB of memory
   caveats:
-    - The pricing page does not say whether the free hours are one-time or monthly
-    - After the free amounts, the smallest cluster is $0.03 an hour
-    - Bandwidth out past the free amount is $0.09 per GB
+    - The allowance is once per account and does not replenish monthly
+    - Running clusters start accruing charges when the free allowance is exhausted
+    - After the free amounts, the observed smallest Zurich cluster is $0.03 an hour
+    - Bandwidth out starts at the observed $0.09 per GB; rates vary by region
   resetPeriod: none
   requiresCard: false
   freeTierType: credit
   hasHardCap: false
-  overageRisk: low
+  overageRisk: high
+  billingRiskNotes:
+    - Cluster runtime fees accrue even without traffic; payment methods on file are charged weekly by default
 useCases:
   - Trying hosted Typesense for a small site search
   - Prototyping typo-tolerant search for an app
@@ -61,18 +64,24 @@ avoidIf:
   - zero budget after the credits
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://cloud.typesense.org/'
 docsUrl: 'https://typesense.org/docs/'
 sourceUrls:
+  - 'https://cloud-help.typesense.org/article/how-does-the-free-tier-work'
+  - 'https://cloud-help.typesense.org/article/billing-process'
+  - 'https://cloud.typesense.org/pricing/calculator'
   - 'https://cloud.typesense.org/pricing'
   - 'https://cloud.typesense.org/'
 pricingUrl: 'https://cloud.typesense.org/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Established that free hours and bandwidth are one-time, and documented charges that accrue when running clusters exhaust the allowance.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -82,18 +91,18 @@ Typesense Cloud is the hosted version of Typesense, an open source search engine
 
 ## What the free plan gives you
 
-The home page says Typesense Cloud gives you free credits and you do not need a credit card. On the pricing page, the default cluster of 0.5 GB of memory with 2 vCPUs and a 1 hour burst per day costs $0.03 an hour, which works out to $21.60 a month, and the cost breakdown lists the first 720 hours free. Bandwidth out costs $0.09 per GB, with the first 10 GB free.
+Typesense Cloud offers a one-time allowance of 720 cluster hours and 10 GB of outbound bandwidth for eligible configurations. It does not replenish monthly, and no card is needed to start. The observed Zurich calculator configuration uses 0.5 GB of memory and 2 vCPUs with a 1 hour daily burst. After the allowance, it costs $0.03 an hour, or $21.60 a month, plus $0.09 per GB of outbound bandwidth. Rates vary by configuration and region.
 
 Critical production support is listed as free. You choose the memory size, vCPUs, high availability, and region when you create the cluster.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when the free hours or free bandwidth are used up, or whether they reset each month. Past the free amounts, the listed rates apply: $0.03 an hour for the smallest cluster and $0.09 per GB of bandwidth out. Turning on high availability or a search delivery network across 3 or 5 regions raises the hourly price.
+Once the allowance is exhausted, running clusters begin incurring charges. Runtime fees accrue even when a cluster receives no traffic or data, so terminate an unwanted cluster. Typesense charges payment methods on file weekly by default. The free-tier documentation recommends adding a payment method to avoid interruptions, but does not specify exactly when a cluster without payment is interrupted. Higher-capacity and multi-region configurations cost more.
 
 ## Gotchas
 
-- Larger memory sizes and more vCPUs cost more per hour, so the free hours cover less of a bigger cluster.
-- The page does not say if the 720 free hours are a one-time credit.
+- Only select configurations qualify for the free allowance. Check eligibility before launching a larger cluster.
+- The free hours and bandwidth are a one-time account allowance, not a recurring monthly tier.
 - Burst vCPU plans allow only a limited burst each day.
 
 ## Alternatives in this atlas
@@ -106,11 +115,11 @@ The pricing page does not say what happens when the free hours or free bandwidth
 
 ### Is Typesense Cloud free?
 
-It starts free. The home page mentions free credits with no credit card, and the pricing page lists the first 720 hours and first 10 GB of bandwidth free.
+It starts free for eligible configurations, with 720 cluster hours and 10 GB of bandwidth once per account. The allowance does not reset monthly.
 
 ### How much does the smallest cluster cost after that?
 
-$0.03 an hour, which the page says works out to $21.60 a month.
+$0.03 an hour, or $21.60 a month, for the observed smallest Zurich configuration. Bandwidth and other configurations or regions can add costs.
 
 ### Is Typesense itself free?
 

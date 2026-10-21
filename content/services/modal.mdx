@@ -34,6 +34,7 @@ freeTierDetails:
     - Modal requires a payment method on file to use the service, and GPU use requires a valid one
     - Usage past the credit is auto-charged at the end of the billing cycle
     - Workspace budgets and spend limits can cap usage
+    - Shared Endpoints are billed per token from the first request and are not covered by compute credits
   resetPeriod: monthly
   requiresCard: true
   freeTierType: credit
@@ -68,8 +69,8 @@ avoidIf:
   - always-on free GPUs
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://modal.com'
@@ -83,6 +84,9 @@ sourceUrls:
 pricingUrl: 'https://modal.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Clarified that the free compute allowance excludes Shared Endpoints, whose tokens are billed from the first request.'
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -93,7 +97,7 @@ You write Python functions with a decorator, and Modal builds the container and 
 
 The Starter plan costs $0 plus compute, and it comes with $30 of free credits every month. It includes 3 workspace seats, 100 containers, and 10 GPU concurrency. It also covers limited scheduled and web functions, 5 deployed cron jobs, real-time metrics and logs, region selection, and 1 TiB per month of free network egress.
 
-Modal bills per second, with no minimum usage increment. For example, an Nvidia T4 costs $0.000164 per second and CPU costs $0.0000131 per core per second. The credit pays for that compute, so it lasts longer on small CPU work than on large GPUs.
+Modal bills per second, with no minimum usage increment. For example, an Nvidia T4 costs $0.000164 per second and CPU costs $0.0000131 per core per second. The credit pays for Functions, Sandboxes, and Notebooks compute, so it lasts longer on small CPU work than on large GPUs. Shared Endpoints are billed per token from the first request and are excluded from the free compute allowance.
 
 ## When you hit a limit
 

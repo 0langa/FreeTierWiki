@@ -26,18 +26,19 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier gives unlimited developers and repositories, with 1,000 scans
-    per month and 500 API requests per hour.
+    Free includes 1 developer seat, unlimited dashboard users and repositories,
+    1,000 scans per month, and 500 API requests per hour.
   limits:
-    - Unlimited developers and repositories
+    - 1 developer seat and unlimited dashboard users
+    - Unlimited public and private repositories
     - 1,000 scans/month
     - 500 API requests/hour
-    - 3 members, 1 repository label
+    - 1 repository label and 1 API token
     - 14 days of scan retention
   caveats:
     - Reachability analysis, Slack alerts, and higher API quotas need paid plans
     - SSO, compliance integrations, and audit logs are on higher plans
-    - The pricing table also shows 5 members in a Free cell, while the plan card says 3 members
+    - Developer seats count active committers; dashboard-only users do not consume seats
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -58,19 +59,19 @@ whenToUse: >-
   Use Socket when you want pull requests checked for risky new dependencies,
   especially in JavaScript projects, and your team is small.
 whenNotToUse: >-
-  Avoid the Free plan if you need more than 1,000 scans per month, more than 3
-  members, reachability analysis, SSO, or audit logs.
+  Avoid the Free plan if you need more than 1,000 scans per month, more than 1
+  active developer, reachability analysis, SSO, or audit logs.
 bestFor:
   - open source maintainers
   - small JavaScript and Python teams
   - startups adding supply chain checks
 avoidIf:
-  - you need many members on the free plan
+  - you need several active developer seats on the free plan
   - you need reachability analysis
   - you need enterprise compliance features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 lastVerified: 2026-10-09
 popularityScore: 6
 usefulnessScore: 7
@@ -78,28 +79,33 @@ officialUrl: 'https://socket.dev'
 docsUrl: 'https://docs.socket.dev/'
 sourceUrls:
   - 'https://socket.dev/pricing'
+  - 'https://docs.socket.dev/docs/billing'
   - 'https://docs.socket.dev/'
   - 'https://docs.socket.dev/docs/socket-for-github'
   - 'https://docs.socket.dev/docs/socket-cli'
 pricingUrl: 'https://socket.dev/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected the Free plan to one developer seat with unlimited dashboard users and removed an unconditional paid API-quota assertion."
 ---
 You mostly use Socket through its GitHub app, which comments on pull requests, or through the Socket CLI and the VS Code extension. The dashboard shows alerts and policies. It suits maintainers and small teams that add dependencies often.
 
 ## What the free plan gives you
 
-The Free plan costs $0 per month, per developer. It lists unlimited developers and repositories, 1,000 scans per month, and 500 API requests per hour. You get 3 members and 1 repository label. The plan detects 70+ risk types, including malware, vulnerabilities, and license issues. It blocks malicious dependencies automatically and adds AI analysis that flags hidden dependency behavior.
+The Free plan costs $0 and includes 1 developer seat, unlimited dashboard users, unlimited public and private repositories, 1,000 scans per month, and 500 API requests per hour. You get 1 repository label and 1 API token. The plan detects 70+ risk types, including malware, vulnerabilities, and license issues. It blocks malicious dependencies automatically and adds AI analysis that flags hidden dependency behavior.
 
 The comparison table also lists unlimited public and private repositories, a GitHub integration, an MCP server, 10,000 dependencies, and 14 days of scan retention for Free.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you use all 1,000 scans or all 500 requests in an hour. The limits reset on a monthly and an hourly basis. The Free plan shows no card and no overage price, so the page shows no way to get billed by accident. The Team plan costs $25 per developer per month, with a minimum of 5 developers. It raises the limits to 5,000 scans per month and 2,500 API requests per hour.
+The pricing page does not say what happens when you use all 1,000 scans or all 500 requests in an hour. The limits reset on a monthly and an hourly basis. The page lists no Free overage price. The Team plan has a minimum of 5 developer seats and includes 5,000 scans per month. Its headline and comparison table disagree on the API quota, so confirm that separately before upgrading.
 
 ## Gotchas
 
 - Reachability analysis, which cuts false positives, starts on the Team plan. Slack alerts also start there.
-- The plan card says 3 members for Free, while a cell in the comparison table says 5 members. Check your dashboard.
+- Developer seats and dashboard users are different. Only active committers who trigger scans consume developer seats; inviting someone to read alerts or triage findings is free.
 - Socket watches package manifest files such as package.json. It focuses on what a package does, such as install scripts, telemetry, and obfuscated code.
 
 ## Alternatives in this atlas
@@ -112,7 +118,7 @@ The pricing page does not say what happens when you use all 1,000 scans or all 5
 
 ### Is Socket free?
 
-Yes. The Free plan has unlimited developers and repositories, 1,000 scans per month, and 500 API requests per hour.
+Yes. Free includes 1 developer seat, unlimited dashboard users and repositories, 1,000 scans per month, and 500 API requests per hour.
 
 ### What does Socket check in a pull request?
 

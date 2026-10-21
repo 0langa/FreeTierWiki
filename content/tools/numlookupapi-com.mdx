@@ -30,12 +30,14 @@ freeTierDetails:
     - 1 API key
     - 10 requests/min
   caveats:
+    - Free is for testing and personal projects; commercial use requires Basic or higher
+    - Each distinct number in a batch counts against the monthly quota
     - Paid plans remove the rate limit and add requests, API keys, and support
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
 useCases:
   - "Check phone numbers on a sign-up form"
   - "Spot VoIP numbers to cut fake registrations"
@@ -61,8 +63,8 @@ avoidIf:
   - "need support from the provider"
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-13
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://numlookupapi.com'
@@ -72,20 +74,26 @@ sourceUrls:
   - 'https://numlookupapi.com'
   - 'https://numlookupapi.com/docs'
   - 'https://numlookupapi.com/docs/validate'
+  - 'https://numlookupapi.com/docs/rate-limit'
+  - 'https://numlookupapi.com/docs/status-codes'
 pricingUrl: 'https://numlookupapi.com/pricing/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified non-commercial Free use, per-number batch billing, no-card signup and quota errors from official pricing and quota documentation."
 ---
 You use Numlookupapi.com with a GET request and an API key from any language, or with the client SDKs the docs list. It suits developers who add phone checks to a sign-up form or clean a contact list.
 
 ## What the free plan gives you
 
-The Free plan costs $0 a month and is meant for testing and personal projects. You get 100 requests per month, 1 API key, and a rate limit of 10 requests per minute. Batch validation is included, so you can send up to 100 numbers in one request.
+The Free plan costs $0 a month and is meant for testing and personal projects. You get 100 requests per month, 1 API key, and a rate limit of 10 requests per minute. Batch validation is included, with up to 100 numbers in one HTTP request. Each distinct number consumes one request of quota, so 100 different numbers use the entire free monthly allowance. Commercial use starts on Basic.
 
 Each lookup returns the carrier and line type, such as mobile, landline, or toll-free. It also flags VoIP and other special number types, which helps against fake sign-ups. The service covers more than 230 countries. The site says the free plan is enough to build and test your integration before you pay.
 
 ## When you hit a limit
 
-The pricing page does not say what happens after your 100 monthly requests are used. It does not mention overage charges on the free plan. Check your quota in the dashboard or API status endpoint before you rely on the free plan for live traffic.
+The quota documentation says requests return HTTP 429 once you exceed the monthly allowance. Upgrade or wait until the end of the month. Exceeding the minute limit also returns HTTP 429; wait until the minute ends. Only successful requests count toward quota, and the status endpoint is free.
 
 The rate limit is separate. Paid plans have no rate limit, so more than 10 requests in a minute is a reason to upgrade. The paid plans start with Basic at $9.99 a month, and you can cancel from your dashboard.
 
@@ -109,8 +117,8 @@ Yes, up to a point. The Free plan costs $0 a month and includes 100 requests, 1 
 
 ### What happens when I go over the Numlookupapi free limit?
 
-The pricing page does not say. Paid plans start at $9.99 a month and add more requests, and they remove the rate limit.
+Requests return HTTP 429 at the monthly quota. Wait for the monthly reset or upgrade. At the minute limit, wait until that minute ends.
 
 ### Does Numlookupapi need a credit card?
 
-The pricing page does not mention a card for the free plan. You get a free API key from the sign-up button.
+No. The pricing page explicitly says Free needs no credit card; a card is needed only when upgrading to a paid plan.
