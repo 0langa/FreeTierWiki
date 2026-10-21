@@ -1,166 +1,71 @@
 # FreeTierWiki
 
-**Choose free tiers with real constraints, not wishful thinking.**
+**Compare free developer tools with their limits and billing risks in view.**
 
-[freetier.wiki](https://freetier.wiki) lists free plans for developers — services and tools — and shows what each one actually gives you: the limits, whether it needs a card, the billing risk, and how fresh that information is.
+[FreeTierWiki](https://freetier.wiki) is a catalog of 900+ services and tools with free plans, credits, or trials. Find out what each offer includes, what happens at the limit, and when its details were last checked.
 
----
+[Browse the catalog](https://freetier.wiki/explorer/) · [Compare options](https://freetier.wiki/compare/) · [See recent changes](https://freetier.wiki/changelog/) · [Contribute](CONTRIBUTING.md)
 
-## How to use the site
+[![FreeTierWiki homepage with search, filters, and comparison guides](docs/images/freetierwiki-home.png)](https://freetier.wiki)
 
-### Home
+## Find an offer that fits
 
-The home page is built for a first visit: a search box, quick filter chips, "Most visited" (the entries real visitors opened in the last 30 days, from Cloudflare; until that list exists, a hand-picked "Common first picks" card), "Pick by job" (one card per comparison table), browsing by category, "Safe places to start", and, as a footnote at the bottom, the latest plans that changed or ended. New entries and removed listings stay on the changelog page.
+- **Search and filter** by category, service or tool, and billing risk. Explorer links preserve your filters.
+- **Compare options for one job**, such as hosting Postgres or tracking application errors.
+- **Read the actual constraints:** usage allowances, card requirements, renewal rules, and behavior at the limit.
+- **Check the sources and dates.** Each entry links to the provider and shows how fresh its information is.
+- **Follow changes** to plans through the [changelog](https://freetier.wiki/changelog/) or [RSS feed](https://freetier.wiki/changelog/feed.xml).
 
-### Explorer
+## Understand the labels
 
-Open **Explorer** to filter and search every entry. Every filter — search text, category, type, risk, and sort — lives in the URL, so a link or the back button always returns the same view. Results are paged 50 at a time.
+Free plans, credits, and trials have different tradeoffs. Each entry labels its plan type and billing risk:
 
-When a filter returns no results, the explorer adds `noindex, follow` to the rendered page head.
-Clearing or changing the filters removes that tag when results return. Loading and failed data
-requests do not trigger it. This follows Google's [client-rendered soft 404 guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics#avoid-soft-404s).
-The static export cannot vary HTTP status by query string, so this rule requires JavaScript rendering.
-The canonical URL remains `/explorer/`; category and entry pages remain eligible for indexing.
+| Billing risk | What it means |
+| --- | --- |
+| **None** | Usage stops or throttles at the limit, or the service is unlimited. |
+| **Low** | Unexpected charges are unlikely; read the entry's caveats. |
+| **Medium** | Usage above the free allowance can be billed to a card on file. |
+| **High** | Usage is billed from the start, or there is no current free offer. |
 
-### Category pages
+A **checked date** records a comparison with official sources, or a later automated check confirming that the tracked pricing text is unchanged since review. Entries become stale after 180 days. An **imported date** means the entry has not been re-checked; use it as a starting point for research. Changed and ended offers are marked separately.
 
-Each category (Hosting, Database, AI, and so on) has its own page listing just its entries.
+[Read the full label guide →](https://freetier.wiki/about/)
 
-### Comparison pages
+## How the catalog stays current
 
-`/compare/` lists hand-picked tables for one job each, such as "Free Postgres hosting compared". A table reuses the entry list: what you get free, card, risk, freshness, safest first. Topics and their rows live in `content/comparisons.json`.
+Pricing changes are part of the project's ongoing maintenance:
 
-### Detail pages
+1. A weekly workflow fetches official pricing pages and compares their pricing text with the previous scan.
+2. Changed pages are flagged in a GitHub issue for review. A text change is a reason to investigate; it does not establish that a plan changed.
+3. Reviews compare entries with provider pricing pages and documentation, then propose corrections through pull requests.
+4. Reviewed changes update the entry's sources, verification date, and changelog where appropriate. Unresolved claims keep their previous verification dates.
 
-Each entry has a detail page with a "Free tier facts" label: the plan type, whether a card is required, the billing risk, and the limits, styled like a nutrition label. On a phone the label comes right after the title; on a desktop it sits in the right column with an "On this page" menu that follows you down the page. Below the title: links to the official pricing page and docs, "Compared in" links to every comparison table the entry is in, "Good fit" and "Not a fit" cards, then the entry body in clearly separated sections: what the free plan gives you, what happens at the limit, gotchas, alternatives, and questions people ask (each answer opens on tap). After that come the sign-up steps and other free options in the same category.
+Unchanged pricing text can advance an already-reviewed entry's checked date. Blocked or unreadable pages cannot confirm an entry. The [maintenance guide](docs/content-maintenance.md) explains the workflow and its limitations; [review notes](docs/reviews/) record previous investigations.
 
-Every detail page also has a **freshness label**:
-- A green date with a check mark means someone compared the entry with the official pricing page on that date.
-- A gray date means the entry has not been re-checked since it was first written; it may be out of date.
-- `Changed` or `Ended` pills mark offers that stopped being what they used to be.
+## Help improve an entry
 
-If you spot something wrong, use **Report outdated info** on the entry — it opens a short GitHub issue form with the entry's link pre-filled.
+Use **Report outdated info** on an entry, or [open an issue](https://github.com/0langa/FreeTierWiki/issues/new?template=outdated-info.yml) with the official source and the detail that needs correcting. New listings and corrections are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the content requirements.
 
-### Changelog
+## Run locally
 
-The `/changelog/` page lists every entry that changed, ended, or was removed, newest first, with All / New / Changed / Removed filters that work without JavaScript. Follow it with the RSS feed at `/changelog/feed.xml`.
+Use Node.js 22, as pinned in [.nvmrc](.nvmrc):
 
----
-
-## Ratings & labels
-
-See [`/about/`](https://freetier.wiki/about/) for the full explanation. Summary:
-
-**Billing risk**
-| Level | Meaning |
-|---|---|
-| **None** | The plan is unlimited, or going over the limit stops or throttles the service. You should not get a bill by accident. |
-| **Low** | Going over is unlikely to cost money, but read the watch-out notes. |
-| **Medium** | A card is on file and usage above the free amount is billed. Set a spending limit. |
-| **High** | No real free plan, or usage is billed from the start. |
-
-**Plan types**
-- **Always free** — the free amount renews and does not expire.
-- **Credit** — a money amount you spend down.
-- **Trial** — free for a limited time.
-- **Time-limited** — free for a set period after sign-up, then it changes.
-
-**Freshness labels**
-- Checked (date with a check mark) — compared against the official pricing page on that date, by a person or by the weekly check that confirms the page text is unchanged since the last review; turns stale after 180 days.
-- Imported (gray date) — the entry's data is from that date and has not been re-checked since.
-
-**Status**
-- `active` — the free tier is as described.
-- `changed` — the free tier changed; see the entry's changelog notes.
-- `ended` — the free tier no longer exists.
-
----
-
-## Tech stack
-
-- Next.js 16 (App Router), static export (`output: "export"`)
-- TypeScript, strict mode
-- Tailwind CSS 3.4
-- IBM Plex Sans and Mono, self-hosted from `src/fonts/` (OFL-1.1)
-- Native `<dialog>` for the search box and the phone filter sheet (`src/components/ui/modal.tsx`)
-- FlexSearch, loaded lazily only when someone searches
-- Frontmatter + MDX content pipeline
-- Vitest (unit tests) and Playwright (end-to-end tests)
-
----
-
-## Local development
-
-```bash
+```sh
 npm ci
 npm run dev
 ```
 
-Before pushing, run the same checks CI runs:
+Built with Next.js, TypeScript, Tailwind CSS, and MDX. The site is exported as static files and hosted on Cloudflare Pages.
 
-```bash
-npm test
-npm run lint
-npm run typecheck
-npm run check:depth
-npm run build
-npm run check:budget
-npx playwright install chromium
-npm run test:e2e
-```
-
-On a low-memory machine, the default build can run out of memory. Limit build workers instead:
-
-```bash
-NEXT_BUILD_CPUS=2 npm run build
-```
-
----
-
-## Content
-
-Entries live under `content/services/` and `content/tools/` as MDX files with frontmatter. Key fields:
-
-- `lastVerified` — ISO date (`2026-09-25`) the entry was last checked against the official pricing page: by a person, or by the weekly check when the page text is unchanged since the last review. Drives the freshness label; stale after 180 days (`STALE_AFTER_DAYS`).
-- `status` — `active`, `changed`, or `ended`.
-- `pricingUrl` — link to the provider's current pricing page.
-- `changes` — a list of `{ date, kind, note }` entries, where `kind` is `ended`, `changed`, or `new`. Feeds the changelog.
-
-`content/comparisons.json` holds the comparison pages: `slug`, `title`, `intro`, and `entries` (ids like `services:neon`). A unit test fails when an id is missing or its entry has ended.
-
-**Rule:** an entry with `status: changed` or `status: ended` must have at least one `changes` item and a `lastVerified` date. This is enforced by the content parser and covered by unit tests (`npm test`).
-
-### Checking entries
-
-Every entry should match its official pricing page. The tools under `scripts/verify/` help:
-
-- `npm run verify:fetch -- --domains hosting,database` saves the pricing-page text under `development/verify/pages/`.
-- `npm run verify:list -- --domains hosting --size 20` prints the work chunks.
-- `npm run verify:remove -- --from deletes.json --date YYYY-MM-DD` deletes entries, adds 301 redirects to their category, and records them in `content/changelog.json`.
-- `npm run verify:freshness` reads every entry's pricing page, hashes the price-related text, and reports what changed since the last run. The weekly workflow `.github/workflows/freshness.yml` runs it on Sunday evening, opens an issue for the entries whose text changed, and, with `--mark-verified`, sets `lastVerified` to the check date on every entry whose text is unchanged since its last review (that commit goes straight to `main`). A cloud routine reviews the flagged entries on Monday and opens a PR.
-
-Rules: an entry stays only if developers can use it free (always-free plan, credit, or trial). Paid-only, closed, off-topic, and duplicate entries are removed.
-
----
-
-## Deploy
-
-Cloudflare Pages builds the `main` branch with `npm run build`, serving the `out/` directory, using the Node version pinned in `.nvmrc`. `public/_redirects` holds the 301 redirects for URLs removed or moved during the redesign.
-
-GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the entry-body check, the build, the size budget check, and end-to-end tests on every push to `main` and every pull request. It only checks — it does not deploy.
-
----
-
-## Contributing
-
-Spotted an outdated limit? Use **Report outdated info** on the entry, or open an issue with a link to the official pricing page that shows the current terms. To fix an entry yourself, edit its file as described under [Content](#content), cite only the provider's official pricing page or docs, and run the checks under [Local development](#local-development). `npm run check:depth` checks the entry body against the sections defined in `scripts/verify/lib/depth.mjs`.
-
----
+| Documentation | Details |
+| --- | --- |
+| [Development](docs/development.md) | Setup, checks, architecture, and deployment |
+| [Content maintenance](docs/content-maintenance.md) | Entry fields, evidence tools, and the weekly pricing check |
+| [Site guide](docs/site-guide.md) | Browsing, comparisons, detail pages, and labels |
+| [Contributing](CONTRIBUTING.md) | Reporting errors and submitting listings |
 
 ## License
 
-MIT — see the GitHub repository for details.
+[MIT](LICENSE). The bundled IBM Plex fonts retain their [SIL Open Font License](src/fonts/LICENSE-ibm-plex.txt).
 
----
-
-*FreeTierWiki is a living catalog. Each entry shows how fresh it is. Always verify current pricing and limits on the provider's official website before making architectural decisions.*
+Always confirm current pricing and terms on the provider's official website before choosing a service.

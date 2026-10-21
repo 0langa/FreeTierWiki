@@ -22,30 +22,36 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    $5 in free credits every month, applied automatically. At $5 per 1,000
-    Search requests, that covers about 1,000 requests a month.
+    $5 in free credits every month on each plan, applied automatically. At $5
+    per 1,000 Search requests, that covers about 1,000 requests a month. New
+    plans are prepaid; disable auto-reload to avoid automatic card charges.
   limits:
     - $5 in free credits every month
     - Search at $5 per 1,000 requests, up to 50 queries per second
     - Answers at $4 per 1,000 requests plus $5 per million tokens, up to 2 queries per second
   caveats:
-    - A credit card is required to subscribe, even to a free plan
-    - Brave says the card on a free plan is only used to confirm identity and will not be charged
+    - A card is required; free-only signup uses a $0 prepay amount with auto-reload disabled
+    - Auto-reload charges the card automatically and can be uncapped if no monthly limit is set
+    - Existing postpaid plans still bill usage beyond the included monthly credits
+    - The $20 headline is $5 on each of four plans, not $20 for Search alone
   resetPeriod: monthly
   requiresCard: true
   freeTierType: credit
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - The pricing page does not say whether usage past the monthly credit is billed or blocked
+    - >-
+      Prepaid requests pause at a zero balance unless credits are added.
+      Auto-reload can charge the card repeatedly; its monthly cap is optional.
+      Legacy postpaid plans continue billing usage beyond their included credit.
 useCases:
   - Giving an AI agent or chatbot live web search
   - Grounding LLM answers with citations
   - Adding web results to a search feature
 quickstartSteps:
-  - Sign up for the Brave Search API and add a credit card, which Brave uses to confirm identity.
+  - Sign up with a credit card, choose a $0 prepay amount, and disable auto-reload for free-only use.
   - Create an API key in the dashboard.
-  - Call the web search endpoint and track spend against the $5 monthly credit.
+  - Set a usage limit and track spend against the Search plan's $5 monthly credit.
 whenToUse: >-
   Use the Brave Search API when an app or agent needs web search results from
   an independent index and about a thousand searches a month is enough.
@@ -60,14 +66,15 @@ avoidIf:
   - unbounded automated searches
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://brave.com/search/api/'
-docsUrl: 'https://api-dashboard.search.brave.com/app/documentation'
+docsUrl: 'https://api-dashboard.search.brave.com/documentation/resources/help-feedback'
 sourceUrls:
   - 'https://brave.com/search/api/'
+  - 'https://api-dashboard.search.brave.com/documentation/resources/help-feedback'
 pricingUrl: 'https://brave.com/search/api/'
 featured: false
 changes:
@@ -76,25 +83,23 @@ changes:
     note: Added to the atlas.
 ---
 
-The Brave Search API gives developers results from Brave's own web index, the same index behind Brave Search. Apps use it for traditional search features, AI search, and agents that need fresh web data. Brave says its index holds 40+ billion pages and gets 100+ million page updates every day.
+The Brave Search API gives developers results from Brave's own web index, the same index behind Brave Search. Apps use it for traditional search features, AI search, and agents that need fresh web data. Brave says every result comes from its own index, with no fallback to Google or Bing.
 
 ## What the free plan gives you
 
-Each plan on the pricing page includes $5 in free credits every month, applied to your account automatically. The Search plan costs $5 per 1,000 requests, so the credit covers about 1,000 searches a month. It returns full results with URLs, text, news, and images, extra LLM context, up to five snippets per result, Goggles for custom re-ranking, and capacity of 50 queries per second.
+Each plan includes $5 in free credits every month. Brave's help page explains the $20 headline: it is $5 on each of four plans, not $20 for Search alone. Search costs $5 per 1,000 requests, so its credit covers about 1,000 searches a month. Results include URLs, text, news, images, extra LLM context, alternate snippets, and Goggles for reranking. Search supports up to 50 queries per second.
 
 The Answers plan costs $4 per 1,000 requests plus $5 per million input and output tokens, with capacity of 2 queries per second. It returns answers grounded on one or more searches with citations, supports streaming, and is OpenAI SDK compatible. The same $5 monthly credit applies, but tokens make each answer cost more than a plain search.
 
 ## When you hit a limit
 
-The pricing page does not say whether requests past the $5 monthly credit are blocked or billed to your card. The rate caps are fixed per plan: 50 queries per second for Search and 2 for Answers.
-
-Because a card is on file, treat usage past the credit as possibly billable and keep an eye on spend in the dashboard.
+On new prepaid plans, requests use the included credit and any purchased balance, then pause at $0. For free-only use, set the prepay amount to $0 and disable auto-reload. Auto-reload can charge your card whenever the balance crosses its trigger; a monthly reload cap is optional, and leaving it empty allows repeated uncapped reloads. Existing postpaid plans still bill usage beyond their included credit. Set usage limits and check which billing model your key uses before running automated searches.
 
 ## Gotchas
 
-- You must add a credit card even for the free plan. Brave says it is an anti-fraud measure and that a free plan's card is only used to confirm your identity and will not be charged.
+- A card is required even for free-only use. Auto-reload and legacy postpaid billing can charge it; prepaid credits alone do not guarantee a spending cap.
 - Answers requests use the credit faster than Search requests because tokens are billed on top.
-- An agent that retries or searches in a loop can use a month's credit in minutes.
+- An agent that retries or searches in a loop can use a month's free credit in minutes, and any prepaid credits after it.
 
 ## Alternatives in this atlas
 
@@ -110,7 +115,7 @@ Each plan includes $5 in free credits every month. On the Search plan that is ab
 
 ### Why does Brave ask for a credit card?
 
-As an anti-fraud measure. Brave says the card on a free plan only confirms your identity and will not be charged.
+To prevent abuse. Free-only signup allows a $0 prepay amount, but the card receives a $0 or $1 authorization hold that Brave says is immediately refunded. Keep auto-reload disabled to avoid automatic purchases.
 
 ### How fast can I send requests?
 
