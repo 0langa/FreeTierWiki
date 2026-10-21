@@ -201,10 +201,9 @@ export function checkDepth({ id, data, body, entries, evidence, skipped = false 
       const missing = unsupportedFigures(body, usable.map((page) => page.text).join("\n"));
       if (missing.length) problems.push(`numbers not found on any fetched source page: ${missing.join(", ")}`);
       const fetched = usable.map((page) => page.fetchedAt.slice(0, 10)).sort().at(-1) ?? "";
+      // A source review advances lastVerified; unchanged content keeps its lastUpdated date.
       const verified = dateString(data.lastVerified);
-      const updated = dateString(data.lastUpdated);
       if (!verified || verified < fetched) problems.push(`'lastVerified' (${verified ?? "none"}) is older than the fetch date ${fetched}`);
-      if (!updated || updated < fetched) problems.push(`'lastUpdated' (${updated ?? "none"}) is older than the fetch date ${fetched}`);
     }
   }
 

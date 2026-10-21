@@ -65,7 +65,7 @@ npm run check:depth -- --ids services/neon --evidence
 
 The [depth rules](../scripts/verify/lib/depth.mjs) require the entry body's sections, word counts, questions, alternatives, and valid internal links. Evidence mode also checks cited sources, dates, and whether figures appear in the fetched material. It cannot establish the meaning of a figure or guarantee the correctness of a claim. Read the source context during review.
 
-Evidence mode currently also reports an error when `lastUpdated` is older than the evidence fetch date. That can occur on a verification-only refresh where the content is unchanged. Preserve the actual publication date and explain this known limitation in the PR; do not advance `lastUpdated` just to silence it. Other evidence errors still need investigation.
+Evidence mode requires `lastVerified` to be on or after the latest fetch date among the entry's cited sources. A verification-only review can leave `lastUpdated` at its original date when the published information is unchanged.
 
 For all application and content checks, see [development](development.md#checks).
 

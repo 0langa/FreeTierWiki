@@ -130,6 +130,15 @@ describe("checkDepth", () => {
     expect(uncited).toContain("no fetched page for this entry matches 'sourceUrls'");
   });
 
+  it("accepts a verification-only review without changing the publication date", () => {
+    expect(run({ data: { ...data, lastUpdated: "2026-10-01" }, evidence })).toEqual([]);
+  });
+
+  it.each([undefined, "2026-10-08"])("rejects a missing or stale verification date (%s) even when publication is current", (lastVerified) => {
+    const problems = run({ data: { ...data, lastVerified }, evidence }).join();
+    expect(problems).toContain(`'lastVerified' (${lastVerified ?? "none"}) is older than the fetch date 2026-10-09`);
+  });
+
   it("lets a skipped entry state only numbers its frontmatter holds", () => {
     expect(run({ skipped: true })).toEqual([]);
     expect(run({ skipped: true, body: body({ limit: `${words(80)} It stops at 7 days.` }) }).join()).toContain("frontmatter lacks: 7");
