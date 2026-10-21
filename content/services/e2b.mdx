@@ -27,6 +27,7 @@ freeTierDetails:
     - Up to 20 concurrent sandboxes
     - Sessions up to 1 hour of continuous runtime
     - Up to 8 vCPUs and 8 GiB of memory per sandbox
+    - 10 GiB disk per sandbox
     - Usage billed per second from the credit
   caveats:
     - The credit does not refill
@@ -64,19 +65,23 @@ avoidIf:
   - you cannot add a payment method once the credit is used
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://e2b.dev'
 docsUrl: 'https://e2b.dev/docs'
 sourceUrls:
+  - "https://e2b.dev/docs/sandbox/persistence"
   - 'https://e2b.dev/pricing'
   - 'https://e2b.dev/docs/billing'
   - 'https://e2b.dev/docs/quickstart'
 pricingUrl: 'https://e2b.dev/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added the Hobby disk allowance and scoped credit-exhaustion blocking to workspaces without a payment method."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -91,7 +96,7 @@ E2B bills by the second for a running sandbox, and the credit pays for it. The p
 
 ## When you hit a limit
 
-If you run out of credits, E2B blocks your account. You must add a payment method to keep using the service. The credit does not refill, and moving to the Pro plan does not add credits. API requests that go over a rate limit get an HTTP 429 response with a `Retry-After` header. The newer SDK versions retry these requests for you. Pro costs $150 per month plus usage and raises limits such as runtime and concurrency.
+Without a payment method, exhausted credits cause every project in your workspace to be blocked shortly afterwards. Add a payment method to continue; subsequent usage is billed. The credit does not refill, and moving to the Pro plan does not add credits. API requests that go over a rate limit get an HTTP 429 response with a `Retry-After` header. The newer SDK versions retry these requests for you. Pro costs $150 per month plus usage and raises limits such as runtime and concurrency.
 
 ## Gotchas
 
@@ -117,4 +122,4 @@ No. The pricing page says no credit card is required to start on the Hobby plan.
 
 ### What happens when I run out of E2B credits?
 
-Your account is blocked. You add a payment method to continue using E2B.
+Without a payment method, your workspace projects are blocked shortly after credits run out. Adding a payment method enables continued billed usage.

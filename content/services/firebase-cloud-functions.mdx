@@ -30,11 +30,13 @@ freeTierDetails:
     Deploying functions needs the Blaze plan (billing account). Blaze includes a
     no-cost amount of invocations, compute time, and outbound networking.
   limits:
-    - 2 million invocations/month
+    - Firebase pricing table lists 2 million invocations/month
     - '400,000 GB-seconds compute/month'
     - '200,000 CPU-seconds/month'
     - 5GB outbound networking/month
   caveats:
+    - Second-generation functions run on Cloud Run and use its generation-specific pricing.
+    - Firebase and Cloud Build pricing pages show different build allowances; check the machine and billed SKU.
     - Deploying functions needs the Blaze plan; the Spark plan can only emulate functions locally.
     - Above the no-cost amount, invocations cost $0.40 per million and outbound networking $0.12/GB.
   resetPeriod: monthly
@@ -71,19 +73,26 @@ avoidIf:
   - no payment method for a Cloud Billing account
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/functions'
 docsUrl: 'https://firebase.google.com/docs/functions'
 pricingUrl: 'https://firebase.google.com/pricing'
 sourceUrls:
-  - 'https://firebase.google.com/pricing'
+  - "https://cloud.google.com/run/pricing"
+  - "https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en"
+  - "https://firebase.google.com/docs/functions/get-started?hl=en"
+  - "https://firebase.google.com/pricing"
+  - "https://cloud.google.com/build/pricing"
   - 'https://firebase.google.com/docs/functions'
-  - 'https://firebase.google.com/docs/functions/get-started?hl=en'
   - 'https://firebase.google.com/docs/projects/billing/firebase-pricing-plans'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Separated Firebase’s displayed function allowances from second-generation Cloud Run pricing and flagged inconsistent build allowances."
 ---
 You write functions in Node.js or Python, test them with the Firebase emulators, and deploy them with the Firebase CLI. They can run on HTTPS requests or on events from Firebase features such as Cloud Firestore. It suits app developers who already use Firebase and need a little server-side code.
 
@@ -91,18 +100,18 @@ You write functions in Node.js or Python, test them with the Firebase emulators,
 
 Firebase has two pricing plans. Cloud Functions is marked not applicable on the no-cost Spark plan, and the docs say your project must be on the pay-as-you-go Blaze plan to deploy functions. You can still emulate functions on any project.
 
-On Blaze, the pricing page lists no-cost usage of 2M invocations, 400K GB-seconds, and 200K CPU-seconds per month. It also lists 5 GB of outbound networking per month, 120 minutes per day of Cloud Build, and 500MB of container storage in Artifact Registry. Firebase may also give $300 in free credit if you are eligible.
+The Firebase table lists 2M invocations, 400K GB-seconds, 200K CPU-seconds and 5 GB outbound monthly. These are not a universal estimate: second-generation functions run on Cloud Run, whose request-based tier has 2M requests, 180K vCPU-seconds, 360K GiB-seconds and 1 GiB North America outbound monthly. Builds and stored container images are separate services. Their allowances depend on the applicable product and SKU.
 
 ## When you hit a limit
 
-Blaze has no hard stop. After the no-cost amounts, Firebase charges $0.40 per million invocations and $0.12 per GB of outbound networking. GB-seconds and CPU-seconds above the no-cost amount follow Google Cloud pricing, and so does container storage.
+Blaze has no spending cap at the free allowance. The Firebase table lists $0.40 per million excess invocations and $0.12/GB outbound, while second-generation workloads follow Cloud Run pricing. Compute, builds, networking and container storage can each add charges. Check your generation, region and billing SKUs rather than applying one table to every deployment.
 
 Because Blaze needs a Cloud Billing account, and those require a payment method, a runaway function or a traffic spike turns into a bill. Watch your usage in the console.
 
 ## Gotchas
 
 - Deploying functions needs the Blaze plan, so you must attach a billing account even if you expect to stay under the no-cost amounts.
-- Build time counts. Cloud Build has a no-cost amount of 120 minutes per day, and container images use Artifact Registry storage.
+- Firebase lists 120 build minutes/day, while Cloud Build lists 2,500 promotional e2-standard-2 minutes/month. Check the applicable machine and SKU; container images also use Artifact Registry storage.
 - The docs support Node.js versions 20 and 22 and Python versions 3.10 through 3.13, so check your runtime before you deploy.
 
 ## Alternatives in this atlas
@@ -115,7 +124,7 @@ Because Blaze needs a Cloud Billing account, and those require a payment method,
 
 ### Is Firebase Cloud Functions free?
 
-Partly. On the Blaze plan, the first 2M invocations, 400K GB-seconds, and 200K CPU-seconds each month have no cost. You pay above that.
+Blaze includes no-cost usage, but second-generation functions use Cloud Run pricing. Firebase’s table lists older invocation and compute counters, so check your deployed generation and related build and storage costs.
 
 ### Does Firebase Cloud Functions need a credit card?
 

@@ -37,13 +37,14 @@ freeTierDetails:
   caveats:
     - The Pro plan is $19 per user per month plus additional usage
     - Pro overage is $0.16 per test generation and $0.22 per test run
-    - Paid plans take credit cards only
+    - Pro takes credit cards only; Enterprise supports purchase orders and invoicing
     - Open source projects can apply for free access through Keploy's sponsorship
+    - Playground publishes no overage tariff, but does not document whether excess work is rejected, queued, or offered an upgrade
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Record API traffic and turn it into regression tests
   - Generate API tests from an OpenAPI or Postman spec
@@ -71,8 +72,8 @@ avoidIf:
   - you need Enterprise terms, which the pricing page lists as custom
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://keploy.io/'
@@ -83,7 +84,15 @@ sourceUrls:
   - 'https://docs.keploy.io/'
   - 'https://docs.keploy.io/docs/server/installation/'
 pricingUrl: 'https://keploy.io/pricing'
+status: changed
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Replaced the unsupported Playground hard-stop flag with unknown and scoped usage charges to Pro.'
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected the payment-method caveat to apply card-only billing to Pro, since Enterprise supports purchase orders and invoicing."
 ---
 You run the Keploy CLI in front of your app, send some requests, and it saves them as tests and mocks. It suits backend and QA engineers who want regression tests built from real traffic.
 
@@ -95,7 +104,7 @@ The plan generates API tests from OpenAPI or Postman specs, expands edge cases w
 
 ## When you hit a limit
 
-The pricing page lists the Playground limits but does not say what happens when you reach them. The pricing page says there is no credit card for Playground.
+Playground publishes no overage tariff and explicitly needs no card. The public comparison does not document whether generation or execution past a monthly quota is rejected, queued, or sent through an upgrade flow, so the exact enforcement is unconfirmed. Pro usage prices below should not be treated as Free overage rates.
 
 Moving up means the Pro plan at $19 per user per month with $19 of included usage. After that, overage prices apply: $0.16 per test generation, $0.22 per test run, and $10 for each 10,000 integration and sandbox runs. Pro takes credit cards only.
 

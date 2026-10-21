@@ -25,20 +25,21 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free for open source projects (unlimited users) and for private teams of
-    up to 5 active contributors, with all four products included.
+    up to 5 active contributors, with all three products included.
   limits:
     - Unlimited users for open source projects
     - Up to 5 users on the Free plan for private teams
-    - 'All 4 products included: CI Insights, Test Engine, Merge Queue, Merge Protections'
-    - 24 hours of data retention on the Free plan
+    - 'All 3 products included: CI Insights, Test Engine, Merge Queue'
+    - 24 hours of CI Insights retention and 7 days of Test Engine retention
   caveats:
-    - Billing counts only active contributors (opened a PR or pushed to one in the last 30 days)
+    - "The permanent Free card requirement and service or billing behavior above five active contributors are not published"
+    - Billing counts active real users who opened or updated a PR in the last 30 days
     - Max plan costs $21 per seat per month and covers up to 100 users
     - The Open Source and Free plans do not include the same features
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: medium
 useCases:
   - Queueing pull requests so only tested code reaches main
   - Batching pull requests to save CI runs
@@ -55,7 +56,7 @@ whenToUse: >-
   private team of up to 5 active contributors.
 whenNotToUse: >-
   Avoid it if you use a host other than GitHub, if a private team has more than
-  5 active contributors, or if you need more than 24 hours of data retention.
+  5 active contributors, or if you need longer CI Insights retention than 24 hours.
 bestFor:
   - open source maintainers
   - small private teams on GitHub
@@ -66,36 +67,42 @@ avoidIf:
   - long data retention on the free plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mergify.com'
 docsUrl: 'https://docs.mergify.com/'
 sourceUrls:
+  - 'https://docs.mergify.com/billing.md'
   - 'https://mergify.com/pricing'
   - 'https://docs.mergify.com/'
   - 'https://docs.mergify.com/getting-started/'
   - 'https://docs.mergify.com/merge-queue/setup'
+  - 'https://docs.mergify.com/billing/'
 pricingUrl: 'https://mergify.com/pricing'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Corrected the catalog to three Mergify products and distinguished CI Insights from Test Engine retention. Marked the permanent-Free card requirement and contributor-cap enforcement as unknown; the no-card promise applies explicitly to the Max trial."
 ---
 You install the Mergify GitHub App, choose which products to turn on per repository, and then drive the queue with pull request comments such as `@mergifyio queue`. It suits maintainers and small teams that use GitHub.
 
 ## What the free plan gives you
 
-Mergify is free for open source projects, with unlimited users. Private teams get the Free plan for up to 5 users. Both plans include all four products: CI Insights, Test Engine, Merge Queue, and Merge Protections. The pricing page says the Open Source and Free plans do not cover the same features, so check its table.
+Mergify is free for open source projects, with unlimited users. Private teams get the Free plan for up to 5 users. Both plans include all three products: CI Insights, Test Engine, and Merge Queue. The pricing page says the Open Source and Free plans do not cover the same features, so check its table.
 
-Data retention is 24 hours on the Free plan and on the Open Source plan. The paid Max plan keeps data for 30 days. Billing counts only active contributors. A contributor is active if they open a pull request or push commits to one in the last 30 days. Inactive teammates, bots, and one-off contributors do not count.
+CI Insights data retention is 24 hours on the Free and Open Source plans; Test Engine data is kept for 7 days. The paid Max plan keeps data for 30 days. Billing counts only active contributors. A contributor is active for 30 days after opening or updating a pull request. The billing docs include updates to its head branch and count the person who performed the update; bots and inactive teammates do not count.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a private team grows past 5 active contributors. The next step is the Max plan, which costs $21 per seat per month and covers up to 100 users. Mergify also offers a free 14-day trial of Max with no credit card. The free plan asks for no card, so no surprise charge shows up.
+The pricing page does not say what happens when a private team grows past 5 active contributors. The next step is the Max plan, which costs $21 per seat per month and covers up to 100 users. Mergify also offers a free 14-day trial of Max with no credit card. The pages also do not separately state whether permanent Free requires a card.
 
 ## Gotchas
 
 - Adding a repository needs GitHub admin rights, and each product is switched on per repository.
-- Free data retention is short at 24 hours, while Max keeps data for 30 days.
+- Free CI Insights retention is 24 hours, while Test Engine retention is 7 days. Max keeps both for 30 days.
 - Mergify works with GitHub. The docs describe installing a GitHub App and do not mention other hosts.
 
 ## Alternatives in this atlas
@@ -108,12 +115,12 @@ The pricing page does not say what happens when a private team grows past 5 acti
 
 ### Is Mergify free?
 
-Yes. It is free for open source projects and for private teams of up to 5 active contributors. All four products are included.
+Yes. It is free for open source projects and for private teams of up to 5 active contributors. All three products are included.
 
 ### Does Mergify need a credit card?
 
-No. The free plan needs no card, and the 14-day Max trial also needs none.
+The 14-day Max trial needs no card. The reviewed pages do not separately spell out a card requirement for the permanent Free plan.
 
 ### Who counts as an active contributor on Mergify?
 
-A person who opened a pull request or pushed commits to one in the last 30 days. Inactive teammates, bots, and one-off contributors do not count.
+A real user who opened or updated a pull request in the last 30 days. Updates to its head branch count, while bots and inactive teammates do not.

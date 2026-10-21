@@ -27,21 +27,24 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan for Auth for SaaS: 25,000 monthly active users (hard cap, no overages), 25
+    Free plan for Auth for SaaS: 25,000 monthly active users, 25
     organizations, 1 SSO and 1 SCIM connection.
   limits:
-    - '25,000 monthly active users (hard cap, no overages)'
-    - Up to 25 organizations
+    - '25,000 monthly active users'
+    - Up to 25 monthly active organizations
     - 1 SSO connection
     - 1 SCIM connection
   caveats:
+    - "The SaaSKit Free card policy is not stated; the AgentKit no-card footer describes a different product"
     - Scalekit branding appears on auth widgets and emails on the free plan
     - 'More than 1 SSO/SCIM connection or 25,000 MAUs requires the paid Growth plan'
+    - 'Pricing cards say auto-upgrade to Growth; the FAQ instead says hard cap with no overages'
+    - 'Confirm billing behavior before approaching the free limits'
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: medium
 useCases:
   - 'Hosted login for a B2B SaaS, with social and passwordless options'
   - Enterprise SSO over SAML or OIDC for your first business customer
@@ -74,7 +77,7 @@ avoidIf:
   - more than 25 organizations on free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.scalekit.com'
@@ -85,20 +88,24 @@ sourceUrls:
   - 'https://docs.scalekit.com'
   - 'https://docs.scalekit.com/authenticate/fsa/quickstart/'
 featured: false
-lastVerified: '2026-10-09'
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.scalekit.com/pricing/auth-for-saas'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Replaced an unconditional hard-cap claim with the official pricing page contradiction between automatic Growth upgrades and its no-overage FAQ. Marked unresolved SaaSKit card and cap policies as unknown and clarified how monthly active organizations are counted."
 ---
 You set up Scalekit in its dashboard and add one of its SDKs to your backend, which sends users to a hosted login page. It suits small B2B teams that need enterprise login features early.
 
 ## What the free plan gives you
 
-The Free plan costs $0 per month and has no commitment. It includes 25,000 monthly active users, 25 organizations, 1 SSO connection, and 1 SCIM connection. Support comes through the community and email.
+The Free plan costs $0 per month and has no commitment. It includes 25,000 monthly active users, 25 monthly active organizations, 1 SSO connection, and 1 SCIM connection. An active organization has at least two users and at least one login in the billing month. Support comes through the community and email.
 
 Scalekit branding appears on the auth widgets and emails. The Growth plan costs $99 per month and drops the branding. It includes 100,000 monthly active users, 100 organizations, audit logs, and priority Slack and email support. A SCIM connection automates user provisioning from an external directory such as Azure AD or Okta. You are billed only for connections that are enabled.
 
 ## When you hit a limit
 
-The Free plan is a hard cap with no overages. The pricing page says that when you hit 25,000 monthly active users or 25 organizations, or need more than 1 SSO connection, you upgrade to Growth. It does not say what your app does at the cap, so plan the upgrade before you get there.
+The pricing page contradicts itself. The Free plan card says it auto-upgrades to Growth after 25,000 monthly active users or 25 organizations, while the FAQ calls Free a hard cap with no overages. Confirm the billing behavior with Scalekit before approaching either limit. Do not assume requests simply stop or that an upgrade always requires manual approval.
 
 On Growth, usage past the included limits is billed at published per-unit rates, so there are no sudden plan jumps. Extra users cost $0.05 each, and extra SSO or SCIM connections start at $60 per connection per month.
 
@@ -122,7 +129,7 @@ Yes. The Free plan costs $0 per month for 25,000 monthly active users, 25 organi
 
 ### What happens when I reach the Scalekit free limit?
 
-The Free plan is a hard cap with no overages. You upgrade to the Growth plan, which costs $99 per month, to go past it.
+The plan card says auto-upgrade to Growth, but the same page FAQ says hard cap with no overages. Growth costs $99 per month. Ask Scalekit to confirm which behavior applies to your account.
 
 ### Does Scalekit charge for SSO?
 

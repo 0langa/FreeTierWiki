@@ -27,23 +27,24 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Self-hosting the open-source core is free with no user limit. The managed cloud service is free
-    for up to 5,000 monthly active users, then billed per MAU.
+    below 5,000 monthly active users, then billed per MAU.
   limits:
     - Self-hosted core: 'unlimited users, free forever (open source)'
     - 'Managed cloud: free under 5,000 monthly active users'
     - 3 free dashboard admin users
     - Email/password and social login included
   caveats:
+    - Managed signup card requirement and exact threshold exhaustion/transition are not explicit; self-hosted core needs no vendor payment
     - >-
       Multi-factor auth ($0.01/MAU) and account linking ($0.005/MAU) are paid add-ons with a
       $100/month minimum; multi-tenancy is contact-for-pricing
     - Self-hosting requires running your own infrastructure
-    - 'Managed cloud beyond 5,000 MAU: $0.02 per MAU'
+    - Managed is free under 5000 MAU; published 7000-MAU example bills every MAU, not only excess
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
 useCases:
   - 'Email and password, passwordless, and social login with prebuilt screens'
   - Session management for a web or mobile app
@@ -76,8 +77,8 @@ avoidIf:
   - SLA-backed support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supertokens.com/'
@@ -88,18 +89,22 @@ sourceUrls:
   - 'https://supertokens.com/docs/quickstart/introduction'
 pricingUrl: 'https://supertokens.com/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected whole-user managed pricing example rather than a 5000-user free deduction; qualified card/transition policy."
 ---
 You add a SuperTokens SDK to your frontend and backend, and the SDK talks to a SuperTokens core that you host or run in the managed cloud. It suits developers who want prebuilt login screens and the option to keep control of their data.
 
 ## What the free plan gives you
 
-There are two ways to run SuperTokens. Self-hosting the open-source features is free with no limits and no cap on monthly active users. The managed cloud is free under 5,000 monthly active users, and it costs $0.02 per monthly active user after that. A monthly active user is a unique logged-in user in a month, including new sign-ups.
+There are two ways to run SuperTokens. Self-hosting the open-source features is free with no limits and no cap on monthly active users. The managed cloud is free under 5,000 monthly active users, and the paid rate is $0.02 per MAU once outside that Free threshold. The published 7000-MAU example applies the base rate to all 7000 users, not merely those above 5000. A monthly active user is a unique logged-in user in a month, including new sign-ups.
 
 The core features cover email and password, social login, passwordless magic links, SMS or email one-time passwords, and phone number login. You also get the sign-up and sign-in page UI, RBAC, a user management dashboard, and session management. Support comes from the community. Three dashboard users are free.
 
 ## When you hit a limit
 
-On the managed cloud, there is no stop at 5,000 monthly active users. You pay $0.02 for each monthly active user past that, so the cost grows with your traffic.
+The managed pricing says free under 5000 MAU, then $0.02 per MAU. Its 7000-MAU example applies pricing to all 7000 users, so do not budget it as a 5000-user deduction. The signup-card requirement and unbilled-account transition are not explicit; confirm before production.
 
 Add-ons have their own prices. Multi-factor authentication costs $0.01 per monthly active user, and account linking costs $0.005 per user, each with a minimum bill of $100 per month. Extra dashboard users cost $20 per user per month after the 3 free ones. Multi-tenancy needs a conversation with sales. If a bill worries you, self-host the open-source core instead.
 
@@ -123,7 +128,7 @@ Yes, in two ways. Self-hosting the open-source core is free with no limit, and t
 
 ### How much does SuperTokens cost after the free tier?
 
-The managed cloud costs $0.02 per monthly active user after 5,000. MFA and account linking are paid add-ons with a $100 minimum per month.
+Outside its free-under 5000 threshold, managed pricing is $0.02 per MAU; the 7000-MAU example bills the whole user count. MFA and account linking are paid add-ons with a $100 minimum per month.
 
 ### Can I self-host SuperTokens?
 

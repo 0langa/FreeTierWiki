@@ -39,16 +39,18 @@ freeTierDetails:
     - For merchants under $25,000/month in sales
     - 10 free SMS verification credits
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - Free Micro validation halts when credits run out and resumes at the next renewal
     - The pricing page does not mention a payment card for the Micro plan
     - Standard support only; priority support starts on the Mini plan
     - Basic validations and features only; advanced blacklist validation and fraud reports start on Mini
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - The pricing page does not say what happens after the 500 free queries; paid plans list Auto-Recharge
+    - Auto-Recharge only applies to paid plans and is enabled by default; Micro stops when credits are exhausted
 useCases:
   - Screening online orders for fraud before you ship
   - Adding a fraud score to an e-commerce checkout
@@ -77,18 +79,26 @@ avoidIf:
   - you need priority support
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.fraudlabspro.com'
 docsUrl: 'https://www.fraudlabspro.com/developer/api'
 sourceUrls:
   - 'https://www.fraudlabspro.com/pricing'
+  - 'https://www.fraudlabspro.com/resources/tutorials/what-is-auto-recharge/'
   - 'https://www.fraudlabspro.com/developer/api'
   - 'https://www.fraudlabspro.com'
 featured: false
-lastVerified: 2026-10-19
+lastVerified: '2026-10-21'
 pricingUrl: 'https://www.fraudlabspro.com/pricing'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Resolved Micro exhaustion and paid-only default Auto-Recharge using the specific help article.'
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You can use a ready plugin for a shop platform such as Shopify, WooCommerce, or Magento, or call the REST API with an official SDK. A mobile app lets you review orders. It suits small online stores that want a fraud check on each order.
 
@@ -100,9 +110,9 @@ The basic validations cover IP geolocation, billing, shipping, user, proxy, emai
 
 ## When you hit a limit
 
-The pricing page does not say what happens after 500 queries in a month. It also does not say what happens if your sales pass the 25K USD cap. The paid plans all list Auto-Recharge, but the Micro plan lists it too without describing it.
+The Auto-Recharge help article says free Micro validation halts once credits are exhausted and resumes at the next renewal. Auto-Recharge is only for paid plans: it renews the plan when credits run out, is enabled by default, and requires contacting support to disable. The pricing card links this feature under Micro too, but the specific help article excludes Micro.
 
-The paid Mini plan has 1,500 queries per month and priority support. The Small plan has 5,000 queries per month. The Medium plan shows a Try Free button, but the page does not state a trial length for it.
+The paid Mini plan has 1,500 queries per month and priority support. The Small plan has 5,000 queries per month. The Medium plan shows a Try Free button, and the page also advertises a 14-day trial. The sales eligibility boundary remains under 25K USD per month for Micro.
 
 ## Gotchas
 
@@ -124,7 +134,7 @@ Yes. The Micro plan is free with 500 queries per month, for merchants under 25K 
 
 ### What happens when I use more than 500 FraudLabs Pro queries?
 
-The pricing page does not say. It lists a paid Mini plan with 1,500 queries per month, and Auto-Recharge on each plan.
+The help article says Micro validation stops when its credits are exhausted and resumes at the next renewal. Auto-Recharge applies only to paid plans.
 
 ### Which fraud checks does the free FraudLabs Pro plan include?
 

@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
 
-import { candidateUrls, excerpt, htmlToText, isThin } from "../../scripts/verify/lib/pages.mjs";
+import { candidateUrls, evidenceUrls, excerpt, htmlToText, isThin } from "../../scripts/verify/lib/pages.mjs";
 
 describe("htmlToText", () => {
   it("drops scripts and styles, keeps block breaks, decodes entities", () => {
     const html = "<style>p{}</style><script>var a=1</script><h2>Free</h2><p>5&nbsp;GB &amp; 1&#44;000 requests</p><li>No card</li>";
     expect(htmlToText(html)).toBe("Free\n5 GB & 1,000 requests\nNo card");
+  });
+
+  it("decodes hexadecimal entities and keeps malformed codepoints from breaking source reads", () => {
+    expect(htmlToText("<p>Free&#x000A;5&nbsp;GB &euro;0.03 &times; 2 &#99999999;</p>")).toBe("Free\n5 GB €0.03 × 2 �");
   });
 });
 
@@ -23,31 +27,37 @@ describe("excerpt", () => {
   it("returns empty text for empty input", () => {
     expect(excerpt("")).toBe("");
   });
+
+  it("recognizes French and German allowance labels", () => {
+    expect(excerpt("Framagit\n42 projets par personne\nHébergement gratuit")).toContain("42 projets");
+    expect(excerpt("Angebot\nKostenlos\n100 Anfragen pro Monat")).toContain("100 Anfragen");
+  });
 });
 
 describe("candidateUrls", () => {
-  it("orders pricingUrl, pricing-like sources, the official URL, then /pricing", () => {
+  it("orders pricingUrl and cited sources before generic homepage or pricing guesses", () => {
     expect(
       candidateUrls({
         pricingUrl: "https://a.dev/plans",
         sourceUrls: ["https://a.dev/docs", "https://a.dev/pricing", "ftp://bad"],
         officialUrl: "https://a.dev/",
       }),
-    ).toEqual(["https://a.dev/plans", "https://a.dev/pricing", "https://a.dev/"]);
+    ).toEqual(["https://a.dev/plans", "https://a.dev/pricing", "https://a.dev/docs", "https://a.dev/"]);
   });
 
   it("works with only an official URL", () => {
     expect(candidateUrls({ officialUrl: "https://b.io" })).toEqual(["https://b.io", "https://b.io/pricing"]);
   });
 
-  it("caps at 4 URLs, pricingUrl first", () => {
+  it("retains every cited fallback with pricingUrl first", () => {
     const result = candidateUrls({
       pricingUrl: "https://c.dev/plans",
       sourceUrls: ["https://c.dev/pricing", "https://c.dev/plans-2", "https://c.dev/free-tier"],
       officialUrl: "https://c.dev/",
     });
-    expect(result).toHaveLength(4);
+    expect(result).toHaveLength(5);
     expect(result[0]).toBe("https://c.dev/plans");
+    expect(result).toContain('https://c.dev/');
   });
 });
 
@@ -55,5 +65,14 @@ describe("isThin", () => {
   it("marks thin pages", () => {
     expect(isThin("Loading…")).toBe(true);
     expect(isThin("x".repeat(400))).toBe(false);
+  });
+});
+
+describe("evidenceUrls", () => {
+  it("fetches all cited evidence rather than silently dropping sources after six URLs", () => {
+    const sourceUrls = Array.from({ length: 9 }, (_, i) => `https://example.com/source-${i}`);
+    expect(evidenceUrls({ pricingUrl: sourceUrls[0], sourceUrls: [...sourceUrls, "ftp://invalid"], docsUrl: "https://example.com/docs", officialUrl: "https://example.com/" })).toEqual([
+      ...sourceUrls, "https://example.com/docs", "https://example.com/",
+    ]);
   });
 });

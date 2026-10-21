@@ -30,13 +30,14 @@ freeTierDetails:
     - 2 triggers
     - 60 days of event retention
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
     - More triggers and support come with the Pro plan, which starts at $150 per month
     - After repeated months over the limit, Honeycomb throttles events
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
   billingRiskNotes:
     - The docs describe warnings and throttling for overages, and do not mention overage charges on the Free plan
 useCases:
@@ -66,8 +67,8 @@ avoidIf:
   - you only need uptime checks
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://www.honeycomb.io'
@@ -81,6 +82,12 @@ sourceUrls:
 pricingUrl: 'https://www.honeycomb.io/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected hard-cap flag: throttling still accepts one in ten events and starts after repeated overages, not a strict quota stop. Added independent metrics enforcement and recovery interval."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -97,7 +104,7 @@ The docs say events and logs have a fixed retention of 60 days. The pricing page
 
 Honeycomb warns you before it throttles. After one month over the limit, you get a warning email at the start of the next month. After a second month in a row, you get a danger notice with a 10-day window to fix it. If you do not, Honeycomb begins throttling events.
 
-While throttled, the Event API accepts one of every ten events and rejects the rest. Burst protection helps with spikes: when you send more than twice the daily target in one day, the excess events do not count against your limit. This can trigger up to three times per calendar month. The docs do not say Free overages are billed.
+When throttled, the Event API accepts one in ten events. Burst protection excludes excess usage when volume exceeds twice the daily target, up to three times monthly. Metrics data points follow the same warning timeline, independently from events. Both must remain within their targets for at least 72 hours to remove throttling. The docs do not explicitly establish a Free no-bill policy.
 
 ## Gotchas
 

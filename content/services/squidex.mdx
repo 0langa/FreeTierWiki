@@ -24,27 +24,27 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Starter plan on Squidex Cloud is free, with twenty thousand API calls
-    (written 20.000 on the page), 2 GB traffic, 500 MB storage, 2 contributors,
+    The Starter plan on Squidex Cloud is free, with 20,000 API calls, 2 GB traffic, 500 MB storage, 2 contributors,
     and content and asset CDNs. Each website page or app must show a Squidex
     label.
   limits:
-    - Twenty thousand API calls (20.000 on the page)
+    - 20,000 API calls
     - 2 GB traffic
     - 500 MB storage
     - 2 contributors
     - Contents CDN and Assets CDN
   caveats:
+    - "The provider explicitly says Free API calls are blocked at 20,000 calls; traffic-overage uncertainty is separate."
     - The free plan needs a Squidex label on each website page or in your mobile apps
     - API calls are blocked once you reach the free plan's limit
-    - Traffic past the included amount stays live but is charged per GB
+    - The general traffic FAQ describes per-GB charges but does not explain collection on Free
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - Traffic over the included amount is charged at 0,13€ per GB, as the page writes it
+    - Traffic over the included amount is charged at €0.13 per GB in the general traffic FAQ; Free collection policy is not explained
 useCases:
   - Content for a small website or app served through a CDN
   - Trying a headless CMS you could later self-host
@@ -67,17 +67,24 @@ avoidIf:
   - high API traffic on the free plan
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://squidex.io'
 docsUrl: 'https://docs.squidex.io'
 sourceUrls:
+  - "https://docs.squidex.io/"
   - 'https://squidex.io/pricing'
 pricingUrl: 'https://squidex.io/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Standardized numeric formatting and qualified how the general traffic overage terms apply to Free."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -87,7 +94,7 @@ Squidex is a headless CMS: you define content schemas, editors fill them in, and
 
 ## What the free plan gives you
 
-The Starter plan on Squidex Cloud is free. It includes twenty thousand API calls (the page writes 20.000), 2 GB of traffic, 500 MB of storage, and 2 contributors, plus a contents CDN and an assets CDN.
+The Starter plan on Squidex Cloud is free. It includes 20,000 API calls, 2 GB of traffic, 500 MB of storage, and 2 contributors, plus a contents CDN and an assets CDN.
 
 There is one condition: the free plan needs the Squidex label on each website page or in your mobile applications. The Basic plan raises the limits to one hundred thousand API calls, 20 GB of traffic, 5 GB of storage, and 10 contributors. All plans are also available yearly, with 2 months free per year.
 
@@ -95,13 +102,13 @@ There is one condition: the free plan needs the Squidex label on each website pa
 
 API calls and traffic behave differently. For API calls, Squidex says the limit for the free plan is twenty thousand, and when you reach the limit your API calls get blocked; it says it will inform you when it can foresee that you will reach your contingent.
 
-For traffic, the FAQ says that if you reach your limit, your app stays active, but additional traffic is charged at 0,13€ per GB, passed on from Google Cloud with a small surcharge. The page does not say how this applies to a free account.
+For traffic, the FAQ says that if you reach your limit, your app stays active, but additional traffic is charged at €0.13 per GB, passed on from Google Cloud with a small surcharge. The page does not say how this applies to a free account.
 
 ## Gotchas
 
 - The required Squidex label on every page may not suit a client or commercial site.
 - Blocked API calls at the limit mean your site can stop loading content; the FAQ settles extra calls on paid plans at the end of the month.
-- The pricing page writes numbers in European style, so 20.000 means twenty thousand.
+- The public FAQ describes traffic overages, but does not explain how charges are collected on a no-card Free account.
 
 ## Alternatives in this atlas
 

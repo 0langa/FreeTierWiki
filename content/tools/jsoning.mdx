@@ -27,23 +27,23 @@ tags:
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free and open-source mock API generator. Custom APIs are created online
-    instantly but are deleted once a day; self-host from
-    source for permanent local use.
+    Free open-source mock REST API software and a public read-only demo.
+    The hosted custom-generator page returned a server error during this review;
+    use the local source route rather than assuming hosted creation is available.
   limits:
-    - Custom mock APIs are deleted once a day
+    - Local mock REST API available from the official source repository
     - No published request quota; heavy use should self-host
     - Free public read-only demo API also available
     - Full source available on GitHub for local/self-hosted use
   caveats:
-    - Not for persistent or production data — content resets daily
+    - Hosted custom-generator availability could not be confirmed today
     - The page publishes no uptime guarantee
-    - The page shows no sign-up step for creating a mock API
-  resetPeriod: daily
-  requiresCard: false
+    - Earlier hosted documentation described daily deletion; this is not a current availability guarantee
+  resetPeriod: none
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Mocking a REST API for front-end work before a backend exists
   - Faking error codes such as 401 to test how an app reacts
@@ -51,17 +51,16 @@ useCases:
   - Reading sample data from the free public read-only API
   - Formatting and validating JSON in the browser
 quickstartSteps:
-  - Open jsoning.com/api in your browser. The page shows no sign-up step.
-  - Paste your resources into the Resources editor as one JSON object, where each attribute is a resource holding an array.
-  - Optionally add rules in the Rules editor to set the status code, headers, or body for matching requests.
-  - Copy the endpoint the page shows, and call the routes it lists, such as GET, POST, PUT, PATCH, and DELETE on a resource.
-  - Come back to the page to recreate the API after it is deleted, or download the source from GitHub for a local copy.
+  - Open the official JSONing API repository and read the local installation instructions.
+  - Define resources in db.json and optional response rules in rules.json.
+  - Run the local API following project instructions, then call its CRUD routes from your frontend.
+  - For a read-only hosted demo, use the public products endpoint; keep sensitive data out of public mocks.
 whenToUse: >-
-  Use JSONing when you need a fast, free fake API for prototyping or testing
-  without writing or hosting a real backend.
+  Use JSONing when you can run an open-source mock API locally, or only need
+  the hosted public read-only sample data.
 whenNotToUse: >-
-  Avoid if you need persistent, production-grade, or long-lived data storage —
-  hosted custom APIs are wiped once a day.
+  Avoid it for production data or when you require a working hosted custom
+  generator; that page was unavailable during this review.
 bestFor:
   - prototyping
   - hackathons
@@ -73,8 +72,8 @@ avoidIf:
   - needing persistent storage
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 4
 usefulnessScore: 5
 officialUrl: 'https://jsoning.com/api/'
@@ -82,46 +81,55 @@ docsUrl: 'https://jsoning.com/api/'
 pricingUrl: 'https://jsoning.com/api/'
 sourceUrls:
   - 'https://jsoning.com/api/'
+  - 'https://github.com/cyrilbois/jsoning-api'
+  - 'https://api.jsoning.com/mock/public/products'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Qualified unavailable hosted generator and focused on verified public demo and official local software.'
 ---
-You use JSONing in the browser. Paste JSON, and the page gives you a working endpoint you can call from any front end, script, or test. You can also download the open-source API from GitHub and run it on your own machine.
+
+JSONing provides open-source software for mocking REST APIs from JSON resources. You can run the official project locally, control its test data, and simulate errors before your real backend exists. A hosted read-only sample endpoint is also available. The custom-generator web page returned an internal server error during this review, so hosted creation should not be assumed to work.
 
 ## What the free plan gives you
 
-JSONing is free and open source. You can create a custom API online from the page, which shows no sign-up step. Define your resources as a JSON object, and the API is immediately available with routes to list, read, create, update, and delete items.
+The official JSONing API repository provides the source under the MIT license. Its README describes local installation, JSON resource configuration, CRUD routes, pagination, and custom response rules. A local mock can be useful in a classroom, a frontend prototype, or an automated test suite without depending on a hosted generator.
 
-A rule engine lets you set the HTTP status, headers, and body for requests that match a method, path, headers, or payload. For example, a rule can return a 401 for one path.
+Put resources in a single JSON object containing arrays of records. The local server exposes CRUD routes, with page and limit parameters for pagination.
 
-A free public API is also open for testing. It is read-only and holds sample data: 10 products, 5 carts, 5 users, and 5 coupons. A status route simulates HTTP status codes.
+Rules match a request's method, path, headers, or payload and adjust response status, headers, or body. Read the project's rule ordering and stop behavior when combining them.
+
+The hosted public products endpoint returned sample JSON without authentication during this review. It is a read-only demonstration, so use the local version when tests need to create or modify data.
 
 ## When you hit a limit
 
-JSONing publishes no request quota. The page says that APIs are deleted once a day, and you can return to the page to recreate yours. It also asks you to limit your calls and to create a local API if you need more.
+There is no published hosted request allowance in the available documentation. Earlier website documentation asked users to limit calls, suggested local hosting for heavier use, and described daily deletion of custom hosted APIs. Those statements do not establish that the currently unavailable generator can create a new API today.
 
-The page shows no price or paid plan. Heavy use is a reason to move to the local version, which you get from the source code on GitHub.
+A local installation uses your own machine's resources and lifecycle. Keep fixtures under your control and reset the mock as tests require. The repository does not provide a hosted uptime promise or a billing policy for the unavailable generator; no strict hosted cap is confirmed here.
 
 ## Gotchas
 
-- Custom APIs are wiped once a day, so keep your JSON and rules somewhere safe and paste them back to recreate the API.
-- The public demo API is read-only. You cannot change its data.
-- Rules run before the API reads, writes, or deletes data. If several rules match, only the first one runs, and a rule can override the API response.
+- The custom-generator page returned a server error on October 21, 2026. This entry's usable routes are the read-only demo and official local software.
+- A public demo cannot hold changing test state. Keep private fixtures and credentials out of public requests.
+- Mock responses test frontend assumptions; they do not prove that the eventual production backend behaves identically.
 
 ## Alternatives in this atlas
 
-- [Hoppscotch](/services/hoppscotch/): when you need a client to test and document real APIs.
-- [Supabase](/services/supabase/): when you need a real database and API that keep your data.
-- [Appwrite Cloud](/services/appwrite/): when you want a backend with storage and auth instead of fake data.
+- [Hoppscotch](/services/hoppscotch/): for testing real HTTP endpoints from an API client.
+- [Supabase](/services/supabase/): for a persistent database and application backend.
+- [Appwrite Cloud](/services/appwrite/): for hosted storage and authentication rather than mock data.
 
 ## Questions people ask
 
 ### Is JSONing free?
 
-Yes. JSONing is free and open source, and you can create a custom mock API online from the page, which shows no sign-up step.
+The official mock API source is available under the MIT license. The public read-only products endpoint is accessible without authentication.
 
-### How long does a JSONing mock API last?
+### Can I create a hosted custom API today?
 
-Hosted custom APIs are deleted once a day. You can recreate yours on the same page, or run the source from GitHub for a permanent local copy.
+That could not be confirmed. The generator page returned a server error during this review.
 
-### Does JSONing have a request limit?
+### Does JSONing publish a request limit?
 
-No limit is published. The page asks you to limit your calls and to use a local API for heavy use.
+No current numeric hosted quota was established. Run the open-source mock locally for repeatable or heavier tests.

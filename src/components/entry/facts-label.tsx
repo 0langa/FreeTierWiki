@@ -42,8 +42,8 @@ export function FactsLabel({ entry, freshness }: { entry: AtlasEntry; freshness:
       {THICK}
       <dl>
         <FactRow term="Plan type" value={ended ? "No free plan" : FREE_TIER_TYPE_LABELS[details.freeTierType]} />
-        <FactRow term="Card required" value={details.requiresCard ? "Yes" : "No"} />
-        {!ended ? <FactRow term="Hard cap" value={details.hasHardCap ? "Yes" : "No"} /> : null}
+        <FactRow term="Card required" value={details.requiresCard === "unknown" ? "Not confirmed" : details.requiresCard ? "Yes" : "No"} />
+        {!ended ? <FactRow term="Hard cap" value={details.hasHardCap === "unknown" ? "Not confirmed" : details.hasHardCap ? "Yes" : "No"} /> : null}
         <FactRow term="Billing risk" value={<RiskPill risk={details.overageRisk} withLabel={false} />} />
         {!ended && details.resetPeriod ? <FactRow term="Resets" value={details.resetPeriod.replace(/^./, (c) => c.toUpperCase())} /> : null}
         {!ended && details.trialDays ? <FactRow term="Trial length" value={`${details.trialDays} days`} /> : null}

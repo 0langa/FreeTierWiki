@@ -30,13 +30,15 @@ freeTierDetails:
     - 500 requests/day per IP address
     - Engine 3 has a separate 1,000 conversions/month quota
   caveats:
-    - Free API key requires registration
+    - Free API key requires email registration, with no credit card
+    - Searchable PDFs generated on Free include an OCR.Space watermark
+    - Exact monthly quota-exhaustion response is not published
     - The interactive web OCR tool is for manual use, not automated scraping
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - 'Pulling text out of scanned receipts and forms'
   - 'Turning photos of documents into plain text'
@@ -66,17 +68,22 @@ difficulty: beginner
 productionReadiness: prototype
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added explicit official no-card registration evidence, monthly counter reset and searchable-PDF watermark; marked unpublished quota-exhaustion behavior unknown."
   - date: 2026-10-08
     kind: changed
     note: "Free Engine 3 quota is now 1,000 conversions per month (was 2,500)."
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ocr.space/'
 docsUrl: 'https://ocr.space/ocrapi'
 pricingUrl: 'https://ocr.space/ocrapi'
 sourceUrls:
+  - 'https://ocr.space/add'
+  - 'https://ocr.space/compare-ocr-software'
   - 'https://ocr.space/ocrapi'
   - 'https://ocr.space/'
 featured: false
@@ -88,7 +95,7 @@ You can try it with no account in the web form on the home page. For code, regis
 
 The free API plan allows 25,000 requests per month. Each file can be up to 1MB, and a PDF can have up to 3 pages. The paid PRO plan raises the file limit to 5MB.
 
-OCR Engine 3 is the newest engine and has its own quota. The free plan includes 1,000 Engine 3 conversions on top of the monthly requests for Engine 1 and 2. Engine 1 is deprecated, so use Engine 2 or 3.
+OCR Engine 3 is the newest engine and has its own quota. The free plan includes 1,000 Engine 3 conversions on top of the monthly requests for Engine 1 and 2. Engine 1 is retired and its calls are redirected to Engine 2; use Engine 2 or 3.
 
 The free web form on the home page needs no registration. It accepts files up to 5MB. The site says this form is for hands-on use, not for scraping.
 
@@ -96,7 +103,7 @@ The free web form on the home page needs no registration. It accepts files up to
 
 The free plan has a rate limit of 500 requests per day per IP address. The site says this stops accidental spamming. PRO plans do not have that limit.
 
-The site warns that someone could use up all your free conversions if they find your key. It suggests the POST version of the API for that reason. The pages do not say what happens after you use the monthly quota, and they list no overage price for the free plan.
+Monthly conversion counters reset on the first of each month. The comparison page explicitly says no card is required and only email is needed for Free signup. The exact response after monthly exhaustion is not published, and no Free overage rate is listed. Protect your API key: another person could consume its allowance.
 
 ## Gotchas
 
@@ -114,7 +121,7 @@ The site warns that someone could use up all your free conversions if they find 
 
 ### Is OCR.Space free?
 
-Yes. The free API plan gives you 25,000 requests per month, and the web form needs no registration. Paid PRO plans start at $30 per month.
+Yes: the free API has 25,000 monthly requests with email-only, no-card registration, and searchable PDFs carry a watermark. The manual web form needs no registration; PRO starts at $30 monthly.
 
 ### What is the OCR.Space free file size limit?
 

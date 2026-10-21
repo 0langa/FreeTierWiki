@@ -13,57 +13,65 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Azure gives Data Factory its own always-free amount: the first 5
-    low-frequency activities each month, separate from any Azure trial credit.
+    Eligible new Azure customers can try Data Factory V2 using the shared
+    $200 Azure free-account credit, valid for 30 days. No ongoing V2 free
+    pipeline allowance is confirmed by the current sources.
   limits:
-    - First 5 low-frequency activities/month (run at most once a day)
+    - $200 shared Azure credit for eligible new customers
+    - Credit expires 30 days after signup
+    - No dedicated recurring V2 pipeline allowance established
   caveats:
-    - Activities beyond the free 5 are billed per activity per month.
-    - A low-frequency activity is one that runs no more than once a day.
-  resetPeriod: monthly
+    - The credit is shared with other eligible Azure services, not reserved for Data Factory
+    - Legacy V1 five-activity pricing is not an ongoing V2 allowance
+    - Continuing after credit expiry or exhaustion requires choosing pay-as-you-go
+    - V2 activity runs, integration runtimes and related resources have separate usage charges
+  resetPeriod: none
   requiresCard: true
-  freeTierType: always-free
+  freeTierType: credit
+  trialDays: 30
   hasHardCap: false
-  overageRisk: medium
+  overageRisk: high
   billingRiskNotes:
-    - Usage above the free 5 activities is billed; there is no hard cap.
+    - The free-account subscription disables services at expiry or exhaustion unless upgraded
+    - After a pay-as-you-go upgrade, usage beyond remaining credits and free allowances is billed
+    - Budgets are notifications rather than a universal spending cap
 useCases:
   - Copying data on a daily or weekly schedule from an on-premises database to Azure Blob storage
   - Running a small nightly ETL job across a few data stores
   - Orchestrating data movement between cloud services
   - Learning pipeline design before you move work to a larger setup
 quickstartSteps:
-  - Create an Azure account and make sure your role lets you create a data factory.
-  - Go to Azure Data Factory Studio at adf.azure.com and choose Create a new data factory, or use Create on the data factories page in the Azure portal.
-  - In the portal route, pick a resource group, a region, and a globally unique name, then set Version to V2 and choose Review + create, then Create.
-  - Choose Go to resource, then Launch Studio.
-  - In Studio, add linked services for your source and destination, then build a pipeline with activities.
-  - Schedule the pipeline to run no more than once a day so it stays inside the free low-frequency activities.
+  - Check Azure free-account eligibility and the shared $200 credit balance before provisioning.
+  - Open the Azure portal, create a data factory with a resource group, region and globally unique name, and select V2.
+  - Open the factory resource and launch Data Factory Studio.
+  - Add linked services for a small test source and destination, then create and run a pipeline.
+  - Review activity-run consumption and Cost Management; remove test resources when finished.
 whenToUse: >-
-  Use it to run a few daily or weekly copy and transform jobs on Azure, or to
-  try pipelines on a small scale before you commit to a bigger setup.
+  Use the new-customer credit to learn or evaluate Data Factory V2 with a
+  small workload and an explicit plan for stopping or paying afterward.
 whenNotToUse: >-
-  Avoid it for jobs that run more than once a day on the free amount, for
-  anything that must never produce a bill, or if you are starting a new project
-  and want Microsoft's newer Fabric Data Factory.
+  Avoid this offer for an indefinitely free pipeline, an existing account that
+  does not qualify for signup credit, or a workload requiring a universal spending cap.
 bestFor:
-  - a handful of daily or weekly pipelines
+  - a short Data Factory V2 evaluation
   - copying data between Azure and on-premises stores
   - learning data pipelines on Azure
 avoidIf:
-  - hourly or more frequent pipelines on a free budget
+  - ongoing pipelines on a zero budget
   - you cannot give Azure a payment method
   - you need a hard spending cap
 difficulty: intermediate
-productionReadiness: production-ready
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+productionReadiness: prototype
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/data-factory/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/data-factory/introduction'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/data-factory/data-pipeline/'
 sourceUrls:
+  - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-free-services'
+  - 'https://learn.microsoft.com/en-us/azure/data-factory/plan-manage-costs'
   - 'https://azure.microsoft.com/en-us/pricing/details/data-factory/data-pipeline/'
   - 'https://learn.microsoft.com/en-us/azure/data-factory/introduction'
   - 'https://learn.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory'
@@ -80,43 +88,47 @@ audiences:
   - startup
   - team
   - enterprise
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Recast the available V2 offer as shared Azure signup credit; removed the legacy V1 five-activity allowance from V2 onboarding.
 ---
-You build pipelines in the Azure Data Factory Studio web interface, and the factory runs them on a schedule or a trigger. It suits data engineers and small teams who already use Azure.
+You design pipelines in Data Factory Studio and run activities to move or transform data. The current V2 service is consumption billed. This listing covers a short evaluation funded by eligible Azure signup credit, rather than a recurring free pipeline plan.
 
 ## What the free plan gives you
 
-Azure Data Factory has one free amount: the first 5 low frequency activities in a month are free, in both the cloud and on-premises variants. A low frequency activity does not run more than once in a day. Daily, weekly, and monthly schedules count as low frequency.
+Eligible new Azure customers receive $200 of credit in their billing currency for the first 30 days. Microsoft's free-account documentation says it applies to any Azure service except third-party Marketplace purchases. That includes first-party Data Factory V2 usage, but the credit is shared across your Azure subscription, not $200 reserved for this product.
 
-The pricing page says there is no charge for the first five cloud and the first five on-premises activities. Storage and HDInsight are billed separately at their own rates. High frequency activities, such as hourly runs, are not part of the free amount. The pricing page you can read here shows the price tables only as placeholders, so this page gives no dollar rates. Check the Azure pricing calculator for them.
+Data Factory bills orchestration activity runs, data movement and integration-runtime compute according to their meters. Microsoft's cost-management guide explicitly shows Azure Data Factory v2 costs. No ongoing V2 pipeline allowance is established by the reviewed current sources. The pricing page's first-five low-frequency activities belong to its legacy V1 section; selecting V2 does not make those rows applicable.
 
 ## When you hit a limit
 
-There is no hard cap. Activities beyond the free 5 are billed, and nothing stops a pipeline from running past the free amount. Because you need an Azure payment method, a bill is the likely result of going over.
+Signup credit expires after 30 days, even if unused. If the credit runs out sooner, or the 30 days end, Azure disables services unless you choose to upgrade to pay-as-you-go. Azure says it does not charge your card without that choice.
 
-The pricing page notes that usage beyond 100 activities a month gets a 20% discount, for both low and high frequency activities. That means the discount starts only after you already pay for activities. Keep each activity on a daily or slower schedule to stay inside the free amount. Watch your Azure cost reports during your first month.
+After upgrading, remaining credit lasts only until the original expiry date. Usage beyond applicable credits and free service quantities is billed. A daily pipeline schedule is not a spending cap: runtime duration, data movement and connected resources can all consume credit. Use Cost Management to inspect actual charges and remove test resources when finished.
 
 ## Gotchas
 
-- Microsoft now calls Data Factory in Microsoft Fabric the next generation of Azure Data Factory, and says new users should start with it. Existing factories can upgrade.
-- The free amount covers only low frequency activities. An hourly or every-15-minute activity is billed from the first run.
-- The quickstart tells you to open Studio in Microsoft Edge or Google Chrome, and the factory name must be globally unique.
+- The credit is a new-customer offer with eligibility restrictions, not a monthly reset. Other Azure services consume the same balance.
+- Source and destination storage, network transfer and other infrastructure can add costs. A Data Factory budget alert does not automatically stop every resource.
+- Microsoft recommends Fabric Data Factory for new data-integration users. Its product and trial terms are separate from this Azure Data Factory V2 evaluation.
 
 ## Alternatives in this atlas
 
-- [Azure Logic Apps](/services/azure-logic-apps/): when you want event-driven workflows and connectors on Azure instead of data pipelines.
-- [Make](/services/make/): when you want a visual automation builder without an Azure account.
-- [Pipedream](/services/pipedream/): when you want to connect apps and run code in workflows.
+- [Azure Logic Apps](/services/azure-logic-apps/): for event-driven workflows and connectors on Azure.
+- [Make](/services/make/): for a visual automation builder with a recurring Free allowance.
+- [Pipedream](/services/pipedream/): for developer workflows that connect apps and code.
 
 ## Questions people ask
 
-### Is Azure Data Factory free?
+### Is Azure Data Factory V2 free forever?
 
-Only a small part. The first 5 low frequency activities each month are free, and everything above that is billed.
+No ongoing V2 free pipeline allowance is confirmed here. Eligible new customers can pay for a short evaluation with their shared $200 Azure signup credit, valid for 30 days.
 
-### Does Azure Data Factory need a credit card?
+### Does this offer require a card?
 
-Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+Yes. Azure signup asks for a phone number and a non-prepaid credit or debit card, and may place a temporary one-dollar authorization hold.
 
-### What is a low frequency activity in Azure Data Factory?
+### Do five daily activities stay free on V2?
 
-It is an activity that runs no more than once a day, such as a daily, weekly, or monthly run. Activities that run more often count as high frequency and are not free.
+The five low-frequency activities shown on the pricing page belong to legacy V1 pricing. They do not establish a free allowance for a new V2 factory.

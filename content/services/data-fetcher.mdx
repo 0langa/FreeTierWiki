@@ -31,7 +31,7 @@ freeTierDetails:
     - 5 saved requests
     - 1 user
   caveats:
-    - Scheduling and triggers are included even on the free plan
+    - Detailed comparison excludes Free scheduling, triggers and webhook URLs; the plan card is ambiguous
     - Adding team members requires a paid plan
     - There is no separate free trial, only this free plan
   resetPeriod: monthly
@@ -40,19 +40,19 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Importing records from a REST API into an Airtable table on a schedule
+  - Importing records from a REST API into an Airtable table manually
   - Pulling JSON, CSV, XML, or RSS data into a base
-  - Triggering a request from a button field or a webhook URL
+  - Building and manually running requests inside an Airtable extension
   - Chaining several requests into a sequence
 quickstartSteps:
   - Add the Data Fetcher extension to your Airtable base from the Airtable marketplace.
   - Sign up for a free account inside the extension.
   - Create a request from a list of integrations, or build a custom request with a method, parameters, headers, and authorization.
   - Map the response fields to Airtable fields.
-  - Run the request to import the data, then schedule it or add a trigger.
+  - Run the request manually; scheduling, triggers and webhook URLs are excluded by the detailed Free comparison.
 whenToUse: >-
   Use it when your data lives in Airtable and you need API or file data to land
-  there on a schedule without code.
+  there without code.
 whenNotToUse: >-
   Avoid it if you do not use Airtable, if you need more than 100 runs a month on
   the free plan, or if you need more than one user.
@@ -66,8 +66,8 @@ avoidIf:
   - you need team members on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://datafetcher.com'
@@ -78,12 +78,16 @@ sourceUrls:
   - 'https://datafetcher.com'
   - 'https://help.datafetcher.com'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Free automation inclusion from rendered cells and 50 MB upload limit; qualified conflicting plan-card labels."
 ---
 You install Data Fetcher as an extension inside Airtable and build requests in its own interface. It suits no-code builders who want API data in a base.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and, in the site's words, is free forever. Each month it includes 100 runs, 10,000 response records, 5 saved requests, and 1 user. Scheduled requests, triggers, and all integrations are part of the Free plan. The home page says you can try it with no credit card.
+The Free plan costs $0 and, in the site's words, is free forever. Each month it includes 100 runs, 10,000 response records, 5 saved requests, and 1 user. All integrations and sequences are included. Although the plan card lists scheduling, triggers and webhook labels, the detailed Free comparison marks those three unavailable; confirm with Data Fetcher if automation is essential. The home page says you can try it with no credit card.
 
 A run is one API request. Running on many Airtable records or on paginated data uses one extra run per record or page, and failed requests do not count. A response record is one item in the transformed API response, so 100 items from an API count as 100 records. Starter, at $15 a month billed annually, raises the limits to 3,000 runs and 300,000 records.
 
@@ -95,7 +99,7 @@ You do not get a bill on the Free plan. The site says it has no free trial, only
 
 ## Gotchas
 
-- The home page lists a limit of 5MB for the maximum import size.
+- The rendered Free table lists 50 MB file uploads, 50 response fields and 31 days run history. The homepage 5 MB statement describes an Airtable limitation, not the Data Fetcher allowance.
 - Pagination and multi-record runs cost one run per page or record, so 100 runs go fast on big imports.
 - Team members need a Pro, Business, or Business plus plan. The Free and Starter plans have 1 user.
 

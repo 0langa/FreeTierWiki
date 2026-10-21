@@ -1,9 +1,9 @@
 ---
 title: Cloudflare Workflows
 description: >-
-  Cloudflare Workflows runs durable, multi-step processes on Cloudflare
-  Workers. Each step is retried on failure, and a workflow can sleep for days
-  or wait for events without using CPU time.
+  Cloudflare Workflows runs durable, multi-step processes on Cloudflare Workers.
+  Each step is retried on failure, and a workflow can sleep for days or wait for
+  events without using CPU time.
 provider: Cloudflare
 category: compute
 domain: compute
@@ -26,8 +26,8 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Included in the Workers Free plan: 100,000 requests per day shared with
-    Workers, 3,000 steps per day, 1 GB-month of storage, and 10 milliseconds
-    of CPU time per invocation.
+    Workers, 3,000 steps per day, 1 GB-month of storage, and 10 milliseconds of
+    CPU time per invocation.
   limits:
     - '100,000 requests per day, shared with Workers requests'
     - '3,000 steps per day'
@@ -35,28 +35,36 @@ freeTierDetails:
     - 10 ms CPU time per invocation
     - '1,024 steps per Workflow and 100 concurrent instances'
   caveats:
-    - Billing for steps and storage applies starting August 10th, 2026
+    - 'Billing for steps and storage applies starting August 10th, 2026'
     - Instance state is kept for 3 days on the Free plan by default
-    - An instance that tries to store state past the Free plan storage limit throws an error
+    - >-
+      An instance that tries to store state past the Free plan storage limit
+      throws an error
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - The Free plan has fixed limits; billing for extra usage applies only on Workers Paid
+    - >-
+      The Free plan has fixed limits; billing for extra usage applies only on
+      Workers Paid
 useCases:
   - Sign-up or order flows with several API calls and retries
   - Waiting hours or days for an approval before continuing
   - Processing a file in steps that each resume after a failure
 quickstartSteps:
   - Create a new Worker project with npm create cloudflare.
-  - Write your Workflow as a class that extends WorkflowEntrypoint, with its steps in the run method.
-  - Configure the Workflow in your Wrangler configuration, develop locally, and deploy.
-  - Trigger an instance from the Workers API, the Wrangler CLI, or the REST API.
+  - >-
+    Write your Workflow as a class that extends WorkflowEntrypoint, with its
+    steps in the run method.
+  - >-
+    Configure the Workflow in your Wrangler configuration, develop locally, and
+    deploy.
+  - 'Trigger an instance from the Workers API, the Wrangler CLI, or the REST API.'
 whenToUse: >-
-  Use Workflows when you already build on Cloudflare Workers and need a
-  process with retries and waits that survives failures.
+  Use Workflows when you already build on Cloudflare Workers and need a process
+  with retries and waits that survives failures.
 whenNotToUse: >-
   Skip it if each step needs much CPU on the Free plan, which allows 10
   milliseconds per invocation, or if you need more than 3,000 steps a day
@@ -69,8 +77,8 @@ avoidIf:
   - very high step counts for free
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-11T00:00:00.000Z
+lastVerified: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/workflows/'
@@ -80,6 +88,7 @@ sourceUrls:
   - 'https://developers.cloudflare.com/workflows/reference/limits/'
   - 'https://developers.cloudflare.com/workflows/'
   - 'https://developers.cloudflare.com/workflows/get-started/guide/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/workflows/reference/pricing/'
 featured: false
 changes:

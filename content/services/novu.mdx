@@ -32,15 +32,15 @@ freeTierDetails:
     - 1 day of activity feed retention
   caveats:
     - You still pay the email or SMS provider you connect
-    - The docs say Novu does not stop or throttle sending past your included runs
+    - The general FAQ promises continued delivery, but does not specify Free-plan enforcement above 10,000 runs
     - Usage above the plan rolls into on-demand pricing on paid plans; the docs do not describe the free plan here
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
   billingRiskNotes:
-    - The billing docs describe overage pricing only for paid plans, and the free plan needs no card
+    - Free additional runs have no published rate; the general no-throttling promise does not establish how a Free account is handled
 useCases:
   - Adding an in-app notification bell and inbox to a web app
   - Sending one event to email, SMS, push, and chat from one workflow
@@ -68,8 +68,8 @@ avoidIf:
   - more than 20 workflows on a free budget
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://novu.co'
@@ -86,6 +86,9 @@ changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped the general no-throttling promise against the Free pricing row and paid-only overage documentation; marked Free cap behavior unknown."
 ---
 You build workflows in the dashboard, show the Inbox component in your front end, and trigger sends from your server with an SDK. Novu is open source, so you can also run it on your own servers.
 
@@ -97,7 +100,7 @@ The limits page lists 20 workflows, 20 steps per workflow, and 2 environments fo
 
 ## When you hit a limit
 
-The billing docs say Novu does not stop or throttle your notifications when you go over your included workflow runs. Extra usage rolls into on-demand pricing on paid plans, and the docs do not describe the free plan in that passage.
+The general pricing FAQ says notifications are never stopped or throttled. However, the Free comparison row lists no additional workflow-run rate, and the billing guide specifies on-demand charges only for paid plans. Free enforcement above 10,000 runs is therefore not confirmed; ask Novu before depending on continued free delivery.
 
 If you pass the default workflow or step limit, the limits page says you may get restricted functionality or errors. Novu suggests upgrading, and support can set custom limits.
 
@@ -121,7 +124,7 @@ Yes. Novu Cloud has a Free plan with 10,000 workflow runs per month and no credi
 
 ### What happens if I go over the Novu free limit?
 
-The docs say Novu does not stop or throttle notifications when you pass your included runs. Overage pricing is described for paid plans.
+The general FAQ promises continued delivery, but the Free row has no extra-run rate and the billing guide scopes overage charges to paid plans. The public sources do not define the Free-plan path above 10,000 runs.
 
 ### Does Novu send my emails?
 

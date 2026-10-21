@@ -31,12 +31,17 @@ freeTierDetails:
     - Free Pollen earned via Quests and community contribution
     - No credit card required to start
   caveats:
-    - Exact starting/free Pollen amounts are not published in the pages checked
+    - Quest requirements and rewards change; there is no fixed free starting allowance
+    - Quest Pollen cannot pay for paid-only models
+    - Final request cost can exceed its estimate and make a wallet balance negative
     - Secret (server-side) API keys and app (client-side) keys have different limits
   freeTierType: credit
   requiresCard: false
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
+  billingRiskNotes:
+    - Requests use either Quest Pollen or Paid Pollen; regular models fall back to Paid Pollen if Quest Pollen cannot cover the estimate
+    - Final cost can exceed its estimate; the wallet is not a strict zero-balance spending cap
 useCases:
   - 'Generating images from text prompts in an app'
   - 'Calling text models through an OpenAI-compatible API'
@@ -64,18 +69,22 @@ avoidIf:
   - 'you want to ship a secret key in browser code'
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://pollinations.ai/'
-docsUrl: 'https://docs.pollinations.ai'
+docsUrl: 'https://gen.pollinations.ai/docs'
 pricingUrl: 'https://enter.pollinations.ai/news'
 sourceUrls:
   - 'https://enter.pollinations.ai/news'
   - 'https://github.com/pollinations/pollinations'
   - 'https://raw.githubusercontent.com/pollinations/pollinations/main/APIDOCS.md'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Corrected wallet spend-cap claims, paid-only model eligibility and the announced publishable-key transition.'
 ---
 You call a plain HTTP API at gen.pollinations.ai, point an OpenAI SDK at it, or run the `npx @pollinations/cli` command line tool. You create keys on the enter.pollinations.ai site. This page covers how the free Pollen credits work.
 
@@ -84,20 +93,20 @@ You call a plain HTTP API at gen.pollinations.ai, point an OpenAI SDK at it, or 
 
 The pages list no flat free quota. Pollinations uses Pollen credits instead, and the docs put the price at about $1 per Pollen. You can earn free Pollen by completing Quests.
 
-The project says you can earn Pollen by contributing and that no credit card is required. The pages do not publish how much free Pollen a new account gets.
+The FAQ says no credit card is required to earn Quest Pollen. Check the Quests dashboard for eligibility and reward amounts; there is no fixed free allowance for every account. Paid-only models require Paid Pollen, so earned credits do not unlock every model.
 
-One key can reach image, text, audio, and video models. You can also limit a key to chosen models. Secret keys that start with `sk_` work for backend use. App keys let your users pay for their own usage, so you pay nothing for them.
+One key can reach image, text, audio, and video models. You can also limit a key to chosen models. Keep personal secret keys (`sk_`) on your backend. For client apps, an App Key identifies the app in Connect User Wallets; each user authorizes a scoped secret key and budget for their own wallet.
 
 ## When you hit a limit
 
-When a key has no balance left, the API returns a 402 error. The docs say this means the account balance or the per-key budget is used up. Earn more Pollen or buy a pack to continue.
+A 402 error means an account balance or per-key budget cannot fund a request. Each request uses one balance: regular models use Quest Pollen if it covers the estimate, otherwise Paid Pollen. Paid-only models need Paid Pollen. The final cost can exceed the estimate and make the selected balance negative; this is not a strict spending cap.
 
-The API can also return 429 or 503. The `Retry-After` header tells you how long to wait. Older public keys that start with `pk_` have a rate limit of 1 Pollen per IP per hour.
+The API can also return 429 or 503. The `Retry-After` header tells you how long to wait. The API docs describe legacy raw `pk_` keys as limited to 1 Pollen per IP per hour. The dashboard announces that from November 1 they will only identify apps; new integrations should use Connect User Wallets.
 
 ## Gotchas
 
 - The free Pollen amount is not published. Check the Quest list and your balance on enter.pollinations.ai before you plan a project.
-- Never put an `sk_` key in browser code, a repository, or a public URL. Use an app key with the user wallet flow for client apps.
+- Never publish a personal `sk_` key in client code or a repository. Client apps should obtain user-authorized scoped keys through the wallet flow.
 - Model IDs now follow the publisher/model form, such as `black-forest-labs/flux.1-schnell`. Old IDs still work as aliases.
 
 ## Alternatives in this atlas
@@ -114,7 +123,7 @@ Partly. You can earn free Pollen through Quests with no credit card. After that,
 
 ### What happens when I run out of Pollen?
 
-Requests fail with a 402 error until you earn or buy more Pollen.
+Unfunded requests fail with 402. The final cost of an already admitted request can still make the selected balance negative.
 
 ### Does Pollinations need a credit card?
 

@@ -23,20 +23,21 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes the full platform (gateway, tracing, evals) with
-    capped monthly usage and short log retention.
+    Free plan includes the platform with access to the first 100,000 logs each calendar month, a published 1,000-score allowance, and 7-day log retention.
   limits:
     - 100,000 logs/month
-    - 1,000 eval scores/month
+    - 1,000 eval scores; reset period not published
     - 5 datasets, 2 evaluators, 5 prompts
     - 7-day log retention
   caveats:
     - Gateway throughput capped at 412 requests/minute on the free plan
     - No credit card required to start
+    - Logs beyond monthly access are still recorded but blurred; exports stop at that allowance
+    - Score reset and over-allowance behavior are not published
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - 'Routing LLM calls through one gateway with fallbacks'
@@ -65,8 +66,8 @@ avoidIf:
   - 'SOC 2 reports on the free plan'
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://respan.ai'
@@ -77,25 +78,30 @@ sourceUrls:
   - 'https://respan.ai'
   - 'https://respan.ai/docs/documentation/features/tracing/quickstart'
   - 'https://respan.ai/docs/documentation/admin/credits-billing'
+  - 'https://www.respan.ai/docs/documentation/features/observe/explore-spans'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Confirmed calendar-month log visibility and blur/export behavior; removed the unsupported monthly score-reset assertion and clarified external model costs.'
 ---
 You send your LLM calls through one gateway endpoint, or add the Respan SDK to trace calls you already make. You read the results in a web platform, a command line tool, or an MCP server. It fits developers and small teams who run AI features in production.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and covers the full platform. The pricing page says you can start with your team and need no credit card. You get 100k logs and 1k scores per month, 5 datasets, 5 prompts, and 2 evaluators.
+The Free plan costs $0 and covers the full platform. The pricing page says you can start with your team and need no credit card. You can view the first 100k logs each calendar month and get a published allowance of 1k scores, 5 datasets, 5 prompts, and 2 evaluators. The score reset period is not specified.
 
 Log retention on the Free plan is 7 days. The gateway proxy accepts 412 requests per minute, and ingestion is capped at 412 logs per minute. The Team plan costs $199 per month, billed yearly, and raises these limits. It also allows unlimited datasets, evaluators, and prompts, and it adds a SOC 2 report.
 
 ## When you hit a limit
 
-The pricing page lists extra logs at $8 per 100k and extra scores at $1 per 1k. It does not say whether a Free account can buy them or is stopped at the cap. Treat 100k logs as the ceiling and check your usage in the platform.
+Logs beyond the first 100k spans in a calendar month are still recorded, but their names, models, and messages are blurred and exports stop at that allowance. Upgrading to Team restores visibility. Score reset timing and Free over-score behavior are not published.
 
 Gateway calls that use Respan's own provider keys are paid with prepaid gateway credits. When the balance runs out, those requests fail with a 401 error and the code `activation_required`. Requests that use your own provider key keep working.
 
 ## Gotchas
 
-- Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Use your own provider keys to avoid buying credits.
+- Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Using your own provider key avoids Respan gateway-credit purchases, but model usage is still billed by your provider.
 - Logs stay for only 7 days on the Free plan, so export what you need to keep.
 - Team plan features such as a SOC 2 report and a private Slack channel start on the Team plan.
 
@@ -109,7 +115,7 @@ Gateway calls that use Respan's own provider keys are paid with prepaid gateway 
 
 ### Is Respan free?
 
-Yes. The Free plan costs $0, needs no credit card, and includes 100k logs and 1k scores per month.
+Yes. The Free plan costs $0, needs no credit card, and includes monthly access to 100k logs and a published 1k-score allowance. The score reset period is not stated.
 
 ### Is Respan the same as Keywords AI?
 

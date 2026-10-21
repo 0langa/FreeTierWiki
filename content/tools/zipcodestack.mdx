@@ -1,6 +1,6 @@
 ---
 title: Zipcodestack
-description: "Zipcodestack is a REST API for postal code search, validation, autocomplete, and distance calculation in 149 countries. It suits developers who add address checks to forms and checkouts."
+description: "Zipcodestack is a REST API for postal code search, validation, autocomplete, and distance calculation in 182 countries. It suits developers who add address checks to forms and checkouts."
 provider: Zipcodestack
 category: apis
 domain: apis
@@ -24,10 +24,10 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier offers 300 credits per month and 10 requests per minute for postal code lookups.
+    Free tier offers 300 request credits per month and 10 requests per minute for postal code lookups.
     Credit cost depends on the endpoint and results returned; there is no daily cap.
   limits:
-    - 300 credits/month
+    - 300 request credits/month
     - 10 requests/minute
     - Search uses 1 credit per postal code found; other endpoints have different costs
     - Basic location data
@@ -53,15 +53,15 @@ quickstartSteps:
   - "Pass the key in the apikey query parameter, or better in a request header, which keeps it out of access logs."
   - "Check your quota with the free status endpoint, which does not count against your limits."
   - "Use the SDKs listed in the docs if you prefer a client library."
-whenToUse: "Use when you want to validate or look up postal codes in a form or small app, and 300 credits a month is enough for testing or a personal project."
-whenNotToUse: "Avoid if you need more than 300 credits a month, no per-minute rate limit, or commercial use. The paid plans are the ones marked for commercial use."
+whenToUse: "Use when you want to validate or look up postal codes in a form or small app, and 300 request credits a month is enough for testing or a personal project."
+whenNotToUse: "Avoid if you need more than 300 request credits a month, no per-minute rate limit, or commercial use. The paid plans are the ones marked for commercial use."
 bestFor:
   - "checkout address validation"
   - "signup forms"
   - "personal projects"
   - "testing"
 avoidIf:
-  - "more than 300 credits per month"
+  - "more than 300 request credits per month"
   - "more than 10 requests per minute"
   - "need an SLA"
   - "commercial production use on the free plan"
@@ -69,14 +69,17 @@ difficulty: beginner
 productionReadiness: prototype
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Updated coverage to 182 countries and aligned weighted request-credit terminology and Free overage scope."
   - date: 2026-10-08
     kind: changed
     note: "The rate-limit docs list only a monthly credit quota and 10 requests per minute; the old 100-requests/day cap is gone."
   - date: 2026-10-06
     kind: changed
     note: Corrected monthly allowance units from requests to credits; the previously recorded daily cap remains unverified.
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://zipcodestack.com'
@@ -93,7 +96,7 @@ You call Zipcodestack with a GET request and an API key, and the docs also list 
 
 ## What the free plan gives you
 
-The Free plan costs $0 a month and is described as for testing and personal projects. It includes 300 credits a month, 1 API key, and a limit of 10 requests per minute. The home page says no credit card is needed.
+The Free plan costs $0 a month and is described as for testing and personal projects. It includes 300 request credits a month, 1 API key, and a limit of 10 requests per minute. The home page says no credit card is needed.
 
 Endpoints cost different amounts of credits. Search costs 1 credit per postal code found. Validate, autocomplete, and reverse lookups cost 1 credit per request. Radius and polygon requests cost 10 credits each. City and state lists cost 1 credit per 10 postal codes returned. The status endpoint, the provinces list, and the coverage list are free.
 
@@ -101,9 +104,9 @@ Only successful calls count. Errors on the provider's side and validation errors
 
 ## When you hit a limit
 
-When you use all 300 credits, the API returns a 429 status code. You then upgrade your plan or wait until the end of the month. If you pass 10 requests in a minute on the free plan, you also get a 429 code and must wait until the minute ends.
+When you use all 300 request credits, the API returns a 429 status code. You then upgrade your plan or wait until the end of the month. If you pass 10 requests in a minute on the free plan, you also get a 429 code and must wait until the minute ends.
 
-Response headers show your remaining monthly and per-minute quota. The docs list only these two limits, with no daily cap. The docs say overage allowances apply only to plans that have overages enabled. They do not say whether the free plan is one of them.
+Response headers show your remaining monthly and per-minute quota. The docs list only these two limits, with no daily cap. The pricing page lists overages on Large and Custom, while the free plan remains subject to the documented HTTP 429 quota response.
 
 ## Gotchas
 
@@ -121,7 +124,7 @@ Response headers show your remaining monthly and per-minute quota. The docs list
 
 ### Is Zipcodestack free?
 
-Yes. The Free plan costs $0 a month and includes 300 credits, 1 API key, and 10 requests per minute. It is for testing and personal projects.
+Yes. The Free plan costs $0 a month and includes 300 request credits, 1 API key, and 10 requests per minute. It is for testing and personal projects.
 
 ### What happens when I go over the Zipcodestack free limit?
 

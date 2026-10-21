@@ -37,14 +37,15 @@ freeTierDetails:
     - Up to 500 external app users
     - 14 days of row change history
   caveats:
+    - New row creation stops after a workspace remains above its row limit for seven days
     - Only Grid, Form, and Gallery views on the Free plan
     - Published applications show a Made with Baserow badge
-    - The pricing page does not say what happens at the row limit
+    - Free signup card conditions and storage/automation exhaustion are not separately published
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: false
-  overageRisk: none
+  overageRisk: low
   billingRiskNotes:
     - Paid plans are charged per user
 useCases:
@@ -69,17 +70,24 @@ avoidIf:
   - teams that need advanced views on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://baserow.io/'
 docsUrl: 'https://baserow.io/docs/index'
 sourceUrls:
+  - 'https://baserow.io/faq'
   - 'https://baserow.io/pricing'
 pricingUrl: 'https://baserow.io/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added the seven-day over-limit row-creation stop and API concurrency cap; qualified signup and remaining quota policies.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -95,9 +103,9 @@ Views on the Free plan are Grid, Form, and Gallery. Row change history covers 14
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a workspace reaches 3,000 rows or 2 GB of storage, or when the monthly automation credits run out. Keep an eye on your row count as it grows, and plan an upgrade or a cleanup before you need the space.
+The FAQ says a workspace above its row limit for seven days cannot create new rows. It shows an error requiring an upgrade or fewer rows before insertion resumes. This is a grace period, not an immediate stop at the first extra row. Storage and automation-credit exhaustion are not described.
 
-There is no metered overage listed for the Free plan. The next tier, Premium, raises the limits to 50,000 rows and 20 GB of storage per workspace and 100,000 automation credits.
+Cloud API access also has a limit of 10 concurrent requests. No metered Free overage is listed, and signup card conditions are not explicit. The next tier, Premium, raises the limits to 50,000 rows and 20 GB of storage per workspace and 100,000 automation credits.
 
 ## Gotchas
 

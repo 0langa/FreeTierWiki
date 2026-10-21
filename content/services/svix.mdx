@@ -32,13 +32,14 @@ freeTierDetails:
     - 7-day payload retention
     - 1 connector
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - No uptime SLA on the Free plan
     - White-label headers and unbranded portal require a paid plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Sending webhook events from your SaaS product to customer endpoints
   - Giving customers a self-serve portal to manage their own webhook endpoints
@@ -55,7 +56,7 @@ whenToUse: >-
   customer-facing portal without building them.
 whenNotToUse: >-
   Avoid the Free plan if you need more than 50,000 messages a month, an uptime
-  SLA, a branded portal, or more than 1 connector.
+  SLA, an unbranded portal, or more than 1 connector.
 bestFor:
   - SaaS products that send webhooks
   - MVPs
@@ -66,8 +67,8 @@ avoidIf:
   - you send more than 50,000 messages a month
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.svix.com/'
@@ -78,6 +79,13 @@ sourceUrls:
   - 'https://docs.svix.com/quickstart'
 pricingUrl: 'https://www.svix.com/pricing/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected the portal exclusion to unbranded and qualified unpublished Free exhaustion billing."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use Svix through its API and SDKs to create consumer applications, add endpoints, and send messages. A dashboard shows deliveries. It suits SaaS developers who add webhooks to their product.
 
@@ -89,7 +97,7 @@ Only attempted or transformed messages count toward usage. Messages that Svix fi
 
 ## When you hit a limit
 
-The pricing page does not say whether Svix blocks sending after 50,000 messages on the Free plan. It lists no per-message price for Free, so this entry treats the plan as a hard limit with no charge.
+The pricing page does not say whether Svix blocks sending after 50,000 messages on the Free plan. It lists no per-message price for Free, but that does not establish whether sending stops or what billing policy applies at the allowance.
 
 On paid plans, extra messages bill at $0.0001 each. The Basic plan starts at $20 a month and the Professional plan at $490 a month. Both include 50k free messages a month. Professional starts with a 30-day free trial.
 

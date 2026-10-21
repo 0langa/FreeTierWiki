@@ -36,10 +36,11 @@ freeTierDetails:
     - 2 credits per 10,000 web requests
     - Background functions run up to 15 minutes
   caveats:
-    - No separate function quota — compute and requests draw from the same credits as builds and bandwidth
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - No separate function quota — compute and requests draw from the same credits as production deploys and bandwidth
     - Memory above the default (up to 4GB) needs a Pro or Enterprise plan
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -69,12 +70,14 @@ avoidIf:
   - a pool of credits shared with builds and bandwidth
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.netlify.com/products/functions/'
 docsUrl: 'https://docs.netlify.com/functions/overview/'
 sourceUrls:
+  - 'https://docs.netlify.com/build/functions/configuration/'
+  - 'https://docs.netlify.com/build/functions/usage-and-billing/'
   - 'https://www.netlify.com/pricing/'
   - 'https://www.netlify.com/products/functions/'
   - 'https://docs.netlify.com/functions/overview/'
@@ -83,9 +86,15 @@ sourceUrls:
   - 'https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/'
 featured: false
 status: changed
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.netlify.com/pricing/'
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified shared deployment credits, function memory limits, and usage warnings."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
   - date: 2025-09-04
     kind: changed
     note: >-
@@ -104,11 +113,11 @@ Production deploys cost 15 credits each, and bandwidth costs 20 credits per GB. 
 
 The Free plan has a hard limit. Netlify says the free plan has hard monthly limits that cannot be exceeded or incur any costs. When the credits are used up, your web projects pause until the next billing cycle, and visitors see a Site not available page.
 
-If one project passes its limits, all projects on your account pause. Netlify warns you by email and in the app at 50%, 75%, and 100% of usage. You can resume projects by upgrading your plan. Paid plans can add credits with auto recharge, which is off by default.
+If one project passes its limits, all projects on your account pause. Netlify warns you by email and in the app at 50%, 75%, 90%, and 100% of usage. You can resume projects by upgrading your plan. Paid plans can add credits with auto recharge, which is off by default.
 
 ## Gotchas
 
-- Your functions, builds, and bandwidth all share one 300 credit pool, so a busy site can pause your functions too.
+- Your functions, production deploys, and bandwidth all share one 300 credit pool, so a busy site can pause your functions too.
 - Accounts created before September 4, 2025 may be on a Legacy plan, where functions are billed by request count instead of credits.
 - Pausing affects the whole account, not only the function that used the credits.
 
@@ -122,7 +131,7 @@ If one project passes its limits, all projects on your account pause. Netlify wa
 
 ### Are Netlify Functions free?
 
-Yes, on the Free plan. They share the 300 credits you get each month with builds, bandwidth, and requests.
+Yes, on the Free plan. They share the 300 credits you get each month with production deploys, bandwidth, and requests.
 
 ### What happens when I run out of Netlify credits?
 

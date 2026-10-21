@@ -35,14 +35,16 @@ freeTierDetails:
     - 1-day log retention
     - 1 inbound route
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Ticket support only
+    - No-card Free is limited to authorized recipients in help; custom-domain activation requirements conflict with pricing
     - Sandbox domain only sends to authorized recipients you verify
     - The pricing page does not list a dedicated IP on the free plan
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Sending password resets and receipts from an app
   - Sending notification email through the REST API or SMTP
@@ -53,7 +55,7 @@ quickstartSteps:
   - Follow the guided setup in the dashboard to activate the account and create your first API key.
   - Add your own email as an authorized recipient for the sandbox domain, and click the verification link.
   - Send a first message with a POST to the `/messages` endpoint of your sandbox domain, using your private API key.
-  - Add and verify your own sending domain by setting its DNS records, then send from it.
+  - "Before adding a custom domain, check activation requirements: pricing includes one, but help says adding a card upgrades the account to allow custom domains."
 whenToUse: >-
   Use Mailgun when an app needs API or SMTP email delivery and 100 emails a day
   on one domain is enough.
@@ -70,19 +72,27 @@ avoidIf:
   - more than 1 inbound route
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://www.mailgun.com/'
 docsUrl: 'https://documentation.mailgun.com/docs/mailgun/'
 sourceUrls:
+  - 'https://help.mailgun.com/hc/en-us/articles/217531258-Authorized-Recipients'
   - 'https://www.mailgun.com/pricing/'
   - 'https://documentation.mailgun.com/docs/mailgun/'
   - 'https://documentation.mailgun.com/docs/mailgun/quickstart/'
   - 'https://documentation.mailgun.com/docs/mailgun/user-manual/get-started/'
 featured: false
 pricingUrl: 'https://www.mailgun.com/pricing/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified conflicting custom-domain and card requirements in pricing and Free-specific help."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You send mail with the REST API, an SDK, or SMTP, and you manage domains, keys, and logs in the dashboard. It fits developers who want one service to send and also receive app email.
 
@@ -90,7 +100,7 @@ You send mail with the REST API, an SDK, or SMTP, and you manage domains, keys, 
 
 The free plan costs $0 and includes 100 emails per day. You get the RESTful email API and SMTP relay, one custom sending domain, 2 API keys, tracking, analytics, and webhooks.
 
-Logs are kept for 1 day, and bounce classification is also limited to 1 day. You get 1 inbound route to receive email, and support is by ticket only. Test sends go through the sandbox domain until you verify your own domain. The first plan up, Basic, starts at $15 per month with 10,000 emails and no daily limit.
+Logs are kept for 1 day, and bounce classification is also limited to 1 day. You get 1 inbound route to receive email, and support is by ticket only. No-card Free use is limited to authorized recipients according to help, which says adding a card upgrades the account for custom domains. This conflicts with pricing advertising one custom domain; confirm activation and plan status before using your own domain. The first plan up, Basic, starts at $15 per month with 10,000 emails and no daily limit.
 
 ## When you hit a limit
 

@@ -25,25 +25,30 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Free plan costs $0 a month and needs no credit card. It includes 500 MB
-    of storage, 2 GB of data transfer a month, unlimited image transformations,
-    and 3 users, with Sirv branding on spins and zooms.
+    The Free plan costs $0 a month and needs no credit card. It includes 500 MB of storage, 2 GB of
+    data transfer a month, 5,000 new image processing requests a month, and 3 users, with Sirv branding on spins
+    and zooms.
   limits:
     - 500 MB storage
     - 2 GB data transfer per month
     - 3 users
-    - Unlimited uploads, image transformations, and domains served
+    - 5,000 new image processing requests per month
+    - Unlimited uploads and domains served
   caveats:
     - Sirv branding appears on spins and zooms
     - Transformed images and files in Trash do not count toward storage
     - Uploads do not count toward data transfer
+    - Trial automatically moves to Free after 30 days unless upgraded.
+    - Free REST API limits include 500 total requests/hour and 300 uploads/hour.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - The pricing page does not say what the Free plan does when it passes its storage or transfer limit
+    - >-
+      Pricing describes a 30-day soft-limit grace period; terms permit locking an over-limit
+      account, stopping delivery/uploads. Exact Free lock timing is not stated.
 useCases:
   - Serving resized and compressed product images for a small store
   - 360 spin and zoom viewers for product pages
@@ -66,35 +71,45 @@ avoidIf:
   - you need a custom domain
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://sirv.com'
 docsUrl: 'https://sirv.com/help/'
 sourceUrls:
-  - 'https://sirv.com/pricing/'
+  - https://sirv.com/pricing/
+  - https://sirv.com/terms/
+  - https://sirv.com/help/articles/how-billing-works/
+  - https://sirv.com/help/articles/full-list-of-limits/
 pricingUrl: 'https://sirv.com/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Distinguished the Free allowance of 5,000 new image processing requests per month from serving existing files.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Added documented over-limit locking and trial-to-Free terms, with exact enforcement timing
+      qualified.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
 ---
-
 Sirv stores your images and serves them through a CDN, resizing, cropping, and optimizing them on the fly through URL options it calls dynamic imaging. It also provides viewers for image zoom and 360 product spins.
 
 ## What the free plan gives you
 
-The Free plan costs $0 a month, and the pricing page says no credit card is required. It includes 500 MB of storage and 2 GB of data transfer a month, with unlimited uploads, unlimited image transformations, and unlimited domains served. Up to 3 users can share the account.
+The Free plan costs $0 a month, and the pricing page says no credit card is required. It includes 500 MB of storage and 2 GB of data transfer a month, with unlimited uploads and domains served. New image processing is limited to 5,000 requests monthly; serving already-processed files is separate and still uses the transfer allowance. Up to 3 users can share the account.
 
 Features on Free include 360 spin, image zoom, dynamic imaging, CDN delivery, converting a spin to GIF, FTP and S3 access, and basic email support. Transformed images and files in Trash do not count toward storage, and uploads do not count toward data transfer.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a Free account passes 500 MB of storage or 2 GB of transfer. Its plan comparison lists flexible storage and data transfer limits, explained as: your account continues working and you upgrade to the next plan within 30 days. The text does not show which plans that row covers.
+Storage and transfer are soft limits with 30 days to upgrade or return within allowance. The terms permit locking over-limit accounts, stopping delivery and uploads; exact Free lock timing is unspecified. The pricing table separately caps new processing at 5,000 requests monthly without describing its exact rejection response.
 
-The Business plan costs $19 a month or $209 a year, starts at 5 GB of storage and 20 GB of monthly transfer, removes Sirv branding, and comes with a 30-day trial.
+New accounts start on a 30-day trial and switch to Free without an upgrade. Free accounts need no registered card. API throughput has separate hourly limits: 500 REST requests and 300 uploads on Free.
 
 ## Gotchas
 

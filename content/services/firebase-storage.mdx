@@ -36,6 +36,7 @@ freeTierDetails:
   caveats:
     - Projects on the no-cost Spark plan have no access to Cloud Storage buckets
     - No-cost quotas for new buckets apply only in us-central1, us-west1, and us-east1
+    - The 100 GB monthly transfer grant is from North America to destinations other than Australia and China.
     - Blaze needs a Cloud Billing account
   resetPeriod: monthly
   requiresCard: true
@@ -68,20 +69,25 @@ avoidIf:
   - buckets outside the US regions
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://firebase.google.com/products/storage'
 docsUrl: 'https://firebase.google.com/docs/storage'
 sourceUrls:
-  - 'https://firebase.google.com/pricing'
+  - "https://cloud.google.com/free/docs/free-cloud-features"
+  - "https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024?hl=en"
+  - "https://firebase.google.com/pricing"
+  - "https://firebase.google.com/docs/storage?hl=en"
   - 'https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024'
   - 'https://firebase.google.com/docs/storage'
-  - 'https://cloud.google.com/free/docs/free-cloud-features'
 pricingUrl: 'https://firebase.google.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified Storage error explanations and added the regional free-egress destination exclusions."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -125,4 +131,4 @@ New buckets in us-central1, us-west1, or us-east1 get 5 GB-months stored, 100 GB
 
 ### Why does my app get 402 errors from Storage?
 
-A 402 or 403 error means the project is on the Spark plan, which no longer has access to Cloud Storage. Upgrading to Blaze restores access.
+A Spark project can return 402 or 403 because Cloud Storage now requires Blaze. These codes also need the usual billing and permission troubleshooting; upgrading a Spark project restores eligibility for bucket access.

@@ -35,7 +35,9 @@ freeTierDetails:
     - 5 concurrent steps
     - 3 workers
   caveats:
-    - 'Inngest calls your functions on your own hosting, which you pay for separately'
+    - >-
+      Functions served from your own host have separate hosting costs; optional
+      Inngest sandbox compute is billed separately
     - Execution pauses at the free quota until you upgrade
     - Trace and log history is 24 hours on the Free plan
   resetPeriod: monthly
@@ -49,27 +51,33 @@ useCases:
   - AI agent orchestration
   - Scheduled and cron jobs
 quickstartSteps:
-  - 'Start free in Inngest Cloud; no credit card is required.'
+  - Start free in Inngest Cloud; no credit card is required.
   - 'In your project, run npm install inngest.'
-  - 'Start the local Dev Server with npx inngest-cli dev or the installed inngest dev command.'
-  - 'Create an Inngest client, serve it from /api/inngest, and write a function with inngest.createFunction and step.run.'
-  - 'Send an event from the Dev Server UI at localhost:8288, then connect your deployed app in the Inngest dashboard.'
+  - >-
+    Start the local Dev Server with npx inngest-cli dev or the installed inngest
+    dev command.
+  - >-
+    Create an Inngest client, serve it from /api/inngest, and write a function
+    with inngest.createFunction and step.run.
+  - >-
+    Send an event from the Dev Server UI at localhost:8288, then connect your
+    deployed app in the Inngest dashboard.
 whenToUse: >-
   Use it when you need reliable steps, retries, and schedules for background
   jobs on top of the host you already have.
 whenNotToUse: >-
-  Avoid it if you need more than 50,000 executions a month for free, or if you
-  want Inngest to host and run your code.
+  Avoid it if you need more than 50,000 executions a month for free, or want
+  hosted sandbox compute included in the Free orchestration allowance.
 bestFor:
   - serverless apps
   - workflows
 avoidIf:
   - very high volume on the free plan
-  - a host that also runs your code
+  - hosted sandbox compute included for free
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.inngest.com'
@@ -85,6 +93,11 @@ changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Distinguished free orchestration from the new separately billed hosted
+      Sandbox compute product.
 ---
 You add the Inngest SDK to your app, write functions with steps, and serve them from an endpoint such as /api/inngest. Inngest then calls your code on events, schedules, or retries. It suits developers on TypeScript stacks like Next.js who need background jobs on their own hosting.
 
@@ -92,11 +105,11 @@ You add the Inngest SDK to your app, write functions with steps, and serve them 
 
 The Free plan costs $0 and needs no credit card. It includes 50,000 executions per month, 500,000 events ingested per month, 5 seats, 5 concurrent steps, and 3 workers. Serverless endpoints are unlimited, and the queue depth is 100,000.
 
-An execution is one function run or one step. A run with five steps uses six executions. Free also gives you 24 hours of trace and log history, 500 MB of span data, and 10,000 scores per month. A function run can last up to 30 days in total, including sleeps. Inngest calls your code on your host, so your hosting limits also apply.
+An execution is one function run or one step. A run with five steps uses six executions. Free also gives you 24 hours of trace and log history, 500 MB of span data, and 10,000 scores per month. A function run can last up to 30 days in total, including sleeps. For functions served from your own host, its limits also apply. Inngest now also offers isolated Sandboxes with separately billed CPU and memory; these are not an included Free orchestration runtime.
 
 ## When you hit a limit
 
-The pricing FAQ says that on Free there is no metered overage. Execution pauses once you hit the free quota, and you must upgrade to resume. That makes the free plan a hard cap, so it cannot send you a surprise bill.
+The pricing FAQ says that on Free there is no metered overage. Execution pauses once you hit the free quota, and you must upgrade to resume. The Free execution allowance therefore stops instead of creating metered execution charges. Separate hosting or sandbox compute charges have their own scope.
 
 On the Pro plan, which starts at $99 per month, extra executions are metered at tiered rates. Other limits such as concurrency, seats, workers, span data, and events have their own separate limits.
 
@@ -124,4 +137,4 @@ Execution pauses once you hit the free quota. You need to upgrade to resume, and
 
 ### Does Inngest run my code?
 
-Inngest calls functions that run on your own host, through an endpoint such as /api/inngest. You pay your hosting provider for that.
+Functions served through an endpoint such as /api/inngest run on your own host. Inngest also offers separately billed Sandboxes, so the provider now has an optional hosted compute product too.

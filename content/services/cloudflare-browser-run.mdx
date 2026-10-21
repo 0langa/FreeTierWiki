@@ -1,9 +1,9 @@
 ---
 title: Cloudflare Browser Run
 description: >-
-  Cloudflare Browser Run, formerly Browser Rendering, runs headless browsers
-  on Cloudflare's network. You take screenshots, PDFs, and scraped content
-  through an API or drive a browser with Puppeteer or Playwright.
+  Cloudflare Browser Run, formerly Browser Rendering, runs headless browsers on
+  Cloudflare's network. You take screenshots, PDFs, and scraped content through
+  an API or drive a browser with Puppeteer or Playwright.
 provider: Cloudflare
 category: scraping
 domain: scraping
@@ -34,7 +34,9 @@ freeTierDetails:
     - 1 Quick Actions request every 10 seconds
     - '/crawl: 5 jobs per day, up to 100 pages per crawl'
   caveats:
-    - Past the daily time, new browsers fail with a 429 error until the next UTC day
+    - >-
+      Past the daily time, new browsers fail with a 429 error until the next UTC
+      day
     - A browser times out after 60 seconds of inactivity by default
     - Failed Quick Actions requests that time out are not charged
   resetPeriod: daily
@@ -43,22 +45,30 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - The Workers Free plan stops at the daily limit instead of billing; Workers Paid bills extra browser hours and concurrent browsers
+    - >-
+      The Workers Free plan stops at the daily limit instead of billing; Workers
+      Paid bills extra browser hours and concurrent browsers
 useCases:
   - Taking screenshots or PDFs of web pages from an API call
   - Turning a page into Markdown or structured data
   - Running a small Puppeteer or Playwright script from a Worker
 quickstartSteps:
   - Create a Cloudflare account and open Browser Run in the dashboard.
-  - Call a Quick Actions endpoint, such as /pdf or /markdown; no code deployment is needed.
-  - For full control, deploy a Worker that uses Puppeteer or Playwright with a browser binding.
-  - Close each browser in a try/finally block so idle sessions do not use your daily minutes.
+  - >-
+    Call a Quick Actions endpoint, such as /pdf or /markdown; no code deployment
+    is needed.
+  - >-
+    For full control, deploy a Worker that uses Puppeteer or Playwright with a
+    browser binding.
+  - >-
+    Close each browser in a try/finally block so idle sessions do not use your
+    daily minutes.
 whenToUse: >-
-  Use Browser Run for occasional screenshots, PDFs, or small scraping jobs
-  that fit in about ten minutes of browser time a day.
+  Use Browser Run for occasional screenshots, PDFs, or small scraping jobs that
+  fit in about ten minutes of browser time a day.
 whenNotToUse: >-
-  Skip it for long crawls or many parallel browsers on the free plan, or if
-  you need a browser session that runs for hours.
+  Skip it for long crawls or many parallel browsers on the free plan, or if you
+  need a browser session that runs for hours.
 bestFor:
   - screenshots and PDFs by API
   - small headless browser jobs
@@ -67,8 +77,8 @@ avoidIf:
   - long-running browser sessions
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/browser-run/'
@@ -77,12 +87,16 @@ sourceUrls:
   - 'https://developers.cloudflare.com/browser-run/pricing/'
   - 'https://developers.cloudflare.com/browser-run/limits/'
   - 'https://developers.cloudflare.com/browser-run/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/browser-run/pricing/'
 featured: false
 changes:
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: Updated the maximum configurable browser inactivity timeout to 20 minutes.
 ---
 
 Browser Run, formerly known as Browser Rendering, runs headless browser instances on Cloudflare's network. Quick Actions handle simple, stateless tasks such as screenshots, PDFs, Markdown, and scraping with no code to deploy. Browser Sessions give you direct control through Puppeteer, Playwright, CDP, or Stagehand from a Worker. It suits developers who need a browser in the cloud for small jobs.
@@ -91,7 +105,7 @@ Browser Run, formerly known as Browser Rendering, runs headless browser instance
 
 Browser Run is available on the Workers Free plan. You get 10 minutes of browser time per day, shared across Quick Actions and Browser Sessions. Browser Sessions can use 3 concurrent browsers per account and start 1 new browser instance every 20 seconds. Quick Actions allow 1 request every 10 seconds.
 
-The /crawl endpoint has extra limits on the free plan: 5 crawl jobs per day, with a maximum of 100 pages per crawl. A browser times out after 60 seconds of inactivity by default, and you can extend that to up to 10 minutes with the keep_alive option.
+The /crawl endpoint has extra limits on the free plan: 5 crawl jobs per day, with a maximum of 100 pages per crawl. A browser times out after 60 seconds of inactivity by default, and you can extend that to up to 20 minutes with the keep_alive option.
 
 ## When you hit a limit
 

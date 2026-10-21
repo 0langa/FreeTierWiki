@@ -30,10 +30,11 @@ freeTierDetails:
   limits:
     - '5,000 error occurrences/month'
     - '1,000 session replays/month'
+    - 30-day data retention
     - Unlimited users and projects
     - 1 service link per project
   caveats:
-    - No analysis credits (RQL) included on the free tier
+    - No AI credits included on Free; Rollbar Analyze (RQL + Metrics API) is a separate feature
     - Stops processing new events at the plan limit by default (no surprise bills)
   resetPeriod: monthly
   requiresCard: false
@@ -56,39 +57,47 @@ whenToUse: >-
   Use Rollbar when you want error tracking with SDKs for many languages and a
   free plan that stops at its limit instead of billing you.
 whenNotToUse: >-
-  Avoid it if you need more than 5,000 occurrences a month for free, analysis
-  credits, or the longer data retention that starts on paid plans.
+  Avoid it if you need more than 5,000 occurrences a month for free, AI
+  credits, Rollbar Analyze, or the longer data retention that starts on paid plans.
 bestFor:
   - small apps and side projects
   - teams that want unlimited users on a free plan
   - projects that need SDKs for many languages
 avoidIf:
   - you expect high error volume
-  - you need analysis credits or RQL
+  - you need AI credits or Rollbar Analyze/RQL
   - you need longer data retention
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://rollbar.com/'
 docsUrl: 'https://docs.rollbar.com/docs'
 sourceUrls:
+  - "https://rollbar.com/pricing-for-agents"
   - 'https://rollbar.com/pricing/'
   - 'https://rollbar.com/'
   - 'https://docs.rollbar.com/docs'
   - 'https://docs.rollbar.com/docs/nodejs'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://rollbar.com/pricing/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Distinguished AI credits from the separate Rollbar Analyze (RQL and Metrics API) feature and its paid-plan scope."
+  - date: 2026-10-21
+    kind: changed
+    note: "Added the Free plan’s confirmed 30-day retention and explicit no-card source."
 ---
 You add an SDK to your app, send errors with an access token, and read the results in the Rollbar web app. SDKs cover server, client, and mobile code, and there is a REST API and a Terraform provider. It suits developers who want error tracking in a few minutes.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and includes 5,000 occurrences and 1,000 session replays per month. It has unlimited users and unlimited projects. It also includes deploy and version tracking, 1 service link per project, and the REST API with a Terraform provider.
+The Free plan costs $0 and includes 5,000 occurrences and 1,000 session replays per month. It has 30-day retention, unlimited users and unlimited projects. It also includes deploy and version tracking, 1 service link per project, and the REST API with a Terraform provider.
 
-Included credits are 0 on Free, so credit-based analysis features are not part of the plan. The paid Essentials plan adds 4K credits, data retention up to 90 days, and fine grained rate limiting. Rollbar also offers a 14-day full access trial, which includes 200K occurrences, 10K replays, and 15K credits.
+Free includes no AI credits. Essentials adds 4K AI credits per month, 90-day retention and fine-grained rate limiting. Rollbar Analyze, comprising RQL and the Metrics API, is separate: it is a paid add-on on Essentials and included on Advanced. Rollbar also offers a 14-day full access trial with 200K occurrences, 10K replays and 15K trial credits.
 
 ## When you hit a limit
 
@@ -99,7 +108,7 @@ The other options let you keep sending events beyond the limit and pay for them.
 ## Gotchas
 
 - Events over the monthly limit are not processed until renewal, so errors during that time are not recorded.
-- Free has 0 credits, so features that run on credits need a paid plan or the trial.
+- AI credits and Rollbar Analyze are separate: Free includes no AI credits; Analyze is an Essentials add-on and included on Advanced.
 - Replays are limited to 1,000 a month, separate from the 5,000 occurrences.
 
 ## Alternatives in this atlas

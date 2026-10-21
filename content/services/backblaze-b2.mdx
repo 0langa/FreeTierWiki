@@ -26,13 +26,14 @@ tags:
   - egress
 pricingModel: freemium
 freeTierDetails:
-  summary: '10 GB free storage, plus and free egress up to 3x your average monthly storage.'
+  summary: '10 GB free storage, plus free egress up to 3x your average monthly storage.'
   limits:
     - 10 GB free storage
     - Free egress up to 3x monthly storage
     - Class A/B/C API calls always free
     - First 2,500 Class D calls/day free
   caveats:
+    - No card is required to start; public buckets separately require payment history or a small card payment
     - Egress beyond the 3x allowance is billed at $0.01/GB, though it is free through many CDN and compute partners
     - Class D transactions beyond the first 2,500 calls per day cost $0.004 per 10,000 calls
     - A public bucket needs a verified email and a payment history on file, or a small fee paid by card
@@ -72,19 +73,29 @@ avoidIf:
   - you expect high free bandwidth without a CDN partner
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.backblaze.com/cloud-storage/pricing'
 docsUrl: 'https://www.backblaze.com/b2/docs/'
 sourceUrls:
+  - 'https://www.backblaze.com/docs/cloud-storage-create-and-manage-caps-and-alerts'
+  - 'https://www.backblaze.com/docs/en/cloud-storage-data-caps-and-alerts'
+  - 'https://www.backblaze.com/b2/cloud-storage.html'
   - 'https://www.backblaze.com/cloud-storage/pricing'
   - 'https://www.backblaze.com/b2/docs/'
   - 'https://www.backblaze.com/docs/cloud-storage-create-and-manage-buckets'
   - 'https://www.backblaze.com/docs/cloud-storage-s3-compatible-api'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.backblaze.com/cloud-storage/pricing'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Confirmed no-card signup and corrected limited ACL support; documented optional daily caps and uncappable Class D transactions."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You work with B2 in the Backblaze web console, with the command-line tool, or through the Native API and the S3-compatible API. Any tool written for S3 can point at a B2 bucket with few changes.
 
@@ -94,11 +105,11 @@ The first 10GB of storage is always free. Backblaze also gives you free egress, 
 
 Class A, B, and C API calls are free for pay-as-you-go customers. For Class D transactions, the first 2,500 calls per day are free. There are no minimum file size fees and no minimum storage duration fees.
 
-Beyond the free storage, B2 starts at $6.95 per TB per month. The pricing page does not say whether sign-up asks for a card. It lists a credit card or invoice as the payment method.
+Beyond the free storage, B2 starts at $6.95 per TB per month. The B2 signup page explicitly says no credit card is required. Public bucket eligibility has separate payment requirements.
 
 ## When you hit a limit
 
-Nothing is cut off at the free amounts. Storage above 10GB is billed monthly at the pay-as-you-go rate.
+Pay-as-you-go storage above 10GB is billed monthly. Optional daily data caps can limit storage and some transaction spending; without caps, usage and charges can grow. Class D transactions cannot be capped. Cap changes can take ten minutes, so this is not a universal instant spending guarantee.
 
 Egress above 3x your average storage costs $0.01 per GB. Backblaze says egress is free to and through many partner CDNs and compute services, including Cloudflare and Fastly, so a CDN in front of the bucket removes most of that fee. Class D transactions beyond the daily free amount cost $0.004 per 10,000 calls. Backblaze describes the pricing as no surprise fees and no penalties.
 
@@ -106,7 +117,7 @@ Egress above 3x your average storage costs $0.01 per GB. Backblaze says egress i
 
 - To create a public bucket, you must verify your email and have a payment history on file, or pay a small fee by card that is credited to your balance.
 - Bucket permission changes can take up to ten minutes to apply.
-- The S3-compatible API does not support ACLs, IAM roles, object tagging, or website configuration, so check your tool before you move over.
+- The S3-compatible API has limited bucket ACL support: private/public-read, with no independent object ACLs. Check its supported operations before migrating; S3 compatibility does not mean every S3 feature works.
 
 ## Alternatives in this atlas
 
@@ -122,7 +133,7 @@ Partly. The first 10GB of storage is always free, and downloads are free up to 3
 
 ### Does Backblaze B2 need a credit card?
 
-The pricing page does not say whether sign-up asks for a card. To create a public bucket you need a payment history on file or a small card payment.
+No card is required to start B2. A public bucket separately needs verified email and payment history or a small card payment.
 
 ### What happens when I go over the Backblaze B2 free egress?
 

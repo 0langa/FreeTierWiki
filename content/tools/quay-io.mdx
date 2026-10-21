@@ -36,10 +36,10 @@ freeTierDetails:
     - Paid plans are priced by the number of private repositories
     - Payment for paid plans is by card through Stripe
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: false
-  overageRisk: none
+  overageRisk: low
   billingRiskNotes:
     - Public repositories have no charges on the plans page; costs start only with a private repository plan
 useCases:
@@ -63,17 +63,20 @@ avoidIf:
   - you need free private repositories
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://quay.io'
-docsUrl: 'https://docs.quay.io'
+docsUrl: 'https://docs.projectquay.io/'
 sourceUrls:
   - 'https://quay.io/plans/'
 pricingUrl: 'https://quay.io/plans/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Qualified public-account card policy and clarified temporary private trial versus ongoing paid hosting.'
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -85,7 +88,7 @@ Quay.io is a hosted registry for container images. You push images to it with Do
 
 There is no named free plan, but the plans page FAQ answers the question directly: you can use Quay for free, with unlimited storage and serving of public repositories. A public repository gets a public download page for your container, and the page calls public repositories free.
 
-The plans page says all plans include continuous integration builds from Git pushes, robot accounts for automated deployments, teams, SSL encryption between Quay and your servers, and logging and auditing of API and UI actions. The page does not say which of these apply to an account with only public repositories.
+The plans page says all plans include continuous integration builds from Git pushes, robot accounts for automated deployments, teams, SSL encryption between Quay and your servers, and logging and auditing of API and UI actions. The page does not say which of these apply to an account with only public repositories. It also does not explicitly state a card rule for that free route.
 
 ## When you hit a limit
 
@@ -96,7 +99,7 @@ Your first 30 days on a paid plan are free. You can change plans at any time and
 ## Gotchas
 
 - Anything in a public repository can be pulled by anyone, so check images for secrets before pushing.
-- Private repositories are never free, even one, so a small private project starts at the Developer plan.
+- Private repositories are temporarily free through a trial; ongoing private hosting starts at the Developer plan.
 - Paid plans count private repositories, not users or storage, so splitting images across many repositories raises the bill.
 
 ## Alternatives in this atlas

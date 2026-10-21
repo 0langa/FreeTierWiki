@@ -24,18 +24,19 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     AuraDB Free costs $0 and needs no credit card. You get one Free instance per
-    account, with limits on node and relationship counts. Aura pauses it after
+    account, with 200,000 nodes, 400,000 relationships, and 1GB storage. Aura pauses it after
     72 hours of inactivity.
   limits:
     - 1 Free instance per account
-    - Limits on node and relationship counts; the pricing page does not list the numbers
+    - 200,000 nodes, 400,000 relationships, and 1GB storage
+    - One on-demand backup at a time
     - Single availability zone, one database per instance
     - Aura Console, Data Importer, Query API, Dashboards, and Aura Agent included
     - Basic version of Bloom visualization
   caveats:
     - Aura pauses a Free instance after 72 hours of inactivity, and you cannot pause it by hand
     - A Free instance that stays paused for more than 30 days is deleted with all its data
-    - No backups, no point-in-time recovery, no SLA, and no monitoring on the Free tier
+    - No scheduled backups, point-in-time recovery, or SLA on Free
     - The instance password shows once at creation and cannot be recovered
   resetPeriod: none
   requiresCard: false
@@ -65,17 +66,19 @@ bestFor:
   - GraphRAG demos
 avoidIf:
   - production
-  - you need backups
+  - you need scheduled backups
   - the project sits idle for weeks
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://neo4j.com/product/auradb/'
 docsUrl: 'https://neo4j.com/docs/aura/'
 sourceUrls:
+  - 'https://neo4j.com/docs/aura/managing-instances/backup-restore-export/'
+  - 'https://neo4j.com/docs/aura/quotas-and-limits/'
   - 'https://neo4j.com/pricing/'
   - 'https://neo4j.com/docs/aura/managing-instances/instance-actions/'
   - 'https://neo4j.com/docs/aura/getting-started/create-account/'
@@ -84,6 +87,9 @@ sourceUrls:
 pricingUrl: 'https://neo4j.com/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added published graph and storage sizes and corrected Free backup availability to one on-demand backup."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -94,11 +100,11 @@ You work in the Aura console, which has tools for importing, querying, and visua
 
 AuraDB Free costs $0, and the pricing page says no credit card or other payment method is required. Each account can create one Free instance. To create more, you must upgrade.
 
-The free plan places limits on the number of nodes and relationships. The pricing page does not list the exact counts. The instance runs in a single availability zone and holds one database. It includes the Aura Console, Data Importer, Query API, Dashboards, and Aura Agent, and it gives you the basic version of Bloom. It does not include monitoring, backups, point-in-time recovery, or an SLA. Support comes from the community.
+The quotas guide lists 200,000 nodes, 400,000 relationships, and 1GB storage. The instance runs in a single availability zone and holds one database. It includes the Aura Console, Data Importer, Query API, Dashboards, and Aura Agent, and it gives you the basic version of Bloom. The quotas and backup guides include one on-demand backup at a time, but no scheduled backups, point-in-time recovery, or SLA. Support comes from the community.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you pass the node or relationship limit. Check the Aura console for the current numbers and the error you see. Nothing in the sources shows a bill for the Free tier, so the risk is lost access, not a charge.
+The quotas guide publishes fixed graph-size and storage limits. It does not specify the exact error or write behavior when a count is reached. Free needs no payment method; upgrading to a paid instance is a separate choice. Do not rely on automatic expansion.
 
 Inactivity is the limit that bites more often. Aura pauses a Free instance after 72 hours of inactivity. You cannot pause it yourself. If it stays paused for more than 30 days, Aura deletes the instance and all its data.
 
@@ -106,7 +112,7 @@ Inactivity is the limit that bites more often. Aura pauses a Free instance after
 
 - The generated instance password appears once. Copy it or download the credentials file, because Aura cannot recover it later.
 - Free instances do not resume on their own after a long pause. You resume them with the Play button on the instance card, and resuming can take a few minutes to a few hours.
-- The Free tier has no backups. Export your data yourself if it matters, since a long pause deletes the instance.
+- Free includes only one manually triggered backup at a time. Keep a separate export if data matters, because an instance paused for over 30 days is deleted.
 
 ## Alternatives in this atlas
 
@@ -118,7 +124,7 @@ Inactivity is the limit that bites more often. Aura pauses a Free instance after
 
 ### Is Neo4j AuraDB free?
 
-Yes. AuraDB Free costs $0 and needs no credit card. Each account gets one Free instance, with limits on nodes and relationships.
+Yes. AuraDB Free costs $0 and needs no credit card. Each account gets one Free instance with 200,000 nodes, 400,000 relationships, and 1GB storage.
 
 ### Does Neo4j AuraDB Free pause or delete my data?
 

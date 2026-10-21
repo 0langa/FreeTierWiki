@@ -71,8 +71,8 @@ avoidIf:
   - high daily volume without paying
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipapi.is/'
@@ -83,6 +83,10 @@ sourceUrls:
   - 'https://ipapi.is/pricing.html'
   - 'https://ipapi.is/developers.html'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Aligned keyless quotas and firewall behavior with the current developer documentation."
 ---
 You call `api.ipapi.is` over HTTP from any language, with an optional API key. It suits developers who want one lookup that mixes location with security flags.
 
@@ -92,13 +96,13 @@ The Free plan costs $0 and allows 1,000 requests per day, every day. It is not a
 
 Each response can include the ASN, the owning company, a location with a time zone, and flags for datacenter, Tor, proxy, VPN, and abuse. The free key also unlocks bulk lookups and ASN queries.
 
-Without a key the API still answers, but the pricing page says only 30 requests a day, and with a minimal response of ownership and location. The developer docs give 100 lookups per client IP per UTC day for keyless use, so treat that mode as a quick test.
+Without a key the API allows 30 lookups per IP address per UTC day, with a minimal response of ownership and location. Both pricing and developer documentation now give that limit. Bulk lookups and ASN queries require a key.
 
 ## When you hit a limit
 
 With a key, going over the daily quota returns HTTP 429 with the code ERR_QUOTA_EXCEEDED. You are not billed for the free plan. The quota resets daily.
 
-Keyless clients get HTTP 429 with ERR_FREE_TIER_EXHAUSTED and a Retry-After header. A client that ignores 50 of these notices is blocked at the firewall for 12 hours.
+After the keyless allowance is exhausted, the next 10 requests return HTTP 429 with ERR_FREE_TIER_EXHAUSTED and a Retry-After header. Clients that keep sending after that are blocked at the firewall for 24 hours.
 
 If you need more, you can buy one-time credits, with every dollar giving 30,000 requests, and they never expire. Subscriptions start at $20 a month for 20,000 requests a day. Each day, your free 1,000 requests are spent first.
 
@@ -106,7 +110,7 @@ If you need more, you can buy one-time credits, with every dollar giving 30,000 
 
 - Only one free account per person or company is allowed. Making several accounts to multiply the quota breaks the terms.
 - A bulk request costs one lookup for each address it resolves, not one lookup for the request, and it holds at most 100 unique entries.
-- The pricing page and the developer docs give different keyless limits, so always send a key from production code.
+- The keyless budget is shared per IPv4 address or IPv6 /64, so clients behind a shared NAT share it. Use a key for full data in production.
 
 ## Alternatives in this atlas
 

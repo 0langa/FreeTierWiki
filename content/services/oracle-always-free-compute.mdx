@@ -32,7 +32,7 @@ freeTierDetails:
     - 10 TB outbound data transfer/month
     - 2 virtual cloud networks (VCNs)
   caveats:
-    - Limited to specific VM shapes and regions
+    - Limited to eligible shapes in the home region; US Government Cloud is excluded
     - When the Free Trial ends, Arm instances beyond the 2 OCPU/12GB pool are disabled, then deleted after 30 days
     - Idle instances can be reclaimed after 7 days of under 20% CPU and network use
   resetPeriod: monthly
@@ -71,8 +71,8 @@ avoidIf:
   - needs guaranteed capacity
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.oracle.com/cloud/free/'
@@ -84,6 +84,10 @@ sourceUrls:
   - 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
   - 'https://docs.oracle.com/en-us/iaas/Content/Compute/tutorials/first-linux-instance/overview.htm'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Scoped idle-memory criteria to Arm and added the documented government-region exclusion.
 ---
 You create and manage the VMs in the Oracle Cloud Console and connect to them over SSH. This page covers the compute part of the Always Free tier.
 
@@ -123,4 +127,4 @@ Most people need a mobile phone number and a credit card to create an account. O
 
 ### Why did Oracle reclaim my Always Free instance?
 
-Oracle reclaims Always Free instances it deems idle over a 7-day period, when CPU, network, and memory use stay under 20%.
+Oracle may reclaim instances idle over 7 days when CPU and network use stay under 20%; the memory condition also applies to Arm shapes.

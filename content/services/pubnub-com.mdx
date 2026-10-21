@@ -35,15 +35,17 @@ freeTierDetails:
   caveats:
     - Testing keysets are rate-limited and are not meant for live traffic
     - Data retention is capped at 7 days on the free plan
-    - Auto Moderation and Event Forwarding need a paid plan even for testing
+    - Auto Moderation needs a paid plan; Events & Actions, Insights, and Illuminate are trials on Free
     - The Starter plan costs $98 per month for 1,000 MAU
+    - Pricing both requires upgrades over Free limits and describes proportional Free overage MAUs; exact Free enforcement is unclear
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
   billingRiskNotes:
     - The free plan has no Production keysets, so live traffic means the paid Starter plan
+    - Free overage FAQ conflicts with upgrade-required wording; do not assume an automatic hard spending stop
 useCases:
   - Prototyping in-app chat
   - Testing live notifications and presence
@@ -73,11 +75,14 @@ difficulty: beginner
 productionReadiness: prototype
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified conflicting Free overage wording and premium-feature trials; preserved the documented Testing-keyset-only restriction."
   - date: 2026-10-09
     kind: changed
     note: The docs say the free plan is limited to Testing keysets, and Production keysets need the Starter plan.
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.pubnub.com/'
@@ -102,13 +107,13 @@ You get 1GB of data storage with 7 days of retention. The plan includes unlimite
 
 The docs say a free account is limited to Testing keysets, which are rate-limited and not suitable for live traffic. Creating a Production keyset requires at least the Starter plan.
 
-The pricing pages do not say what happens when you pass 200 users or 1 million transactions on a Testing keyset. The Starter plan costs $98 per month for 1,000 monthly active users, and you can buy more by credit card month to month.
+The pricing FAQ says excess Free usage requires an upgrade, but another FAQ groups Free and Starter together and describes proportional overage MAUs. It does not establish whether an unbilled Free Testing keyset stops, continues, or creates an obligation. Confirm this before exceeding the allowance. The Starter plan costs $98 per month for 1,000 monthly active users, and you can buy more by credit card month to month.
 
 ## Gotchas
 
 - Free accounts cannot create Production keysets. Plan for the paid tier before you launch.
 - A single User ID counts as one monthly active user, however often it reconnects. Reuse a stable User ID, or the same person counts more than once.
-- Auto Moderation and Event Forwarding need a paid plan even when you only test.
+- Auto Moderation needs a paid plan. Events & Actions, Insights, and Illuminate are only trials on a Free account, according to the current docs.
 
 ## Alternatives in this atlas
 

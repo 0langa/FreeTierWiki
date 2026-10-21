@@ -2,8 +2,8 @@
 title: HS Ping
 description: >-
   HS Ping is an API that looks up harmonized system (HS) tariff codes for
-  products in 35 countries. Developers use it for customs classification and
-  trade compliance.
+  products across multiple countries. Developers use it for customs
+  classification and trade compliance.
 provider: HS Ping
 category: apis
 domain: apis
@@ -28,12 +28,19 @@ freeTierDetails:
     New accounts get 100 free HS code lookups, one-time, with no credit card
     required.
   limits:
-    - 100 free lookups (one-time, no card)
-    - 35 countries covered
+    - '100 free lookups (one-time, no card)'
+    - >-
+      Country-specific coverage; pricing FAQ says 32 countries while its call to
+      action says 35
     - '1,000 requests/minute rate limit on paid plans'
   caveats:
-    - No recurring free plan; paid plans start at $49/month once the 100 free lookups run out
+    - >-
+      No recurring free plan; paid plans start at $49/month once the 100 free
+      lookups run out
     - The 100 trial lookups are one-time credits and never renew
+    - >-
+      Check the coverage list for your destination: the pricing page gives
+      conflicting country counts
   requiresCard: false
   freeTierType: credit
   hasHardCap: true
@@ -47,7 +54,9 @@ useCases:
 quickstartSteps:
   - Sign up with an email on the HS Ping site; no credit card is needed.
   - Copy your API key from the dashboard.
-  - 'Send a GET request to `https://api.hsping.com/api/v1/find` with a `query` and a `country`, and your key as a Bearer token.'
+  - >-
+    Send a GET request to `https://api.hsping.com/api/v1/find` with a `query`
+    and a `country`, and your key as a Bearer token.
   - Use the batch lookup to classify many products in one request.
   - Choose a paid plan when the 100 free lookups run out.
 whenToUse: >-
@@ -65,8 +74,8 @@ avoidIf:
   - need a permanent free tier
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-19
-lastUpdated: 2026-10-19
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://hsping.com'
@@ -77,12 +86,18 @@ sourceUrls:
   - 'https://hsping.com/pricing/'
   - 'https://hsping.com/docs/introduction'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified conflicting 32-versus-35 country counts while retaining the
+      verified one-time lookup offer.
 ---
 You sign up with an email, copy an API key, and send HTTPS requests to one search endpoint or to a batch endpoint. It suits developers who add customs codes to a checkout, a shipping tool, or a product feed.
 
 ## What the free plan gives you
 
-HS Ping has no permanent free plan. Every new account gets 100 free lookups, one time, with no credit card and no plan chosen at sign-up. The API covers 35 countries, and the free lookups are one-time credits that never renew.
+HS Ping has no permanent free plan. Every new account gets 100 free lookups, one time, with no credit card and no plan chosen at sign-up. The free lookups are one-time credits that never renew. Country counts on the pricing page conflict: its FAQ says 32, while its call to action says 35. Check the coverage list for the country your integration needs.
 
 When the 100 lookups run out, you pick a paid plan to continue. Professional costs $49 a month for 50K lookups. Volume costs $129 for 500K, and Scale costs $299 for 2M. Every plan has a rate limit of 1,000 lookups per minute.
 

@@ -30,14 +30,15 @@ freeTierDetails:
     - Unlimited destination count
     - Unlimited user seats
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - The free tier is for teams with limited use cases
     - The pricing page does not say what happens if you need a third sync
     - Paid plans are usage-based and quoted through a demo
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Syncing customer records from a warehouse table into a CRM
   - Sending a product usage segment to an email or ad tool
@@ -60,17 +61,24 @@ avoidIf:
   - no data warehouse
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://hightouch.com/'
 docsUrl: 'https://hightouch.com/docs'
 sourceUrls:
+  - 'https://hightouch.com/docs/syncs/create-your-first-sync'
   - 'https://hightouch.com/pricing'
 pricingUrl: 'https://hightouch.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Qualified current card and row policies and aligned paid platform naming with current pricing.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -86,14 +94,14 @@ A source is wherever your business data is stored, most often a data warehouse s
 
 ## When you hit a limit
 
-The limit on the free tier is the number of active syncs, not rows or users. The pricing page does not say what happens if you try to create a third active sync, or whether a sync must be paused to make room for another.
+The published Free limit is 2 active syncs, with unlimited seats and destinations. A separate Free row allowance and card requirement are not stated. The pricing page does not say what happens if you try to create a third active sync, or whether a sync must be paused to make room for another.
 
-Paid plans are usage-based. Hightouch says it charges based on actual usage, with no limits on monthly tracked users and no caps on sources, destinations, or user seats, but prices for the Customer Data Platform and AI Decisioning plans come through a demo rather than a public list.
+Paid plans are usage-based. Hightouch says it charges based on actual usage, with no limits on monthly tracked users and no caps on sources, destinations, or user seats, but prices for Composable CDP and the Agentic Marketing Platform come through a demo rather than a public list.
 
 ## Gotchas
 
 - Reverse ETL assumes a warehouse or database that already holds clean data; Hightouch does not replace one.
-- With only 2 active syncs, pick the pipelines that matter most and pause the rest.
+- Plan around 2 active syncs; the pricing page does not promise a particular replacement or pause workflow at the limit.
 - Observability features such as the live debugger and custom alerting are listed for the paid platform plans.
 
 ## Alternatives in this atlas

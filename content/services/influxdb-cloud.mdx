@@ -56,7 +56,7 @@ whenToUse: >-
   metrics where 30 days of history is enough.
 whenNotToUse: >-
   Avoid it when you need to keep data longer than 30 days or write more than
-  about 17 kb a second on average.
+  about 17 kB a second on average.
 bestFor:
   - low-volume IoT data
   - learning time series databases
@@ -65,18 +65,22 @@ avoidIf:
   - high write rates
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.influxdata.com/products/influxdb-overview/'
 docsUrl: 'https://docs.influxdata.com/influxdb3/cloud-serverless/'
 sourceUrls:
+  - "https://docs.influxdata.com/influxdb3/cloud-serverless/get-started/"
   - 'https://www.influxdata.com/influxdb-pricing/'
   - 'https://docs.influxdata.com/influxdb3/cloud-serverless/admin/billing/limits/'
 pricingUrl: 'https://www.influxdata.com/influxdb-pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified that paid Serverless raises rate quotas rather than removing them and corrected byte-rate labels."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -88,13 +92,13 @@ InfluxDB Cloud Serverless is the hosted, multi-tenant version of InfluxDB, a dat
 
 The pricing page says Cloud Serverless has a free tier with limited data ingestion rates and 30-day retention, and you start without a credit card. The service quotas page lists the Free Plan in detail.
 
-Writes are limited to a rate of 5 MB per 5 minutes, an average of 17 kb/s of uncompressed line protocol. Query responses are limited to 300 MB per 5 minutes, an average of 1000 kb/s. You get 2 buckets, not counting the system buckets, and 30 days of data retention. Storage-level limits apply to every plan: at most 500 tables per database and 200 columns per table, and a query may touch at most 500 partitions and 1000 Parquet files.
+Writes are limited to a rate of 5 MB per 5 minutes, an average of 17 kB/s of uncompressed line protocol. Query responses are limited to 300 MB per 5 minutes, an average of 1000 kB/s. You get 2 buckets, not counting the system buckets, and 30 days of data retention. Storage-level limits apply to every plan: at most 500 tables per database and 200 columns per table, and a query may touch at most 500 partitions and 1000 Parquet files.
 
 ## When you hit a limit
 
 The Free Plan is a hard cap. All write and query rates are counted in a fixed five-minute window, and once a rate is exceeded, an error response is returned until the current five-minute window resets.
 
-The usage-based plan lifts these limits and bills data in at $0.0025 per MB, queries at $0.012 per 100 executions, storage at $0.002 per GB-hour, and data out at $0.09 per GB. New paid accounts receive $250 in credits applied to the first 30 days.
+The usage-based plan raises rate quotas, permits more buckets and longer retention, and bills data in at $0.0025 per MB, queries at $0.012 per 100 executions, storage at $0.002 per GB-hour, and data out at $0.09 per GB. New paid accounts receive $250 in credits applied to the first 30 days.
 
 ## Gotchas
 

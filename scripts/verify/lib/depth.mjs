@@ -1,6 +1,7 @@
 // @ts-check
 // Pure rules for a "deep" entry body: the `##` sections in SECTIONS, in that order, and 350 to 700 words in all.
 // The CLI in scripts/verify/check-depth.mjs feeds real files in; the unit tests feed fixtures.
+import { numericValue, parseNumericLocale } from "./numeric-format.mjs";
 
 export const SECTIONS = [
   { title: "What the free plan gives you", minWords: 80, maxWords: 140 },
@@ -48,23 +49,26 @@ export function splitSections(body) {
 }
 
 const MULTIPLIERS = /** @type {Record<string, number>} */ ({ k: 1e3, thousand: 1e3, m: 1e6, million: 1e6, b: 1e9, billion: 1e9 });
-const FIGURE = /(?<![\p{L}\d.])(\d[\d,]*(?:\.\d+)?)(?:\s?(thousand|million|billion)\b|(k|m|b)(?![\p{L}\d]))?/giu;
+const FIGURE = /(?<![\p{L}\d.,])((?:\d+(?:[.,]\d+|[ \u00a0\u202f]\d{3}(?!\d))*|[.,]\d+)(?:e[+-]?\d+)?)(?:\s?(thousand|million|billion)\b|(k|m|b)(?![\p{L}\d]))?/giu;
 
 /**
  * Every number in the text, as the value a reader would take from it ("2 million" and "2,000,000" are the same).
  * @param {string} text
- * @returns {Array<{ raw: string, value: number }>}
+ * English notation is the default. Source-specific hints resolve ambiguous values such as 1.234.
+ * Malformed numeric tokens are retained with an undefined value so claims cannot evade checking.
+ * @param {{ numericLocale?: import("./numeric-format.mjs").NumericLocale }} [options]
+ * @returns {Array<{ raw: string, value: number | undefined }>}
  */
-export function extractFigures(text) {
+export function extractFigures(text, { numericLocale } = {}) {
+  const locale = parseNumericLocale(numericLocale) ?? "en-US";
   const out = [];
   for (const match of text.matchAll(FIGURE)) {
-    const digits = match[1].replace(/,(?=\d{3}\b)/g, "");
-    const base = Number(digits.replace(/,/g, ""));
-    if (!Number.isFinite(base)) continue;
+    const base = numericValue(match[1], locale);
     // A lowercase single "m" or "b" is minutes, meters, or bits ("60m"), never million or billion.
     const letter = match[3] === "m" || match[3] === "b" ? "" : match[3];
     const word = (match[2] ?? letter ?? "").toLowerCase();
-    out.push({ raw: match[0].trim(), value: word ? base * MULTIPLIERS[word] : base });
+    const value = base === undefined ? undefined : word ? base * MULTIPLIERS[word] : base;
+    out.push({ raw: match[0].trim(), value: Number.isFinite(value) ? value : undefined });
   }
   return out;
 }
@@ -73,12 +77,31 @@ export function extractFigures(text) {
  * Figures in `body` that never appear in `evidence`. The body may only state numbers the source shows.
  * @param {string} body
  * @param {string} evidence
+ * @param {{ numericLocale?: import("./numeric-format.mjs").NumericLocale }} [options]
  * @returns {string[]}
  */
-export function unsupportedFigures(body, evidence) {
-  const known = new Set(extractFigures(evidence).map((figure) => figure.value));
+export function unsupportedFigures(body, evidence, options) {
+  return missingFigures(body, extractFigures(evidence, options));
+}
+
+/** Canonical semantic versions and IPv4 examples are literal identifiers, never alternative numeric magnitudes.
+ * @param {string} raw
+ */
+function dottedIdentifier(raw) {
+  if (!/^(?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){2,3}$/.test(raw)) return false;
+  const parts = raw.split('.');
+  return parts.length === 3 || parts.every(part => Number(part) <= 255);
+}
+
+/** @param {string} body @param {Array<{raw: string, value: number | undefined}>} evidence @returns {string[]} */
+function missingFigures(body, evidence) {
+  const known = new Set(evidence.map((figure) => figure.value).filter((value) => value !== undefined));
+  const identifiers = new Set(evidence.filter(figure => figure.value === undefined && dottedIdentifier(figure.raw)).map(figure => figure.raw));
   const missing = new Set();
-  for (const figure of extractFigures(visibleText(body))) if (!known.has(figure.value)) missing.add(figure.raw);
+  for (const figure of extractFigures(visibleText(body))) {
+    const supported = figure.value === undefined ? identifiers.has(figure.raw) : known.has(figure.value);
+    if (!supported) missing.add(figure.raw);
+  }
   return [...missing];
 }
 
@@ -86,9 +109,13 @@ export function unsupportedFigures(body, evidence) {
 export function normalizeUrl(url) {
   try {
     const parsed = new URL(url);
-    return `${parsed.hostname.replace(/^www\./, "")}${parsed.pathname.replace(/\/+$/, "")}`.toLowerCase();
+    // Query values and path case can identify different documents (for example IBM's ?topic=).
+    // Sort keys only: repeated values may be order-sensitive. Fragments do not change the fetched page.
+    parsed.searchParams.sort();
+    const query = parsed.searchParams.toString();
+    return `${parsed.host.replace(/^www\./, "")}${parsed.pathname.replace(/\/+$/, "")}${query ? `?${query}` : ""}`;
   } catch {
-    return url.toLowerCase();
+    return url;
   }
 }
 
@@ -99,7 +126,7 @@ function dateString(value) {
 }
 
 /**
- * @typedef {{ url: string, fetchedAt: string, text: string }} EvidencePage
+ * @typedef {{ url: string, fetchedAt: string, text: string, status?: number, accessIssue?: string, numericLocale?: import("./numeric-format.mjs").NumericLocale }} EvidencePage
  * @typedef {{
  *   id: string,
  *   data: Record<string, unknown>,
@@ -125,6 +152,7 @@ export function checkDepth({ id, data, body, entries, evidence, skipped = false 
     problems.push(`body has ${words} words; needs ${BODY_MIN_WORDS} to ${BODY_MAX_WORDS}`);
   }
   if (/[<>{}]/.test(body)) problems.push("body contains < > { or }; MDX would read them as code");
+  if (body.split('\n').some(line => !/^#{2,3}\s/.test(line) && /#{2,3}\s/.test(line))) problems.push('body contains an embedded heading inside prose');
 
   const { sections } = splitSections(body);
   const titles = sections.map((section) => section.title);
@@ -194,11 +222,11 @@ export function checkDepth({ id, data, body, entries, evidence, skipped = false 
   } else if (evidence) {
     const listed = new Set(sourceUrls.map(normalizeUrl));
     // Only pages the entry cites count as evidence: a number from an uncited page has no matching source.
-    const usable = evidence.filter((page) => listed.has(normalizeUrl(page.url)));
+    const usable = evidence.filter((page) => (page.status === undefined || page.status === 200) && !page.accessIssue && listed.has(normalizeUrl(page.url)));
     if (usable.length === 0) {
       problems.push("no fetched page for this entry matches 'sourceUrls'");
     } else {
-      const missing = unsupportedFigures(body, usable.map((page) => page.text).join("\n"));
+      const missing = missingFigures(body, usable.flatMap((page) => extractFigures(page.text, { numericLocale: page.numericLocale })));
       if (missing.length) problems.push(`numbers not found on any fetched source page: ${missing.join(", ")}`);
       const fetched = usable.map((page) => page.fetchedAt.slice(0, 10)).sort().at(-1) ?? "";
       // A source review advances lastVerified; unchanged content keeps its lastUpdated date.

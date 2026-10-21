@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://freetier.wiki/" />
+    <title>FreeTierWiki has moved</title>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=https://freetier.wiki/" />
+    </noscript>
+  </head>
+  <body>
+    <h1>FreeTierWiki has moved</h1>
+    <p>Continue to <a id="destination" href="https://freetier.wiki/">freetier.wiki</a>.</p>
+    <script>
+      const prefix = "/FreeTierWiki";
+      const pathname = window.location.pathname;
+      const path = pathname.startsWith(prefix + "/") ? pathname.slice(prefix.length) : "/";
+      // Assign a pathname on a fixed origin, rather than resolving an untrusted URL.
+      const destination = new URL("https://freetier.wiki/");
+      destination.pathname = "/" + path.replace(/^[/\\]+/, "");
+      destination.search = window.location.search;
+      destination.hash = window.location.hash;
+      const link = document.getElementById("destination");
+      link.href = destination.href;
+      link.textContent = destination.href;
+      document.querySelector('link[rel="canonical"]').href = destination.origin + destination.pathname;
+      window.location.replace(destination.href);
+    </script>
+  </body>
+</html>

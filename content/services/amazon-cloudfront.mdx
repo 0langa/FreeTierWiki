@@ -36,8 +36,9 @@ freeTierDetails:
     - '2,000,000 CloudFront Function invocations per month'
     - Up to 3 Free plans per AWS account
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Flat-rate plans have no overage charges, but delivery might be adjusted if you keep exceeding the allowance
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
     - Pay-as-you-go usage past the Always Free amounts is billed per GB and per request
   resetPeriod: monthly
   requiresCard: false
@@ -45,6 +46,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - On the flat-rate Free plan there are no overage charges, even during traffic spikes or attacks
     - On pay-as-you-go pricing, data transfer and requests past the Always Free amounts are billed
 useCases:
@@ -71,8 +73,8 @@ avoidIf:
   - your traffic is far above the Free plan allowance
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cloudfront/'
@@ -86,6 +88,9 @@ sourceUrls:
 pricingUrl: 'https://aws.amazon.com/cloudfront/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified AWS account suspension and optional project spending controls; removed the assertion that every second website needs another distribution."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -103,13 +108,13 @@ The second is pay-as-you-go pricing with the Always Free tier: 1 TB of data tran
 
 On the flat-rate Free plan you are not charged overages, however much you exceed the allowance. AWS sends notifications as you approach and pass it. Your first traffic spike up to 3x the allowance does not affect service that month. If you keep exceeding it without upgrading, traffic delivery might be adjusted, for example served from fewer edge locations.
 
-On pay-as-you-go pricing nothing stops at the Always Free amounts. Data transfer and requests past them are billed at the listed rates per GB and per request.
+Pay-as-you-go excess consumes credits on new Free accounts or incurs standard rates on Paid accounts. Optional Paid project spend limits start at $20 and pause resources at the limit; these are separate from CloudFront allowances.
 
 ## Gotchas
 
-- A new AWS account on the Free plan closes after 6 months or when its credits run out. Upgrade to a Paid plan to keep using CloudFront after that.
+- The AWS account Free plan is separate from CloudFront Free. At 6 months or depleted credits the account is suspended; data is retained 90 days for a Paid upgrade before deletion.
 - You cannot delete a distribution that is on a pricing plan until you cancel the plan. Free plans cancel immediately.
-- Each distribution has its own plan, so a second site needs a second Free plan.
+- Plans apply per distribution, not per website. Origin resources and services outside the plan can still have separate AWS charges.
 
 ## Alternatives in this atlas
 

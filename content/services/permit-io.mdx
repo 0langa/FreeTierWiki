@@ -39,11 +39,13 @@ freeTierDetails:
     - Cloud uptime and the support SLA are listed as best effort, with community Slack as the support channel
     - Compliance support (SOC 2 report, HIPAA BAA) and multi-cloud or on-prem deployment options are listed under Enterprise
     - Only a single deployment region is listed for the Community tier
+    - Cloud PDP has per-IP rate limits despite unlimited authorization volume
+    - Free card requirement and MAU/object over-limit behavior are not confirmed
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
   - Adding role-based access control to a SaaS product
   - Giving each customer tenant its own roles and users
@@ -72,18 +74,23 @@ avoidIf:
   - you need on-premises deployment without a paid plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://permit.io'
 docsUrl: 'https://docs.permit.io'
 sourceUrls:
+  - 'https://docs.permit.io/concepts/pdp/cloud-pdp-capabilities/'
   - 'https://permit.io/pricing'
   - 'https://docs.permit.io'
   - 'https://docs.permit.io/quickstart/'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://permit.io/pricing'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified Community card and object enforcement, and separated unlimited query volume from managed-PDP rate and policy-model limits."
 ---
 You set up roles, resources, and users in the Permit dashboard, or through the API and Terraform. Your backend then calls an SDK function such as `permit.check()` to ask if a user may do an action. It suits developers who want to stop hand-writing permission code.
 
@@ -95,12 +102,12 @@ Authorization queries, projects, and PDP instances have no limit. The PDP is the
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you pass a Community limit, such as 1,000 monthly active users. It lists the Enterprise plan as the step above, with no limits on active users and tenants. Pricing for that plan is by contact. The pricing page labels Community as free forever and shows no payment step for it. Cloud uptime and the support SLA are listed as best effort.
+The pricing page does not say what happens when you pass a Community limit, such as 1,000 monthly active users. It lists the Enterprise plan as the step above, with no limits on active users and tenants. Pricing for that plan is by contact. Community is free forever, but the reviewed sources do not explicitly confirm its card policy or MAU/object enforcement. Cloud PDP returns HTTP 429 above per-IP rate limits, including 1,000 checks/minute on `/allowed`. Self-hosted Edge PDP has no built-in rate limit.
 
 ## Gotchas
 
-- Many limits count objects you create, not only users. Role assignments, resource instances, and relationship tuples each stop at 2,000.
-- Only a single deployment region is listed for the Community plan.
+- Role assignments, resource instances, and relationship tuples each have a listed allowance of 2,000. The pricing page does not specify enforcement at these object limits.
+- Unlimited authorization queries describe volume. Cloud PDP is rate-limited and supports RBAC/ReBAC; ABAC requires running an Edge PDP.
 - Compliance support, such as the SOC 2 report and HIPAA BAA, and on-prem or multi-cloud deployment are listed under Enterprise. The page does not say which plans include SSO.
 
 ## Alternatives in this atlas
@@ -117,7 +124,7 @@ Yes. The Community plan is free forever and covers up to 1,000 monthly active us
 
 ### Does Permit.io need a credit card?
 
-The pricing page shows no card step for the Community plan. You sign up at app.permit.io with a Google, GitHub, or Microsoft account.
+The reviewed pricing and setup pages do not explicitly confirm whether a card is required for Community. A missing payment step in the guide is not a no-card guarantee.
 
 ### What happens if I go over the Permit.io free limits?
 

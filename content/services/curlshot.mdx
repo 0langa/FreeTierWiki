@@ -2,7 +2,7 @@
 title: CurlShot
 description: >-
   CurlShot is a screenshot API that turns a URL, raw HTML, or Markdown into a
-  PNG, JPEG, WebP, or PDF with one GET request. The free plan gives you 100
+  PNG, JPEG, WebP, or PDF through an HTTP request. The free plan gives you 100
   screenshots a month with no credit card.
 provider: CurlShot
 category: scraping
@@ -43,7 +43,7 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Once the monthly quota is used, the API returns quota_exceeded with status 402
+    - Once the monthly quota and any bonus screenshots are used, the API returns quota_exceeded with status 402
 useCases:
   - Thumbnails and previews of user-submitted links
   - Open Graph images rendered from your own HTML
@@ -70,7 +70,7 @@ avoidIf:
   - you need self-hosting
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-17
+lastUpdated: 2026-10-21
 lastVerified: 2026-10-21
 popularityScore: 3
 usefulnessScore: 6
@@ -82,14 +82,19 @@ sourceUrls:
   - 'https://curlshot.com/docs/usage-and-limits'
   - 'https://curlshot.com/docs/errors'
   - 'https://curlshot.com/docs/authentication'
+  - 'https://curlshot.com/docs/html-and-markdown'
+  - 'https://curlshot.com/docs/guides/ai-agents'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Clarified POST input for HTML and Markdown and bonus screenshots before the quota stop.
   - date: '2026-10-17'
     kind: new
     note: Added to the atlas.
 ---
 
-CurlShot is an HTTP API that renders a web page in a browser and returns an image or a PDF. You call one endpoint with your access key and a URL, or send HTML or Markdown instead of a URL. It suits apps that need link previews, social images, or page captures without running a headless browser.
+CurlShot is an HTTP API that renders a web page in a browser and returns an image or a PDF. Send a URL with a GET request, or POST HTML or Markdown as JSON to the same screenshot endpoint. It suits apps that need link previews, social images, or page captures without running a headless browser.
 
 ## What the free plan gives you
 
@@ -99,7 +104,7 @@ The page says all plans include PNG, JPEG, and WebP images, PDF output, video ca
 
 ## When you hit a limit
 
-The quota counts successful renders per monthly period, starting from the day you signed up. When it is used up, the API answers quota_exceeded with status 402 until the next period or until you move to a larger plan. Overage is only offered on paid plans, is off by default, and stops at a cap you set.
+The quota counts successful renders per monthly period, starting from the day you signed up. Any bonus screenshots, such as referral rewards, are used after the plan allowance. Once both are exhausted, the API answers quota_exceeded with status 402 until the next period or until you move to a larger plan. Overage is only offered on paid plans, is off by default, and stops at a cap you set.
 
 Going past 10 requests a minute returns rate_limited, and a second render while one is running returns concurrency_limit, both with status 429 and a Retry-After header. A free GET /usage call shows what is left.
 
@@ -123,7 +128,7 @@ Yes, for 100 screenshots a month. The pricing page says the free plan needs no c
 
 ### What happens when I use all 100 screenshots?
 
-The API returns quota_exceeded with status 402 until your monthly period resets or you upgrade. The free plan has no overage, so there is no bill.
+Once the allowance and any bonus screenshots are exhausted, the API returns quota_exceeded with status 402 until your monthly period resets or you upgrade. The free plan has no overage, so there is no bill.
 
 ### Can I make PDFs on the free plan?
 

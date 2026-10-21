@@ -21,24 +21,27 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan, free forever: 10 users, 1 Starter Space, and 50 GB of CDN bandwidth per month with no
-    overages.
+    Free forever for testing and learning only: 10 users, 1 Starter Space,
+    100,000 API calls and 50 GB of asset bandwidth per month; no additional usage allowed.
   limits:
-    - 10 users
-    - 1 Starter Space
-    - '50 GB asset bandwidth (CDN) per month, no overages'
+    - 10 users and 2 roles
+    - 1 Starter Space with 2 environments and 25 content types
+    - 10,000 records and 2 locales
+    - 100,000 combined CMA, CPA, and CDA API calls per month
+    - 50 GB asset bandwidth per month
   caveats:
-    - Community support only
-    - More bandwidth and spaces need the Lite or Enterprise plan
+    - Free is exclusively for testing and learning, not commercial use
+    - Additional usage is not allowed; noncompliance can lead to throttling, suspension, or termination
+    - Community support resources; card requirement is not explicitly confirmed on the reviewed pages
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Blog or marketing site CMS
-  - Mobile app content backend
-  - Multi-channel content delivery
+  - Learning content modeling and delivery APIs
+  - Prototyping a headless CMS integration
+  - Testing a small content model before choosing a commercial plan
 quickstartSteps:
   - Sign up for a free Contentful account.
   - Create a new space and define your content model.
@@ -46,23 +49,20 @@ quickstartSteps:
   - Generate an API key for your space.
   - Integrate Contentful API into your app or site.
 whenToUse: >-
-  Use Contentful when you need a flexible, API-driven CMS for websites, apps, or multi-channel
-  content projects.
+  Use Free to learn Contentful or test an API-driven content project within the published quotas.
 whenNotToUse: >-
-  Avoid if you require unlimited users, advanced roles, or need on-premise/self-hosted CMS
-  solutions.
+  Avoid Free for commercial use, which the current usage terms exclude, or when you need more than its user, space, API, or bandwidth allowance.
 bestFor:
-  - content teams
-  - developers
-  - startups
-  - agencies
+  - CMS learning
+  - integration experiments
+  - noncommercial testing
 avoidIf:
-  - need unlimited users
-  - require advanced permissions
-  - prefer self-hosted CMS
+  - commercial production content
+  - more than 100,000 monthly API calls
+  - self-hosted CMS requirements
 difficulty: beginner
-productionReadiness: side-project
-lastUpdated: 2026-10-06
+productionReadiness: prototype
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://www.contentful.com/'
@@ -74,44 +74,49 @@ sourceUrls:
   - 'https://www.contentful.com/developers/docs/references/content-management-api/'
 featured: false
 pricingUrl: 'https://www.contentful.com/pricing/'
-lastVerified: 2026-10-06
+lastVerified: 2026-10-21
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Added the current testing-only, noncommercial restriction, combined 100,000 API-call allowance, Starter Space limits, and explicit excess-usage policy."
 ---
-Contentful is a headless CMS. You model content in a web app and read it through APIs. The notes below come from the entry data, because the Contentful site could not be read for this review.
+
+Contentful is a headless CMS: you model content in its web editor and deliver it to applications through APIs. Its Free plan is a place to learn and test the product. The current usage terms explicitly exclude commercial use, so do not choose it as free hosting for a business website or production marketing project.
 
 ## What the free plan gives you
 
-The Free plan is described as free forever, with no credit card needed. It includes 10 users and 1 Starter Space. It also includes 50 GB of asset bandwidth through the CDN each month, with no overages. A space is the container that holds your content model, entries, and assets, so the Starter Space is where one small project lives.
+The pricing page lists Free at $0, free forever, with 10 users, 2 roles, and 2 locales. It includes 1 Starter Space. That space provides 25 content types, 2 environments, and 10,000 records, which gives you a bounded place to experiment with content models and publishing.
 
-Support on the Free plan comes from the community only. The entry lists the Lite and Enterprise plans as the way to get more bandwidth and more spaces. The limits listed here are the ones we could not re-check against the Contentful pricing page, so confirm them there before you plan around them.
+Monthly utility allowances are 100,000 API calls and 50 GB of asset bandwidth. The API allowance combines calls to the Content Management API, Content Preview API, and Content Delivery API; these are not three separate allowances. Asset delivery consumes bandwidth independently of the request count. Community support resources are available on Free.
 
 ## When you hit a limit
 
-The Contentful pricing page could not be read for this review, so this section follows the entry data only. The entry says the Free plan has a hard bandwidth cap with no overages. In plain terms, you should not get a surprise bill from asset bandwidth on the Free plan, because there is no card on file and no overage rate.
+The official usage-limits article, updated August 14, 2026, says additional usage is not allowed on Free. It also says Contentful can throttle, suspend, or terminate services for noncompliance. It does not promise one particular endpoint response or a precise restoration time after the allowance is exhausted, so do not assume assets continue serving without interruption.
 
-What happens at the cap, for example whether assets stop loading until the month resets, is not confirmed here. If you need more than 50 GB of CDN bandwidth, or more than 1 Starter Space, the entry says to look at the Lite or Enterprise plan.
+Paid plans have different utility allowances and billing terms. The paid overage policy is not permission to exceed Free quotas. If your test is becoming a commercial project, choose an appropriate paid plan before launch rather than treating Free as a commercial production tier. The reviewed pricing and usage pages do not explicitly confirm Free's card requirement.
 
 ## Gotchas
 
-- Community support only on the Free plan, so plan to solve problems with the docs and community forums.
-- The Free plan has 1 Starter Space, so a second project likely needs a paid plan.
-- The pricing page and docs could not be read for this review, so check the live Contentful pages before you rely on any number here.
+- Free is exclusively for testing and learning. The commercial-use restriction matters even when your traffic is comfortably below the numerical limits.
+- Content Management, Preview, and Delivery API calls share the monthly request allowance. Development scripts and preview traffic can consume it too.
+- A Starter Space has its own model, record, locale, and environment limits. The user allowance is not the only capacity to check.
 
 ## Alternatives in this atlas
 
-- [Hygraph](/services/hygraph/): when you want another headless CMS with a free plan.
-- [DatoCMS](/services/datocms/): when you want a headless CMS where a hard stop replaces overage billing.
-- [Sanity](/services/sanity/): when you want a headless CMS with a free plan and hard caps.
+- [Hygraph](/services/hygraph/): another headless CMS whose current free-plan conditions you can compare.
+- [DatoCMS](/services/datocms/): another hosted content platform with a different set of limits.
+- [Sanity](/services/sanity/): an API-based content platform with its own free allowance and billing policies.
 
 ## Questions people ask
 
 ### Is Contentful free?
 
-Yes. The Free plan is free forever, with 10 users, 1 Starter Space, and 50 GB of CDN bandwidth each month.
+Yes, for testing and learning. Free includes 10 users, 1 Starter Space, 100,000 monthly API calls, and 50 GB of monthly asset bandwidth.
 
-### Does Contentful charge overages on the free plan?
+### Can I use Contentful Free commercially?
 
-The entry says no. It lists the bandwidth as a hard cap with no overages, but the pricing page could not be read to confirm that.
+No. The current usage-limits article explicitly excludes commercial use on Free.
 
-### Does Contentful need a credit card?
+### Does Contentful bill Free overages?
 
-No. The entry says the Free plan does not need a credit card.
+Additional usage is not allowed on Free. The provider reserves throttling, suspension, or termination for noncompliance; it does not publish a guaranteed single cap response.

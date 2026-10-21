@@ -25,18 +25,20 @@ tags:
   - open source
 pricingModel: free
 freeTierDetails:
-  summary: Create hosted mock APIs with public URLs on Mocko Cloud for free; an open-source version runs locally.
+  summary: >-
+    Create hosted mock APIs with public URLs on Mocko Cloud for free; an
+    open-source version runs locally.
   limits:
     - Hosted projects with a public host at slug.free.mockoapp.net
     - Open-source CLI for local use
     - Team sharing by GitHub username
   caveats:
-    - 'The Mocko pages show no published usage limits or pricing for Mocko Cloud'
+    - The Mocko pages show no published usage limits or pricing for Mocko Cloud
     - Unmatched requests return not found unless you set a proxy URL
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Standing in for an API that is not finished yet
   - Forcing failures and edge cases in integration tests
@@ -44,16 +46,21 @@ useCases:
   - Sharing a mock project with teammates
 quickstartSteps:
   - 'Hosted route: sign in to Mocko Cloud at app.mocko.dev with GitHub.'
-  - Create a project and pick a slug of at least four characters; it becomes your public host `slug.free.mockoapp.net`.
+  - >-
+    Create a project and pick a slug of at least four characters; it becomes
+    your public host `slug.free.mockoapp.net`.
   - Add a mock for a path such as `/hello` and save it. It is live at once.
-  - Call it with `curl https://your-slug.free.mockoapp.net/hello`.
-  - 'Local route: install Node.js, run `npm install -g @mocko/cli`, start it with `mocko`, then call `http://localhost:8080/hello`.'
+  - 'Call it with `curl https://your-slug.free.mockoapp.net/hello`.'
+  - >-
+    Local route: install Node.js 20.19 or newer and @mocko/cli with npm, run
+    mocko, create /hello in the UI at localhost:6625, then call
+    localhost:8080/hello.
 whenToUse: >-
   Use it for a hosted mock with a public URL, or to run the open-source version
   on your own machine, with an optional proxy to a real backend.
 whenNotToUse: >-
-  Avoid it if you need written free-tier limits to plan around, since
-  Mocko publishes none.
+  Avoid it if you need written free-tier limits to plan around, since Mocko
+  publishes none.
 bestFor:
   - front-end developers
   - QA engineers
@@ -63,7 +70,7 @@ avoidIf:
   - a hosted mock that needs a written uptime or traffic guarantee
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
+lastUpdated: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://mocko.dev/'
@@ -76,7 +83,13 @@ sourceUrls:
   - 'https://mocko.dev/docs/cloud/team'
 featured: false
 pricingUrl: 'https://mocko.dev/'
-lastVerified: 2026-10-18
+lastVerified: '2026-10-21'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Updated current CLI prerequisites and UI setup and qualified unpublished
+      cloud card and quota policies.
 ---
 You create mocks in the Mocko web app or as files, and clients call the host you get. You can also run the open-source command line tool on your machine. It suits developers who want a mock that can pass unmatched requests through to a real backend.
 
@@ -88,7 +101,7 @@ You can also install the open-source command line tool with npm and run mocks lo
 
 ## When you hit a limit
 
-The Mocko pages give no usage limits, quotas, or prices for Mocko Cloud, so they do not say what happens at a limit. The home page links to a free way to create mocks, and nothing states a card requirement. Without a proxy URL, a request that matches no mock just returns a not-found response. For hard guarantees, run the open-source version yourself.
+The Mocko pages give no usage limits, quotas, or prices for Mocko Cloud, so they do not say what happens at a limit. The home page links to free hosted mocks, but the reviewed pages do not explicitly establish the cloud account card policy or quota enforcement. Without a proxy URL, a request that matches no mock just returns a not-found response. For hard guarantees, run the open-source version yourself.
 
 ## Gotchas
 
@@ -110,7 +123,7 @@ The home page offers a free way to create mock APIs with public URLs, and an ope
 
 ### Does Mocko need a credit card?
 
-The Mocko pages do not mention a card. Sign-in on the cloud app uses a GitHub account.
+The reviewed pages do not explicitly state the cloud card policy. GitHub sign-in instructions alone do not prove no card is required.
 
 ### Does Mocko have a local version?
 

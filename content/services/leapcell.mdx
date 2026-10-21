@@ -28,7 +28,7 @@ freeTierDetails:
     database.
   limits:
     - 20 projects
-    - '100,000 invocations per month'
+    - 100,000 invocations per month
     - 3 GB-hours serverless compute per month
     - 2 GB networking per month
     - 1 free PostgreSQL database
@@ -38,10 +38,10 @@ freeTierDetails:
     - Free plan keeps deployment logs and metrics for 7 days; function logs for 3 days
     - Fair use policy bans multiple accounts used to dodge the free limits
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
   - Host a small web app or API without running a server
   - Deploy a FastAPI, Flask, Express, or Next.js project from GitHub
@@ -70,20 +70,25 @@ avoidIf:
   - proxies or VPN services
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://leapcell.io'
 docsUrl: 'https://docs.leapcell.io'
 sourceUrls:
-  - 'https://leapcell.io/pricing'
-  - 'https://docs.leapcell.io/limit'
-  - 'https://docs.leapcell.io/overview'
-  - 'https://docs.leapcell.io/fair-use'
+  - https://leapcell.io/pricing
+  - https://docs.leapcell.io/limit
+  - https://docs.leapcell.io/overview
+  - https://docs.leapcell.io/fair-use
 pricingUrl: 'https://leapcell.io/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Added the published HTTP 429 limit response, qualified conflicting project limits and
+      unpublished card policy.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -94,11 +99,11 @@ You give Leapcell a Git repository plus a build command and a start command. It 
 
 The Hobby plan costs $0. It includes 20 projects, 100,000 serverless invocations per month, and 3 GB-hours of serverless compute. You also get 2 GB of outbound networking and 10 GB of inbound large payloads each month, plus 1 free PostgreSQL database that runs on shared infrastructure.
 
-Builds get 60 minutes per month, and one deployment can build for up to 10 minutes. A single request can run for 15 minutes. The service can run up to 100 concurrent executions. Deployment logs and metrics are kept for 7 days, while the pricing page lists 3 days of function log retention. You can add up to 10 custom domains.
+Builds get 60 minutes per month, and one deployment can build for up to 10 minutes. A single request can run for 15 minutes. The service can run up to 100 concurrent executions. Deployment logs and metrics are kept for 7 days, while the pricing page lists 3 days of function log retention. You can add up to 10 custom domains. The limits docs still say unlimited projects, conflicting with the current pricing table’s 20-project Hobby allowance.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a Hobby account passes its monthly quotas. The paid plans list pay-as-you-go prices after their included amounts, but the Hobby column lists no such price.
+The pricing FAQ says a limit produces an HTTP 429 status and an exception message. It does not distinguish every Hobby monthly allowance from per-request limits; paid plans list pay-as-you-go prices, while Hobby lists no excess-use rate.
 
 Some limits are hard caps on a single action. A deployment that builds for more than 10 minutes stops, and you can create at most 100 deployments a day. The fair use page also lets Leapcell stop a service without notice if it judges the use unfair.
 
@@ -122,7 +127,7 @@ Yes. The Hobby plan costs $0 and includes 20 projects, 100,000 invocations per m
 
 ### What happens when I go over the Leapcell free limits?
 
-The pricing page does not say what happens on Hobby. Paid plans list per-use prices after their included amounts, and the Hobby plan lists none.
+The FAQ says limits return HTTP 429 with an exception message, without distinguishing each monthly quota. Paid plans list excess-use rates; Hobby lists none.
 
 ### Does Leapcell have a free database?
 

@@ -23,7 +23,7 @@ freeTierDetails:
   summary: >-
     The public Nominatim API is free under an acceptable use policy: an
     absolute maximum of 1 request per second, a valid User-Agent or Referer,
-    attribution, and no heavy, bulk, or autocomplete use.
+    attribution, no heavy or autocomplete use, and tightly restricted bulk work.
   limits:
     - Absolute maximum of 1 request per second per application
     - Scripts running longer than a day or on a schedule are limited to 4 requests per minute
@@ -35,7 +35,7 @@ freeTierDetails:
   resetPeriod: continuous
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
   billingRiskNotes:
     - There is no billing; breaking the policy can get your application banned
@@ -52,7 +52,8 @@ whenToUse: >-
   low-traffic app when you have read and can follow its usage policy.
 whenNotToUse: >-
   Avoid it for autocomplete, regular bulk geocoding, commercial services that
-  depend on it, or anything built by a no-code or vibe-coding platform.
+  depend on it, or generic geocoding integrations offered by no-code or
+  vibe-coding platforms without an informed developer taking responsibility.
 bestFor:
   - occasional user-triggered geocoding
   - open data projects
@@ -61,8 +62,8 @@ avoidIf:
   - bulk or scheduled geocoding
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-12
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://nominatim.openstreetmap.org'
@@ -72,6 +73,9 @@ sourceUrls:
 pricingUrl: 'https://operations.osmfoundation.org/policies/nominatim/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Scoped the platform restriction to generic geocoding integrations and distinguished policy blocking from a guaranteed automatic cap.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -90,7 +94,7 @@ The policy is enforced by blocking, not billing. Clients that send the same quer
 ## Gotchas
 
 - Autocomplete search is strictly forbidden, so you cannot build search-as-you-type on the public server.
-- Periodic requests from apps count as bulk geocoding and are strongly discouraged.
+- Periodic requests count as bulk and are discouraged. Do not submit personal data or confidential material to the public API.
 - The public API must not be offered through no-code, low-code, or vibe-coding platforms as a generic geocoding service.
 
 ## Alternatives in this atlas

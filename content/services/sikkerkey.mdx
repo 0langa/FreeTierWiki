@@ -36,16 +36,16 @@ freeTierDetails:
     - 1 month audit log retention
     - 20 webhook deliveries/day
   caveats:
-    - Machines above the 10 included are billed at $5 each per month; the page says you are never blocked from adding one
+    - The FAQ conflicts on blocking new machines at the limit versus permitting billed extra machines at $5/month
     - Organizations with members and vault roles need the paid Teams plan ($29/month, 25 machines)
     - AI identities and people who sign in to the dashboard do not count toward the machine quota
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
   billingRiskNotes:
     - Each machine that can read secrets counts, including ephemeral CI machines while they are live
-    - The pricing FAQ says additional machines bill at the plan rate and you are never blocked from adding one
+    - The FAQ gives conflicting new-machine blocking guidance; card requirements are not explicit
 useCases:
   - Storing API keys and database passwords for servers and services
   - Giving CI runners short-lived access to secrets
@@ -73,8 +73,8 @@ avoidIf:
   - you cannot accept per-machine billing above 10 machines
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://sikkerkey.com'
@@ -85,6 +85,10 @@ sourceUrls:
   - 'https://docs.sikkerkey.com/docs/quickstart'
 pricingUrl: 'https://sikkerkey.com/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Exposed contradictory machine-limit guidance and possible per-machine charges instead of promising unlimited access at the limit."
 ---
 You manage projects and secrets in a web dashboard. Machines read their secrets with an SDK or a single-binary CLI, and an MCP server lets AI clients work with the vault. It suits solo developers and small teams.
 
@@ -96,7 +100,7 @@ Secrets, projects, reads, and rotations are unlimited on every plan. You also ge
 
 ## When you hit a limit
 
-Going over 10 machines costs money, not access. Each additional machine on the Developer plan is billed at $5 per month, and the FAQ says you are never blocked from adding one. Machines that cannot read, such as disabled or expired ones, do not count. AI identities and dashboard users do not count either. For the paid plans, a failed payment opens a seven-day window before the plan moves back to Developer.
+The FAQ gives conflicting answers: one says the limit stops new machines while existing machines keep running; another says extra machines are never blocked and bill at $5 per month each on Developer. Confirm the behavior and payment requirement before adding an eleventh machine. Machines that cannot read, such as disabled or expired ones, do not count. AI identities and dashboard users do not count either. For the paid plans, a failed payment opens a seven-day window before the plan moves back to Developer.
 
 ## Gotchas
 
@@ -118,7 +122,7 @@ Yes. The Developer plan is permanent, with 10 machines, unlimited secrets and re
 
 ### What happens if I go over 10 machines on SikkerKey?
 
-Additional machines bill at $5 per month each on the Developer plan. The pricing FAQ says you are never blocked from adding one.
+The FAQ lists $5 per month for each extra Developer machine, but conflicts on whether adding one is blocked at the limit. Confirm the policy before exceeding 10.
 
 ### Does SikkerKey charge for reads or rotations?
 

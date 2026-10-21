@@ -35,6 +35,7 @@ freeTierDetails:
     - Query Agent at 1,000 requests per month
     - AWS only, with limited regions
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Weaviate suspends a free cluster after 7 days of inactivity and permanently deletes it after 30 days of total inactivity
     - No backups, replication, or high availability on the Free plan
     - Free clusters use the Cost Optimized (HFresh) index profile and you cannot change it
@@ -42,7 +43,7 @@ freeTierDetails:
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - A vector store for RAG prototypes
@@ -53,7 +54,7 @@ quickstartSteps:
   - Create an account in the Weaviate Cloud console.
   - Click the plus button next to CLUSTER in the sidebar, select Free, and choose a name.
   - Optionally open the advanced settings to pick an AWS region, then click Create cluster.
-  - Copy the REST endpoint URL and the admin API key from the cluster's API keys tab.
+  - Copy the REST endpoint URL and create or copy an API key with the roles your app needs; new clusters use RBAC by default.
   - Connect with a Weaviate client library using the endpoint and key, create a collection, and import data.
 whenToUse: >-
   Use it for small vector search projects and RAG prototypes that fit in 100,000
@@ -72,8 +73,8 @@ avoidIf:
   - you need backups
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://weaviate.io'
@@ -85,6 +86,12 @@ sourceUrls:
 pricingUrl: 'https://weaviate.io/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Updated API-key setup for current clusters with role-based access control."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.

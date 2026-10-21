@@ -35,17 +35,19 @@ freeTierDetails:
     - 1,000 email/email-JSON notification deliveries/month
     - Deliveries to SQS and Lambda carry no delivery charge
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - SMS has no free allowance; it is pay as you go
     - Free usage is calculated each month across all regions and does not accumulate
-    - Each 64KB chunk of a payload counts as one request or delivery
+    - Standard topics count each 64 KB chunk as one request; FIFO uses separate message/payload pricing
     - Data transfer charges can apply, including from SNS to SQS and Lambda
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - >-
       You pay as you go for usage past the free amounts, and SMS has no free
       allowance.
@@ -80,8 +82,8 @@ avoidIf:
   - you send very large payloads often
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-11
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/sns/'
@@ -96,6 +98,9 @@ sourceUrls:
 featured: false
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped service-free billing to account plans, documented suspension/recovery and optional project controls."
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -110,9 +115,9 @@ Deliveries have their own free amounts: 1 million mobile push notifications, 100
 
 ## When you hit a limit
 
-The pricing page lists no hard stop at the free amounts. You pay as you go for usage past them, and the charge appears on your bill at the end of the month. The pricing page shows the rates in a calculator, so check the live page for the amount.
+On Paid accounts without optional project controls, excess service usage incurs charges after applicable credits, and the charge appears on your bill at the end of the month. The pricing page shows the rates in a calculator, so check the live page for the amount.
 
-SMS has no free allowance at all. Text messages are billed by destination country. Payload size also matters. Each 64KB chunk counts as one request, so a publish with a 1 MiB payload counts as 16 requests. Data transfer charges apply between SNS and SQS or Lambda.
+SMS has no free allowance at all. Text messages are billed by destination country. For Standard topics, each 64 KB chunk counts as one request, so a publish with a 1 MiB payload counts as 16 requests. Data transfer charges apply between SNS and SQS or Lambda.
 
 ## Gotchas
 
@@ -138,4 +143,4 @@ No. SMS has no free allowance. It is billed by destination country, and some cou
 
 ### What happens when I go over the SNS free tier?
 
-SNS pricing is pay as you go, so you are charged for the extra usage at the end of the month. The pricing page lists the per-unit rates for the extra requests and deliveries.
+Free accounts consume credits beyond service allowances; Paid accounts incur charges, subject to optional project limits. The pricing page lists the per-unit rates for the extra requests and deliveries.

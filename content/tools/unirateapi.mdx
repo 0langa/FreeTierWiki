@@ -23,21 +23,23 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier is free forever with 200 requests/day (30 requests/minute),
-    real-time fiat and crypto rates, no credit card required.
+    Free tier is free forever with 200 requests/day (30 requests/minute), real-time fiat and crypto
+    rates, no credit card required.
   limits:
     - 200 requests/day (6,000/month)
     - 30 requests/minute
     - 170+ fiat currencies and 500+ cryptocurrencies (real-time rates)
     - EU VAT rates included
   caveats:
-    - Historical data, precious metals, commodity prices, and VAT number validation require the paid Pro plan ($9/month)
+    - >-
+      Historical data, precious metals, commodity prices, and VAT number validation require the paid
+      Pro plan ($9/month)
     - The pricing page says the free tier has no historical data access
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
   - "Show prices in a visitor's currency"
   - "Build a currency converter or calculator"
@@ -64,24 +66,30 @@ avoidIf:
   - "priority support"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://unirateapi.com'
 docsUrl: 'https://unirateapi.com/apidocs/'
 pricingUrl: 'https://unirateapi.com/pricing'
 sourceUrls:
-  - 'https://unirateapi.com'
-  - 'https://unirateapi.com/pricing'
-  - 'https://unirateapi.com/docs/python'
+  - https://unirateapi.com
+  - https://unirateapi.com/pricing
+  - https://unirateapi.com/docs/python
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Recorded conflicting historical-data and currency-count claims and removed an inferred no-bill
+      assurance.
 ---
 You call UniRateAPI with a GET request and an API key from any language. The docs also show an official Python client that you install with pip. It suits developers who add currency conversion to apps, shops, and dashboards.
 
 ## What the free plan gives you
 
-The Free tier costs $0 a month, lasts forever, and needs no credit card. The site calls it good for testing and personal projects. You get 200 requests a day, which the pricing page puts at 6,000 a month, with a limit of 30 requests per minute. The pricing page lists 170+ fiat currencies, and the home page says the free tier also covers cryptocurrencies, with more than 870 currencies in total.
+The Free tier costs $0 a month, lasts forever, and needs no credit card. The site calls it good for testing and personal projects. You get 200 requests a day, which the pricing page puts at 6,000 a month, with a limit of 30 requests per minute. The pricing page lists 170+ fiat currencies, and both pricing and the home page include 500+ cryptocurrencies. The homepage’s headline says 593 currencies, while another section says 870+, so the exact current total is inconsistent.
 
 The home page says EU VAT rates are included on the free tier. The pricing page says the free tier has no historical data access, so treat history as a Pro feature.
 
@@ -89,13 +97,13 @@ The home page says EU VAT rates are included on the free tier. The pricing page 
 
 If you pass the daily limit, API requests return a 429 error. The error includes information about when your limit resets, which is midnight UTC. You can upgrade to Pro for higher limits.
 
-Because the free tier needs no card, nothing is billed. Pro costs $9 a month and gives 25,000 requests a day, historical data from 1999, and time series data.
+The Free plan lists no excess-use rate; requests stop at the daily cap. Pro costs $9 a month and gives 25,000 requests a day, historical data from 1999, and time series data.
 
 ## Gotchas
 
-- Historical rates, precious metals, energy and farm commodity prices, and VAT number validation need the paid Pro plan.
+- The dedicated pricing page puts historical rates on Pro; Free history conflicts with the homepage. Precious metals, commodity prices and VAT number validation are consistently paid features.
 - The per-minute limit of 30 requests applies on top of the daily limit, so a burst can fail before the day ends.
-- The home page and pricing page word the feature lists differently. Check the pricing page before you rely on a feature.
+- The homepage includes historical forex in its Free card, while the dedicated pricing page excludes history. Treat historical access as unresolved and confirm entitlement before relying on it.
 
 ## Alternatives in this atlas
 
@@ -114,4 +122,4 @@ Requests return a 429 error until the limit resets at midnight UTC. You can upgr
 
 ### Does UniRateAPI give historical exchange rates for free?
 
-No, according to the pricing page. Historical data back to 1999 is a Pro feature at $9 a month.
+The dedicated pricing page says no and lists history on Pro at $9 a month. The homepage’s Free card conflicts with that description, so confirm account entitlement.

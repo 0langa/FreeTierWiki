@@ -33,13 +33,14 @@ freeTierDetails:
     - '65,535 metrics/day rate limit'
     - 'Bare Metal runners: 1 concurrent job, 5 minute job timeout'
   caveats:
+    - "Free runner jobs stop after 5 minutes; the daily metric-limit response is not published"
     - Private projects require the Pro plan ($100/month)
     - Bare Metal runners without an account are limited to a 1-minute timeout
     - Free jobs queue behind paid jobs when runners are busy
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: none
 useCases:
   - Catch performance regressions in CI before they ship
@@ -69,8 +70,8 @@ avoidIf:
   - results that must stay confidential
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://bencher.dev/'
@@ -81,6 +82,13 @@ sourceUrls:
   - 'https://bencher.dev/docs'
   - 'https://bencher.dev/docs/tutorial/quick-start/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Distinguished the enforced runner timeout from unpublished daily metric-limit behavior."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You run the `bencher` command line tool in CI or on your machine, and it sends benchmark results to the Bencher web app, where you see graphs and alerts. It suits open source projects that want to catch slow-downs early.
 
@@ -94,7 +102,7 @@ Bare Metal runners are included. On Free you get one concurrent job and a 5 minu
 
 The pricing page says it does not describe what happens when a Free project passes its daily metric limit.
 
-The Free plan lists a 5 minute job timeout for Bare Metal runners; the page does not say more about what happens past it. Private projects need the Pro plan, which costs $100 per month for up to 250 active series. Pro has a 1-month free trial that needs a credit card.
+Free Bare Metal jobs have a 5-minute timeout; that known runtime boundary is separate from the unpublished daily metric-quota response. Private projects need the Pro plan, which costs $100 per month for up to 250 active series. Pro has a 1-month free trial that needs a credit card.
 
 ## Gotchas
 

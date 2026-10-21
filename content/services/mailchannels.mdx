@@ -33,7 +33,7 @@ freeTierDetails:
     - Unused emails do not roll over to the next month
     - There is no tier between the free plan and the 10,000 emails a month paid plan
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -43,7 +43,7 @@ useCases:
   - Testing an email integration before choosing a paid volume
 quickstartSteps:
   - Sign up for the Email API from the MailChannels pricing page and choose the Free plan.
-  - Read the Email API documentation linked from the pricing page.
+  - Generate an API key with api scope and configure a Domain Lockdown DNS TXT record for every sending domain, following the official docs.
   - Send a test message with an HTTP request and watch your daily count.
 whenToUse: >-
   Use MailChannels when an app or prototype sends fewer than 100 transactional
@@ -60,8 +60,8 @@ avoidIf:
   - large recipient lists per message
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.mailchannels.com/'
@@ -71,6 +71,9 @@ sourceUrls:
 pricingUrl: 'https://www.mailchannels.com/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added verified domain and setup requirements and qualified Free card and daily-reset policy.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -80,19 +83,19 @@ MailChannels sells two products: Outbound Filtering for hosting providers, and a
 
 ## What the free plan gives you
 
-The Email API's Free plan is aimed at developers testing, prototyping, or running small projects. It sends up to 3,000 emails a month with no overages, at a rate of 100 emails a day. The FAQ describes it as a free developer plan that includes 100 emails per day.
+The Email API's Free plan is aimed at developers testing, prototyping, or running small projects. It sends up to 3,000 emails a month with no overages, at a rate of 100 emails a day. It includes REST and SMTP integration, up to 3 domains, 30-day transaction logs, and community support.
 
 Usage is counted per recipient: one message sent to 100 recipients counts as 100 sends. A send includes any attempted delivery, even one that is deferred, rejected, or marked as spam by the receiving provider. Your allocation resets at the start of each billing cycle, and unused emails do not roll over.
 
 ## When you hit a limit
 
-MailChannels pauses email delivery when you exceed your plan's limit. Delivery resumes at the start of your next billing cycle, unless you switch to a higher plan, in which case the higher limit applies from that date.
+MailChannels pauses delivery when you exceed the plan limit. Its FAQ says delivery resumes next billing cycle or after a prorated upgrade; it does not separately explain daily-cap reset timing. The Free card requirement is also unpublished.
 
 So the free plan stops rather than charging you. The FAQ says there is no tier between the free developer plan and the paid plan for 10,000 emails a month, and the pricing overview says the Email API is volume-based from $10 a month after the free amount.
 
 ## Gotchas
 
-- The daily cap of 100 emails matters more than the monthly figure: a burst of sign-ups can pause sending for the rest of the cycle.
+- The 100-email daily cap can interrupt a burst even with monthly allowance left; the FAQ does not specify daily recovery timing.
 - Each recipient counts as a send, so a message to a group uses several sends.
 - Outbound Filtering is a different product for hosting providers, starting at $99.99 a month; it is not the free Email API.
 
@@ -110,7 +113,7 @@ Yes. The Email API has a free developer plan that includes 100 emails per day, u
 
 ### What happens when I go over the MailChannels free limit?
 
-Delivery pauses. It resumes at the start of the next billing cycle unless you move to a higher plan.
+Delivery pauses. The FAQ describes recovery next billing cycle or on upgrade, but does not separately specify recovery from the daily cap.
 
 ### Do unused free emails roll over?
 

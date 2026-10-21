@@ -22,12 +22,14 @@ Free plans, credits, and trials have different tradeoffs. Each entry labels its 
 
 | Billing risk | What it means |
 | --- | --- |
-| **None** | Usage stops or throttles at the limit, or the service is unlimited. |
+| **None** | No automatic usage charges for the listed free offer. Limits and enforcement are shown separately. |
 | **Low** | Unexpected charges are unlikely; read the entry's caveats. |
 | **Medium** | Usage above the free allowance can be billed to a card on file. |
 | **High** | Usage is billed from the start, or there is no current free offer. |
 
-A **checked date** records a comparison with official sources, or a later automated check confirming that the tracked pricing text is unchanged since review. Entries become stale after 180 days. An **imported date** means the entry has not been re-checked; use it as a starting point for research. Changed and ended offers are marked separately.
+A **checked date** records when the entry was compared with official sources. The source scanner does not advance this date automatically. Entries become stale after 180 days. An **imported date** means the entry has not been re-checked; use it as a starting point for research. Changed and ended offers are marked separately.
+
+**Not confirmed** means the provider does not clearly publish a card or cap policy, or its official sources conflict. These entries are excluded from filters that promise a confirmed no-card plan or hard cap. A recent checked date does not resolve an unpublished policy; read the caveats.
 
 [Read the full label guide →](https://freetier.wiki/about/)
 
@@ -35,12 +37,14 @@ A **checked date** records a comparison with official sources, or a later automa
 
 Pricing changes are part of the project's ongoing maintenance:
 
-1. A weekly workflow fetches official pricing pages and compares their pricing text with the previous scan.
-2. Changed pages are flagged in a GitHub issue for review. A text change is a reason to investigate; it does not establish that a plan changed.
+1. A weekly workflow fetches official pricing pages and compares readable text and structural fingerprints with the previous scan.
+2. Changed, unreadable, and noisy pages enter a complete follow-up queue. A text change is a reason to investigate; it does not establish that a plan changed.
 3. Reviews compare entries with provider pricing pages and documentation, then propose corrections through pull requests.
-4. Reviewed changes update the entry's sources, verification date, and changelog where appropriate. Unresolved claims keep their previous verification dates.
+4. Reviews correct supported facts and explicitly qualify unpublished or conflicting policies, then update sources, dates, and the changelog where appropriate. Entries that cannot be compared keep their previous checked dates.
 
-Unchanged pricing text can advance an already-reviewed entry's checked date. Blocked or unreadable pages cannot confirm an entry. The [maintenance guide](docs/content-maintenance.md) explains the workflow and its limitations; [review notes](docs/reviews/) record previous investigations.
+Checked dates advance after entry reviews. An unchanged static page cannot establish that a browser-rendered offer stayed the same. The [maintenance guide](docs/content-maintenance.md) explains the workflow; [review notes](docs/reviews/) record sources and findings.
+
+The [21 October 2026 catalog review](docs/reviews/2026-10-21-full-reset.md) covers all 945 entries, including corrections, qualified policies and removed listings.
 
 ## Help improve an entry
 

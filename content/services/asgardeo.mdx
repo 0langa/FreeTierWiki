@@ -40,13 +40,13 @@ freeTierDetails:
   caveats:
     - 'No card required, and the free tier has no time limit'
     - 'Includes a complimentary 30-day trial of the Growth tier, also cardless'
-    - 'Usage above the Free quotas is deactivated, not deleted'
+    - 'After the Growth trial ends, resources exceeding Free quotas are deactivated, not deleted'
     - 'The docs say Asgardeo is now WSO2 Identity Platform, so some names still show the old brand'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - 'Sign-in and SSO for a React, Next.js, Angular, or Vue app'
   - 'OAuth2, OIDC, and SAML for apps and APIs'
@@ -79,19 +79,25 @@ avoidIf:
   - more than 5 applications on free
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: '2026-10-19'
-lastUpdated: '2026-10-09'
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://wso2.com/asgardeo'
 docsUrl: 'https://wso2.com/asgardeo/docs/'
-pricingUrl: 'https://wso2.com/asgardeo/pricing/'
+pricingUrl: 'https://wso2.com/identity-platform/pricing/'
 sourceUrls:
+  - 'https://wso2.com/identity-platform/docs/quick-starts/react/'
+  - 'https://wso2.com/identity-platform/pricing/'
   - 'https://wso2.com/asgardeo/pricing/'
   - 'https://wso2.com/asgardeo/docs/'
   - 'https://wso2.com/asgardeo/docs/get-started/create-identity-platform-account/'
   - 'https://wso2.com/asgardeo/docs/quick-starts/react/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Scoped excess-resource deactivation to the documented trial downgrade instead of claiming a universal Free hard cap."
 ---
 You register applications in the Asgardeo console, then add an SDK such as the React one or use standard OAuth2, OIDC, or SAML endpoints. It suits developers who want hosted sign-in and SSO with a small free tier.
 
@@ -103,7 +109,7 @@ Free caps sessions at one day and keeps audit logs for seven days. Users who nev
 
 ## When you hit a limit
 
-On the Free plan, usage above the quotas is deactivated rather than removed. The pricing page says your data and resources are kept and nothing is deleted. So the Free plan acts as a hard cap and does not bill you.
+When the Growth trial ends, the account moves to Free. The trial-end FAQ says resources above Free quotas are deactivated, not deleted; reduce usage to Free quotas or upgrade to reactivate them. This describes the downgrade, rather than establishing what happens when an existing Free account later exhausts a monthly allowance. That ongoing Free enforcement remains unconfirmed.
 
 To go further, you move to the Growth plan. For paid plans, the pricing FAQ says nothing stops working when you go over a limit. Extra usage is billed per unit on your next invoice, and Growth bills are capped at $2,000 a month. Check your M2M token use, since only token issuance counts.
 
@@ -131,4 +137,4 @@ No. The pricing page says no card is needed for the Free plan, and the Growth tr
 
 ### What happens when I go over the Asgardeo free limits?
 
-Usage above the Free quotas is deactivated, not deleted. Your data and resources are kept, and you can move to Growth for more.
+The trial-end FAQ says excess resources are deactivated when Growth trial access downgrades to Free. It does not explicitly settle ongoing Free monthly-cap enforcement; confirm that separately.

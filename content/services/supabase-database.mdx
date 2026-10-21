@@ -41,7 +41,7 @@ freeTierDetails:
     - Unlimited API requests
   caveats:
     - Free projects are paused after 1 week of inactivity
-    - The pricing page lists daily backups under Pro, not Free; the database docs say daily backups cover every project, so check the dashboard
+    - Dedicated backup docs limit automatic daily backups to paid plans; export Free database dumps yourself
     - Continually exceeding the Free quota can lead to service restrictions such as read-only databases
     - Community support only on Free
   resetPeriod: monthly
@@ -77,25 +77,31 @@ avoidIf:
   - high-availability requirements
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/'
 docsUrl: 'https://supabase.com/docs/guides/database'
 sourceUrls:
+  - 'https://supabase.com/docs/guides/platform/backups'
+  - 'https://supabase.com/blog/observability-for-every-supabase-project-with-grafana-cloud'
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/database'
   - 'https://supabase.com/docs/guides/platform/billing-faq'
   - 'https://supabase.com/docs/guides/getting-started/quickstarts/nextjs'
 pricingUrl: 'https://supabase.com/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected automatic backup eligibility and clarified Free signup and shared quota scope."
 ---
 You work in the Supabase dashboard with the Table Editor and SQL Editor, call the database through the auto-generated API and client libraries, or connect with any Postgres tool. It suits builders who want a full Postgres database without running a server.
 
 ## What the free plan gives you
 
-The Free plan costs $0 a month. Each project gets a 500 MB database on shared CPU with 500 MB of RAM. The plan also includes 1 GB of file storage, 5 GB of egress, 50,000 monthly active users, and unlimited API requests. Support comes from the community.
+The Free plan costs $0 a month. Each project gets a 500 MB database on shared CPU with 500 MB of RAM. The organization also shares 1 GB of file storage, 5 GB of egress, and 50,000 monthly active users across projects, with unlimited API requests. Support comes from the community.
 
 You can have 2 active free projects. Paused projects do not count toward that quota, and Supabase does not charge for them. The billing FAQ adds that the free project count includes projects owned by organization members with the Owner or Admin role.
 
@@ -108,7 +114,7 @@ Inactivity is a separate limit. Free projects are paused after 1 week of inactiv
 ## Gotchas
 
 - A free project pauses after 1 week without activity, so a demo you share later may be asleep.
-- The pricing page lists daily backups with 7-day retention under Pro only, while the database docs say every project has daily backups. Export your own dumps if the data matters.
+- The dedicated backup guide says automatic daily backups cover Pro, Team, and Enterprise. Free projects should regularly export data with the Supabase CLI and keep off-site backups.
 - Inside one organization, the 2 project limit counts the free projects of every member with the Owner or Admin role.
 
 ## Alternatives in this atlas

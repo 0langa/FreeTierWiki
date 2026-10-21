@@ -30,7 +30,7 @@ freeTierDetails:
     - Full page and mobile screenshots
     - 20 requests per second with a burst of 400
   caveats:
-    - Paid plans add support; the free plan lists none
+    - Free support terms are not explicitly listed on the reviewed pricing card
     - Repeated failing captures of the same URL are limited to 5 requests per hour
   resetPeriod: monthly
   requiresCard: false
@@ -46,7 +46,7 @@ useCases:
 quickstartSteps:
   - Sign up for free on apiflash.com and copy your access key.
   - Call the urltoimage endpoint with your access key and the page URL.
-  - Read the X-Quota-Remaining header to track how many captures you have left.
+  - Read X-Quota-Remaining, but use the quota endpoint for current usage because cached responses can contain stale quota headers.
 whenToUse: >-
   Use ApiFlash when you need a few website screenshots a month from a simple
   HTTP call and want the API to stop rather than bill you at the limit.
@@ -61,8 +61,8 @@ avoidIf:
   - needing support on a free plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://apiflash.com/'
@@ -73,6 +73,9 @@ sourceUrls:
 pricingUrl: 'https://apiflash.com/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified that cached screenshot responses may contain stale quota headers and the quota endpoint returns current usage."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -116,4 +119,4 @@ The API returns 402 Payment Required until the billing period resets or you upgr
 
 ### How do I check my remaining quota?
 
-Read the X-Quota-Remaining header on any successful capture, or call the quota endpoint.
+Read X-Quota-Remaining on successful captures, or call the quota endpoint for a fresh value. Cached responses may retain quota headers from capture time.

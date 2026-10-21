@@ -28,40 +28,44 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 10 uptime monitors with 5-minute check intervals, plus
-    1 page speed, 1 domain, and 1 SSL monitor, for 1 team member.
+    The current rendered pricing view lists 3 HTTP(S) uptime monitors at
+    15-minute intervals, one personal login, and email alerts with no card.
+    Other official pages still advertise a conflicting 10-monitor offer.
   limits:
-    - 10 uptime monitors with a 5-minute test interval
-    - 1 page speed monitor, tested every 24 hours
-    - 1 domain monitor, tested every 7 days
-    - 1 SSL monitor, tested every 24 hours
-    - 1 team member
+    - 3 uptime monitors with 15-minute test intervals in the rendered pricing view
+    - HTTP(S) test type only
+    - Single login for personal use
+    - 1 contact group and 1 email for alerting
   caveats:
-    - Free tier alerts through integrations; free SMS credits and server monitors start on the paid Superior plan
-    - Paid plans come with a 7-day free trial, no credit card required
+    - 'The Free marketing page and fetched pricing text still list 10 monitors at 5-minute intervals, plus page-speed, domain and SSL monitors; the rendered pricing view excludes those extras'
+    - Rendered Free pricing excludes SMS, integration alerts, reporting, custom locations, string matching and SSL validation
+    - 'Even the higher-allowance sources conflict: Free SSL checks are every 24 hours in fetched pricing versus 30 minutes on the Free marketing page'
+    - Free quota enforcement and excess-usage billing are not fully described
+    - Trial cards and FAQ advertise 7 days, but one expiry answer says 14 days
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - The trial-expiry FAQ says a card is charged if you add it and choose to continue on a paid plan
 useCases:
   - Checking that a website or API answers over HTTP
-  - Watching for string matches on a page
-  - Getting warned before an SSL certificate expires
-  - Tracking when a domain is about to expire
-  - Testing page speed once a day
+  - Receiving email notifications about a personal site's downtime
+  - Watching a few public endpoints without running your own monitoring server
 quickstartSteps:
   - 'Click Start monitoring free on statuscake.com and create your account.'
   - 'In the left menu open Uptime Monitoring and choose New Uptime Test.'
   - 'Keep the HTTP test type, enter a test name, and enter your website address as the Test URL.'
-  - 'Pick the contact groups to notify, then set options such as String Match, Validate SSL, and Follow Redirects.'
+  - 'Choose the contact group and email address to notify. String Match and Validate SSL are excluded from the rendered Free plan.'
   - 'Save the test and watch the first results arrive on your dashboard.'
 whenToUse: >-
-  Use StatusCake to watch up to ten sites or endpoints with five-minute checks,
-  plus one SSL, domain, and page speed check.
+  Use the conservative rendered Free offer to watch up to three HTTP(S)
+  sites or endpoints every fifteen minutes, with a personal login and email alerts.
 whenNotToUse: >-
-  Avoid it if you need faster checks, free SMS credits, server monitoring, or
-  more than one team member. Those need a paid plan.
+  Avoid relying on Free for faster checks, SMS or integration alerts, SSL or
+  domain monitoring, string matching, or team logins. The rendered pricing
+  view places those features on paid plans despite conflicting marketing copy.
 bestFor:
   - personal sites
   - small business sites
@@ -69,42 +73,46 @@ bestFor:
 avoidIf:
   - you need SMS alerts
   - you need more than one team member
-  - you need checks faster than every five minutes
+  - you need checks faster than every fifteen minutes
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.statuscake.com/'
 docsUrl: 'https://www.statuscake.com/kb/knowledge-base/create-a-basic-website-test/'
 sourceUrls:
   - 'https://www.statuscake.com/pricing/'
-  - 'https://www.statuscake.com/features/'
-  - 'https://www.statuscake.com/'
+  - 'https://www.statuscake.com/free-website-monitoring/'
   - 'https://www.statuscake.com/kb/knowledge-base/create-a-basic-website-test/'
+  - 'https://developers.statuscake.com/guides/terraform/introduction/'
 pricingUrl: 'https://www.statuscake.com/pricing/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Compared restored sources; scoped Free to the rendered 3-monitor/15-minute view and disclosed conflicting 10-monitor/5-minute marketing, feature and trial statements.'
 ---
 You set up tests in the StatusCake web dashboard, and there is also an API with Terraform guides. The knowledge base walks you through a basic website test in a few minutes. It suits individuals and small businesses.
 
 ## What the free plan gives you
 
-The Free plan costs 0 euro per month. The comparison table lists 10 uptime monitors with a 5-minute test interval. You also get 1 page speed monitor tested every 24 hours, 1 domain monitor tested every 7 days, and 1 SSL monitor tested every 24 hours. The plan has 1 team member, and the free card lists alerts through integrations.
+The rendered pricing view reviewed on October 21 lists Free at EUR 0, with no credit card required. It includes 3 uptime monitors at 15-minute intervals, HTTP(S) tests, a single personal login, 1 contact group, and 1 email for alerts.
 
-Paid plans come with a 7-day free trial and no credit card is required. The Superior plan starts at 16.66 euro per month with annual billing and has 100 uptime monitors with 1-minute tests, 75 free SMS credits, and 3 server monitors.
+That view excludes page-speed, domain, SSL and server monitors, SMS, integration alerts, and reporting. It also excludes string matching, SSL validation, and custom locations. The separate Free monitoring page and fetched pricing text still advertise 10 monitors at 5-minute intervals and auxiliary monitors. These official versions conflict; this entry describes the smaller rendered allowance rather than promising the higher offer. Confirm the allowance displayed for your account before relying on an extra feature.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you reach a free limit. The comparison table shows the maximum counts per plan, such as 10 uptime monitors on Free and 100 on Superior.
+The sources do not fully describe enforcement or billing when an ongoing Free account exceeds its allowance. The absence of a published Free overage price does not establish a guaranteed spending cap.
 
-The page also does not describe any overage charge on the Free plan. To get more monitors, faster tests, SMS credits, server monitors, or more team members, you move to a paid plan, which you can try first with the 7-day trial.
+Superior lists 100 uptime monitors with 1-minute tests, 75 SMS credits, and 3 server monitors. Its displayed euro price is EUR 19.99 monthly or EUR 16.66 per month billed yearly. A no-card paid trial is advertised as 7 days. The trial FAQ says accounts revert to Free with paid features locked and excess monitors reset; the expiry FAQ instead mentions 14 days. Adding a card and choosing to continue paid leads to a charge at trial end.
 
 ## Gotchas
 
-- Free page speed and SSL tests run only every 24 hours, and the domain test runs every 7 days.
-- Custom test locations are described in the knowledge base for paid plans. On Free, locations are chosen for you.
-- Free SMS credits and server monitors are not in the Free column of the table. They start on Superior.
+- The Free marketing page promises 10 uptime monitors, 1 page-speed monitor at 24-hour intervals, and 1 domain monitor at 7-day intervals. The rendered pricing view excludes those auxiliary monitors and lists only 3 uptime monitors.
+- SSL inclusion and frequency are inconsistent: rendered Free pricing excludes it, fetched pricing lists 1 SSL monitor every 24 hours, and the Free marketing page says every 30 minutes.
+- The Free marketing page also promises integrations and reporting, while the rendered comparison excludes both. These differences cannot be resolved from the public sources reviewed.
 
 ## Alternatives in this atlas
 
@@ -116,12 +124,12 @@ The page also does not describe any overage charge on the Free plan. To get more
 
 ### Is StatusCake free?
 
-Yes. The Free plan costs nothing and includes 10 uptime monitors with 5-minute tests, plus 1 page speed, 1 domain, and 1 SSL monitor.
+Yes. Rendered pricing lists EUR 0 with 3 uptime monitors at 15-minute intervals. Other official material advertises a conflicting 10-monitor allowance, so the higher offer is not promised here.
 
 ### Does StatusCake need a credit card?
 
-No. The site says its paid plans start with a 7-day free trial and no credit card is required.
+The rendered Free plan explicitly says no credit card is required. Paid trials are also advertised without a card; adding one and choosing to continue paid can lead to a charge at trial end.
 
 ### How often does StatusCake check my site on the free plan?
 
-Every 5 minutes for uptime tests. Page speed and SSL tests run every 24 hours, and domain tests run every 7 days.
+Every 15 minutes in the rendered Free pricing view. The separate Free marketing page still says every 5 minutes; this is an unresolved provider conflict.

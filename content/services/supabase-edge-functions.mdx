@@ -40,9 +40,9 @@ freeTierDetails:
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
   billingRiskNotes:
-    - The pricing page does not say what happens above 500,000 invocations on the Free plan
+    - Free is never charged; continued quota excess can restrict all projects after a grace period
 useCases:
   - Webhook receivers for Stripe or GitHub
   - HTTP API endpoints with Supabase Auth checks
@@ -72,16 +72,22 @@ difficulty: beginner
 productionReadiness: production-light
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added Free signup and billing evidence and documented general Free fair-use restrictions."
   - date: 2026-10-06
     kind: changed
     note: "Distinguished the CLI and server-side function-bundle size limits."
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/docs/guides/functions'
 docsUrl: 'https://supabase.com/docs/guides/functions'
 sourceUrls:
+  - 'https://supabase.com/docs/guides/platform/cost-control'
+  - 'https://supabase.com/docs/guides/platform/billing-faq'
+  - 'https://supabase.com/blog/observability-for-every-supabase-project-with-grafana-cloud'
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/functions/limits'
   - 'https://supabase.com/docs/guides/functions'
@@ -93,13 +99,13 @@ You write functions as TypeScript files that run on Supabase's Deno-based Edge R
 
 ## What the free plan gives you
 
-The Free plan includes 500,000 Edge Function invocations per month. A function can use up to 256MB of memory. The wall-clock limit is 150s on Free and 400s on paid plans. A request gets up to 2s of CPU time, which does not count time spent waiting on async input and output. The request idle timeout is 150s.
+The Free organization shares 500,000 Edge Function invocations per month across its projects. A function can use up to 256MB of memory. The wall-clock limit is 150s on Free and 400s on paid plans. A request gets up to 2s of CPU time, which does not count time spent waiting on async input and output. The request idle timeout is 150s.
 
 A function bundle can be up to 20MB when built locally with the CLI, or 5MB when bundled server-side. The Free plan allows up to 100 functions per project. Free projects pause after 1 week of inactivity, and you can have 2 active projects.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you pass 500,000 invocations on Free. It shows that paid plans include 2 Million invocations and then charge $2 per 1 Million.
+Free usage is not charged. The billing FAQ says continued quota excess can restrict all projects after a grace period, including 402 API responses; restrictions lift after the next billing-cycle reset. It does not give a separate invocation-specific response. Paid plans include 2 Million invocations and then charge $2 per 1 Million.
 
 For runtime limits, the docs say that a function that sends no response before the idle timeout returns a 504 Gateway Timeout. Paused projects stop until you restore them. Plan for a short wait on a first request, because the docs warn that cold starts are possible.
 

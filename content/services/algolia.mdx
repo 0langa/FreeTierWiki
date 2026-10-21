@@ -25,22 +25,28 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Algolia Free plan includes 10,000 search requests, 50,000 records,
-    5,000 recommendation requests, and 5,000 crawls per month, with no credit
-    card required.
+    The Algolia Free plan includes 10,000 search requests, 50,000 records, 5,000 recommendation
+    requests, and 5,000 crawls per month, with no credit card required.
   limits:
-    - '10,000 search requests/month'
-    - '50,000 records'
-    - '5,000 recommendation requests/month'
-    - '5,000 crawls/month'
+    - 10,000 search requests/month
+    - 50,000 records
+    - 5,000 recommendation requests/month
+    - 5,000 crawls/month
   caveats:
-    - The pricing page lists SSO, an enhanced SLA, and NeuralSearch under higher plans, not the Free plan
+    - Enforcement of the listed free allowance is not confirmed in the cited public sources
+    - >-
+      The pricing page lists SSO, an enhanced SLA, and NeuralSearch under higher plans, not the Free
+      plan
     - The pricing page says to choose a monthly plan when your usage exceeds the free plan limits
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - >-
+      Free needs no card, but exact quota enforcement and any account transition are unpublished;
+      paid Grow plans have metered overages.
 useCases:
   - "Adding instant search to a documentation site or blog"
   - "Product search for a small online store"
@@ -69,18 +75,25 @@ avoidIf:
   - "you expect steady traffic above the Free plan"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://www.algolia.com/'
 docsUrl: 'https://www.algolia.com/doc/'
 pricingUrl: 'https://www.algolia.com/pricing/'
 sourceUrls:
-  - 'https://www.algolia.com/pricing/'
-  - 'https://www.algolia.com/doc/guides/getting-started/quick-start/'
-  - 'https://www.algolia.com/doc/guides/getting-started/what-is-algolia/'
+  - https://www.algolia.com/pricing/
+  - https://www.algolia.com/doc/guides/getting-started/quick-start/
+  - https://www.algolia.com/doc/guides/getting-started/what-is-algolia/
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Removed an inferred no-payment assurance and kept Free versus paid overages explicitly scoped.
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You manage indices and relevance in the Algolia dashboard and send records through the API or a client library such as `algoliasearch`. UI libraries like React InstantSearch draw the search box and results. It suits developers who want to add search to a site or app without running a search server.
 
@@ -92,7 +105,7 @@ The Free plan covers search and recommendations. Paid plans add things like anal
 
 ## When you hit a limit
 
-The pricing page does not say what Algolia does when a Free plan hits its monthly limits. It shows a message that your selected usage exceeds the limits of the free plan and points you to a monthly plan instead. Because the Free plan needs no card, Algolia has no payment method to bill.
+The pricing page does not say what Algolia does when a Free plan hits its monthly limits. It shows a message that your selected usage exceeds the limits of the free plan and points you to a monthly plan instead. The no-card promise does not establish a precise blocking or account-transition policy.
 
 On paid plans, going over the included records is billed as an over-quota charge based on the highest record count you reached. Search requests above the included amount are billed per extra 1,000 requests. Plan for an upgrade before a launch with real traffic.
 

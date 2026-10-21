@@ -33,16 +33,16 @@ freeTierDetails:
     - 3 seats
     - Unlimited projects
   caveats:
-    - The FAQ says word-based plans auto-upgrade by default when you pass the word limit
-    - The pricing page does not say whether the Free plan follows the same auto-upgrade rule
+    - On Free you cannot add content above 30,000 hosted words or add more than 3 seats
+    - Machine translation stops when Free MT credits run out; other features continue
     - The free self-hosted version includes up to 10 seats and needs your own machine translation keys
-  resetPeriod: none
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
-    - Tolgee says word-based plans move to a higher paid tier at the end of the billing period when you pass the word limit; check this before you import large files
+    - Current organization billing docs distinguish Free hard stops from advanced-plan automatic word-tier upgrades and MT overage billing
 useCases:
   - Translating a React, Vue, Angular, Svelte, or Next.js app from inside the running app
   - Syncing keys and translations with the Tolgee CLI
@@ -68,23 +68,32 @@ bestFor:
 avoidIf:
   - you need more than 3 seats on the free cloud plan
   - you need SSO on a free plan
-  - you cannot risk a plan upgrade
+  - you need machine translation beyond the monthly Free credits
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://tolgee.io'
 docsUrl: 'https://tolgee.io/platform'
 pricingUrl: 'https://tolgee.io/pricing'
 sourceUrls:
+  - 'https://docs.tolgee.io/platform/projects_and_organizations/machine-translation-settings'
+  - 'https://docs.tolgee.io/platform/projects_and_organizations/organization_settings'
   - 'https://tolgee.io/pricing'
   - 'https://tolgee.io'
   - 'https://tolgee.io/platform/getting_started/creating_project'
   - 'https://tolgee.io/js-sdk/get_started'
   - 'https://tolgee.io/platform/self_hosting/getting_started'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Resolved Free exhaustion and monthly MT refill using plan-specific billing docs; Free stops excess content, seats and machine translation instead of automatically upgrading."
+  - date: '2026-10-21'
+    kind: changed
+    note: Qualified automatic-upgrade language because the provider does not explicitly apply that policy to the Free plan.
 ---
 You use Tolgee as a web platform, with SDKs in your app, with a CLI, or through a REST API. It suits developers who want translators to edit text inside the running app.
 
@@ -98,14 +107,14 @@ You can also self-host Tolgee. The free self-hosted version includes core featur
 
 ## When you hit a limit
 
-The FAQ says word-based plans come in tiers, and auto-upgrade is on by default. If you add or import content past the word limit, Tolgee lets the change through. About a day later it emails you that your subscription will move to the higher tier. The move happens at the end of the billing period, based on your word count then.
+The current organization billing guide explicitly separates Free from advanced plans. Free cannot add content above 30,000 hosted words, add more than three seats, or use machine translation after its MT credits run out. Everything else continues to work. The Billing page shows used credits and the next monthly refill date.
 
-If you delete content before then and get back under the limit, nothing changes. The word limits have no pay-as-you-go overage. The pricing page does not say whether the Free plan follows this auto-upgrade rule, so check your word count before large imports.
+Advanced plans behave differently: with automatic word-tier upgrades enabled, they allow excess words and move to a higher tier at the billing-period boundary unless usage falls. Extra MT credits on those plans are billed. That generic upgrade policy is not a Free-to-paid conversion rule.
 
 ## Gotchas
 
 - The free plan has 3 seats. The paid cloud plans list unlimited seats.
-- Going over the limit can move you to a paid tier. The word count is checked at the end of the billing period.
+- Free hard stops differ from advanced plans, which can auto-upgrade word tiers and bill extra machine-translation credits.
 - Self-hosting needs a machine with at least 2 CPU cores and 4 GB of RAM, and the docs recommend more.
 
 ## Alternatives in this atlas
@@ -122,7 +131,7 @@ Yes. The cloud Free plan has 30,000 hosted words, 10,000 MT credits, 3 seats, an
 
 ### What happens when I exceed the Tolgee word limit?
 
-For word-based plans, Tolgee lets the change through. It emails you about a day later and moves you to a higher tier at the end of the billing period, unless you drop under the limit first.
+The current organization billing guide says Free cannot add content beyond 30,000 words or more than three seats. Machine translation stops when its credits run out; everything else continues.
 
 ### Can I self-host Tolgee for free?
 

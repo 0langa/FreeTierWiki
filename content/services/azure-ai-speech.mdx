@@ -39,13 +39,14 @@ freeTierDetails:
     - 5 audio hours/month speech translation
     - 1 concurrent request on the base model endpoint and 1 on a custom endpoint (not adjustable)
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Batch transcription is not included in the free tier
     - One custom model endpoint is free; unused custom models are decommissioned after 7 days
     - Free (F0) quotas are not adjustable; Standard (S0) quotas are
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - Transcribe meetings or calls in real time
@@ -55,8 +56,8 @@ useCases:
 quickstartSteps:
   - Create an Azure account or use an existing subscription.
   - >-
-    Create a Speech resource, or a Foundry resource, in the Azure portal and pick the Free F0
-    pricing tier.
+    Create a resource for Azure Speech in the Azure portal and explicitly select Free F0
+    where offered; a Foundry project or playground alone does not establish F0 billing.
   - Copy a key and the region from the resource.
   - Store the key in an environment variable such as SPEECH_KEY.
   - >-
@@ -80,8 +81,8 @@ avoidIf:
   - exceed free tier limits regularly
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: '2026-10-19'
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/'
@@ -95,6 +96,13 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/get-started-text-to-speech'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified that Speech onboarding must explicitly select a resource offering F0."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You create a Speech resource in Azure, then call it from the REST API, an SDK, the Speech CLI, or the Foundry portal. It suits developers who add voice input, spoken output, or live translation to an app.
 

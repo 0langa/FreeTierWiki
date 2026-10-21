@@ -39,7 +39,7 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: medium
   billingRiskNotes:
     - >-
@@ -71,8 +71,8 @@ avoidIf:
   - non-Azure environments
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/virtual-network/'
@@ -80,18 +80,23 @@ docsUrl: >-
   https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/virtual-network/'
 sourceUrls:
+  - 'https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access'
   - 'https://azure.microsoft.com/en-us/pricing/details/virtual-network/'
   - >-
     https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
   - 'https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Updated new-subnet outbound defaults and the need for explicit outbound connectivity."
 ---
 You create a virtual network in the Azure portal, or with the CLI, PowerShell, or a template, and then place VMs and other resources in it. It suits anyone who runs more than a single public VM on Azure.
 
 ## What the free plan gives you
 
-A virtual network costs nothing to create. Each subscription can hold up to 1,000 virtual networks across all regions. Resources inside a network can reach the internet outbound by default, and you can split the network into subnets and filter traffic between them with network security groups. You can also set your own routes with route tables.
+A virtual network costs nothing to create. Each subscription can hold up to 1,000 virtual networks across all regions. New virtual networks created in the portal, or with API versions released after March 31, 2026, use private subnets by default and need an explicit outbound method. Older deployment defaults differ. You can split the network into subnets and filter traffic between them with network security groups. You can also set your own routes with route tables.
 
 You can link a network to your own site with a point-to-site VPN, a site-to-site VPN, or ExpressRoute. The network spans all availability zones in a region, so you do not split it by zone. Microsoft also says most networking limits are at their maximum values, and some can be raised on request.
 

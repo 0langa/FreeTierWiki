@@ -38,14 +38,18 @@ freeTierDetails:
     - One Free cluster per project, as a 3-node replica set
   caveats:
     - Atlas pauses a Free cluster after 30 days with zero connections
-    - No backups, no sharding, no private endpoints, and no server-side JavaScript
+    - No included backups; an optional paid Free-cluster backup preview costs up to $3/month
+    - No sharding, private endpoints, or server-side JavaScript
     - Free clusters run only in a subset of regions on AWS, Google Cloud, and Azure
     - You cannot change the cluster with the Clusters API after you create it
-  resetPeriod: monthly
+  resetPeriod: rolling seven days for data transfer; fixed storage and connection limits
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - Free compute and storage are separate from the optional paid backup subscription
+    - Backup preview bills $0.10/day up to $3/month per cluster and requires a payment method
 useCases:
   - Learning MongoDB and its query language on a real cloud cluster
   - Prototyping a document-based backend for a web or mobile app
@@ -62,7 +66,7 @@ whenToUse: >-
   Use it when you want a hosted MongoDB database for learning, a prototype, or a
   small app that stays well under 512 MB and 100 operations per second.
 whenNotToUse: >-
-  Avoid it for production traffic, for data that must be backed up by Atlas, for
+  Avoid it for production traffic, for included Atlas backups, for
   sharded or private-network setups, or for apps that need more than 512 MB.
 bestFor:
   - learning MongoDB
@@ -72,22 +76,28 @@ bestFor:
 avoidIf:
   - production traffic
   - datasets above 512 MB
-  - you need automatic backups
+  - you need automatic backups included at no charge
   - you need private networking
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://www.mongodb.com/'
 docsUrl: 'https://www.mongodb.com/docs/atlas/'
 pricingUrl: 'https://www.mongodb.com/pricing'
 sourceUrls:
+  - 'https://www.mongodb.com/docs/drivers/node-frameworks/tanstack/'
+  - 'https://www.mongodb.com/docs/atlas/backup/cloud-backup/free-cluster-backup/'
   - 'https://www.mongodb.com/pricing'
   - 'https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/'
   - 'https://www.mongodb.com/docs/atlas/getting-started/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Replaced the blanket no-backup claim with the optional paid Free-cluster backup preview and its payment and price conditions."
 ---
 You manage Atlas from a web console, the Atlas CLI, or the Clusters API, and your app talks to it through the official MongoDB drivers. The Free cluster suits students and solo developers who want a real hosted MongoDB without a bill.
 
@@ -106,7 +116,7 @@ Storage works differently. The cap is 0.5 GB, and Free clusters do not expand st
 ## Gotchas
 
 - Atlas pauses a Free cluster after 30 days with zero connections. You can resume it, but the docs advise exporting your data if you will not use the cluster for a long time.
-- Free clusters have no backups. The docs point you to `mongodump` and `mongorestore` for manual copies.
+- Backups are not included. An optional private preview takes daily snapshots and keeps four for $0.10/day, capped at $3/month per cluster. Enabling it requires a payment method.
 - Free clusters do not support server-side JavaScript, so `$where` and map-reduce do not work. The docs also list limits on access to collections in the `local`, `admin`, and `config` databases.
 
 ## Alternatives in this atlas

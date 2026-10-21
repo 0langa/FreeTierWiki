@@ -62,6 +62,10 @@ Documentation-only edits need a review of the text, file links, and affected com
 
 Cloudflare Pages builds `main` with `npm run build` and serves `out/`. Node is pinned by `.nvmrc`. GitHub Actions runs checks on pushes to `main` and on PRs; the CI workflow does not deploy the site.
 
+The canonical site is [freetier.wiki](https://freetier.wiki/). The former [GitHub Pages address](https://0langa.github.io/FreeTierWiki/) serves only a redirect, deployed by [`pages-redirect.yml`](../.github/workflows/pages-redirect.yml). It uploads [`deployment/github-pages/index.html`](../deployment/github-pages/index.html) as both `index.html` and `404.html`, so old deep links preserve their path, query, and fragment when JavaScript is enabled. Without JavaScript, visitors reach the canonical home page. This is a client-side redirect; GitHub Pages does not send an HTTP 301 for these pages.
+
+Keep GitHub Pages configured with **GitHub Actions** as its publishing source, without a custom domain. The redirect workflow runs on `main` only when its source or workflow changes, or through **Run workflow** after the workflow has merged. It does not build the catalog. Cloudflare remains the catalog host.
+
 [`public/_redirects`](../public/_redirects) contains redirects for moved or removed URLs. The [entry-removal tool](content-maintenance.md#remove-an-entry) adds a category redirect and a changelog record.
 
 ## Explorer indexing

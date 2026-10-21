@@ -33,20 +33,24 @@ freeTierDetails:
   limits:
     - Up to 5 users
     - Up to 10 concurrent jobs
-    - Up to 2,000 Linux vCPU minutes per month on hosted agents, Small size only
+    - 'Up to 2,000 Linux vCPU minutes per month on hosted agents, Small size only'
     - 250k test executions per month
     - 50GB artifact storage per month
     - 250GB artifact downloads per month
   caveats:
+    - >-
+      Enforcement of the listed free allowance is not confirmed in the cited
+      public sources
     - No credit card required
     - A separate 30-day all-access trial gives full access to paid-plan features
-    - Free hosted agents are Small AMD64 Linux only; Pro adds macOS agents and
+    - >-
+      Free hosted agents are Small AMD64 Linux only; Pro adds macOS agents and
       larger sizes
     - Support on the free plan is community support
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Run build and test pipelines defined in YAML in your repository
@@ -54,17 +58,22 @@ useCases:
   - Split a large test suite across several machines
   - Collect test results from your test runners in one place
 quickstartSteps:
-  - Open the Buildkite sign-up page and choose Sign up with GitHub, or Continue
+  - >-
+    Open the Buildkite sign-up page and choose Sign up with GitHub, or Continue
     with Email. Email sign-up needs a verification link and an organization
     name. No credit card is required.
-  - 'On the New Pipeline page, pick a Git scope: your GitHub account, the
+  - >-
+    On the New Pipeline page, pick a Git scope: your GitHub account, the
     Buildkite Examples, or a remote URL for GitLab, Bitbucket, or any Git
-    repository.'
-  - Choose a repository and a name, and pick the Starter pipeline from Buildkite
+    repository.
+  - >-
+    Choose a repository and a name, and pick the Starter pipeline from Buildkite
     Examples to see a first build.
-  - Select Create and run. The Starter pipeline has build, test, and deploy
+  - >-
+    Select Create and run. The Starter pipeline has build, test, and deploy
     steps.
-  - For your own repository, add a pipeline definition at
+  - >-
+    For your own repository, add a pipeline definition at
     .buildkite/pipeline.yml and use the Pipeline upload template so Buildkite
     runs it.
 whenToUse: >-
@@ -85,18 +94,25 @@ avoidIf:
   - you want zero CI setup
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21T00:00:00.000Z
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://buildkite.com'
 docsUrl: 'https://buildkite.com/docs'
 sourceUrls:
-  - https://buildkite.com/pricing
-  - https://buildkite.com/docs/pipelines/getting-started
-  - https://buildkite.com/docs/platform/pricing-and-plans
+  - 'https://buildkite.com/pricing'
+  - 'https://buildkite.com/docs/pipelines/getting-started'
+  - 'https://buildkite.com/docs/platform/pricing-and-plans'
+  - 'https://buildkite.com/docs/platform/spend-alerts'
 featured: false
-lastVerified: 2026-10-19
+lastVerified: '2026-10-21'
 pricingUrl: 'https://buildkite.com/pricing'
+changes:
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: >-
+      Aligned limit enforcement flags with the scope and uncertainty of the
+      cited policy evidence.
 ---
 You write pipeline steps in YAML, either in the web editor or in a file in your repository. Buildkite then dispatches the jobs to agents. It suits small teams who want pipelines as code.
 
@@ -108,7 +124,7 @@ You also get 250k test executions per month. A test execution is one recorded re
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you use all 2,000 minutes or pass the other monthly amounts. It lists the amounts as "up to", so treat them as caps. The page shows no card requirement for the Free plan.
+The pricing page does not say what happens when you use all 2,000 minutes or pass the other monthly amounts. It lists the amounts as "up to", but does not establish how the monthly allowances are enforced. The page shows no card requirement for the Free plan.
 
 If you need more users, jobs, or minutes, move to Pro. Buildkite's docs say spend alerts for Pro only warn you and do not cap spending, so set one before you scale up.
 

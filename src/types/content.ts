@@ -68,14 +68,17 @@ export type RemovalRecord = {
   note: string;
 };
 
+/** An official-source policy answer; unknown is neither a confirmed yes nor a confirmed no. */
+export type PolicyConfirmation = boolean | "unknown";
+
 export type FreeTierDetails = {
   summary: string;
   limits: string[];
   caveats: string[];
   resetPeriod?: string;
-  requiresCard: boolean;
+  requiresCard: PolicyConfirmation;
   freeTierType: FreeTierType;
-  hasHardCap: boolean;
+  hasHardCap: PolicyConfirmation;
   overageRisk: OverageRisk;
   billingRiskNotes: string[];
   trialDays?: number;

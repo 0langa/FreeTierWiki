@@ -26,17 +26,19 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Kiro Free gives 50 credits per month with Claude Sonnet 4.5 and open-weight models. No card
-    needed.
+    Kiro Free gives 50 credits per month with Claude Sonnet 4.5 and open-weight models. The card
+    requirement is not confirmed in the cited public sources.
   limits:
     - 50 credits per month
     - 'Claude Sonnet 4.5 and open-weight models (Qwen3 Coder, DeepSeek, MiniMax)'
     - Rate limits apply
   caveats:
     - Newer premium models need a paid plan
-    - The pricing page lists add-on credits only for paid plans
+    - Free cannot buy add-on credits and must wait for the next monthly reset after exhausting its credits
+    - The public pages describe a card for paid upgrades but do not explicitly establish the Free card requirement
+    - Free-tier content may be used for service improvement; the documentation describes an opt-out
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -75,13 +77,15 @@ avoidIf:
   - need API key login for CI jobs
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://kiro.dev'
 docsUrl: 'https://kiro.dev/docs/'
 sourceUrls:
+  - "https://kiro.dev/docs/billing/add-on-credits/"
+  - "https://kiro.dev/docs/billing/"
   - 'https://kiro.dev/pricing/'
   - 'https://kiro.dev/docs/getting-started/first-project/'
   - 'https://kiro.dev/docs/getting-started/authentication/'
@@ -89,6 +93,9 @@ sourceUrls:
 pricingUrl: 'https://kiro.dev/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added the documented Free credit exhaustion behavior and qualified the unpublished card rule."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -103,7 +110,7 @@ You get Claude Sonnet 4.5 and open-weight models, such as Qwen3 Coder Next, Deep
 
 ## When you hit a limit
 
-The pricing page does not describe the exact behavior when the 50 credits run out. It says paid plans can buy add-on credits to keep working. Those credits cost $0.04 each, and the page lists add-on credits only for paid plans. The free plan has no card on file, so no bill can follow.
+The add-on-credit guide says Free users cannot buy extra credits. When the 50 credits run out, you must wait until the next month for a reset or upgrade to a paid plan. Paid add-on credits cost $0.04 each. Public pages explicitly require a card for paid upgrades, but do not establish a separate card rule for Free.
 
 The credit meter updates at least every 5 minutes in the subscription dashboard inside Kiro. Check it before long agent runs. Cheaper models use fewer credits for the same prompt.
 
@@ -126,8 +133,8 @@ Yes. Kiro Free costs $0 per month and includes 50 credits. It uses Claude Sonnet
 
 ### What happens when I run out of Kiro credits?
 
-The pricing page does not say. It offers add-on credits at $0.04 each, but only for paid plans.
+On Free, you must wait until the next month for credits to reset or upgrade. Add-on credits are available only on paid plans.
 
 ### Does Kiro need a credit card?
 
-Not for the free plan. You sign in with a social login or an AWS Builder ID. A card is required only when you upgrade to a paid plan.
+A paid upgrade explicitly requires a card. The cited pages do not separately confirm the Free plan card rule; Free starts with a social login or AWS Builder ID.

@@ -26,7 +26,7 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan allows up to 3 projects with unlimited API calls and routes, plus
-    a 14-day unlimited trial of paid features, no credit card required.
+    a 14-day unlimited trial of paid features. No card is required for the trial; ongoing Free conditions are not separately stated.
   limits:
     - 3 projects
     - 5 tables
@@ -34,13 +34,15 @@ freeTierDetails:
     - 1 addon (Google)
     - 14-day unlimited trial of paid features
   caveats:
-    - The Free column shows only 1 addon (Google); the Pro and Custom columns show unlimited addons.
+    - Free quota enforcement and ongoing signup card conditions are not published
+    - Free lists zero commits; the guide’s commit-dependent workflow may require a trial or upgrade
+    - The Free column shows only 1 addon (Google); the Pro and Enterprise columns show unlimited addons.
     - No commits on the Free plan (0 commits).
-  resetPeriod: monthly
-  requiresCard: false
+  resetPeriod: none
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
   trialDays: 14
 useCases:
   - "Building a REST API for a prototype without writing server code"
@@ -54,7 +56,7 @@ quickstartSteps:
   - "On the Upgrade Project step, check the plan; the Free plan covers a small number of projects."
   - "Pick add-ons on the Integrations step, or skip them and add them later."
   - "Click Create to open the project Overview page, then create a role and a collection."
-  - "Add fields to the collection, set access permissions, and commit your changes."
+  - "Add fields and set access permissions; Free lists zero commits, so confirm how changes can be deployed before relying on the generated API."
 whenToUse: >-
   Use Appinvento when you want to model data and get a REST backend for a prototype or student project without writing server code, and a few projects and tables are enough.
 whenNotToUse: >-
@@ -69,8 +71,8 @@ avoidIf:
   - "you need full control of server code"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://appinvento.io/'
@@ -82,6 +84,13 @@ sourceUrls:
   - 'https://docs.appinvento.io/product-guides/create-your-first-project'
   - 'https://docs.appinvento.io/overview/what-we-do'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Separated no-card trial from ongoing Free policy and qualified the zero-commit deployment gap.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You work in a web dashboard. You create a project, add roles, collections, fields, and routes, and connect add-ons. The docs call it a backend builder, so it suits people who want an API and data model more than a visual front-end editor.
 
@@ -95,12 +104,12 @@ Paid plans add more. The Pro plan costs $99 per month and includes 10 projects, 
 
 The pricing page does not say what happens when you pass the project or table counts on the Free plan. It only shows the counts for each plan. The page does not describe overage charges for the Free plan, and it says no credit card is required.
 
-The docs show an Upgrade Project step during project creation. It asks for card details so you can use unlimited add-ons, routes, and API. That step is for upgrading, and the pricing page shows higher project, table, and add-on counts for Pro and Custom.
+The docs show an Upgrade Project step during project creation. It asks for card details so you can use unlimited add-ons, routes, and API. That step is for upgrading, and the pricing page shows higher project, table, and add-on counts for Pro and Enterprise.
 
 ## Gotchas
 
 - The Free column lists 0 commits, while the docs describe a Commit Your Changes step. Test that flow on a free project before you plan around it.
-- The Free column shows only 1 add-on, Google. The Pro and Custom columns show unlimited add-ons.
+- The Free column shows only 1 add-on, Google. The Pro and Enterprise columns show unlimited add-ons.
 - The docs home page says it was last updated 3 years ago, so screens in the guides may differ from the live app.
 
 ## Alternatives in this atlas

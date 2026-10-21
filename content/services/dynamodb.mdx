@@ -30,8 +30,8 @@ freeTierDetails:
   summary: >-
     The DynamoDB free tier gives 25 GB of storage and 25 provisioned write and
     read capacity units each month, about 200 million requests. A new AWS
-    Free account plan lasts six months, then the account closes unless you
-    upgrade.
+    Free account plan lasts six months, then access is suspended unless you
+    upgrade; recovery is available for 90 days.
   limits:
     - 25 GB of data storage (per Region, per payer account)
     - 25 provisioned Write Capacity Units
@@ -40,8 +40,9 @@ freeTierDetails:
     - 2.5 million DynamoDB Streams read requests/month
     - 1 GB of data transfer out per month
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - The allowance covers provisioned capacity on the Standard table class; on-demand tables are billed per request
-    - A Free account plan ends after six months or when credits run out, and the account then closes unless you upgrade to a Paid plan
+    - A Free account plan ends after six months or when credits run out, and access is suspended; a Paid upgrade within 90 days restores data
     - On the Paid account plan, usage past the allowance is billed at standard rates
   resetPeriod: monthly
   requiresCard: false
@@ -49,8 +50,9 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - Overages are billed at standard rates on the Paid account plan
-    - The Free account plan does not bill, but it closes the account after six months
+    - The Free account plan does not bill; access suspends at six months or depleted credits with 90 days to recover
 useCases:
   - Session storage and user profiles for a web or mobile app
   - Game leaderboards and player state
@@ -61,7 +63,7 @@ quickstartSteps:
   - Sign up for an AWS account at aws.amazon.com/free and choose the Free plan or the Paid plan.
   - Sign in to the AWS Management Console and open the DynamoDB console.
   - 'Choose Tables, then Create table, and enter a table name and a partition key (the docs example uses a Music table with Artist and SongTitle keys).'
-  - Keep the default table settings and choose Create table.
+  - Choose provisioned capacity and Standard table class for the capacity allowance; default/on-demand table settings can incur request charges.
   - 'You can also create tables with the AWS CLI, for example `aws dynamodb create-table`. To skip the account, run DynamoDB local, the downloadable version, on your computer.'
 whenToUse: >-
   Use DynamoDB for key-value or document data with unpredictable traffic, when
@@ -81,8 +83,8 @@ avoidIf:
   - You need heavy on-demand traffic for free
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/dynamodb/'
@@ -99,6 +101,9 @@ sourceUrls:
 featured: false
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected expiry/recovery and optional project controls; changed setup to provisioned capacity for its free allowance."
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -118,14 +123,14 @@ New AWS accounts also get up to $200 in credits for up to 6 months.
 
 ## When you hit a limit
 
-What happens depends on your AWS account plan. A Free account plan does not bill you. It ends after six months or when its credits run out, and then the account closes. AWS keeps your data for 90 days, and you can upgrade to a Paid plan in that time.
+What happens depends on your AWS account plan. A Free account plan does not bill you. It ends after six months or when its credits run out, and then access is suspended. AWS keeps your data for 90 days, and you can upgrade to a Paid plan in that time.
 
-On a Paid account plan, usage beyond the free allowance is billed at standard rates. Credits cover it first.
+On a Paid account plan, usage beyond the free allowance is billed at standard rates after credits. Optional project limits from $20 can pause resources; this is not a default DynamoDB service cap. The FAQ now calls expiry suspension, while some older billing pages still say closure.
 
 ## Gotchas
 
 - On-demand capacity is not part of the free allowance. The CLI example in the getting-started guide creates a table in pay-per-request mode.
-- The Free account plan closes the account when it ends, so the always-free allowance only lasts beyond six months on a Paid plan.
+- The Free account plan suspends access when it ends, so the always-free allowance only lasts beyond six months on a Paid plan.
 - Some actions upgrade a Free account plan to Paid automatically, such as joining AWS Organizations.
 
 ## Alternatives in this atlas
@@ -142,7 +147,7 @@ DynamoDB has a free tier of 25 GB of storage and 25 read and 25 write capacity u
 
 ### Does the DynamoDB free tier expire?
 
-The DynamoDB allowance itself has no end date. A new AWS Free account plan does end after six months, and then the account closes unless you upgrade to a Paid plan.
+The DynamoDB allowance itself has no end date. A new AWS Free account plan does end after six months, and then access is suspended with 90 days to upgrade and recover data.
 
 ### What happens when I go over the DynamoDB free tier?
 

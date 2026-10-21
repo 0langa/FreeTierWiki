@@ -62,7 +62,7 @@ whenToUse: >-
   self-hosting.
 whenNotToUse: >-
   Avoid the Free plan if one project and 250K ingest units per month are not
-  enough, or if you need native iOS/Android SDKs rather than JavaScript ones.
+  enough, or if you need native mobile crash reporting rather than JavaScript error tracking.
 bestFor:
   - side projects
   - small teams on JS/TS stacks
@@ -70,7 +70,7 @@ bestFor:
 avoidIf:
   - you need more than 1 project on the free plan
   - very high event volumes on the free plan
-  - non-JavaScript native mobile SDKs
+  - native mobile crash reporting
 difficulty: beginner
 productionReadiness: production-light
 lastUpdated: 2026-10-21
@@ -85,8 +85,15 @@ sourceUrls:
   - 'https://telemetry-tracker.com/docs'
   - 'https://telemetry-tracker.com'
   - 'https://github.com/Telemetry-Tracker/telemetry-tracker'
+  - 'https://telemetry-tracker.com/docs/hosted-cloud'
+  - 'https://telemetry-tracker.com/docs/alerts'
+  - 'https://telemetry-tracker.com/docs/react-native'
+  - 'https://github.com/Telemetry-Tracker/telemetry-tracker/blob/develop/DEPLOYMENT.md'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Clarified React Native JavaScript error coverage and removed an incorrect alternative quota comparison.
   - date: '2026-10-16'
     kind: new
     note: Added to the atlas.
@@ -109,12 +116,12 @@ Paid plans raise the limits. Pro is 15 € per org per month with 5M ingest unit
 
 - Free includes one project for data isolation. Multiple apps can share that project and use the SDK's app name to filter their telemetry.
 - Ingest units count errors, events and sessions together, so high-volume event instrumentation can burn the free quota quickly.
-- SDKs target JavaScript and TypeScript stacks; there are no native iOS or Android SDKs.
+- SDKs target JavaScript and TypeScript stacks, including React Native on iOS and Android. The React Native SDK captures JavaScript errors, not native crashes.
 
 ## Alternatives in this atlas
 
 - [GlitchTip](/services/glitchtip/): when you want Sentry-SDK-compatible error tracking with a smaller free event quota.
-- [Bugsink](/services/bugsink/): when you want a Sentry-compatible tracker with a higher hosted free event count or unlimited self-hosted users.
+- [Bugsink](/services/bugsink/): when you want a Sentry-compatible tracker, hosted or on your own server.
 
 ## Questions people ask
 

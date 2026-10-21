@@ -26,23 +26,25 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free Email Sandbox plan: 50 test emails per month in 1 sandbox, for 1 user.
-    The same free account also has a separate Email API/SMTP plan.
+    Free Email Sandbox plan: 50 test emails per month in 1 sandbox, for 1 user. The same free
+    account also has a separate Email API/SMTP plan.
   limits:
     - 50 test emails/month
     - 1 sandbox that holds 10 emails at a time
     - 1 user
     - 1 email per 10 seconds sending rate into a sandbox
-    - Unlimited Sandbox API calls
+    - Sandbox API access; no unlimited-call promise in the current table
   caveats:
     - No email forwarding to real inboxes on the free plan
     - No dedicated email address per sandbox on the free plan
-    - 'Email API/SMTP is a separate free plan, sold apart from Email Sandbox: 4,000 emails/month, 150 emails/day'
+    - >-
+      Email API/SMTP is a separate free plan, sold apart from Email Sandbox: 4,000 emails/month, 150
+      emails/day
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
   - Catching staging emails so they never reach real users
   - Checking the HTML, headers, and text of a transactional email
@@ -70,31 +72,37 @@ avoidIf:
   - forwarding test mail to real inboxes
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mailtrap.io/'
 docsUrl: 'https://docs.mailtrap.io/'
 sourceUrls:
-  - 'https://mailtrap.io/pricing'
-  - 'https://mailtrap.io/email-sandbox/'
-  - 'https://docs.mailtrap.io/'
-  - 'https://docs.mailtrap.io/email-sandbox/features-and-limits'
+  - https://mailtrap.io/pricing
+  - https://mailtrap.io/email-sandbox/
+  - https://docs.mailtrap.io/
+  - https://docs.mailtrap.io/email-sandbox/features-and-limits
 pricingUrl: 'https://mailtrap.io/pricing'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Removed unsupported unlimited API calls and no-bill inference, and qualified the Ethereal
+      alternative description.
 ---
 You point your app's SMTP settings at a Mailtrap sandbox, or use the Sandbox API, and every email lands in the sandbox instead of a real inbox. It suits a single developer checking staging emails.
 
 ## What the free plan gives you
 
-The free Email Sandbox plan includes 50 test emails per month for 1 user. You get 1 sandbox, and it holds 10 emails at a time. When it is full, Mailtrap cleans out the oldest messages first. You can send 1 email per 10 seconds into a sandbox, and the Sandbox API has unlimited calls.
+The free Email Sandbox plan includes 50 test emails per month for 1 user. You get 1 sandbox, and it holds 10 emails at a time. When it is full, Mailtrap cleans out the oldest messages first. You can send 1 email per 10 seconds into a sandbox, and Sandbox API access is included; the current table does not promise unlimited API calls.
 
 The same free account also has an Email API/SMTP plan for real sending. It is sold separately and allows 4,000 emails per month and 150 emails per day. No credit card is needed for the free plans.
 
 ## When you hit a limit
 
-If you send faster than the rate limit, Mailtrap rejects the message with a "too many emails per second" error. For the 50 monthly test emails, the pricing page does not say what happens at the cap. For the separate Email API/SMTP plan, the docs say you get a "Monthly messages limit reached" SMTP error, and you must upgrade or wait for the next period. The free plans ask for no card, so no bill appears.
+If you send faster than the rate limit, Mailtrap rejects the message with a "too many emails per second" error. For the 50 monthly test emails, the pricing page does not say what happens at the cap. For the separate Email API/SMTP plan, the docs say you get a "Monthly messages limit reached" SMTP error, and you must upgrade or wait for the next period. Free has no listed excess-email price, but the no-card statement alone does not establish every billing policy.
 
 ## Gotchas
 
@@ -106,7 +114,7 @@ If you send faster than the rate limit, Mailtrap rejects the message with a "too
 
 - [Mailinator.com](/services/mailinator-com/): when you want public disposable inboxes with no signup.
 - [Mailsac.com](/services/mailsac-com/): when you want inboxes you read through a REST API.
-- [Ethereal Email](/services/ethereal-email/): when you need throwaway SMTP accounts with no monthly cap.
+- [Ethereal Email](/services/ethereal-email/): when you need temporary SMTP accounts for delivery testing.
 
 ## Questions people ask
 

@@ -58,6 +58,65 @@ describe("figures", () => {
   it("lists every number the evidence lacks", () => {
     expect(unsupportedFigures("500 MB and 3 projects", "500 MB")).toEqual(["3"]);
   });
+
+  it("matches Open-Meteo's localized call limits without changing fractional call costs", () => {
+    const source = "5.000 calls / hour; 10.000 calls / day; 300.000 calls / month; 1.5 calls";
+    expect(unsupportedFigures("5,000 hourly, 10,000 daily, 300,000 monthly and 1.5 calls", source, { numericLocale: "de-DE" })).toEqual([]);
+  });
+
+  it("reads European decimal prices and mixed separators", () => {
+    expect(extractFigures("€9,99; 1.234,56; 1,234.56; 0,001", { numericLocale: "de-DE" }).map((f) => f.value)).toEqual([9.99, 1234.56, 1234.56, 0.001]);
+  });
+
+  it("supports an explicitly reviewed mixed-notation page without accepting both ambiguous magnitudes", () => {
+    const source = '€4,99/mo; 2,000 requests/month; €0.00372 per additional request';
+    expect(unsupportedFigures('4.99 euros, 2,000 requests and 0.00372 euros', source, { numericLocale:'mixed' })).toEqual([]);
+    expect(unsupportedFigures('2 requests', source, { numericLocale:'mixed' })).toEqual(['2']);
+    expect(unsupportedFigures('123 requests', '1,2,3 requests', { numericLocale:'mixed' })).toEqual(['123']);
+  });
+
+  it("reads complete space-grouped numbers without matching their component groups", () => {
+    expect(extractFigures("5 000; 300\u00a0000; 1\u202f234\u202f567; 1 234,56").map((f) => f.value)).toEqual([5000, 300000, 1234567, 1234.56]);
+    expect(unsupportedFigures("5 requests", "5 000 requests")).toEqual(["5"]);
+  });
+
+  it("keeps decimal prices, fractional multipliers and unit suffixes", () => {
+    expect(extractFigures("0.001, $0.03, 1.5, 1.5M, 500 MB and 60m").map((f) => f.value)).toEqual([0.001, 0.03, 1.5, 1.5e6, 500, 60]);
+    expect(extractFigures("2,5 million", { numericLocale: "de-DE" }).map((f) => f.value)).toEqual([2.5e6]);
+  });
+
+  it("uses English decimal notation by default and never accepts both ambiguous magnitudes", () => {
+    expect(unsupportedFigures("1,234 requests", "1.234 requests")).toEqual(["1,234"]);
+    expect(unsupportedFigures("1.234 requests", "1.234 requests")).toEqual([]);
+    expect(unsupportedFigures("1,234 requests", "1.234 requests", { numericLocale: "de-DE" })).toEqual([]);
+    expect(unsupportedFigures("1.234 requests", "1.234 requests", { numericLocale: "en-US" })).toEqual([]);
+    expect(unsupportedFigures("1.234 requests", "1.234 requests", { numericLocale: "de-DE" })).toEqual(["1.234"]);
+  });
+
+  it("does not turn malformed separator groups into supporting magnitudes", () => {
+    expect(unsupportedFigures("123 requests", "1,2,3 requests")).toEqual(["123"]);
+    expect(unsupportedFigures("100000 requests", "1.00.000 requests", { numericLocale: "de-DE" })).toEqual(["100000"]);
+    expect(unsupportedFigures("1,2,3 requests", "123 requests")).toEqual(["1,2,3"]);
+    expect(unsupportedFigures("1.00.000 requests", "1.00.000 requests")).toEqual(["1.00.000"]);
+  });
+
+  it("compares dotted software versions and IPv4 examples literally, without interpreting their components as prices", () => {
+    expect(unsupportedFigures('Use Wrangler 3.71.0 with example address 8.8.8.8', 'Wrangler 3.71.0 supports address 8.8.8.8')).toEqual([]);
+    expect(unsupportedFigures('Wrangler 3.72.0 and address 8.8.4.4', 'Wrangler 3.71.0 and address 8.8.8.8')).toEqual(['3.72.0', '8.8.4.4']);
+    expect(unsupportedFigures('3.71.0', 'Prices are 3, 71 and 0')).toEqual(['3.71.0']);
+    expect(unsupportedFigures('3 requests', 'Wrangler 3.71.0')).toEqual(['3']);
+  });
+
+  it("checks leading-dot decimal prices instead of silently omitting them", () => {
+    expect(unsupportedFigures("$.03 per request", "$0.03 per request")).toEqual([]);
+    expect(unsupportedFigures("$.03 per request", "$3 per request")).toEqual([".03"]);
+  });
+
+  it("checks scientific notation as its full magnitude rather than just its mantissa", () => {
+    expect(unsupportedFigures("1e6 requests", "1 million requests")).toEqual([]);
+    expect(unsupportedFigures("1e6 requests", "1 request")).toEqual(["1e6"]);
+    expect(extractFigures("1.5e-3 and 2,5e3", { numericLocale: "de-DE" }).map((f) => f.value)).toEqual([0.0015, 2500]);
+  });
 });
 
 describe("shape helpers", () => {
@@ -85,6 +144,10 @@ describe("checkDepth", () => {
 
   it("fails a body outside the word range", () => {
     expect(run({ body: body({ extra: words(500) }) }).join()).toMatch(/body has \d+ words/);
+  });
+
+  it('rejects a heading accidentally inserted into a price sentence',()=>{
+    expect(run({body:body().replace('The plan gives','Paid plans start at ## What the free plan gives you\n5 monthly. The plan gives')}).join()).toContain('embedded heading inside prose');
   });
 
   it("fails a missing, extra, or misplaced section", () => {
@@ -132,6 +195,46 @@ describe("checkDepth", () => {
 
   it("accepts a verification-only review without changing the publication date", () => {
     expect(run({ data: { ...data, lastUpdated: "2026-10-01" }, evidence })).toEqual([]);
+  });
+
+  it("does not use a failed or challenged source as numeric evidence", () => {
+    expect(run({ evidence: [{ ...evidence[0], status: 403 }] })).toContain("no fetched page for this entry matches 'sourceUrls'");
+    expect(run({ evidence: [{ ...evidence[0], status: 200, accessIssue: "maintenance" }] })).toContain("no fetched page for this entry matches 'sourceUrls'");
+  });
+
+  it("interprets numeric locale separately for each cited evidence page", () => {
+    const sources = [
+      { ...evidence[0], numericLocale: "de-DE" as const, text: "500 MB; 2.000.000 messages; 5.000 calls; €0,03 per request." },
+      { ...evidence[0], url: "https://example.com/rates", numericLocale: "en-US" as const, text: "$0.001 per GB and 1.234 credits." },
+    ];
+    const cited = { ...data, sourceUrls: [...data.sourceUrls, sources[1].url] };
+    const content = body({ limit: `${words(80)} 5,000 calls cost $0.03 each; storage costs $0.001 and uses 1.234 credits.` });
+    expect(run({ data: cited, body: content, evidence: sources })).toEqual([]);
+    expect(run({ data: cited, body: content.replace("1.234 credits", "1,234 credits"), evidence: sources }).join()).toContain("numbers not found on any fetched source page: 1,234");
+    expect(run({ body: content, evidence: sources }).join()).toContain("numbers not found on any fetched source page: 0.001, 1.234");
+  });
+
+  it.each([
+    ["https://cloud.ibm.com/docs/cloud-object-storage?topic=billing", "https://cloud.ibm.com/docs/cloud-object-storage?topic=provision"],
+    ["https://example.com/pricing?plan=Free", "https://example.com/pricing?plan=Pro"],
+    ["https://example.com/pricing?plan=Free", "https://example.com/pricing?plan=free"],
+    ["https://example.com/Plans", "https://example.com/plans"],
+    ["https://example.com:8443/pricing", "https://example.com:9443/pricing"],
+  ])("does not accept another source's numbers when citing %s", (cited, fetched) => {
+    const problems = run({ data: { ...data, pricingUrl: cited, sourceUrls: [cited] }, evidence: [{ ...evidence[0], url: fetched }] });
+    expect(problems).toContain("no fetched page for this entry matches 'sourceUrls'");
+  });
+
+  it("matches reordered query keys while preserving www, trailing slash and fragment equivalence", () => {
+    const cited = "https://www.example.com/Plans/?plan=Free&region=EU#limits";
+    const fetched = "https://example.com/Plans?region=EU&plan=Free#pricing";
+    expect(run({ data: { ...data, pricingUrl: cited, sourceUrls: [cited] }, evidence: [{ ...evidence[0], url: fetched }] })).toEqual([]);
+  });
+
+  it("preserves repeated query value order when identifying cited sources", () => {
+    const cited = "https://example.com/pricing?plan=Free&plan=Pro";
+    const fetched = "https://example.com/pricing?plan=Pro&plan=Free";
+    expect(run({ data: { ...data, pricingUrl: cited, sourceUrls: [cited] }, evidence: [{ ...evidence[0], url: fetched }] })).toContain("no fetched page for this entry matches 'sourceUrls'");
   });
 
   it.each([undefined, "2026-10-08"])("rejects a missing or stale verification date (%s) even when publication is current", (lastVerified) => {

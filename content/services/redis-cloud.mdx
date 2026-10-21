@@ -26,13 +26,13 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Free plan costs $0 and gives one 30 MB database on a shared cloud
-    deployment with up to 30 concurrent connections. It comes with a best-effort
-    SLA and community support.
+    The Free plan costs $0 and gives one 30 MB database on a shared cloud deployment with up to 30
+    concurrent connections. It comes with a best-effort SLA and community support.
   limits:
     - 30 MB of memory in a single database
     - Up to 30 concurrent connections
     - 1 free database per account
+    - 5GB monthly total network bandwidth and 100 operations/sec maximum throughput
     - Shared cloud deployment on AWS, Google Cloud, or Azure
     - Best-effort SLA and community support
   caveats:
@@ -41,10 +41,10 @@ freeTierDetails:
     - You must delete the free database or upgrade it before you can create another free one
     - Upgrading to a paid plan needs a payment method
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Application caching
   - Session storage
@@ -73,19 +73,27 @@ avoidIf:
   - more than 30 connections
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://redis.io/'
 docsUrl: 'https://docs.redis.com/latest/rc/'
 sourceUrls:
-  - 'https://redis.io/pricing/'
-  - 'https://redis.io/docs/latest/operate/rc/subscriptions/'
-  - 'https://redis.io/docs/latest/operate/rc/rc-quickstart/'
-  - 'https://redis.io/docs/latest/operate/rc/databases/create-database/create-free-database/'
+  - https://redis.io/pricing/
+  - https://redis.io/docs/latest/operate/rc/subscriptions/
+  - https://redis.io/docs/latest/operate/rc/rc-quickstart/
+  - https://redis.io/docs/latest/operate/rc/databases/create-database/create-free-database/
+  - >-
+    https://redis.io/docs/latest/operate/rc/subscriptions/view-essentials-subscription/essentials-plan-details/
 featured: false
 pricingUrl: 'https://redis.io/pricing/'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Added current bandwidth and throughput limits and qualified unpublished card and exact
+      memory-cap behavior.
 ---
 You manage the database in the Redis Cloud console and connect with Redis Insight, `redis-cli`, or a Redis client library. It suits students and developers who want a hosted Redis without installing anything.
 
@@ -97,7 +105,7 @@ A free plan is a type of Essentials plan, built for training and prototyping. Yo
 
 ## When you hit a limit
 
-The pages do not say what happens when you fill the 30 MB or pass the 30 connections. No page shows a charge for the Free plan.
+The pages do not say what happens when you fill the 30 MB or pass the 30 connections. The current Essentials details add 5GB of monthly total network bandwidth and a maximum of 100 operations per second, assuming 1KiB requests. Redis says it notifies you before limiting usage for bandwidth or throughput excess.
 
 If you outgrow it, the paid Essentials plans start from $0.007 an hour, with a total of $5 a month, and range from 250 MB up. You need to add a payment method when you upgrade a free plan.
 
@@ -121,7 +129,7 @@ Yes. The Free plan is always $0 and gives one 30 MB database on a shared cloud d
 
 ### Does Redis Cloud need a credit card?
 
-Not for the Free plan, based on the sign-up steps in the docs, which ask only for a Google or GitHub login or a form. You need a payment method if you upgrade to a paid plan.
+The cited setup pages do not explicitly state a Free-plan card requirement. An initial login form alone does not establish the complete policy; paid upgrades require a payment method.
 
 ### How many connections does the Redis Cloud free plan allow?
 

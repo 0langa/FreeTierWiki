@@ -1,8 +1,8 @@
 ---
 title: Cloudflare Workers KV
 description: >-
-  Cloudflare Workers KV is a global, low-latency key-value store for Workers.
-  It is for developers who need fast reads of small values, such as settings,
+  Cloudflare Workers KV is a global, low-latency key-value store for Workers. It
+  is for developers who need fast reads of small values, such as settings,
   flags, and cached data, near their users.
 provider: Cloudflare
 category: database
@@ -40,14 +40,18 @@ freeTierDetails:
   caveats:
     - Eventually consistent
     - Writes to the same key are limited to 1 per second
-    - Dashboard and Wrangler operations count as usage, and so do reads of keys that do not exist
+    - >-
+      Dashboard and Wrangler operations count as usage, and so do reads of keys
+      that do not exist
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - On the Free plan, operations past the daily limit fail with an error instead of billing
+    - >-
+      On the Free plan, operations past the daily limit fail with an error
+      instead of billing
 useCases:
   - Storing configuration for a Worker
   - Feature flags read at the edge
@@ -56,16 +60,20 @@ useCases:
   - Redirect or routing tables
 quickstartSteps:
   - Sign up for a Cloudflare account and install Node.js.
-  - 'Create a Worker project with `npm create cloudflare@latest`.'
-  - 'Create a namespace with `npx wrangler kv namespace create <BINDING_NAME>`.'
-  - Add the binding to your Wrangler configuration file so the Worker can reach the namespace.
-  - 'Write and read keys from your Worker, or use Wrangler or the dashboard, then deploy.'
+  - Create a Worker project with `npm create cloudflare@latest`.
+  - Create a namespace with `npx wrangler kv namespace create <BINDING_NAME>`.
+  - >-
+    Add the binding to your Wrangler configuration file so the Worker can reach
+    the namespace.
+  - >-
+    Write and read keys from your Worker, or use Wrangler or the dashboard, then
+    deploy.
 whenToUse: >-
   Use it for read-heavy, small key-value data at the edge, where an eventually
   consistent store is fine.
 whenNotToUse: >-
-  Skip it when you need strong consistency, complex queries, or frequent
-  writes to the same key. Writes to the same key are limited to 1 per second.
+  Skip it when you need strong consistency, complex queries, or frequent writes
+  to the same key. Writes to the same key are limited to 1 per second.
 bestFor:
   - edge applications
   - stateless APIs
@@ -76,7 +84,7 @@ avoidIf:
   - You write to the same key often
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-09T00:00:00.000Z
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/kv'
@@ -87,8 +95,9 @@ sourceUrls:
   - 'https://developers.cloudflare.com/kv'
   - 'https://developers.cloudflare.com/kv/get-started/'
   - 'https://developers.cloudflare.com/kv/concepts/how-kv-works/'
+  - 'https://www.cloudflare.com/plans/'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: '2026-10-21'
 pricingUrl: 'https://developers.cloudflare.com/kv/platform/pricing/'
 ---
 You use Workers KV from a Worker through a binding, from the Wrangler CLI, from the dashboard, or over the REST API. It suits Cloudflare developers who read small values often.

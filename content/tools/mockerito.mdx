@@ -31,14 +31,18 @@ freeTierDetails:
     - '7-day trial of the Developer plan: 20 projects, 50,000 API calls/month'
     - 'Free sample APIs: 200+ endpoints across 9 domains, no signup, no API keys, full CRUD'
   caveats:
+    - Custom trial expiry, payment activation, and call-limit enforcement are not publicly described
     - No credit card needed to start the trial; $10/month after the 7 days
     - Free sample APIs are fixed data sets, not custom mocks
     - The pricing page shows a single paid plan for custom mock APIs
   requiresCard: false
   freeTierType: trial
   trialDays: 7
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - No card is required to start, but custom-trial access and payment activation after day 7 are unconfirmed
+    - Public sample APIs have separate free and unlimited-request terms
 useCases:
   - Calling sample store, user, and cart data while building a front end
   - Building custom mock endpoints that return exact JSON
@@ -66,17 +70,25 @@ avoidIf:
   - data that must match your own schema without paying
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://mockerito.com/'
 docsUrl: 'https://mockerito.com/free-apis'
 sourceUrls:
+  - 'https://mockerito.com/tos'
   - 'https://mockerito.com/'
   - 'https://mockerito.com/free-apis'
 pricingUrl: 'https://mockerito.com/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Separated unlimited public-API terms from unpublished custom-trial expiry and billing enforcement.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You call the free sample APIs with plain HTTP requests from `fetch` or any client. For custom mocks you sign in, create endpoints in the dashboard, and call the API URL Mockerito gives you. It suits front-end developers and teachers.
 
@@ -88,12 +100,14 @@ The second is the custom mock builder, which offers a 7-day free trial of its De
 
 ## When you hit a limit
 
-The sample API pages do not state any rate limit or cap. For the custom builder, the pricing page does not say what happens when you pass 50,000 calls or when the trial ends without a plan. The page does say that you pay $10 per month after the trial, so the trial is the only free period for custom mocks. No card is needed to start it, which keeps the risk of a surprise charge low.
+The public-API terms allow unlimited requests, including commercial use, while prohibiting overload and offering no uptime guarantee. Those terms still describe premium features as future offerings, so they do not establish the current custom builder’s billing policy.
+
+For custom mocks, the pricing card lists 50,000 calls per month and $10 monthly after the trial. It does not explain quota enforcement, post-trial data access, or how payment becomes active. No card is required to start, but that does not establish every later billing condition.
 
 ## Gotchas
 
 - Custom mock APIs are a paid product. Only the sample APIs stay free after 7 days.
-- The sample APIs are fixed data. You cannot change their shape.
+- Sample endpoints have a predefined schema even though CRUD operations are supported; use the paid builder for your own response format.
 - The pricing page shows one paid plan for custom mock APIs, and shows both $15 and $10; the trial line says $10/month after 7 days.
 
 ## Alternatives in this atlas

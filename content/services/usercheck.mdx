@@ -35,11 +35,11 @@ freeTierDetails:
     - Limited request log
   caveats:
     - Bulk validation, custom blocklists, and provider information are on the Pro plan
-    - The page does not say what happens when the monthly credits run out
+    - Requests return HTTP 429 when the monthly quota is exhausted; credits do not roll over
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: none
 useCases:
   - Blocking disposable email addresses at sign-up
@@ -65,24 +65,29 @@ avoidIf:
   - high request rates
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.usercheck.com/'
 docsUrl: 'https://www.usercheck.com/docs'
 sourceUrls:
+  - 'https://www.usercheck.com/docs/api/rate-limits'
+  - 'https://www.usercheck.com/docs/get-started/credits'
   - 'https://www.usercheck.com/'
   - 'https://www.mailcheck.ai/'
 pricingUrl: 'https://www.usercheck.com/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Documented the monthly quota hard stop and credit reset policy from the provider's credit documentation.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas. UserCheck is the current name of MailCheck.ai.
 ---
 
-UserCheck, which used to be called MailCheck.ai, is an API that tells you whether an email address is disposable, a forwarding relay, or a likely typo. The old mailcheck.ai site now says MailCheck.ai is UserCheck.com.
+UserCheck, which used to be called MailCheck.ai, is an API that tells you whether an email address is disposable, a forwarding relay, or a likely typo. The old mailcheck.ai address now leads to UserCheck.
 
 ## What the free plan gives you
 
@@ -92,7 +97,7 @@ One API call returns fields such as disposable, relay_domain, public_domain, fre
 
 ## When you hit a limit
 
-The page counts credits per month but does not say what the API returns when the 1,000 free credits are used up. The free plan also caps you at 1 request per second, so a burst of sign-ups may need to queue checks.
+When the monthly quota is exhausted, requests return HTTP 429 Too Many Requests until the billing cycle resets. Unused credits do not roll over. The credit docs distinguish this from the separate request rate limit. The free plan also caps you at 1 request per second, so a burst of sign-ups may need to queue checks.
 
 The Pro plan costs $50 a month and raises the allowance to 200,000 credits per month and 5 requests per second. It adds a 30-day request log, bulk email and domain validation, a custom blocklist, and provider information. Larger plans are custom through sales.
 
@@ -112,7 +117,7 @@ The Pro plan costs $50 a month and raises the allowance to 200,000 credits per m
 
 ### Is UserCheck the same as MailCheck.ai?
 
-Yes. The mailcheck.ai site says MailCheck.ai is now UserCheck.com.
+Yes. The old mailcheck.ai address now leads to UserCheck.
 
 ### Is UserCheck free?
 

@@ -30,15 +30,17 @@ freeTierDetails:
     - '100,000 traces recorded per month'
     - '1,000,000 traces retrieved or scanned per month'
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - X-Ray pricing now sits on the Amazon CloudWatch pricing page
     - Traces recorded depend on your request volume and sampling rate
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - Traces past the free amounts are billed per trace recorded, retrieved, or scanned
     - A high sampling rate on a busy app can pass the free traces quickly
 useCases:
@@ -64,8 +66,8 @@ avoidIf:
   - high-traffic apps with full sampling
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://aws.amazon.com/xray/'
@@ -77,6 +79,9 @@ sourceUrls:
 pricingUrl: 'https://aws.amazon.com/cloudwatch/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped excess usage to AWS account plans and optional project controls; corrected Free-account suspension and data-retention wording."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -92,7 +97,7 @@ A trace represents one request to your application and can include many data poi
 
 ## When you hit a limit
 
-Nothing stops tracing at the free amounts. Past them, traces recorded cost $0.000005 per trace, and traces retrieved or scanned cost $0.0000005 per trace.
+On Paid accounts without optional project controls, tracing continues past the free amounts. Past them, traces recorded cost $0.000005 per trace, and traces retrieved or scanned cost $0.0000005 per trace.
 
 AWS gives an example: 2,000 requests per hour with a 10% sampling rate over 31 days records 148,800 traces. After the 100,000 free traces, 48,800 are billable, for a bill of $0.244 that month. Lowering the sampling rate is the simplest way to stay inside the free amount.
 
@@ -100,7 +105,7 @@ AWS gives an example: 2,000 requests per hour with a 10% sampling rate over 31 d
 
 - The number of traces follows your traffic and sampling rate, so a traffic spike raises the count without any change to your code.
 - The newer transaction search and Application Signals features are priced separately from classic X-Ray traces.
-- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+- A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion.
 
 ## Alternatives in this atlas
 

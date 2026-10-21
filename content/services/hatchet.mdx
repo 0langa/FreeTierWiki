@@ -37,7 +37,7 @@ freeTierDetails:
     - Exceeding a limit drops tasks and new task creation returns errors
     - Your workers run on your own infrastructure
     - Failed runs count as runs, retries do not
-  resetPeriod: monthly
+  resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -70,8 +70,8 @@ avoidIf:
   - a plan that can never bill you
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://hatchet.run'
@@ -83,6 +83,9 @@ sourceUrls:
 pricingUrl: 'https://hatchet.run/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Aligned the no-card daily reset and exposed separate card-backed storage, log and user charges.
   - date: 2026-10-09
     kind: changed
     note: >-
@@ -96,13 +99,13 @@ You write tasks and workflows in Python, TypeScript, or Go, and run workers on y
 
 Hatchet Cloud has a pay-as-you-go plan that starts at $0, in two forms. Without a card on file, you get 2,000 task runs and 2,000 events per day. You also get 10 workers, 2,000 worker slots, 1 tenant, 3 users, 500 MB of active storage, and 1 day of run history.
 
-With a card on file, the plan includes 1M task runs and 1M events per month, and 100 workers, 10 tenants, and 7 days of retention. A task that spawns another task counts as two runs. Failed runs count, but retries do not.
+With a card, 1M runs and 1M events monthly are included, plus 100 workers, 10 tenants, 50 users and 7-day retention. A task that spawns another task counts as two runs. Failed runs count, but retries do not.
 
 ## When you hit a limit
 
 The pricing FAQ says you get alerts by email or Slack as you approach a limit. If you exceed it, tasks get dropped and you see errors when you try to create new tasks.
 
-With a card on file, you pay nothing until you pass the included million runs and million events. After that you pay $30 per million runs and $5 per million events, billed at the end of each billing cycle of 30 or 31 days. Storage and logs above the included amounts are billed by the GB-hour.
+With a card, excess runs cost $30/million and events $5/million. Storage above 10 GB costs $0.03/GB-hour; logs and traces above 10 GB cost $0.0004/GB-hour. Users beyond 50 cost $10 each. These meters can create charges before the run allowance is exhausted. Bills arrive at the end of each 30- or 31-day cycle.
 
 ## Gotchas
 

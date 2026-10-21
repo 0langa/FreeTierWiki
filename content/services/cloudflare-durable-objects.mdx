@@ -2,9 +2,8 @@
 title: Cloudflare Durable Objects
 description: >-
   Cloudflare Durable Objects give each room, user, or document its own small
-  server with built-in storage, so state stays consistent in one place. They
-  are for developers building realtime or coordinated apps on Cloudflare
-  Workers.
+  server with built-in storage, so state stays consistent in one place. They are
+  for developers building realtime or coordinated apps on Cloudflare Workers.
 provider: Cloudflare
 category: compute
 domain: compute
@@ -25,7 +24,9 @@ tags:
   - sqlite
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Workers Free plan: 100,000 requests and 13,000 GB-s per day, plus 5 GB of SQLite storage.'
+  summary: >-
+    Workers Free plan: 100,000 requests and 13,000 GB-s per day, plus 5 GB of
+    SQLite storage.
   limits:
     - '100,000 requests per day'
     - '13,000 GB-s duration per day'
@@ -45,11 +46,15 @@ useCases:
   - A small SQLite database per user or document
   - Coordinating several clients on one shared piece of data
 quickstartSteps:
-  - 'Sign up for a Cloudflare account and install Node.js.'
-  - 'Run npm create cloudflare@latest with the name durable-object-starter and choose the Worker + Durable Objects template.'
-  - 'Write your Durable Object class and use its SQL API for storage.'
-  - 'Bind the class in the wrangler.jsonc config and test locally with npx wrangler dev.'
-  - 'Deploy with npx wrangler deploy.'
+  - Sign up for a Cloudflare account and install Node.js.
+  - >-
+    Run npm create cloudflare@latest with the name durable-object-starter and
+    choose the Worker + Durable Objects template.
+  - Write your Durable Object class and use its SQL API for storage.
+  - >-
+    Bind the class in the wrangler.jsonc config and test locally with npx
+    wrangler dev.
+  - Deploy with npx wrangler deploy.
 whenToUse: >-
   Use it when many clients must share one consistent piece of state, such as a
   room, a counter, or a document.
@@ -66,8 +71,8 @@ avoidIf:
   - key-value backed storage on the free plan
 difficulty: advanced
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-19
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/durable-objects/'
@@ -76,12 +81,18 @@ sourceUrls:
   - 'https://developers.cloudflare.com/durable-objects/platform/pricing/'
   - 'https://developers.cloudflare.com/durable-objects/'
   - 'https://developers.cloudflare.com/durable-objects/get-started/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/durable-objects/platform/pricing/'
 featured: false
 changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Distinguished resetting daily quotas from persistent storage limits and
+      grounded the signup policy in explicit evidence.
 ---
 You write a Durable Object as a JavaScript or TypeScript class inside a Cloudflare Worker, then call it from the Worker by name. It suits developers who need one place to hold shared state, such as a chat room or a game lobby, without running a database server.
 
@@ -95,7 +106,7 @@ For storage, the free plan allows 5 million rows read per day, 100,000 rows writ
 
 On the Workers Free plan, a hard stop applies. If you pass any one of the free limits, further operations of that type fail with an error.
 
-The limits reset at 00:00 UTC each day, so the errors end after the reset. Duration also counts while an object sits idle in memory and cannot hibernate. Open WebSocket connections are the usual cause. The WebSocket Hibernation API can sharply cut those duration charges, so it also stretches your free duration.
+Daily request, duration, and row-operation quotas reset at 00:00 UTC. The 5 GB storage ceiling is separate: stored data does not disappear at the daily reset. Duration also counts while an object sits idle in memory and cannot hibernate. Open WebSocket connections are the usual cause. The WebSocket Hibernation API can sharply cut those duration charges, so it also stretches your free duration.
 
 ## Gotchas
 
@@ -117,8 +128,8 @@ Yes, on the Workers Free plan, with SQLite storage only. The daily limits are 10
 
 ### What happens when I go over the Durable Objects free limits?
 
-Further operations of the type you exceeded fail with an error. The limits reset at 00:00 UTC.
+Further operations of the type you exceeded fail with an error. Daily quotas reset at 00:00 UTC; the storage ceiling requires reducing stored data or upgrading.
 
 ### Do Durable Objects need a credit card?
 
-The getting started guide lists only a Cloudflare account and Node.js as prerequisites. On the free plan, operations that pass a limit fail with an error.
+Cloudflare advertises free account signup without a card. SQLite-backed Durable Objects are included in Workers Free, and operations past its quotas fail rather than becoming paid overages.

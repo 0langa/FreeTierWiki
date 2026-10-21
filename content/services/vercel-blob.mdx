@@ -31,11 +31,13 @@ freeTierDetails:
     - '10,000 simple operations'
     - '2,000 advanced operations'
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - Hobby is for non-commercial, personal use only
     - Hobby limits are shared across all Vercel services in the project
     - 'Over the limit, Blob is blocked until 30 days pass'
     - Dashboard interactions such as browsing the store count as advanced operations
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -66,19 +68,26 @@ avoidIf:
   - you need access to never be blocked
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: '2026-10-13'
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://vercel.com/storage/blob'
 docsUrl: 'https://vercel.com/docs/vercel-blob'
 sourceUrls:
+  - 'https://vercel.com/docs/plans/hobby'
   - 'https://vercel.com/docs/vercel-blob/usage-and-pricing'
   - 'https://vercel.com/docs/vercel-blob'
   - 'https://vercel.com/docs/vercel-blob/server-upload'
 pricingUrl: 'https://vercel.com/docs/vercel-blob/usage-and-pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
+  - date: '2026-10-21'
+    kind: changed
+    note: Clarified shared CDN allowances, cache-hit accounting, and Hobby's non-commercial restriction.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -87,9 +96,9 @@ You create a Blob store in the Vercel dashboard or with the Vercel CLI, then upl
 
 ## What the free plan gives you
 
-Vercel Blob is free for Hobby users within the usage limits. The Hobby plan includes 1GB of storage per month, the first 10 GB of data transfer, the first 10,000 simple operations, and the first 2,000 advanced operations.
+Vercel Blob is free for Hobby users within the usage limits. Hobby is for non-commercial, personal use only. The Hobby plan includes 1GB of storage per month, the first 10 GB of data transfer, the first 10,000 simple operations, and the first 2,000 advanced operations.
 
-Simple operations count when a blob is read by its URL and it is a cache miss, or when you call head(). Advanced operations count when you call put(), copy(), or list(), and when you create a store. Cache hits do not count, and del() is free.
+Simple operations count when a blob is read by its URL and it is a cache miss, or when you call head(). Advanced operations count when you call put(), copy(), or list(), and when you create a store. Cache hits do not count as simple operations, but still count as CDN requests. The del() operation is free.
 
 The included usage on Hobby is shared across all Vercel services in your project. Dashboard actions such as browsing the store also count as advanced operations.
 
@@ -101,7 +110,7 @@ Pro and other paid plans bill by use. Storage costs $0.023 per GB, simple operat
 
 ## Gotchas
 
-- Hobby limits are shared with your other Vercel services in the project, so heavy builds or traffic can use up the same pool.
+- Blob reads also consume CDN requests and, on cache misses, Fast Origin Transfer. Those allowances are shared with other Vercel services; builds do not consume Blob operations.
 - The access mode, public or private, cannot be changed after you create the store. Pick it carefully.
 - Blobs larger than 512 MB are not cached. Each access is a cache miss, which counts as a simple operation.
 

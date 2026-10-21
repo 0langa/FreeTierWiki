@@ -30,20 +30,24 @@ freeTierDetails:
     Free tier gives 100 emails per day, forever. Beyond that you pay as you go,
     at 2 euros per 10,000 emails. Your own email backend bills you separately.
   limits:
-    - 100 emails/day, forever
-    - All features included, no tiers
+    - '100 emails/day, forever'
+    - 'All features included, no tiers'
     - 'Pay-as-you-go beyond free amount: €2/10,000 emails, excluding VAT'
   caveats:
-    - You connect your own email backend, and that provider bills you at its own rates
+    - >-
+      You connect your own email backend, and that provider bills you at its own
+      rates
     - The free daily allowance stays after you upgrade
-    - Billing happens in whole packages of 10,000 emails
+    - 'Billing happens in whole packages of 10,000 emails'
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - Sending more than 100 emails a day costs 2 euros per 10,000 emails, and a started package counts as a whole one
+    - >-
+      Sending more than 100 emails a day costs 2 euros per 10,000 emails, and a
+      started package counts as a whole one
 useCases:
   - Add templates and logs on top of AWS SES or Postmark
   - Send password reset and order emails through one API call
@@ -51,10 +55,14 @@ useCases:
   - Keep email content and logs on EU servers
 quickstartSteps:
   - Create a free account on sendstreak.com. The site offers a free sign-up.
-  - Connect a backend by creating a mail server, for example AWS SES, Postmark, Gmail, or your own SMTP host.
+  - >-
+    Connect a backend by creating a mail server, for example AWS SES, Postmark,
+    Gmail, or your own SMTP host.
   - Add a send domain. The API has endpoints to add and verify send domains.
   - Create a personal access token for the REST API.
-  - Send a message with a POST to the `messages` endpoint of the v2 API, or use the Node.js, Java, or PHP SDK.
+  - >-
+    Send a message with a POST to the `messages` endpoint of the v2 API, or use
+    the Node.js, Java, or PHP SDK.
 whenToUse: >-
   Use SendStreak when you already run or plan to run an email backend such as
   AWS SES, and want templates, logs, retries, and a single API on top.
@@ -71,8 +79,8 @@ avoidIf:
   - you have no email backend to connect
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.sendstreak.com/'
@@ -83,6 +91,12 @@ sourceUrls:
   - 'https://www.sendstreak.com/'
   - 'https://www.sendstreak.com/documentation/getting-started/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified the unpublished account card requirement and unpaid-account
+      daily exhaustion behavior.
 ---
 You call a REST API or use an SDK, and you manage templates and logs in a web dashboard. It suits developers who want control over mail delivery without building the extras themselves.
 

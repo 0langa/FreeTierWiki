@@ -1,8 +1,9 @@
 ---
 title: Cloudflare AI Gateway
 description: >-
-  Cloudflare AI Gateway is a proxy in front of AI model providers. It adds caching, rate limits,
-  logs, and analytics to your requests. It is for developers who call one or more model APIs.
+  Cloudflare AI Gateway is a proxy in front of AI model providers. It adds
+  caching, rate limits, logs, and analytics to your requests. It is for
+  developers who call one or more model APIs.
 provider: Cloudflare
 category: ai
 domain: ai
@@ -25,16 +26,18 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The core features (analytics, caching, rate limiting) are free. Logs depend on when you made
-    your first gateway: 200,000 per day with 3 days of retention for new customers, or 100,000 in
-    total for older ones.
+    The core features (analytics, caching, rate limiting) are free. Logs depend
+    on when you made your first gateway: 200,000 per day with 3 days of
+    retention for new customers, or 100,000 in total for older ones.
   limits:
     - 'Dashboard analytics, caching, and rate limiting free'
     - 10 gateways per account on the free plan
     - >-
-      Logs for first gateways created on or after September 24, 2026: Workers Logs, 200,000 per day,
-      3 days retention on Workers Free
-    - 'Logs for older customers: 100,000 stored logs in total across all gateways (Workers Free)'
+      Logs for first gateways created on or after September 24, 2026: Workers
+      Logs, 200,000 per day, 3 days retention on Workers Free
+    - >-
+      Logs for older customers: 100,000 stored logs in total across all gateways
+      (Workers Free)
     - DLP scanning free with two predefined profiles
   caveats:
     - You still pay each AI provider for the model calls
@@ -42,6 +45,9 @@ freeTierDetails:
     - Guardrails is billed as Workers AI token-based inference
     - 'Workers Logs moves to Cloudflare Observability pricing on December 1, 2026'
     - The Unified Billing rate limit is 200 requests per 60 seconds per gateway
+    - >-
+      Unified Billing adds a 5% fee to purchased credits; optional Logpush
+      exports have separate usage charges
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
@@ -55,16 +61,23 @@ useCases:
 quickstartSteps:
   - Sign up for a free Cloudflare account.
   - Find your account ID in the Cloudflare dashboard.
-  - 'Create an API token with AI Gateway Read, AI Gateway Edit, and Workers AI Read permissions.'
   - >-
-    Send a request to the AI Gateway endpoint with curl. For Workers AI models add the
-    cf-aig-gateway-id header. The default gateway is created on your first authenticated request.
-  - 'Or go to AI, then AI Gateway, in the dashboard, select Create Gateway, and name it.'
+    Create an API token with AI Gateway Read, AI Gateway Edit, and Workers AI
+    Read permissions.
+  - >-
+    Send a request to the AI Gateway endpoint with curl. For Workers AI models
+    add the cf-aig-gateway-id header. The default gateway is created on your
+    first authenticated request.
+  - >-
+    Or go to AI, then AI Gateway, in the dashboard, select Create Gateway, and
+    name it.
   - Open the gateway dashboard to see analytics and logs.
 whenToUse: >-
-  Use when your app calls one or more model APIs and you want caching, rate limits, logs, and
-  analytics for free.
-whenNotToUse: Avoid if you need long log retention on the free plan or want Guardrails for free.
+  Use when your app calls one or more model APIs and you want caching, rate
+  limits, logs, and analytics for free.
+whenNotToUse: >-
+  Avoid if you need long log retention on the free plan or want Guardrails for
+  free.
 bestFor:
   - LLM apps
   - cost control
@@ -75,8 +88,8 @@ avoidIf:
   - Guardrails at no cost (billed as Workers AI inference)
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-19'
-lastVerified: '2026-10-19'
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/ai-gateway/'
@@ -87,7 +100,9 @@ sourceUrls:
   - 'https://developers.cloudflare.com/ai-gateway/get-started/'
   - 'https://developers.cloudflare.com/workers/observability/logs/workers-logs/'
   - 'https://developers.cloudflare.com/ai-gateway/observability/logging/'
-  - 'https://developers.cloudflare.com/ai-gateway/observability/logging/legacy-logs/'
+  - >-
+    https://developers.cloudflare.com/ai-gateway/observability/logging/legacy-logs/
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/ai-gateway/reference/pricing/'
 featured: false
 changes:
@@ -97,8 +112,14 @@ changes:
   - date: '2026-10-09'
     kind: changed
     note: >-
-      Log limits now depend on when you created your first gateway: new customers follow Workers
-      Logs (200,000 per day, 3 days on Workers Free), older ones keep 100,000 stored logs in total.
+      Log limits now depend on when you created your first gateway: new
+      customers follow Workers Logs (200,000 per day, 3 days on Workers Free),
+      older ones keep 100,000 stored logs in total.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Clarified optional Unified Billing and export charges and cited the
+      explicit free-account signup policy.
 status: changed
 ---
 You send your model requests to an AI Gateway endpoint instead of the provider, using a REST call or your Workers code. It suits teams that call several model providers and want caching, limits, and logs in one place.
@@ -113,7 +134,7 @@ You still pay each model provider for the calls.
 
 ## When you hit a limit
 
-The pricing page does not describe a hard stop for the core features. For logs, the rules differ by customer type. With Legacy Logs, once you reach the storage limit, the service can stop saving logs or delete the oldest ones, if you turn on automatic deletion.
+The pricing page does not describe a hard stop for the core features. Unified Billing adds a 5% fee to purchased credits, and optional Logpush exports are billed separately. For logs, the rules differ by customer type. With Legacy Logs, once you reach the storage limit, the service can stop saving logs or delete the oldest ones, if you turn on automatic deletion.
 
 Guardrails is not part of the free core: it is billed as Workers AI token-based inference. The Unified Billing rate limit is 200 requests per 60 seconds per gateway, and a 429 error comes back above it. That limit does not apply when you bring your own provider keys.
 
@@ -141,4 +162,4 @@ New customers follow Workers Logs, with 200,000 log events per day and 3 days of
 
 ### Does Cloudflare AI Gateway need a credit card?
 
-No card is listed. The pricing page says all it takes is a Cloudflare account and one line of code.
+Cloudflare advertises free account signup without a card. AI Gateway’s core features are free, while model inference, Unified Billing credit purchases, and optional exports have separate charges.

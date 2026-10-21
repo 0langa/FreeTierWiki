@@ -25,21 +25,24 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes 7,500 events and 1,000,000 spans per month with 7-day
-    data retention, across unlimited projects, for 1 user.
+    data retention for 1 user.
   limits:
     - '7,500 events/month'
     - '1,000,000 spans/month'
     - 7-day data retention
-    - Unlimited projects
     - 1 user
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Automatic error prioritization and assignment are on higher plans
-    - Basic notifications only; priority support requires a paid plan
+    - The detailed comparison covers paid plans; do not assume all listed project and notification features apply to Free
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
+  billingRiskNotes:
+    - 'Billing docs say a canceled subscription moves to Free with no further charge unless you choose a paid upgrade; event strategy is configurable for subscribed plans.'
 useCases:
   - Find out about crashes and unhandled exceptions in production
   - Check whether a release introduces new bugs
@@ -68,8 +71,8 @@ avoidIf:
   - high event volumes
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.bugsnag.com/'
@@ -77,23 +80,31 @@ docsUrl: 'https://docs.bugsnag.com/'
 pricingUrl: 'https://www.bugsnag.com/pricing/'
 sourceUrls:
   - 'https://www.bugsnag.com/pricing/'
+  - 'https://docs.bugsnag.com/product/plans-and-billing/'
   - 'https://docs.bugsnag.com/'
   - 'https://docs.bugsnag.com/product/getting-started/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Scoped event auto-upgrades and Free no-charge terms; removed paid-table features incorrectly attributed to Free.'
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You create a project in the BugSnag dashboard, add a notifier library for your platform, and set the project API key in your app. BugSnag then reports crashes and unhandled exceptions to the dashboard. It suits solo developers with a small app.
 
 ## What the free plan gives you
 
-The Free plan costs $0 per month and is for solo users and their passion projects. It includes 7.5K events and 1M spans per month, for 1 user. An event is an unhandled exception or crash, or any handled exception that you choose to report. You can create an unlimited number of projects.
+The Free plan costs $0 per month and is for solo users and their passion projects. It includes 7.5K events and 1M spans per month, for 1 user. An event is an unhandled exception or crash, or any handled exception that you choose to report. The detailed feature comparison describes unlimited projects, but its columns cover paid plans; the Free card does not establish that entitlement.
 
-The plan covers error and performance monitoring on 50+ platforms, 30+ third-party integrations, and basic notifications. The free tier keeps event data for 7 days. Paid plans keep it for longer, such as 60 days on one plan.
+The Free card covers error and performance monitoring on 50+ platforms and 30+ third-party integrations. Basic notifications appear in the paid Select feature list. The free tier keeps event data for 7 days. Paid plans keep it for longer, such as 60 days on one plan.
 
 ## When you hit a limit
 
-The pricing page lists a question about going over your event quota, but the fetched page does not show the answer. Check that FAQ before you send a large volume of errors.
+The billing guide describes two event-overage strategies: capture every event and upgrade after more than 3 daily quota breaches in a rolling 30-day window, or rate-limit events. Administrators choose the strategy in billing settings. The guide does not separately explain Free-plan event enforcement.
 
-The home page says BugSnag uses dynamic sampling and burst protection so you do not exceed quotas or get surprise bills. The Free plan has no card listed on the page, so treat surprise charges as unlikely.
+For the free route, the guide says canceling a subscription moves you to the limited Free plan with no further charges unless you choose to upgrade again. Span sampling also avoids charges above purchased spans. These are stronger billing evidence than the absence of a card statement; check that your account is actually on Free.
 
 ## Gotchas
 
@@ -111,7 +122,7 @@ The home page says BugSnag uses dynamic sampling and burst protection so you do 
 
 ### Is Bugsnag free?
 
-Yes, there is a Free plan for solo users. It includes 7.5K events and 1M spans per month and unlimited projects.
+Yes, there is a Free plan for solo users. It includes 7.5K events and 1M spans per month for one user.
 
 ### How long does Bugsnag keep data on the free plan?
 
@@ -119,4 +130,4 @@ The pricing page says the Free tier includes 7 days of data retention.
 
 ### Does Bugsnag need a credit card for the free plan?
 
-The pricing page does not say. The entry lists no card as required.
+The pricing page does not say. The card requirement is not confirmed.

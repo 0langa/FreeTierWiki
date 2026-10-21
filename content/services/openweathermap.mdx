@@ -34,12 +34,13 @@ freeTierDetails:
     - One Call API subscription with the first 1,000 calls per day free
   caveats:
     - Call limits apply to the whole account, not per API key
-    - One Call API needs its own separate subscription
+    - One Call API needs a separate paid subscription with billing details
+    - Free-plan signup card policy is not explicitly stated in the reviewed sources
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: medium
   billingRiskNotes:
     - Free plan calls past 60 a minute return a 429 error
     - One Call API calls past 1,000 a day are charged at the end of the subscription month
@@ -65,19 +66,23 @@ avoidIf:
   - bursts above 60 calls a minute
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://openweathermap.org'
 docsUrl: 'https://openweathermap.org/api'
 sourceUrls:
+  - 'https://openweathermap.org/one-call-transfer'
   - 'https://openweathermap.org/price'
   - 'https://openweathermap.org/faq'
   - 'https://openweathermap.org/api/one-call-3'
 pricingUrl: 'https://openweathermap.org/price'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Updated the reviewed One Call overage currency and price, clarified its paid opt-in and default spending exposure, and qualified the ordinary Free card policy."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -87,11 +92,11 @@ OpenWeatherMap, run by OpenWeather, is a weather data platform with APIs for cur
 
 ## What the free plan gives you
 
-The Free plan covers current weather and forecasts with 60 API calls a minute and 1,000,000 calls a month. It includes the Current Weather API, the 3-hour Forecast for 5 days, the Air Pollution API, Weather Maps with 15 layers, and the Geocoding API. A separate free plan for students adds historical data, such as the Weather History API, with the same call limits. One Call API is a different product: its pay-per-call subscription includes the first 1,000 API calls per day free, and each additional call costs 0.0015 USD.
+The Free plan covers current weather and forecasts with 60 API calls a minute and 1,000,000 calls a month. It includes the Current Weather API, the 3-hour Forecast for 5 days, the Air Pollution API, Weather Maps with 15 layers, and the Geocoding API. A separate free plan for students adds historical data, such as the Weather History API, with the same call limits. One Call API is a different product: its pay-per-call subscription includes the first 1,000 API calls per day free, and the reviewed EUR pricing view lists each additional call at 0.0014 EUR.
 
 ## When you hit a limit
 
-On the Free plan, making more than 60 API calls a minute returns a 429 error. If you go past the plan's limits, OpenWeather says it will notify you and ask you to move to a subscription or reduce your calls, and expects you to act to avoid your account being suspended. One Call API works differently: calls above 1,000 a day are summed and charged automatically at the end of your subscription month. A default limit of 2,000 calls per day is set, and you can change it in the Billing plan tab.
+On the Free plan, making more than 60 API calls a minute returns a 429 error. If you go past the plan's limits, OpenWeather says it will notify you and ask you to move to a subscription or reduce your calls, and expects you to act to avoid your account being suspended. One Call API works differently: a separately activated subscription requires billing details, and calls above 1,000 a day are charged automatically at month end. Its default 2,000-call daily limit can still incur charges; set it to 1,000 in Billing plan to stay within that product's free allowance. The ordinary Free signup card policy is not explicitly published.
 
 ## Gotchas
 

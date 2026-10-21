@@ -27,17 +27,18 @@ pricingModel: freemium
 freeTierDetails:
   summary: 'The Amplitude Free plan includes limited guides and surveys, with no time limit and no card.'
   limits:
-    - Limited guides and surveys (the pricing page gives no count)
+    - 1 guide or survey in the Free pricing comparison
     - 2 million analytics events per month
     - '10,000 session replays per month'
     - Unlimited team members
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - More guides and surveys need a paid Amplitude plan.
     - 'Guides & Surveys is part of Amplitude, not a separate product.'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - 'Walk new users through onboarding with tooltips, modals, and walkthroughs'
@@ -47,7 +48,7 @@ useCases:
   - 'Measure guide views, survey responses, and rage closes'
 quickstartSteps:
   - Create a free Amplitude account and a project. The Free plan needs no credit card.
-  - Set up Amplitude Analytics first with the Browser SDK. Guides and Surveys uses the same API key.
+  - For the Browser SDK plugin route, set up Amplitude Analytics first and use the same project API key; standalone installation with another analytics provider is also supported.
   - >-
     Install the Guides and Surveys Web SDK with a script tag, npm, or Yarn. The npm package is
     @amplitude/engagement-browser.
@@ -70,11 +71,11 @@ bestFor:
 avoidIf:
   - need many guides or surveys for free
   - want a standalone command palette
-  - no Amplitude analytics set up
+  - no plan to install the Guides and Surveys SDK
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 6
 officialUrl: 'https://amplitude.com/guides-and-surveys'
@@ -86,13 +87,20 @@ sourceUrls:
   - 'https://amplitude.com/docs/guides-and-surveys/get-started'
   - 'https://amplitude.com/docs/sdks/guides-and-surveys/sdk'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added the published one-guide-or-survey allowance and corrected the blanket Amplitude Analytics SDK prerequisite.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 
 You build guides and surveys in the Amplitude web app and show them in your product through the Guides and Surveys SDK. It fits product and growth teams that already send events to Amplitude.
 
 ## What the free plan gives you
 
-Guides & Surveys has no plan of its own. You get it through the Amplitude Free plan, which has no time limit and needs no credit card. The pricing page lists Guides & Surveys on the Free plan as "Limited". It gives no count.
+Guides & Surveys has no plan of its own. You get it through the Amplitude Free plan, which has no time limit and needs no credit card. The Free pricing card calls the feature limited, and the detailed comparison lists 1 guide or survey.
 
 The rest of the Free plan sits around it. You get 2 million analytics events per month and 10,000 session replays per month. You also get 2,000 AI feedback records per month. Feature flags and team seats are unlimited. Because guides can use behavior data, you can target a guide at a group of users built from your Amplitude events. The Free plan is aimed at individuals and teams who are just starting out.
 
@@ -104,7 +112,7 @@ To get more, you buy Guides & Surveys as an add-on to the Plus plan. Growth and 
 
 ## Gotchas
 
-- You cannot buy Guides & Surveys on its own. It is part of Amplitude, so you also need the Amplitude SDK and events set up.
+- An Amplitude account and project are required. The SDK supports the Amplitude Analytics plugin path or standalone setup with another analytics provider.
 - Paid pricing counts the guides and surveys you create. It does not count users or events, so a large library costs more.
 - Unlimited live guides and surveys come only with higher plans. The Free plan has a limited allowance.
 
@@ -122,7 +130,7 @@ CommandBar is now Amplitude Guides & Surveys. A limited amount is free through t
 
 ### How many guides can I run on the Amplitude Free plan?
 
-The pricing page says guides and surveys are limited on the Free plan, but it does not give a number. Unlimited live guides and surveys need Growth or Enterprise.
+The detailed pricing comparison lists 1 guide or survey on Free. Unlimited live guides and surveys need a Growth or Enterprise add-on.
 
 ### Do I need a credit card for Amplitude Guides & Surveys?
 

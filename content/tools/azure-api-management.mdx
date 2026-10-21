@@ -42,7 +42,7 @@ freeTierDetails:
 useCases:
   - Put one gateway in front of several backend APIs
   - Check API keys and apply rate limits and quotas
-  - Publish a developer portal with API documentation
+  - Publish an API through the Consumption gateway; a developer portal needs another tier
   - Transform requests and responses with policies
   - Watch API usage with analytics
 quickstartSteps:
@@ -51,10 +51,10 @@ quickstartSteps:
   - On the Basics tab, set the subscription, resource group, region, resource name, organization name, and administrator email.
   - Pick the Consumption pricing tier for the free monthly operations, then create the instance.
   - Import an API from an OpenAPI definition or another supported source.
-  - Add policies such as rate limits or quotas, and open the developer portal to test the API.
+  - Add policies such as rate limits or quotas, and test calls through the gateway endpoint; Consumption does not include a developer portal.
 whenToUse: >-
   Use it when your APIs already live on Azure and you want a gateway with
-  keys, quotas, and a developer portal, at low call volume on the Consumption
+  keys and quotas at low call volume on the Consumption
   tier.
 whenNotToUse: >-
   Avoid it if you expect more than 1 million operations a month and have no
@@ -70,20 +70,25 @@ avoidIf:
   - cannot create an Azure subscription
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/api-management/'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
 sourceUrls:
+  - 'https://learn.microsoft.com/en-us/azure/api-management/api-management-features'
   - 'https://azure.microsoft.com/en-us/pricing/details/api-management/'
   - 'https://learn.microsoft.com/en-us/azure/api-management/'
   - 'https://learn.microsoft.com/en-us/azure/api-management/get-started-create-service-instance'
   - 'https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed developer-portal functionality from the Consumption free allowance; other tier features remain separate."
 ---
 You set it up in the Azure portal, or with PowerShell, the Azure CLI, or a REST API, then import your APIs and add policies. It suits teams that run APIs on Azure, on premises, or in other clouds and want one place for keys, limits, and docs.
 
@@ -91,7 +96,7 @@ You set it up in the Azure portal, or with PowerShell, the Azure CLI, or a REST 
 
 The Consumption tier includes the first 1 million API operations per month, per subscription. It is a lightweight, serverless version of the service that is billed per execution. A billing unit is one operation within an HTTP request. For normal REST and SOAP APIs, one request is one operation.
 
-Microsoft's FAQ says only the Developer tier is unfit for production because it has no SLA, so the Consumption tier can carry production traffic. The page shows no free allowance for the other classic tiers.
+Microsoft's FAQ says only the Developer tier is unfit for production because it has no SLA, so the Consumption tier can carry production traffic. The page shows no free allowance for the other classic tiers. The feature comparison explicitly excludes the developer portal from Consumption.
 
 ## When you hit a limit
 
@@ -115,7 +120,7 @@ The page does not describe the service stopping. Plan for the bill to grow, and 
 
 ### Is Azure API Management free?
 
-Only the Consumption tier has a free amount. It includes the first 1 million API operations per month, per subscription. After that you pay per 10,000 operations.
+This entry covers the Consumption free allowance. It includes the first 1 million API operations per month, per subscription. After that you pay per 10,000 operations.
 
 ### What happens when I go over the Azure API Management free limit?
 

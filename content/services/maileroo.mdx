@@ -34,13 +34,13 @@ freeTierDetails:
     - 2 sending domains
     - 100 test emails per month and 3 SMTP sinks
   caveats:
-    - The pricing page does not say what happens when you pass the monthly sending amount
+    - Outbound sending stops at the monthly quota until reset or upgrade; hourly safety limits also apply
     - Maileroo Verify (one-time codes) is billed per verification from a prepaid balance
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
     - The next plan up is Basic at $10 a month for 25,000 outbound emails
 useCases:
@@ -69,8 +69,8 @@ avoidIf:
   - you send more than 3,000 emails a month
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://maileroo.com/'
@@ -79,8 +79,12 @@ sourceUrls:
   - 'https://maileroo.com/pricing'
   - 'https://maileroo.com/'
 pricingUrl: 'https://maileroo.com/pricing'
+status: changed
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added Maileroo's documented outbound sending stop at the monthly quota and hourly safety limits; corrected free overage risk to a hard cap."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -96,7 +100,7 @@ The SMTP relay, the RESTful email API, suppression handling, resending from logs
 
 ## When you hit a limit
 
-The pricing page counts outbound, inbound, and test emails per month, but it does not say what happens when you reach the free amount. It does not describe a hard stop or overage charges for the free plan.
+Maileroo's home-page FAQ says additional outbound emails are not sent after the monthly quota is exhausted, until the quota resets or you upgrade. The 12% quota buffer is for paying users. Hourly sending limits also apply as an anti-abuse measure; you can request a higher hourly limit through the dashboard.
 
 The next plan up is Basic at $10 a month, which raises outbound and inbound mail to 25,000 a month each and removes the cap on sending domains. You can upgrade, downgrade, or cancel at any time, according to the page.
 

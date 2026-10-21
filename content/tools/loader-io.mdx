@@ -34,13 +34,15 @@ freeTierDetails:
     - 1 minute tests
     - 2 URLs per test
   caveats:
+    - Free signup card requirement is not explicit; DNS verification is a paid feature
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Free users see only aggregated stats for all URLs, not per-URL results
     - Pro is $99.95 a month for 100,000 clients per test and unlimited target hosts
     - All tests run from Amazon's US-east datacenter
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Check how a web app handles many users at once
   - Stress test an API endpoint
@@ -49,7 +51,7 @@ useCases:
 quickstartSteps:
   - Sign up for a free Loader.io account.
   - Open Target Hosts, click New Host, and enter your domain name or IP address.
-  - Verify the host by uploading the token file to your server root or adding a DNS TXT record.
+  - Verify the Free target host using its token file; DNS verification is listed as a paid-plan feature.
   - Click New Test, pick Clients per test, Clients per second, or Maintain client load, and set clients and duration.
   - Run the test and read the results page.
 whenToUse: >-
@@ -68,8 +70,8 @@ avoidIf:
   - you need per-URL analytics for free
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://loader.io/'
@@ -80,6 +82,13 @@ sourceUrls:
   - 'http://support.loader.io'
 pricingUrl: 'https://loader.io/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped DNS verification to paid plans and qualified card and quota UI enforcement."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use Loader.io from a web dashboard, or its API, to register a host and run tests against it. It suits developers who want a fast load check without setting up their own load generator.
 
@@ -91,13 +100,13 @@ You choose from three test types: Clients per test, Clients per second, and Main
 
 ## When you hit a limit
 
-The pricing page does not describe an error or a bill when you reach a free limit. The limits are in the form itself: client count, host count, URL count, and test length. To go beyond them, you move to Pro.
+The pricing page does not describe an error or a bill when you reach a free limit. Published limits cover client count,host count,URL count and test length; their exact UI/error enforcement is not documented. To go beyond them, you move to Pro.
 
 Pro costs $99.95 a month. It allows 100,000 clients per test, unlimited target hosts, unlimited 10 minute tests, and 10 URLs per test. It adds advanced analytics, concurrent tests, DNS verification, team features, and priority support.
 
 ## Gotchas
 
-- You must verify each target host with a token file or a DNS TXT record before you can create a test.
+- Verify the target host before testing. Use token-file verification on Free; DNS verification appears among paid-plan features.
 - All tests run from Amazon's US-east datacenter, and the pages list no other test location.
 - Free users do not get per-URL response times or response codes. Those are advanced analytics on paid plans.
 

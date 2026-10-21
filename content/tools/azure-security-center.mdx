@@ -33,16 +33,17 @@ freeTierDetails:
     - Secure Score
     - Regulatory compliance with the Microsoft cloud security benchmark
   caveats:
-    - You need an Azure subscription, and this atlas treats Azure sign-up as needing a card
+    - You need an Azure subscription; its payment requirements depend on your signup route
     - Paid Defender plans are free for the first 30 days, or until a usage limit is reached, then they bill automatically
     - Malware scanning in Defender for Storage is charged from the first day
     - Advanced posture features such as attack path analysis need the paid Defender CSPM plan
-  resetPeriod: monthly
-  requiresCard: true
+  resetPeriod: none
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
+    - An Azure subscription is required; eligible signup routes and payment requirements vary and are not established here.
     - The Enable all button in Environment settings turns on every paid plan, which bills after the 30-day trial
     - Defender CSPM bills for compute, database, storage, and serverless resources
 useCases:
@@ -73,8 +74,8 @@ avoidIf:
   - you do not have an Azure subscription
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/defender-for-cloud/'
@@ -87,6 +88,10 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/connect-azure-subscription'
   - 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Qualified Azure signup and unpublished free quota policies while preserving paid-plan billing warnings.
 ---
 You use Defender for Cloud in the Azure portal. You search for it, open the overview page, and read the recommendations and the Secure Score. It suits Azure users who want a first security baseline, and teams that also run AWS or Google Cloud.
 
@@ -94,11 +99,11 @@ You use Defender for Cloud in the Azure portal. You search for it, open the over
 
 The free part is called Foundational CSPM, short for cloud security posture management. Microsoft lists it as available at no cost. It covers continuous security assessment, security recommendations, the Secure Score, an asset inventory, and regulatory compliance checks against the Microsoft cloud security benchmark. You can connect AWS and Google Cloud accounts too.
 
-The free plan has no resource quota on the pages. It also shows basic Azure DevOps recommendations. Deeper features, such as attack path analysis and pull request annotations, need the paid Defender CSPM plan.
+These pages do not publish a free resource quota. It also shows basic Azure DevOps recommendations. Deeper features, such as attack path analysis and pull request annotations, need the paid Defender CSPM plan.
 
 ## When you hit a limit
 
-Foundational CSPM has no usage limit to hit. The cost risk comes from the paid plans. Microsoft says they are free for the first 30 days, or until a usage limit is reached, whichever comes first. After that, charges begin for the plans you enabled. The Enable all button in Environment settings turns on every plan, so leave it alone unless you want paid protection. Malware scanning in Defender for Storage is charged from the first day.
+Microsoft does not publish a Foundational CSPM resource quota on these pages, so its exhaustion policy is unconfirmed. The cost risk comes from the paid plans. Microsoft says they are free for the first 30 days, or until a usage limit is reached, whichever comes first. After that, charges begin for the plans you enabled. The Enable all button in Environment settings turns on every plan, so leave it alone unless you want paid protection. Malware scanning in Defender for Storage is charged from the first day.
 
 ## Gotchas
 
@@ -115,11 +120,11 @@ Foundational CSPM has no usage limit to hit. The cost risk comes from the paid p
 
 ### Is Microsoft Defender for Cloud free?
 
-Partly. Foundational CSPM is free, with recommendations and a Secure Score. The paid plans are free for the first 30 days, then they bill.
+Partly. Foundational CSPM is free, with recommendations and a Secure Score. Paid plans generally trial for up to 30 days or a usage threshold, then bill; Storage malware scanning charges from day one.
 
 ### Do I need a credit card for Defender for Cloud?
 
-You need an Azure subscription, and this atlas treats Azure sign-up as needing a card. The Foundational CSPM plan itself has no charge.
+An Azure subscription is required, but these sources do not establish one card policy for every signup route. Foundational CSPM itself has no charge.
 
 ### Does Defender for Cloud cover AWS and Google Cloud?
 

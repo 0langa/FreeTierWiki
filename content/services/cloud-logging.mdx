@@ -25,7 +25,8 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     The first 50 GiB of logs streamed into log buckets per project each month
-    is free and is kept for up to 30 days. Querying, Log Analytics, and log
+    is free for ordinary logs, with 30 days of retention. Vended network logs
+    are excluded. Querying, Log Analytics, and log
     routing have no extra charge.
   limits:
     - 50 GiB of log storage per project per month
@@ -33,6 +34,7 @@ freeTierDetails:
     - Querying and Log Analytics at no extra charge
   caveats:
     - The free amount is per project, not per billing account
+    - Vended network logs have no free storage allotment and can incur generation fees
     - Keeping logs past 30 days is billed per GiB per month
     - A Cloud Billing account is required to use the Free Tier
   resetPeriod: monthly
@@ -65,19 +67,22 @@ avoidIf:
   - long retention for free
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://cloud.google.com/logging'
 docsUrl: 'https://cloud.google.com/logging/docs'
 sourceUrls:
+  - "https://cloud.google.com/free/docs/free-cloud-features"
   - 'https://cloud.google.com/stackdriver/pricing'
   - 'https://cloud.google.com/free'
-  - 'https://cloud.google.com/free/docs/free-cloud-features'
 pricingUrl: 'https://cloud.google.com/stackdriver/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Excluded vended network logs from the 50-GiB free allotment."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -87,13 +92,13 @@ Cloud Logging stores the logs your Google Cloud services write and lets you sear
 
 ## What the free plan gives you
 
-Cloud Logging is part of the Google Cloud Free Tier, priced on the Google Cloud Observability pricing page. The first 50 GiB of logs per project each month is free. Storage is a one-time charge for streaming logs into a log bucket, and it includes up to 30 days of storage.
+Cloud Logging is part of the Google Cloud Free Tier, priced on the Google Cloud Observability pricing page. The first 50 GiB of non-vended logs per project each month is free. Storage is a one-time charge for streaming logs into a log bucket, and it includes up to 30 days of storage.
 
 There is no additional charge for querying and analyzing log data, for upgrading a bucket to Log Analytics and running SQL queries, for routing logs, or for using the Cloud Logging API. Logs in the _Required log bucket are not charged and are kept for a fixed 400 days.
 
 ## When you hit a limit
 
-The pricing page does not describe a stop at 50 GiB. Logs past the free amount are billed at $0.50/GiB as they are streamed into log bucket storage, and vended network logs at $0.25/GiB.
+The pricing page does not describe a stop at 50 GiB. Logs past the free amount are billed at $0.50/GiB as they are streamed into log bucket storage, and vended network logs at $0.25/GiB from the first GiB, with no free allotment. Generating those network logs can also incur network telemetry charges.
 
 For the _Default bucket and user-defined buckets, keeping logs longer than the default retention period of 30 days costs $0.01 per GiB per month. Logs kept only for the default period have no retention cost. Storage volume counts the size of the log entries before indexing.
 
@@ -113,7 +118,7 @@ For the _Default bucket and user-defined buckets, keeping logs longer than the d
 
 ### Is Google Cloud Logging free?
 
-Up to 50 GiB of logs per project each month, kept for 30 days. Logs past that are billed per GiB.
+Up to 50 GiB of ordinary logs per project each month, kept for 30 days. Vended network logs are excluded. Logs past that are billed per GiB.
 
 ### Does querying logs cost extra?
 

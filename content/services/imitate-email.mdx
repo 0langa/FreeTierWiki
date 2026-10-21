@@ -27,36 +27,42 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan gives 15 emails per day, forever (450 test emails a month on the
-    home page), with a personal mailbox and no card step.
+    home page), with a personal mailbox ; the public docs do not explicitly
+    state the card policy.
   limits:
     - 15 emails/day (forever)
     - 1 personal mailbox
     - Web widget shows Imitate Email branding
   caveats:
-    - The Developer plan costs €6/month and adds 2000 monthly emails, 30 day retention, and POP3/IMAP support
+    - >-
+      The Developer plan costs €6/month and adds 2000 monthly emails, 30 day
+      retention, and POP3/IMAP support
     - The unbranded web widget is not on the free or Developer plan
-    - Team mailboxes need a multi-user plan
+    - >-
+      Free includes a personal mailbox; paid team-mailbox descriptions differ
+      between the pricing table and concepts guide
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Test the emails your app sends during development
   - Preview transactional emails in a web inbox
   - Check email formatting before you send to real users
-  - Show test emails inside an app with the embedded email viewer (paid plans have it unbranded)
+  - >-
+    Show test emails inside an app with the embedded email viewer (paid plans
+    have it unbranded)
 quickstartSteps:
   - Sign up from the home page with your email address.
   - Enter the verification code Imitate Email sends to confirm your address.
-  - Find your SMTP username and password in Settings, then Personal Settings.
+  - 'Find your SMTP username and password in Settings, then Personal Settings.'
   - Set your app to use smtp.imitate.email on port 587 with those credentials.
   - Send a first email and open your mailbox to see it appear.
 whenToUse: >-
   Use Imitate Email to test email sending from your app without delivering
   messages to real inboxes.
-whenNotToUse: >-
-  Avoid it for real email delivery, and for heavy test volumes on the free plan.
+whenNotToUse: 'Avoid it for real email delivery, and for heavy test volumes on the free plan.'
 bestFor:
   - local development
   - QA checks
@@ -67,8 +73,8 @@ avoidIf:
   - you need a shared team mailbox for free
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://imitate.email'
@@ -80,6 +86,12 @@ sourceUrls:
   - 'https://imitate.email/docs/quick'
   - 'https://imitate.email/docs/basics/concepts'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified unpublished card and daily-exhaustion policies and the
+      conflicting paid team-mailbox descriptions.
 ---
 You point your app's SMTP settings at Imitate Email and read what it sends in a web mailbox. It suits developers and testers who want to check email flows without a real mail server.
 
@@ -87,11 +99,11 @@ You point your app's SMTP settings at Imitate Email and read what it sends in a 
 
 The pricing page says you sign up for free and get 15 emails every day, forever. The home page puts it as 450 test emails a month, free forever, for a solo developer. All you need to sign up is an email address.
 
-Everyone who signs up gets a personal mailbox, which only they can see and which is meant for developers while they build software. The free plan shows the Imitate Email logo and colours on the web widget. Team mailboxes are only on multi-user plans.
+Everyone who signs up gets a personal mailbox, which only they can see and which is meant for developers while they build software. The free plan shows the Imitate Email logo and colours on the web widget. The concepts guide places team mailboxes on multi-user plans, although the paid Developer pricing column now lists one team mailbox. Neither page promises a shared team mailbox on Free.
 
 ## When you hit a limit
 
-The pricing page does not say what happens after the 15th email of the day. The quick start asks only for an email address and a verification code, and the pages describe no charge on the free plan.
+The pricing page does not say what happens after the 15th email of the day. The quick start describes email verification, but that initial signup description does not establish a universal card policy. Neither page publishes the exact rejection or retention behavior after the daily allowance is exhausted.
 
 When you outgrow the free plan, the pricing page offers paid plans and optional extras. The Developer plan is 6 euros per month, or 35 euros per year. It adds 2000 monthly emails, 10 daily forwards, 30 day retention, and POP3/IMAP support. Extra emails cost 4.50 euros per month for each 5000.
 
@@ -99,7 +111,7 @@ When you outgrow the free plan, the pricing page offers paid plans and optional 
 
 - The 15 email limit is per day, so a large test run in one day can use it up.
 - The web widget carries Imitate Email branding on the free and Developer tiers.
-- Team mailboxes sit under a project and only exist on multi-user plans.
+- Do not assume Free has shared team mailboxes. The paid pricing table and concepts guide differ on which paid plans include them.
 
 ## Alternatives in this atlas
 
@@ -119,4 +131,4 @@ The pricing page does not say. Paid plans start with the Developer plan at 6 eur
 
 ### Does Imitate Email need a credit card?
 
-No card step is described for the free plan. The quick start says all it takes is your email address and a verification code.
+The reviewed pages do not explicitly state the card policy. They describe email signup and verification, which alone is not a complete no-card guarantee.

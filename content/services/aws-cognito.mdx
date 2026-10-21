@@ -33,15 +33,15 @@ freeTierDetails:
     - 50 MAU per month for SAML or OIDC federated users
     - Does not expire after 12 months
   caveats:
-    - You need an AWS account; the Cognito pages do not describe a card-free option
-    - No free tier for the Plus tier or for machine-to-machine tokens
-    - Usage past the free amount is billed automatically
+    - AWS says most new signups need no payment method, but identity checks may require one
+    - Plus has no direct/social free MAU allowance; SAML/OIDC still gets 50 MAU; machine-to-machine tokens have none
+    - Paid AWS usage beyond allowances incurs charges unless optional project controls intervene
     - No free tier pricing in the AWS GovCloud (US) Regions
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - New Free accounts suspend at six months or credit exhaustion; data is retained for 90 days to upgrade and recover
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: medium
 useCases:
   - Sign-in and sign-up for a web or mobile app that runs on AWS
@@ -70,8 +70,8 @@ avoidIf:
   - SAML-heavy B2B on the free tier
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cognito/'
@@ -86,6 +86,9 @@ pricingUrl: 'https://aws.amazon.com/cognito/pricing/'
 featured: false
 status: changed
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Scoped Cognito overages to account plans and controls, corrected Free account suspension and Plus federation exceptions.
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -103,13 +106,13 @@ Users who come in through a SAML 2.0 or OpenID Connect provider get 50 MAU free 
 
 ## When you hit a limit
 
-Nothing stops at the limit. Cognito bills every MAU above the free amount, so a busy month turns into a charge on your AWS bill. The pricing page shows a rate per MAU that drops as your user count grows. For SAML or OIDC users above the 50 MAU free tier, the price is $0.015 per MAU.
+On Paid AWS accounts, usage above Cognito’s allowance incurs charges unless configured project controls intervene. SAML/OIDC usage above 50 MAU costs $0.015 per MAU. Plus direct/social users and machine-to-machine tokens have no free allowance.
 
-The Plus tier has no free tier at all. Machine-to-machine token requests have no free tier either. Because there is no hard cap, watch your MAU count and set up an AWS billing alert before you launch.
+AWS offers optional Paid-project monthly spend limits starting at $20 that pause resources at the threshold. These are not a default Cognito cap. New Free accounts instead consume promotional credits for eligible excess usage and suspend when the account’s Free period or credits end. Monitor both service usage and account-plan status.
 
 ## Gotchas
 
-- The free tier covers only the Lite and Essentials tiers. A user pool on Plus is billed from the first user.
+- The direct/social 10,000-MAU allowance covers Lite and Essentials. Plus still has the separate 50-MAU SAML/OIDC allowance.
 - Machine-to-machine token requests have no free tier, so a service that fetches many tokens costs money from the start.
 - Enterprise users from SAML or OIDC providers get only 50 free MAU. A B2B app with many such users pays quickly.
 
@@ -127,8 +130,8 @@ Partly. The Lite and Essentials tiers include 10,000 MAU free each month, and th
 
 ### Does Amazon Cognito need a credit card?
 
-Not for most new customers. AWS says a payment method is not required to sign up for most new customers, but it may ask for one to verify your identity. A new account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+Not for most new customers. AWS says a payment method is not required to sign up for most new customers, but it may ask for one to verify your identity. New Free accounts suspend at six months or credit exhaustion, with 90 days to upgrade and recover retained data.
 
 ### What happens when I go over the Cognito free tier?
 
-Cognito keeps working and bills the extra MAU at the per-user rate on the pricing page. There is no hard cap, so monitor your usage.
+Paid accounts incur per-user charges beyond the allowance unless configured project controls intervene. New Free accounts use credits and can suspend when those or the Free period run out.

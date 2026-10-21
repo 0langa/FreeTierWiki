@@ -31,15 +31,15 @@ freeTierDetails:
     - "10 apps, 5 custom domains"
     - "10 GiB revision storage, 15 builds per hour"
   caveats:
-    - "Paid plans bill above these amounts; the pricing page does not say what the Free plan does at its limits"
+    - "Full Free quotas require credit-card verification; unverified organizations have reduced quotas"
     - "No wildcard subdomains on Free"
     - "Idle apps shut down after about 20 to 30 seconds, so memory time is not used while idle"
     - "Monorepos are not yet supported by the app setup flow"
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: true
+  overageRisk: low
 useCases:
   - "Hosting a TypeScript API or small backend"
   - "Deploying a Next.js or other framework app from GitHub"
@@ -68,8 +68,8 @@ avoidIf:
   - "you need wildcard subdomains on a free plan"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://deno.com/deploy'
@@ -79,9 +79,16 @@ sourceUrls:
   - 'https://docs.deno.com/deploy/'
   - 'https://docs.deno.com/deploy/getting_started/'
   - 'https://deno.com/deploy'
+  - 'https://docs.deno.com/deploy/changelog/'
 pricingUrl: 'https://deno.com/deploy/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected full-quota card verification and explicit pause-at-exhaustion behavior; retained low billing risk for card-verified access."
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected full-quota card verification requirement and explicit pause-at-exhaustion behavior from official metering changelog."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -96,9 +103,9 @@ Active CPU is billed only while your code runs, not while it waits for requests 
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a Free plan passes its included amounts. It shows the next plans with rates for extra use. Pro costs $20 per month with 5M requests, 200GiB of egress, and 50 hours of CPU. Extra requests cost $2 per million, extra egress costs $0.20 per GiB, and extra CPU costs $0.10 per hour.
+The official metering changelog says Free applications pause until the next billing cycle when request, bandwidth, CPU, or memory allowances are exceeded. Full Free quotas require linking a credit card to verify the organization; unverified organizations have reduced limits whose quantities are not given there. Paid plans list rates for extra use. Pro costs $20 per month with 5M requests, 200GiB of egress, and 50 hours of CPU. Extra requests cost $2 per million, extra egress costs $0.20 per GiB, and extra CPU costs $0.10 per hour.
 
-Because the pages do not describe a Free overage rule, treat the included amounts as the real limit and watch usage in the console. The Builder plan costs $200 per month and is aimed at Subhosting users and growing platforms.
+Free exhaustion pauses apps rather than creating the paid-plan usage bill described in the changelog. Watch usage in the console before a pause disrupts your app.
 
 ## Gotchas
 

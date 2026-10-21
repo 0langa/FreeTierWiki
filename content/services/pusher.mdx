@@ -30,16 +30,17 @@ freeTierDetails:
     - 100 concurrent connections
     - '200,000 messages/day'
   caveats:
+    - Events over quota return 403; Sandbox excess connections are rejected immediately
     - Standard support only
     - A published message counts once when it arrives and once for each user it is delivered to
-    - The pricing page does not say what happens when you pass the daily limit
+    - The ongoing Sandbox signup card requirement is not explicitly published
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - Pusher says it emails you near the limit and leaves headroom for spikes; the Sandbox plan is free
+    - Official service docs describe strict Sandbox connection limits and rejected over-quota publishes
 useCases:
   - Live notifications in a web or mobile app
   - Live chat and typing indicators
@@ -53,7 +54,7 @@ quickstartSteps:
   - From your server, trigger an event with one of the server libraries, such as PHP, Node, Ruby, Java, Python, or Go.
 whenToUse: >-
   Use Pusher when you want to add live updates to a web or mobile app with a
-  short setup and a free plan for up to 100 connected users at once.
+  short setup and a free plan for up to 100 concurrent connections.
 whenNotToUse: >-
   Avoid it if you expect more than 100 simultaneous connections on the free
   plan, or if you need a service level agreement.
@@ -67,37 +68,47 @@ avoidIf:
   - high concurrency needs
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://pusher.com/'
 docsUrl: 'https://pusher.com/docs'
 sourceUrls:
+  - 'https://docs.bird.com/pusher/channels/channels/connecting/why-am-i-seeing-more-channels-connections-than-i-expect'
+  - 'https://pusher.com/docs/channels/using_channels/connection/'
+  - 'https://docs.bird.com/pusher/channels/channels/limits/what-happens-when-i-hit-my-channels-plan-limits'
   - 'https://pusher.com/channels/pricing/'
   - 'https://pusher.com/docs/channels/'
   - 'https://pusher.com/docs/channels/getting_started/javascript/'
 featured: false
 pricingUrl: 'https://pusher.com/channels/pricing/'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Replaced unknown enforcement with documented event and Sandbox connection stops and clarified multi-tab connection counting.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You open a connection from the browser or mobile app with a client library, and your server triggers events with a server library or the HTTP API. It suits developers who want a hosted WebSocket service with a short setup.
 
 ## What the free plan gives you
 
-The free Sandbox plan allows 200,000 messages per day and 100 concurrent connections. It comes with standard support. A connection is one live connected user, and the number of channels that connection subscribes to does not change the count.
+The free Sandbox plan allows 200,000 messages per day and 100 concurrent connections. It comes with standard support. A connection is an open client socket; several browser tabs can create several connections. Its channel subscriptions do not increase the count.
 
 A message is anything Pusher receives through its API plus each delivery to a connected user. If you publish one message to 50 subscribers, that counts as 51 messages. The next plan up, Startup, costs $49 per month for 1 million messages per day and 500 connections.
 
 ## When you hit a limit
 
-The pricing page says Pusher emails you when you get close to your plan limits. It adds that spikes happen and that its plans have headroom to keep your apps protected. It does not say whether messages are blocked once you pass the daily limit.
+Official support says usage warnings arrive at 80%, followed by a notification when requests stop at the limit. Over-quota event publishes return 403. The connection guide explicitly enforces Sandbox connections immediately; paid connection plans allow headroom to 120%. The general pricing-page headroom wording does not promise Sandbox excess capacity.
 
 You can upgrade at any time from the dashboard, and the price is prorated by day. You can also downgrade or cancel from the same place.
 
 ## Gotchas
 
 - The daily message count includes every delivery. A chat room with many users uses messages much faster than the publish count suggests.
-- The 100 connection cap counts users connected at the same time, however many channels each one subscribes to.
+- The 100-connection allowance counts open sockets, so multiple tabs from one person can use multiple connections.
 - The pricing page says SLAs are available to a select group of enterprise customers, so do not count on one for the Sandbox plan.
 
 ## Alternatives in this atlas
@@ -118,4 +129,4 @@ Messages received through the API plus those delivered to connected users. One p
 
 ### What happens if I exceed the Pusher free limit?
 
-Pusher says it emails you when you are close to your limits and leaves headroom for spikes. The pricing page does not describe a hard stop.
+Support docs say publishes over the event quota return 403, and the service guide says excess Sandbox connections are rejected immediately. Warnings arrive before limits are reached.

@@ -31,12 +31,13 @@ freeTierDetails:
   caveats:
     - No credit card required
     - API requests are rate limited to 100 requests per minute per API key
-    - The pricing page could not be read in full; the free amount comes from the home page
+    - Free quota comes from the home page; the pricing table lists paid Starter, Professional, and Enterprise plans
+    - Exhausted API credits return HTTP 402; how this maps to Free monthly reset and quota transition is not published
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Detect account takeover when a stolen password is used
   - Spot credential stuffing and bot logins
@@ -71,8 +72,8 @@ avoidIf:
   - a full auth provider
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: '2026-10-09'
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://loginllama.app'
@@ -82,7 +83,15 @@ sourceUrls:
   - 'https://loginllama.app/pricing'
   - 'https://loginllama.app'
   - 'https://loginllama.app/docs'
+status: changed
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Scoped HTTP 402 to documented API-credit exhaustion and marked the unpublished Free quota transition as unknown.'
+  - date: 2026-10-21
+    kind: changed
+    note: "Replaced an obsolete pricing-page access warning with current paid plan details and documented HTTP 402 for exhausted API credits."
 ---
 LoginLlama is not a login system. You call its REST API, or an SDK for Node.js, Python, or PHP, right before you finish a login, and act on the score it returns.
 
@@ -90,17 +99,17 @@ LoginLlama is not a login system. You call its REST API, or an SDK for Node.js, 
 
 The home page says you get 1,000 free checks every month, with no card. Each check scores one login from 0 to 10 and returns risk codes such as impossible travel, new device, and known VPN. Your app then decides to block the login, step up to MFA, or allow it.
 
-The pricing page itself loads without plan details, so the free amount comes from the home page. Requests are rate limited to 100 per minute per API key, or 200 for staging keys. The home page says a check takes under 500 milliseconds and that the API fails open by design.
+The home page supplies the monthly free allowance. The pricing table lists paid Starter at $19 per month for 10,000 checks, Professional at $49 for 50,000, and Enterprise at $199 for unlimited checks. Requests are rate limited to 100 per minute per API key, or 200 for staging keys. The home page says a check takes under 500 milliseconds and that the API fails open by design.
 
 ## When you hit a limit
 
-The pages we could read do not say what happens when the 1,000 free checks run out. The docs mention that a call can fail with an out-of-credits error when no API credits remain. They also say the API answers with a 429 error when you pass the rate limit.
+The API docs define HTTP 402 Payment Required for exhausted API credits and HTTP 429 for rate limits. They do not map the general credit error explicitly to the 1,000-check Free allowance, or explain when Free requests resume after exhaustion. The home page confirms the monthly grant, but that grant should not be read as a documented enforcement or retry policy.
 
 Because your login flow calls this API, plan for both cases. Decide in your code whether a failed check should allow the login or block it, and keep an eye on your remaining credits.
 
 ## Gotchas
 
-- The pricing page does not show plan details when we fetch it. Confirm the free amount and paid prices in your account before you rely on them.
+- The pricing table describes paid plans, while the home page advertises the monthly free checks. The exact transition after exhausting the free allowance is not explained.
 - The rate limit is 100 requests per minute per API key. A login burst can reach it.
 - LoginLlama scores logins only. You still need your own auth provider to sign users in.
 

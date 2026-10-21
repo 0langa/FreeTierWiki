@@ -31,13 +31,15 @@ freeTierDetails:
   limits:
     - No charge on the Spark or Blaze plan
     - Maximum file size of 2048 MiB for all binaries
+    - 500 testers per project and 200 per group; no-cost increases can be requested
+    - 1,000 releases per app, retained for up to 150 days
   caveats:
-    - The pricing page lists no usage limits for App Distribution
+    - The pricing table omits quotas, but the troubleshooting guide publishes tester, release, and upload limits
     - It is for pre-release testing, not for publishing to app stores
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: none
   billingRiskNotes:
     - App Distribution itself has no charge on either Firebase plan
@@ -64,8 +66,8 @@ avoidIf:
   - web apps
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://firebase.google.com/products/app-distribution'
@@ -77,6 +79,9 @@ sourceUrls:
 pricingUrl: 'https://firebase.google.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added tester and release quotas, retention and invitation expiry, and corrected the hard-cap flag.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -86,15 +91,15 @@ App Distribution is the Firebase tool for getting pre-release builds of iOS and 
 
 ## What the free plan gives you
 
-The Firebase pricing page lists App Distribution as a no-cost product. It costs nothing on the no-cost Spark plan and on the pay-as-you-go Blaze plan, and the page lists no usage limits for it. You do not need a billing account.
+The Firebase pricing page lists App Distribution as a no-cost product. It costs nothing on the no-cost Spark plan and on the pay-as-you-go Blaze plan, and Spark needs no billing account. The separate troubleshooting guide publishes tester and release quotas.
 
 You manage iOS and Android pre-release distributions from the same place. Testers get fast onboarding, with no SDK to install, and instant app delivery. You can distribute builds from the Firebase console, the Firebase command line tool, fastlane, Gradle for Android, or the REST API, and automate releases from a CI system. You can also collect feedback from testers and notify them about new builds.
 
 ## When you hit a limit
 
-There is no bill to reach, since App Distribution has no paid tier. The practical limit is build size: the maximum file size for all binaries is 2048 MiB, which is a little over 2 GB. An upload over that limit fails with an error about processing your distribution.
+There is no bill to reach, since App Distribution has no paid tier. There are technical quotas: the maximum file size for all binaries is 2048 MiB, which is a little over 2 GB. An upload over that limit fails with an error about processing your distribution.
 
-For an Ad Hoc iOS build, a tester sees a device registered message, and the app becomes available only after you complete the steps to register additional devices for your app.
+A project supports 500 testers and each group 200; you can request a no-cost increase. Each app keeps at most 1,000 releases, and releases expire after 150 days. Older releases are removed from the dashboard and tester app, though installed copies keep running. Invitations expire after 30 days and can be resent.
 
 ## Gotchas
 

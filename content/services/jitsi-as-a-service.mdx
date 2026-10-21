@@ -35,15 +35,16 @@ freeTierDetails:
   caveats:
     - A monthly active user is a unique endpoint that joined at least one meeting with another user that month
     - Add-ons such as recordings and phone dial-in are paid per use on every plan
-    - The pricing page does not say whether the Dev plan needs a card
+    - Dev card requirements and exact behavior beyond 25 MAU are not explicitly settled by the public docs
+    - The pricing application failed to render; current FAQ independently confirms the main free allowance
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: medium
   billingRiskNotes:
     - The pricing page says usage past a plan's included monthly active users is charged at $0.99 per MAU
-    - Recordings cost $0.01 per minute and RTMP streaming $0.01 per minute on all plans
+    - Recording costs $0.01 per minute; recording, streaming, and transcription require a valid card
 useCases:
   - Embedding video meetings in a web app with an iframe
   - Telehealth, tutoring, or team calls with a small user base
@@ -57,7 +58,7 @@ whenToUse: >-
   hosting Jitsi yourself, for a small number of users each month.
 whenNotToUse: >-
   Avoid the free plan once more than 25 distinct people use your meetings in a
-  month, since extra users are billed per MAU.
+  month, unless you have confirmed Dev cap enforcement and any applicable charges.
 bestFor:
   - embedded video meetings
   - small internal tools
@@ -66,18 +67,22 @@ avoidIf:
   - you need a custom call UI built from low-level media APIs
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://jaas.8x8.vc'
 docsUrl: 'https://developer.8x8.com/jaas/docs/jaas-onboarding'
 sourceUrls:
+  - 'https://developer.8x8.com/jaas/docs/faq/'
   - 'https://jaas.8x8.vc/#/pricing'
   - 'https://developer.8x8.com/jaas/docs/jaas-onboarding'
 pricingUrl: 'https://jaas.8x8.vc/#/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Used the current official FAQ to confirm free25MAU and billing terms, added card requirements for paid features, and qualified Dev-specific cap/card gaps."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -89,13 +94,13 @@ Jitsi as a Service, or JaaS, is 8x8's hosted version of Jitsi Meet, the open-sou
 
 The JaaS Dev plan is free and includes 25 monthly active users. JaaS counts a monthly active user as a unique user who attended at least one meeting, with at least one other user, in the same month, and a user is a unique endpoint.
 
-The meeting features are listed for every plan: HD audio, video up to 1080p, chat, desktop and mobile screen sharing, recording, a customizable UI, passcodes, and end-to-end encryption. JaaS supports up to 500 participants in one meeting and unlimited concurrent meetings, served from nine media servers worldwide.
+The meeting features are listed for every plan: HD audio, video up to 1080p, chat, desktop and mobile screen sharing, recording, a customizable UI, passcodes, and end-to-end encryption. JaaS supports up to 500 participants in one meeting and unlimited concurrent meetings, hosted on 8x8 infrastructure.
 
 ## When you hit a limit
 
-The pricing page says each plan includes a fixed number of monthly active users, and if you exceed it, an overage charge of $0.99 per MAU applies. It does not say whether the free Dev plan can be billed this way or stops instead, so check the console before you invite more than 25 people in a month.
+The official billing FAQ says exceeding a plan allocation incurs $0.99 per additional MAU. It does not say whether the free Dev plan can be billed this way or stops instead, so check the console before you invite more than 25 people in a month.
 
-The next plan, JaaS Basic, includes 300 monthly active users for $99.00 a month. Add-ons cost the same on every plan, for example recordings at $0.01 per minute and real-time transcription at $0.03 per minute.
+The official billing FAQ uses a Basic plan example of $99 for 300 monthly active users, and independently confirms recording at $0.01 per minute. Recording, RTMP streaming, and transcription require a valid credit card and are separately charged. The current pricing application failed to render, so other add-on rates could not be reconfirmed.
 
 ## Gotchas
 

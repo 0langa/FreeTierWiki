@@ -67,7 +67,7 @@ avoidIf:
   - traffic above the daily limit
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: '2026-10-21'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/workers/'
@@ -76,9 +76,16 @@ sourceUrls:
   - 'https://developers.cloudflare.com/workers/platform/limits/'
   - 'https://developers.cloudflare.com/workers/platform/pricing/'
   - 'https://developers.cloudflare.com/workers/get-started/guide/'
+  - 'https://www.cloudflare.com/plans/'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: '2026-10-21'
 pricingUrl: 'https://developers.cloudflare.com/workers/platform/pricing/'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified CPU enforcement to reflect the documented flexibility for
+      occasional overruns.
 ---
 You write a Worker on your machine with the Wrangler CLI and deploy it with one command. It then answers requests on a workers.dev subdomain or your own domain. This page covers the Workers Free plan.
 
@@ -92,11 +99,11 @@ You can deploy up to 100 Workers and 5 Cron Triggers per account. A Worker can b
 
 The Free plan never bills you. At the daily limit, the Worker stops running until the count resets at midnight UTC. Each route chooses what happens next. Fail closed returns a Cloudflare 1027 error page. Fail open bypasses the Worker, so requests behave as if no Worker is configured.
 
-A request that uses more than its CPU time or memory ends with Error 1102. For KV, an operation over its daily limit fails with an error. More usage needs the Workers Paid plan, which has a minimum charge of $5 per month.
+Requests that consistently exceed CPU limits are terminated with Error 1102; Cloudflare allows some flexibility for occasional CPU overruns. Memory also has a fixed isolate limit. For KV, an operation over its daily limit fails with an error. More usage needs the Workers Paid plan, which has a minimum charge of $5 per month.
 
 ## Gotchas
 
-- The 10 ms CPU limit is per request. Server-side rendering or parsing large payloads can use 10 to 20 ms. A Worker that goes over gets Error 1102.
+- The 10 ms CPU limit is per request. Server-side rendering or parsing large payloads can use 10 to 20 ms. A Worker that consistently exceeds its CPU limit gets Error 1102.
 - Subrequests count every fetch in a redirect chain, so 50 per request runs out faster than your code suggests.
 - Request body size depends on your Cloudflare account plan, not the Workers plan; it is 100 MB on Free, and larger requests get a 413 error.
 

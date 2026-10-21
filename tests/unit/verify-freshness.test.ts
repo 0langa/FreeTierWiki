@@ -4,9 +4,9 @@ import {
   DEAD_AFTER_RUNS,
   NOISY_AFTER_RUNS,
   classifyFetch,
-  confirmedUnchanged,
   compareRuns,
   hashExcerpt,
+  reviewQueue,
   renderReport,
 } from "../../scripts/verify/lib/freshness.mjs";
 
@@ -63,6 +63,12 @@ describe("compareRuns", () => {
     expect(run.noisy).toEqual([]);
   });
 
+  it("requires review when an identical excerpt comes from a different source document", () => {
+    const before = { "services/a": stored("h1", { url: "https://example.com/docs?topic=free" }) };
+    const run = compareRuns(before, [{ id: "services/a", state: "ok", hash: "h1", url: "https://example.com/docs?topic=paid" }], NOW);
+    expect(run.changed).toEqual(["services/a"]);
+  });
+
   it("calls a page noisy after it changed several runs in a row", () => {
     const before = { "services/a": stored("h1", { flaps: NOISY_AFTER_RUNS - 1 }) };
     const run = compareRuns(before, [{ id: "services/a", state: "ok", hash: "h2" }], NOW);
@@ -75,6 +81,8 @@ describe("compareRuns", () => {
     const run = compareRuns(before, [{ id: "services/a", state: "blocked" }], NOW);
     expect(run.next["services/a"].hash).toBe("h1");
     expect(run.dead).toEqual([]);
+    expect(run.blocked).toEqual(["services/a"]);
+    expect(run.thin).toEqual([]);
   });
 
   it("reports a dead page only after it failed in enough runs in a row", () => {
@@ -92,9 +100,27 @@ describe("compareRuns", () => {
     const run = compareRuns(before, [{ id: "services/a", state: "ok", hash: "h1" }], NOW);
     expect(run.next["services/a"].failures).toBe(0);
   });
+
+  it("does not count separated not-found responses as consecutive dead runs", () => {
+    const blocked = compareRuns({ "services/a": stored("h1", { failures: 1 }) }, [{ id: "services/a", state: "blocked" }], NOW);
+    const dead = compareRuns(blocked.next, [{ id: "services/a", state: "dead" }], NOW);
+    expect(dead.dead).toEqual([]);
+    const legacyBlocked = { "services/a": stored("h1", { state: "blocked", failures: 5 }) };
+    expect(compareRuns(legacyBlocked, [{ id: "services/a", state: "dead" }], NOW).dead).toEqual([]);
+  });
 });
 
 describe("renderReport", () => {
+  it("makes unreadable pages and unreviewed earlier changes actionable", () => {
+    const run = compareRuns({}, [
+      { id: "services/thin", state: "thin", url: "https://thin.test" },
+      { id: "services/blocked", state: "blocked", url: "https://blocked.test" },
+    ], NOW);
+    const md = renderReport(run, { date: "2026-10-05", titles: {}, urls: {} });
+    expect(md).toContain("`services/thin`");
+    expect(md).toContain("`services/blocked`");
+  });
+
   it("lists entries with title and URL, and caps long lists", () => {
     const changed = Array.from({ length: 5 }, (_, i) => `services/s${i}`);
     const titles = Object.fromEntries(changed.map((id) => [id, `Title ${id}`]));
@@ -103,36 +129,70 @@ describe("renderReport", () => {
       { date: "2026-10-05", titles, urls: { "services/s0": "https://s0.test/pricing" }, max: 3 },
     );
     expect(md).toContain("# Pricing check 2026-10-05");
-    expect(md).toContain("Pricing page text changed: re-check these entries (5)");
+    expect(md).toContain("Pricing source changed: re-check text, source URL and table/icon markup (5)");
     expect(md).toContain("- `services/s0` — Title services/s0 — `https://s0.test/pricing`");
     expect(md).toContain("… and 2 more");
     expect(md).not.toContain("Text keeps changing");
   });
 });
 
-describe("confirmedUnchanged", () => {
-  const stored = (hash: string, extra = {}) => ({ hash, checkedAt: "2026-10-12", failures: 0, flaps: 0, state: "ok", ...extra });
-  const previous = { "services/a": stored("h1"), "services/b": stored("h1"), "services/c": stored("h1"), "services/d": stored("h1") };
-
-  it("confirms an entry whose text matches the previous run", () => {
-    const next = { "services/a": stored("h1", { checkedAt: NOW }) };
-    expect(confirmedUnchanged(previous, next, { "services/a": "2026-10-09" })).toEqual(["services/a"]);
+describe("reviewQueue", () => {
+  it("keeps a change detected after an earlier same-day review pending on later stable runs", () => {
+    const prior = { "services/a": { hash: "h1", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing", checkedAt: NOW, failures: 0, flaps: 0, state: "ok" } };
+    const result = { id: "services/a", state: "ok" as const, hash: "h2", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing" };
+    const changed = compareRuns(prior, [result], "2026-10-21T20:00:00Z");
+    const stable = compareRuns(changed.next, [result], "2026-10-28T20:00:00Z");
+    expect(reviewQueue(stable, { "services/a": "2026-10-21" }).map(x => x.id)).toEqual(["services/a"]);
   });
 
-  it("skips changed text, unreadable pages, and entries nobody checked", () => {
-    const next = {
-      "services/a": stored("h2", { checkedAt: NOW, changedAt: NOW }),
-      "services/b": { ...stored("h1"), state: "thin" },
-      "services/c": stored("h1", { checkedAt: NOW }),
-      "services/e": stored("h1", { checkedAt: NOW }),
-    };
-    expect(confirmedUnchanged(previous, next, { "services/a": "2026-10-09", "services/b": "2026-10-09", "services/e": "2026-10-09" })).toEqual([]);
+  it("preserves explicit review only while the full source fingerprint matches", () => {
+    const reviewedFingerprint = { hash: "h1", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing", verificationDate: "2026-10-21", acknowledgedAt: "2026-10-21T22:00:00Z" };
+    const prior = { "services/a": { ...reviewedFingerprint, reviewedFingerprint, checkedAt: NOW, failures: 0, flaps: 0, state: "ok" } };
+    const result = { id: "services/a", state: "ok" as const, hash: "h1", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing" };
+    const stable = compareRuns(prior, [result], "2026-10-28T20:00:00Z");
+    expect(stable.next["services/a"].reviewedFingerprint).toEqual(reviewedFingerprint);
+    expect(reviewQueue(stable, {})).toEqual([]);
+    expect(reviewQueue(stable, { "services/a": "2026-10-18" }).map(x => x.id)).toEqual(["services/a"]);
+    for (const change of [{ hash: "h2" }, { markupHash: "m2" }, { url: "https://a.test/new" }, { hashVersion: 3 }]) {
+      const run = compareRuns(prior, [{ ...result, ...change }], "2026-10-28T20:00:00Z");
+      expect(run.next["services/a"].reviewedFingerprint).toBeUndefined();
+      const next = compareRuns(run.next, [{ ...result, ...change }], "2026-11-04T20:00:00Z");
+      expect(reviewQueue(next, { "services/a": "2026-11-04" }).map(x => x.id)).toEqual(["services/a"]);
+    }
   });
 
-  it("waits for the review when the text changed after the last check", () => {
-    const next = { "services/d": stored("h1", { checkedAt: NOW, changedAt: "2026-10-12T19:23:00.000Z" }) };
-    expect(confirmedUnchanged(previous, next, { "services/d": "2026-10-09" })).toEqual([]);
-    expect(confirmedUnchanged(previous, next, { "services/d": "2026-10-12" })).toEqual(["services/d"]);
-    expect(confirmedUnchanged(previous, next, { "services/d": "2026-10-13" })).toEqual(["services/d"]);
+  it("keeps a new baseline pending on later unchanged runs until someone reviews it", () => {
+    const baseline = compareRuns({}, [{ id: "services/new", state: "ok", hash: "h1" }], NOW);
+    const next = compareRuns(baseline.next, [{ id: "services/new", state: "ok", hash: "h1" }], "2026-10-12T00:00:00Z");
+    expect(reviewQueue(next, { "services/new": "2026-10-04" })).toEqual([{ id: "services/new", reason: "unreviewed-change", url: null }]);
+    expect(reviewQueue(next, { "services/new": "2026-10-05" }).map(x => x.id)).toEqual(["services/new"]);
+  });
+  it("retains every unreadable and noisy entry even when there are no newly changed or dead pages", () => {
+    const run = compareRuns({
+      "services/noisy": { hash: "h1", checkedAt: NOW, failures: 0, flaps: 3, state: "ok" },
+    }, [
+      { id: "services/thin", state: "thin" },
+      { id: "services/blocked", state: "blocked" },
+      { id: "services/noisy", state: "ok", hash: "h2" },
+    ], NOW);
+    expect(reviewQueue(run, {}).map(({ id, reason }) => [id, reason])).toEqual([
+      ["services/blocked", "blocked"], ["services/noisy", "noisy"], ["services/thin", "thin"],
+    ]);
+  });
+
+  it("keeps older changes pending until their source comparison has been reviewed", () => {
+    const previous = { "services/pending": { hash: "h1", checkedAt: NOW, changedAt: "2026-10-04T12:00:00Z", failures: 0, flaps: 0, state: "ok" } };
+    const run = compareRuns(previous, [{ id: "services/pending", state: "ok", hash: "h1" }], NOW);
+    expect(reviewQueue(run, { "services/pending": "2026-10-03" })).toEqual([
+      { id: "services/pending", reason: "unreviewed-change", url: null },
+    ]);
+    expect(reviewQueue(run, { "services/pending": "2026-10-04" }).map(x => x.id)).toEqual(["services/pending"]);
+  });
+
+  it("keeps the complete queue independently of a capped human report", () => {
+    const results = Array.from({ length: 120 }, (_, i) => ({ id: `services/s${i}`, state: "thin" as const }));
+    const run = compareRuns({}, results, NOW);
+    expect(reviewQueue(run, {})).toHaveLength(120);
+    expect(renderReport(run, { date: "2026-10-05", titles: {}, urls: {}, max: 3 })).toContain("117 more");
   });
 });

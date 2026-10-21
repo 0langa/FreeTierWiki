@@ -30,13 +30,14 @@ freeTierDetails:
     - 10 MB disk space
     - 1 API call/second rate limit
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - More APIs, calls, disk space, and rate limit require a paid plan starting at €19.99/month
     - The pricing page does not say what happens at a limit
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Publishing a CSV dataset as a REST API for a demo
   - Sharing a dataframe from a Jupyter notebook as an API
@@ -63,8 +64,8 @@ avoidIf:
   - you need more than 1 call per second
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.sofodata.com/'
@@ -73,6 +74,13 @@ sourceUrls:
   - 'https://www.sofodata.com/'
 pricingUrl: 'https://www.sofodata.com/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Kept confirmed Free quantities and paid prices; qualified card requirements, billing uncertainty and the ambiguous storage scope."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You upload a CSV in the web app or with the Sofodata CLI, and Sofodata hosts the data behind a secure API. You then call it from a client such as Postman. It suits people who want to share a dataset quickly.
 
@@ -88,12 +96,12 @@ Paid plans raise every limit. Starter costs €19.99 a month and allows 5 APIs, 
 
 The site does not say what happens when you pass 2,500 calls, fill the 10 MB of disk space, or go over 1 call per second. It lists no pay-as-you-go option and no overage price.
 
-This entry therefore treats the free plan as a hard limit with no extra charge. Because the page is silent, test your own usage before you rely on it in a demo. If you need more room, the next plan up is Starter.
+Neither a hard stop nor an overage policy is established by the cited page. Because the page is silent, test your own usage before you rely on it in a demo. If you need more room, the next plan up is Starter.
 
 ## Gotchas
 
 - The 1 call per second rate is slow for a front end that makes several requests at once.
-- Disk space is only 10 MB, so large CSV files do not fit on the Free plan.
+- Pricing lists 10 MB of disk space, while another homepage section describes a 10 MB per-API limit. Confirm the storage scope before splitting a dataset across APIs.
 - The home page links no documentation page. It links only a blog post on deploying APIs from Jupyter notebooks.
 
 ## Alternatives in this atlas
@@ -114,4 +122,4 @@ The Free plan allows 1 API call per second. Starter raises it to 3 calls per sec
 
 ### Does Sofodata need a credit card?
 
-The pricing page does not say. This entry lists none as required.
+The pricing page does not establish whether Free signup requires a card.

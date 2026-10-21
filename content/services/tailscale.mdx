@@ -34,13 +34,13 @@ freeTierDetails:
     - 1,000 minutes per month for ephemeral resources
   caveats:
     - The Personal plan is only for non-commercial use
-    - More tagged resources cost $1 each per month
+    - Extra tagged resources are a $1/month add-on; the current pricing FAQ says tagged and ephemeral resource limits and overages are not enforced yet
     - A sign-up with a custom domain email starts a 14-day Enterprise trial, not the Personal plan
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Reaching a home server or NAS from anywhere
   - Private SSH to VPS machines
@@ -68,19 +68,25 @@ avoidIf:
   - more than 6 users
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-14
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://tailscale.com'
 docsUrl: 'https://tailscale.com/kb'
 sourceUrls:
+  - 'https://tailscale.com/blog/pricing-v4'
+  - 'https://tailscale.com/docs/features/tags'
+  - 'https://tailscale.com/docs/account/manage-plans/free-plans-discounts'
   - 'https://tailscale.com/pricing'
   - 'https://tailscale.com/kb/1017/install'
   - 'https://tailscale.com/kb/1452/quickstart'
 pricingUrl: 'https://tailscale.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Marked global hard-cap behavior unknown, documented current unenforced resource limits, and distinguished paid seat overages from Personal."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -97,9 +103,9 @@ Tailscale says the Personal plan is for individuals using it at home and is only
 
 ## When you hit a limit
 
-You can add more tagged resources for $1 a month each, using the add-on on the pricing page. Short-lived workloads that need more ephemeral minutes mean contacting sales. The Premium plan includes 10,000 of those minutes a month.
+The current pricing FAQ says hard limits and overages for ACL groups, multiple tailnets, tagged resources and ephemeral resources are not yet enforced. Tailscale plans to introduce enforcement with account visibility and email notices; do not treat today's behavior as permanent.
 
-More than 6 users means the Standard plan, at $8 per user per month. Standard also lifts the user cap and allows up to 10 ACL groups. The pages do not describe a hard stop at the free limits, so check the admin console before you add users or tagged servers.
+Extra tagged resources are listed at $1 each monthly, with larger ephemeral allowances handled through sales. Personal's published allowance remains six users. The reviewed sources do not specify what happens when a seventh Personal user attempts to join. Paid seat-based plans can automatically increase purchased seats and prorate charges when more users join, so their billing behavior should not be applied to free Personal accounts.
 
 ## Gotchas
 
@@ -125,4 +131,4 @@ No. Tailscale says the Personal plan is only suitable for non-commercial use. Bu
 
 ### Does Tailscale need a credit card?
 
-The pricing page does not ask for one for the Personal plan. You sign in with an identity provider account.
+Current Personal pricing and setup docs do not explicitly state the card requirement. Signing in through an identity provider is not proof of a billing policy.

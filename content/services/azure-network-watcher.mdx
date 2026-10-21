@@ -28,13 +28,14 @@ freeTierDetails:
     Each month includes 5 GB of NSG flow logs, 5 GB of virtual network flow
     logs, 1,000 diagnostic checks, and 10 Connection Monitor tests.
   limits:
-    - 5 GB/month NSG flow logs collected
+    - 5 GB/month NSG flow logs collected (existing resources only)
     - 5 GB/month virtual network flow logs collected
     - '1,000 network diagnostic tool checks/month'
     - 10 connection monitor tests/month
   caveats:
     - Traffic Analytics and Network Analytics have no free units on the pricing page.
     - Flow logs sit in a storage account, which bills on its own.
+    - New NSG flow logs are unavailable; existing NSG flow log resources retire September 30, 2027.
     - Exceeding limits results in pay-as-you-go charges.
   resetPeriod: monthly
   requiresCard: true
@@ -42,7 +43,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Flow log storage, Log Analytics, and event hub costs are billed separately from Network Watcher.
+    - Flow log storage and event hubs bill separately; Traffic Analytics absorbs its Log Analytics workspace cost.
     - Packet capture on a scale set counts one check per instance.
 useCases:
   - Finding out which security rule blocks traffic to a VM
@@ -72,8 +73,8 @@ avoidIf:
   - avoiding any risk of overage
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/network-watcher/'
@@ -88,12 +89,16 @@ sourceUrls:
     https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-traffic-filtering-problem
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added NSG flow-log retirement restrictions and the Traffic Analytics workspace-cost exception."
 ---
 You use Network Watcher in the Azure portal, PowerShell, the CLI, or the REST API. It is for people who run virtual machines and virtual networks in Azure and need to see why traffic does or does not flow. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 
 ## What the free plan gives you
 
-Each month includes a fixed set of free units. You can collect 5 GB of network security group flow logs and 5 GB of virtual network flow logs. You can run 1,000 network diagnostic checks, which cover the diagnostic tools and the topology view. You can also run 10 Connection Monitor tests.
+Each month includes a fixed set of free units. You can collect 5 GB of existing network security group flow logs and 5 GB of virtual network flow logs. New NSG flow logs cannot be created; existing NSG flow log resources retire on September 30, 2027. Use virtual network flow logs for new setups. You can run 1,000 network diagnostic checks, which cover the diagnostic tools and the topology view. You can also run 10 Connection Monitor tests.
 
 Network Watcher turns on by itself in a region when you create or update a virtual network there, and Microsoft says that carries no charge. The overview says it covers IaaS resources such as VMs, virtual networks, application gateways, and load balancers. It is not built for PaaS monitoring or web analytics.
 
@@ -101,7 +106,7 @@ Network Watcher turns on by itself in a region when you create or update a virtu
 
 Nothing stops your usage at the free units. Azure bills each extra gigabyte of flow logs, each extra diagnostic check, and each extra Connection Monitor test. The pricing page hides the per-unit prices, so check the calculator before you scale up.
 
-Some costs sit outside Network Watcher. Flow logs live in a storage account, and the pricing page says storage, Log Analytics, and event hub charges apply on their own. Traffic Analytics and Network Analytics show no free units. Packet capture on a scale set counts one check for every instance.
+Some costs sit outside Network Watcher. Flow logs live in a storage account, and the pricing page says storage and event hub charges apply separately. Its Traffic Analytics footnote says that feature absorbs the Log Analytics workspace cost; other Log Analytics usage has its own charges. Traffic Analytics and Network Analytics show no free units. Packet capture on a scale set counts one check for every instance.
 
 ## Gotchas
 

@@ -27,12 +27,12 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Basic plan includes the first 5 users, unlimited private Git repos, 1
-    free Microsoft-hosted parallel job (1,800 minutes/month), and 1 free
+    free Microsoft-hosted parallel job after billing linkage (1,800 minutes/month), and 1 free
     self-hosted parallel job with unlimited minutes.
   limits:
     - First 5 users free (then paid per user)
     - 'Unlimited private Git repositories'
-    - 1 Microsoft-hosted CI/CD parallel job (1,800 min/month)
+    - 1 Microsoft-hosted CI/CD parallel job after billing linkage (1,800 min/month; 60 min/job)
     - 1 self-hosted CI/CD parallel job (unlimited minutes)
     - 2 GiB free Azure Artifacts storage
   caveats:
@@ -45,7 +45,7 @@ freeTierDetails:
       time limit. The create-organization docs say that going over free tier limits is paid for
       through your linked Azure subscription.
   resetPeriod: monthly
-  requiresCard: true
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
@@ -82,16 +82,20 @@ difficulty: beginner
 productionReadiness: production-ready
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added billing linkage and the 60-minute job limit for the free hosted pipeline grant; qualified card policy."
   - date: 2026-10-09
     kind: changed
     note: Microsoft's docs say creating a new organization needs an active Azure subscription, so the card rule is now marked as required.
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/services/devops/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops'
 sourceUrls:
+  - 'https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs'
   - 'https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/'
   - >-
     https://learn.microsoft.com/en-us/azure/devops/user-guide/what-is-azure-devops
@@ -108,11 +112,11 @@ You use Azure DevOps in the browser, with Git on your machine and pipelines defi
 
 The Basic plan is free for the first 5 users. Azure Repos gives you unlimited private Git repositories. Azure Artifacts includes 2 GiB of free storage per organization.
 
-For Azure Pipelines, each organization gets one parallel job with 1,800 minutes (30 hours) of build time per month on Microsoft-hosted agents. It also gets one free self-hosted parallel job with unlimited minutes. Users beyond the first five are assigned the Stakeholder tier by default, which is free but has less access. The FAQ says you can add unlimited users to an organization and they get access to Azure Pipelines or Azure Artifacts at no extra charge.
+For Azure Pipelines, linking a valid Azure subscription and configuring billing enables one free Microsoft-hosted parallel job with 1,800 minutes (30 hours) per month, limited to 60 minutes per run. It also gets one free self-hosted parallel job with unlimited minutes. Users beyond the first five are assigned the Stakeholder tier by default, which is free but has less access. The FAQ says you can add unlimited users to an organization and they get access to Azure Pipelines or Azure Artifacts at no extra charge.
 
 ## When you hit a limit
 
-If you need more time or more concurrent jobs, you buy pipelines. A Microsoft-hosted parallel job costs $40 and a self-hosted one costs $15 per extra job. The FAQ explains that buying your first Microsoft-hosted pipeline keeps the job count at one and only removes the time limit. To run two jobs at once, buy two.
+If you need more time or more concurrent jobs, you buy pipelines. A Microsoft-hosted parallel job costs $40/month and a self-hosted one costs $15/month per extra job. The FAQ explains that buying your first Microsoft-hosted pipeline keeps the job count at one and only removes the time limit. To run two jobs at once, buy two.
 
 The create-organization docs add that if you go over the free tier limits, you pay for the extra usage through your linked Azure subscription. For more users who need Repos and Boards, buy Basic licenses. The FAQ says a credit card is not needed to get started, and that the card is set up when you buy more.
 
@@ -132,12 +136,12 @@ The create-organization docs add that if you go over the free tier limits, you p
 
 ### Is Azure DevOps free?
 
-Yes, for the first 5 users on the Basic plan. You get unlimited private Git repos, 2 GiB of Artifacts storage, and one Microsoft-hosted job with 1,800 free minutes a month.
+Yes, for the first 5 users on the Basic plan. You get unlimited private Git repos, 2 GiB of Artifacts storage, and, after billing linkage, one Microsoft-hosted job with 1,800 free minutes a month.
 
 ### Do I need a credit card for Azure DevOps?
 
-The pricing FAQ says a card is not needed to get started. The docs also say creating a new organization needs an active Azure subscription, so this atlas marks a card as required.
+The pricing FAQ says a card is not needed to get started. The docs also say creating a new organization needs an active Azure subscription, so a universal no-card rule is not confirmed.
 
 ### How many free build minutes does Azure DevOps give?
 
-Each organization gets one Microsoft-hosted parallel job with 1,800 minutes per month, plus one self-hosted parallel job with unlimited minutes.
+Once billing is linked, an organization gets one Microsoft-hosted parallel job with 1,800 minutes per month and 60 minutes per run, plus one self-hosted parallel job with unlimited minutes.

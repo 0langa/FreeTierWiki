@@ -23,21 +23,20 @@ tags:
   - ip lookup
 pricingModel: freemium
 freeTierDetails:
-  summary: >-
-    Free forever plan allows 1,000 requests per day with full data access, no
-    credit card required.
+  summary: Free forever plan allows 1,000 requests per day with full data access, no credit card required.
   limits:
-    - '1,000 requests/day'
+    - 1,000 requests/day
     - Full data access, same as paid plans
     - Requires a free API key
   caveats:
+    - Enforcement of the listed free allowance is not confirmed in the cited public sources
     - No SLA specified for the free tier
     - Requires a free API key (not anonymous)
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - 'Personalize a site by a visitor''s location and currency'
   - Block or allow access by region
@@ -67,18 +66,27 @@ avoidIf:
   - strict compliance needs
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.iplocate.io'
 docsUrl: 'https://www.iplocate.io/docs'
 pricingUrl: 'https://www.iplocate.io/pricing'
 sourceUrls:
-  - 'https://www.iplocate.io'
-  - 'https://www.iplocate.io/pricing'
-  - 'https://www.iplocate.io/docs'
+  - https://www.iplocate.io
+  - https://www.iplocate.io/pricing
+  - https://www.iplocate.io/docs
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Removed unsupported absolute no-billing-risk flag while retaining the documented no-card free
+      offer.
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You get a free API key on the website, then send a GET request to `iplocate.io/api/lookup/` with an IP address and your key. There are also client libraries and an MCP server. It suits developers who want full IP data on a free key without a credit card.
 

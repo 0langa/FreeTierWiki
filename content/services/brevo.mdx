@@ -28,7 +28,8 @@ freeTierDetails:
   summary: Send up to 300 emails per day with core marketing features included.
   limits:
     - 300 emails/day
-    - Store up to 100,000 contacts
+    - 100,000 stored contacts
+    - 1 user; up to 2,000 unique automation contacts
   caveats:
     - Free emails carry the "Sent with Brevo" sticker
     - Sending starts after Brevo approves your account
@@ -38,6 +39,10 @@ freeTierDetails:
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
+  billingRiskNotes:
+    - >-
+      Free daily emails do not roll over; transactional retry queue is bounded, campaigns need
+      manual resume; prepaid email purchases replace the daily allowance.
 useCases:
   - Send newsletters to subscribers
   - Send welcome emails and automated follow-ups
@@ -67,21 +72,30 @@ difficulty: beginner
 productionReadiness: side-project
 status: changed
 changes:
-  - date: 2026-10-06
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Replaced unpublished-limit claims with official queue/resume behavior and corrected Starter
+      branding availability.
+  - date: 2026-10-06T00:00:00.000Z
     kind: changed
     note: Confirmed the stored-contact cap against the free SMTP server page.
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.brevo.com/'
 docsUrl: 'https://developers.brevo.com/docs/getting-started'
 pricingUrl: 'https://www.brevo.com/pricing/'
 sourceUrls:
-  - 'https://www.brevo.com/pricing/'
-  - 'https://www.brevo.com/free-smtp-server/'
-  - 'https://developers.brevo.com/docs/getting-started'
-  - 'https://developers.brevo.com/docs/send-a-transactional-email'
+  - https://www.brevo.com/pricing/
+  - https://www.brevo.com/free-smtp-server/
+  - https://developers.brevo.com/docs/getting-started
+  - https://developers.brevo.com/docs/send-a-transactional-email
+  - https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan
+  - https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans
+  - >-
+    https://help.brevo.com/hc/en-us/articles/4411394977810-Send-to-new-contacts-resume-duplicate-and-archive-email-campaigns
 featured: false
 ---
 You use Brevo through its web app for contacts and campaigns, and through a REST API, an SMTP relay, and SDKs for Node.js, Python, and PHP for app email. It suits small senders who want newsletters and transactional email on one account.
@@ -94,9 +108,9 @@ You can store up to 100,000 contacts without paying extra. The same limit applie
 
 ## When you hit a limit
 
-The pages describe the 300 emails per day as the sending limit on the Free plan. They do not say what Brevo does with emails past that limit. The plan needs no card, so there is no bill to run up.
+The daily allowance resets without rollover. At 300 sends, transactional mail can hold up to 1,000 extra messages in a retry queue; messages beyond that are not delivered. Campaigns sent to larger lists need manual resumption on later days, up to 300 sends per day.
 
-To send more, you move to a paid plan. The Starter plan begins from 5,000 emails per month. Paid plans also remove the Brevo logo from the footer and add features such as marketing automation, A/B testing, and landing pages.
+Free automations stop admitting new contacts after 2,000 unique contacts, while existing participants continue. Paid plans and prepaid credits have separate billing. Branding removal requires the Starter add-on or Standard and above; buying Starter alone does not include removal.
 
 ## Gotchas
 

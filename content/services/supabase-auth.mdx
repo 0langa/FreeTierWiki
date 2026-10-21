@@ -29,19 +29,21 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes up to 50,000 monthly active users with core authentication features,
-    unlimited total users, and no credit card required.
+    unlimited total users; no credit card is required for Free.
   limits:
     - '50,000 monthly active users'
     - Unlimited total users
     - Social OAuth logins and OAuth 2.1 server included
     - Basic multi-factor authentication and custom SMTP included
   caveats:
+    - Supabase confirms no credit card is required for Free
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Enterprise SSO (SAML 2.0) and advanced (phone) MFA require paid plans
     - 'Free projects pause after 1 week of inactivity, limited to 2 active projects'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Email and password or magic link sign-in for a web or mobile app
@@ -76,13 +78,14 @@ avoidIf:
   - apps that sit idle for a week
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://supabase.com/docs/reference/auth'
 docsUrl: 'https://supabase.com/docs/guides/auth'
 sourceUrls:
+  - 'https://supabase.com/blog/observability-for-every-supabase-project-with-grafana-cloud'
   - 'https://supabase.com/pricing'
   - 'https://supabase.com/docs/guides/auth'
   - 'https://supabase.com/docs/guides/auth/quickstarts/react'
@@ -90,6 +93,16 @@ sourceUrls:
   - 'https://supabase.com/docs/guides/platform/cost-control'
 pricingUrl: 'https://supabase.com/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Confirmed Free no-card signup from current Supabase first-party evidence.
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Preserved explicit Free no-charge policy and added the built-in email delivery limit.'
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use Supabase Auth through the Supabase client libraries or its REST API, and you manage providers and users in the Supabase dashboard. It suits developers who already build on Supabase or want auth next to Postgres.
 
@@ -107,7 +120,7 @@ Auth also has rate limits on its endpoints, which protect against abuse. When yo
 
 ## Gotchas
 
-- A free project pauses after 1 week of inactivity.
+- A free project pauses after 1 week of inactivity. The built-in Auth email provider is limited to 2 emails per hour; configure your own SMTP or Send Email hook for a larger flow.
 - Only 2 active projects fit on the Free plan, so a dev, staging, and production setup needs a paid plan.
 - Enterprise SSO (SAML) and phone-based advanced MFA need a paid plan, according to the pricing page.
 
@@ -129,4 +142,4 @@ The project does. Free projects are paused after 1 week of inactivity, with a li
 
 ### Does Supabase Auth need a credit card?
 
-The pricing page shows a Start for Free button and does not mention a card.
+No. Supabase confirms no credit card is required for its Free plan. The cost-control guide separately states that Free-plan usage is not charged.

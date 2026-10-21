@@ -7,6 +7,7 @@ import type {
   EntryStatus,
   FreeTierType,
   OverageRisk,
+  PolicyConfirmation,
   ProductionReadiness,
 } from "@/types/content";
 
@@ -20,8 +21,8 @@ export type ListItem = {
   domain: Domain;
   offer: string[];
   risk: OverageRisk;
-  card: boolean;
-  cap: boolean;
+  card: PolicyConfirmation;
+  cap: PolicyConfirmation;
   plan: FreeTierType;
   ready: ProductionReadiness;
   status: EntryStatus;
@@ -63,8 +64,8 @@ export function safetyScore(item: Pick<ListItem, "risk" | "card" | "cap" | "stat
   if (item.status === "ended") return -1000;
   return (
     RISK_POINTS[item.risk] +
-    (item.card ? 0 : 20) +
-    (item.cap ? 10 : 0) +
+    (item.card === false ? 20 : 0) +
+    (item.cap === true ? 10 : 0) +
     FRESHNESS_POINTS[item.freshness.state] -
     (item.status === "changed" ? 10 : 0)
   );

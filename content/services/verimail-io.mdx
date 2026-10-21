@@ -41,9 +41,9 @@ useCases:
 quickstartSteps:
   - "Open verimail.io and choose Sign Up Free to create an account. No credit card is needed."
   - "Open your control panel and copy your API key."
-  - "Send a GET request to https://api.verimail.io/v3/verify with the email and key parameters."
-  - "Read the JSON response. A status of success or error shows if the request ran, and a typo hint appears when a common typo is found."
-  - "Remember that each request with your key deducts 1 credit, and keep the key out of client-side code."
+  - "Send a POST request to https://api.verimail.io/v3/verify with Bearer authentication and a JSON email field; GET remains supported."
+  - "Read verdict, reason, billed, and suggested_action in the JSON response; use the typo suggestion when provided."
+  - "Check the billed field; unknown results, duplicates, and syntax errors are free. Keep the API key out of client-side code."
 whenToUse: "Use when you want to check email addresses at sign-up or clean a small list and 100 verifications a month is enough."
 whenNotToUse: "Avoid if you need to check more than 100 addresses a month for free. After that the API returns a 402 status until you buy credits or move to a paid plan."
 bestFor:
@@ -57,8 +57,8 @@ avoidIf:
   - "need live-chat support"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://verimail.io/'
@@ -69,28 +69,32 @@ sourceUrls:
   - 'https://verimail.io/pricing'
   - 'https://verimail.io/docs/v3'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Updated the API request and response guidance, non-billable checks, inactive-key explanation and Starter support."
 ---
-You use Verimail.io through a web control panel for bulk lists and through a REST API for real-time checks. The API takes a GET request with your key and returns JSON, and the docs show code examples. It suits developers and teams that want clean email data at sign-up or before a send.
+You use Verimail.io through a web control panel for bulk lists and through a REST API for real-time checks. The API accepts POST with Bearer authentication or a GET request and returns JSON, and the docs show code examples. It suits developers and teams that want clean email data at sign-up or before a send.
 
 ## What the free plan gives you
 
 The Free plan costs $0 a month and gives you 100 verifications a month with email support. The home page says it is free forever and needs no credit card.
 
-Each API request with your key deducts 1 credit from your balance. Syntax checks and duplicate removal are listed as free steps on the home page. The service also detects catch-all domains and suggests a fix for common typos in free email providers.
+Verification generally costs one credit per address; unknown results, duplicates, and syntax errors are not billed. The response includes a billed field. The service also detects catch-all domains and suggests a fix for common typos in free email providers.
 
 Paid plans start at $15 a month for 10 000 verifications. You can also buy pay-as-you-go credit packs that never expire. If you have both a plan and credits, the plan is used first.
 
 ## When you hit a limit
 
-When you reach the monthly limit, the API responds with a 402 status code. The pricing page says you can buy pay-as-you-go credits to keep going. The docs also say a key can turn inactive when a usage quota is exceeded, and an inactive key gets a 403 Forbidden error.
+When you reach the monthly limit, the API responds with a 402 status code. The pricing page says you can buy pay-as-you-go credits to keep going. An inactive API key returns 403, which the current docs associate with account issues such as an overdue payment rather than the normal credit-exhaustion response.
 
 The free plan needs no credit card, so you pay only if you choose to buy credits or a plan.
 
 ## Gotchas
 
-- Do not share your API key in public code or client-side code. Every request that carries it spends a credit.
-- A key can become inactive when the usage quota is exceeded or a payment is overdue.
-- Free support is by email only. Live chat starts on the Starter plan.
+- Do not share your API key in public code or client-side code. Unauthorized use can spend your verification credits.
+- An inactive key returns 403; inspect account status separately from a 402 credit-exhaustion error.
+- Free and Starter cards list email support; do not assume Starter includes live chat.
 
 ## Alternatives in this atlas
 

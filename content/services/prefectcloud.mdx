@@ -32,14 +32,15 @@ freeTierDetails:
     - '625 API requests/min rate limit'
     - '7 days of run retention'
   caveats:
+    - "The five-deployment limit is enforced, but public sources do not specify what happens after 500 Serverless minutes"
     - 'At 5 deployments you cannot create new ones until you delete one or upgrade'
     - Support is through community channels
     - 'No SSO, service accounts, or audit log on Hobby; the first paid plan is $100 per month'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Scheduling ETL and data pipeline flows written in Python
   - Running flows on managed compute without hosting servers
@@ -67,19 +68,25 @@ avoidIf:
   - SSO or audit logs
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.prefect.io/cloud/'
 docsUrl: 'https://docs.prefect.io/latest/'
 sourceUrls:
+  - 'https://www.prefect.io/blog/introducing-prefect-serverless'
+  - 'https://www.prefect.io/blog/introducing-two-new-self-serve-plans-for-prefect-cloud'
   - 'https://www.prefect.io/pricing/'
   - 'https://www.prefect.io/cloud/'
   - 'https://docs.prefect.io/v3/get-started/quickstart'
   - 'https://docs.prefect.io/latest/'
 pricingUrl: 'https://www.prefect.io/pricing/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Confirmed Hobby needs no card from the official plan announcement and separated the enforced deployment cap from unpublished Serverless-credit exhaustion behavior."
 ---
 You write workflows in Python with the `prefect` library, log in through the `prefect-cloud` command, and manage runs in the Cloud dashboard. It suits data and ML engineers who want orchestration without running their own server.
 
@@ -91,7 +98,7 @@ The pricing FAQ says Hobby gives full access to core features for up to five dep
 
 ## When you hit a limit
 
-When you reach 5 deployments, you cannot create new ones until you delete an existing deployment or upgrade to a paid plan. The pricing page does not say what happens when you use all 500 Serverless minutes, so check the dashboard before you plan a long run. The pricing page lists no card for Hobby, and Prefect says it prices by seats and workspaces, not by compute or task volume. The next plan, Starter, costs $100 per month for 3 users and 20 deployments.
+When you reach 5 deployments, you cannot create new ones until you delete an existing deployment or upgrade to a paid plan. The pricing page does not say what happens when you use all 500 Serverless minutes, so check the dashboard before you plan a long run. The official self-serve plan announcement explicitly says Hobby needs no credit card. Execution credits are consumed during actual runtime, but no Free overage price or exhaustion mechanism is published. The next plan, Starter, costs $100 per month for 3 users and 20 deployments.
 
 ## Gotchas
 
@@ -117,4 +124,4 @@ You cannot create a new deployment until you delete an existing one or upgrade t
 
 ### Does Prefect Cloud need a credit card?
 
-No card is listed for Hobby. You create the account in your browser after running the login command.
+No. Prefect’s official self-serve plan announcement explicitly says the Hobby tier requires no credit card. You create or sign in to the account in your browser after running the login command.

@@ -25,24 +25,24 @@ status: changed
 freeTierDetails:
   summary: >-
     The Free plan costs $0, needs no credit card, and has no time limit. It
-    includes 200k operations a month, 1.01 GB of storage, and 50 databases.
+    includes 200k operations a month, 2 GB of storage, and 50 databases.
   limits:
     - 200k database operations per month; 1 query counts as 1 operation
-    - 1.01 GB of storage
+    - 2 GB of storage shared across the workspace
     - 50 databases
-    - Up to 10 pooled and 10 direct connections
+    - Up to 10 pooled connections; 10 direct connections, with 5 reserved for platform operations
     - Unlimited database data transfer
     - Prisma Compute included, with 1M requests and 10 GB of outbound bandwidth per month
   caveats:
     - No backups on the Free plan; daily backups start on Starter
     - Support is community only on Free
-    - The pricing table shows no overage price and no spend limit for Free
+    - Exhausting the monthly operation allowance stops database reads and writes until reset or upgrade
     - Paid plans have a hard spend limit that is on by default
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
 useCases:
   - A Postgres database for a side project or prototype
   - The database for an app built with Prisma ORM
@@ -69,8 +69,8 @@ avoidIf:
   - you need backups on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: '2026-10-09'
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.prisma.io/postgres'
@@ -79,6 +79,8 @@ sourceUrls:
   - 'https://www.prisma.io/pricing'
   - 'https://www.prisma.io/docs/postgres/introduction/npx-create-db'
   - 'https://www.prisma.io/docs/postgres/database/connecting-to-your-database'
+  - 'https://www.prisma.io/docs/full-stack-tutorial'
+  - 'https://www.prisma.io/docs/postgres/faq'
 pricingUrl: 'https://www.prisma.io/pricing'
 featured: false
 changes:
@@ -88,18 +90,21 @@ changes:
   - date: '2026-10-09'
     kind: changed
     note: The Free plan now lists 200k operations, 1.01 GB of storage, and 50 databases, up from 100,000 operations and 0.5 GB.
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Free storage to 2 GB, clarified shared workspace quotas and reserved direct connections, and documented query-cap suspension and grace access."
 ---
 You can create a database from the web interface or with the `create-db` CLI, then connect with Prisma ORM or any Postgres client. It suits developers who want a managed Postgres database billed by operation, not by compute time.
 
 ## What the free plan gives you
 
-The Free plan is $0 per month, free forever, with no credit card required. Prisma Postgres on Free includes 200k operations a month, 1.01 GB of storage, and 50 databases. One query counts as one operation. Database data transfer is unlimited and free on every plan.
+The Free plan is $0 per month, free forever, with no credit card required. Prisma Postgres on Free includes 200k operations a month, 2 GB of storage, and 50 databases, shared across the workspace. One query counts as one operation. Database data transfer is unlimited and free on every plan.
 
-The Free plan also covers part of Prisma Compute, the hosting side. You get 1M requests, 360 GB-hours of memory, 4 active vCPU-hours, and 10 GB of outbound bandwidth each month. The plan allows 10 pooled connections and 10 direct connections. Support is community only.
+The Free plan also covers part of Prisma Compute, the hosting side. You get 1M requests, 360 GB-hours of memory, 4 active vCPU-hours, and 10 GB of outbound bandwidth each month. The plan allows 10 pooled connections and 10 direct connections, but 5 direct connections are reserved for platform operations. Support is community only.
 
 ## When you hit a limit
 
-The pricing table shows no overage price and no spend limit for the Free plan. It does not say what happens after you use 200k operations or fill 1.01 GB. Prisma says paid plans carry a hard spend limit that is on by default, so a paid bill cannot surprise you.
+After the monthly query allowance is exhausted, the database stops accepting reads and writes. Upgrade to restore access, usually within a minute, or wait for the next calendar month. The Console also offers one 24-hour grace period per workspace; it does not renew monthly. Free has no usage billing. Paid plans have spend limits enabled by default.
 
 For paid plans, the Starter plan costs $10 a month. It includes 1M operations and 10 GB of storage, then charges $8 per million operations and $2 per GB.
 
@@ -107,7 +112,7 @@ For paid plans, the Starter plan costs $10 a month. It includes 1M operations an
 
 - Databases made with `create-db` are temporary. Prisma deletes them after 24 hours unless you claim them in the Prisma Data Platform.
 - The Free plan has no backups. Daily backups with 7-day retention start on the Starter plan.
-- The Free plan allows only 10 pooled and 10 direct connections. The connection guide lists a "Too many connections" error as a common problem, so read it before you pick a connection string.
+- Connection capacity is small: 10 pooled connections and 10 direct connections, with 5 direct connections reserved for platform operations. Pick the connection string for your client carefully.
 
 ## Alternatives in this atlas
 
@@ -119,11 +124,11 @@ For paid plans, the Starter plan costs $10 a month. It includes 1M operations an
 
 ### Is Prisma Postgres free?
 
-Yes. The Free plan costs $0, needs no credit card, and has no time limit. It includes 200k operations a month, 1.01 GB of storage, and 50 databases.
+Yes. The Free plan costs $0, needs no credit card, and has no time limit. It includes 200k operations a month, 2 GB of storage, and 50 databases.
 
 ### What happens when I go over the Prisma Postgres free limits?
 
-The pricing page does not say. The Free column shows no overage price and no spend limit. Paid plans have a hard spend limit that is on by default.
+At the monthly query cap, reads and writes stop until the next calendar month or an upgrade. A one-time 24-hour workspace grace period can temporarily restore access. Free has no usage billing.
 
 ### Does Prisma Postgres need a credit card?
 

@@ -36,12 +36,12 @@ freeTierDetails:
     - Outbound internet access from free accounts is restricted
     - New free accounts do not get a MySQL database or a scheduled task
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: false
-  overageRisk: none
+  overageRisk: low
   billingRiskNotes:
-    - Free accounts are not billed; past the CPU allowance processes are slowed, not charged
+    - Past the CPU allowance, processes are slowed; the cited plan sources do not explicitly establish signup card collection
 useCases:
   - Hosting a small Flask or Django app at a pythonanywhere.com address
   - Running Python in a browser console while learning
@@ -64,8 +64,8 @@ avoidIf:
   - you need a custom domain for free
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.pythonanywhere.com/'
@@ -76,6 +76,9 @@ sourceUrls:
 pricingUrl: 'https://www.pythonanywhere.com/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added different EU legacy-feature cutoff and qualified undocumented card/no-bill assurance while retaining explicit CPU tarpit behavior."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -91,14 +94,14 @@ The help page on free accounts lists 100 CPU seconds, 512 MiB of disk space, one
 
 ## When you hit a limit
 
-If you use up your CPU seconds, PythonAnywhere does not stop or bill a free account. The pricing page says tarpitted processes run at a lower priority than users who have not hit their limit, though they still get spare capacity on the server cluster. Paid plans can buy more.
+If you use up your CPU seconds, PythonAnywhere slows your processes rather than stopping them. The pricing page says tarpitted processes run at a lower priority than users who have not hit their limit, though they still get spare capacity on the server cluster. Paid plans can buy more.
 
 The free web app has a 1 month expiry, so plan to come back and keep it running. For more, the Developer plan costs $10 a month and includes 5,000 CPU-seconds per day, 5GB of disk, and one web app on a custom domain.
 
 ## Gotchas
 
 - Free accounts have restricted outbound internet access, so calls to many outside APIs from your code will not work.
-- Accounts created before 2026-01-15 kept a MySQL database and one daily scheduled task; new free accounts do not list them.
+- The legacy MySQL/database and daily-task cutoff is 2026-01-15 on the main system and 2026-01-08 on the EU system; newer Free accounts lack both.
 - A custom domain needs a paid plan; the free web app lives at your-username.pythonanywhere.com.
 
 ## Alternatives in this atlas
@@ -119,4 +122,4 @@ Only in part. Free accounts have restricted outbound internet access, so many ou
 
 ### What happens when I run out of CPU seconds?
 
-Your processes are tarpitted: they run at a lower priority than other users but keep going, and you are not billed.
+Your processes are tarpitted: they run at a lower priority but can use spare server capacity. The pricing page offers optional purchases of more CPU time.

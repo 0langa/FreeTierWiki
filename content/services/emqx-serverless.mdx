@@ -1,8 +1,9 @@
 ---
 title: EMQX Serverless
 description: >-
-  EMQX Serverless is a hosted MQTT broker. Devices and apps connect to your
-  deployment over MQTT, and you pay only for connected time and traffic.
+  EMQX Serverless is a hosted MQTT broker. Devices and apps connect over MQTT,
+  with monthly free allowances for session time, network traffic, and rule
+  actions.
 provider: EMQX
 category: messaging
 domain: messaging
@@ -26,25 +27,34 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Forever-free serverless MQTT plan includes 1,000,000 session
-    minutes, 1 GB traffic, and 1,000,000 rule actions per month.
+    Forever-free serverless MQTT plan includes 1,000,000 session minutes, 1 GB
+    traffic, and 1,000,000 rule actions per month.
   limits:
     - '1,000,000 session minutes/month'
-    - '1 GB traffic/month'
+    - 1 GB traffic/month
     - '1,000,000 rule actions/month'
     - No credit card required
   caveats:
-    - The default spend limit is 0, so only the free quota is used
-    - A deployment with no client connections for 30 days is stopped, and can be deleted if it is not restarted within 30 days
-    - Pay-as-you-go pricing applies to usage above the free amounts if you raise the spend limit
+    - 'The default spend limit is 0, so only the free quota is used'
+    - >-
+      A deployment with no client connections for 30 days is stopped, and can be
+      deleted if it is not restarted within 30 days
+    - >-
+      Pay-as-you-go pricing applies to usage above the free amounts if you raise
+      the spend limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - Charges only start if you set a spend limit above 0; the rates are $2.00 per extra million session minutes, $0.15 per GB, and $0.25 per extra million rule actions.
-    - With a spend limit above 0 you choose between suspending the deployment and keep billing at the limit.
+    - >-
+      Charges only start if you set a spend limit above 0; the rates are $2.00
+      per extra million session minutes, $0.15 per GB, and $0.25 per extra
+      million rule actions.
+    - >-
+      With a spend limit above 0 you choose between suspending the deployment
+      and keep billing at the limit.
 useCases:
   - IoT device messaging
   - Telemetry from sensors to a cloud app
@@ -66,15 +76,25 @@ avoidIf:
   - you need strict on-premises control
   - you expect high sustained traffic
 quickstartSteps:
-  - Log in to the EMQX Cloud console and create a project if this is your first time.
-  - Select New Deployment and choose the Serverless plan. Leave the monthly spend limit at 0 to use only the free quota.
-  - Name the deployment, accept the EMQX Serverless Usage Terms, and select Deploy. Wait until the status shows Running.
-  - On the Overview page, copy the address and ports. 8883 for mqtts and 8084 for wss are on by default.
-  - Under Access Control, then Authentication, add a username and password, then connect with MQTTX or your own MQTT client.
+  - >-
+    Log in to the EMQX Cloud console and create a project if this is your first
+    time.
+  - >-
+    Select New Deployment and choose the Serverless plan. Leave the monthly
+    spend limit at 0 to use only the free quota.
+  - >-
+    Name the deployment, accept the EMQX Serverless Usage Terms, and select
+    Deploy. Wait until the status shows Running.
+  - >-
+    On the Overview page, copy the address and ports. 8883 for mqtts and 8084
+    for wss are on by default.
+  - >-
+    Under Access Control, then Authentication, add a username and password, then
+    connect with MQTTX or your own MQTT client.
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.emqx.com/en/cloud/serverless-mqtt'
@@ -85,6 +105,12 @@ sourceUrls:
   - 'https://docs.emqx.com/en/cloud/latest/price/pricing.html'
   - 'https://docs.emqx.com/en/cloud/latest/create/serverless.html'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Clarified that serverless usage includes rule actions as well as session
+      time and traffic.
 ---
 You create and manage deployments in the EMQX Cloud console, then connect any MQTT client or SDK. The docs recommend MQTTX for testing. It suits developers who want a broker without running servers.
 

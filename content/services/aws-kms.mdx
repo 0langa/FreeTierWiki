@@ -30,15 +30,17 @@ freeTierDetails:
     - '20,000 requests per month, across all Regions'
     - AWS managed and AWS owned keys have no storage charge
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Each KMS key you create costs $1/month, prorated hourly, so a customer managed key is never free
     - Requests that use asymmetric keys, such as Sign and Verify, are excluded from the free tier
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - A key you create is billed every month it exists, even with no requests
     - Requests past the free amount are billed per 10,000 requests
 useCases:
@@ -64,8 +66,8 @@ avoidIf:
   - apps outside AWS
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://aws.amazon.com/kms/'
@@ -77,6 +79,9 @@ sourceUrls:
 pricingUrl: 'https://aws.amazon.com/kms/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped excess usage to AWS account plans and optional project controls; corrected Free-account suspension and data-retention wording."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -92,7 +97,7 @@ Some things cost nothing at all. AWS managed and AWS owned keys, which AWS servi
 
 ## When you hit a limit
 
-Nothing stops your requests at the free amount. Past 20,000 requests a month, the pricing page examples bill $0.03 per 10,000 requests.
+On Paid accounts without optional project controls, requests continue past the free amount. Past 20,000 requests a month, the pricing page examples bill $0.03 per 10,000 requests.
 
 The bigger cost is often the keys. Each KMS key you create costs $1/month, prorated hourly, whether or not you use it. Rotating a key adds $1/month for the first and second rotation, and later rotations are not billed. An S3 example on the pricing page with one key and 2,000,000 decrypt requests comes to $6.97/month.
 

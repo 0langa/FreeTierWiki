@@ -2,7 +2,8 @@
 title: Cloudflare Queues
 description: >-
   Cloudflare Queues is a message queue for Cloudflare Workers. One Worker sends
-  messages to a queue, and another Worker receives them in batches, with retries.
+  messages to a queue, and another Worker receives them in batches, with
+  retries.
 provider: Cloudflare
 category: messaging
 domain: messaging
@@ -21,11 +22,13 @@ tags:
   - messaging
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Workers Free plan: 10,000 operations per day, with 24-hour message retention.'
+  summary: >-
+    Workers Free plan: 10,000 operations per day, with 24-hour message
+    retention.
   limits:
     - '10,000 operations per day'
     - 'Message retention: 24 hours, not configurable on the free plan'
-    - 'Message size up to 128 KB'
+    - Message size up to 128 KB
     - 'Up to 10,000 queues per account'
   caveats:
     - 'Most messages take 3 operations (write, read, delete)'
@@ -34,8 +37,8 @@ freeTierDetails:
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Running background jobs from a Worker
   - Buffering webhooks before processing
@@ -43,11 +46,17 @@ useCases:
   - Retrying failed work with a dead letter queue
   - Pulling messages from outside Workers with a pull consumer
 quickstartSteps:
-  - Create a Cloudflare account and a Worker project with `npm create cloudflare@latest -- producer-worker`.
+  - >-
+    Create a Cloudflare account and a Worker project with `npm create
+    cloudflare@latest -- producer-worker`.
   - Create a queue with `npx wrangler queues create` and a queue name.
   - Add a producer binding for the queue to your `wrangler.jsonc` file.
-  - Send messages from the Worker with `env.MY_QUEUE.send()`, then deploy with `npx wrangler deploy`.
-  - Add a `queue` handler to a consumer Worker, connect it to the queue, and watch the messages with `wrangler tail`.
+  - >-
+    Send messages from the Worker with `env.MY_QUEUE.send()`, then deploy with
+    `npx wrangler deploy`.
+  - >-
+    Add a `queue` handler to a consumer Worker, connect it to the queue, and
+    watch the messages with `wrangler tail`.
 whenToUse: >-
   Use Queues for light background work inside a Workers app, such as buffering
   webhooks or batching writes.
@@ -64,8 +73,8 @@ avoidIf:
   - your code does not run on Cloudflare
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://developers.cloudflare.com/queues/'
@@ -74,12 +83,18 @@ sourceUrls:
   - 'https://developers.cloudflare.com/queues/platform/pricing/'
   - 'https://developers.cloudflare.com/queues/platform/limits/'
   - 'https://developers.cloudflare.com/queues/get-started/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/queues/platform/pricing/'
 featured: false
 changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified unpublished daily operation exhaustion behavior instead of
+      asserting a hard cap.
 ---
 You use Queues from Wrangler and your Worker code. A producer Worker binds to a queue and calls `send()`, and a consumer Worker handles batches. It suits developers who already build on Cloudflare Workers.
 
@@ -91,7 +106,7 @@ In most cases a message takes 3 operations: 1 write, 1 read, and 1 delete. That 
 
 ## When you hit a limit
 
-The pricing and limits pages do not say what Queues does after the 10,000 daily operations on the Free plan. The free plan has no card, so the page lists no bill.
+The pricing and limits pages do not say what Queues does after the 10,000 daily operations on the Free plan. Cloudflare advertises free account signup without a card, but these Queues pages do not explain daily-quota enforcement or publish a Free overage tariff. Do not infer the exact exhaustion behavior from the free price.
 
 Other limits are explicit. A message can be up to 128 KB, and a queue can take 5,000 messages per second. Past that rate, `send()` and `sendBatch()` throw a Too Many Requests error. A queue that reaches its 25GB backlog returns a Storage Limit Exceeded error on send. Each retry also costs a read operation.
 

@@ -34,13 +34,14 @@ freeTierDetails:
     - Community support via GitHub
   caveats:
     - All platform features are included but with usage limits
+    - No Hobby overage tariff is published; exact ingestion behavior after 50k monthly units is not documented
     - Data older than 30 days is not accessible on the free plan
     - Langfuse is open source, so you can also self-host it
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Trace LLM application and agent runs
   - Debug prompt chains
@@ -69,19 +70,25 @@ avoidIf:
   - you need enterprise SLAs on the free tier
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-09
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://langfuse.com/'
 docsUrl: 'https://langfuse.com/docs'
 pricingUrl: 'https://langfuse.com/pricing'
 sourceUrls:
+  - 'https://langfuse.com/docs/administration/billable-units'
   - 'https://langfuse.com/pricing'
   - 'https://langfuse.com/pricing/'
   - 'https://langfuse.com/docs'
   - 'https://langfuse.com/docs/observability/get-started/'
+  - 'https://langfuse.com/faq/all/api-limits'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Qualified unpublished Hobby quota enforcement and documented organization-level API rate buckets with HTTP 429 behavior.'
 ---
 You instrument your app with the Langfuse SDK or an OpenAI wrapper, then explore traces, prompts, and scores in the web app. It suits developers who build LLM apps and want to inspect every call.
 
@@ -93,9 +100,9 @@ A billable unit is any tracing data point you send, including the trace, its obs
 
 ## When you hit a limit
 
-The pricing page does not say what happens on Hobby after the 50k units are used up. It shows no additional usage price for Hobby, while Core charges $8 per 100k extra units.
+Hobby includes 50k monthly units, but public pricing does not document whether excess ingestion is rejected, delayed, or handled another way. It lists no Hobby overage tariff; the $8 per 100k extra units belongs to Core. Do not assume that paid rate applies to Hobby.
 
-The pricing page defines a billable unit as a trace, an observation, or a score, so one request can use several units. Hobby also lists rate limits apart from the monthly units: 1,000 requests per minute for ingestion and 30 requests per minute for the general API.
+The pricing page defines a billable unit as a trace, an observation, or a score, so one request can use several units. Separate rate buckets are shared across an organization: Hobby tracing ingestion allows 1,000 requests per minute and General API allows 30. Dedicated endpoint buckets differ; exceeding one returns HTTP 429 with Retry-After.
 
 ## Gotchas
 

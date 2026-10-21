@@ -35,11 +35,11 @@ freeTierDetails:
     - Batch posting and AI analysis need a thanks-code from Patreon
     - 'Supporter-only extras: isSecret graphs, graph paging, and more'
   caveats:
-    - Making a graph secret needs the isSecret option, a supporter-only feature
+    - Hiding a graph from the public profile needs the supporter-only isSecret option
     - 'You must confirm you accept the terms of service and are not a minor, or have parental consent'
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Track a daily habit and show it as a graph
@@ -75,8 +75,8 @@ avoidIf:
   - require enterprise support
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: '2026-10-13'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://pixe.la/'
@@ -89,28 +89,32 @@ sourceUrls:
   - >-
     https://github.com/a-know/Pixela/wiki/How-to-support-Pixela-by-Patreon-%EF%BC%8F-Use-Limited-Features
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Distinguished probabilistic Free API rejection from a guaranteed quota cap and clarified the profile-hiding feature.
 ---
 
-You use Pixela entirely through HTTP calls, such as curl, a script, or a webhook. There is no web sign-up form. It suits hobby coders and habit trackers who like to automate.
+This entry covers the Pixela API, accessed through curl, scripts or webhooks, with account creation through an HTTP call. The provider also offers an iOS app. It suits hobby coders and habit trackers who like to automate.
 
 ## What the free plan gives you
 
-Pixela says most of its features are free. Some features are only for people who pay for Pixela through Patreon. All operations go through the API.
+Pixela says most of its features are free. Some features are only for people who pay for Pixela through Patreon. The API supports scripting without a web signup form.
 
 You create a user with one POST call, then create graphs and post one number per day to each graph. The API also has instant recording calls to increment, decrement, add, or subtract a pixel, and a stopwatch endpoint for recording time. Other endpoints cover webhooks, graph stats, a user profile page, and a remote MCP server.
 
-Features limited to supporters with a valid thanks-code include batch pixel posting and the AI analysis endpoint. They also include a supporter badge and ad hiding on graph and profile pages, Retina display in all periods, graph paging, the isSecret option, and optional data in SVG output.
+Features limited to supporters with a valid thanks-code include batch pixel posting and the AI analysis endpoint. They also include a supporter badge on graph and profile pages, Retina display in all periods, graph paging, the isSecret option, and optional data in SVG output.
 
 ## When you hit a limit
 
-Pixela has no listed quota and no price. The one hard limit is on requests. The Patreon page says supporters get a change that disables a rule where some APIs reject requests 25% of the time. For free users, that means a call can fail, so handle errors in your code.
+No numerical usage quota is listed for the core Free API. Some requests are deliberately rejected rather than billed. The Patreon page says supporters get a change that disables a rule where some APIs reject requests 25% of the time. For free users, that means a call can fail, so handle errors in your code.
 
 If you stop supporting Pixela on Patreon, the limited features stop working, because the account is linked to Patreon.
 
 ## Gotchas
 
 - Handle failed calls. Some APIs reject requests from non-supporters about 25% of the time.
-- Making a graph secret needs the isSecret option, which is a supporter feature.
+- The supporter-only isSecret option hides a graph from profile listings; do not assume this is access control for sensitive data.
 - Your token is hashed and saved at sign-up. Pixela stores only a hash of your token, so keep your own copy.
 
 ## Alternatives in this atlas

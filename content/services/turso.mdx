@@ -45,7 +45,7 @@ freeTierDetails:
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
 useCases:
   - A small SQLite database for an edge or serverless app
   - One database per user, per tenant, or per project
@@ -74,8 +74,8 @@ avoidIf:
   - enterprise compliance required
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://turso.tech/'
@@ -86,6 +86,10 @@ sourceUrls:
   - 'https://docs.turso.tech/help/usage-and-billing'
 pricingUrl: 'https://turso.tech/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Developer billing cadence and added the Free-wide stop when any quota is reached."
 ---
 You manage databases with the `turso` CLI or the dashboard and connect from code with an official SDK or SQL over HTTP. It suits developers who like SQLite and want to run many small databases without managing servers.
 
@@ -97,9 +101,9 @@ Turso counts a row read as a row scan, so a query can scan more rows than it ret
 
 ## When you hit a limit
 
-The usage docs say a query that exceeds a monthly quota for row reads, row writes, or total storage fails with the BLOCKED error code. The page words this for plans that include monthly quotas, so check the dashboard for the exact behavior on your plan.
+The pricing FAQ explicitly says Free databases are blocked when any one storage, row-read, row-write, or sync limit is exceeded, even if the other metrics remain under quota. The usage docs describe the BLOCKED error for quota-exceeding queries.
 
-Extra storage, reads, writes, and syncs are billed automatically only once you enable overages. On the Developer plan, which costs $4.99 a month, this means $1 per billion extra rows read. The Free plan has no overage billing shown on the pricing page.
+Extra storage, reads, writes, and syncs are billed automatically only once you enable overages. On Developer, which costs $5.99 monthly or $4.99 per month under yearly billing, this means $1 per billion extra rows read. The Free plan has no overage billing shown on the pricing page.
 
 ## Gotchas
 
@@ -121,7 +125,7 @@ Yes. The Free plan is $0 a month and needs no credit card. It includes 100 datab
 
 ### What happens when I go over the Turso free limits?
 
-The usage docs say queries that exceed a quota fail with a BLOCKED error. Extra usage is billed automatically only once overages are enabled.
+The usage docs say queries that exceed a quota fail with a BLOCKED error. Free needs a paid upgrade for extra usage. On paid plans, extra usage is billed only once overages are enabled.
 
 ### Does Turso offer point-in-time restore on the free plan?
 

@@ -29,13 +29,14 @@ freeTierDetails:
     - 250 requests/month
     - 30 requests/minute
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Requests beyond the free plan need the paid Pro plan
     - Pro plan bills per additional request beyond its included quota
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Turning custom HTML into a PDF
   - Generating invoices styled with Tailwind CSS
@@ -46,7 +47,7 @@ quickstartSteps:
   - Sign up for a Doczilla account and create your organization.
   - Open your organization's settings page and copy your API key.
   - Send a POST request to the PDF endpoint at api.doczilla.app/v1/pdf with an Authorization
-    Bearer header and a JSON body holding the page HTML and PDF options.
+    Bearer header and a JSON body holding base64-encoded page HTML and PDF options.
   - Set printBackground to true if your PDF is missing background graphics.
   - Try the sync endpoint for a URL back, or the async endpoint with a webhook for
     batches; use v1/screenshot for screenshots.
@@ -64,19 +65,28 @@ avoidIf:
   - you want a drag-and-drop template designer
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.doczilla.app/'
 docsUrl: 'https://docs.doczilla.app'
 pricingUrl: 'https://doczilla.app/pricing'
 sourceUrls:
+  - 'https://docs.doczilla.app/api-reference/introduction.md'
+  - 'https://docs.doczilla.app/common-issues.md'
   - https://doczilla.app/pricing
   - https://docs.doczilla.app/quickstart
   - https://docs.doczilla.app
   - https://www.doczilla.app/
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Corrected HTML encoding and automatic large-response handling; qualified unpublished Hobby exhaustion.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You call Doczilla from your own code with an API key. A direct endpoint returns the file, a sync endpoint returns a URL, and an async endpoint sends the result to your webhook. It suits developers who already work with HTML.
 
@@ -84,7 +94,7 @@ You call Doczilla from your own code with an API key. A direct endpoint returns 
 
 The Hobby plan costs 0 euros a month and needs no credit card. It includes 250 requests per month and 30 requests per minute. The plan table also lists queuing. The pricing page shows one request quota for the plan and does not split PDF and screenshot requests.
 
-The Pro plan costs 4,99 euros a month. It includes 2,000 requests a month and 120 requests per minute. Each extra request costs 0.00372 euros. A higher tier has custom pricing, custom rate limits, and priority support. The pricing page says you pay only for what you use. Direct responses over 32 MiB need the other content type described in the docs.
+The Pro plan costs 4.99 euros a month. It includes 2,000 requests a month and 120 requests per minute. Each extra request costs 0.00372 euros. A higher tier has custom pricing, custom rate limits, and priority support. The pricing page says you pay only for what you use. Direct responses over 32 MiB automatically switch to chunked transfer with application/octet-stream.
 
 ## When you hit a limit
 
@@ -110,7 +120,7 @@ Yes. The Hobby plan is free, needs no credit card, and gives you 250 requests pe
 
 ### What does Doczilla cost after the free plan?
 
-The Pro plan is 4,99 euros a month with 2,000 requests included. Extra requests cost 0.00372 euros each.
+The Pro plan is 4.99 euros a month with 2,000 requests included. Extra requests cost 0.00372 euros each.
 
 ### Does Doczilla do screenshots as well as PDFs?
 

@@ -32,16 +32,18 @@ freeTierDetails:
     - Each 64 KB chunk of a payload counts as one request
     - Messages kept 4 days by default, up to 14 days
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - The free requests apply to all customers every month, not only new accounts
     - Every SQS action counts as a request, including polling and deleting
     - Data transfer charges apply across regions and to or from the internet
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - You are charged per million requests past the first 1 million each month.
     - A 1 MiB payload is billed as 16 requests, so large messages use the free amount fast.
 useCases:
@@ -72,8 +74,8 @@ avoidIf:
   - you have no AWS account
 difficulty: beginner
 productionReadiness: production-ready
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-11
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 9
 usefulnessScore: 9
 officialUrl: 'https://aws.amazon.com/sqs/'
@@ -89,6 +91,9 @@ sourceUrls:
 featured: false
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped service-free billing to account plans, documented suspension/recovery and optional project controls."
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -103,7 +108,7 @@ Every SQS action counts as a request. One request can carry 1 to 10 messages, up
 
 ## When you hit a limit
 
-The pricing page lists no hard stop at the free amount. You pay per million requests after the first 1 million each month, and the page shows the rates in a calculator. Standard and FIFO queues have their own rates.
+On Paid accounts without optional project controls, requests beyond the first 1 million/month incur per-million charges after applicable credits, and the page shows the rates in a calculator. Standard and FIFO queues have their own rates.
 
 Payload size changes the count. Each 64 KB chunk of a payload is billed as one request, so a request with a 1 MiB payload is billed as 16. Sending and receiving in the same region has no data transfer charge. Cross-region traffic and traffic to or from the internet use standard AWS data transfer charges.
 

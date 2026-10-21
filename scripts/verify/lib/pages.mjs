@@ -2,23 +2,28 @@
 // Pure helpers for turning pricing pages into short text a reviewer can read.
 
 /** @type {Record<string, string>} */
-const ENTITIES = { "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&apos;": "'" };
+const ENTITIES = { "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&apos;": "'", "&euro;": "€", "&pound;": "£", "&yen;": "¥", "&times;": "×", "&copy;": "©", "&ndash;": "–", "&mdash;": "—", "&check;": "✓", "&cross;": "✗" };
+
+/** @param {number} n */
+const codepoint = (n) => Number.isInteger(n) && n > 0 && n <= 0x10ffff && !(n >= 0xd800 && n <= 0xdfff) ? String.fromCodePoint(n) : "�";
 
 /** @param {string} html */
 export function htmlToText(html) {
   return html
+    .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|noscript|svg)\b[\s\S]*?<\/\1>/gi, " ")
-    .replace(/<(br|\/p|\/div|\/li|\/h[1-6]|\/tr|\/td|\/th|\/section|\/article|\/header|\/footer)\b[^>]*>/gi, "\n")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&(nbsp|amp|lt|gt|quot|apos|#39);/g, (m) => ENTITIES[m] ?? m)
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/<(br|\/p|\/div|\/li|\/h[1-6]|\/tr|\/td|\/th|\/section|\/article|\/header|\/footer)\b(?:[^<>"']|"[^"]*"|'[^']*')*>/gi, "\n")
+    .replace(/<(?:[^<>"']|"[^"]*"|'[^']*')*>/g, " ")
+    .replace(/&(?:nbsp|amp|lt|gt|quot|apos|euro|pound|yen|times|copy|ndash|mdash|check|cross);/g, (m) => ENTITIES[m] ?? m)
+    .replace(/&#x([a-f\d]+);/gi, (_, n) => codepoint(Number.parseInt(n, 16)))
+    .replace(/&#(\d+);/g, (_, n) => codepoint(Number(n)))
     .split("\n")
     .map((line) => line.replace(/\s+/g, " ").trim())
     .filter(Boolean)
     .join("\n");
 }
 
-const KEYWORDS = /free|price|pricing|plan|limit|month|credit|trial|card|\$|€|quota|request|\bGB\b|\bMB\b/i;
+const KEYWORDS = /free|price|pricing|plan|limit|month|credit|trial|card|\$|€|quota|request|\bprojects?\b|projets?|gratuit|tarif|requêtes?|stockage|kostenlos|preise?|anfragen|kontingent|\bGB\b|\bMB\b/i;
 
 /**
  * Keyword lines plus one line before and after, capped at `max` characters.
@@ -43,7 +48,7 @@ export function excerpt(text, max = 6000) {
 }
 
 /**
- * @param {{ pricingUrl?: string, sourceUrls?: string[], officialUrl?: string }} entry
+ * @param {{ pricingUrl?: string, sourceUrls?: string[], docsUrl?: string, officialUrl?: string }} entry
  * @returns {string[]}
  */
 export function candidateUrls(entry) {
@@ -55,6 +60,9 @@ export function candidateUrls(entry) {
   };
   add(entry.pricingUrl);
   for (const url of entry.sourceUrls ?? []) if (/pricing|plans|free/i.test(url)) add(url);
+  // Explicitly cited documentation is a better fallback than an invented /pricing route or a generic homepage.
+  for (const url of entry.sourceUrls ?? []) add(url);
+  add(entry.docsUrl);
   add(entry.officialUrl);
   if (entry.officialUrl) {
     try {
@@ -63,8 +71,16 @@ export function candidateUrls(entry) {
       // not a valid URL; skip the guess
     }
   }
-  // Cap at 4: the ordered list already puts the best guesses first, so trim rather than search further.
-  return urls.slice(0, 4);
+  return urls;
+}
+
+/** All explicitly cited source pages for an evidence review, with no silent per-entry cutoff.
+ * @param {{ pricingUrl?: unknown, sourceUrls?: unknown, docsUrl?: unknown, officialUrl?: unknown }} entry
+ * @returns {string[]}
+ */
+export function evidenceUrls(entry) {
+  const sources = Array.isArray(entry.sourceUrls) ? entry.sourceUrls : [];
+  return [...new Set([entry.pricingUrl, ...sources, entry.docsUrl, entry.officialUrl].filter((url) => typeof url === "string" && /^https?:\/\//i.test(url)))];
 }
 
 /**
