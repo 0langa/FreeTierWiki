@@ -29,6 +29,8 @@ freeTierDetails:
     - 'Rate limits per model: tokens per minute and requests per second'
     - Limited chat messages, web searches, and coding sessions in Vibe
   caveats:
+    - Free API rate and monthly token limits return HTTP 429 when exceeded
+    - Paid continuation requires enabled pay-as-you-go and prepaid credits; optional automatic recharge can charge a payment method
     - Rate limits in Free mode are low; they are listed in Admin Panel, API, Limits
     - Pay-as-you-go extends usage past the included amount; payment methods are managed in Billing
     - The pages do not state the dollar value of the included monthly usage
@@ -36,7 +38,10 @@ freeTierDetails:
   requiresCard: false
   freeTierType: credit
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - The cap describes Free mode without paid continuation; PAYG consumes purchased credits
+    - Paid balances can go slightly negative during processing, and optional auto recharge can buy more credits
 useCases:
   - Prototype chat, coding, or OCR features
   - Transcribe audio with Voxtral speech models
@@ -64,19 +69,28 @@ avoidIf:
   - you need to know the exact free allowance up front
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://mistral.ai/'
 docsUrl: 'https://docs.mistral.ai/'
 sourceUrls:
+  - 'https://help.mistral.ai/en/articles/698531-why-am-i-hitting-api-rate-limits-and-how-do-i-increase-them'
+  - 'https://docs.mistral.ai/admin/billing-usage/subscriptions'
+  - 'https://docs.mistral.ai/admin/billing-usage/billing'
   - 'https://mistral.ai/pricing/'
   - 'https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key'
   - 'https://docs.mistral.ai/admin/user-management-finops/tier'
 pricingUrl: 'https://mistral.ai/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added documented 429 Free enforcement, prepaid continuation, 402 exhaustion, delayed overage and auto recharge.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-02'
     kind: new
     note: Added to the atlas.
@@ -95,13 +109,15 @@ Rate limits are listed per model in the Admin Panel under API and Limits. Comple
 
 ## When you hit a limit
 
-The docs say pay-as-you-go lets you extend usage beyond your included monthly usage, and that it is not a separate plan for the API. You turn it on in the billing settings, and an Organization spending limit caps API and Vibe consumption. The pages do not say exactly what the API returns when a Free key passes its included usage. To get higher rate limits, contact support with the models, the requests per second, and the tokens per minute you need. The Pro plan costs $14.99 per month and has higher limits for Vibe.
+The official help article says request, token-throughput, and monthly token limits return HTTP 429 when exceeded. Without pay-as-you-go, included usage stops until renewal or an admin changes settings.
+
+Paid continuation requires pay-as-you-go enabled and positive prepaid credits. Exhausted paid credits return HTTP 402, but processing delays can leave a small negative balance payable on the next invoice. Optional automatic recharge buys credits from a payment method. Organization spending limits can suspend access; they do not eliminate delayed accounting. Pro costs $14.99 monthly and raises Vibe limits.
 
 ## Gotchas
 
 - The full API key shows only once when you create it, so copy it right away.
 - Free mode limits are low, and the exact numbers appear only inside your Admin Panel.
-- Pay-as-you-go extends usage past the included amount, so leave it off if you want to stay within Free mode.
+- Leave pay-as-you-go and automatic recharge off to stay within Free mode; those settings govern purchased-credit consumption and top-ups.
 
 ## Alternatives in this atlas
 

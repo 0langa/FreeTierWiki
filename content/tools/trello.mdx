@@ -32,16 +32,18 @@ freeTierDetails:
     - Up to 10 boards per Workspace
     - Unlimited cards
     - 10MB per file upload
-    - 250 Workspace command runs per month
+    - 250 Workspace command runs and 2,500 operations per month
   caveats:
+    - Above 10 collaborators, Workspace boards become view-only and automation stops
+    - Some Power-Ups require their own paid subscriptions
     - Calendar, Timeline, Table, Dashboard, and Map views are on the Premium plan
     - Unlimited boards and larger file uploads need the Standard plan
     - A free trial of Trello Premium is available to any Workspace
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - A simple backlog for a side project
   - A release or launch checklist the whole team can see
@@ -64,17 +66,25 @@ avoidIf:
   - sprint planning and estimates
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://trello.com'
 docsUrl: 'https://support.atlassian.com/trello/'
 sourceUrls:
   - 'https://trello.com/pricing'
+  - 'https://support.atlassian.com/trello/docs/workspace-user-limit/'
+  - 'https://support.atlassian.com/trello/docs/butler-quotas-and-limits/'
 pricingUrl: 'https://trello.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added documented collaborator read-only enforcement, separate operation quota/reset and paid Power-Up caveat."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -90,14 +100,14 @@ Storage is unlimited with a cap of 10MB per file, and each Workspace gets 250 co
 
 ## When you hit a limit
 
-The pricing page names the limits but does not say exactly what happens when you reach them, for example whether a new board is blocked once a Workspace has 10, or whether automation stops after 250 command runs in a month.
+Above 10 collaborators, boards become view-only and automation stops. At 10, new collaborators cannot be added. Guests and pending invites count too. Automation pools 250 runs and 2,500 operations per Workspace, resetting on the first of each month at midnight GMT.
 
-The page lists no overage prices for the Free plan; the path it describes is upgrading the Workspace to Standard or Premium. Any Workspace can also enroll in a free trial of Trello Premium, which unlocks unlimited boards, more automation, and the Timeline and Dashboard views for the trial period.
+The cited pages do not establish every quota response, Free card requirements or excess-usage billing. Upgrade the Workspace for higher allowances. Premium trials add boards and views; some Power-Ups charge separately.
 
 ## Gotchas
 
 - The 10-collaborator and 10-board limits are per Workspace, so a growing team hits them together.
-- Command runs are shared across the Workspace, so one busy automation can use the monthly allowance for everyone.
+- Command runs and operations are separate shared quotas, so one busy automation can exhaust either allowance for everyone.
 - Calendar, Timeline, Table, Dashboard, and Map views are Premium features, not part of Free.
 
 ## Alternatives in this atlas

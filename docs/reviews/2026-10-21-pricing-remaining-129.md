@@ -1,5 +1,7 @@
 # Pricing review — 2026-10-21 — remaining issue #50 entries
 
+> Historical first-pass record. The subsequent [full catalog review](2026-10-21-full-reset.md) supersedes the unresolved list and checker limitation below. It documents stronger source follow-ups, corrected or explicitly qualified claims, removed listings, and any current source outage. The earlier findings remain here as the review history.
+
 Source: [issue #50](https://github.com/0langa/FreeTierWiki/issues/50), the 2026-10-18 pricing-page scan. The [previous review](2026-10-19-pricing-50.md) covered the first 50 of 179 flagged entries. This follow-up reviewed all 129 remaining entries.
 
 Dispositions: **43 corrected and verified**, **27 verified unchanged**, **59 unresolved**, **0 unreviewed** in this batch. Supported partial corrections are included among the unresolved entries; 79 entries have publication changes in total. Issue #50 remains open for the unresolved claims.

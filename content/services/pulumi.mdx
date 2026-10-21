@@ -33,18 +33,18 @@ freeTierDetails:
     - 'Unlimited projects, stacks, and environments'
     - 'Unlimited updates and history'
     - 'Up to 500 workflow minutes/month'
-    - '10K free API calls/month'
+    - '10K free ESC ReadOpen API calls/month'
     - '25 free managed secrets'
-    - '5 concurrent stack updates'
+    - '1 concurrent stack update'
   caveats:
     - Unlimited users, secure collaboration, and CI/CD start on the Essentials plan
-    - Free has one admin
+    - Free supports one user; it is not a multi-admin team allowance
     - The pricing page does not say what happens when you pass a free limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Provisioning cloud resources with TypeScript, Python, Go, or C#
   - Managing one codebase across several cloud providers
@@ -61,7 +61,7 @@ whenToUse: >-
   language and keep the state in a free hosted backend.
 whenNotToUse: >-
   Avoid the Free plan if you need unlimited users, shared team workflows, or
-  more than one admin. Those start on a paid plan.
+  more than one user. Those start on a paid plan.
 bestFor:
   - individual developers
   - students
@@ -69,12 +69,12 @@ bestFor:
   - prototyping
 avoidIf:
   - teams that need many users on one organization
-  - needing more than 10K API calls a month
+  - needing more than 10K ESC ReadOpen API calls a month
   - needing more than 25 managed secrets
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.pulumi.com/'
@@ -86,22 +86,26 @@ sourceUrls:
   - 'https://www.pulumi.com/docs/iac/get-started/aws/create-project/'
 pricingUrl: 'https://www.pulumi.com/pricing/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected one-user and one-concurrent-update Free limits, scoped ESC ReadOpen calls, and qualified quota handling and external cloud costs."
 ---
 You work from the Pulumi CLI, write a program in your own language, and run it against your cloud. Pulumi Cloud keeps the state, secrets, and update history for you. It suits solo developers and small projects.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and does not ask for a credit card. It includes unlimited projects, stacks, and environments, and unlimited updates with history. Up to 5 stack updates can run at the same time.
+The Free plan costs $0 and does not ask for a credit card. It includes unlimited projects, stacks, and environments, and unlimited updates with history. Only 1 stack update can run at a time; 5 concurrent updates belong to Essentials.
 
-For secrets and configuration, you get 25 managed secrets, and plaintext config is free. You also get 10K API calls per month. Workflow minutes are capped at 500 per month. The Free plan has one admin. The pricing table also lists up to 10 custom policy packs.
+For secrets and configuration, you get 25 managed secrets, and plaintext config is free. You also get 10K ESC ReadOpen API calls per month. Workflow minutes cover Discovery and Deployments, with 500 included monthly. Free supports one user. The pricing table also lists up to 10 custom policy packs.
 
 Paid plans add more. Essentials adds unlimited users and secure collaboration with CI/CD. It starts at $40 per month and includes 40 credits, where 1 credit equals $1.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you go past a free limit, such as the 10K API calls or 500 workflow minutes. It shows a cap of 10K API calls per month for the Free plan, and it shows unlimited API calls only on paid plans. Plan around the 10K figure as a limit.
+The pricing page does not say what happens when you go past a free limit, such as 10K ESC ReadOpen calls or 500 workflow minutes. It shows 10K ESC calls per month for the Free plan, and it shows unlimited API calls only on paid plans. Plan around the 10K figure as a limit.
 
-Paid plans bill extra usage on demand from credits. Examples from the page: managed secrets cost $0.50 per month on Essentials, and extra workflow minutes cost $0.01 each. Because Free needs no card, nothing can be billed to you there. To stay safe, watch your usage in the Pulumi Cloud console.
+Paid plans bill extra usage on demand from credits. Examples from the page: managed secrets cost $0.50 per month on Essentials, and extra workflow minutes cost $0.01 each. Free needs no card, but the public page does not explain exact Free quota enforcement. Cloud-provider resources are billed separately. Watch both Pulumi usage and your provider bill; no-card Pulumi signup is not a guarantee of free infrastructure.
 
 ## Gotchas
 

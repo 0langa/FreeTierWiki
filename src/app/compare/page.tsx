@@ -31,7 +31,7 @@ export default async function CompareIndexPage() {
               </span>
               <span className="grid min-w-0 flex-1 gap-1">
                 <span className="flex items-baseline justify-between gap-2 text-[15.5px] font-semibold leading-snug">
-                  {comparison.title}
+                  {comparison.title.replace(/^Free\s+(\S)/, (_, first: string) => first.toUpperCase())}
                   <span className="font-mono text-[13px] font-medium text-ink-3">{comparison.count}</span>
                 </span>
                 <span className="text-[13.5px] leading-relaxed text-ink-3">{comparison.intro}</span>

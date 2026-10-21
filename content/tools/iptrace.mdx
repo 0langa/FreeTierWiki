@@ -34,14 +34,15 @@ freeTierDetails:
   caveats:
     - Commercial use is not allowed on the Free plan
     - Standard support is not included on the Free plan
-    - The FAQ says overage fees apply after 100% of the allowance; it does not say how the Free plan is treated
+    - The FAQ gives paid overage rates but does not specify Free exhaustion or billing
+    - Official error guidance documents usage_limit_reached when monthly quota is exhausted
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
   billingRiskNotes:
-    - The FAQ says overage fees apply once the monthly allowance is used; confirm in your dashboard what happens on the Free plan
+    - Published overage examples cover paid plans; Free-specific charging and cap policy are not confirmed
 useCases:
   - Showing a visitor's country or city in a prototype
   - Testing IP-based personalization
@@ -70,18 +71,22 @@ avoidIf:
 difficulty: beginner
 productionReadiness: prototype
 lastUpdated: 2026-10-21
-lastVerified: 2026-10-09
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://ipstack.com'
 docsUrl: 'https://docs.apilayer.com/ipstack/docs/api-documentation'
 pricingUrl: 'https://ipstack.com/pricing/'
 sourceUrls:
+  - 'https://blog.ipstack.com/api-error-handling-with-retries-backoff-and-graceful-degradation/'
   - 'https://ipstack.com/pricing/'
   - 'https://ipstack.com/documentation'
   - 'https://ipstack.com/faq'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Qualified Free exhaustion separately from paid overages and added documented quota-error handling.
   - date: 2026-10-21
     kind: changed
     note: "Corrected the API connection guidance to HTTPS, which the current Free plan includes."
@@ -98,9 +103,9 @@ Paid plans start with Basic at $12.99 a month for 50,000 requests. Basic adds co
 
 ## When you hit a limit
 
-ipstack emails you and shows a notice on your dashboard when you reach 75%, 90%, and 100% of the monthly allowance. After 100%, the FAQ says overage fees apply, so that your app keeps running without a break.
+The FAQ lists notifications at 75%, 90%, and 100% of the monthly allowance. Its overage examples cover Basic, Professional, and Professional Plus; it does not publish a Free overage rate or explain whether Free can continue beyond 100 requests.
 
-The FAQ speaks about plans in general and does not say how the Free plan is treated. Check your dashboard before you rely on the free allowance. With only 100 requests a month, cache every answer.
+Official API error guidance also documents usage_limit_reached when monthly quota is exhausted, with waiting for reset or upgrading as remedies. These general descriptions do not settle Free-specific handling. Do not assume either uninterrupted paid overages or a guaranteed hard stop for Free. Check the applicable subscription settings and handle quota errors; repeated retries do not restore exhausted allowance.
 
 ## Gotchas
 
@@ -122,7 +127,7 @@ Yes, there is a Free plan with 100 requests a month and no credit card. It has t
 
 ### What happens when I go over the ipstack limit?
 
-ipstack notifies you at 75%, 90%, and 100% of the allowance. After 100%, the FAQ says overage fees apply. It does not say how this works on the Free plan.
+Notifications are listed at 75%, 90%, and 100%. Official sources describe paid overages and quota errors, but do not settle which Free-specific policy applies.
 
 ### Can I use the ipstack free plan in production?
 

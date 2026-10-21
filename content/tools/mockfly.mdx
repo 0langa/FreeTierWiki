@@ -27,19 +27,21 @@ pricingModel: free
 freeTierDetails:
   summary: >-
     Free (Starter) plan offers 500 requests per day across 1 project, no
-    credit card required.
+    credit card required, with up to 4 endpoints.
   limits:
     - 500 requests/day
     - 1 project
+    - 4 endpoints
     - 2 responses per endpoint
   caveats:
+    - Daily request rejection and exact reset timezone are not published; oversized imports are rejected
     - No credit card required
     - Pro (15 EUR/month) removes the request, project, endpoint, and response limits
     - Custom hostnames and teammate invites are on paid plans only
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Pointing a front end at a live HTTPS endpoint before the backend ships
@@ -68,36 +70,44 @@ avoidIf:
   - your own hostname without a paid plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mockfly.dev/'
 docsUrl: 'https://www.mockfly.dev/docs'
 sourceUrls:
+  - "https://www.mockfly.dev/docs/import-postman-collection-to-mock-api/"
   - 'https://www.mockfly.dev/'
   - 'https://www.mockfly.dev/pricing'
   - 'https://www.mockfly.dev/docs'
 pricingUrl: 'https://www.mockfly.dev/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added the four-endpoint Free limit, restricted namespace editing to paid plans and documented import rejection when structure exceeds Free limits."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You build endpoints in the Mockfly dashboard, or import them, and your app calls the hosted HTTPS URL. A command line tool can also serve the same mocks offline. It suits front-end developers and QA engineers.
 
 ## What the free plan gives you
 
-The Starter plan costs nothing and needs no credit card. It includes 500 requests per day, 1 project, and 2 responses per endpoint. Each project gets a namespace, and your mock API answers at `https://api.mockfly.dev/mocks/` followed by that namespace.
+The Starter plan costs nothing and needs no credit card. It includes 500 requests per day, 1 project, 4 endpoints, and 2 responses per endpoint. Each project gets a namespace, and your mock API answers at `https://api.mockfly.dev/mocks/` followed by that namespace.
 
 The paid plans remove these limits. Pro costs 15 EUR per month and has unlimited requests, projects, endpoints, and responses. It also adds callbacks, teammate invites, and AI generation of mock JSON. Team costs 49 EUR per month and includes 5 seats. The docs also say Pro and Team can serve a project on your own hostname.
 
 ## When you hit a limit
 
-The pricing page does not say what happens after the 500th request of the day. It only lists the limit and says Starter needs no credit card, so a bill is not possible on this plan. The free plan also stops at 1 project and 2 responses per endpoint. To lift these limits, you upgrade to Pro. If you only need a short test, the offline command line tool can serve mocks you pulled earlier, but it needs a Mockfly account to pull them.
+The pricing page does not say what happens after the 500th request of the day. It only lists the limit and says Starter needs no credit card, so a bill is not possible on this plan. Free permits 1 project, 4 endpoints and 2 responses per endpoint. An import exceeding endpoint or response limits fails before creating the project. Upgrade to Pro for more. If you only need a short test, the offline command line tool can serve mocks you pulled earlier, but it needs a Mockfly account to pull them.
 
 ## Gotchas
 
 - The free limit counts requests per day, so a busy test suite can use it up quickly.
 - Two responses per endpoint limit how many conditional cases you can mock on the free plan.
-- A project namespace starts as a random ID. You can edit it to a readable name such as users.
+- A project namespace starts as a random ID. Editing it to a readable name such as users is a paid Pro feature.
 
 ## Alternatives in this atlas
 
@@ -109,7 +119,7 @@ The pricing page does not say what happens after the 500th request of the day. I
 
 ### Is Mockfly free?
 
-Yes. The Starter plan is free, with 500 requests per day, 1 project, and 2 responses per endpoint.
+Yes. Starter is free, with 500 requests per day, 1 project, 4 endpoints, and 2 responses per endpoint.
 
 ### Does Mockfly need a credit card?
 

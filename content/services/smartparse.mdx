@@ -28,12 +28,14 @@ freeTierDetails:
     - Up to 300 processing units/month
     - Browser CSV uploads only (no SFTP)
   caveats:
+    - The card requirement for Free signup is not stated in the cited public sources
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Paid plans start at $119/month for 8,000 processing units and add SFTP
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Pushing a CSV export into a REST API that accepts JSON
   - Bulk imports of users, orders, or stock data into a platform such as Salesforce or Shopify
@@ -60,8 +62,8 @@ avoidIf:
   - you need a tool that creates APIs from CSV files
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://smartparse.io'
@@ -71,8 +73,15 @@ sourceUrls:
   - 'https://smartparse.io'
   - 'https://smartparse.io/sign-up/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified unpublished signup, processing-unit, and quota policies."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
-You work in the SmartParse web app: you define the field mapping, upload a CSV in the browser, and SmartParse sends the rows to your API. The site's documentation address did not load, so this page relies on the main site. It suits developers who do bulk imports into a REST API.
+You work in the SmartParse web app: you define the field mapping, upload a CSV in the browser, and SmartParse sends the rows to your API. It suits developers who do bulk imports into a REST API.
 
 ## What the free plan gives you
 
@@ -84,7 +93,7 @@ The first paid plan allows up to 8000 processing units for $119 a month and adds
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you use up the 300 processing units on the Intro plan. This entry lists the free plan as a hard cap with no overage charge, and the site shows no pay-as-you-go option.
+The pricing page does not say what happens when you use up the 300 processing units on the Intro plan. The site shows no pay-as-you-go option, but does not establish whether processing stops at the allowance.
 
 Separate from plan limits, the site says SmartParse has circuit breakers that stop it from flooding your API when the API is down. It also quarantines failed records so you can reprocess them once your API is back. The plan list shows data quarantining, circuit breakers, and notifications on the Intro plan too.
 

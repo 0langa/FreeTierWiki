@@ -41,7 +41,7 @@ freeTierDetails:
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - A simple data backend for a prototype or student project
@@ -72,8 +72,8 @@ avoidIf:
   - more than 1,000 rows per sheet
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://sheetson.com'
@@ -85,6 +85,10 @@ sourceUrls:
   - 'https://docs.sheetson.com/manage-data/paginate-filter'
 pricingUrl: 'https://sheetson.com'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified unpublished row and shared-rate enforcement."
 ---
 You call a plain HTTP API with an API key from the Sheetson dashboard. Each tab of your Google Sheet becomes a table, and the header row becomes the JSON keys. It suits makers who already keep data in a sheet.
 
@@ -98,7 +102,7 @@ The rate limit is shared. Sheetson says the server is shared across all Free use
 
 The pricing page does not say what happens when a sheet passes 1,000 rows. If you need more rows, upgrade or split the data across sheets.
 
-Requests are not counted, but Google Sheets API quotas still apply, and these apply on every plan. Because the Free rate limit is shared, your calls can be slower when other Free users are busy. Search with the `where` parameter is only available in paid plans.
+Requests are not counted, but Google Sheets API quotas still apply, and these apply on every plan. Free uses a shared server rather than a dedicated request quota; its exact throttling response is not stated. Search with the `where` parameter is only available in paid plans.
 
 ## Gotchas
 

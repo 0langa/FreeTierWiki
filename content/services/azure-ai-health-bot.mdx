@@ -30,6 +30,7 @@ freeTierDetails:
     - 'F0 free tier: 15 requests/second (RPS)'
     - 'For evaluation and development use, not production'
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Microsoft pages call this service healthcare agent service; the docs address still says health-bot
     - 'Production use requires the pay-as-you-go Agent (C1) tier, billed per action'
     - The pricing page says free actions per month are limited and gives no number
@@ -37,7 +38,7 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - Build a symptom checker and triage assistant
@@ -70,8 +71,8 @@ avoidIf:
   - production traffic on the free tier
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/bot-services/healthcare-agent-service/'
@@ -84,6 +85,13 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/health-bot/quickstart-createyourhealthcarebot'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified the current Healthcare Agent Service name without inferring a rename from its URL."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You create an instance in the Azure portal, then build healthcare scenarios in its management portal. It suits developers at providers, health insurers, and digital health companies who want a proof of concept before they pay.
 
@@ -119,7 +127,7 @@ There is a Free (F0) tier for evaluation and development. It is limited to 15 re
 
 ### What is the difference between Azure Health Bot and Healthcare Agent Service?
 
-The fetched Microsoft pages only use the name healthcare agent service and do not mention a rename. The documentation address still says health-bot, so treat both names as the same service.
+Current Microsoft documentation is published as Healthcare Agent Service at the health-bot documentation path. Use its current F0 and C1 terms rather than assuming older Health Bot pricing still applies.
 
 ### How much does Healthcare Agent Service cost after the free tier?
 

@@ -28,41 +28,51 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Static HTML Spaces are free for everyone. Free personal accounts in good
-    standing can also host up to 2 Gradio Spaces on shared ZeroGPU; other
-    Gradio and Docker Spaces need a paid plan.
+    standing can also host up to 2 Gradio Spaces on shared ZeroGPU; other Gradio
+    and Docker Spaces need a paid plan.
   limits:
     - Static HTML Spaces are free for everyone
-    - Up to 2 free Gradio Spaces on shared ZeroGPU (personal accounts in good standing)
+    - >-
+      Up to 2 free Gradio Spaces on shared ZeroGPU (personal accounts in good
+      standing)
     - 5 minutes of included daily ZeroGPU quota for a free account
     - 'CPU Basic hardware: 2 vCPU, 16 GB RAM, 50 GB non-persistent disk'
-    - Other Gradio and Docker Spaces require a PRO, Team, or Enterprise plan
+    - 'Other Gradio and Docker Spaces require a PRO, Team, or Enterprise plan'
   caveats:
-    - Free ZeroGPU hosting needs a verified email and an account older than 30 days
-    - Protected Spaces need a PRO, Team, or Enterprise plan
+    - >-
+      Free ZeroGPU hosting needs a verified email and an account older than 30
+      days
+    - 'Protected Spaces need a PRO, Team, or Enterprise plan'
     - Free-hardware Spaces sleep after about 48 hours of inactivity
     - Disk on free hardware is not persistent across restarts
-  resetPeriod: monthly
-  requiresCard: false
+    - >-
+      The reviewed Spaces pages do not explicitly state a card policy for free
+      hosting
+  resetPeriod: daily
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
 useCases:
   - Share a machine learning model demo with a public link
-  - Host a static HTML page or a built React, Svelte, or Vue front end
+  - 'Host a static HTML page or a built React, Svelte, or Vue front end'
   - Run a small Gradio app on shared ZeroGPU
   - Publish a demo that goes with a paper or a model card
 quickstartSteps:
   - Sign up for a free Hugging Face account and confirm your email.
   - Open the Spaces page and click Create new Space.
-  - Pick a name, an optional license, and a visibility, then choose the Gradio, Docker, or static HTML SDK.
-  - Add your files to the Space repository with git, as with any Hub repository.
-  - Push a commit and let the Space rebuild, then share its URL.
+  - >-
+    Choose static HTML for unrestricted free creation, or Gradio with ZeroGPU if
+    your personal account qualifies. Regular Gradio and Docker compute creation
+    needs a paid plan.
+  - 'Add your files to the Space repository with git, as with any Hub repository.'
+  - 'Push a commit and let the Space rebuild, then share its URL.'
 whenToUse: >-
   Use it to put a static page or a small Gradio demo online for free, with the
   code kept in a Git repository on the Hub.
 whenNotToUse: >-
-  Avoid it for protected Spaces, for more than 2 free Gradio Spaces, for apps that
-  need steady dedicated GPU time, or for production traffic.
+  Avoid it for protected Spaces, for more than 2 free Gradio Spaces, for apps
+  that need steady dedicated GPU time, or for production traffic.
 bestFor:
   - ML demo hosting
   - static HTML pages
@@ -74,8 +84,8 @@ avoidIf:
   - you need dedicated GPU time
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://huggingface.co/spaces'
@@ -86,7 +96,14 @@ sourceUrls:
   - 'https://huggingface.co/docs/hub/spaces-zerogpu'
   - 'https://huggingface.co/docs/hub/spaces-sdks-static'
   - 'https://huggingface.co/pricing'
+  - 'https://huggingface.co/docs/hub/spaces-gpus'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Corrected the quota reset to daily and qualified the unpublished
+      free-hosting card policy.
 ---
 You create a Space on the Hub website, then push code to its Git repository. Each commit rebuilds and restarts the Space. It suits people who want to show a model or a page without managing a server.
 
@@ -126,4 +143,4 @@ Yes. On default CPU Basic hardware, a Space goes to sleep after more than 48 hou
 
 ### Does Hugging Face Spaces need a credit card?
 
-The Spaces pages do not ask for a card to host a static Space or a free ZeroGPU Space. Team is bought by credit card, and PRO users can add pre-paid credits for extra ZeroGPU time.
+The reviewed Spaces pages establish which hosting is free, but do not explicitly state whether a card is required for free hosting. Do not treat the absence of a payment step in those docs as a no-card guarantee.

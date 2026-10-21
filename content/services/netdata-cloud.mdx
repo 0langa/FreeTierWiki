@@ -29,20 +29,24 @@ freeTierDetails:
   summary: >-
     The free Community plan allows up to 5 connected nodes and 1 custom
     dashboard per room, and the pricing page marks it non-commercial. New
-    accounts get a 14-day Business trial with no limits.
+    accounts get a 14-day Business trial with no node limit and 10 AI credits.
   limits:
     - Up to 5 active connected nodes
     - 1 active custom dashboard per room
-    - 14-day trial of Business tier (all nodes, no limits)
+    - 14-day Business trial with no node limit and 10 AI credits
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - 'The pricing page lists the Community plan as free forever, 5 nodes, non-commercial'
-    - 'Business costs $4.50 per node per month for more nodes'
+    - 'Business costs $4.50 per node per month with annual billing for more nodes'
     - 'The Homelab plan costs $90 per year for unlimited nodes under a fair usage policy'
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - 'The free offer is listed, but a strict stop and complete billing policy are not established in the cited public sources.'
 useCases:
   - Monitor server health and performance in real time
   - Visualize infrastructure metrics per second
@@ -58,8 +62,8 @@ whenToUse: >-
   Use Netdata.cloud to watch up to 5 servers or VMs with real-time dashboards
   and little configuration.
 whenNotToUse: >-
-  Avoid it for commercial fleets larger than 5 nodes on the free plan, or when
-  you need long retention that the paid plans offer.
+  Avoid the Community plan for commercial use or more than 5 active connected
+  nodes. Retention also depends on storage on your own systems.
 bestFor:
   - homelabs
   - individual developers
@@ -70,19 +74,28 @@ avoidIf:
   - enterprise support needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.netdata.cloud/'
 docsUrl: 'https://learn.netdata.cloud/docs/overview'
 sourceUrls:
   - 'https://www.netdata.cloud/pricing/'
+  - 'https://www.netdata.cloud/homelab/'
+  - 'https://www.netdata.cloud/fair-usage-policy/'
   - 'https://www.netdata.cloud/pricing'
   - 'https://learn.netdata.cloud/docs/overview'
   - 'https://learn.netdata.cloud/docs/netdata-agent/installation/linux/'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: '2026-10-21'
 pricingUrl: 'https://www.netdata.cloud/pricing/'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Qualified billing risk where card and limit enforcement policies remain unpublished. Added actual fair-use escalation, annual price basis and local-retention scope.'
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You install the Netdata Agent on each machine and open Netdata Cloud to see all of them in one place. The agent stores the data on your own systems.
 
@@ -90,13 +103,13 @@ You install the Netdata Agent on each machine and open Netdata Cloud to see all 
 
 The Community plan is free forever and allows a maximum of 5 active connected nodes. It allows 1 active custom dashboard per room, and infrastructure-wide dashboards are limited to 5 nodes. The pricing page marks the plan as non-commercial.
 
-Your data stays on-prem, and you reach it from anywhere through the cloud. The page gives no retention figure for Community. When you sign up, you get a 14-day trial of Netdata Business for as many nodes as you want, with no limits.
+Your data stays on-prem, and you reach it from anywhere through the cloud. The page gives no retention figure for Community. New accounts get a 14-day trial of Netdata Business without a node limit, including 10 AI credits. This is not an unlimited allowance for every paid feature.
 
 ## When you hit a limit
 
-The pricing page does not say what happens if you connect more than 5 nodes on Community. It states the limit of 5 active connected nodes, so plan on upgrading beyond that.
+The Fair Usage Policy describes a gradual response to excessive Community connections: contact the user, ask them to reduce usage or choose a suitable paid plan, then potentially throttle or suspend unresponsive accounts. This is not a documented automatic overage charge or an immediate strict stop at the fifth node.
 
-Business costs $4.50 per node per month, with unlimited data retention and unlimited custom dashboards. A billable node is each running agent. Offline nodes are not billed. The Homelab plan costs $90 per year with unlimited nodes, under a fair usage policy.
+Business costs $4.50 per node per month with annual billing, with unlimited data retention and unlimited custom dashboards. A billable node is each running agent. Offline nodes are not billed. The Homelab plan costs $90 per year with unlimited nodes, under a fair usage policy.
 
 ## Gotchas
 
@@ -118,7 +131,7 @@ Yes, within limits. The Community plan is free forever for up to 5 connected nod
 
 ### How many nodes does the free Netdata plan allow?
 
-A maximum of 5 active connected nodes, plus 1 active custom dashboard per room. Business adds more nodes at $4.50 per node per month.
+A maximum of 5 active connected nodes, plus 1 active custom dashboard per room. Business adds more nodes at $4.50 per node per month with annual billing.
 
 ### Do I need a credit card for Netdata Cloud?
 

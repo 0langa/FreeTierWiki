@@ -27,15 +27,17 @@ freeTierDetails:
     - Free plan at $0 per month
     - Limited Agent requests
     - Limited Chat requests
+    - Tab completions with Cursor models under limited usage
   caveats:
     - Current pricing does not publish exact Free request counts or a no-card statement
     - Hobby is a legacy plan with different monthly usage rules
-    - Additional usage can require prepaid credit or a paid upgrade
+    - Auto Top-up is off until enabled; enabling it charges the saved payment method
+    - Exact Free usage counts and plan-specific enforcement are not published
   resetPeriod: weekly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Ask the agent to explain an unfamiliar codebase
   - Make a small edit and review the agent's diff
@@ -68,12 +70,14 @@ avoidIf:
 difficulty: beginner
 productionReadiness: side-project
 lastUpdated: 2026-10-21
-lastVerified: 2026-10-09
+lastVerified: 2026-10-21
 popularityScore: 9
 usefulnessScore: 7
 officialUrl: 'https://cursor.com'
 docsUrl: 'https://docs.cursor.com'
 sourceUrls:
+  - 'https://cursor.com/help/account-and-billing/pricing'
+  - 'https://cursor.com/help/account-and-billing/overages'
   - 'https://cursor.com/pricing'
   - 'https://cursor.com/docs/models-and-pricing'
   - 'https://cursor.com/docs/get-started/quickstart'
@@ -81,6 +85,9 @@ sourceUrls:
 pricingUrl: 'https://cursor.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Added documented Free Tab and model access, optional prepaid top-ups, and unknown signup and cap flags.
   - date: 2026-10-21
     kind: changed
     note: Replaced legacy Hobby descriptions with current Free terms and separated current and legacy usage rules.
@@ -92,7 +99,7 @@ You use Cursor as a desktop app, and you can also run its agent from a CLI. It s
 
 ## What the free plan gives you
 
-The current pricing page calls the entry plan Free and lists it at $0 per month. It includes limited Agent requests and limited Chat requests. The comparison table includes Agent access but excludes cloud agents, automations, code hosting, AI code reviews, and third-party model usage on Free.
+The current pricing page calls the entry plan Free and lists it at $0 per month. Its pricing guide includes Agent, Chat, and Tab completions with Grok and Composer under limited usage. The comparison table includes Agent access but excludes cloud agents, automations, code hosting, AI code reviews, and third-party model usage on Free.
 
 The page gives no numeric Free request allowance. Model choice and the work requested affect usage, so a request count would not describe every session equally. Check the remaining allowance in your settings before relying on the editor for a long task.
 
@@ -100,9 +107,9 @@ Paid plans now start with Plus at $8 per month. Plus covers Grok models; Premium
 
 ## When you hit a limit
 
-The pricing FAQ describes a shared usage pool that refreshes weekly. The current usage guide says you receive an editor notification when your allowance is exhausted, and describes using prepaid credit, waiting for a weekly reset, or upgrading. It does not publish a separate numeric Free allowance or a detailed Free-only exhaustion policy.
+The pricing FAQ describes weekly usage, while detailed guides explicitly describe paid weekly pools without publishing a numeric Free allowance. The editor reports exhausted usage. The prepaid guide says additional usage stops after the included pool and purchased credit are exhausted when Auto Top-up is off. Auto Top-up starts off; enabling it charges your saved payment method when the balance drops below your chosen threshold.
 
-Hobby is now a legacy Cursor plan. The usage guide distinguishes its monthly usage rules and on-demand billing from the current subscription plans. Check which plan your account actually has before applying a reset schedule or enabling additional usage. Current pricing does not repeat the former Hobby no-credit-card statement.
+Hobby is a legacy plan. Its monthly pools differ from current plans. Current public docs do not explicitly state Free signup card requirements or its precise Free-specific exhaustion steps. Check your actual plan and remaining allowance in settings.
 
 ## Gotchas
 

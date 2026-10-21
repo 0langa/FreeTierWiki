@@ -32,11 +32,15 @@ freeTierDetails:
     - 'CrewAI Cloud Basic (free): 50 workflow executions/month'
     - 'CrewAI Cloud Basic: 2 automations, with a maximum of 50 executions'
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - The Enterprise plan (custom price) adds governance tools such as SSO, RBAC, workload identity, and PII redaction
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - 'The free offer is listed, but a strict stop and complete billing policy are not established in the cited public sources.'
 useCases:
   - Build a crew of agents that research a topic and write a report
   - Chain agent steps into a Flow with shared state
@@ -54,8 +58,8 @@ whenToUse: >-
   through a multi-step task, and you are happy to write Python or JSON config.
 whenNotToUse: >-
   Avoid it if you want a no-code SaaS product, or if you cannot pay for the
-  model API calls your agents make. The hosted Basic plan stops at a small
-  number of workflow executions.
+  model API calls your agents make, unless you configure a local model. The
+  hosted Basic plan has a small published execution allowance.
 bestFor:
   - prototyping agent workflows
   - research automation
@@ -66,8 +70,8 @@ avoidIf:
   - you do not use Python
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-19
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.crewai.com/'
@@ -79,12 +83,19 @@ sourceUrls:
   - 'https://docs.crewai.com/en/installation'
 pricingUrl: 'https://crewai.com/pricing'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Qualified billing risk where card and limit enforcement policies remain unpublished. Distinguished free local models from separately billed external APIs and unpublished hosted enforcement.'
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use CrewAI from the command line and from config files in a Python project: create a project, define agents, and run it. It suits developers who are comfortable with Python and want to script agent workflows themselves. A hosted platform exists for teams that prefer not to run everything on their own.
 
 ## What the free plan gives you
 
-There are two free routes. The framework is open source under the MIT license, so you can install it and run it yourself with no usage limits from CrewAI. You still pay for any model API your agents call.
+There are two free routes. The framework is open source under the MIT license, so you can install it and run it yourself with no usage limits from CrewAI. External model APIs can charge separately. The official README also documents connecting local models through Ollama, so a paid provider is not mandatory.
 
 The hosted platform has a free Basic plan. The pricing page lists a visual editor and AI copilot, GitHub integration, 2 automations, and 50 workflow executions per month (also its maximum). Basic also lists tracing, a usage dashboard, human-in-the-loop input, and community support. The Enterprise plan is for large organizations. It adds governance tools such as SSO, RBAC, workload identity, PII redaction, and policies, plus engineering and training help that you buy as needed. Enterprise pricing is by request.
 
@@ -112,7 +123,7 @@ Yes. The open-source framework is free under the MIT license, and the hosted Bas
 
 ### What happens when I go over the CrewAI Basic limit?
 
-The pricing page does not say. For unlimited runs, install the open-source framework and run it yourself.
+The pricing page does not say. To avoid the hosted execution allowance, run the open-source framework yourself. External models and tools can still charge for usage.
 
 ### Can I self-host CrewAI?
 

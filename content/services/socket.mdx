@@ -36,14 +36,15 @@ freeTierDetails:
     - 1 repository label and 1 API token
     - 14 days of scan retention
   caveats:
-    - Reachability analysis, Slack alerts, and higher API quotas need paid plans
+    - Reachability analysis and Slack alerts need paid plans; paid API quotas differ between the pricing headline and comparison table
     - SSO, compliance integrations, and audit logs are on higher plans
     - Developer seats count active committers; dashboard-only users do not consume seats
+    - Free card requirements and monthly scan-exhaustion behavior are not explicitly published
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 useCases:
   - Checking a pull request that adds a new npm or Python dependency
   - Catching typosquats, install scripts, and known malware before they merge
@@ -72,12 +73,14 @@ avoidIf:
 difficulty: beginner
 productionReadiness: production-light
 lastUpdated: 2026-10-21
-lastVerified: 2026-10-09
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://socket.dev'
 docsUrl: 'https://docs.socket.dev/'
 sourceUrls:
+  - 'https://docs.socket.dev/docs/faq.md'
+  - 'https://docs.socket.dev/reference/quota.md'
   - 'https://socket.dev/pricing'
   - 'https://docs.socket.dev/docs/billing'
   - 'https://docs.socket.dev/'
@@ -86,6 +89,9 @@ sourceUrls:
 pricingUrl: 'https://socket.dev/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Documented hourly API quota rejection and marked unpublished card and monthly scan behavior explicitly uncertain."
   - date: 2026-10-21
     kind: changed
     note: "Corrected the Free plan to one developer seat with unlimited dashboard users and removed an unconditional paid API-quota assertion."
@@ -100,7 +106,7 @@ The comparison table also lists unlimited public and private repositories, a Git
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you use all 1,000 scans or all 500 requests in an hour. The limits reset on a monthly and an hourly basis. The page lists no Free overage price. The Team plan has a minimum of 5 developer seats and includes 5,000 scans per month. Its headline and comparison table disagree on the API quota, so confirm that separately before upgrading.
+Socket's API quota documentation says requests return HTTP 429 when the token's hourly quota is exhausted. The Retry-After header tells your client how long to wait. This is separate from the 1,000 monthly scans; the reviewed pages do not describe that cap's enforcement or publish a Free overage price. The Team plan includes 5,000 monthly scans and a minimum of 5 developer seats, but its headline and comparison table disagree on API quota. Confirm paid quotas before upgrading.
 
 ## Gotchas
 
@@ -126,4 +132,4 @@ Socket watches manifest files and analyzes newly added packages. It comments if 
 
 ### Does Socket need a credit card?
 
-The pricing page shows a Get started button for the Free plan and no card step.
+The reviewed pricing and billing documentation do not explicitly confirm whether Free requires a payment card. That requirement remains unconfirmed.

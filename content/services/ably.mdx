@@ -32,6 +32,7 @@ freeTierDetails:
     and 200 concurrent connections and channels. No credit card needed.
   limits:
     - 6 million messages/month
+    - 250,000 messages/hour and 28.6 GiB monthly message bandwidth
     - 500 messages/second
     - 200 concurrent connections
     - 200 concurrent channels
@@ -40,17 +41,16 @@ freeTierDetails:
     - 64KiB maximum message size
   caveats:
     - Free package limits are fixed; more capacity needs a paid package.
-    - Free package support is community support (Discord and Stack Overflow) with a best-effort target.
+    - Free documentation promises community support; pricing card also mentions best-effort email, while its detailed table marks email unavailable.
     - Docs say some limits are enforced by rejecting or restricting the excess usage.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
     - >-
-      The Free package needs no card and has no time limit, so it cannot bill
-      you; it can restrict traffic that goes over the limits.
+      Free is explicitly no-cost with no card requirement; exact monthly exhaustion is unpublished, while some traffic limits restrict or reject excess.
 useCases:
   - Live chat inside a web or mobile app
   - Live dashboards that push updates to the browser
@@ -79,8 +79,8 @@ quickstartSteps:
   - Get a channel such as `my-first-channel`, subscribe to it, then publish a message with `channel.publish` or the CLI command `ably channels publish`.
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-19
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.ably.com/'
@@ -92,6 +92,10 @@ sourceUrls:
   - 'https://ably.com/docs/platform/pricing/limits'
   - 'https://ably.com/docs/getting-started/javascript'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Qualified monthly quota enforcement and inconsistent support descriptions; added separate hourly and bandwidth ceilings.
 ---
 You work with Ably through its dashboard, the Ably CLI, and SDKs for many languages, including JavaScript, Python, Go, Java, and Swift. It suits developers who want realtime features without running their own WebSocket servers.
 
@@ -105,12 +109,12 @@ Each channel can hold up to 200 presence members. The number of subscribers per 
 
 Ably splits limits into two kinds. Count-based limits, such as concurrent connections and channels, restrict new use until existing resources are removed. Rate-based limits, such as messages per second, can reject the extra publish attempts and return an error code.
 
-Ably says it will not block usage for most limits just because you passed them, and that normal service can continue for a while. It sends email and dashboard notices when you near a limit and when you pass it, and it will ask you to upgrade. The Free package has no card on file, so the limits are the only consequence. The pages do not say what happens after the 6 million monthly messages are used.
+Ably says it will not block usage for most limits just because you passed them, and that normal service can continue for a while. It sends email and dashboard notices when you near a limit and when you pass it, and it will ask you to upgrade. Free needs no card and is explicitly no-cost; that does not establish an immediate cutoff for every quota. The pages do not say what happens after the 6 million monthly messages are used.
 
 ## Gotchas
 
 - Message history lasts only 1 day on the Free package. Longer storage needs a paid package.
-- Support on the Free package is community support (Discord and Stack Overflow) with a best-effort target. The pricing page lists a shared Slack or Teams channel only on Enterprise.
+- Community support is documented. The pricing card also mentions best-effort email, while the detailed email-support row excludes Free; confirm the channel before relying on it.
 - If you downgrade from a paid package, you keep the paid limits until the billing cycle ends, then get a final invoice for the full package fee and the usage.
 
 ## Alternatives in this atlas

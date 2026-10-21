@@ -62,6 +62,45 @@ describe("normalizeListItem", () => {
 });
 
 describe("parseEntry", () => {
+  it("preserves explicitly unknown card and cap policies instead of inventing a boolean", () => {
+    const entry = parseEntry({
+      kind: "services",
+      slug: "unpublished-policy",
+      data: {
+        ...baseData(),
+        freeTierDetails: { ...(baseData().freeTierDetails as object), requiresCard: "unknown", hasHardCap: "unknown" },
+      },
+    });
+    expect(entry.freeTierDetails).toMatchObject({ requiresCard: "unknown", hasHardCap: "unknown" });
+  });
+
+  it("does not turn missing card and cap evidence into confirmed no answers", () => {
+    const details = { ...(baseData().freeTierDetails as Record<string, unknown>) };
+    delete details.requiresCard;
+    delete details.hasHardCap;
+    const entry = parseEntry({ kind: "services", slug: "missing-policy", data: { ...baseData(), freeTierDetails: details } });
+    expect(entry.freeTierDetails).toMatchObject({ requiresCard: "unknown", hasHardCap: "unknown" });
+  });
+
+  it.each([true, false])("keeps confirmed boolean policies (%s) compatible", (value) => {
+    const entry = parseEntry({
+      kind: "services",
+      slug: "confirmed-policy",
+      data: { ...baseData(), freeTierDetails: { ...(baseData().freeTierDetails as object), requiresCard: value, hasHardCap: value } },
+    });
+    expect(entry.freeTierDetails).toMatchObject({ requiresCard: value, hasHardCap: value });
+  });
+
+  it("rejects policy strings other than the explicit unknown value", () => {
+    expect(problemsOf({
+      ...baseData(),
+      freeTierDetails: { ...(baseData().freeTierDetails as object), requiresCard: "false", hasHardCap: "maybe" },
+    })).toEqual(expect.arrayContaining([
+      expect.stringContaining("'freeTierDetails.requiresCard'"),
+      expect.stringContaining("'freeTierDetails.hasHardCap'"),
+    ]));
+  });
+
   it("parses a valid entry and fills defaults for the new fields", () => {
     const entry = parseEntry({ kind: "services", slug: "neon", data: baseData() });
     expect(entry).toMatchObject({

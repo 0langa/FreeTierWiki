@@ -34,10 +34,11 @@ freeTierDetails:
   caveats:
     - Free plan covers only core infrastructure collection and visualization
     - Log management and APM are separate products with their own paid rates on the pricing page
+    - Public docs do not specify sixth-host handling or the default post-trial transition
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
   billingRiskNotes:
     - The trial lasts 14 days; the pricing page does not say what happens when it ends
   trialDays: 14
@@ -69,18 +70,23 @@ avoidIf:
   - logs and APM without paying
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://www.datadoghq.com/'
 docsUrl: 'https://docs.datadoghq.com/'
 sourceUrls:
+  - "https://docs.datadoghq.com/account_management/billing.md"
   - 'https://www.datadoghq.com/pricing/'
   - 'https://www.datadoghq.com/free-datadog-trial/'
   - 'https://docs.datadoghq.com/getting_started/agent/'
 featured: false
-lastVerified: 2026-10-19
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.datadoghq.com/pricing/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified Free host-cap and trial-transition rules rather than inferring billing safety from no-card signup."
 ---
 You install the Datadog Agent on your hosts, and it sends metrics and events to the Datadog web app, where you build dashboards and alerts. It suits small teams that want to watch a handful of servers before paying.
 
@@ -94,7 +100,7 @@ Separately, the free trial lasts 14 days and covers the whole platform. It needs
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you add a sixth host to the Free plan. It asks for no card, so a surprise bill is unlikely, but check your host count in Datadog.
+The pricing page does not say what happens when you add a sixth host to the Free plan. The no-card promise applies to the trial signup; it does not document sixth-host enforcement or authorize assuming an automatic free downgrade.
 
 The pricing page does not say what happens to trial products when the 14-day trial ends. Paid plans bill per host, and logs are priced per GB ingested or scanned.
 

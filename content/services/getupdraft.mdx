@@ -26,7 +26,7 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free Starter plan includes 1 app project, 3 app versions, 500 MB storage, and 100 app installs
-    per month, with no credit card required.
+    per month; current FAQ contradicts the installation count.
   limits:
     - 1 app project
     - 3 app versions (builds)
@@ -34,17 +34,17 @@ freeTierDetails:
     - 100 app installations per month
     - Unlimited testers and users per organization
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Re-signing .ipa and .aab files needs the paid Professional plan
-    - Support on the free plan is by contact form with a best-effort reaction time
+    - Contact-form support and best-effort response times are listed on paid plans, not Starter
     - >-
-      The FAQ says there is no install limit, but the pricing page lists 100 installations per month
-      on Starter; this entry follows the pricing page
+      The current pricing FAQ says unlimited installs while its Starter card lists 100/month; confirm the applicable account allowance
     - 'The pricing page says there is no trial period, so you sign up and use the free plan'
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: false
+  overageRisk: low
 useCases:
   - Sending an iOS or Android beta build to testers by link or QR code
   - 'Uploading builds from CI with the Jenkins, Fastlane, GitLab, or Gradle plugin'
@@ -74,7 +74,7 @@ avoidIf:
   - you need re-signing of .ipa or .aab files
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.getupdraft.com'
@@ -85,8 +85,15 @@ sourceUrls:
   - 'https://docs.getupdraft.com/quickstart/your-first-app-project/upload-first-build'
   - 'https://docs.getupdraft.com/faq'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.getupdraft.com/pricing'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Corrected Starter support and Professional storage fees, added current soft-limit policy, and exposed the current installation-count conflict.
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You work in the Updraft dashboard, and you can add upload plugins or call the API from your build system. Testers install from a link or QR code. It suits indie developers and small teams with one app to test.
 
@@ -96,18 +103,18 @@ The Starter plan is free. The pricing page says there is no trial period: you si
 
 Employees, contributors, and testers are unlimited. You get public link installation, QR code installation, and a testers dashboard. You can upload by drag and drop, with a plugin, or through the API with cURL. Supported files are .ipa, .apk, .aab, and Windows files.
 
-The Pay as you go plan costs $5 per month plus $5 per GB of storage. It has unlimited projects and versions and 1000 installations per month. Professional costs $49 per month and adds re-signing of .ipa and .aab files.
+The Pay as you go plan costs $5 per month plus $5 per GB of storage. It has unlimited projects and versions and 1000 installations per month. Professional has a $49 monthly base fee plus the same $5/GB storage charge, and adds .ipa/.aab re-signing.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you reach a free limit, such as 100 installations or 500MB of storage. It names the paid plans as the way to get more.
+The current pricing FAQ says you can still fully use Updraft at Starter limits and will be informed. It does not explain the duration of that continued access or publish the Free card requirement.
 
-The FAQ says that to upload a file bigger than 500MB you must move to the paid plan. It also says there is no maximum upload size and no install limit. That FAQ page was last updated years ago, and the pricing page lists 100 installs per month for Starter. Trust the pricing page.
+The FAQ says that to upload a file bigger than 500MB you must move to the paid plan. Its old unlimited-install statement is also repeated in the current pricing FAQ, contradicting the Starter card's 100/month. Confirm the applicable allowance before a large beta.
 
 ## Gotchas
 
 - Starter keeps only 3 builds. Plan to delete old versions as you upload new ones.
-- Paid storage is billed to your credit card at the end of the month. The free plan needs no card.
+- Paid storage is billed to your card at month end. Current public pages do not explicitly establish Starter card requirements.
 - Re-signing of .ipa and .aab files is only on the Professional plan, not on Starter.
 
 ## Alternatives in this atlas

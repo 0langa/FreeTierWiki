@@ -1,7 +1,7 @@
 import { OVERAGE_RISK_LABELS } from "@/lib/content";
 import { formatDay, formatMonth } from "@/lib/format";
 import type { Freshness } from "@/lib/freshness";
-import type { ChangelogKind, EntryStatus, OverageRisk } from "@/types/content";
+import type { ChangelogKind, EntryStatus, OverageRisk, PolicyConfirmation } from "@/types/content";
 
 const RISK_CLASS: Record<OverageRisk, string> = {
   none: "bg-risk-none-bg text-risk-none",
@@ -36,7 +36,8 @@ export function ChangePill({ kind }: { kind: ChangelogKind }) {
   return <span className={`pill ${CHANGE_CLASS[kind]}`}>{CHANGE_TEXT[kind]}</span>;
 }
 
-export function CardLabel({ card }: { card: boolean }) {
+export function CardLabel({ card }: { card: PolicyConfirmation }) {
+  if (card === "unknown") return <span className="text-[13px] text-ink-3" title="Card requirement not confirmed">Not confirmed</span>;
   return card ? (
     <span className="text-[13px] font-medium text-risk-med">Card</span>
   ) : (
@@ -45,7 +46,8 @@ export function CardLabel({ card }: { card: boolean }) {
 }
 
 /** Whether the free amount is a hard cap (service stops) or a soft one (it keeps going, maybe billed). */
-export function CapLabel({ cap }: { cap: boolean }) {
+export function CapLabel({ cap }: { cap: PolicyConfirmation }) {
+  if (cap === "unknown") return <span className="block text-[12px] text-ink-3" title="Cap policy not confirmed">Not confirmed</span>;
   return <span className={`block text-[12px] ${cap ? "text-ink-2" : "text-ink-3"}`}>{cap ? "Hard cap" : "Soft cap"}</span>;
 }
 

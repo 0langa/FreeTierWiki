@@ -28,24 +28,24 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     The Developer SKU is free for development and test, with one VM connection
-    at a time. The first 5 GB/month of outbound data transfer is also free.
+    at a time, including outbound data transfer.
   limits:
     - Azure Bastion Developer SKU free
     - Developer SKU connects to one VM at a time
-    - First 5 GB/month outbound data transfer free
+    - Developer outbound data transfer is free
   caveats:
     - Standard and Premium SKUs are billed hourly from the moment they are deployed; only the Developer SKU is free.
     - The one-click Deploy Bastion option creates a Standard SKU host, not the free one.
     - Developer SKU is not for production, has no virtual network peering, and runs only in select regions.
-    - Additional outbound data transfer billed per GB.
+    - Dedicated paid SKUs include 5 GB/month outbound data, then charge per GB.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: medium
   billingRiskNotes:
     - A Basic, Standard, or Premium host bills hourly until you delete it, even with no traffic.
-    - Charges accrue if outbound data goes past the free amount.
+    - Dedicated SKUs bill outbound data above their free allowance; Developer outbound data is free.
 useCases:
   - Reaching an Azure VM over RDP or SSH without a public IP
   - Admin access to dev and test VMs from the browser
@@ -73,8 +73,8 @@ avoidIf:
   - peered virtual networks
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-bastion/'
@@ -87,6 +87,10 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/bastion/bastion-sku-comparison'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Developer outbound data to free; the 5 GB allowance applies to dedicated paid SKUs."
 ---
 You use Bastion from the Azure portal. Open your virtual network, choose Connect, then Bastion, and the session opens in your browser. It suits people who run a few Azure VMs and want to keep them off the public internet.
 
@@ -96,13 +100,13 @@ Azure Bastion comes in four SKUs: Developer, Basic, Standard, and Premium. Only 
 
 The Developer SKU supports one VM connection at a time and does not support virtual network peering. It is available in select regions only, and your virtual network must be in one of them. Microsoft describes it as a no-cost option for development and test.
 
-The pricing page also lists the first 5 GB of outbound data transfer each month as free. Hourly charges for the paid SKUs are separate from that.
+The SKU comparison marks Developer outbound data as free. The first 5 GB/month then paid data-transfer rule applies to Basic, Standard, and Premium, alongside their hourly charges.
 
 ## When you hit a limit
 
 The Developer SKU does not bill you when you reach a limit. It just cannot do more: a second VM connection, a peered network, or a region it does not cover is out of reach. Microsoft says it is not suitable for production workloads.
 
-The bill risk comes from the paid SKUs. They bill hourly from the moment you deploy them until you delete them, whatever your data use. Outbound data above the free amount is billed per gigabyte. To get more than one connection or peering, you must move to Basic, Standard, or Premium, which need a dedicated subnet. All except Premium private-only deployments also need a public IP address.
+The bill risk comes from the paid SKUs. They bill hourly from the moment you deploy them until you delete them, whatever your data use. On those dedicated SKUs, outbound data above 5 GB/month is billed per gigabyte. To get more than one connection or peering, you must move to Basic, Standard, or Premium, which need a dedicated subnet. All except Premium private-only deployments also need a public IP address.
 
 ## Gotchas
 
@@ -120,7 +124,7 @@ The bill risk comes from the paid SKUs. They bill hourly from the moment you dep
 
 ### Is Azure Bastion free?
 
-Only the Developer SKU is free. Basic, Standard, and Premium are billed hourly. The first 5 GB of outbound data each month is free.
+Only the Developer SKU is free. Basic, Standard, and Premium are billed hourly. Developer outbound data is free; dedicated SKUs include the first 5 GB/month.
 
 ### What is the limit of the free Azure Bastion Developer SKU?
 

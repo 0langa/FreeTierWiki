@@ -25,7 +25,7 @@ The main sections explain what is included, what happens at the limit, gotchas, 
 | Trial | Free access for a limited time. |
 | Time-limited | An offer that changes after a set period from sign-up. |
 
-A checked date means the entry was compared with official sources, or a later automated check confirmed unchanged tracked pricing text. It becomes stale after 180 days. An imported date marks information that has not been re-checked. See the [label guide](https://freetier.wiki/about/) for billing-risk definitions and the catalog's source history.
+A checked date means the entry was compared with official sources. Source scans do not advance it automatically. It becomes stale after 180 days. An imported date marks information that has not been re-checked. See the [label guide](https://freetier.wiki/about/) for billing-risk definitions and the catalog's source history.
 
 Entries can be `active`, `changed`, or `ended`. Changed and ended offers carry change notes. Use **Report outdated info** on an entry to open a GitHub issue with its URL pre-filled.
 

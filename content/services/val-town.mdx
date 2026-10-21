@@ -30,17 +30,17 @@ freeTierDetails:
     - '100,000 runs per day'
     - Cron intervals of 15 minutes or more
     - 1 minute wall-clock time per run
-    - Unlimited public vals
+    - Public vals; pricing says unlimited, but the limits page caps all vals at 2,500
     - 3 days of log retention
   caveats:
     - Private vals, custom domains, and email to others need a paid plan
     - Log retention is 3 days on Free
     - Some limits are soft-enforced and may change
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Quick webhooks and small APIs
   - Scheduled scripts that run on a cron
@@ -68,8 +68,8 @@ avoidIf:
   - custom domains on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.val.town'
@@ -83,6 +83,9 @@ sourceUrls:
 pricingUrl: 'https://www.val.town/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Recorded conflicting public-val counts and qualified unpublished Free card, exhaustion and billing policy."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -91,13 +94,13 @@ You write TypeScript in the Val Town editor, add an HTTP, cron, or email trigger
 
 ## What the free plan gives you
 
-The Free plan costs $0. It includes 100,000 runs per day and unlimited public vals. Each run can last 1 minute of wall-clock time. Cron triggers can run as often as every 15 minutes, with up to 10 crons per val. Logs are kept for 3 days, with 100,000 log lines per day.
+The Free plan costs $0. It includes 100,000 runs per day. Pricing advertises unlimited public vals, but the detailed limits page caps total vals at 2,500. Each run can last 1 minute of wall-clock time. Cron triggers can run as often as every 15 minutes, with up to 10 crons per val. Logs are kept for 3 days, with 100,000 log lines per day.
 
-The Free plan allows up to 2,500 vals, but 0 private vals and 0 custom domains. You can email yourself from a val, but not other people. The limits page also says the API allows 1,000 requests per minute for authenticated calls, and a worker can use up to 4 GiB of memory.
+It allows 0 private vals and 0 custom domains. You can email yourself from a val, but not other people. The limits page also says the API allows 1,000 requests per minute for authenticated calls, and a worker can use up to 4 GiB of memory.
 
 ## When you hit a limit
 
-The pricing and limits pages do not say what happens after 100,000 runs in a day. The limits page says Val Town enforces these limits, that they may change, and that some are soft-enforced. It asks you to contact them if a limit blocks a legitimate use.
+The pricing and limits pages do not say what happens after 100,000 runs in a day. The limits page says Val Town enforces these limits, that they may change, and that some are soft-enforced. Free card requirements and excess-usage billing are not stated. Contact Val Town if a limit blocks legitimate use.
 
 A run that goes past the 1 minute execution timeout stops. Pro raises the timeout to 10 min, the cron interval to 1 minute, and the daily runs to 1,000,000.
 
@@ -117,7 +120,7 @@ A run that goes past the 1 minute execution timeout stops. Pro raises the timeou
 
 ### Is Val Town free?
 
-Yes. The Free plan costs $0 and includes 100,000 runs per day, unlimited public vals, and 1 minute of wall-clock time per run.
+Yes. The Free plan costs $0 and includes 100,000 runs per day and 1 minute of wall-clock time per run. Public vals are advertised as unlimited, although the limits page lists a 2,500-val total cap.
 
 ### Can Val Town run cron jobs for free?
 

@@ -34,16 +34,18 @@ freeTierDetails:
     - 10 feature flags
     - '2 custom roles, 10 permissions'
     - '2,000 machine-to-machine tokens/month'
-    - 1 webhook
+    - 1 integration webhook per environment; 1 billing webhook
+    - 5 monthly active organizations
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Removing Kinde branding is listed as a paid-plan feature
     - 0.7% fee per transaction if you bill customers through Kinde
     - In-app chat support is not included on the Free plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - 'Sign-up and sign-in for a SaaS app, with email and social providers'
   - 'Roles, permissions, and organizations for a B2B product'
@@ -76,18 +78,26 @@ avoidIf:
   - advanced enterprise features
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://kinde.com/'
 docsUrl: 'https://docs.kinde.com/'
 pricingUrl: 'https://kinde.com/pricing/'
 sourceUrls:
+  - 'https://docs.kinde.com/manage-your-account/profile-and-plan/view-kinde-plan/'
   - 'https://kinde.com/pricing/'
   - 'https://docs.kinde.com/'
   - 'https://docs.kinde.com/get-started/guides/first-things-first/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added 5-MAO allowance, scoped webhook counts and qualified the account guide excess-organization billing gap."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You set up a business and project in the Kinde dashboard, then connect your app with a Kinde SDK for your language. It suits SaaS builders who want sign-in, access control, and billing from one vendor.
 
@@ -95,13 +105,13 @@ You set up a business and project in the Kinde dashboard, then connect your app 
 
 The Free plan is for hobbyists and personal projects, and it needs no credit card. The pricing page lists no setup fees or monthly fees. It includes 10,500 monthly active users, attack protection, and 2 environments, production and development.
 
-Limits on the Free plan are small for extras. You get 10 feature flags, 2 custom roles with 10 permissions, 1 webhook, and 5 custom properties. The Pro plan lifts the limits with uncapped M2M tokens, unlimited roles, webhooks, and flags. The pricing table lists removing Kinde branding as a paid-plan feature. Users on paid subscriptions that you bill through Kinde are not counted toward your monthly active users.
+Limits on the Free plan are small for extras. You get 10 feature flags, 2 custom roles with 10 permissions, 1 integration webhook per environment, 1 billing webhook, 5 monthly active organizations and 5 custom properties. The Pro plan lifts the limits with uncapped M2M tokens, unlimited roles, webhooks, and flags. The pricing table lists removing Kinde branding as a paid-plan feature. Users on paid subscriptions that you bill through Kinde are not counted toward your monthly active users.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a Free plan passes 10,500 monthly active users. It lists the Pro plan as uncapped, with a price for each extra monthly active user. The first rate shown is 0.0175 dollars, and higher tiers show lower rates.
+The pricing page does not specify what happens when Free passes 10,500 monthly active users. Pro starts at $25 USD/month plus extra-MAU usage, with the first published rate $0.0175 per MAU. Payment details are added when upgrading.
 
-The page says you can upgrade when you want and cancel any time. If you bill your own customers through Kinde, a 0.7% fee per transaction applies on the Free plan. Check the dashboard usage before a launch, and ask Kinde support if you expect to pass the free limit.
+The account-plan guide says excess monthly active organizations are billed at the plan unit price, including a Free allowance of 5, but does not establish that Free excess price or payment transition. Confirm before assuming every Free feature is capped without billing. Kinde Billing separately charges 0.7% on customer transactions.
 
 ## Gotchas
 
@@ -127,4 +137,4 @@ No. The pricing page says no credit card is required for the Free plan.
 
 ### What are the Kinde free plan limits besides users?
 
-Free has 10 feature flags, 2 custom roles, 10 permissions, 1 webhook, and 2 environments. It does not include removing Kinde branding.
+Free has 10 feature flags, 2 custom roles, 10 permissions, 1 integration webhook per environment, 1 billing webhook, 5 monthly active organizations and 2 environments. It does not include removing Kinde branding.

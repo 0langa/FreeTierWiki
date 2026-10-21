@@ -26,11 +26,13 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free plan includes 30 Jams and 5 Recording Links per month, with
-    5-minute browser recordings and unlimited viewer seats.
+    5 creator seats and unlimited viewer seats. Browser recording duration is inconsistent across official pages.
   limits:
     - 30 Jams/month
     - 5 Recording Links/month
-    - 5-minute browser recordings (10 minutes in Jam for Mac)
+    - 5 creator seats; unlimited viewer seats
+    - Browser video docs/table list 10 minutes; pricing cards still say 5 minutes
+    - 10-minute Jam for Mac recordings
     - 30 AI summaries/month
     - Unlimited viewer seats and folders
   caveats:
@@ -38,11 +40,13 @@ freeTierDetails:
     - Team adds unlimited Jams, 150 Recording Links, and longer recordings
     - SAML/SSO login and priority support are Enterprise features
     - Open source teams can apply for a free plan
+    - Free signup card requirements and monthly quota enforcement are not confirmed
+    - On paid workspaces, Viewer activity can automatically create billable Creator seats
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Report a bug with logs and network requests attached
   - Ask a customer for a screen recording with a Recording Link
@@ -68,43 +72,49 @@ bestFor:
   - open source projects
 avoidIf:
   - you need more than 30 Jams a month for free
-  - you need recordings longer than 5 minutes in the browser
+  - you need a guaranteed recording duration before checking the account
   - you need SSO
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://jam.dev'
 docsUrl: 'https://jam.dev/docs/introduction'
 pricingUrl: 'https://jam.dev/pricing'
 sourceUrls:
+  - 'https://jam.dev/docs/members-and-roles.md'
+  - 'https://jam.dev/docs/video.md'
   - 'https://jam.dev/pricing'
   - 'https://jam.dev/docs/introduction'
   - 'https://jam.dev/docs/creating-a-jam'
   - 'https://jam.dev/docs/recording-links'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added Free creator-seat limits, qualified conflicting browser durations and unpublished card/quota handling, and scoped paid-seat auto-upgrades."
 ---
 You capture a Jam with the Chrome extension, Jam for Mac, or Jam for iOS, then share the link or send it to your issue tracker. It suits support, QA, and engineering staff who report web bugs.
 
 ## What the free plan gives you
 
-The Free plan costs $0. Per month it includes 30 Jams, 5 Recording Links, and 30 AI summaries. Browser recordings can last up to 5 minutes, and recordings from Jam for Mac up to 10 minutes. Viewer seats and folders are unlimited.
+The Free plan costs $0. Per month it includes 30 Jams, 5 Recording Links, and 30 AI summaries. There are 5 creator seats; viewer seats and folders are unlimited. The video docs and browser comparison table say 10-minute Free recordings, while the pricing cards still say 5 minutes. Jam for Mac lists 10 minutes. Confirm browser duration before relying on it.
 
 Each Jam keeps console logs, network requests, user events, and device details with the recording. Recording Links let a customer record their screen without an extension, account, or download. The pricing page also says open source teams can apply for a free plan.
 
 ## When you hit a limit
 
-The pricing page lists the free limits per month but does not say what happens at the 30th Jam or the 5th Recording Link. The pricing page lists no overage charge for the Free plan.
+The pricing page lists the free limits per month but does not say what happens at the 30th Jam or the 5th Recording Link. It lists no Free overage price, and neither the pricing page nor the setup docs explicitly establish the Free card requirement.
 
-The Team plan removes the Jam cap. It costs $14 per creator per month, billed yearly, and includes a 14 day free trial. It adds 150 Recording Links and 200 AI summaries a month, with browser recordings up to 15 minutes. Enterprise has unlimited Recording Links.
+The Team plan removes the Jam cap. It costs $14 per creator per month, billed yearly, and includes a 14 day free trial. It adds 150 Recording Links and 200 AI summaries a month, with a browser duration discrepancy too: plan cards say 15 minutes, while the video docs/table say 30 minutes. Enterprise has unlimited Recording Links.
 
 ## Gotchas
 
 - Recording Links are limited to 5 a month on the free plan, which can run out quickly if you send one to every customer.
 - By default, Recording Links capture only screen recordings. Console logs and network requests need you to connect your domain and install Jam's scripts on your site.
-- Mac recordings include console logs and network requests only when the Chrome extension is installed in the browser you record.
+- Paid workspaces can auto-upgrade Viewers to billable Creators when they create content or send it to integrations. Admins can disable Auto-approve seats; this is separate from Free.
 
 ## Alternatives in this atlas
 
@@ -120,8 +130,8 @@ Yes. The Free plan is $0 and includes 30 Jams and 5 Recording Links a month. Vie
 
 ### Does Jam need a credit card?
 
-No card is listed for the Free plan. You install the extension and enter your email to set up an account. The Team plan has a 14 day free trial.
+The reviewed official pages do not explicitly confirm the Free signup card policy. Team has a separate 14-day trial; do not treat that trial as the ongoing Free plan.
 
 ### How long can a Jam recording be?
 
-On the Free plan a browser recording can run up to 5 minutes, and a Jam for Mac recording up to 10 minutes. The Team plan allows 15 and 30 minutes.
+The video docs and table say 10 minutes on Free and 30 on Team; pricing cards still say 5 and 15. Mac lists 10 and 30 minutes. Check the browser recorder for your account.

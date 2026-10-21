@@ -32,16 +32,22 @@ freeTierDetails:
     - Data is stored for three months
     - 250 data points per Worker invocation
   caveats:
-    - Cloudflare currently does not bill for Analytics Engine; the prices are published in advance
-    - The pricing page does not say what happens past the daily amounts on Workers Free
-    - Each data point can hold up to twenty blobs, twenty doubles, and one index
+    - >-
+      Cloudflare currently does not bill for Analytics Engine; the prices are
+      published in advance
+    - >-
+      The pricing page does not say what happens past the daily amounts on
+      Workers Free
+    - 'Each data point can hold up to twenty blobs, twenty doubles, and one index'
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
   billingRiskNotes:
-    - No charges today; on Workers Paid, published prices apply past the monthly included amounts once billing starts
+    - >-
+      No charges today; on Workers Paid, published prices apply past the monthly
+      included amounts once billing starts
 useCases:
   - Recording API usage per customer for usage-based billing
   - Showing customers their own analytics in your app
@@ -55,8 +61,8 @@ whenToUse: >-
   Use it when your app runs on Cloudflare Workers and you want custom metrics
   per user or customer, queried with SQL, at no cost today.
 whenNotToUse: >-
-  Skip it if you need to keep raw data longer than three months, or if your
-  app does not run on Workers.
+  Skip it if you need to keep raw data longer than three months, or if your app
+  does not run on Workers.
 bestFor:
   - per-customer usage metrics
   - analytics inside Workers apps
@@ -65,8 +71,8 @@ avoidIf:
   - apps outside Cloudflare Workers
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://developers.cloudflare.com/analytics/analytics-engine/'
@@ -76,12 +82,18 @@ sourceUrls:
   - 'https://developers.cloudflare.com/analytics/analytics-engine/limits/'
   - 'https://developers.cloudflare.com/analytics/analytics-engine/'
   - 'https://developers.cloudflare.com/analytics/analytics-engine/get-started/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/analytics/analytics-engine/pricing/'
 featured: false
 changes:
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Represented unpublished daily allowance enforcement as unknown while
+      retaining the explicit current no-billing policy.
 ---
 
 Workers Analytics Engine gives your Cloudflare Workers a built-in API to write data points and a SQL API to query them. Cloudflare describes it as unlimited-cardinality analytics at scale. It suits developers who want custom metrics per customer or per user, such as usage for billing, without running a time series database.

@@ -23,21 +23,29 @@ tags:
   - vectorize
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Workers Free plan: 30 million queried and 5 million stored vector dimensions per month.'
+  summary: >-
+    Workers Free plan: 30 million queried and 5 million stored vector dimensions
+    per month.
   limits:
     - 30 million queried vector dimensions per month
     - 5 million stored vector dimensions
     - 100 indexes per account
     - 1536 dimensions maximum per vector
   caveats:
-    - 'Dimensions count vectors times their size, so a 768-dimension model uses them fast'
-    - Each query counts the queried vectors plus the stored vectors times the dimensions
-    - The pricing page does not say what happens when a Free plan allowance runs out
+    - >-
+      Dimensions count vectors times their size, so a 768-dimension model uses
+      them fast
+    - >-
+      The pricing formula combines total query vectors and stored vectors,
+      multiplied by their dimensions
+    - >-
+      The pricing page does not say what happens when a Free plan allowance runs
+      out
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Semantic search over documents
   - RAG with Workers AI embeddings
@@ -46,16 +54,18 @@ useCases:
   - Keeping per-user vectors in separate namespaces
 quickstartSteps:
   - Sign up for a Cloudflare account and install Node.js.
-  - 'Create a Worker project with `npm create cloudflare@latest`.'
-  - 'Create an index with `npx wrangler vectorize create <name> --dimensions=<n> --metric=<metric>`, choosing the vector size and the distance metric.'
+  - Create a Worker project with `npm create cloudflare@latest`.
+  - >-
+    Create an index with `npx wrangler vectorize create <name> --dimensions=<n>
+    --metric=<metric>`, choosing the vector size and the distance metric.
   - Bind the index to your Worker in the Wrangler configuration file.
   - Insert vectors from your Worker and query them for the closest matches.
 whenToUse: >-
-  Use it with Workers and Workers AI for small RAG or semantic search apps
-  where the free dimension allowance is enough.
+  Use it with Workers and Workers AI for small RAG or semantic search apps where
+  the free dimension allowance is enough.
 whenNotToUse: >-
-  Skip it for large indexes on the free plan, and for apps that do not run on
-  or near Cloudflare. A vector size of 1536 dimensions is the maximum.
+  Skip it for large indexes on the free plan, and for apps that do not run on or
+  near Cloudflare. A vector size of 1536 dimensions is the maximum.
 bestFor:
   - RAG on Workers
   - small semantic search
@@ -65,8 +75,8 @@ avoidIf:
   - You need vectors bigger than 1536 dimensions
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://developers.cloudflare.com/vectorize/'
@@ -76,12 +86,18 @@ sourceUrls:
   - 'https://developers.cloudflare.com/vectorize/'
   - 'https://developers.cloudflare.com/vectorize/platform/limits/'
   - 'https://developers.cloudflare.com/vectorize/get-started/intro/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/vectorize/platform/pricing/'
 featured: false
 changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Corrected the queried-dimension formula and qualified unpublished Free
+      exhaustion behavior.
 ---
 You create and manage indexes with the Wrangler CLI and call them from a Worker through a binding. It suits developers who add semantic search or RAG to a Cloudflare app.
 
@@ -95,12 +111,12 @@ Empty indexes do not count as stored dimensions. A free account can have 100 ind
 
 The pricing page does not say what happens when you use up the Free plan allowance. It says only that the Free plan will always let you prototype with Vectorize for free. It shows billing rules for the Workers Paid plan, which includes more and charges per million dimensions beyond that.
 
-Watch your totals: each query adds the queried vectors plus the stored vectors, multiplied by the dimensions. A small index with a small embedding model fits the free plan best.
+Watch the pricing formula: it combines the total query vectors and stored vectors, multiplied by their dimensions. The documented example uses 10,000 stored vectors and 100 query vectors of 384 dimensions to calculate 3.878 million queried dimensions; it does not multiply the whole stored index by every query. A small index with a small embedding model fits the free plan best.
 
 ## Gotchas
 
 - Dimensions count vectors multiplied by their size, so large embedding models use the allowance quickly.
-- Each query counts the queried vectors plus the stored vectors, times the dimensions.
+- Use the pricing page’s total-query formula rather than counting a full stored index again for every request.
 - Vectorize V2 needs Wrangler 3.71.0 or later, and older V1 indexes are deprecated.
 
 ## Alternatives in this atlas
@@ -117,7 +133,7 @@ Yes, on the Workers Free plan. It includes 30 million queried vector dimensions 
 
 ### How do vector dimensions count against the Vectorize free tier?
 
-Stored dimensions equal your vectors times their size. Queried dimensions equal the queried plus stored vectors times their size, so 10,000 vectors of 768 dimensions use 7.68 million stored dimensions.
+Stored dimensions equal your vectors times their size. The pricing formula uses total query vectors plus stored vectors, multiplied by their size. Separately, 10,000 stored vectors of 768 dimensions use 7.68 million stored dimensions.
 
 ### Will Cloudflare Vectorize always have a free tier?
 

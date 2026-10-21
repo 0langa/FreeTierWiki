@@ -43,6 +43,13 @@ describe("pricingUrl", () => {
 });
 
 describe("safety ranking", () => {
+  it("does not award no-card or hard-cap safety points to unknown policies", () => {
+    const unknown = makeItem({ card: "unknown", cap: "unknown" });
+    expect(safetyScore(unknown)).toBeLessThan(safetyScore(makeItem({ card: false, cap: "unknown" })));
+    expect(safetyScore(unknown)).toBeLessThan(safetyScore(makeItem({ card: "unknown", cap: true })));
+    expect(safetyScore(unknown)).toBe(safetyScore(makeItem({ card: true, cap: false })));
+  });
+
   it("puts ended entries last", () => {
     expect(safetyScore(makeItem({ status: "ended" }))).toBeLessThan(safetyScore(makeItem({ risk: "high", card: true, cap: false })));
   });
@@ -136,6 +143,14 @@ describe("explorer rows", () => {
 });
 
 describe("explorer data", () => {
+  it("preserves unknown policies through list conversion and the shipped JSON", () => {
+    const base = makeEntry();
+    const entry = makeEntry({ freeTierDetails: { ...base.freeTierDetails, requiresCard: "unknown", hasHardCap: "unknown" } });
+    const item = toListItem(entry, now);
+    const [restored] = fromExplorerData(JSON.parse(JSON.stringify(toExplorerData([item]))));
+    expect(restored).toMatchObject({ card: "unknown", cap: "unknown" });
+  });
+
   const items = [
     toListItem(makeEntry(), now),
     toListItem(makeEntry({ id: "tools:postman", kind: "tools", slug: "postman", url: "/tools/postman/", title: "Postman", provider: "Postman", status: "ended", lastVerified: "2026-09-01" }), now),

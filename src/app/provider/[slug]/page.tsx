@@ -37,8 +37,11 @@ export default async function ProviderPage({ params }: { params: Params }) {
   if (!group) notFound();
   const items = group.entries.map((entry) => toListItem(entry, BUILD_NOW)).sort(compareSafety);
   const domains = [...new Set(group.entries.map((entry) => entry.domain))].sort();
-  const cardCount = items.filter((item) => item.card).length;
-  const cardNote = cardCount === 0 ? "None of them needs a card." : cardCount === items.length ? "All of them need a card." : `${cardCount} of them need a card.`;
+  const cardCount = items.filter((item) => item.card === true).length;
+  const unknownCardCount = items.filter((item) => item.card === "unknown").length;
+  const cardNote = unknownCardCount > 0
+    ? `${cardCount > 0 ? `${cardCount} of them need a card. ` : ""}Card requirements are not confirmed for ${unknownCardCount} of them.`
+    : cardCount === 0 ? "None of them needs a card." : cardCount === items.length ? "All of them need a card." : `${cardCount} of them need a card.`;
 
   return (
     <div>

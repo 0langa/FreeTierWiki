@@ -27,10 +27,11 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    5 GB of Azure Files storage per month, free for 12 months for new Azure
-    free account customers.
+    A 12-month new-account offer with conflicting published amounts: the free-services
+    summary says 5 GB; its comparison table says 100 GB LRS plus 2 million operations.
   limits:
-    - 5 GB of Azure Files storage per month
+    - Published summary says 5 GB/month; comparison table says 100 GB LRS/month
+    - Comparison table also lists 2 million read, list, and other file operations
     - 12 months from the date you create your Azure account
     - New Azure free account customers only
   caveats:
@@ -43,7 +44,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Storage above the free 5 GB is billed at pay-as-you-go rates; there is no hard cap
+    - Storage above the applicable free allowance is billed at pay-as-you-go rates; there is no hard cap
     - Services you still use after the 12 months end keep running and keep billing
 useCases:
   - Moving an app that expects a shared drive to Azure without code changes
@@ -53,7 +54,7 @@ useCases:
 quickstartSteps:
   - Create an Azure free account with a Microsoft or GitHub account, a phone number, and a credit or debit card.
   - In the Azure portal, search for storage accounts and select + Create to make one.
-  - Open the storage account and create a file share, choosing SMB or NFS.
+  - Choose Standard HDD, locally redundant storage and pay-as-you-go billing for the published LRS offer; do not assume SSD/NFS or provisioned capacity is covered.
   - Mount the share on a Windows, Linux, or macOS client.
   - Copy files to the share and check your free usage in the portal.
 whenToUse: >-
@@ -74,15 +75,19 @@ difficulty: beginner
 productionReadiness: production-ready
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Disclosed conflicting official storage amounts and scoped setup to the eligible LRS offer."
   - date: 2026-10-09
     kind: changed
     note: Free storage is a 12-month offer for new Azure free accounts, not always-free, and extra usage is billed without a hard cap.
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/storage/files/'
 sourceUrls:
+  - 'https://azure.microsoft.com/en-in/pricing/free-services/'
   - 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
   - 'https://azure.microsoft.com/en-us/free/'
   - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
@@ -90,20 +95,20 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
 ---
 You create a file share inside an Azure storage account, then mount it from your machines. You can set it up in the Azure portal, PowerShell, or the Azure CLI, and you can also reach it through the REST API and the Azure Storage client libraries.
 
 ## What the free plan gives you
 
-New Azure free account customers get 5 GB of free storage in Azure Files for 12 months. The Azure free page lists this in its group of services that are free for 12 months to new customers.
+New Azure customers have a 12-month Azure Files offer, but the current official free-services page conflicts: its summary says 5 GB, while its comparison row lists 100 GB LRS transaction-optimized, hot, and cool files plus 2 million read, list, and other operations. Confirm the allowance in your subscription free-usage grid before relying on a number.
 
 The free amount is monthly. Azure's cost guide says unused free storage does not roll over, so a month of light use does not save space for the next month. The same guide says only certain tiers within a service are free. Azure Files has an SSD tier and an HDD tier, and several billing models, so check which share type the free amount covers before you deploy.
 
 ## When you hit a limit
 
-Azure does not block you at 5 GB. If your usage goes above the free amount, you pay the extra at pay-as-you-go rates. The cost guide says this applies once your account is upgraded.
+After upgrading to pay-as-you-go, the applicable allowance is not a spending cap. If your usage goes above the free amount, you pay the extra at pay-as-you-go rates. The cost guide says this applies once your account is upgraded.
 
 The free account also has a starting credit. You must move to pay-as-you-go within 30 days, or when the credit is used up, to keep receiving free services. After the 12 months end, services you still use keep running and are billed at normal rates. Delete the shares you no longer need.
 
@@ -123,7 +128,7 @@ The free account also has a starting credit. You must move to pay-as-you-go with
 
 ### Is Azure Files free?
 
-Partly. New Azure free account customers get 5 GB of Azure Files storage for 12 months. After that, or above 5 GB, you pay normal rates.
+Partly. The 12-month offer is for eligible new accounts, but official summary and table amounts conflict (5 GB versus 100 GB LRS plus operations). Above the applicable allowance or after expiry, normal rates apply.
 
 ### Does Azure Files need a credit card?
 

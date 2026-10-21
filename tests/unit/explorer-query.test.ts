@@ -78,6 +78,18 @@ describe("serializeQuery", () => {
 });
 
 describe("applyQuery", () => {
+  it("only includes confirmed no-card and hard-cap policies in those filters", () => {
+    const policies = [
+      makeItem({ id: "confirmed", card: false, cap: true }),
+      makeItem({ id: "unknown-card", card: "unknown", cap: true }),
+      makeItem({ id: "unknown-cap", card: false, cap: "unknown" }),
+      makeItem({ id: "card-soft-cap", card: true, cap: false }),
+    ];
+    expect(applyQuery(policies, parse("nocard=1")).map((item) => item.id).sort()).toEqual(["confirmed", "unknown-cap"]);
+    expect(applyQuery(policies, parse("cap=1")).map((item) => item.id).sort()).toEqual(["confirmed", "unknown-card"]);
+    expect(applyQuery(policies, parse("nocard=1&cap=1")).map((item) => item.id)).toEqual(["confirmed"]);
+  });
+
   const items = [
     makeItem({ id: "a", title: "Alpha", domain: "hosting", haystack: "alpha hosting c++ tools" }),
     makeItem({ id: "b", title: "Beta", card: true }),

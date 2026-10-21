@@ -1,18 +1,21 @@
-// Weekly pricing check: fetch every entry's official page, hash the price-related text, and report what changed.
-// Usage: node scripts/verify/check-freshness.mjs [--hashes data/source-hashes.json] [--report freshness-report.md] [--ids services/neon,...] [--limit N] [--mark-verified]
-// With --mark-verified, every entry whose page text is unchanged since the last run (and whose last change was
-// reviewed) gets lastVerified set to today in its frontmatter; the weekly workflow commits that to main.
-// The fetched text is only hashed. It is never executed, and it never goes into the report.
+// Weekly pricing check: fetch official pages, fingerprint full pricing text and table/icon markup, and report changes.
+// Usage: node scripts/verify/check-freshness.mjs [--hashes data/source-hashes.json] [--report freshness-report.md] [--review-json freshness-review.json] [--ids services/neon,...] [--limit N]
+// Scans never edit entry dates or acknowledge source revisions. Actual entry reviews set lastVerified;
+// use acknowledge-freshness.mjs afterwards to record the reviewed fingerprint for the durable queue.
+// Fetched HTML is only parsed and hashed. It is never executed, and it never goes into the report.
 import fs from "node:fs";
 import path from "node:path";
 
-import { readEntries, selectEntries, setLastVerified } from "./lib/entries.mjs";
+import { readEntries, selectEntries } from "./lib/entries.mjs";
 import { fetchText } from "./lib/fetch.mjs";
-import { classifyFetch, compareRuns, confirmedUnchanged, hashExcerpt, renderReport } from "./lib/freshness.mjs";
+import { classifyFetch, compareRuns, renderReport, reviewQueue } from "./lib/freshness.mjs";
 import { candidateUrls, excerpt, isThin } from "./lib/pages.mjs";
 
 const CONCURRENCY = 6;
 const argv = process.argv.slice(2);
+if (argv.some((value) => value === "--mark-verified" || value.startsWith("--mark-verified="))) {
+  throw new Error("--mark-verified is no longer supported: source scans cannot verify complete entries. Review the entry against official sources and update lastVerified explicitly.");
+}
 /** @param {string} name */
 const arg = (name) => {
   const i = argv.indexOf(`--${name}`);
@@ -21,13 +24,13 @@ const arg = (name) => {
 
 const hashesFile = path.resolve(arg("hashes") ?? "data/source-hashes.json");
 const reportFile = path.resolve(arg("report") ?? "freshness-report.md");
+const reviewFile = path.resolve(arg("review-json") ?? path.join(path.dirname(reportFile), "freshness-review.json"));
 const ids = arg("ids")
   ?.split(",")
   .map((s) => s.trim())
   .filter(Boolean);
 const limit = Number(arg("limit") ?? 0);
 const subset = Boolean(ids) || limit > 0;
-const markVerified = argv.includes("--mark-verified");
 
 let targets = selectEntries(readEntries(), { ids });
 targets = targets.filter((entry) => candidateUrls(/** @type {never} */ (entry.data)).length > 0);
@@ -45,21 +48,21 @@ async function worker() {
     let best;
     for (const url of candidateUrls(/** @type {never} */ (entry.data))) {
       const fetched = await fetchText(url);
-      const kept = excerpt(fetched.text);
-      tried.push({ url, status: fetched.status, chars: fetched.text.length, excerptChars: kept.length, error: fetched.error });
+      const kept = excerpt(fetched.text, Infinity);
+      tried.push({ url, status: fetched.status, chars: fetched.text.length, excerptChars: kept.length, error: fetched.error, accessIssue: fetched.accessIssue });
+      const quality = fetched.status === 200 && !fetched.accessIssue ? (!isThin(fetched.text) && kept ? 3 : 2) : 1;
       // Prefer a page with price-related text, then the longest one.
-      if (!best || (kept && !best.kept) || (Boolean(kept) === Boolean(best.kept) && fetched.text.length > best.text.length)) best = { ...fetched, kept };
+      if (!best || quality > best.quality || (quality === best.quality && ((kept && !best.kept) || (Boolean(kept) === Boolean(best.kept) && fetched.text.length > best.text.length)))) best = { ...fetched, kept, quality };
       // A page with no price-related line (a script shell, a bot check) is no answer: try the next address.
-      if (fetched.status === 200 && !isThin(fetched.text) && kept) break;
+      if (quality === 3) break;
     }
     const state = classifyFetch(tried);
     results.push({
       id: entry.id,
       state,
-      url: best?.finalUrl ?? best?.url ?? null,
-      hash: state === "ok" ? hashExcerpt(best?.kept ?? "") : undefined,
+      url: best?.finalUrl || best?.url || null,
+      ...(state === "ok" ? { hash: best?.hash, legacyHash: best?.legacyHash, hashVersion: best?.hashVersion, markupHash: best?.markupHash } : {}),
     });
-    if (results.length % 50 === 0) console.log(`${results.length}/${targets.length}`);
   }
 }
 await Promise.all(Array.from({ length: CONCURRENCY }, worker));
@@ -72,28 +75,20 @@ const merged = subset ? { ...previous, ...run.next } : run.next;
 fs.mkdirSync(path.dirname(hashesFile), { recursive: true });
 fs.writeFileSync(hashesFile, `${JSON.stringify({ updatedAt: now, entries: merged }, null, 1)}\n`);
 
-const titles = Object.fromEntries(readEntries().map((e) => [e.id, String(e.data.title ?? e.id)]));
+// Frontmatter dates come back as Date objects when unquoted and strings when quoted.
+const asDate = (/** @type {unknown} */ value) =>
+  value instanceof Date ? value.toISOString().slice(0, 10) : typeof value === "string" ? value.slice(0, 10) : undefined;
+const entries = readEntries();
+const lastVerifiedById = Object.fromEntries(entries.map((entry) => [entry.id, asDate(entry.data.lastVerified)]));
+const queue = reviewQueue(run, lastVerifiedById);
+const titles = Object.fromEntries(entries.map((e) => [e.id, String(e.data.title ?? e.id)]));
 const urls = Object.fromEntries(results.map((r) => [r.id, r.url]));
-fs.writeFileSync(reportFile, renderReport(run, { date: now.slice(0, 10), titles, urls }));
-const flagged = run.changed.length + run.dead.length;
-console.log(`checked ${results.length}: ${run.changed.length} changed, ${run.dead.length} dead, ${run.noisy.length} noisy, ${run.added.length} new baseline`);
-console.log(`report: ${reportFile}\nhashes: ${hashesFile}`);
+fs.mkdirSync(path.dirname(reportFile), { recursive: true });
+fs.mkdirSync(path.dirname(reviewFile), { recursive: true });
+fs.writeFileSync(reportFile, renderReport({ ...run, pending: queue.filter((entry) => entry.reason === "unreviewed-change").map((entry) => entry.id) }, { date: now.slice(0, 10), titles, urls }));
+fs.writeFileSync(reviewFile, `${JSON.stringify({ checkedAt: now, entries: queue }, null, 2)}\n`);
+const flagged = queue.length;
 // GitHub Actions reads this to decide whether to open an issue.
 if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `flagged=${flagged}\n`);
 
-if (markVerified) {
-  const today = now.slice(0, 10);
-  // Frontmatter dates come back as Date objects when unquoted and as strings when quoted.
-  const asDate = (/** @type {unknown} */ value) =>
-    value instanceof Date ? value.toISOString().slice(0, 10) : typeof value === "string" ? value.slice(0, 10) : undefined;
-  const live = readEntries().filter((entry) => entry.data.status !== "ended");
-  const lastVerifiedById = Object.fromEntries(live.map((entry) => [entry.id, asDate(entry.data.lastVerified)]));
-  const files = new Map(live.map((entry) => [entry.id, entry.file]));
-  let marked = 0;
-  for (const id of confirmedUnchanged(previous, merged, lastVerifiedById)) {
-    const file = files.get(id);
-    if (file && setLastVerified(file, today)) marked += 1;
-  }
-  console.log(`marked ${marked} entries as checked on ${today}: page text unchanged since the last review`);
-  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `verified=${marked}\n`);
-}
+if (flagged > 0) console.log(`${flagged} entries require source review. Report: ${reportFile}\nComplete queue: ${reviewFile}`);

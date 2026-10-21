@@ -31,15 +31,17 @@ freeTierDetails:
     - 1 million metadata access requests per month
     - Schema Registry is offered at no additional charge
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Glue crawlers and ETL jobs are billed by the hour and are not part of the free amount
     - Objects include tables, table versions, partitions, partition indexes, statistics, databases, and catalogs
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - Objects past one million are billed $1.00 per 100,000 objects per month
     - Running a crawler to fill the catalog is billed separately by the second
 useCases:
@@ -65,8 +67,8 @@ avoidIf:
   - expecting free ETL jobs or crawlers
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://aws.amazon.com/glue/'
@@ -78,6 +80,9 @@ sourceUrls:
 pricingUrl: 'https://aws.amazon.com/glue/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped excess usage to AWS account plans and optional project controls; corrected Free-account suspension and data-retention wording."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -93,7 +98,7 @@ The pricing page example: if you store a million metadata objects and make 1 mil
 
 ## When you hit a limit
 
-Nothing stops the catalog at the free amounts. Past a million objects stored, you pay $1.00 per 100,000 objects per month. Past a million requests in a month, you pay $1.00 per million requests.
+On Paid accounts without optional project controls, the catalog continues beyond its free amounts. Past a million objects stored, you pay $1.00 per 100,000 objects per month. Past a million requests in a month, you pay $1.00 per million requests.
 
 Other parts of Glue are billed from the first second. Crawlers and ETL jobs are billed at an hourly rate by the second, based on the Data Processing Units they use, and Spark jobs need a minimum of 2 DPUs.
 
@@ -101,7 +106,7 @@ Other parts of Glue are billed from the first second. Crawlers and ETL jobs are 
 
 - Every table version and partition counts as an object, so a table with many partitions uses the free million faster than the table count suggests.
 - Filling the catalog with a crawler is convenient but billed; you can add tables by hand or through the API instead.
-- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+- A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion.
 
 ## Alternatives in this atlas
 

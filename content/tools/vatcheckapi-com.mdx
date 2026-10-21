@@ -65,11 +65,14 @@ difficulty: beginner
 productionReadiness: prototype
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified that invalid-number results consume quota and cited the current explicit no-card rule."
   - date: 2026-10-06
     kind: changed
     note: "Clarified that the 150 free validations renew monthly."
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://vatcheckapi.com'
@@ -90,13 +93,13 @@ The Free plan costs $0.00 a month and is for testing and personal projects. You 
 
 One call checks the format, the checksum, and the registration of a VAT number, and returns the company behind it. Every plan can also validate IBANs, and each IBAN counts as one request.
 
-Only successful calls use your quota. Errors on the provider's side and validation errors, such as a wrong parameter, do not count.
+Only successful calls use your quota. Server errors and rejected requests, such as a missing parameter, do not count. A successful answer reporting an invalid VAT, EORI, or IBAN number does count.
 
 ## When you hit a limit
 
 When you pass the monthly quota, the API returns a 429 status code. You then upgrade your plan or wait until the end of the month. When you pass 10 requests in a minute on the free plan, you also get a 429 code and must wait until the minute ends.
 
-Response headers tell you the quota you have left. The Status endpoint shows it too and does not count against your quota. The pricing page does not mention a card for the free plan, and paid plans start at $9.99 a month.
+Response headers tell you the quota you have left. The Status endpoint shows it too and does not count against your quota. The pricing page explicitly says no card is required for the free plan, and paid plans start at $9.99 a month.
 
 ## Gotchas
 

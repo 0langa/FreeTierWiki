@@ -1,9 +1,9 @@
 ---
 title: Hetzner DNS
 description: >-
-  Hetzner DNS is free DNS management in the Hetzner Console, with a REST API
-  and the hcloud CLI. You host up to 25 zones by default, with up to 500
-  records each.
+  Hetzner DNS is free DNS management in the Hetzner Console, with a REST API and
+  the hcloud CLI. You host up to 25 zones by default, with up to 500 records
+  each.
 provider: Hetzner
 category: networking
 domain: networking
@@ -25,18 +25,21 @@ tags:
 pricingModel: free
 freeTierDetails:
   summary: >-
-    DNS management in the Hetzner Console is completely free. By default you
-    can add up to 25 zones across all projects, with up to 500 records per
-    zone, and manage them through the console or the API.
+    DNS management in the Hetzner Console is completely free. By default you can
+    add up to 25 zones across all projects, with up to 500 records per zone, and
+    manage them through the console or the API.
   limits:
-    - Up to 25 zones across all projects, raisable by support ticket
-    - Up to 500 records per zone, raisable on justified demand
+    - 'Up to 25 zones across all projects, raisable by support ticket'
+    - 'Up to 500 records per zone, raisable on justified demand'
     - Up to 50 records per RRset
     - Minimum TTL of 60 seconds
   caveats:
     - DNSSEC is not supported
-    - You must own the domain, registered at Hetzner or elsewhere
-  requiresCard: false
+    - 'You must own the domain, registered at Hetzner or elsewhere'
+    - >-
+      Free DNS pricing does not establish whether account verification requires
+      a card
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -46,15 +49,18 @@ useCases:
   - Creating zones with the hcloud command-line tool
   - Running secondary zones that pull from your own primary name server
 quickstartSteps:
-  - Create a free Hetzner account, or sign in with your existing Robot account.
-  - Open DNS in the Hetzner Console and enter your zone name to import its records.
-  - Point your domain's name servers at the Hetzner name servers listed in the docs.
+  - 'Create a free Hetzner account, or sign in with your existing Robot account.'
+  - >-
+    Open DNS in the Hetzner Console and enter your zone name to import its
+    records.
+  - >-
+    Point your domain's name servers at the Hetzner name servers listed in the
+    docs.
   - Create an API token if you want to manage zones with curl or hcloud.
 whenToUse: >-
   Use Hetzner DNS when you want free DNS with an API for a few dozen domains,
   especially if your servers already run at Hetzner.
-whenNotToUse: >-
-  Avoid it if you need DNSSEC, which the Hetzner Console does not support.
+whenNotToUse: 'Avoid it if you need DNSSEC, which the Hetzner Console does not support.'
 bestFor:
   - Hetzner customers
   - infrastructure as code
@@ -64,8 +70,8 @@ avoidIf:
   - you need more than 25 zones without asking support
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.hetzner.com/dns-console'
@@ -79,13 +85,18 @@ changes:
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified account verification and scoped the limit policy to the
+      published support process.
 ---
 
 Hetzner DNS is the DNS management built into the Hetzner Console. You list, add, change, and remove zones and records in the console or through the Hetzner API, and Hetzner's name servers answer queries for your domains.
 
 ## What the free plan gives you
 
-Hetzner says DNS management in the Hetzner Console is completely free, and its docs say it does not charge for DNS zones. New customers can create a free account, and existing Robot customers can use their account.
+Hetzner says DNS management in the Hetzner Console is completely free, and its docs say it does not charge for DNS zones. New customers can create a free account, and existing Robot customers can use their account. The DNS pages do not establish whether account verification requires a payment card.
 
 By default you can add up to 25 zones across all projects, with up to 500 records per zone and up to 50 records per RRset. The console supports A, AAAA, CAA, CNAME, MX, TXT, SRV, HTTPS, SVCB, TLSA, and more, and you can import BIND files. Every console feature is also in the REST API, and the hcloud command-line tool can create zones. Secondary zones can pull from up to 4 primary name servers.
 
@@ -93,7 +104,7 @@ By default you can add up to 25 zones across all projects, with up to 500 record
 
 When you need more than 25 zones, Hetzner asks you to write a support ticket explaining why, and it can raise the limit. The docs say the zone and per-zone record limits can be increased if there is a justified demand.
 
-Some limits are fixed per record: a value can be up to 4096 characters, and the TTL must be at least 60 seconds. Because the service is free, there is no charge for going past a limit; you ask support instead.
+Some limits are fixed per record: a value can be up to 4096 characters, and the TTL must be at least 60 seconds. The DNS pages publish no overage tariff; they direct requests for more zones or records to support instead.
 
 ## Gotchas
 

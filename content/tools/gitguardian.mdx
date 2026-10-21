@@ -37,7 +37,8 @@ freeTierDetails:
     - Repository scanning capacity of 1 GB
   caveats:
     - Remediation playbooks, public secrets monitoring, and SSO need paid plans
-    - Developer endpoint protection is outside Starter; confirm paid packaging with sales
+    - Endpoint scanning is outside Starter; current paid plans include endpoints up to the seat count
+    - Exceeding 25 contributing developers starts an available trial or stops business monitoring after expiry
     - Starter has limited ggshield CLI and pre-commit hook support
     - Validity and presence checks are low frequency or paid
   resetPeriod: monthly
@@ -55,7 +56,7 @@ quickstartSteps:
   - Integrate your version control system, such as GitHub, GitLab, Bitbucket, or Azure Repos, and choose the repositories to monitor.
   - Review incidents in the dashboard as the first scan finds secrets.
   - Install the ggshield CLI; the install script also runs the ggshield auth login command.
-  - Use ggshield as a pre-commit hook or in CI, with a Personal Access Token or a Service Account key.
+  - Use ggshield as a pre-commit hook or in CI with a Personal Access Token; service accounts require a paid plan.
 whenToUse: >-
   Use it when you want automatic secret scanning for a team of up to 25 developers
   and a CLI to catch secrets before commits.
@@ -78,14 +79,18 @@ usefulnessScore: 8
 officialUrl: 'https://www.gitguardian.com'
 docsUrl: 'https://docs.gitguardian.com/'
 sourceUrls:
+  - 'https://docs.gitguardian.com/platform/user-account/plan-usage'
   - 'https://www.gitguardian.com/pricing'
   - 'https://www.gitguardian.com'
   - 'https://docs.gitguardian.com/'
   - 'https://docs.gitguardian.com/ggshield-docs/getting-started'
 featured: false
-lastVerified: 2026-10-09
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.gitguardian.com/pricing'
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Used current plan documentation for developer-cap trial behavior and included endpoint seats versus add-ons.
   - date: 2026-10-21
     kind: changed
     note: Clarified the API rolling-month quota and contradictory paid endpoint packaging.
@@ -96,13 +101,13 @@ You connect repositories in the GitGuardian web dashboard and review incidents t
 
 The Starter plan costs $0 and is free always, with no credit card required. It includes internal secrets monitoring for up to 25 developers. You get unlimited real-time scanning and up to 500 historical scan detections. The pricing page also lists 10K API calls per month. Its API FAQ specifies a rolling month rather than a calendar-month reset.
 
-The comparison table lists a repository scanning capacity of 1 GB on Starter, against 12 GB on Growth and 60 GB on Enterprise. Starter has limited ggshield CLI and pre-commit hook support. Developer endpoint protection is outside Starter. The Growth feature card includes it for developer machines, while the comparison table calls endpoints an add-on; confirm paid packaging with sales.
+The comparison table lists a repository scanning capacity of 1 GB on Starter, against 12 GB on Growth and 60 GB on Enterprise. Starter has limited ggshield CLI and pre-commit hook support. The current plan guide excludes endpoint scanning from Starter. Growth and Enterprise include endpoints up to the paid seat count; endpoints beyond that are add-ons.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you pass 25 developers, 500 historical detections, or the API call limit. It lists no overage charge for Starter. Larger needs point to the Growth plan, which has up to 10 teams and extra features, and the Enterprise plan.
+The plan guide says exceeding 25 contributing developers automatically starts a trial if available. If that trial has already been redeemed and expired, business repositories are no longer monitored; upgrading is required to restore that coverage. A contributor has authored a commit to a counted business repository within the last 90 days. Public and individual-account GitHub repositories do not count toward this developer limit.
 
-The page says you can start free and scan your first repo in 5 minutes, with no credit card.
+The pricing page lists no Starter overage tariff. Exact handling of the historical-detection and API-call allowances is not separately stated here. Check Plan & usage in the workspace for your contributor count, plan, and remaining allowances.
 
 ## Gotchas
 

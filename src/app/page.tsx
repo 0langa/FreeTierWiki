@@ -71,7 +71,7 @@ export default async function HomePage() {
   const activeCount = entries.filter((entry) => entry.status !== "ended").length;
   const categories = topCategories(items, 12);
   const safePicks = items
-    .filter((item) => item.freshness.state === "checked" && item.status === "active" && !item.card && item.cap && item.risk === "none")
+    .filter((item) => item.freshness.state === "checked" && item.status === "active" && item.card === false && item.cap === true && item.risk === "none")
     .sort(compareSafety)
     .slice(0, 3);
   // A visitor only needs to know which plans changed or ended. New entries and removed listings are

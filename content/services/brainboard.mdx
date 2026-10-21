@@ -26,19 +26,18 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Free tier includes unlimited cloud architectures and Terraform code
-    generation, with limited team members and deployments compared to paid
-    plans.
+    generation, with Validate & Plan access; applying deployments is a paid feature.
   limits:
     - Unlimited cloud architectures
     - Unlimited Terraform code generation
     - Unlimited projects and environments
-    - Limited team members (Pro adds unlimited members and teams)
-    - Limited deployments (Pro adds unlimited deployments)
+    - Free membership count is not published
+    - Deployments: Validate & Plan on Free
   caveats:
-    - Native architecture versioning, RBAC, unlimited members and teams, and unlimited deployments are Pro features
+    - Pro advertises unlimited members, teams, and deployments
     - Pro costs $99 per user per month
     - New accounts get a 21-day free trial with all features, then switch to the free plan unless you upgrade
-  resetPeriod: monthly
+  resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -53,7 +52,7 @@ quickstartSteps:
   - Select New architecture in the top left of the app.
   - Drag cloud resources from the left bar onto the design area and set their configuration.
   - Read the auto-generated Terraform code in the right pane.
-  - To deploy, add your cloud provider credentials, then trigger the Terraform or OpenTofu plan from the design area and read the result in the Deployment tab.
+  - To preview changes, connect your cloud provider and run a Terraform or OpenTofu plan; applying changes needs deployment access on a paid plan or trial and can incur cloud-provider charges.
 whenToUse: >-
   Use it when you want to design cloud infrastructure visually and get
   Terraform code, working alone or with a very small team.
@@ -71,7 +70,7 @@ avoidIf:
   - you need unlimited deployments
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.brainboard.co'
@@ -82,8 +81,12 @@ sourceUrls:
   - 'https://docs.brainboard.co/getting-started/fast-track'
   - 'https://docs.brainboard.co/help-and-faq/faq'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.brainboard.co/pricing'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected Free deployments to validation and planning, and removed unsupported paid-only feature restrictions."
 ---
 You draw in the Brainboard web app and read the Terraform it writes next to your diagram. It also has a CI/CD engine that can run Terraform plan, apply, and destroy in a sandbox.
 
@@ -95,9 +98,9 @@ The comparison table lists projects, environments, and cloud architectures as un
 
 ## When you hit a limit
 
-The pricing page does not list a quota for the Free plan. The limits are feature gaps. The Pro plan adds unlimited members and teams, native architecture versioning, RBAC, and unlimited deployments. The free plan therefore has limited members, teams, and deployments, but the page gives no number.
+The rendered comparison lists Free deployments as Validate & Plan, while Pro has unlimited deployments. Free lets you preview infrastructure changes; do not assume it includes applying them. The page does not publish a Free membership count. Pro advertises unlimited members and teams.
 
-Pro costs $99 per user per month, and a yearly option is shown at 999. The Enterprise plan adds a private self-hosted runner and has custom pricing.
+Pro costs $99 per user per month, with a yearly billing option. The Enterprise plan adds a private self-hosted runner and has custom pricing.
 
 ## Gotchas
 

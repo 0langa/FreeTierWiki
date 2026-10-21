@@ -31,16 +31,18 @@ freeTierDetails:
     - 1 active V1-type pipeline/month
     - 100 V2-type action execution minutes/month
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Additional pipelines and action minutes incur charges.
     - Artifact storage in Amazon S3 and third-party service triggers are
       billed separately.
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - V1 pipelines beyond the first free one are billed at $1.00/month each;
       V2 action minutes beyond the free 100 are billed per minute.
 useCases:
@@ -71,8 +73,8 @@ avoidIf:
   - you need more than 100 free action minutes a month
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codepipeline/'
@@ -87,6 +89,9 @@ pricingUrl: 'https://aws.amazon.com/codepipeline/pricing/'
 featured: false
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped billing to account plans and optional project controls; corrected Free expiry to suspension with 90-day recovery."
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -101,7 +106,7 @@ The free V2 minutes are shared by all V2 pipelines in the account. They reset at
 
 ## When you hit a limit
 
-Past the free tier, you pay. A V1 pipeline costs $1.00 per active month, where active means it is more than 30 days old and had at least one code change run through it. A pipeline with no new code changes in the month costs nothing.
+Past service allowances, Free accounts consume credits. Paid accounts incur usage charges, subject to optional project controls. A V1 pipeline costs $1.00 per active month, where active means it is more than 30 days old and had at least one code change run through it. A pipeline with no new code changes in the month costs nothing.
 
 V2 pipelines cost $0.002 per action execution minute, rounded up to the nearest minute. You are charged for all action types except manual approval and custom actions. The pricing page works through an example where a V2 pipeline uses 8 action minutes in a month and pays $0.00.
 

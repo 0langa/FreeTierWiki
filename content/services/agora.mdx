@@ -42,10 +42,10 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: medium
+  hasHardCap: true
+  overageRisk: low
   billingRiskNotes:
-    - The pricing pages do not describe a stop at the free minutes; past them, usage is billed per 1,000 participant minutes
+    - Free prepaid bundle suspends service at its allowance; paid bundles permit overage post-payment and weekly charges
 useCases:
   - Voice chat rooms in a game or social app
   - One-to-one and group video calls
@@ -58,18 +58,18 @@ whenToUse: >-
   Use Agora when you want SDKs for voice, video, and live streaming on many
   platforms, with a monthly free allowance that covers early testing.
 whenNotToUse: >-
-  Avoid it if you need the free allowance to stop at its limit, or if HD video
+  Review the Free bundle’s standard-minute conversion before choosing it if HD video
   for large groups would quickly run past 10,000 participant minutes.
 bestFor:
   - voice and video in mobile apps
   - live streaming prototypes
 avoidIf:
-  - you need a hard spending cap
+  - you need paid overage continuation without monitoring
   - you only need text chat
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.agora.io'
@@ -80,6 +80,9 @@ sourceUrls:
 pricingUrl: 'https://www.agora.io/en/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Documented Free bundle suspension separately from paid overages and corrected the first volume discount.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -95,14 +98,14 @@ Other products have separate monthly free amounts. Agora Signaling gives the fir
 
 ## When you hit a limit
 
-The pricing pages do not say that calls stop at 10,000 minutes. Past the free block, minutes are billed per 1,000 participant minutes: the RTC page lists $0.99 for voice, $3.99 for Video HD, and $8.99 for Video Full HD.
+The RTC page’s prepaid bundle table explicitly lists service suspension for Free at 10,000 standard minutes. Paid bundles instead allow overage post-payment, billed weekly to prepaid balance or a card. These are different operating choices; the listed rates do not prove automatic paid continuation on Free.
 
-Volume discounts apply as monthly usage grows, starting at 10% for the 100K to 500K band. Prepaid monthly plans with discounted rates are also offered. The page does not describe a spending cap, so check usage in the console while you test.
+Pay-as-you-go rates per 1,000 participant minutes include $0.99 voice, $3.99 HD video, and $8.99 Full HD. The 100K–500K volume band discounts 5%. HD consumes the allowance according to standard-minute conversion, so review that calculation before estimating a group call.
 
 ## Gotchas
 
 - Minutes are charged per participant, so a four-person video call uses four minutes of allowance for every minute it runs.
-- Video price depends on resolution, so the free minutes stretch further for voice than for HD video.
+- The free bundle is measured in standard minutes, while video pricing and conversion depend on resolution; it is not a flat free allowance at every video quality.
 - The Cloud Proxy feature, which forces traffic over UDP or TCP 443, carries a minimum monthly base fee that starts at $500.
 
 ## Alternatives in this atlas

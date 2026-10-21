@@ -29,14 +29,16 @@ freeTierDetails:
     - 1 concurrent request
     - 10-mile radius/distance limit
   caveats:
-    - The pricing page marks the Free plan as Private Use; Commercial Use starts at the Small plan
+    - Ongoing Free signup-card requirement is not explicitly established by public pricing/docs
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
+    - The pricing page marks the Free plan as Private Use; Commercial Use starts at the Developer plan
     - Higher concurrency, larger radius, and SLA support are paid-plan only
     - You get an email at 90% and 100% of your monthly usage
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - "Turn a postal code into place information"
   - "Calculate the distance between two postal codes"
@@ -63,8 +65,8 @@ avoidIf:
   - "high search volume"
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://zipcodebase.com'
@@ -75,6 +77,13 @@ sourceUrls:
   - 'https://zipcodebase.com'
   - 'https://app.zipcodebase.com/documentation'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected commercial-use starting plan to Developer and radius tiers; qualified signup-card evidence."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use Zipcodebase through an API key from your account. The documentation page fills in code snippets with your own key after you log in. It suits developers who add postal code checks and distance search to forms and small apps.
 
@@ -90,12 +99,12 @@ Only successful responses use your allowance. Invalid requests and errors do not
 
 The site sends you an email when your monthly usage reaches 90% and again at 100%, so you have time to react. The pricing page does not say what the API does after 100%, so upgrade before you reach the limit.
 
-Paid plans start at $45 a month for 60.000 searches, a 100-mile radius, and the same single concurrent request. Larger plans add more concurrent requests and bigger radii.
+Paid plans start at $45 a month for 60,000 searches, a 100-mile radius, and the same single concurrent request. Larger plans add more concurrent requests and bigger radii.
 
 ## Gotchas
 
-- The pricing page marks the Free plan as Private Use and lists Commercial Use from the Small plan up.
-- The free radius is 10 miles. The Small plan raises it to 100 miles.
+- The pricing page marks the Free plan as Private Use and lists Commercial Use from Developer upward.
+- The free radius is 10 miles. Developer raises it to 100 miles; Small raises it to 200 miles.
 - You can run 1 request at a time, so parallel calls need a larger plan.
 
 ## Alternatives in this atlas

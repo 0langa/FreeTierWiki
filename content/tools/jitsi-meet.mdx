@@ -2,7 +2,7 @@
 title: Jitsi Meet
 description: >-
   Jitsi Meet is an open-source video meeting app, and meet.jit.si is the free
-  hosted service run by 8x8. You start a meeting in the browser with no account;
+  hosted service run by 8x8. The room creator signs in; guests can join without an account;
   meetings are now limited to 95 minutes.
 provider: 8x8
 category: collaboration
@@ -20,18 +20,19 @@ tags:
   - video meetings
   - video conferencing
   - open source
-  - no account
+  - guest access
   - screen sharing
   - jitsi
 pricingModel: free
 freeTierDetails:
   summary: >-
-    meet.jit.si is free to use with no account needed. Since October 9, 2026,
+    meet.jit.si is free to use; the room creator needs an account, while guests do not. Since October 9, 2026,
     meetings on meet.jit.si are limited to 95 minutes, and the operator says
     more changes are coming.
   limits:
     - Meetings limited to 95 minutes
-    - No account needed
+    - Room creator account required; guests can join without an account
+    - Terms limit free use to 25 monthly active endpoints across your accounts
     - Screen sharing, chat, and Etherpad document editing
   caveats:
     - The service is provided as-is and without support, with no uptime commitment
@@ -43,29 +44,29 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - Quick calls with a teammate or contributor without anyone signing up
+  - Quick calls where invited guests do not need to sign up
   - Open-source community calls shared through a simple URL
   - Trying Jitsi Meet before running your own instance
 quickstartSteps:
-  - Open meet.jit.si and choose Start meeting.
+  - Open meet.jit.si, choose Start meeting, and authenticate as the room creator.
   - Share the meeting URL with the people you want to invite.
   - Share your screen or open the integrated chat during the call.
 whenToUse: >-
-  Use meet.jit.si for ad hoc calls where nobody should need an account, and the
+  Use meet.jit.si for ad hoc calls where guests should not need an account, and the
   meeting fits in 95 minutes.
 whenNotToUse: >-
   Avoid it for calls that need guaranteed uptime or support, or for embedding
   video in your product; use Jitsi as a Service for that.
 bestFor:
-  - calls with no sign-up
+  - guest calls without sign-up
   - open-source community meetings
 avoidIf:
   - meetings that need an uptime guarantee
   - embedding meetings in your own app
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-11
+lastUpdated: '2026-10-21'
+lastVerified: '2026-10-21'
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://meet.jit.si/'
@@ -75,50 +76,57 @@ sourceUrls:
   - 'https://jitsi.org/blog/changes-coming'
   - 'https://jitsi.org/jitsi-meet/'
   - 'https://jitsi.org/meet-jit-si-terms-of-service/'
+  - 'https://jitsi.org/security/'
+  - 'https://jitsi.org/blog/authentication-on-meet-jit-si/'
 pricingUrl: 'https://meet.jit.si/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Corrected host authentication, added monthly active endpoint terms and distinguished transport from optional end-to-end encryption.'
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
 ---
 
-Jitsi Meet is an open-source video meeting app, and meet.jit.si is the free hosted instance run by 8x8. You open the site, start a meeting, and share the URL; nobody needs an account. A developer team would pick it for quick calls with contributors or clients, or for open-source community calls where asking people to sign up is a barrier. To put meetings inside your own app with branding and backend events, 8x8 offers Jitsi as a Service, a separate developer product.
+Jitsi Meet is open-source video meeting software, and meet.jit.si is the free hosted instance run by 8x8. The room creator signs in; subsequent participants can join without creating an account. That distinction matters when inviting contributors or clients. For meetings inside a product, compare the separate Jitsi as a Service developer offering or a deployment you host yourself.
 
 ## What the free plan gives you
 
-The Jitsi Meet page describes a fully encrypted, 100% open source video conferencing solution that you can use for free with no account needed. On meet.jit.si you can start a meeting right away or book a meeting URL in advance where you are the only moderator.
+The hosted service provides video meetings with screen sharing and integrated chat. The Jitsi Meet overview also describes custom meeting URLs, presentations, Etherpad document editing, and HD Opus audio. Features and availability can change on the public instance.
 
-In a meeting you can share your desktop and presentations, invite people with a simple custom URL, edit documents together using Etherpad, and trade messages in the integrated chat. You can connect your calendar to see and start meetings, and mobile apps are available. Jitsi says audio uses HD Opus and that conversations are encrypted by default.
+The older overview says no account is ever needed, but the specific authentication announcement and current security page supersede that claim for meet.jit.si: since August 24, 2023, creating a room requires an account. Guests do not need an account, and supplying their name or email is optional.
+
+Jitsi encrypts traffic in transit by default. End-to-end encryption is a separate option on supported clients, with limitations; the security page says it covers audio, video, and screen sharing rather than chat or polls. Do not interpret the overview's broad encryption language as a promise that every feature is end-to-end encrypted.
 
 ## When you hit a limit
 
-On October 9, 2026, the Jitsi team announced that meetings on meet.jit.si are limited to 95 minutes, starting that day, and that more changes are coming. The meet.jit.si page itself now shows a notice that new meeting limits apply. The announcement does not say what happens at the 95-minute mark.
+The October 9, 2026 announcement limits meet.jit.si meetings to 95 minutes. It also says more changes are coming, without explaining exactly what happens at the time boundary.
 
-The terms of service say the service is provided as-is and without support, with no commitment on availability, and that 8x8 may suspend, limit, change, or downgrade the service at any time, with or without notice.
+The hosted terms separately limit free use to 25 monthly active endpoints across your accounts. An endpoint can be a browser tab, laptop, or mobile device used in a meeting with another endpoint. Above that allowance, 8x8 may limit use or require a paid service. This is separate from meeting duration.
 
 ## Gotchas
 
-- The older Jitsi Meet page still says you can use it all day, every day; the newer 95-minute limit applies to meet.jit.si.
-- More changes to meet.jit.si were announced as coming, so check the site before relying on it for a recurring meeting.
-- The terms say the service is not meant for back-up or long-term storage of data.
+- The room creator must authenticate, even though the older general overview still advertises anonymous use.
+- The service is provided as-is without support or an uptime commitment. The operator can suspend, change, or limit features without notice.
+- The terms say the service is not intended for backup or long-term storage. Check the current site before scheduling recurring meetings.
 
 ## Alternatives in this atlas
 
-- [Jitsi as a Service](/services/jitsi-as-a-service/): when you want Jitsi meetings inside your own app, run by 8x8.
-- [Talky.io](/services/talky-io/): when you want another browser-based call with no account.
-- [Zoom Workplace](/tools/zoom/): when the people you meet already use Zoom.
+- [Jitsi as a Service](/services/jitsi-as-a-service/): for meetings embedded in your own application.
+- [Talky.io](/services/talky-io/): for another browser-based meeting service.
+- [Zoom Workplace](/tools/zoom/): when participants already use Zoom.
 
 ## Questions people ask
 
 ### Is Jitsi Meet free?
 
-Yes. The Jitsi Meet page says you can use meet.jit.si for free with no account needed.
+The public meet.jit.si service is free within its published limits. Its room creator needs an account; invited guests do not.
 
 ### Is there a time limit on meet.jit.si?
 
-Yes. Since October 9, 2026, meetings on meet.jit.si are limited to 95 minutes.
+Yes. The October 9, 2026 announcement sets a 95-minute meeting limit.
 
-### What is the difference between Jitsi Meet and Jitsi as a Service?
+### Can I use Jitsi for meetings inside my app?
 
-Jitsi Meet on meet.jit.si is the free meeting app you use in a browser. Jitsi as a Service is 8x8's developer product for adding meetings to your own website or app.
+Compare Jitsi as a Service or self-host the open-source software. The public hosted service has its own usage terms and availability limitations.

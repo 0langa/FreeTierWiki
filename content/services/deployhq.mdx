@@ -37,11 +37,12 @@ freeTierDetails:
   caveats:
     - Paid plans start with a 10-day free trial and no credit card
     - The pricing page does not say over what period the 30 build minutes apply
+    - Exact daily excess-deployment handling is not published
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
   billingRiskNotes:
     - The Free plan needs no credit card, and the pricing page lists no usage charges for it
 useCases:
@@ -66,17 +67,21 @@ avoidIf:
   - you need more than one project or user for free
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.deployhq.com'
 docsUrl: 'https://www.deployhq.com/support'
 sourceUrls:
+  - "https://www.deployhq.com/support/billing/build-minutes"
   - 'https://www.deployhq.com/pricing'
 pricingUrl: 'https://www.deployhq.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified deployment/build limits, distinguished annual paid prices and added the no-charge downgrade after a deployment trial."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -88,13 +93,13 @@ DeployHQ takes code from a Git repository and deploys it to servers you already 
 
 The Free plan is $0 a month for personal projects and needs no credit card. It includes 3 deployments per day, 1 project, 5 servers, 1 concurrent deployment, 30 build minutes, and 1 user. A project is a connected repository plus one or more servers to deploy it to.
 
-The free plan also lists auto-deploy on push, support, a build cache, environment variables, undeployed-changes alerts, zero downtime deployments, scheduled deployments, deployment availability rules, and an audit log. Paid plans add things such as turbo deployments, custom domains, deploying behind firewalls, team management, and SSO.
+DeployHQ offers build pipelines and deployment automation alongside these resource allowances. Advanced capabilities such as turbo deployments, custom domains, deploying behind firewalls, team management and SSO have plan-specific availability. Check the selected plan before relying on them. The free grant is intended for one user deploying one personal project to existing servers, rather than providing a general-purpose team deployment service.
 
 ## When you hit a limit
 
 The free plan counts deployments per day, so the fourth deployment in a day needs a paid plan. The pricing page does not say whether that deployment is queued or refused, and the free plan does not require a card.
 
-Solo is $9 a month for freelancers, with unlimited deployments, 3 projects, 3 concurrent deployments, and 200 build minutes. Pro is $19 a month for small teams, with 10 projects and unlimited build minutes. Every paid plan starts with a 10-day free trial, and the page says no credit card is needed for it.
+Solo costs €10 monthly or €9 per month billed annually, with unlimited deployments, 3 projects, 3 concurrent deployments, and 200 build minutes. Pro costs €21 monthly or €19 per month billed annually, with 10 projects and unlimited build minutes. Paid deployment trials last 10 days without a card, then automatically downgrade to Free if you do not subscribe, retaining data without a charge.
 
 ## Gotchas
 

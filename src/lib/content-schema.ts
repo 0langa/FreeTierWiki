@@ -11,6 +11,7 @@ import {
   type AtlasEntry,
   type ContentKind,
   type EntryChange,
+  type PolicyConfirmation,
 } from "@/types/content";
 
 export class ContentError extends Error {
@@ -101,6 +102,12 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     problems.push(`'${field}' must be true or false`);
     return fallback;
   };
+  const policy = (value: unknown, field: string): PolicyConfirmation => {
+    if (value == null || value === "unknown") return "unknown";
+    if (typeof value === "boolean") return value;
+    problems.push(`'${field}' must be true, false, or unknown`);
+    return "unknown";
+  };
   const number = (value: unknown, field: string): number => {
     if (typeof value === "number" && Number.isFinite(value)) return value;
     if (typeof value === "string" && value.trim() && Number.isFinite(Number(value))) return Number(value);
@@ -186,9 +193,9 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
       limits,
       caveats: list(ft.caveats, "freeTierDetails.caveats"),
       resetPeriod: optionalText(ft.resetPeriod, "freeTierDetails.resetPeriod"),
-      requiresCard: flag(ft.requiresCard, "freeTierDetails.requiresCard", false),
+      requiresCard: policy(ft.requiresCard, "freeTierDetails.requiresCard"),
       freeTierType: oneOf(ft.freeTierType, FREE_TIER_TYPES, "freeTierDetails.freeTierType"),
-      hasHardCap: flag(ft.hasHardCap, "freeTierDetails.hasHardCap", false),
+      hasHardCap: policy(ft.hasHardCap, "freeTierDetails.hasHardCap"),
       overageRisk: oneOf(ft.overageRisk, OVERAGE_RISKS, "freeTierDetails.overageRisk"),
       billingRiskNotes: list(ft.billingRiskNotes, "freeTierDetails.billingRiskNotes"),
       trialDays: optionalNumber(ft.trialDays, "freeTierDetails.trialDays"),

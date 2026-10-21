@@ -29,7 +29,7 @@ freeTierDetails:
     - 100 AI Moderation Assist analyses per month
     - Unlimited moderator seats
   caveats:
-    - Outside WordPress, the free plan loads the widget in an iframe, so comments are not tied to your page for search
+    - Enable SEO inline for JavaScript-capable crawlers; AI crawlers need WordPress SEO mode or server rendering
     - Pages served to crawlers through SEO inline do not count toward data loads
   resetPeriod: monthly
   requiresCard: false
@@ -50,26 +50,30 @@ whenToUse: >-
   Use GraphComment when you want a free, ad-free comment system with
   moderation tools for a busy blog, especially on WordPress.
 whenNotToUse: >-
-  Avoid the free plan if you are not on WordPress and want comments indexed as
-  part of your page by search engines.
+  Avoid relying on the default iframe alone for indexing; enable SEO inline
+  or implement server rendering for crawlers.
 bestFor:
   - ad-free blog comments
   - WordPress sites
 avoidIf:
-  - indexed comments outside WordPress on a free plan
+  - expecting indexing from an unconfigured iframe
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://www.graphcomment.com/en'
 docsUrl: 'https://www.graphcomment.com/en'
 sourceUrls:
+  - 'https://developers.graphcomment.com/docs/seo-geo'
   - 'https://graphcomment.com/en/pricing.html'
 pricingUrl: 'https://graphcomment.com/en/pricing.html'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Corrected the blanket non-WordPress indexing restriction using current Free SEO-inline and server-rendering documentation.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -81,7 +85,7 @@ GraphComment is a hosted comment system from SemioLogic. You add the widget or t
 
 The pricing page lists the Basic plan as free for up to 1,000,000 data loads a month. It includes customization, advanced moderation tools, unlimited moderator seats, easy installation, the online help center, and no ads. AI Moderation Assist is free for your first 100 AI analyses each month; it reads the article before judging a comment and suggests a decision with its reasoning, which a moderator confirms.
 
-SEO inline is included in every plan and on by default for new sites. For crawlers that run JavaScript, the widget injects your comments as HTML with structured data, and pages served to crawlers this way do not count toward your monthly data loads. Paid plans start with Starter at 29$ a month, or 25$ a month billed yearly.
+SEO inline is included in every plan and enabled on new sites. It injects structured comment HTML for recognized JavaScript-capable crawlers without billed loads, subject to fair use. WordPress SEO mode or server rendering covers AI crawlers. Paid plans start with Starter at 29$ a month, or 25$ a month billed yearly.
 
 ## When you hit a limit
 
@@ -91,7 +95,7 @@ The AI moderation allowance is separate. Only the first 100 AI analyses each mon
 
 ## Gotchas
 
-- Outside WordPress, the free plan loads the widget in an iframe, so comments are not associated with your page for search engines. The WordPress plugin in SEO mode serves them as indexable HTML.
+- The default iframe needs an SEO path. Free SEO inline works outside WordPress for recognized JavaScript-capable crawlers, but serves only the first 20 top-level comments.
 - AI crawlers do not run JavaScript, so they never load the widget and never see comments unless you use the WordPress plugin or the documented server-side integration.
 - A data load is not the same as a page view in every case, so watch the counter on a high-traffic launch.
 

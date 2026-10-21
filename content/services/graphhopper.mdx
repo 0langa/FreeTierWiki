@@ -32,20 +32,21 @@ freeTierDetails:
     - Route Optimization with 1 vehicle per request
     - Limited credits per minute and a limited set of vehicle profiles
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - The Free plan is for non-commercial use only
     - No SLA or guarantees, and support is forum only
     - Flexible mode (ch.disable=true) is not available
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
   billingRiskNotes:
     - No card is needed for the Free plan; requests that violate the limits might be blocked
 useCases:
   - Turn-by-turn routes for a non-commercial bike or hiking app
   - Testing route optimization for a single vehicle
-  - Snapping recorded GPS traces to roads with map matching
+  - Geocoding addresses for a non-commercial map
 quickstartSteps:
   - Sign up for the Free plan; no credit card is required.
   - Create an API key in the GraphHopper dashboard.
@@ -64,8 +65,8 @@ avoidIf:
   - routes with many waypoints
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.graphhopper.com'
@@ -75,6 +76,12 @@ sourceUrls:
 pricingUrl: 'https://www.graphhopper.com/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed Free map-matching recommendation; rendered column excludes Map Matching and Isochrones. Qualified unsupported blanket billing assurance."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -84,11 +91,11 @@ GraphHopper sells the Directions API, a hosted version of its open source routin
 
 ## What the free plan gives you
 
-The Free plan costs 0 euros a month and needs no credit card. It includes 500 credits a day, up to 5 locations per routing request, and route optimization with 1 vehicle per request. It has a limited credit count per minute, a limited set of vehicle profiles, and cannot use the flexible mode. Support is forum only, and the Free plan does not include any guarantees. Credit costs depend on the API and options; the default geocoding provider costs 0.3 credits per request, for example. The plan is for non-commercial use only.
+The Free plan costs 0 euros a month and needs no credit card. It includes 500 credits a day, up to 5 locations per routing request, and route optimization with 1 vehicle per request. It has a limited credit count per minute, a limited set of vehicle profiles, and cannot use the flexible mode. Support is forum only, and the Free plan does not include any guarantees. Credit costs depend on the API and options; the default geocoding provider costs 0.3 credits per request, for example. The plan is for non-commercial use only. The rendered Free column excludes Map Matching and Isochrone APIs.
 
 ## When you hit a limit
 
-The pricing page says requests that violate the limits might be blocked to keep the service stable for all customers. It does not say exactly what happens once the 500 daily credits are used up, so plan for requests to fail until the next day. The Free plan needs no credit card, so there is no card to bill. The smallest paid plan, Basic, costs 69 euros a month for 5,000 credits a day and allows commercial use.
+The pricing page says requests that violate the limits might be blocked to keep the service stable for all customers. It does not say exactly what happens once the 500 daily credits are used up, so plan for requests to fail until the next day. The Free plan needs no credit card, but the page does not explicitly publish a Free overage-billing policy. The smallest paid plan, Basic, costs 69 euros a month for 5,000 credits a day and allows commercial use.
 
 ## Gotchas
 

@@ -35,11 +35,12 @@ freeTierDetails:
     - 1x generation speed
   caveats:
     - API access needs an account and an API key
+    - Pricing lists 1,000 rows per file; API docs separately describe 5,000 Free records per download
     - Paid plans limit records per day instead of requests
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
   billingRiskNotes:
     - Paid plans are annual subscriptions; the free plan has no usage charges on the pricing page
@@ -65,8 +66,8 @@ avoidIf:
   - your CI calls the API many times a day
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mockaroo.com'
@@ -77,6 +78,9 @@ sourceUrls:
 pricingUrl: 'https://www.mockaroo.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Distinguished browser download rows from conflicting API documentation and marked daily exhaustion behavior unknown."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -86,7 +90,7 @@ Mockaroo is a web tool for generating realistic fake data. You define a schema o
 
 ## What the free plan gives you
 
-The free plan limits each generated file to 1,000 rows, with no daily limit on the number of files you download from the browser. Generation runs at 1x speed. The API is open to free accounts too, with a limit of 200 API requests per day.
+The pricing page limits each browser-generated file to 1,000 rows, with no daily limit on the number of files you download from the browser. Generation runs at 1x speed. The API is open to free accounts too, with a limit of 200 API requests per day.
 
 The docs say both the Generate API and mock APIs need an API key, passed as a query string parameter called key or as an X-API-Key header, and you sign up to get one. Mock APIs let you control URLs, handle request parameters, and simulate errors, which helps when you build a front end against an API that is not ready.
 
@@ -99,7 +103,7 @@ The docs explain that free plans are limited to 200 requests per day, while Silv
 ## Gotchas
 
 - The API limit counts requests, not rows, so many small requests from a test suite use the free 200 quickly.
-- Each file tops out at 1,000 rows, so seeding a large table means repeating the download.
+- Browser pricing lists 1,000 rows per file, while Generate API docs separately describe 5,000 records per Free download. Confirm the API-specific limit rather than assuming both routes match.
 - Paid plans are priced per year, not per month, so there is no cheap one-month upgrade for a single big job.
 
 ## Alternatives in this atlas

@@ -27,11 +27,11 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Developer plan: free for 1 user, with unlimited public repositories and
+    Developer plan: free for 1 private-repository user, with unlimited public repositories and
     uploads, and unlimited private repositories with up to 250 private uploads
     per month.
   limits:
-    - 1 user
+    - 1 private-repository user
     - Unlimited public repositories and public uploads
     - Unlimited private repositories
     - 250 private repository uploads per month
@@ -41,19 +41,18 @@ freeTierDetails:
     - Team plan is for up to 10 users and 2500 uploads per month, at $5 per user
       per month
     - Pro plan is $12 per user per month and has a 14-day free trial
-    - Flags, carry forward flags, components, and project coverage are Pro
-      features
+    - Private Team includes flags, carryforward flags and components; project coverage needs Pro
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - See coverage changes in each pull request comment
   - Track coverage trends on a project dashboard
   - Fail a status check when coverage drops
   - Merge coverage reports from parallel CI jobs into one report
-  - Split coverage by flags or components in a monorepo (Pro plan)
+  - Split coverage by flags or components in a monorepo (paid private plans)
 quickstartSteps:
   - Sign up at app.codecov.io with GitHub, GitLab, or Bitbucket. GitHub users
     must also install the Codecov GitHub app for the organization.
@@ -79,10 +78,10 @@ bestFor:
 avoidIf:
   - more than 1 user on private repositories
   - heavy private CI with many parallel uploads
-  - you need flags and components, which are Pro features
+  - you need advanced features on a private repository without a paid plan
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://codecov.io/'
@@ -92,28 +91,32 @@ sourceUrls:
   - https://docs.codecov.com/docs/quick-start
   - https://codecov.io/
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://about.codecov.io/pricing/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected flags and components to the private Team tier, scoped private versus public features, and qualified unpublished billing and cap policies."
 ---
 You add an upload step to your CI. After each test run it sends the coverage report to Codecov, which comments on the pull request and updates a dashboard. It suits open source projects and solo developers.
 
 ## What the free plan gives you
 
-The Developer plan is free. It allows 1 user. Public repositories are unlimited, and so are public repository uploads. Private repositories are also unlimited, but you get 250 private repository uploads per month.
+The Developer plan is free. It allows 1 private-repository user. Public repositories are unlimited, and so are public repository uploads. Private repositories are also unlimited, but you get 250 private repository uploads per month.
 
 A private repository upload is one coverage report uploaded from a closed-source repository, usually during CI. A build can send more than one upload per commit if you run tests in parallel or use flags. Open source uploads do not count against the monthly 250. A user is anyone who authors a pull request on a private repository with Codecov coverage, or who uses advanced features on a private repository. The Developer plan is best for open source projects or for single-user teams with small private repositories.
 
 ## When you hit a limit
 
-The pricing page does not say what happens after the 250th private upload in a month. It also does not say what happens when a second user appears on a private repository. The pricing FAQ says the Developer plan is for single-user teams, and the Team plan is for up to 10 users.
+The pricing page does not establish Free card requirements or the response after 250 private uploads or a second private-repository user. Developer is for single-user private teams; Team allows up to 10 users.
 
-To go beyond the free plan, the Team plan costs $5 per user per month and allows 2500 uploads per month. It shows patch coverage only. The Pro plan costs $12 per user per month, needs at least two users, and adds flags, carry forward flags, components, and project coverage. You can try all Pro features free for 14 days.
+Team costs $5 per user per month with 2500 uploads. For private repositories it includes flags, components, and carryforward flags. Pro costs $12 per user per month, needs at least two users, and adds project coverage. Pro has a 14-day trial; public open-source feature eligibility has separate Free terms.
 
 ## Gotchas
 
 - Parallel CI jobs and flags send several uploads per commit, so private repositories can reach 250 uploads faster than you expect.
 - GitHub users must install the Codecov GitHub app for their organization, and may need an organization admin to approve it.
-- The Team plan shows patch coverage only. Project coverage and the trend charts need the Pro plan.
+- Private Team includes flags, components, and carryforward flags. Project coverage requires Pro; public open-source repositories have separate Free feature terms.
 
 ## Alternatives in this atlas
 
@@ -125,7 +128,7 @@ To go beyond the free plan, the Team plan costs $5 per user per month and allows
 
 ### Is Codecov free?
 
-Yes, the Developer plan is free for 1 user. It covers unlimited public repositories and uploads, and private repositories with up to 250 uploads per month.
+Yes, the Developer plan is free for 1 private-repository user. It covers unlimited public repositories and uploads, and private repositories with up to 250 uploads per month.
 
 ### How much does Codecov cost for teams?
 

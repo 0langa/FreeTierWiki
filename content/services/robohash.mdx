@@ -26,17 +26,18 @@ pricingModel: free
 freeTierDetails:
   summary: >-
     Robohash is free to use through image URLs, with no key in its examples and
-    no stated rate limit. The images are CC-BY licensed, so give credit when you embed them.
+    an unspecified rate limit. Artwork licenses vary by set; credit the attributed sets.
   limits:
     - The docs show plain image URLs and no account or API key step
-    - No documented hard rate limit
-    - Images are CC-BY licensed, and the site asks you to mention where they came from
+    - No published numeric quota; README says to back off after too-many-requests responses
+    - Sets 1–4 use CC-BY; set 5 permits personal/commercial use; set 6 is CC0
   caveats:
     - The site says it might add a small banner to images if bandwidth gets very high
-    - The artwork sets have different Creative Commons licenses from the MIT-licensed code
+    - Artwork licenses differ by set and are separate from the MIT-licensed code
     - For high-volume or production use, the project suggests hosting your own instance with Docker
+  requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: none
 useCases:
   - Unique default avatars for users, keyed by username or email
@@ -48,7 +49,7 @@ quickstartSteps:
   - Build the image URL `https://robohash.org/YOUR-TEXT.png`, or change the extension to get another format.
   - Add options to the URL, for example `?set=set3` for a robot set, `?size=200x200` for size, or `?bgset=bg1` for a background.
   - Embed the URL in an `img` tag in your app or site.
-  - Add a credit line such as "Robots lovingly delivered by Robohash.org" because the images are CC-BY.
+  - Add a credit line such as "Robots lovingly delivered by Robohash.org" when required by your selected artwork set's license.
 whenToUse: >-
   Use it when you want unique placeholder or avatar images from a plain URL,
   with no key and no setup.
@@ -66,8 +67,8 @@ avoidIf:
   - high-volume production without self-hosting
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://robohash.org/'
@@ -77,6 +78,10 @@ sourceUrls:
   - 'https://github.com/e1ven/Robohash'
 featured: false
 pricingUrl: 'https://robohash.org/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Replaced unlimited-rate and blanket CC-BY implications with README retry guidance and set-specific artwork licenses."
 ---
 You use Robohash with a URL. Put your text in the path and the service returns a PNG image, so the examples need no SDK. It suits developers who want default avatars or placeholder pictures.
 
@@ -88,13 +93,13 @@ You can change the look with URL options. Different sets give robots, monsters, 
 
 ## When you hit a limit
 
-The site states no rate limit and no quota. The only warning is about bandwidth. The owner says that if bandwidth gets crazy, a small banner might be added to the bottom of the images.
+No numeric quota is published. The official README says to use exponential backoff after errors or too-many-requests responses, so anonymous access is not an unlimited-service guarantee. The homepage also warns about bandwidth. The owner says that if bandwidth gets crazy, a small banner might be added to the bottom of the images.
 
-For high-volume or production use, the project README suggests hosting your own instance with Docker. The code is available under the MIT license, and there are pre-built Docker images on GitHub's container registry. The artwork sets carry their own Creative Commons licenses.
+For high-volume or production use, the project README suggests hosting your own instance with Docker. The code is available under the MIT license, and there are pre-built Docker images on GitHub's container registry. Artwork licenses vary: sets 1–4 use CC-BY, set5 allows personal/commercial use, and set6 is CC0.
 
 ## Gotchas
 
-- The images are CC-BY. Credit Robohash when you embed them, for example with the line "Robots lovingly delivered by Robohash.org".
+- The homepage gives a broad CC-BY notice, while the README lists licenses by set. Credit sets 1–4 and check the selected artwork license.
 - If you use `set=any`, new sets may change existing hashes. Name a set or list of sets to keep an image stable.
 - The site makes no uptime promise, so cache images or host your own copy for anything important.
 
@@ -108,12 +113,12 @@ For high-volume or production use, the project README suggests hosting your own 
 
 ### Is Robohash free?
 
-Yes. The site provides its service for free, and its examples use plain URLs with no account or API key step. The images are CC-BY licensed, so you should credit Robohash.
+Yes. The site provides its service for free, and its examples use plain URLs with no account or API key step. Artwork licenses vary by set; attributed sets need credit.
 
 ### Does Robohash have a rate limit?
 
-The site states none. It says it might add a small banner to images if bandwidth gets very high, and it suggests self-hosting with Docker for high-volume use.
+There is no published numeric quota. The README says to back off after too-many-requests responses and suggests self-hosting for high volume. The homepage may add a banner if bandwidth grows.
 
 ### Can I use Robohash images in a commercial project?
 
-The site says you are free to embed the images under the CC-BY license, with credit. The README calls the service best-effort, not a commercial offering. Check the license of each artwork set.
+Check the set-specific license: sets 1–4 require attribution, set5 permits personal/commercial use, and set6 is CC0. The public service is best-effort; self-host for production volume.

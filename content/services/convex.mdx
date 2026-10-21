@@ -28,7 +28,7 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     The Free plan has hard resource caps: 1M function calls, 0.5 GB of database
-    storage, and 1 GB of file storage per month. Starter is the pay-as-you-go
+    storage, and 1 GB of file storage. Starter is the pay-as-you-go
     plan that can pass these amounts.
   limits:
     - 1M function calls per month
@@ -37,13 +37,15 @@ freeTierDetails:
     - 20 GB-hours of action compute
     - 1 GB data egress
     - 0.5 GB search storage
+    - 3,000 search query-GBs per month
     - 1 to 6 developers and 40 deployments
   caveats:
     - Free has hard resource caps, while the Starter plan bills past the included amounts
     - Log streaming needs Professional
+    - Public pricing and setup docs do not state the Free signup card requirement
     - Included amounts are shared across regions, and non-US regions cost 1.3x past the free amounts
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -78,8 +80,8 @@ avoidIf:
   - You need more than 1M function calls a month for free
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.convex.dev'
@@ -92,6 +94,9 @@ sourceUrls:
 pricingUrl: 'https://www.convex.dev/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Separated stored capacity from monthly usage, added search-query allowance and documented possible failed writes at Free caps."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -102,11 +107,11 @@ You write backend functions in TypeScript in a `convex/` folder, run `npx convex
 
 The pricing page lists a Free and Starter plan. Free is $0 per month, and Starter is pay as you go. Both allow 1 to 6 developers and 40 deployments, and both share the same performance tier.
 
-Included each month on Free: 1 million function calls, 0.5 GB of database storage, 1 GB of database I/O, 1 GB of file storage, and 0.5 GB of search storage. You also get 20 GB-hours of action compute and 1 GB of data egress. Query and mutation compute is free on serverless deployments.
+Free includes 1 million function calls and 1 GB of database I/O monthly. Storage caps are 0.5 GB database, 1 GB files and 0.5 GB search, rather than renewable storage grants. Search queries include 3,000 query-GBs monthly. You also get 20 GB-hours of action compute and 1 GB of data egress. Query and mutation compute is free on serverless deployments.
 
 ## When you hit a limit
 
-The Convex limits page says Free has hard resource caps. Starter can exceed its included amounts with usage-based pricing, for example $2.20 per additional 1 million function calls. The pages do not say exactly what the app sees when a Free cap is reached.
+The Convex limits page says Free has hard resource caps. Starter can exceed its included amounts with usage-based pricing, for example $2.20 per additional 1 million function calls. The limits docs warn that new mutations inserting or updating data may fail after Free caps are hit.
 
 If you want to go past the caps, switch the plan to Starter or move to Professional, which costs $25 per developer per month.
 
@@ -126,7 +131,7 @@ If you want to go past the caps, switch the plan to Starter or move to Professio
 
 ### Is Convex free?
 
-Yes. The Free plan costs $0 and includes 1 million function calls, 0.5 GB of database storage, and 1 GB of file storage each month.
+Yes. The Free plan costs $0 and includes 1 million function calls, 0.5 GB of database storage, and 1 GB of file storage.
 
 ### What happens when I go over the Convex free limits?
 

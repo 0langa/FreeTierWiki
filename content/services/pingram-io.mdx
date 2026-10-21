@@ -2,7 +2,7 @@
 title: Pingram.io
 description: >-
   Pingram.io, formerly NotificationAPI, is one API for email and SMS, with
-  voice and WhatsApp coming. It is for developers who want a single monthly
+  voice and WhatsApp availability described inconsistently across its pages. It is for developers who want a single monthly
   budget instead of separate email and SMS subscriptions.
 provider: Pingram.io
 category: messaging
@@ -29,8 +29,8 @@ freeTierDetails:
     credit card required.
   limits:
     - 100 SMS/month (US) or 3,000 emails/month, shared budget
-    - 100 call minutes per month
-    - 1 free local phone number
+    - Homepage advertises 100 SMS and Calls; pricing does not confirm a separate 100-minute allowance
+    - Local-number inclusion differs between the pricing reference and feature table
     - 30-day log retention
     - Unlimited sending domains and webhooks
   caveats:
@@ -38,12 +38,13 @@ freeTierDetails:
     - Managed A2P 10DLC is testing-only on the free plan
     - SMS rates vary by destination country
     - No dedicated IP on the free plan
-    - Voice and WhatsApp are not launched yet; they will draw from the same budget once available
+    - Pricing marks Voice and WhatsApp as coming; homepage and technical reference already describe Voice
+    - Free budget enforcement and whether allowances combine are not confirmed
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Sending transactional email from an app
   - Sending SMS notifications and appointment reminders
@@ -51,10 +52,10 @@ useCases:
   - Receiving inbound email and SMS replies through webhooks
 quickstartSteps:
   - Click Get started free on pingram.io and create an account; no credit card is needed.
-  - Verify a sending domain for email, and use the free local phone number for SMS.
-  - Copy your client ID and secret from the account.
+  - Verify a sending domain for email; confirm sandbox and phone-number eligibility before configuring SMS.
+  - Copy the credentials required by the current SDK documentation from your account.
   - Install the SDK with `npm install pingram`, or pick Python, PHP, Go, Ruby, Java, or .NET.
-  - Create the client with your credentials and call `pingram.send()` with a `to`, a channel, and the message.
+  - Initialize the SDK using its current credential format and send a test message using the email or SMS example.
   - Watch your usage against the monthly budget.
 whenToUse: >-
   Use Pingram.io when you want email and SMS from one API and the free
@@ -72,37 +73,43 @@ avoidIf:
   - high-volume SMS sending
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.pingram.io/'
-docsUrl: 'https://docs.pingram.io'
+docsUrl: 'https://www.pingram.io/docs'
 sourceUrls:
+  - 'https://www.pingram.io/docs'
+  - 'https://www.pingram.io/llms.txt'
   - 'https://www.pingram.io/pricing'
   - 'https://www.pingram.io/'
 featured: false
 pricingUrl: 'https://www.pingram.io/pricing'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified conflicting combined quotas, phone-number and Voice availability, removed unsupported call minutes, and represented unpublished Free enforcement as unknown."
 ---
 You install an SDK, create a client with your credentials, and call one `send` function for email or SMS. It suits developers who want to ship notifications without running separate providers for each channel.
 
 ## What the free plan gives you
 
-Pingram uses one monthly budget for email and SMS. The Free plan includes 100 SMS or 3,000 emails each month, and you can mix them from the same pool. It also includes 100 call minutes, one local phone number, and unlimited sending domains.
+The pricing selector describes a shared monthly budget equivalent to 100 US SMS or 3,000 emails. Its FAQ and reference instead say both allowances are included, and the homepage says 3,000 emails plus 100 SMS and Calls. Do not assume both maximums combine until confirmed. No credit card is required.
 
-The platform table shows 30 days of log retention, unlimited webhooks, and no Pingram branding on the Free plan. It supports the US, EU, and CA regions. Voice and WhatsApp are not launched yet and will draw from the same budget.
+Free lists unlimited sending domains and webhooks, 30-day logs, no Pingram branding, and US/EU/CA regions. The reference says one local number is included, while the feature table leaves Free phone numbers blank. Pricing marks Voice and WhatsApp as coming, although the homepage and technical reference already describe Voice; a separate 100-minute quota is not established.
 
 ## When you hit a limit
 
 The balance refills each billing cycle, and unused credit does not roll over. SMS messages deduct the rate for their destination country, so a message to a costly country uses more of the budget than a US message.
 
-The pricing page does not say what happens when the free budget runs out, and it says to upgrade for a larger balance. The first paid budget costs $20 per month. On a paid plan you can turn on Auto upgrade, which moves you up when spend reaches 90% of the budget.
+The pricing page does not say whether Free stops, queues, or otherwise handles sends after the budget runs out. It says to upgrade for a larger balance, so a hard spending stop is unconfirmed. The first paid budget costs $20 per month. On a paid plan you can turn on Auto upgrade, which moves you up when spend reaches 90% of the budget.
 
 ## Gotchas
 
 - Managed A2P 10DLC registration is testing-only on the Free plan, so real US SMS traffic at scale needs a paid plan.
 - There is no dedicated IP on Free. It comes with paid plans.
-- Phone numbers beyond the first one cost $0.50 per month each.
+- Number pricing lists $0.50 monthly for US/CA local numbers and says one is free, but the Free feature table omits numbers. Confirm eligibility before relying on one.
 
 ## Alternatives in this atlas
 
@@ -114,11 +121,11 @@ The pricing page does not say what happens when the free budget runs out, and it
 
 ### Is Pingram free?
 
-Yes. Every account includes 100 SMS and 3,000 emails per month at no cost. You do not need a credit card.
+Yes, with no credit card. The selector says 100 US SMS or 3,000 emails from one budget, while the FAQ says both. The combined allowance is not consistently documented.
 
 ### Can I send SMS on the Pingram free plan?
 
-Yes, up to 100 US SMS a month from the shared budget, with one local phone number included. Managed A2P 10DLC is testing-only on Free.
+It advertises up to 100 US SMS monthly, with managed A2P 10DLC limited to testing. Free number inclusion differs between its table and reference; confirm account eligibility.
 
 ### Does unused Pingram budget roll over?
 

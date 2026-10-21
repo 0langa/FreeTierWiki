@@ -26,20 +26,23 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     Pay-per-use pricing at $0.0012 per authentication/authorization call, with
-    the first 1,000 billable calls per month free and everything else,
-    including configuration, free.
+    the first 1,000 billable calls free. Configuration is generally free,
+    but the detailed billing-route exceptions apply.
   limits:
-    - '1,000 billable calls/month free, then $0.0012 per call'
+    - 'First 1,000 billable calls free, then base $0.0012 per call; reset period not explicit'
     - Unlimited SSO connections, social login connections, and machine tokens
-    - Only auth and authz calls are billable; configuration is free
+    - Billing route table includes billable token, user-query and some administrative routes
+    - Password-based login adds $0.011 per request
   caveats:
-    - Billed at $0.0012 per call after the first 1,000 billable calls each month; no cap is stated.
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - Base rate is $0.0012 per billable call beyond the free allowance; the free counter reset is not explicitly published.
     - Dashboard shows current and projected spend
-  resetPeriod: monthly
-  requiresCard: false
+    - Homepage and billing docs differ on SLA scope; Free allowance reset is not explicit
+  resetPeriod: not explicitly published
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
 useCases:
   - Hosted login with social, passwordless, and passkey sign-in
   - Enterprise SSO through SAML, OAuth, or OIDC for each customer tenant
@@ -68,56 +71,64 @@ avoidIf:
   - a plain login form only
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://authress.io/'
 docsUrl: 'https://authress.io/knowledge-base/docs'
 pricingUrl: 'https://authress.io/'
 sourceUrls:
+  - 'https://authress.io/knowledge-base/docs/introduction/api-billing-caching'
   - 'https://authress.io/'
   - 'https://authress.io/knowledge-base/docs'
   - 'https://authress.io/knowledge-base/docs/introduction/what-is-authress'
   - 'https://authress.io/knowledge-base/docs/authentication/user-authentication'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped billable routes and password-login surcharge, qualified Free reset and SLA differences, and removed an unsupported universal spending-cap assurance."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
 ---
-You configure Authress in its portal and call it through a REST API or SDKs from your own code. It suits teams that want identity and permissions kept apart from their business logic.
+Authress provides login and fine-grained access control through a portal, SDKs, and REST APIs. Applications delegate identity and permission decisions to it instead of keeping those rules inside business logic. Pricing depends on billable calls, so evaluate actual routes rather than only user counts.
 
 ## What the free plan gives you
 
-Authress has no fixed free plan. It charges per call, and the first 1,000 billable calls each month are free. Only authentication and authorization calls are billable. Everything else, including configuration, is free.
+The homepage advertises the first 1,000 billable calls free and a base price of $0.0012 per call, billed monthly. It does not explicitly state when the free counter resets. Unlimited SSO connections, social-login connections, and machine tokens are listed, with configuration generally free.
 
-The pricing section also lists unlimited SSO connections, unlimited social login connections, and unlimited machine tokens. There is no enterprise tax, so you get all features out of the box. Every customer gets default SLAs, with a 99.995% availability SLA for the default regions. Developer support queries get a response within 24h. A dashboard shows your current and projected spend.
+The detailed billing guide is more specific than the homepage's broad authentication/authorization wording. Token routes, user/resource queries, public-key verification, and some administrative routes are billable too. Password-based login adds $0.011 per request; other authentication mechanisms use the standard account rate. Review the route table when estimating your own integration. Current and projected spend appear in the dashboard.
 
 ## When you hit a limit
 
-Nothing stops at 1,000 calls. After the first 1,000 billable calls in a month, each call costs 0.0012 USD, billed monthly. The site states no cap on the monthly total, so a busy app can pay more as its traffic grows.
+Beyond the advertised free calls, billable API usage incurs the applicable per-call rate. The reviewed sources do not establish a monthly spending ceiling or explicitly confirm the card requirement and payment transition, so do not assume either a universal no-card offer or an automatic stop before charges.
 
-The dashboard shows current and projected spend, so you can watch the bill during the month. The pricing section does not say whether you must add a payment method before you pass the free calls, so check this in the portal before you launch.
+Operational rate limits are separate. Limited routes return HTTP 429, and the default account ceiling is 1,000 requests per second. Individual routes can be much lower. SDK caching and backoff help with those limits but do not create a spending cap.
 
 ## Gotchas
 
-- There is no spending cap. The site states none, so cost grows with the number of authorization checks your app makes.
-- Authorization checks count as billable calls. An app that checks permissions on every request uses the free calls quickly.
-- The pricing information lives on the home page, not on a separate pricing page. Read it there before you plan costs.
+- Some queries and administrative calls are billable; a homepage claim that everything except auth is free does not replace the detailed route table.
+- Password authentication has a separate $0.011 surcharge per login request beyond the normal rate.
+- The homepage quotes 99.995% availability, while billing docs give route-specific 99.999% and 99.99% terms. Confirm the applicable SLA rather than assuming one uniform guarantee.
 
 ## Alternatives in this atlas
 
-- [Auth0](/services/auth0/): when you want a flat free plan with a monthly active user limit instead of per-call billing.
-- [Ory](/services/ory/): when you want open-source identity and permission tools you can also self-host.
-- [WorkOS](/services/workos/): when your main goal is enterprise SSO for B2B customers.
+- [Auth0](/services/auth0/): when you prefer a monthly-user allowance over per-call billing.
+- [Ory](/services/ory/): when you want open-source identity and permissions that can be self-hosted.
+- [WorkOS](/services/workos/): when enterprise SSO is the main requirement.
 
 ## Questions people ask
 
 ### Is Authress free?
 
-Partly. The first 1,000 billable calls each month are free, and everything except authentication and authorization calls is free. After that, each call costs 0.0012 USD.
+The homepage advertises the first 1,000 billable calls free, followed by per-call pricing. It does not explicitly publish the free counter's reset period.
 
-### How does Authress charge?
+### What calls are charged?
 
-It charges per authentication or authorization call, billed monthly. Everything else is free, and a dashboard shows current and projected spend.
+Use the official billing-route table: authentication, authorization, token, selected query, and some administrative calls are charged. Password-based login has an additional surcharge.
 
-### Does Authress have an SLA?
+### Does Authress provide an SLA?
 
-Yes. The site lists default SLAs for all customers, with a 99.995% availability SLA for the default regions.
+Yes, but the homepage and route-specific billing documentation use different figures. Confirm the terms for the routes and regions your application uses.

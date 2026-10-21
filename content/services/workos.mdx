@@ -35,13 +35,13 @@ freeTierDetails:
     - 'Directory Sync: same per-connection pricing as SSO'
     - '1,000 free Radar (bot/fraud) checks, then $100/mo per 50k checks'
   caveats:
-    - Free User Management covers login only; SSO and Directory Sync connections are paid add-ons
-    - No credit card required until you move to production
+    - Free User Management includes authentication features; enterprise SSO and Directory Sync connections are separately paid
+    - No card for staging; production requires a card according to the pricing FAQ
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: always-free
   hasHardCap: false
-  overageRisk: low
+  overageRisk: medium
 useCases:
   - Hosted login and sign-up with AuthKit
   - Enterprise SSO for each business customer
@@ -76,8 +76,8 @@ avoidIf:
   - no enterprise customers
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: '2026-10-09'
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://workos.com/'
@@ -88,6 +88,10 @@ sourceUrls:
   - 'https://workos.com/docs'
   - 'https://workos.com/docs/authkit/vanilla/nodejs'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Scoped no-card access to staging and reflected production card and paid usage exposure.
 ---
 You add WorkOS to your app with an SDK, send users to the hosted AuthKit login, and manage settings in the WorkOS Dashboard. It suits B2B teams that want login now and enterprise features later.
 
@@ -105,7 +109,7 @@ The costs you are more likely to meet are connections. Enterprise SSO starts at 
 
 ## Gotchas
 
-- The free tier covers User Management only. SSO and Directory Sync connections are billed per connection.
+- Free User Management includes social auth, MFA and RBAC; enterprise SSO and Directory Sync connections are separately billed.
 - Staging is for testing and production is for live apps. The pricing page says you need a credit card only once you are ready to move to production.
 - Radar has a free amount, then costs $100 per month for each 50k checks.
 

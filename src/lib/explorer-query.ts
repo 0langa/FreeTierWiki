@@ -112,8 +112,8 @@ export function matches(item: ListItem, query: ExplorerQuery, ignore?: Facet): b
   if (ignore !== "risks" && query.risks.length > 0 && !query.risks.includes(item.risk)) return false;
   if (ignore !== "plans" && query.plans.length > 0 && !query.plans.includes(item.plan)) return false;
   if (ignore !== "ready" && query.ready.length > 0 && !query.ready.includes(item.ready)) return false;
-  if (query.noCard && item.card) return false;
-  if (query.hardCap && !item.cap) return false;
+  if (query.noCard && item.card !== false) return false;
+  if (query.hardCap && item.cap !== true) return false;
   if (query.recent && item.freshness.state !== "checked") return false;
   const words = query.q.toLowerCase().split(/\s+/).filter(Boolean);
   return words.every((word) => item.haystack.includes(word));

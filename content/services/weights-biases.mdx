@@ -32,15 +32,17 @@ freeTierDetails:
     - 1 GB/mo Weave data ingestion
     - Community support
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - No free self-hosted plan is listed; W&B Self-Managed needs a server license
     - The Free plan is for personal use; teams, access controls, and service accounts need Pro
     - A separate academic license includes 200 GB storage, up to 100 seats, and up to 25 GB/month Weave ingestion
     - Academic eligibility requires research unrelated to a for-profit entity and an active academic email address
     - Inference and sandboxes are priced separately and billed monthly
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - 'Tracking training runs and hyperparameters'
@@ -68,16 +70,22 @@ avoidIf:
   - 'you need more than 5 GB of storage on a free plan'
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Corrected storage accounting and made separately metered inference and sandbox charges explicit."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: 2026-10-08
     kind: changed
     note: "Pricing moved to coreweave.com/forge-pricing (CoreWeave Forge); the localized page no longer lists a free self-hosted Personal plan."
   - date: 2026-10-06
     kind: changed
     note: Confirmed academic limits and eligibility; qualified the free self-hosted Personal offer because current availability remains unverified.
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://wandb.ai'
@@ -97,7 +105,7 @@ You use it through the Python library, the web dashboard, and a command line log
 
 The Free plan costs $0 per month and is meant for personal development of AI applications and models. It allows up to 5 model seats, 5 GB per month of storage, and 1 GB per month of Weave data ingestion. Weave is the part of the platform that traces and evaluates LLM apps.
 
-Teams, team-based access controls, and service accounts need the Pro plan. Pro starts at $60 per month, billed monthly, and has a 30-day free trial. It gives 100 GB per month of storage and 1.5 GB per month of Weave ingestion.
+Teams, team-based access controls, and service accounts need the Pro plan. Pro starts at $60 monthly with a 30-day trial.
 
 Academics can apply for a free Pro license. It includes 200GB of storage, up to 25GB per month of Weave ingestion, and up to 100 seats. The work must be unrelated to a for-profit entity, and you need an active academic email address.
 
@@ -105,12 +113,12 @@ Academics can apply for a free Pro license. It includes 200GB of storage, up to 
 
 The pricing page does not say what happens when a Free account passes 5 GB of storage or 1 GB of Weave ingestion. It lists overage prices only for paid plans: extra storage on Pro costs $0.03 per GB, and extra Weave ingestion costs $0.10 per MB.
 
-The Free plan lists no overage price, and the pages do not mention a credit card. Check your usage before large jobs.
+Free overage enforcement and card requirements are unpublished. Inference and sandboxes are separate metered services billed monthly, even in the Free column; check usage before large jobs.
 
 ## Gotchas
 
 - Pricing now lives on CoreWeave Forge pages, and the docs link to CoreWeave. The product name Weights & Biases still appears on the platform.
-- Only metadata stored in the service counts toward storage. Reference artifacts kept in your own bucket do not count.
+- Storage includes artifacts and data logged to runs. For reference artifacts in your own bucket, only metadata stored in Forge counts.
 - Storage is averaged over the last 30 days, so a short spike counts less than steady use.
 
 ## Alternatives in this atlas

@@ -31,17 +31,19 @@ freeTierDetails:
     - 100 build minutes/month (general1.small or arm1.small EC2)
     - '6,000 build seconds/month (Lambda compute)'
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Reserved Capacity EC2, Sandbox, and the Docker image server are not
       included in the free tier.
     - Free tier does not expire after the standard 12-month AWS Free Tier term.
     - The Lambda free tier covers only the lambda.arm.1GB and lambda.x86-64.1GB compute types.
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - Usage beyond free tier incurs charges
 useCases:
   - Compile code and run unit tests on every change
@@ -71,8 +73,8 @@ avoidIf:
   - you need Reserved Capacity or Sandbox for free
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codebuild/'
@@ -86,6 +88,9 @@ pricingUrl: 'https://aws.amazon.com/codebuild/pricing/'
 featured: false
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped billing to account plans and optional project controls; corrected Free expiry to suspension with 90-day recovery."
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -100,7 +105,7 @@ The free tier does not automatically expire at the end of the 12-month AWS Free 
 
 ## When you hit a limit
 
-CodeBuild uses pay-as-you-go pricing with no upfront costs or minimum fees. You pay for build duration at a rate that depends on the compute type. After the free minutes are used up, builds keep running and you are billed for the rest.
+CodeBuild uses pay-as-you-go pricing with no upfront costs or minimum fees. You pay for build duration at a rate that depends on the compute type. After service-free minutes, Free accounts consume credits; Paid accounts incur usage charges, subject to optional project controls.
 
 The pricing page gives an example. If you run 100 builds of 5 minutes each on build.general1.small, that is 500 build minutes. Minus the 100 free minutes, 400 minutes are billable, which comes to $2.
 

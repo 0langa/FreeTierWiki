@@ -32,16 +32,17 @@ freeTierDetails:
     - A quarter of a CPU
     - 3 days of backups
   caveats:
-    - The plan is described as for personal needs
+    - Free cannot be used for profit; websites are restricted to the account alwaysdata.net address
+    - Free cannot run standalone services; own-domain email is separate from website hosting
     - The public cloud is shared with hundreds of other users
-    - The pricing page does not say what happens when the disk is full
+    - Card requirements and exact disk/CPU/memory exhaustion behavior are not explicitly documented
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - The Free plan is a fixed plan; paid resources start only when you subscribe to Plus
+    - No metered overage policy is published for Free; do not infer automatic expansion or a guaranteed spending stop
 useCases:
   - A personal website or blog with a small database
   - Hosting a small web app with its database
@@ -49,7 +50,7 @@ useCases:
 quickstartSteps:
   - Register for the Free offer from the alwaysdata pricing page.
   - Create your site, database, and mailboxes, keeping them within the 1 GB of disk.
-  - Open the site at its alwaysdata.net address or point your own domain at it.
+  - Open your website at the account alwaysdata.net address; Free does not permit custom website domains.
 whenToUse: >-
   Use Alwaysdata when you want classic managed hosting with sites, databases,
   and email in one account and can live inside 1 GB of disk.
@@ -64,59 +65,63 @@ avoidIf:
   - business-critical workloads
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.alwaysdata.com/en/'
 docsUrl: 'https://help.alwaysdata.com/en/'
 sourceUrls:
+  - 'https://help.alwaysdata.com/en/docs/admin-billing/billing/payment-methods/'
+  - 'https://help.alwaysdata.com/en/docs/admin-billing/billing/public-cloud-prices/'
   - 'https://www.alwaysdata.com/en/pricing/'
   - 'https://help.alwaysdata.com/en/docs/admin-billing/billing/choose-its-paas/'
 pricingUrl: 'https://www.alwaysdata.com/en/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added detailed Free eligibility and website-domain restrictions, corrected Plus billing cadence, and qualified unpublished card and quota behavior."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
 ---
-
-Alwaysdata is a hosting company that runs a managed public cloud for websites, applications, databases, and email. Alwaysdata runs the servers, and you manage sites and services from your account. It suits students and hobby developers who want a traditional host with a free plan that does not expire.
+Alwaysdata runs a managed public cloud for websites, databases, and email. You manage these through its administration interface while Alwaysdata maintains the servers. Free is intended for personal projects, with stricter eligibility and website-address rules than the general hosting service.
 
 ## What the free plan gives you
 
-The Free offer costs 0 € a month and is described as for personal needs, ad-free, and available for life. It includes 1 GB of SSD disk space, 256 MB of RAM, and a quarter of a CPU, and the page says the CPU allowance also lasts for life. You get 3 days of backups.
+Free costs €0 monthly, is ad-free, and is described as available for life. It includes 1 GB of SSD disk, 256 MB of RAM, a quarter CPU, and three rolling days of backups. Disk usage includes files, mail, and databases together.
 
-You can use email on your own domain names, and each account gets an alwaysdata.net address for its sites. The help pages say that on all offers you can have unlimited sites, domains, databases, and email addresses, so the real limit on the Free plan is the disk, memory, and CPU share. Free and Plus accounts run on the public cloud, where one hosting account is spread over servers that host hundreds of users.
+The detailed pricing guide says Free cannot be used for profit. Websites are limited to the account's alwaysdata.net address, and Free cannot run standalone services. The main pricing page separately advertises email on your own domains; that does not grant custom domains for websites. General hosting offers allow multiple sites, domains, databases, and email addresses within resource limits, but those general features do not override Free restrictions.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you fill the 1 GB of disk or use more than the memory and CPU share. The Free plan has no metered usage, so you are not billed for going over it.
+The reviewed pages do not specify exact behavior when Free disk, CPU, or memory is exhausted, or explicitly establish its signup card requirement. A fixed allowance is not proof that service expands automatically or that over-limit requests always stop without consequences.
 
-To get more room you move to Plus, which starts from 5 € a month excluding VAT with 50 GB of disk and up to 8 GB of RAM, and has 30 days free. The help pages say that moving to a higher offer is free of charge from the Subscriptions menu.
+For more capacity, the smallest Plus plan has 50 GB disk and 1 GB RAM. Its €5 monthly equivalent requires annual payment; monthly payment is €6, excluding VAT. Larger Plus plans offer more resources. Changing configuration through Subscriptions has no migration charge; the new paid subscription still costs money.
 
 ## Gotchas
 
-- The page labels the Free plan for personal needs, so check the terms before you host a business site on it.
-- Only 3 days of backups are kept, so keep your own copy of anything you cannot rebuild.
-- The help pages list a 99.7% availability rate for the public cloud, lower than the dedicated Max offers.
+- Free cannot be used for profit, and custom website domains are unavailable. Email on your own domain is a separately advertised feature.
+- Only three days of backups are retained, so keep an independent copy of important data.
+- The public cloud is shared with hundreds of users. Its documented availability rate is 99.7%, below dedicated offers.
 
 ## Alternatives in this atlas
 
-- [Render](/services/render/): when you want git-based deploys for web services and static sites.
-- [Koyeb](/services/koyeb/): when you want to deploy containers or code from a repository to a managed platform.
-- [Netlify](/services/netlify/): when your site is static and you do not need email or a server-side database.
+- [Render](/services/render/): when you want repository-based web deploys and static sites.
+- [Koyeb](/services/koyeb/): when you want container or code deployments on a managed platform.
+- [Netlify](/services/netlify/): when your site is static and needs no database or mailbox.
 
 ## Questions people ask
 
-### Is Alwaysdata really free forever?
+### Is Alwaysdata free forever?
 
-The pricing page calls the Free offer ad-free and available for life, at 0 € a month.
+Its Free offer is advertised as available for life at €0. It is restricted to non-profit personal use and the account website address.
 
-### How much disk and memory does the Free plan include?
+### How much disk and memory does Free include?
 
-It includes 1 GB of SSD disk space and 256 MB of RAM, with a quarter of a CPU.
+It includes 1 GB SSD, 256 MB RAM, and a quarter CPU. Files, email, and databases share the disk quota.
 
-### Can I host email on the Free plan?
+### Can I use my own domain on Free?
 
-Yes. The Free plan includes email on your own domain names, plus an alwaysdata.net address for your sites.
+The main page advertises own-domain email, but the detailed guide restricts websites to the account's alwaysdata.net address. Do not assume the email feature permits custom website domains.

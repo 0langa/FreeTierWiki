@@ -23,22 +23,28 @@ tags:
 pricingModel: trial
 freeTierDetails:
   summary: >-
-    No free plan. The Standard and Business plans each offer a 14-day trial;
-    Standard is $7 per user per month and includes 100 phone and SMS alerts a
-    month.
+    No free plan. The Standard and Business plans each offer a 14-day trial; Standard is $7 per user
+    per month and includes 100 phone and SMS alerts a month.
   limits:
     - 14-day trial of Standard or Business
     - Standard includes 100 alerts a month shared across phone and SMS
     - Standard includes 1 on-call schedule for 1 person
   caveats:
     - There is no permanent free plan on the pricing page
-    - The pricing page does not say whether the trial needs a card
     - Annual billing is listed with 1 month free
+    - >-
+      Homepage explicitly says the 14-day trial requires no card; end-of-trial access is not
+      explained.
   resetPeriod: none
   requiresCard: false
   freeTierType: trial
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
+  billingRiskNotes:
+    - >-
+      Standard phone/SMS alerts pause at the shared 100/month allowance, with email notification;
+      trial end behavior remains unpublished.
+    - Standard paid alert limits do not establish exactly how trial expiration is enforced.
 useCases:
   - Phone and SMS alerts for a small on-call team
   - Routing monitoring alerts to WhatsApp or Telegram
@@ -60,22 +66,25 @@ avoidIf:
   - zero budget after the trial
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 3
 usefulnessScore: 5
 officialUrl: 'https://spike.sh/'
 docsUrl: 'https://docs.spike.sh/'
 sourceUrls:
-  - 'https://spike.sh/pricing'
+  - https://spike.sh/pricing
+  - https://spike.sh/
 pricingUrl: 'https://spike.sh/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added the published phone/SMS pause and email rule and verified the no-card trial.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
 ---
-
 Spike.sh is an on-call and alerting service. Monitoring tools send it alerts, and it creates incidents, escalates them, and notifies the person on call by phone, SMS, WhatsApp, Telegram, Slack, or Microsoft Teams. It also has a status page. It suits small teams that want straightforward on-call without a large platform.
 
 ## What the free plan gives you
@@ -86,7 +95,9 @@ Business costs $14 per user per month and adds unlimited phone and SMS alerts, u
 
 ## When you hit a limit
 
-The pricing page does not say what happens when the 14-day trial ends or when Standard's 100 phone and SMS alerts are used up in a month. Standard also limits incoming calls to the on-call member through live call routing to 5 a month, and API requests to the number of users times 1000 a month. Business lists these as unlimited.
+Standard phone calls and SMS share 100 alerts per month. The pricing FAQ says further phone and SMS alerts pause after that allowance is exhausted, and Spike sends an email notification. Slack, Teams, WhatsApp, Telegram, email and Discord alerts remain unlimited. Business lists unlimited phone and SMS alerts.
+
+The homepage explicitly says the 14-day trial needs no card. The public pages do not explain end-of-trial access. Standard also limits incoming live-routed calls to 5 monthly and API requests to the user count multiplied by 1,000 monthly.
 
 ## Gotchas
 

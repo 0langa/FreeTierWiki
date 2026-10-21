@@ -32,11 +32,16 @@ freeTierDetails:
     - Test messages are deleted a few hours after they arrive
     - Messages sent to any address at dkimvalidator.com are accepted
   caveats:
+    - >-
+      Enforcement of the listed free allowance is not confirmed in the cited
+      public sources
     - Manual web interface only; the pages mention no API
-    - The page runs the tests again each time you load it, so you can change DNS and recheck the same message
+    - >-
+      The page runs the tests again each time you load it, so you can change DNS
+      and recheck the same message
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Checking that outgoing mail passes DKIM after a DNS change
@@ -45,14 +50,20 @@ useCases:
   - Debugging why a mail service signs messages in an unexpected way
 quickstartSteps:
   - Open dkimvalidator.com.
-  - Copy the random address shown on the page, or use any address at dkimvalidator.com.
+  - >-
+    Copy the random address shown on the page, or use any address at
+    dkimvalidator.com.
   - Send a test email to that address from the mail system you want to check.
-  - Reload the results page to see the DKIM, SPF, and SpamAssassin results for your message.
-  - If DKIM or SPF fails, change your DNS records and reload the page to test the same message again.
+  - >-
+    Reload the results page to see the DKIM, SPF, and SpamAssassin results for
+    your message.
+  - >-
+    If DKIM or SPF fails, change your DNS records and reload the page to test
+    the same message again.
 whenToUse: >-
   Use it to test the real end-to-end DKIM and SPF setup of your mail, because
-  the test message travels through ordinary mail servers, and you can recheck
-  it after each DNS change.
+  the test message travels through ordinary mail servers, and you can recheck it
+  after each DNS change.
 whenNotToUse: >-
   Avoid it if you need an API, bulk checks, or a record that you can keep, since
   messages are deleted a few hours after they arrive.
@@ -66,7 +77,7 @@ avoidIf:
   - you need to test many messages in bulk
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21T00:00:00.000Z
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://dkimvalidator.com/'
@@ -76,8 +87,14 @@ sourceUrls:
   - 'https://dkimvalidator.com/what-is-dkim'
   - 'https://dkimvalidator.com/setting-up-dkim'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: '2026-10-21'
 pricingUrl: 'https://dkimvalidator.com/'
+changes:
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: >-
+      Aligned limit enforcement flags with the scope and uncertainty of the
+      cited policy evidence.
 ---
 You use it in a browser and with your own mail system. You send one email to an address at dkimvalidator.com, then open the page to read the results. It suits mail admins and developers who set up DKIM or SPF.
 

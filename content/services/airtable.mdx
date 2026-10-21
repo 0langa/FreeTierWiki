@@ -27,7 +27,7 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     The Free plan includes unlimited bases with 1,000 records and 1 GB of
-    attachments per base, up to 5 editors in one workspace, 100 automation runs
+    attachments per base, up to 5 editors per workspace, 100 automation runs
     and 1,000 API calls per month.
   limits:
     - 1,000 records per base
@@ -37,16 +37,16 @@ freeTierDetails:
     - 1,000 API calls per month
     - 2-week revision and snapshot history
   caveats:
-    - One workspace on the Free plan
+    - Plans are per workspace; an account can have multiple Free workspaces
     - At the record or attachment limit you cannot add more until you upgrade
-    - Automations and API calls are capped at the plan limit
+    - API overages get a one-time 30-day grace period before monthly blocking
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: medium
   billingRiskNotes:
-    - Paid plans are charged per seat for every user with edit permissions
+    - Adding a payment method during the initial Team trial automatically upgrades and bills that workspace; Team also bills commenters
 useCases:
   - A shared table of content, leads, or inventory with a form in front of it
   - A small backend for a prototype read through the REST API
@@ -69,17 +69,22 @@ avoidIf:
   - bases past a thousand records
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://www.airtable.com/'
 docsUrl: 'https://airtable.com/developers/web/api/introduction'
 sourceUrls:
   - 'https://airtable.com/pricing'
+  - 'https://support.airtable.com/articles/2277136852-airtable-plans-overview'
+  - 'https://support.airtable.com/articles/7735693959-Managing-API-call-limits-in-Airtable'
 pricingUrl: 'https://airtable.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed one-workspace limit; corrected API grace period, Team commenter billing and trial payment-triggered conversion."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -97,13 +102,13 @@ Each month the Free plan includes 100 automation runs and 1,000 API calls. Revis
 
 Airtable answers this on its pricing page. If you reach or go over the record or attachment limits, you can still use your bases and Airtable never removes your data. Airtable notifies you, and you cannot add more records or attachments until you upgrade.
 
-For automations and API calls, you are capped at the usage limit of your plan. There is no overage bill on the Free plan; the next step is the Team plan at $20 per seat per month billed annually, or $24 billed monthly.
+Automation runs are capped. API calls have a one-time 30-day grace period when the workspace first exceeds its monthly allowance; after that, calls above the limit are blocked until the next calendar month. Team costs $20 per seat per month billed annually, or $24 billed monthly. Adding a payment method during the initial 14-day Team trial automatically upgrades and bills the workspace.
 
 ## Gotchas
 
 - The record limit is per base, so splitting data across bases keeps you under it but breaks links between tables.
 - 1,000 API calls a month is far too few for an app that reads Airtable on every page view.
-- On paid plans every user with edit permissions on any base in the workspace becomes a billed seat.
+- Team bills collaborators with Commenter permissions or higher; Business billing starts at Editor. Workspaces have separate plans.
 
 ## Alternatives in this atlas
 
@@ -123,4 +128,4 @@ You keep full access and your data stays. You cannot add more records until you 
 
 ### Can I use the Airtable API on the Free plan?
 
-Yes, with 1,000 API calls per month. When you reach that, API use is capped until the next month or an upgrade.
+Yes, with 1,000 API calls per workspace per month. Exceeding the quota starts a one-time 30-day grace period; later over-limit calls are blocked until the monthly reset or an upgrade.

@@ -38,7 +38,8 @@ freeTierDetails:
     - 'Only us-west1 (Oregon), us-central1 (Iowa), or us-east1 (South Carolina)'
     - Free amount is by time, not by instance (hours equal to the hours in the month)
     - GPUs and TPUs are never included in the Free Tier
-    - A Cloud Billing account is required to use the Free Tier
+    - A Cloud Billing account and valid payment method are required for signup
+    - External IPv4 addresses are billed separately from the free VM grant
     - Google can change or remove Free Tier limits with 30 days' advance notice
   resetPeriod: monthly
   requiresCard: true
@@ -74,18 +75,23 @@ avoidIf:
   - regions outside the three US regions
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-13
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://cloud.google.com/compute'
 docsUrl: 'https://cloud.google.com/compute/docs'
 pricingUrl: 'https://cloud.google.com/free/docs/free-cloud-features'
 sourceUrls:
+  - "https://cloud.google.com/vpc/network-pricing"
   - 'https://cloud.google.com/free/docs/free-cloud-features'
   - 'https://cloud.google.com/compute/docs?hl=en'
   - 'https://cloud.google.com/compute/docs/instances/create-start-instance?hl=en'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified initial trial expiry and separate IPv4 charges alongside the ongoing VM allowance."
 ---
 You create the VM on the Create an instance page of the Google Cloud console, or with the gcloud compute instances create command. After that you connect to it like any Linux server. It suits learners and hobbyists who want one small always-on machine for tests, bots, or a personal project.
 
@@ -99,7 +105,7 @@ You also get 1 GB of outbound data transfer from North America to all region des
 
 Google bills anything past the free amounts at standard rates. That includes a second instance running at the same time, a different machine type, a region outside the three listed, extra disk, and extra outbound data. GPUs and TPUs are never part of the Free Tier, so you are always charged for them.
 
-The Free Tier page says there is no cost while you stay within the monthly limits. It also says a Paid billing account is billed for overage, and a Free Trial account uses its $300 welcome credit.
+A Paid billing account is billed for overage; a Free Trial account uses its $300 welcome credit and stops when that credit or its 90-day term ends unless you upgrade. External IPv4 addresses have separate pricing and are not included in the VM grant.
 
 ## Gotchas
 
@@ -121,7 +127,7 @@ Yes, 1 non-preemptible e2-micro VM instance per month in Oregon, Iowa, or South 
 
 ### Does the Google Cloud free VM need a credit card?
 
-You need a Cloud Billing account to use the Free Tier. New customers can start a Free Trial with $300 in credit to get one.
+Signup needs a Cloud Billing account and a valid credit card or another accepted payment method. A Free Trial includes $300 for 90 days; continued service requires a paid billing account.
 
 ### What happens when I go over the e2-micro free limit?
 

@@ -26,23 +26,31 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 10,000 API credits per month with browser rendering and
-    proxy rotation, no credit card required.
+    Free tier includes 10,000 API credits per month with browser rendering and proxy rotation, no
+    credit card required.
   limits:
     - 10,000 credits/month
     - Browser rendering included
     - Proxy rotation included
-    - No concurrency cap on any plan
+    - One active Free request in API docs; homepage claims unlimited
   caveats:
     - No credit card required; payment details are asked only if you upgrade
-    - A default request (Chrome rendering, standard proxies) costs 10 credits; most requests cost 1 to 25 credits
+    - Default browser/datacenter request costs 10 credits; documented base costs reach 125 credits.
     - Failed requests cost nothing
     - Residential and datacenter proxy plans are billed separately by bandwidth
+    - >-
+      Homepage promises unlimited concurrency, but API docs limit Free to one active request and
+      document HTTP 409.
+    - >-
+      Browser rendering with residential proxies costs 125 credits; AI extraction adds text-based
+      credits.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
+  billingRiskNotes:
+    - Credit exhaustion returns HTTP 403; payment details are entered only when upgrading.
 useCases:
   - Scraping JavaScript-heavy pages that need a real browser
   - Monitoring competitor prices
@@ -52,7 +60,9 @@ useCases:
 quickstartSteps:
   - Sign up for a free ScrapingAnt account; no credit card is needed.
   - Copy your API key from the dashboard, where a request generator also builds test requests.
-  - Send a GET request to `https://api.scrapingant.com/v2/general` with a urlencoded `url` parameter and your key in the `x-api-key` header or query parameter.
+  - >-
+    Send a GET request to `https://api.scrapingant.com/v2/general` with a urlencoded `url` parameter
+    and your key in the `x-api-key` header or query parameter.
   - Add options to the request, such as `proxy_country`, `wait_for_selector`, or `js_snippet`.
   - Read the API credits cost page in the docs to see what each option costs before you scale up.
 whenToUse: >-
@@ -72,32 +82,40 @@ avoidIf:
   - you want a point-and-click tool with no code
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://scrapingant.com/'
 docsUrl: 'https://docs.scrapingant.com/'
 sourceUrls:
-  - 'https://scrapingant.com/'
-  - 'https://docs.scrapingant.com/'
-  - 'https://docs.scrapingant.com/request-response-format'
+  - https://scrapingant.com/
+  - https://docs.scrapingant.com/
+  - https://docs.scrapingant.com/request-response-format
+  - https://docs.scrapingant.com/errors
+  - https://docs.scrapingant.com/credits-cost
 pricingUrl: 'https://scrapingant.com/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Documented quota errors, the Free concurrency contradiction and request costs up to 125
+      credits.
 ---
 You call one HTTP endpoint with an API key, from cURL, Python, Node, or any client. An MCP server also lets AI coding agents fetch pages through the same credits. It suits developers who want a rendered page without running their own browsers.
 
 ## What the free plan gives you
 
-The free plan gives you 10,000 API credits every month and needs no credit card. Browser rendering and proxy rotation are included. ScrapingAnt says there is no concurrency cap on any plan.
+The free plan gives you 10,000 API credits every month and needs no credit card. Browser rendering and proxy rotation are included. The homepage says concurrency is unlimited, but API docs limit Free to one active request.
 
-Credits are what you spend. Most requests cost between 1 and 25 credits, depending on the options you switch on, such as proxy type and JavaScript rendering. The default request uses Chrome rendering with standard proxies and costs 10 credits. At that rate the free credits cover about 1,000 default requests. ScrapingAnt says you pay only for successful scrapes, and failed requests cost 0.
+Credits are what you spend. Documented base scrape costs range from 1 to 125 credits, depending on browser and proxy options. The default request uses Chrome rendering with standard proxies and costs 10 credits. At that rate the free credits cover about 1,000 default requests. ScrapingAnt says you pay only for successful scrapes, and failed requests cost 0.
 
 ## When you hit a limit
 
-The pricing section does not say what happens when the free credits run out. It does say you can restart your plan mid-month, and credits refresh the moment you pay, so scraping never has to stop. You only enter payment details if you upgrade, so a free account has no card to charge.
+The API error guide documents HTTP 403 when credits are exhausted. Pause requests until credits are available again or choose a paid plan. The homepage says payment details are entered only when upgrading. Unused credits do not roll over.
 
-The first paid plan gives 100,000 credits a month for $19 a month. Proxy plans are separate and are billed by the gigabyte, not with API credits.
+The homepage advertises no concurrency cap on any plan, but the API docs explicitly allow one active Free request and return HTTP 409 for overlap. Queue requests sequentially until the provider clarifies this contradiction. Paid plans are documented as having no concurrency cap.
 
 ## Gotchas
 
@@ -119,7 +137,7 @@ Yes. The free plan includes 10,000 API credits every month with no credit card. 
 
 ### How many requests do the ScrapingAnt free credits cover?
 
-It depends on the options. A default request costs 10 credits, and most requests cost between 1 and 25 credits.
+It depends on the options. A default request costs 10 credits, covering about 1,000 requests a month. Base scrape costs range from 1 to 125 credits, with extra credits for AI extraction.
 
 ### Does ScrapingAnt need a credit card?
 

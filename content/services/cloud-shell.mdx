@@ -37,6 +37,7 @@ freeTierDetails:
     - The virtual machine ends after 40 minutes of inactivity, and changes outside the home directory are lost
     - The home directory is deleted after 120 days without access
     - Interactive use only; the weekly quota blocks use until it resets
+    - Users must be 18 or older with a known age; Education accounts may block access
   resetPeriod: weekly
   requiresCard: false
   freeTierType: always-free
@@ -70,19 +71,23 @@ avoidIf:
   - you need more than 5 GB of home storage
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/shell'
 docsUrl: 'https://cloud.google.com/shell/docs'
 pricingUrl: 'https://cloud.google.com/shell/pricing'
 sourceUrls:
+  - "https://cloud.google.com/shell/docs/using-cloud-shell?hl=en"
+  - "https://cloud.google.com/shell/docs/quotas-limits?hl=en"
   - 'https://cloud.google.com/shell/pricing'
-  - 'https://cloud.google.com/shell/docs/quotas-limits?hl=en'
-  - 'https://cloud.google.com/shell/docs/using-cloud-shell?hl=en'
   - 'https://cloud.google.com/shell'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added Cloud Shell age eligibility and distinguished shell access from billed resources created through it."
 ---
 You use Cloud Shell from the Google Cloud console in a browser tab. You type commands in a terminal, and it suits anyone who manages Google Cloud and wants no local install.
 
@@ -90,13 +95,13 @@ You use Cloud Shell from the Google Cloud console in a browser tab. You type com
 
 The pricing page says Cloud Shell is free for users with a Google Cloud account. The default weekly quota is 50 hours. You can see the hours left and the reset time in Session information, under Usage quota.
 
-Each user gets 5 GB of persistent disk storage, mounted as the home directory. Files there, such as `.bashrc` and `.vimrc`, stay between sessions. Sessions end after 12 hours, and you can start a new one right away. The product page says the virtual machine lets you edit files, work with repositories, and preview web apps.
+Each user gets 5 GB of persistent disk storage, mounted as the home directory. Files there, such as `.bashrc` and `.vimrc`, stay between sessions. Sessions end after 12 hours, and you can start a new one right away. You can edit files, work with repositories and preview web apps. Users must be 18 or older with a known age; Workspace for Education blocks access by default.
 
 ## When you hit a limit
 
 At the weekly quota, you wait until the reset date and time before you can use Cloud Shell again. Google also offers an upgrade to Cloud Workstations, which has no weekly limit.
 
-Idle sessions do not run forever. The virtual machine ends after 40 minutes of inactivity, and changes outside the home directory are lost. Non-interactive sessions end after 40 minutes. The pricing page lists no charge for Cloud Shell, and the quota page says only that you wait or upgrade to Cloud Workstations.
+Idle sessions do not run forever. The virtual machine ends after 40 minutes of inactivity, and changes outside the home directory are lost. Non-interactive sessions end after 40 minutes. Cloud Shell itself has no charge. Resources you create or operate with its commands can have their own Google Cloud charges.
 
 ## Gotchas
 

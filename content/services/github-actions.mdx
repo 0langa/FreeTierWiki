@@ -78,19 +78,24 @@ avoidIf:
   - you need larger runners at no cost
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://github.com/features/actions'
 docsUrl: 'https://docs.github.com/en/actions'
 sourceUrls:
+  - 'https://docs.github.com/en/billing/reference/product-usage-included'
   - 'https://github.com/pricing'
   - 'https://github.com/features/actions'
   - 'https://docs.github.com/en/billing/concepts/product-billing/github-actions'
   - 'https://docs.github.com/en/actions/get-started/quickstart'
 pricingUrl: 'https://github.com/pricing'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added optional budget stops and cache overage opt-in while retaining no-payment-method blocking.
 ---
 You write workflows as YAML files in your repository and watch runs in the Actions tab. GitHub offers workflow templates, and the web interface is enough to start. It suits anyone who keeps code on GitHub.
 
@@ -98,15 +103,15 @@ You write workflows as YAML files in your repository and watch runs in the Actio
 
 Using standard GitHub-hosted runners in public repositories is free. Self-hosted runners are free too. For private repositories, the GitHub Free plan includes 2,000 minutes per month, 500 MB of artifact storage, and 10 GB of Actions cache per repository.
 
-GitHub Pro raises the minutes to 3,000 and the storage to 1 GB. The artifact storage is shared with GitHub Packages, so both together cannot pass the included amount. Cache storage is a separate allowance.
+GitHub Pro raises the minutes to 3,000 and the storage to 1 GB. The artifact storage is shared with GitHub Packages, so both together cannot pass the included amount. Cache storage is separate; raising its repository limit above 10 GB enables paid excess storage.
 
-Your minutes reset at the start of each month. Minutes are charged to the repository owner, not to the person who triggered the run.
+Your minutes reset with the monthly billing cycle. Minutes are charged to the repository owner, not to the person who triggered the run.
 
 ## When you hit a limit
 
 If your account has no valid payment method, usage is blocked once you use up the quota. Larger runners are blocked until you add a payment method.
 
-With a payment method on file, usage above the quota is billed to your account. Linux minutes cost less than Windows and macOS minutes. A failed run still uses the minutes it ran, and a re-run uses more. Deleting artifacts lowers your current storage, but the storage already accrued in the month stays on the bill.
+With a payment method, extra usage is billed unless a configured stop-usage budget blocks it. Windows and macOS cost more than Linux. A failed run still uses the minutes it ran, and a re-run uses more. Deleting artifacts lowers your current storage, but the storage already accrued in the month stays on the bill.
 
 ## Gotchas
 

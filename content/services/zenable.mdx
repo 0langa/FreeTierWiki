@@ -22,22 +22,35 @@ tags:
   - policy-as-code
 pricingModel: freemium
 freeTierDetails:
-  summary: "Free plan gives 5,000 Zenable Credits per seat per week for AI code reviews, plus API access, at no cost."
+  summary: >-
+    Free plan gives 5,000 Zenable Credits per seat per week for AI code reviews, plus API access, at
+    no cost.
   limits:
-    - '5,000 Zenable Credits/seat/week'
-    - 10-25 credits per AI-reviewed file
+    - 5,000 Zenable Credits/seat/week
+    - 'Managed models: 10–25 credits per standard file; jumbo files cost more'
     - Deterministic guardrails and static checks do not use credits
-    - 150 files per pull request, 300,000 characters per file
+    - 150 files per pull request, 300,000 characters for combined file content and diff
   caveats:
     - No credit card required to start
-    - Custom guardrails for AI IDEs, PR guardrails with custom requirements, and team management are Professional features
-    - Professional has 200,000 credits/seat/week and costs $99/user/month billed annually, with a 14 day free trial
+    - >-
+      Custom guardrails for AI IDEs, PR guardrails with custom requirements, and team management are
+      Professional features
+    - >-
+      Professional has 200,000 credits/seat/week and costs $99/user/month billed annually, with a 14
+      day free trial
     - Free accounts can use read tools in the chat and MCP server but not write tools
+    - >-
+      BYOK uses 1–3 Zenable credits per standard file plus separate provider API charges; jumbo
+      multipliers apply.
   resetPeriod: weekly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
+  billingRiskNotes:
+    - >-
+      Managed Free credits pause when exhausted; BYOK separately uses paid model-provider APIs.
+      Deterministic checks are subject to capacity and abuse limits.
 useCases:
   - Getting an automated review on GitHub or GitLab pull requests
   - Running guardrail checks that need no AI credits
@@ -45,10 +58,16 @@ useCases:
   - Calling Zenable from scripts through the API
 quickstartSteps:
   - Sign up at zenable.app. Docs say the Free plan needs no credit card.
-  - Install the Zenable CLI, then run `zenable install` to add the integration to your IDE, such as Cursor, Claude Code, or VS Code.
+  - >-
+    Install the Zenable CLI, then run `zenable install` to add the integration to your IDE, such as
+    Cursor, Claude Code, or VS Code.
   - Set up GitHub or GitLab code reviews so Zenable reviews new pull requests.
-  - Link your GitHub or GitLab account to your Zenable user under Settings, then User Management. On the Free plan, reviews do not run until you do.
-  - Open a pull request and read the review. Optionally add requirements or guardrails at zenable.app.
+  - >-
+    Link your GitHub or GitLab account to your Zenable user under Settings, then User Management. On
+    the Free plan, reviews do not run until you do.
+  - >-
+    Open a pull request and read the review. Free chat/MCP write tools are unavailable without a
+    Professional plan or active trial.
 whenToUse: >-
   Use Zenable when an individual developer or a small team wants AI review on
   pull requests and does not need custom rules or team management.
@@ -65,18 +84,25 @@ avoidIf:
   - you need more than 5,000 credits per seat per week
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: https://zenable.io
 docsUrl: https://docs.zenable.io
 sourceUrls:
-  - 'https://zenable.io/pricing'
-  - 'https://docs.zenable.io'
-  - 'https://docs.zenable.io/plans-and-usage'
+  - https://zenable.io/pricing
+  - https://docs.zenable.io
+  - https://docs.zenable.io/plans-and-usage
+  - https://docs.zenable.io/plans-and-usage.md
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://zenable.io/pricing'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Corrected jumbo-file/BYOK pricing and triggering-user attribution; separated model-provider
+      API costs.
 ---
 You install the Zenable CLI to add checks to your IDE, and you connect GitHub or GitLab for pull request reviews. A web console at zenable.app holds your requirements. It suits individual developers who want AI review on their pull requests.
 
@@ -84,15 +110,15 @@ You install the Zenable CLI to add checks to your IDE, and you connect GitHub or
 
 The Free plan includes 2-click setup, automated PR summaries, documentation, and API access. It gives 5,000 Zenable Credits per seat per week. Credits pay for AI reviews of pull requests, agent code reviews through the CLI, MCP server, or API, and chat tools.
 
-An AI review costs 10 credits per file with the standard model and 25 credits with the premium model. Guardrails and static checks cost no credits and are unlimited on every plan. A pull request can have up to 150 files, and the largest reviewable file is 300,000 characters.
+For files up to 30,000 characters, managed reviews cost 10 credits for Decision/Fast or 25 for Premium. Jumbo files cost twice their 30,000-character chunk count times that rate. BYOK uses 1–3 Zenable credits per standard file plus provider charges. Running guardrails and static checks costs no credits, subject to capacity-based rate limits and abuse prevention. A pull request can have up to 150 files, and the maximum combined file content and diff is 300,000 characters.
 
 ## When you hit a limit
 
-When you use up the weekly credits, AI-powered reviews pause until the next reset. Guardrails and static checks keep running. If a pull request would cost more than the author's remaining credits, Zenable leaves a comment that the limit was reached and charges nothing for the withheld review. Credits reset every Monday at 00:00 UTC. No bill follows, because the Free plan needs no card. Professional gives 200,000 credits per seat per week and costs $99 per user per month, billed annually.
+When you use up the weekly credits, AI-powered reviews pause until the next reset. Guardrails and static checks keep running. If a pull request would cost more than the triggering person’s remaining credits, Zenable leaves a comment that the limit was reached and charges nothing for the withheld review. Credits reset every Monday at 00:00 UTC. The managed-credit allowance pauses rather than adding review overages. BYOK can incur separate model-provider charges. Professional gives 200,000 credits per seat per week and costs $99 per user per month, billed annually.
 
 ## Gotchas
 
-- On the Free plan, reviews do not run until you link your GitHub or GitLab account to your Zenable user.
+- Free reviews require the triggering person’s linked GitHub/GitLab account. Requested re-reviews use the requester’s allowance, which may differ from the author’s.
 - A closed and reopened pull request, or a review re-requested with a comment, is charged again for the files it reviews.
 - Custom guardrails for AI IDEs and PR guardrails with custom requirements are listed under Professional.
 

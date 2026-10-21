@@ -44,7 +44,7 @@ freeTierDetails:
   resetPeriod: daily
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: low
 useCases:
   - "Hosting a small Node.js, .NET, Java, PHP, or Python web app for a demo"
@@ -54,7 +54,7 @@ useCases:
   - "Testing a deployment pipeline on a throwaway app"
 quickstartSteps:
   - "Create an Azure account with an active subscription; the account sign-up asks for a card for verification."
-  - "Install Node.js LTS and, for the VS Code route, Visual Studio Code. The Azure CLI works too."
+  - "Install Node.js LTS and, for the VS Code route, Visual Studio Code. The Azure CLI quickstart uses a paid Premium tier unless you explicitly change it."
   - "Create a sample app with `npx express-generator myExpressApp --view ejs`."
   - "In VS Code, right-click App Services and choose Create new Web App, then enter a globally unique name."
   - "Pick a Node.js runtime stack and choose the Free (F1) pricing tier."
@@ -75,12 +75,13 @@ avoidIf:
   - "always-on workloads"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/services/app-service/'
 docsUrl: 'https://learn.microsoft.com/azure/app-service/'
 sourceUrls:
+  - 'https://learn.microsoft.com/en-us/azure/app-service/web-sites-monitor'
   - 'https://azure.microsoft.com/en-us/pricing/details/app-service/windows/'
   - 'https://azure.microsoft.com/en-us/free/'
   - 'https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits'
@@ -88,8 +89,12 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/app-service/windows/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added documented quota stops and corrected the paid CLI deployment default warning."
 ---
 You create the app in the Azure portal, the Azure CLI, or Visual Studio Code, then deploy your code to an azurewebsites.net address. The Free plan suits students and developers who want to learn the service or share a demo. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 
@@ -101,7 +106,7 @@ Free apps get no custom domains. You use the azurewebsites.net name, and that de
 
 ## When you hit a limit
 
-The pricing page and the limits table list the Free caps, but they do not say what happens to your app when it reaches them. Nothing on these pages describes a surprise bill from the Free plan itself. The pricing FAQ says an App Service plan carries a compute charge except for the Free tier.
+The quota documentation says an app exceeding CPU or bandwidth limits is stopped until the quota resets, returning HTTP 403. Exceeding memory stops it temporarily; reaching filesystem capacity makes writes fail. F1 does not silently become a paid compute plan. The pricing FAQ excludes Free from compute charges.
 
 Stopped apps on paid tiers still cost money. The FAQ tells you to delete apps you do not use or move them to the Free tier to avoid charges. Other Azure services you connect, such as a database, bill on their own terms. To go past the Free caps, scale the plan up to a paid tier.
 

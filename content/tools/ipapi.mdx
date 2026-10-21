@@ -2,8 +2,8 @@
 title: ipapi
 description: >-
   ipapi (ipapi.co) is an IP geolocation API that returns location, timezone, and
-  currency for an IP address over HTTPS. A trial is available on request; plans
-  are paid.
+  currency for an IP address over HTTPS. Its homepage advertises a requested
+  trial, while the FAQ describes basic access without signup.
 provider: ipapi
 category: apis
 domain: apis
@@ -26,77 +26,84 @@ tags:
 pricingModel: trial
 freeTierDetails:
   summary: >-
-    The free option is a time-limited trial (up to 1,000 lookups/day, about
-    30K/month) for testing only; you must contact support to request it.
+    The homepage advertises a requested trial up to 1,000 lookups/day for testing;
+    the FAQ separately describes no-card basic access without signup or a time limit.
   limits:
-    - Up to 1,000 lookups/day (~30K/month), trial only
+    - Homepage trial allowance up to 1,000 lookups/day (~30K/month)
     - Not for production or deployment use
-    - Requires contacting support for trial access
+    - Contact support for the homepage trial or higher/full-access trial terms
   caveats:
-    - No self-serve free signup; you must request a trial
+    - Homepage and FAQ disagree on whether all trial access requires support or expires
+    - FAQ says basic fields work without signup and without a credit card
     - The plan is for testing and development, not production
+    - Requested-trial duration, card requirements, and exact cap policy require confirmation
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: trial
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - 'Show a visitor''s location on a website'
   - Personalize content by region
   - Add timezone and currency to a signup flow
   - Run basic fraud checks on an IP address
 quickstartSteps:
-  - Contact the ipapi team to request free trial access.
+  - Review the homepage and FAQ access descriptions; contact ipapi to confirm the trial scope you need.
   - Read the API docs for the endpoint formats.
   - 'Send a GET request to `https://ipapi.co/{ip}/json/` for the full location of an address.'
   - 'Call `https://ipapi.co/json/` to get the location of the client that makes the request.'
   - Subscribe to a paid plan before you go to production; paid plans use a token in the query string.
 whenToUse: >-
-  Use ipapi to test and evaluate IP geolocation on a short trial, before you
+  Use ipapi to test and evaluate IP geolocation for development, before you
   choose a paid plan.
 whenNotToUse: >-
-  Avoid it for production use, or if you need a self-serve free plan without
-  contacting the team.
+  Avoid free access for production use, or when you need a guaranteed
+  trial duration and allowance without confirming terms with the team.
 bestFor:
   - prototyping
   - personal projects
   - evaluating a paid plan
 avoidIf:
   - need production use on a free plan
-  - need self-serve sign-up
+  - need a guaranteed self-serve trial scope
   - expect high traffic
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-09
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipapi.co/'
 docsUrl: 'https://ipapi.co/api/'
 pricingUrl: 'https://ipapi.co/'
 sourceUrls:
+  - 'https://ipapi.co/faq/'
   - 'https://ipapi.co/'
   - 'https://ipapi.co/api/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: Scoped conflicting official trial descriptions and documented quota errors without promising no billing or fixed access terms.
 ---
-You send plain HTTPS GET requests to `ipapi.co` from any language, and paid plans add a token in the query string. There is no self-serve free sign-up, so you contact the team to ask for a trial. It suits developers who want to test a lookup API before they buy.
+You send plain HTTPS GET requests to `ipapi.co` from any language, and paid plans add a token in the query string. The homepage directs trial requests to support, while the FAQ describes basic access without signup. It suits developers who want to test a lookup API before they buy.
 
 ## What the free plan gives you
 
-ipapi has no permanent free plan. The pricing table lists a Free Trial row with the note "Please contact us for a trial". The FAQ says the trial gives you up to 1000 IP lookups in a day, about 30K a month, for a limited time.
+The homepage lists a Free Trial row and asks you to contact the team. It describes up to 1000 IP lookups daily, approximately 30K monthly, for a limited time. It restricts this offer to testing and development, excludes production deployments, and allows further restrictions.
 
-The trial is for testing and development. The FAQ says it is not meant for production or deployments, and that the system may restrict trial calls further under some conditions. The trial has no usage monitoring and only limited bulk IP lookup. Paid plans start at $15 a month for 60 000 lookups.
+The separate official FAQ describes a free trial/testing plan with no time limit, no card, and basic fields without signup; it directs full-access or higher-limit trials to support. These public descriptions do not establish one universal trial duration or access path. Confirm the scope you need rather than assuming all trial features work anonymously. Paid plans start at $15 monthly for 60,000 lookups.
 
 ## When you hit a limit
 
-The FAQ does not describe what happens when you pass the 1000 daily lookups. It only says the trial is limited and may be restricted further. Plan for blocked or failed calls, not a bill.
+The API reference documents HTTP 429 with reason RateLimited when quota is exceeded. This establishes a possible quota error, not a guarantee of the exact response or billing treatment for every trial arrangement. The homepage says trial calls may be restricted further; requested-trial duration and card requirements are not specified.
 
-A paid plan counts every conversion of an address as a lookup, and a repeat query counts again. Paid plans have usage alerts by email before you run out of quota and an API to monitor usage. The trial does not have them.
+Paid plans count each lookup, including repeat queries, and provide usage monitoring and email alerts. The homepage excludes usage monitoring from its trial. Ask for the granted allowance and cap behavior before depending on it, and handle quota errors rather than repeatedly retrying exhausted access.
 
 ## Gotchas
 
-- You cannot sign up for the trial on your own. You must contact the team and wait for access.
-- The trial is a limited-time offer, not an always-free plan, and it is not meant for production.
+- The homepage requires a trial request, but the FAQ allows basic fields without signup. Ask support which features and limits apply to your intended use.
+- Trial expiry is inconsistent across official pages: the homepage says limited time and the FAQ says no time limit. Neither grants production use.
 - Every request counts as a lookup, even a repeat of the same address. Cache results on your side.
 
 ## Alternatives in this atlas
@@ -109,11 +116,11 @@ A paid plan counts every conversion of an address as a lookup, and a repeat quer
 
 ### Is ipapi free?
 
-Only as a trial. You must contact the team to request it. The FAQ says it gives up to 1000 IP lookups a day for a limited time.
+Free access is described as trial/testing use. The homepage advertises requested limited-time access; the FAQ separately offers no-card basic access without signup or a time limit.
 
 ### Can I use the ipapi free trial in production?
 
-No. The FAQ says the trial is for testing and development and is not meant for production or deployments.
+No. The homepage says its trial is for testing and development and is not meant for production or deployments.
 
 ### How much do ipapi paid plans cost?
 

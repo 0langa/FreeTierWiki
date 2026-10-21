@@ -33,6 +33,7 @@ freeTierDetails:
     - 1 credit per static request, 5 with JavaScript rendering
     - Requests can take up to 30 seconds
   caveats:
+    - API returns HTTP 402 for insufficient credits andHTTP 429 for excess concurrency
     - Residential and stealth proxies, AI extraction, Google SERP, and social-media scraping cost more credits per request
     - Failed requests are free; you pay only for successful responses
     - Pay-as-you-go credits can be bought separately, and are used after the monthly quota runs out
@@ -72,8 +73,8 @@ avoidIf:
   - you need custom browser flows
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://webscraping.ai'
@@ -84,6 +85,13 @@ sourceUrls:
   - 'https://webscraping.ai/docs'
   - 'https://webscraping.ai'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Documented HTTP 402 credit stop andHTTP 429 concurrency; clarified parsed-empty/not-found successful-request charges."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You call an HTTP API with your key, use one of the official SDKs, or route traffic through its proxy mode. There is also an API Request Builder on the site. It suits developers who want a page fetched or parsed without running browsers.
 
@@ -95,7 +103,7 @@ Credits depend on the options. A request without JavaScript rendering costs 1 cr
 
 ## When you hit a limit
 
-The pricing page does not say what happens when the free credits run out. It does say that credits come from a monthly plan, from pay-as-you-go top-ups, or from both. Pay-as-you-go credits are used only after your plan quota runs out.
+The current API error table says insufficient credits return HTTP 402; upgrade,topup or wait for reset to resume. Excess concurrent requests return HTTP 429. It does say that credits come from a monthly plan, from pay-as-you-go top-ups, or from both. Pay-as-you-go credits are used only after your plan quota runs out.
 
 You can buy credits with no subscription. One dollar buys 5,000 credits, the minimum top-up is $20, and the credits stay valid for 12 months. Paid plans start at $29 a month for 250,000 credits.
 
@@ -123,4 +131,4 @@ It depends on the options. A request without JavaScript costs 1 credit, and the 
 
 ### Does WebScraping.AI charge for failed requests?
 
-No. Failed requests are free, and you pay only for successful responses.
+Failed fetches are free. The/data endpoint still charges successful responses marked parse_failed or not_found, and empty search results can also be successful billed responses.

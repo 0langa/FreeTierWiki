@@ -30,14 +30,15 @@ freeTierDetails:
   limits:
     - 10 GB of included storage
     - 0.25 vCPU with up to 3x burst
-    - '1,000 requests per day per organization'
+    - 1,000 requests per day per organization
     - 1 thread per query
     - 25 dollars of LLM credits per billing cycle
   caveats:
     - 'The vCPU limit is hard: requests that exceed burst capacity return HTTP 429'
     - LLM requests stop until the next billing cycle once the credits run out
     - Support is through the community Slack
-    - 'vCPU overages are billed on paid plans, not on Free'
+    - vCPU overages are billed on paid plans, not on Free
+    - Free query execution time is limited to 10 seconds.
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -75,24 +76,28 @@ avoidIf:
   - need dedicated infrastructure
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: '2026-10-13'
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.tinybird.co'
 docsUrl: 'https://www.tinybird.co/docs'
 sourceUrls:
-  - 'https://www.tinybird.co/pricing'
-  - 'https://www.tinybird.co/docs/forward/pricing/free'
-  - 'https://www.tinybird.co/docs/forward/get-started/quick-start'
+  - https://www.tinybird.co/pricing
+  - https://www.tinybird.co/docs/forward/pricing/free
+  - https://www.tinybird.co/docs/forward/get-started/quick-start
+  - https://www.tinybird.co/docs/forward/pricing/limits
+  - https://www.tinybird.co/docs/forward/pricing/developer
 pricingUrl: 'https://www.tinybird.co/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Removed the stale Developer-price contradiction and added the Free query timeout.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
 ---
-
 You work with the Tinybird CLI and datafiles, or with SDKs, and call published endpoints over HTTP. It suits developers who add analytics features to their own products.
 
 ## What the free plan gives you
@@ -103,7 +108,7 @@ You get 0.25 vCPU with up to 3x burst, 10 GB of included storage, and 1,000 requ
 
 AI tools in the MCP server and the Explorations UI include $25 of LLM credits per billing cycle. When the credits run out, LLM requests stop until the next billing cycle.
 
-The Developer plan is the next step up. The pricing page lists it from $25 or $49 per month, depending on the section, with 25 GB of storage.
+The Developer plan is the next step up. The current pricing page lists it from $25 per month, with 25 GB of included storage.
 
 ## When you hit a limit
 
@@ -115,7 +120,7 @@ Paid plans handle bursts differently. Instead of throttling, the Developer and S
 
 - The limit is per organization, so all your projects and workspaces share 1,000 requests a day.
 - Clients should retry 429 responses with exponential backoff. Tinybird can also return them when it applies concurrency limits.
-- The pricing page shows two different starting prices for the Developer plan, $25 and $49, so check the current price before you upgrade.
+- Free queries have a 10-second execution limit; queries exceeding the timeout return an error.
 
 ## Alternatives in this atlas
 

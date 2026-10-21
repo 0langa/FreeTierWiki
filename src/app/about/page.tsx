@@ -39,12 +39,19 @@ export default function AboutPage() {
         <Section title="Billing risk">
           <dl className="grid gap-4">
             <Term name={<RiskPill risk="none" />}>
-              The plan is unlimited, or going over the limit stops or throttles the service. Either way, you should not get a bill by accident.
+              The listed free offer has no automatic usage charges. Its usage limits and enforcement are described separately in the entry.
             </Term>
             <Term name={<RiskPill risk="low" />}>Going over is unlikely to cost money, but read the watch-out notes.</Term>
             <Term name={<RiskPill risk="medium" />}>A card is on file and usage above the free amount is billed. Set a spending limit.</Term>
             <Term name={<RiskPill risk="high" />}>No real free plan, or usage is billed from the start.</Term>
           </dl>
+        </Section>
+
+        <Section title="Card and cap policies">
+          <p>
+            “Not confirmed” means the provider does not clearly publish the policy, or its official sources conflict. The entry&apos;s
+            watch-out notes explain the specific gap. These entries do not appear in filters for confirmed no-card plans or hard caps.
+          </p>
         </Section>
 
         <Section title="Plan types">
@@ -59,20 +66,21 @@ export default function AboutPage() {
         <Section title="Freshness labels">
           <dl className="grid gap-4">
             <Term name={<FreshnessLabel freshness={{ state: "checked", date: "2026-09-25" }} />}>
-              A date with a check mark is the day the entry was last compared with the official pricing page: by a person, or by the weekly check that confirms the page text has not changed since the last review. If a check is more than 6 months
+              A date with a check mark is the day the entry was last compared with official sources. The weekly source scanner does not advance this date automatically. If a check is more than 6 months
               older than the site build, it shows as stale.
             </Term>
             <Term name={<FreshnessLabel freshness={{ state: "imported", date: "2024-06-09" }} />}>
               A gray date is when the entry&apos;s data is from (about June 2024). Nobody has re-checked it since. It may be out of date.
             </Term>
           </dl>
+          <p>A recent checked date records a source comparison. It does not make an unpublished card or cap policy certain; read the entry&apos;s caveats.</p>
         </Section>
 
         <Section title="Where the data comes from">
           <p>
-            The first version of every entry was written with AI help, from the provider&apos;s name and website. Its facts reflect about
-            mid-2024. That is why each entry shows when a person last checked it against the official pricing page. Entries without a check
-            mark are leads, not facts.
+            The catalog began with AI-assisted imports dating back to mid-2024. Maintenance compares entries with official pricing pages,
+            billing guides, documentation and terms, then records corrections and source dates. Entries without a check mark are starting
+            points for research and may be out of date.
           </p>
         </Section>
 

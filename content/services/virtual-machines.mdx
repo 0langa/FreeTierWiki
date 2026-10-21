@@ -31,8 +31,8 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    750 hours per month each of B1s, B2pts v2 (Arm-based), and B2ats v2
-    (AMD-based) burstable VMs, free for 12 months for new Azure customers.
+    750 hours per month each of B1s, B2pts v2 (Arm-based), and B2ats v2 (AMD-based) burstable VMs,
+    free for 12 months for new Azure customers.
   limits:
     - 750 hours/month each of B1s, B2pts v2 (Arm), and B2ats v2 (AMD) VMs
     - Windows or Linux OS
@@ -41,14 +41,18 @@ freeTierDetails:
     - Only the listed burstable VM sizes are eligible
     - New Azure customers only
     - VMs you keep running after 12 months continue to run and are billed at pay-as-you-go rates
-    - An Azure free account must move to pay-as-you-go within 30 days or after its credit is used to keep receiving free services
+    - >-
+      An Azure free account must move to pay-as-you-go within 30 days or after its credit is used to
+      keep receiving free services
   resetPeriod: monthly
   requiresCard: true
   freeTierType: time-limited
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above the free hours, other VM sizes, and any VM left running after 12 months are billed at pay-as-you-go rates
+    - >-
+      After you authorize pay-as-you-go, usage above free hours, other sizes and VMs running after
+      12 months are billed; attached resources can incur separate charges.
     - Azure may place a temporary one-dollar authorization on your card during sign-up
   trialDays: 365
 useCases:
@@ -57,11 +61,17 @@ useCases:
   - Hosting a small web application
   - Trying a cloud setup before you commit to it
 quickstartSteps:
-  - 'Create an Azure account; sign-up verifies a card.'
-  - 'Sign in to the Azure portal, search for virtual machines, and select Create, then Virtual machine.'
-  - 'Create a resource group, name the VM, pick an image such as Ubuntu Server, and choose one of the free-eligible sizes.'
-  - 'Set SSH public key authentication with a generated key pair, allow SSH and HTTP in the inbound port rules, then select Review + create and Create.'
-  - 'Copy the public IP address and connect with ssh using the downloaded key file.'
+  - Create an Azure account; sign-up verifies a card.
+  - >-
+    Sign in to the Azure portal, search for virtual machines, and select Create, then Virtual
+    machine.
+  - >-
+    Create a resource group, name the VM, pick an image such as Ubuntu Server, and choose one of the
+    free-eligible sizes.
+  - >-
+    Set SSH public key authentication with a generated key pair, allow SSH and HTTP in the inbound
+    port rules, then select Review + create and Create.
+  - Copy the public IP address and connect with ssh using the downloaded key file.
 whenToUse: >-
   Use it when you want a full Linux or Windows server for 12 months to test,
   learn, or host a small app.
@@ -79,20 +89,26 @@ avoidIf:
   - no credit card
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/services/virtual-machines/'
 docsUrl: 'https://learn.microsoft.com/azure/virtual-machines/'
 sourceUrls:
-  - 'https://azure.microsoft.com/en-us/free/'
-  - 'https://azure.microsoft.com/pricing/details/virtual-machines/'
-  - 'https://learn.microsoft.com/azure/virtual-machines/'
-  - 'https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal'
-  - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
+  - https://azure.microsoft.com/en-us/free/
+  - https://azure.microsoft.com/pricing/details/virtual-machines/
+  - https://learn.microsoft.com/azure/virtual-machines/
+  - https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal
+  - https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account
 featured: false
-lastVerified: 2026-10-09
+lastVerified: 2026-10-21
 pricingUrl: 'https://azure.microsoft.com/en-us/free/'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Scoped billing to authorized pay-as-you-go and clarified residual attached-resource charges
+      after deallocation.
 ---
 You create a VM in the Azure portal, pick Linux or Windows, and connect with SSH or remote desktop. It suits learners and small projects that need a full server for a year without paying.
 
@@ -104,9 +120,9 @@ Azure shows this under the free services list of the Azure free account and of p
 
 ## When you hit a limit
 
-If you use more than the monthly free hours, or pick a VM size that is not on the list, Azure bills you at pay-as-you-go rates. The same happens after the 12 months end.
+After you authorize pay-as-you-go, usage beyond free hours or of ineligible sizes is billed. Without that upgrade, Azure disables services when the initial credit expires.
 
-The free services FAQ says VMs you still run after 12 months keep running and are billed. So the offer does not stop your VM for you. Delete the VM before the year ends if you do not want the charge. A VM that shows Stopped (Deallocated) is not billed, but one that shows Stopped Allocated still is. During the free account credit period, Azure says spending protection means your credit card will not be charged.
+On pay-as-you-go, a VM left running after 12 months continues at paid rates. Delete the VM and unneeded chargeable resources before expiry. Deallocation stops compute charges; disks and attached resources can still cost money. A stopped but allocated VM still incurs compute charges. During the initial free-account credit period, spending protection prevents card charges.
 
 ## Gotchas
 
@@ -128,7 +144,7 @@ For new Azure customers, yes, for 12 months. You get 750 hours each month of B1s
 
 ### What happens to my Azure free VM after 12 months?
 
-It keeps running, and Azure bills it at pay-as-you-go rates. Delete the VM before the year ends if you want to avoid charges.
+It keeps running, and Azure bills it at pay-as-you-go rates. Delete the VM and unneeded chargeable attached resources before the free year ends.
 
 ### Does the Azure free VM need a credit card?
 

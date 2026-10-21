@@ -25,8 +25,8 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The free plan has a single project, up to 10 feature toggles per project, and
-    unlimited clients and monthly active users. No credit card is needed.
+    The free plan has a single project, up to 10 feature toggles per project,
+    and unlimited clients and monthly active users. No credit card is needed.
   limits:
     - 1 project
     - Up to 10 feature toggles per project
@@ -36,23 +36,34 @@ freeTierDetails:
     - Unlimited monthly active users (MAU)
     - Realtime notifications
   caveats:
-    - The PRO plan costs $49 per month, with up to 3 projects, 10 seats, and unlimited toggles per project
+    - >-
+      Enforcement of the listed free allowance is not confirmed in the cited
+      public sources
+    - >-
+      The PRO plan costs $49 per month, with up to 3 projects, 10 seats, and
+      unlimited toggles per project
     - Docs say the free license includes one project only
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Rolling out a feature to a share of users
   - A kill switch for a risky feature
-  - Different toggle values per environment such as develop, staging, and production
+  - >-
+    Different toggle values per environment such as develop, staging, and
+    production
   - Scheduling a feature to turn on with the release calendar
 quickstartSteps:
-  - Open the sign-up link on toggled.dev and create a free workspace. No credit card is needed.
-  - In Projects, click Add project. The free license allows one project, and an example project is created for you.
-  - Click Add environment and say whether it is production or not.
-  - Create your first toggle in the project, then create a client key from the environment page with Add key.
-  - Query the client API from your app with the key in the x-api-key header, or use the JavaScript SDK.
+  - >-
+    Open the sign-up link on toggled.dev and create a free workspace. No credit
+    card is needed.
+  - Create one project in your workspace; the Free plan permits one project.
+  - Configure up to two environments for the project.
+  - Create a toggle and a client key for the JavaScript SDK.
+  - >-
+    Initialize the SDK with your client key and the regional endpoint matching
+    your account.
 whenToUse: >-
   Use Toggled.dev when you need feature toggles for a single application and 10
   toggles are enough.
@@ -71,8 +82,8 @@ avoidIf:
   - on-premise requirements without an Enterprise plan
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.toggled.dev'
@@ -83,6 +94,17 @@ sourceUrls:
   - 'https://docs.saas.toggled.dev/docs/getting-started/create-a-project'
   - 'https://github.com/toggled-dev/toggled-client-js'
 featured: false
+changes:
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: >-
+      Aligned limit enforcement flags with the scope and uncertainty of the
+      cited policy evidence.
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Replaced unavailable detailed onboarding documentation with current
+      pricing and SDK instructions and qualified exhaustion billing.
 ---
 You manage projects, environments, and toggles in the web dashboard. Your app asks the client API for the active toggles, or uses the JavaScript SDK.
 
@@ -90,7 +112,7 @@ You manage projects, environments, and toggles in the web dashboard. Your app as
 
 The pricing page calls it an endless free plan, with the complete set of Toggled.dev features. No credit card is required. The free plan covers a single project with up to 10 feature toggles, up to 2 environments per project, and 2 included seats. Unlimited clients and unlimited monthly active users are included.
 
-The docs say the free license includes one project only. An example project is created when you first set up the workspace. You can delete it and make your own.
+The pricing page permits one Free project. The current SDK documentation requires a client key created in the project and a regional endpoint matching your account.
 
 The PRO plan costs $49 per month. It includes everything in Free, up to 3 projects, 10 seats included, unlimited toggles per project, and helpdesk replies within 1 business day. Enterprise adds unlimited projects and seats, and a dedicated environment, optionally in your private AWS account.
 
@@ -103,8 +125,8 @@ The pricing page says the free plan needs no card. MAU are not a limit on any pl
 ## Gotchas
 
 - One project means one app or service. If you have a frontend and a backend as two projects, you need PRO.
-- Client keys belong to an environment. Your app uses a different key for each environment.
-- Session stickiness is an option on client keys. Turn it on when a gradual rollout must not flip a user between on and off at every check.
+- The JavaScript SDK caches toggles in localStorage and synchronizes in the background, so account for cached configuration.
+- Session stickiness is included. The SDK stores the session identifier returned by the service and reuses it on subsequent requests.
 
 ## Alternatives in this atlas
 

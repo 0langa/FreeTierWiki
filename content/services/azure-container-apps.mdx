@@ -70,7 +70,7 @@ avoidIf:
   - no payment method for an Azure account
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
@@ -82,8 +82,12 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/container-apps/billing'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: 2026-10-21
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped scale-to-zero savings to replica compute, with other resource and management charges separate."
 ---
 You create a Container Apps environment and a container app in the Azure portal, or with the Azure CLI, and point it at a container image. It suits teams that already package code as containers and want Azure to run them without managing Kubernetes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 
@@ -97,7 +101,7 @@ Free usage does not show on your bill. You only pay once your use passes these m
 
 Nothing stops your apps at the free amounts. After the grants are used, Azure bills you per second for the vCPU and memory your replicas have, plus the requests they handle. The pricing page and the billing docs describe no hard spending cap.
 
-You can keep a minimum number of replicas always running. A replica that sits idle is charged at a reduced rate, and a replica is charged at the active rate while it starts, handles requests, or uses more than a small amount of CPU or network. Scaling to zero is the way to stop all usage charges.
+You can keep a minimum number of replicas always running. A replica that sits idle is charged at a reduced rate, and a replica is charged at the active rate while it starts, handles requests, or uses more than a small amount of CPU or network. Scaling to zero stops replica compute consumption; separate management fees and other Azure resources can still cost money.
 
 ## Gotchas
 
@@ -119,7 +123,7 @@ Partly. The Consumption plan includes 180,000 vCPU-seconds, 360,000 GiB-seconds,
 
 ### Does Azure Container Apps scale to zero?
 
-Yes, you can configure an app to scale to zero replicas when there are no requests or events. No usage charges apply while it is scaled to zero.
+Yes, you can configure an app to scale to zero replicas when there are no requests or events. No replica compute consumption charges apply while it is scaled to zero; other configured resources or management features may still be billed.
 
 ### What happens when I go over the Azure Container Apps free grant?
 

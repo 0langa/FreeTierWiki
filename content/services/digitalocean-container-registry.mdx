@@ -32,10 +32,10 @@ freeTierDetails:
     - The storage allowance is prorated by the days the registry is active
     - Untagged images count toward storage
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
 useCases:
   - A private image for one small app
   - Pulling images into a DigitalOcean Kubernetes cluster
@@ -58,8 +58,8 @@ avoidIf:
   - large images
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 5
 officialUrl: 'https://www.digitalocean.com/products/container-registry'
@@ -71,6 +71,9 @@ sourceUrls:
 pricingUrl: 'https://www.digitalocean.com/pricing/container-registry'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Recorded Starter overage-table conflict with the explicit proration/deletion warning; qualified card and cap policy."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -86,12 +89,12 @@ The storage allowance is monthly and prorated by how many days the registry is a
 
 ## When you hit a limit
 
-The pricing page lists storage overage as N/A for Starter, while Basic and Professional charge $0.02 per GiB over their allowance. The docs say extra storage is charged at the end of the day and prorated by the number of days storage exceeds the quota. If you need more room, Basic costs $5.00 a month for 5 repositories and 5 GiB, and Professional $20.00 a month for unlimited repositories and 100 GiB.
+The pricing page lists storage overage as N/A for Starter, while Basic and Professional charge $0.02 per GiB over their allowance. The docs generally describe daily prorated extra-storage charges and even give a Starter proration example followed by a possible early-deletion overage, despite Starter listing extra storage as unavailable. Confirm that conflict before depending on a zero bill. If you need more room, Basic costs $5.00 a month for 5 repositories and 5 GiB, and Professional $20.00 a month for unlimited repositories and 100 GiB.
 
 ## Gotchas
 
 - Untagged images count toward your storage quota, so clean up old pushes.
-- Destroying a registry early shortens its active days and can cause a small overage charge.
+- The docs warn that early destruction reduces prorated storage allowance and can cause an overage charge, while the Starter table says extra storage is unavailable.
 - Registry names must be globally unique across all DigitalOcean users.
 
 ## Alternatives in this atlas

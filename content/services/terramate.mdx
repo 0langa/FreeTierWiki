@@ -38,13 +38,14 @@ freeTierDetails:
     - 'Cloud Community plan: up to 1000 resources'
     - 'Cloud Community plan: 30-day data retention'
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Cloud Community support is through Discord
-    - The Cloud Teams plan costs $449 per month and has unlimited users and up to 5000 resources
-    - The pricing page says extra seats cannot be added to the Teams plan
-  requiresCard: false
+    - Cloud Teams advertises $449 monthly equivalent,up to 5000 resources and unlimited users; pricing payment help says yearly billing
+    - Current pricing lists unlimited Teams users; no extra-seat restriction is established
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Splitting a large Terraform state into smaller stacks
   - Generating backend and provider configuration with less copy and paste
@@ -73,8 +74,8 @@ avoidIf:
   - more than 2 Cloud users
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://terramate.io/'
@@ -86,6 +87,13 @@ sourceUrls:
   - 'https://terramate.io/docs/cli/getting-started'
   - 'https://terramate.io/docs/cli/installation'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed unsupported Teams extra-seat restriction, qualified Cloud card and yearly payment cadence."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You work from the Terramate CLI inside a Git repository, and your existing CI runs the commands. Terramate Cloud is an optional dashboard that adds previews, drift, and asset views.
 
@@ -95,13 +103,13 @@ The Terramate CLI is open source and runs on your own machine or in your own CI.
 
 Terramate Cloud has a Community plan that is free forever. It allows up to 2 users and up to 1000 resources, with 30 days of data retention. It includes deployment workflows, pull request previews, and drift management. Support is through Discord.
 
-The Teams plan costs $449 per month and has a 14 day free trial. It raises the limits to unlimited users, up to 5000 resources, and 90 days of data retention, and it adds asset management and a 24 hour support response.
+Teams advertises $449 per month with a 14-day trial; the payment help describes subscriptions as billed yearly. It raises the limits to unlimited users, up to 5000 resources, and 90 days of data retention, and it adds asset management and a 24 hour support response.
 
 ## When you hit a limit
 
 The pricing page lists the Community limits but does not say what happens if you pass 2 users or 1000 resources. Resources are the things Terramate Cloud manages and observes.
 
-The limits belong to Terramate Cloud. The CLI is open source and runs in your own CI. Community is listed as free forever, so nothing is billed. If you outgrow it, the Teams plan is the next step. The FAQ says additional seats are not sold for Teams, so larger teams are pointed to a custom Enterprise offer from sales.
+The limits belong to Terramate Cloud. The CLI is open source and runs in your own CI. Community is listed as free forever; the page does not explicitly establish its signup-card requirement or exact excess-resource handling. If you outgrow it, the Teams plan is the next step. Current pricing lists unlimited Teams users; Enterprise adds custom resource capacity and contractual terms.
 
 ## Gotchas
 
@@ -123,7 +131,7 @@ Yes. The CLI is open source, and the Terramate Cloud Community plan is free fore
 
 ### Does Terramate need a credit card?
 
-The pricing page lists the Community plan as free forever and does not ask for payment. The Teams plan has a 14 day free trial.
+The CLI can be used without vendor payment. The reviewed Cloud page does not explicitly establish Community signup-card requirements; Teams has a 14-day trial.
 
 ### Which tools does Terramate work with?
 

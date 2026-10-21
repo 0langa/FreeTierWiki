@@ -31,15 +31,17 @@ freeTierDetails:
     - 1 million API requests
     - 10 standard-resolution alarm metrics
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Charges apply for usage above free limits.
     - Contributor Insights is limited to 1 rule and the first 1 million matching log events per month.
-    - A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan
+    - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - Overages can accumulate quickly if logs or metrics exceed free tier.
 useCases:
   - Watch EC2, Lambda, and other AWS service metrics on a dashboard
@@ -70,8 +72,8 @@ avoidIf:
   - you need a hard spending cap
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-11
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cloudwatch/'
@@ -86,6 +88,9 @@ sourceUrls:
 featured: false
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped billing to account plans and optional project controls; corrected Free expiry to suspension with 90-day recovery."
   - date: 2026-10-11
     kind: changed
     note: AWS's Free Tier FAQ now says most new customers can sign up without a payment method, so the card rule is now marked as not required.
@@ -100,7 +105,7 @@ Metrics get 10 custom or detailed monitoring metrics and 1 million API requests.
 
 ## When you hit a limit
 
-The pricing page does not describe any shutoff at the limit. CloudWatch has no up-front commitment or minimum fee, and you pay for what you use. The bill arrives at the end of the month. Usage above the free allowance is charged at the paid rates on the pricing page.
+On Paid accounts without optional project controls, service allowances do not stop usage. CloudWatch has no up-front commitment or minimum fee, and you pay for what you use. The bill arrives at the end of the month. Usage above the free allowance is charged at the paid rates on the pricing page.
 
 Live Tail shows how fast this adds up: after the free minutes, it costs $0.01 per minute. Three calls are always charged and never count against the free API requests: GetMetricData, GetInsightRuleReport, and GetMetricWidgetImage.
 
@@ -124,7 +129,7 @@ Partly. CloudWatch has a free tier with monthly allowances for logs, metrics, da
 
 ### What happens when I go over the CloudWatch free tier?
 
-You are charged at the paid rates at the end of the month. The pricing page does not say the service stops or pauses when you pass an allowance.
+On a Paid account, excess usage is charged at paid rates after applicable credits. Free accounts instead consume credits, and optional Paid project controls can pause resources at their configured limit.
 
 ### How many CloudWatch dashboards are free?
 

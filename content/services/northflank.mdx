@@ -29,16 +29,17 @@ freeTierDetails:
     - 2 services
     - 2 jobs (cron)
     - 1 add-on (database)
-    - 1 project in the Developer Sandbox
+    - Project count conflicts: pricing lists 2, setup documentation lists 1
     - Up to 1 bring-your-own-cloud cluster
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Northflank says the free tier should not be used for production
     - Every account must add a payment method before creating resources, on every plan
     - With bring-your-own-cloud, your cloud provider still charges you
   resetPeriod: none
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - Host a container API or web app that stays on
@@ -67,8 +68,8 @@ avoidIf:
   - more than 2 services
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://northflank.com'
@@ -82,6 +83,12 @@ sourceUrls:
 pricingUrl: 'https://northflank.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Recorded current two-project pricing versus one-project setup conflict; mandatory payment method and BYOC external charges remain explicit."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -90,7 +97,7 @@ You work in a web dashboard, a CLI, or an API. You group services, jobs, and add
 
 ## What the free plan gives you
 
-The Developer Sandbox plan is free. The pricing page lists 2 free services, 2 free cron jobs, and 1 free database, and says compute is always on with no sleeping. The docs say you can create one project and deploy up to 1 bring-your-own-cloud cluster.
+The Developer Sandbox plan is free. The pricing page lists 2 free services, 2 free cron jobs, and 1 free database, and says compute is always on with no sleeping. The pricing comparison lists 2 projects, while the setup guide says one; confirm that discrepancy before designing your setup. The docs also allow up to 1 bring-your-own-cloud cluster.
 
 Teams are included at no extra cost, and the plan includes free TLS and custom domains, plus logs and metrics kept for a month. Vertical scaling is limited on the free plan, and the docs describe it as a good way to explore the platform and spin up hobby projects.
 
@@ -104,7 +111,7 @@ Northflank says billing alerts and thresholds help you avoid surprise bills. If 
 
 - You must add a payment method to create any resource, even on the free plan. Northflank says this verifies identity and stops abuse.
 - The docs say the free tier should not be used for production applications.
-- The free plan gives you one project, so plan how you group your two services, jobs, and database.
+- Project allowance conflicts between the pricing comparison (2) and setup guide (1); check the current console before relying on a second project.
 
 ## Alternatives in this atlas
 

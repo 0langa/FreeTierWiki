@@ -50,6 +50,7 @@ quickstartSteps:
   - Create a LangSmith API key in the app.
   - Install the SDK, for example `pip install -U langsmith openai` for Python or `npm install langsmith openai` for TypeScript.
   - Export `LANGSMITH_TRACING=true` and your `LANGSMITH_API_KEY` as environment variables.
+  - Configure your model provider separately; its API usage can cost money even while LangSmith tracing is free.
   - Wrap your function with `@traceable` (or `traceable` in TypeScript) and wrap the OpenAI client, then run it and open the trace in LangSmith.
 whenToUse: >-
   Use LangSmith when a solo developer wants tracing and evaluation for an LLM
@@ -66,8 +67,8 @@ avoidIf:
   - long trace retention
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://www.langchain.com/langsmith'
@@ -80,6 +81,9 @@ sourceUrls:
 pricingUrl: 'https://www.langchain.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added the Developer Fleet and Sandbox allowances and clarified that model-provider calls are separate from free tracing."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -90,7 +94,7 @@ You add the LangSmith SDK to your Python or TypeScript code, mark the functions 
 
 The Developer plan costs $0 per seat per month and is meant for solo users getting started. It includes 1 seat, community support, and up to 5k base traces per month. A trace is one execution of your app, such as an agent run, an evaluator, or a playground session.
 
-Base traces have a short retention of 14 days. Extended traces last 180 days, and you can upgrade a base trace to an extended trace for an extra fee. The Plus plan costs $39 per seat per month, adds unlimited seats, and includes 10k base traces.
+Base traces have a short retention of 14 days. Extended traces last 180 days, and you can upgrade a base trace to an extended trace for an extra fee. The Plus plan costs $39 per seat per month, supports additional paid seats, and includes 10k base traces. Developer also includes 7 Fleet LSUs monthly and 8 Sandbox LSUs with at most 10 sandboxes; these are separate from tracing.
 
 ## When you hit a limit
 
@@ -122,4 +126,4 @@ Personal organizations are limited to 5,000 traces per month until a credit card
 
 ### Does LangSmith need a credit card?
 
-Not to sign up. The docs say you can sign up without one. You add a card only to go past 5,000 traces per month.
+Not to sign up. The docs say you can sign up without one. For tracing, adding a card lifts the 5,000-trace monthly cap and enables excess charges.

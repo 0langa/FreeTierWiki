@@ -35,7 +35,7 @@ freeTierDetails:
     - Commercial use on the Free plan requires a prominent link back to LocationIQ
     - Support is best-effort email support
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -63,17 +63,21 @@ avoidIf:
   - apps that cannot show attribution
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://locationiq.com'
 docsUrl: 'https://docs.locationiq.com'
 sourceUrls:
+  - 'https://docs.locationiq.com/docs'
   - 'https://locationiq.com/pricing'
 pricingUrl: 'https://locationiq.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added published cache restrictions and qualified the unstated Free card requirement.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -87,13 +91,13 @@ The Free plan includes 5000 requests a day at up to 2 requests a second and 60 r
 
 ## When you hit a limit
 
-When you go past the daily limit, the API returns a 429 error code with a Rate Limited Day message. Most paid plans have soft limits that allow up to an additional 100% of the daily limit before that happens; the pricing page describes these for paid plans. If your account exceeds plan limits often, LocationIQ says its team will reach out with help or larger plans. The Free plan does not bill you for extra requests.
+When you go past the daily limit, the API returns a 429 error code with a Rate Limited Day message. Most paid plans have soft limits that allow up to an additional 100% of the daily limit before that happens; the pricing page describes these for paid plans. If your account exceeds plan limits often, LocationIQ says its team will reach out with help or larger plans. The published response to exceeding the quota is rejection. The page does not explicitly state the Free payment-card requirement.
 
 ## Gotchas
 
 - The per-second and per-minute limits are low, so batch jobs need throttling even when the daily quota has room.
 - Commercial use depends on keeping the link back to LocationIQ visible.
-- The Free plan comes with 1 access token, so separate apps share one token and one daily quota.
+- Free API request-response pairs may be cached for up to 48 hours; server-side map-tile caching is prohibited. The account has one access token.
 
 ## Alternatives in this atlas
 

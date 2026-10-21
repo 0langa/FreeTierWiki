@@ -25,14 +25,16 @@ tags:
   - ev charging
 pricingModel: freemium
 freeTierDetails:
-  summary: Free tier allows 100 API requests per month, with access to all API endpoints.
+  summary: >-
+    Free tier allows 100 API requests per month, with access to all API
+    endpoints.
   limits:
     - 100 requests/month
     - All API endpoints included
   caveats:
     - Paid plans (from EUR 29/month) only raise the monthly request volume
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -46,8 +48,13 @@ quickstartSteps:
   - Sign up for a free CarAPI.dev account.
   - Sign in to the dashboard and copy your API key.
   - 'Open the docs and pick an endpoint, such as VIN Decode.'
-  - 'Send a GET request to `https://api.carapi.dev/v1/vin-decode/VIN?token=YOUR_API_KEY` with a real VIN in place of the placeholder.'
-  - 'Read the JSON response and watch the `X-RateLimit-Remaining` header for your quota.'
+  - >-
+    Send a GET request to
+    `https://api.carapi.dev/v1/vin-decode/VIN?token=YOUR_API_KEY` with a real
+    VIN in place of the placeholder.
+  - >-
+    Read the JSON response and watch the `X-RateLimit-Remaining` header for your
+    quota.
 whenToUse: >-
   Use CarAPI.dev when you need VIN decoding, plate lookup, or other vehicle data
   in a prototype or small app with fewer than 100 calls a month.
@@ -65,8 +72,8 @@ avoidIf:
   - need a free plan above 100 requests a month
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: '2026-10-21'
+lastUpdated: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://carapi.dev'
@@ -76,6 +83,12 @@ sourceUrls:
   - 'https://carapi.dev'
   - 'https://docs.carapi.dev'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified the unpublished signup card policy and removed unsupported
+      endpoint-specific regional claims.
 ---
 You sign up on the website, copy a token from the dashboard, and send GET requests with `curl` or any HTTP client. There is also an MCP server for AI agents. It suits developers who need to decode a VIN or look up a vehicle in a prototype.
 
@@ -95,7 +108,7 @@ The pricing page lists no overage fee. The free plan stops at the quota instead 
 
 - The docs list one quota of 100 requests a month for the Free plan, so a small test run of VIN decodes and photo lookups can use up the month.
 - The example request in the docs puts your key in a `token` query parameter, so keep calls on your server and out of front-end code.
-- Some endpoints cover only some regions. Recalls cover U.S. records, and inspection records come from European countries.
+- Some endpoints cover only some regions. Check the current endpoint documentation for the country and record types you need.
 
 ## Alternatives in this atlas
 

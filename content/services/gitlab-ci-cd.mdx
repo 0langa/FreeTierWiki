@@ -27,12 +27,12 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 400 compute minutes per month and 5 users per top-level group. A card is
+    Free tier includes 400 compute minutes per month and 5 users per private top-level group. A card is
     needed to use the shared runners.
   limits:
     - 400 compute minutes per month
-    - 5 users per top-level group
-    - 10 GiB of adjustable storage
+    - 5 users per private top-level group
+    - 10 GiB of Git repository and LFS storage per project
     - Your own runners can be added and do not need a card
   caveats:
     - >-
@@ -77,7 +77,7 @@ whenNotToUse: >-
   runner of your own, or if you need more than 400 minutes a month for free.
 bestFor:
   - GitLab-hosted projects
-  - small teams of up to 5 users per group
+  - small teams using private groups, and public groups exempt from the five-user cap
   - people who can run their own runner
 avoidIf:
   - your code lives on another Git host
@@ -85,8 +85,8 @@ avoidIf:
   - you cannot provide a card and have no runner
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: '2026-10-09'
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/'
@@ -98,13 +98,19 @@ sourceUrls:
   - 'https://docs.gitlab.com/ci/quick_start/'
   - 'https://docs.gitlab.com/ci/pipelines/compute_minutes/'
   - 'https://docs.gitlab.com/ci/runners/'
+  - 'https://docs.gitlab.com/ci/pipelines/instance_runner_compute_minutes/'
+  - 'https://docs.gitlab.com/subscriptions/gitlab_com/compute_minutes/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped five-user cap to private top-level groups, storage to repository/LFS per project, and described runner grace/enforcement plus purchased-minute validity."
 ---
 You describe your pipeline in a `.gitlab-ci.yml` file and read the results under the Build menu, then Pipelines. GitLab.com supplies instance runners, or you can register your own. It suits small teams and solo developers on GitLab.
 
 ## What the free plan gives you
 
-The Free plan is for personal projects and open-source work. It includes 5 users per top-level group, 400 compute minutes per month, source code management with CI/CD, 10 GiB of adjustable storage, and static application security testing.
+The Free plan is for personal projects and open-source work. It includes 5 users per private top-level group, 400 compute minutes per month, source code management with CI/CD, 10 GiB of Git repository and LFS storage per project, and static application security testing.
 
 Free namespaces get 400 compute minutes each month. A job's compute usage is its duration divided by 60, times a cost factor that depends on the runner type and project settings. Usage resets on the first day of each month. Trigger jobs do not use compute minutes.
 
@@ -112,9 +118,9 @@ You can also bring your own runners and storage. GitLab.com offers runners on Li
 
 ## When you hit a limit
 
-On GitLab.com the compute quota is on by default for Free namespaces. You get notices as you near it, and GitLab applies enforcement measures once you exceed it.
+On GitLab.com the compute quota is on by default for Free namespaces. You get notices as you near it, and Instance runners stop new jobs and drop pending or retried jobs at exhaustion; running jobs can continue until namespace usage is 1,000 compute minutes over quota, then they are dropped.
 
-You can purchase additional compute minutes. The docs say purchased minutes are used only after the monthly quota runs out, and they roll over if unused. Your own self-managed runners do not use the quota.
+You can purchase additional compute minutes. The docs say purchased minutes are used only after the monthly quota runs out and roll over if unused, with a stated 12-month validity. Expiry is not yet enforced, but GitLab does not guarantee use after expiry. Your own self-managed runners do not use the quota.
 
 ## Gotchas
 
@@ -132,7 +138,7 @@ You can purchase additional compute minutes. The docs say purchased minutes are 
 
 ### Is GitLab CI/CD free?
 
-Yes, within limits. The Free plan includes 400 compute minutes per month and 5 users per top-level group.
+Yes, within limits. The Free plan includes 400 compute minutes per month and 5 users per private top-level group.
 
 ### Does GitLab CI/CD need a credit card?
 

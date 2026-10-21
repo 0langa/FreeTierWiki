@@ -33,19 +33,20 @@ freeTierDetails:
     - 10 database instances
     - Community support
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Bytebase Cloud can only reach publicly reachable databases
     - Google and GitHub SSO, groups, and email support start with Pro
     - Bytebase Cloud runs on Google Cloud in the US
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
     - Pro is billed per user per month by credit card; the Community plan has no usage charges on the pricing page
 useCases:
-  - Reviewing and applying schema migrations through an approval workflow
-  - Giving teammates audited SQL access to production databases
+  - Applying schema migrations with database change history; approval workflows need Enterprise
+  - Giving teammates SQL editor access; dedicated audit logs are not included on Free
   - Keeping a history of every schema change across environments
 quickstartSteps:
   - Sign up at cloud.bytebase.com, or run the self-hosted version with Docker.
@@ -59,13 +60,13 @@ whenNotToUse: >-
   setup needs the self-hosted version.
 bestFor:
   - reviewed schema migrations for small teams
-  - shared SQL access with an audit trail
+  - shared SQL access and database change history
 avoidIf:
   - your databases are only reachable inside a private network and you will not self-host
 difficulty: intermediate
 productionReadiness: production-light
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.bytebase.com'
@@ -76,12 +77,18 @@ sourceUrls:
 pricingUrl: 'https://www.bytebase.com/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Separated Free database change history from Enterprise approval workflows and paid audit logs; card requirements remain unknown."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
 ---
 
-Bytebase is a tool for database change management. Developers submit schema changes, teammates review them, and Bytebase applies them and records the history. It also has a SQL editor with access control, so people can query databases without sharing passwords. You can use it as Bytebase Cloud or run it yourself.
+Bytebase is a tool for database change management. Developers submit schema changes, and Bytebase applies them and records database change history. The pricing comparison reserves approval workflows for Enterprise and does not include dedicated audit logs on Free. It also has a SQL editor with access control, so people can query databases without sharing passwords. You can use it as Bytebase Cloud or run it yourself.
 
 ## What the free plan gives you
 
@@ -91,7 +98,7 @@ Bytebase Cloud is for databases reachable over the public internet, such as Neon
 
 ## When you hit a limit
 
-The Community plan's limits are counts of users and database instances, not usage. The pricing page does not say what happens when you need more users or instances than the plan allows; it points to upgrading. Pro costs $20 per user per month, keeps 10 database instances, and adds email support, Google and GitHub SSO, and groups.
+The Community plan's limits are counts of users and database instances, not usage. An explicit Free signup card requirement is not published. The pricing page does not say what happens when you need more users or instances than the plan allows; it points to upgrading. Pro costs $20 per user per month, keeps 10 database instances, and adds email support, Google and GitHub SSO, and groups.
 
 Enterprise is quoted by sales and adds custom instance counts, approval flows, data masking, and SSO through OIDC or LDAP. Self-hosted Community instances can start a 14-day Enterprise trial. Pro is cloud-only.
 

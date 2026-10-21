@@ -33,16 +33,18 @@ freeTierDetails:
     - Web push with up to 10,000 subscribers per send
     - 6 audience segments and 6 data tags
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
+    - Above 1,000 organization MAU, mobile push and in-app sends pause after 24 hours unless you upgrade.
     - The pricing page lists no free SMS or RCS allowance; its cost calculator says to talk to sales
     - Growth plan starts at $19 per month
     - The Free plan keeps only subscription records active in the past 18 months
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - The pricing page does not say what happens when you pass 1,000 monthly active users on Free; paid mobile push is charged per active user
+    - Above 1,000 MAU, mobile push and in-app sends pause after a 24-hour upgrade window; paid mobile push is charged per active user
 useCases:
   - Sending push notifications from a mobile app
   - Sending web push to website visitors
@@ -71,18 +73,25 @@ avoidIf:
   - complex segmentation
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://onesignal.com'
 docsUrl: 'https://documentation.onesignal.com'
 sourceUrls:
+  - "https://onesignal.com/blog/whats-changing-on-onesignals-free-plan/"
   - 'https://onesignal.com/pricing'
   - 'https://documentation.onesignal.com/docs/en/mobile-sdk-setup'
 pricingUrl: 'https://onesignal.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Documented the 24-hour upgrade window before mobile push and in-app sends pause above 1,000 MAU."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -97,7 +106,7 @@ Web push on the Free plan allows a maximum of 10,000 subscribers per send. The f
 
 ## When you hit a limit
 
-The pricing page does not say what OneSignal does when you pass 1,000 monthly active users on the Free plan. A monthly active user is a mobile subscription record that was active in your app in the last 30 days.
+OneSignal notifies organizations at 75%, 90% and 100% of the 1,000-MAU allowance. Above it, you have 24 hours to upgrade before mobile push and in-app sends pause. Web push and email continue under their own limits. MAU counts mobile subscription records active in the last 30 days, even without push opt-in.
 
 Paid mobile push is charged per monthly active user, and the Growth plan starts at $19 per month. You can upgrade in the dashboard under Billing. Email beyond the free allowance is billed per 1,000 sends on paid plans.
 

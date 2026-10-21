@@ -37,13 +37,14 @@ freeTierDetails:
     - Analyze response limited to the first 2 pages of a request
     - Max document size 4 MB; 1 analyze request per second
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Premium features and the Query Meter are not included on the F0 tier
     - Moving past 500 pages/month requires the paid S0 tier
-    - 'Training a custom template model is free; neural model training is free for the first 10 hours'
+    - 'Training a custom template model is free; neural model training includes 10 free hours per month'
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - Automate invoice and receipt data entry
@@ -53,8 +54,8 @@ useCases:
 quickstartSteps:
   - 'Create an Azure account, or use an existing Azure subscription.'
   - >-
-    In the Azure portal, create a Document Intelligence resource, or a Foundry resource if you want
-    several tools under one key. Pick the free F0 tier.
+    In the Azure portal, create a single-service Document Intelligence resource and select F0.
+    Other resource types have their own available tiers and billing.
   - Select Go to resource and copy the key and endpoint.
   - 'Install the client library for your language, or call the REST API.'
   - Send a PDF or image to the prebuilt Layout or Read model and read the extracted result.
@@ -75,8 +76,8 @@ avoidIf:
   - handle sensitive documents with strict residency rules
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: '2026-10-09'
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/ai-document-intelligence/'
@@ -90,6 +91,13 @@ sourceUrls:
     https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/quickstarts/get-started-sdks-rest-api
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped F0 provisioning to Document Intelligence and clarified the monthly neural-training allowance."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You call it through the REST API, a client SDK, or Document Intelligence Studio. It suits developers who automate invoices, receipts, and forms.
 
@@ -121,7 +129,7 @@ Free usage and paid usage are separate tiers, so you must pick S0 on purpose. No
 
 ### Is Azure AI Document Intelligence free?
 
-Partly. The F0 tier gives you 500 pages per month across Read, Layout, prebuilt, and custom models. Training a custom template model is free, and neural model training is free for the first 10 hours.
+Partly. The F0 tier gives you 500 pages per month across Read, Layout, prebuilt, and custom models. Training a custom template model is free, and neural model training includes 10 free hours per month.
 
 ### What is the page limit per document on the free tier?
 

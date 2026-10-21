@@ -33,13 +33,14 @@ freeTierDetails:
     - 3 months of data retention
     - iPhone and Android app
   caveats:
-    - SSO is only on the top paid plan
-    - Notification budget is set by plan price (50 percent of the subscription price), so the pages leave the free plan's SMS and voice budget unclear
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
+    - SSO starts on Elite; Basic has push, email and Slack, while SMS/voice/WhatsApp require a paid plan.
+    - The paid notification budget is tied to subscription price; do not treat it as an SMS or voice allowance on Basic.
     - 'Larger plans: $15 per user per month for up to 25 users (pricing page)'
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 useCases:
   - Paging the on-call engineer when a monitor fires
@@ -68,19 +69,27 @@ avoidIf:
   - SSO needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://pagertree.com/'
 docsUrl: 'https://pagertree.com/docs/'
 sourceUrls:
+  - "https://pagertree.com/docs/escalation-policies"
   - 'https://pagertree.com/pricing'
   - 'https://pagertree.com/docs/getting-started/account-admins'
   - 'https://pagertree.com/notification-limits/'
   - 'https://docs.pagertree.com'
 pricingUrl: 'https://pagertree.com/pricing'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified Basic notification channels, scoped trial card wording and made escalation timing configurable."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use the PagerTree web app to connect your monitoring tools, set a schedule, and invite your team. Alerts then page the person on call, with the mobile app as one way to receive them. It suits small teams that want a lighter option than a large incident platform.
 
@@ -88,16 +97,16 @@ You use the PagerTree web app to connect your monitoring tools, set a schedule, 
 
 The Basic plan costs $0 per user per month and is built for up to 5 users. It includes up to 2 teams, unlimited integrations, and 3 months of data retention. The comparison table also lists an iPhone and Android app for Basic.
 
-The paid plans start at $15 per user per month for up to 25 users, according to the pricing page. SSO is limited to the top plan. The docs explain that PagerTree waits up to 5 minutes for the primary on-call user to respond. After that, it escalates the alert to the backup user.
+The paid plans start at $15 per user per month for up to 25 users, according to the pricing page. SSO starts on Elite. Each team has an escalation policy with configurable timeouts: unacknowledged or rejected alerts move to the next layer. Basic includes push, email and Slack; SMS, voice and WhatsApp start on paid plans.
 
 ## When you hit a limit
 
-The pricing page does not say what happens if you add a sixth user to the Basic plan. It lists "Up to 5 Users" as the plan size. Notifications have a separate budget. The notification limits page says you can use up to 50% of your subscription price in notifications, and that you stop receiving SMS, voice, and WhatsApp alerts at the limit. Push, email, and Slack notifications are still attempted. The pages do not state what this means for a $0 plan.
+The pricing page does not say what happens if you add a sixth user to the Basic plan. It lists "Up to 5 Users" as the plan size. Notifications have a separate budget. The notification limits page says you can use up to 50% of your subscription price in notifications, and that you stop receiving SMS, voice, and WhatsApp alerts at the limit. Push, email, and Slack notifications are still attempted. This budget is not a Basic phone-alert allowance: the plan card places those channels on paid plans.
 
 ## Gotchas
 
 - The 14-day trial on the pricing page needs no credit card, but the pages do not describe how trial features differ from Basic.
-- Notification limits are tied to plan price, so a free plan may not give you SMS or voice credit. Check in the app before you rely on phone alerts.
+- Basic includes push, email and Slack. Upgrade for SMS, voice or WhatsApp, then review the separate paid notification budget.
 - Auto-recharge for notification credit is opt-in and charges the card on file. The pricing page also says PagerTree may charge overage fees for abnormal or unreasonable SMS and voice usage.
 
 ## Alternatives in this atlas

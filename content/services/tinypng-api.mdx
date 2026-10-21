@@ -32,13 +32,13 @@ freeTierDetails:
     - 500 compressions per month
     - Resizing and converting each count as one additional compression
   caveats:
+    - The free account stops at 500 compressions until the next calendar month or a paid upgrade
     - Preserving metadata does not count as an extra compression
-    - The developers page does not list the price past 500 compressions
-    - The page does not say what happens at 500 compressions
+    - Resizing, converting and saving a result to Amazon S3 each use an additional compression
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: none
   billingRiskNotes:
     - No payment method is required for the free compressions, so the free tier alone cannot create charges
@@ -64,18 +64,25 @@ avoidIf:
   - you want images served from a CDN
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://tinypng.com/developers'
 docsUrl: 'https://tinypng.com/developers/reference'
 sourceUrls:
+  - "https://tinypng.com/pricing/api"
   - 'https://tinypng.com/developers'
   - 'https://tinypng.com/developers/reference'
-pricingUrl: 'https://tinypng.com/developers'
+pricingUrl: 'https://tinypng.com/pricing/api'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Confirmed the calendar-month hard cap, API error and paid compression prices from the current API pricing FAQ."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -91,9 +98,9 @@ Official client libraries are available for Ruby, PHP, Node.js, Python, Java, an
 
 ## When you hit a limit
 
-The developers page does not say what happens when you reach 500 compressions in a month or what extra compressions cost. Since no payment method is needed for the free tier, the free account by itself cannot run up charges.
+Free accounts stop at 500 compressions per calendar month with the error “Your monthly limit has been exceeded.” Wait for the next calendar month or explicitly upgrade. Paid usage costs $0.009 per compression for the next 9,500, then $0.002 each beyond 10,000; adding paid billing removes the free cap.
 
-Plan for how operations are counted. Resizing counts as one additional compression, and so does converting. The API reference gives an example: uploading one image and retrieving the optimized version plus 2 resized versions counts as 3 compressions.
+Plan for how operations are counted. Resizing, converting and saving to Amazon S3 each count as an additional compression. The API reference gives an example: uploading one image and retrieving the optimized version plus 2 resized versions counts as 3 compressions.
 
 ## Gotchas
 

@@ -27,10 +27,10 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan: 10,000 notifications per month, unlimited channels and team
-    members, no credit card. All features are open for a 30 day trial first.
+    Free plan: 10,000 notifications per month, unlimited channels and team members, no credit card.
+    All features are open for a 30 day trial first.
   limits:
-    - '10,000 notifications/month'
+    - 10,000 notifications/month
     - Unlimited channels and team members
     - 30 days of log retention
   caveats:
@@ -43,7 +43,9 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: low
   billingRiskNotes:
-    - Going over 10,000 notifications/month does not stop service. SuprSend contacts you to upgrade or agree custom pricing
+    - >-
+      Going over 10,000 notifications/month does not stop service. SuprSend contacts you to upgrade
+      or agree custom pricing
 useCases:
   - Send order and account notifications by email, SMS, and push from one API call
   - Show an in-app notification inbox in your product
@@ -72,19 +74,25 @@ avoidIf:
   - you need a branding-free inbox on a free plan
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.suprsend.com/'
 docsUrl: 'https://docs.suprsend.com/'
 pricingUrl: 'https://www.suprsend.com/pricing'
 sourceUrls:
-  - 'https://www.suprsend.com/pricing'
-  - 'https://docs.suprsend.com/'
-  - 'https://docs.suprsend.com/reference/authentication.md'
-  - 'https://docs.suprsend.com/reference/trigger-workflow-api.md'
+  - https://www.suprsend.com/pricing
+  - https://docs.suprsend.com/
+  - https://docs.suprsend.com/reference/authentication.md
+  - https://docs.suprsend.com/reference/trigger-workflow-api.md
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Clarified per-channel notification counting and that batching/digest require Business after
+      the trial.
 ---
 You build notification workflows in a web dashboard and trigger them from your code through an HTTPS API or a backend SDK. A client SDK covers the frontend. It suits developers and product teams.
 
@@ -96,7 +104,7 @@ The in-app notification feed carries SuprSend branding on this plan. The paid pl
 
 New accounts unlock all features for a 30 day trial. After that, the account moves to the Free plan.
 
-Billing counts notifications, not API requests. A bulk request that reaches many users counts each user separately, while a digest counts as one.
+Billing counts notifications, not API requests. Each recipient on each channel counts separately, including webhook calls; a bulk request counts each user, while a digest counts as one.
 
 ## When you hit a limit
 
@@ -107,7 +115,7 @@ The Essentials plan costs $100 per month billed annually and includes 50k notifi
 ## Gotchas
 
 - SuprSend does not send the mail or SMS itself. You bring your own provider accounts, such as Twilio, Sendgrid, or Mailjet, and pay them directly.
-- Group alerts that arrive in a batch or digest count as one notification, but a bulk send to many users counts each user.
+- Batching and digest are Business features after the trial. One delivered digest counts once; a bulk send still counts each user on each channel.
 - A workflow request is accepted when the API call is correct. Check the Requests tab under Logs in the dashboard to confirm delivery.
 
 ## Alternatives in this atlas

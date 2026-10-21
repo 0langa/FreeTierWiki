@@ -25,19 +25,18 @@ pricingModel: freemium
 freeTierDetails:
   summary: >-
     500 minutes of job run time and 744 watcher hours are free per month.
-    Configuration management is free for Azure nodes and for the first 5
-    non-Azure nodes; Update Management has no service charge.
+    Legacy State Configuration lists free Azure nodes and the first 5 non-Azure
+    nodes, but retires September 30, 2027.
   limits:
     - 500 minutes of job run time/month
     - 744 watcher hours/month
     - Configuration management free for all Azure nodes
     - 5 free non-Azure nodes/month for configuration management
-    - Update Management has no charge (Log Analytics storage billed
-      separately)
   caveats:
     - Job run time and watcher hours beyond the free amount are billed per
       minute/hour.
     - Non-Azure nodes beyond the free 5 are billed per node.
+    - Legacy Update Management is retired; State Configuration retires September 30, 2027.
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
@@ -73,13 +72,15 @@ avoidIf:
   - you want to avoid usage-based billing
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/automation/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/automation/'
 sourceUrls:
+  - 'https://techcommunity.microsoft.com/blog/azuregovernanceandmanagementblog/log-analytics-agent-based-azure-management-services-shut-down-starting-28-februa/4381853'
+  - 'https://learn.microsoft.com/en-us/azure/automation/automation-dsc-overview'
   - 'https://azure.microsoft.com/en-us/pricing/details/automation/'
   - 'https://learn.microsoft.com/en-us/azure/automation/'
   - 'https://learn.microsoft.com/en-us/azure/automation/overview'
@@ -87,6 +88,10 @@ sourceUrls:
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/automation/'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed retired Update Management from the available free offer and added the State Configuration retirement warning."
 ---
 You create an Automation account in the Azure portal, then write runbooks in PowerShell, Python, or a graphical editor. One Automation account can manage resources across all regions and subscriptions in a tenant.
 
@@ -94,7 +99,7 @@ You create an Automation account in the Azure portal, then write runbooks in Pow
 
 Each month includes free units that refresh every month. Process automation gives you 500 minutes of job run time and 744 hours of watcher time. A job counts for the minutes it runs, and a watcher counts for the hours it runs.
 
-Configuration management is free for Azure nodes and for the first 5 non-Azure nodes. The pricing page also says there is no charge for Update management itself. You only pay for log data stored in Azure Log Analytics. The free units are not available on rate plans with a flat discount or a fixed monthly credit.
+Configuration management is free for Azure nodes and for the first 5 non-Azure nodes. The pricing page retains an Update Management row, but that legacy service retired in August 2024 and shutdown began February 28, 2025. It is not a current free patching offer. State Configuration retires September 30, 2027, and Microsoft directs users to Machine Configuration. The free units are not available on rate plans with a flat discount or a fixed monthly credit.
 
 ## When you hit a limit
 
@@ -105,7 +110,7 @@ Usage is added up across all the Automation accounts in your subscription. The p
 ## Gotchas
 
 - Free units are shared across all Automation accounts in a subscription, so many accounts do not give many free allowances.
-- Configuration management bills non-Azure nodes beyond the first 5, and the billing starts when a node registers.
+- Legacy State Configuration bills non-Azure nodes beyond the first 5 and retires September 30, 2027. The portal Add, Compose, and Gallery links were removed in March 2025.
 - The free units do not apply to subscribers on rate plans with a flat discount or fixed monthly credit.
 
 ## Alternatives in this atlas

@@ -30,6 +30,7 @@ freeTierDetails:
   limits:
     - '4,000 state transitions per month (Standard Workflows)'
   caveats:
+    - Most new AWS customers need no payment method, but identity verification may require one
     - Each retry counts as an extra state transition
     - The pricing page lists no free amount for Express Workflows
     - Lambda functions and other services a workflow calls are billed separately
@@ -39,6 +40,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
+    - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - State transitions past the free amount are charged, metered daily and billed monthly
     - Workflows that retry often use transitions faster than the step count suggests
 useCases:
@@ -64,8 +66,8 @@ avoidIf:
   - you do not want an AWS account
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://aws.amazon.com/step-functions/'
@@ -77,6 +79,9 @@ sourceUrls:
 pricingUrl: 'https://aws.amazon.com/step-functions/pricing/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Scoped excess usage to AWS account plans and optional project controls; corrected Free-account suspension and data-retention wording."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -92,7 +97,7 @@ To size it: a workflow with four steps uses four transitions per run, so 4,000 t
 
 ## When you hit a limit
 
-Nothing stops your workflows at the free amount. Transitions past 4,000 are charged per state transition; the pricing page example uses $0.000025 per transition in US East (N. Virginia). In its example, 100,000 runs of a four-step workflow use 400,000 transitions, of which 396,000 are billable.
+On Paid accounts without optional project controls, workflows continue past the free amount. Transitions past 4,000 are charged per state transition; the pricing page example uses $0.000025 per transition in US East (N. Virginia). In its example, 100,000 runs of a four-step workflow use 400,000 transitions, of which 396,000 are billable.
 
 Express Workflows are priced differently, by the number of requests and their duration and memory, and the pricing page lists no free amount for them. Services your workflow calls, such as Lambda, bill on their own.
 
@@ -100,7 +105,7 @@ Express Workflows are priced differently, by the number of requests and their du
 
 - Retries in your error handling count as extra state transitions, so a flaky step costs more than its run count suggests.
 - Express Workflows bill a request for every run, including tests you start from the console.
-- A new AWS account on the Free plan closes after 6 months or when its credits run out, unless you upgrade to a Paid plan.
+- A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion.
 
 ## Alternatives in this atlas
 

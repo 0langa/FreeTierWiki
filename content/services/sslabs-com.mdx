@@ -35,9 +35,12 @@ freeTierDetails:
     - Tests public servers only, not private/internal sites
     - The test form has an option to keep your result off the public boards
     - The APIs are free to use with restrictions set in the terms and conditions
+    - >-
+      API use requires server-owner permission; commercial or public-site API use needs express
+      Qualys permission.
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Checking the TLS configuration of a public website
@@ -65,18 +68,23 @@ avoidIf:
   - you need bulk testing without reading the API terms first
 difficulty: beginner
 productionReadiness: production-ready
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-13
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://www.ssllabs.com/ssltest/'
 docsUrl: 'https://www.ssllabs.com/projects/documentation/'
 sourceUrls:
-  - 'https://www.ssllabs.com/ssltest/'
-  - 'https://www.ssllabs.com/projects/documentation/'
-  - 'https://www.ssllabs.com/projects/ssllabs-apis/index.html'
+  - https://www.ssllabs.com/ssltest/
+  - https://www.ssllabs.com/projects/documentation/
+  - https://www.ssllabs.com/projects/ssllabs-apis/index.html
+  - https://www.ssllabs.com/downloads/Qualys_SSL_Labs_Terms_of_Use.pdf
 pricingUrl: 'https://www.ssllabs.com/ssltest/'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Read the previously unreadable API terms and qualified unpublished live quotas.
 ---
 You use it in a browser: enter a hostname and wait for the report. For scheduled or bulk checks, Qualys offers APIs and an open source command-line scanner. It suits anyone who runs a public HTTPS site.
 
@@ -88,13 +96,15 @@ For automation, SSL Labs APIs expose the full testing function so you can run sc
 
 ## When you hit a limit
 
-The test page lists no daily limit and no price. The free API comes with restrictions that the site points to in its terms and conditions, a PDF that this atlas could not read, so the exact limits are not known here. Read those terms before you build a bulk or scheduled job. The tool only reaches servers on the public internet, so a private or internal host cannot be tested at all.
+The public test page lists no daily testing allowance or paid overage. API usage is restricted by the published terms rather than offered as unlimited commercial scanning. Assess only servers whose owners have given permission. Commercial API use, public-website integration and republishing results require the permissions specified in those terms.
+
+Precise live request and concurrency quotas are not published on the test page. Avoid treating the free price as a bulk-capacity promise. Private or internal hosts cannot be reached by this public-internet scanner.
 
 ## Gotchas
 
 - The home page shows recently tested hostnames. The form has a checkbox, "Do not show the results on the boards", so tick it if you do not want your hostname listed.
 - Only public servers can be tested. Internal sites are out of reach.
-- The APIs are free with restrictions. Read the terms before bulk use.
+- The API requires server-owner permission; commercial or public-site API use needs express Qualys permission.
 
 ## Alternatives in this atlas
 

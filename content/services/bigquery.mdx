@@ -24,15 +24,16 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Each month the first 10 GiB of storage and the first 1 TiB of query data
-    processed are free. You can try the free tier in the BigQuery sandbox
-    without a credit card.
+    Billing-enabled Free Tier includes 10 GiB of storage and 1 TiB of query
+    data monthly. The no-card sandbox has lifetime 10 GiB storage plus
+    1 TiB of queries monthly, with 60-day table expiry.
   limits:
-    - 10 GiB storage per month
+    - Billing-enabled storage allowance of 10 GiB per month; sandbox lifetime 10 GiB
     - 1 TiB of query data processed per month
     - Batch loading through the shared slot pool is free
   caveats:
-    - The no-card path is the BigQuery sandbox
+    - No-card sandbox storage is a lifetime 10 GiB grant, not restored by deletion
+    - Sandbox tables, views and partitions expire after 60 days; no streaming, DML or Data Transfer Service
     - Each query is billed for at least 10 MB per table it references
     - Pricing applies per account, not per project
   resetPeriod: monthly
@@ -65,18 +66,22 @@ avoidIf:
   - frequent full scans of large tables
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/bigquery'
 docsUrl: 'https://cloud.google.com/bigquery/docs'
 sourceUrls:
-  - 'https://cloud.google.com/bigquery/pricing'
+  - "https://cloud.google.com/bigquery/pricing"
+  - "https://docs.cloud.google.com/bigquery/docs/sandbox?hl=en"
   - 'https://cloud.google.com/free'
 pricingUrl: 'https://cloud.google.com/bigquery/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Separated lifetime sandbox storage and 60-day expiry restrictions from the billing-enabled monthly Free Tier."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -88,11 +93,11 @@ BigQuery is a data warehouse you open in the Google Cloud console. You load data
 
 BigQuery is part of the Google Cloud Free Tier, and its free amounts last after the free trial ends. Each month the first 10 GiB of storage is free, and the first 1 TiB of query data processed is free under on-demand pricing. BigQuery ML models and training data stored in BigQuery count toward the storage free tier.
 
-Some operations are free in every location: batch loading data through the shared slot pool costs nothing, though quotas and limits apply. You can try the free tier in the BigQuery sandbox without a credit card. Queries that return an error or are served from the cache are not charged.
+Some operations are free in every location: batch loading data through the shared slot pool costs nothing, though quotas and limits apply. Without a card, the sandbox has a lifetime 10 GiB storage limit that deletion does not restore, plus 1 TiB of monthly query data. Its tables, views and partitions expire after 60 days. Queries that return an error or are served from the cache are not charged.
 
 ## When you hit a limit
 
-The pricing page does not describe a hard stop for the free amounts. With a billing account attached, usage past them is charged at the listed rates, for example $6.25 per TiB of on-demand query data after the first 1 TiB each month.
+The no-card sandbox has fixed limits and excludes streaming, DML and Data Transfer Service. Enabling billing removes those sandbox restrictions. With a billing account attached, usage past them is charged at the listed rates, for example $6.25 per TiB of on-demand query data after the first 1 TiB each month.
 
 Charges are rounded up to the nearest MB, with a minimum of 10 MB processed per table a query references and per query. Canceling a running query might still incur charges up to the full cost of the query. Pricing models apply to accounts, not individual projects, so all your projects draw on the same free amounts.
 
@@ -112,7 +117,7 @@ Charges are rounded up to the nearest MB, with a minimum of 10 MB processed per 
 
 ### Is BigQuery free?
 
-Within limits. Each month the first 10 GiB of storage and the first 1 TiB of query data processed are free, and you pay for use past that.
+Within limits: billing-enabled accounts receive 10 GiB storage and 1 TiB query processing monthly, with paid overages. The no-card sandbox has lifetime 10 GiB storage, monthly 1 TiB queries, and 60-day table expiry.
 
 ### Can I use BigQuery without a credit card?
 

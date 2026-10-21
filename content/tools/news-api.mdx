@@ -1,6 +1,8 @@
 ---
 title: News API
-description: "News API is a REST API that returns JSON search results for current and past news articles from sources worldwide. It suits developers who need headlines or article search in a prototype."
+description: >-
+  News API is a REST API that returns JSON search results for current and past news articles from
+  sources worldwide. It suits developers who need headlines or article search in a prototype.
 provider: News API
 category: apis
 domain: apis
@@ -36,19 +38,31 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 useCases:
-  - "Show live top headlines in a news ticker or dashboard"
+  - "Prototype delayed top headlines in a news ticker or dashboard"
   - "Search articles about a topic, company, or keyword"
   - "Limit results to a chosen publisher or domain"
   - "Prototype a news reader app"
   - "Collect headline data for student or research projects"
 quickstartSteps:
-  - "Open newsapi.org and choose Get API key to register for the free Developer plan. No credit card is asked for."
-  - "Copy your API key and pass it as the apiKey parameter in each request."
-  - "Send a GET request to https://newsapi.org/v2/top-headlines with the country parameter and your apiKey to get live headlines."
-  - "Send a GET request to https://newsapi.org/v2/everything with the q parameter to search articles by keyword."
-  - "Read the JSON response: check status, then loop over the articles array and use the page parameter for more results."
-whenToUse: "Use when you need headlines or article search over a JSON API for a prototype or a project that runs only in a development environment."
-whenNotToUse: "Avoid if you need to run in staging or production, even internally, need articles without the 24 hour delay, or need the full article text. The API returns a link, not the full content."
+  - >-
+    Open newsapi.org and choose Get API key to register for the free Developer plan. No credit card
+    is asked for.
+  - Copy your API key and pass it as the apiKey parameter in each request.
+  - >-
+    Send a GET request to https://newsapi.org/v2/top-headlines with the country parameter and your
+    apiKey to fetch headlines; Free articles have a 24-hour delay.
+  - >-
+    Send a GET request to https://newsapi.org/v2/everything with the q parameter to search articles
+    by keyword.
+  - >-
+    Read the JSON response: check status, then loop over the articles array and use the page
+    parameter for more results.
+whenToUse: >-
+  Use when you need headlines or article search over a JSON API for a prototype or a project that
+  runs only in a development environment.
+whenNotToUse: >-
+  Avoid if you need to run in staging or production, even internally, need articles without the 24
+  hour delay, or need the full article text. The API returns a link, not the full content.
 bestFor:
   - "prototyping"
   - "student projects"
@@ -61,19 +75,26 @@ avoidIf:
   - "full article text"
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://newsapi.org'
 docsUrl: 'https://newsapi.org/docs'
 pricingUrl: 'https://newsapi.org/pricing'
 sourceUrls:
-  - 'https://newsapi.org/pricing'
-  - 'https://newsapi.org/docs'
-  - 'https://newsapi.org'
-  - 'https://newsapi.org/docs/get-started'
+  - https://newsapi.org/pricing
+  - https://newsapi.org/docs
+  - https://newsapi.org
+  - https://newsapi.org/docs/get-started
+  - https://newsapi.org/docs/errors
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Removed reliance on hidden caching text and clarified that the Free headline example remains
+      delayed.
 ---
 You use News API from your own code. Register for a key, then send GET requests to the top headlines or everything endpoint, or use one of the client libraries the docs link to. It suits developers and students who want news data in a prototype.
 
@@ -81,13 +102,13 @@ You use News API from your own code. Register for a key, then send GET requests 
 
 The Developer plan costs $0 and needs no credit card. You get 100 requests per day. Any single HTTP request to any endpoint counts as one request. The number of results or the parameters you use do not change that count.
 
-The free plan has a few data limits. Articles arrive with a delay of 24 hours. Search reaches back only about a month. The plan has no uptime guarantee. Caching helps your budget: identical requests made soon after each other return a cached result that does not use up your allowance. The cache lasts 5 minutes by default.
+The free plan has a few data limits. Articles arrive with a delay of 24 hours. Search reaches back only about a month. The plan has no uptime guarantee. The allowance counts requests rather than results. Do not rely on repeated queries being free; the currently extracted caching material appears alongside hidden/commented page content.
 
 The plan is for development and testing only. The pricing page says you may not use it in a staging or production environment, not even an internal one.
 
 ## When you hit a limit
 
-The pricing page says the Developer plan has no extra requests available. When you use your 100 daily requests, you have to wait. The page offers no way to buy more on this plan, and the plan takes no card, so you cannot get a surprise bill.
+The pricing page says the Developer plan has no extra requests available. When you use your 100 daily requests, you have to wait. The page offers no way to buy more on this plan, with no excess-request purchase option listed for Developer.
 
 To run outside development, you must move to a paid plan. Paid plans bill per request above their included amount, but the free plan has no such option.
 

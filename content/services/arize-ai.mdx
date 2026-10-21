@@ -1,9 +1,8 @@
 ---
 title: Arize AI
 description: >-
-  Arize AX traces LLM agents and apps so you can see each retrieval, tool call,
-  and model call, then find recurring issues and test fixes with evals and
-  experiments.
+  Arize AX traces LLM agents and apps so you can see each retrieval, tool call, and model call, then
+  find recurring issues and test fixes with evals and experiments.
 provider: Arize AI
 category: observability
 domain: observability
@@ -25,20 +24,25 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    AX Free plan includes 25k trace spans/month, 1GB ingestion/month, and 10
-    Signal issues/month, with unlimited users and evals.
+    AX Free plan includes 25k trace spans/month, 1GB ingestion/month, and 10 Signal issues/month,
+    with unlimited users and evals.
   limits:
-    - '25,000 trace spans/month'
+    - 25,000 trace spans/month
     - 1GB ingestion/month
     - 10 Signal issues/month
     - Unlimited users and evals
   caveats:
+    - Enforcement of the listed free allowance is not confirmed in the cited public sources
     - Support limited to community channels
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - >-
+      Free quota exhaustion and billing transition are unpublished; Free signup explicitly needs no
+      card.
 useCases:
   - Tracing every step of an LLM agent request
   - Finding recurring failures with Signal issue grouping
@@ -46,18 +50,22 @@ useCases:
   - Testing a prompt or model change with experiments
   - Asking the built-in Alyx agent about your traces
 quickstartSteps:
-  - Sign up for a free Arize AX account from the pricing page; it says no credit card is required.
-  - Install the tooling with one command from the docs, such as `npx evals` or `uvx arize-ax-cli instrument`.
-  - Let the setup sign you in and pick your space, so you do not copy a Space ID or API key by hand.
-  - Let it add the OpenInference packages for your stack and wire them into your Python or TypeScript app.
-  - Send a few representative requests through your app.
-  - Open your project in Arize AX and click a trace to see its span tree.
+  - Create a Free Arize AX account; the pricing page explicitly says no card is required.
+  - >-
+    Follow the official instrumentation guide for your Python or TypeScript framework, using
+    OpenInference or the documented setup tool.
+  - >-
+    Configure the Arize space and exporter endpoint, and provide any model-provider key your
+    application needs.
+  - >-
+    Send representative requests through your application, then open a trace in Arize AX to inspect
+    its span tree.
 whenToUse: >-
-  Use Arize AX when you build an LLM agent or app and want traces, evals, and
-  experiments in one place without paying at first.
+  Use Arize AX when you build an LLM agent or app and want traces, evals, and experiments in one
+  place without paying at first.
 whenNotToUse: >-
-  Avoid it if you send more than 25k trace spans or 1 GB of data a month, or
-  need to keep traces longer than 15 days.
+  Avoid it if you send more than 25k trace spans or 1 GB of data a month, or need to keep traces
+  longer than 15 days.
 bestFor:
   - solo builders testing an LLM agent
   - small teams that need unlimited users
@@ -67,18 +75,27 @@ avoidIf:
   - traces you must keep longer than 15 days
 difficulty: intermediate
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://arize.com/'
 docsUrl: 'https://docs.arize.com/'
 pricingUrl: 'https://arize.com/pricing/'
 sourceUrls:
-  - 'https://arize.com/pricing/'
-  - 'https://arize.com/docs/ax'
-  - 'https://arize.com/docs/ax/get-started/get-started-tracing'
+  - https://arize.com/pricing/
+  - https://arize.com/docs/ax
+  - https://arize.com/docs/ax/get-started/get-started-tracing
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Removed guessed Free blocking behavior and aligned onboarding with current instrumentation
+      documentation.
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use Arize AX through its web app, a command line tool, and OpenInference instrumentation packages for Python and TypeScript. It suits people who build LLM agents and want to see what each request did.
 
@@ -90,7 +107,7 @@ Users, evaluations, experiments, human annotations, labeling queues, playgrounds
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you pass 25k spans or 1 GB in a month. It does not mention overage charges for the free plan, and it asks for no card, so a surprise bill looks unlikely. Plan for a stop or a prompt to upgrade instead.
+The pricing page does not say what happens when you pass 25k spans or 1 GB in a month. No Free overage price or card is published, but that does not establish what happens to excess spans or whether an account transition is offered. Do not assume a particular blocking rule.
 
 Retention works the same way as a limit. Traces older than 15 days are no longer kept on the free plan, so export anything you need to keep. The Pro plan keeps data for 30 days.
 

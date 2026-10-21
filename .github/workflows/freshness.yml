@@ -1,9 +1,9 @@
 name: Weekly pricing check
 
-# Reads every official pricing page once a week (Sunday 19:23 UTC), hashes the price-related text, and opens an
-# issue when the text changed or the page is gone. The hashes live on the `freshness-data` branch. The only
-# change this job makes to `main` is the weekly lastVerified refresh for entries whose text did not change.
-# The page text is only hashed: it is never run, never sent to a model, and never put in the issue.
+# Reads official pricing pages once a week (Sunday 19:23 UTC), fingerprints pricing text and table/icon markup, and opens an
+# issue for changed, unreadable, noisy or still-unreviewed sources. The hashes live on the `freshness-data` branch.
+# Entry dates change only after an entry review; this source scanner does not modify main.
+# The page content is only parsed and hashed: it is never run, never sent to a model, and never put in the issue.
 # The Sunday slot gives the Monday 08:00 UTC review routine (claude.ai) time to find the issue: GitHub has
 # started this schedule up to eight hours late.
 
@@ -31,8 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Full history: the refresh commit below is rebased onto whatever landed on main during the run.
-          fetch-depth: 0
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -59,48 +58,51 @@ jobs:
 
       - name: Check pricing pages
         id: check
-        run: node scripts/verify/check-freshness.mjs --hashes data/source-hashes.json --report freshness-report.md --mark-verified
+        run: node scripts/verify/check-freshness.mjs --hashes data/source-hashes.json --report freshness-report.md
 
       - name: Show the report in the job summary
         run: cat freshness-report.md >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Save the complete review queue
+        uses: actions/upload-artifact@v4
+        with:
+          name: pricing-check
+          path: |
+            freshness-report.md
+            freshness-review.json
+          retention-days: 90
+
       - name: Open an issue when something needs a look
-        if: steps.check.outputs.flagged != '0'
+        if: github.ref == 'refs/heads/main' && steps.check.outputs.flagged != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           FLAGGED: ${{ steps.check.outputs.flagged }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          printf '\nFull queue: [download the pricing-check artifact](%s#artifacts).\n' "$RUN_URL" >> freshness-report.md
           gh label create freshness --description "Weekly pricing check" --color FBCA04 --force
           gh issue create --label freshness --title "Pricing check $(date -u +%F): $FLAGGED to look at" --body-file freshness-report.md
 
-      # Entries whose page text is unchanged since their last review get lastVerified set to today, so the
-      # freshness label on the site moves every week. A date-only change, checked by the unit tests, pushed
-      # straight to main (a push with the workflow token starts no other workflow; Cloudflare still deploys).
-      - name: Record the confirmed entries on main
-        if: steps.check.outputs.verified != '0'
-        env:
-          VERIFIED: ${{ steps.check.outputs.verified }}
-        run: |
-          npm test
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content
-          git commit -m "content: weekly check $(date -u +%F), $VERIFIED entries confirmed unchanged"
-          git pull --rebase origin main
-          git push origin HEAD:main
-
       - name: Save this week's hashes
+        if: github.ref == 'refs/heads/main'
         run: |
           cp data/source-hashes.json "$RUNNER_TEMP/source-hashes.json"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git ls-remote --exit-code --heads origin freshness-data >/dev/null 2>&1; then
+          found=0
+          git ls-remote --exit-code --heads origin freshness-data >/dev/null || found=$?
+          if [ "$found" -eq 0 ]; then
             git fetch --depth=1 origin freshness-data
             git switch --force -C freshness-data FETCH_HEAD
-          else
+          elif [ "$found" -eq 2 ]; then
             git switch --orphan freshness-data
+          else
+            echo "::error::Could not read the freshness-data branch (git ls-remote exit $found)."
+            exit 1
           fi
           cp "$RUNNER_TEMP/source-hashes.json" source-hashes.json
           git add source-hashes.json
-          git commit -m "pricing hashes $(date -u +%F)" || echo "Nothing to commit"
+          if ! git diff --cached --quiet; then
+            git commit -m "pricing hashes $(date -u +%F)"
+          fi
           git push origin freshness-data

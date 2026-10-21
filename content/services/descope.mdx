@@ -35,11 +35,12 @@ freeTierDetails:
     - '2,000 monthly active consents (MACs)'
     - '2,000 monthly active tokens (MATKs)'
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
     - No overages — you must upgrade to Pro to exceed limits
     - If you pass the MAU or tenant limit you get a warning email and a grace period to upgrade, after which the app may lose access
     - 'SCIM provisioning, bot protection, and self-service SSO setup are on paid plans only'
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -73,19 +74,26 @@ avoidIf:
   - 'more than the free user, tenant, or SSO limits'
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: '2026-10-09'
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.descope.com/'
 docsUrl: 'https://docs.descope.com/'
 sourceUrls:
+  - "https://docs.descope.com/getting-started/react"
+  - "https://docs.descope.com/getting-started"
   - 'https://www.descope.com/pricing'
   - 'https://docs.descope.com/'
-  - 'https://docs.descope.com/getting-started'
-  - 'https://docs.descope.com/getting-started/react'
 featured: false
-lastVerified: '2026-10-19'
+lastVerified: 2026-10-21
 pricingUrl: 'https://www.descope.com/pricing'
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Counted consent and token allowances alongside the other separate Free limits."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You build your login flow in the Descope console, then drop it into your app with a client SDK, a hosted login page, or a backend SDK. It suits teams that want to change login screens without shipping code.
 
@@ -103,7 +111,7 @@ The pricing page says you must move to Pro if you pass 7,500 MAUs, 10 tenants, o
 
 ## Gotchas
 
-- There are four separate counters on the free plan: users, tenants, SSO connections, and M2M exchanges. Passing any one of them means an upgrade.
+- Separate Free counters cover users, tenants, SSO connections, M2M exchanges, consents and tokens. Check every allowance rather than only the MAU total.
 - SCIM provisioning and bot protection are not in Free or Pro. They start in a higher plan.
 - The old standalone React SDK repository is deprecated. The package name stays `@descope/react-sdk`, but issues now go to the descope-js repository.
 
@@ -125,4 +133,4 @@ The pricing page says there are no overages on the free plan. You have to upgrad
 
 ### Does Descope need a credit card?
 
-The pricing page shows the Free Forever plan at $0 and does not mention a card for it. The atlas lists it as needing no card.
+The pricing page shows the Free Forever plan at $0 and does not mention a card for it. The card requirement is not confirmed.

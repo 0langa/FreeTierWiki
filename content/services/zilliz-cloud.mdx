@@ -36,6 +36,7 @@ freeTierDetails:
     - When the trial ends without a payment method, the organization is frozen and trial clusters are recycled, then deleted after 30 days
     - Community support only on the Free plan
     - Free clusters are suspended after 7 consecutive days of inactivity and can be resumed at any time
+    - Storage exhaustion rejects writes; exact behavior at the 2.5M monthly vCU allowance is not published
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -69,7 +70,7 @@ avoidIf:
 difficulty: intermediate
 productionReadiness: side-project
 lastUpdated: 2026-10-21
-lastVerified: '2026-10-09'
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://zilliz.com/cloud'
@@ -84,6 +85,9 @@ sourceUrls:
 pricingUrl: 'https://zilliz.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Completed the current source comparison, distinguished known storage rejection from unpublished vCU behavior, and clarified payment-method trial credit expiry."
   - date: '2026-10-21'
     kind: changed
     note: Added the documented disk quota error at the free cluster storage limit.
@@ -101,9 +105,9 @@ The Free cluster allows up to 5 collections, and each organization can have only
 
 ## When you hit a limit
 
-Writes that exceed the Free cluster's storage capacity return a disk quota exceeded error. The cluster FAQ directs you to upgrade to Serverless or Dedicated for more capacity. The reviewed docs list the 2.5M monthly vCU limit but do not explain precisely what happens when it is exhausted. Serverless starts from $0 a month on the Standard plan and charges for what you use.
+Writes beyond Free storage capacity return a disk quota exceeded error. Upgrade to Serverless or Dedicated for more capacity. The docs list the 2.5M monthly vCU limit without explaining its exhaustion behavior. Serverless starts from $0 a month on Standard and charges for usage.
 
-The trial works differently from the Free cluster. A work email signup gets $100 in credits that expire after 30 days. Adding a payment method earns another $100. If the trial ends without a payment method, the organization is frozen and trial clusters go to the recycle bin. They are deleted for good after 30 days.
+The trial works differently from the Free cluster. A work email signup gets $100 in credits that expire after 30 days. Adding a payment method earns another $100 and extends credit expiry to one year. If the trial ends without a payment method, the organization is frozen and trial clusters go to the recycle bin. They are deleted for good after 30 days.
 
 ## Gotchas
 

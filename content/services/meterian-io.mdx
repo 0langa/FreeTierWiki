@@ -32,23 +32,24 @@ freeTierDetails:
     - '10 analyses/day'
     - HTML reports only
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Other report formats and CI integration are listed only on paid plans
     - Scanning more than 1 closed-source project requires a paid plan
     - The cheapest paid plan is listed at a yearly price in pounds
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Checking a repository for vulnerable dependencies before a release
   - Scanning a container image for known issues
-  - Running a scan in a GitHub Action or a CI job
+  - Checking dependencies manually with the Docker client
   - Listing the licences used by your dependencies
 quickstartSteps:
   - Open meterian.io and sign in, or create an account from the Free plan on the pricing page.
   - Open the dashboard and create or copy an API token from the tokens section.
-  - Choose how to scan. You can add the GitHub Action, run the Docker client with `docker pull meterian/cli:latest`, or use the Java thin client.
+  - Choose how to scan. For Free, run the Docker client with `docker pull meterian/cli:latest`, or use the Java thin client; the pricing page reserves CI integration for paid plans.
   - Set the `METERIAN_API_TOKEN` environment variable to your token.
   - Run the client in your project folder and read the report it produces.
 whenToUse: >-
@@ -67,8 +68,8 @@ avoidIf:
   - you run many scans per day
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.meterian.io/'
@@ -80,6 +81,13 @@ sourceUrls:
   - 'https://docs.meterian.io/the-client/guide-your-first-scan.md'
   - 'https://docs.meterian.io/the-client/guide-your-first-scan/your-first-scan-dockerized-client.md'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed Free GitHub Action/CI recommendation contradicted by plan table; qualified unpublished card and overage policies."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You run Meterian as a command-line client, a Docker image, or a GitHub Action, and read the results in a web dashboard or an HTML report. It suits open source maintainers and small teams who want a first dependency scan.
 
@@ -117,4 +125,4 @@ One closed-source project is free. For more, the plans page points you to the Bo
 
 ### How do I run my first Meterian scan?
 
-Get an API token from your dashboard, set it as `METERIAN_API_TOKEN`, and run the Docker client or the GitHub Action in your project.
+Get an API token from your dashboard, set it as `METERIAN_API_TOKEN`, and run the Docker client in your project. CI integration is listed on paid plans.

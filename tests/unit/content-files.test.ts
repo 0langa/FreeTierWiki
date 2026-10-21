@@ -2,6 +2,24 @@ import { describe, expect, it } from "vitest";
 
 import { ContentError } from "@/lib/content-schema";
 import { listContentFiles, readEntryFile } from "@/lib/content-files";
+import type { AtlasEntry } from "@/types/content";
+import { makeEntry } from "../support/fixtures";
+
+function riskProblems(entry: AtlasEntry): string[] {
+  const problems: string[] = [];
+  const { requiresCard, overageRisk, hasHardCap, freeTierType } = entry.freeTierDetails;
+  // "none" means you cannot be billed, which is impossible with a card on file.
+  if (overageRisk === "none" && requiresCard === true) problems.push(`${entry.id}: overageRisk none with requiresCard`);
+  // No-risk credits and trials need a confirmed stopping cap; always-free offers can have no paid overage.
+  if (overageRisk === "none" && hasHardCap !== true && freeTierType !== "always-free") {
+    problems.push(`${entry.id}: overageRisk none without a hard cap or an always-free plan`);
+  }
+  if (overageRisk === "high" && hasHardCap === true) problems.push(`${entry.id}: overageRisk high with hasHardCap`);
+  if (freeTierType === "trial" && entry.pricingModel !== "trial") {
+    problems.push(`${entry.id}: freeTierType trial but pricingModel ${entry.pricingModel}`);
+  }
+  return problems;
+}
 
 describe("content files", () => {
   it("every file in content/ parses, and titles are unique", async () => {
@@ -29,21 +47,21 @@ describe("content files", () => {
     const problems: string[] = [];
     for (const file of await listContentFiles()) {
       const { entry } = await readEntryFile(file);
-      const { requiresCard, overageRisk, hasHardCap, freeTierType } = entry.freeTierDetails;
-      // "none" means you cannot be billed, which is impossible with a card on file.
-      if (overageRisk === "none" && requiresCard) problems.push(`${entry.id}: overageRisk none with requiresCard`);
-      // "none" also needs a reason you cannot be billed: a hard cap, or an always-free plan with no paid overage.
-      if (overageRisk === "none" && !hasHardCap && freeTierType !== "always-free") {
-        problems.push(`${entry.id}: overageRisk none without a hard cap or an always-free plan`);
-      }
-      // "high" means billing starts on its own; a hard cap stops the service instead.
-      if (overageRisk === "high" && hasHardCap) problems.push(`${entry.id}: overageRisk high with hasHardCap`);
-      if (freeTierType === "trial" && entry.pricingModel !== "trial") {
-        problems.push(`${entry.id}: freeTierType trial but pricingModel ${entry.pricingModel}`);
-      }
+      problems.push(...riskProblems(entry));
     }
     expect(problems).toEqual([]);
   }, 60_000);
+
+  it("rejects no-risk trials whose stopping cap is unconfirmed", () => {
+    const base = makeEntry();
+    const trial = makeEntry({
+      pricingModel: "trial",
+      freeTierDetails: { ...base.freeTierDetails, freeTierType: "trial", hasHardCap: "unknown", overageRisk: "none" },
+    });
+    expect(riskProblems(trial)).toEqual(["services:neon: overageRisk none without a hard cap or an always-free plan"]);
+    expect(riskProblems({ ...trial, freeTierDetails: { ...trial.freeTierDetails, hasHardCap: true } })).toEqual([]);
+    expect(riskProblems({ ...trial, freeTierDetails: { ...trial.freeTierDetails, overageRisk: "low" } })).toEqual([]);
+  });
 
   it("every entry has real search tags", async () => {
     const problems: string[] = [];

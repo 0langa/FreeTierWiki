@@ -27,19 +27,19 @@ freeTierDetails:
     Free plan at $0 with 50 GB of storage, 7 days of search retention, and 15
     days of archival retention. No credit card required.
   limits:
-    - 50 GB storage (50 GB search plus 150 GB archival)
+    - Advertised Free storage is 50 GB search plus 150 GB archival
     - 7 days search retention
     - 15 days archival retention
     - No credit card required
   caveats:
     - The sign-up form still shows a 30 day free trial banner next to the free plan
-    - Paid plans start at $120 per year and are billed yearly
+    - Marketing lists paid storage plans from $120/year; subscription help instead describes component-based quotes
     - Alert profiles, correlation rules, and anomaly rules are listed only on paid plans
     - Imports are limited to 512 MB at a time
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Collecting logs from Windows servers through an installed agent
   - Searching log data from one place
@@ -68,8 +68,8 @@ avoidIf:
   - you want a self-service tool with no sales contact for large volumes
 difficulty: intermediate
 productionReadiness: production-ready
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.manageengine.com/cloud-siem/'
@@ -82,6 +82,9 @@ sourceUrls:
 featured: false
 status: changed
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Separated search and archival storage and disclosed conflicting marketing versus component-based subscription documentation.
   - date: 2026-10-09
     kind: changed
     note: The official pricing section lists a permanent Free plan with 50 GB of storage, so the entry no longer describes only a 30-day trial.
@@ -90,13 +93,13 @@ You sign up in a browser and then connect log sources: you install an agent on a
 
 ## What the free plan gives you
 
-The pricing section on the official page lists a Free plan at $0 with no credit card. It has 50 GB of storage, made of 50 GB of search storage and 150 GB of archival storage. Search retention is 7 days and archival retention is 15 days.
+The pricing section on the official page lists a Free plan at $0 with no credit card. Its advertised storage amounts are 50 GB for search plus 150 GB for archival, rather than 50 GB combined. Search retention is 7 days and archival retention is 15 days.
 
-Search storage is the hot copy you can query at once. Archival storage keeps older logs for compliance, and you pull them back with the Reload Archive Logs option. For every unit of search storage, Log360 Cloud adds three times as much archival storage at no extra cost. The Basic plan costs $120 per year, and the Standard plan costs $540 per year.
+Search storage is the hot copy you can query at once. Archival storage keeps older logs for compliance, and you pull them back with the Reload Archive Logs option. The marketing page lists three times the search allocation for archive, Basic at $120/year and Standard at $540/year. However, subscription help describes component-based Free, Professional and Enterprise editions with quotes and separate storage add-ons. Confirm the applicable edition and allocation in the account before planning deployment.
 
 ## When you hit a limit
 
-The pages do not say what happens when you fill the 50 GB. Pricing is based on the volume of logs stored, and paid subscriptions run for one year. Log retention is limited to the subscription period, so on the Free plan old logs age out after the retention days above. You enter no card for the Free plan, so the pages show no way to get a surprise charge.
+The pages do not say what happens when Free storage fills. The marketing card specifies 7-day searchable and 15-day archival retention, while current help emphasizes licensed component counts and purchasable storage add-ons. The exact exhaustion action and automatic billing policy are unpublished. No-card signup is explicit, but does not establish every future account billing setting. Keep exported copies of logs you need beyond the advertised retention window.
 
 ## Gotchas
 

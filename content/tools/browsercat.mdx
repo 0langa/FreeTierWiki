@@ -43,7 +43,7 @@ freeTierDetails:
   freeTierType: credit
   monthlyCreditAmount: '1,000 credits/month'
   hasHardCap: true
-  overageRisk: low
+  overageRisk: medium
 useCases:
   - Running Playwright or Puppeteer tests in CI on hosted browsers
   - Taking screenshots of web pages from code
@@ -72,8 +72,8 @@ quickstartSteps:
   - Watch your credit use in the dashboard and set alerts before you near the limit.
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.browsercat.com'
@@ -84,20 +84,24 @@ sourceUrls:
   - 'https://www.browsercat.com/pricing'
   - 'https://www.browsercat.com/docs'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Classified explicit metered overages as medium risk and recorded Hobby billing and backend source conflicts."
 ---
 You write a normal Playwright or Puppeteer script and change one connection line to point at BrowserCat. It suits developers who test or scrape from code and do not want to host browsers.
 
 ## What the free plan gives you
 
-The Hobby plan costs $0 per month and includes 1,000 credits each month. Credits count work, not wall-clock hours. A successful call to the utility API costs 1 credit. A websocket session costs 1 credit for every 30 seconds of activity, so long sessions use credits fast.
+The Hobby plan costs $0 per month and includes 1,000 credits each month. Credits count work, not wall-clock hours. A successful call to the utility API costs 1 credit. Websocket activity is rounded up to 30-second units at 1 credit each, so even short sessions consume a credit.
 
-The plan allows 1,000 concurrent requests and works with Playwright, Puppeteer, and any CDP client. The home page says no credit card is needed and the free tier is free forever. Today your sessions run on Cloudflare browsers, and BrowserCat says it will add more backends behind the same endpoint.
+The plan allows 1,000 concurrent requests and works with Playwright, Puppeteer, and any CDP client. The home page says no credit card is needed and the free tier is free forever. The docs describe Cloudflare browsers today; the homepage diagram also labels Steel live, so backend availability is inconsistent across pages.
 
 ## When you hit a limit
 
 If you pass 1,000 credits, BrowserCat charges $0.0025 for each extra credit. It also keeps a soft limit and a hard limit on your account. On free plans these are $10 and $20.
 
-When you cross the soft limit, BrowserCat emails you and asks you to approve a higher limit. If you do not approve, it rejects all requests once you reach the hard limit. The block lasts until the billing period ends or you approve an increase. The pricing page does not say how a free account without a card pays for extra credits.
+When you cross the soft limit, BrowserCat emails you and asks you to approve a higher limit. If you do not approve, it rejects all requests once you reach the hard limit. The block lasts until the billing period ends or you approve an increase. Another FAQ says Hobby is not billed, conflicting with its explicit extra-credit prices. How a no-card account pays overages is unexplained.
 
 ## Gotchas
 

@@ -32,13 +32,14 @@ freeTierDetails:
     - Free of charge, with GPU and TPU access when available
     - Resources are not guaranteed, and usage limits sometimes fluctuate
     - Virtual machines are deleted when idle and have a maximum lifetime
-    - Exact limits are not published
+    - Free notebooks can run at most 12 hours, depending on availability and usage; exact idle and GPU limits vary.
   caveats:
+    - "The card requirement for the free offer is not confirmed in the cited public sources"
     - SSH shells, remote desktops, web UIs, and distributed workers can be terminated on the free tier
     - File hosting and media serving are not allowed on any managed runtime
     - Notebooks live in Google Drive; the virtual machine's files do not persist
   resetPeriod: per session
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -70,17 +71,24 @@ avoidIf:
   - you want to host a web app or serve files
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://colab.research.google.com/'
 docsUrl: 'https://research.google.com/colaboratory/faq.html'
 sourceUrls:
+  - "https://colab.google/"
   - 'https://research.google.com/colaboratory/faq.html'
-  - 'https://colab.google/'
 pricingUrl: 'https://research.google.com/colaboratory/faq.html'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added the published 12-hour maximum and corrected the paid-plan plus compute-balance requirement for relaxed runtime restrictions."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
 ---
 You use Colab in the browser. You sign in with a Google account, open or create a notebook, and run Python in cells on a virtual machine that Google hosts. It suits students, teachers, and ML beginners who want a free GPU or TPU without any setup.
 
@@ -88,11 +96,11 @@ You use Colab in the browser. You sign in with a Google account, open or create 
 
 The FAQ says Colab is free of charge and gives access to computing resources, including GPUs and TPUs. There is nothing to install. Notebooks are stored in Google Drive or loaded from GitHub, and you can share them like a Google Doc. You can download any notebook as an .ipynb file.
 
-The free tier has no published numbers. Google says Colab resources are not guaranteed and not unlimited, and usage limits sometimes fluctuate. Colab gives priority to people who are actively programming in a notebook. Your code runs in a virtual machine private to your account.
+Google publishes a maximum of 12 hours for free notebooks, subject to availability and usage. Other exact allocations are unpublished: Colab resources are not guaranteed and not unlimited, and usage limits sometimes fluctuate. Colab gives priority to people who are actively programming in a notebook. Your code runs in a virtual machine private to your account.
 
 ## When you hit a limit
 
-Virtual machines are deleted when idle for a while, and the service enforces a maximum lifetime. Google does not publish the exact times. The free tier can also terminate runtimes at any time without warning if they do things like remote control with SSH shells or remote desktops, run a web UI instead of the notebook, or run distributed workers. Paid plans, a positive compute unit balance, Colab Enterprise, or a local runtime remove these restrictions. Colab also limits how often you can reset your virtual machine.
+Virtual machines are deleted when idle for a while, and the service enforces a maximum lifetime. Google publishes a maximum of 12 hours for free notebooks, but exact idle thresholds vary. The free tier can also terminate runtimes at any time without warning if they do things like remote control with SSH shells or remote desktops, run a web UI instead of the notebook, or run distributed workers. A paid Colab plan with a positive compute-unit balance relaxes these activity restrictions. Enterprise, dedicated resources or a local runtime are other options. Colab also limits how often you can reset your virtual machine.
 
 ## Gotchas
 

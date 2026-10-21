@@ -2,8 +2,8 @@
 title: Cloudflare R2
 description: >-
   Cloudflare R2 stores files as objects and speaks the S3 API, with no charge
-  for data sent out to the internet. It suits developers who serve files to
-  many users.
+  for data sent out to the internet. It suits developers who serve files to many
+  users.
 provider: Cloudflare
 category: storage
 domain: storage
@@ -26,19 +26,21 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes 10 GB-month of storage, 1,000,000 Class A operations,
-    and 10,000,000 Class B operations per month, with no egress fees ever.
+    Free tier includes 10 GB-month of storage, 1,000,000 Class A operations, and
+    10,000,000 Class B operations per month, with no egress fees ever.
   limits:
     - 10 GB-month free storage
     - '1,000,000 Class A operations/month'
     - '10,000,000 Class B operations/month'
-    - No egress fees (unlimited, on every plan)
+    - 'No egress fees (unlimited, on every plan)'
   caveats:
     - Storage and operations above free tier billed at standard rates
-    - Free tier applies only to Standard storage, not Infrequent Access
-    - Enabling R2 needs an R2 subscription checkout; the docs do not say which payment details it asks for
+    - 'Free tier applies only to Standard storage, not Infrequent Access'
+    - >-
+      Enabling R2 needs an R2 subscription checkout; the docs do not say which
+      payment details it asks for
   resetPeriod: monthly
-  requiresCard: true
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
@@ -48,17 +50,25 @@ useCases:
   - Storing files for web content and cloud-native apps
   - Hosting podcast episodes and other media
   - Data lakes and analytics data
-  - Keeping output from batch jobs, such as model files and datasets
+  - 'Keeping output from batch jobs, such as model files and datasets'
   - Holding originals for an image pipeline
 quickstartSteps:
   - Sign up for a Cloudflare account and open the Cloudflare Dashboard.
-  - Open R2 and create a bucket, choosing a location and a default storage class.
-  - For the S3 API, go to API Tokens and create an Account or User API token with Object Read and Write permission.
-  - Copy the Access Key ID and Secret Access Key, and note your endpoint URL (https://ACCOUNT_ID.r2.cloudflarestorage.com).
-  - Point an S3 SDK, the aws CLI, or rclone at that endpoint, or bind the bucket to a Worker.
+  - >-
+    Open R2 and create a bucket, choosing a location and a default storage
+    class.
+  - >-
+    For the S3 API, go to API Tokens and create an Account or User API token
+    with Object Read and Write permission.
+  - >-
+    Copy the Access Key ID and Secret Access Key, and note your endpoint URL
+    (https://ACCOUNT_ID.r2.cloudflarestorage.com).
+  - >-
+    Point an S3 SDK, the aws CLI, or rclone at that endpoint, or bind the bucket
+    to a Worker.
 whenToUse: >-
-  Use it when you serve many downloads and want S3-style storage without
-  egress fees.
+  Use it when you serve many downloads and want S3-style storage without egress
+  fees.
 whenNotToUse: >-
   Avoid it if you need a hard spending cap, a deep archive tier, or the whole
   AWS S3 feature set.
@@ -72,7 +82,7 @@ avoidIf:
   - you need every AWS S3 feature
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
+lastUpdated: '2026-10-21'
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/r2/'
@@ -82,9 +92,17 @@ sourceUrls:
   - 'https://developers.cloudflare.com/r2/platform/limits/'
   - 'https://developers.cloudflare.com/r2/'
   - 'https://developers.cloudflare.com/r2/get-started/s3/'
+  - 'https://developers.cloudflare.com/r2/get-started/'
 featured: false
-lastVerified: 2026-10-18
+lastVerified: '2026-10-21'
 pricingUrl: 'https://developers.cloudflare.com/r2/pricing/'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified checkout payment-detail requirements: the public guide
+      establishes an R2 subscription checkout but not a specific card
+      requirement.
 ---
 You manage R2 in the Cloudflare Dashboard, from a Worker through the Workers API, or with any S3 SDK, the aws CLI, or rclone. It fits developers who already use S3 tools and want to avoid download fees.
 

@@ -30,10 +30,14 @@ freeTierDetails:
     - 20 concurrent runs
     - Unlimited tasks
     - 5 team members
+    - 10 schedules per project and 1-day log retention
   caveats:
     - Usage is billed per second and per run from the credit
     - On the Free plan, tasks stop until you upgrade once the $5 credit is used
     - Concurrency is set per environment
+    - >-
+      Pricing lists Preview branches on Free, but the limits guide says Free preview branches are
+      unavailable.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
@@ -46,11 +50,13 @@ useCases:
   - Scheduled and recurring tasks
   - Processing documents and files outside the request cycle
 quickstartSteps:
-  - 'Sign up for Trigger.dev Cloud and create your first organization and project.'
-  - 'In your project root, run npx trigger.dev@latest init to add the SDK, a /trigger folder, and an example task.'
-  - 'Run npx trigger.dev@latest dev to start the local dev server and register your tasks.'
-  - 'Trigger the Hello World task from the dashboard test page or from your code.'
-  - 'Deploy your tasks to Trigger.dev Cloud with the CLI when they work.'
+  - Sign up for Trigger.dev Cloud and create your first organization and project.
+  - >-
+    In your project root, run npx trigger.dev@latest init to add the SDK, a /trigger folder, and an
+    example task.
+  - Run npx trigger.dev@latest dev to start the local dev server and register your tasks.
+  - Trigger the Hello World task from the dashboard test page or from your code.
+  - Deploy your tasks to Trigger.dev Cloud with the CLI when they work.
 whenToUse: >-
   Use it for TypeScript background jobs and AI agent runs that should not time
   out and that you do not want to host yourself.
@@ -65,20 +71,23 @@ avoidIf:
   - tasks that must keep running past the free credit
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-13
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://trigger.dev'
 docsUrl: 'https://trigger.dev/docs'
 sourceUrls:
-  - 'https://trigger.dev/pricing'
-  - 'https://trigger.dev/docs'
-  - 'https://trigger.dev/docs/quick-start'
-  - 'https://trigger.dev/docs/limits'
+  - https://trigger.dev/pricing
+  - https://trigger.dev/docs
+  - https://trigger.dev/docs/quick-start
+  - https://trigger.dev/docs/limits
 pricingUrl: 'https://trigger.dev/pricing'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Added schedules/log limits and disclosed contradictory Free Preview availability.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -87,7 +96,7 @@ You write tasks as TypeScript code in a /trigger folder of your project. The CLI
 
 ## What the free plan gives you
 
-The Free plan costs $0 per month and includes $5 of free compute credits each month. It has 20 concurrent runs, unlimited tasks, and 5 team members. Concurrency is set per environment. Free allows 20 in production, 10 in staging, 10 in preview, and 25 in development.
+The Free plan costs $0 and includes $5 of monthly compute credits, 10 schedules per project and 1-day log retention. It has 20 concurrent runs, unlimited tasks, and 5 team members. Concurrency is set per environment. Free allows 20 in production, 10 in staging, 10 in preview, and 25 in development.
 
 Tasks run on Trigger.dev's managed workers, and you only pay while they run. The smallest machine costs $0.0000169 per second. Each run that starts also costs an invocation fee of $0.25 per 10,000 runs, except runs in the DEV environment. Waits longer than 5 seconds are checkpointed and do not count toward compute use.
 
@@ -100,8 +109,8 @@ You can also hit other limits. The API allows 1,500 requests per minute on every
 ## Gotchas
 
 - A task that triggers a subtask and waits is checkpointed, so the waiting time does not count toward compute usage or your concurrency limit.
-- Calling trigger in a loop can hit the API rate limit. Use batchTrigger, which fits up to 1,000 tasks in a single call.
-- Every run that starts on the managed workers has a per-run fee on top of compute, so many tiny runs add up. Runs in the DEV environment are not charged.
+- Calling trigger in a loop can hit the API rate limit. Use batchTrigger: recent SDK versions fit 1,000 tasks per call; older versions allow 500.
+- Pricing lists Preview branches on Free, but operational limits say they are unavailable. The environment concurrency table does not establish access to that feature.
 
 ## Alternatives in this atlas
 

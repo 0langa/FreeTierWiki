@@ -36,6 +36,7 @@ freeTierDetails:
     - 30 key events per property
     - 'BigQuery daily export of 1 M events; streaming export unlimited'
   caveats:
+    - BigQuery storage and queries are separately priced; streaming export adds $0.05/GB
     - Large properties drop to 2 months of event-level retention, and older event data is deleted
     - Age, gender, and interest data is always kept for 2 months
     - Higher limits need a Google Analytics 360 contract
@@ -66,19 +67,23 @@ avoidIf:
   - long raw event history
 difficulty: intermediate
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://marketingplatform.google.com/about/analytics/'
 docsUrl: 'https://developers.google.com/analytics'
 sourceUrls:
+  - 'https://support.google.com/analytics/answer/9358801'
   - 'https://marketingplatform.google.com/about/analytics/'
   - 'https://support.google.com/analytics/answer/11202874'
   - 'https://support.google.com/analytics/answer/7667196'
 pricingUrl: 'https://marketingplatform.google.com/about/analytics/'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Clarified that unlimited BigQuery streaming volume is separately billed at $0.05/GB plus BigQuery storage/query costs."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -90,7 +95,7 @@ Google Analytics measures how people find and use your website or app, from traf
 
 Standard Google Analytics properties are free; Google Analytics 360 is the paid edition, upgraded under a 360 contract. Standard properties allow 25 parameters per event, 25 user properties, 50 event-scoped custom dimensions and 50 custom metrics, and 30 key events. Explorations sample at 10M events per query.
 
-Event-level data retention can be set to 2 or 14 months; 360 adds 26, 38, and 50 months. BigQuery export is included, with a daily export of 1 M events and unlimited streaming export. Data import allows 120 manual uploads per day per property and 10 GB of storage per property. There is no limit on distinctly named events for web data streams.
+Event-level data retention can be set to 2 or 14 months; 360 adds 26, 38, and 50 months. BigQuery export is available, with a daily export of 1 M events and streaming export without that event-count limit. BigQuery storage/query costs are separate, and streaming export adds $0.05/GB; unlimited describes volume, not free billing. Data import allows 120 manual uploads per day per property and 10 GB of storage per property. There is no limit on distinctly named events for web data streams.
 
 ## When you hit a limit
 
@@ -102,7 +107,7 @@ The retention setting affects explorations and funnel reports, not standard aggr
 
 - Retention settings matter: set it to 14 months early if you want long explorations, since only 2 or 14 months are offered.
 - Age, gender, and interest data is always kept for 2 months, whatever your setting.
-- Daily BigQuery export is limited to 1 M events, while streaming export is unlimited, so busier properties lean on streaming.
+- Daily BigQuery export is limited to 1 M events. Streaming has no comparable event-count ceiling but adds $0.05/GB plus separate BigQuery costs.
 
 ## Alternatives in this atlas
 
@@ -122,4 +127,4 @@ Event-level data in a standard property can be kept for 2 or 14 months. Standard
 
 ### Can I export Google Analytics data to BigQuery for free?
 
-Standard properties include BigQuery export, with a daily export of 1 M events and unlimited streaming export.
+Standard properties support daily export up to 1 M events and streaming export without that event-count ceiling. BigQuery costs still apply, including $0.05/GB for streaming, so export access is not a promise of free cloud processing.

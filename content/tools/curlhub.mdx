@@ -32,10 +32,10 @@ freeTierDetails:
     - 'Sign-up uses a GitHub account'
     - 'The pricing page says the free tier grows as more people sponsor CurlHub on GitHub'
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Inspecting the requests your app or a third-party service sends
   - Catching webhook calls in a throwaway request bin
@@ -59,10 +59,10 @@ bestFor:
 avoidIf:
   - you have no GitHub account
   - you log high-volume traffic
-  - you need to know how long requests are kept, which the pricing page does not say
+  - you need production service or guaranteed request retention
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
+lastUpdated: '2026-10-21'
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://curlhub.io'
@@ -70,11 +70,16 @@ sourceUrls:
   - 'https://curlhub.io/pricing'
   - 'https://curlhub.io'
   - 'https://curlhub.io/signup'
+  - 'https://curlhub.io/faq'
 featured: false
 pricingUrl: 'https://curlhub.io/pricing'
-lastVerified: 2026-10-09
+lastVerified: '2026-10-21'
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: 'Added request-storage and development guidance; qualified card and cap uncertainty.'
 ---
-You sign in with GitHub and point your requests at CurlHub. CurlHub then lets you inspect the API traffic it receives. It suits one developer or a small team that debugs HTTP calls now and then.
+You sign in with GitHub and point your requests at CurlHub. CurlHub then lets you inspect the API traffic it receives. It suits one developer or a small team that debugs HTTP calls now and then. The FAQ recommends development and testing, and says its proxy servers are in the United States.
 
 ## What the free plan gives you
 
@@ -86,13 +91,13 @@ CurlHub lists the plans by monthly request volume. The next step up is 20,000 re
 
 The pricing page does not say what happens after 10,000 requests. It does not mention a hard stop, a throttle, or a bill. The pages show no overage charge, and they also do not confirm a hard cap.
 
-The pages show no payment step for the free plan. The sign-up page only says to sign up with GitHub. If you need more room, pick a paid plan. If you only debug now and then, the free volume is probably enough.
+The public sign-up page says to sign up for a free account with GitHub. It does not establish whether a later step requests a card. If you need more room, pick a paid plan. If you only debug now and then, the free volume is probably enough.
 
 ## Gotchas
 
 - The sign-up page says to sign up with GitHub. It names no other way in.
 - The pages we read link to no documentation, so the exact steps to create an endpoint are not confirmed here.
-- The pricing page lists volumes only. It says nothing about how long CurlHub keeps your logged requests.
+- The FAQ says traffic passes through a US proxy and requests are saved in browser local storage. Secure your device or clear saved requests after handling sensitive data.
 
 ## Alternatives in this atlas
 
@@ -108,7 +113,7 @@ Yes. The free plan includes 10,000 API requests per month. Paid plans start at $
 
 ### Does CurlHub need a credit card?
 
-The pages show no card step. The sign-up page says to sign up with GitHub.
+The public sign-up page says to use GitHub for a free account. It does not publish a card policy for the complete signup process.
 
 ### What happens when I go over the CurlHub free tier?
 

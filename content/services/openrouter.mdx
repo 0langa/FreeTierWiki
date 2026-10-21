@@ -34,7 +34,7 @@ freeTierDetails:
     - The daily cap depends on credits purchased over the life of the account
     - Only models with a ":free" suffix are included
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
@@ -51,7 +51,7 @@ quickstartSteps:
   - 'Send a request to https://openrouter.ai/api/v1/chat/completions with the header Authorization: Bearer and your key, or use one of the SDKs.'
   - 'If a request fails with a 429 error, read the X-RateLimit-Reset header to see when your limit resets.'
 whenToUse: 'Use OpenRouter when you want one API for many models and a free way to try some of them.'
-whenNotToUse: 'Avoid it when you need steady production traffic on free models. Free models allow 50 requests per day until you buy credits, and 1,000 after that. The FAQ says they are usually not suitable for production use.'
+whenNotToUse: 'Avoid it when you need steady production traffic on free models. Free models normally allow 50 requests per day until sufficient lifetime credits are purchased, then 1,000. The FAQ says they are usually not suitable for production use.'
 bestFor:
   - 'prototyping'
   - 'model evaluation'
@@ -63,19 +63,24 @@ avoidIf:
   - 'a guarantee of access to one specific model'
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://openrouter.ai/models?q=free'
 docsUrl: 'https://openrouter.ai/docs'
 pricingUrl: 'https://openrouter.ai/docs/api-reference/limits'
 sourceUrls:
+  - 'https://openrouter.ai/docs/api-reference/limits.md'
   - 'https://openrouter.ai/models?q=free'
   - 'https://openrouter.ai/docs/api-reference/limits'
   - 'https://openrouter.ai/docs/faq'
   - 'https://openrouter.ai/docs/quickstart'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Qualified card requirements and provider-side error headers while retaining rendered free-limit thresholds and rounding exception.
 ---
 You send standard HTTP requests to one chat completions endpoint, or use an SDK, and change the model ID to switch models. This page covers the free models, whose IDs end in `:free`.
 
@@ -90,7 +95,7 @@ New users also get a small free allowance to test the service. OpenRouter also o
 
 ## When you hit a limit
 
-OpenRouter rejects the request with a 429 error and the message "Rate limit exceeded". The response carries headers that show your limit, what remains, and when it resets. Wait and retry, or switch to the paid version of the same model.
+OpenRouter rejects the request with a 429 error and the message "Rate limit exceeded". Platform-limit errors carry quota/reset headers; provider-side 429 responses can differ. Wait and retry, or switch to the paid version of the same model.
 
 The limits page lists no charge for hitting a cap. But a negative credit balance can cause 402 errors, even on free models. Add credits to bring the balance above zero.
 

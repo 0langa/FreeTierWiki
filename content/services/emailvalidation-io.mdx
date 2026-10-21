@@ -32,11 +32,12 @@ freeTierDetails:
     - 1 API key
   caveats:
     - An email search or a LinkedIn email search uses 10 credits
-    - The pricing page does not say what happens when the monthly credits run out
+    - Monthly exhaustion returns HTTP 429 until reset or upgrade; Free has no overage
+    - Up to 5 validations can run concurrently; this differs from 10 requests per minute
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: true
   overageRisk: none
 useCases:
   - Checking an email address when a user signs up
@@ -61,17 +62,23 @@ avoidIf:
   - high request rates
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://emailvalidation.io/'
 docsUrl: 'https://emailvalidation.io/docs/'
 sourceUrls:
+  - "https://emailvalidation.io/docs/quickstart/"
+  - "https://emailvalidation.io/docs/status-codes/"
+  - "https://emailvalidation.io/docs/rate-limit/"
   - 'https://emailvalidation.io/pricing'
 pricingUrl: 'https://emailvalidation.io/pricing'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Resolved monthly exhaustion as HTTP 429, distinguished five concurrent validations from ten requests/minute, and qualified definitive-result credit accounting."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -83,18 +90,18 @@ Emailvalidation.io is an API that tells you whether an email address is valid be
 
 The Free plan costs $0 a month and is described as for testing and personal projects. It includes 100 credits every month with no credit card, 10 requests per minute, and 1 API key. The FAQ says the free plan includes the email validator, the email finder, the LinkedIn email finder, and bulk processing.
 
-Credits are spent per task. An email validation uses 1 credit, so the free plan covers 100 checks a month. An email search and a LinkedIn email search each use 10 credits, which means a free account can run only 10 searches a month if it does nothing else.
+Credits are spent per task. A definitive validation uses 1 credit, so the grant covers 100 deliverable or undeliverable results monthly. Invalid-format results and some unknown results are free under fair-use rules. An email search and a LinkedIn email search each use 10 credits, which means a free account can run only 10 searches a month if it does nothing else.
 
 ## When you hit a limit
 
-The pricing page counts credits per month but does not say what the API returns when your 100 credits are used up. It also caps the free plan at 10 requests per minute, while the paid plans list no per-minute limit.
+Monthly quota exhaustion returns HTTP 429 until the end of the month or upgrade. Free has no overage. Minute-limit exhaustion also returns 429 with Retry-After; wait until the next minute. A separate five-validation concurrency cap returns concurrency_limit_exceeded without consuming quota. Paid plans allow 25 concurrent validations and have no minute limit.
 
 The next plan up is Small at $9.99 a month for 5,000 credits. You can upgrade, downgrade, or cancel at any time, and yearly billing gives 12 months of credits for the price of 10. Prices exclude VAT.
 
 ## Gotchas
 
 - Searches cost 10 credits each, so the email finder uses up the free amount ten times faster than validation.
-- The 10 requests per minute cap can slow a bulk check of a list, even when you have credits left.
+- Unknown-result retries within an hour consume quota. Other unknown results have fair-use allowances; inspect X-Cost rather than assuming every unsuccessful validation is free.
 - Keep the API key on your server; with only 1 key on the free plan, a leaked key means rotating the one key your app uses.
 
 ## Alternatives in this atlas

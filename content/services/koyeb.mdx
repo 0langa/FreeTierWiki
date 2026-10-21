@@ -25,28 +25,33 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free tier includes one web service (scales to zero after 1 hour idle) (512MB RAM, 0.1 vCPU, 2GB SSD),
-    one free Postgres database (5 hours active time/month, 1GB storage), and
-    100GB outbound bandwidth per month.
+    Free tier includes one web service (scales to zero after 1 hour idle) (512MB RAM, 0.1 vCPU, 2GB
+    SSD), one free Postgres database (5 hours active time/month, 1GB storage), and 100GB outbound
+    bandwidth per month.
   limits:
-    - '1 free web service (512MB RAM, 0.1 vCPU, 2GB SSD)'
-    - '1 free Postgres database (5 hours active time/month, 1GB storage)'
-    - 100GB outbound bandwidth/month
-    - 10 free custom domains
+    - 1 free web service (512MB RAM, 0.1 vCPU, 2GB SSD)
+    - 1 free Postgres database (5 hours active time/month, 1GB storage)
+    - Pricing FAQ states 100GB outbound bandwidth/month; the main paid-plan table now lists 1TB
+    - 10 free custom domains per the main pricing FAQ
   caveats:
     - Credit card required at signup; Koyeb places a $29 hold and cancels it
     - Free web service scales to zero after 1 hour without traffic
     - Free instance is limited to 1 per organization, in Frankfurt or Washington, D.C.
     - Not for production; no volumes, no worker services
     - Paid plans start at $29/month (Pro) plus metered compute
-    - The plan selected at sign-up is Pro, and the pro-rated Pro fee is charged after the card check; Starter bills only usage beyond the free Instance
+    - >-
+      The plan selected at sign-up is Pro, and the pro-rated Pro fee is charged after the card
+      check; Starter bills only usage beyond the free Instance
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Bandwidth beyond the free 100GB/month is not charged yet; Koyeb says it will cost $0.04/GB after notice
+    - >-
+      The legacy pricing FAQ says bandwidth beyond 100GB is not charged yet and will cost $0.04/GB
+      after notice; the current paid-plan table instead lists 1TB and $0.02/GB EU/US or $0.04/GB
+      Asia
     - Instances beyond the free one are billed per second, with no spending limit yet
 useCases:
   - Hosting a small web app or API from GitHub
@@ -75,20 +80,26 @@ avoidIf:
   - background workers or volumes
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://koyeb.app/'
 docsUrl: 'https://koyeb.com/docs'
 pricingUrl: 'https://www.koyeb.com/pricing'
 sourceUrls:
-  - 'https://www.koyeb.com/pricing'
-  - 'https://www.koyeb.com/docs/faqs/pricing'
-  - 'https://www.koyeb.com/docs/reference/instances'
-  - 'https://www.koyeb.com/docs/run-and-scale/scale-to-zero'
-  - 'https://www.koyeb.com/docs/build-and-deploy/build-from-git'
+  - https://www.koyeb.com/pricing
+  - https://www.koyeb.com/docs/faqs/pricing
+  - https://www.koyeb.com/docs/reference/instances
+  - https://www.koyeb.com/docs/run-and-scale/scale-to-zero
+  - https://www.koyeb.com/docs/build-and-deploy/build-from-git
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: >-
+      Qualified conflicting bandwidth allowances and charges between the current pricing table and
+      legacy FAQ.
 ---
 You connect a GitHub repository or pick a container image, and Koyeb builds it with a Dockerfile or buildpacks on every push. This page covers the free Instance that every organization gets.
 
@@ -96,13 +107,13 @@ You connect a GitHub repository or pick a container image, and Koyeb builds it w
 
 Each organization gets one free web Service. It runs on a free Instance with 512MB of RAM, 0.1 vCPU, and 2GB of SSD, in either Frankfurt or Washington, D.C. You also get one free Postgres database with 5 hours of active time and 1GB of storage. The free database runs in Washington, D.C., Frankfurt, or Singapore and scales to zero when idle.
 
-Koyeb gives you 100GB of outbound bandwidth per month for free, and the pricing page lists ten free custom domains with automatic SSL. Koyeb says the free Instance is for testing the platform and hobby projects, not for production apps.
+The pricing FAQ still gives 100GB of outbound bandwidth per month for free and ten free custom domains with automatic SSL. Its main paid-plan table now lists 1TB, so the applicable allowance needs confirmation. Koyeb says the free Instance is for testing the platform and hobby projects, not for production apps.
 
 ## When you hit a limit
 
-Koyeb says you will never be charged for the free web Service. When it gets no traffic for 1 hour, it scales down to zero. The next request wakes it up, with a cold start that typically takes 1 to 5 seconds. HTTP/2 requests cannot wake a sleeping Service.
+Koyeb says you will never be charged for the free web Service. When it gets no traffic for 1 hour, it scales down to zero. The next request wakes it up, with a cold start that typically takes 1 to 5 seconds.
 
-The other limits are softer. Outbound bandwidth beyond 100GB is not charged yet; the FAQ says it will cost $0.04 per GB once Koyeb starts charging, and it will tell you first. For the free database, the pricing page does not say what happens after the 5 hours of active time. Any Instance beyond the free one is billed per second, and there is no spending limit yet.
+The FAQ says excess bandwidth is not charged yet, with $0.04/GB planned after notice. The paid table instead shows 1TB included, then $0.02/GB EU/US or $0.04/GB Asia. Confirm which applies. The free database’s behavior after 5 active hours is unpublished. Any Instance beyond the free one is billed per second, and there is no spending limit yet.
 
 ## Gotchas
 

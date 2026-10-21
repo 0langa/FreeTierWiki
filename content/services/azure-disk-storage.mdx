@@ -24,111 +24,117 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Azure offers two 64 GiB (P6) Premium SSD managed disks
-    free for 12 months for new customers, intended to pair with the free VMs.
+    New Azure customers can use the shared $200 free-account credit for
+    Managed Disks during the first 30 days. A dedicated ongoing free-disk
+    allocation is not confirmed by current public offer pages.
   limits:
-    - 2x 64 GiB (P6) Premium SSD managed disks
-    - 12 months duration
-    - New Azure free account customers only
+    - Shared $200 Azure credit valid for 30 days, not a dedicated disk grant
+    - New Azure free-account customers only
+    - Exact disk configuration determines how quickly credit is consumed
   caveats:
-    - Only available to new Azure accounts
-    - Charges apply after free limit or 12 months
-    - Continuing the first-year benefits requires moving the free account to pay-as-you-go within 30 days
-    - The free benefit's exact redundancy configuration remains unverified; confirm eligible settings before deployment
-  resetPeriod: monthly
+    - A credit or non-prepaid debit card and phone number are required
+    - No dedicated ongoing free-disk quota is confirmed here
+    - Continued use requires moving to pay-as-you-go billing
+    - Disk capacity, snapshots and related VM/network resources can have separate charges
+  resetPeriod: none
   requiresCard: true
-  freeTierType: time-limited
+  freeTierType: credit
   hasHardCap: false
   overageRisk: high
   billingRiskNotes:
     - Before upgrading, services stop when the initial credit expires or runs out
-    - After upgrading to pay-as-you-go, excess usage, ineligible resources, and continued use after 12 months incur charges
-  trialDays: 365
+    - After upgrading to pay-as-you-go, usage not covered by remaining credit or confirmed subscription benefits is charged
+  trialDays: 30
 useCases:
   - Operating system and data disks for an Azure virtual machine
   - Hosting a small database on a VM
   - Keeping application data that must survive a VM restart
   - Moving disks between VMs or taking snapshots for recovery
 quickstartSteps:
-  - Create an Azure free account with a Microsoft or GitHub account, a phone number, and a credit or debit card.
-  - Open the Azure portal and create a virtual machine, or create a managed disk on its own.
-  - Pick the disk type and size; choose a Premium SSD of 64 GiB (P6) to match the free offer.
-  - Check the free-account benefit and the redundancy setting in the portal before you deploy.
-  - Attach the disk to the VM, then format and mount it inside the operating system.
+  - Create an Azure free account with a Microsoft or GitHub account, a phone number, and an accepted payment card.
+  - Open Free services in the Azure portal and review the benefits attached to your subscription.
+  - Estimate Managed Disk cost for your chosen type, provisioned size and redundancy before creating it.
+  - Create and attach the disk to a VM, then format and mount it inside the operating system.
+  - Track the shared credit and delete unneeded disks, snapshots and related resources before expiry.
 whenToUse: >-
-  Use it when you want a persistent disk for an Azure VM during your first 12
-  months and you can give a card.
+  Use it to try persistent storage for an Azure VM with the shared introductory
+  credit, while tracking all disk and related infrastructure costs.
 whenNotToUse: >-
-  Avoid it for object storage, for more than two free 64 GiB disks, for use
-  outside Azure, or if you cannot move to pay-as-you-go within 30 days.
+  Avoid it if you need a confirmed ongoing dedicated free-disk grant or cannot
+  manage pay-as-you-go spending after the introductory credit ends.
 bestFor:
-  - a first Azure VM
-  - small database hosting on a VM
-  - learning managed disks
+  - testing persistent disks for an Azure VM
+  - learning managed disk configuration
+  - short storage experiments with promotional credit
 avoidIf:
-  - you need object storage
-  - you need free storage after 12 months
+  - you need free object storage
+  - you require a confirmed permanent disk allowance
   - you run outside Azure
 difficulty: beginner
 productionReadiness: production-light
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Replaced the unverified dedicated P6 grant with the publicly confirmed shared $200 Azure credit for 30 days."
   - date: 2026-10-06
     kind: changed
     note: Corrected the 32 GB Standard SSD guidance and post-upgrade billing risk; exact free-benefit redundancy remains unverified.
-lastUpdated: 2026-10-06
+lastUpdated: 2026-10-21
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
 docsUrl: 'https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types'
 sourceUrls:
+  - "https://azure.microsoft.com/en-us/pricing/free-services/"
+  - "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-free-services"
   - 'https://azure.microsoft.com/en-us/free/'
   - 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
   - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
   - 'https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 featured: false
-lastVerified: 2026-09-26
+lastVerified: 2026-10-21
 pricingUrl: 'https://azure.microsoft.com/en-us/free/'
 ---
-You create and attach managed disks in the Azure portal, with the Azure CLI, or from templates. It suits people who run virtual machines on Azure.
+Azure Managed Disks are persistent block storage volumes for Azure virtual machines. You provision a disk type and capacity, attach it to a VM, and manage it through the portal, CLI or templates. This entry covers the publicly confirmed introductory Azure credit; it does not promise an ongoing disk-specific free allowance.
 
 ## What the free plan gives you
 
-The entry records two 64 GiB (P6) Premium SSD managed disks, free for 12 months for new Azure free account customers. They are meant to pair with the free virtual machines.
+New Azure free-account customers receive $200 of shared credit for 30 days. Microsoft Learn says it can be used on Azure services other than third-party Marketplace purchases. Managed Disks is a first-party Azure service, so disk usage can consume that introductory balance alongside the VM, network and other resources you create. Other services share this balance.
 
-The Azure free page lists the free services and says some are free for 12 months to new customers only. It does not list managed disks, and the Marketplace page behind the original source returned an error. Treat the disk amounts as recorded data, and confirm the exact disk size and redundancy setting in the portal before you deploy.
+Current public offer pages do not confirm a dedicated ongoing free-disk allocation or its eligible redundancy settings. Check the Free services benefits attached to your subscription before deployment. The introductory credit is shared across services and should not be confused with a permanent disk-specific quota.
 
-Azure says managed disks come in five types: Ultra Disks, Premium SSD v2, Premium SSD, Standard SSD, and Standard HDD. Only the Premium SSD of 64 GiB matches this offer.
+Azure offers Ultra Disks, Premium SSD v2, Premium SSD, Standard SSD and Standard HDD. The type, provisioned capacity, performance options and redundancy affect cost. Billing is based on provisioned resources, not just the files stored on them.
 
 ## When you hit a limit
 
-The pricing page could not be read for the free disk amounts, so this section follows the entry's recorded data. Azure's free account page says a new account has a starting credit that you must use within 30 days. When the credit runs out or expires, your subscription and services are disabled until you upgrade.
+If the free-account credit is spent or its 30 days expire, services are disabled unless you move to pay-as-you-go. Unused credit expires at the original deadline. Upgrading earlier keeps the remaining credit for the rest of those 30 days, but enables charges for usage outside applicable credit or confirmed free benefits.
 
-After you move to pay-as-you-go, you keep the free services for 12 months. Anything beyond the free amounts, any ineligible disk, and any disk still running after 12 months bills at normal rates. The entry rates this risk as high, because there is no hard cap.
+Managed disks are billed by their configured size and type. Snapshots, additional disks and related VM or networking resources can consume credit or incur separate charges. A VM's free compute allowance does not establish free disk eligibility. Monitor the subscription's cost view and remove resources you no longer need.
 
 ## Gotchas
 
-- You must move the free account to pay-as-you-go within 30 days to keep the first-year benefits. Until then, services stop when the credit ends.
-- Azure says only certain tiers within a service are free. A bigger disk, a different disk type, or a third disk may be billed, so check before you deploy.
-- Azure says services still in use after the 12 months keep running and bill at pay-as-you-go rates. Delete what you do not use.
+- Standard Azure registration requires a phone number and an accepted credit or non-prepaid debit card. A temporary verification hold may appear.
+- The $200 belongs to the Azure account, not to each disk or VM. Other services use the same balance.
+- Stopping a VM does not remove its persistent disks. Review remaining disks and snapshots as well as compute before ending an experiment.
 
 ## Alternatives in this atlas
 
-- [Azure Blob Storage](/services/azure-blob-storage/): when you need object storage for files, not a disk for a VM.
-- [Azure File Storage](/services/azure-file-storage/): when several machines must share one network file share.
-- [Oracle Always Free Compute](/services/oracle-always-free-compute/): when you want a VM with storage that does not expire.
+- [Azure Blob Storage](/services/azure-blob-storage/): for object files rather than a VM disk.
+- [Azure File Storage](/services/azure-file-storage/): for a shared network filesystem.
+- [Oracle Always Free Compute](/services/oracle-always-free-compute/): for another VM offer with its own storage conditions.
 
 ## Questions people ask
 
 ### Is Azure Disk Storage free?
 
-Only in part. The entry records two 64 GiB P6 Premium SSD managed disks free for 12 months for new Azure free account customers. After that, disks bill at normal rates.
+New customers can pay for eligible first-party Azure usage with the shared $200 credit for 30 days. This review does not confirm a dedicated ongoing disk quota.
 
-### Does Azure Disk Storage need a credit card?
+### Does Azure confirm an ongoing free-disk quota?
 
-Yes. Azure asks for a phone number and a credit or debit card at sign-up. It places a small temporary hold and removes it after verification.
+No current public offer page reviewed here confirms it. Check your subscription's Free services benefits for exact eligibility before deploying.
 
-### What happens after the 12 months end?
+### What happens when the introductory credit ends?
 
-Your free amounts end. Any disks you still use keep running and are billed at pay-as-you-go rates.
+The free account's services stop unless you upgrade. Pay-as-you-go enables continued usage and charges beyond remaining credit or confirmed benefits.

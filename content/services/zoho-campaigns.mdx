@@ -37,11 +37,11 @@ freeTierDetails:
   caveats:
     - The Standard plan adds unlimited emails on top of the Free features
     - Only marketing emails are allowed, not transactional email
-    - The pricing page shows a contact limit exceeded label on the free plan and does not explain it
+    - Exact free contact and sending-limit enforcement is not published
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
     - The pricing page does not say what happens when the free plan goes past 2,000 contacts
@@ -53,7 +53,7 @@ useCases:
 quickstartSteps:
   - Go to zoho.com/campaigns and start a free trial. Existing Zoho users can log in with the account they have. No credit card is needed.
   - Open Settings, then Email, then Senders and Authentication, and add a sender with an address on your own domain. Click the link in the verification email.
-  - Add SPF, DKIM, and DMARC records for your domain. DNS changes can take up to 24 hours.
+  - Add SPF, DKIM, and DMARC records for your domain. Follow the authentication checks shown for your domain.
   - Create a mailing list, then import contacts from a CSV or XLSX file under Audience, then Contacts.
   - Design an email from a template, schedule it, and send the campaign.
 whenToUse: >-
@@ -72,8 +72,8 @@ avoidIf:
   - a list that grows past 2,000 contacts soon
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-18
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://zoho.com/campaigns'
@@ -85,6 +85,10 @@ sourceUrls:
   - 'https://www.zoho.com/campaigns/help/'
   - 'https://help.zoho.com/portal/en/kb/campaigns-3-0/getting-started-guide/articles/v3-quick-start-guide'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Qualified free quota enforcement and distinguished paid automatic contact-tier billing.
 ---
 You work in a web dashboard: set up a sender, import a list, and build emails from templates. It suits people who send marketing mail by hand and do not need developer tools.
 
@@ -98,15 +102,15 @@ Zoho Campaigns is for marketing email only. For transactional email, Zoho points
 
 ## When you hit a limit
 
-The pricing page shows a label that the contact limit was exceeded on the free plan, but it does not say what happens next. Treat 2,000 contacts as the line for the free plan.
+The public pages do not describe exactly how the free contact and email limits are enforced. Treat 2,000 contacts and 6,000 emails per month as the published allowance.
 
-The Standard plan adds unlimited emails on top of the free features. For more than 100,000 contacts, Zoho tells you to choose the Professional plan. The help page says the Feature Availability table shows the limits of each edition, so check it before you plan around a feature.
+The Standard plan adds unlimited emails on top of the free features. For more than 100,000 contacts, Zoho tells you to choose the Professional plan. The pricing FAQ also describes automatic contact-tier upgrades and charges when a purchased plan exceeds its contact allowance; it does not clearly apply that policy to Forever Free.
 
 ## Gotchas
 
 - Zoho states the 6,000 emails per month as 2,000 contacts times 3 campaigns, so a full free list sends about three campaigns a month.
-- Sender setup needs DNS records for SPF, DKIM, and DMARC, and DNS changes can take up to 24 hours.
-- Import files can be up to 25 MB, in CSV or XLSX format.
+- Authenticate the sender domain before sending campaigns; DNS setup is separate from choosing a free plan.
+- Paid contact-tier upgrades have billing consequences; review that policy before purchasing or enabling contact synchronization.
 
 ## Alternatives in this atlas
 

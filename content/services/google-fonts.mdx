@@ -36,7 +36,7 @@ freeTierDetails:
     - "The pages read here list no quota, rate limit, or SLA"
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - "Adding a web font to a site with a single link tag"
@@ -54,7 +54,7 @@ quickstartSteps:
 whenToUse: >-
   Use Google Fonts when you want a large library of open-source fonts you can add to a page with one link and no programming.
 whenNotToUse: >-
-  Skip it if you need paid commercial typefaces, fonts you serve entirely yourself, or a service with a published uptime guarantee. The pages read here show no SLA.
+  Skip the hosted API if you need paid commercial typefaces or a published uptime guarantee. You can download Google Fonts for self-hosting under their licenses.
 bestFor:
   - "websites and blogs"
   - "prototypes"
@@ -63,21 +63,27 @@ bestFor:
 avoidIf:
   - "you need paid commercial typefaces"
   - "you need a published SLA"
-  - "you must serve every font file yourself"
+  - "you require a guaranteed hosted service level"
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-09
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-21
+lastUpdated: 2026-10-21
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://fonts.google.com/'
 docsUrl: "https://developers.google.com/fonts/docs/getting_started"
 pricingUrl: "https://developers.google.com/fonts"
 sourceUrls:
+  - 'https://developers.google.com/fonts/docs/css2'
+  - 'https://fonts.google.com/faq'
   - 'https://developers.google.com/fonts'
   - 'https://developers.google.com/fonts/docs/getting_started'
   - 'https://developers.google.com/fonts/docs/technical_considerations'
 featured: false
+changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Confirmed self-hosting and unauthenticated CSS delivery from the official FAQ; qualified unpublished hosted cap behavior."
 ---
 You pick a font on fonts.google.com, add a stylesheet link to your page, and use the font name in CSS. The docs say no programming is needed. It suits web developers and designers who want good type with little setup.
 
@@ -91,7 +97,7 @@ The stylesheet URL can ask for several families separated by a pipe character, p
 
 The pages we read list no quota, rate limit, bandwidth cap, or paid plan. The pages mention no account, card, or bill. The pages do not describe what would happen under extreme traffic, so treat that as unknown.
 
-The limits that matter are about fonts and files. You can only use families in the library, and the pages say only that they have open source licenses. Asking for many families can make your pages slow, and the docs warn that most pages do not need many fonts. If you need full control, check the license of a family first; the pages we read do not describe self-hosting.
+The limits that matter are about fonts and files. You can only use families in the library, and the pages say only that they have open source licenses. Asking for many families can make your pages slow, and the docs warn that most pages do not need many fonts. The official FAQ explicitly permits downloading font files from its GitHub repository to install or self-host, subject to the family license. Self-hosting gives you responsibility for updates and delivery.
 
 ## Gotchas
 
@@ -113,7 +119,7 @@ Yes. The Google Fonts home page says all fonts are released under open source li
 
 ### Does Google Fonts need an API key?
 
-The getting-started examples use the stylesheet link with no key; the pages read do not discuss keys further.
+The CSS Web API is unauthenticated and the stylesheet examples use no API key. Separate developer APIs can have different requirements.
 
 ### Can I use Google Fonts on a commercial site?
 

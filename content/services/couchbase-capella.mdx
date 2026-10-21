@@ -28,7 +28,7 @@ freeTierDetails:
   summary: >-
     Free tier: one small managed operational cluster (about 1 node, about 8 GB)
     for prototyping, with no card needed. It turns off after 72 hours of
-    inactivity.
+    inactivity and is deleted after 30 days of inactivity.
   limits:
     - '1 small cluster (about 1 node, about 8 GB)'
     - 'SQL++, key-value, search, and vector search'
@@ -37,7 +37,9 @@ freeTierDetails:
   caveats:
     - 'Meant for prototyping, not production'
     - The cluster and linked App Services turn off after 72 hours of inactivity; data is kept and you can turn it back on
-    - Not available in Capella Analytics, and the Health Advisor dashboard is not included
+    - Deleted with linked App Services after 30 days of inactivity
+    - Upgrading to paid deletes the free cluster; back up and transfer its data first
+    - Not available in Capella Operational Insights, formerly Analytics; Health Advisor is not included
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
@@ -72,8 +74,8 @@ avoidIf:
   - You need Capella Analytics on free
 difficulty: intermediate
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-09
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.couchbase.com/products/capella/'
@@ -85,6 +87,9 @@ sourceUrls:
 pricingUrl: 'https://www.couchbase.com/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Added the 30-day inactivity deletion and destructive free-to-paid upgrade behavior; scoped the forever-free statement to active use."
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
@@ -93,19 +98,19 @@ You work in the Capella web console, then connect with Couchbase SDKs, SQL++ que
 
 ## What the free plan gives you
 
-The free tier is a forever free operational cluster with no time limit. The pricing page lists a small cluster of about 1 node and about 8 GB, with forum support. You get SQL++ and key-value access, search (vector, full-text, and geo), Mobile App Services, role-based access control, and scopes and collections.
+The free tier has no fixed subscription expiry while it remains active, but inactive clusters are subject to deletion. The pricing page lists a small cluster of about 1 node and about 8 GB, with forum support. You get SQL++ and key-value access, search (vector, full-text, and geo), Mobile App Services, role-based access control, and scopes and collections.
 
 Only 1 free tier operational cluster is available per organization. You pick AWS, Google Cloud, or Azure and a region. No credit card is needed. Paid accounts can run a free cluster next to their paid ones.
 
 ## When you hit a limit
 
-The docs do not list a data cap for the cluster. The limit you will notice is inactivity. If there is no activity for more than 72 hours, Couchbase turns off the cluster and any linked App Services. Your data and state are kept.
+The free configuration is fixed. After more than 72 hours without activity, Couchbase turns off the cluster and linked App Services while preserving data and state. After 30 days of inactivity, it deletes the cluster and linked App Services. Warnings follow the shutdown; sleep is not permanent storage.
 
-To turn the cluster back on, go to Operational Home and click Turn On Cluster. To use Capella beyond the free cluster, you upgrade to a paid plan, which starts at $0.15 per hour per node.
+Before the deletion threshold, you can turn it back on from Operational Home. The docs also say upgrading the free tier to a paid support plan deletes the existing free cluster. Back up and transfer its data with the documented cbbackupmgr process first. Paid Basic starts at $0.15 per hour per node; another free cluster can coexist with paid clusters.
 
 ## Gotchas
 
-- The free tier is available only in Capella Operational, not Capella Analytics.
+- The free tier is available only in Capella Operational, not Capella Operational Insights (formerly Analytics).
 - Only 1 free cluster is allowed per organization.
 - The Health Advisor dashboard is not available on free tier clusters.
 
@@ -123,8 +128,8 @@ Yes. Capella has a forever free tier operational cluster of about 1 node and abo
 
 ### Does the Couchbase free tier expire?
 
-The docs say there is no time constraint on the free tier. A free trial of 30 days converts to the free tier when it ends.
+There is no fixed expiry for active free use. Inactivity turns the cluster off after 72 hours and deletes it, with linked App Services, after 30 days.
 
 ### Does the Capella free cluster turn off?
 
-Yes. It turns off after more than 72 hours without activity. Your data and state are preserved, and you turn it back on from Operational Home.
+Yes. After 72 hours it sleeps with data preserved and can be turned back on. After 30 days of inactivity the cluster and linked App Services are deleted.

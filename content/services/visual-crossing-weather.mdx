@@ -29,15 +29,16 @@ freeTierDetails:
     - API concurrency of 1
     - 10,000 weather map requests per month
   caveats:
+    - Current API help says exceeded account limits return HTTP 429; reset timezone/exact window not specified
     - Attribution with a link to Visual Crossing is required on the Free plan
     - A 15-day forecast query counts as one record, but each history record returned counts separately
   resetPeriod: daily
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: true
+  overageRisk: low
   billingRiskNotes:
-    - The pricing page does not say what happens at the daily record limit
+    - API help documents HTTP 429 for exceeded account limits; ongoing Free signup card requirement is not explicit
 useCases:
   - A 15-day forecast for a location in a small app
   - Pulling past weather for a few locations for analysis
@@ -60,17 +61,25 @@ avoidIf:
   - apps that cannot show attribution
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.visualcrossing.com'
 docsUrl: 'https://www.visualcrossing.com/resources/documentation/'
 sourceUrls:
+  - 'https://www.visualcrossing.com/resources/documentation/weather-data/frequently-asked-questions-faq-for-visual-crossing-weather-data/'
+  - 'https://www.visualcrossing.com/resources/documentation/weather-api/what-is-the-querycost-parameter/'
   - 'https://www.visualcrossing.com/weather-data-editions'
 pricingUrl: 'https://www.visualcrossing.com/weather-data-editions'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Added HTTP 429 enforcement from current FAQ and qualified exact reset window and current signup-card evidence."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -84,12 +93,12 @@ The plan comparison lists the Free plan with 30,000 records a month, framed as 1
 
 ## When you hit a limit
 
-Visual Crossing says Free plans include a limit on the number of query records that can be retrieved in any 24 hour period. A single 15-day forecast query counts as one record, while each history record returned counts as one. The pricing page does not say what the API returns once the daily limit is reached or whether you can buy extra records on a free account. Paid options include the Professional plan, with 10,000,000 records a month, and a Metered plan with unlimited records billed per record.
+Visual Crossing says Free plans include a limit on the number of query records that can be retrieved in any 24 hour period. A single 15-day forecast query counts as one record, while each history record returned counts as one. The current FAQ says exceeded usage,request or concurrency limits return HTTP 429. It does not explicitly specify the daily reset timezone/window or an ongoing Free signup card waiver. Paid options include the Professional plan, with 10,000,000 records a month, and a Metered plan with unlimited records billed per record.
 
 ## Gotchas
 
 - History pulls count every returned record, so a year of daily history for one place uses hundreds of records.
-- The limit is a rolling 24 hour period, not a calendar day.
+- Pricing says any 24-hour period, but does not explicitly distinguish a rolling window from a calendar-day reset; confirm before scheduling boundary-sensitive jobs.
 - Attribution with a clickable link to Visual Crossing is required on the Free plan.
 
 ## Alternatives in this atlas

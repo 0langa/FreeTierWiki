@@ -1,9 +1,9 @@
 ---
 title: Cloudflare Turnstile
 description: >-
-  Cloudflare Turnstile is a CAPTCHA alternative that checks whether a visitor
-  is human, with no puzzle in most cases. It works on any site, even if the site
-  is not on Cloudflare.
+  Cloudflare Turnstile is a CAPTCHA alternative that checks whether a visitor is
+  human, with no puzzle in most cases. It works on any site, even if the site is
+  not on Cloudflare.
 provider: Cloudflare
 category: security
 domain: security
@@ -23,7 +23,9 @@ tags:
   - privacy
 pricingModel: freemium
 freeTierDetails:
-  summary: Free plan with up to 20 widgets per account. Works without other Cloudflare services.
+  summary: >-
+    Free plan with up to 20 widgets per account. Works without other Cloudflare
+    services.
   limits:
     - Up to 20 widgets per account
     - Unlimited challenges
@@ -31,13 +33,20 @@ freeTierDetails:
     - Analytics lookback of 7 days
     - Works without other Cloudflare services
   caveats:
-    - Any hostname widgets, ephemeral IDs, and removing Cloudflare branding (Offlabel) need Enterprise
+    - >-
+      Enforcement of the listed free allowance is not confirmed in the cited
+      public sources
+    - >-
+      Any hostname widgets, ephemeral IDs, and removing Cloudflare branding
+      (Offlabel) need Enterprise
     - Support on the free plan comes from the community
-    - Server-side token validation is mandatory, and tokens expire after 300 seconds
+    - >-
+      Server-side token validation is mandatory, and tokens expire after 300
+      seconds
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Protecting sign-up and login forms from bots
@@ -45,17 +54,25 @@ useCases:
   - Replacing reCAPTCHA or hCaptcha with a drop-in script
   - Checking visitors on sites that are not proxied through Cloudflare
 quickstartSteps:
-  - Sign in to a Cloudflare account; you do not need to move your site to Cloudflare.
-  - Create a widget in the Turnstile dashboard, or through the API or Terraform, to get a sitekey and a secret key.
-  - Add the script from challenges.cloudflare.com to your page and a div with the cf-turnstile class and your sitekey inside the form.
+  - >-
+    Sign in to a Cloudflare account; you do not need to move your site to
+    Cloudflare.
+  - >-
+    Create a widget in the Turnstile dashboard, or through the API or Terraform,
+    to get a sitekey and a secret key.
+  - >-
+    Add the script from challenges.cloudflare.com to your page and a div with
+    the cf-turnstile class and your sitekey inside the form.
   - Receive the cf-turnstile-response token with the form post on your server.
-  - Send the token and your secret key to the Siteverify API and accept the form only if validation succeeds.
+  - >-
+    Send the token and your secret key to the Siteverify API and accept the form
+    only if validation succeeds.
 whenToUse: >-
   Use it to protect forms from bots without showing visitors a puzzle, on any
   website, including ones hosted outside Cloudflare.
 whenNotToUse: >-
-  Avoid it if you need more than 20 widgets, hostname rules for any hostname,
-  or custom branding, which are Enterprise features.
+  Avoid it if you need more than 20 widgets, hostname rules for any hostname, or
+  custom branding, which are Enterprise features.
 bestFor:
   - forms
   - sign-up pages
@@ -65,8 +82,8 @@ avoidIf:
   - you want paid support on the free plan
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21T00:00:00.000Z
+lastVerified: '2026-10-21'
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.cloudflare.com/application-services/products/turnstile/'
@@ -75,10 +92,17 @@ sourceUrls:
   - 'https://developers.cloudflare.com/turnstile/plans/'
   - 'https://developers.cloudflare.com/turnstile/'
   - 'https://developers.cloudflare.com/turnstile/get-started/'
-  - 'https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/'
+  - >-
+    https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/turnstile/plans/'
 featured: false
 changes:
+  - date: 2026-10-21T00:00:00.000Z
+    kind: changed
+    note: >-
+      Aligned limit enforcement flags with the scope and uncertainty of the
+      cited policy evidence.
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.

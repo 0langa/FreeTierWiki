@@ -30,16 +30,18 @@ freeTierDetails:
     of domains other members offer. Records update with a single curl request.
   limits:
     - Unlimited number of domains per account
-    - Free subdomain hosting from the shared domain registry
+    - 5 free hostnames in the shared domain registry
+    - 20 free subdomains on each domain you own
     - Free URL redirection, backup DNS, and IPv6 reverse DNS
   caveats:
-    - The fetched pages do not state how many subdomains a free account gets
+    - Starter has a 5-hostname shared-registry cap; own-domain capacity is separately listed as 20 subdomains per domain
+    - Exact cap response and card requirements are not explicitly stated
     - Wildcard DNS and stealth flags are premium features
     - Subdomains in the shared registry belong to other members' domains
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: true
+  overageRisk: low
 useCases:
   - Hosting DNS for a domain you own at no cost
   - Getting a free subdomain for a home server from the shared registry
@@ -54,8 +56,7 @@ whenToUse: >-
   Use FreeDNS when you want free DNS for several domains, or a free subdomain
   with dynamic updates, and you are happy with a no-frills interface.
 whenNotToUse: >-
-  Avoid it if you need wildcard records without paying, documented free
-  limits, or a support contract.
+  Avoid it if you need wildcard records without paying, a shorter TTL than the free membership allows, or a support contract.
 bestFor:
   - home servers
   - several personal domains
@@ -65,18 +66,24 @@ avoidIf:
   - you need an SLA
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-19
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://freedns.afraid.org/'
 docsUrl: 'https://freedns.afraid.org/faq/'
 sourceUrls:
+  - 'https://freedns.afraid.org/signup/moreinfo/'
+  - 'https://freedns.afraid.org/signup/features/'
+  - 'https://freedns.afraid.org/pricing/'
   - 'https://freedns.afraid.org/'
   - 'https://freedns.afraid.org/premium/'
-pricingUrl: 'https://freedns.afraid.org/'
+pricingUrl: 'https://freedns.afraid.org/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: "Added the published 5 shared-registry hostnames and 20 subdomains per owned domain; qualified card and cap-response gaps."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -88,13 +95,13 @@ FreeDNS, run at afraid.org, is a long-running DNS host for dynamic DNS, static D
 
 A free account covers DNS hosting for your own domains, and the home page says the number of domains per account is unlimited. You can also attach subdomains from the shared domain registry, where members offer their domains for others to use. Free features include subdomain and domain hosting, backup DNS, IPv6 reverse DNS, and URL redirection.
 
-Dynamic updates are a single request: you curl your record's update URL at sync.afraid.org and the record changes to your current IP, or use v6.sync.afraid.org for IPv6. Records can point at private LAN addresses too. The site describes itself as engineer operated, with no ads, solicitations, or upsells.
+Dynamic updates are a single request: you curl your record's update URL at sync.afraid.org and the record changes to your current IP, or use v6.sync.afraid.org for IPv6. Records can point at private LAN addresses too. The membership table marks Starter as ad free.
 
 ## When you hit a limit
 
-The fetched pages do not say how many subdomains a free account can create, or what happens if you reach that number. The premium offer, at $5 a month, adds 50 subdomains, 3 stealth flags, and wildcard DNS, which suggests the free account has a smaller subdomain allowance.
+The public membership table gives Starter a cap of 5 subdomains in the shared registry. The separate feature list states 20 free subdomains on each domain you own, with unlimited domains per account. Starter has a 1-hour TTL, no wildcard DNS, and no stealth flags. Premium starts at $60 per year, also advertised as $5 per month, with 50 subdomains, 3 stealth flags, and wildcard support.
 
-The pages show no metered pricing for DNS queries or updates. There is no usage-based billing: going past a free limit means upgrading to premium or removing records, not an overage charge.
+The reviewed pages show fixed membership capacities rather than a DNS-query overage tariff. They do not explicitly describe the response at the Starter cap or whether a card is required, so those operational and billing details remain unconfirmed. The signup Q&A says what is free stays free, with premium services available separately.
 
 ## Gotchas
 

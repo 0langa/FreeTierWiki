@@ -25,15 +25,15 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan includes 1,000 API credits per day forever for non-commercial use, no credit card
-    required.
+    Free plan includes 1,000 API credits per day forever for testing, prototypes,
+    and small projects, with no credit card required.
   limits:
     - 1,000 credits/day forever
     - Billed in credits, not raw requests
     - Hard limit, no overage charges
   caveats:
     - Cost per call depends on the endpoint and data fields requested
-    - Free plan is restricted to non-commercial use
+    - Current pages describe Free for evaluation, testing, prototypes, and small projects
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -53,26 +53,29 @@ quickstartSteps:
   - 'Use `fields` or `excludes` to trim the response.'
 whenToUse: >-
   Use it when you want one call that returns location, currency, ASN, and time
-  zone for testing or a small non-commercial project.
+  zone for testing or a small project.
 whenNotToUse: >-
-  Avoid it for commercial use on the free plan, for bulk lookups, or when you
-  need security or domain data without paying.
+  Avoid it for production volume, bulk lookups, or when you need security or
+  domain data without paying.
 bestFor:
   - location-based personalization
   - regional analytics
   - testing and prototypes
 avoidIf:
-  - commercial use on the free plan
+  - production volume beyond the testing allowance
   - need security data or bulk lookups for free
 difficulty: beginner
 productionReadiness: production-light
-lastVerified: 2026-10-09
+lastVerified: 2026-10-21
 status: changed
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Updated current Free-use wording and documented HTTP 429 enforcement; removed the former non-commercial-only assertion."
   - date: 2026-10-06
     kind: changed
     note: "Added the official non-commercial-use restriction to the free plan."
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-21
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipgeolocation.io/'
@@ -91,19 +94,19 @@ You create an account, copy an API key from the dashboard, and call one HTTPS en
 
 The Free plan costs $0 and gives you 1000 API credits per day, for life. The pricing page says no credit card is required. A successful lookup charges 1 credit, so the plan covers up to 1000 basic lookups a day.
 
-The free plan returns location, country metadata, currency, ASN, and time zone. Lookup by domain, hostname, company data, security flags, bulk lookup, and translated responses need a paid plan. The first paid plan, Starter, costs $19 a month for 150000 credits. The page says to use the free plan only for testing and small projects, and the site says commercial use needs a paid plan.
+The free plan returns location, country metadata, currency, ASN, and time zone. Lookup by domain, hostname, company data, security flags, bulk lookup, and translated responses need a paid plan. The first paid plan, Starter, costs $19 a month for 150000 credits. The page says to use the free plan only for testing and small projects, and its FAQ describes evaluation, testing, and prototypes.
 
 ## When you hit a limit
 
-The free plan, which the docs also call the Developer plan, has no surcharge and no overage. It stays capped at its daily credits. The pricing page says there are no overages on Free. The docs name HTTP 429 for paid plans that have no overage; they do not spell out the free-plan response past the cap.
+The free plan, which the docs also call the Developer plan, has no surcharge and no overage. It stays capped at its daily credits. The pricing page says there are no overages on Free. The IP Geolocation API error reference explicitly returns HTTP 429 when a free subscription reaches its usage limit.
 
 Paid plans can keep serving requests after their credits run out if overage is turned on, and they are billed in blocks. The free plan never bills you.
 
 ## Gotchas
 
-- Credits are not requests. Adding security data to a lookup costs 2 more credits, so one call can cost 3 credits. Adding abuse contact data costs 1 more.
+- Paid modules can cost multiple credits: security adds 2 and abuse contact adds 1. These modules are unavailable on Free, where a successful basic lookup costs 1 credit.
 - Asking for a language other than English with a free key returns a 401 response.
-- The free plan is for non-commercial use. The home page says commercial use requires a paid plan.
+- The current pages describe Free for evaluation, testing, prototypes, and small projects. They no longer publish the former blanket non-commercial restriction; choose paid capacity for production needs.
 
 ## Alternatives in this atlas
 
@@ -115,12 +118,12 @@ Paid plans can keep serving requests after their credits run out if overage is t
 
 ### Is IPGeolocation.io free?
 
-Yes, for testing and small non-commercial projects. The Free plan gives you 1000 API credits per day and needs no credit card.
+Yes, for testing, prototypes, and small projects. The Free plan gives you 1000 API credits per day and needs no credit card.
 
 ### What happens when I go over the IPGeolocation.io free limit?
 
-The free plan stays capped at its daily credits and has no overage billing. The docs name HTTP 429 for paid plans without overage; they do not spell out the free-plan response.
+The free plan stays capped at its daily credits and has no overage billing. The API error reference specifies HTTP 429 when a free subscription reaches its usage limit.
 
 ### Can I use the IPGeolocation.io free plan commercially?
 
-No. The home page says commercial use requires a paid plan.
+The current pages describe evaluation, testing, prototypes, and small projects. They do not repeat the former blanket non-commercial restriction. Confirm your intended production use with the provider.

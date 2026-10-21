@@ -36,15 +36,15 @@ freeTierDetails:
     - 100 KB of Connect traffic per month
   caveats:
     - Free integration schedules expire after 30 days
-    - Each product has its own separate free plan
-    - The pricing page does not say what happens at the record limit
+    - Integration, Automation, Backup, Query and Connect have separate free plans
+    - Running integrations finish above the record limit; subsequent runs are blocked
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: false
   overageRisk: low
   billingRiskNotes:
-    - Paid plans list prices for additional records; the free plan's behaviour at the limit is not stated
+    - Free integrations stop starting after the allowance is exceeded; paid-record overages require an eligible paid plan and explicit opt-in
 useCases:
   - Importing a CSV or app data into a database on a daily schedule
   - Copying records between two cloud apps
@@ -67,17 +67,21 @@ avoidIf:
   - high record volumes
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://skyvia.com/'
 docsUrl: 'https://docs.skyvia.com/'
 sourceUrls:
+  - 'https://docs.skyvia.com/account-management/subscription-limits-and-plans-in-more-details.html'
   - 'https://skyvia.com/pricing/'
 pricingUrl: 'https://skyvia.com/pricing/'
 featured: false
 changes:
+  - date: '2026-10-21'
+    kind: changed
+    note: Documented integration exhaustion, manual runs and product-specific free allowances using the subscription guide.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -89,11 +93,11 @@ Skyvia is a cloud data platform. It lets you integrate data between cloud apps a
 
 The free Data Integration plan, described as basic integration for a small volume of data, costs $0 a month. It includes 10k records a month, scheduling once a day, and 2 scheduled integrations with a 30-day schedule expiration. Source and target connections and users are unlimited.
 
-The other products have their own free plans. Automation includes a thousand tasks a month with a minimum schedule and poll interval of 1 day. Backup keeps snapshots for 3 months with export to CSV files. Query has a free plan with limited traffic, and Connect includes 100 KB of traffic a month.
+Automation includes 1,000 monthly tasks, two active automations and daily polling. Backup includes 1 GB and keeps snapshots for three months, with CSV export. Query allows five successful queries daily. Connect includes one cloud-source endpoint and 100 KB monthly; databases are excluded. These are separate subscriptions.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when the free plan reaches 10k records in a month. Paid plans list prices for additional records, but the page does not apply them to the free plan.
+Running integrations finish even above the monthly record allowance. Subsequent manual and scheduled runs are blocked. Record overages require an eligible paid plan and explicit opt-in; successful inserts, updates and deletions count, including unchanged updates. Manual runs are otherwise available beyond the daily schedule.
 
 The next Data Integration plan, Basic, costs $99 a month, or $79 a month billed annually, and removes the 30-day schedule expiration. Higher plans add hourly and per-minute scheduling.
 
@@ -113,11 +117,11 @@ The next Data Integration plan, Basic, costs $99 a month, or $79 a month billed 
 
 ### Is Skyvia free?
 
-Yes. Each Skyvia product has a free plan; the Data Integration plan includes 10k records a month.
+Yes. Data Integration includes 10k records monthly; Automation, Backup, Query and Connect have separate free plans. The Data Studio Connector is separately priced.
 
 ### How often can a free Skyvia integration run?
 
-Once a day, and the free plan allows 2 scheduled integrations.
+Schedules run once daily, with two scheduled integrations. Manual runs are available as often as needed until the record allowance is exceeded.
 
 ### Do free Skyvia schedules expire?
 

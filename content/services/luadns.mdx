@@ -34,12 +34,14 @@ freeTierDetails:
     - Unlimited queries per month
     - 5 minutes minimum TTL
   caveats:
+    - Free signup card requirements are not explicit; payment methods are documented for paid packages
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - No vanity name servers or health checks on the Free package
     - The pricing page does not say whether 30 records is per domain or per account
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 useCases:
   - Keeping DNS zones in a git repository and deploying them on push
   - Generating records with Lua scripts and zone templates
@@ -64,18 +66,25 @@ avoidIf:
   - you need low TTLs for failover
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.luadns.com/'
 docsUrl: 'https://www.luadns.com/help.html'
 sourceUrls:
+  - 'https://www.luadns.com/help.html'
   - 'https://www.luadns.com/pricing.html'
   - 'https://www.luadns.com/'
 pricingUrl: 'https://www.luadns.com/pricing.html'
 featured: false
 changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Qualified unpublished Free signup card requirement and record-count scope."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
@@ -98,7 +107,7 @@ The paid packages are billed yearly. Basic is $29 per year for 10 domains, 500 r
 ## Gotchas
 
 - The 5 minutes minimum TTL on the free package makes quick DNS changes and failover slower than on paid packages.
-- 30 records fills quickly with mail, verification, and subdomain records across 3 domains.
+- The page lists 30 records but does not say whether that count applies per domain or across the account; confirm before planning three populated zones.
 - Vanity name servers and health checks are paid features.
 
 ## Alternatives in this atlas

@@ -32,21 +32,22 @@ freeTierDetails:
     - '10 requests per 10 seconds burst limit'
     - No account required
     - Commercial use allowed
-    - Bulk lookup of up to 50 IP addresses per request
+    - Free includes single-IP geolocation; bulk lookups and helper APIs require paid access
   caveats:
+    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - The free limit is shared per website domain in the browser and per outgoing IP address on a server
     - Higher rate limits need a paid subscription and a paid regional server
     - Free and paid plans use different server URLs
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: none
 useCases:
   - Detecting a visitor's country to personalize a page
   - Blocking or allowing traffic by country
   - Showing IP details in a dashboard
   - Flagging proxy, VPN, or hosting traffic
-  - Looking up time zones, phone codes, or currencies by country
+  - Reading time zones, phone codes and currencies in a single-IP response
 quickstartSteps:
   - 'No sign-up is needed for the free API; open the docs at freeipapi.com/docs.'
   - 'Send a GET request to `https://free.freeipapi.com/api/v1/json/` followed by an IP address.'
@@ -69,8 +70,8 @@ avoidIf:
   - need for an uptime guarantee
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-18
+lastUpdated: 2026-10-21
+lastVerified: 2026-10-21
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://freeipapi.com'
@@ -82,20 +83,27 @@ sourceUrls:
   - 'https://freeipapi.com'
   - 'https://freeipapi.com/docs/api-reference/get-ip-info'
 featured: false
+changes:
+  - date: 2026-10-21
+    kind: changed
+    note: "Removed paid-only bulk/helper APIs from the Free allocation and clarified TLS access and shared source-IP rate limits."
+  - date: 2026-10-21
+    kind: changed
+    note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 ---
-You call FreeIPAPI over plain HTTP from any language, and the free server needs no API key. It suits small projects that need quick location data for an IP address.
+You call FreeIPAPI over HTTPS from any language, and the free server needs no API key. It suits small projects that need quick location data for an IP address.
 
 ## What the free plan gives you
 
 The free API lives at `free.freeipapi.com` and answers in JSON or XML. It allows 10 requests per 10 seconds, up to 60 requests per minute. You need no account, API key, or whitelisting. The service says it is free for commercial and non-commercial use.
 
-A lookup returns the country, region, city, coordinates, time zone, currency, language, phone code, ASN, and a proxy flag. The site also lists helper endpoints for countries, phone codes, time zones, languages, and the distance between two IPs. A bulk lookup takes up to 50 IP addresses in one request.
+A lookup returns the country, region, city, coordinates, time zone, currency, language, phone code, ASN, and a proxy flag. Helper endpoints for countries, phone codes, time zones, languages, and distance, plus bulk lookups of up to 50 IPs, are paid features. The Free table excludes them.
 
 ## When you hit a limit
 
 The rate limit page says to spread your requests across the intervals, not send the whole minute at once. It does not say what the server returns when you go over.
 
-The allowance is shared. Requests from a website count against that domain, and requests from a server count against its public outgoing IP. Visitors do not get a separate allowance each. Paid plans remove the limits, but you must call a regional paid server on the `/api/` path and use an API key or a whitelisted IP or domain.
+The allowance is shared. Requests from a website count against that domain and source IP, and requests from a server count against its public outgoing IP. Visitors do not get a separate allowance each. Paid plans remove the limits, but you must call a regional paid server on the `/api/` path and use an API key or a whitelisted IP or domain.
 
 ## Gotchas
 
