@@ -1,0 +1,130 @@
+---
+title: CurlShot
+description: >-
+  CurlShot is a screenshot API that turns a URL, raw HTML, or Markdown into a
+  PNG, JPEG, WebP, or PDF with one GET request. The free plan gives you 100
+  screenshots a month with no credit card.
+provider: CurlShot
+category: scraping
+domain: scraping
+subtypes:
+  - screenshot API
+  - website capture
+  - url to pdf
+audiences:
+  - student
+  - indie
+  - startup
+  - team
+tags:
+  - screenshot api
+  - website screenshot
+  - full page screenshot
+  - url to image
+  - html to image
+  - url to pdf
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Free plan: 100 screenshots per month for as long as you like, no card
+    needed, with 10 requests per minute and 1 render at a time.
+  limits:
+    - 100 screenshots per month
+    - 10 requests per minute and 1 render at a time per account
+    - Full-page captures up to 10,000 px tall at 1x pixel density
+    - Videos up to 10 seconds
+  caveats:
+    - Failed renders and cache hits do not count toward the quota
+    - All API keys of one account share the same quota and rate limit
+    - Overage is only available on paid plans
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Once the monthly quota is used, the API returns quota_exceeded with status 402
+useCases:
+  - Thumbnails and previews of user-submitted links
+  - Open Graph images rendered from your own HTML
+  - Saving a web page as a PDF from a script
+  - Screenshots for AI agents through the hosted MCP server
+quickstartSteps:
+  - Create a free account on curlshot.com and confirm your email address; no card is asked for.
+  - Open API keys in the dashboard and copy the access key.
+  - Call https://curlshot.com/api/v1/screenshot with a url parameter and send the key in the X-Access-Key header.
+  - Save the image from the response, and read the X-Quota-Remaining header to see what is left.
+whenToUse: >-
+  Use CurlShot when you need a few website screenshots or PDFs a month from a
+  plain HTTP call and want requests to stop, not bill you, at the limit.
+whenNotToUse: >-
+  Avoid the free plan for batch jobs: it allows 10 requests per minute and one
+  render at a time, and the monthly quota is small.
+bestFor:
+  - occasional website screenshots
+  - link previews
+  - HTML to image or PDF
+avoidIf:
+  - high-volume capture
+  - parallel rendering on a free plan
+  - you need self-hosting
+difficulty: beginner
+productionReadiness: prototype
+lastUpdated: 2026-10-17
+lastVerified: 2026-10-21
+popularityScore: 3
+usefulnessScore: 6
+officialUrl: 'https://curlshot.com/'
+docsUrl: 'https://curlshot.com/docs'
+pricingUrl: 'https://curlshot.com/pricing'
+sourceUrls:
+  - 'https://curlshot.com/pricing'
+  - 'https://curlshot.com/docs/usage-and-limits'
+  - 'https://curlshot.com/docs/errors'
+  - 'https://curlshot.com/docs/authentication'
+featured: false
+changes:
+  - date: '2026-10-17'
+    kind: new
+    note: Added to the atlas.
+---
+
+CurlShot is an HTTP API that renders a web page in a browser and returns an image or a PDF. You call one endpoint with your access key and a URL, or send HTML or Markdown instead of a URL. It suits apps that need link previews, social images, or page captures without running a headless browser.
+
+## What the free plan gives you
+
+The pricing page lists a Free plan at $0 with 100 screenshots a month, "for as long as you like", and says no card is needed. The plan allows 10 requests per minute and 1 render at a time. Full-page captures go up to 10,000 px tall at 1x pixel density, and videos up to 10 seconds.
+
+The page says all plans include PNG, JPEG, and WebP images, PDF output, video capture, async renders with webhooks, bulk requests, a response cache, and ad and cookie-banner blocking. A failed render and a cache hit are not counted. Paid plans start at $19 a month for 3,000 screenshots.
+
+## When you hit a limit
+
+The quota counts successful renders per monthly period, starting from the day you signed up. When it is used up, the API answers quota_exceeded with status 402 until the next period or until you move to a larger plan. Overage is only offered on paid plans, is off by default, and stops at a cap you set.
+
+Going past 10 requests a minute returns rate_limited, and a second render while one is running returns concurrency_limit, both with status 429 and a Retry-After header. A free GET /usage call shows what is left.
+
+## Gotchas
+
+- A key works only after you confirm the email address of the account; until then requests answer email_not_verified.
+- All keys of one account share the same quota, rate limit, and concurrency, so extra keys do not add capacity.
+- Full-page captures taller than 10,000 px are not refused on the free plan; they are cut at that height.
+
+## Alternatives in this atlas
+
+- [ApiFlash](/services/apiflash/): when you want the same 100 monthly screenshots with a higher rate limit.
+- [Microlink.io](/services/microlink-io/): when you also want link metadata and preview cards from the same API.
+- [Screenshot Machine](/services/screenshotmachine/): when cached captures that do not count toward the quota suit you.
+
+## Questions people ask
+
+### Is CurlShot free?
+
+Yes, for 100 screenshots a month. The pricing page says the free plan needs no card and has no end date.
+
+### What happens when I use all 100 screenshots?
+
+The API returns quota_exceeded with status 402 until your monthly period resets or you upgrade. The free plan has no overage, so there is no bill.
+
+### Can I make PDFs on the free plan?
+
+Yes. The pricing page lists PDF output on all plans, and a PDF counts as one screenshot.

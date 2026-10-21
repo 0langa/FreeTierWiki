@@ -1,8 +1,9 @@
 ---
 title: AhaSend
 description: >-
-  AhaSend is a European service that sends transactional email for apps, such as
-  sign-up confirmations and password resets, through an API or SMTP relay.
+  AhaSend is a European email service that sends transactional email for apps,
+  such as sign-up confirmations and password resets, through an API or SMTP
+  relay, and newsletters and campaigns through its Campaign Builder.
 provider: AhaSend
 category: messaging
 domain: messaging
@@ -24,18 +25,21 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan sends 1,000 emails per month with 3 sending domains, the REST API,
-    SMTP relay, and webhooks. No credit card needed.
+    Free plan sends 1,000 emails per month, shared by transactional mail and
+    campaigns, with 3 sending domains, the REST API, SMTP relay, webhooks, and
+    Campaign Builder. No credit card needed.
   limits:
     - 1,000 emails/month
     - 3 sending domains
     - 1 to 7 days of message and metadata retention
     - REST API, SMTP relay, sandbox mode, and webhooks included
+    - Campaign Builder included; campaigns share the 1,000 monthly emails
   caveats:
     - No dedicated IP on the Free plan
     - Community support, best effort only
     - You must verify a sending domain before you can send
     - Hourly sending limits start low for new accounts
+    - Marketing mail has its own separate daily marketing limit
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -47,18 +51,20 @@ useCases:
   - Relaying mail from an existing app through SMTP
   - Receiving inbound email and routing it to a webhook
   - Testing an email integration with sandbox mode
+  - Sending a small newsletter with Campaign Builder
 whenToUse: >-
-  Use AhaSend when your app sends transactional email and you want an API or
-  SMTP relay with a free monthly allowance and no card.
+  Use AhaSend when your app sends transactional email, and perhaps a small
+  newsletter, and you want an API or SMTP relay with a free monthly allowance
+  and no card.
 whenNotToUse: >-
-  Avoid it for newsletters and marketing campaigns, for more than 1,000 emails a
-  month on the free plan, or when you need a dedicated IP or paid support.
+  Avoid it for more than 1,000 emails a month on the free plan, counting
+  campaigns, or when you need a dedicated IP or paid support.
 bestFor:
   - app sign-up and receipt emails
   - side projects that send a few emails
   - testing an email integration
 avoidIf:
-  - you need marketing or bulk campaign tools
+  - you need large marketing campaigns on the free plan
   - you need a dedicated IP
   - you send more than 1,000 emails a month for free
 quickstartSteps:
@@ -69,8 +75,8 @@ quickstartSteps:
   - Check the Messages page in the dashboard for the delivery status.
 difficulty: beginner
 productionReadiness: side-project
-lastVerified: 2026-10-09
-lastUpdated: 2026-10-09
+lastVerified: 2026-10-19
+lastUpdated: 2026-10-19
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://ahasend.com'
@@ -87,7 +93,7 @@ You can send through the REST API, the SMTP relay, a command line tool, or the o
 
 ## What the free plan gives you
 
-The Free plan includes 1,000 emails per month. The pricing page says no credit card is required. You can add 3 sending domains, and the plan includes the REST API, the SMTP relay, sandbox mode, webhooks, and inbound routing.
+The Free plan includes 1,000 emails per month. The pricing page says no credit card is required. You can add 3 sending domains, and the plan includes the REST API, the SMTP relay, sandbox mode, webhooks, and inbound routing. Campaign Builder for newsletters and campaigns is also on every plan, and the docs say the 1,000 free emails are shared by transactional mail and campaigns.
 
 AhaSend keeps message data and metadata for 1 to 7 days on this plan, and new accounts start at 7 days. All message data is stored in the EU. Support on the Free plan is community-only, with best-effort replies. The Free plan has no dedicated IP.
 
@@ -95,12 +101,12 @@ AhaSend keeps message data and metadata for 1 to 7 days on this plan, and new ac
 
 The pricing page does not say what happens after the 1,000 monthly emails. The docs say AhaSend plans have an included monthly volume with usage-based overage, but they do not describe it for the Free plan. The quickstart lists the monthly allowance as one thing to check when mail does not arrive.
 
-Hourly sending limits are separate. They start low for new accounts and grow with account age, plan, and sending reputation. The docs say support can raise them. API requests also have their own limit of 100 per second.
+Hourly sending limits are separate and apply to transactional mail. They start low for new accounts and grow with account age, plan, and sending reputation. The docs say support can raise them. Marketing mail uses a separate daily marketing limit. API requests also have their own limit of 100 per second.
 
 ## Gotchas
 
 - You cannot send until you verify a sending domain with DNS records. The quickstart says verification keeps deliverability good and stops spoofing.
-- AhaSend sends transactional email only. Its free email API page says it avoids marketing email to keep delivery fast.
+- Campaigns count against the same 1,000 monthly emails as your app mail, so a newsletter can use up the allowance your sign-up emails need.
 - One SMTP message can have up to 50 recipients and 20 MiB in total size, including attachments.
 
 ## Alternatives in this atlas
@@ -117,8 +123,8 @@ Yes. The Free plan includes 1,000 emails per month, 3 sending domains, and full 
 
 ### Does AhaSend support SMTP?
 
-Yes. You create an SMTP credential in the dashboard and connect to `send.ahasend.com` on port 25, 587, or 2525 with STARTTLS. Port 465 is not supported.
+Yes. You create an SMTP credential in the dashboard and connect to `send.ahasend.com`. The docs list ports 25, 587, and 2525 with STARTTLS.
 
 ### Can I send marketing email with AhaSend?
 
-AhaSend says it sends only transactional email, to keep delivery fast. Use a different service for newsletters and campaigns.
+Yes. Campaign Builder is included on every plan, with contact lists, templates, and campaign reports. Marketing mail runs on separate infrastructure with its own daily limit, and it shares the 1,000 free monthly emails with your transactional mail.
