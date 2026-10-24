@@ -46,7 +46,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
   return (
     <div>
       <PageHeader
-        crumbs={[{ href: "/explorer/", label: "Explore" }]}
+        crumbs={[{ href: "/category/", label: "Categories" }]}
         current={label}
         title={`Free ${label} tiers`}
         lede={`${activeCount} free tiers, safest first. Each one shows the limits, whether it needs a card, and how fresh the data is.`}

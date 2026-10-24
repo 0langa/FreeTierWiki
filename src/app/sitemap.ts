@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     { url: absoluteUrl("/"), changeFrequency: "weekly", priority: 1 },
     { url: absoluteUrl("/explorer/"), changeFrequency: "weekly", priority: 0.9 },
+    { url: absoluteUrl("/category/"), changeFrequency: "weekly", priority: 0.8 },
     { url: absoluteUrl("/changelog/"), changeFrequency: "weekly", priority: 0.6 },
     { url: absoluteUrl("/about/"), changeFrequency: "monthly", priority: 0.4 },
     { url: absoluteUrl("/compare/"), changeFrequency: "weekly", priority: 0.8 },
@@ -21,8 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...providers.map((group) => ({ url: absoluteUrl(`/provider/${group.slug}/`), changeFrequency: "weekly" as const, priority: 0.6 })),
     ...entries.map((entry) => ({
       url: absoluteUrl(entry.url),
-      // When the entry's content last changed. Not lastVerified: the weekly check moves that date on every
-      // entry whose pricing page is unchanged, which would tell crawlers that hundreds of pages changed weekly.
+      // Date the actual content change, not a verification that left the content unchanged.
       lastModified: entry.lastUpdated,
       changeFrequency: "monthly" as const,
       priority: 0.7,
