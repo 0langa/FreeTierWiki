@@ -36,6 +36,11 @@ export function SiteFooter() {
             </Link>
           </li>
           <li>
+            <Link href="/category/" className="hover:text-ink">
+              Categories
+            </Link>
+          </li>
+          <li>
             <Link href="/compare/" className="hover:text-ink">
               Comparisons
             </Link>

@@ -13,6 +13,9 @@ test("sitemap lists pages on the real origin", async ({ request }) => {
 test("robots.txt points at the sitemap", async ({ request }) => {
   const text = await (await request.get("/robots.txt")).text();
   expect(text).toContain("Sitemap: https://freetier.wiki/sitemap.xml");
+  expect(text).toContain("Disallow: /explorer?\n");
+  expect(text).toContain("Disallow: /explorer/?\n");
+  expect(text).toContain("Allow: /\n");
 });
 
 test("detail pages carry canonical and Open Graph tags", async ({ page }) => {

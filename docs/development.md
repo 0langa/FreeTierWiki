@@ -70,6 +70,16 @@ Keep GitHub Pages configured with **GitHub Actions** as its publishing source, w
 
 ## Explorer indexing
 
-Explorer keeps its search, category, type, risk, and sort filters in the URL. Results are paged 50 at a time. A query with no results adds `noindex, follow` to the rendered page head; loading and failed data requests do not trigger it. The tag is removed when filters produce results again.
+Explorer keeps its search, category, type, risk, and sort filters in the URL. Results are paged 50 at a time. `robots.txt` disallows query variants of `/explorer/` (including the slashless form) so crawlers do not spend time rendering combinations of filters. The unfiltered Explorer remains crawlable.
 
-This follows Google's [client-rendered soft 404 guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics#avoid-soft-404s). Static export cannot vary HTTP status by query string, so the rule requires JavaScript rendering. The canonical URL stays `/explorer/`; category and entry pages remain eligible for indexing.
+This follows Google's [faceted navigation guidance](https://developers.google.com/crawling/docs/faceted-navigation). Canonical tags alone are a weaker control for large filter spaces. Blocking crawling does not immediately remove previously known URLs from Google's reports, and blocked URLs cannot be crawled to read a `noindex` tag. Judge coverage using **All submitted pages**, not a goal of indexing every known filter URL.
+
+The canonical URL stays `/explorer/`. Empty results retain the existing client-rendered `noindex, follow` fallback for crawlers that do render them. Loading and failed data requests do not trigger it. Static export cannot vary HTTP status by query string.
+
+The [category directory](https://freetier.wiki/category/) links every populated category, and each category's static HTML links all its entries. The home page and site footer link the directory. This keeps every entry reachable within three links from home without JavaScript, query URLs, or the Explorer's load-more button. The sitemap contains only canonical landing pages and dates entries by actual content changes.
+
+## Audience analytics
+
+For audience measurement, use Cloudflare **Observability → Analytics → Web analytics**, select `freetier.wiki`, choose the period, and keep **Exclude bots = Yes**. The domain overview's **Unique Visitors** counts network activity, including automation; it is not a count of human readers.
+
+Web Analytics **Visits** counts arrivals from an external referrer or direct link, not distinct people. One visit can have several page views. Its JavaScript beacon can be blocked, bot detection is imperfect, and longer reporting windows use sampling. Check **Manage site → Real User Measurements** when interpreting geographic coverage: **Enable, excluding visitor data in the EU** omits EU visits entirely. Collection changes affect future data and cannot recover historical gaps. See Cloudflare's [metric definitions](https://developers.cloudflare.com/web-analytics/data-metrics/high-level-metrics/) and [collection limitations](https://developers.cloudflare.com/web-analytics/faq/).

@@ -199,7 +199,7 @@ export default async function HomePage() {
       ) : null}
 
       <section className="mt-16" aria-labelledby="categories-title">
-        <SectionHeading id="categories-title" title="Browse by category" link={{ href: "/explorer/", label: "All entries" }} />
+        <SectionHeading id="categories-title" title="Browse by category" link={{ href: "/category/", label: "All categories" }} />
         <div className="tile-grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6">
           {categories.map((category) => (
             <Link key={category.domain} href={`/category/${category.domain}/`} className="flex items-start gap-3 bg-surface px-3.5 py-4 transition-colors hover:bg-surface-2 sm:px-5">
