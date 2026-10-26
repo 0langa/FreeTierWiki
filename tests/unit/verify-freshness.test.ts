@@ -9,6 +9,7 @@ import {
   reviewQueue,
   renderReport,
 } from "../../scripts/verify/lib/freshness.mjs";
+import { HASH_VERSION } from "../../scripts/verify/lib/source-snapshot.mjs";
 
 const NOW = "2026-10-05T04:17:00.000Z";
 
@@ -138,22 +139,22 @@ describe("renderReport", () => {
 
 describe("reviewQueue", () => {
   it("keeps a change detected after an earlier same-day review pending on later stable runs", () => {
-    const prior = { "services/a": { hash: "h1", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing", checkedAt: NOW, failures: 0, flaps: 0, state: "ok" } };
-    const result = { id: "services/a", state: "ok" as const, hash: "h2", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing" };
+    const prior = { "services/a": { hash: "h1", hashVersion: HASH_VERSION, markupHash: "m", url: "https://a.test/pricing", checkedAt: NOW, failures: 0, flaps: 0, state: "ok" } };
+    const result = { id: "services/a", state: "ok" as const, hash: "h2", hashVersion: HASH_VERSION, markupHash: "m", url: "https://a.test/pricing" };
     const changed = compareRuns(prior, [result], "2026-10-21T20:00:00Z");
     const stable = compareRuns(changed.next, [result], "2026-10-28T20:00:00Z");
     expect(reviewQueue(stable, { "services/a": "2026-10-21" }).map(x => x.id)).toEqual(["services/a"]);
   });
 
   it("preserves explicit review only while the full source fingerprint matches", () => {
-    const reviewedFingerprint = { hash: "h1", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing", verificationDate: "2026-10-21", acknowledgedAt: "2026-10-21T22:00:00Z" };
+    const reviewedFingerprint = { hash: "h1", hashVersion: HASH_VERSION, markupHash: "m", url: "https://a.test/pricing", verificationDate: "2026-10-21", acknowledgedAt: "2026-10-21T22:00:00Z" };
     const prior = { "services/a": { ...reviewedFingerprint, reviewedFingerprint, checkedAt: NOW, failures: 0, flaps: 0, state: "ok" } };
-    const result = { id: "services/a", state: "ok" as const, hash: "h1", hashVersion: 2, markupHash: "m", url: "https://a.test/pricing" };
+    const result = { id: "services/a", state: "ok" as const, hash: "h1", hashVersion: HASH_VERSION, markupHash: "m", url: "https://a.test/pricing" };
     const stable = compareRuns(prior, [result], "2026-10-28T20:00:00Z");
     expect(stable.next["services/a"].reviewedFingerprint).toEqual(reviewedFingerprint);
     expect(reviewQueue(stable, {})).toEqual([]);
     expect(reviewQueue(stable, { "services/a": "2026-10-18" }).map(x => x.id)).toEqual(["services/a"]);
-    for (const change of [{ hash: "h2" }, { markupHash: "m2" }, { url: "https://a.test/new" }, { hashVersion: 3 }]) {
+    for (const change of [{ hash: "h2" }, { markupHash: "m2" }, { url: "https://a.test/new" }, { hashVersion: HASH_VERSION + 1 }]) {
       const run = compareRuns(prior, [{ ...result, ...change }], "2026-10-28T20:00:00Z");
       expect(run.next["services/a"].reviewedFingerprint).toBeUndefined();
       const next = compareRuns(run.next, [{ ...result, ...change }], "2026-11-04T20:00:00Z");

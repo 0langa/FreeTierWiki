@@ -1,6 +1,7 @@
 // @ts-check
 // Pure logic for the weekly pricing-page check: hash a page, classify a failed fetch, compare two runs, write the report.
 import { normalizeUrl } from "./depth.mjs";
+import { HASH_VERSION } from "./source-snapshot.mjs";
 export { hashExcerpt } from "./source-snapshot.mjs";
 
 /** A dead link is reported only after this many runs in a row, so one bad night does not open an issue. */
@@ -28,7 +29,7 @@ export function classifyFetch(tried, thinBelow = 400) {
 /**
  * @typedef {{ hash: string, hashVersion: number, markupHash: string, url: string, verificationDate: string, acknowledgedAt: string }} ReviewedFingerprint
  * @typedef {{ hash?: string, hashVersion?: number, markupHash?: string, url?: string | null, reviewedFingerprint?: ReviewedFingerprint, checkedAt: string, changedAt?: string, failures: number, flaps: number, state: string }} StoredEntry
- * @typedef {{ id: string, state: "ok" | "thin" | "dead" | "blocked", hash?: string, legacyHash?: string, hashVersion?: number, markupHash?: string, url?: string | null }} RunResult
+ * @typedef {{ id: string, state: "ok" | "thin" | "dead" | "blocked", hash?: string, legacyHash?: string, hashVersion?: number, markupHash?: string, legacyMarkupHash?: string, url?: string | null }} RunResult
  * @typedef {{ next: Record<string, StoredEntry>, changed: string[], noisy: string[], dead: string[], thin: string[], blocked: string[], added: string[], counts: Record<string, number> }} Comparison
  */
 
@@ -60,10 +61,13 @@ export function compareRuns(previous, results, now) {
     counts[result.state] += 1;
     if (result.state === "ok" && result.hash) {
       const sourceChanged = normalizeUrl(before?.url ?? "") !== normalizeUrl(result.url ?? before?.url ?? "");
-      const comparableHash = before?.hashVersion === 2 ? result.hash : (result.legacyHash ?? result.hash);
-      const markupChanged = before?.markupHash !== undefined && result.markupHash !== undefined && before.markupHash !== result.markupHash;
+      const storedVersion = before?.hashVersion ?? 1;
+      const comparableHash = storedVersion >= 2 ? result.hash : (result.legacyHash ?? result.hash);
+      // Version 3 kept the text hash and normalised the markup, so a version 2 record is compared with the version 2 markup hash.
+      const comparableMarkup = storedVersion === 2 && result.hashVersion !== 2 ? (result.legacyMarkupHash ?? result.markupHash) : result.markupHash;
+      const markupChanged = before?.markupHash !== undefined && comparableMarkup !== undefined && before.markupHash !== comparableMarkup;
       const differs = Boolean(before?.hash) && (before?.hash !== comparableHash || sourceChanged || markupChanged);
-      const expandedBaseline = Boolean(before?.hash) && result.hashVersion === 2 && before?.hashVersion !== 2;
+      const expandedBaseline = Boolean(before?.hash) && (result.hashVersion ?? 1) >= 2 && storedVersion < 2;
       const flaps = differs ? (before?.flaps ?? 0) + 1 : 0;
       next[result.id] = {
         hash: result.hash,
@@ -78,6 +82,10 @@ export function compareRuns(previous, results, now) {
       };
       const reviewed = { ...next[result.id], reviewedFingerprint: before?.reviewedFingerprint };
       if (hasCurrentReview(reviewed)) next[result.id].reviewedFingerprint = before.reviewedFingerprint;
+      // The reviewed revision is unchanged by the version 2 comparison, so its review now names the version 3 hashes.
+      else if (!differs && storedVersion === 2 && before?.reviewedFingerprint && reviewMatches(before) && result.hashVersion === HASH_VERSION && result.markupHash) {
+        next[result.id].reviewedFingerprint = { ...before.reviewedFingerprint, hash: result.hash, hashVersion: result.hashVersion, markupHash: result.markupHash };
+      }
       if (!before?.hash) added.push(result.id);
       else if (differs) (flaps >= NOISY_AFTER_RUNS ? noisy : changed).push(result.id);
       else if (expandedBaseline) added.push(result.id);
@@ -85,7 +93,8 @@ export function compareRuns(previous, results, now) {
     }
     const failures = result.state === "dead" ? (before?.state === "dead" ? before.failures : 0) + 1 : 0;
     next[result.id] = { ...before, url: result.url ?? before?.url ?? null, checkedAt: now, failures, flaps: before?.flaps ?? 0, state: result.state };
-    if (!hasCurrentReview(next[result.id])) delete next[result.id].reviewedFingerprint;
+    // An unreadable page keeps the stored fingerprint, so a review of it stays valid in whatever hash version it was made.
+    if (!reviewMatches(next[result.id])) delete next[result.id].reviewedFingerprint;
     if (result.state === "dead" && failures >= DEAD_AFTER_RUNS) dead.push(result.id);
     if (result.state === "thin") thin.push(result.id);
     if (result.state === "blocked") blocked.push(result.id);
@@ -151,8 +160,13 @@ export function renderReport(run, { date, titles, urls, max = 80 }) {
  * @param {StoredEntry} entry
  */
 export function hasCurrentReview(entry) {
+  return entry.hashVersion === HASH_VERSION && reviewMatches(entry);
+}
+
+/** @param {StoredEntry} entry */
+function reviewMatches(entry) {
   const review = entry.reviewedFingerprint;
-  return Boolean(review && entry.hashVersion === 2 && entry.hash && entry.markupHash && entry.url &&
+  return Boolean(review && entry.hash && entry.markupHash && entry.url &&
     review.hashVersion === entry.hashVersion && review.hash === entry.hash && review.markupHash === entry.markupHash &&
     normalizeUrl(review.url) === normalizeUrl(entry.url) && review.verificationDate && review.acknowledgedAt);
 }
@@ -172,8 +186,9 @@ export function acknowledgeSources(entries, ids, lastVerifiedById, now) {
     const entry = entries[id];
     let validUrl = false;
     try { const url = new URL(entry?.url ?? ""); validUrl = ["http:", "https:"].includes(url.protocol) && Boolean(url.hostname); } catch { /* Invalid source identity cannot be acknowledged. */ }
-    if (!entry || entry.state !== "ok" || entry.hashVersion !== 2 || typeof entry.hash !== "string" || !entry.hash.trim() || typeof entry.markupHash !== "string" || !entry.markupHash.trim() || typeof entry.url !== "string" || !validUrl) {
-      throw new Error(`${id}: acknowledgement needs a current readable v2 source fingerprint; scan the source first`);
+    // A version 2 record (scanned before version 3) can still be acknowledged; compareRuns carries the review over.
+    if (!entry || entry.state !== "ok" || (entry.hashVersion !== 2 && entry.hashVersion !== HASH_VERSION) || typeof entry.hash !== "string" || !entry.hash.trim() || typeof entry.markupHash !== "string" || !entry.markupHash.trim() || typeof entry.url !== "string" || !validUrl) {
+      throw new Error(`${id}: acknowledgement needs a current readable v2 or v${HASH_VERSION} source fingerprint; scan the source first`);
     }
     const date = lastVerifiedById[id];
     const changedDate = (entry.changedAt ?? entry.checkedAt)?.slice(0, 10);
