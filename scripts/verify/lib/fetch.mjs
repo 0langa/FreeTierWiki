@@ -6,13 +6,14 @@ export const USER_AGENT = "freetier.wiki-verify/1.0 (+https://freetier.wiki/abou
 /**
  * Fetches a page and returns its readable text. Never throws: a failure comes back as status 0 plus an error code.
  * @param {string} url
- * @returns {Promise<{ url: string, status: number, finalUrl?: string, error?: string, text: string, hash?: string, legacyHash?: string, hashVersion?: number, markupHash?: string, accessIssue?: string }>}
+ * @returns {Promise<{ url: string, status: number, finalUrl?: string, error?: string, text: string, hash?: string, legacyHash?: string, hashVersion?: number, markupHash?: string, legacyMarkupHash?: string, accessIssue?: string }>}
  */
 export async function fetchText(url) {
   try {
     const response = await fetch(url, {
       redirect: "follow",
-      headers: { "user-agent": USER_AGENT, accept: "text/html" },
+      // Without a language, some sites (Google's docs, for one) pick a different translation per request.
+      headers: { "user-agent": USER_AGENT, accept: "text/html", "accept-language": "en-US,en;q=0.9" },
       signal: AbortSignal.timeout(15_000),
     });
     const type = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();

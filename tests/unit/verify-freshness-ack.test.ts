@@ -5,6 +5,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, it } from "vitest";
 
+import { HASH_VERSION } from "../../scripts/verify/lib/source-snapshot.mjs";
+
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const cli = path.join(root, "scripts/verify/acknowledge-freshness.mjs");
 function fixture() {
@@ -13,7 +15,7 @@ function fixture() {
   const entry = "---\ntitle: A\nlastVerified: 2026-10-21\n---\nA\n";
   fs.writeFileSync(path.join(dir, "content/services/a.mdx"), entry);
   fs.writeFileSync(path.join(dir, "content/services/b.mdx"), entry);
-  const source = { state: "ok", hash: "h1", hashVersion: 2, markupHash: "m1", url: "https://a.test/pricing", checkedAt: "2026-10-21T20:00:00Z", changedAt: "2026-10-21T20:00:00Z", failures: 0, flaps: 0 };
+  const source = { state: "ok", hash: "h1", hashVersion: HASH_VERSION, markupHash: "m1", url: "https://a.test/pricing", checkedAt: "2026-10-21T20:00:00Z", changedAt: "2026-10-21T20:00:00Z", failures: 0, flaps: 0 };
   const baseline = { updatedAt: source.checkedAt, entries: { "services/a": source, "services/b": source } };
   fs.writeFileSync(path.join(dir, "hashes.json"), JSON.stringify(baseline));
   return { dir, baseline, source, entry };
@@ -28,7 +30,7 @@ it("acknowledges only explicitly selected current readable sources and leaves co
     expect(result.status, result.stderr).toBe(0);
     expect(result.stdout).toBe("");
     const after = JSON.parse(fs.readFileSync(path.join(f.dir, "hashes.json"), "utf8"));
-    expect(after.entries["services/a"].reviewedFingerprint).toMatchObject({ hash: "h1", hashVersion: 2, markupHash: "m1", url: "a.test/pricing", verificationDate: "2026-10-21", acknowledgedAt: expect.any(String) });
+    expect(after.entries["services/a"].reviewedFingerprint).toMatchObject({ hash: "h1", hashVersion: HASH_VERSION, markupHash: "m1", url: "a.test/pricing", verificationDate: "2026-10-21", acknowledgedAt: expect.any(String) });
     expect(after.entries["services/b"]).toEqual(f.source);
     expect(fs.readFileSync(path.join(f.dir, "content/services/a.mdx"), "utf8")).toBe(f.entry);
   } finally { fs.rmSync(f.dir, { recursive: true, force: true }); }
@@ -57,7 +59,7 @@ it("rejects missing, empty or invalid IDs and invalidates no other record on a f
 it("rejects unreadable, incomplete, legacy or unreviewed revisions before writing", () => {
   const f = fixture();
   try {
-    for (const change of [{ state: "blocked" }, { hash: undefined }, { hash: 12 }, { markupHash: undefined }, { markupHash: {} }, { hashVersion: 1 }, { url: undefined }, { url: "https://" }, { changedAt: "2026-10-22T12:00:00Z" }]) {
+    for (const change of [{ state: "blocked" }, { hash: undefined }, { hash: 12 }, { markupHash: undefined }, { markupHash: {} }, { hashVersion: 1 }, { hashVersion: HASH_VERSION + 1 }, { url: undefined }, { url: "https://" }, { changedAt: "2026-10-22T12:00:00Z" }]) {
       const baseline = { ...f.baseline, entries: { ...f.baseline.entries, "services/a": { ...f.source, ...change } } };
       const file = path.join(f.dir, "hashes.json");
       fs.writeFileSync(file, JSON.stringify(baseline));

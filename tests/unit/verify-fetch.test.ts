@@ -16,3 +16,10 @@ it('retains readable HTML and JSON source text',async()=>{
     expect(await fetchText('https://example.com/pricing')).toMatchObject({status:200,text:'Free plan includes 5 GB'});
   }
 });
+
+it('asks for English so localized sites do not switch language between scans',async()=>{
+  let headers:Headers|undefined;
+  vi.stubGlobal('fetch',async(_url:string,init:RequestInit)=>{headers=new Headers(init.headers);return new Response('Free plan includes 5 GB',{headers:{'content-type':'text/html'}});});
+  await fetchText('https://example.com/pricing');
+  expect(headers?.get('accept-language')).toBe('en-US,en;q=0.9');
+});

@@ -61,7 +61,7 @@ async function worker() {
       id: entry.id,
       state,
       url: best?.finalUrl || best?.url || null,
-      ...(state === "ok" ? { hash: best?.hash, legacyHash: best?.legacyHash, hashVersion: best?.hashVersion, markupHash: best?.markupHash } : {}),
+      ...(state === "ok" ? { hash: best?.hash, legacyHash: best?.legacyHash, hashVersion: best?.hashVersion, markupHash: best?.markupHash, legacyMarkupHash: best?.legacyMarkupHash } : {}),
     });
   }
 }
