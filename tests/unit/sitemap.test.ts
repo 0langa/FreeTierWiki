@@ -29,6 +29,10 @@ describe("sitemap", () => {
     expect(lastModified.get(absoluteUrl(`/compare/${comparison.slug}/`))).toBe(newest(entries.filter((entry) => comparison.entries.includes(entry.id))));
     const [group] = await getProviderGroups();
     expect(lastModified.get(absoluteUrl(`/provider/${group.slug}/`))).toBe(newest(group.entries));
+    const noCardDatabase = entries.filter(
+      (entry) => entry.domain === "database" && entry.status !== "ended" && entry.freeTierDetails.requiresCard === false,
+    );
+    expect(lastModified.get(absoluteUrl("/category/database/no-card/"))).toBe(newest(noCardDatabase));
     // A page that only lists names and counts gets no date rather than a made-up one.
     expect(lastModified.get(absoluteUrl("/about/"))).toBeUndefined();
   }, 60_000);

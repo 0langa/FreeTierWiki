@@ -44,6 +44,12 @@ export const DOMAIN_LABELS: Record<Domain, string> = {
   other: "Other",
 };
 
+/** A category label inside a sentence: "database" and "documents & PDF", while "AI", "APIs & data" and "DevOps & CI" keep their capitals. */
+export function domainPhrase(domain: Domain): string {
+  const label = DOMAIN_LABELS[domain];
+  return /^[A-Z][a-z]+\b/.test(label) ? label.charAt(0).toLowerCase() + label.slice(1) : label;
+}
+
 export const FREE_TIER_TYPE_LABELS: Record<FreeTierType, string> = {
   "always-free": "Always free",
   "time-limited": "Time-limited",

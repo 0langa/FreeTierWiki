@@ -43,3 +43,27 @@ test.describe("without JavaScript", () => {
     expect(paths.filter((url) => /^\/(services|tools)\//.test(url) && !linkedEntries.has(url))).toEqual([]);
   });
 });
+
+test("a category links to its no-card list, which leaves out plans that need a card", async ({ page }) => {
+  await page.goto("/category/database/");
+  await page.getByRole("navigation", { name: "Filtered lists" }).getByRole("link", { name: /No credit card/ }).click();
+  await expect(page).toHaveURL(/\/category\/database\/no-card\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Free Database tiers with no credit card");
+  const table = page.getByRole("table", { name: "Free Database tiers with no credit card", exact: true });
+  await expect(table.getByRole("link", { name: "Neon", exact: true })).toBeVisible();
+  await expect(table.getByRole("link", { name: "Azure PostgreSQL Flexible Server", exact: true })).toHaveCount(0);
+  await expect(table.getByText("Card", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Filter these in the Explorer/ })).toHaveAttribute("href", "/explorer/?cat=database&nocard=1");
+});
+
+test("the hard-cap hub links every category list and shows the safest picks", async ({ page }) => {
+  await page.goto("/hard-cap/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Free tiers with a hard cap");
+  await expect(page.getByRole("navigation", { name: "Categories", exact: true }).getByRole("link", { name: /^Database/ })).toHaveAttribute(
+    "href",
+    "/category/database/hard-cap/",
+  );
+  const picks = page.getByRole("table", { name: "Safest picks: Hard cap", exact: true });
+  await expect(picks.getByText("Hard cap", { exact: true }).first()).toBeVisible();
+  await expect(picks.getByText("Soft cap", { exact: true })).toHaveCount(0);
+});
