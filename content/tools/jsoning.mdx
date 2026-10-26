@@ -27,18 +27,19 @@ tags:
 pricingModel: free
 freeTierDetails:
   summary: >-
-    Free open-source mock REST API software and a public read-only demo.
-    The hosted custom-generator page returned a server error during this review;
-    use the local source route rather than assuming hosted creation is available.
+    Free open-source mock REST API software, a hosted generator page that
+    builds a custom API from JSON resources and rules, and a public read-only
+    demo. Hosted custom APIs are deleted once a day.
   limits:
+    - Hosted generator page creates a custom API from JSON resources and rules
+    - Hosted custom APIs are deleted once a day and can be recreated on the page
+    - The page asks you to limit the number of calls and to use a local API otherwise
     - Local mock REST API available from the official source repository
-    - No published request quota; heavy use should self-host
     - Free public read-only demo API also available
-    - Full source available on GitHub for local/self-hosted use
   caveats:
-    - Hosted custom-generator availability could not be confirmed today
+    - No numeric request quota is published; heavy use should self-host
     - The page publishes no uptime guarantee
-    - Earlier hosted documentation described daily deletion; this is not a current availability guarantee
+    - The hosted generator page loaded on 2026-10-26 after a server error on 2026-10-21; creating an API there was not tested
   resetPeriod: none
   requiresCard: unknown
   freeTierType: always-free
@@ -54,13 +55,14 @@ quickstartSteps:
   - Open the official JSONing API repository and read the local installation instructions.
   - Define resources in db.json and optional response rules in rules.json.
   - Run the local API following project instructions, then call its CRUD routes from your frontend.
+  - Or use the editors on the Mock API page to define resources and rules online; the page gives you an endpoint that is deleted after a day.
   - For a read-only hosted demo, use the public products endpoint; keep sensitive data out of public mocks.
 whenToUse: >-
-  Use JSONing when you can run an open-source mock API locally, or only need
-  the hosted public read-only sample data.
+  Use JSONing when you need a throwaway mock API built from a JSON object, or
+  can run the open-source mock API locally.
 whenNotToUse: >-
-  Avoid it for production data or when you require a working hosted custom
-  generator; that page was unavailable during this review.
+  Avoid it for production data or for a hosted mock that must last, since
+  hosted custom APIs are deleted once a day.
 bestFor:
   - prototyping
   - hackathons
@@ -72,8 +74,8 @@ avoidIf:
   - needing persistent storage
 difficulty: beginner
 productionReadiness: prototype
-lastVerified: '2026-10-21'
-lastUpdated: '2026-10-21'
+lastVerified: '2026-10-26'
+lastUpdated: '2026-10-26'
 popularityScore: 4
 usefulnessScore: 5
 officialUrl: 'https://jsoning.com/api/'
@@ -85,32 +87,33 @@ sourceUrls:
   - 'https://api.jsoning.com/mock/public/products'
 featured: false
 changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: The hosted custom API generator page loads again, so the entry no longer calls it unavailable and now states its daily deletion and call-limit notes.
   - date: '2026-10-21'
     kind: changed
     note: 'Qualified unavailable hosted generator and focused on verified public demo and official local software.'
 ---
 
-JSONing provides open-source software for mocking REST APIs from JSON resources. You can run the official project locally, control its test data, and simulate errors before your real backend exists. A hosted read-only sample endpoint is also available. The custom-generator web page returned an internal server error during this review, so hosted creation should not be assumed to work.
+JSONing provides open-source software for mocking REST APIs from JSON resources. You can run the official project locally, control its test data, and simulate errors before your real backend exists. A hosted read-only sample endpoint is also available, and the Mock API page can build a custom hosted API from your resources and rules.
 
 ## What the free plan gives you
 
-The official JSONing API repository provides the source under the MIT license. Its README describes local installation, JSON resource configuration, CRUD routes, pagination, and custom response rules. A local mock can be useful in a classroom, a frontend prototype, or an automated test suite without depending on a hosted generator.
+The official JSONing API repository provides the source under the MIT license. Its README describes local installation, JSON resource configuration, CRUD routes, pagination, and custom response rules. Rules match a request's method, path, headers, or payload and adjust the response status, headers, or body.
 
-Put resources in a single JSON object containing arrays of records. The local server exposes CRUD routes, with page and limit parameters for pagination.
+The Mock API page says you can also create a custom API online by entering resources and rules in its editors, and that it is available immediately. It does not mention an account or a fee. The generator page returned a server error in the earlier review and loads now; creating an API there was not tested.
 
-Rules match a request's method, path, headers, or payload and adjust response status, headers, or body. Read the project's rule ordering and stop behavior when combining them.
-
-The hosted public products endpoint returned sample JSON without authentication during this review. It is a read-only demonstration, so use the local version when tests need to create or modify data.
+The hosted public products endpoint returns sample JSON without authentication. It is read-only, so use the local version when tests need to create or modify data.
 
 ## When you hit a limit
 
-There is no published hosted request allowance in the available documentation. Earlier website documentation asked users to limit calls, suggested local hosting for heavier use, and described daily deletion of custom hosted APIs. Those statements do not establish that the currently unavailable generator can create a new API today.
+There is no numeric hosted request allowance. The Mock API page asks you to limit the number of your calls and to create a local API otherwise. It also says hosted custom APIs are deleted once a day, and that you can return to the page to recreate yours.
 
-A local installation uses your own machine's resources and lifecycle. Keep fixtures under your control and reset the mock as tests require. The repository does not provide a hosted uptime promise or a billing policy for the unavailable generator; no strict hosted cap is confirmed here.
+A local installation uses your own machine's resources and lifecycle. Keep fixtures under your control and reset the mock as tests require. Neither the page nor the repository gives a hosted uptime promise or a billing policy, and no strict hosted cap is confirmed here.
 
 ## Gotchas
 
-- The custom-generator page returned a server error on October 21, 2026. This entry's usable routes are the read-only demo and official local software.
+- Hosted custom APIs are deleted once a day, so keep the resources and rules you paste in somewhere you control.
 - A public demo cannot hold changing test state. Keep private fixtures and credentials out of public requests.
 - Mock responses test frontend assumptions; they do not prove that the eventual production backend behaves identically.
 
@@ -126,10 +129,10 @@ A local installation uses your own machine's resources and lifecycle. Keep fixtu
 
 The official mock API source is available under the MIT license. The public read-only products endpoint is accessible without authentication.
 
-### Can I create a hosted custom API today?
+### Can I create a hosted custom API?
 
-That could not be confirmed. The generator page returned a server error during this review.
+The Mock API page says you can, with resources and rules entered in its editors, and that the API is available immediately. It is deleted once a day and can be recreated on the page.
 
 ### Does JSONing publish a request limit?
 
-No current numeric hosted quota was established. Run the open-source mock locally for repeatable or heavier tests.
+No numeric hosted quota is published. The page asks you to limit your calls, so run the open-source mock locally for repeatable or heavier tests.

@@ -24,24 +24,23 @@ tags:
   - ssl
 pricingModel: freemium
 freeTierDetails:
-  summary: "Free 'Developer' CDN plan with up to 100 GB of bandwidth per month and one domain."
+  summary: "Free developer CDN account with 100 GB of bandwidth and one domain, per the pricing page."
   limits:
-    - 100 GB bandwidth/month
+    - 100 GB bandwidth
     - '1 domain'
-    - Universal SSL and bring-your-own certificates
-    - Email support
+    - SSL/TLS with bring-your-own certificates (described in the FAQ for CacheFly generally)
   caveats:
-    - Overages billed at $0.05/GB
+    - The pricing page no longer lists a free-plan overage rate or what happens after 100 GB
+    - The pricing page does not say whether the 100 GB is a monthly allowance
     - Credit card required at sign-up (a $1 charge is made and refunded to check it)
-    - No WAF, SSO, or WebSockets on the Developer plan; logs are basic
-    - The pricing page also shows a separate 5 TB free card, so the allowance may be larger than stated here
-  resetPeriod: monthly
+    - The free page mentions a free trial period without saying how long it lasts
+    - Paid tiers start with Adoption at $299/month
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: medium
   billingRiskNotes:
-    - Overages beyond the free data are charged automatically on pay-as-you-go
+    - The free page says you can later choose pay-as-you-go plans, and the card on file is set up for future billing
 useCases:
   - Speeding up static assets such as images, scripts, and style sheets
   - Distributing software downloads
@@ -57,21 +56,22 @@ whenToUse: >-
   Use CacheFly when you want to try a CDN for downloads or static files on a
   personal project, and one domain is enough.
 whenNotToUse: >-
-  Avoid it if you need a web application firewall, single sign-on, WebSockets,
-  advanced logs, or more than one domain on the free plan.
+  Avoid it if you need more than one domain, published overage terms, or
+  security features such as a WAF or single sign-on, which the pricing page
+  places on paid tiers.
 bestFor:
   - static websites
   - media distribution
   - open source downloads
   - testing a CDN
 avoidIf:
-  - need a WAF or SSO
+  - need published free-plan overage terms
   - more than one domain
   - expect high bandwidth overages
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-21
+lastUpdated: 2026-10-26
+lastVerified: 2026-10-26
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://portal.cachefly.com/signup/free2023'
@@ -82,28 +82,32 @@ sourceUrls:
   - 'https://www.cachefly.com/free/'
   - 'https://www.cachefly.com/faq/'
 featured: false
+changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: "Pricing page redesigned around paid Adoption, Production and Governance tiers; the free offer is now stated as 100 GB and one domain, with no published overage rate, so the catalog dropped the old $0.05/GB rate, 5TB card and Developer comparison details."
 ---
-You manage CacheFly from its control panel, and the FAQ says an API covers cache purging, analytics, and configuration changes. The free account suits one small site or download area that needs a global cache.
+You manage CacheFly from its control panel, and the FAQ says an API covers cache purging, analytics reporting, and configuration changes. The free account suits one small site or download area that needs a global cache, and it is mainly a way to test the network before a paid commit.
 
 ## What the free plan gives you
 
-The Developer plan costs $0 a month. The main pricing card says it includes up to 100 GB of free bandwidth each month. It covers one domain, email support, and Universal SSL, and you can also bring your own certificate. API access is included.
+The pricing page says a free developer account is available and sums it up in one line: start free with 100 GB and one domain. It does not list the features of the free account beyond that, and it no longer shows a comparison table for a Developer plan.
 
-Security and edge features are limited. The comparison table shows no WAF, no single sign-on, no WebSockets, no HTTP/3, and basic logs and DDoS protection. It lists a 99.95% SLA for the Developer plan.
+The FAQ describes features that apply across CacheFly. It says you get full SSL and TLS support, including bring your own certificates and automatic certificate issuance, and that an API can purge cache, pull analytics, and change configuration.
 
-The pricing page contradicts itself on size. A second free card on the same page says 5TB of data and 19 PoPs, with overage on pay-as-you-go. This entry uses the 100 GB figure from the Developer card, because that card also gives a price for extra data.
+The paid tiers are where the page puts the bigger features. Adoption costs $299 a month and includes 3 domains, 5 origins, and 10 TB a month. Production adds WAF and DDoS options and WebSockets, and Governance adds SSO, RBAC, and audit logs.
 
 ## When you hit a limit
 
-The pricing page does not describe a hard stop. The Developer card gives an overage rate of 5 cents per GB, and the free page says you can later move to a pay-as-you-go plan. Plan for extra traffic to be billed, not blocked.
+The pricing page does not say what happens after the 100 GB. It does not give an overage rate for the free account, and it does not say whether the allowance resets each month. The free page says that later you can select pay-as-you-go plans or a special pricing contract.
 
-The sign-up note on the free page says self-signup plans need a credit card at registration. CacheFly charges and refunds $1 to check your future payment method, and it says you are not charged during the free trial period. The pages do not say how long that period lasts.
+The sign-up note on the free page says self-signup plans need a credit card at registration to streamline future billing. CacheFly charges and refunds $1 to check your payment method, and it says you are not charged during your free trial period. The pages do not say how long that period lasts, so watch your usage in the control panel.
 
 ## Gotchas
 
-- You must add a credit card to sign up, even though the plan costs nothing. The $1 check is refunded.
-- The free plan covers one domain. The Business plan allows 50 domains and starts at $300 a month.
-- Free-plan limits differ across the pricing page. Check the control panel for the allowance on your own account before you rely on it.
+- You must add a credit card to sign up, even though the account costs nothing. The $1 check is refunded.
+- The free account covers one domain. The cheapest paid tier, Adoption, allows 3 domains and costs $299 a month.
+- The free terms are thin: no overage rate, no reset period, and no trial length are published, so confirm them in the control panel.
 
 ## Alternatives in this atlas
 
@@ -115,11 +119,11 @@ The sign-up note on the free page says self-signup plans need a credit card at r
 
 ### Is CacheFly free?
 
-Yes, there is a free Developer account. The main pricing card gives up to 100 GB of free data each month for one domain. A second card on the same page says 5TB.
+Yes, there is a free developer account. The pricing page describes it as 100 GB and one domain, and the free page calls it an all-access developer account.
 
 ### What happens when I go over the CacheFly free limit?
 
-The pricing page lists an overage rate of 5 cents per GB and says pay-as-you-go applies. It does not say the service stops.
+The pricing page does not say. It gives no overage rate for the free account, and the free page only says you can later pick pay-as-you-go plans.
 
 ### Does CacheFly need a credit card?
 

@@ -26,25 +26,23 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    The Free plan costs $0 with up to 1,000 events per month, unlimited
-    projects, and unlimited team members. Past the quota GlitchTip throttles
-    and then blocks events.
+    The Free plan costs $0 with up to 1,000 events per month. Past the quota
+    GlitchTip throttles and then blocks events.
   limits:
     - '1,000 events/month'
-    - Unlimited projects
-    - Unlimited team members
   caveats:
     - "The card requirement for the free offer is not confirmed in the cited public sources"
-    - 'Events count errors, uptime checks, performance transactions, and release file storage together'
-    - 'After the quota fills, GlitchTip throttles incoming events; at 2x the quota it blocks them fully'
-    - A paid plan raises the limit
+    - 'Events count errors, performance transactions, uptime checks, logs, and release file storage together; ten uptime checks or ten logs count as one event'
+    - The pricing page lists unlimited projects and team members under the Small plan and states no project or member limits for Free
+    - 'After the quota fills, GlitchTip throttles incoming events; at twice the quota it blocks them fully'
+    - A paid plan raises the limit; opt-in on-demand billing with a spend cap is for paid plans only
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - Usage is throttled by 10% after the quota and blocked fully at 2x the monthly quota
+    - Usage is throttled by 10% after the quota and blocked fully at twice the monthly quota
 useCases:
   - Track application errors from a web or mobile app
   - Group repeated exceptions into issues and get alerts
@@ -74,7 +72,7 @@ avoidIf:
   - enterprise support needs
 difficulty: beginner
 productionReadiness: production-light
-lastUpdated: 2026-10-21
+lastUpdated: 2026-10-26
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://glitchtip.com/'
@@ -85,9 +83,12 @@ sourceUrls:
   - 'https://glitchtip.com/pricing/'
   - 'https://glitchtip.com/'
 featured: false
-lastVerified: 2026-10-21
+lastVerified: 2026-10-26
 pricingUrl: 'https://glitchtip.com/pricing/'
 changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: Updated the event definition (uptime checks and logs now count one per ten) and removed the unlimited projects and team members claim, which the pricing page now lists only under the Small plan.
   - date: 2026-10-21
     kind: changed
     note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
@@ -96,19 +97,19 @@ You use GlitchTip through its web dashboard and the Sentry SDK you add to your a
 
 ## What the free plan gives you
 
-The Free plan costs $0 and the pricing page calls it free forever. It covers up to 1,000 events per month. You can create unlimited projects and invite unlimited team members.
+The Free plan costs $0 and the pricing page calls it free forever. It covers up to 1,000 events per month. The pricing page lists unlimited projects and unlimited team members under the Small plan and gives no project or member limits for Free.
 
-An event is the unit GlitchTip uses to measure usage. It counts four things: each error occurrence, each uptime status check, each performance transaction report, and each megabyte of release file storage. Uptime checks and performance data therefore use up the same monthly quota as errors. The free plan is meant for personal projects and lists error tracking as its feature.
+An event is the unit GlitchTip uses to measure usage. Each error and each performance transaction counts as one event. Uptime checks and logs are lighter: ten of either count as one event. Release and debug file uploads count as one event per megabyte. Uptime checks, logs and performance data therefore use up the same monthly quota as errors. The page describes the free plan as a way to explore features or build side projects.
 
 ## When you hit a limit
 
-GlitchTip does not bill you for going over. After your quota is full, it throttles incoming events by 10%. It raises that gradually, and at 2x the quota it blocks events fully. You can upgrade at any time to raise the limit, and plan changes take effect immediately.
+GlitchTip does not bill you for going over. After your quota is full, it starts dropping about 10% of events and drops more as usage climbs. At twice the quota it blocks events fully. You can upgrade from Free to a paid plan yourself at any time to raise the limit.
 
-The paid plans on the pricing page are Small at $15 a month, Medium at $50 a month, and Large at $250 a month. Small raises the limit to up to 100k events per month.
+The paid plans on the pricing page are Small at $15 a month, Medium at $50 a month, and Large at $250 a month. Small raises the limit to up to 100k events per month. On any paid plan you can turn on on-demand billing to keep collecting events past the limit, up to a monthly spend cap you set; Free has no such option.
 
 ## Gotchas
 
-- Uptime checks and performance reports count as events, so a chatty monitor can use your free quota before errors do.
+- Performance transactions count as one event each and uptime checks and logs count one event per ten, so chatty monitoring can use your free quota before errors do.
 - Events are dropped once throttling reaches the full block, so you can lose errors during a bad day.
 - The pricing page does not mention a credit card for the Free plan.
 
@@ -122,11 +123,11 @@ The paid plans on the pricing page are Small at $15 a month, Medium at $50 a mon
 
 ### Is GlitchTip free?
 
-Yes. The Free plan costs $0 and allows up to 1,000 events per month, with unlimited projects and team members. The pricing page calls it free forever.
+Yes. The Free plan costs $0 and allows up to 1,000 events per month. The pricing page calls it free forever.
 
 ### What happens when I go over the GlitchTip event limit?
 
-GlitchTip throttles events by 10% once your quota is full and increases that gradually. At 2x the quota it blocks events fully. Upgrading raises the limit.
+GlitchTip drops about 10% of events once your quota is full and drops more as usage climbs. At twice the quota it blocks events fully. Upgrading raises the limit.
 
 ### Does GlitchTip work with Sentry SDKs?
 

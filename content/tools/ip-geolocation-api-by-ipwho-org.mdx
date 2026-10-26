@@ -2,8 +2,8 @@
 title: IP Geolocation API by ipwho.org
 description: >-
   IPWho (ipwho.org) is an IP geolocation API that returns location, time zone,
-  currency, ASN, and VPN or Tor flags. A free plan covers side projects,
-  learning, and non-profits.
+  currency, ASN, and VPN or Tor flags. A free plan gives 2,000 lookups a day
+  with every field.
 provider: ipwho.org
 category: apis
 domain: apis
@@ -25,14 +25,14 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free forever for side projects, learning, and non-profits. No card
-    required; commercial use needs a paid plan.
+    Free forever with 2,000 lookups a day and every field. No card required.
+    The docs describe it as for personal, testing, and non-profit use.
   limits:
     - 2,000 lookups/day on the free plan, hard limit
     - All fields included on every plan, no feature gating
     - No credit card required
   caveats:
-    - Commercial/business use requires the paid Launch plan ($2.50/mo)
+    - Commercial use on the free plan is unclear: the rate-limit docs say personal, testing, and non-profit use, the vendor's llms.txt calls Free non-commercial and lists full commercial usage on Startup, and the FAQ says the free tier suits smaller production apps
     - Product now branded IPWho, running on the Lavrox network
     - No support on the free plan; burst cap of up to 100 requests per second on every plan
   resetPeriod: daily
@@ -53,11 +53,11 @@ quickstartSteps:
   - 'Read the JSON response, or filter fields to get only what you need.'
   - 'Pick an SDK for TypeScript, Python, PHP, Go, or Java if you prefer a typed client.'
 whenToUse: >-
-  Use it when you want a full-featured IP geolocation API for a side project,
-  learning, or a non-profit, within 2,000 lookups a day.
+  Use it when you want a full-featured IP geolocation API for a personal
+  project, testing, or a non-profit, within 2,000 lookups a day.
 whenNotToUse: >-
-  Avoid it for commercial products on the free plan, or when you need more than
-  2,000 lookups a day for free or support.
+  Avoid it for commercial products until you have checked IPWho's terms for the
+  free plan, or when you need more than 2,000 lookups a day for free or support.
 bestFor:
   - prototyping
   - student projects
@@ -69,8 +69,8 @@ avoidIf:
   - need support on the free plan
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-21
+lastUpdated: 2026-10-26
+lastVerified: 2026-10-26
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipwho.org/'
@@ -81,7 +81,13 @@ sourceUrls:
   - 'https://www.ipwho.org/pricing'
   - 'https://www.ipwho.org/docs'
   - 'https://www.ipwho.org/docs/guides/rate-limits'
+  - 'https://www.ipwho.org/faqs'
+  - 'https://www.ipwho.org/llms.txt'
 featured: false
+changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: Qualified the commercial-use claim, which the current pages no longer state as a Launch plan requirement, and noted yearly versus monthly billing and plan support.
 ---
 You get a free API key from the dashboard, then call `api.ipwho.org` with a plain GET request or use an official SDK. It suits developers who want every data field, including VPN and Tor flags, on a free key for a personal or non-profit project.
 
@@ -89,7 +95,7 @@ You get a free API key from the dashboard, then call `api.ipwho.org` with a plai
 
 The Free plan costs $0, needs no card, and gives you 2,000 lookups per day. It has no feature gating: you get location, time zone, currency, ASN, ISP, security flags, bulk lookup, and the client SDKs. The pricing page lists 16 global data centres and no support on the free plan.
 
-The site calls the free plan fit for side projects, learning, and non-profits. The Launch Special plan costs $2.50 a month for 5,000 lookups per day. The Startup plan costs $10 a month for 250,000 lookups per day.
+The rate-limit docs describe the free plan as for personal, testing, and non-profit use, and the pricing page calls it perfect for testing. The Launch Special plan costs $2.50 a month billed yearly ($3 billed monthly) for 5,000 lookups per day. The Startup plan costs $10 a month billed yearly ($14 billed monthly) for 250,000 lookups per day.
 
 ## When you hit a limit
 
@@ -99,9 +105,9 @@ The pricing page says repeated overages will require an upgrade. The docs say fr
 
 ## Gotchas
 
-- The free plan is for personal, testing, and non-profit use. A commercial project should move to a paid plan.
+- The docs describe the free plan as for personal, testing, and non-profit use, while the FAQ calls it suited to smaller production apps. Ask IPWho before relying on it for a commercial project.
 - The product is now called IPWho and runs on the Lavrox network, so you may see both names.
-- The free plan has no support. Email support starts on the Startup plan.
+- The free plan has no support. The pricing page lists priority support on Launch Special and email support on Startup.
 
 ## Alternatives in this atlas
 
@@ -121,4 +127,4 @@ The API returns HTTP 429 with `daily_quota_exceeded` until the next day. Hitting
 
 ### Can I use IPWho in a commercial project?
 
-Not on the free plan. The site points commercial users to the Launch plan at $2.50 a month.
+Not clearly. The rate-limit docs describe the free plan as for personal, testing, and non-profit use, and the vendor's llms.txt lists full commercial usage on Startup. The FAQ says the free tier suits smaller production apps, so confirm with IPWho first.
