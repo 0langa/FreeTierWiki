@@ -5,11 +5,12 @@ import { JobIcon } from "@/components/site/icons";
 import { PageHeader } from "@/components/site/page-header";
 import { liveComparisons } from "@/lib/comparison-view";
 import { getAllEntries, getComparisons } from "@/lib/content.server";
+import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Compare free tiers",
   description: "Side-by-side tables of free plans for one job: Postgres hosting, serverless functions, email APIs, LLM APIs, auth, and more.",
-  alternates: { canonical: "/compare/" },
+  ...pageUrl("/compare/"),
 };
 
 export default async function CompareIndexPage() {

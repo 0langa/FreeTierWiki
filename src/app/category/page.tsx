@@ -5,11 +5,12 @@ import { DomainIcon } from "@/components/site/icons";
 import { PageHeader } from "@/components/site/page-header";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries } from "@/lib/content.server";
+import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Free developer tools by category",
   description: "Browse free developer plans, credits, and trials by category, from hosting and databases to authentication and analytics.",
-  alternates: { canonical: "/category/" },
+  ...pageUrl("/category/"),
 };
 
 export default async function CategoriesPage() {

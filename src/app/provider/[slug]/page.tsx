@@ -8,6 +8,7 @@ import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getProviderGroups } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
+import { pageUrl } from "@/lib/metadata";
 
 type Params = Promise<{ slug: string }>;
 
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: `${group.name} free tiers`,
     description: `Every ${group.name} free tier in one list: ${group.entries.length} products with their limits, card rules, and billing risk.`,
-    alternates: { canonical: `/provider/${group.slug}/` },
+    ...pageUrl(`/provider/${group.slug}/`),
   };
 }
 

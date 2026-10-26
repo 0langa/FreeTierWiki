@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 test("sitemap lists pages on the real origin", async ({ request }) => {
   const response = await request.get("/sitemap.xml");
@@ -23,6 +23,34 @@ test("detail pages carry canonical and Open Graph tags", async ({ page }) => {
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://freetier.wiki/services/supabase/");
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /\/og\.png$/);
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", /Supabase/);
+});
+
+async function structuredData(page: Page): Promise<Record<string, unknown>[]> {
+  return JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}")["@graph"];
+}
+
+test("the home page names the site for search results", async ({ page }) => {
+  await page.goto("/");
+  expect(await structuredData(page)).toContainEqual(expect.objectContaining({ "@type": "WebSite", name: "freetier.wiki", url: "https://freetier.wiki/" }));
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://freetier.wiki/");
+});
+
+test("detail pages date their content and point at the site", async ({ page }) => {
+  await page.goto("/services/supabase/");
+  const node = (await structuredData(page)).find((item) => item["@id"] === "https://freetier.wiki/services/supabase/");
+  expect(node?.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(node?.isPartOf).toEqual({ "@id": "https://freetier.wiki/#website" });
+});
+
+test("list pages mark up the breadcrumb they show and share their own URL", async ({ page }) => {
+  await page.goto("/category/database/");
+  await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toContainText("Categories");
+  const [crumbs] = await structuredData(page);
+  expect(crumbs.itemListElement).toEqual([
+    { "@type": "ListItem", position: 1, name: "Categories", item: "https://freetier.wiki/category/" },
+    { "@type": "ListItem", position: 2, name: "Database" },
+  ]);
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://freetier.wiki/category/database/");
 });
 
 for (const query of ["domain=ai&tag=misc&provider=Supabase", "cat=ai&q=supabase"]) {

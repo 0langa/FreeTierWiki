@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { FreshnessLabel, RiskPill } from "@/components/entry/labels";
 import { PageHeader } from "@/components/site/page-header";
 import { REPO_URL } from "@/lib/links";
+import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "How we rate free tiers",
   description: "What billing risk, plan type, and last checked mean on freetier.wiki.",
-  alternates: { canonical: "/about/" },
+  ...pageUrl("/about/"),
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

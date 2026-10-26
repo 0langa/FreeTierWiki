@@ -7,11 +7,12 @@ import { BUILD_NOW } from "@/lib/build-info";
 import { getAllEntries } from "@/lib/content.server";
 import { toListItem } from "@/lib/entry-view";
 import { applyQuery, DEFAULT_QUERY } from "@/lib/explorer-query";
+import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Explore free tiers",
   description: "Filter free plans by category, card rules, hard caps, billing risk, and freshness.",
-  alternates: { canonical: "/explorer/" },
+  ...pageUrl("/explorer/"),
 };
 
 const PAGE_SIZE = 50;

@@ -9,6 +9,7 @@ import { DOMAIN_LABELS, isDomain } from "@/lib/content";
 import { comparisonsForDomain, jobLabel } from "@/lib/comparison-view";
 import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
+import { pageUrl } from "@/lib/metadata";
 
 type Params = Promise<{ domain: string }>;
 
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: `Free ${label} tiers`,
     description: `Free ${label.toLowerCase()} plans for developers: limits, card rules, billing risk, and how fresh each entry is.`,
-    alternates: { canonical: `/category/${domain}/` },
+    ...pageUrl(`/category/${domain}/`),
   };
 }
 

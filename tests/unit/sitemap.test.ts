@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
-import { getAllEntries } from "@/lib/content.server";
+import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
 import { absoluteUrl } from "@/lib/links";
 
 describe("sitemap", () => {
@@ -17,5 +17,19 @@ describe("sitemap", () => {
       .filter((entry) => lastModified.get(absoluteUrl(entry.url)) !== entry.lastUpdated)
       .map((entry) => `${entry.id}: ${String(lastModified.get(absoluteUrl(entry.url)))} instead of ${entry.lastUpdated}`);
     expect(problems).toEqual([]);
+  }, 60_000);
+
+  it("dates list pages by their newest entry", async () => {
+    const entries = await getAllEntries();
+    const lastModified = new Map((await sitemap()).map((item) => [item.url, item.lastModified]));
+    const newest = (list: { lastUpdated: string }[]) => list.map((entry) => entry.lastUpdated).sort().at(-1);
+
+    expect(lastModified.get(absoluteUrl("/category/database/"))).toBe(newest(entries.filter((entry) => entry.domain === "database")));
+    const [comparison] = await getComparisons();
+    expect(lastModified.get(absoluteUrl(`/compare/${comparison.slug}/`))).toBe(newest(entries.filter((entry) => comparison.entries.includes(entry.id))));
+    const [group] = await getProviderGroups();
+    expect(lastModified.get(absoluteUrl(`/provider/${group.slug}/`))).toBe(newest(group.entries));
+    // A page that only lists names and counts gets no date rather than a made-up one.
+    expect(lastModified.get(absoluteUrl("/about/"))).toBeUndefined();
   }, 60_000);
 });
