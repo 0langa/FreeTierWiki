@@ -68,7 +68,8 @@ for (const query of ["domain=ai&tag=misc&provider=Supabase", "cat=ai&q=supabase"
     await page.goBack();
     await expect(page.getByTestId("result-count")).toHaveText("0");
     await expect(page.locator('head meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
-    await page.getByRole("link", { name: "Compare", exact: true }).click();
+    await page.getByRole("navigation", { name: "Main" }).locator("summary", { hasText: "Compare" }).click();
+    await page.getByRole("link", { name: /^All comparisons/ }).click();
     await expect(page).toHaveURL(/\/compare\/$/);
     await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
   });

@@ -90,15 +90,18 @@ test("the header fits narrow phones and tablets without a sideways scroll", asyn
       await document.fonts.ready;
       const nav = document.querySelector("header nav");
       // A label that wraps spills out of the header row without always making anything wider, so the width
-      // checks can miss it ("How we rate" took three lines at 768px). Count each visible label's line boxes.
-      const wrapped = [...(nav?.querySelectorAll("a") ?? [])]
-        .filter((link) => getComputedStyle(link).display !== "none")
-        .filter((link) => {
+      // checks can miss it ("How we rate" took three lines at 768px). Count the line boxes of each visible label in
+      // the bar itself (a link, or a menu's summary), measuring its text only: a menu arrow is a box of its own.
+      const wrapped = [...(nav?.querySelectorAll(":scope > a, :scope > details > summary") ?? [])]
+        .filter((item) => getComputedStyle(item).display !== "none")
+        .filter((item) => {
+          const text = [...item.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim());
+          if (!text) return false;
           const range = document.createRange();
-          range.selectNodeContents(link);
+          range.selectNodeContents(text);
           return range.getClientRects().length > 1;
         })
-        .map((link) => link.textContent?.trim());
+        .map((item) => item.textContent?.trim());
       return {
         page: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         links: nav ? nav.scrollWidth - nav.clientWidth : 0,
@@ -114,9 +117,40 @@ test("the header fits narrow phones and tablets without a sideways scroll", asyn
     // Tablets and small laptops reach every page from the header, not only from the footer.
     if (width >= 768) {
       const nav = page.getByRole("navigation", { name: "Main" });
-      for (const name of ["Explore", "Compare", "Changelog", "How we rate"]) {
+      for (const name of ["Explore", "Compare"]) {
+        await expect(nav.locator("summary", { hasText: name }), `${width}px ${name}`).toBeVisible();
+      }
+      for (const name of ["Changelog", "How we rate"]) {
         await expect(nav.getByRole("link", { name, exact: true }), `${width}px ${name}`).toBeVisible();
       }
     }
   }
+});
+
+test("the header menus list every category and comparison, and close again", async ({ page }) => {
+  await page.goto("/");
+  const nav = page.getByRole("navigation", { name: "Main" });
+  await nav.locator("summary", { hasText: "Explore" }).click();
+  const categories = nav.getByRole("list", { name: "Categories" });
+  await expect(categories.getByRole("link", { name: /^Database/ })).toHaveAttribute("href", "/category/database/");
+  await expect(nav.getByRole("list", { name: "Quick lists" }).getByRole("link", { name: /^No credit card needed/ })).toHaveAttribute("href", "/no-card/");
+  await page.keyboard.press("Escape");
+  await expect(categories).toBeHidden();
+
+  await nav.locator("summary", { hasText: "Compare" }).click();
+  const tables = nav.getByRole("list", { name: "Comparison tables" });
+  await tables.getByRole("link", { name: /^App and container hosting/ }).click();
+  await expect(page).toHaveURL(/\/compare\/app-hosting\/$/);
+  await expect(tables).toBeHidden();
+});
+
+test.describe("without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("the header menus still open", async ({ page }) => {
+    await page.goto("/");
+    const nav = page.getByRole("navigation", { name: "Main" });
+    await nav.locator("summary", { hasText: "Compare" }).click();
+    await expect(nav.getByRole("list", { name: "Comparison tables" }).getByRole("link", { name: /^Postgres hosting/ })).toBeVisible();
+  });
 });
