@@ -8,11 +8,12 @@ import { getAllEntries, getRemovals } from "@/lib/content.server";
 import { FEED_ALTERNATE, FEED_PATH } from "@/lib/feed";
 import { formatMonth } from "@/lib/format";
 import { latestChanges } from "@/lib/home-data";
+import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Free tier changelog",
   description: "Free plans that ended, changed, or were removed from the catalog, newest first.",
-  alternates: { canonical: "/changelog/", types: FEED_ALTERNATE },
+  ...pageUrl("/changelog/", { types: FEED_ALTERNATE }),
 };
 
 const FILTERS: { kind: ChangelogKind; label: string }[] = [

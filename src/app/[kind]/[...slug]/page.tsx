@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { EntryPage } from "@/components/entry/entry-page";
+import { JsonLd } from "@/components/site/json-ld";
 import { BUILD_NOW } from "@/lib/build-info";
 import { isContentKind } from "@/lib/content";
 import { comparisonsFor } from "@/lib/comparison-view";
@@ -10,10 +11,16 @@ import { getAllEntries, getComparisons, getEntryWithBody, getProviderGroups } fr
 import { bodyQuestions } from "@/lib/entry-body";
 import { relatedItems } from "@/lib/entry-view";
 import { absoluteUrl } from "@/lib/links";
+import { OPEN_GRAPH } from "@/lib/metadata";
 import { providerHref } from "@/lib/providers";
+import { breadcrumbList, WEBSITE_ID } from "@/lib/structured-data";
 import type { AtlasEntryWithBody } from "@/types/content";
 
 type Params = Promise<{ kind: string; slug: string[] }>;
+
+function pageTitle(entry: AtlasEntryWithBody): string {
+  return entry.status === "ended" ? `${entry.title} free tier (ended)` : `${entry.title} free tier: limits, card, billing risk`;
+}
 
 function metaDescription(entry: AtlasEntryWithBody): string {
   const summary = entry.status === "ended" ? "" : entry.freeTierDetails.summary;
@@ -21,33 +28,37 @@ function metaDescription(entry: AtlasEntryWithBody): string {
   return text.length > 300 ? `${text.slice(0, 297).replace(/\s+\S*$/, "")}...` : text;
 }
 
-/** Breadcrumbs for every entry, plus the "Questions people ask" pairs once the body has them. */
-function structuredData(entry: AtlasEntryWithBody, provider: string | undefined): string {
-  const crumbs = [
+/**
+ * Breadcrumbs for every entry, and the page with its two dates: the last content change and the last check against
+ * official sources. The page carries the "Questions people ask" pairs once the body has them.
+ */
+function structuredData(entry: AtlasEntryWithBody, provider: string | undefined): object[] {
+  const crumbs = breadcrumbList([
     { name: "Explore", url: "/explorer/" },
     { name: DOMAIN_LABELS[entry.domain], url: `/category/${entry.domain}/` },
     ...(provider ? [{ name: entry.provider, url: provider }] : []),
     { name: entry.title, url: entry.url },
-  ];
-  const graph: object[] = [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, name: crumb.name, item: absoluteUrl(crumb.url) })),
-    },
-  ];
+  ]);
   const questions = bodyQuestions(entry.body.raw);
-  if (questions.length > 0) {
-    graph.push({
-      "@type": "FAQPage",
-      mainEntity: questions.map(({ question, answer }) => ({
-        "@type": "Question",
-        name: question,
-        acceptedAnswer: { "@type": "Answer", text: answer },
-      })),
-    });
-  }
-  // Escape "<" so text from content can never close the script element.
-  return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
+  const page = {
+    "@type": questions.length > 0 ? "FAQPage" : "WebPage",
+    "@id": absoluteUrl(entry.url),
+    url: absoluteUrl(entry.url),
+    name: pageTitle(entry),
+    isPartOf: { "@id": WEBSITE_ID },
+    dateModified: entry.lastUpdated,
+    ...(entry.lastVerified ? { lastReviewed: entry.lastVerified } : {}),
+    ...(questions.length > 0
+      ? {
+          mainEntity: questions.map(({ question, answer }) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          })),
+        }
+      : {}),
+  };
+  return [crumbs, page];
 }
 
 export const dynamicParams = false;
@@ -65,21 +76,14 @@ async function load(params: Params) {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const entry = await load(params);
   if (!entry) return {};
-  const title = entry.status === "ended" ? `${entry.title} free tier (ended)` : `${entry.title} free tier: limits, card, billing risk`;
+  const title = pageTitle(entry);
   // The free-tier summary holds the numbers people search for; the product description is the fallback.
   const description = metaDescription(entry);
   return {
     title,
     description,
     alternates: { canonical: entry.url },
-    openGraph: {
-      type: "article",
-      siteName: "freetier.wiki",
-      title,
-      description,
-      url: entry.url,
-      images: [{ url: "/og.png", width: 1200, height: 630 }],
-    },
+    openGraph: { ...OPEN_GRAPH, type: "article", title, description, url: entry.url, modifiedTime: entry.lastUpdated },
   };
 }
 
@@ -91,7 +95,7 @@ export default async function DynamicEntryPage({ params }: { params: Params }) {
   const provider = providerHref(entry, await getProviderGroups());
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData(entry, provider) }} />
+      <JsonLd graph={structuredData(entry, provider)} />
       <EntryPage entry={entry} related={related} comparisons={comparisons} providerHref={provider} />
     </>
   );

@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { getAllEntries, getComparison, getComparisons } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
+import { pageUrl } from "@/lib/metadata";
 
 type Params = Promise<{ slug: string }>;
 
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: comparison.title,
     description: comparison.intro,
-    alternates: { canonical: `/compare/${slug}/` },
+    ...pageUrl(`/compare/${slug}/`),
   };
 }
 

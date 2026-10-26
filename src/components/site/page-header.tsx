@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { JsonLd } from "@/components/site/json-ld";
+import { breadcrumbList } from "@/lib/structured-data";
+
 export type Crumb = { href: string; label: string };
 
 export function Breadcrumb({ crumbs, current }: { crumbs: Crumb[]; current: string }) {
@@ -34,7 +37,13 @@ type PageHeaderProps = {
 export function PageHeader({ crumbs, current, title, lede, children }: PageHeaderProps) {
   return (
     <div className="grid gap-4 pt-8 lg:pt-10">
-      {crumbs && current ? <Breadcrumb crumbs={crumbs} current={current} /> : null}
+      {crumbs && current ? (
+        <>
+          <Breadcrumb crumbs={crumbs} current={current} />
+          {/* The same trail for search engines. The current page leaves out its URL, so they use the page's own. */}
+          <JsonLd graph={[breadcrumbList([...crumbs.map((crumb) => ({ name: crumb.label, url: crumb.href })), { name: current }])]} />
+        </>
+      ) : null}
       <div className="grid gap-2.5">
         <h1 className="text-[30px] font-bold leading-[1.1] tracking-tight sm:text-[36px]">{title}</h1>
         {lede ? <p className="max-w-[64ch] text-[15.5px] leading-relaxed text-ink-2 sm:text-base">{lede}</p> : null}

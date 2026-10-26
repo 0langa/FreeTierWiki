@@ -5,6 +5,7 @@ import { AppProviders } from "@/components/providers/app-providers";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { SITE_URL } from "@/lib/links";
+import { OPEN_GRAPH, SITE_DESCRIPTION } from "@/lib/metadata";
 
 import "./globals.css";
 
@@ -38,12 +39,8 @@ export const metadata: Metadata = {
     default: "freetier.wiki: free tiers, with the fine print",
     template: "%s · freetier.wiki",
   },
-  description: "Free plans for developers with their limits, card rules, billing risk, and how fresh each entry is.",
-  openGraph: {
-    type: "website",
-    siteName: "freetier.wiki",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "freetier.wiki: free tiers, with the fine print" }],
-  },
+  description: SITE_DESCRIPTION,
+  openGraph: OPEN_GRAPH,
   twitter: {
     card: "summary_large_image",
   },
