@@ -46,6 +46,16 @@ export function SiteFooter() {
             </Link>
           </li>
           <li>
+            <Link href="/no-card/" className="hover:text-ink">
+              No credit card needed
+            </Link>
+          </li>
+          <li>
+            <Link href="/hard-cap/" className="hover:text-ink">
+              Hard spending cap
+            </Link>
+          </li>
+          <li>
             <Link href="/changelog/" className="hover:text-ink">
               Changelog
             </Link>

@@ -5,10 +5,11 @@ import { notFound } from "next/navigation";
 import { EntryList } from "@/components/entry/entry-list";
 import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
-import { DOMAIN_LABELS, isDomain } from "@/lib/content";
+import { DOMAIN_LABELS, domainPhrase, isDomain } from "@/lib/content";
 import { comparisonsForDomain, jobLabel } from "@/lib/comparison-view";
 import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
+import { FILTER_PAGES, FILTER_SLUGS, filterItems, MIN_CATEGORY_ENTRIES } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
 
 type Params = Promise<{ domain: string }>;
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const label = DOMAIN_LABELS[domain];
   return {
     title: `Free ${label} tiers`,
-    description: `Free ${label.toLowerCase()} plans for developers: limits, card rules, billing risk, and how fresh each entry is.`,
+    description: `Free ${domainPhrase(domain)} plans for developers: limits, card rules, billing risk, and how fresh each entry is.`,
     ...pageUrl(`/category/${domain}/`),
   };
 }
@@ -43,6 +44,10 @@ export default async function CategoryPage({ params }: { params: Params }) {
     .map((entry) => toListItem(entry, BUILD_NOW))
     .sort(compareSafety);
   const activeCount = items.filter((item) => item.status !== "ended").length;
+  // Only filters with a page of their own for this category get a chip.
+  const narrowed = FILTER_SLUGS.map((filter) => ({ filter, count: filterItems(items, filter).length })).filter(
+    ({ count }) => count >= MIN_CATEGORY_ENTRIES,
+  );
 
   return (
     <div>
@@ -52,6 +57,15 @@ export default async function CategoryPage({ params }: { params: Params }) {
         title={`Free ${label} tiers`}
         lede={`${activeCount} free tiers, safest first. Each one shows the limits, whether it needs a card, and how fresh the data is.`}
       >
+        {narrowed.length > 0 ? (
+          <ChipRow label="Show only" name="Filtered lists">
+            {narrowed.map(({ filter, count }) => (
+              <Link key={filter} href={`/category/${domain}/${filter}/`} className="chip">
+                {FILTER_PAGES[filter].name} <span className="font-mono text-ink-3">{count}</span>
+              </Link>
+            ))}
+          </ChipRow>
+        ) : null}
         {comparisons.length > 0 ? (
           <ChipRow label="Compare side by side" name="Comparison tables">
             {comparisons.map((comparison) => (
