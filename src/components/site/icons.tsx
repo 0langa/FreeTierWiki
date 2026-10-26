@@ -6,6 +6,7 @@ import {
   ChartNoAxesColumn,
   ClipboardList,
   Clock,
+  Container,
   Cpu,
   Database,
   FileText,
@@ -68,6 +69,7 @@ const DOMAIN_ICONS: Record<Domain, LucideIcon> = {
 // Keyed by comparison slug (content/comparisons.json). Unknown slugs fall back to a grid.
 const JOB_ICONS: Record<string, LucideIcon> = {
   "postgres-hosting": Database,
+  "app-hosting": Container,
   "serverless-functions": Zap,
   "email-sending": Mail,
   "object-storage": HardDrive,
