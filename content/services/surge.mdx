@@ -2,7 +2,7 @@
 title: Surge
 description: >-
   Surge publishes static web projects from the command line to its CDN. The
-  free plan includes unlimited publishing, custom domains, and basic SSL.
+  free plan includes unlimited projects and domains and custom domains with automatic certificates.
 provider: Surge
 category: hosting
 domain: hosting
@@ -23,24 +23,27 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Surge is free to use: the free plan includes unlimited publishing, a custom
-    domain, and basic SSL. Surge Professional at $30 a month adds custom SSL,
-    forced HTTPS, CORS, custom redirects, and password protection.
+    Surge is free to use: the free plan includes unlimited projects and
+    domains, custom domains with automatic certificates, previews, and
+    rollbacks. Surge Pro at $30 a month adds password protection and redirects
+    and rewrites.
   limits:
-    - Unlimited publishing
-    - Custom domain with basic SSL
+    - Unlimited projects and domains
+    - Custom domains with certificates issued and renewed automatically
+    - 'Publishing limits on every plan: 30 per 15 minutes and 200 per day for each domain'
+    - 450 MB and 10,100 files per project
     - Static HTML, CSS, and JavaScript only
   caveats:
-    - Forced HTTPS, CORS, custom redirects, and password protection are Professional features
-    - The pricing page lists no storage or bandwidth numbers
-    - The pricing page does not say how many projects the free plan allows
+    - Password protection and redirects and rewrites are Pro features
+    - Limits pause publishing for a while but never stop a live project from serving
+    - The pricing page and the CLI guide do not say whether Free sign-up asks for a card
   resetPeriod: none
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
-    - Free resource thresholds and exhaustion billing policy are not published; Professional is listed at 30 USD monthly
+    - The pricing page says there is no bandwidth billing and no overage charge; the bill is the plan price, and Pro is listed at 30 USD monthly
 useCases:
   - Publishing a static site or front-end build from the terminal
   - Sharing a preview of a design or prototype at a public URL
@@ -53,8 +56,8 @@ whenToUse: >-
   Use Surge when you want to put a folder of static files online with one
   command and no dashboard or build setup.
 whenNotToUse: >-
-  Avoid it when you need server-side code, forced HTTPS redirects, or password
-  protection without paying for Professional.
+  Avoid it when you need server-side code, or password protection or redirects
+  without paying for Pro.
 bestFor:
   - one-command static deploys
   - quick prototypes
@@ -63,8 +66,8 @@ avoidIf:
   - you need password-protected sites for free
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-10-26
+lastVerified: 2026-10-26
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://surge.sh/'
@@ -72,10 +75,13 @@ docsUrl: 'https://surge.sh/docs'
 sourceUrls:
   - 'https://surge.sh/docs/getting-started'
   - 'https://surge.sh/pricing'
-  - 'https://surge.sh/help/getting-started-with-surge'
+  - 'https://surge.sh/docs/cli/publishing'
 pricingUrl: 'https://surge.sh/pricing'
 featured: false
 changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: 'Updated to the redesigned pricing page: Pro is $30 a month for password protection and redirects and rewrites; forced HTTPS and CORS are on Free, publishing limits are published, and nothing is metered.'
   - date: '2026-10-21'
     kind: changed
     note: Qualified unpublished Free resource and billing policies while retaining the current CLI deployment workflow.
@@ -88,20 +94,20 @@ Surge is a static web publishing service you drive from the command line. You ru
 
 ## What the free plan gives you
 
-The pricing page says Surge is free to use. The free plan is for publishing any folder easily and lists unlimited publishing, a custom domain, and basic SSL.
+The pricing page says Surge is free to publish, with no trial period and no project cap. Free lists unlimited projects and domains, custom domains with automatic certificates, previews, the last 100 revisions with instant rollback, and scoped tokens for CI and agents.
 
 The getting-started guide shows the flow: install the CLI from npm, which needs Node.js version 18 or later, then run surge publish. The first run creates an account with an email and password in the terminal and suggests a domain such as your-project.surge.sh. Each publish creates a new revision, production switches over when the upload completes, and surge rollback undoes a bad publish. The guide also says custom domains are free and the SSL certificate is provisioned automatically, and that surge publish --preview uploads a revision with its own URL.
 
 ## When you hit a limit
 
-The pricing page lists no storage, bandwidth or request thresholds for Free, and does not explain exhaustion or automatic billing. Unlimited publishing does not establish unlimited storage or traffic. Confirm these policies before a high-volume deployment; the current CLI guide describes account creation with email and password but makes no explicit card-policy statement.
+Publishing is rate limited on every plan: each domain gets 30 publishes per 15 minutes and 200 per day, and each account gets 60 and 500. A project can be up to 450 MB and 10,100 files. The pricing page says limits pause publishing but never stop a live project from serving, and that nothing is metered, with no bandwidth billing or overage charge. Neither the pricing page nor the CLI guide states a card rule at sign-up.
 
-The paid upgrade is Surge Professional at $30 a month, described as for unlimited production-ready projects. It adds custom SSL, forcing http to https, Cross-Origin Resource Sharing, custom redirects, and password protection.
+The paid upgrade is Surge Pro at $30 a month. It adds password protection for a domain or specific paths, and redirects and rewrites.
 
 ## Gotchas
 
-- Forcing http to https is listed only under Surge Professional, so plan for that if your site must redirect to HTTPS.
-- Custom redirects and password protection are Professional features, so you cannot lock a free site behind a password.
+- Password protection is a Pro feature, so you cannot lock a free site behind a password.
+- Redirects and rewrites are a Pro feature. Free covers 200.html, 404.html, clean URLs, forced HTTPS, and CORS.
 - Surge only hosts static files; a single-page app needs a 200.html shell for deep links, as the guide notes.
 
 ## Alternatives in this atlas
@@ -114,12 +120,12 @@ The paid upgrade is Surge Professional at $30 a month, described as for unlimite
 
 ### Is Surge free?
 
-Yes. The pricing page says Surge is free to use, with unlimited publishing, a custom domain, and basic SSL on the free plan.
+Yes. The pricing page says Surge is free to publish, with unlimited projects and domains and custom domains with automatic certificates on the free plan.
 
 ### Can I use my own domain on the free plan?
 
 Yes. The free plan lists a custom domain, and the guide says the SSL certificate is provisioned automatically.
 
-### How much does Surge Professional cost?
+### How much does Surge Pro cost?
 
-Surge Professional costs $30 a month and adds custom SSL, forced HTTPS, CORS, custom redirects, and password protection.
+Surge Pro costs $30 a month and adds password protection and redirects and rewrites.

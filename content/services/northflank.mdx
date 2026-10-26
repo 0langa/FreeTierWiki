@@ -24,20 +24,21 @@ tags:
   - byoc
 pricingModel: freemium
 freeTierDetails:
-  summary: 'Developer Sandbox is free: 2 services, 2 jobs, and 1 database add-on, always on.'
+  summary: 'The free Sandbox plan gives 2 services, 2 jobs, and 1 database add-on, always on, within up to $20 a month of resources on Northflank Cloud.'
   limits:
     - 2 services
     - 2 jobs (cron)
     - 1 add-on (database)
+    - Up to $20 a month of resources on Northflank Cloud
     - Project count conflicts: pricing lists 2, setup documentation lists 1
-    - Up to 1 bring-your-own-cloud cluster
+    - Up to 1 bring-your-own-cloud cluster, up to 12 vCPU and 48 GB
   caveats:
     - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Northflank says the free tier should not be used for production
-    - Every account must add a payment method before creating resources, on every plan
+    - "The pricing page says no card is needed for the Sandbox, but the billing docs say every user must add a payment method before creating resources, so the card requirement is not confirmed"
     - With bring-your-own-cloud, your cloud provider still charges you
   resetPeriod: none
-  requiresCard: true
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: unknown
   overageRisk: low
@@ -47,8 +48,8 @@ useCases:
   - Run a small Postgres or Redis next to a service
   - Run scheduled jobs on a cron schedule
 quickstartSteps:
-  - Create an account at app.northflank.com and add a payment method, which Northflank requires to verify identity.
-  - Pick the Developer Sandbox plan when asked to choose a billing plan.
+  - Create an account at app.northflank.com. The pricing page says the Sandbox needs no card, but the docs say a payment method is required before you create resources, so have one ready.
+  - Pick the free Sandbox plan (called Developer Sandbox in the docs) when asked to choose a billing plan.
   - Link your Git account, then create a project and choose its region.
   - Create a combined service, pick the repository and branch, and choose Dockerfile or buildpack for the build.
   - Click create service and open the service dashboard to follow the build.
@@ -68,8 +69,8 @@ avoidIf:
   - more than 2 services
 difficulty: intermediate
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-10-26
+lastVerified: 2026-10-26
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://northflank.com'
@@ -83,6 +84,9 @@ sourceUrls:
 pricingUrl: 'https://northflank.com/pricing'
 featured: false
 changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: "The pricing page now says the Sandbox needs no card and caps it at about $20 a month of resources, which conflicts with the billing docs, so the card requirement is marked unconfirmed."
   - date: 2026-10-21
     kind: changed
     note: "Recorded current two-project pricing versus one-project setup conflict; mandatory payment method and BYOC external charges remain explicit."
@@ -97,7 +101,7 @@ You work in a web dashboard, a CLI, or an API. You group services, jobs, and add
 
 ## What the free plan gives you
 
-The Developer Sandbox plan is free. The pricing page lists 2 free services, 2 free cron jobs, and 1 free database, and says compute is always on with no sleeping. The pricing comparison lists 2 projects, while the setup guide says one; confirm that discrepancy before designing your setup. The docs also allow up to 1 bring-your-own-cloud cluster.
+The Sandbox plan, which the docs call Developer Sandbox, is free. The pricing page lists 2 free services, 2 free cron jobs, and 1 free database within up to $20 a month of resources on Northflank Cloud, and says compute is always on with no sleeping. The pricing comparison lists 2 projects, while the setup guide says one; confirm that discrepancy before designing your setup. The plan also allows 1 bring-your-own-cloud cluster, which the pricing page puts at up to 12 vCPU and 48 GB.
 
 Teams are included at no extra cost, and the plan includes free TLS and custom domains, plus logs and metrics kept for a month. Vertical scaling is limited on the free plan, and the docs describe it as a good way to explore the platform and spin up hobby projects.
 
@@ -109,7 +113,7 @@ Northflank says billing alerts and thresholds help you avoid surprise bills. If 
 
 ## Gotchas
 
-- You must add a payment method to create any resource, even on the free plan. Northflank says this verifies identity and stops abuse.
+- The card requirement is unclear. The pricing page says the Sandbox needs no card, but the billing docs say every user must add a payment method before creating resources, to verify identity and stop abuse.
 - The docs say the free tier should not be used for production applications.
 - Project allowance conflicts between the pricing comparison (2) and setup guide (1); check the current console before relying on a second project.
 
@@ -123,11 +127,11 @@ Northflank says billing alerts and thresholds help you avoid surprise bills. If 
 
 ### Is Northflank free?
 
-Yes, within the Developer Sandbox. It allows 2 services, 2 jobs, and 1 database add-on, and Northflank says it is not for production.
+Yes, within the Sandbox plan. It allows 2 services, 2 jobs, and 1 database add-on, within up to $20 a month of resources, and Northflank says it is not for production.
 
 ### Does Northflank need a credit card?
 
-Yes. The docs say all users must add a payment method before creating resources, whatever plan they choose. Northflank says this verifies identity and prevents abuse.
+It is not clear. The pricing page says no card is needed for the Sandbox, but the billing docs say all users must add a payment method before creating resources, whatever plan they choose, to verify identity and prevent abuse. Check the sign-up flow before you rely on either.
 
 ### Does the Northflank free tier sleep?
 

@@ -35,17 +35,17 @@ freeTierDetails:
     - "1,000 media files, 1 GB media storage"
     - "1 GB API bandwidth per month"
   caveats:
-    - "The pricing page says every allowance is metered and never blocked, but the Free column lists no overage rate"
+    - "Objects and object types stop at the allowance, while API requests and media are metered, and the Free column lists no overage rate"
     - "Free plan includes 300k AI tokens in and out per month, 1 AI agent, and 1 workflow per project"
     - "Webhooks, localization, revision history, and backups are paid add-ons"
     - "Insights events on Free keep data for 30 days"
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - The pricing page says every allowance is metered and never blocked; paid columns list per-unit rates above their allowance, the Free column lists none
+    - Paid columns list per-unit rates for API and media above their allowance and the Free column lists none, so billing for extra Free use is not published; objects stop at the limit
 useCases:
   - "A content backend for a blog or marketing site"
   - "Modeling pages, posts, authors, and categories as object types"
@@ -74,7 +74,7 @@ avoidIf:
   - "you expect heavy traffic on the free plan"
 difficulty: beginner
 productionReadiness: side-project
-lastUpdated: 2026-10-09
+lastUpdated: 2026-10-26
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.cosmicjs.com/'
@@ -84,8 +84,12 @@ sourceUrls:
   - 'https://www.cosmicjs.com/docs'
   - 'https://www.cosmicjs.com/docs/quickstart'
 featured: false
-lastVerified: 2026-10-21
+lastVerified: 2026-10-26
 pricingUrl: 'https://www.cosmicjs.com/pricing'
+changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: The pricing page now says objects and object types stop at the allowance while API and media are metered, so the hard-cap flag is unknown and the catalog no longer says every allowance is never blocked.
 ---
 You work in the Cosmic dashboard to build a project, a bucket, object types, and objects, then fetch content through the REST API or the `@cosmicjs/sdk` JavaScript package. It suits developers who want an API-first CMS with a small team of editors.
 
@@ -97,9 +101,9 @@ AI is part of every plan. Free gives 300k input and 300k output tokens, plus 1 a
 
 ## When you hit a limit
 
-The pricing page says every allowance is metered and never blocked. Paid plans list a rate for use above their included amount, such as $0.23 per 10k uncached requests and $0.36 per GB of API bandwidth. The Free column lists no such rate, and the page does not say how extra use on Free is billed or whether a card is then needed.
+The pricing page says objects and object types stop at the allowance on every plan, while API requests and media are metered. Paid plans list a rate for use above their included amount, such as $0.23 per 10k uncached requests and $0.36 per GB of API bandwidth. The Free column lists no such rate, and the page does not say how extra use on Free is billed or whether a card is then needed.
 
-Object, bucket, and team limits are different from usage. The Builder plan costs $99 per month and raises you to 3 team members, 2 buckets, and 5,000 objects. Extra team members cost $29 each per month on paid plans. Check the usage view in your project as you grow.
+Object, bucket, and team limits are different from usage. The Builder plan costs $99 per month and raises you to 3 team members, 2 buckets, and 5,000 objects. Extra team members cost $29 each per month. Check the usage view in your project as you grow.
 
 ## Gotchas
 
@@ -125,4 +129,4 @@ Free includes 10k uncached and 100k cached API requests per month, and 1GB of AP
 
 ### What happens when I go over the Cosmic free tier?
 
-The pricing page says allowances are metered and never blocked. It does not list an overage rate for the Free plan.
+The pricing page says objects stop at the allowance and API requests and media are metered. It does not list an overage rate for the Free plan.

@@ -23,12 +23,12 @@ tags:
 pricingModel: freemium
 freeTierDetails:
   summary: >-
-    Free plan is $0/month with 150 validations per month, 1 API key, and a 10 requests/minute rate
+    Free plan is $0/month with 150 validations per month, unlimited API keys, and a 10 requests/minute rate
     limit.
   limits:
     - 150 validations/month
     - 10 requests/minute
-    - 1 API key
+    - Unlimited API keys
   caveats:
     - No email support or sandbox API keys on the free plan
     - Higher-volume plans remove the rate limit
@@ -45,7 +45,7 @@ useCases:
   - "Check IBANs, since every plan can validate them"
 quickstartSteps:
   - "Open vatcheckapi.com and choose Get your free API key to register in the developer portal."
-  - "Copy your API key. The free plan allows one key at a time."
+  - "Copy your API key. Every plan, including Free, allows unlimited keys."
   - "Send a GET request to https://api.vatcheckapi.com/v2/check with the vat_number parameter and your key in the apikey parameter or header."
   - "Read the JSON result for registration status and company details. Add a country_code parameter when the number has no country prefix."
   - "Watch your monthly and per-minute quota in the response headers or with the Status endpoint."
@@ -65,14 +65,17 @@ difficulty: beginner
 productionReadiness: prototype
 status: changed
 changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: "Corrected the Free plan to unlimited API keys, not one, and moved sandbox keys to the Medium plan and above, as the pricing page now states."
   - date: 2026-10-21
     kind: changed
     note: "Clarified that invalid-number results consume quota and cited the current explicit no-card rule."
   - date: 2026-10-06
     kind: changed
     note: "Clarified that the 150 free validations renew monthly."
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-10-26
+lastVerified: 2026-10-26
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://vatcheckapi.com'
@@ -89,7 +92,7 @@ You call Vatcheckapi.com with a GET request and an API key from any language. Th
 
 ## What the free plan gives you
 
-The Free plan costs $0.00 a month and is for testing and personal projects. You get 150 validations a month, 1 API key, and a rate limit of 10 requests per minute. The home page says the service covers 29 countries.
+The Free plan costs $0.00 a month and is for testing and personal projects. You get 150 validations a month, unlimited API keys, and a rate limit of 10 requests per minute. The home page says the service covers 29 countries.
 
 One call checks the format, the checksum, and the registration of a VAT number, and returns the company behind it. Every plan can also validate IBANs, and each IBAN counts as one request.
 
@@ -103,7 +106,7 @@ Response headers tell you the quota you have left. The Status endpoint shows it 
 
 ## Gotchas
 
-- The free plan allows only 1 API key at a time, and it has no sandbox keys. Sandbox keys come with the paid plans that allow more than one key.
+- The free plan has no sandbox keys. Sandbox keys come with the Medium plan and above.
 - Paid plans remove the rate limit. The free plan keeps it, so a burst of checks can fail.
 - Requests with a country code the API does not support fail with a 422 validation error.
 
@@ -117,7 +120,7 @@ Response headers tell you the quota you have left. The Status endpoint shows it 
 
 ### Is Vatcheckapi free?
 
-Yes. The Free plan costs $0.00 a month and includes 150 validations, 1 API key, and 10 requests per minute.
+Yes. The Free plan costs $0.00 a month and includes 150 validations, unlimited API keys, and 10 requests per minute.
 
 ### What happens when I go over the Vatcheckapi limit?
 

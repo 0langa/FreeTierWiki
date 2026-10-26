@@ -35,7 +35,7 @@ freeTierDetails:
     - Free includes single-IP geolocation; bulk lookups and helper APIs require paid access
   caveats:
     - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
-    - The free limit is shared per website domain in the browser and per outgoing IP address on a server
+    - The free limit counts per visitor IP address for browser requests and per outgoing IP address for server requests
     - Higher rate limits need a paid subscription and a paid regional server
     - Free and paid plans use different server URLs
   requiresCard: false
@@ -70,8 +70,8 @@ avoidIf:
   - need for an uptime guarantee
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-10-26
+lastVerified: 2026-10-26
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://freeipapi.com'
@@ -84,6 +84,9 @@ sourceUrls:
   - 'https://freeipapi.com/docs/api-reference/get-ip-info'
 featured: false
 changes:
+  - date: '2026-10-26'
+    kind: changed
+    note: Corrected how the free rate limit is counted; the rate limit page now says browser requests count against each visitor's IP address, not the website domain.
   - date: 2026-10-21
     kind: changed
     note: "Removed paid-only bulk/helper APIs from the Free allocation and clarified TLS access and shared source-IP rate limits."
@@ -103,12 +106,12 @@ A lookup returns the country, region, city, coordinates, time zone, currency, la
 
 The rate limit page says to spread your requests across the intervals, not send the whole minute at once. It does not say what the server returns when you go over.
 
-The allowance is shared. Requests from a website count against that domain and source IP, and requests from a server count against its public outgoing IP. Visitors do not get a separate allowance each. Paid plans remove the limits, but you must call a regional paid server on the `/api/` path and use an API key or a whitelisted IP or domain.
+The allowance depends on where the call comes from. Requests made from your website in a visitor's browser count against that visitor's IP address, and requests from a server share one allowance for its public outgoing IP address. Paid plans remove the limits, but you must call a regional paid server on the `/api/` path and use an API key or a whitelisted IP or domain.
 
 ## Gotchas
 
 - Free and paid plans use different URLs. Only the free server uses `/api/v1/`, so paid access does not work there.
-- Browser calls from your site share one allowance for the whole domain, so a busy page can use it up for every visitor.
+- Server calls share one allowance for the server's outgoing IP address, so a busy backend can use it up for all your users.
 - Paying does not lift the limits on the free server. You must send requests to a paid server to get unlimited access.
 
 ## Alternatives in this atlas
