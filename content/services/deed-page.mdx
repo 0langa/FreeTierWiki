@@ -1,0 +1,127 @@
+---
+title: deed.page
+description: >-
+  deed.page is static hosting built for AI agents: one HTTP PUT or a remote MCP
+  call turns an HTML file or a folder into a permanent HTTPS URL. The free plan
+  needs no signup and gives 25 sites of up to 25 MB each.
+provider: Avatar 8 LLC
+category: hosting
+domain: hosting
+subtypes:
+  - static sites
+  - API deploys
+  - MCP server
+audiences:
+  - student
+  - indie
+  - startup
+tags:
+  - static hosting
+  - html hosting
+  - ai agents
+  - mcp server
+  - publish api
+  - no signup
+pricingModel: freemium
+freeTierDetails:
+  summary: >-
+    Free plan at $0 with no signup: 25 sites, 25 MB per site, 60 publishes an
+    hour, the last 10 versions of each site kept, and 1 custom domain.
+  limits:
+    - 25 sites per token
+    - 25 MB per site
+    - 60 publishes per hour
+    - 10 versions kept per site
+    - 1 custom domain and 1 webhook
+    - 4 MB per single request body; larger sites use a manifest upload
+  caveats:
+    - Free sites are public only; a site password needs a paid plan
+    - The token is shown once, and without an optional recovery email a lost token cannot be restored
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Plans attach to a token, and a paid plan starts only after a human pays a Stripe checkout link
+useCases:
+  - Publishing a page or report that an AI agent generated
+  - Sharing a built static site or docs folder from a script
+  - Hosting small demos and prototypes on a subdomain
+quickstartSteps:
+  - Pack the folder with tar -C ./site -czf site.tar.gz . or use a single index.html.
+  - Upload it with curl -T site.tar.gz "https://deed.page/v1/sites?slug=my-site"; no account is needed.
+  - Open the url field from the JSON response, such as https://my-site.deed.page/.
+  - Store the token from the response and send it as Authorization Bearer to update or delete the site.
+whenToUse: >-
+  Use deed.page when an agent or a script needs to put static HTML online
+  without anyone creating an account, reading an email, or clicking a link.
+whenNotToUse: >-
+  Avoid it for server-side code, sites larger than 25 MB on the free plan, or
+  pages that must stay private without paying for a site password.
+bestFor:
+  - agent-generated pages
+  - one-command static publishing
+  - MCP-based publishing
+avoidIf:
+  - you need server-side code
+  - you need private sites for free
+  - you need more than 25 MB per site
+difficulty: beginner
+productionReadiness: side-project
+lastUpdated: 2026-10-24
+lastVerified: 2026-10-24
+popularityScore: 2
+usefulnessScore: 6
+officialUrl: 'https://deed.page/'
+docsUrl: 'https://deed.page/docs'
+pricingUrl: 'https://deed.page/pricing'
+sourceUrls:
+  - 'https://deed.page/pricing'
+  - 'https://deed.page/docs'
+featured: false
+changes:
+  - date: '2026-10-24'
+    kind: new
+    note: Added to the atlas.
+---
+
+deed.page hosts static sites that are published by a single HTTP request. Send an HTML file or a tarball of a folder with PUT or POST to the sites endpoint, or call the remote MCP server, and the JSON response returns a live HTTPS address on a subdomain plus a token. It is aimed at AI agents and scripts that need to put a page online without a human step.
+
+## What the free plan gives you
+
+The pricing page lists a Free plan at $0 with 25 sites, 25 MB per site, 60 publishes an hour, 10 versions kept, 1 custom domain, public sites only, and 1 webhook. It says there is no signup and that an email is never required. Cookieless analytics, the MCP server and subdomains are included on every plan, and sites are permanent rather than expiring.
+
+Paid plans attach to the same token. Hobby is $3 a month for 250 sites and 100 MB per site, and Pro is $15 a month for 2,500 sites and 500 MB per site. An agent requests a Stripe checkout link and a human pays once.
+
+## When you hit a limit
+
+The docs list the plan errors. A publish past the site limit returns quota_sites with status 403, and a site bigger than the plan allows returns quota_bytes with status 413. A single request body over 4 MB returns request_too_large; larger sites have to use the manifest upload, which creates an upload session, puts each file directly and then finalizes, and the result must still fit the per-site cap.
+
+Going past the hourly publish limit returns rate_limited with status 429, a retry_after value and a Retry-After header. Nothing is billed on the free plan, so hitting a limit stops the request instead of adding a charge.
+
+## Gotchas
+
+- The token is shown once and the service keeps only a hash of it. Without the optional recovery email, a lost token cannot be restored, and the sites can no longer be updated.
+- Publishing new slugs with the same token keeps them under one owner, so the 25-site limit applies per token.
+- Free sites are always public; the site password is a Hobby and Pro feature, and only static files are served.
+
+## Alternatives in this atlas
+
+- [Surge](/services/surge/): when you want a command-line deploy of a static folder with custom domains.
+- [Neocities](/services/neocities/): when you want a free static site with a browser editor and a community.
+- [GitHub Pages](/services/github-pages/): when the site already lives in a GitHub repository.
+
+## Questions people ask
+
+### Is deed.page free?
+
+Yes. The Free plan is $0 with 25 sites of up to 25 MB each, and the pricing page says it needs no signup and no email.
+
+### Do I need an account to publish?
+
+No. The first publish returns a token in the response. Keep it and send it as a Bearer header to update, list or delete your sites.
+
+### What happens when I reach 25 sites?
+
+New sites are refused with quota_sites and status 403 until you delete a site or move the token to a paid plan. Existing sites stay online.
