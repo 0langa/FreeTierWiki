@@ -7,7 +7,7 @@ import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "How we rate free tiers",
-  description: "What billing risk, plan type, and last checked mean on freetier.wiki.",
+  description: "Learn how FreeTierWiki records free plan limits, card rules, billing risks, and source checks, and how to report outdated information.",
   ...pageUrl("/about/"),
 };
 

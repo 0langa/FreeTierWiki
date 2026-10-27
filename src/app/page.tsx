@@ -17,7 +17,7 @@ import { formatDay, formatMonth } from "@/lib/format";
 import { latestChanges, topCategories } from "@/lib/home-data";
 import { pageUrl } from "@/lib/metadata";
 import { mostVisited } from "@/lib/popular-view";
-import { WEBSITE } from "@/lib/structured-data";
+import { PUBLISHER, WEBSITE } from "@/lib/structured-data";
 
 export const metadata: Metadata = pageUrl("/", { types: FEED_ALTERNATE });
 
@@ -91,7 +91,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd graph={[WEBSITE]} />
+      <JsonLd graph={[WEBSITE, PUBLISHER]} />
       <section className="relative grid grid-cols-[minmax(0,1fr)] items-start gap-12 pb-12 pt-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 lg:pb-16 lg:pt-14 2xl:grid-cols-[minmax(0,1fr)_460px] 2xl:gap-24">
         {/* A soft glow behind the hero. Decorative, and kept inside the page column so it never widens the page. */}
         <div

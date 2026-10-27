@@ -3,12 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EntryList } from "@/components/entry/entry-list";
+import { JsonLd } from "@/components/site/json-ld";
 import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getProviderGroups } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { pageUrl } from "@/lib/metadata";
+import { collectionPage } from "@/lib/structured-data";
 
 type Params = Promise<{ slug: string }>;
 
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!group) return {};
   return {
     title: `${group.name} free tiers`,
-    description: `Every ${group.name} free tier in one list: ${group.entries.length} products with their limits, card rules, and billing risk.`,
+    description: `Compare ${group.entries.length} ${group.name} free tiers: usage limits, credit card requirements, billing risks, and dated checks, with links to official sources.`,
     ...pageUrl(`/provider/${group.slug}/`),
   };
 }
@@ -60,6 +62,7 @@ export default async function ProviderPage({ params }: { params: Params }) {
           ))}
         </ChipRow>
       </PageHeader>
+      <JsonLd graph={[collectionPage(`/provider/${group.slug}/`, `${group.name} free tiers`, items)]} />
       <div className="mt-7">
         <EntryList items={items} label={`${group.name} free tiers`} showCap />
       </div>

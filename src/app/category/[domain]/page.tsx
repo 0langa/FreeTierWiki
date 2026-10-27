@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EntryList } from "@/components/entry/entry-list";
+import { JsonLd } from "@/components/site/json-ld";
 import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS, domainPhrase, isDomain } from "@/lib/content";
@@ -11,6 +12,7 @@ import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FILTER_PAGES, FILTER_SLUGS, filterItems, MIN_CATEGORY_ENTRIES } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
+import { collectionPage } from "@/lib/structured-data";
 
 type Params = Promise<{ domain: string }>;
 
@@ -27,7 +29,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const label = DOMAIN_LABELS[domain];
   return {
     title: `Free ${label} tiers`,
-    description: `Free ${domainPhrase(domain)} plans for developers: limits, card rules, billing risk, and how fresh each entry is.`,
+    description: `Compare free ${domainPhrase(domain)} plans for developers. Browse usage limits, credit card requirements, billing risks, and dated source checks.`,
     ...pageUrl(`/category/${domain}/`),
   };
 }
@@ -85,6 +87,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           </ChipRow>
         ) : null}
       </PageHeader>
+      <JsonLd graph={[collectionPage(`/category/${domain}/`, `Free ${label} tiers`, items)]} />
       <div className="mt-7">
         {items.length > 0 ? (
           <EntryList items={items} label={`Free ${label} tiers`} />

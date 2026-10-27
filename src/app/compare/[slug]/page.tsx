@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { EntryList } from "@/components/entry/entry-list";
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { getAllEntries, getComparison, getComparisons } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { pageUrl } from "@/lib/metadata";
+import { article, itemList } from "@/lib/structured-data";
 
 type Params = Promise<{ slug: string }>;
 
@@ -22,7 +24,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!comparison) return {};
   return {
     title: comparison.title,
-    description: comparison.intro,
+    description: comparison.intro.length < 110 ? `${comparison.intro} Compare card rules and billing risks.` : comparison.intro,
     ...pageUrl(`/compare/${slug}/`),
   };
 }
@@ -45,6 +47,10 @@ export default async function ComparePage({ params }: { params: Params }) {
           service stops at the limit; a soft cap means it keeps going and may bill you.
         </p>
       </PageHeader>
+      <JsonLd graph={[{
+        ...article(`/compare/${slug}/`, comparison.title, comparison.intro),
+        about: itemList(comparison.title, items),
+      }]} />
       <div className="mt-7">
         <EntryList items={items} showCap label={comparison.title} />
       </div>

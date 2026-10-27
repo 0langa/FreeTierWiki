@@ -11,7 +11,7 @@ import { pageUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Explore free tiers",
-  description: "Filter free plans by category, card rules, hard caps, billing risk, and freshness.",
+  description: "Explore free developer tools and services. Filter plans by category, credit card rules, spending caps, billing risk, and the last source check.",
   ...pageUrl("/explorer/"),
 };
 

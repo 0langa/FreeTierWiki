@@ -9,24 +9,15 @@ import { comparisonsFor } from "@/lib/comparison-view";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries, getComparisons, getEntryWithBody, getProviderGroups } from "@/lib/content.server";
 import { bodyQuestions } from "@/lib/entry-body";
+import { entryDescription, entryTitle } from "@/lib/entry-metadata";
 import { relatedItems } from "@/lib/entry-view";
 import { absoluteUrl } from "@/lib/links";
 import { OPEN_GRAPH } from "@/lib/metadata";
 import { providerHref } from "@/lib/providers";
-import { breadcrumbList, WEBSITE_ID } from "@/lib/structured-data";
+import { article, breadcrumbList, WEBSITE_ID } from "@/lib/structured-data";
 import type { AtlasEntryWithBody } from "@/types/content";
 
 type Params = Promise<{ kind: string; slug: string[] }>;
-
-function pageTitle(entry: AtlasEntryWithBody): string {
-  return entry.status === "ended" ? `${entry.title} free tier (ended)` : `${entry.title} free tier: limits, card, billing risk`;
-}
-
-function metaDescription(entry: AtlasEntryWithBody): string {
-  const summary = entry.status === "ended" ? "" : entry.freeTierDetails.summary;
-  const text = summary.length >= 60 ? `${entry.title} free tier: ${summary}` : entry.description;
-  return text.length > 300 ? `${text.slice(0, 297).replace(/\s+\S*$/, "")}...` : text;
-}
 
 /**
  * Breadcrumbs for every entry, and the page with its two dates: the last content change and the last check against
@@ -44,7 +35,7 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
     "@type": questions.length > 0 ? "FAQPage" : "WebPage",
     "@id": absoluteUrl(entry.url),
     url: absoluteUrl(entry.url),
-    name: pageTitle(entry),
+    name: entryTitle(entry),
     isPartOf: { "@id": WEBSITE_ID },
     dateModified: entry.lastUpdated,
     ...(entry.lastVerified ? { lastReviewed: entry.lastVerified } : {}),
@@ -58,7 +49,23 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
         }
       : {}),
   };
-  return [crumbs, page];
+  const product = {
+    "@type": "Product",
+    "@id": absoluteUrl(`${entry.url}#product`),
+    name: entry.title,
+    description: entry.description,
+    brand: { "@type": "Brand", name: entry.provider },
+    category: DOMAIN_LABELS[entry.domain],
+    ...(entry.officialUrl ? { sameAs: entry.officialUrl } : {}),
+  };
+  // Editorial guides describe a product; the catalog does not sell it. Do not
+  // invent prices, offers, ratings, product images, authors or publication dates.
+  const guide = {
+    ...article(entry.url, `${entry.title} free tier${entry.status === "ended" ? " (ended)" : ": limits and billing"}`, entryDescription(entry), entry.lastUpdated),
+    about: { "@id": product["@id"] },
+    citation: entry.sourceUrls,
+  };
+  return [crumbs, page, guide, product];
 }
 
 export const dynamicParams = false;
@@ -76,11 +83,10 @@ async function load(params: Params) {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const entry = await load(params);
   if (!entry) return {};
-  const title = pageTitle(entry);
-  // The free-tier summary holds the numbers people search for; the product description is the fallback.
-  const description = metaDescription(entry);
+  const title = entryTitle(entry);
+  const description = entryDescription(entry);
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: entry.url },
     openGraph: { ...OPEN_GRAPH, type: "article", title, description, url: entry.url, modifiedTime: entry.lastUpdated },

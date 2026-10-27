@@ -58,7 +58,7 @@ test("a deepened entry carries breadcrumb and FAQ structured data", async ({ pag
   await page.goto("/services/supabase/");
   const data = JSON.parse((await page.locator('script[type="application/ld+json"]').first().textContent()) ?? "{}");
   const types = data["@graph"].map((node: { "@type": string }) => node["@type"]);
-  expect(types).toEqual(["BreadcrumbList", "FAQPage"]);
+  expect(types).toEqual(["BreadcrumbList", "FAQPage", "Article", "Product"]);
   expect(data["@graph"][1].mainEntity).toHaveLength(3);
 });
 

@@ -26,7 +26,8 @@ test("detail pages carry canonical and Open Graph tags", async ({ page }) => {
 });
 
 async function structuredData(page: Page): Promise<Record<string, unknown>[]> {
-  return JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}")["@graph"];
+  const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
+  return scripts.flatMap((text) => JSON.parse(text)["@graph"] ?? []);
 }
 
 test("the home page names the site for search results", async ({ page }) => {
@@ -40,6 +41,22 @@ test("detail pages date their content and point at the site", async ({ page }) =
   const node = (await structuredData(page)).find((item) => item["@id"] === "https://freetier.wiki/services/supabase/");
   expect(node?.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   expect(node?.isPartOf).toEqual({ "@id": "https://freetier.wiki/#website" });
+  const graph = await structuredData(page);
+  const guide = graph.find((item) => item["@type"] === "Article");
+  const product = graph.find((item) => item["@type"] === "Product");
+  expect(guide?.about).toEqual({ "@id": product?.["@id"] });
+  expect(product?.name).toBe("Supabase");
+  expect(product).not.toHaveProperty("offers");
+  expect(product).not.toHaveProperty("aggregateRating");
+});
+
+test("collection markup matches the visible category list in order", async ({ page }) => {
+  await page.goto("/category/database/");
+  const collection = (await structuredData(page)).find((item) => item["@type"] === "CollectionPage");
+  const list = collection?.mainEntity as { itemListElement: { url: string }[]; numberOfItems: number };
+  const links = await page.getByRole("table", { name: "Free Database tiers" }).getByRole("link").evaluateAll((elements) => elements.map((element) => new URL(element.getAttribute("href")!, "https://freetier.wiki").href));
+  expect(list.itemListElement.map((item) => item.url)).toEqual(links);
+  expect(list.numberOfItems).toBe(links.length);
 });
 
 test("list pages mark up the breadcrumb they show and share their own URL", async ({ page }) => {

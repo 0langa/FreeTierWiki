@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EntryList } from "@/components/entry/entry-list";
+import { JsonLd } from "@/components/site/json-ld";
 import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS, domainPhrase, isDomain } from "@/lib/content";
@@ -10,6 +11,7 @@ import { getAllEntries } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { categoryFilterTitle, FILTER_PAGES, FILTER_SLUGS, filterDomains, filterItems, isFilterSlug, otherFilter } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
+import { collectionPage } from "@/lib/structured-data";
 
 type Params = Promise<{ domain: string; filter: string }>;
 
@@ -39,8 +41,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!page) return {};
   const filter = FILTER_PAGES[page.filter];
   return {
-    title: categoryFilterTitle(DOMAIN_LABELS[page.domain], page.filter),
-    description: `${page.items.length} free ${domainPhrase(page.domain)} plans ${filter.promise}: ${filter.facts}.`,
+    title: `Free ${DOMAIN_LABELS[page.domain]}: ${page.filter === "no-card" ? "no card" : "hard cap"}`,
+    description: `${page.items.length} free ${domainPhrase(page.domain)} plans ${filter.promise}: ${filter.facts}. See official sources.`,
     ...pageUrl(`/category/${page.domain}/${page.filter}/`),
   };
 }
@@ -79,6 +81,7 @@ export default async function CategoryFilterPage({ params }: { params: Params })
           </Link>
         </ChipRow>
       </PageHeader>
+      <JsonLd graph={[collectionPage(`/category/${domain}/${filter}/`, title, items)]} />
       <div className="mt-7">
         <EntryList items={items} showCap label={title} />
       </div>

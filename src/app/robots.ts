@@ -6,14 +6,19 @@ export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
+    rules: [{
       userAgent: "*",
       allow: "/",
       // Search/filter combinations are not landing pages. Keep crawlers on the
       // static category, provider, comparison and entry pages instead.
       // Cover the slashless form too, before the host redirects it.
       disallow: ["/explorer?", "/explorer/?"],
-    },
+    }, {
+      // Supplement Cloudflare's managed training policy with the two crawlers
+      // missing from its current list. Search and user-request bots stay allowed.
+      userAgent: ["DeepseekBot", "xAI-Bot"],
+      disallow: "/",
+    }],
     sitemap: absoluteUrl("/sitemap.xml"),
   };
 }

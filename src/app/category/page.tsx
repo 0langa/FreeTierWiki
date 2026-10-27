@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { DomainIcon } from "@/components/site/icons";
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHeader } from "@/components/site/page-header";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries } from "@/lib/content.server";
 import { pageUrl } from "@/lib/metadata";
+import { collectionPage } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Free developer tools by category",
@@ -35,6 +37,7 @@ export default async function CategoriesPage() {
         title="Browse by category"
         lede={`${entries.length} services and tools across ${categories.length} categories. Find plans for your next project, with their limits, card rules, and billing risks in view.`}
       />
+      <JsonLd graph={[collectionPage("/category/", "Browse by category", categories.map(({ domain }) => ({ title: DOMAIN_LABELS[domain], url: `/category/${domain}/` })))]} />
       <nav aria-label="All categories" className="tile-grid mt-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {categories.map((category) => (
           <Link key={category.domain} href={`/category/${category.domain}/`} className="flex items-start gap-3 bg-surface px-5 py-5 transition-colors hover:bg-surface-2">

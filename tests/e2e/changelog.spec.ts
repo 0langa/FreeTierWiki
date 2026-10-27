@@ -20,6 +20,14 @@ test("changelog pages have separate content and canonical URLs", async ({ page }
 test.describe("changelog without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
 
+  test("the main archive links directly to older removed entries", async ({ page }) => {
+    await page.goto("/changelog/");
+    const archives = page.getByRole("navigation", { name: "Changelog archives" });
+    await archives.locator('a[href="/changelog/removed/page/2/"]').click();
+    await expect(page).toHaveURL(/\/changelog\/removed\/page\/2\/$/);
+    await expect(page.locator("li[data-kind]").first()).toBeVisible();
+  });
+
   test("filters cover the full history and retain their type across pages", async ({ page }) => {
     await page.goto("/changelog/");
     const filters = page.getByRole("navigation", { name: "Change type" });

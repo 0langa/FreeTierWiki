@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { JobIcon } from "@/components/site/icons";
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHeader } from "@/components/site/page-header";
 import { liveComparisons } from "@/lib/comparison-view";
 import { getAllEntries, getComparisons } from "@/lib/content.server";
 import { pageUrl } from "@/lib/metadata";
+import { collectionPage } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Compare free tiers",
@@ -23,6 +25,7 @@ export default async function CompareIndexPage() {
         title="Compare free tiers"
         lede="One table per job. Each row shows what you get free, whether a card is needed, the billing risk, and how fresh the data is."
       />
+      <JsonLd graph={[collectionPage("/compare/", "Compare free tiers", comparisons.map((item) => ({ title: item.title, url: item.href })))]} />
       <ul className="tile-grid mt-7 sm:grid-cols-2 2xl:grid-cols-3">
         {comparisons.map((comparison) => (
           <li key={comparison.slug} className="bg-surface">

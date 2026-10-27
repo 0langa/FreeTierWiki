@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { ChangePill } from "@/components/entry/labels";
 import { PageHeader } from "@/components/site/page-header";
-import { CHANGELOG_FILTERS, changelogPage, changelogPath, type ChangelogFilter } from "@/lib/changelog-view";
+import { CHANGELOG_FILTERS, changelogPage, changelogPath, changelogRoutes, type ChangelogFilter } from "@/lib/changelog-view";
 import { getAllEntries, getRemovals } from "@/lib/content.server";
 import { FEED_ALTERNATE, FEED_PATH } from "@/lib/feed";
 import { formatMonth } from "@/lib/format";
@@ -96,6 +96,23 @@ export async function ChangelogPage({ filter = "all", page = 1 }: { filter?: Cha
             >{number}</Link>
           ))}
           {page < pageCount && <Link href={changelogPath(filter, page + 1)} prefetch={false} rel="next" className="btn h-9 px-3 text-sm">Older changes</Link>}
+        </nav>
+      )}
+      {filter === "all" && page === 1 && (
+        <nav aria-label="Changelog archives" className="mt-10 border-t border-line pt-6">
+          <h2 className="eyebrow mb-4">Browse the archives</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {filters.filter(({ kind }) => kind !== "all").map(({ kind, label }) => (
+              <div key={kind}>
+                <h3 className="text-sm font-semibold">{label}</h3>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-2">
+                  {changelogRoutes(allRows).filter((route) => route.filter === kind).map((route) => (
+                    <li key={route.path}><Link href={route.path} prefetch={false} className="underline underline-offset-[3px]">Page {route.page}</Link></li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </nav>
       )}
     </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { EntryList } from "@/components/entry/entry-list";
 import { DomainIcon } from "@/components/site/icons";
+import { JsonLd } from "@/components/site/json-ld";
 import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
@@ -10,6 +11,7 @@ import { getAllEntries } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FILTER_PAGES, filterDomains, filterItems, otherFilter, type FilterSlug } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
+import { collectionPage } from "@/lib/structured-data";
 
 // The hub shows this many entries; the category pages and the explorer have the rest.
 const PICKS = 10;
@@ -59,6 +61,7 @@ export async function FilterHub({ filter }: { filter: FilterSlug }) {
           </Link>
         </ChipRow>
       </PageHeader>
+      <JsonLd graph={[collectionPage(`/${filter}/`, page.hubHeading, tiles.map(({ domain }) => ({ title: DOMAIN_LABELS[domain], url: `/category/${domain}/${filter}/` })))]} />
       {/* Two columns on phones, like the home page categories, so 20 tiles stay within a few screens. */}
       <nav aria-label="Categories" className="tile-grid mt-7 grid-cols-2 lg:grid-cols-4">
         {tiles.map((tile) => (

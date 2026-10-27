@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const SITE_NAME = "freetier.wiki";
-export const SITE_DESCRIPTION = "Free plans for developers with their limits, card rules, billing risk, and how fresh each entry is.";
+export const SITE_DESCRIPTION = "Find and compare free developer tools and services, with usage limits, credit card rules, billing risks, and dated checks of official sources.";
 
 /**
  * Site-wide Open Graph fields. Next.js replaces a parent's `openGraph` instead of merging it, so a page that sets its
