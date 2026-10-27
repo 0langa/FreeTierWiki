@@ -1,10 +1,19 @@
 import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
-import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
+import { changelogRoutes } from "@/lib/changelog-view";
+import { getAllEntries, getComparisons, getProviderGroups, getRemovals } from "@/lib/content.server";
+import { latestChanges } from "@/lib/home-data";
 import { absoluteUrl } from "@/lib/links";
 
 describe("sitemap", () => {
+  it("includes every changelog archive and filter once", async () => {
+    const rows = latestChanges(await getAllEntries(), undefined, await getRemovals());
+    const urls = (await sitemap()).filter((item) => item.url.includes("/changelog/")).map((item) => item.url);
+    expect(urls).toEqual(changelogRoutes(rows).map(({ path }) => absoluteUrl(path)));
+    expect(new Set(urls).size).toBe(urls.length);
+  }, 60_000);
+
   it("dates each entry by its last content change, not by the weekly check", async () => {
     const entries = await getAllEntries();
     const lastModified = new Map((await sitemap()).map((item) => [item.url, item.lastModified]));

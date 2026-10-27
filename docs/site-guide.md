@@ -31,4 +31,4 @@ Entries can be `active`, `changed`, or `ended`. Changed and ended offers carry c
 
 ## Changelog and RSS
 
-The [changelog](https://freetier.wiki/changelog/) lists new, changed, ended, and removed entries, newest first. All / New / Changed / Removed filters work without JavaScript. Subscribe to the [RSS feed](https://freetier.wiki/changelog/feed.xml) to follow updates.
+The [changelog](https://freetier.wiki/changelog/) lists new, changed, ended, and removed entries, newest first, with 100 changes per page. The filters apply to the full history, and filters and page links work without JavaScript. Subscribe to the [RSS feed](https://freetier.wiki/changelog/feed.xml) to follow updates.

@@ -188,27 +188,9 @@
     content: counter(step);
     @apply absolute left-0 top-0 grid h-7 w-7 place-items-center rounded-full bg-surface-2 font-mono text-[12.5px] font-semibold text-ink-2;
   }
-  /* Changelog filter: radio inputs in the page, rows carry data-kind. Works without JavaScript. */
-  .changelog:has(#kind-new:checked) li:not([data-kind="new"]),
-  .changelog:has(#kind-changed:checked) li:not([data-kind="changed"]),
-  .changelog:has(#kind-ended:checked) li:not([data-kind="ended"]),
-  .changelog:has(#kind-removed:checked) li:not([data-kind="removed"]) {
-    display: none;
-  }
-  .changelog:has(#kind-new:checked) section:not(:has(li[data-kind="new"])),
-  .changelog:has(#kind-changed:checked) section:not(:has(li[data-kind="changed"])),
-  .changelog:has(#kind-ended:checked) section:not(:has(li[data-kind="ended"])),
-  .changelog:has(#kind-removed:checked) section:not(:has(li[data-kind="removed"])) {
-    display: none;
-  }
-  .changelog input[name="kind"]:checked + label {
+  /* Static filter and archive links keep the complete history usable without JavaScript. */
+  .changelog nav a[aria-current="page"] {
     @apply border-ink bg-ink text-bg;
-  }
-  .changelog input[name="kind"]:focus-visible + label {
-    @apply outline outline-2 outline-offset-2 outline-ink;
-  }
-  .changelog ol:not(:has(li)) {
-    display: none;
   }
   /* Long-form text: the entry body, the about page. Ink rather than gray, at a reading size. */
   .reading {

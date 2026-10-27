@@ -52,7 +52,7 @@ test("the hero search box opens search", async ({ page }) => {
 test("changelog and about pages render", async ({ page }) => {
   await page.goto("/changelog/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Free tier changelog");
-  await expect(page.getByRole("link", { name: "PlanetScale" })).toBeVisible();
+  await expect(page.locator("li[data-kind]").first().getByRole("link")).toBeVisible();
   await page.goto("/about/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("How we rate free tiers");
 });

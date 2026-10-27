@@ -68,6 +68,12 @@ Keep GitHub Pages configured with **GitHub Actions** as its publishing source, w
 
 [`public/_redirects`](../public/_redirects) contains redirects for moved or removed URLs. The [entry-removal tool](content-maintenance.md#remove-an-entry) adds a category redirect and a changelog record.
 
+## Changelog archives
+
+The changelog exports 100 changes per page. `/changelog/page/2/` continues the full history; kind filters such as `/changelog/new/` have their own pagination and apply before slicing the rows. Every page has its own canonical URL and sitemap entry, and the links work without JavaScript. The RSS feed still contains the latest 50 changes.
+
+`npm run check:budget` limits every changelog HTML file to 1 MB uncompressed, leaving room below Ahrefs' 2 MB crawl limit. Gzip size alone does not catch this problem.
+
 ## Explorer indexing
 
 Explorer keeps its search, category, type, risk, and sort filters in the URL. Results are paged 50 at a time. `robots.txt` disallows query variants of `/explorer/` (including the slashless form) so crawlers do not spend time rendering combinations of filters. The unfiltered Explorer remains crawlable.

@@ -1,17 +1,43 @@
 import { expect, test } from "@playwright/test";
 
-test("the changelog filter shows only one kind of change", async ({ page }) => {
+test("changelog pages have separate content and canonical URLs", async ({ page }) => {
   await page.goto("/changelog/");
-  const rows = page.getByRole("listitem");
-  const all = await rows.count();
-  expect(all).toBeGreaterThan(10);
+  const rows = page.locator("li[data-kind]");
+  await expect(rows).toHaveCount(100);
+  const newest = (await rows.first().textContent()) ?? "";
+  expect(newest).not.toBe("");
+  await page.getByRole("link", { name: "Older changes", exact: true }).click();
+  await expect(page).toHaveURL(/\/changelog\/page\/2\/$/);
+  await expect(rows).toHaveCount(100);
+  await expect(rows.first()).not.toHaveText(newest);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://freetier.wiki/changelog/page/2/");
+  await expect(page).toHaveTitle(/Page 2/);
+  await page.getByRole("link", { name: "Newer changes", exact: true }).click();
+  await expect(page).toHaveURL(/\/changelog\/$/);
+  await expect(rows.first()).toHaveText(newest);
+});
 
-  await page.locator('label[for="kind-new"]').click();
-  const visible = await rows.filter({ visible: true }).count();
-  expect(visible).toBeGreaterThan(0);
-  expect(visible).toBeLessThan(all);
-  await expect(rows.filter({ visible: true }).first().getByText("New", { exact: true })).toBeVisible();
+test.describe("changelog without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
 
-  await page.locator('label[for="kind-all"]').click();
-  await expect(rows.filter({ visible: true })).toHaveCount(all);
+  test("filters cover the full history and retain their type across pages", async ({ page }) => {
+    await page.goto("/changelog/");
+    const filters = page.getByRole("navigation", { name: "Change type" });
+    const rows = page.locator("li[data-kind]");
+    await filters.getByRole("link", { name: /^New \d/ }).click();
+    await expect(page).toHaveURL(/\/changelog\/new\/$/);
+    await expect(rows).toHaveCount(100);
+    await expect(page.locator('li[data-kind]:not([data-kind="new"])')).toHaveCount(0);
+    await page.getByRole("link", { name: "Older changes", exact: true }).click();
+    await expect(page).toHaveURL(/\/changelog\/new\/page\/2\/$/);
+    await expect(rows).toHaveCount(100);
+    await expect(page.locator('li[data-kind]:not([data-kind="new"])')).toHaveCount(0);
+    await filters.getByRole("link", { name: /^Removed \d/ }).click();
+    await expect(page).toHaveURL(/\/changelog\/removed\/$/);
+    await expect(rows.first()).toBeVisible();
+    await expect(page.locator('li[data-kind]:not([data-kind="removed"])')).toHaveCount(0);
+    await filters.getByRole("link", { name: /^All \d/ }).click();
+    await expect(page).toHaveURL(/\/changelog\/$/);
+    await expect(rows).toHaveCount(100);
+  });
 });

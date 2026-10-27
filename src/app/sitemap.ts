@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { BUILD_NOW } from "@/lib/build-info";
+import { changelogRoutes } from "@/lib/changelog-view";
 import { getAllEntries, getComparisons, getPopular, getProviderGroups, getRemovals } from "@/lib/content.server";
 import { toListItem } from "@/lib/entry-view";
 import { FILTER_SLUGS, filterDomains, filterItems } from "@/lib/filter-pages";
@@ -25,7 +26,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // The home page also lists the most visited entries, which the weekly job refreshes.
   const popular = await getPopular();
   const homeDate = [catalogDate, popular?.updated].filter((date): date is string => Boolean(date)).sort().at(-1);
-  const changelogDate = latestChanges(entries, 1, await getRemovals())[0]?.date;
+  const changes = latestChanges(entries, undefined, await getRemovals());
+  const changelogDate = changes[0]?.date;
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
   // The no-card and hard-cap lists: a hub each, plus the categories with a page of their own.
   const filterPages = FILTER_SLUGS.flatMap((filter) => {
@@ -46,7 +48,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absoluteUrl("/"), lastModified: homeDate, changeFrequency: "weekly", priority: 1 },
     { url: absoluteUrl("/explorer/"), lastModified: catalogDate, changeFrequency: "weekly", priority: 0.9 },
     { url: absoluteUrl("/category/"), changeFrequency: "weekly", priority: 0.8 },
-    { url: absoluteUrl("/changelog/"), lastModified: changelogDate, changeFrequency: "weekly", priority: 0.6 },
+    ...changelogRoutes(changes).map(({ path }) => ({
+      url: absoluteUrl(path), lastModified: changelogDate, changeFrequency: "weekly" as const, priority: 0.6,
+    })),
     { url: absoluteUrl("/about/"), changeFrequency: "monthly", priority: 0.4 },
     { url: absoluteUrl("/compare/"), changeFrequency: "weekly", priority: 0.8 },
     ...comparisons.map((comparison) => ({
