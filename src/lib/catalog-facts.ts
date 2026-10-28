@@ -23,6 +23,20 @@ export function names(entries: AtlasEntry[], limit = 4): string {
   return joinNames(bySafety(entries).slice(0, limit).map((entry) => entry.title));
 }
 
+/**
+ * Names a short set in full. A longer set names a few and points at the list on the page,
+ * instead of a clipped "N more sit in that group."
+ */
+export function nameList(entries: AtlasEntry[], limit = 4): string {
+  const titles = bySafety(entries).map((entry) => entry.title);
+  if (titles.length === 0) return "none";
+  if (titles.length <= 6) return joinNames(titles);
+  const shown = titles.slice(0, limit);
+  const rest = titles.length - shown.length;
+  const head = shown.length === 1 ? shown[0] : shown.join(", ");
+  return `${head}, and ${rest} more in the list below`;
+}
+
 export function isNoCard(entry: AtlasEntry): boolean {
   return entry.status !== "ended" && entry.freeTierDetails.requiresCard === false;
 }
@@ -69,15 +83,10 @@ export function changedSummary(entries: AtlasEntry[]): string {
     .filter((entry) => entry.status === "changed")
     .sort((a, b) => (b.changes[0]?.date ?? "").localeCompare(a.changes[0]?.date ?? "") || a.title.localeCompare(b.title));
   if (rows.length === 0) return "No entry in this category is marked changed.";
-  const shown = rows.slice(0, 3).map((entry) => {
-    const note = entry.changes[0]?.note?.trim();
-    if (!note || note.length > 120) return entry.title;
-    return `${entry.title} (${note.replace(/\.$/, "")})`;
-  });
-  const hidden = rows.length - shown.length;
-  const more = hidden > 0 ? ` ${hidden} other changed ${hidden === 1 ? "entry is" : "entries are"} on the list.` : "";
   const verb = rows.length === 1 ? "entry is" : "entries are";
-  return `${rows.length} ${verb} marked changed: ${shown.join("; ")}.${more}`;
+  if (rows.length <= 6) return `${rows.length} ${verb} marked changed: ${joinNames(rows.map((entry) => entry.title))}.`;
+  const head = rows.slice(0, 4).map((entry) => entry.title).join(", ");
+  return `${rows.length} ${verb} marked changed: ${head}, and ${rows.length - 4} more in the list below.`;
 }
 
 export function endedSummary(entries: AtlasEntry[]): string {

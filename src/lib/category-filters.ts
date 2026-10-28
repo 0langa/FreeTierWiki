@@ -389,9 +389,11 @@ function planAnswer(onPage: AtlasEntry[]): string {
   if (limited.length === 0) {
     return `All ${onPage.length} plans on this page are marked always free, so none are recorded as a trial, a credit, or a timed window. Always free still has a quota.`;
   }
-  const bits = limited.slice(0, 5).map(planBit);
-  const more = limited.length > bits.length ? ` ${limited.length - bits.length} more are also not always-free.` : "";
-  return `${limited.length} of ${onPage.length} are not an ongoing free allowance: ${bits.join(", ")}.${more} The rest are marked always free.`;
+  const shown = limited.length <= 6 ? limited : limited.slice(0, 4);
+  const bits = shown.map(planBit);
+  const rest = limited.length - shown.length;
+  const more = rest > 0 ? `, and ${rest} more in the list below` : "";
+  return `${limited.length} of ${onPage.length} are not an ongoing free allowance: ${bits.join(", ")}${more}. The rest are marked always free.`;
 }
 
 function readyAnswer(onPage: AtlasEntry[]): string {

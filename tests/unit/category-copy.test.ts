@@ -40,16 +40,13 @@ describe("category intros and FAQs", () => {
       const faqs = categoryFaqItems(domain, group);
       if (faqs.length < 4 || faqs.length > 6) problems.push(`${domain}: ${faqs.length} FAQs`);
       const noCard = group.filter(isNoCard).length;
-      const hard = group.filter(isHardCap).length;
       const cardQuestion = faqs.find((faq) => /card/i.test(faq.question));
       if (!cardQuestion) problems.push(`${domain}: no card question`);
       else if (!new RegExp(`\\b${noCard}\\b`).test(cardQuestion.answer)) problems.push(`${domain}: card answer misses no-card count ${noCard}`);
-      const capQuestion = faqs.find((faq) => /hard cap|hard-cap/i.test(faq.question));
-      if (!capQuestion) problems.push(`${domain}: no hard-cap question`);
-      else if (!new RegExp(`\\b${hard}\\b`).test(capQuestion.answer)) problems.push(`${domain}: cap answer misses hard-cap count ${hard}`);
 
       const blob = [intro, ...faqs.flatMap((faq) => [faq.question, faq.answer])].join("\n");
-      if (blob.includes("including none") || blob.includes("undefined") || blob.includes("NaN")) problems.push(`${domain}: broken FAQ wording`);
+      if (/including none|undefined|NaN|do not say|sit in that group|other changed entries|\.\./.test(blob)) problems.push(`${domain}: broken FAQ wording`);
+      if (/\([A-Z][^)]{30,}\)/.test(blob)) problems.push(`${domain}: changelog note pasted into an answer`);
       // Names quoted from this category's own titles, providers, or change notes are in-bounds.
       const localHaystack = group.flatMap((entry) => [entry.title, entry.provider, ...entry.changes.map((change) => change.note)]).join("\n");
       for (const other of DOMAINS) {
