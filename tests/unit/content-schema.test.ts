@@ -6,6 +6,7 @@ function baseData(): Record<string, unknown> {
   return {
     title: "Neon",
     description: "Serverless Postgres.",
+    answer: "Neon has a free Postgres plan with a hard cap and no card.",
     provider: "Neon",
     category: "database",
     domain: "database",

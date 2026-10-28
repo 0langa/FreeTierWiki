@@ -18,14 +18,28 @@ export function entryTitle(entry: AtlasEntry): string {
   return candidates.find((title) => title.length <= 60) ?? candidates.at(-1)!;
 }
 
+/** The question the lead sentence answers. Kept visible on the page so FAQ markup matches the HTML. */
+export function directQuestion(entry: AtlasEntry): string {
+  const name = searchName(entry);
+  return entry.status === "ended" ? `Is the ${name} free tier still available?` : `Is ${name} free, and can it bill me?`;
+}
+
+export function withDirectAnswer<T extends { question: string; answer: string }>(entry: AtlasEntry, questions: T[]): T[] {
+  const lead = { question: directQuestion(entry), answer: entry.answer } as T;
+  const rest = questions.filter((item) => item.question.trim().toLowerCase() !== lead.question.toLowerCase());
+  return [lead, ...rest];
+}
+
 export function entryDescription(entry: AtlasEntry): string {
   const name = searchName(entry);
   if (entry.status === "ended") {
     return `${name}'s free tier has ended. Read the recorded changes, previous limits, billing details, and links to alternatives.`;
   }
   const summary = plainText(entry.freeTierDetails.summary);
+  const answer = entry.answer?.trim();
   const firstLimit = plainText(entry.freeTierDetails.limits[0] ?? "").replace(/[.;]$/, "");
   const candidates = [
+    ...(answer ? [answer] : []),
     `${name} free tier: ${summary}`,
     `${name} free tier: ${summary} See limits, card rules, and billing risks.`,
     ...(firstLimit ? [`${name} free tier: ${firstLimit}. See card rules, billing risks, and plan restrictions.`] : []),

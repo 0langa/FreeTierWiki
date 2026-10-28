@@ -181,6 +181,7 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     url: `/${kind}/${slug}/`,
     title: text(data.title, "title"),
     description: text(data.description, "description"),
+    answer: text(data.answer, "answer"),
     provider: text(data.provider, "provider"),
     category: text(data.category, "category"),
     domain: oneOf(data.domain, DOMAINS, "domain"),

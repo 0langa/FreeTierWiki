@@ -14,6 +14,7 @@ import { jobLabel } from "@/lib/comparison-view";
 import type { Comparison } from "@/lib/comparisons-file";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { bodyOutline, SECTION_TITLES } from "@/lib/entry-body";
+import { directQuestion } from "@/lib/entry-metadata";
 import { pricingUrl, type ListItem } from "@/lib/entry-view";
 import { getFreshness } from "@/lib/freshness";
 import type { AtlasEntryWithBody } from "@/types/content";
@@ -86,6 +87,10 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
         />
         <div className="grid gap-3">
           <h1 className="text-[34px] font-bold leading-[1.05] tracking-tight sm:text-[42px] lg:text-[46px]">{entry.title}</h1>
+          <div id="answer" className="grid max-w-[66ch] gap-1.5">
+            <p className="text-[13.5px] font-semibold text-ink">{directQuestion(entry)}</p>
+            <p className="text-[17px] leading-relaxed text-ink sm:text-[18px]">{entry.answer}</p>
+          </div>
           <p className="max-w-[62ch] text-[16px] leading-relaxed text-ink-2 sm:text-[17px]">{entry.description}</p>
           <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13.5px] text-ink-3">
             <span>

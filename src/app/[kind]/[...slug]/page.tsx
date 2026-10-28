@@ -9,7 +9,7 @@ import { comparisonsFor } from "@/lib/comparison-view";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { getAllEntries, getComparisons, getEntryWithBody, getProviderGroups } from "@/lib/content.server";
 import { bodyQuestions } from "@/lib/entry-body";
-import { entryDescription, entryTitle } from "@/lib/entry-metadata";
+import { entryDescription, entryTitle, withDirectAnswer } from "@/lib/entry-metadata";
 import { relatedItems } from "@/lib/entry-view";
 import { absoluteUrl } from "@/lib/links";
 import { OPEN_GRAPH } from "@/lib/metadata";
@@ -30,24 +30,21 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
     ...(provider ? [{ name: entry.provider, url: provider }] : []),
     { name: entry.title, url: entry.url },
   ]);
-  const questions = bodyQuestions(entry.body.raw);
+  const questions = withDirectAnswer(entry, bodyQuestions(entry.body.raw));
   const page = {
-    "@type": questions.length > 0 ? "FAQPage" : "WebPage",
+    "@type": "FAQPage",
     "@id": absoluteUrl(entry.url),
     url: absoluteUrl(entry.url),
     name: entryTitle(entry),
+    description: entry.answer,
     isPartOf: { "@id": WEBSITE_ID },
     dateModified: entry.lastUpdated,
     ...(entry.lastVerified ? { lastReviewed: entry.lastVerified } : {}),
-    ...(questions.length > 0
-      ? {
-          mainEntity: questions.map(({ question, answer }) => ({
-            "@type": "Question",
-            name: question,
-            acceptedAnswer: { "@type": "Answer", text: answer },
-          })),
-        }
-      : {}),
+    mainEntity: questions.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
   };
   const product = {
     "@type": "Product",
@@ -61,7 +58,7 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
   // Editorial guides describe a product; the catalog does not sell it. Do not
   // invent prices, offers, ratings, product images, authors or publication dates.
   const guide = {
-    ...article(entry.url, `${entry.title} free tier${entry.status === "ended" ? " (ended)" : ": limits and billing"}`, entryDescription(entry), entry.lastUpdated),
+    ...article(entry.url, `${entry.title} free tier${entry.status === "ended" ? " (ended)" : ": limits and billing"}`, entry.answer || entryDescription(entry), entry.lastUpdated),
     about: { "@id": product["@id"] },
     citation: entry.sourceUrls,
   };

@@ -1,5 +1,31 @@
 import { expect, test } from "@playwright/test";
 
+test("a category page has its own intro, one FAQ block, and one FAQPage node", async ({ page }) => {
+  await page.goto("/category/hosting/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Free Hosting tiers");
+  await expect(page.getByText(/Sleep, bandwidth, and a card hold/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Questions people ask" })).toBeVisible();
+  const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const nodes = scripts.flatMap((text) => JSON.parse(text)["@graph"] ?? []);
+  const faqs = nodes.filter((node: { "@type": string }) => node["@type"] === "FAQPage");
+  expect(faqs).toHaveLength(1);
+  expect(faqs[0].mainEntity.length).toBeGreaterThanOrEqual(4);
+  expect(faqs[0].mainEntity.length).toBeLessThanOrEqual(6);
+});
+
+test("a filtered category page does not repeat the base FAQ questions", async ({ page }) => {
+  await page.goto("/category/hosting/");
+  const base = await page.getByRole("heading", { level: 3 }).allTextContents();
+  await page.goto("/category/hosting/no-card/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Free Hosting tiers with no credit card");
+  const filtered = await page.getByRole("heading", { level: 3 }).allTextContents();
+  expect(filtered.length).toBeGreaterThanOrEqual(3);
+  expect(filtered.filter((question) => base.includes(question))).toEqual([]);
+  const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const nodes = scripts.flatMap((text) => JSON.parse(text)["@graph"] ?? []);
+  expect(nodes.filter((node: { "@type": string }) => node["@type"] === "FAQPage")).toHaveLength(1);
+});
+
 test("category page lists entries, safest first", async ({ page }) => {
   await page.goto("/category/database/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Free Database tiers");
