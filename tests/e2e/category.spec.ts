@@ -65,5 +65,5 @@ test("the hard-cap hub links every category list and shows the safest picks", as
   );
   const picks = page.getByRole("table", { name: "Safest picks: Hard cap", exact: true });
   await expect(picks.getByText("Hard cap", { exact: true }).first()).toBeVisible();
-  await expect(picks.getByText("Soft cap", { exact: true })).toHaveCount(0);
+  await expect(picks.getByText("No hard cap", { exact: true })).toHaveCount(0);
 });

@@ -13,7 +13,7 @@ Entries live in `content/services/` and `content/tools/` as MDX files with front
 | `status` | `active`, `changed`, or `ended`. |
 | `changes` | Dated notes with `kind: new`, `changed`, or `ended`; feeds the changelog. |
 
-`freeTierDetails.requiresCard` and `freeTierDetails.hasHardCap` accept `true`, `false`, or the literal YAML value `unknown`. Use a boolean only when official sources establish that answer. Use `unknown` for an unpublished or conflicting policy, and describe the precise gap in the entry's caveats or body. Missing fields also parse as `unknown`; they never establish a no-card plan or a soft cap. The site displays unknown policies as **Not confirmed**, excludes them from the corresponding no-card/hard-cap filters, and awards no safety-ranking bonus for an unconfirmed policy.
+`freeTierDetails.requiresCard` and `freeTierDetails.hasHardCap` accept `true`, `false`, or the literal YAML value `unknown`. Use a boolean only when official sources establish that answer. Use `unknown` for an unpublished or conflicting policy, and describe the precise gap in the entry's caveats or body. Missing fields also parse as `unknown`; they never establish a no-card plan or the absence of a hard cap. The site displays unknown policies as **Not confirmed**, excludes them from the corresponding no-card/hard-cap filters, and awards no safety-ranking bonus for an unconfirmed policy.
 
 Entries marked `changed` or `ended` require a `changes` item and `lastVerified`. The content parser enforces this. Freshness becomes stale after 180 days, defined by `STALE_AFTER_DAYS` in [`src/lib/freshness.ts`](../src/lib/freshness.ts).
 

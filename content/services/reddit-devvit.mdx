@@ -1,0 +1,97 @@
+---
+title: Reddit Developer Platform (Devvit)
+description: >-
+  Devvit hosts community apps, games and moderation tools on Reddit for free.
+  It is Reddit's migration path for public API bots, not an unrestricted data feed.
+provider: Reddit
+category: apis
+domain: apis
+subtypes: [community apps, moderation, app hosting]
+audiences: [indie, oss, team]
+tags: [reddit, devvit, moderation bots, reddit api alternatives, community apps]
+pricingModel: free
+freeTierDetails:
+  summary: Free hosting for apps that run on Reddit, with platform capabilities and per-installation limits.
+  limits:
+    - Free app hosting on Reddit servers
+    - Redis storage up to 5 GB per installation
+    - Server requests up to 30 seconds
+  caveats:
+    - Runs within Reddit's platform and app review process
+    - External fetch destinations require allowed-domain access
+    - Public Data API and PRAW integrations may need redesign and migration support
+  requiresCard: unknown
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: none
+  billingRiskNotes:
+    - Covers the advertised free platform hosting; external services can have separate charges
+useCases: [community moderation tools, interactive Reddit apps, migrating supported Data API bots]
+quickstartSteps:
+  - Start from Reddit's current game or moderation-tool quickstart.
+  - Sign in with your Reddit account and create a Devvit project.
+  - Enable the required Reddit and storage capabilities in the app configuration.
+  - Playtest in a subreddit you control, then follow the app review and installation instructions.
+whenToUse: Use when your app belongs inside a Reddit community and its needs fit the supported platform capabilities.
+whenNotToUse: Avoid treating Devvit as a drop-in external Reddit export API or an unrestricted general-purpose server.
+bestFor: [moderators, community developers, Reddit games]
+avoidIf: [unrestricted data feeds, unmodified Python bots, long-running server processes]
+difficulty: intermediate
+productionReadiness: side-project
+lastUpdated: 2026-10-28
+lastVerified: 2026-10-28
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: https://developers.reddit.com/
+docsUrl: https://developers.reddit.com/docs/
+pricingUrl: https://developers.reddit.com/
+sourceUrls:
+  - https://developers.reddit.com/
+  - https://developers.reddit.com/docs/
+  - https://developers.reddit.com/docs/guides/faq
+  - https://developers.reddit.com/docs/capabilities/devvit-web/devvit_web_overview
+  - https://developers.reddit.com/docs/guides/migrate/public-api
+featured: false
+changes:
+  - date: 2026-10-28
+    kind: new
+    note: Added Reddit's free hosted app platform and its role in public Data API migration.
+---
+Devvit is Reddit's platform for apps that live inside Reddit. It is the first migration route to examine for a community bot affected by the public Data API shutdown, but the two interfaces do not have identical capabilities.
+
+## What the free plan gives you
+
+The [developer homepage](https://developers.reddit.com/) advertises free hosting and automatic scaling on Reddit's servers. Apps can provide games, utilities and moderation features. Devvit Web combines a web client with server endpoints and platform capabilities such as Reddit API access and Redis storage.
+
+This is hosted execution for an app installed in a Reddit community. It is not a subscription to an external stream of every Reddit conversation. The current FAQ lists Redis storage up to 5 GB per installation and server requests up to 30 seconds. Authentication is handled through Devvit, so creating a traditional Data API client is not the starting point for a new Devvit app.
+
+## When you hit a limit
+
+Budget your app around the documented storage, request and payload limits. The reviewed pages do not establish a single spending-cap policy or a paid automatic-overage schedule, so the cap field remains unconfirmed. The hosting offer itself is advertised as free.
+
+Calls to external services are a separate concern: domain access is controlled and any outside service can impose its own quota or charges. The migration guide describes requests for expanded fetch access and other capabilities for eligible migrating apps. Do not assume that a feature request has been approved until Reddit confirms it.
+
+## Gotchas
+
+- Devvit Web uses a client/server web architecture. An existing Python or PRAW script needs a capability review and often a rewrite before it will run here.
+- Serverless requests are bounded; long-running connections, native packages and filesystem access are restricted. Check the current technical overview before choosing dependencies.
+- Playtesting, publication and community installation are different steps. A local web preview alone does not demonstrate that the app's backend works against Reddit.
+
+## Alternatives in this atlas
+
+- [Reddit Data API](/services/reddit-data-api/): the legacy external interface and retirement timetable, useful for planning an existing integration's migration.
+- [Hacker News API](/services/hacker-news-api/): public discussion data from another community if you need a reader or dataset rather than a Reddit-hosted app.
+
+## Questions people ask
+
+### Is Devvit hosting free?
+
+Reddit advertises free app hosting on its servers. That claim covers the platform, not any third-party APIs your app calls. Card requirements and a universal automatic spending-cap rule are not established by the reviewed public pages.
+
+### Does Devvit replace the public Reddit API?
+
+It is Reddit's migration destination for supported apps and bots. It does not provide an identical external interface. Inventory the current integration's methods, data access and infrastructure, then compare them with the migration documentation and discuss missing capabilities with Reddit.
+
+### Can I test entirely on my computer?
+
+The FAQ says normal development uses a playtest subreddit because backend capabilities run against Reddit. Use a community you control and follow the current quickstart. Test the real moderation or app workflow before publishing or moving users to it.

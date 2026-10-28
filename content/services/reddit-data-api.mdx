@@ -1,0 +1,114 @@
+---
+title: Reddit Data API
+description: >-
+  Is the Reddit API still free? Approved non-commercial access has a free quota,
+  but public access is closing. See the 2026–2027 deadlines and alternatives.
+provider: Reddit
+category: apis
+domain: apis
+subtypes: [social data, community bots, moderation]
+audiences: [indie, oss, team]
+tags: [reddit api, free reddit api, reddit api alternatives, devvit, rss, api shutdown]
+pricingModel: freemium
+status: changed
+freeTierDetails:
+  summary: >-
+    Approved non-commercial access has a free quota of 100 queries/minute per
+    OAuth client. New public API access requests end 31 October 2026; remaining
+    public access closes in March 2027.
+  limits:
+    - 100 queries/minute per OAuth client, averaged over 10 minutes
+    - New public API access requests end 31 October 2026
+    - Remaining public access closes in March 2027
+  caveats:
+    - Explicit Reddit approval is required; a free quota does not grant access
+    - Access removal starts 12 January 2027 for apps and users that have not registered or engaged with Reddit
+    - RSS support ends 13 November 2026; it is not a lasting API alternative
+    - Commercial use requires permission and a contract; research uses Reddit for Researchers
+  requiresCard: unknown
+  freeTierType: time-limited
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - This label covers approved free access within its rate limit, not a commercial data contract
+useCases:
+  - Maintaining an already approved non-commercial Reddit bot during migration
+  - Planning a move from a Data API or PRAW app to Devvit
+  - Understanding the public access and RSS retirement schedule
+quickstartSteps:
+  - Read the official migration announcement and check which deadline affects your app.
+  - Register an existing app with Reddit and describe any migration blockers.
+  - For existing approved access, use OAuth and monitor the rate-limit response headers.
+  - Test the supported Devvit migration path before moving a community workflow.
+whenToUse: >-
+  Use this entry to maintain approved access during the transition and plan migration.
+whenNotToUse: >-
+  Avoid choosing the public Data API for a new long-term integration. Approval,
+  use restrictions and retirement dates matter more than the nominal free quota.
+bestFor: [existing bot maintainers, moderators, migration planning]
+avoidIf: [new long-term public data feeds, unapproved commercial use, unrestricted data exports]
+difficulty: intermediate
+productionReadiness: prototype
+lastUpdated: 2026-10-28
+lastVerified: 2026-10-28
+popularityScore: 8
+usefulnessScore: 6
+officialUrl: https://developers.reddit.com/
+docsUrl: https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki
+pricingUrl: https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data
+sourceUrls:
+  - https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/
+  - https://www.reddit.com/r/modnews/comments/1wubgvt/continuing_our_infrastructure_updates_whats/
+  - https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki
+  - https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data
+  - https://support.reddithelp.com/hc/en-us/articles/42728983564564-Responsible-Builder-Policy
+  - https://developers.reddit.com/docs/guides/migrate/public-api
+featured: false
+changes:
+  - date: 2026-10-28
+    kind: new
+    note: Added approved free access, the public API and RSS retirement dates, and alternatives by use case.
+  - date: 2026-10-28
+    kind: changed
+    note: Public access is winding down; new access requests end 31 October 2026 and remaining public access ends in March 2027.
+---
+The Reddit API is still free for eligible, approved non-commercial use, but that access is winding down. A free allowance is not permission to start collecting Reddit data.
+
+## What the free plan gives you
+
+Reddit's [Data API wiki](https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki) lists 100 queries per minute per OAuth client, averaged over 10 minutes. Approved developers can read and modify Reddit content within their authorized use case. Requests without OAuth or login credentials are blocked.
+
+The public API is a transition option for existing integrations. The [official timetable](https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/) ends new access requests on 31 October 2026, begins removing access for apps and users that have not registered or engaged with Reddit on 12 January 2027, and closes remaining public access in March 2027. Reddit has not specified a day in March. Registration supports migration; it does not promise indefinite public access.
+
+## When you hit a limit
+
+Monitor the rate-limit headers for usage, remaining requests and reset time. Back off when the allowance is exhausted; creating additional accounts to evade restrictions is not an approved workaround. The free quota is enforced, rather than a published pay-as-you-go overage offer.
+
+Commercial access is separate: Reddit requires permission and a contract, with no universal commercial price stated in the cited help page. Register an existing app and report migration blockers early. The Devvit migration guide describes feature requests and exemptions for capabilities that do not map directly.
+
+## Gotchas
+
+- RSS support ends on 13 November 2026. Reddit recommends Discord Relay for common moderator alerts and says there is no replacement for RSS feeds outside a community you moderate; see its [RSS announcement](https://www.reddit.com/r/modnews/comments/1wubgvt/continuing_our_infrastructure_updates_whats/).
+- Reddit directs academic research to Reddit for Researchers. Approval for a bot does not grant unrestricted research or commercial reuse.
+- A third-party seller's free trial does not establish ongoing access, rights to redistribute Reddit content, or support after the shutdown. Check those separately.
+
+## Alternatives in this atlas
+
+| Need | Option | What changes |
+| --- | --- | --- |
+| Reddit community apps or moderation | [Reddit Developer Platform (Devvit)](/services/reddit-devvit/) | Reddit-hosted apps with supported capabilities; not a general external data feed. |
+| Public technology discussions | [Hacker News API](/services/hacker-news-api/) | A different community and dataset; it does not return Reddit posts. |
+
+## Questions people ask
+
+### Is the Reddit API free?
+
+For approved non-commercial access within the quota, yes, during the remaining public-access period. Free does not mean self-service, permanent, or approved for commercial use. New requests stop being accepted on 31 October 2026.
+
+### What replaces Reddit RSS feeds?
+
+For common moderator alerts, Reddit points to the Devvit Discord Relay app. It does not offer an equivalent replacement for general RSS subscriptions outside a community you moderate. RSS wrappers should not be presented as a durable solution.
+
+### Can Devvit replace every PRAW script?
+
+Compare the actual API methods, runtime, storage and external connections your script needs with the migration guide rather than assuming a direct replacement. Some gaps need Reddit's review. For research, use the separate researcher application route; for non-Reddit discussions, consider another dataset.

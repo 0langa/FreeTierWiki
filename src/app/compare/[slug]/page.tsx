@@ -44,7 +44,7 @@ export default async function ComparePage({ params }: { params: Params }) {
       <PageHeader crumbs={[{ href: "/compare/", label: "Compare" }]} current={comparison.title} title={comparison.title} lede={comparison.intro}>
         <p className="max-w-[64ch] text-[14px] leading-relaxed text-ink-3">
           {items.length} free tiers, safest first. Picked by hand; the facts come from each entry and its last check. A hard cap means the
-          service stops at the limit; a soft cap means it keeps going and may bill you.
+          service stops at the free limit. No hard cap does not imply charges; the risk column describes billing risk.
         </p>
       </PageHeader>
       <JsonLd graph={[{

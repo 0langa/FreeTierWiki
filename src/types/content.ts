@@ -1,7 +1,7 @@
 export const CONTENT_KINDS = ["services", "tools"] as const;
 export type ContentKind = (typeof CONTENT_KINDS)[number];
 
-export const PRICING_MODELS = ["free", "freemium", "trial"] as const;
+export const PRICING_MODELS = ["free", "freemium", "trial", "paid"] as const;
 export type PricingModel = (typeof PRICING_MODELS)[number];
 
 export const DIFFICULTIES = ["beginner", "intermediate", "advanced"] as const;

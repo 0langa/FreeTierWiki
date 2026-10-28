@@ -23,22 +23,20 @@ tags:
   - ephemeral environments
   - drupal
   - qa
-pricingModel: freemium
+pricingModel: paid
 freeTierDetails:
   summary: >-
-    The Free tier is $0 with 5GB of preview storage, unlimited users, and
-    unlimited previews, as far as storage allows. Paid plans start at Intro, $39
-    per month for 15GB.
+    Free plan no longer offered to new users; removed from the pricing page
+    between 24 Aug and 16 Oct 2026. Cheapest plan is Intro at $39/month.
+    Terms and docs still mention Free for existing accounts that downgrade.
   limits:
-    - 5GB preview storage (Free tier)
-    - Unlimited users
-    - Unlimited previews (storage-limited)
-    - Previews not accessed or changed for 30 days are deleted on the Free tier
+    - No ongoing Free plan offered to new users
+    - Paid Intro starts at $39 per month per project
   caveats:
-    - Previews have a soft bandwidth limit of 10GB per month
-    - The terms say Tugboat may not serve a site that exceeds usage quotas
+    - Terms and docs retain Free references for existing accounts that downgrade
+    - Old Free documentation is not a current signup offer
     - Pricing is per project, not per account or user
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: unknown
   overageRisk: none
@@ -49,42 +47,45 @@ useCases:
   - Building a preview from a commit or tag, not only a pull request
 quickstartSteps:
   - Go to the Tugboat sign-in and pick GitHub, GitLab, or Bitbucket, then authorize Tugboat. A generic git server also works.
-  - You land on the Create a Tugboat Project screen. Create a project and pick a plan for your storage needs.
+  - Review the paid project plans. Intro starts at $39 per month; do not expect an ongoing Free plan for a new project.
   - Add the repositories to the project and choose the repository settings, such as building pull requests automatically.
   - Commit a Tugboat config file at .tugboat/config.yml in the branch you want to build. The starter configs in the docs help here.
   - Open a pull request to build a preview. The CLI is listed from the paid Intro plan.
 whenToUse: >-
-  Use Tugboat when your team wants a live preview for every pull request and a
-  few gigabytes of preview storage is enough.
+  Consider Tugboat for pull-request previews when a paid project plan fits your
+  budget, or when reviewing an existing account's downgrade terms.
 whenNotToUse: >-
-  Avoid it for sensitive data such as health or card data, which the terms say
-  should not go into non-production environments. Avoid the Free tier for large
-  sites that need more than 5GB.
+  Avoid it when you need an ongoing free preview plan for a new project.
+  Do not import unsanitized sensitive production data.
 bestFor:
   - agencies
   - collaborative web teams
   - open source projects
 avoidIf:
-  - needing more than 5GB of preview storage for free
+  - needing a confirmed ongoing free plan
   - needing on-premise or dedicated hardware
   - regulated data in previews
 difficulty: beginner
 productionReadiness: prototype
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+status: ended
+lastUpdated: 2026-10-28
+lastVerified: 2026-10-28
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.tugboatqa.com'
 docsUrl: 'https://docs.tugboatqa.com/'
 sourceUrls:
   - 'https://www.tugboatqa.com/pricing'
+  - 'https://web.archive.org/web/20260824061509/https://www.tugboatqa.com/pricing'
+  - 'https://stacksfree.com/blog/free-tier-change-tracker-2026-10-18/'
   - 'https://www.tugboatqa.com/terms'
-  - 'https://www.tugboatqa.com/blog/upcoming-changes-to-plans-and-pricing'
-  - 'https://docs.tugboatqa.com/setting-up-tugboat/index.html'
   - 'https://docs.tugboatqa.com/tugboat-billing/tugboat-pricing/index.html'
 pricingUrl: 'https://www.tugboatqa.com/pricing'
 featured: false
 changes:
+  - date: 2026-10-28
+    kind: ended
+    note: "Free plan ended for new users; removed from pricing between 24 Aug and 16 Oct 2026. Paid Intro starts at $39/month; existing-account downgrade references remain."
   - date: 2026-10-21
     kind: changed
     note: "Separated paid CLI access from Free onboarding and qualified quota enforcement and the published Free storage source."
@@ -93,17 +94,17 @@ You work in the Tugboat dashboard. The pricing page lists a command-line tool an
 
 ## What the free plan gives you
 
-The published August 2024 plan announcement lists the Free tier at $0 with 5GB of storage. Current terms still recognize Free accounts, although the current pricing page displays only paid tiers. All plans include unlimited users and unlimited previews. Previews are limited by how much storage they take, not by count.
+There is no ongoing Free plan for new users. The [archived pricing page](https://web.archive.org/web/20260824061509/https://www.tugboatqa.com/pricing) still showed Free at $0 on 24 August 2026. The [October change tracker](https://stacksfree.com/blog/free-tier-change-tracker-2026-10-18/) records its removal by 16 October. These observations bound the pricing-page change; they do not establish an exact shutdown day for existing accounts.
 
-Pricing works per project, not per account or user. When you create a project, you pick a plan for your preview storage and build performance. You can then link as many repositories and add as many users as you want under that plan. Project storage is the total size of all previews in the project, including base previews.
+Pricing is per project. Project storage includes all previews, including base previews. The chosen plan covers its linked repositories and users.
 
-Paid plans from the blog are Intro at $39 per month for 15GB, Plus at $119 per month for 60GB, and Premium from $599 per month for 300GB and more.
+Current pricing starts at Intro for $39 per month, with Plus at $119 and Premium from $599. Terms and docs still mention Free for existing accounts that downgrade. Those legacy references do not restore a Free signup offer.
 
 ## When you hit a limit
 
-On the Free tier, the terms say Tugboat deletes previews that have not been accessed or changed for 30 days, to reclaim disk space. No data in your repository is removed.
+New projects need a paid plan, so there is no current Free allowance to size a new deployment against. The pricing page ties preview capacity to the storage purchased for the project. All previews, including base previews, share that storage; unlimited previews does not mean unlimited resources.
 
-The terms also set a soft bandwidth limit of 10GB per month for previews. If your site passes usage quotas, Tugboat may stop serving it or support may email suggestions; this is not a guaranteed hard cap. Tugboat bills in advance monthly and upgrades from the free plan are billed immediately. If you cancel a paid plan, your account stays active on the Free tier.
+For an existing account, read its actual plan and downgrade terms before cancelling. The published terms retain a Free downgrade path, but that is distinct from the plans offered to new users. Do not assume an older account's entitlement transfers to a new project.
 
 ## Gotchas
 
@@ -118,13 +119,13 @@ The terms also set a soft bandwidth limit of 10GB per month for previews. If you
 
 ## Questions people ask
 
-### Is Tugboat free?
+### Is Tugboat still free for new users?
 
-Yes, there is a Free tier. It costs $0 and has 5GB of preview storage, unlimited users, and unlimited previews within that storage.
+No ongoing Free plan is offered to new users. The cheapest published plan is Intro at $39 per month per project.
 
-### What happens to old previews on the Tugboat free tier?
+### Why do Tugboat's terms and docs still mention Free?
 
-Tugboat deletes previews that have not been accessed or modified for 30 days, to reclaim disk space. Your repository data stays.
+They retain references to existing accounts and downgrading from a paid plan. Check your account's actual entitlement before cancelling; those references are not a new-user Free offer.
 
 ### Does Tugboat work with GitHub, GitLab, and Bitbucket?
 

@@ -17,6 +17,7 @@ export const PRICING_MODEL_LABELS = {
   free: "Free",
   freemium: "Freemium",
   trial: "Trial",
+  paid: "Paid",
 } as const;
 
 export const DOMAIN_LABELS: Record<Domain, string> = {

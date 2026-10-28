@@ -45,10 +45,13 @@ export function CardLabel({ card }: { card: PolicyConfirmation }) {
   );
 }
 
-/** Whether the free amount is a hard cap (service stops) or a soft one (it keeps going, maybe billed). */
+/**
+ * Whether the free amount is a hard cap (service stops), matching the entry page's "Hard cap: Yes/No" row.
+ * The absence of a hard cap does not establish continued service or billing; the risk pill covers billing.
+ */
 export function CapLabel({ cap }: { cap: PolicyConfirmation }) {
   if (cap === "unknown") return <span className="block text-[12px] text-ink-3" title="Cap policy not confirmed">Not confirmed</span>;
-  return <span className={`block text-[12px] ${cap ? "text-ink-2" : "text-ink-3"}`}>{cap ? "Hard cap" : "Soft cap"}</span>;
+  return <span className={`block text-[12px] ${cap ? "text-ink-2" : "text-ink-3"}`}>{cap ? "Hard cap" : "No hard cap"}</span>;
 }
 
 const BASE = "whitespace-nowrap font-mono text-xs font-medium";

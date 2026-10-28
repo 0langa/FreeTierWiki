@@ -123,6 +123,7 @@ describe("parseEntry", () => {
       data: {
         ...baseData(),
         status: "ended",
+        pricingModel: "paid",
         lastVerified: "2026-09-25",
         pricingUrl: "https://planetscale.com/pricing",
         changes: [
@@ -132,6 +133,7 @@ describe("parseEntry", () => {
       },
     });
     expect(entry.status).toBe("ended");
+    expect(entry.pricingModel).toBe("paid");
     expect(entry.lastVerified).toBe("2026-09-25");
     expect(entry.pricingUrl).toBe("https://planetscale.com/pricing");
     expect(entry.changes.map((change) => change.date)).toEqual(["2024-04-08", "2023-01-01"]);
