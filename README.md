@@ -65,6 +65,7 @@ Built with Next.js, TypeScript, Tailwind CSS, and MDX. The site is exported as s
 | --- | --- |
 | [Development](docs/development.md) | Setup, checks, architecture, and deployment |
 | [Content maintenance](docs/content-maintenance.md) | Entry fields, evidence tools, and the weekly pricing check |
+| [Catalog API](docs/api.md) | The read-only JSON catalog, its OpenAPI description, and Markdown pages for agents |
 | [Site guide](docs/site-guide.md) | Browsing, comparisons, detail pages, and labels |
 | [Contributing](CONTRIBUTING.md) | Reporting errors and submitting listings |
 

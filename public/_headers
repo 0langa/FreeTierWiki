@@ -1,0 +1,12 @@
+# RFC 9727: the API catalog is a Linkset, and HEAD requests must see its api-catalog Link.
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
+  Link: </.well-known/api-catalog>; rel="api-catalog"
+  Access-Control-Allow-Origin: *
+
+/api/v1/*
+  Access-Control-Allow-Origin: *
+
+# RFC 8288 discovery links on the home page. functions/_middleware.ts adds the Markdown alternate.
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog", </api/v1/openapi.json>; rel="service-desc"; type="application/json", <https://github.com/0langa/FreeTierWiki/blob/main/docs/api.md>; rel="service-doc"; type="text/html"

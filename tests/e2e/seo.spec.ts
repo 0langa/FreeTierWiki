@@ -116,3 +116,37 @@ test("loading or failed explorer data does not mark a page noindex", async ({ pa
   await expect(page.getByRole("status")).toContainText("Could not load the full list.");
   await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
 });
+
+test("every page has a Markdown version for agents", async ({ request }) => {
+  // The build writes index.md next to each index.html; functions/_middleware.ts serves it for Accept: text/markdown.
+  for (const path of ["/", "/services/supabase/", "/category/database/", "/compare/postgres-hosting/"]) {
+    const response = await request.get(`${path}index.md`);
+    expect(response.ok(), path).toBe(true);
+    const markdown = await response.text();
+    expect(markdown, path).toMatch(/^---\n[\s\S]*?\n---\n\n/);
+    expect(markdown, path).toContain(`\nurl: "https://freetier.wiki${path}"\n`);
+    expect(markdown, path).toMatch(/^# /m);
+    expect(markdown, path).not.toContain("<");
+  }
+});
+
+test("the API catalog lists the catalog API and its OpenAPI description", async ({ request }) => {
+  const catalog = await (await request.get("/.well-known/api-catalog")).json();
+  const [api] = catalog.linkset;
+  expect(api.anchor).toBe("https://freetier.wiki/api/v1/entries.json");
+
+  const spec = await (await request.get(new URL(api["service-desc"][0].href).pathname)).json();
+  expect(spec.openapi).toBe("3.1.0");
+  const data = await (await request.get(new URL(api.anchor).pathname)).json();
+  expect(data.count).toBe(data.entries.length);
+  expect(data.entries.find((entry: { id: string }) => entry.id === "services:supabase")).toMatchObject({
+    url: "https://freetier.wiki/services/supabase/",
+    markdownUrl: "https://freetier.wiki/services/supabase/index.md",
+  });
+});
+
+test("auth.md tells agents that no authentication is needed", async ({ request }) => {
+  const text = await (await request.get("/auth.md")).text();
+  expect(text).toMatch(/^# freetier\.wiki auth\.md\n/);
+  expect(text).toContain("needs no authentication");
+});
