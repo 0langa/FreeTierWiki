@@ -8,6 +8,8 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:4173",
     trace: "retain-on-failure",
+    // A stored "rejected" choice keeps the consent banner from covering the page; consent.spec.ts starts fresh.
+    storageState: "tests/support/consent-decided.json",
   },
   webServer: {
     command: "node scripts/serve-out.mjs",
