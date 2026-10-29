@@ -38,6 +38,20 @@ export function itemList(name: string, items: { title: string; url: string }[]) 
   };
 }
 
+export function faqPage(path: string, items: { question: string; answer: string }[]) {
+  return {
+    "@type": "FAQPage",
+    "@id": absoluteUrl(`${path}#faq`),
+    url: absoluteUrl(path),
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+}
+
 export function collectionPage(path: string, name: string, items: { title: string; url: string }[]) {
   return {
     "@type": "CollectionPage", "@id": absoluteUrl(path), url: absoluteUrl(path), name,

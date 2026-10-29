@@ -43,7 +43,7 @@ export const FILTER_PAGES: Record<FilterSlug, FilterPage> = {
     name: "Hard cap",
     hubTitle: "Free tiers with a hard spending cap",
     hubHeading: "Free tiers with a hard cap",
-    promise: "that stop at the limit instead of billing you",
+    promise: "that stop at the free limit",
     rest: "the limits, whether it needs a card, and how fresh the data is",
     facts: "limits, card rules, and how fresh each entry is",
   },

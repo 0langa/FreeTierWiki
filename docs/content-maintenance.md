@@ -6,6 +6,7 @@ Entries live in `content/services/` and `content/tools/` as MDX files with front
 
 | Field | Purpose |
 | --- | --- |
+| `answer` | Required. One sentence, 20 to 45 words, shown under the title. It says whether the offer is free, what you get, and whether it can bill you. The build fails for every page if an entry has none. |
 | `lastVerified` | ISO date of the last entry comparison with official sources. Drives freshness labels; source scans never advance it automatically. |
 | `lastUpdated` | Date the published information changed. Preserve it when a review confirms the entry is unchanged. |
 | `pricingUrl` | Provider's current official pricing page. |
@@ -16,6 +17,24 @@ Entries live in `content/services/` and `content/tools/` as MDX files with front
 `freeTierDetails.requiresCard` and `freeTierDetails.hasHardCap` accept `true`, `false`, or the literal YAML value `unknown`. Use a boolean only when official sources establish that answer. Use `unknown` for an unpublished or conflicting policy, and describe the precise gap in the entry's caveats or body. Missing fields also parse as `unknown`; they never establish a no-card plan or the absence of a hard cap. The site displays unknown policies as **Not confirmed**, excludes them from the corresponding no-card/hard-cap filters, and awards no safety-ranking bonus for an unconfirmed policy.
 
 Entries marked `changed` or `ended` require a `changes` item and `lastVerified`. The content parser enforces this. Freshness becomes stale after 180 days, defined by `STALE_AFTER_DAYS` in [`src/lib/freshness.ts`](../src/lib/freshness.ts).
+
+## Direct answers
+
+`answer` is the one-line intro under the title, before the facts box. It is also the description of the page's structured data and of its article. It is not a question: the FAQ structured data comes only from the body's "Questions people ask" section, which usually opens with "Is \<title\> free?", so the two never repeat. Meta descriptions use the sentence only when it already fits the 110–160 character budget; otherwise they keep the existing summary.
+
+Write the sentence from that entry's limits, caveats, billing notes, plan type, and status. Open with the entry's name and what the free offer is, then the catch that matters most: a required card, a hold, an overage, a pause, a credit that runs out, or an ended offer. For a trial, open with "\<Name\> has no ongoing free plan:". For a changed entry, describe the current terms only: the page already shows the change notice, and a note that corrects the catalog is not a change by the provider. Mention a change only when the provider really changed the offer and the reader needs to know, such as a free plan that ended for new accounts. Use the facts box's words: "no card", "hard cap", "no overage", "the card rule is not confirmed". Do not reuse one sentence with the name and the numbers swapped, and do not twist the word order to avoid that. Do not invent a figure that is not already in the entry. If a card or cap rule is `unknown`, say it is not confirmed or leave it out.
+
+When a Monday price review changes a limit, a card rule, a cap, a status, or a caveat the sentence states, rewrite `answer` in the same edit. Then run:
+
+```sh
+npm run check:answers
+```
+
+The check fails if any entry has no answer, if a sentence is outside 20–45 words or is more than one sentence, or if the wording contradicts an easy field. Those contradictions include "no card" when `requiresCard` is true, a card requirement when `requiresCard` is false, a definite card or cap claim when the field is `unknown`, "can't bill you" when `overageRisk` is not `none`, a trial described as always free, and an ended entry that does not say so. The same check fails when several answers collapse to one sentence shape after the name and the numbers are removed.
+
+Category pages take their intro and FAQ from [`src/lib/category-copy.ts`](../src/lib/category-copy.ts) and [`src/lib/category-faqs.ts`](../src/lib/category-faqs.ts). The questions are written per category. Counts and names are computed from the entries at build time, so do not paste a count into an MDX file. A new domain needs an intro and a FAQ set or the category test fails.
+
+No-card and hard-cap pages under a category do not repeat that FAQ. They have their own short intro and three questions about the filtered subset, in [`src/lib/category-filters.ts`](../src/lib/category-filters.ts). Repeating the base FAQ on those URLs would publish the same FAQ markup twice.
 
 [`content/comparisons.json`](../content/comparisons.json) defines comparison pages with `slug`, `title`, `intro`, and `entries` (IDs such as `services:neon`). A unit test rejects missing or ended comparison entries.
 

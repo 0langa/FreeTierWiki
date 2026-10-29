@@ -24,8 +24,10 @@ export function entryDescription(entry: AtlasEntry): string {
     return `${name}'s free tier has ended. Read the recorded changes, previous limits, billing details, and links to alternatives.`;
   }
   const summary = plainText(entry.freeTierDetails.summary);
+  const answer = entry.answer?.trim();
   const firstLimit = plainText(entry.freeTierDetails.limits[0] ?? "").replace(/[.;]$/, "");
   const candidates = [
+    ...(answer ? [answer] : []),
     `${name} free tier: ${summary}`,
     `${name} free tier: ${summary} See limits, card rules, and billing risks.`,
     ...(firstLimit ? [`${name} free tier: ${firstLimit}. See card rules, billing risks, and plan restrictions.`] : []),

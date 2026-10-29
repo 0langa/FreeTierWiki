@@ -9,6 +9,7 @@ export function makeEntry(overrides: Partial<AtlasEntry> = {}): AtlasEntry {
     url: "/services/neon/",
     title: "Neon",
     description: "Serverless Postgres.",
+    answer: "Neon has a free Postgres plan with a hard cap and no card.",
     provider: "Neon",
     category: "database",
     domain: "database",

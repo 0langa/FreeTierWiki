@@ -30,11 +30,13 @@ type PageHeaderProps = {
   current?: string;
   title: React.ReactNode;
   lede?: React.ReactNode;
+  /** A quieter line under the lede, such as the list's sort order. */
+  note?: React.ReactNode;
   children?: React.ReactNode;
 };
 
 /** Title block for a list page: optional breadcrumb, the heading, a short lede, then chip rows. */
-export function PageHeader({ crumbs, current, title, lede, children }: PageHeaderProps) {
+export function PageHeader({ crumbs, current, title, lede, note, children }: PageHeaderProps) {
   return (
     <div className="grid gap-4 pt-8 lg:pt-10">
       {crumbs && current ? (
@@ -46,7 +48,8 @@ export function PageHeader({ crumbs, current, title, lede, children }: PageHeade
       ) : null}
       <div className="grid gap-2.5">
         <h1 className="text-[30px] font-bold leading-[1.1] tracking-tight sm:text-[36px]">{title}</h1>
-        {lede ? <p className="max-w-[64ch] text-[15.5px] leading-relaxed text-ink-2 sm:text-base">{lede}</p> : null}
+        {lede ? <p className="max-w-[68ch] text-[15.5px] leading-relaxed text-ink-2 sm:text-base">{lede}</p> : null}
+        {note ? <p className="max-w-[68ch] text-[14px] leading-relaxed text-ink-3">{note}</p> : null}
       </div>
       {children ? <div className="grid gap-2.5">{children}</div> : null}
     </div>

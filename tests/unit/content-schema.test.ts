@@ -6,6 +6,7 @@ function baseData(): Record<string, unknown> {
   return {
     title: "Neon",
     description: "Serverless Postgres.",
+    answer: "Neon has a free Postgres plan with a hard cap and no card.",
     provider: "Neon",
     category: "database",
     domain: "database",
@@ -158,6 +159,13 @@ describe("parseEntry", () => {
   it("requires at least one limit", () => {
     const problems = problemsOf({ ...baseData(), freeTierDetails: { ...(baseData().freeTierDetails as object), limits: [] } });
     expect(problems).toEqual([expect.stringContaining("'freeTierDetails.limits' needs at least one item")]);
+  });
+
+  it("requires the one-line answer", () => {
+    const withoutAnswer = baseData();
+    delete withoutAnswer.answer;
+    expect(problemsOf(withoutAnswer)).toEqual([expect.stringContaining("'answer'")]);
+    expect(problemsOf({ ...baseData(), answer: "  " })).toEqual([expect.stringContaining("'answer'")]);
   });
 
   it("treats a blank limit as no limit at all", () => {

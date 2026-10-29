@@ -93,6 +93,8 @@ export type AtlasEntry = {
 
   title: string;
   description: string;
+  /** One sentence: is it free, what you get, and whether it can bill you. */
+  answer: string;
   provider: string;
   category: string;
   domain: Domain;

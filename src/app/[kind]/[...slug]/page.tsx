@@ -30,12 +30,15 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
     ...(provider ? [{ name: entry.provider, url: provider }] : []),
     { name: entry.title, url: entry.url },
   ]);
+  // Only the body's own questions go into the FAQ. The one-line intro is the page description, not a question,
+  // because 914 bodies already open their FAQ with "Is X free?".
   const questions = bodyQuestions(entry.body.raw);
   const page = {
     "@type": questions.length > 0 ? "FAQPage" : "WebPage",
     "@id": absoluteUrl(entry.url),
     url: absoluteUrl(entry.url),
     name: entryTitle(entry),
+    description: entry.answer,
     isPartOf: { "@id": WEBSITE_ID },
     dateModified: entry.lastUpdated,
     ...(entry.lastVerified ? { lastReviewed: entry.lastVerified } : {}),
@@ -61,7 +64,7 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
   // Editorial guides describe a product; the catalog does not sell it. Do not
   // invent prices, offers, ratings, product images, authors or publication dates.
   const guide = {
-    ...article(entry.url, `${entry.title} free tier${entry.status === "ended" ? " (ended)" : ": limits and billing"}`, entryDescription(entry), entry.lastUpdated),
+    ...article(entry.url, `${entry.title} free tier${entry.status === "ended" ? " (ended)" : ": limits and billing"}`, entry.answer, entry.lastUpdated),
     about: { "@id": product["@id"] },
     citation: entry.sourceUrls,
   };
