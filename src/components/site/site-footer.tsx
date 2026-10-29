@@ -61,6 +61,11 @@ export function SiteFooter() {
               Changelog
             </Link>
           </li>
+          <li>
+            <Link href="/reports/free-tier-changes-2026/" className="hover:text-ink">
+              2026 changes report
+            </Link>
+          </li>
         </Group>
         <Group title="About">
           <li>

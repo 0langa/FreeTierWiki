@@ -42,6 +42,7 @@ export function llmsTxt(nav: NavData, entryCount: number): string {
     "## Optional",
     "",
     `- [How we rate](${markdownUrl("/about/")}): what billing risk, card rules, and freshness labels mean`,
+    `- [Free tiers that ended or changed in 2026](${markdownUrl("/reports/free-tier-changes-2026/")}): dated report with a vendor source on every row, also as [CSV](${absoluteUrl("/api/v1/reports/free-tier-changes-2026.csv")})`,
     `- [Changelog](${markdownUrl("/changelog/")}): free plans added, changed, ended, or removed, newest first`,
     `- [Changelog feed](${absoluteUrl("/changelog/feed.xml")}): the latest changes as RSS`,
   ];

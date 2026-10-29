@@ -2,11 +2,17 @@ import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { changelogRoutes } from "@/lib/changelog-view";
-import { getAllEntries, getComparisons, getProviderGroups, getRemovals } from "@/lib/content.server";
+import { getAllEntries, getChangesReport, getComparisons, getProviderGroups, getRemovals } from "@/lib/content.server";
 import { latestChanges } from "@/lib/home-data";
 import { absoluteUrl } from "@/lib/links";
 
 describe("sitemap", () => {
+  it("dates the 2026 changes report by its own update day", async () => {
+    const report = await getChangesReport();
+    const item = (await sitemap()).find((entry) => entry.url === absoluteUrl(`/reports/${report.slug}/`));
+    expect(item?.lastModified).toBe(report.updated);
+  }, 60_000);
+
   it("includes every changelog archive and filter once", async () => {
     const rows = latestChanges(await getAllEntries(), undefined, await getRemovals());
     const urls = (await sitemap()).filter((item) => item.url.includes("/changelog/")).map((item) => item.url);

@@ -44,6 +44,17 @@ Field names in `/api/v1/` stay as they are. New fields can appear at any time, s
 
 The files under `/data/` feed the site's own Explorer and search. Their format changes without notice; use the catalog API instead.
 
+## Report data
+
+The [2026 changes report](https://freetier.wiki/reports/free-tier-changes-2026/) ships its rows as files too:
+
+| What | URL |
+| --- | --- |
+| Events as CSV | [`https://freetier.wiki/api/v1/reports/free-tier-changes-2026.csv`](https://freetier.wiki/api/v1/reports/free-tier-changes-2026.csv) |
+| Events and the hard cap table as JSON | [`https://freetier.wiki/api/v1/reports/free-tier-changes-2026.json`](https://freetier.wiki/api/v1/reports/free-tier-changes-2026.json) |
+
+Each event has `date` (`YYYY-MM-DD`, or `YYYY-MM` when the vendor gives only the month), `service`, `provider`, `kind` (`ended` or `changed`), `change`, `source` (the vendor's own page) and `scheduled`. The CSV's `section` column is `2026` or `earlier`.
+
 ## Pages as Markdown
 
 Every page is also available as Markdown. Send `Accept: text/markdown`, or add `index.md` to the page URL:
