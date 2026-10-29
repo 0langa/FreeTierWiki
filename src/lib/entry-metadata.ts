@@ -18,18 +18,6 @@ export function entryTitle(entry: AtlasEntry): string {
   return candidates.find((title) => title.length <= 60) ?? candidates.at(-1)!;
 }
 
-/** The question the lead sentence answers. Kept visible on the page so FAQ markup matches the HTML. */
-export function directQuestion(entry: AtlasEntry): string {
-  const name = searchName(entry);
-  return entry.status === "ended" ? `Is the ${name} free tier still available?` : `Is ${name} free, and can it bill me?`;
-}
-
-export function withDirectAnswer<T extends { question: string; answer: string }>(entry: AtlasEntry, questions: T[]): T[] {
-  const lead = { question: directQuestion(entry), answer: entry.answer } as T;
-  const rest = questions.filter((item) => item.question.trim().toLowerCase() !== lead.question.toLowerCase());
-  return [lead, ...rest];
-}
-
 export function entryDescription(entry: AtlasEntry): string {
   const name = searchName(entry);
   if (entry.status === "ended") {

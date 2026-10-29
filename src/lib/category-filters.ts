@@ -1,4 +1,4 @@
-import { bySafety, isHardCap, isLimitedOffer, isNoCard, names, planBit } from "@/lib/catalog-facts";
+import { bySafety, canBill, describeOffers, isHardCap, isNoCard, listed, names } from "@/lib/catalog-facts";
 import { metaFromProse, type Faq } from "@/lib/category-copy";
 import { DOMAIN_LABELS, domainPhrase } from "@/lib/content";
 import type { FilterSlug } from "@/lib/filter-pages";
@@ -11,94 +11,99 @@ import type { AtlasEntry, Domain } from "@/types/content";
  * the overlap with the other rule, trials versus always-free, and readiness.
  */
 
+/**
+ * One checked sentence per domain and filter, about the plans on that page. Each claim was compared
+ * with the entries when it was written: "some" is fewer than half, "many" is a large minority, "most"
+ * is more than half, and a hard cap never promises a zero bill.
+ */
 const NOTES: Record<Domain, Record<FilterSlug, string>> = {
   hosting: {
-    "no-card": "A host that skips the card can still sleep after idle time or cut you off at a bandwidth cap.",
-    "hard-cap": "A hard cap stops the bill, and the app may sleep, pause, or return errors once the allowance is gone.",
+    "no-card": "Some still sleep when idle or stop at a bandwidth cap.",
+    "hard-cap": "When the allowance is gone the plan stops, and some of these also sleep when idle.",
   },
   compute: {
-    "no-card": "No card does not mean the free account lasts: several compute plans expire or burn a credit.",
-    "hard-cap": "A hard cap on compute stops the meter, and it does not keep a free VM past an account expiry.",
+    "no-card": "The limits to check are run time per call and whether the allowance resets daily or monthly.",
+    "hard-cap": "The limits to check are run time per call and whether the allowance resets daily or monthly.",
   },
   database: {
-    "no-card": "No card still leaves storage caps and projects that pause when nobody connects.",
-    "hard-cap": "A hard cap protects the invoice, and a paused or read-only database is the usual way it shows up.",
+    "no-card": "Storage caps still apply, and some pause a project that sits idle.",
+    "hard-cap": "Usage stops at the cap, and some of these pause a project that sits idle.",
   },
   storage: {
-    "no-card": "No card does not cap egress: a public object URL can still be the expensive part.",
-    "hard-cap": "A hard cap stops new writes or bills, and it does not promise cheap bandwidth.",
+    "no-card": "Bandwidth and egress limits still apply when you serve files from a public URL, and a couple of these are a credit or a trial.",
+    "hard-cap": "Usage stops at the cap, and bandwidth has its own limit.",
   },
   auth: {
-    "no-card": "No card still leaves a monthly active user ceiling on most login plans.",
-    "hard-cap": "A hard cap on auth usually blocks new signups or stops the API, rather than charging per user.",
+    "no-card": "Most of these cap monthly active users.",
+    "hard-cap": "The list is short, so check each entry's active-user limit.",
   },
   messaging: {
-    "no-card": "No card still leaves daily send caps and domain verification in the way.",
-    "hard-cap": "A hard cap on mail or chat stops delivery at the quota instead of charging the next message.",
+    "no-card": "Sends are still capped per month or per day, and a few of these are trials.",
+    "hard-cap": "Sends stop at the quota, and a couple of these are trials.",
   },
   observability: {
-    "no-card": "No card still leaves short retention and a cap on hosts, spans, or events.",
-    "hard-cap": "A hard cap stops ingest, and older telemetry still expires on the retention clock.",
+    "no-card": "Data retention is limited, and a few of these are trials.",
+    "hard-cap": "Ingest stops at the cap, and data still expires on the entry's retention schedule.",
   },
   ai: {
-    "no-card": "No card does not tell you whether the offer is a credit that runs out or a monthly allowance.",
-    "hard-cap": "A hard cap stops the API, which is a different ending from a credit balance hitting zero.",
+    "no-card": "Some are a credit that runs out and some are an allowance that resets, so check each entry.",
+    "hard-cap": "Usage stops at the cap, and some of these are credits or trials, so check which.",
   },
   devops: {
-    "no-card": "No card still leaves build minutes, seats, and private-repo rules as the thing that runs out.",
-    "hard-cap": "A hard cap stops the job or the seat, and an ended DevOps offer is not on this list.",
+    "no-card": "Check the build minutes and seat limits on each entry, and a few of these are trials.",
+    "hard-cap": "Usage stops at the cap, and ended DevOps offers are not listed here.",
   },
   security: {
-    "no-card": "No card still leaves scan, asset, and repo quotas as the limit that matters.",
-    "hard-cap": "A hard cap stops the scan, and an unconfirmed cap was left on the main security page.",
+    "no-card": "Check the scan, asset, or repository quota on each entry.",
+    "hard-cap": "Scans stop at the cap, and plans with a cap that is not confirmed stay on the main security page.",
   },
   networking: {
-    "no-card": "No card still leaves bandwidth, zones, or queries as the quota to read.",
-    "hard-cap": "A hard cap stops the zone or the tunnel instead of billing the next gigabyte.",
+    "no-card": "Check the bandwidth, zone, or query quota on each entry.",
+    "hard-cap": "Usage stops at the cap, and plans with a cap that is not confirmed stay on the main networking page.",
   },
   collaboration: {
-    "no-card": "No card is common here, and the limit that bites is usually seats or history.",
-    "hard-cap": "A hard cap on a team tool locks a seat or a history window rather than charging a surprise user.",
+    "no-card": "Seats are the usual limit, and a few of these cap history.",
+    "hard-cap": "Usage stops at the cap, and a couple of these are trials.",
   },
   forms: {
-    "no-card": "No card still leaves a monthly submission or upload cap, and sometimes a badge on the form.",
-    "hard-cap": "A hard cap stops new submissions instead of billing the next response.",
+    "no-card": "Monthly submission caps still apply, and many of these carry the vendor's branding.",
+    "hard-cap": "Submissions stop at the cap, and some of these carry the vendor's branding.",
   },
   localization: {
-    "no-card": "No card still leaves a cap on hosted strings, translated words, or seats.",
-    "hard-cap": "A hard cap stops translation or new strings, which is the point of this shorter list.",
+    "no-card": "Hosted strings, translated words, or seats are still capped.",
+    "hard-cap": "Usage stops at the cap.",
   },
   documents: {
-    "no-card": "No card still leaves a monthly render cap, and some free PDFs carry a watermark.",
-    "hard-cap": "A hard cap stops new documents, and a watermark can still sit on the ones you already made.",
+    "no-card": "Monthly volumes are small, and most of these are rated prototype or side-project.",
+    "hard-cap": "New documents stop at the cap, and most of these are rated prototype.",
   },
   apis: {
-    "no-card": "No card still leaves a daily or monthly request cap on the key.",
-    "hard-cap": "A hard cap rejects the next call instead of charging it.",
+    "no-card": "Each key still has a daily or monthly request cap.",
+    "hard-cap": "Calls past the cap are refused, and some of these reset daily.",
   },
   scraping: {
-    "no-card": "No card still leaves a request or page cap, and some targets are simply blocked.",
-    "hard-cap": "A hard cap stops the crawl, which is what you want if a loop would otherwise bill.",
+    "no-card": "Monthly credit or call caps still apply, and none of these is rated production-ready.",
+    "hard-cap": "The crawl stops at the cap, and none of these is rated production-ready.",
   },
   automation: {
-    "no-card": "No card still leaves a task, webhook, or run-time cap, and the unit differs by product.",
-    "hard-cap": "A hard cap stops the next task instead of billing a runaway workflow.",
+    "no-card": "Task, run, or credit caps still apply, and each product counts a different unit.",
+    "hard-cap": "Tasks stop at the cap, and each product counts a different unit.",
   },
   design: {
-    "no-card": "No card still leaves export, file, or seat limits on a short list of tools.",
-    "hard-cap": "A hard cap stops the export or the file, and this list is short enough to read every row.",
+    "no-card": "Project, file, or user limits still apply on this short list.",
+    "hard-cap": "Usage stops at the cap, and the list is short enough to read every row.",
   },
   analytics: {
-    "no-card": "No card still leaves a pageview or event cap, and some of these offers are trials.",
-    "hard-cap": "A hard cap stops collection, which is safer than an analytics bill and worse for a gap in the data.",
+    "no-card": "Pageview or event caps still apply, and some of these offers are trials.",
+    "hard-cap": "Collection stops at the cap, which leaves a gap in the data.",
   },
   learning: {
-    "no-card": "No card still leaves an expiry date or a school-email rule when those entries exist.",
-    "hard-cap": "A hard cap stops the lab, and a student pack can still expire on its own clock.",
+    "no-card": "Expiry dates and school-email rules still apply where they exist.",
+    "hard-cap": "A lab stops at the cap, and a student pack can still expire on its own date.",
   },
   other: {
-    "no-card": "No card is the only thing these rows share, so read each quota on its own entry.",
-    "hard-cap": "A hard cap is the only thing these rows share, so read each quota on its own entry.",
+    "no-card": "The card rule is all these rows share, so check each quota on its entry.",
+    "hard-cap": "The hard cap is all these rows share, so check each quota on its entry.",
   },
 };
 
@@ -155,7 +160,7 @@ const QUESTIONS: Record<Domain, Record<FilterSlug, [string, string, string]>> = 
     "no-card": [
       "Which no-card auth providers also have a hard cap?",
       "Which no-card auth plans are a trial rather than always free?",
-      "Which no-card auth plans are marked below production?",
+      "Which no-card auth plans are prototypes?",
     ],
     "hard-cap": [
       "Which hard-capped auth plans can I start without a card?",
@@ -184,7 +189,7 @@ const QUESTIONS: Record<Domain, Record<FilterSlug, [string, string, string]>> = 
     "hard-cap": [
       "Which hard-capped monitors need no card?",
       "Which hard-capped observability tools are trials?",
-      "Which hard-capped monitors are not marked for production?",
+      "Which hard-capped monitors are prototypes?",
     ],
   },
   ai: {
@@ -373,46 +378,70 @@ function overlapAnswer(filter: FilterSlug, onPage: AtlasEntry[]): string {
   if (filter === "no-card") {
     const both = onPage.filter(isHardCap);
     const rest = onPage.length - both.length;
-    const restSentence = rest === 0 ? "Every plan on this page also has a hard cap." : `The other ${rest} skip the card without a recorded hard stop.`;
-    const lead = both.length === 0 ? `None of these ${onPage.length} no-card plans also confirm a hard cap.` : `${both.length} of these ${onPage.length} no-card plans also confirm a hard cap, including ${names(both)}.`;
-    return `${lead} ${restSentence}`;
+    if (both.length === 0) return `None of these ${onPage.length} no-card plans also confirm a hard cap. They skip the card without a recorded hard stop.`;
+    if (rest === 0) return `All ${onPage.length} no-card plans also confirm a hard cap${listed(both, 4)}.`;
+    const restSentence = rest === 1 ? "The other one skips the card without a recorded hard stop." : `The other ${rest} skip the card without a recorded hard stop.`;
+    return `${both.length} of these ${onPage.length} no-card plans also ${both.length === 1 ? "confirms" : "confirm"} a hard cap${listed(both, 4)}. ${restSentence}`;
   }
   const both = onPage.filter(isNoCard);
   const rest = onPage.length - both.length;
-  const restSentence = rest === 0 ? "Every plan on this page also skips the card." : `The other ${rest} have a hard cap but still ask for a card, or do not confirm the card rule.`;
-  const lead = both.length === 0 ? `None of these ${onPage.length} hard-capped plans also confirm no card.` : `${both.length} of these ${onPage.length} hard-capped plans also need no card, including ${names(both)}.`;
-  return `${lead} ${restSentence}`;
+  if (both.length === 0) return `None of these ${onPage.length} hard-capped plans also confirm no card. They ask for a card or do not confirm the card rule.`;
+  if (rest === 0) return `All ${onPage.length} hard-capped plans also need no card${listed(both, 4)}.`;
+  const restSentence =
+    rest === 1
+      ? "The other one has a hard cap but still asks for a card, or does not confirm the card rule."
+      : `The other ${rest} have a hard cap but still ask for a card, or do not confirm the card rule.`;
+  return `${both.length} of these ${onPage.length} hard-capped plans also ${both.length === 1 ? "needs" : "need"} no card${listed(both, 4)}. ${restSentence}`;
 }
 
 function planAnswer(onPage: AtlasEntry[]): string {
-  const limited = bySafety(onPage.filter(isLimitedOffer));
-  if (limited.length === 0) {
-    return `All ${onPage.length} plans on this page are marked always free, so none are recorded as a trial, a credit, or a timed window. Always free still has a quota.`;
-  }
-  const shown = limited.length <= 6 ? limited : limited.slice(0, 4);
-  const bits = shown.map(planBit);
-  const rest = limited.length - shown.length;
-  const more = rest > 0 ? `, and ${rest} more in the list below` : "";
-  return `${limited.length} of ${onPage.length} are not an ongoing free allowance: ${bits.join(", ")}${more}. The rest are marked always free.`;
+  const offers = describeOffers(onPage, "plans on this page");
+  if (!offers) return `All ${onPage.length} plans on this page are marked always free, so none is recorded as a trial, a credit, or a timed window.`;
+  return `${offers} The rest are marked always free.`;
 }
 
-function readyAnswer(onPage: AtlasEntry[]): string {
-  const production = onPage.filter((entry) => entry.productionReadiness === "production-ready");
-  const light = onPage.filter((entry) => entry.productionReadiness === "production-light");
-  const proto = onPage.filter((entry) => entry.productionReadiness === "prototype");
-  const side = onPage.length - production.length - light.length - proto.length;
-  const productionBit = production.length > 0 ? ` (${names(production, 3)})` : "";
-  const protoBit = proto.length > 0 ? `, including ${names(proto, 3)}` : "";
-  return `${production.length} are marked production-ready${productionBit}, ${light.length} production-light, ${side} side-project, and ${proto.length} prototype-only${protoBit}.`;
+/** Readiness counts for the plans on a page. `focus` is the one the question asks about, so the answer leads with it. */
+function readyAnswer(onPage: AtlasEntry[], focus: "prototype" | "production"): string {
+  const level = (name: AtlasEntry["productionReadiness"]) => onPage.filter((entry) => entry.productionReadiness === name);
+  const production = level("production-ready");
+  const light = level("production-light");
+  const side = level("side-project");
+  const proto = level("prototype");
+  const verb = (count: number) => (count === 1 ? "is" : "are");
+  const named = (rows: AtlasEntry[]) =>
+    rows.length === 0 ? "" : rows.length <= 3 ? ` (${names(rows, 3)})` : ` (including ${bySafety(rows).slice(0, 3).map((row) => row.title).join(", ")}, and ${rows.length - 3} more)`;
+  const phrase = (rows: AtlasEntry[], label: string, withNames: boolean) => `${rows.length} ${verb(rows.length)} ${label}${withNames ? named(rows) : ""}`;
+  const lead =
+    focus === "prototype"
+      ? proto.length === 0
+        ? "None are marked prototype-only."
+        : proto.length === 1
+          ? `${proto[0].title} is the one marked prototype-only.`
+          : `${proto.length} are marked prototype-only${listed(proto, 3)}.`
+      : production.length === 0
+        ? "None are marked production-ready."
+        : `${phrase(production, "marked production-ready", true)}.`;
+  const others =
+    focus === "prototype"
+      ? [production.length ? phrase(production, "production-ready", true) : "", light.length ? phrase(light, "production-light", false) : "", side.length ? phrase(side, "side-project", false) : ""]
+      : [light.length ? phrase(light, "production-light", false) : "", side.length ? phrase(side, "side-project", false) : "", proto.length ? phrase(proto, "prototype-only", false) : ""];
+  const rest = others.filter(Boolean);
+  if (rest.length === 0) return lead;
+  const joined = rest.length === 1 ? rest[0] : `${rest.slice(0, -1).join(", ")}, and ${rest[rest.length - 1]}`;
+  return `${lead} Of the rest, ${joined}.`;
 }
 
 export function filterIntro(domain: Domain, filter: FilterSlug, onPage: AtlasEntry[]): string {
-  const phrase = domainPhrase(domain);
+  const phrase = domain === "forms" ? "form" : domainPhrase(domain);
   const note = NOTES[domain][filter];
   if (filter === "no-card") {
     return `These ${onPage.length} ${phrase} plans confirm you can start without a credit card. ${note}`;
   }
-  return `These ${onPage.length} ${phrase} plans confirm a hard cap, so the recorded limit stops use instead of billing you. ${note}`;
+  // A hard cap stops the free allowance; it does not promise the account can never bill, so say how many still can.
+  const billable = canBill(onPage).length;
+  const billBit =
+    billable === 0 ? "" : ` ${billable === 1 ? "One still carries" : `${billable} still carry`} some billing risk, so check the billing line on each entry.`;
+  return `These ${onPage.length} ${phrase} plans record a hard cap on the free allowance. ${note}${billBit}`;
 }
 
 export function filterDescription(domain: Domain, filter: FilterSlug, onPage: AtlasEntry[]): string {
@@ -423,11 +452,14 @@ export function filterDescription(domain: Domain, filter: FilterSlug, onPage: At
   return filter === "no-card" ? `Free ${label} tiers that confirm no credit card. Limits and billing risk are on each entry.` : `Free ${label} tiers that confirm a hard cap. Card rules and limits are on each entry.`;
 }
 
+/** Pages whose third question asks about production readiness, so the answer leads with it. */
+const PRODUCTION_FOCUS = new Set(["scraping/no-card", "scraping/hard-cap"]);
+
 export function filterFaqs(domain: Domain, filter: FilterSlug, onPage: AtlasEntry[]): Faq[] {
   const [overlap, plans, ready] = QUESTIONS[domain][filter];
   return [
     { question: overlap, answer: overlapAnswer(filter, onPage) },
     { question: plans, answer: planAnswer(onPage) },
-    { question: ready, answer: readyAnswer(onPage) },
+    { question: ready, answer: readyAnswer(onPage, PRODUCTION_FOCUS.has(`${domain}/${filter}`) ? "production" : "prototype") },
   ];
 }

@@ -15,6 +15,7 @@ Entries are MDX files in `content/services/` and `content/tools/`. Start with a 
 - Explain the constraints and what happens at the limit. Keep the wording factual, including when you are contributing your own product; disclose that relationship in the PR.
 - Set `lastVerified` only after checking the entry against the sources. Update `lastUpdated` when the published information changes; a verification-only refresh should preserve it.
 - Add a `changes` item for a new listing or a changed or ended offer. Entries marked `changed` or `ended` require a change note and verification date.
+- Write the required `answer`: one sentence of 20 to 45 words that says whether the offer is free, what you get, and whether it can bill you. The build fails without it. See [direct answers](docs/content-maintenance.md#direct-answers) and run `npm run check:answers`.
 - Keep the entry body's required sections: what the free plan gives you, when you hit a limit, gotchas, alternatives, and questions people ask.
 
 If a source is unavailable or unclear, record the uncertainty in the PR. Do not infer current terms from missing page text.

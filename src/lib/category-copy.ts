@@ -16,43 +16,43 @@ const INTROS: Record<Domain, string> = {
   database:
     "Free databases here are hosted Postgres, MySQL, Redis, and serverless stores. Storage caps and paused projects are the usual catches. Check compute hours and whether an idle project is suspended or deleted.",
   storage:
-    "Free storage here is object buckets, file hosting, and drive-style plans. Egress fees and year-long allowances are the usual catches. Confirm the cap before a public file URL sits on a domain.",
+    "Free storage here is object buckets, file hosting, and drive-style plans. Egress fees and year-long allowances are the usual catches. Check the egress line before you serve public files from a bucket.",
   auth:
-    "Free auth here is hosted login, user directories, and identity providers. Monthly active users and unpublished card rules are the usual catches. An unconfirmed card line is unknown, not a quiet no.",
+    "Free auth here is hosted login, user directories, and identity providers. Monthly active users and unpublished card rules are the usual catches. Treat a card rule marked not confirmed as unknown.",
   messaging:
-    "Free messaging here is email, push, SMS, and realtime. Daily send caps and domain checks are the usual catches. A plan that looks unlimited often stops at a daily or hourly ceiling.",
+    "Free messaging here is email, push, SMS, and realtime. Daily send caps and a hard stop at the quota are the usual catches. Check the daily figure on the entry before you plan a launch.",
   observability:
-    "Free observability here is errors, logs, uptime, and metrics. Short retention and event or host caps are the usual catches. A free project often debugs one app and not every service you run.",
+    "Free observability here is errors, logs, uptime, and metrics. Short retention and event or host caps are the usual catches. Most free plans fit one app's errors and logs.",
   ai:
-    "Free AI here is model APIs, hosted models, and a few app builders. A credit that runs out is not a monthly free tier. Check whether the entry is a credit, a trial, or an allowance that resets.",
+    "Free AI here is model APIs, hosted models, and a few app builders. One-time credits and short trials are the usual catches. Check whether the entry is a credit, a trial, or an allowance that resets.",
   devops:
-    "Free DevOps here is CI, registries, previews, and hosted Git. Minutes, seats, and private-repo rules are the usual catches. Ended offers stay listed so you do not plan on a plan that is gone.",
+    "Free DevOps here is CI, registries, previews, and hosted Git. Minutes, seats, and private-repo rules are the usual catches. Ended offers stay listed and are marked ended.",
   security:
-    "Free security here is scanners, secret checks, and certificate tools. Scan quotas and unpublished card rules are the usual catches. An unconfirmed cap is not a promise that overage is free.",
+    "Free security here is scanners, secret checks, and certificate tools. Scan quotas and unpublished card rules are the usual catches. If the cap is not confirmed, assume extra usage could bill.",
   networking:
-    "Free networking here is DNS, CDN, tunnels, and IP tools. Bandwidth, zone caps, and a required card are the usual catches. A hard cap stops the bill, and a missing cap may not.",
+    "Free networking here is DNS, CDN, tunnels, and IP tools. Bandwidth, zone caps, and a required card are the usual catches. The hard-cap link keeps only plans that stop at the limit.",
   collaboration:
-    "Free collaboration here is docs, chat, wikis, and project boards. Seat caps and history limits are the usual catches. Check the card line in the facts box rather than assuming a hold.",
+    "Free collaboration here is docs, chat, wikis, and project boards. Seat caps and history limits are the usual catches. The facts box on each entry shows whether a card is needed.",
   forms:
-    "Free forms here are backends, embeds, and a few survey tools. Monthly submissions and upload caps are the usual catches. Use the hard-cap list when a surprise invoice is the failure you care about.",
+    "Free forms here are backends, embeds, and a few survey tools. Monthly submission caps and the vendor's branding are the usual catches. The hard-cap link keeps only forms that stop at the limit.",
   localization:
-    "Free localization here is string hosting and some machine translation. Word caps, seats, and translation credits are the usual catches. A free project often covers a small app, not a full string catalog.",
+    "Free localization here is string hosting and some machine translation. Word caps, seats, and translation credits are the usual catches. Most free plans fit the strings of one small app.",
   documents:
-    "Free document tools render PDFs, generate files, and host templates. Monthly caps and watermarks are the usual catches. Confirm whether the free output is stamped before a customer sees it.",
+    "Free document tools render PDFs, generate files, and host templates. Small monthly volumes are the usual catch, so check the unit. Plans count PDFs, pages, calls, and credits differently, and most entries are rated prototype or side-project.",
   apis:
-    "Free APIs here are data, utility, and developer endpoints with a key. Call caps, by day or by month, are the usual catches. A credit balance is a different offer from an allowance that resets.",
+    "Free APIs here are data, utility, and developer endpoints with a key. Call caps, by day or by month, and non-commercial keys are the usual catches. Check whether a key gets a one-time credit or an allowance that resets.",
   scraping:
-    "Free scraping here is fetchers, proxies, and extraction APIs. Request caps and blocked targets are the usual catches. Read the readiness line before you schedule a crawl.",
+    "Free scraping here is fetchers, proxies, and extraction APIs. Monthly credits and concurrency limits are the usual catches. Read the readiness line before you schedule a crawl.",
   automation:
-    "Free automation here is workflows, webhooks, and scheduled jobs. Task counts and run-time caps are the usual catches. A task is not always one workflow run, so read the entry's unit.",
+    "Free automation here is workflows, webhooks, and scheduled jobs. Task counts and run-time caps are the usual catches. Products count tasks, runs, and operations differently, so check each entry's unit.",
   design:
-    "Free design tools here are editors, asset hosts, and generators. Export limits and seat caps are the usual catches. The list is short, so read each facts box rather than hunting for a pattern.",
+    "Free design tools here are editors, asset hosts, and generators. Project, file, and user limits are the usual catches. The list is short, so check each entry's facts box.",
   analytics:
-    "Free analytics here covers pageviews, product events, and privacy-first trackers. Pageview caps and short trials are the usual catches. A trial that expires is not a plan to leave on a marketing site.",
+    "Free analytics here covers pageviews, product events, and privacy-first trackers. Pageview caps and short trials are the usual catches. Check whether a plan is a trial before you put it on a live site.",
   learning:
     "Free learning entries are courses, labs, and student packs when this category has any. Expiry dates and a required school email are the usual catches. Read the entry before you treat a pack as a cloud account.",
   other:
-    "Free tools that do not sit in a clearer category land here. The catch is that the quotas have nothing in common. Read the entry, and do not borrow a limit from a neighbor on the list.",
+    "Free tools that do not sit in a clearer category land here. Their quotas have little in common, so read each entry on its own.",
 };
 
 export function categoryIntro(domain: Domain): string {

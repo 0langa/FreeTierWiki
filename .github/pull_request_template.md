@@ -12,6 +12,7 @@
 - [ ] `lastVerified` and `pricingUrl` are set on each changed entry.
 - [ ] Changed or ended plans have `status` and a `changes` item.
 - [ ] New entries have a `changes` item with `kind: new`.
+- [ ] Each new or changed entry's `answer` still matches its limits, card rule, cap, and status.
 
 ## Checks
 

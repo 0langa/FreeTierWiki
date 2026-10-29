@@ -68,9 +68,10 @@ test("a deepened entry carries breadcrumb and FAQ structured data", async ({ pag
   const types = data["@graph"].map((node: { "@type": string }) => node["@type"]);
   expect(types).toEqual(["BreadcrumbList", "FAQPage", "Article", "Product"]);
   expect(data["@graph"].filter((node: { "@type": string }) => node["@type"] === "FAQPage")).toHaveLength(1);
-  expect(data["@graph"][1].mainEntity[0].name).toBe("Is Supabase free, and can it bill me?");
-  expect(data["@graph"][1].mainEntity[0].acceptedAnswer.text.length).toBeGreaterThan(40);
-  expect(data["@graph"][1].mainEntity.length).toBeGreaterThanOrEqual(4);
+  // The one-line intro is the page description, so the FAQ holds only the body's own questions.
+  expect(data["@graph"][1].description).toBe(await page.locator("#answer").textContent());
+  expect(data["@graph"][1].mainEntity[0].name).toBe("Is Supabase free forever?");
+  expect(data["@graph"][1].mainEntity).toHaveLength(3);
 });
 
 test("a provider page lists every free tier from that provider", async ({ page }) => {

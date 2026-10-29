@@ -61,7 +61,48 @@ describe("answer checks", () => {
     ).toContain("says it cannot bill you but overageRisk is low");
   });
 
-  it("requires ended and changed entries to say so", () => {
+  it("reads negated caps and keeps a card doubt out of the cap claim", () => {
+    const uncapped = { ...makeEntry().freeTierDetails, hasHardCap: false, overageRisk: "medium" as const };
+    // The doubt is about the card, so the cap claim is "no hard cap".
+    expect(
+      answerProblems(
+        makeEntry({
+          answer: "Neon makes 0.5 GB of Postgres storage free and bills usage past that at list rates with no hard cap, while the card rule is not confirmed.",
+          freeTierDetails: { ...uncapped, requiresCard: "unknown" },
+        }),
+      ),
+    ).toEqual([]);
+    expect(
+      answerProblems(
+        makeEntry({
+          answer: "Neon does not have a hard cap on the free Postgres database, so usage past the allowance is billed once a payment method is on file.",
+          freeTierDetails: uncapped,
+        }),
+      ),
+    ).toEqual([]);
+    expect(
+      answerProblems(makeEntry({ answer: "Neon's storage limit isn't a hard cap on the free Postgres database, so usage past the allowance can be billed to you later." })),
+    ).toContain("cap claim contradicts hasHardCap true");
+    expect(answerProblems(makeEntry({ answer: "Neon's free plan stops at its hard caps on storage and compute, needs no card, and it does not bill you when they run out." }))).toEqual(
+      [],
+    );
+  });
+
+  it("matches curly apostrophes and ignores abbreviation periods", () => {
+    expect(
+      answerProblems(
+        makeEntry({
+          answer: "Neon gives you a small free Postgres database with no card, and it can’t bill you once the storage allowance is gone for the month.",
+          freeTierDetails: { ...makeEntry().freeTierDetails, overageRisk: "low", hasHardCap: false },
+        }),
+      ),
+    ).toContain("says it cannot bill you but overageRisk is low");
+    expect(
+      answerProblems(makeEntry({ answer: "Neon's free plan covers small apps, e.g. a hobby API, with a hard cap and no card, and it does not bill you at the storage limit." })),
+    ).toEqual([]);
+  });
+
+  it("requires ended entries to say so and leaves changed entries to the change notice", () => {
     expect(answerProblems(makeEntry({ status: "ended", answer: VALID }))).toContain("ended entry does not say so");
     expect(
       answerProblems(
@@ -71,7 +112,8 @@ describe("answer checks", () => {
         }),
       ),
     ).toEqual([]);
-    expect(answerProblems(makeEntry({ status: "changed", answer: VALID }))).toContain("changed entry does not say so");
+    // The change notice on the page covers a changed entry, so its answer only states the current terms.
+    expect(answerProblems(makeEntry({ status: "changed", answer: VALID }))).toEqual([]);
     expect(answerProblems(makeEntry({ answer: "Neon no longer offers a free database, and the old plan has ended for every new account that signs up today." }))).toContain(
       "active entry says the free tier ended",
     );

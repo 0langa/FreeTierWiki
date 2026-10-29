@@ -9,34 +9,44 @@ export function answerWordCount(text: string): number {
   return trimmed ? trimmed.split(/\s+/).length : 0;
 }
 
-/** Periods inside decimals (1.5) do not end a sentence. A sentence ends at punctuation before a space or the end. */
+/**
+ * Periods inside decimals (1.5) and in "e.g.", "i.e." or "vs." do not end a sentence.
+ * A sentence ends at punctuation before a space or the end.
+ */
 export function sentenceCount(text: string): number {
-  return text.match(/[.!?](?=\s|$)/g)?.length ?? 0;
+  const plain = text.replace(/\b(?:e\.g|i\.e|vs)\./gi, (abbreviation) => abbreviation.replace(/\./g, ""));
+  return plain.match(/[.!?](?=\s|$)/g)?.length ?? 0;
 }
 
 const NO_CARD =
-  /\b(no credit card|without a (credit )?card|no card\b|card not required|does not (need|require) a (credit )?card|doesn't (need|require) a (credit )?card|card-free)\b/i;
+  /\b(no credit card|without a (credit )?card|no card\b|card not required|does not (need|require) a (credit )?card|doesn['’]t (need|require) a (credit )?card|card-free)\b/i;
 const CARD_REQUIRED =
   /\b(needs a (credit )?card|requires a (credit )?card|card is required|credit card is required|card required|card at signup|must add a (credit )?card)\b/i;
 const NO_BILL =
-  /\b(can(?:'|no)t bill|cannot bill|won'?t bill|will not bill|no (?:paid )?overage|does not bill|doesn't bill|doesn'?t charge|will not charge)\b/i;
+  /\b(can(?:['’]|no)t bill|cannot bill|won['’]?t bill|will not bill|no (?:paid )?overage|does not bill|doesn['’]t bill|doesn['’]?t charge|will not charge)\b/i;
 const SAYS_ENDED = /\b(ended|discontinued|shut down|shuts down|closed|no longer)\b/i;
-const SAYS_CHANGED = /\b(changed|no longer|used to|cut|reduced|replaced)\b/i;
 const ENDED_ACTIVE = /\bfree (tier|plan) has ended\b|\bno longer offers a free\b|\bfree plan has ended\b/i;
+
+// "Not confirmed" belongs to the card or the cap only inside the same clause. A comma, colon, or
+// semicolon ends the clause, and so does a mention of the other field: in "no hard cap, and the
+// card rule is not confirmed" the doubt is about the card, not the cap.
+const CARD_UNKNOWN = /\bcard(?:(?!\bcap)[^.,;:]){0,40}not confirmed|not confirmed(?:(?!\bcap)[^.,;:]){0,40}\bcard/i;
+const CAP_UNKNOWN = /\bhard caps?(?:(?!card)[^.,;:]){0,40}not confirmed|not confirmed(?:(?!card)[^.,;:]){0,40}\bhard cap|\bcap is not confirmed/i;
+const CAP_NONE = /\b(?:no|without a|not a|is not a|isn['’]t a|does not have a|doesn['’]t have a|lacks a)\s+hard caps?\b/i;
 
 type Claim = "yes" | "no" | "unknown" | "absent";
 
 function cardClaim(text: string): Claim {
-  if (/card[^.]{0,40}not confirmed|not confirmed[^.]{0,40}card/i.test(text)) return "unknown";
+  if (CARD_UNKNOWN.test(text)) return "unknown";
   if (NO_CARD.test(text)) return "no";
   if (CARD_REQUIRED.test(text)) return "yes";
   return "absent";
 }
 
 function capClaim(text: string): Claim {
-  if (/hard cap[^.]{0,40}not confirmed|not confirmed[^.]{0,40}hard cap|cap is not confirmed/i.test(text)) return "unknown";
-  if (/\bno hard cap\b|\bwithout a hard cap\b/i.test(text)) return "no";
-  if (/\bhard cap\b/i.test(text)) return "yes";
+  if (CAP_UNKNOWN.test(text)) return "unknown";
+  if (CAP_NONE.test(text)) return "no";
+  if (/\bhard caps?\b/i.test(text)) return "yes";
   return "absent";
 }
 
@@ -80,7 +90,8 @@ export function answerProblems(entry: AtlasEntry): string[] {
   }
 
   if (entry.status === "ended" && !SAYS_ENDED.test(answer)) problems.push("ended entry does not say so");
-  if (entry.status === "changed" && !SAYS_CHANGED.test(answer)) problems.push("changed entry does not say so");
+  // A changed entry is not required to say "changed": the page shows the change notice, and most change
+  // notes are catalog corrections, so a forced change word would claim the provider changed something.
   if (entry.status === "active" && ENDED_ACTIVE.test(answer)) problems.push("active entry says the free tier ended");
 
   return problems;
