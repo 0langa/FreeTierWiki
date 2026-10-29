@@ -144,3 +144,9 @@ test("the API catalog lists the catalog API and its OpenAPI description", async 
     markdownUrl: "https://freetier.wiki/services/supabase/index.md",
   });
 });
+
+test("auth.md tells agents that no authentication is needed", async ({ request }) => {
+  const text = await (await request.get("/auth.md")).text();
+  expect(text).toMatch(/^# freetier\.wiki auth\.md\n/);
+  expect(text).toContain("needs no authentication");
+});

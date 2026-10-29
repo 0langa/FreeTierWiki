@@ -81,7 +81,7 @@ Every page has a Markdown version for AI agents. A request whose `Accept` header
 
 [`/api/v1/entries.json`](api.md) is the public, read-only JSON catalog, and `/api/v1/openapi.json` describes it. Both are built by route handlers from [`src/lib/public-api.ts`](../src/lib/public-api.ts), which keeps the field list and the OpenAPI schema in one place; a unit test fails if they drift apart. Field names in `/api/v1/` are a published contract: add fields freely, but rename or remove them only in a `/v2/`. The `/data/*.json` files stay internal to the Explorer and search.
 
-[`public/.well-known/api-catalog`](../public/.well-known/api-catalog) lists the API for [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) discovery. [`public/_headers`](../public/_headers) serves it as `application/linkset+json` and adds `Link` headers to the home page that point to the catalog, the OpenAPI description, and the [API guide](api.md).
+[`public/.well-known/api-catalog`](../public/.well-known/api-catalog) lists the API for [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) discovery. [`public/_headers`](../public/_headers) serves it as `application/linkset+json` and adds `Link` headers to the home page that point to the catalog, the OpenAPI description, and the [API guide](api.md). [`public/auth.md`](../public/auth.md) tells agents that nothing needs authentication. The site publishes no OAuth metadata because it has no accounts.
 
 Function requests count toward the Workers Free plan's 100,000 requests a day. Keep the Pages project's **Settings → Runtime → Fail open / closed** on **Fail open**, so pages are still served as HTML if the allowance runs out.
 
