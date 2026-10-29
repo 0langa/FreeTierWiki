@@ -116,3 +116,16 @@ test("loading or failed explorer data does not mark a page noindex", async ({ pa
   await expect(page.getByRole("status")).toContainText("Could not load the full list.");
   await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
 });
+
+test("every page has a Markdown version for agents", async ({ request }) => {
+  // The build writes index.md next to each index.html; functions/_middleware.ts serves it for Accept: text/markdown.
+  for (const path of ["/", "/services/supabase/", "/category/database/", "/compare/postgres-hosting/"]) {
+    const response = await request.get(`${path}index.md`);
+    expect(response.ok(), path).toBe(true);
+    const markdown = await response.text();
+    expect(markdown, path).toMatch(/^---\n[\s\S]*?\n---\n\n/);
+    expect(markdown, path).toContain(`\nurl: "https://freetier.wiki${path}"\n`);
+    expect(markdown, path).toMatch(/^# /m);
+    expect(markdown, path).not.toContain("<");
+  }
+});

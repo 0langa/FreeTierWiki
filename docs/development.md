@@ -68,6 +68,22 @@ Keep GitHub Pages configured with **GitHub Actions** as its publishing source, w
 
 [`public/_redirects`](../public/_redirects) contains redirects for moved or removed URLs. The [entry-removal tool](content-maintenance.md#remove-an-entry) adds a category redirect and a changelog record.
 
+## Markdown for agents
+
+Every page has a Markdown version for AI agents. A request whose `Accept` header ranks `text/markdown` at least as high as `text/html` gets Markdown; browsers and crawlers keep getting HTML. Cloudflare's own [Markdown for Agents](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/) needs a Pro plan, so the site does it itself:
+
+- `npm run build` runs [`scripts/markdown/build-markdown.mjs`](../scripts/markdown/build-markdown.mjs) after `next build`. It writes `index.md` next to every exported `index.html`: frontmatter from the page metadata, then the `<main>` content without breadcrumbs, "On this page" lists, buttons, or icons.
+- [`functions/_middleware.ts`](../functions/_middleware.ts) is a Pages Function. For a page URL ending in `/`, it serves that `index.md` with `Content-Type: text/markdown`, `Vary: Accept`, an estimated `x-markdown-tokens` count, and a canonical `Link` header. Slashless URLs and `_redirects` entries redirect first, as they do for HTML.
+- [`public/_routes.json`](../public/_routes.json) keeps `/_next/*` and other static files out of the Function.
+
+Function requests count toward the Workers Free plan's 100,000 requests a day. Keep the Pages project's **Settings → Runtime → Fail open / closed** on **Fail open**, so pages are still served as HTML if the allowance runs out.
+
+To try the middleware locally after a build, run `npx wrangler pages dev out`, then:
+
+```sh
+curl -H "Accept: text/markdown" http://127.0.0.1:8788/services/supabase/
+```
+
 ## Changelog archives
 
 The changelog exports 100 changes per page. `/changelog/page/2/` continues the full history; kind filters such as `/changelog/new/` have their own pagination and apply before slicing the rows. Every page has its own canonical URL and sitemap entry, and the links work without JavaScript. The RSS feed still contains the latest 50 changes.
