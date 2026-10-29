@@ -60,7 +60,7 @@ Documentation-only edits need a review of the text, file links, and affected com
 
 ## Deployment
 
-Cloudflare Pages builds `main` with `npm run build` and serves `out/`. Node is pinned by `.nvmrc`. GitHub Actions runs checks on pushes to `main` and on PRs; the CI workflow does not deploy the site.
+Cloudflare Pages builds `main` with its Next.js static preset (`npx next build`, so `npm run build` scripts do not run there) and serves `out/`. Node is pinned by `.nvmrc`. GitHub Actions runs checks on pushes to `main` and on PRs; the CI workflow does not deploy the site.
 
 The canonical site is [freetier.wiki](https://freetier.wiki/). The former [GitHub Pages address](https://0langa.github.io/FreeTierWiki/) serves only a redirect, deployed by [`pages-redirect.yml`](../.github/workflows/pages-redirect.yml). It uploads [`deployment/github-pages/index.html`](../deployment/github-pages/index.html) as both `index.html` and `404.html`, so old deep links preserve their path, query, and fragment when JavaScript is enabled. Without JavaScript, visitors reach the canonical home page. This is a client-side redirect; GitHub Pages does not send an HTTP 301 for these pages.
 
@@ -81,7 +81,13 @@ Every page has a Markdown version for AI agents. A request whose `Accept` header
 
 [`/api/v1/entries.json`](api.md) is the public, read-only JSON catalog, and `/api/v1/openapi.json` describes it. Both are built by route handlers from [`src/lib/public-api.ts`](../src/lib/public-api.ts), which keeps the field list and the OpenAPI schema in one place; a unit test fails if they drift apart. Field names in `/api/v1/` are a published contract: add fields freely, but rename or remove them only in a `/v2/`. The `/data/*.json` files stay internal to the Explorer and search.
 
-[`public/.well-known/api-catalog`](../public/.well-known/api-catalog) lists the API for [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) discovery. [`public/_headers`](../public/_headers) serves it as `application/linkset+json` and adds `Link` headers to the home page that point to the catalog, the OpenAPI description, and the [API guide](api.md). [`public/auth.md`](../public/auth.md) tells agents that nothing needs authentication. The site publishes no OAuth metadata because it has no accounts.
+[`public/.well-known/api-catalog`](../public/.well-known/api-catalog) lists the API for [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) discovery. [`public/_headers`](../public/_headers) serves it as `application/linkset+json` and adds `Link` headers to the home page that point to the catalog, the OpenAPI description, and the [API guide](api.md). The site publishes no OAuth metadata or `auth.md`, because it has no accounts.
+
+Other files for AI agents:
+
+- [`public/robots.txt`](../public/robots.txt) is a static file, not `robots.ts`, because Next's robots helper cannot write the `Content-Signal` line (search, AI answers, and AI training are all allowed). Markdown responses send the same signals as a `Content-Signal` header.
+- `/llms.txt` and `/llms-full.txt` ([llmstxt.org](https://llmstxt.org/)) are built from the catalog by [`src/lib/llms-txt.ts`](../src/lib/llms-txt.ts): a curated index of comparisons, categories, and quick lists, and every entry's facts in one file.
+- [`public/.well-known/agent-skills/`](../public/.well-known/agent-skills/index.json) publishes the `find-free-tier` skill, which shows agents how to look up and cite entries. `index.json` carries the SKILL.md's SHA-256 digest; after editing the skill, update the digest (the unit test prints the mismatch).
 
 Function requests count toward the Workers Free plan's 100,000 requests a day. Keep the Pages project's **Settings → Runtime → Fail open / closed** on **Fail open**, so pages are still served as HTML if the allowance runs out.
 

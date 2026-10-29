@@ -52,6 +52,12 @@ Every page is also available as Markdown. Send `Accept: text/markdown`, or add `
 curl -H "Accept: text/markdown" https://freetier.wiki/services/supabase/
 ```
 
+## For language models
+
+- [`/llms.txt`](https://freetier.wiki/llms.txt) is an index of the site's comparisons, categories, and lists, linking their Markdown versions.
+- [`/llms-full.txt`](https://freetier.wiki/llms-full.txt) has every entry's facts in one text file.
+- The [`find-free-tier` agent skill](https://freetier.wiki/.well-known/agent-skills/find-free-tier/SKILL.md) explains how to look up, read, and cite entries.
+
 ## License and corrections
 
 The data is MIT-licensed, like the [repository](https://github.com/0langa/FreeTierWiki). Always confirm a plan on the provider's pricing page before you build on it. To report outdated facts, use the "Report outdated info" link on the entry page.

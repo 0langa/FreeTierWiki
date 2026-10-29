@@ -43,9 +43,11 @@ test("detail pages date their content and point at the site", async ({ page }) =
   expect(node?.isPartOf).toEqual({ "@id": "https://freetier.wiki/#website" });
   const graph = await structuredData(page);
   const guide = graph.find((item) => item["@type"] === "Article");
-  const product = graph.find((item) => item["@type"] === "Product");
+  const product = graph.find((item) => item["@type"] === "Service");
   expect(guide?.about).toEqual({ "@id": product?.["@id"] });
   expect(product?.name).toBe("Supabase");
+  // Google rejects a Product without offers; the catalog sells nothing, so it stays a Service.
+  expect(graph.some((item) => item["@type"] === "Product")).toBe(false);
   expect(product).not.toHaveProperty("offers");
   expect(product).not.toHaveProperty("aggregateRating");
 });
@@ -145,8 +147,11 @@ test("the API catalog lists the catalog API and its OpenAPI description", async 
   });
 });
 
-test("auth.md tells agents that no authentication is needed", async ({ request }) => {
-  const text = await (await request.get("/auth.md")).text();
-  expect(text).toMatch(/^# freetier\.wiki auth\.md\n/);
-  expect(text).toContain("needs no authentication");
+test("agents find llms.txt and the agent skills index", async ({ request }) => {
+  expect(await (await request.get("/llms.txt")).text()).toMatch(/^# freetier\.wiki\n/);
+  expect(await (await request.get("/llms-full.txt")).text()).toContain("### Supabase\n");
+  const index = await (await request.get("/.well-known/agent-skills/index.json")).json();
+  for (const skill of index.skills) {
+    expect(await (await request.get(skill.url)).text(), skill.name).toContain(`name: ${skill.name}`);
+  }
 });

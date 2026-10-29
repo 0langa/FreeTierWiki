@@ -73,6 +73,7 @@ describe("onRequest", () => {
     expect(response.headers.get("Content-Type")).toBe("text/markdown; charset=utf-8");
     expect(response.headers.get("Vary")).toBe("Accept");
     expect(response.headers.get("x-markdown-tokens")).toBe(String(estimateTokens(MARKDOWN)));
+    expect(response.headers.get("Content-Signal")).toBe("search=yes, ai-input=yes, ai-train=yes");
     expect(response.headers.get("Link")).toBe('<https://freetier.wiki/services/supabase/>; rel="canonical"');
     expect(response.headers.get("Cache-Control")).toBe("public, max-age=0, must-revalidate");
     expect(await response.text()).toBe(MARKDOWN);
