@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { PrivacySettingsButton } from "@/components/site/consent-banner";
 import { BUILD_DAY } from "@/lib/build-info";
 import { FEED_PATH } from "@/lib/feed";
 import { formatDay } from "@/lib/format";
@@ -71,6 +72,9 @@ export function SiteFooter() {
             <a href={FEED_PATH} className="hover:text-ink">
               RSS feed
             </a>
+          </li>
+          <li>
+            <PrivacySettingsButton className="text-left hover:text-ink" />
           </li>
         </Group>
         <Group title="Contribute">

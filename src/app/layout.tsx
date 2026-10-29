@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import { AppProviders } from "@/components/providers/app-providers";
+import { ConsentBanner } from "@/components/site/consent-banner";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
+import { consentHeadScript } from "@/lib/consent";
 import { SITE_URL } from "@/lib/links";
 import { OPEN_GRAPH, SITE_DESCRIPTION } from "@/lib/metadata";
 
@@ -33,8 +35,6 @@ const fontMono = localFont({
   preload: false,
 });
 
-const GOOGLE_TAG_ID = "G-MZEXRH4HNJ";
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -52,16 +52,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google tag (gtag.js) */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GOOGLE_TAG_ID}');`,
-          }}
-        />
+        {/* Google tag (gtag.js): defaults every consent signal to denied and loads the tag only after opt-in. */}
+        <script dangerouslySetInnerHTML={{ __html: consentHeadScript() }} />
       </head>
       <body className={`${fontSans.variable} ${fontMono.variable} flex min-h-dvh flex-col font-sans`}>
         <a
@@ -76,6 +68,7 @@ gtag('config', '${GOOGLE_TAG_ID}');`,
             {children}
           </main>
           <SiteFooter />
+          <ConsentBanner />
         </AppProviders>
       </body>
     </html>
