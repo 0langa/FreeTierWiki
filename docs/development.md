@@ -75,6 +75,13 @@ Every page has a Markdown version for AI agents. A request whose `Accept` header
 - `npm run build` runs [`scripts/markdown/build-markdown.mjs`](../scripts/markdown/build-markdown.mjs) after `next build`. It writes `index.md` next to every exported `index.html`: frontmatter from the page metadata, then the `<main>` content without breadcrumbs, "On this page" lists, buttons, or icons.
 - [`functions/_middleware.ts`](../functions/_middleware.ts) is a Pages Function. For a page URL ending in `/`, it serves that `index.md` with `Content-Type: text/markdown`, `Vary: Accept`, an estimated `x-markdown-tokens` count, and a canonical `Link` header. Slashless URLs and `_redirects` entries redirect first, as they do for HTML.
 - [`public/_routes.json`](../public/_routes.json) keeps `/_next/*` and other static files out of the Function.
+- Every HTML page also sends `Link: <…/index.md>; rel="alternate"; type="text/markdown"`, so agents that don't negotiate can still find it.
+
+## Catalog API and discovery
+
+[`/api/v1/entries.json`](api.md) is the public, read-only JSON catalog, and `/api/v1/openapi.json` describes it. Both are built by route handlers from [`src/lib/public-api.ts`](../src/lib/public-api.ts), which keeps the field list and the OpenAPI schema in one place; a unit test fails if they drift apart. Field names in `/api/v1/` are a published contract: add fields freely, but rename or remove them only in a `/v2/`. The `/data/*.json` files stay internal to the Explorer and search.
+
+[`public/.well-known/api-catalog`](../public/.well-known/api-catalog) lists the API for [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) discovery. [`public/_headers`](../public/_headers) serves it as `application/linkset+json` and adds `Link` headers to the home page that point to the catalog, the OpenAPI description, and the [API guide](api.md).
 
 Function requests count toward the Workers Free plan's 100,000 requests a day. Keep the Pages project's **Settings → Runtime → Fail open / closed** on **Fail open**, so pages are still served as HTML if the allowance runs out.
 

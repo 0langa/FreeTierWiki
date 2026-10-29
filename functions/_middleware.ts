@@ -67,9 +67,13 @@ export async function onRequest({ request, env, next }: Context): Promise<Respon
     }
   }
 
-  // The same URL has two representations, so caches must key HTML on Accept too.
+  // The same URL has two representations, so caches must key HTML on Accept too,
+  // and agents that never send the header can still find the Markdown one (RFC 8288).
   const response = await next();
   const varied = new Response(response.body, response);
   varied.headers.append("Vary", "Accept");
+  if (response.ok && response.headers.get("Content-Type")?.startsWith("text/html")) {
+    varied.headers.append("Link", `<${path}>; rel="alternate"; type="text/markdown"`);
+  }
   return varied;
 }

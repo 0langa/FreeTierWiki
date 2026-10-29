@@ -90,13 +90,27 @@ describe("onRequest", () => {
     const response = await onRequest(ctx);
     expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
     expect(response.headers.get("Vary")).toBe("Accept");
+    expect(response.headers.get("Link")).toBe('</services/supabase/index.md>; rel="alternate"; type="text/markdown"');
     expect(await response.text()).toBe("<h1>Supabase</h1>");
     expect(ctx.fetched).toEqual([]);
   });
 
+  it("keeps Link headers the static site already sends", async () => {
+    const ctx = context("/");
+    ctx.next = async () => new Response("<h1>Home</h1>", {
+      headers: { "Content-Type": "text/html; charset=utf-8", Link: '</.well-known/api-catalog>; rel="api-catalog"' },
+    });
+    const response = await onRequest(ctx);
+    expect(response.headers.get("Link")).toBe('</.well-known/api-catalog>; rel="api-catalog", </index.md>; rel="alternate"; type="text/markdown"');
+  });
+
   it("falls back to the normal response when a page has no Markdown file", async () => {
-    const response = await onRequest(context("/no-such-page/", { headers: { Accept: "text/markdown" } }));
+    const ctx = context("/no-such-page/", { headers: { Accept: "text/markdown" } });
+    ctx.next = async () => new Response("<h1>Not found</h1>", { status: 404, headers: { "Content-Type": "text/html; charset=utf-8" } });
+    const response = await onRequest(ctx);
+    expect(response.status).toBe(404);
     expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+    expect(response.headers.get("Link")).toBeNull();
   });
 
   it("does not label a redirected HTML page as Markdown", async () => {
