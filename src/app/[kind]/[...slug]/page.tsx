@@ -52,16 +52,18 @@ function structuredData(entry: AtlasEntryWithBody, provider: string | undefined)
         }
       : {}),
   };
+  // A Service, not a Product: Google's product snippets reject a Product without offers, reviews,
+  // or a rating, and the catalog sells nothing.
   const product = {
-    "@type": "Product",
+    "@type": "Service",
     "@id": absoluteUrl(`${entry.url}#product`),
     name: entry.title,
     description: entry.description,
-    brand: { "@type": "Brand", name: entry.provider },
+    provider: { "@type": "Organization", name: entry.provider },
     category: DOMAIN_LABELS[entry.domain],
     ...(entry.officialUrl ? { sameAs: entry.officialUrl } : {}),
   };
-  // Editorial guides describe a product; the catalog does not sell it. Do not
+  // Editorial guides describe a service; the catalog does not sell it. Do not
   // invent prices, offers, ratings, product images, authors or publication dates.
   const guide = {
     ...article(entry.url, `${entry.title} free tier${entry.status === "ended" ? " (ended)" : ": limits and billing"}`, entry.answer, entry.lastUpdated),

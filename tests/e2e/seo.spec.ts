@@ -43,9 +43,11 @@ test("detail pages date their content and point at the site", async ({ page }) =
   expect(node?.isPartOf).toEqual({ "@id": "https://freetier.wiki/#website" });
   const graph = await structuredData(page);
   const guide = graph.find((item) => item["@type"] === "Article");
-  const product = graph.find((item) => item["@type"] === "Product");
+  const product = graph.find((item) => item["@type"] === "Service");
   expect(guide?.about).toEqual({ "@id": product?.["@id"] });
   expect(product?.name).toBe("Supabase");
+  // Google rejects a Product without offers; the catalog sells nothing, so it stays a Service.
+  expect(graph.some((item) => item["@type"] === "Product")).toBe(false);
   expect(product).not.toHaveProperty("offers");
   expect(product).not.toHaveProperty("aggregateRating");
 });
