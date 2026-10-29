@@ -59,6 +59,8 @@ export async function onRequest({ request, env, next }: Context): Promise<Respon
         "Content-Type": "text/markdown; charset=utf-8",
         Vary: "Accept",
         "x-markdown-tokens": String(estimateTokens(body)),
+        // Same Content Signals as robots.txt (https://contentsignals.org/).
+        "Content-Signal": "search=yes, ai-input=yes, ai-train=yes",
         Link: `<${SITE}${url.pathname}>; rel="canonical"`,
       });
       const cacheControl = asset.headers.get("Cache-Control");

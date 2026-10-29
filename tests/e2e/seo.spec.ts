@@ -145,8 +145,11 @@ test("the API catalog lists the catalog API and its OpenAPI description", async 
   });
 });
 
-test("auth.md tells agents that no authentication is needed", async ({ request }) => {
-  const text = await (await request.get("/auth.md")).text();
-  expect(text).toMatch(/^# freetier\.wiki auth\.md\n/);
-  expect(text).toContain("needs no authentication");
+test("agents find llms.txt and the agent skills index", async ({ request }) => {
+  expect(await (await request.get("/llms.txt")).text()).toMatch(/^# freetier\.wiki\n/);
+  expect(await (await request.get("/llms-full.txt")).text()).toContain("### Supabase\n");
+  const index = await (await request.get("/.well-known/agent-skills/index.json")).json();
+  for (const skill of index.skills) {
+    expect(await (await request.get(skill.url)).text(), skill.name).toContain(`name: ${skill.name}`);
+  }
 });
