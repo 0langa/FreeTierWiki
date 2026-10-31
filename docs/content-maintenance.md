@@ -38,6 +38,8 @@ No-card and hard-cap pages under a category do not repeat that FAQ. They have th
 
 [`content/comparisons.json`](../content/comparisons.json) defines comparison pages with `slug`, `title`, `intro`, and `entries` (IDs such as `services:neon`). A unit test rejects missing or ended comparison entries.
 
+[`content/reports/free-tier-changes-2026.json`](../content/reports/free-tier-changes-2026.json) holds the 2026 changes report: provider events with `date`, `service`, `provider`, `kind`, `change`, `source` and `records`. Every event needs the vendor's own page as `source`; leave out an event that has none. `records` ties it to entry ids or to `removed:Title` rows in `changelog.json`, and the build fails if one is missing. Removals no event claims count as directory clean-up, not as ended free tiers. Bump `updated` when you edit it.
+
 ## Weekly source check
 
 [`freshness.yml`](../.github/workflows/freshness.yml) runs on Sunday at 19:23 UTC. It calls `npm run verify:freshness`, which fetches each entry's official pages and compares hashes with the previous run. It hashes all readable page text, without the former keyword selection or 6,000-character cutoff, plus a structural fingerprint of inert tags, feature indicators, accessibility attributes, image/link destinations and SVG markup. This also detects plain feature-list changes without pricing words. The structural signal can catch feature checkmarks or column changes that plain text omits; it cannot interpret their meaning. The hashes are stored on the `freshness-data` branch.

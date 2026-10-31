@@ -2,7 +2,8 @@ import type { MetadataRoute } from "next";
 
 import { BUILD_NOW } from "@/lib/build-info";
 import { changelogRoutes } from "@/lib/changelog-view";
-import { getAllEntries, getComparisons, getPopular, getProviderGroups, getRemovals } from "@/lib/content.server";
+import { reportPath } from "@/lib/changes-report";
+import { getAllEntries, getChangesReport, getComparisons, getPopular, getProviderGroups, getRemovals } from "@/lib/content.server";
 import { toListItem } from "@/lib/entry-view";
 import { FILTER_SLUGS, filterDomains, filterItems } from "@/lib/filter-pages";
 import { latestChanges } from "@/lib/home-data";
@@ -28,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const homeDate = [catalogDate, popular?.updated].filter((date): date is string => Boolean(date)).sort().at(-1);
   const changes = latestChanges(entries, undefined, await getRemovals());
   const changelogDate = changes[0]?.date;
+  const report = await getChangesReport();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
   // The no-card and hard-cap lists: a hub each, plus the categories with a page of their own.
   const filterPages = FILTER_SLUGS.flatMap((filter) => {
@@ -51,6 +53,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...changelogRoutes(changes).map(({ path }) => ({
       url: absoluteUrl(path), lastModified: changelogDate, changeFrequency: "weekly" as const, priority: 0.6,
     })),
+    // The report's own update date, not the catalog's: its counts change only when the report file is edited.
+    { url: absoluteUrl(reportPath(report)), lastModified: report.updated, changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/about/"), changeFrequency: "monthly", priority: 0.4 },
     { url: absoluteUrl("/compare/"), changeFrequency: "weekly", priority: 0.8 },
     ...comparisons.map((comparison) => ({
