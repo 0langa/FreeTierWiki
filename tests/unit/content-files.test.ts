@@ -15,9 +15,6 @@ function riskProblems(entry: AtlasEntry): string[] {
     problems.push(`${entry.id}: overageRisk none without a hard cap or an always-free plan`);
   }
   if (overageRisk === "high" && hasHardCap === true) problems.push(`${entry.id}: overageRisk high with hasHardCap`);
-  if (freeTierType === "trial" && entry.pricingModel !== "trial") {
-    problems.push(`${entry.id}: freeTierType trial but pricingModel ${entry.pricingModel}`);
-  }
   return problems;
 }
 
@@ -55,7 +52,6 @@ describe("content files", () => {
   it("rejects no-risk trials whose stopping cap is unconfirmed", () => {
     const base = makeEntry();
     const trial = makeEntry({
-      pricingModel: "trial",
       freeTierDetails: { ...base.freeTierDetails, freeTierType: "trial", hasHardCap: "unknown", overageRisk: "none" },
     });
     expect(riskProblems(trial)).toEqual(["services:neon: overageRisk none without a hard cap or an always-free plan"]);

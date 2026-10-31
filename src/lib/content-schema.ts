@@ -1,12 +1,9 @@
 import {
-  AUDIENCES,
   CHANGE_KINDS,
-  DIFFICULTIES,
   DOMAINS,
   ENTRY_STATUSES,
   FREE_TIER_TYPES,
   OVERAGE_RISKS,
-  PRICING_MODELS,
   PRODUCTION_READINESS_LEVELS,
   type AtlasEntry,
   type ContentKind,
@@ -96,12 +93,6 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     problems.push(`'${field}' must be one of: ${allowed.join(", ")}`);
     return fallback ?? allowed[0];
   };
-  const flag = (value: unknown, field: string, fallback: boolean): boolean => {
-    if (value == null) return fallback;
-    if (typeof value === "boolean") return value;
-    problems.push(`'${field}' must be true or false`);
-    return fallback;
-  };
   const policy = (value: unknown, field: string): PolicyConfirmation => {
     if (value == null || value === "unknown") return "unknown";
     if (typeof value === "boolean") return value;
@@ -149,12 +140,6 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     problems.push("'freeTierDetails.limits' needs at least one item");
   }
 
-  const audiences = list(data.audiences, "audiences").filter((value, index) => {
-    if ((AUDIENCES as readonly string[]).includes(value)) return true;
-    problems.push(`'audiences[${index}]' must be one of: ${AUDIENCES.join(", ")}`);
-    return false;
-  }) as AtlasEntry["audiences"];
-
   const changes: EntryChange[] = [];
   if (data.changes != null) {
     if (!Array.isArray(data.changes)) {
@@ -172,8 +157,6 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     }
   }
 
-  const useCases = list(data.useCases, "useCases", true);
-
   const entry: AtlasEntry = {
     id,
     kind,
@@ -183,12 +166,8 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     description: text(data.description, "description"),
     answer: text(data.answer, "answer"),
     provider: text(data.provider, "provider"),
-    category: text(data.category, "category"),
     domain: oneOf(data.domain, DOMAINS, "domain"),
-    subtypes: list(data.subtypes, "subtypes"),
-    audiences: data.audiences == null ? ["indie", "startup"] : audiences,
     tags: list(data.tags, "tags", true),
-    pricingModel: oneOf(data.pricingModel, PRICING_MODELS, "pricingModel"),
     freeTierDetails: {
       summary: text(ft.summary, "freeTierDetails.summary"),
       limits,
@@ -202,13 +181,11 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
       trialDays: optionalNumber(ft.trialDays, "freeTierDetails.trialDays"),
       monthlyCreditAmount: optionalText(ft.monthlyCreditAmount, "freeTierDetails.monthlyCreditAmount"),
     },
-    useCases,
     whenToUse: text(data.whenToUse, "whenToUse"),
     whenNotToUse: text(data.whenNotToUse, "whenNotToUse"),
     quickstartSteps: list(data.quickstartSteps, "quickstartSteps"),
-    bestFor: data.bestFor == null ? useCases : list(data.bestFor, "bestFor"),
+    bestFor: list(data.bestFor, "bestFor"),
     avoidIf: list(data.avoidIf, "avoidIf"),
-    difficulty: oneOf(data.difficulty, DIFFICULTIES, "difficulty"),
     productionReadiness: oneOf(data.productionReadiness, PRODUCTION_READINESS_LEVELS, "productionReadiness"),
     lastUpdated: date(data.lastUpdated, "lastUpdated", true) ?? "",
     popularityScore: number(data.popularityScore, "popularityScore"),
@@ -216,7 +193,6 @@ export function parseEntry({ kind, slug, data }: ParseInput): AtlasEntry {
     officialUrl: url(data.officialUrl, "officialUrl"),
     docsUrl: url(data.docsUrl, "docsUrl"),
     sourceUrls: list(data.sourceUrls, "sourceUrls"),
-    featured: flag(data.featured, "featured", false),
     status: oneOf(data.status, ENTRY_STATUSES, "status", "active"),
     lastVerified: date(data.lastVerified, "lastVerified", false),
     pricingUrl: url(data.pricingUrl, "pricingUrl"),

@@ -8,10 +8,8 @@ function baseData(): Record<string, unknown> {
     description: "Serverless Postgres.",
     answer: "Neon has a free Postgres plan with a hard cap and no card.",
     provider: "Neon",
-    category: "database",
     domain: "database",
     tags: ["postgres"],
-    pricingModel: "freemium",
     freeTierDetails: {
       summary: "Free plan.",
       limits: ["0.5 GB storage"],
@@ -20,10 +18,8 @@ function baseData(): Record<string, unknown> {
       hasHardCap: true,
       requiresCard: false,
     },
-    useCases: ["Prototypes"],
     whenToUse: "Small apps.",
     whenNotToUse: "Large apps.",
-    difficulty: "beginner",
     productionReadiness: "side-project",
     lastUpdated: new Date("2024-06-09T00:00:00.000Z"),
     popularityScore: 8,
@@ -114,7 +110,7 @@ describe("parseEntry", () => {
     });
     expect(entry.lastVerified).toBeUndefined();
     expect(entry.freeTierDetails.caveats).toEqual([]);
-    expect(entry.bestFor).toEqual(["Prototypes"]);
+    expect(entry.bestFor).toEqual([]);
   });
 
   it("reads the freshness fields and sorts changes newest first", () => {
@@ -124,7 +120,6 @@ describe("parseEntry", () => {
       data: {
         ...baseData(),
         status: "ended",
-        pricingModel: "paid",
         lastVerified: "2026-09-25",
         pricingUrl: "https://planetscale.com/pricing",
         changes: [
@@ -134,7 +129,6 @@ describe("parseEntry", () => {
       },
     });
     expect(entry.status).toBe("ended");
-    expect(entry.pricingModel).toBe("paid");
     expect(entry.lastVerified).toBe("2026-09-25");
     expect(entry.pricingUrl).toBe("https://planetscale.com/pricing");
     expect(entry.changes.map((change) => change.date)).toEqual(["2024-04-08", "2023-01-01"]);
