@@ -1,0 +1,117 @@
+---
+title: CodeCommit
+description: >-
+  AWS CodeCommit is AWS's managed Git hosting. Repositories live in your AWS
+  account, access goes through IAM, and CodePipeline and CodeBuild can read
+  from them directly.
+provider: AWS
+domain: devops
+tags:
+  - git hosting
+  - private repositories
+  - aws
+  - iam
+  - source control
+freeTierDetails:
+  summary: >-
+    Five active users a month free per AWS account, sharing 50 GB-month of
+    storage and 10,000 Git requests, with no end date.
+  limits:
+    - 5 active users per month
+    - 50 GB-month of storage
+    - '10,000 Git requests per month'
+    - '5,000 repositories per account; up to 25,000 on request'
+    - Does not expire after 12 months
+  caveats:
+    - AWS says most new signups need no payment method, but identity checks may require one
+    - Any AWS identity that reaches CodeCommit counts as an active user, including roles that CodeBuild and CodePipeline use
+    - Usage is counted across all AWS Regions, and unused storage and Git requests do not carry over
+    - New Free accounts close after six months or when credits run out; data is retained for 90 days to upgrade and recover
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: medium
+  billingRiskNotes:
+    - Each active user past the first five costs $1 a month.
+    - Storage past the pool is $0.06 per GB-month and Git requests are $0.001 each.
+quickstartSteps:
+  - Create an AWS account.
+  - Open the CodeCommit console and choose Create repository.
+  - Set up Git credentials for an IAM user, or install git-remote-codecommit to sign in with your AWS profile.
+  - Clone the repository, push your code, and open a pull request from the console.
+whenToUse: >-
+  Use CodeCommit when your code already deploys to AWS and you want private
+  repositories that IAM controls, next to CodePipeline and CodeBuild.
+whenNotToUse: >-
+  Skip it if you want public repositories, a community around your code, or
+  Git hosting that does not need an AWS account.
+bestFor:
+  - teams already on AWS
+  - private repositories under IAM
+  - feeding CodePipeline and CodeBuild
+avoidIf:
+  - you need public or open-source hosting
+  - you do not want an AWS account
+  - more than five identities will touch the repositories each month
+productionReadiness: production-ready
+lastUpdated: 2026-10-31
+lastVerified: 2026-10-31
+popularityScore: 6
+usefulnessScore: 7
+officialUrl: 'https://aws.amazon.com/codecommit/'
+docsUrl: 'https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html'
+sourceUrls:
+  - 'https://aws.amazon.com/codecommit/pricing/'
+  - 'https://aws.amazon.com/blogs/devops/aws-codecommit-returns-to-general-availability/'
+  - 'https://docs.aws.amazon.com/codecommit/latest/userguide/history.html'
+  - 'https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html'
+  - 'https://aws.amazon.com/free/free-tier-faqs/'
+pricingUrl: 'https://aws.amazon.com/codecommit/pricing/'
+changes:
+  - date: '2026-10-31'
+    kind: new
+    note: Back in the atlas. AWS reopened CodeCommit to new customers on 2025-11-24, so its removal on 2026-10-09 relied on an outdated notice.
+answer: >-
+  AWS CodeCommit gives an account 5 active users, 50 GB-month of storage and 10,000 Git requests a month for free with no end date, but each extra user costs $1 a month and there is no hard cap.
+
+---
+CodeCommit hosts private Git repositories inside your AWS account. Access goes through IAM, and CodePipeline and CodeBuild can read from it directly. AWS stopped taking new customers in July 2024 and reopened sign-ups on November 24, 2025.
+
+## What the free plan gives you
+
+The free tier is counted per account, not per repository. Each month your first five active users are free, and together they get 50 GB-month of storage and 10,000 Git requests. An account can hold 5,000 repositories, or up to 25,000 on request.
+
+AWS says this offer is available indefinitely to new and existing customers and does not end with the 12-month AWS Free Tier term. Usage is added up across all AWS Regions each month, and unused storage and Git requests do not carry over. A user who does not touch CodeCommit during a month is not counted.
+
+## When you hit a limit
+
+Nothing stops a push at the free amount. Each active user past the first five costs $1 a month and adds 10 GB-month of storage and 2,000 Git requests to the pool. Storage beyond the pool is billed at $0.06 per GB-month, and Git requests at $0.001 each.
+
+On a new Free account plan, usage is paid from your sign-up credits. That account closes after six months or when the credits run out, and AWS keeps your data for 90 days in case you upgrade to a Paid plan.
+
+## Gotchas
+
+- An active user is any AWS identity that reaches CodeCommit: IAM users and roles, federated users, the root account, and the identities that CodeBuild and CodePipeline create. A pipeline can push you past five users.
+- A Git request is any push or pull that transfers repository objects, including edits in the console or through the API. A fetch with nothing new to transfer does not count.
+- The pricing page still shows a banner saying CodeCommit is closed to new customers. The AWS DevOps blog and the user guide's document history both say sign-ups reopened in November 2025.
+
+## Alternatives in this atlas
+
+- [GitLab](/services/gitlab/): when you want Git hosting with CI built in and no AWS account.
+- [Bitbucket](/services/bitbucket/): when a team of up to five wants private repositories that link to Jira.
+- [Azure DevOps](/services/azure-devops/): when your team works on Azure and wants repositories, boards and pipelines together.
+
+## Questions people ask
+
+### Is CodeCommit free?
+
+Yes, within limits. Each AWS account gets five active users a month free, sharing 50 GB-month of storage and 10,000 Git requests, and the offer has no end date.
+
+### Can new AWS customers still use CodeCommit?
+
+Yes. AWS closed CodeCommit to new customers in July 2024 and reopened it on November 24, 2025. The CodeCommit user guide's document history records both changes.
+
+### What counts as an active user?
+
+Any unique AWS identity that reaches CodeCommit in a month, through Git, the console, the CLI or an SDK. Identities that other AWS services such as CodeBuild create count too.
