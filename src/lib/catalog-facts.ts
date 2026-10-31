@@ -96,14 +96,6 @@ export function factLines(entry: AtlasEntry): string[] {
   return [details.summary, ...details.limits, ...details.caveats, ...details.billingRiskNotes].filter((line) => line.trim().length > 0);
 }
 
-export function factText(entry: AtlasEntry): string {
-  return factLines(entry).join("\n");
-}
-
-export function mentioning(entries: AtlasEntry[], pattern: RegExp): AtlasEntry[] {
-  return entries.filter((entry) => isActive(entry) && pattern.test(factText(entry)));
-}
-
 /** One active entry plus the statement and match that put it in a list. */
 export type LineFact = { entry: AtlasEntry; line: string; match: RegExpMatchArray };
 
@@ -184,11 +176,6 @@ export function offerKind(entry: AtlasEntry): OfferKind {
   return "always-free";
 }
 
-/** Active entries that are not marked always free: renewing credits, one-time credits, trials, and timed offers. */
-export function isLimitedOffer(entry: AtlasEntry): boolean {
-  return isActive(entry) && offerKind(entry) !== "always-free";
-}
-
 function renewalWord(entry: AtlasEntry): string {
   const first = (entry.freeTierDetails.resetPeriod ?? "").match(/^(monthly|weekly|daily|annual|hourly)/i);
   return first ? first[1].toLowerCase() : "on a schedule";
@@ -227,11 +214,6 @@ export function offerBit(entry: AtlasEntry): string {
     return term ? `${entry.title} (${term})` : entry.title;
   }
   return entry.title;
-}
-
-/** Kept for callers that only need the single-entry label. */
-export function planBit(entry: AtlasEntry): string {
-  return offerBit(entry);
 }
 
 function offerGroup(label: string, group: AtlasEntry[]): string {

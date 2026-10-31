@@ -1,6 +1,5 @@
 import { CONTENT_KINDS, DOMAINS } from "@/types/content";
 import type {
-  Audience,
   ContentKind,
   Domain,
   FreeTierType,
@@ -12,13 +11,6 @@ export const KIND_LABELS: Record<ContentKind, string> = {
   services: "Services",
   tools: "Tools",
 };
-
-export const PRICING_MODEL_LABELS = {
-  free: "Free",
-  freemium: "Freemium",
-  trial: "Trial",
-  paid: "Paid",
-} as const;
 
 export const DOMAIN_LABELS: Record<Domain, string> = {
   hosting: "Hosting",
@@ -70,16 +62,6 @@ export const PRODUCTION_READINESS_LABELS: Record<ProductionReadiness, string> = 
   "side-project": "Side project",
   "production-light": "Production light",
   "production-ready": "Production ready",
-};
-
-export const AUDIENCE_LABELS: Record<Audience, string> = {
-  student: "Student",
-  indie: "Indie",
-  startup: "Startup",
-  team: "Team",
-  enterprise: "Enterprise",
-  oss: "Open source",
-  agency: "Agency",
 };
 
 export function isContentKind(value: string): value is ContentKind {

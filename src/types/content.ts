@@ -1,12 +1,6 @@
 export const CONTENT_KINDS = ["services", "tools"] as const;
 export type ContentKind = (typeof CONTENT_KINDS)[number];
 
-export const PRICING_MODELS = ["free", "freemium", "trial", "paid"] as const;
-export type PricingModel = (typeof PRICING_MODELS)[number];
-
-export const DIFFICULTIES = ["beginner", "intermediate", "advanced"] as const;
-export type FilterDifficulty = (typeof DIFFICULTIES)[number];
-
 export const DOMAINS = [
   "hosting",
   "compute",
@@ -41,9 +35,6 @@ export type OverageRisk = (typeof OVERAGE_RISKS)[number];
 
 export const PRODUCTION_READINESS_LEVELS = ["prototype", "side-project", "production-light", "production-ready"] as const;
 export type ProductionReadiness = (typeof PRODUCTION_READINESS_LEVELS)[number];
-
-export const AUDIENCES = ["student", "indie", "startup", "team", "enterprise", "oss", "agency"] as const;
-export type Audience = (typeof AUDIENCES)[number];
 
 export const ENTRY_STATUSES = ["active", "changed", "ended"] as const;
 export type EntryStatus = (typeof ENTRY_STATUSES)[number];
@@ -96,20 +87,14 @@ export type AtlasEntry = {
   /** One sentence: is it free, what you get, and whether it can bill you. */
   answer: string;
   provider: string;
-  category: string;
   domain: Domain;
-  subtypes: string[];
-  audiences: Audience[];
   tags: string[];
-  pricingModel: PricingModel;
   freeTierDetails: FreeTierDetails;
-  useCases: string[];
   whenToUse: string;
   whenNotToUse: string;
   quickstartSteps: string[];
   bestFor: string[];
   avoidIf: string[];
-  difficulty: FilterDifficulty;
   productionReadiness: ProductionReadiness;
   lastUpdated: string;
   popularityScore: number;
@@ -117,7 +102,6 @@ export type AtlasEntry = {
   officialUrl?: string;
   docsUrl?: string;
   sourceUrls: string[];
-  featured: boolean;
 
   status: EntryStatus;
   lastVerified?: string;
