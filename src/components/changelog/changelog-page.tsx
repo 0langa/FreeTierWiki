@@ -42,6 +42,10 @@ export async function ChangelogPage({ filter = "all", page = 1 }: { filter?: Cha
           Follow it in a feed reader:{" "}
           <a href={FEED_PATH} className="underline underline-offset-[3px] hover:text-ink">RSS feed</a>.
         </p>
+        <p className="text-[14px] text-ink-3">
+          The sourced summary:{" "}
+          <Link href="/reports/free-tier-changes-2026/" className="underline underline-offset-[3px] hover:text-ink">Free tiers that ended or changed in 2026</Link>.
+        </p>
       </PageHeader>
       {allRows.length > 0 ? (
         <nav aria-label="Change type" className="mt-7 flex flex-wrap gap-2">
