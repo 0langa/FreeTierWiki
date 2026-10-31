@@ -14,7 +14,7 @@ export const SECTIONS = [
 export const BODY_MIN_WORDS = 350;
 export const BODY_MAX_WORDS = 700;
 
-/** A body counts as deepened once it has at least one `##` heading. Older entries hold one sentence. */
+/** A body counts as deepened once it has at least one `##` heading. */
 /** @param {string} body */
 export function isDeep(body) {
   return /^##\s/m.test(body ?? "");
