@@ -23,9 +23,9 @@ async function load() {
   return { entries, byPath, removals, comparisons, popular, providers };
 }
 
-// Static export prerenders every one of the ~765 entry pages as its own render. React's `cache()`
+// Static export prerenders every entry page as its own render. React's `cache()`
 // only dedupes calls within a single render — it does not share results across pages in the same
-// build worker — so without memoization every page re-walks and re-parses all ~760 content files.
+// build worker — so without memoization every page re-walks and re-parses all content files.
 // That multiplies into thousands of concurrent file reads per worker and made local builds OOM.
 // Content is static for the lifetime of a build/server process, so memoize per process in
 // production; dev keeps the per-request `cache()` so editing content shows up without a restart.

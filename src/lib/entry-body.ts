@@ -24,7 +24,7 @@ export function headingId(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/** The second-level headings in body order. An older one-sentence body has none. */
+/** The second-level headings in body order. */
 export function bodyOutline(raw: string): BodyHeading[] {
   return [...raw.matchAll(/^##\s+(.+?)\s*$/gm)].map((match) => ({ id: headingId(match[1]), title: match[1] }));
 }

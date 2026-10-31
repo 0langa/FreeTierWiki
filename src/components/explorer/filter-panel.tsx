@@ -77,10 +77,6 @@ const TYPE_OPTIONS: Array<[ContentKind | "all", string]> = [
   ["tools", "Tools"],
 ];
 
-// Deviation from the brief (documented in task-8-report.md): the brief's snippet slices to 8.
-// With the current 734-entry dataset, "Database" ranks 9th by count (36, just behind Messaging's
-// 39), so it never appears in the default 8 and the e2e test that checks it via the sidebar
-// checkbox times out. Raised to 10 to give a small margin above today's rank-9 cutoff.
 const VISIBLE_CATS = 10;
 
 export function FilterPanel({ query, counts, onChange, disabled = false }: Props) {

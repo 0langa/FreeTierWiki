@@ -6,7 +6,6 @@ import { EntryList } from "@/components/entry/entry-list";
 import { FactsLabel } from "@/components/entry/facts-label";
 import { FreshnessNotice } from "@/components/entry/freshness-notice";
 import { FreshnessLabel } from "@/components/entry/labels";
-import { MdxContent } from "@/components/entry/mdx-content";
 import { OnThisPage, type JumpItem } from "@/components/entry/on-this-page";
 import { Breadcrumb, ChipRow } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
@@ -63,7 +62,6 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
   const pricing = pricingUrl(entry);
   const category = DOMAIN_LABELS[entry.domain];
   const ended = entry.status === "ended";
-  // A deepened body brings its own "##" sections; an older one-sentence body gets the "Overview" heading.
   const outline = bodyOutline(entry.body.raw);
   const sectioned = outline.length > 0;
   const jumps: JumpItem[] = [
@@ -180,14 +178,7 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
             </div>
           </section>
         ) : null}
-        {entry.body.raw && sectioned ? (
-          <EntryBody raw={entry.body.raw} />
-        ) : entry.body.raw ? (
-          <section className="border-t border-line pt-8">
-            <h2 className="section-title">Overview</h2>
-            <MdxContent source={entry.body.raw} className="reading mt-4" />
-          </section>
-        ) : null}
+        {entry.body.raw && sectioned ? <EntryBody raw={entry.body.raw} /> : null}
         {!ended && entry.quickstartSteps.length > 0 ? (
           <section id="quickstart" aria-labelledby="quickstart-title" className="scroll-mt-24 border-t border-line pt-8">
             <h2 id="quickstart-title" className="section-title">
