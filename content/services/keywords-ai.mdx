@@ -12,17 +12,18 @@ tags:
   - 'ai agents'
 freeTierDetails:
   summary: >-
-    Free plan includes the platform with access to the first 100,000 logs each calendar month, a published 1,000-score allowance, and 7-day log retention.
+    Free plan includes the platform with access to the first 100,000 logs each calendar month, a published 1,000-score allowance, and a 7-day log viewing window.
   limits:
     - 100,000 logs/month
     - 1,000 eval scores; reset period not published
-    - 5 datasets, 2 evaluators, 5 prompts
-    - 7-day log retention
+    - 5 datasets, 2 evaluators, 10 prompts
+    - Logs documentation limits Free queries to the last 7 days
   caveats:
     - Gateway throughput capped at 412 requests/minute on the free plan
     - No credit card required to start
     - Logs beyond monthly access are still recorded but blurred; exports stop at that allowance
     - Score reset and over-allowance behavior are not published
+    - Pricing lists 30-day default retention, but the Logs documentation gives Free a 7-day query window
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -48,8 +49,8 @@ avoidIf:
   - 'unlimited datasets, evaluators, or prompts'
   - 'SOC 2 reports on the free plan'
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://respan.ai'
@@ -66,16 +67,16 @@ changes:
     kind: changed
     note: 'Confirmed calendar-month log visibility and blur/export behavior; removed the unsupported monthly score-reset assertion and clarified external model costs.'
 answer: >-
-  Respan's free plan needs no card and includes 100,000 logs a month with 7 days of retention, and past that allowance logs are still recorded but blurred and exports stop.
+  Respan's free plan needs no card and includes access to 100,000 logs a month within a 7-day viewing window, and past that allowance logs are still recorded but blurred and exports stop.
 
 ---
 You send your LLM calls through one gateway endpoint, or add the Respan SDK to trace calls you already make. You read the results in a web platform, a command line tool, or an MCP server. It fits developers and small teams who run AI features in production.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and covers the full platform. The pricing page says you can start with your team and need no credit card. You can view the first 100k logs each calendar month and get a published allowance of 1k scores, 5 datasets, 5 prompts, and 2 evaluators. The score reset period is not specified.
+The Free plan costs $0 and covers the full platform with no credit card. You can view the first 100k logs each calendar month and get 1k scores, 5 datasets, 10 prompts, and 2 evaluators. The score reset period is not specified.
 
-Log retention on the Free plan is 7 days. The gateway proxy accepts 412 requests per minute, and ingestion is capped at 412 logs per minute. The Team plan costs $199 per month, billed yearly, and raises these limits. It also allows unlimited datasets, evaluators, and prompts, and it adds a SOC 2 report.
+Pricing lists 30-day default retention, while the Logs documentation limits Free queries to the last 7 days; storage duration is not a promise of longer viewable history. Gateway throughput is 412 requests per minute and ingestion is 412 logs per minute. Team costs $199 per month, billed yearly, with unlimited datasets, evaluators, and prompts and a SOC 2 report.
 
 ## When you hit a limit
 
@@ -86,7 +87,7 @@ Gateway calls that use Respan's own provider keys are paid with prepaid gateway 
 ## Gotchas
 
 - Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Using your own provider key avoids Respan gateway-credit purchases, but model usage is still billed by your provider.
-- Logs stay for only 7 days on the Free plan, so export what you need to keep.
+- Free queries cover only the last 7 days according to the Logs documentation, despite pricing's 30-day retention row; export what you need to keep.
 - Team plan features such as a SOC 2 report and a private Slack channel start on the Team plan.
 
 ## Alternatives in this atlas
