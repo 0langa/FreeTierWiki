@@ -22,10 +22,11 @@ freeTierDetails:
     - Shares the account-wide 300 credits/month on the Free plan
     - 10 credits per GB-hour of compute
     - 2 credits per 10,000 web requests
+    - Synchronous functions run up to 60 seconds; scheduled functions up to 30 seconds
     - Background functions run up to 15 minutes
   caveats:
     - "The card requirement for the free offer is not confirmed in the cited public sources"
-    - No separate function quota — compute and requests draw from the same credits as production deploys and bandwidth
+    - No separate function quota — compute and requests share credits with production deploys, bandwidth, database and AI usage
     - Memory above the default (up to 4GB) needs a Pro or Enterprise plan
   resetPeriod: monthly
   requiresCard: unknown
@@ -52,7 +53,7 @@ avoidIf:
   - background work longer than 15 minutes
   - a pool of credits shared with builds and bandwidth
 productionReadiness: production-light
-lastUpdated: 2026-10-21
+lastUpdated: 2026-11-02
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.netlify.com/products/functions/'
@@ -67,7 +68,7 @@ sourceUrls:
   - 'https://docs.netlify.com/functions/get-started/'
   - 'https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/'
 status: changed
-lastVerified: 2026-10-26
+lastVerified: 2026-11-02
 pricingUrl: 'https://www.netlify.com/pricing/'
 changes:
   - date: 2026-10-21
@@ -91,7 +92,7 @@ You add a TypeScript or JavaScript file to the netlify/functions folder of your 
 
 Functions have no separate free quota. They draw from the account-wide credit pool of the Free plan, which is 300 credits per month. Compute costs 10 credits per GB-hour, and the default function memory is 1 GB. Web requests, including requests to your functions, cost 2 credits per 10k requests.
 
-Production deploys cost 15 credits each, and bandwidth costs 20 credits per GB. All of these share the same 300 credits. Background functions can run up to 15 minutes. Raising memory up to 4 GB needs a Pro or Enterprise credit-based plan.
+Production deploys cost 15 credits each, and bandwidth costs 20 credits per GB. All of these share the same 300 credits. Synchronous functions have a 60-second limit, scheduled functions 30 seconds, and background functions 15 minutes. Database usage and AI inference share the same pool too. Raising memory up to 4 GB needs a Pro or Enterprise credit-based plan.
 
 ## When you hit a limit
 

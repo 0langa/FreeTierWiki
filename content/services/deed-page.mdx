@@ -20,6 +20,7 @@ freeTierDetails:
   limits:
     - 25 sites per token
     - 25 MB per site
+    - 10 GB monthly transfer per owner, excluding CDN cache hits
     - 60 publishes per hour
     - 10 versions kept per site
     - 1 custom domain and 1 webhook
@@ -28,7 +29,7 @@ freeTierDetails:
     - Free sites are public only; a site password needs a paid plan
     - The token is shown once, and without an optional recovery email a lost token cannot be restored
     - deed.page launched in late September 2026; its terms are dated September 28, 2026
-  resetPeriod: none
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -55,8 +56,8 @@ avoidIf:
   - you need private sites for free
   - you need more than 25 MB per site
 productionReadiness: side-project
-lastUpdated: 2026-10-27
-lastVerified: 2026-10-27
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 2
 usefulnessScore: 6
 officialUrl: 'https://deed.page/'
@@ -67,11 +68,14 @@ sourceUrls:
   - 'https://deed.page/docs'
   - 'https://deed.page/terms'
 changes:
+  - date: '2026-11-02'
+    kind: changed
+    note: "Added the documented 10 GB monthly transfer cap per owner and its warning and limit-page behavior."
   - date: '2026-10-27'
     kind: new
     note: Added to the atlas.
 answer: >-
-  deed.page's free plan needs no signup and covers 25 public sites of 25 MB each, a paid plan starts only after a person pays a Stripe checkout link, and a lost token cannot be restored without a recovery email.
+  deed.page needs no signup for 25 public sites of 25 MB each and 10 GB monthly transfer per owner, payment requires human checkout, and a lost token cannot be restored without a recovery email.
 
 ---
 
@@ -79,15 +83,17 @@ deed.page hosts static sites that are published by a single HTTP request. Send a
 
 ## What the free plan gives you
 
-The pricing page lists a Free plan at $0 with 25 sites, 25 MB per site, 60 publishes an hour, 10 versions kept, 1 custom domain, public sites only, and 1 webhook. It says there is no signup and that an email is never required. Cookieless analytics, the MCP server and subdomains are included on every plan, and sites are permanent rather than expiring.
+The pricing page lists a Free plan at $0 with 25 sites, 25 MB per site, 60 publishes an hour, 10 versions kept, 1 custom domain, public sites only, and 1 webhook. Free also has a 10 GB monthly fair-use transfer cap per owner; files served from the CDN cache do not count. It says there is no signup and that an email is never required. Cookieless analytics, the MCP server and subdomains are included on every plan, and sites are permanent rather than expiring.
 
 Paid plans attach to the same token. Hobby is $3 a month for 250 sites and 100 MB per site, and Pro is $15 a month for 2,500 sites and 500 MB per site. An agent requests a Stripe checkout link and a human pays once.
 
 ## When you hit a limit
 
-The docs list the plan errors. A publish past the site limit returns quota_sites with status 403, and a site bigger than the plan allows returns quota_bytes with status 413. A single request body over 4 MB returns request_too_large; larger sites have to use the manifest upload, which creates an upload session, puts each file directly and then finalizes, and the result must still fit the per-site cap.
+Publishing past the site limit returns quota_sites (403); exceeding the site-size cap returns quota_bytes (413). A request body over 4 MB returns request_too_large. Larger sites need manifest uploads and must still fit the per-site cap.
 
-Going past the hourly publish limit returns rate_limited with status 429, a retry_after value and a Retry-After header. Nothing is billed on the free plan, so hitting a limit stops the request instead of adding a charge.
+At 80% of the monthly transfer cap, the agent receives an upgrade warning. Above the cap, that owner’s sites show a limit page until the next month or an upgrade.
+
+Exceeding the hourly publish limit returns rate_limited (429), retry_after and a Retry-After header. Free limits stop requests or serving instead of adding charges.
 
 ## Gotchas
 
@@ -113,4 +119,4 @@ No. The first publish returns a token in the response. Keep it and send it as a 
 
 ### What happens when I reach 25 sites?
 
-New sites are refused with quota_sites and status 403 until you delete a site or move the token to a paid plan. Existing sites stay online.
+New sites are refused with quota_sites and status 403 until you delete a site or move the token to a paid plan. Existing sites stay online unless a separate limit, such as the monthly transfer cap, is reached.

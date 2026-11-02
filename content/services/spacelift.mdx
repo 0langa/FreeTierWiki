@@ -3,7 +3,7 @@ title: Spacelift
 description: >-
   Spacelift runs and governs infrastructure as code such as OpenTofu,
   Terraform, Pulumi, and Kubernetes from your Git repository. Its Free plan
-  covers 2 users and 1 public worker with no credit card and no time limit.
+  covers 2 users and 1 API key with no time limit.
 provider: Spacelift
 domain: devops
 tags:
@@ -16,23 +16,23 @@ tags:
 freeTierDetails:
   summary: >-
     The Free plan is always free for small teams, with no credit card and no
-    time limit. It includes 2 users and 1 public worker, the shared runner
-    pool managed by Spacelift.
+    time limit. It includes 2 users and 1 API key; the current pricing page
+    does not publish a Free worker count.
   limits:
     - 2 users
-    - 1 public worker
+    - 1 API key; Free worker count is not published on current pricing
     - No private workers
   caveats:
     - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
-    - Private workers inside your own cloud start with Starter+
-    - Paid plans are annual subscriptions arranged through a quote or trial
+    - Current pricing places private workers on Business; worker docs still refer to Starter+
+    - Pricing mentions monthly Starter payments but its plan FAQ describes an annual subscription
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
   hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - The Free plan needs no card; paid plans are annual and Starter+ cannot be cancelled after it is activated
+    - Signup advertises a no-card 14-day trial; annual subscriptions have strict cancellation terms
 quickstartSteps:
   - Sign up for Spacelift on the Free plan; no credit card is needed.
   - Connect your GitHub, GitLab, or Bitbucket repository.
@@ -50,14 +50,16 @@ avoidIf:
   - your runs must stay inside a private network
   - you have more than 2 users
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://spacelift.io'
 docsUrl: 'https://docs.spacelift.io'
 sourceUrls:
   - 'https://spacelift.io/pricing'
+  - 'https://docs.spacelift.io/concepts/worker-pools'
+  - 'https://spacelift.io/free-trial'
 pricingUrl: 'https://spacelift.io/pricing'
 changes:
   - date: 2026-10-21
@@ -67,7 +69,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Spacelift's always-free plan gives 2 users and 1 public worker with no card, but limit enforcement is unpublished and the paid Starter+ plan cannot be cancelled once activated.
+  Spacelift has an always-free plan for 2 users and 1 API key; signup offers a no-card trial, but current pricing omits the Free worker count and conflicts on paid billing terms.
 
 ---
 
@@ -75,21 +77,21 @@ Spacelift is a platform for running infrastructure as code. It connects to your 
 
 ## What the free plan gives you
 
-The pricing page lists a Free plan that is always free for small teams, with no credit card and no time limit. Its FAQ says the Free plan includes 2 users and 1 public worker. Public workers are run by Spacelift in a shared, secure pool, and each customer run executes in its own isolated container instance without access to other accounts' source or state.
+The pricing page lists a $0 plan that is free forever for individuals and small teams. It includes 2 users, 1 API key, spaces, IaC support, workflow customization, VCS and cloud integrations, OIDC SSO, cloud cost estimation, dependencies, resource visualization, and the Spacelift Terraform provider. Signup advertises a 14-day trial with no credit card.
 
-The pricing FAQ says Free, Starter, and Starter+ all provide access to public workers. The page does not list which policy, scheduling, or registry features each paid plan adds beyond workers and users, so check the feature table before you rely on one.
+Spacelift uses a public worker pool by default, with each run isolated from other accounts. The current Free card no longer specifies a worker count. Starter starts at $399 per month with 10 users and 2 public workers, adding private modules, webhooks, policies, notifications, and custom tasks. Business lists public or private workers and unlimited users.
 
 ## When you hit a limit
 
-The Free plan's limits are users and workers rather than metered usage. The pricing page does not say what happens if you need more than 1 public worker on Free, such as runs queuing; it points to upgrading instead.
+The reviewed pages do not specify how Free enforces its user/API-key caps or its exact worker allowance. Worker documentation describes queues and says each worker processes one run at a time; confirm Free concurrency before relying on it.
 
-Starter+ is an annual subscription with unlimited users, 2 public workers, and 1 or 2 private workers, which run inside your own cloud. You can cancel it up to 14 days after an executed contract if the software has not been activated; after that it cannot be cancelled. Business and Enterprise plans add more private workers and are quoted by sales.
+The pricing page mentions monthly Starter subscriptions, but its Starter FAQ describes an annual subscription. Annual cancellation is allowed only within 14 days of an executed contract before activation. Confirm the term before purchasing. Current pricing places private workers on Business, while worker documentation still calls them a Starter+ feature.
 
 ## Gotchas
 
-- The Free plan has 1 public worker, and the pricing page does not say how many runs it handles at once, so busy stacks may wait.
+- The current pricing page omits Free's worker count; do not assume the older one-worker allowance.
 - Public workers run in Spacelift's shared pool, so infrastructure that is only reachable from your private network needs a private worker on a paid plan.
-- Paid plans are annual commitments, so moving off Free is a bigger step than a monthly upgrade.
+- The paid billing FAQ conflicts on monthly versus annual terms; annual contracts have strict cancellation conditions.
 
 ## Alternatives in this atlas
 
@@ -101,7 +103,7 @@ Starter+ is an annual subscription with unlimited users, 2 public workers, and 1
 
 ### Is Spacelift free?
 
-Yes. The Free plan is always free for small teams, with no credit card and no time limit, and includes 2 users and 1 public worker.
+Yes. The Free plan is always free for small teams, with no credit card and no time limit, and includes 2 users and 1 API key. Signup offers a no-card 14-day trial.
 
 ### What is a public worker?
 
@@ -109,4 +111,4 @@ A worker is the compute that runs your infrastructure code. Public workers are r
 
 ### Can I run Spacelift jobs inside my own network for free?
 
-No. Private workers, which run inside your own cloud, start with the Starter+ plan.
+No. Current pricing lists private workers under Business; the worker docs still refer to Starter+, so confirm the applicable paid plan.

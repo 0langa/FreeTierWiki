@@ -21,7 +21,7 @@ freeTierDetails:
     - Check each plan for request limits and separate bandwidth charges
   caveats:
     - Freemium APIs require a card, even for a zero-price Basic plan
-    - Free APIs return a 429 error at the limit; Freemium plans bill overages automatically
+    - Free APIs return a 429 error at the limit; Freemium plans can bill overages automatically unless a billing object has a hard limit
     - Some providers may need you to get a separate key from their own site
   resetPeriod: monthly
   requiresCard: false
@@ -57,8 +57,8 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Distinguished Free APIs from card-required Freemium plans and removed the blanket hard-cap/no-platform-fee guarantee."
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://rapidapi.com'
@@ -69,7 +69,7 @@ sourceUrls:
   - 'https://rapidapi.com/hub'
 pricingUrl: 'https://rapidapi.com/hub'
 answer: >-
-  RapidAPI's Free-marked APIs need no card and list 1,000 requests an hour, but Freemium plans require a card and bill overages with no hard cap.
+  RapidAPI's Free-marked APIs need no card and list 1,000 requests an hour, but Freemium plans require a card and can bill overages unless their specific plan sets a hard limit.
 
 ---
 You use RapidAPI in the browser: find an API in the Hub, subscribe to a plan, and test its endpoints on the API page. Then you call the API from your own code with your key, and track plans and usage in the Developer Dashboard. It suits developers who want to try many APIs with one account.
@@ -86,7 +86,7 @@ A Freemium API has a Basic plan with a free allowance. The provider sets that al
 
 On a Free API, going over the 1000 per hour or 500K per month limit gives you a 429 Too Many Requests error. Nothing is billed.
 
-On a Freemium API, you keep working past the quota and pay an overage fee for each extra request. RapidAPI sends email alerts at 85 percent and at 100 percent of the quota. It says an email is no guarantee, because a fast burst can pass the limit before the alert fires. The docs say you must watch your own usage. RapidAPI cannot give refunds without the provider's permission.
+On a Freemium API, requests beyond a quota can incur overage fees. Providers can instead set hard limits, so check every billing object. RapidAPI sends email alerts at 85 percent and at 100 percent of the quota. It says an email is no guarantee, because a fast burst can pass the limit before the alert fires. The docs say you must watch your own usage. RapidAPI cannot give refunds without the provider's permission.
 
 A daily quota resets 24 hours after you subscribed, not at midnight.
 
@@ -110,7 +110,7 @@ Signing up and calling Free APIs costs nothing. Free APIs need no card. Freemium
 
 ### What happens when I go over the RapidAPI limit?
 
-On a Free API you get a 429 error. On a Freemium API, you pay an overage fee for each extra request. The plan's pricing tab shows the fee.
+On a Free API you get a 429 error. On a Freemium API, extra requests can incur overage fees unless that plan sets a hard limit. The plan's pricing tab shows the fee.
 
 ### Does RapidAPI need a credit card?
 

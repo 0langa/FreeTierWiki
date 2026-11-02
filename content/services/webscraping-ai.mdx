@@ -19,9 +19,9 @@ freeTierDetails:
     - '2,000 API credits/month'
     - Max 2 concurrent connections
     - 1 credit per static request, 5 with JavaScript rendering
-    - Requests can take up to 30 seconds
+    - Ordinary requests can take 30 seconds; learning a new structured page can take about 45 seconds
   caveats:
-    - API returns HTTP 402 for insufficient credits andHTTP 429 for excess concurrency
+    - API returns HTTP 402 for insufficient credits and HTTP 429 for excess concurrency
     - Residential and stealth proxies, AI extraction, Google SERP, and social-media scraping cost more credits per request
     - Failed requests are free; you pay only for successful responses
     - Pay-as-you-go credits can be bought separately, and are used after the monthly quota runs out
@@ -54,8 +54,8 @@ avoidIf:
   - you need steady high-volume scraping
   - you need custom browser flows
 productionReadiness: prototype
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://webscraping.ai'
@@ -68,7 +68,7 @@ sourceUrls:
 changes:
   - date: 2026-10-21
     kind: changed
-    note: "Documented HTTP 402 credit stop andHTTP 429 concurrency; clarified parsed-empty/not-found successful-request charges."
+    note: "Documented HTTP 402 credit stop and HTTP 429 concurrency; clarified parsed-empty/not-found successful-request charges."
   - date: 2026-10-21
     kind: changed
     note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
@@ -80,25 +80,25 @@ You call an HTTP API with your key, use one of the official SDKs, or route traff
 
 ## What the free plan gives you
 
-The free plan gives you 2,000 API credits every month, with a maximum of 2 concurrent connections. It needs no credit card. A request can take up to 30 seconds.
+The free plan gives you 2,000 API credits every month, with a maximum of 2 concurrent connections. It needs no credit card. Ordinary requests can take 30 seconds; a first structured-page request can take about 45 seconds.
 
-Credits depend on the options. A request without JavaScript rendering costs 1 credit, and the default with JavaScript rendering costs 5. Residential proxies cost 10 to 25 credits, and stealth proxies cost 50. AI extraction adds 5 credits. A Google search through the SERP endpoint costs 15 credits, and a structured data page costs 15 credits too, or 50 for Reddit.
+Credits depend on the options. A request without JavaScript rendering costs 1 credit, and the default with JavaScript rendering costs 5. Residential proxies cost 10 to 25 credits, and stealth proxies cost 50. AI extraction adds 5 credits. A Google search through the SERP endpoint costs 15 credits, and dedicated structured parsers cost 15 credits, or 50 for Reddit. Generic structured extraction varies by site and uses the cheapest working proxy tier.
 
 ## When you hit a limit
 
-The current API error table says insufficient credits return HTTP 402; upgrade,topup or wait for reset to resume. Excess concurrent requests return HTTP 429. It does say that credits come from a monthly plan, from pay-as-you-go top-ups, or from both. Pay-as-you-go credits are used only after your plan quota runs out.
+The current API error table says insufficient credits return HTTP 402; upgrade, top up or wait for reset to resume. Excess concurrent requests return HTTP 429. It does say that credits come from a monthly plan, from pay-as-you-go top-ups, or from both. Pay-as-you-go credits are used only after your plan quota runs out.
 
 You can buy credits with no subscription. One dollar buys 5,000 credits, the minimum top-up is $20, and the credits stay valid for 12 months. Paid plans start at $29 a month for 250,000 credits.
 
 ## Gotchas
 
-- Failed requests are free. For the data endpoint, pages that come back parse_failed or not_found still count as successful and are charged.
+- Failed fetches and structure-learning errors are free. Successful /data responses marked parse_failed or not_found are charged.
 - The free plan allows 2 concurrent connections, while the first paid plan allows 10.
 - Refunds are possible within 7 days of a first purchase, minus the pay-as-you-go value of the credits you used.
 
 ## Alternatives in this atlas
 
-- [ScrapingAnt](/services/scrapingant/): when you want a scraping API with more free credits and no concurrency cap.
+- [ScrapingAnt](/services/scrapingant/): when you want a scraping API with more free credits but a one-request concurrency limit.
 - [Zenscrape](/services/zenscrape/): when you want another proxy and browser rendering API to compare.
 - [SerpApi](/tools/serpapi/): when you only need parsed Google results.
 
@@ -114,4 +114,4 @@ It depends on the options. A request without JavaScript costs 1 credit, and the 
 
 ### Does WebScraping.AI charge for failed requests?
 
-Failed fetches are free. The/data endpoint still charges successful responses marked parse_failed or not_found, and empty search results can also be successful billed responses.
+Failed fetches are free. The /data endpoint still charges successful responses marked parse_failed or not_found, and empty search results can also be successful billed responses.

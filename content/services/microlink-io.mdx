@@ -20,7 +20,7 @@ freeTierDetails:
     - 60-second request timeout
     - Up to 2 concurrent requests
   caveats:
-    - Requests pause at 100% of quota until the next billing cycle or upgrade, no overage fees
+    - Free requests return HTTP 429 at quota until the daily reset or upgrade; no overage fees
     - Free plan has community support and a best-effort SLA
     - Responses served from cache do not count against the quota
   resetPeriod: daily
@@ -32,7 +32,7 @@ freeTierDetails:
     - Microlink says it never bills by surprise; requests pause at the limit and there are no overage fees
 quickstartSteps:
   - Sign up at dashboard.microlink.io to get a free API key; no card is needed.
-  - Send a GET request to `https://api.microlink.io/` with a `url` query parameter, from a browser, cURL, or your language.
+  - Send a GET request to `https://pro.microlink.io/` with a `url` query parameter and your key in the `x-api-key` header from your backend.
   - Read the JSON response that comes back for that URL.
   - Use the Microlink SDK from JavaScript, which wraps the same API in one method per product.
   - Try the Microlink CLI to explore the API during local development.
@@ -52,8 +52,8 @@ avoidIf:
   - you need an uptime guarantee
   - you need a dedicated endpoint
 productionReadiness: prototype
-lastUpdated: 2026-10-26
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://microlink.io/'
@@ -61,6 +61,8 @@ docsUrl: 'https://microlink.io/docs/api/getting-started/overview'
 pricingUrl: 'https://microlink.io/pricing'
 sourceUrls:
   - 'https://microlink.io/pricing'
+  - 'https://microlink.io/docs/api/basics/authentication'
+  - 'https://microlink.io/docs/api/basics/rate-limit'
   - 'https://microlink.io/docs/api/getting-started/overview'
   - 'https://microlink.io/'
 status: changed
@@ -85,9 +87,9 @@ One request is one API call to any Microlink endpoint. Responses served from the
 
 ## When you hit a limit
 
-Microlink says you are never billed by surprise. It notifies you at 80% of usage. At 100%, requests pause until the next billing cycle or until you upgrade. There are no overage fees. The page does not say how the pause applies to the daily Free quota.
+Microlink says you are never billed by surprise. It notifies you at 80% of usage. At 100%, requests pause until the next billing cycle or until you upgrade. There are no overage fees. The rate-limit docs clarify that Free API keys reset daily and exhausted quotas return HTTP 429; the `x-rate-limit-reset` header gives the reset time. Requests above two concurrent calls also return 429 with `ECONCURRENCY`, which calls for a short retry rather than waiting for the daily reset.
 
-Pro costs $49 a month for 46,000 requests a month, and it has no daily quota. Upgrades take effect immediately and are pro-rated. A free account cannot be billed because it has no card, so the worst case is a paused API until the next cycle.
+Pro costs $49 a month for 46,000 requests a month, and it has no daily quota. Upgrades take effect immediately and are pro-rated. The published no-overage policy means exceeding the Free quota pauses requests instead of creating a usage bill.
 
 ## Gotchas
 
@@ -109,8 +111,8 @@ Yes. The free plan is free forever and needs no credit card. You get 25 requests
 
 ### What happens when I exceed the Microlink free quota?
 
-Requests pause until the next billing cycle or until you upgrade. Microlink says there are no overage fees.
+Free requests return HTTP 429 until the daily reset or until you upgrade. Microlink says there are no overage fees.
 
 ### Does Microlink need an API key or credit card for the free plan?
 
-You need a free API key, which you get by signing up at dashboard.microlink.io. No credit card is needed.
+An API key unlocks 25 requests per day; unauthenticated access allows 5. Get a free key at dashboard.microlink.io. No credit card is needed.

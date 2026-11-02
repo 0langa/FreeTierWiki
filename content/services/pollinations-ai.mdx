@@ -50,8 +50,8 @@ avoidIf:
   - 'you need published uptime guarantees'
   - 'you want to ship a secret key in browser code'
 productionReadiness: prototype
-lastUpdated: '2026-10-21'
-lastVerified: '2026-10-26'
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://pollinations.ai/'
@@ -84,7 +84,7 @@ One key can reach image, text, audio, and video models. You can also limit a key
 
 A 402 error means an account balance or per-key budget cannot fund a request. Each request uses one balance: regular models use Quest Pollen if it covers the estimate, otherwise Paid Pollen. Paid-only models need Paid Pollen. The final cost can exceed the estimate and make the selected balance negative; this is not a strict spending cap.
 
-The API can also return 429 or 503. The `Retry-After` header tells you how long to wait. The API docs describe legacy raw `pk_` keys as limited to 1 Pollen per IP per hour. The dashboard announces that from November 1 they will only identify apps; new integrations should use Connect User Wallets.
+The API can also return 429 or 503. Slow down for 429 and use backoff for 503; honor a `Retry-After` header when one is provided. The current official repository lists `pk_` App Keys as identifiers for Pollinations Connect that cannot authenticate requests. Use the user-wallet authorization flow for client apps; secret `sk_` keys remain for server-side use.
 
 ## Gotchas
 

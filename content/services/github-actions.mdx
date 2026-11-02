@@ -15,17 +15,19 @@ tags:
   - self-hosted runner
 freeTierDetails:
   summary: >-
-    GitHub Free: 2,000 minutes per month and 500 MB of shared artifact storage for private
-    repositories. Standard runners are free for public repositories.
+    GitHub Free includes $12 of compute per month, shared by eligible private-repository
+    runners and cloud sandboxes, plus 500 MB of shared artifact storage. Standard
+    runners are free for public repositories.
   limits:
-    - '2,000 minutes per month on GitHub Free for private repositories'
+    - '$12 monthly compute allowance on GitHub Free, shared with cloud sandboxes'
+    - Equivalent to 2,000 standard Linux 2-core minutes if used only for that runner
     - Standard GitHub-hosted runners are free in public repositories
     - Self-hosted runners are free
     - '500 MB of artifact storage, shared with GitHub Packages'
     - 10 GB of Actions cache per repository
   caveats:
-    - Free minutes and quota apply to standard runners; larger runners are always charged
-    - 'Minutes are charged to the repository owner, not to the person who ran the workflow'
+    - Larger runners require payment details; eligible Team and Enterprise usage can draw from included compute
+    - 'Runner costs are charged to the repository owner, not the person who ran the workflow'
     - Windows and macOS runners cost more per minute than Linux
     - Artifact and Packages storage share one allowance
   resetPeriod: monthly
@@ -49,18 +51,18 @@ whenToUse: >-
   standard runners are free.
 whenNotToUse: >-
   Avoid it if your code is not on GitHub, or if you run many private-repository builds that need
-  more than the free minutes.
+  more than the included compute allowance.
 bestFor:
   - open-source projects on GitHub
-  - 'small private projects within 2,000 minutes'
+  - small private projects within the shared compute allowance
   - teams that want CI next to their code
 avoidIf:
   - your code is not hosted on GitHub
   - you run heavy private builds without a budget
   - you need larger runners at no cost
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://github.com/features/actions'
@@ -73,22 +75,25 @@ sourceUrls:
   - 'https://docs.github.com/en/actions/get-started/quickstart'
 pricingUrl: 'https://github.com/pricing'
 changes:
+  - date: '2026-11-02'
+    kind: changed
+    note: Updated to the documented shared dollar-denominated compute allowance and larger-runner eligibility.
   - date: '2026-10-21'
     kind: changed
     note: Added optional budget stops and cache overage opt-in while retaining no-payment-method blocking.
 answer: >-
-  GitHub Actions on GitHub Free gives 2,000 minutes a month for private repositories and is free for public ones, and without a payment method usage is blocked once the quota is used.
+  GitHub Free includes $12 of monthly compute shared by eligible Actions runners and cloud sandboxes; standard public-repository runners remain free, and usage stops at the allowance without a payment method.
 
 ---
 You write workflows as YAML files in your repository and watch runs in the Actions tab. GitHub offers workflow templates, and the web interface is enough to start. It suits anyone who keeps code on GitHub.
 
 ## What the free plan gives you
 
-Using standard GitHub-hosted runners in public repositories is free. Self-hosted runners are free too. For private repositories, the GitHub Free plan includes 2,000 minutes per month, 500 MB of artifact storage, and 10 GB of Actions cache per repository.
+Using standard GitHub-hosted runners in public repositories is free. Self-hosted runners are free too. For private repositories, GitHub Free includes $12 of compute per month, 500 MB of artifact storage, and 10 GB of Actions cache per repository. Compute is shared with cloud sandbox compute and memory. At $0.006 per minute for a standard Linux 2-core runner, $12 covers 2,000 minutes only if nothing else draws from the allowance.
 
-GitHub Pro raises the minutes to 3,000 and the storage to 1 GB. The artifact storage is shared with GitHub Packages, so both together cannot pass the included amount. Cache storage is separate; raising its repository limit above 10 GB enables paid excess storage.
+GitHub Pro raises included compute to $18 per month and artifact storage to 1 GB. The artifact storage is shared with GitHub Packages, so both together cannot pass the included amount. Cache storage is separate; raising its repository limit above 10 GB enables paid excess storage.
 
-Your minutes reset with the monthly billing cycle. Minutes are charged to the repository owner, not to the person who triggered the run.
+Included compute resets with the monthly billing cycle. Runner costs are charged to the repository owner, not to the person who triggered the run.
 
 ## When you hit a limit
 
@@ -98,8 +103,8 @@ With a payment method, extra usage is billed unless a configured stop-usage budg
 
 ## Gotchas
 
-- Larger runners are always charged, even in public repositories and even when you have quota left.
-- Copilot code review uses Actions minutes on private repositories.
+- Larger runners require a payment method and are billed in public repositories. Where available, eligible larger-runner costs can draw from included compute on GitHub Team and Enterprise Cloud.
+- Copilot code review uses Actions compute on private repositories in addition to AI credits.
 - Anyone with write access can run actions, and the cost goes to the repository owner.
 
 ## Alternatives in this atlas
@@ -112,9 +117,9 @@ With a payment method, extra usage is billed unless a configured stop-usage budg
 
 ### Is GitHub Actions free?
 
-Yes, within limits. Standard runners are free for public repositories. Private repositories on GitHub Free get 2,000 minutes per month.
+Yes, within limits. Standard runners are free for public repositories. GitHub Free includes $12 of monthly compute shared with cloud sandboxes, equivalent to 2,000 standard Linux 2-core minutes if used exclusively for that runner.
 
-### What happens when I use up my GitHub Actions minutes?
+### What happens when I use up my GitHub Actions compute allowance?
 
 Without a payment method, usage is blocked once the quota is used up. With one on file, extra usage is billed to your account.
 

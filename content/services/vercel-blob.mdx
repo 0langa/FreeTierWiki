@@ -17,7 +17,7 @@ freeTierDetails:
     Free on the Hobby plan: 1 GB storage, 10 GB transfer, 10,000 simple and 2,000 advanced
     operations per month.
   limits:
-    - 1 GB storage per month
+    - 1 GB-month average storage
     - 10 GB data transfer
     - '10,000 simple operations'
     - '2,000 advanced operations'
@@ -34,7 +34,7 @@ freeTierDetails:
   overageRisk: none
 quickstartSteps:
   - Open your project in the Vercel dashboard and choose Create Storage, then Blob.
-  - Create a new Blob store and pick public or private access. You cannot change the access mode later.
+  - Create a new Blob store, pick public or private access, and include Development for local testing. You cannot change the access mode later.
   - Install the SDK with npm i @vercel/blob.
   - Run vercel env pull to get the store variables into your local .env.local file.
   - Call put() from server code to upload a file, then use the URL it returns.
@@ -42,19 +42,19 @@ whenToUse: >-
   Use it when your app is on Vercel and needs a small amount of file storage
   close to your code.
 whenNotToUse: >-
-  Avoid it if you need free storage that keeps working past the limit, or if
-  you host outside Vercel.
+  Avoid it if you need free storage that keeps working past the limit, or
+  an S3-compatible storage API.
 bestFor:
   - Vercel apps
   - user uploads
   - generated files
 avoidIf:
   - large media libraries
-  - apps hosted outside Vercel
+  - S3-compatible storage requirements
   - you need access to never be blocked
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://vercel.com/storage/blob'
@@ -79,11 +79,11 @@ answer: >-
   Vercel Blob on Hobby includes 1 GB of storage and 10 GB of transfer for personal use only, and going over blocks it for about 30 days, while the card rule is not confirmed.
 
 ---
-You create a Blob store in the Vercel dashboard or with the Vercel CLI, then upload and read files with the `@vercel/blob` SDK from server or client code. It suits teams whose app already runs on Vercel.
+You create a Blob store in the Vercel dashboard or with the Vercel CLI, then upload and read files with the `@vercel/blob` SDK from server or client code. It suits apps already on Vercel. Code hosted elsewhere can use a store’s read-write token.
 
 ## What the free plan gives you
 
-Vercel Blob is free for Hobby users within the usage limits. Hobby is for non-commercial, personal use only. The Hobby plan includes 1GB of storage per month, the first 10 GB of data transfer, the first 10,000 simple operations, and the first 2,000 advanced operations.
+Vercel Blob is free for Hobby users within the usage limits. Hobby is for non-commercial, personal use only. The Hobby plan includes 1 GB-month of average storage, the first 10 GB of data transfer, the first 10,000 simple operations, and the first 2,000 advanced operations.
 
 Simple operations count when a blob is read by its URL and it is a cache miss, or when you call head(). Advanced operations count when you call put(), copy(), or list(), and when you create a store. Cache hits do not count as simple operations, but still count as CDN requests. The del() operation is free.
 
@@ -93,7 +93,7 @@ The included usage on Hobby is shared across all Vercel services in your project
 
 Vercel emails you as you near the limits. You will not pay for any additional usage on Hobby. Instead, you cannot access Vercel Blob once the limits are exceeded, and you have to wait until 30 days have passed before using Blob again.
 
-Pro and other paid plans bill by use. Storage costs $0.023 per GB, simple operations cost $0.400 per 1M, advanced operations cost $5.000 per 1M, and data transfer costs $0.050 per GB. Multipart uploads count as several advanced operations.
+Paid storage and operation rates vary by region. The docs illustrate $0.023/GB-month, $0.40/million simple operations and $5/million advanced operations; the pricing table now lists Pro Blob transfer under Flat Rate CDN. Check your region and plan rather than treating the example’s $0.05/GB transfer as universal. Multipart uploads count as several advanced operations.
 
 ## Gotchas
 

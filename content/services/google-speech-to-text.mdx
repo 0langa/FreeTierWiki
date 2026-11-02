@@ -18,7 +18,7 @@ freeTierDetails:
     the Google Cloud Free Tier.
   limits:
     - 60 minutes of audio per month (V1 API)
-    - Audio is measured in increments of one second
+    - Audio is measured in increments of one second; each recognized channel is billed separately
   caveats:
     - The free minutes apply to the V1 API; the V2 tables start billing from the first minute
     - A Cloud Billing account is required to use the Free Tier
@@ -49,8 +49,8 @@ avoidIf:
   - many hours of audio a month
   - no billing account
 productionReadiness: production-ready
-lastUpdated: 2026-10-11
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://cloud.google.com/speech-to-text'
@@ -86,7 +86,7 @@ The V2 API has its own price table, starting at $0.016 per minute for standard r
 ## Gotchas
 
 - The free minutes are for the V1 API, so moving to V2 or its Chirp model means paying from the first minute.
-- An empty response counts as processed audio, so sending silence still uses your minutes.
+- Empty responses still count as processed audio. Channels are billed separately: 30 seconds across four recognized channels bills 120 seconds, even though operational quota accounting uses file duration.
 - The free amount is counted per billing account, not per project.
 
 ## Alternatives in this atlas
