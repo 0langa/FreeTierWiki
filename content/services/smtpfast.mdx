@@ -23,13 +23,14 @@ freeTierDetails:
     - 2 broadcasts per month
     - 1 sending domain
     - 30-day content retention
+    - 10 API requests per second
   caveats:
     - The page does not say what happens on the free plan when the 3,000 emails are used
     - Prepaid extra credits are for active accounts and cost $0.001 per extra email
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
     - Extra volume is sold as prepaid credits, so it is bought up front rather than billed after the fact
@@ -52,14 +53,16 @@ avoidIf:
   - you need several sending domains for free
   - you send more than 3,000 emails a month
 productionReadiness: side-project
-lastUpdated: 2026-10-26
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://smtpfa.st/'
 docsUrl: 'https://smtpfa.st/docs'
 sourceUrls:
   - 'https://smtpfa.st/'
+  - 'https://smtpfa.st/docs/billing'
+  - 'https://smtpfa.st/docs/rate-limits'
 pricingUrl: 'https://smtpfa.st/'
 changes:
   - date: '2026-10-26'
@@ -69,7 +72,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  SMTPfast's free plan sends 3,000 emails a month to 1,000 contacts with no card and no hard cap, and extra mail is prepaid at $0.001 rather than billed afterward.
+  SMTPfast's free plan sends 3,000 emails a month to 1,000 contacts with no card; monthly exhaustion behavior is undocumented, and extra mail is sold as prepaid credits at $0.001 each.
 
 ---
 
@@ -83,7 +86,7 @@ Sending works over the JSON REST API or through the SMTP bridge, where your API 
 
 ## When you hit a limit
 
-The pricing section does not say what happens on the Free plan when you use the 3,000 emails in a month. It does not describe a hard stop or automatic charges.
+The reviewed pricing and docs do not say what happens when Free uses its 3,000 monthly emails. Usage follows the UTC calendar month, separate from paid billing periods. Free allows 10 API requests per second; exceeding that rate returns HTTP 429 with Retry-After. This rate limit does not establish monthly exhaustion behavior.
 
 If you only need extra volume for a spike, active accounts can buy prepaid email credits at $0.001 per extra email, which works out at $1 for 1,000 extra emails. For a steady increase, the Starter plan is $9 a month for 25,000 emails, 10,000 contacts, and 3 sending domains.
 
