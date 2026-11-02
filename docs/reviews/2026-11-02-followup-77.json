@@ -6,13 +6,13 @@
   "baseCommit": "c2eda514c0f2d8f46f8247861d2e286338f6b65c",
   "counts": {
     "assigned": 596,
-    "completed": 305,
-    "confirmed": 250,
-    "correctedComplete": 55,
+    "completed": 350,
+    "confirmed": 271,
+    "correctedComplete": 79,
     "correctedPartial": 2,
-    "partial": 20,
-    "attemptedOnly": 271,
-    "outstanding": 291
+    "partial": 15,
+    "attemptedOnly": 231,
+    "outstanding": 246
   },
   "entries": [
     {
@@ -4388,14 +4388,24 @@
     },
     {
       "id": "services/google-maps-platform",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed typical 10K/5K/1K monthly SKU allowances, 100K tile exceptions, unlimited Embed/Maps SDK, Dynamic Maps $7 and Geocoding $5 per 1,000 first paid events, billing-account aggregation and Pacific monthly reset. Demo-key docs confirm supported Maps/Places/Geocoding/Routes/Weather features and charge-free daily pause. Added material eligibility restrictions: personal accounts only, no Workspace/prohibited territories and no user photos/reviews.",
+      "sources": [
+        {
+          "url": "https://developers.google.com/maps/billing-and-pricing/overview?hl=en",
+          "quote": "10,000 free calls / mo per SKU"
+        },
+        {
+          "url": "https://developers.google.com/maps/documentation/javascript/demo-key?hl=en",
+          "quote": "Account type: You must use a personal Google Account (such\nas a @gmail.com address). Google Workspace (corporate) accounts\nare not eligible."
+        },
+        {
+          "url": "https://developers.google.com/maps/documentation/javascript/demo-key?hl=en",
+          "quote": "the daily limit, your usage is paused until the following day with no risk of\ncharges."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://mapsplatform.google.com/pricing/",
         "https://developers.google.com/maps/billing-and-pricing/overview?hl=en",
@@ -4405,7 +4415,7 @@
         "https://developers.google.com/maps/documentation",
         "https://mapsplatform.google.com"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4414,23 +4424,31 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "complete",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/google-natural-language",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Product page confirms service availability and general new-customer credit only; per-feature Natural Language free grants and billing units could not be verified.",
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 5,000 monthly units for each analysis feature, 30,000 classification and 50,000 moderation, 1,000/100-character unit sizes including whitespace/markup, per-request rounding, separate annotateText feature charges, published relative prices/discount thresholds and billing-account aggregation. Setup still requires billing and API enablement; paid-account excess usage is billed.",
       "sources": [
         {
-          "url": "https://cloud.google.com/natural-language",
-          "quote": "New customers get up to $300 in free credits to try Google Cloud products\nGet insightful text analysis with machine learning that extracts, analyzes, and stores text\nApply natura"
+          "url": "https://cloud.google.com/natural-language/pricing",
+          "quote": "Content Classification\n0 count to 30,000 count\n$0.00 (Free)"
+        },
+        {
+          "url": "https://cloud.google.com/natural-language/pricing",
+          "quote": "Text Moderation\n0 count to 50,000 count\n$0.00 (Free)"
+        },
+        {
+          "url": "https://cloud.google.com/free/docs/free-cloud-features",
+          "quote": "products at no charge, there are monthly usage limits that are calculated per\nbilling account."
         }
       ],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
-      ],
+      "remaining": [],
       "attemptedSources": [
         "https://cloud.google.com/natural-language/pricing",
         "https://docs.cloud.google.com/natural-language/docs/setup?hl=en",
@@ -4438,7 +4456,7 @@
         "https://cloud.google.com/natural-language/docs",
         "https://cloud.google.com/natural-language"
       ],
-      "reviewStage": "partial",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4448,23 +4466,27 @@
       "sourceProvenance": "Official source quotes retained from the earlier 2026-11-02 pass; not newly fetched in this resumed attempt.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "complete",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/google-secret-manager",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Official free-products catalog confirms six secret versions/month, but operation/rotation grants, payment requirements and paid rates could not be verified.",
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed six active versions, 10,000 access operations and three monthly rotations per billing account, free management/destroyed versions, enabled and disabled versions counted as active, per-location replication billing and prorating. Published excess rates and the $0.12 example match; API/IAM/authentication prerequisites support the quickstart.",
       "sources": [
         {
-          "url": "https://cloud.google.com/free",
-          "quote": "6 secret versions per month\nCloud Shell\nOnline development and operations environment accessible anywhere with your browser.\nIncludes 5 GB of persistent disk storage\nWorkload Ma"
+          "url": "https://cloud.google.com/secret-manager/pricing",
+          "quote": "Active secret versions\n6 versions\nAccess operations\n10,000 operations\nRotation Notifications\n3 rotations"
+        },
+        {
+          "url": "https://cloud.google.com/secret-manager/pricing",
+          "quote": "A secret version is \"active\" when it's in any of these states: Enabled and Disabled"
         }
       ],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
-      ],
+      "remaining": [],
       "attemptedSources": [
         "https://cloud.google.com/secret-manager/pricing",
         "https://docs.cloud.google.com/secret-manager/docs/create-secret-quickstart?hl=en",
@@ -4473,7 +4495,7 @@
         "https://cloud.google.com/secret-manager/docs",
         "https://cloud.google.com/security/products/secret-manager"
       ],
-      "reviewStage": "partial",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4483,25 +4505,34 @@
       "sourceProvenance": "Official source quotes retained from the earlier 2026-11-02 pass; not newly fetched in this resumed attempt.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "complete",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/google-speech-to-text",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed V1-only 60 free minutes, one-second rounding, charged empty responses/free server errors, V1 $0.016 logged/$0.024 unlogged and $0.078 medical rates, plus V2 standard billing from $0.016/minute without a free allowance. Added the material per-channel billing caveat and distinguished it from operational quota accounting.",
+      "sources": [
+        {
+          "url": "https://cloud.google.com/speech-to-text/pricing",
+          "quote": "Speech Recognition (without data logging)\nsku:60AE-2FE3-C3D8\nStandard\u00b9\n0 minute to 60 minute\n$0.00 (Free) / 1 minute, per 1 month / account"
+        },
+        {
+          "url": "https://cloud.google.com/speech-to-text/pricing",
+          "quote": "Each audio channel is billed separately."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://cloud.google.com/speech-to-text/pricing",
         "https://cloud.google.com/free/docs/free-cloud-features",
         "https://cloud.google.com/speech-to-text/docs/overview",
         "https://cloud.google.com/speech-to-text"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4510,18 +4541,27 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "complete",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/grafana-cloud",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 10K metric series, 50GB each of logs/traces, three active visualization and IRM users, 14-day Free retention, no card/no charges, community support and $19-plus-usage Pro with 13-month metrics/30-day other-signal retention. Current onboarding still uses data connections or telemetry/Alloy/Instrumentation Hub. Additional usage-limit docs describe technical rejection/retention limits, but do not establish monthly Free allowance exhaustion, so that specific uncertainty remains.",
+      "sources": [
+        {
+          "url": "https://grafana.com/pricing/",
+          "quote": "Limited to 10k active series per month\n14 days retention\nCommunity support"
+        },
+        {
+          "url": "https://grafana.com/pricing/",
+          "quote": "Limited to 50 GB ingested per month\n14 day retention\nCommunity support"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://grafana.com/pricing/",
         "https://grafana.com/docs/grafana-cloud/",
@@ -4529,7 +4569,7 @@
         "https://grafana.com/docs/grafana-cloud/send-data/",
         "https://grafana.com/products/cloud/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4538,24 +4578,33 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "complete",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/graphhopper",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed no-card/noncommercial Free, 500 daily credits, five locations, one optimization vehicle, restricted profiles/flexible mode, forum support and 69-euro Basic/5,000 daily credits. Inspected pricing HTML: Free excludes Map Matching and Isochrones. The footnote still says Free has no guarantees and violating limits might be blocked; exact daily exhaustion/overage behavior remains qualified.",
+      "sources": [
+        {
+          "url": "https://www.graphhopper.com/pricing/",
+          "quote": "The Free Plan is for non-commercial use only. It has a limited credit count per minute, a limited set of vehicle profiles and cannot use the flexible mode (ch.disable=true)."
+        },
+        {
+          "url": "https://www.graphhopper.com/pricing/",
+          "quote": "Free\nPrice per month 1\n0 \u20ac 2\nCredits per day 3,4\n500 per day\nMax. locations per request\n5 locations"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.graphhopper.com/pricing/",
         "https://docs.graphhopper.com",
         "https://www.graphhopper.com"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4564,18 +4613,23 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "complete",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/gridlastic-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed five free starts, two parallel nodes, two-hour runtime, $795 paid entry price, paid credit overages, AWS inclusion, support and Selenium setup. Removed an unsupported monthly refresh implication and contradictory assertions about runtime expiry; card, start renewal and in-progress-test behavior remain explicitly unpublished.",
+      "sources": [
+        {
+          "url": "https://www.gridlastic.com/pricing.html",
+          "quote": "Exception to this is our free account plan which limits the time your selenium grid runs to 2 hours per grid start."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.gridlastic.com/pricing.html",
         "https://www.gridlastic.com/how-it-works.html",
@@ -4583,7 +4637,7 @@
         "https://www.gridlastic.com/documentation.html",
         "https://www.gridlastic.com/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4592,25 +4646,33 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/growthbook",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed three cloud users, one project, unlimited flags/experiments/traffic, 1M CDN requests and 5GB/month, no card, unlimited self-hosted users, Pro $40/seat and warning/qualified overage treatment. Added Starter's 1M managed warehouse events and distinguished included Google-only SSO from custom enterprise SSO/SCIM. Reviewed SDK quickstart.",
+      "sources": [
+        {
+          "url": "https://www.growthbook.io/pricing",
+          "quote": "Managed Warehouse\n1M events/mo\n2M events/mo (then $30/M)\nCustom"
+        },
+        {
+          "url": "https://www.growthbook.io/pricing",
+          "quote": "SSO\nGoogle Only\nGoogle Only\nCustom OIDC"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.growthbook.io/pricing",
         "https://docs.growthbook.io/",
         "https://docs.growthbook.io/quick-start",
         "https://growthbook.io"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4619,18 +4681,26 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/gtmetrix-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed Basic's five monthly on-demand tests for three months, five nonrefilling API credits, one-week retention, one monitored URL, no card and current $4.99/yearly-billed Lite pricing. Qualified the recommendation against automated monitoring to hourly or multi-URL monitoring, since Basic explicitly includes daily/weekly/monthly monitoring. API docs confirm one credit per Lighthouse report.",
+      "sources": [
+        {
+          "url": "https://gtmetrix.com/blog/important-changes-to-gtmetrix/",
+          "quote": "5 On-Demand Tests per month, for 3 months\n5 Trial API Credits at sign up\nNo refills after the trial credits are used up\n1 Week Data Retention"
+        },
+        {
+          "url": "https://gtmetrix.com/faq.html",
+          "quote": "Basic/Free users can only monitor 1 URL Daily, Weekly, or Monthly."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://gtmetrix.com/pricing/",
         "https://gtmetrix.com/",
@@ -4638,7 +4708,7 @@
         "https://gtmetrix.com/api/docs/2.0/",
         "https://gtmetrix.com/faq.html"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -4647,25 +4717,33 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/gumlet",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Rendered both pricing tabs and video Free/overage FAQs. Confirmed 60 storage/live minutes, 100GB monthly video bandwidth, 1000 AI credits, $0.5/GB and $1/1000 AI overages; image 30GB, unlimited processing, two sources, 6000x6000 and $0.5/GB. Creator $6 annually billed, API/MCP, branding, seats and image-source quickstart match. Signup card and no-payment-method enforcement remain explicitly unpublished.",
+      "sources": [
+        {
+          "url": "https://www.gumlet.com/pricing/",
+          "quote": "Gumlet's Free Plan includes 60 storage minutes, 100 GB bandwidth, 60 minutes of live streaming, 4K & HDR10 support, an ad-free player, password protection, geo-blocking, and unlimited AI-generated subtitles."
+        },
+        {
+          "url": "https://www.gumlet.com/pricing/",
+          "quote": "30 GB bandwidth / month\n\n$0.5/GB bandwidth overage"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.gumlet.com/pricing/",
         "https://docs.gumlet.com/image/getting-started/image-getting-started/index.md",
         "https://docs.gumlet.com",
         "https://www.gumlet.com"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -4674,22 +4752,26 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hacker-news-api",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Read the full official API specification: public Firebase reads, no current rate limit, stories/comments/jobs/polls/users, feed IDs, child traversal, missing/deleted/dead fields and no documented write/search endpoints match. The documented topstories JSON endpoint returned 200 without authentication. No pricing or billing mechanism is described.",
+      "sources": [
+        {
+          "url": "https://github.com/HackerNews/API",
+          "quote": "This first iteration will have URIs prefixed with https://hacker-news.firebaseio.com/v0/ and is structured as described below. There is currently no rate limit."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://github.com/HackerNews/API"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "new-baseline",
       "originalBatch": 2,
@@ -4698,25 +4780,33 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hatchet",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed distinct no-card 2000 daily runs/events and card-backed 1M monthly allowances; worker/slot/tenant/user/storage/retention/backlog limits, $30/$5 overages and separate storage/log/user meters match the comparison. FAQ confirms dropped tasks and creation errors, failed-run counting and free retries. CLI profile, quickstart, worker and trigger instructions remain current.",
+      "sources": [
+        {
+          "url": "https://hatchet.run/pricing",
+          "quote": "If you exceed your limit, tasks will get dropped and you will see errors when trying to create new tasks."
+        },
+        {
+          "url": "https://hatchet.run/pricing",
+          "quote": "2,000/day\n1M/mo included then $30/M"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://hatchet.run/pricing",
         "https://docs.hatchet.run",
         "https://docs.hatchet.run/v1/quickstart",
         "https://hatchet.run"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4725,22 +4815,30 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/he-free-dns",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed free-account DNS hosting, dual-stack queries, listed record types, forward/reverse and secondary zones, multiple domains, HTTPS dynamic updates and pre-created TXT records with up-to-five-minute propagation. DNSSEC remains only an explored upcoming feature; numeric quotas and exhaustion behavior remain unpublished, as qualified in the entry.",
+      "sources": [
+        {
+          "url": "https://dns.he.net/",
+          "quote": "If you do not have an account, you can sign up for a free one here"
+        },
+        {
+          "url": "https://dns.he.net/",
+          "quote": "DNSSEC - We are exploring this now"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://dns.he.net/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -4749,24 +4847,28 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/heap",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 10k monthly sessions, six-month history, core charts, enrichment, guides and SSO; Growth CSV/unlimited users/reports and paid replay add-on remain correctly scoped. FAQ still keeps collection running but blocks report access after excess usage, and defines web/mobile inactivity as 30/5 minutes. Developer overview supports snippet/SDK setup. No explicit card requirement was published.",
+      "sources": [
+        {
+          "url": "https://www.heap.io/pricing",
+          "quote": "Once you exceed your plan\u2019s monthly limit, you\u2019ll receive an email asking you to upgrade to the appropriate tier. You\u2019ll need to do this before you can view your data again."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.heap.io/pricing",
         "https://developers.heap.io/",
         "https://www.heap.io/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4775,24 +4877,28 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/helicone",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed Hobby's 10k monthly requests, 1GB, one seat/org, seven-day retention and 10/minute ingestion/API limits; $79 Pro and seven-day paid trials match. Expanded FAQs confirm no card for Free, background logging with upgrade required for access, and automatic overages scoped to Pro/Team. Gateway URL/key setup and qualified Mintlify-status wording remain current.",
+      "sources": [
+        {
+          "url": "https://www.helicone.ai/pricing",
+          "quote": "On the Free plan, you get 10,000 free requests and 1 GB of storage. We continue logging all your requests in the background. To access them, you can upgrade to the Pro plan at any time."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.helicone.ai/pricing",
         "https://docs.helicone.ai",
         "https://www.helicone.ai"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -4801,17 +4907,24 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/here",
       "outcome": "unresolved",
       "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
+      "blocker": "provider-cloudfront-403",
+      "summary": "Current pricing, rate limits, restrictions, legal terms and documentation all returned CloudFront 403 errors. A normal browser retry of pricing also returned 403; signup returned only an application shell. Prior qualified entry preserved and verification date unchanged.",
+      "sources": [
+        {
+          "url": "https://www.here.com/get-started/pricing",
+          "quote": "403 ERROR\nThe request could not be satisfied."
+        }
+      ],
       "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+        "Recheck Limited allowance and restrictions and establish current Base pricing once official sources are accessible."
       ],
       "attemptedSources": [
         "https://www.here.com/get-started/pricing",
@@ -4831,23 +4944,32 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "reviewStatus": "attempted-only",
+      "sequentialOutcome": "unresolved",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hetzner-dns",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed free DNS, default 25 zones, 500 records/zone, 50/RRset, four primary servers, 4096-character values, 60-second TTL, support-request increases and no DNSSEC. REST/hcloud setup and domain ownership match. Updated product/docs links to their current redirect destinations; account verification card policy remains qualified.",
+      "sources": [
+        {
+          "url": "https://docs.hetzner.com/dns-console/dns/general/dns-overview/",
+          "quote": "Up to 500 records per zone *\nUp to 50 records per RRset\nUp to 4 primary nameservers (for secondary zones)"
+        },
+        {
+          "url": "https://www.hetzner.com/dns-console",
+          "quote": "Currently, Hetzner Console does not include support for DNSSEC."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.hetzner.com/dns-console",
         "https://docs.hetzner.com/dns-console/dns/general/dns-overview/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4856,18 +4978,22 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hex",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed Community Small compute, limited AI/agent trial, five published apps and seven-day history; Professional $36, Team $75, shared-item and scheduling restrictions match. Fourteen-day no-card Team trial downgrades to Community, student Professional eligibility and private-project/app-sharing setup remain current. Exact Community exhaustion handling remains unpublished.",
+      "sources": [
+        {
+          "url": "https://hex.tech/pricing",
+          "quote": "Anyone can try the Hex Team plan free for 14 days, no payment card required. At the end of your trial you can choose to continue on a paid plan. If you do nothing, you'll be downgraded to the free Community plan and lose access to premium features."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://hex.tech/pricing",
         "https://learn.hex.tech/docs",
@@ -4876,7 +5002,7 @@
         "https://learn.hex.tech/docs/getting-started/share-your-work",
         "https://hex.tech/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -4885,25 +5011,29 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hightouch",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed Basic Reverse ETL's two active syncs, unlimited destinations/seats, source/destination definitions and source-model-destination setup. Paid Composable CDP/Agentic Marketing remain usage-based quoted plans with observability features. Public pricing still does not establish a Free row quota, card requirement or third-sync enforcement.",
+      "sources": [
+        {
+          "url": "https://hightouch.com/pricing",
+          "quote": "Basic Reverse ETL\nFor teams with limited use cases who want to get started with the free tier Reverse ETL Platform.\nGet started\nIncluded\nUp to 2 active syncs\nUnlimited destination count\nUnlimited user seats"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://hightouch.com/pricing",
         "https://hightouch.com/docs/syncs/create-your-first-sync",
         "https://hightouch.com/docs",
         "https://hightouch.com/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -4912,25 +5042,33 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hivemq-cloud",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed managed Starter is a 15-day no-card trial, 10k connections/1MB per second, then $0.34/hour plus $0.80/million messages; no payment method means automatic cluster removal. Confirmed self-hosted Lab and paid Launch/Run details; added Lab's newly explicit 30-day manual free-license renewal condition.",
+      "sources": [
+        {
+          "url": "https://www.hivemq.com/pricing/",
+          "quote": "License valid for 30 days. Renew manually at no charge to continue."
+        },
+        {
+          "url": "https://docs.hivemq.com/hivemq-cloud/quick-start-guide.html",
+          "quote": "only after the 15-day trial ends and if you added a payment method. Otherwise, the free trial will end and the cluster\nis removed automatically when the free trial ends."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.hivemq.com/pricing/",
         "https://docs.hivemq.com/hivemq-cloud/quick-start-guide.html",
         "https://docs.hivemq.com/",
         "https://www.hivemq.com/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4939,25 +5077,33 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/honeybadger-io",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed $0 Developer forever, 5000 monthly errors, 50MB/day logs, one monitor/status page/user, unlimited projects, 15-day error and seven-day log retention, five-minute checks and $26 Team. FAQ still processes errors to 125%, prompts upgrades for sustained log excess, and scopes opt-in overage pricing to paid plans. No-card 30-day trial requires a plan selection to avoid paused monitoring.",
+      "sources": [
+        {
+          "url": "https://www.honeybadger.io/plans/",
+          "quote": "When you exceed your monthly error limit, we continue to process up to 125% of your limit before we stop processing data until the end of the month."
+        },
+        {
+          "url": "https://www.honeybadger.io/plans/",
+          "quote": "If you haven't chosen a plan by then, we'll pause monitoring until you log in and pick one."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.honeybadger.io/plans/",
         "https://docs.honeybadger.io/",
         "https://www.honeybadger.io",
         "https://docs.honeybadger.io/lib/ruby/"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4966,18 +5112,26 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/honeycomb",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "environment-transport",
-      "summary": "Source collection attempted; material current pricing and limits could not be compared because the environment transport returned HTTP 503.",
-      "sources": [],
-      "remaining": [
-        "Complete comparison of current official pricing, quotas, card requirements and limit behavior."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed 20M events/100M metrics monthly, two triggers, $150 Pro, unlimited seats/querying and 60-day event/log retention. Verified consecutive-month warning/throttling timeline, independent metrics handling, 1-in-10 event acceptance, 72-hour recovery and burst protection. Added distinct 13-month default time-series retention and clarified required exporter authentication in the quickstart. Card requirement remains unestablished.",
+      "sources": [
+        {
+          "url": "https://docs.honeycomb.io/get-started/manage-costs/how-honeycomb-calculates-usage/",
+          "quote": "Time-series metrics datasets: 13-month fixed retention by default."
+        },
+        {
+          "url": "https://docs.honeycomb.io/get-started/manage-costs/how-honeycomb-calculates-usage/",
+          "quote": "The Honeycomb Event API randomly accepts one of every ten events and rejects the remaining nine, which Honeycomb doesn\u2019t ingest or store."
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.honeycomb.io/pricing/",
         "https://docs.honeycomb.io/get-started/manage-costs/how-honeycomb-calculates-usage/",
@@ -4986,7 +5140,7 @@
         "https://docs.honeycomb.io",
         "https://www.honeycomb.io"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4995,7 +5149,9 @@
       "resumeAttempt": "Central fetch stopped on repeated global proxy failures before reaching this entry; additional blind requests were not made.",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-2.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-2.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/hook0",
@@ -5281,26 +5437,25 @@
       "id": "services/ibm-watsonx-orchestrate",
       "outcome": "unresolved",
       "reviewCompleted": false,
-      "summary": "Pricing confirms a 30-day trial and Essentials pricing, but the trial-detail sources were HTTP403. The educational trial duration, member limit and trial-expiry handling could not be fully compared. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
+      "summary": "Current product pricing confirms 30-day trial, $530 Essentials/$6360 Standard monthly starting prices, agent-building/chat/evaluation features and Assistant redirect. The detailed trial guide returned 403 in both HTTP client and browser, so educational eligibility, ten-member invitation and expiry behavior could not be reverified. Existing content and verification date preserved.",
       "sources": [
         {
           "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
-          "quote": "al Try and explore watsonx Orchestrate for a 30-day free period by using the watsonx Orchestrate trial access. Pricing: Free trial Features Agent building/orchestration Intuitive chat interface Tools/integrations catalog Co"
+          "quote": "Try and explore watsonx Orchestrate for a 30-day free period by using the watsonx Orchestrate trial access."
         },
         {
-          "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
-          "quote": " security and control. Pricing: Starting at $530.00 USD Per month Buy now Features Agent building/orchestration Workflow and doc processing Agents and tools catalog Custom tool creation Core AI and LLMs Secur"
+          "url": "https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-accessing-watsonx-trial-version",
+          "quote": "403: Forbidden"
         }
       ],
       "remaining": [
-        "Educational 90-day trial, ten-member limit and trial-expiry handling require accessible current trial documentation.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+        "Reverify educational 90-day eligibility, invitation limit and trial-expiry behavior when IBM documentation becomes accessible."
       ],
       "batch": 3,
       "signal": "changed",
       "reviewStage": "partial",
       "originalBatch": 3,
-      "blocker": "environment-transport",
+      "blocker": "provider-docs-403",
       "attemptedSources": [
         {
           "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
@@ -5335,7 +5490,10 @@
       ],
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "reviewStatus": "partial",
+      "sequentialOutcome": "unresolved",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/imgix",
@@ -5399,23 +5557,23 @@
     },
     {
       "id": "services/influxdb-cloud",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Pricing supports a free Serverless tier with thirty-day retention. Quota docs were initially unreadable compressed text, then centrally retried with decompression but returned environment HTTP503. Rate, bucket and table limits therefore remain unverified. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed no-card Free 5MB writes/300MB responses per fixed five minutes, two buckets, 30-day retention, 500-table/200-column storage limits, errors on excess and published paid rates/$250 credit. Clarified that 500-partition/1000-file query limits are Free-specific: paid quotas are 2000/10000, unlike the shared storage-level limits.",
       "sources": [
         {
-          "url": "https://www.influxdata.com/influxdb-pricing/",
-          "quote": "needed. InfluxDB Cloud Serverless also has a free tier with limited data ingestion rates and 30-day retention. Paid plans unlock higher rate limits, unlimited data retention, and enterprise features. What's the difference between InfluxDB 3 Core and InfluxDB 3 Enterpri"
+          "url": "https://docs.influxdata.com/influxdb3/cloud-serverless/admin/billing/limits/",
+          "quote": "Partitions per query : 2000\nParquet files per query : 10000"
+        },
+        {
+          "url": "https://docs.influxdata.com/influxdb3/cloud-serverless/admin/billing/limits/",
+          "quote": "Once a rate is exceeded, an error response is returned until the current five-minute window resets."
         }
       ],
-      "remaining": [
-        "5MB/five-minute write and 300MB/five-minute query limits, two buckets, and table/column limits require readable current quota documentation.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
-      ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "partial",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "attemptedSources": [
         {
@@ -5451,7 +5609,9 @@
       ],
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/inngest",
@@ -5735,28 +5895,24 @@
     },
     {
       "id": "services/jotform",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Current static pricing confirms a free Starter plan but omits its rendered numeric table. Help pages support submission/storage quota behavior, but the current form, submission, storage, view, field and payment counts could not be fully rechecked. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Rendered Starter table confirms all numeric form/submission/storage/view/field/payment/user/signature limits. Official support confirms no-card registration; pricing/help confirm branding, HIPAA exclusion, no paid trial, monthly/upload quota disabling and oldest-response replacement. Corrected the unconditional immediate-downgrade claim: cancellation returns to Starter next billing date, while FAQ and terms conflict for other downgrades, now explicitly qualified.",
       "sources": [
         {
           "url": "https://www.jotform.com/pricing/",
-          "quote": "fer? Jotform offers several plans, including Starter (free), Bronze, Silver, and Gold plans. Jotform also offers Enterprise plans with custom pricing for large organizations. Storage and submission limits increase with "
+          "quote": "When you cancel a paid plan, you will still stay on your existing plan until the next billing date, and then you will be downgraded to the Starter plan."
         },
         {
-          "url": "https://www.jotform.com/pricing/",
-          "quote": "with custom pricing for large organizations. Storage and submission limits increase with each level. Is there a free plan available for Jotform? Yes, the Starter plan is best for individuals or small teams just starting their data-collection j"
+          "url": "https://www.jotform.com/terms/",
+          "quote": "Downgrading your plan will, as of your next billing date, result in a decrease of some or all of those elements and may cause you to lose forms and submissions."
         }
       ],
-      "remaining": [
-        "Recheck the live Starter plan numeric table: forms, submissions, storage, views, total submissions, fields and payment submissions.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
-      ],
+      "remaining": [],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "partial",
+      "reviewStage": "complete",
       "originalBatch": 3,
-      "blocker": "environment-transport",
       "attemptedSources": [
         {
           "url": "https://www.jotform.com/pricing/",
@@ -5797,7 +5953,9 @@
       ],
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/jwt-io",
@@ -5925,24 +6083,28 @@
     },
     {
       "id": "services/kreya",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Free-forever availability, latest-request history and ten-day paid trials are supported. The rendered paid price controls are absent from fetched HTML, so the entry's Pro/Enterprise monthly and annual prices cannot be fully rechecked. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed free local/no-login download, protocols, latest-only history, paid testing/scripting/collections, ten-day trial, support and libmsquic prerequisite. Rendered monthly/yearly controls now show dollar-denominated $5/$50 Pro and $10/$100 Enterprise, so replaced euro-specific prices and advised confirming checkout currency. No usage quota is published.",
       "sources": [
         {
           "url": "https://kreya.app/pricing/",
-          "quote": "its your needs. Start free, upgrade anytime. Free forever plan 10-day trial on paid plans Cancel anytime Monthly Yearly Questions? Check our FAQ or contact us Compare plans Find the plan that matches your needs Feature Free For individuals Pro For i"
+          "quote": "Pro\n$5.00 per month"
+        },
+        {
+          "url": "https://kreya.app/pricing/",
+          "quote": "Billed at $100.00 per year \u2022 Save 17%"
+        },
+        {
+          "url": "https://kreya.app/downloads/",
+          "quote": "Download Kreya for free. No credit card or login required."
         }
       ],
-      "remaining": [
-        "Recheck rendered Pro and Enterprise monthly/annual prices.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
-      ],
+      "remaining": [],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "partial",
+      "reviewStage": "complete",
       "originalBatch": 3,
-      "blocker": "environment-transport",
       "attemptedSources": [
         {
           "url": "https://kreya.app/pricing/",
@@ -5977,7 +6139,9 @@
       ],
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/lambda",
@@ -6101,15 +6265,24 @@
     },
     {
       "id": "services/lingohub-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Replaced obsolete Starter/Team/Pro new-customer pricing with Platform \u20ac207.50/month billed yearly, 500k AI credits and 5M hosted characters/CDN requests; legacy plans retain their conditions. Trial remains 14 days/no card and now explicitly never auto-converts. Removed destructive organization-deletion cancellation instructions: current FAQ says manage billing and cancel through period end. Sponsored OSS/nonprofit route remains, with allowances unspecified.",
+      "sources": [
+        {
+          "url": "https://lingohub.com/pricing",
+          "quote": "\u20ac207.5\n/ month, billed yearly"
+        },
+        {
+          "url": "https://lingohub.com/faq",
+          "quote": "Your trial will not automatically convert into a paid subscription."
+        },
+        {
+          "url": "https://lingohub.com/faq",
+          "quote": "You can cancel your subscription at any time. Your plan remains active until the end of your current billing period."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://lingohub.com/pricing",
@@ -6150,23 +6323,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/livekit",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed no-card Build's 5000 WebRTC/1000 agent minutes, 100 participants/five agents, 50GB, $2.50 inference, phone/SIP/transcode allowances, calendar resets, no rollover and hard no-overage cap. Added the documented exception to shared allowances: turn detection/adaptive interruption development quotas are per project. Added Build agent cold-start delay. Ship $50 and 150k-minute allowance/$0.0005 excess match.",
+      "sources": [
+        {
+          "url": "https://docs.livekit.io/deploy/admin/quotas-and-limits/",
+          "quote": "The turn detection and adaptive interruption models are the exception. Their development allowances and limits apply to each project."
+        },
+        {
+          "url": "https://docs.livekit.io/deploy/admin/quotas-and-limits/",
+          "quote": "This can cause up to 10 to 20 seconds of delay before the agent joins the room."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://livekit.io/pricing",
@@ -6201,23 +6381,30 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/localazy-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 200 source keys, unlimited seats/languages, no-card Free and 14-day Business trial. Source keys count once across target languages; excess keeps editing available but blocks publishing. Community reward increases, paid AI credits from $10, and card-required usage-billed CDN/OTA are explicitly documented. Project creation/import/translation/delivery steps match.",
+      "sources": [
+        {
+          "url": "https://localazy.com/pricing",
+          "quote": "Up to 200 source keys All essential localization features Unlimited seats & languages"
+        },
+        {
+          "url": "https://localazy.com/docs/general",
+          "quote": "Enabling Online Services requires connecting a credit card with your account. The billing of Online Services is usage-based."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://localazy.com/pricing",
@@ -6252,23 +6439,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/localhero-ai",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed one project/250 monthly credits Free Forever, separate no-card 30-day trial, 100-character key/target-language credit unit, $19 paid-only 500-credit top-up with no expiry, and $29 Starter 1250 credits/two projects. CLI/API-key/GitHub setup remains current. Narrowed the recommendation against human translators: dashboard review is supported; the distinction is a managed professional translation service. Free signup/enforcement remain qualified.",
+      "sources": [
+        {
+          "url": "https://localhero.ai/pricing",
+          "quote": "Use Localhero.ai free, forever. 1 project, 250 credits/month."
+        },
+        {
+          "url": "https://localhero.ai/pricing",
+          "quote": "Team members are people who log in to the Localhero.ai dashboard to review or tweak translations and settings."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://localhero.ai/pricing",
@@ -6297,23 +6491,34 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/localise-biz",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed 2000 stored translations, two private projects, 1000 assets/project, ten languages, unlimited translators and previous-edit history; source-text counting and quota reclamation remain documented. Removed obsolete pricing-table/API rate-limit conflict: current table no longer lists that claim, and docs still state no current rate limit with fair usage. Qualified regional Pro prices and replaced login-gated docs link with public API docs. The about page explicitly requires only name/email for account opening, resolving the card flag to false; exhaustion remains unpublished.",
+      "sources": [
+        {
+          "url": "https://localise.biz/api/docs",
+          "quote": "The Loco API is not currently rate limited, but there are measures in place to prevent abuse."
+        },
+        {
+          "url": "https://localise.biz/plans",
+          "quote": "You must be outside the UK and EU VAT areas to pay the dollar price."
+        },
+        {
+          "url": "https://localise.biz/about",
+          "quote": "To open a Loco account you only need to provide your name and an email address."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://localise.biz/plans",
@@ -6354,23 +6559,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/localizely-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed Free one project/250 hosted keys, unlimited users/languages, machine/AI translation listing without quantified AI credits, no card and 15-day Gold trial automatically downgrading to Free. API/history/Git integrations remain paid, Personal starts $19 monthly/$16 annually, and OSS sponsorship requires application. Organization billing scope and file-based setup match; excess-key enforcement remains unpublished.",
+      "sources": [
+        {
+          "url": "https://localizely.com/pricing/",
+          "quote": "No. You don't need a credit card for the trial or the Free plan.\nYou only need one if you decide to upgrade to a paid plan."
+        },
+        {
+          "url": "https://localizely.com/pricing/",
+          "quote": "When the trial ends, your organization is automatically downgraded to the Free plan."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://localizely.com/pricing/",
@@ -6405,23 +6617,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/locationiq",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed 5000/day, 2/second, 60/minute, two tokens, commercial attribution, cache restrictions, request-credit rules and 429 exhaustion with paid-only soft-limit extensions. Removed incorrect claim that Geoapify offers a larger daily allowance. Documentation timed out once with proxy 503 but bounded retry and homepage succeeded; no widespread outage. Card policy remains unpublished.",
+      "sources": [
+        {
+          "url": "https://locationiq.com/pricing",
+          "quote": "5000 requests /day\n2 requests /second"
+        },
+        {
+          "url": "https://locationiq.com/pricing",
+          "quote": "If you have a free account, you can cache API request-response pairs for upto 48 hours."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://locationiq.com/pricing",
@@ -6450,23 +6669,26 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/logflare-app",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Updated the free plan name to Project and qualified Metered pricing as starting at $15 per million after the first million. Confirmed event, retention, field, team, source, alert and rate limits, paid trial autocharge and HTTP setup. Free card requirement remains unpublished.",
+      "sources": [
+        {
+          "url": "https://logflare.app/pricing/",
+          "quote": "The free plan is rate limited at 5 log events per second on average for the last 60 seconds."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://logflare.app/pricing/",
@@ -6489,23 +6711,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/loginllama",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 1,000 monthly free checks without a card, paid check allowances and prices, 100 requests/minute per API key (200 staging), SDK/REST setup, and documented HTTP 402/429 behavior. The mapping of credit exhaustion to Free reset remains unpublished.",
+      "sources": [
+        {
+          "url": "https://loginllama.app",
+          "quote": "1,000 free checks every month \u00b7 no card"
+        },
+        {
+          "url": "https://loginllama.app/docs",
+          "quote": "API requests are rate limited to 100 requests per minute per API key (200 for staging keys)."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://loginllama.app/pricing",
@@ -6528,23 +6757,30 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/logintc",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed Cloud Starter three-user free push plan, no-card signup, infrastructure scope, paid $3/$5/$7 tiers, 15-user annual minimum, five-license increments and Business telephony allocation. Fourth-user enforcement remains unpublished.",
+      "sources": [
+        {
+          "url": "https://www.logintc.com/pricing/",
+          "quote": "Cloud Starter is $0 for up to three users; Cloud Professional is $3/user/month; Cloud Business is $5/user/month; On-Premises Managed is $7/user/month."
+        },
+        {
+          "url": "https://www.logintc.com/get-started/",
+          "quote": "Get a Free Account\nNo credit card required"
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://www.logintc.com/pricing/",
@@ -6573,23 +6809,34 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/logrocket",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed the 14-day all-feature no-card trial, absence of an ongoing free tier in current pricing, unlimited analytics/errors/logs, Core/Pro session threshold and paid pricing variables, and client-side SDK quickstart. Trial-expiry account/data handling remains unpublished.",
+      "sources": [
+        {
+          "url": "https://logrocket.com/pricing",
+          "quote": "Access all of LogRocket's features free for 14 days. Cancel any time."
+        },
+        {
+          "url": "https://logrocket.com/pricing",
+          "quote": "Start free trial \u2014 no credit card required"
+        },
+        {
+          "url": "https://docs.logrocket.com/docs/quickstart",
+          "quote": "LogRocket.init() must be called client-side, not server-side."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://logrocket.com/pricing",
@@ -6618,23 +6865,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/logtail-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed the free Telemetry volumes, three-day retention, exceptions/replays/monitor allowances, personal-project label and setup. Clarified that Google SSO is included; only enterprise SAML and Azure/Okta require paid features. Free card and over-limit enforcement remain unpublished.",
+      "sources": [
+        {
+          "url": "https://betterstack.com/pricing",
+          "quote": "3 GB logs retained for 3 days\n3 GB traces retained for 3 days\n30 GB metrics"
+        },
+        {
+          "url": "https://betterstack.com/pricing",
+          "quote": "Single Sign-On with Google\nincluded"
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://betterstack.com/pricing",
@@ -6663,23 +6917,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/logto",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed separate 50,000 MAU/access-token allowances, three apps, one M2M app/domain, three social connectors, three-day logs and no-card Free signup. Paid add-ons, immediate plan changes, dev-tenant testing and React SDK setup match current sources. Token-exhaustion behavior remains unspecified.",
+      "sources": [
+        {
+          "url": "https://logto.io/pricing",
+          "quote": "For starting out and trying Logto, no credit card required.\nUp to 50,000 MAU\n50K tokens"
+        },
+        {
+          "url": "https://logto.io/pricing",
+          "quote": "For billing purposes, only access tokens are counted (ID tokens and refresh tokens are excluded)."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://logto.io/pricing",
@@ -6714,23 +6975,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/loops",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed 4,000 combined sends per rolling 30 days, first 1,000 subscribed contacts for campaigns/workflows, unrestricted transactional recipient count, 10/sec queuing, three free-team memberships, branding and domain/API setup. Removed the no-card claim because it is absent from current pricing and billing sources; exact quota enforcement remains unpublished.",
+      "sources": [
+        {
+          "url": "https://loops.so/docs/account/billing",
+          "quote": "Transactional sends are unrelated to your subscribed contact count, and will continue to send even if you exceed the 1,000 subscribed contact limit."
+        },
+        {
+          "url": "https://loops.so/docs/account/billing",
+          "quote": "You can send up to 4,000 emails in any rolling 30-day window (campaigns, workflows, and transactional emails combined)."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://loops.so/pricing",
@@ -6777,23 +7045,34 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/lumenfall-ai",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed $1 one-time no-card credit, provider-rate prepaid billing, no ongoing grant, HTTP 402 balance enforcement and optional auto top-up/postpaid billing. Scoped effective-cost metadata to media-delivering responses, and distinguished it from catalog/dry-run estimates. SDK endpoint and asynchronous video behavior match docs.",
+      "sources": [
+        {
+          "url": "https://lumenfall.ai/pricing",
+          "quote": "Create an account in seconds. $1 credit lands immediately. No card needed."
+        },
+        {
+          "url": "https://docs.lumenfall.ai/billing",
+          "quote": "Every response that delivers media includes a metadata object with the effective cost of the request."
+        },
+        {
+          "url": "https://docs.lumenfall.ai/billing",
+          "quote": "If your prepaid balance is too low, requests return a 402 error:"
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://lumenfall.ai/pricing",
@@ -6828,23 +7107,30 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/maileroo",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 3,000 outbound/1,000 inbound monthly emails, two domains, 100 test emails/three sinks/five inboxes, SMTP/API inclusion and no-card signup. Monthly sending stops at quota; 12% buffer is paid-only and hourly safety limits apply. Basic and separate prepaid Verify prices match.",
+      "sources": [
+        {
+          "url": "https://maileroo.com/pricing",
+          "quote": "Kick off with our free plan, send up to 3,000 emails/month at no cost. No credit card required."
+        },
+        {
+          "url": "https://maileroo.com/",
+          "quote": "If you exceed your allocated quota, any additional emails will not be sent until your quota resets or your plan is upgraded."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://maileroo.com/pricing",
@@ -6867,23 +7153,30 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/mailersend-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed Free quotas, mandatory card/approval, 14-day Professional trial fallback, 30-day email reset, daily API reset and $5.60 annual Hobby price. Clarified the short answer that daily API requests resume at midnight UTC without requiring an upgrade.",
+      "sources": [
+        {
+          "url": "https://www.mailersend.com/pricing",
+          "quote": "Our Free plan has a few limits per account: 1 template, 1 domain, 1 user (plus 1 accountant), 1 API token, 1 webhook, and 100 daily requests."
+        },
+        {
+          "url": "https://developers.mailersend.com/general.html",
+          "quote": "Every request is counted against the quota and the quota is reset daily at midnight UTC."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://www.mailersend.com/pricing",
@@ -6918,23 +7211,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/mailinator-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed public inbox exposure/no-signup, Verified Pro private domain/storage/API, individual eligibility, daily reads and suspension policy. The 2K-versus-1K monthly and 60-versus-120 daily receipt conflicts remain on official pages. Replaced docsUrl that redirected to marketing with the working API documentation URL.",
+      "sources": [
+        {
+          "url": "https://www.mailinator.com/pricing/",
+          "quote": "2K Emails/Mo\n60 Emails/Day"
+        },
+        {
+          "url": "https://www.mailinator.com/verified-pro/",
+          "quote": "-60 Reads Per Day, via API or manually viewing in a browser\n-120 \"Sends\" Per Day, or Messages Received\n-10 Messages Per Second is API Read Rate\n-Daily Limits Reset at 00:00 UTC"
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://www.mailinator.com/pricing/",
@@ -6969,23 +7269,30 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/mailjet",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed 6,000 monthly/200 daily emails, 1,000 contacts, no-card signup, API/SMTP/templates/forms, first-month support and paid segmentation/dedicated-IP scope. Current pricing retains generic extra-email billing language without identifying Free treatment; that uncertainty remains explicit. Verified domain/key and v3 sending setup.",
+      "sources": [
+        {
+          "url": "https://www.mailjet.com/pricing/",
+          "quote": "No, there is no credit card required for the free plan at sign up. You can send up to 6,000 emails per month (with a sending maximum of 200 emails per day)."
+        },
+        {
+          "url": "https://www.mailjet.com/pricing/",
+          "quote": "If you run out of email credit, you can still send more emails, but these will be billed."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://www.mailjet.com/pricing/",
@@ -7020,23 +7327,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "confirmed",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/mailsac-com",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed 1,500 operations, one private address, monthly reset, 80% warning/125% pause, public inbox limits and API setup. Qualified the four-day public availability claim: current docs disclose a separate internal archive of public-inbox messages, while private/custom-domain messages are not archived.",
+      "sources": [
+        {
+          "url": "https://mailsac.com/pricing",
+          "quote": "With a free account: an API key, 1 private address and 1,500 operations a month."
+        },
+        {
+          "url": "https://docs.mailsac.com/en/latest/services/message_storage/message_storage.html",
+          "quote": "A private internal archive of public-inbox messages is kept\nfor abuse investigation, legal requests and product analytics; messages to private\naddresses and custom domains are not archived."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://mailsac.com/pricing",
@@ -7071,23 +7385,30 @@
       ],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/mailtrap-io",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Attempted source collection only; all cited sources returned environment proxy HTTP503, so no current vendor terms were available for comparison. No content or verification date changed. Resumed central collection stopped on repeated cross-provider proxy failures before this entry was reached; no newly retrieved source supports a further conclusion.",
-      "sources": [],
-      "remaining": [
-        "Compare the full entry with current official pricing, quota, eligibility, card, expiry and overage documentation after environment transport recovers.",
-        "Restore working environment transport, then retrieve current missing or rendered official sources; a source attempt or old comparison is not a completed resumed review."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Confirmed 50 monthly sandbox emails, one user/sandbox, ten-message FIFO storage, one message/ten seconds, API access and paid-only forwarding/address. Clarified that separate Email API/SMTP quotas are shared between sending and receiving. Confirmed monthly sending error and retained the unknown Sandbox monthly-cap handling.",
+      "sources": [
+        {
+          "url": "https://mailtrap.io/pricing",
+          "quote": "Email limit per month. Shares quota between sending and receiving."
+        },
+        {
+          "url": "https://docs.mailtrap.io/email-sandbox/features-and-limits",
+          "quote": "Once the rate limit per 10 seconds is reached, the messages are not getting sent and are rejected with the error \"550 5.7.0 Requested action not taken: too many emails per second\"."
+        }
       ],
-      "blocker": "environment-transport",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://mailtrap.io/pricing",
@@ -7122,11 +7443,13 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "complete",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
-      "resumeReport": "2026-11-02-resumed-77-batch-3.md"
+      "resumeReport": "2026-11-02-resumed-77-batch-3.md",
+      "sequentialOutcome": "corrected",
+      "sequentialReport": "2026-11-02-sequential-77.md"
     },
     {
       "id": "services/make",
@@ -21574,8 +21897,8 @@
   },
   "sequentialCounts": {
     "assigned": 325,
-    "attempted": 35,
-    "completed": 34,
-    "remaining": 291
+    "attempted": 82,
+    "completed": 79,
+    "remaining": 246
   }
 }
