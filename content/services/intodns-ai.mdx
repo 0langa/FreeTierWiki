@@ -15,8 +15,8 @@ tags:
   - domain health
 freeTierDetails:
   summary: >-
-    Everything is free with no trial and no card. Public scans and the public
-    API need no account; a free account adds nightly monitoring.
+    Public scans and diagnostic API access are free with no account or card;
+    a free account adds nightly monitoring. AI helper pricing is unclear.
   limits:
     - Scans of any domain, no account required
     - Public REST API for DNS, email, blacklist, and quick-scan endpoints, no API key
@@ -25,6 +25,7 @@ freeTierDetails:
   caveats:
     - The API rate limit is described as generous; bursts may get HTTP 429
     - A free account is needed for monitoring, AI-assisted explanations, and digests
+    - Pricing says all features are free, but API docs mention paid AI helper endpoints
     - DKIM checks look for common selectors and cannot prove that sent mail is signed
   requiresCard: false
   freeTierType: always-free
@@ -51,26 +52,27 @@ avoidIf:
   - need a fixed API rate limit
   - enterprise-scale scanning
 productionReadiness: prototype
-lastUpdated: 2026-10-09
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://intodns.ai'
 docsUrl: 'https://intodns.ai/api-docs'
-pricingUrl: 'https://intodns.ai'
+pricingUrl: 'https://intodns.ai/pricing'
 sourceUrls:
   - 'https://intodns.ai'
   - 'https://intodns.ai/pricing'
   - 'https://intodns.ai/api'
+  - 'https://intodns.ai/api-docs'
 answer: >-
-  IntoDNS.ai stays free with no card: public scans need no account, a free account adds nightly monitoring, and bursts can get HTTP 429 rather than a charge.
+  IntoDNS.ai offers free public scans without an account or card and free nightly monitoring with an account; API bursts can get HTTP 429, while AI helper pricing is unclear.
 
 ---
 You use IntoDNS.ai in the browser by typing a domain, or from code through its public REST API. It suits site owners and admins who want to fix mail and DNS settings without paying for a tool.
 
 ## What the free plan gives you
 
-The pricing page says all features are free forever, with no credit card and no trial. Without an account you can scan any domain, run the email security check for SPF, DKIM, and DMARC, check blacklists, export a PDF report, and test email deliverability. You can also use the SPF, DMARC, MTA-STS, and BIMI generators and embed a security badge.
+The pricing page advertises free access with no credit card or trial. Its blanket claim that all features are free conflicts with the API documentation, which mentions paid AI helper endpoints; confirm AI helper costs before using them. Without an account you can scan any domain, run the email security check for SPF, DKIM, and DMARC, check blacklists, export a PDF report, and test email deliverability. You can also use the SPF, DMARC, MTA-STS, and BIMI generators and embed a security badge.
 
 The public API is open. DNS, email, blacklist, and quick-scan endpoints need no API key. The site advertises more than 60 security checks and scans that finish in under 3 seconds.
 
@@ -78,7 +80,7 @@ A free account adds nightly monitoring, AI-assisted explanations, scan history, 
 
 ## When you hit a limit
 
-The pricing page lists no paid tier and no scan cap, so there is no bill to hit. The only stated limit is on the API. The API description calls the rate limit generous and says bursts may get an HTTP 429 response with a Retry-After header.
+Public diagnostic scans and API endpoints are advertised as free, without a numeric scan cap. API bursts, report-snapshot creation and AI helper calls may return HTTP 429 with a Retry-After header. The pricing page lists no paid tier, while the API docs mention paid AI helper endpoints without prices or billing terms; do not assume those helpers share the public diagnostics offer.
 
 If you get a 429, wait for the time in Retry-After and send the request again. The pages give no numbers for the limit, so space out batch jobs.
 
@@ -98,7 +100,7 @@ If you get a 429, wait for the time in Retry-After and send the request again. T
 
 ### Is IntoDNS.ai free?
 
-Yes. The pricing page says all features are free forever, with no trial and no credit card. Scans work without an account.
+Public scans and diagnostic API access are free without an account or card. A free account adds monitoring. AI helper costs need confirmation because the pricing page and API documentation conflict.
 
 ### Does IntoDNS.ai need an account?
 
