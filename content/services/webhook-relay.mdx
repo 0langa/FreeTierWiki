@@ -15,11 +15,12 @@ tags:
 freeTierDetails:
   summary: >-
     The Free Starter plan costs $0.00 a month with no credit card. It includes
-    150 webhooks a month, 1 input endpoint, secure webhooks, and MCP access,
-    but no bidirectional tunnels.
+    150 forwarded webhooks a month, 1 input and 2 destinations, plus 50,000
+    outbound messages a month. Bidirectional tunnels are excluded.
   limits:
     - 150 webhooks per month
-    - 1 input
+    - 1 input and 2 output destinations
+    - Separate outbound allowance of 50,000 messages/month, 50 customers, 5 endpoints/customer and 200 event types
     - 0 bidirectional tunnels
   caveats:
     - At the free limit, buckets are temporarily suspended from receiving webhooks
@@ -48,8 +49,8 @@ avoidIf:
   - you receive more than 150 webhooks a month
   - you need bidirectional tunnels for free
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://webhookrelay.com'
@@ -73,13 +74,13 @@ Webhook Relay gives you public input endpoints that receive webhooks and forward
 
 ## What the free plan gives you
 
-The Free Starter plan is $0.00 a month and is aimed at individual developers and home automation enthusiasts. It includes 150 webhooks per month, secure webhooks, and MCP access for managing buckets, destinations, functions, and replays from coding agents. The quota table lists 1 input and 0 bidirectional tunnels.
+The Free Starter plan costs $0 with no card. It includes 150 forwarded webhooks per month, one input, two destinations, secure webhooks and MCP access, but no bidirectional tunnels. Received webhooks count even if delivery fails or there is no destination. Fan-out counts each destination: forwarding to two destinations consumes two deliveries. Internal destinations need a local agent; public destinations do not.
 
-All received webhooks count, including failed deliveries or those with no forwarding destination. Fan-out also counts each destination delivery: one event sent to three destinations consumes three deliveries. The FAQ says an agent is needed only for internal destinations; proxying webhooks or fanning them out to public destinations works without one. The pricing page says you start on the free plan with no credit card required.
+A separate outbound service sends signed webhooks from your product to customers. Free includes 50,000 messages per month, 50 customers, five endpoints per customer and 200 event types. Here, one accepted publish counts once; retries and fan-out do not count again. Outbound messages do not consume the 150-webhook forwarding allowance.
 
 ## When you hit a limit
 
-The FAQ says that when you reach the webhooks limit on the free plan, your buckets are temporarily suspended from receiving webhooks, and you can upgrade to a paid plan to continue. Paid plans are treated differently: they keep working over the quota under a fair-use policy.
+The FAQ says that when you reach the webhooks limit on the free plan, your buckets are temporarily suspended from receiving webhooks, and you can upgrade to a paid plan to continue. Paid forwarding plans keep working over quota under a fair-use policy. The separate outbound service refuses excess publishes with HTTP 429 until the next billing period unless an available message pack is added.
 
 Basic is $8.99 a month billed annually ($107.88/year) with 5,000 webhooks, custom subdomains, 10 destinations, and 8 bidirectional tunnels, and extra webhooks at $5 per 1k. The FAQ also mentions a discounted Basic plan for hobbyists doing non-commercial work.
 

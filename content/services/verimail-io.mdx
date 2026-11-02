@@ -22,11 +22,11 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
 quickstartSteps:
-  - "Open verimail.io and choose Sign Up Free to create an account. No credit card is needed."
+  - "Open verimail.io and choose Start free to create an account. No credit card is needed."
   - "Open your control panel and copy your API key."
-  - "Send a POST request to https://api.verimail.io/v3/verify with Bearer authentication and a JSON email field; GET remains supported."
+  - "Send a POST request to https://api.verimail.io/v3/verify with Bearer authentication and a form-encoded email field; GET remains supported."
   - "Read verdict, reason, billed, and suggested_action in the JSON response; use the typo suggestion when provided."
-  - "Check the billed field; unknown results, duplicates, and syntax errors are free. Keep the API key out of client-side code."
+  - "Check the billed field; unknown results and syntax errors are free; duplicate rows within a bulk file are free. Keep the API key out of client-side code."
 whenToUse: "Use when you want to check email addresses at sign-up or clean a small list and 100 verifications a month is enough."
 whenNotToUse: "Avoid if you need to check more than 100 addresses a month for free. After that the API returns a 402 status until you buy credits or move to a paid plan."
 bestFor:
@@ -37,10 +37,9 @@ bestFor:
 avoidIf:
   - "bulk email cleaning on the free plan"
   - "high-volume marketing lists"
-  - "need live-chat support"
 productionReadiness: prototype
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://verimail.io/'
@@ -62,9 +61,9 @@ You use Verimail.io through a web control panel for bulk lists and through a RES
 
 ## What the free plan gives you
 
-The Free plan costs $0 a month and gives you 100 verifications a month with email support. The home page says it is free forever and needs no credit card.
+The Free plan costs $0 a month and gives you 100 verifications a month with no credit card required. The pricing page gives every account this recurring monthly allowance.
 
-Verification generally costs one credit per address; unknown results, duplicates, and syntax errors are not billed. The response includes a billed field. The service also detects catch-all domains and suggests a fix for common typos in free email providers.
+Verification generally costs one credit per address; unknown results and syntax errors are not billed, and duplicate rows within a bulk file are free. The response includes a billed field. The service also detects catch-all domains and suggests a fix for common typos in free email providers.
 
 Paid plans start at $15 a month for 10 000 verifications. You can also buy pay-as-you-go credit packs that never expire. If you have both a plan and credits, the plan is used first.
 
@@ -78,7 +77,7 @@ The free plan needs no credit card, so you pay only if you choose to buy credits
 
 - Do not share your API key in public code or client-side code. Unauthorized use can spend your verification credits.
 - An inactive key returns 403; inspect account status separately from a 402 credit-exhaustion error.
-- Free and Starter cards list email support; do not assume Starter includes live chat.
+- Duplicate protection and background second passes apply to bulk files; do not assume repeated API calls are free.
 
 ## Alternatives in this atlas
 

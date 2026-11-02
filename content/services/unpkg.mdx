@@ -16,13 +16,12 @@ freeTierDetails:
   summary: >-
     UNPKG serves any file from any npm package by URL. The CDN shows no plans,
     prices, or sign-up, and it runs on Cloudflare Workers as an open-source
-    project. UNPKG Shield, a separate supply-chain service, is in beta with a
-    waitlist.
+    project. UNPKG Shield, a separate supply-chain service, is an optional beta service.
   limits:
-    - Every package on npm, available within minutes of publishing
+    - Files from public npm packages, served by package/version/file URL
     - No account or API key
   caveats:
-    - The site states no service-level agreement, usage limits, or support channel beyond its maintainer
+    - The service is free and as-is without a contractual SLA; support and abuse reports use support@unpkg.com
     - UNPKG is not affiliated with or supported by npm
     - Short URLs with a version range redirect, so they are not direct cache hits
   requiresCard: false
@@ -48,14 +47,17 @@ avoidIf:
   - you need an SLA
   - you need private packages
 productionReadiness: side-project
-lastUpdated: 2026-10-26
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://unpkg.com/'
 docsUrl: 'https://unpkg.com/'
 sourceUrls:
   - 'https://unpkg.com/'
+  - 'https://unpkg.com/about'
+  - 'https://unpkg.com/network'
+  - 'https://unpkg.com/guides/browser-modules'
 pricingUrl: 'https://unpkg.com/'
 changes:
   - date: '2026-10-26'
@@ -76,20 +78,20 @@ UNPKG is a content delivery network for everything on npm. You load a file with 
 
 ## What the free plan gives you
 
-UNPKG has no plans. Its home page shows no prices for the CDN, and it needs no sign-up or API keys: you request a URL. It is an open-source project from @mjackson, and it mirrors everything on npm, so every file is available within minutes of being published. The page also advertises UNPKG Shield, a supply-chain protection service that is in beta with a waitlist. It lists no price for Shield.
+UNPKG has no plans. Its home page shows no prices for the CDN, and it needs no sign-up or API keys: you request a URL. The About page explicitly describes it as free, open source, and available without an account. It serves files from public npm packages under their maintainers’ licenses. UNPKG Shield is a separate optional beta for supply-chain protection; it is not part of the base service.
 
 You can use an exact version, an npm dist-tag, or a semver range in the URL; without a version you get the latest tag. The esm.unpkg.com subdomain turns packages that are not browser-ready into ES modules, transforming TypeScript and JSX, bundling package internals, and rewriting dependency imports to permanent UNPKG URLs. Appending ?meta returns a package's file list with sizes, types, and subresource integrity values.
 
 ## When you hit a limit
 
-The home page states no request limits, bandwidth limits, or fair use terms, and it does not say what happens to very heavy users. UNPKG runs on Cloudflare Workers, which it says lets it serve billions of requests a day and scale for traffic spikes.
+The home page states no request limits, bandwidth limits, or fair use terms, and it does not say what happens to very heavy users. The network guide describes Cloudflare edge and Worker caches backed by file origins in 11 regions. It explicitly notes that using one edge provider means there is no multi-provider failover.
 
 The practical limit is caching. Files are cached by their permanent URL with the full version. A URL with a range or tag, like a major version only, always redirects to the permanent URL first, so it is not a direct cache hit and is slower. Use full version numbers and file paths.
 
 ## Gotchas
 
 - UNPKG is not affiliated with or supported by npm, and npm cannot help with UNPKG problems.
-- There is no stated SLA, so a production site depends on a community-run service.
+- The About page expressly excludes a contractual SLA. Questions and abuse reports can go to support@unpkg.com or the public repository.
 - URLs without a fixed version change when a new release ships, which can break a page without warning.
 
 ## Alternatives in this atlas
