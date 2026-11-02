@@ -1,5 +1,7 @@
 # Follow-up to freshness issue #77: batch 1 (2026-11-02)
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 Covered all 100 assigned entries: 82 completed comparisons, 6 partial comparisons, and 12 retrieval-only attempts. Eighty completed entries were unchanged; two completed entries were corrected. Three additional entries received supported wording corrections but remain incompletely reviewed.
 
 Only the 82 completed comparisons advance `lastVerified` to 2026-11-02. All 18 incomplete entries retain their previous verification dates. `lastUpdated` changes only for the five wording/metadata corrections. These are catalog corrections, not newly dated vendor events.

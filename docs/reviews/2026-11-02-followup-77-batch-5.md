@@ -1,5 +1,7 @@
 # Freshness follow-up — issue #77 — batch 5 — 2026-11-02
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 Scope: the 100 assigned entries from `services/statuspile` through `tools/cal-com`, from the complete queue attached to [scan run 41359504131](https://github.com/0langa/FreeTierWiki/actions/runs/41359504131).
 
 ## Outcome

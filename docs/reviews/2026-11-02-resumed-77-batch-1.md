@@ -1,5 +1,7 @@
 # Resumed follow-up to freshness issue #77: batch 1 (2026-11-02)
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 All 18 pending IDs are accounted for. Ten entry comparisons completed: six confirmed and four corrected. Eight remain unfinished. Only the ten completed entries advance `lastVerified`; incomplete entries keep their earlier dates. Previous reports remain historical.
 
 The collector recovered readable official pages for the early entries, then stopped after three consecutive proxy failures. Targeted Chromium navigation to Appho.st and Aiven also returned HTTP503 with `Invalid argument`. These are environment transport failures, not evidence that provider offers ended. Later entries were not retried by the resumed collector. No blind retries were made.

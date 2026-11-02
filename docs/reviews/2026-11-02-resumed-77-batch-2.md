@@ -1,5 +1,7 @@
 # Resumed review of issue #77 — batch 2
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 Date: 2026-11-02. Scope: the 49 unfinished entries assigned to batch 2.
 
 No additional reviews could be completed in this resumed attempt. The first normal browser request, to Crowdin pricing, returned HTTP 503 with an upstream connection/transport error. The browser stopped before requesting Doppler, drawDB or Directus. The central source collector independently stopped after repeated proxy failures before reaching this batch. No failed response replaced previously successful evidence.

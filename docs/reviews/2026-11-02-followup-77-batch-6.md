@@ -1,5 +1,7 @@
 # Follow-up review — issue #77 — tool batch 6 — 2026-11-02
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 Coverage: **96 assigned entries; 20 completed comparisons (17 unchanged, 3 corrected), 76 incomplete.** Incomplete rows are attempted source checks, not verified entries. Their verification dates are unchanged.
 
 Source text was retrieved from the cited official pages on 2026-11-02. Each completed comparison considered the material entry limits, card requirement, billing behavior and body claims; numeric matching was used only as a supporting check. Existing explicit unknown/conflicting policies were retained where the sources still did not resolve them.

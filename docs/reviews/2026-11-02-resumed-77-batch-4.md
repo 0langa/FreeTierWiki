@@ -1,5 +1,7 @@
 # Issue77 resumed review — batch4 (2026-11-02)
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 63 previously unfinished entries remain incomplete. This resumption completed 0 comparisons and made 1 supported partial correction (Pipedream); 62 other outcomes remain unresolved. No verification date was advanced.
 
 The central serial fetch stopped after repeated environment HTTP503 failures at comet-opik, before reaching this batch. A single controlled direct fetch of https://paste.sh/about also returned503 with `immediate connect error: Invalid argument` from the environment envoy tunnel. Further unchanged requests were stopped. Previously available Pipedream and Pollinations sources were re-examined; they do not fill the remaining material documentation gaps. This is an environment transport problem, not evidence that providers removed their offers.

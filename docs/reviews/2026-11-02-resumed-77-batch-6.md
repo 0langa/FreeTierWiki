@@ -1,5 +1,7 @@
 # Resumed review — issue #77 — tool batch 6 — 2026-11-02
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 **76 entries remain pending: 7 partial comparisons and 69 source-attempt-only entries from the earlier pass. No additional entry was verified in this resumed pass.**
 
 The resumed central collector stopped after three consecutive cloud-proxy failures. Independent control requests to unrelated previously accessible destinations also returned HTTP 503. The failure remains in the environment transport (`cloudflare_https_tunnel`), so repeating requests across the remaining 76 provider sites would not establish their availability or their offer terms.

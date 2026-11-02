@@ -1,5 +1,7 @@
 # Follow-up review of issue #77 — batch 2
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 Review date: 2026-11-02. Scope: 100 assigned service entries, from Convex through Honeycomb. Current official snapshots were compared with entry claims where readable evidence was available. HTTP status or numeric matches alone were not treated as verification.
 
 51 reviews completed (47 unchanged confirmations and 4 corrections); 10 partially reviewed (including a fifth correction); 39 source-retrieval attempts could not reach a semantic comparison. Partial and attempted-only entries retain their prior `lastVerified`. Five content corrections update `lastUpdated`; unchanged confirmations only update `lastVerified`.

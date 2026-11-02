@@ -1,5 +1,7 @@
 # Resumed review #77: batch 3
 
+> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+
 Date: 2026-11-02. Scope: all 58 previously unfinished entries in batch 3.
 
 **One comparison completed with a correction; four remain partial and 53 remain without a source comparison.** Only IntoDNS.ai advances its verification date. The initial report is preserved as historical evidence.
