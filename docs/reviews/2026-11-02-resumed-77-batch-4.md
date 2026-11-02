@@ -1,6 +1,6 @@
 # Issue77 resumed review — batch4 (2026-11-02)
 
-> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+> Latest status: the [access recheck and local-browser handoff](2026-11-02-local-browser-handoff.md) resolved Crowdin and Zoom. **588 of 596 follow-up comparisons are complete; 8 remain incomplete.** The report below preserves its historical checkpoint; use the [current ledger](2026-11-02-followup-77.json) for current status.
 
 63 previously unfinished entries remain incomplete. This resumption completed 0 comparisons and made 1 supported partial correction (Pipedream); 62 other outcomes remain unresolved. No verification date was advanced.
 

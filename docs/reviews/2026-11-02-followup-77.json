@@ -6,13 +6,13 @@
   "baseCommit": "c2eda514c0f2d8f46f8247861d2e286338f6b65c",
   "counts": {
     "assigned": 596,
-    "completed": 586,
+    "completed": 588,
     "confirmed": 375,
-    "correctedComplete": 211,
-    "correctedPartial": 2,
-    "partial": 7,
+    "correctedComplete": 213,
+    "correctedPartial": 1,
+    "partial": 5,
     "attemptedOnly": 3,
-    "outstanding": 10
+    "outstanding": 8
   },
   "entries": [
     {
@@ -2511,9 +2511,9 @@
     },
     {
       "id": "services/crowdin",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Rechecked public docs: hosted-word counting, ten-day upgrade grace, suspension behavior, project setup, trial lengths and separate open-source/academic licenses match. The pricing page loads but its Free plan cards and comparison remain empty in Chromium. Its public frontend plan-data endpoint returns an application HTTP 403. Did not infer current numerical Free entitlements from the empty table or advance lastVerified.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Recovered in Chromium after a 15-second render wait; full Free card and comparison table visible. Confirmed 60K hosted words, unlimited public/one private project, public-only collaborators, one integration, no manager seats and mandatory translation donation; quota guide still gives ten days before translator suspension. Added the visible one-branch/three-file-format limits and paid-only webhooks; existing unspecified card policy stays qualified.",
       "sources": [
         {
           "url": "https://support.crowdin.com/changing-subscription-plan",
@@ -2522,13 +2522,26 @@
         {
           "url": "https://crowdin.com/pricing",
           "quote": "Each granted license will include an unlimited number of projects, strings, and members."
+        },
+        {
+          "url": "https://crowdin.com/pricing",
+          "quote": "Hosted words:\n60K\nPrivate projects:\n1"
+        },
+        {
+          "url": "https://crowdin.com/pricing",
+          "quote": "*Users on a free plan donate translations to Crowdin's translation memory."
+        },
+        {
+          "url": "https://crowdin.com/pricing",
+          "quote": "File formats\n\t3\t5\t15\tUnlimited\tUnlimited"
+        },
+        {
+          "url": "https://support.crowdin.com/changing-subscription-plan",
+          "quote": "You then have 10 more days to upgrade the subscription. Otherwise, your project will be suspended for translators."
         }
       ],
-      "remaining": [
-        "Obtain a readable official Free plan comparison to confirm 60,000 hosted words, project/integration limits, public-only collaboration and translation-memory donation; ordinary Free registration card policy remains unpublished."
-      ],
-      "blocker": "provider-pricing-data-denied",
-      "reviewStage": "partial",
+      "remaining": [],
+      "reviewStage": "complete",
       "batch": 2,
       "signal": "noisy",
       "originalBatch": 2,
@@ -2539,9 +2552,30 @@
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-2.md",
-      "reviewStatus": "partial",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Recovered in Chromium after a 15-second render wait; full Free card and comparison table visible.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://crowdin.com/pricing",
+            "checkedAt": "2026-11-02T21:45:33.916Z",
+            "httpStatus": 200,
+            "characters": 5862
+          },
+          {
+            "method": "Chromium; 15-second render wait",
+            "url": "https://crowdin.com/pricing",
+            "checkedAt": "2026-11-02T21:46:21.292Z",
+            "httpStatus": 200,
+            "characters": 10514
+          }
+        ]
+      },
+      "accessRecheckOutcome": "corrected"
     },
     {
       "id": "services/cube",
@@ -4947,7 +4981,27 @@
       "resumeReport": "2026-11-02-resumed-77-batch-2.md",
       "reviewStatus": "attempted-only",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Both checked official pages still return CloudFront HTTP 403.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://www.here.com/get-started/pricing",
+            "checkedAt": "2026-11-02T21:45:35.680Z",
+            "httpStatus": 403,
+            "characters": 553
+          },
+          {
+            "method": "curl",
+            "url": "https://www.here.com/get-started/pricing/rps-limits-excluded-use-cases",
+            "checkedAt": "2026-11-02T21:45:37.076Z",
+            "httpStatus": 403,
+            "characters": 553
+          }
+        ]
+      }
     },
     {
       "id": "services/hetzner-dns",
@@ -5493,7 +5547,20 @@
       "resumeReport": "2026-11-02-resumed-77-batch-3.md",
       "reviewStatus": "partial",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "The detailed trial guide still returns IBM HTTP 403.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-accessing-watsonx-trial-version",
+            "checkedAt": "2026-11-02T21:45:38.409Z",
+            "httpStatus": 403,
+            "characters": 594
+          }
+        ]
+      }
     },
     {
       "id": "services/imgix",
@@ -8911,7 +8978,27 @@
       "resumeReport": "2026-11-02-resumed-77-batch-3.md",
       "reviewStatus": "attempted-only",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Pricing and quota documentation still return CloudFront HTTP 403.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://neo4j.com/pricing/",
+            "checkedAt": "2026-11-02T21:45:39.797Z",
+            "httpStatus": 403,
+            "characters": 553
+          },
+          {
+            "method": "curl",
+            "url": "https://neo4j.com/docs/aura/quotas-and-limits/",
+            "checkedAt": "2026-11-02T21:45:41.163Z",
+            "httpStatus": 403,
+            "characters": 553
+          }
+        ]
+      }
     },
     {
       "id": "services/neon",
@@ -11874,7 +11961,34 @@
       "resumeReport": "2026-11-02-resumed-77-batch-4.md",
       "reviewStatus": "partial",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Both announcement requests return thin HTTP 200 shells. Chromium renders an explicit network-security block.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/",
+            "checkedAt": "2026-11-02T21:45:42.580Z",
+            "httpStatus": 200,
+            "characters": 6
+          },
+          {
+            "method": "curl",
+            "url": "https://www.reddit.com/r/modnews/comments/1wubgvt/continuing_our_infrastructure_updates_whats/",
+            "checkedAt": "2026-11-02T21:45:44.124Z",
+            "httpStatus": 200,
+            "characters": 6
+          },
+          {
+            "method": "Chromium; 15-second render wait",
+            "url": "https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/",
+            "checkedAt": "2026-11-02T21:46:41.014Z",
+            "httpStatus": 200,
+            "characters": 143
+          }
+        ]
+      }
     },
     {
       "id": "services/reddit-devvit",
@@ -12348,7 +12462,20 @@
       "resumeReport": "2026-11-02-resumed-77-batch-4.md",
       "reviewStatus": "partial",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Homepage still returns HTTP 403: Your request was blocked.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://robohash.org/",
+            "checkedAt": "2026-11-02T21:45:45.324Z",
+            "httpStatus": 403,
+            "characters": 25
+          }
+        ]
+      }
     },
     {
       "id": "services/rocket-chat",
@@ -19935,7 +20062,29 @@
       "resumeReport": "2026-11-02-resumed-77-batch-6.md",
       "reviewStatus": "attempted-only",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Both hosts fail at proxy CONNECT with HTTP 403 (curl exit 56); no provider content received.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://www.figma.com/pricing/",
+            "checkedAt": "2026-11-02T21:45:46.616Z",
+            "httpStatus": 0,
+            "characters": 0,
+            "error": "curl: (56) CONNECT tunnel failed, response 403\n"
+          },
+          {
+            "method": "curl",
+            "url": "https://help.figma.com/hc/en-us/articles/33459875669015-How-Figma-AI-credits-work",
+            "checkedAt": "2026-11-02T21:45:47.756Z",
+            "httpStatus": 0,
+            "characters": 0,
+            "error": "curl: (56) CONNECT tunnel failed, response 403\n"
+          }
+        ]
+      }
     },
     {
       "id": "tools/firebase-app-distribution",
@@ -20781,7 +20930,20 @@
       "resumeReport": "2026-11-02-resumed-77-batch-6.md",
       "reviewStatus": "partial",
       "sequentialOutcome": "corrected",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Trial/getting-started documentation still returns IBM HTTP 403.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://www.ibm.com/docs/en/api-connect/cloud/10.0.x_saas",
+            "checkedAt": "2026-11-02T21:45:48.861Z",
+            "httpStatus": 403,
+            "characters": 594
+          }
+        ]
+      }
     },
     {
       "id": "tools/imgur-api",
@@ -23540,7 +23702,20 @@
       "resumeReport": "2026-11-02-resumed-77-batch-6.md",
       "reviewStatus": "partial",
       "sequentialOutcome": "unresolved",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Homepage still returns nginx HTTP 502 Bad Gateway.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://testtls.com",
+            "checkedAt": "2026-11-02T21:45:50.249Z",
+            "httpStatus": 502,
+            "characters": 44
+          }
+        ]
+      }
     },
     {
       "id": "tools/tickgit-com",
@@ -24196,8 +24371,8 @@
       "id": "tools/zoom",
       "signal": "changed",
       "outcome": "corrected",
-      "reviewCompleted": false,
-      "summary": "Rendered pricing and meeting-limit documentation successfully: Basic 40 minutes/100 participants, local recording, three whiteboards, five two-minute clips, three summaries, 20 AI queries, three note-taking uses and Pro $14.16 annually/10GB remain current. Added Canvas writing help for three documents/month and flagged the older overview\u2019s 5GB versus pricing\u2019s 10GB Pro storage. Signup stayed a thin shell; alternate official pages confirmed free signup but did not explicitly re-establish the no-card claim. Verification date preserved.",
+      "reviewCompleted": true,
+      "summary": "Recovered in Chromium after a 15-second render wait: Sign up for free / No credit card required. This closes the only outstanding claim from the earlier pricing/time-limit comparison; no account was created.",
       "sources": [
         {
           "url": "https://zoom.us/pricing",
@@ -24206,11 +24381,13 @@
         {
           "url": "https://support.zoom.com/hc/de/article?id=zm_kb&sysparm_article=KB0067980",
           "quote": "Meetings started by the host with no other participants present will not be restricted to 40 minutes, but the meeting must remain active."
+        },
+        {
+          "url": "https://zoom.us/signup?signUpFrom=zoom-guided-tours",
+          "quote": "Sign up for free\nNo credit card required"
         }
       ],
-      "remaining": [
-        "Recheck the explicit no-card signup claim when the signup page renders fully."
-      ],
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://zoom.us/pricing",
@@ -24243,17 +24420,37 @@
           "fetchedAt": "2026-11-02T14:18:18.749Z"
         }
       ],
-      "reviewStage": "partial",
-      "blocker": "signup-page-thin",
+      "reviewStage": "complete",
       "batch": 6,
       "resumedSourceComparison": false,
       "sourceEvidenceCarriedForward": false,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-6.md",
-      "reviewStatus": "partial",
+      "reviewStatus": "complete",
       "sequentialOutcome": "corrected",
-      "sequentialReport": "2026-11-02-sequential-77.md"
+      "sequentialReport": "2026-11-02-sequential-77.md",
+      "accessRecheck": {
+        "report": "2026-11-02-local-browser-handoff.md",
+        "summary": "Recovered in Chromium after a 15-second render wait: Sign up for free / No credit card required.",
+        "attempts": [
+          {
+            "method": "curl",
+            "url": "https://zoom.us/signup?signUpFrom=zoom-guided-tours",
+            "checkedAt": "2026-11-02T21:45:58.447Z",
+            "httpStatus": 200,
+            "characters": 203
+          },
+          {
+            "method": "Chromium; 15-second render wait",
+            "url": "https://zoom.us/signup?signUpFrom=zoom-guided-tours",
+            "checkedAt": "2026-11-02T21:46:57.065Z",
+            "httpStatus": 200,
+            "characters": 1228
+          }
+        ]
+      },
+      "accessRecheckOutcome": "confirmed"
     }
   ],
   "resumedFromCommit": "cf8038a3993435d7ec00ae0832fc15fbc38baeb1",
@@ -24270,5 +24467,11 @@
     "attempted": 325,
     "completed": 315,
     "remaining": 10
+  },
+  "accessRecheckCounts": {
+    "assigned": 10,
+    "attempted": 10,
+    "completed": 2,
+    "remaining": 8
   }
 }

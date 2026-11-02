@@ -1,6 +1,6 @@
 # Resumed review of issue #77 — batch 2
 
-> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+> Latest status: the [access recheck and local-browser handoff](2026-11-02-local-browser-handoff.md) resolved Crowdin and Zoom. **588 of 596 follow-up comparisons are complete; 8 remain incomplete.** The report below preserves its historical checkpoint; use the [current ledger](2026-11-02-followup-77.json) for current status.
 
 Date: 2026-11-02. Scope: the 49 unfinished entries assigned to batch 2.
 

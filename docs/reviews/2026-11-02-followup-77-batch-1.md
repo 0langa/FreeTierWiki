@@ -1,6 +1,6 @@
 # Follow-up to freshness issue #77: batch 1 (2026-11-02)
 
-> Latest status: the [sequential review](2026-11-02-sequential-77.md) attempted all 325 pending entries and completed 315. **586 of 596 follow-up comparisons are complete; 10 remain incomplete.** The report below preserves its historical checkpoint; the [current ledger](2026-11-02-followup-77.json) records current entry status.
+> Latest status: the [access recheck and local-browser handoff](2026-11-02-local-browser-handoff.md) resolved Crowdin and Zoom. **588 of 596 follow-up comparisons are complete; 8 remain incomplete.** The report below preserves its historical checkpoint; use the [current ledger](2026-11-02-followup-77.json) for current status.
 
 Covered all 100 assigned entries: 82 completed comparisons, 6 partial comparisons, and 12 retrieval-only attempts. Eighty completed entries were unchanged; two completed entries were corrected. Three additional entries received supported wording corrections but remain incompletely reviewed.
 
