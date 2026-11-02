@@ -24,13 +24,13 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
 quickstartSteps:
   - Register for a free API key on zenscrape.com.
   - Log in and open the documentation; the code snippets there include your private `apikey`.
   - Read the Getting Started, Request Costs, and Basic Usage sections.
-  - Send a request with your `apikey` and the URL you want to scrape.
+  - Call `https://app.zenscrape.com/api/v1/get` with a `url` parameter and your `apikey` header.
   - Check plan availability and Request Costs before enabling JavaScript rendering or premium proxies; the Free card does not specify their inclusion.
 whenToUse: >-
   Use Zenscrape when you want rendered pages and IP rotation from one API call
@@ -48,8 +48,8 @@ avoidIf:
   - you need an SLA on the free plan
   - you need more than 1,000 credits a month
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://zenscrape.com/'
@@ -66,7 +66,7 @@ changes:
     kind: changed
     note: Qualified unpublished Free card, exact exhaustion and advanced request feature availability.
 answer: >-
-  Zenscrape's free plan lists only 1,000 credits a month and emails you at 90 and 100 percent of usage, and the signup card rule and what happens at exhaustion are not confirmed.
+  Zenscrape lists 1,000 free monthly credits and warns at 90% and 100%. Its docs return HTTP 429 for exhausted monthly allowances; the Free signup card rule remains unconfirmed.
 
 ---
 You call the API with your own key and a target URL, and the docs generate code snippets with your key filled in. It suits developers who need a page fetched without running their own proxy setup.
@@ -79,7 +79,7 @@ Credits are tied to request types, and the docs have a Request Costs section for
 
 ## When you hit a limit
 
-The pricing page does not say what happens at 100% of your credits. It does say Zenscrape emails you when monthly usage hits 90% and again at 100%, so you can react and change plans.
+The rendered documentation lists HTTP 429 usage_limit_reached for an exhausted monthly allowance and a separate 429 for concurrency. It also lists insufficient credits among possible HTTP 403 causes. Zenscrape emails you at 90% and 100% usage. The Free card requirement and any automatic-upgrade policy remain unstated.
 
 Errors tied to captchas are usually not deducted from your credit volume. If one is, you can contact Zenscrape and ask for the credits back. Paid plans start at $59.99 a month for 250,000 credits, and annual billing takes 10% off.
 
