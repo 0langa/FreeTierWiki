@@ -15,13 +15,13 @@ tags:
   - ngrok
 freeTierDetails:
   summary: >-
-    Free plan: $5 of one-time usage credit, valid for a year, with up to 3 online
-    endpoints. No usage past the credit.
+    Free plan: 1 GB transfer and 20,000 HTTP requests monthly, up to 3 online
+    endpoints, plus $5 of one-time usage credit valid for a year.
   limits:
     - $5 one-time usage credit
     - Credit lasts one year and only works on the Free plan
     - Up to 3 online endpoints
-    - Up to 1 GB data transfer and 20k HTTP/S requests
+    - 1 GB data transfer, 20k HTTP/S requests and 5k TCP connections per month
     - 1 team member
     - No additional usage beyond the credit
   caveats:
@@ -29,9 +29,9 @@ freeTierDetails:
     - Free HTTP/S endpoints show an interstitial page to visitors
     - Public endpoints use an assigned dev domain, not your own domain
     - Hobbyist ($10/month) gives monthly credit; its endpoints stop when the credit runs out
-  resetPeriod: none
+  resetPeriod: monthly
   requiresCard: false
-  freeTierType: credit
+  freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 quickstartSteps:
@@ -41,27 +41,29 @@ quickstartSteps:
   - Start your app or service on a local port.
   - 'Run `ngrok http 8080`, replacing the port with yours, and open the forwarding URL it prints.'
 whenToUse: >-
-  Use ngrok for short local testing, webhook development, and demos, where a
-  temporary public HTTPS URL is enough.
+  Use ngrok for local testing, webhook development, and demos within its
+  monthly traffic quotas on a stable assigned development domain.
 whenNotToUse: >-
-  Avoid it for always-on tunnels, production traffic, or your own domain. The
-  free credit is one-time and the free plan has a visitor interstitial page.
+  Avoid it for production guarantees, high traffic, or your own domain. Free
+  has monthly traffic caps, one-time credit and an HTML-browser interstitial.
 bestFor:
   - webhook testing
   - local demos
   - mobile app testing
 avoidIf:
-  - always-on tunnels
+  - guaranteed availability
   - production traffic
   - custom domains on a free plan
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-02
+lastVerified: 2026-11-02
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://ngrok.com'
 docsUrl: 'https://ngrok.com/docs'
 sourceUrls:
+  - 'https://ngrok.com/docs/pricing-limits/free-plan-limits'
+  - 'https://ngrok.com/docs/pricing-limits'
   - 'https://ngrok.com/pricing'
   - 'https://ngrok.com/docs/getting-started/'
   - 'https://ngrok.com/docs/share-localhost/quickstart/'
@@ -74,28 +76,28 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  ngrok has no ongoing monthly allowance, only a one-time $5 credit that lasts a year, covers up to 3 endpoints, needs no card, and will not bill you, while free HTTP visitors see an interstitial page.
+  ngrok Free includes 1 GB transfer and 20,000 HTTP requests monthly, three endpoints and a separate one-time $5 credit, with no overage billing; TCP requires card verification and HTML browsers see a warning.
 
 ---
 You run the ngrok agent CLI next to your app, and it prints a public URL that forwards to your local port. It suits developers who need a quick tunnel for testing, and the agent also has SDKs for Python, Go, Node, and Rust.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and comes with $5 of one-time included usage. The pricing page says the credit lasts a year, only works while you are on the Free plan, and cannot pay for data transfer out. There is no usage beyond the credit.
+The Free plan costs $0 and includes 1 GB of outbound transfer, 20,000 HTTP requests and 5,000 TCP connections per month. These quotas reset each monthly billing cycle. A separate $5 one-time usage credit expires after a year, works only on Free and cannot pay for outbound transfer.
 
-The plan allows up to 3 online endpoints, up to 1 GB of data transfer, and up to 20k HTTP/S requests. You get one team member and an assigned dev domain for public endpoints. HTTP/S endpoints show an interstitial page to visitors. Rate limits are 4k HTTP requests a minute and 100 TCP connections a minute.
+You get up to three online endpoints, three concurrent agents, one team member and one assigned development domain that stays the same when the agent restarts. Endpoints have no session timeout, but remain subject to quotas. Rate limits are 4,000 HTTP requests and 100 TCP connections per minute.
 
-TCP endpoints on Free need credit card verification, and the pricing page lists randomly assigned TCP addresses only with that verification.
+HTML browser traffic sees an interstitial; programmatic API traffic is unaffected. TCP endpoints require credit-card verification, which ngrok says it does not charge.
 
 ## When you hit a limit
 
-On the free plan, usage past the credit is not allowed, so your endpoints stop. You are not billed for extra. The pricing page does not describe the Free case in more detail.
+Free does not allow extra usage beyond its credit or limits and does not bill overages. Monthly traffic quotas reset each billing cycle; the separate $5 credit does not replenish. Check the dashboard to distinguish quota exhaustion from exhausted credit. Upgrade if you need more capacity.
 
 Paid plans differ. On Hobbyist, which costs $10 a month and includes $10 of monthly usage, endpoints stop until the next billing cycle when the credit runs out. On Pay-as-you-go, endpoints keep working and ngrok bills the extra usage at the end of the cycle. Unused credit does not roll over.
 
 ## Gotchas
 
-- The $5 credit is one-time, so the free plan is not an ongoing monthly allowance.
+- The $5 credit is one-time; it is separate from the monthly traffic quotas.
 - A development domain does not use up endpoint hours, but the free plan caps online endpoints at 3.
 - Bringing your own domain is not on Free or Hobbyist. It starts on Pay-as-you-go.
 
@@ -108,7 +110,7 @@ Paid plans differ. On Hobbyist, which costs $10 a month and includes $10 of mont
 
 ### Is ngrok free?
 
-Yes, with limits. The Free plan gives a one-time credit of $5 that lasts a year, with up to 3 online endpoints. It does not give an ongoing monthly allowance.
+Yes. Free includes 1 GB transfer and 20,000 HTTP requests monthly, up to three online endpoints, and a separate $5 one-time credit valid for a year.
 
 ### What happens when ngrok free credit runs out?
 
