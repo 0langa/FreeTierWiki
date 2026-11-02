@@ -26,10 +26,10 @@ freeTierDetails:
     - >-
       Check your account's Billing and Usage settings for numeric allowances; the public docs do
       not specify all free quotas
-  resetPeriod: none
+  resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
 quickstartSteps:
   - Sign up for a free Pipedream account; the docs say no credit card is needed.
@@ -54,6 +54,9 @@ avoidIf:
 productionReadiness: production-light
 status: changed
 changes:
+  - date: 2026-11-02
+    kind: changed
+    note: "Current pricing docs apply the hard daily Free-workspace credit limit to Connect; numeric allowances remain unpublished."
   - date: 2026-10-21
     kind: changed
     note: "Added closed Workflows signups/subscriptions and April 2027 data-deletion timeline from current shutdown notice."
@@ -61,7 +64,7 @@ changes:
     kind: changed
     note: "Recorded the announced Workflows/String shutdown and replaced unsupported numeric allowances with current official terms."
 lastUpdated: 2026-11-02
-lastVerified: 2026-10-26
+lastVerified: 2026-11-02
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://pipedream.com/'
@@ -74,7 +77,7 @@ sourceUrls:
   - 'https://pipedream.com/docs/connect/quickstart'
 pricingUrl: 'https://pipedream.com/pricing'
 answer: >-
-  Pipedream Connect is free for development with no card, unlimited team members and prebuilt integrations, but production requires a paid plan and development quota enforcement is not confirmed.
+  Pipedream Connect is free for development with no card, unlimited team members and prebuilt integrations, but production requires a paid plan and Free workspaces have a hard daily credit limit whose numeric allowance is not published.
 
 ---
 You use Pipedream Connect through its CLI, a TypeScript SDK, an API, and an MCP server. It suits developers who add integrations or agent tools to their own apps. Pipedream Workflows and String are shutting down and no longer accept new signups or subscriptions.
@@ -83,13 +86,13 @@ You use Pipedream Connect through its CLI, a TypeScript SDK, an API, and an MCP 
 
 The pricing page says the Free plan costs $0, needs no credit card, and is free to build on. It includes 10,000+ prebuilt tools and triggers, unlimited team members, and community support. Usage on Free is for development only: you get full API, SDK, and MCP access to build and test.
 
-For Workflows, the docs say free workspaces have a daily limit of free credits that cannot be exceeded. They also limit connected accounts, such as Slack, Google Sheets, and GitHub, and the public docs give no number. Credits are not charged for workflows during development or testing.
+The current pricing docs explicitly include Connect in their Free workspace policy: a daily limit of free credits cannot be exceeded. They also limit connected accounts, such as Slack, Google Sheets, and GitHub, and the public docs give no number. The separate legacy Workflows section says workflow development and testing do not consume credits.
 
 The Startup plan runs integrations in production. It costs $99 a month billed annually, or $150 billed monthly. It includes 100 users and 10,000 usage credits.
 
 ## When you hit a limit
 
-Current pricing limits Connect Free to development, but does not publish numeric development usage allowances or their enforcement. The older Workflows daily-credit policy does not establish a hard cap for Connect. Serving real external users in production requires a paid plan.
+Current pricing limits Connect Free to development. The pricing docs apply a hard daily credit limit to Free workspaces, including Connect, but do not publish the numeric allowance or exact API error at exhaustion. Check your Billing and Usage settings; lifting the daily cap or serving real external users in production requires a paid plan.
 
 On Startup, nothing breaks past the included amounts. Each extra user costs $2 a month, and each extra credit costs $0.012. A credit is one per 30 seconds of compute for actions, tool calls, proxy requests, and deployed trigger emits.
 
