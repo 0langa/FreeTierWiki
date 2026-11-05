@@ -6,13 +6,13 @@
   "baseCommit": "c2eda514c0f2d8f46f8247861d2e286338f6b65c",
   "counts": {
     "assigned": 596,
-    "completed": 588,
-    "confirmed": 375,
-    "correctedComplete": 213,
+    "completed": 595,
+    "confirmed": 376,
+    "correctedComplete": 219,
     "correctedPartial": 1,
-    "partial": 5,
-    "attemptedOnly": 3,
-    "outstanding": 8
+    "partial": 1,
+    "attemptedOnly": 0,
+    "outstanding": 1
   },
   "entries": [
     {
@@ -4947,19 +4947,33 @@
     },
     {
       "id": "services/here",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "blocker": "provider-cloudfront-403",
-      "summary": "Current pricing, rate limits, restrictions, legal terms and documentation all returned CloudFront 403 errors. A normal browser retry of pricing also returned 403; signup returned only an application shell. Prior qualified entry preserved and verification date unchanged.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Reconfirmed Limited's no-payment 1,000/day and service RPS limits. Restored two explicit Base monthly allowance examples and paid transaction distinction, and added the Base Tour Planning exception. Precise exhaustion, spending-cap and payment-transition behavior stays qualified.",
       "sources": [
         {
+          "url": "https://www.here.com/get-started/pricing/rps-limits-excluded-use-cases",
+          "quote": "1,000 daily Requests",
+          "observation": "Limited customers without payment details have 1,000 daily requests plus product RPS ceilings; geocoding/search 5, vector/raster 50, map tiles 30, map images 2, routing 10, matrix/isoline 1. App IDs cannot be shared between applications.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
           "url": "https://www.here.com/get-started/pricing",
-          "quote": "403 ERROR\nThe request could not be satisfied."
+          "quote": "0 to 30,000",
+          "observation": "Expanded product accordions and pricing-detail dialogs: vector tiles and geocode/reverse geocode each show a free 0\u201330,000 monthly tier, followed by paid tiers. Permanent Geocoding is excluded. Base has no daily transaction limit; quoted prices are indicative.",
+          "method": "local Firefox, keyboard-expanded pricing dialogs",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.here.com/get-started/pricing/base-plan-restrictions",
+          "quote": "HERE Tour Planning may be used",
+          "observation": "Base excludes asset management, telematics and optimization but expressly allows Tour Planning for optimization.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
         }
       ],
-      "remaining": [
-        "Recheck Limited allowance and restrictions and establish current Base pricing once official sources are accessible."
-      ],
+      "remaining": [],
       "attemptedSources": [
         "https://www.here.com/get-started/pricing",
         "https://legal.here.com/us-en/terms/here-platform-terms",
@@ -4969,7 +4983,7 @@
         "https://www.here.com/docs",
         "https://www.here.com"
       ],
-      "reviewStage": "attempted-only",
+      "reviewStage": "completed",
       "batch": 2,
       "signal": "changed",
       "originalBatch": 2,
@@ -4979,7 +4993,7 @@
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-2.md",
-      "reviewStatus": "attempted-only",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -5001,6 +5015,27 @@
             "characters": 553
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "attempted-only",
+          "reviewStatus": "attempted-only",
+          "summary": "Current pricing, rate limits, restrictions, legal terms and documentation all returned CloudFront 403 errors. A normal browser retry of pricing also returned 403; signup returned only an application shell. Prior qualified entry preserved and verification date unchanged.",
+          "sources": [
+            {
+              "url": "https://www.here.com/get-started/pricing",
+              "quote": "403 ERROR\nThe request could not be satisfied."
+            }
+          ],
+          "remaining": [
+            "Recheck Limited allowance and restrictions and establish current Base pricing once official sources are accessible."
+          ],
+          "blocker": "provider-cloudfront-403"
+        }
       }
     },
     {
@@ -5489,27 +5524,37 @@
     },
     {
       "id": "services/ibm-watsonx-orchestrate",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Current product pricing confirms 30-day trial, $530 Essentials/$6360 Standard monthly starting prices, agent-building/chat/evaluation features and Assistant redirect. The detailed trial guide returned 403 in both HTTP client and browser, so educational eligibility, ten-member invitation and expiry behavior could not be reverified. Existing content and verification date preserved.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Corrected Essentials from $530 to $578/month. Rechecked 30-day Standard-feature trial, IBM-Cloud-only 90-day educational eligibility, ten invited members, extension requests and paid upgrade to resume data. Universal card policy remains unconfirmed.",
       "sources": [
         {
           "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
-          "quote": "Try and explore watsonx Orchestrate for a 30-day free period by using the watsonx Orchestrate trial access."
+          "quote": "Starting at $578.00 USD Per month",
+          "observation": "Essentials starts at $578 and Standard at $6,360/month; the free trial is 30 days. Prices remain locale-dependent and indicative.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         },
         {
           "url": "https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-accessing-watsonx-trial-version",
-          "quote": "403: Forbidden"
+          "quote": "invite up to ten team members",
+          "observation": "Rendered guide dated October 19 describes 90 days for eligible educational domains on IBM Cloud, no automatic extension of pre-August trials, Standard features, sales extensions and upgrade to resume current data.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/products/watsonx-assistant",
+          "quote": "IBM watsonx Orchestrate",
+          "observation": "The Assistant URL still redirects to Orchestrate.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         }
       ],
-      "remaining": [
-        "Reverify educational 90-day eligibility, invitation limit and trial-expiry behavior when IBM documentation becomes accessible."
-      ],
+      "remaining": [],
       "batch": 3,
       "signal": "changed",
-      "reviewStage": "partial",
+      "reviewStage": "completed",
       "originalBatch": 3,
-      "blocker": "provider-docs-403",
       "attemptedSources": [
         {
           "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
@@ -5545,7 +5590,7 @@
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-3.md",
-      "reviewStatus": "partial",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -5560,6 +5605,31 @@
             "characters": 594
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "partial",
+          "reviewStatus": "partial",
+          "summary": "Current product pricing confirms 30-day trial, $530 Essentials/$6360 Standard monthly starting prices, agent-building/chat/evaluation features and Assistant redirect. The detailed trial guide returned 403 in both HTTP client and browser, so educational eligibility, ten-member invitation and expiry behavior could not be reverified. Existing content and verification date preserved.",
+          "sources": [
+            {
+              "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
+              "quote": "Try and explore watsonx Orchestrate for a 30-day free period by using the watsonx Orchestrate trial access."
+            },
+            {
+              "url": "https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-accessing-watsonx-trial-version",
+              "quote": "403: Forbidden"
+            }
+          ],
+          "remaining": [
+            "Reverify educational 90-day eligibility, invitation limit and trial-expiry behavior when IBM documentation becomes accessible."
+          ],
+          "blocker": "provider-docs-403"
+        }
       }
     },
     {
@@ -8900,19 +8970,61 @@
     },
     {
       "id": "services/neo4j-auradb",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "All nine official pricing, quota, backup, lifecycle and onboarding URLs returned CloudFront HTTP 403. A single Chromium retry of the quota guide also returned 403. No current plan comparison was possible and the verification date was preserved.",
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed no-card $0 tier, one Free instance, 200,000 nodes/400,000 relationships/1 GB, one manual backup, single-zone/no SLA, included tools, 72-hour pause and deletion after more than 30 paused days. Published entry unchanged apart from verification date.",
       "sources": [
         {
+          "url": "https://neo4j.com/pricing/",
+          "quote": "No credit card or other payment method required",
+          "observation": "Expanded comparison supports single-zone, no SLA/scheduled backup/PITR, Console, Importer, Query API, Dashboards, Aura Agent, Bloom Basic and community support.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
           "url": "https://neo4j.com/docs/aura/quotas-and-limits/",
-          "quote": "403 ERROR\nThe request could not be satisfied.\nRequest blocked."
+          "quote": "1 backup at a time",
+          "observation": "Current quota table gives 200,000 nodes, 400,000 relationships, 1 GB storage, one database and one on-demand backup.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/managing-instances/instance-actions/",
+          "quote": "paused for more than 30 days",
+          "observation": "Free auto-pauses after 72 idle hours, cannot be manually paused, and is deleted after more than 30 paused days.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/managing-instances/backup-restore-export/",
+          "quote": "only snapshot available for Free instances",
+          "observation": "Only on-demand snapshots are available for Free.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/getting-started/create-instance/",
+          "quote": "one Free instance per account",
+          "observation": "Generated password must be copied/downloaded; original password cannot be recovered.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/getting-started/create-account/",
+          "quote": "verified your email address",
+          "observation": "Registration, terms acceptance, email verification and automatic organization/project creation match.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/getting-started/connect-instance/",
+          "quote": "Import, Bloom, Query, or Dashboards",
+          "observation": "Console and driver/Query API connection steps match; administrative recovery alternatives do not recover the original password.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         }
       ],
-      "remaining": [
-        "Recheck Free graph/storage limits, backups, inactivity/deletion policy and no-card onboarding when official sources are accessible."
-      ],
-      "blocker": "source-access",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://neo4j.com/pricing/",
@@ -8971,12 +9083,12 @@
       ],
       "batch": 3,
       "signal": "noisy",
-      "reviewStage": "attempted-only",
+      "reviewStage": "completed",
       "originalBatch": 3,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-3.md",
-      "reviewStatus": "attempted-only",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -8998,6 +9110,27 @@
             "characters": 553
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "attempted-only",
+          "reviewStatus": "attempted-only",
+          "summary": "All nine official pricing, quota, backup, lifecycle and onboarding URLs returned CloudFront HTTP 403. A single Chromium retry of the quota guide also returned 403. No current plan comparison was possible and the verification date was preserved.",
+          "sources": [
+            {
+              "url": "https://neo4j.com/docs/aura/quotas-and-limits/",
+              "quote": "403 ERROR\nThe request could not be satisfied.\nRequest blocked."
+            }
+          ],
+          "remaining": [
+            "Recheck Free graph/storage limits, backups, inactivity/deletion policy and no-card onboarding when official sources are accessible."
+          ],
+          "blocker": "source-access"
+        }
       }
     },
     {
@@ -11899,23 +12032,54 @@
     },
     {
       "id": "services/reddit-data-api",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Current official help pages confirm approval-only access, 100 QPM/OAuth client averaged over ten minutes, blocked unauthenticated requests and separate commercial permission/contract. The migration guide loads, but both announcement URLs return JavaScript interstitials; browser rendering of the API announcement ends in a network-security block. Could not reverify the central public-API/RSS retirement timetable; retained prior wording and verification date.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Reconfirmed the official API/RSS migration timetable and updated the elapsed October 31 cutoff to past tense. Retained approved-access restrictions and 100 QPM per OAuth client averaged over ten minutes.",
       "sources": [
         {
-          "url": "https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki",
-          "quote": "100 queries per minute (QPM) per OAuth client id\nQPM limits will be an average over a time window (currently 10 minutes) to support bursting requests."
+          "url": "https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/",
+          "quote": "New requests for public API access will no longer be accepted.",
+          "observation": "Timetable gives October 31, 2026 cutoff, January 12, 2027 removals for unregistered/unresponsive apps, and remaining closure in March 2027 without a day.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         },
         {
-          "url": "https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/",
-          "quote": "You've been blocked by network security."
+          "url": "https://www.reddit.com/r/modnews/comments/1wubgvt/continuing_our_infrastructure_updates_whats/",
+          "quote": "November 13, 2026",
+          "observation": "RSS retirement date and Discord Relay for moderator alerts; no replacement for general feeds outside moderated communities.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki",
+          "quote": "100 queries per minute",
+          "observation": "100 QPM/OAuth client averaged over ten minutes, rate-limit headers, unauthenticated blocking.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data",
+          "quote": "we\u2019ll require a contract",
+          "observation": "Commercial permission/contract and separate Reddit for Researchers route.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://support.reddithelp.com/hc/en-us/articles/42728983564564-Responsible-Builder-Policy",
+          "quote": "get explicit approval",
+          "observation": "Approval, app registration and no circumvention requirements.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://developers.reddit.com/docs/guides/migrate/public-api",
+          "quote": "App Migration Exemptions",
+          "observation": "Devvit migration guidance retains reviewed exemptions and feature-request routes.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         }
       ],
-      "remaining": [
-        "Reverify October 31 request cutoff, January 12 removals, March 2027 public closure and November 13 RSS retirement from accessible official announcements."
-      ],
-      "blocker": "source-access",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data",
@@ -11953,13 +12117,13 @@
           "accessIssue": "thin"
         }
       ],
-      "reviewStage": "partial",
+      "reviewStage": "completed",
       "batch": 4,
       "signal": "new-baseline",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-4.md",
-      "reviewStatus": "partial",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -11988,6 +12152,31 @@
             "characters": 143
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "partial",
+          "reviewStatus": "partial",
+          "summary": "Current official help pages confirm approval-only access, 100 QPM/OAuth client averaged over ten minutes, blocked unauthenticated requests and separate commercial permission/contract. The migration guide loads, but both announcement URLs return JavaScript interstitials; browser rendering of the API announcement ends in a network-security block. Could not reverify the central public-API/RSS retirement timetable; retained prior wording and verification date.",
+          "sources": [
+            {
+              "url": "https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki",
+              "quote": "100 queries per minute (QPM) per OAuth client id\nQPM limits will be an average over a time window (currently 10 minutes) to support bursting requests."
+            },
+            {
+              "url": "https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/",
+              "quote": "You've been blocked by network security."
+            }
+          ],
+          "remaining": [
+            "Reverify October 31 request cutoff, January 12 removals, March 2027 public closure and November 13 RSS retirement from accessible official announcements."
+          ],
+          "blocker": "source-access"
+        }
       }
     },
     {
@@ -12425,23 +12614,26 @@
     },
     {
       "id": "services/robohash",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Official GitHub README remains accessible and confirms anonymous image URLs, best-effort service, exponential backoff, Docker self-hosting and set-specific artwork licenses. The hosted homepage returns HTTP 403 in both curl and Chromium, so its free-service statement and bandwidth/banner warning could not be freshly verified. Kept the prior verification date.",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Recovered the hosted free-service and possible bandwidth-banner statements. Confirmed anonymous URLs, best-effort/backoff guidance, Docker and artwork licenses. Changed hasHardCap to unknown because retry guidance does not establish a universal hard-cap policy.",
       "sources": [
         {
-          "url": "https://github.com/e1ven/Robohash",
-          "quote": "If you receive errors or \"too many requests\" responses, please back off exponentially"
+          "url": "https://robohash.org/",
+          "quote": "we provide this service for free",
+          "observation": "Homepage describes anonymous image URLs, size/set/background/Gravatar options and a possible bandwidth banner.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
         },
         {
           "url": "https://github.com/e1ven/Robohash",
-          "quote": "For high-volume or production use, consider hosting your own instance using Docker"
+          "quote": "please back off exponentially",
+          "observation": "README recommends self-hosting for high volume, separates MIT code from sets 1\u20134 CC-BY, set5 personal/commercial, set6 CC0, and warns that set=any may change images.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         }
       ],
-      "remaining": [
-        "Recheck the hosted homepage free-service and bandwidth/banner statements when its access block clears."
-      ],
-      "blocker": "robohash.org HTTP 403 in curl and browser; GitHub README accessible.",
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://robohash.org/",
@@ -12454,13 +12646,13 @@
           "accessIssue": "thin"
         }
       ],
-      "reviewStage": "partial",
+      "reviewStage": "completed",
       "batch": 4,
       "signal": "noisy",
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-4.md",
-      "reviewStatus": "partial",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -12475,6 +12667,31 @@
             "characters": 25
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "partial",
+          "reviewStatus": "partial",
+          "summary": "Official GitHub README remains accessible and confirms anonymous image URLs, best-effort service, exponential backoff, Docker self-hosting and set-specific artwork licenses. The hosted homepage returns HTTP 403 in both curl and Chromium, so its free-service statement and bandwidth/banner warning could not be freshly verified. Kept the prior verification date.",
+          "sources": [
+            {
+              "url": "https://github.com/e1ven/Robohash",
+              "quote": "If you receive errors or \"too many requests\" responses, please back off exponentially"
+            },
+            {
+              "url": "https://github.com/e1ven/Robohash",
+              "quote": "For high-volume or production use, consider hosting your own instance using Docker"
+            }
+          ],
+          "remaining": [
+            "Recheck the hosted homepage free-service and bandwidth/banner statements when its access block clears."
+          ],
+          "blocker": "robohash.org HTTP 403 in curl and browser; GitHub README accessible."
+        }
       }
     },
     {
@@ -19989,13 +20206,61 @@
     {
       "id": "tools/figma",
       "signal": "changed",
-      "outcome": "unresolved",
-      "reviewCompleted": false,
-      "summary": "Retried all nine official pricing/help/home URLs sequentially. Curl failed with code56; explicit header diagnostic showed HTTP403 Forbidden from envoy during CONNECT. Chromium using the same configured proxy failed ERR_TUNNEL_CONNECTION_FAILED. No current source comparison was possible; preserved content and verification date.",
-      "sources": [],
-      "remaining": [
-        "Recheck Figma pricing, Starter file quotas and AI billing/help policies when proxy access to www.figma.com and help.figma.com is available."
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Reconfirmed Starter drafts, shared file/folder limits, 30-day history, free inspection, paid Dev Mode/libraries and 150/day up to 500/month AI credits. Clarified shared Design/Sites count in the answer and replaced the inaccessible introductory link. Card policy and conflicting add-on eligibility remain explicitly qualified.",
+      "sources": [
+        {
+          "url": "https://www.figma.com/pricing/",
+          "quote": "150 AI credits/day, up to 500 AI credits/mo",
+          "observation": "Starter is free with unlimited drafts; viewers can inspect/export. Pricing advertises AI add-ons broadly.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/360046216313-Upgrade-or-downgrade-your-plan",
+          "quote": "3 total Figma Design and Figma Sites files",
+          "observation": "One folder, three combined Design/Sites and three each FigJam/Slides; excess files/folders prevent editing after downgrade.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/360040328273-Compare-Figma-plans-and-features",
+          "quote": "30 days",
+          "observation": "Starter comparison supports history, auto layout/components/prototypes/inspection; shared libraries and Dev Mode are paid.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/29717597009431-Guide-to-billing-at-Figma",
+          "quote": "View (free seat)",
+          "observation": "Plan/seat billing is separate from free viewing; no universal Starter signup card statement found.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/22012921621015-Guide-to-inspecting",
+          "quote": "inspection tools directly within Design Mode",
+          "observation": "Free Design Mode inspection remains available; Starter needs a paid plan for Dev Mode.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/33459875669015-How-Figma-AI-credits-work",
+          "quote": "Don\u2019t roll over",
+          "observation": "Seat credits reset monthly; Starter has 150/day and 500/month. Exhaustion requires waiting for the relevant reset.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/35865276858647-Manage-AI-credits",
+          "quote": "Admins only",
+          "observation": "Purchase guide's eligibility lists Professional/Organization/Enterprise despite broad pricing-page promotion. Qualification retained.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
       ],
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://www.figma.com/pricing/",
@@ -20052,15 +20317,14 @@
           "fetchedAt": "2026-11-02T14:16:51.858Z"
         }
       ],
-      "reviewStage": "attempted-only",
-      "blocker": "environment-proxy-connect-denied",
+      "reviewStage": "completed",
       "batch": 6,
       "resumedSourceComparison": false,
       "sourceEvidenceCarriedForward": false,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-6.md",
-      "reviewStatus": "attempted-only",
+      "reviewStatus": "complete",
       "sequentialOutcome": "unresolved",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -20084,6 +20348,22 @@
             "error": "curl: (56) CONNECT tunnel failed, response 403\n"
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "attempted-only",
+          "reviewStatus": "attempted-only",
+          "summary": "Retried all nine official pricing/help/home URLs sequentially. Curl failed with code56; explicit header diagnostic showed HTTP403 Forbidden from envoy during CONNECT. Chromium using the same configured proxy failed ERR_TUNNEL_CONNECTION_FAILED. No current source comparison was possible; preserved content and verification date.",
+          "sources": [],
+          "remaining": [
+            "Recheck Figma pricing, Starter file quotas and AI billing/help policies when proxy access to www.figma.com and help.figma.com is available."
+          ],
+          "blocker": "environment-proxy-connect-denied"
+        }
       }
     },
     {
@@ -20879,21 +21159,39 @@
       "id": "tools/ibm-api-connect",
       "signal": "noisy",
       "outcome": "corrected",
-      "reviewCompleted": false,
-      "summary": "Compared accessible product/pricing pages:30-day SaaS trial, AWS usage-based or annual SaaS and self-managed subscription choices remain current; active trial assets migrate on same-IBMid upgrade. Corrected trial scope: PAYG/Standard/Premium SaaS offer trial, Reserved Instance/self-managed offer demos. IBM docs returned403 in curl and browser, preventing fresh verification of detailed onboarding and any additional expiry/card policy; retained prior verification date.",
+      "reviewCompleted": true,
+      "summary": "Added one trial instance/100,000 calls, call stop with view-only access at quota, loss of login/access after day 30, and a further 30-day retention window. Clarified Standard-only trial against broader pricing links and refreshed onboarding. Card policy remains unknown.",
       "sources": [
         {
           "url": "https://www.ibm.com/products/api-connect/pricing",
-          "quote": "30-day free trial\nStart free trial\nStart free trial\nStart free trial\nRequest free demo\nRequest free demo"
+          "quote": "same IBMid/email",
+          "observation": "30-day trial links, paid AWS/annual/self-managed choices and migration of active trial assets on matching-account upgrade.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         },
         {
-          "url": "https://www.ibm.com/products/api-connect/pricing",
-          "quote": "You can upgrade your trial instance to a paid subscription at any time during the 30-day trial period."
+          "url": "https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-purchase-subscription-upgrade-information",
+          "quote": "No more calls unless upgraded.",
+          "observation": "Guide dated October 21 documents one instance, 100K calls, Standard features excluding Premium, no call overage, view-only quota state, no access after 30 days and another 30 days retaining assets.",
+          "method": "local Firefox; 12.1.0 URL redirects to 12.1.1_saas",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-getting-started",
+          "quote": "IBM API Studio",
+          "observation": "Current guide uses API Studio/CLI, products, API Manager and Consumer Catalog.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/account/reg/us-en/signup?formid=urx-51621",
+          "quote": "up to 100,000 API calls at no cost",
+          "observation": "Signup page independently confirms duration/volume; no account created and no assertion about later signup payment fields.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
         }
       ],
-      "remaining": [
-        "Revisit accessible IBM API Connect trial/getting-started documentation to verify onboarding and check whether it establishes expiry enforcement, asset retention or card requirements."
-      ],
+      "remaining": [],
       "attemptedSources": [
         {
           "url": "https://www.ibm.com/products/api-connect/pricing",
@@ -20920,15 +21218,14 @@
           "fetchedAt": "2026-11-02T14:17:27.570Z"
         }
       ],
-      "reviewStage": "partial",
-      "blocker": "vendor-documentation-403",
+      "reviewStage": "completed",
       "batch": 6,
       "resumedSourceComparison": false,
       "sourceEvidenceCarriedForward": false,
       "resumedOutcome": "unresolved",
       "resumedReviewCompleted": false,
       "resumeReport": "2026-11-02-resumed-77-batch-6.md",
-      "reviewStatus": "partial",
+      "reviewStatus": "complete",
       "sequentialOutcome": "corrected",
       "sequentialReport": "2026-11-02-sequential-77.md",
       "accessRecheck": {
@@ -20943,6 +21240,31 @@
             "characters": 594
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "corrected",
+          "reviewCompleted": false,
+          "reviewStage": "partial",
+          "reviewStatus": "partial",
+          "summary": "Compared accessible product/pricing pages:30-day SaaS trial, AWS usage-based or annual SaaS and self-managed subscription choices remain current; active trial assets migrate on same-IBMid upgrade. Corrected trial scope: PAYG/Standard/Premium SaaS offer trial, Reserved Instance/self-managed offer demos. IBM docs returned403 in curl and browser, preventing fresh verification of detailed onboarding and any additional expiry/card policy; retained prior verification date.",
+          "sources": [
+            {
+              "url": "https://www.ibm.com/products/api-connect/pricing",
+              "quote": "30-day free trial\nStart free trial\nStart free trial\nStart free trial\nRequest free demo\nRequest free demo"
+            },
+            {
+              "url": "https://www.ibm.com/products/api-connect/pricing",
+              "quote": "You can upgrade your trial instance to a paid subscription at any time during the 30-day trial period."
+            }
+          ],
+          "remaining": [
+            "Revisit accessible IBM API Connect trial/getting-started documentation to verify onboarding and check whether it establishes expiry enforcement, asset retention or card requirements."
+          ],
+          "blocker": "vendor-documentation-403"
+        }
       }
     },
     {
@@ -23672,17 +23994,20 @@
     {
       "id": "tools/testtls-com",
       "signal": "blocked",
-      "outcome": "unresolved",
+      "outcome": "corrected",
       "reviewCompleted": false,
-      "summary": "The homepage still returns an nginx 502 Bad Gateway, consistent with the entry's existing outage warning. The historical free-service claims cannot be reverified while the service is unavailable; verification date preserved.",
+      "summary": "Both local Firefox and web retrieval still show nginx 502 Bad Gateway. Added a dated outage observation; retained lastVerified 2026-10-28 and historical-feature qualification. No permanent shutdown inferred.",
       "sources": [
         {
           "url": "https://testtls.com",
-          "quote": "502 Bad Gateway\n502 Bad Gateway\nnginx/1.24.0"
+          "quote": "502 Bad Gateway",
+          "observation": "Homepage remains unavailable.",
+          "method": "local Firefox and web fetch",
+          "observedOn": "2026-11-05"
         }
       ],
       "remaining": [
-        "Recheck the service's free features and policies if the homepage recovers."
+        "Recompare the historical free features, card and quota policies if the homepage recovers."
       ],
       "attemptedSources": [
         {
@@ -23693,7 +24018,7 @@
         }
       ],
       "reviewStage": "partial",
-      "blocker": "source-access",
+      "blocker": "provider-502",
       "batch": 6,
       "resumedSourceComparison": false,
       "sourceEvidenceCarriedForward": false,
@@ -23715,6 +24040,27 @@
             "characters": 44
           }
         ]
+      },
+      "localFollowup": {
+        "reviewDate": "2026-11-05",
+        "report": "2026-11-05-catalog-followup.md",
+        "previous": {
+          "outcome": "unresolved",
+          "reviewCompleted": false,
+          "reviewStage": "partial",
+          "reviewStatus": "partial",
+          "summary": "The homepage still returns an nginx 502 Bad Gateway, consistent with the entry's existing outage warning. The historical free-service claims cannot be reverified while the service is unavailable; verification date preserved.",
+          "sources": [
+            {
+              "url": "https://testtls.com",
+              "quote": "502 Bad Gateway\n502 Bad Gateway\nnginx/1.24.0"
+            }
+          ],
+          "remaining": [
+            "Recheck the service's free features and policies if the homepage recovers."
+          ],
+          "blocker": "source-access"
+        }
       }
     },
     {
@@ -24473,5 +24819,25 @@
     "attempted": 10,
     "completed": 2,
     "remaining": 8
+  },
+  "preLocalFollowupCounts": {
+    "assigned": 596,
+    "completed": 588,
+    "confirmed": 375,
+    "correctedComplete": 213,
+    "correctedPartial": 1,
+    "partial": 5,
+    "attemptedOnly": 3,
+    "outstanding": 8
+  },
+  "localFollowupCounts": {
+    "date": "2026-11-05",
+    "assigned": 8,
+    "completed": 7,
+    "confirmed": 1,
+    "correctedComplete": 6,
+    "correctedPartial": 1,
+    "outstanding": 1,
+    "report": "2026-11-05-catalog-followup.md"
   }
 }

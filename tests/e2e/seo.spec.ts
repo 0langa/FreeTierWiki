@@ -11,7 +11,7 @@ test("sitemap lists pages on the real origin", async ({ request }) => {
 });
 
 test("robots.txt points at the sitemap", async ({ request }) => {
-  const text = await (await request.get("/robots.txt")).text();
+  const text = (await (await request.get("/robots.txt")).text()).replace(/\r\n/g, "\n");
   expect(text).toContain("Sitemap: https://freetier.wiki/sitemap.xml");
   expect(text).toContain("Disallow: /explorer?\n");
   expect(text).toContain("Disallow: /explorer/?\n");

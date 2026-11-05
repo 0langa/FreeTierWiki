@@ -1,5 +1,7 @@
 # Local browser handoff — PR #78
 
+> Latest status (5 November): the [catalog follow-up](2026-11-05-catalog-followup.md) completed seven more follow-up comparisons and Backblaze B2 from the original batch. **595/596 follow-up comparisons and 50/50 original comparisons are complete; TestTLS remains unresolved (502).** The report below is historical; use the [current ledger](2026-11-02-followup-77.json) for current status.
+
 **Rechecked 2 November 2026, starting 22:45 CET (Europe/Berlin): all ten were retried serially. Crowdin and Zoom recovered; eight still need local-browser verification.** The 596-entry follow-up now has **588 complete / 8 incomplete**.
 
 PR: https://github.com/0langa/FreeTierWiki/pull/78

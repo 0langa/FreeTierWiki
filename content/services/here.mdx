@@ -13,17 +13,18 @@ tags:
   - location-api
 freeTierDetails:
   summary: >-
-    The no-payment Limited Plan is documented with 1000 daily requests and
-    per-service rate limits. Current Base Plan monthly allowance amounts
-    could not be re-established from its public pricing page.
+    The no-payment Limited Plan allows 1000 daily requests with per-service
+    rate limits. Base has separate monthly free tiers and paid transactions,
+    including 30,000 free vector-tile and 30,000 geocoding transactions.
   limits:
     - Limited Plan 1000 requests/day without payment information
     - Geocode/reverse geocode/search/autocomplete 5 requests/second
     - Vector/raster tiles 50 requests/second; map images 2 requests/second
     - Routing 10 requests/second; matrix routing 1 request/second
+    - Base separately includes 30,000 monthly vector-tile transactions and 30,000 geocode/reverse-geocode transactions
   caveats:
     - Permanent Geocoding is not included in the Base Plan
-    - Asset management, telematics and optimization are excluded on Limited and Base without a separate agreement
+    - Asset management, telematics and optimization are excluded; Base specifically allows Tour Planning for optimization
     - Each application needs its own app ID
   resetPeriod: daily
   requiresCard: false
@@ -31,7 +32,7 @@ freeTierDetails:
   hasHardCap: unknown
   overageRisk: medium
   billingRiskNotes:
-    - Limited has published daily/RPS limits; current Base quantities and payment transition need confirmation
+    - Limited has daily/RPS limits; Base bills transactions beyond each product's monthly free tier
     - The pricing page does not describe a spending cap
 quickstartSteps:
   - Sign up for HERE and confirm the no-payment Limited Plan and displayed allowances before activating services.
@@ -41,8 +42,8 @@ whenToUse: >-
   Use HERE for a small routing or geocoding integration within the documented
   Limited Plan daily and per-second limits, when your use case is eligible.
 whenNotToUse: >-
-  Avoid the Base Plan for asset tracking, fleet optimization, or other
-  excluded use cases, which need a separate agreement.
+  Avoid these plans for asset tracking or telematics without a separate
+  agreement. Base's optimization exception is specifically for Tour Planning.
 bestFor:
   - routing and ETAs
   - small eligible location-API integrations
@@ -50,8 +51,8 @@ avoidIf:
   - fleet or asset management products
   - permanent storage of geocoding results
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-11-05
+lastVerified: 2026-11-05
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.here.com'
@@ -64,6 +65,9 @@ sourceUrls:
   - 'https://platform.here.com/sign-up'
 pricingUrl: 'https://www.here.com/get-started/pricing'
 changes:
+  - date: 2026-11-05
+    kind: changed
+    note: "Restored source-backed Base allowance examples and clarified the Tour Planning exception; Limited remains a separate no-payment plan."
   - date: 2026-10-21
     kind: changed
     note: "Replaced unverified no-card Base quantities with documented no-payment Limited 1000 daily requests, scoped rate limits and precise Base pricing gaps."
@@ -71,7 +75,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  HERE's Limited Plan needs no payment information and allows 1000 requests a day, while current Base Plan monthly amounts and any spending cap are not confirmed.
+  HERE's Limited Plan needs no payment information and allows 1000 requests a day; Base has separate monthly free tiers followed by paid transactions, with no confirmed spending cap.
 
 ---
 HERE provides map rendering, geocoding, search, routing, traffic and other location APIs. The public documentation distinguishes a no-payment Limited Plan from the Base Plan. Choose the account plan deliberately: free access and paid transaction billing are different arrangements.
@@ -80,19 +84,21 @@ HERE provides map rendering, geocoding, search, routing, traffic and other locat
 
 The current official rate-limits page documents Limited Plan customers who do not provide payment information. It specifies 1000 daily requests, with additional per-service requests-per-second ceilings. Geocode, reverse geocode, discover/search, autocomplete and autosuggest allow 5 requests/second. Vector and raster tiles allow 50, map tiles 30 and map images 2.
 
-Car, bicycle, pedestrian, truck and several other routing services allow 10 requests/second; matrix and isoline routing allow 1. These rate ceilings are additional to the daily allowance, not extra daily quotas. The public Base Plan pricing page rendered only its heading and contact links during this review, so previously listed 30 K monthly Base quantities could not be re-established today. Do not treat those older figures as current no-card entitlements.
+Car, bicycle, pedestrian, truck and several other routing services allow 10 requests/second; matrix and isoline routing allow 1. These rate ceilings are additional to the daily allowance, not extra daily quotas.
+
+Base uses separate product-specific monthly tiers. Its pricing details list the first 30,000 vector-tile transactions as free and a separate first 30,000 geocode/reverse-geocode transactions as free, with one request counted as one transaction for those products. Other APIs have different allowances. These Base tiers are not additional no-payment Limited entitlements; confirm the plan and product before using them.
 
 ## When you hit a limit
 
 The Limited Plan documentation states daily and per-second limits but does not specify the response code, reset timezone, or exact suspension behavior when they are exhausted. Its no-payment scope supports starting without payment details; it does not prove every Base Plan is free or capped.
 
-The platform terms describe monthly billing unless another subscription term applies, including applicable overage fees charged through the selected payment method. Before moving from Limited to Base, review the displayed subscription allowances, prices and payment requirements. Current public sources did not establish an optional spending cap or the precise transition process.
+Base has transaction-based billing and no daily transaction limit. Usage beyond each product's free tier is chargeable; the public prices are indicative and the actual agreement determines final prices. Before moving from Limited to Base, review the displayed allowances, prices and payment requirements. The reviewed pricing pages do not establish an optional spending cap or the precise transition process.
 
 ## Gotchas
 
-- Asset management, usage-based insurance/telematics and optimization are excluded use cases on both Limited and Base unless separately agreed. Read the definitions before treating tracking or fleet work as included.
+- Asset management, usage-based insurance/telematics and optimization are excluded use cases on Limited and Base. The Base restrictions specifically permit HERE Tour Planning for optimization; this does not grant general tracking or telematics rights.
 - Each separate application needs its own app ID. Mobile/server versions and applications for different customers cannot share one ID; unauthorized use can create fee liability.
-- Per-second limits vary substantially: a map-tile allowance does not imply the same rate for matrix routing or geocoding. Base monthly transaction figures need confirmation in the actual subscription.
+- Per-second limits and Base monthly tiers vary by product: a map-tile allowance does not imply the same allowance for matrix routing or geocoding. Permanent Geocoding is excluded from Base.
 
 ## Alternatives in this atlas
 
@@ -112,4 +118,4 @@ No. The documentation names them separately, and Base subscription terms can inc
 
 ### Can I use these plans for fleet tracking?
 
-Asset management, telematics and optimization are excluded by the published use-case definitions. Contact HERE for the applicable agreement before relying on those uses.
+Asset management and telematics are excluded by the published use-case definitions. Base permits Tour Planning for optimization, but that exception does not include general fleet tracking. Contact HERE for the applicable agreement.

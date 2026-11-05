@@ -13,24 +13,30 @@ tags:
   - openapi
   - ibm
 freeTierDetails:
-  summary: A 30-day free trial of API Connect.
+  summary: A 30-day API Connect trial with one instance and up to 100,000 API calls.
   limits:
     - 30-day free trial
+    - One service instance and up to 100,000 API calls
+    - Standard features; detailed SaaS documentation excludes Premium capabilities
   caveats:
     - The card requirement for the free offer is not confirmed in the cited public sources
     - After the trial, plans are paid (pay-as-you-go or subscription)
+    - Calls stop at the trial quota; login/access stops after 30 days
+    - Assets are retained for a further 30-day suspension period for a paid upgrade
   resetPeriod: none
   requiresCard: unknown
   freeTierType: trial
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The documented Enterprise as a Service trial stops calls at its quota instead of charging overage; paid offers are separate
   trialDays: 30
 quickstartSteps:
   - Select Start free trial on the IBM API Connect page.
   - Sign up or sign in with an IBMid.
   - Open API Manager for your trial instance.
-  - Follow IBM's getting-started tutorial for the trial to create an API definition and add it to a product.
-  - Publish the product and open the Developer Portal to test the API.
+  - Follow the current getting-started guide to create an API with IBM API Studio or the CLI, then add it to a product.
+  - Stage and publish the product, then use the Consumer Catalog or the portal for your version to subscribe and test it.
   - Upgrade during the 30 days if you want to move the instance to a paid subscription.
 whenToUse: >-
   Use it when you are evaluating enterprise API management with a gateway,
@@ -47,7 +53,7 @@ avoidIf:
   - indie
   - need a permanent free plan
 productionReadiness: production-ready
-lastUpdated: 2026-11-02
+lastUpdated: 2026-11-05
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.ibm.com/cloud/api-connect'
@@ -56,9 +62,15 @@ sourceUrls:
   - https://www.ibm.com/products/api-connect/pricing
   - https://www.ibm.com/products/api-connect
   - https://www.ibm.com/docs/en/api-connect/cloud/10.0.x_saas
+  - https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-purchase-subscription-upgrade-information
+  - https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-getting-started
+  - https://www.ibm.com/account/reg/us-en/signup?formid=urx-51621
 pricingUrl: 'https://www.ibm.com/products/api-connect/pricing'
-lastVerified: 2026-10-26
+lastVerified: 2026-11-05
 changes:
+  - date: 2026-11-05
+    kind: changed
+    note: "Added the documented 100,000-call trial cap, expiry and asset-retention behavior; clarified Premium exclusions and current onboarding."
   - date: '2026-10-21'
     kind: changed
     note: >-
@@ -68,28 +80,28 @@ changes:
     kind: changed
     note: Aligned card requirement flags with the scope and uncertainty of the cited policy evidence.
 answer: >-
-  IBM API Connect has no ongoing free plan: it offers a 30-day trial, the card rule is not confirmed, and expiry billing is not described.
+  IBM API Connect has no ongoing free plan: its 30-day trial includes 100,000 API calls with a hard cap, while the card rule is not confirmed.
 
 ---
-You start the trial from the IBM site, sign in with an IBMid, and work in API Manager for APIs and products and in the Developer Portal for consumers. There is also a command line toolkit. It suits teams that already evaluate enterprise API management and want a hands-on test.
+You start the trial from the IBM site and sign in with an IBMid. The current getting-started guide uses IBM API Studio or the command line to create APIs, API Manager to manage them, and the Consumer Catalog for subscriptions and testing. Follow the portal instructions for your deployed version. It suits teams evaluating enterprise API management.
 
 ## What the free plan gives you
 
-IBM offers a 30-day free trial of API Connect. It is a trial, not a permanent free plan. The pricing table offers trials for Pay-as-you-Go, Standard SaaS, and Premium SaaS. Reserved Instance and self-managed Software instead offer a demo on request.
+IBM's Enterprise as a Service trial provides one instance for 30 days and up to 100,000 API calls at no cost. The signup page confirms that allowance. It is an evaluation offer with community support, not a permanent free plan.
 
-The paid options are pay-as-you-go usage-based pricing hosted on Amazon Web Services, with no upfront costs, and other subscription plans for on-premises, hybrid, and multicloud setups. The pricing page lists no allowance of API calls for the trial, and it does not say whether sign-up asks for a payment card. Check the IBM sign-up form before you start.
+The pricing table puts trial links under Pay-as-you-Go, Standard SaaS, and Premium SaaS, but the detailed subscription guide says the trial includes Standard features and excludes Premium capabilities. Do not treat the marketing links as a full Premium entitlement. Reserved Instance and self-managed Software offer demos. Paid choices include usage-based AWS hosting, annual SaaS subscriptions, and self-managed software; the trial's card requirement is not confirmed.
 
 ## When you hit a limit
 
-The limit is time. The advertised evaluation lasts 30 days and continuing requires a paid plan; the cited pages do not specify the exact account-access or automatic billing behavior at expiry. The pricing page says you can upgrade the trial to a paid subscription at any time during the 30 days.
+The trial counts calls with all response codes, including errors. At the 100,000-call limit, additional calls stop until an upgrade, while view-only access remains. IBM says Enterprise as a Service does not charge call overage. These terms describe that trial and subscription model, not every separate paid offer.
 
-If you upgrade with the same IBMid or email that you used for the trial, your trial instance and assets move to the paid subscription automatically. If you want a fresh start, use a different IBMid or email for the upgrade. The pages do not describe a bill during the trial.
+After 30 days, login/access stops. IBM retains the assets for an additional 30-day suspension period so you can upgrade without losing them. Upgrading during the active trial with the same IBMid/email migrates the instance and assets automatically. The pricing page says to use a different IBMid/email if you want a fresh paid instance instead.
 
 ## Gotchas
 
-- The pages do not say what happens to trial assets after day 30, so export or recreate your API definitions before then if you do not buy.
+- The extra retention period preserves assets for an upgrade; it does not extend free API access. Export definitions before the trial ends if you will not continue.
+- The detailed trial guide excludes Premium capabilities despite trial links in the broader pricing comparison.
 - Upgrading with the same IBMid migrates your trial assets. Use another IBMid if you do not want them moved.
-- The product is aimed at enterprises. The pages stress hybrid and multicloud gateways, which is more than a small project needs.
 
 ## Alternatives in this atlas
 
@@ -104,7 +116,7 @@ Only as a trial. IBM offers a 30-day free trial. After that you need a paid plan
 
 ### What happens when the IBM API Connect trial ends?
 
-The advertised trial lasts 30 days; exact expiry enforcement is not published. The pricing page says upgrading during the trial with the same IBMid moves your trial instance and assets to the paid subscription.
+Login/access stops after 30 days. Assets remain for another 30-day suspension period to allow a paid upgrade. That retention window does not extend the free trial.
 
 ### Can I upgrade the IBM API Connect trial early?
 

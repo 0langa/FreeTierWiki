@@ -1,0 +1,472 @@
+{
+  "reviewDate": "2026-11-05",
+  "sourceObservationWindowUtc": "2026-11-05 21:20–21:36 UTC",
+  "scope": "Nine unresolved comparisons from the November 2 review: eight in the 596-entry follow-up plus Backblaze B2 in the original 50.",
+  "counts": {
+    "assigned": 9,
+    "completed": 8,
+    "confirmed": 2,
+    "correctedComplete": 6,
+    "correctedPartial": 1,
+    "outstanding": 1
+  },
+  "routing": {
+    "commit": "06e3f0a2f83d90c9095ab41aa590c06ee9c70849",
+    "deployment": "652c7525-15aa-4620-a472-85312b030bae",
+    "exclusions": [
+      "/*.txt",
+      "/*.md",
+      "/api/*",
+      "/.well-known/*"
+    ],
+    "retained": "Directory page URLs still negotiate Markdown through the Pages Function.",
+    "limitation": "HTML page requests still consume Functions allowance; this change does not eliminate the effect of a heavy page crawl."
+  },
+  "entries": [
+    {
+      "id": "services/here",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Reconfirmed Limited's no-payment 1,000/day and service RPS limits. Restored two explicit Base monthly allowance examples and paid transaction distinction, and added the Base Tour Planning exception. Precise exhaustion, spending-cap and payment-transition behavior stays qualified.",
+      "sources": [
+        {
+          "url": "https://www.here.com/get-started/pricing/rps-limits-excluded-use-cases",
+          "quote": "1,000 daily Requests",
+          "observation": "Limited customers without payment details have 1,000 daily requests plus product RPS ceilings; geocoding/search 5, vector/raster 50, map tiles 30, map images 2, routing 10, matrix/isoline 1. App IDs cannot be shared between applications.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.here.com/get-started/pricing",
+          "quote": "0 to 30,000",
+          "observation": "Expanded product accordions and pricing-detail dialogs: vector tiles and geocode/reverse geocode each show a free 0–30,000 monthly tier, followed by paid tiers. Permanent Geocoding is excluded. Base has no daily transaction limit; quoted prices are indicative.",
+          "method": "local Firefox, keyboard-expanded pricing dialogs",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.here.com/get-started/pricing/base-plan-restrictions",
+          "quote": "HERE Tour Planning may be used",
+          "observation": "Base excludes asset management, telematics and optimization but expressly allows Tour Planning for optimization.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "accessNotes": [
+        "The legal terms URL returned 503 locally and 403 through the web fetch. Indexed official terms were readable, but the revised billing paragraph uses the live pricing page instead of depending on an inaccessible terms page."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "services/ibm-watsonx-orchestrate",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Corrected Essentials from $530 to $578/month. Rechecked 30-day Standard-feature trial, IBM-Cloud-only 90-day educational eligibility, ten invited members, extension requests and paid upgrade to resume data. Universal card policy remains unconfirmed.",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/products/watsonx-orchestrate/pricing",
+          "quote": "Starting at $578.00 USD Per month",
+          "observation": "Essentials starts at $578 and Standard at $6,360/month; the free trial is 30 days. Prices remain locale-dependent and indicative.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-accessing-watsonx-trial-version",
+          "quote": "invite up to ten team members",
+          "observation": "Rendered guide dated October 19 describes 90 days for eligible educational domains on IBM Cloud, no automatic extension of pre-August trials, Standard features, sales extensions and upgrade to resume current data.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/products/watsonx-assistant",
+          "quote": "IBM watsonx Orchestrate",
+          "observation": "The Assistant URL still redirects to Orchestrate.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "id": "services/neo4j-auradb",
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Confirmed no-card $0 tier, one Free instance, 200,000 nodes/400,000 relationships/1 GB, one manual backup, single-zone/no SLA, included tools, 72-hour pause and deletion after more than 30 paused days. Published entry unchanged apart from verification date.",
+      "sources": [
+        {
+          "url": "https://neo4j.com/pricing/",
+          "quote": "No credit card or other payment method required",
+          "observation": "Expanded comparison supports single-zone, no SLA/scheduled backup/PITR, Console, Importer, Query API, Dashboards, Aura Agent, Bloom Basic and community support.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/quotas-and-limits/",
+          "quote": "1 backup at a time",
+          "observation": "Current quota table gives 200,000 nodes, 400,000 relationships, 1 GB storage, one database and one on-demand backup.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/managing-instances/instance-actions/",
+          "quote": "paused for more than 30 days",
+          "observation": "Free auto-pauses after 72 idle hours, cannot be manually paused, and is deleted after more than 30 paused days.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/managing-instances/backup-restore-export/",
+          "quote": "only snapshot available for Free instances",
+          "observation": "Only on-demand snapshots are available for Free.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/getting-started/create-instance/",
+          "quote": "one Free instance per account",
+          "observation": "Generated password must be copied/downloaded; original password cannot be recovered.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/getting-started/create-account/",
+          "quote": "verified your email address",
+          "observation": "Registration, terms acceptance, email verification and automatic organization/project creation match.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://neo4j.com/docs/aura/getting-started/connect-instance/",
+          "quote": "Import, Bloom, Query, or Dashboards",
+          "observation": "Console and driver/Query API connection steps match; administrative recovery alternatives do not recover the original password.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "accessNotes": [
+        "An older /free-graph-database/ marketing FAQ still lists 50,000/175,000 and no backups. The current quota/backup documentation and current pricing comparison were used for entitlements."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "services/reddit-data-api",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Reconfirmed the official API/RSS migration timetable and updated the elapsed October 31 cutoff to past tense. Retained approved-access restrictions and 100 QPM per OAuth client averaged over ten minutes.",
+      "sources": [
+        {
+          "url": "https://www.reddit.com/r/redditdev/comments/1wubcvf/moving_data_api_apps_to_the_developer_platform/",
+          "quote": "New requests for public API access will no longer be accepted.",
+          "observation": "Timetable gives October 31, 2026 cutoff, January 12, 2027 removals for unregistered/unresponsive apps, and remaining closure in March 2027 without a day.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.reddit.com/r/modnews/comments/1wubgvt/continuing_our_infrastructure_updates_whats/",
+          "quote": "November 13, 2026",
+          "observation": "RSS retirement date and Discord Relay for moderator alerts; no replacement for general feeds outside moderated communities.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki",
+          "quote": "100 queries per minute",
+          "observation": "100 QPM/OAuth client averaged over ten minutes, rate-limit headers, unauthenticated blocking.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data",
+          "quote": "we’ll require a contract",
+          "observation": "Commercial permission/contract and separate Reddit for Researchers route.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://support.reddithelp.com/hc/en-us/articles/42728983564564-Responsible-Builder-Policy",
+          "quote": "get explicit approval",
+          "observation": "Approval, app registration and no circumvention requirements.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://developers.reddit.com/docs/guides/migrate/public-api",
+          "quote": "App Migration Exemptions",
+          "observation": "Devvit migration guidance retains reviewed exemptions and feature-request routes.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "id": "services/robohash",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Recovered the hosted free-service and possible bandwidth-banner statements. Confirmed anonymous URLs, best-effort/backoff guidance, Docker and artwork licenses. Changed hasHardCap to unknown because retry guidance does not establish a universal hard-cap policy.",
+      "sources": [
+        {
+          "url": "https://robohash.org/",
+          "quote": "we provide this service for free",
+          "observation": "Homepage describes anonymous image URLs, size/set/background/Gravatar options and a possible bandwidth banner.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://github.com/e1ven/Robohash",
+          "quote": "please back off exponentially",
+          "observation": "README recommends self-hosting for high volume, separates MIT code from sets 1–4 CC-BY, set5 personal/commercial, set6 CC0, and warns that set=any may change images.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "id": "tools/figma",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Reconfirmed Starter drafts, shared file/folder limits, 30-day history, free inspection, paid Dev Mode/libraries and 150/day up to 500/month AI credits. Clarified shared Design/Sites count in the answer and replaced the inaccessible introductory link. Card policy and conflicting add-on eligibility remain explicitly qualified.",
+      "sources": [
+        {
+          "url": "https://www.figma.com/pricing/",
+          "quote": "150 AI credits/day, up to 500 AI credits/mo",
+          "observation": "Starter is free with unlimited drafts; viewers can inspect/export. Pricing advertises AI add-ons broadly.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/360046216313-Upgrade-or-downgrade-your-plan",
+          "quote": "3 total Figma Design and Figma Sites files",
+          "observation": "One folder, three combined Design/Sites and three each FigJam/Slides; excess files/folders prevent editing after downgrade.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/360040328273-Compare-Figma-plans-and-features",
+          "quote": "30 days",
+          "observation": "Starter comparison supports history, auto layout/components/prototypes/inspection; shared libraries and Dev Mode are paid.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/29717597009431-Guide-to-billing-at-Figma",
+          "quote": "View (free seat)",
+          "observation": "Plan/seat billing is separate from free viewing; no universal Starter signup card statement found.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/22012921621015-Guide-to-inspecting",
+          "quote": "inspection tools directly within Design Mode",
+          "observation": "Free Design Mode inspection remains available; Starter needs a paid plan for Dev Mode.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/33459875669015-How-Figma-AI-credits-work",
+          "quote": "Don’t roll over",
+          "observation": "Seat credits reset monthly; Starter has 150/day and 500/month. Exhaustion requires waiting for the relevant reset.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://help.figma.com/hc/en-us/articles/35865276858647-Manage-AI-credits",
+          "quote": "Admins only",
+          "observation": "Purchase guide's eligibility lists Professional/Organization/Enterprise despite broad pricing-page promotion. Qualification retained.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "id": "tools/ibm-api-connect",
+      "outcome": "corrected",
+      "reviewCompleted": true,
+      "summary": "Added one trial instance/100,000 calls, call stop with view-only access at quota, loss of login/access after day 30, and a further 30-day retention window. Clarified Standard-only trial against broader pricing links and refreshed onboarding. Card policy remains unknown.",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/products/api-connect/pricing",
+          "quote": "same IBMid/email",
+          "observation": "30-day trial links, paid AWS/annual/self-managed choices and migration of active trial assets on matching-account upgrade.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-purchase-subscription-upgrade-information",
+          "quote": "No more calls unless upgraded.",
+          "observation": "Guide dated October 21 documents one instance, 100K calls, Standard features excluding Premium, no call overage, view-only quota state, no access after 30 days and another 30 days retaining assets.",
+          "method": "local Firefox; 12.1.0 URL redirects to 12.1.1_saas",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/api-connect/cloud/12.1.1_saas?topic=overview-getting-started",
+          "quote": "IBM API Studio",
+          "observation": "Current guide uses API Studio/CLI, products, API Manager and Consumer Catalog.",
+          "method": "local Firefox",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.ibm.com/account/reg/us-en/signup?formid=urx-51621",
+          "quote": "up to 100,000 API calls at no cost",
+          "observation": "Signup page independently confirms duration/volume; no account created and no assertion about later signup payment fields.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "id": "tools/testtls-com",
+      "outcome": "corrected",
+      "reviewCompleted": false,
+      "summary": "Both local Firefox and web retrieval still show nginx 502 Bad Gateway. Added a dated outage observation; retained lastVerified 2026-10-28 and historical-feature qualification. No permanent shutdown inferred.",
+      "sources": [
+        {
+          "url": "https://testtls.com",
+          "quote": "502 Bad Gateway",
+          "observation": "Homepage remains unavailable.",
+          "method": "local Firefox and web fetch",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "blocker": "provider-502",
+      "remaining": [
+        "Recompare the historical free features, card and quota policies if the homepage recovers."
+      ]
+    },
+    {
+      "id": "services/backblaze-b2",
+      "outcome": "confirmed",
+      "reviewCompleted": true,
+      "summary": "Closed the original routine's no-card gap with the current signup hero. Rechecked 10 GB, 3x egress/$0.01 excess, API classes, optional caps, public-bucket payment and S3 ACL limitations. Refreshed verification date and canonical source URL; original 50-entry batch is now complete.",
+      "sources": [
+        {
+          "url": "https://www.backblaze.com/cloud-storage",
+          "quote": "No credit card required.",
+          "observation": "Current destination of old /b2/cloud-storage.html contains the public signup hero.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.backblaze.com/cloud-storage/pricing",
+          "quote": "First 10GB storage is always free.",
+          "observation": "$6.95/TB/month after free storage, 3x average-storage egress/$0.01 excess, A/B/C free, D 2,500/day free then $0.004/10K; partner egress.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.backblaze.com/docs/cloud-storage-create-and-manage-caps-and-alerts",
+          "quote": "Changes may take up to 10 minutes.",
+          "observation": "Optional daily caps and alert settings.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.backblaze.com/docs/en/cloud-storage-data-caps-and-alerts",
+          "quote": "Data caps cannot be set for Class D transactions.",
+          "observation": "No general spending guarantee without caps; Class D remains uncappable.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.backblaze.com/docs/cloud-storage-create-and-manage-buckets",
+          "quote": "Have a payment history on file",
+          "observation": "Public bucket requires verified email and payment history or small credited card fee; endpoint and privacy-change steps match.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        },
+        {
+          "url": "https://www.backblaze.com/docs/cloud-storage-s3-compatible-api",
+          "quote": "object-level ACLs are not supported",
+          "observation": "Private/public-read bucket ACLs only, no independent object ACLs.",
+          "method": "official web page",
+          "observedOn": "2026-11-05"
+        }
+      ],
+      "remaining": []
+    }
+  ],
+  "sourceRevisions": {
+    "branch": "freshness-data",
+    "checkedAt": "2026-11-05T21:40:30.421Z",
+    "reviewed": [
+      {
+        "id": "services/backblaze-b2",
+        "hash": "5b9fb14676be528d",
+        "hashVersion": 3,
+        "markupHash": "6be4460fa8202931",
+        "url": "backblaze.com/cloud-storage/pricing",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "services/here",
+        "hash": "73df99ed9e6ec1e6",
+        "hashVersion": 3,
+        "markupHash": "3d3b95c7d90afb7d",
+        "url": "here.com/get-started/pricing",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "services/ibm-watsonx-orchestrate",
+        "hash": "189234a03b3ca3ab",
+        "hashVersion": 3,
+        "markupHash": "1c4b6c8b42e821d6",
+        "url": "ibm.com/products/watsonx-orchestrate/pricing",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "services/neo4j-auradb",
+        "hash": "b68c8d24f0c92f12",
+        "hashVersion": 3,
+        "markupHash": "5139acef1bf2a38f",
+        "url": "neo4j.com/pricing",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "services/reddit-data-api",
+        "hash": "a0a271cc243d548e",
+        "hashVersion": 3,
+        "markupHash": "0264d8606f4e2ef7",
+        "url": "developers.reddit.com/docs/guides/migrate/public-api",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "services/robohash",
+        "hash": "3fe9bb4fc6289854",
+        "hashVersion": 3,
+        "markupHash": "a4e9ceac9af43772",
+        "url": "github.com/e1ven/Robohash",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "tools/figma",
+        "hash": "2a82ece619873f5f",
+        "hashVersion": 3,
+        "markupHash": "d3a464d37231a29b",
+        "url": "figma.com/pricing",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      },
+      {
+        "id": "tools/ibm-api-connect",
+        "hash": "b5f6cdb7330601fd",
+        "hashVersion": 3,
+        "markupHash": "638aa10484b6d65d",
+        "url": "ibm.com/products/api-connect/pricing",
+        "verificationDate": "2026-11-05",
+        "acknowledgedAt": "2026-11-05T21:44:07.505Z"
+      }
+    ],
+    "excluded": [
+      "tools/testtls-com"
+    ],
+    "scopeNote": "These exact scanner revisions were compared with the completed reviews. HERE pricing requires the separately inspected browser dialogs; its static fingerprint contains only the page shell. Acknowledgement clears only these eight source revisions, not the unresolved TestTLS review or other entries."
+  }
+}
