@@ -74,7 +74,7 @@ Every page has a Markdown version for AI agents. A request whose `Accept` header
 
 - At the end of `next build`, the build adapter in [`scripts/markdown/next-adapter.mjs`](../scripts/markdown/next-adapter.mjs) (`adapterPath` in `next.config.mjs`) runs [`build-markdown.mjs`](../scripts/markdown/build-markdown.mjs). It writes `index.md` next to every exported `index.html`: frontmatter from the page metadata, then the `<main>` content without breadcrumbs, "On this page" lists, buttons, or icons. It sits inside Next rather than in `npm run build`, because Cloudflare Pages' Next.js preset runs `npx next build`. To regenerate the files for an existing `out/`, run `node scripts/markdown/build-markdown.mjs`.
 - [`functions/_middleware.ts`](../functions/_middleware.ts) is a Pages Function. For a page URL ending in `/`, it serves that `index.md` with `Content-Type: text/markdown`, `Vary: Accept`, an estimated `x-markdown-tokens` count, and a canonical `Link` header. Slashless URLs and `_redirects` entries redirect first, as they do for HTML.
-- [`public/_routes.json`](../public/_routes.json) keeps `/_next/*` and other static files out of the Function.
+- [`public/_routes.json`](../public/_routes.json) keeps `/_next/*`, Next.js `.txt` navigation payloads, explicit `.md` files, `/api/*`, `/.well-known/*`, and the other listed static files out of the Function. Page URLs still invoke it for HTML and Markdown negotiation. These exclusions reduce Function usage; a heavy crawl of page URLs can still exhaust the daily allowance.
 - Every HTML page also sends `Link: <…/index.md>; rel="alternate"; type="text/markdown"`, so agents that don't negotiate can still find it.
 
 ## Catalog API and discovery
