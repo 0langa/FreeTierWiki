@@ -15,21 +15,24 @@ tags:
   - presence
 freeTierDetails:
   summary: >-
-    Free package includes 6 million messages per month, 500 messages per second,
-    and 200 concurrent connections and channels. No credit card needed.
+    Free package includes 500 monthly active users (MAUs), 6 million messages per
+    month, 500 messages per second, and 500 concurrent connections and channels.
+    No credit card needed.
   limits:
+    - 500 MAUs/month
     - 6 million messages/month
     - 250,000 messages/hour and 28.6 GiB monthly message bandwidth
     - 500 messages/second
-    - 200 concurrent connections
-    - 200 concurrent channels
+    - 500 concurrent connections
+    - 500 concurrent channels
     - 200 presence members per channel
-    - 1 day message storage
+    - 24 hours default message history, up to 30 days
     - 64KiB maximum message size
   caveats:
     - Free package limits are fixed; more capacity needs a paid package.
-    - Free documentation promises community support; pricing card also mentions best-effort email, while its detailed table marks email unavailable.
-    - Docs say some limits are enforced by rejecting or restricting the excess usage.
+    - After 6 million messages in a month, the account is limited to 1,600 messages per hour until the next month.
+    - Going over 500 MAUs can degrade service until the next month; connections and channels above 500 are rejected.
+    - Support is community and email support on a best effort basis.
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -37,20 +40,20 @@ freeTierDetails:
   overageRisk: low
   billingRiskNotes:
     - >-
-      Free is explicitly no-cost with no card requirement; exact monthly exhaustion is unpublished, while some traffic limits restrict or reject excess.
+      Free is explicitly no-cost with no card requirement; Ably says it won't cut you off over a limit but restricts the account until usage recovers.
 whenToUse: >-
   Use Ably to build a proof of concept for chat, live updates, or presence
   without running your own WebSocket servers.
 whenNotToUse: >-
-  Avoid it if you need more than 200 concurrent connections, more than a day of
-  stored messages, or support beyond the community, or if you need it on your own servers.
+  Avoid it if you expect more than 500 monthly active users or 500 concurrent
+  connections, need guaranteed support response times, or need it on your own servers.
 bestFor:
   - proof of concept realtime apps
   - small chat and live-update features
   - learning pub/sub over websockets
 avoidIf:
-  - you need more than 200 concurrent connections
-  - you need message history longer than a day
+  - you expect more than 500 monthly active users
+  - you need more than 500 concurrent connections
   - you must self-host
 quickstartSteps:
   - Sign up for an Ably account. The Free package needs no credit card.
@@ -60,8 +63,8 @@ quickstartSteps:
   - Create an `Ably.Realtime` client with your key and a `clientId`, and wait for the `connected` event.
   - Get a channel such as `my-first-channel`, subscribe to it, then publish a message with `channel.publish` or the CLI command `ably channels publish`.
 productionReadiness: production-light
-lastVerified: 2026-11-02
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-09
+lastUpdated: 2026-11-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.ably.com/'
@@ -69,36 +72,42 @@ docsUrl: 'https://ably.com/docs'
 pricingUrl: 'https://ably.com/pricing'
 sourceUrls:
   - 'https://ably.com/pricing'
+  - 'https://ably.com/docs/platform/pricing'
   - 'https://ably.com/docs/platform/pricing/free'
   - 'https://ably.com/docs/platform/pricing/limits'
+  - 'https://ably.com/docs/platform/pricing/billing'
   - 'https://ably.com/docs/getting-started/javascript'
+status: changed
 changes:
+  - date: 2026-11-09
+    kind: changed
+    note: Ably now prices by monthly active users; updated the Free package to 500 MAUs, 500 concurrent connections and channels, longer message history, email support, and the published throttling after the monthly message allowance.
   - date: '2026-10-21'
     kind: changed
     note: Qualified monthly quota enforcement and inconsistent support descriptions; added separate hourly and bandwidth ceilings.
 answer: >-
-  Ably's free package needs no card and covers 6 million messages a month with 200 concurrent connections, though some traffic limits reject excess and what happens at the monthly total is unpublished.
+  Ably's Free package needs no card and covers 500 monthly active users and 6 million messages a month; past a limit, Ably throttles or rejects the extra usage instead of billing.
 
 ---
 You work with Ably through its dashboard, the Ably CLI, and SDKs for many languages, including JavaScript, Python, Go, Java, and Swift. It suits developers who want realtime features without running their own WebSocket servers.
 
 ## What the free plan gives you
 
-The Free package costs $0 and has no time limit. Ably calls it a place to build a proof of concept. It includes 6 million messages per month and a top rate of 500 messages per second. You can have 200 concurrent connections and 200 concurrent channels at the same time.
+The Free package costs $0 and has no time limit. Ably now prices its packages by monthly active users (MAUs), and Free includes 500 MAUs each month. A user who connects several times in a month counts once, and servers are not counted. Free covers every Ably product, including Pub/Sub, Chat, Spaces, and LiveObjects.
 
-Each channel can hold up to 200 presence members. The number of subscribers per channel is unlimited. Ably keeps messages for 1 day, and one message can be up to 64KiB. Support is community support with a best-effort target. The Free package has no credit card requirement.
+You also get 6 million messages per month, a top rate of 500 messages per second, and 500 concurrent connections and 500 concurrent channels. Each channel can hold up to 200 presence members, and one message can be up to 64KiB. History defaults to 24 hours and can be kept up to 30 days. Support is community and email support on a best effort basis. The Free package has no credit card requirement.
 
 ## When you hit a limit
 
-Ably splits limits into two kinds. Count-based limits, such as concurrent connections and channels, restrict new use until existing resources are removed. Rate-based limits, such as messages per second, can reject the extra publish attempts and return an error code.
+Ably says it won't cut you off when Free usage goes over a limit. Instead, the account is restricted until it recovers. After 6 million messages in a month, you are limited to 1,600 messages per hour until the next month starts. Connections and channels above 500 are rejected until you are back under the limit.
 
-Ably says it will not block usage for most limits just because you passed them, and that normal service can continue for a while. It sends email and dashboard notices when you near a limit and when you pass it, and it will ask you to upgrade. Free needs no card and is explicitly no-cost; that does not establish an immediate cutoff for every quota. The pages do not say what happens after the 6 million monthly messages are used.
+Going over 500 MAUs in a month may degrade service until the start of the following month. Rate limits, such as messages per second, can reject the extra publish attempts with an error code. Ably sends email and dashboard notices when you near a limit and when you pass it. Free has no cost, so more capacity means a paid package.
 
 ## Gotchas
 
-- Message history lasts only 1 day on the Free package. Longer storage needs a paid package.
-- Community support is documented. The pricing card also mentions best-effort email, while the detailed email-support row excludes Free; confirm the channel before relying on it.
-- If you downgrade from a paid package, you keep the paid limits until the billing cycle ends, then get a final invoice for the full package fee and the usage.
+- Every device must connect with a `clientId`, and each distinct `clientId` counts as an MAU, so giving one user different IDs on two devices uses two MAUs.
+- The 1,600 messages per hour throttle after the monthly allowance is far below the normal 250,000 messages per hour, so a busy app can slow sharply late in the month.
+- If you move from a paid package back to Free, the change takes effect at the end of the current month, and the final invoice includes any extra MAUs used that month.
 
 ## Alternatives in this atlas
 
@@ -110,7 +119,7 @@ Ably says it will not block usage for most limits just because you passed them, 
 
 ### Is Ably free?
 
-Yes. The Free package costs $0 with no time limit. It includes 6 million messages per month, 200 concurrent connections, and 200 concurrent channels.
+Yes. The Free package costs $0 with no time limit. It includes 500 MAUs, 6 million messages per month, 500 concurrent connections, and 500 concurrent channels.
 
 ### Does Ably need a credit card?
 
@@ -118,4 +127,4 @@ No. Ably says no credit card is needed to sign up for the Free package, and ther
 
 ### What happens when I go over the Ably free limits?
 
-Ably restricts or rejects the extra usage for count-based and rate-based limits, and it emails you as you near and pass a limit. It will ask you to upgrade to a paid package.
+Ably does not cut you off. Past 6 million messages you are limited to 1,600 messages per hour for the rest of the month, extra connections and channels are rejected, and going over 500 MAUs may degrade service.
