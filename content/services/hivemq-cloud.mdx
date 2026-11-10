@@ -13,7 +13,8 @@ tags:
   - pubsub
 freeTierDetails:
   summary: >-
-    The managed Starter plan can be tried for 15 days. It offers
+    The managed Starter plan can be tried for 15 days after you provide
+    payment details. It offers
     production-ready MQTT connectivity with 10,000 connections and 1 MB/sec,
     priced from $0.34 an hour plus $0.80 per million messages after the trial.
   limits:
@@ -24,17 +25,19 @@ freeTierDetails:
     - There is no permanent free managed plan on the pricing page
     - The free Lab package is self-hosted and requires manual license renewal every 30 days
     - >-
-      No card is required for the 15-day trial; without a payment method, the
-      cluster is automatically removed when it ends
+      The quick-start guide has you provide payment details to start the
+      trial; you are not charged during it, and pricing applies after it ends
+    - The guide does not say whether a spending cap applies after the trial
   resetPeriod: none
-  requiresCard: false
+  requiresCard: true
   freeTierType: trial
-  hasHardCap: true
-  overageRisk: low
+  hasHardCap: unknown
+  overageRisk: medium
   billingRiskNotes:
     - 'After the trial, Starter is billed per hour plus per million messages'
 quickstartSteps:
   - Choose Start 15-day trial under Starter on the HiveMQ pricing page.
+  - Provide your payment details in the trial form; you are not charged during the trial.
   - Connect test devices or clients to the managed MQTT broker.
   - >-
     Before the 15 days end, decide on a paid plan or the self-hosted Lab
@@ -42,16 +45,19 @@ quickstartSteps:
 whenToUse: >-
   Use the trial to evaluate a fully managed MQTT broker for an industrial or IoT
   project before you pay.
-whenNotToUse: Avoid it if you need a managed MQTT broker that stays free after two weeks.
+whenNotToUse: >-
+  Avoid it if you do not want to add payment details, or if you need a managed
+  MQTT broker that stays free after two weeks.
 bestFor:
   - evaluating managed MQTT
   - IoT pilots
 avoidIf:
   - you need a permanent free managed broker
   - hobby projects with no budget
+  - you will not add payment details for a trial
 productionReadiness: production-ready
-lastUpdated: '2026-11-02'
-lastVerified: 2026-11-02
+lastUpdated: '2026-11-09'
+lastVerified: 2026-11-09
 popularityScore: 5
 usefulnessScore: 5
 officialUrl: 'https://www.hivemq.com/'
@@ -69,8 +75,15 @@ changes:
     note: >-
       Resolved Starter trial card requirements and automatic cluster removal
       from the official quick-start guide.
+  - date: '2026-11-09'
+    kind: changed
+    note: >-
+      The quick-start guide now has you provide payment details to start the
+      15-day Starter trial. You are not charged during the trial, and pricing
+      applies after it ends.
+status: changed
 answer: >-
-  HiveMQ Cloud has no ongoing free managed plan: the 15-day Starter trial needs no card, the cluster is removed if it ends without a payment method, and billing afterward starts at $0.34 an hour.
+  HiveMQ Cloud has no ongoing free managed plan: the 15-day Starter trial asks for payment details, you are not charged during it, and pricing from $0.34 an hour applies once it ends.
 
 ---
 
@@ -84,14 +97,14 @@ The only permanently free offer on the page is Lab, a free software license for 
 
 ## When you hit a limit
 
-The trial lasts 15 days. The official quick-start guide says no credit card is required for the trial. If you do not add a payment method, the cluster is automatically removed when the 15 days end. Paid pricing applies after the trial only if you added a payment method.
+The trial lasts 15 days. The official quick-start guide has you provide payment details to start it and says you are not charged during the trial. Pricing applies only after the 15-day trial ends, so decide before then whether to keep the broker.
 
 After the trial, Starter costs from $0.34 an hour plus $0.80 per million messages. Self-managed Launch and Run plans cost $299 and $499 a month for 1 broker deployment, and Enterprise pricing is based on capacity.
 
 ## Gotchas
 
 - There is no free managed plan after the trial; the page points people looking for free to the self-hosted Lab package.
-- Starter is billed by the hour and by messages, so a busy test fleet adds to the bill once the trial ends.
+- Starter asks for payment details up front and is billed by the hour and by messages, so a busy test fleet adds to the bill once the trial ends.
 - Contextualize and Analyze features are not available on Starter.
 
 ## Alternatives in this atlas
@@ -103,7 +116,7 @@ After the trial, Starter costs from $0.34 an hour plus $0.80 per million message
 
 ### Is HiveMQ Cloud free?
 
-Not permanently. The managed Starter plan has a 15-day trial, and the free Lab package is self-hosted.
+Not permanently. The managed Starter plan has a 15-day trial that asks for payment details, and the free Lab package is self-hosted.
 
 ### How much does HiveMQ Cloud Starter cost after the trial?
 

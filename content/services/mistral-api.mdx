@@ -2,7 +2,8 @@
 title: Mistral API
 description: >-
   The Mistral API gives developers access to Mistral's language, coding, OCR, and
-  speech models through Mistral Studio, with a Free mode that needs no card.
+  speech models through Mistral Studio. Free mode covers Vibe and Studio, but API
+  use needs billing activation and pay-as-you-go.
 provider: Mistral AI
 domain: ai
 tags:
@@ -13,48 +14,51 @@ tags:
   - open-weight-models
 freeTierDetails:
   summary: >-
-    The Free plan includes API access in Studio's Free mode with no credit card,
-    covered by included monthly usage and low rate limits shown in the Admin Panel.
+    Free mode includes a monthly usage budget for trying Vibe and Studio, but the
+    usage docs say it does not include API access. API keys and API calls need
+    billing activation and pay-as-you-go.
   limits:
-    - Included monthly usage shared across Studio, the API, and Vibe Code; amounts shown in the Admin Panel
-    - 'Rate limits per model: tokens per minute and requests per second'
+    - Monthly usage budget for trying Vibe and Studio; amounts shown in the Admin Panel
     - Limited chat messages, web searches, and coding sessions in Vibe
+    - API use needs billing activation and pay-as-you-go, which draws on prepaid credits
+    - 'API rate limits per model: tokens per minute and requests per second'
   caveats:
-    - Free API rate and monthly token limits return HTTP 429 when exceeded
-    - Paid continuation requires enabled pay-as-you-go and prepaid credits; optional automatic recharge can charge a payment method
-    - Rate limits in Free mode are low; they are listed in Admin Panel, API, Limits
-    - Pay-as-you-go extends usage past the included amount; payment methods are managed in Billing
+    - Usage docs say Free mode does not include API access; creating API keys and using the API require billing activation and pay-as-you-go
+    - The quickstart asks for an account on a plan with API access and points to billing setup to add a payment method
+    - The API rate-limit help article still describes Free mode API limits, so official pages conflict on this point
+    - Pay-as-you-go is prepaid and needs credits, which you buy or redeem from a gift code
     - The pages do not state the dollar value of the included monthly usage
   resetPeriod: monthly
-  requiresCard: false
+  requiresCard: true
   freeTierType: credit
-  hasHardCap: true
+  hasHardCap: false
   overageRisk: low
   billingRiskNotes:
-    - The cap describes Free mode without paid continuation; PAYG consumes purchased credits
-    - Paid balances can go slightly negative during processing, and optional auto recharge can buy more credits
+    - Prepaid balances can go slightly negative during processing, and the next invoice includes that overage
+    - Optional auto recharge can buy more credits from your payment method
 quickstartSteps:
-  - Create a Mistral account and open the Studio console. Free mode is on by default.
-  - Open API Keys in the left sidebar and click Create new key. Name it, set an expiration date, and choose a connector access scope.
+  - Create a Mistral account. Free mode is the default state for new accounts.
+  - Add a payment method in the Admin Panel under Subscription and Billing, buy credits, and enable pay-as-you-go. The usage docs say the API requires this.
+  - Open API Keys in the Studio console and select New key. Name it, set an expiration date, and choose a connector access scope.
   - Copy the key right away. The full key appears only once.
   - Set it as the `MISTRAL_API_KEY` environment variable.
   - Test it with a request to `https://api.mistral.ai/v1/chat/completions` using the `mistral-small-latest` model.
 whenToUse: >-
-  Use the Mistral API to try Mistral's models, OCR, and speech models with no
-  card on file.
+  Use the Mistral API to build with Mistral's models, OCR, and speech models when
+  you are ready to activate billing and pay from prepaid credits.
 whenNotToUse: >-
-  Avoid it for steady production traffic on the free plan. Free mode has low
-  rate limits.
+  Avoid it if you want API access with no payment method. The usage docs say Free
+  mode covers Vibe and Studio, not the API.
 bestFor:
   - prototyping
   - model comparison
   - OCR and speech tests
 avoidIf:
-  - you need high-volume production on the free plan
+  - you need free API access with no payment method
   - you need to know the exact free allowance up front
 productionReadiness: prototype
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-10
+lastVerified: 2026-11-10
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://mistral.ai/'
@@ -63,11 +67,16 @@ sourceUrls:
   - 'https://help.mistral.ai/en/articles/698531-why-am-i-hitting-api-rate-limits-and-how-do-i-increase-them'
   - 'https://docs.mistral.ai/admin/billing-usage/subscriptions'
   - 'https://docs.mistral.ai/admin/billing-usage/billing'
+  - 'https://docs.mistral.ai/admin/billing-usage/usage-limits'
+  - 'https://docs.mistral.ai/admin/set-up-organization/create-organization'
   - 'https://mistral.ai/pricing/'
   - 'https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key'
   - 'https://docs.mistral.ai/admin/user-management-finops/tier'
 pricingUrl: 'https://mistral.ai/pricing/'
 changes:
+  - date: 2026-11-10
+    kind: changed
+    note: Mistral's usage docs now say Free mode covers Vibe and Studio and does not include API access; API keys and API use require billing activation and pay-as-you-go.
   - date: '2026-10-21'
     kind: changed
     note: Added documented 429 Free enforcement, prepaid continuation, 402 exhaustion, delayed overage and auto recharge.
@@ -82,28 +91,28 @@ changes:
     note: Official pages no longer show a $10 monthly API credit; Free mode lists included monthly usage and low rate limits without a dollar amount.
 status: changed
 answer: >-
-  Mistral API's Free mode needs no card and returns HTTP 429 at its rate and token limits, optional automatic recharge can charge a payment method, and the official pages no longer show a $10 monthly credit.
+  Mistral API has a Free mode for Vibe and Studio, but its usage docs say the API is not included: API keys need billing activation, a card, and prepaid pay-as-you-go credits, and small overages can land on the next invoice.
 
 ---
-You use the Mistral API from the Studio console, where you create an API key, then call it with curl, an SDK, or the playground. It suits developers who want to try Mistral's models, document OCR, and speech models before they pay.
+You use the Mistral API from the Studio console, where you create an API key, then call it with curl, an SDK, or the playground. It suits developers who want Mistral's models, document OCR, and speech models and are ready to turn on billing.
 
 ## What the free plan gives you
 
-The Free plan includes access to Mistral Studio. In Free mode, API access is on by default and no credit card is needed. The tier docs say Free mode lets you create API keys and use included monthly usage within the limits shown on the Limits page. The subscription docs say this monthly allowance is shared across Studio, the API, and Vibe Code. The pricing page does not state a dollar amount for Free usage.
+The Free plan includes limited access to Vibe and access to Mistral Studio. The usage docs say Free mode includes a monthly usage budget for trying Vibe and Studio and does not include API access. Creating API keys and using the API require billing activation and pay-as-you-go. The quickstart points you to billing setup to add a payment method. The pricing page states no dollar amount for Free usage.
 
-Rate limits are listed per model in the Admin Panel under API and Limits. Completion limits cover tokens per minute and requests per second. Audio limits can include audio seconds per minute and per month, and OCR limits can include pages per minute. The Free plan also gives limited access to Vibe, with limited messages, web searches, and coding sessions.
+Included monthly usage is shared across Studio, the API, and Vibe Code, and is consumed first. Once API access is active, rate limits are listed per model in the Admin Panel under API and Limits. The API rate-limit help article still describes Free mode as having the lowest API limits, so plan on the stricter reading in the usage docs.
 
 ## When you hit a limit
 
-The official help article says request, token-throughput, and monthly token limits return HTTP 429 when exceeded. Without pay-as-you-go, included usage stops until renewal or an admin changes settings.
+The official help article says request, token-throughput, and monthly token limits return HTTP 429 when exceeded. Without pay-as-you-go, included usage can stop until the next billing period or until an admin changes the settings.
 
 Paid continuation requires pay-as-you-go enabled and positive prepaid credits. Exhausted paid credits return HTTP 402, but processing delays can leave a small negative balance payable on the next invoice. Optional automatic recharge buys credits from a payment method. Organization spending limits can suspend access; they do not eliminate delayed accounting. Pro costs $14.99 monthly and raises Vibe limits.
 
 ## Gotchas
 
+- The usage docs say Free mode alone does not include API access, so plan on adding a payment method before you can create a key.
 - The full API key shows only once when you create it, so copy it right away.
-- Free mode limits are low, and the exact numbers appear only inside your Admin Panel.
-- Leave pay-as-you-go and automatic recharge off to stay within Free mode; those settings govern purchased-credit consumption and top-ups.
+- Leave automatic recharge off if you want spending to stop at your prepaid balance; a small overage can still reach the next invoice.
 
 ## Alternatives in this atlas
 
@@ -115,11 +124,11 @@ Paid continuation requires pay-as-you-go enabled and positive prepaid credits. E
 
 ### Is the Mistral API free?
 
-Yes, in Free mode. API access is on by default with no credit card, with included monthly usage and low rate limits.
+Not on its own. The Free plan covers limited Vibe and Studio use, and the usage docs say API access requires billing activation and pay-as-you-go.
 
 ### Does the Mistral API need a credit card?
 
-No. The quickstart says Free mode needs no credit card. Payment methods are managed in the Billing page.
+Yes, in practice. The docs say to add a payment method to activate API access beyond Free mode. Pay-as-you-go is prepaid, and credits can also come from a gift code.
 
 ### Where do I find my Mistral API rate limits?
 

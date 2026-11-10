@@ -1,0 +1,301 @@
+# Full catalog review: 9 and 10 November 2026
+
+Source: [issue #79](https://github.com/0langa/FreeTierWiki/issues/79). The owner asked for the whole catalog to match what vendors publish now, so this run compared every entry with its official sources instead of the usual capped queue. PR #80 covered 48 entries on 9 November. This review covers the other 899.
+
+**899 reviewed: 650 unchanged, 223 corrected, 20 with a real vendor change, 0 ended, 6 not finished.** Together with PR #80, 941 of 947 entries now carry a comparison dated 9 or 10 November.
+
+The full record for each entry, with sources and short quotes, is in [2026-11-10-full-baseline.json](2026-11-10-full-baseline.json).
+
+## Method
+
+- Every entry was read in full and compared with its official pricing pages and docs, covering the facts box, answer, quickstart steps and body.
+- Pages were read by plain fetch, then a headless browser for script-rendered pages, then an interactive browser for toggles, icon-only tables, collapsed FAQs and pages that block automated requests.
+- Only official vendor pages count as evidence. No accounts or credentials were created, and no bot check or CAPTCHA was solved.
+- Unchanged entries advance `lastVerified` and keep `lastUpdated`. Corrected entries advance both.
+- `status: changed` marks a real vendor change. Other edits are catalog corrections. No vendor effective date was asserted unless a page states one.
+- Text aimed at AI agents on vendor pages was treated as data and ignored. Instances are recorded in the ledger.
+
+## Vendor changes
+
+- `services/aiven`: Removed MySQL from the free offer in the summary, quickstart, answer, body and FAQ; Added status changed and a changes item; Added the MySQL retirement page to sourceUrls; Scoped the power-off notice: Aiven states a notice for stopped activity, not for no initial usage
+- `services/bitrise`: Replaced 300 credits and 5 concurrent builds with 500 build minutes a month; 5 concurrent builds is no longer published for Hobby; Replaced 'team of one' with unlimited team members, and added unlimited public apps and 1 free on-prem runner; Replaced the 'Hobby needs no card' claim with the FAQ's card verification rule; Added Pay-As-You-Go terms and set hasHardCap to true; Rewrote answer, whenToUse, whenNotToUse, avoidIf, body and FAQ; added a changes item
+- `services/certkit`: Trial length changed from 90 days to 30 days everywhere in the entry; Added status: changed and a changes item dated 2026-11-09
+- `services/cloudflare-realtime`: Added RealtimeKit's included usage (10,000 audio and video minutes, 10,000 audio-only minutes, 100 minutes of each export type) to limits and the body; Replaced the no-free-amount caveat, whenNotToUse, one avoidIf item and the RealtimeKit question; Added a caveat and body sentence on the conflict with the Cloudflare plans page, which marks RealtimeKit not available on Free; Added cloudflare.com/plans to sourceUrls; set status changed and added a changes item
+- `services/crowdin`: Hosted words on Free changed from 60,000 to 40,000 in summary, limits, answer, body and FAQ; One integration changed to unlimited integrations; Three file formats changed to unlimited file formats; one branch stays; Removed 'more integrations' from whenNotToUse; Added status: changed and a dated changes item; no vendor effective date is asserted
+- `services/e2b`: Hobby concurrent sandboxes changed from 20 to 10 in limits, avoidIf and body; Added status: changed and a changes item; Gotcha now says pausing or killing stops compute billing, removing the unsourced timeout and 'at once' wording
+- `services/fly-io`: Replaced the 2 machine-hour trial with $1 of credit for Machines, Sprites and Managed Postgres; Added trial limits: shared-cpu-2x with 4GB, 20GB of Volumes, 3 Sprites; Rewrote what a card does and what happens when the credit runs out, including possible deletion of trial resources; Moved pricingUrl, docsUrl and sourceUrls to docs.fly.io after the vendor's 301; Rewrote answer and added a changes item
+- `services/geocodio`: Added Australia and New Zealand across description, summary, caveats, whenToUse, whenNotToUse, answer and body; Replaced an unsourced billing-continuation sentence with the docs' 403 behavior when no payment method is on file; Set status changed and added a changes item; added geocod.io/docs/ to sourceUrls
+- `services/hivemq-cloud`: requiresCard false to true; hasHardCap true to unknown and overageRisk low to medium; Removed the no-card and automatic-removal claims from summary, caveats, body and FAQ; Added a quickstart step for payment details and updated whenNotToUse and avoidIf; Rewrote answer, set status changed and added a changes item
+- `services/ipbase-com`: Free allowance changed from 150 to 1,000 requests a month across summary, limits, whenToUse, whenNotToUse, answer, body and FAQ; Security data now starts on Medium at $39.99, not Small at $9.99; ip2geo.dev alternative reworded because its allowance now equals ipbase's; Added a changes item dated 2026-11-09
+- `services/loginllama`: Free allowance changed to 100 checks per new account, plan type credit, resetPeriod none; Starter price and quota updated to $9 for 5,000 checks; Test-key rate limit updated to 60 a minute; Removed the unsupported under-500-millisecond claim; Rewrote answer, limits, body and FAQ, added FAQ to sourceUrls and a changes item
+- `services/logrocket`: Plan type changed to always-free with 1,000 monthly sessions; requiresCard set to unknown because the no-card statement is attached to the trial; Rewrote answer, summary, limits, body, quickstart and FAQ; Added a changes item and status changed
+- `services/manageengine-log360-cloud`: Rewrote summary, limits, caveats, answer and body around the Free edition described for evaluation with limited component counts; Removed the 50 GB, 150 GB, 7-day and 15-day figures and the $120 and $540 plan prices, which no official page now shows; Added the 30-day Enterprise trial, paid per-component pricing and the License-page behaviour at component and storage limits; Moved pricingUrl to cloud-siem/pricing-details.html and added license and storage-tier help to sourceUrls; Simplified quickstart to steps the current sources support and added a changes item
+- `services/mistral-api`: requiresCard false to true; hasHardCap true to false, because prepaid balances can go slightly negative; Rewrote description, summary, limits, caveats, billing notes, quickstart, whenToUse, whenNotToUse, avoidIf, answer, body and two FAQ answers; Added the usage-limits and create-organization docs to sourceUrls and a changes item
+- `services/pubnub-com`: Removed the Testing-only restriction from the summary, limits, billing notes, whenToUse, whenNotToUse, avoidIf, quickstart, body, gotcha and FAQ; Changed '10 active Testing keysets' to '10 active keysets'; Rewrote answer; Added a changes item dated 2026-11-10
+- `services/unkey`: Free log retention 1 day to 7 days and audit retention 3 days to 30 days; Pro retention to 90 days for logs and 90 days for audit logs; Replaced the unexplained over-quota behaviour with the published email then 5 requests a minute rule; Set hasHardCap to false and overageRisk to none, and rewrote answer and billing notes; Renamed the hosting product Compute, matching the pricing tab and docs; Added status changed, a change note and the team docs source
+- `tools/budibase`: Replaced Pro at $19 or $23 with Cloud from $299 per month: 2 creators, 20 end users, 250K actions, 50K AI credits; Removed Pro-only limits for rows, logs, workspaces and 5,000 actions; Added extra creator and end-user prices and one-off AI credit purchases; Named the $0 self-hosted Community plan; updated description, summary, limits, body, gotchas and FAQ; added status and a changes item
+- `tools/flutterflow`: Replaced 5 lifetime AI requests with a free AI allowance of unpublished size across summary, limits, answer, body and FAQ; Added FlutterFlow Studio rename, Lite-credit retirement and the free education year; Replaced Growth and Business billing note with current Pro and Max seats and refills; Added the plan comparison doc to sourceUrls; set status changed with a changes item
+- `tools/numlookupapi-com`: Free allowance raised from 100 to 250 requests a month in summary, limits, answer, body and FAQ; Reworded the batch example for the larger allowance; Set status changed and added a changes item
+- `tools/zipcodestack`: Free allowance changed from 300 request credits to 1,000 requests a month throughout, including the answer; Endpoint costs reworded in requests, as the docs now do; Overage now described on every paid plan, with none on Free; Radius gotcha and the Zipcodebase alternative updated to fit the new allowance; Added a changes item
+
+## Corrections
+
+- `services/100ms`: Stated that usage past the free minutes incurs a charge in the answer, caveats, billing note, whenNotToUse, body and gotcha; Set hasHardCap to false; Added a caveat that the FAQ says 100,000 free streaming minutes while the plan table lists 10,000
+- `services/ahasend`: Replaced the claim that the pricing page says nothing about passing 1,000 emails with what its FAQ says
+- `services/aikido`: Credits for AI pentests and Deep PR Reviews now start on the Basic plan, in the caveat and body
+- `services/amplitude`: Reworded the block rule from event overages to going over the monthly limit; Added that the billing FAQ states 10,000 monthly tracked users while the pricing page lists 2M events
+- `services/anvil`: hasHardCap true to unknown: the pricing page and plan docs publish a 30-second task timeout but not what happens at the row or storage limit (the existing caveat already says so)
+- `services/appwrite`: requiresCard false to unknown with a caveat: the pricing page, plan docs, startups page and vendor posts checked do not say whether Free signup needs a card; answer rewritten to say the card rule is not confirmed; Quickstart install step now gives the current React guide command
+- `services/argos`: Quickstart says project token instead of upload token, matching the current docs; Added the media retention docs page to sourceUrls
+- `services/azure-ai-bot-service`: Replaced the blank-price statements with the S1 price of $0.50 per 1,000 premium messages in the body, Gotchas and FAQ
+- `services/azure-ai-content-safety`: Updated pricingUrl and sourceUrls to azure.microsoft.com/en-us/pricing/details/content-safety/; Replaced the blank S0 price statement with $0.38 per 1,000 text records and $0.75 per 1,000 images; Noted that groundedness detection retires on April 30, 2027
+- `services/azure-ai-custom-vision`: Replaced the blank-price statement with S0 prices: $2 per 1,000 prediction transactions, $10 per compute hour of training, $0.70 per 1,000 stored images
+- `services/azure-ai-document-intelligence`: Replaced the blank-price claim with rendered USD prices for Central US; Changed 'on-premises processing' to 'offline processing' because the free row is Web/Container and disconnected containers are a paid commitment tier; Updated officialUrl, pricingUrl and sourceUrls to the moved /pricing/details/document-intelligence/ page
+- `services/azure-ai-health-bot`: Removed the unsupported '(formerly Azure Health Bot)' from the description
+- `services/azure-ai-immersive-reader`: Replaced both blank-price claims with $10 Standard and $5 Education/Nonprofit per 1 million characters, USD for Central US; Updated pricingUrl and sourceUrls to the moved /pricing/details/immersive-reader/ page
+- `services/azure-ai-language`: Replaced the blank-price claim with rendered USD prices for Central US; Updated pricingUrl and sourceUrls to the moved /pricing/details/language/ page
+- `services/azure-ai-search`: Set resetPeriod to none because the free quotas are fixed; Replaced the blank-price claim with Basic at $73.73 per search unit per month, USD for Central US
+- `services/azure-ai-speech`: Replaced the blank-price claim with rendered USD prices for Central US; Updated pricingUrl and sourceUrls to the moved /pricing/details/speech/ page
+- `services/azure-ai-translator`: Replaced the blank-price claim with rendered USD prices for Central US; Updated pricingUrl and sourceUrls to the moved /pricing/details/translator/ page
+- `services/azure-ai-vision`: Replaced the blank-price claim with rendered USD prices for Central US; Changed 'on-premises processing' to 'offline processing' because the F0 row is Web/Container and the disconnected container is paid; Updated pricingUrl and sourceUrls to the moved /pricing/details/computer-vision/ page
+- `services/azure-bastion`: Set resetPeriod to none because the Developer SKU is free without a periodic allowance
+- `services/azure-blob-storage`: Changed 'Azure places' to 'Azure may place' for the temporary card authorization
+- `services/azure-cost-management`: Set resetPeriod to none
+- `services/azure-database-for-mysql`: Updated officialUrl, pricingUrl and sourceUrls to the moved /pricing/details/mysql/ page
+- `services/azure-file-storage`: Rewrote the summary, limits, answer, body and FAQ around 100 GB LRS plus 2 million operations a month; Added a caveat explaining the two 5 GB figures; Changed 'New Azure free account customers only' to 'New Azure customers only'
+- `services/azure-iot-hub`: Replaced 'the pricing page does not say' with the FAQ's throttling statement in the body and FAQ answer, and stated that delayed versus rejected is not published
+- `services/azure-logic-apps`: Replaced the blank-price sentence with the rendered Workflow Service Plan prices in USD (West US 2 default view)
+- `services/azure-maps`: Replaced the no-prices sentence with the rendered $4.50 per 1,000 transactions under 500K in USD (Central US default view)
+- `services/azure-network-watcher`: Replaced the hidden-price sentence with rendered USD prices for flow logs, checks and Connection Monitor (Central US default view)
+- `services/azure-virtual-networks`: Replaced the no-rate gotcha with rendered USD peering rates for same-region and Zone 1 global peering (Central US default view)
+- `services/baserow`: hasHardCap changed from false to true, because the only published enforcement is a row-creation stop after a 7-day grace period
+- `services/bencher`: Fixed the sentence that claimed the pricing page says it does not describe what happens past the daily metric limit
+- `services/bitbucket`: Scoped the $10 per 1,000 minutes and per 100 GB overage to Standard and Premium in billingRiskNotes, the body and the FAQ; Rewrote answer to remove 'extra minutes sold separately'; Added the 1 GB total workspace storage limit from the plan table; Added the billing docs to sourceUrls
+- `services/bump`: Anonymous reply, sending, PGP encryption and priority delivery now described as Premium only in the caveats, quickstart, body and gotcha
+- `services/calendly`: Removed the claim that webhook access requires a paid plan; Added calendly.com/help/calendly-api-overview and developer.calendly.com/frequently-asked-questions to sourceUrls
+- `services/cally-com`: Replaced 'not kept after they finish' with deletion one month after the last proposed date, in summary, limits, caveats, whenToUse, answer and body; Added support.cally.com/article/287-i-cant-find-my-event to sourceUrls
+- `services/cdnjs`: Library count updated from 4,616 to 4,617; hasHardCap changed from false to unknown; Answer rewritten without the no-hard-cap claim
+- `services/chanty`: Business prices stated as 3 euros annually or 4 euros monthly instead of dollars; Free plan described as free rather than $0; Added a note that the currency may follow location
+- `services/checkly`: Uptime monitor limit sentence now says additional monitors are offered only on paid plans
+- `services/cloud-shell`: requiresCard changed from false to unknown, with a caveat and a body sentence saying the card rule is not confirmed; answer no longer says no credit card; added the Free Tier page to sourceUrls
+- `services/cloudflare-workers-ai`: Added https://www.cloudflare.com/plans/ to sourceUrls as the source of the no-card statement
+- `services/cloudns`: Set requiresCard to unknown and added a caveat that the no-card line applies to the paid-plan trials; Rewrote answer to drop the no-card claim; Added a body sentence on the unconfirmed Free DNS card rule; Added cloudns.net/landing/page/free-dns/ to sourceUrls
+- `services/codacy`: Developer plan wording in summary, limits, caveat, body, gotcha and FAQ changed from IDE plugin only to local analysis through agent, CLI and IDE plugins
+- `services/codehooks`: Replaced 'flat rate with no per-request fees and no metering' with the page's flat monthly price and no per-request fees wording
+- `services/commandbar`: Removed the claim that a product FAQ prices by guide and survey counts; Stated the comparison table's counts and add-on for Plus, Growth and Enterprise
+- `services/cosmic`: Caveat, body and gotcha now say localization and 3 webhooks per bucket are included, with unlimited webhooks, revision history and automatic backups as paid add-ons at $99 a month each
+- `services/curlshot`: Removed async renders, webhooks and bulk requests from the all-plans list; Stated that async, webhooks, bulk and signed links start on paid plans and return feature_not_available on Free; Added the same restriction to limits
+- `services/data-fetcher`: removed the plan-card conflict from caveat, quickstart, answer and body; bestFor now says manual imports
+- `services/datadog`: Replaced the Free plan card description with the FAQ wording and the Basic host features; Removed the claim that a Free plan card lists core collection and visualization; Changed Metrics Summary to Metrics Catalog in the quickstart
+- `services/db-designer`: pricingUrl and sourceUrls changed from /pricing to /plans
+- `services/deployhq`: Solo build minutes changed from 200 to unlimited; Caveat and gotcha now say build minutes renew monthly and are shared across the account; Removed the build-minutes support URL from sourceUrls because it redirects to the generic support index
+- `services/deployment-io`: Added docs/tasks/what-is-a-task to sourceUrls, which supports the one-at-a-time and failed-build gotcha
+- `services/diawi`: Free account now lists the dashboard and API access; Paid-plan caveat and Starter sentence now name stats, notifications and expiration alerts instead of the dashboard and APIs; Added the Allowed-and-forbidden knowledge base page to sourceUrls for the no-public-release rule; Stored the features page evidence with the mixed number convention so 2,99€ reads as 2.99
+- `services/directus-cloud`: pricingUrl moved from directus.io/pricing to directus.com/pricing; Replaced 'costs $0 a month' with 'free forever on self-hosted' and added directus.com/start to sourceUrls
+- `services/docssearch`: Set requiresCard to unknown and removed the no-card claims from the answer and FAQ; Added DocSearchMCP enrolment and the crawl and data-use license to the caveats, answer and body; Removed the blocked signup URL from sourceUrls
+- `services/emailvalidation-io`: Small plan price and credits updated to $8.99 a month for 10,000 credits
+- `services/estuary`: Removed the claim that the FAQ offers usage-based billing or pausing after the trial; now states the add-a-payment-method and disable-connectors guidance; overageRisk none to low, with a billing risk note, because Estuary says connector instances can generate charges; Added docs.estuary.dev/getting-started/pricing/ to sourceUrls
+- `services/event-grid`: Replaced the calculator sentence with rendered USD operation prices (Central US default view); Added the rendered $0.04 hourly throughput unit price
+- `services/eversql`: Aiven alternative line now says a free PostgreSQL plan
+- `services/everything-fonts`: pricingUrl moved from /api/convert to the vendor's /pricing page, added to sourceUrls; Removed the $24.99 and $49.99 conversion-only plan prices and kept their job and upload allowances
+- `services/exceptionless`: docsUrl changed from docs.exceptionless.com to exceptionless.com/docs/; Added the getting-started docs page that supports the quickstart to sourceUrls
+- `services/firebase-auth`: replaced the caveat that monthly Identity Platform allowances apply only to Blaze with the published conflict between the pricing table and the limits page; added a body sentence telling readers to plan for the daily Spark limits
+- `services/firebase-crashlytics`: scoped the no-cost, no-limit and no-billing-account statements to mobile apps; added that web apps are not available on Spark and use Cloud Logging and Cloud Storage pricing on Blaze; rewrote description, summary, limits, caveats, billingRiskNotes, whenNotToUse, avoidIf, answer, one gotcha and all three FAQ answers; added the product page to sourceUrls
+- `services/firebase-firestore`: replaced the claim that the pricing page says no-cost limits are enforced daily (that tooltip belongs to Cloud Storage) with its Blaze calculated-daily footnote; scoped the quotas to the Standard edition and noted the Enterprise edition units
+- `services/firehydrant`: Gotcha now says on-call scheduling is under the paid Pro plan, not a 'paid Incident Management plan'
+- `services/flarewarden`: resetPeriod monthly to none, because the free limits are fixed counts with nothing that resets
+- `services/flock`: hasHardCap true to unknown, with a caveat that enforcement of the free allowance is not confirmed
+- `services/forward-email`: Updated pricingUrl and sourceUrls to https://forwardemail.net/en/private-business-email
+- `services/frontegg`: Removed the $250 at 10,000 MAU calculator figure from the body and FAQ, which the rendered page does not display without moving a slider
+- `services/fullstory`: Updated pricingUrl and sourceUrls to https://www.fullstory.com/plans/
+- `services/gemfury`: Updated pricingUrl and sourceUrls to https://fury.co/pricing/
+- `services/geolocated-io`: Quickstart no longer offers Self Lookup, which the pricing table marks as unavailable on Hobby; Limits and body now list Self IP Lookup, batch, CORS domains, data modules and support as outside Hobby; Batch lookup described as Growth and Scale only, not all paid tiers
+- `services/gerrithub-io`: Removed the caveat and gotcha claiming the intro page mentions a 30-day trial; Third gotcha now covers the advertised 99.998% uptime with no published SLA for the free service
+- `services/gigalixir`: Body and FAQ answer now say the pricing page gives the Free Tier no end date instead of claiming the FAQ answers no time limit
+- `services/gitbook`: added the automatic trial to caveats and body
+- `services/google-analytics`: requiresCard changed from false to unknown, with a caveat and a body sentence saying the card rule is not confirmed
+- `services/google-fonts`: replaced the 'pages say only' licensing statements in the caveats and body with the FAQ's rule that each font's license sets usage and redistribution conditions
+- `services/gtmetrix-com`: removed 1 monitored URL limit; whenNotToUse no longer says multi-URL
+- `services/gumlet`: hasHardCap unknown to false and overageRisk low to medium, from the overage billing docs; Rewrote answer, caveat, billing note, the limit section and the image overage question around the provisional invoice and the void-on-upgrade rule; Added the overage billing docs to sourceUrls
+- `services/hex`: Added the 5-project Community limit to limits, whenNotToUse and the body; Added the project docs and the signup page to sourceUrls
+- `services/hygraph`: Added the Hygraph rate-limits docs page to sourceUrls, which backs the no-limit-on-cached-requests claim; offer unchanged
+- `services/ibm-cloudant`: resetPeriod changed from monthly to none: the 1 GB cap only clears when you delete data or upgrade; Reworded the note on the DSFREE250 credit: the pricing page does not list the Lite plan, the plan docs do
+- `services/ibm-db2`: Renamed the free download to Db2 AI Community edition, as the pricing page now lists it (body and FAQ); resetPeriod changed from monthly to none: 200 MB and the connection limit are fixed caps, and the 30-day re-extension is not a quota reset
+- `services/ibm-watsonx-orchestrate`: Added the tools and integrations catalog and the control plane to the trial's listed features (limits and body)
+- `services/imagekit`: Replaced the claim that bandwidth exhaustion stops delivery and full storage blocks uploads with the docs' general rule: the functionality stops and you must upgrade to resume
+- `services/incidenthub-cloud`: resetPeriod changed from monthly to none: the free limits are fixed counts that do not reset
+- `services/inspector-dev`: Marked usage-based billing on Free as not confirmed in the answer, caveat, billing note, limit section and FAQ; Added the billing docs to sourceUrls; Renamed AI Bug Fixer to AI Bug Fix and added the 7-day unlimited start to the free-plan section
+- `services/internet-nl`: Added for-profit organizations serving non-profits or high-criticality sectors to the batch access list
+- `services/invantive-cloud`: Paid platform count changed from 110+ to 115 in the body and FAQ
+- `services/iplocate`: hasHardCap true, answer and body rewritten, quota docs added
+- `services/iubenda`: requiresCard changed from unknown to false, citing the home page; Answer, caveat, gotcha and FAQ updated to match; Added https://www.iubenda.com/en/ to sourceUrls
+- `services/jina-reader`: Added the non-commercial label on the free token pack to caveats, whenNotToUse, avoidIf, answer, body, gotcha and FAQ
+- `services/jitsi-as-a-service`: Removed the failed-render caveat and body text; Added rendered add-on rates and cited the Basic price to the pricing page
+- `services/keywords-ai`: Caveats, body and Gotchas now state 7-day default retention on Free and drop the 30-day retention conflict; Gateway throughput corrected from 412 to 4,200 requests a minute; ingestion stays at 412 logs a minute
+- `services/knock`: Renamed the Developer plan to Free in the summary, quickstart, answer, and body; Renamed guide active users to guide recipients with the page's definition; Replaced purchased top-ups wording with additional agent credits at $0.01 each; Removed delay steps, which the pricing page does not list
+- `services/koyeb`: Changed officialUrl from koyeb.app, which serves an untrusted certificate, to www.koyeb.com
+- `services/kraken-io`: Replaced the unsupported claim that the free web interface is separate from the API quota with its 1 MB and 20-file limits; Scoped the one-hour retention to API results and added the 12-hour web interface window; Marked ZIP uploads, resizing, format conversion, and 32 MB files as Web Interface PRO; Added the web interface page to sourceUrls
+- `services/kreya`: Changed Pro and Enterprise prices from dollars to euros as shown on the pricing page
+- `services/launchdarkly`: Removed the 100K experimentation MAU limit and added the page's no limit on experimentation; Set overageRisk to none and rewrote the answer because the page says Developer is never billed; Replaced the conflicting Foundation price note with $10 or $12 per service connection and $8.33 or $10 per 1K MAU by billing cadence; Removed the Foundation 14-day trial caveat and the Kubernetes, serverless, Python, and Ruby rate notes, which the page no longer lists
+- `services/lingohub-com`: Updated the Platform price from €207.50 to €209 per month billed yearly; Wrote the hosted character and CDN allowances in the page's 5 Mio. notation
+- `services/localazy-com`: Added four FAQ detail pages to sourceUrls
+- `services/localhero-ai`: Attributed the same-quality-on-every-plan claim to the home page
+- `services/localit`: Added the Free plan limits of 2 users, 500 keys, 100 Mb and 10,000 AI tokens; Moved pricingUrl and open-source source to the current URLs after /de/ redirected; Rewrote answer, summary, body and FAQ around the Free plan
+- `services/lockitbot`: Set requiresCard false and hasHardCap true from official statements; Stated that the REST API and MCP server are Starter features; Added Discord and Teams on request, retitled to Lockit (Lockitbot); Updated docs URL to lockitbot.com/docs because docs.lockitbot.com refused connections; Rewrote answer, quickstart, limits and FAQ
+- `services/mailchannels`: Set requiresCard true and described the verified-users restriction until a payment method is added; Added the 00:00 UTC daily reset; Added the pricing docs page to sourceUrls; Rewrote answer and limit text
+- `services/mailersend-com`: Updated the Hobby price to $7.00, or $6.30 billed yearly
+- `services/mailgun`: 2 API keys corrected to 1
+- `services/microsoft-clarity`: Set pricingUrl to clarity.microsoft.com/pricing and added it to sourceUrls
+- `services/mintlify`: Separated overages-off behaviour from the spending limit pause; Added mintlify.com/docs/credits to sourceUrls
+- `services/mixpanel`: Replaced the until-next-month claim in the caveat, answer, limit section, gotcha and FAQ with a pause that lasts until a Growth upgrade; Added that Mixpanel keeps collecting data, that Growth requires a card, and how the upgrade month is billed
+- `services/mouseflow`: Named the currency on the Essential prices and said they are the euro prices shown from Germany
+- `services/n8n-cloud`: Said the Starter and Pro prices are euro prices shown when viewed from Germany
+- `services/neocities`: Removed the downgrade and refund claim, the educators claim and hotlinking support; Updated the promise to no selling of data for AI training and no advertising; Listed Supporter-only stats history, WebDAV, SFTP and email support from the plan table
+- `services/neon`: Added a caveat and body sentence that AI Gateway on Free needs a card and prepaid credits; Changed the quickstart to npx neon init and dropped the unsupported DATABASE_URL detail
+- `services/netdata-cloud`: Removed the claim that infrastructure-wide dashboards are limited to 5 nodes; Replaced the statement that the trial's node allowance is unspecified with the page's as-many-nodes wording
+- `services/netlify-functions`: Qualified the usage-warning thresholds: billing FAQ lists 50/75/90/100%, pricing page lists 50/75/100%; Added the billing FAQ to sourceUrls; Rewrote answer to current terms only
+- `services/no-ip`: Corrected where No-IP lists its RESTful API
+- `services/nocodb`: hasHardCap set to unknown; Added a caveat that the restricted features are not named, so a hard cap is not confirmed
+- `services/notion`: Replaced the two €0 statements with currency-neutral wording
+- `services/novu`: hasHardCap set to true and overageRisk to none; Rewrote caveats, billing note, limit section, FAQ answer and answer for the stop at 10,000 runs; Added the 75/90/100% usage alerts
+- `services/nuclino`: Added the Nuclino landing page with the general no-card signup line to sourceUrls
+- `services/okta`: Replaced the unreadable-form caveat with what the form shows; Added that the signup form also says 90 days
+- `services/onlineinterview-io`: Added the three-user room limit to limits, caveats, answer, body and gotchas
+- `services/onlineornot-com`: Qualified the alert-channel gotcha to match the disclosed docs and pricing conflict
+- `services/pagecrawl-io`: Replaced the unsupported claim of a notice before the monthly limit with the published notification at the limit; Scoped the pause to the Free plan and added that paid plans continue at most once a day; Updated the matching FAQ answer
+- `services/pagerduty`: Renamed the Events capacity caveat and gotcha to Signal Intelligence Events and scoped them to PD Reliability Platform plans; Stated that External Status Pages, AIOps features and Runbook Automation are not included on Free and are Professional add-ons; Updated the status pages FAQ answer
+- `services/pagertree-com`: restored mobile app line
+- `services/parsio-io`: team allowance now 1 user in summary, limits, answer, body and FAQ
+- `services/phantomjscloud`: Removed the ak-test-key-no-credits sentence; Added how to check remaining credit, from the pricing FAQ
+- `services/pijul-com`: Body now says the installation manual, not the downloads page, lists distribution packages; Added https://pijul.org/manual/installing.html to sourceUrls
+- `services/pinecone`: Added the November 4 to December 31, 2026 promotion of 10,000,000 embedding tokens per model to caveats and body
+- `services/pingram-io`: limits and body now say the pricing reference lists 100 call minutes a month, while the FAQ describes Voice as not yet launched
+- `services/plunk`: Removed the official Node SDK from the intro and quickstart; current docs and the site FAQ name a REST API and SMTP
+- `services/pocket-alert`: pricingUrl now points to https://pocketalert.app/pricing
+- `services/pollinations-ai`: Replaced the caveat that secret and app keys have different limits: pk_ App Keys no longer authenticate requests; Renamed Connect User Wallets to Pollinations Connect and Pollinations Pay in the body; Reworded 'free Pollen amount is not published' to 'no fixed amount is published, Quest rewards can change', since some rewards are quoted; Added the official POLLEN_FAQ.md to sourceUrls
+- `services/proton-mail`: Re-sourced the IMAP/SMTP caveat and gotcha to Proton's statement that Bridge is available only with a paid plan; Added proton.me/support/imap-smtp-and-pop3-setup to sourceUrls
+- `services/pulumi`: Rewrote three quickstart steps to match the current pulumi new flow and the self-managed backend option; Replaced the two redirected get-started URLs in sourceUrls with https://www.pulumi.com/up/
+- `services/quickchart`: Body now says the pricing page is regional, with Professional at EUR 39 in the euro view and $40 as last read in the USD view
+- `services/quidlo-timesheets`: officialUrl and the sourceUrls home page changed to https://www.quidlo.com/timesheets/ because the form without the trailing slash returns 404
+- `services/raindrop-io`: Fixed '100 MBper' and '300 MBper' to '100 MB per' and '300 MB per' in Gotchas
+- `services/readme`: Gotcha now says private docs and a site-wide password need a paid plan; the table marks end-user login with JWT as included on Starter; Ask AI described as a $150 add-on on Starter and Pro cards rather than under every plan; caveat narrowed to Starter; Noted that Starter's documentation metrics cover 7 days
+- `services/reducto`: Summary, caveats, body, FAQ and answer now state the FAQ's first-time user and unique domain condition for the $150 credit; Added r-1 mini Parse at $1 per 1,000 pages and named r-1 Parse at $10; Prompted blocks corrected from per 1,000 pages to per 1,000 blocks; Replaced the stale OCR price conflict: OCR data return and Parse citations are included with r-1 and $1 per 1,000 pages with r-1 mini; sourceUrls now cites the current Usage and Pricing page instead of the legacy credit page
+- `services/roundsphere`: Gotcha now lists DomainKeys alongside DKIM, SPF and SpamAssassin
+- `services/rybbit`: Updated officialUrl, docsUrl, pricingUrl and sourceUrls from www.rybbit.io to rybbit.com
+- `services/scalr`: Narrowed the unbilled drift runs to scheduled drift detection runs, in the body and the FAQ; Added docs.scalr.io/docs/remote-backends to sourceUrls
+- `services/semanticdiff-com`: Added semanticdiff.com/docs/github/plans/ to sourceUrls
+- `services/skyvia`: Set hasHardCap to true; the caveat that a running integration finishes above the limit stays
+- `services/sns`: Added the SNS FAQ to sourceUrls as the source for the free amounts
+- `services/socket`: Replaced the unsupported hidden-behavior wording with the pricing page's AI-powered risk analysis
+- `services/sofodata`: Removed 'The site calls this enough to get started'; Removed 'more plans and features are coming'; Replaced the gotcha about a 10 MB per-API section with one saying the page does not state the disk space scope
+- `services/sonarcloud-io`: Summary and first limit now say public OSI-licensed projects do not count toward the line limit, replacing unlimited wording
+- `services/spacelift`: Caveat, body and FAQ no longer describe a conflict between pricing and the worker docs on private workers
+- `services/spike-sh`: Removed "for 1 person" from the limit, body and first gotcha; the page lists 1 schedule; Caveat now says the pricing text does not state the annual discount
+- `services/surge`: Added the 90-minute serving rule and halved limits for unverified emails to the caveats and body; Added a surge verify quickstart step
+- `services/svix`: Removed the unsupported claim that transformed messages count toward usage
+- `services/terramate`: Replaced the caveat and body sentence on Teams seats to state the conflict between the unlimited-users table and the FAQ
+- `services/tesults-com`: Reworded '101st test case or sixth target' to name the published limits of 100 and 5, with no change in meaning
+- `services/texterify`: Removed the assertion that the comparison table starts machine translation suggestions at Team, from the body, the second Gotcha and the third question
+- `services/tidb-cloud`: whenNotToUse and avoidIf now reflect PostgreSQL compatibility being in public preview; whenNotToUse now names AWS or Alibaba Cloud instead of AWS only; Caveat and body note that the per-instance allowance is stated for MySQL-compatible instances
+- `services/tldraw-com`: Added the SDK tools page and the LaserTool reference to sourceUrls to support the toolbar list; entry text unchanged
+- `services/transfernow`: Moved pricingUrl to https://www.transfernow.net/en/prices and added it to sourceUrls; Changed Premium storage from 1000 GB to 1 TB; Stated that the prices page shows euro prices
+- `services/trtc-tencent-rtc`: Added https://trtc.io/ to sourceUrls for the no-card and one-year claims
+- `services/tugboat`: Removed the stacksfree.com blog citation and the 16 October bound from summary, answer, body and the 2026-10-28 change note; Corrected 'terms and docs' to 'terms', because the current docs pages no longer mention a Free tier; Qualified the claim that new users get no Free plan: the pricing page lists none, but the published pages do not settle what a new sign-up gets; Added the 30-day preview deletion rule for Free accounts from the terms
+- `services/unpkg`: Replaced no API key with the published no-account statement; Removed the esm.unpkg.com TypeScript and JSX transform claim and the word permanent; Added the loading-files and guides pages to sourceUrls
+- `services/uploadcare`: Added the Personal use only restriction to the caveats and the body
+- `services/upstash-redis`: whenNotToUse now says 250 MB, matching the plan card and the entry's own summary
+- `services/uptimeobserver-com`: Summary, limits, caveats, quickstart, whenToUse, whenNotToUse, bestFor, avoidIf, body, one gotcha and one FAQ answer no longer say Free includes Slack, Discord, SSL or domain name monitoring; Free monitor types are now HTTPS, DNS and port; Free alerts are email, Telegram, Pushover and webhook
+- `services/uptimerobot`: Body now says the EUR prices are the amounts served to euro regions, so your currency may differ; Heartbeat monitoring added to the Free exclusions in the caveat and body
+- `services/vaadin`: Gotcha now says the plan table lists expert chat and ticket-based support for the Enterprise Edition
+- `services/verimail-io`: Removed free forever from the summary and FAQ answer; Removed the unsourced $0 wording; Starter now reads 10,000 credits, as the pricing page shows
+- `services/visual-crossing-weather`: Added the no-key API to the summary, caveats, answer, body and sourceUrls: no account, managed per client IP, no published allowance, HTTP 429, attribution required; Narrowed the unconfirmed card rule to registered Free signups
+- `services/wachete`: Free limits now 5 static pages, 1 dynamic page, checks every 24 hours, no limit on number of checks; Stated that multiple page parts, 12 months of history, pages behind a login and document text are not on Free, with the plan each starts on; Added Starter price and limits, 7-day paid trial; Rewrote answer, summary, whenNotToUse, avoidIf, bestFor, Gotchas and two FAQ answers; Pagecrawl alternative reworded, since a stated free limit no longer distinguishes it
+- `services/weatherapi-com`: Every new account gets 7 days of Business with no card, then moves to Free (was: 7-day trial on paid tiers); Added manual top-ups on Free and automatic top-up only on paid plans; FAQ now says data stops until the 1st unless you buy a top-up or upgrade
+- `services/weaviate-cloud`: Flex removes the object limit and raises the collection limit to 1,000, rather than removing both
+- `services/webpushr`: resetPeriod monthly to none
+- `services/whereby-embedded`: Replaced 'no premium features' in summary, limits and body with no cloud recording, transcriptions, live captions or live streaming
+- `services/windmill-dev`: Caveat and Gotcha now give Windmill Cloud Free: no credit card, 1,000 executions per month, community support on Discord; avoidIf narrowed, since a hosted free plan exists; FAQ card answer now cites the pricing page
+- `services/xitoring-com`: Caveat now says more than 20 monitors starts at Starter at $9.99 a month, extra alert channels from $4.99, and API access on Business and Enterprise
+- `services/zenable`: Removed BYOK from the Free offer in the caveats, billing note, body and answer; overageRisk changed from low to none; Added the Plus plan at $20 per user per month, which requires your own AI model endpoint; Renamed guardrails to verifier rules; paid features now listed from Plus up; Write tools now need a paid plan or active trial, per the docs
+- `services/zerotier`: Removed the 25-device claim from the caveats, answer and gotchas; Rewrote the credit card answer: the card rule is not confirmed; Added that additional devices are not available on Personal, citing pricing.md
+- `services/zitadel-cloud`: Added 3 identity providers to the Free limits and the body; Body now writes the Pro allowance as 25'000, the form the pricing page uses
+- `services/zoho-catalyst`: replaced the blank-minimum claim with the €5 a month per project shown in the euro view; reworded the notice to 90% of the limit for any component, as the FAQ says
+- `services/zoho-email`: replaced the unexplained sixth-user sentence with the pricing page statement that all users move to a paid plan
+- `services/zuplo`: removed the $1,000 a month Enterprise figure, which the page no longer shows; it now says an annual contract quoted on a call with SSO as an add-on; replaced the AI Gateway team count with the current development users and 1 pool
+- `tools/appetize`: hasHardCap true to unknown: the sources give a 3-minute session limit but nothing on what happens when the 30 monthly minutes run out; Quickstart step and intro no longer imply embedding works on Free; the plan table does not include Embed your apps for Free
+- `tools/backlog`: source URL updated to the new help page
+- `tools/browserstack`: Removed the 500 VUH Load Testing limit from limits and the body, because no current page states it; Added the Load Testing and Live pricing views to sourceUrls
+- `tools/bytebase`: Community support changed to GitHub Issues support in summary, limits and body; Removed email support as a Pro addition; Pro adds custom user counts, Google and GitHub SSO, and groups
+- `tools/cal-com`: Unlimited event types reworded to unlimited links (event types), matching the pricing page; Templated-workflows claim replaced with the help page's rule: default template text on email steps, SMS text editable, custom email content needs Teams or higher; Added cal.com/help/workflows/workflowsoverview to sourceUrls
+- `tools/codeberg`: Added caveat and body sentence on the Terms of Use notice restricting LLM-generated content and disallowing cryptocurrency projects; Hosted Forgejo Actions now described as a limited version in open alpha
+- `tools/codefactor`: resetPeriod changed from monthly to none, because the Community plan has no metered allowance
+- `tools/coderabbit`: Rewrote summary, limits, caveats, answer, whenToUse, whenNotToUse and avoidIf to separate the open-source plan from the Free plan; Added Free plan terms: public and private repositories, pull request summaries only, reviews in VS Code and CLI; Replaced 'pricing page does not list limits' with the documented open-source and Free hourly limits; resetPeriod changed from monthly to hourly, because limits are rolling hourly windows; Added https://docs.coderabbit.ai/management/plans to sourceUrls
+- `tools/form-taxi`: Replaced USD prices for Standard and Premium with the euro prices shown on the plans page, and noted the currency can differ by location
+- `tools/formester-com`: Moved the no-card source from the home page to formester.com/free-form-creator/ in the FAQ and sourceUrls
+- `tools/forms-app`: Replaced Basic and Pro with Grow (25 forms, 100 GB, 15 USD billed annually) and Scale (unlimited forms and storage, 24 USD billed annually); Removed the 30+ field types, live support and AI-powered feature claims the pricing page no longer lists; Rewrote the free feature list from the current plan card; scoped notifications to push notifications; Updated branding removal to start on Grow; added a changes item
+- `tools/freeipapi`: Corrected the paid-plan statement and FAQ: no rate limits apply only with an API key or whitelisted server IP, and a whitelisted domain keeps a per-visitor limit and cannot use bulk lookup or distance
+- `tools/geekflare-api`: Changed 13 endpoints to 16 APIs; Corrected credit costs: scraped pages 0.25 to 1, metadata, DNS, redirect and status checks 0.5; Moved pricingUrl, officialUrl, docsUrl and sourceUrls to geekflare.com/pricing/, geekflare.com and docs.geekflare.com; Replaced the quickstart language list with the guides now linked
+- `tools/gemini-api`: pricingUrl and sourceUrls moved to aistudio.google.com/docs pages, adding the verification page; replaced the claim that Batch and Flex are not available on the free tier with the model-specific rows; added models with no free tier and the QR device check for additional or externally created projects
+- `tools/gitdailies`: Contributor definition updated in the body and the gotcha
+- `tools/kiro`: Replaced 'web and mobile apps need a paid account' with the web app needing a paid plan and the iOS app being in early access through TestFlight; Added the models, web, mobile, and FAQ docs to sourceUrls
+- `tools/loader-io`: Added the support article on target host verification to sourceUrls
+- `tools/localhost-run`: Removed the claim that the home page says free domains will always be free; Replaced the Raspberry Pi wording with the current home page text
+- `tools/lucidchart`: Updated pricingUrl and sourceUrls to lucid.app/pricing/lucidchart; Changed the Individual price to the observed €9 before VAT
+- `tools/mendix`: Replaced the $1,090 One App price with the €918 Standard One App figure on the pricing page, noted as a regional view, in billingRiskNotes and body
+- `tools/mockaroo`: requiresCard false to unknown; Added a caveat that the card rule is not stated; Rewrote answer
+- `tools/news-api`: Removed the unsupported caching sentence from the body
+- `tools/ocr-space`: Rewrote answer to current terms only
+- `tools/penpot`: Removed the sentence placing early access on Enterprise in the comparison table; those cells are icons that fetch, render and WebFetch do not expose
+- `tools/posthog`: Changed pay-as-you-go retention for events and metadata from 7 years to 2 years
+- `tools/qualys-community-edition`: Added the Qualys Scanner Overview doc to sourceUrls to support the claim that internal scanning may require a scanner appliance
+- `tools/replit`: requiresCard unknown; answer, billing note and body updated
+- `tools/repoforge`: Body and Gotchas now report that plan cards list storage per user while the pricing intro says storage is per plan
+- `tools/requestly`: Gotcha rewritten from the current comparison page: the extension only intercepts browser traffic, and desktop-app, mobile, simulator, Node.js, terminal and system-wide interception are desktop features; Added that comparison page to sourceUrls
+- `tools/sauce-labs`: Removed the unsupported 'without penalty' from the cancellation sentence
+- `tools/serpapi`: Attributed the advice to spread searches evenly to the home page FAQ and removed the unsupported 'across hours'; Added the home page FAQ's 99.95% SLA on all plans next to the pricing page's 99.97% figure, and said neither explains compensation for a free account
+- `tools/shortcut`: restored $10 monthly price
+- `tools/slab`: Replaced the unsourced 'no read-only user type' gotcha with the published billing rule and what the pricing page lists
+- `tools/smartforms-dev`: Caveat now says Free excludes multiple e-mail notifications, a custom success page, webhooks and white-label; avoidIf now says webhooks and white-label start on Business; Added custom redirect to the Free feature list in the body; Third gotcha now names the plan where each excluded feature starts
+- `tools/stackblitz`: requiresCard changed from false to unknown, with a caveat; answer now says the card rule is not confirmed instead of no card
+- `tools/teleporthq`: Added that a site published during the trial is password-protected and carries TeleportHQ branding (caveat, quickstart step, first Gotcha); Replaced the unsupported monthly prices ($20.99 and $39.99) with the listed yearly prices, the Black Friday Premium price of $20.99 and the 33% yearly saving
+- `tools/testspace-com`: Replaced the moved getting.started source URL with get-started/getting-started; Added the Sign Up doc to sourceUrls as the official source for requiresCard: false
+- `tools/tooljet`: Added https://www.tooljet.ai/ to sourceUrls for the no-card, no-trial-clock claim
+- `tools/visual-debug`: requiresCard unknown to false, citing the home page; answer and body now say no card; added https://visualdebug.com to sourceUrls
+- `tools/zipcodebase`: Alternatives line now describes Zipcodestack's allowance in requests, not credits
+- `tools/zoho-forms`: removed the unsupported claim that a card is requested only when you upgrade; the Free-plan page only says no credit card is required
+
+## Not finished (dates kept)
+
+- `services/abby`: tryabby.com returned a Cloudflare 522 outage. An outage is not proof the offer ended.
+- `services/reddit-data-api`: The Help Center wiki confirms the 100 queries a minute and OAuth rules. The two Reddit announcement posts that carry the access dates and the 13 November RSS cutoff could not be opened.
+- `services/what-is-my-ip`: The home page matches, but the Tools page shows an offline screen in the browser, so its endpoint list is unconfirmed.
+- `services/zoom-video-sdk`: The rate table shows regional figures from a German connection (30303 session minutes per 100 credits), so the USD figures in the entry could not be confirmed.
+- `tools/testtls-com`: The site still returns 502, as it did on 5 November.
+- `tools/zoom`: Only the $14.16 USD Pro price is open. A German connection sees euro prices.
+
+## Owner decisions
+
+- `services/aiven`: Aiven's MySQL Free tier is retired. The page gives no retirement date, and the changes item is dated by this review.
+- `services/amplitude`: Amplitude's pricing page (2M events) and billing FAQ (10,000 MTUs) disagree on the Free limit. The entry keeps 2M events as the plan-table figure and states the conflict.
+- `services/appwrite`: Appwrite leaves the no-card filter pages until an official page confirms the rule; a look at the signup form in a real browser could restore it.
+- `services/azure-file-storage`: The 100 GB figure rests on the en-in free-services table, because the en-us page does not show the table even when rendered.
+- `services/cloud-shell`: Cloud Shell leaves the no-card filter. Docs pages (pricing, how it works, launching, quickstart) never address a card; the launch page refers to starting a free trial. Tell the coordinator if you would rather keep false on the strength of the pricing page.
+- `services/google-analytics`: Google Analytics leaves the no-card filter under the strict rule, matching how Colab is treated. Google's pages say free of charge and describe setup with no payment step, but none state that no card is needed. Tell the coordinator if you would rather keep false.
+- `services/hivemq-cloud`: Card newly required for the HiveMQ Cloud Starter trial. The live guide no longer says the cluster is removed without a payment method, so the entry no longer promises a stop after the trial.
+- `services/launchdarkly`: These read as vendor page changes in the free offer's favour, so status stays active. I could not source an effective date.
+- `services/loginllama`: LoginLlama cut its free offer from 1,000 monthly checks to 100 checks per new account; no monthly renewal is stated.
+- `services/logrocket`: LogRocket now lists a permanent Free plan (1,000 sessions a month). The Free plan card rule is not stated on the pricing page.
+- `services/manageengine-log360-cloud`: Permanence of the Free edition is not stated: the help page calls it an evaluation edition and no page says what a trial account becomes after 30 days. freeTierType stays always-free with that caveat; say if you would rather list it as a trial.
+- `services/mistral-api`: Card newly required for the API. The Help Center rate-limit article (dated August 12, 2026) still describes Free mode API limits, so official pages conflict. The entry follows the usage docs and says the conflict exists. Check whether any comparison or category copy still presents Mistral as a no-card free API.
+- `services/pubnub-com`: productionReadiness stays at prototype. Free can now run Production keysets, so you may want to raise it to side-project.
+- `services/tugboat`: status stays ended because the pricing page lists no Free plan, but the homepage still says Get Started for FREE, the button goes to a sign-up page that names no plan, and the terms keep a Free tier. Only a real sign-up can show whether a new account can stay free.
+- `services/uploadcare`: Personal use only may conflict with the entry's small-site framing. The pricing page does not define the term.
+- `services/visual-crossing-weather`: Visual Crossing added a free no-key API alongside its registered Free plan. It was recorded as a correction because the Free plan itself did not change and no start date is published; say if you want status: changed.
+
+## Notes
+
+- The scanner labelled 272 pages noisy on 8 November. Of those, 192 were unchanged, 66 needed a catalog correction and 14 carried a real vendor change, so a noisy label is not a reason to skip a page.
+- Some vendors serve euro prices or `/de/` pages to a German connection. Published USD prices were kept, and entries that can only show a regional price name the currency.
+- Icon-only plan tables are invisible to text extraction, which is why several entries needed an interactive browser. Future reviews should not treat a blank table cell as a fact.
+- `check:depth --evidence` reports false failures for `services/contentful`, `services/azure-blob-storage` and `services/localit` (a stale skipped-list report) and for `services/metalama` (the page prints USD and EUR side by side). The 17 entries from PR #80 have their evidence in that run's cloud environment, not on this machine.
+- One headless render reached a notice on app.requestly.io prohibiting automation without permission. It was not repeated.

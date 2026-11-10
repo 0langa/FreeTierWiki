@@ -23,6 +23,7 @@ freeTierDetails:
   caveats:
     - WeatherAPI.com asks free plan users for a link back, but the page words it as a request
     - Paid plans add longer forecasts and history
+    - New accounts start with 7 days of the Business plan, then move to Free; no card is needed
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -30,6 +31,7 @@ freeTierDetails:
   overageRisk: none
   billingRiskNotes:
     - Going over the monthly calls stops data for the rest of the month instead of billing
+    - Top-ups for extra calls are bought manually on Free; automatic top-up is only on paid plans
 quickstartSteps:
   - Sign up for the Free plan and copy your API key.
   - Call the realtime or forecast endpoint with a location.
@@ -47,8 +49,8 @@ avoidIf:
   - forecasts beyond 3 days
   - an uptime commitment above 95.5%
 productionReadiness: side-project
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-10
+lastVerified: 2026-11-10
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.weatherapi.com'
@@ -69,7 +71,7 @@ answer: >-
 
 ---
 
-WeatherAPI.com serves realtime weather, forecasts, historical weather, marine, astronomy, time zone, and related data over a JSON API. It has a Free plan and monthly or yearly paid plans, with a 7-day trial on paid tiers. The Free plan suits small apps, widgets, and learning projects that need current conditions and a short forecast.
+WeatherAPI.com serves realtime weather, forecasts, historical weather, marine, astronomy, time zone, and related data over a JSON API. It has a Free plan and monthly or yearly paid plans. Every new account gets 7 days of the Business plan with no card, then moves to Free unless you choose a paid plan. The Free plan suits small apps, widgets, and learning projects that need current conditions and a short forecast.
 
 ## What the free plan gives you
 
@@ -77,7 +79,7 @@ The Free plan costs $0 a month and includes 100K calls per month. Its forecast c
 
 ## When you hit a limit
 
-The FAQ says that if you go over your calls or requests per month, you stop receiving data for that month. The quota resets at midnight UTC on the first of each month. You can upgrade to a higher plan at any time, and no changes are needed in your code. The page describes a stop, not an overage charge, so on the Free plan your app simply gets no data until the next month. Plan for this by caching responses and falling back gracefully when the API stops returning weather.
+The FAQ says that if you go over your calls or requests per month, you stop receiving data for that month. The quota resets at midnight UTC on the first of each month. To keep going sooner, you can buy a top-up of extra calls from your dashboard or upgrade to a higher plan, and no changes are needed in your code. Automatic top-up is only for paid plans. The page describes a stop, not an overage charge, so on the Free plan your app simply gets no data until the next month unless you buy calls or upgrade. Plan for this by caching responses and falling back gracefully when the API stops returning weather.
 
 ## Gotchas
 
@@ -99,7 +101,7 @@ Yes. The Free plan includes 100K calls a month with a 3 day forecast.
 
 ### What happens if I go over 100K calls?
 
-You stop receiving data for the rest of that month, unless you upgrade to a higher plan.
+You stop receiving data until the quota resets on the 1st, unless you buy a top-up of extra calls or upgrade to a higher plan.
 
 ### Is WeatherAPI.com historical data observed?
 

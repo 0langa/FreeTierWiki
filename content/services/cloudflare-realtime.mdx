@@ -20,10 +20,12 @@ freeTierDetails:
   limits:
     - '1,000 GB of egress per month, shared by the SFU and TURN'
     - Ingress traffic is free
+    - 'RealtimeKit: 10,000 audio and video minutes and 10,000 audio-only minutes a month, per its pricing page'
   caveats:
     - SFU and TURN do not have separate free tiers
     - Public docs do not establish whether activation within the free allowance requires a card
-    - RealtimeKit, the prebuilt meetings SDK, is billed per participant minute and has no free amount on its pricing page
+    - RealtimeKit, the prebuilt meetings SDK, bills per participant minute after its included usage, which is separate from the 1,000 GB egress allowance
+    - Cloudflare's plans page marks RealtimeKit as not available on Free, while its pricing page says included usage applies to Free accounts
     - Workers, Durable Objects, and other services your app uses are billed separately
   resetPeriod: monthly
   requiresCard: unknown
@@ -40,17 +42,17 @@ whenToUse: >-
   Use Cloudflare Realtime when you can handle WebRTC signaling yourself and
   want a large free monthly egress allowance for an SFU or TURN relay.
 whenNotToUse: >-
-  Avoid it if you want a ready-made meeting UI for free; RealtimeKit is billed
-  per participant minute from the first minute.
+  Avoid it if you want a ready-made meeting UI past RealtimeKit's 10,000
+  included participant minutes a month, since it bills per minute after that.
 bestFor:
   - TURN relay for WebRTC apps
   - custom WebRTC backends
 avoidIf:
-  - you are new to WebRTC and want prebuilt UI for free
+  - you need more than 10,000 free RealtimeKit participant minutes a month
   - you need a hard spending cap
 productionReadiness: production-ready
-lastUpdated: 2026-10-26
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/realtime/'
@@ -61,8 +63,17 @@ sourceUrls:
   - 'https://developers.cloudflare.com/realtime/'
   - 'https://developers.cloudflare.com/realtime/realtimekit/platform/pricing/'
   - 'https://developers.cloudflare.com/realtime/sfu/get-started/'
+  - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/realtime/sfu/platform/pricing/'
+status: changed
 changes:
+  - date: 2026-11-09
+    kind: changed
+    note: >-
+      RealtimeKit's pricing page now lists included monthly usage for all
+      accounts, including Free: 10,000 audio and video minutes, 10,000
+      audio-only minutes, and 100 minutes of each export type. Cloudflare's
+      plans page still marks RealtimeKit as not available on Free.
   - date: 2026-10-21
     kind: changed
     note: "Qualified the unpublished card requirement for activating Realtime within its free allowance."
@@ -86,7 +97,7 @@ The WebSocket adapter, which moves audio between the SFU and a WebSocket service
 
 Past the free 1,000 GB in a month, SFU and TURN egress costs $0.05 per GB, and usage appears as a single line item on your Cloudflare bill. The pricing page does not describe a stop at the free allowance, so watch the Realtime analytics if your traffic grows.
 
-RealtimeKit is priced separately: an audio and video participant costs $0.002 per minute, an audio-only participant $0.0005 per minute, and recording or streaming export $0.010 per minute. Its pricing page lists no free minutes.
+RealtimeKit is priced separately. Its pricing page lists 10,000 audio and video minutes and 10,000 audio-only minutes a month, plus 100 minutes of each export type, for all accounts including Free. After that, audio and video cost $0.002 per minute, audio-only $0.0005 per minute, and recording or streaming export $0.010 per minute. Cloudflare's plans page still marks it as not available on Free, so check your account first.
 
 ## Gotchas
 
@@ -112,4 +123,4 @@ No. They share one monthly allowance of 1,000 GB.
 
 ### Is RealtimeKit included in the free egress?
 
-No. RealtimeKit is billed per participant minute, for example $0.002 per minute for an audio and video participant.
+No. RealtimeKit has its own allowance on its pricing page, 10,000 audio and video participant minutes a month, and then costs $0.002 per minute. Cloudflare's plans page still marks it as not available on Free, so check your account first.

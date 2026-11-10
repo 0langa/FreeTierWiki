@@ -23,6 +23,7 @@ freeTierDetails:
   caveats:
     - 'With a key, tokens are charged by content length; each search request costs at least 10,000 tokens'
     - Failed requests do not deduct tokens
+    - The pricing table labels the free 10M-token pack non-commercial use only (CC-BY-NC)
     - Downloaded ReaderLM and jina-vlm weights are non-commercial; on-prem commercial licensing is separate from hosted API tokens
   resetPeriod: none
   requiresCard: false
@@ -38,7 +39,8 @@ quickstartSteps:
 whenToUse: 'Use when you need a fast, zero-setup way to read web pages into an LLM.'
 whenNotToUse: >-
   Avoid it for heavy crawling. Without a key you get 20 requests per minute,
-  and commercial self-hosting of the model weights needs separate licensing.
+  the free token pack is labelled non-commercial, and commercial self-hosting
+  of the model weights needs separate licensing.
 bestFor:
   - scripts
   - AI agents
@@ -46,10 +48,11 @@ bestFor:
 avoidIf:
   - bulk crawling
   - you need pages behind an interactive login
+  - you need commercial use on the free token pack
   - you need free commercial self-hosting of the Reader model weights
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-26
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 6
 usefulnessScore: 8
 officialUrl: 'https://jina.ai/reader'
@@ -66,14 +69,14 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Jina Reader allows 20 requests a minute without a key, a free key adds 10 million tokens at 500 requests a minute, and optional automatic token top-ups can charge you.
+  Jina Reader allows 20 requests a minute without a key, a free key adds 10 million tokens labelled non-commercial at 500 requests a minute, and optional automatic token top-ups can charge you.
 
 ---
 You use Jina Reader by adding `https://r.jina.ai/` in front of a web address, with curl, a script, or a browser. An API key is optional and raises the limits. It suits developers who need page text for LLMs, agents, and RAG systems.
 
 ## What the free plan gives you
 
-Reader is free for basic use. Without an API key, you can call `r.jina.ai` at 20 requests per minute, counted per IP address. A free API key raises that to 500 requests per minute, and every new key comes with 10M free tokens. With a key, the limit follows the key instead of the IP.
+Reader is free for basic use. Without an API key, you can call `r.jina.ai` at 20 requests per minute, counted per IP address. A free API key raises that to 500 requests per minute, and every new key comes with 10M free tokens. The pricing table labels that free pack non-commercial use only (CC-BY-NC). With a key, the limit follows the key instead of the IP.
 
 The search endpoint, `s.jina.ai`, is blocked without a key. A free key gets 100 requests per minute there. Each search request costs a fixed number of tokens, starting from 10,000. Reader uses tokens based on the length of the output. Tokens are not deducted for failed requests.
 
@@ -84,7 +87,7 @@ You hit a rate limit when either the requests per minute or the tokens per minut
 ## Gotchas
 
 - Pages that need an interactive login, MFA, or a token the page fetches itself are out of scope. You can forward session cookies, but those requests are not cached.
-- Downloaded ReaderLM-v2 and jina-vlm weights use CC-BY-NC 4.0. Commercial on-prem licensing is separate from buying tokens for the hosted API.
+- The free token pack is labelled non-commercial, and downloaded ReaderLM-v2 and jina-vlm weights use CC-BY-NC 4.0. Commercial on-prem licensing is separate from buying tokens for the hosted API.
 - If a website blocks the request, Reader respects that outcome and does not work around it.
 
 ## Alternatives in this atlas
@@ -96,7 +99,7 @@ You hit a rate limit when either the requests per minute or the tokens per minut
 
 ### Is Jina Reader free?
 
-Yes. Reader is free for basic use with no key at 20 requests per minute. A free API key adds 10M tokens and a limit of 500 requests per minute.
+Yes. Reader is free for basic use with no key at 20 requests per minute. A free API key adds 10M tokens, labelled non-commercial use only, and a limit of 500 requests per minute.
 
 ### Does Jina Reader need an API key?
 

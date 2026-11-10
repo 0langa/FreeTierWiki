@@ -28,6 +28,7 @@ freeTierDetails:
     - To raise the quota or create a sixth instance you must add a credit card and set a monthly spending limit
     - Past the free amount, extra storage and Request Units are billed
     - Starter is on AWS, and in public preview on Alibaba Cloud
+    - PostgreSQL compatibility is in public preview, and the pricing page states the per-instance allowance for MySQL-compatible instances
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -45,18 +46,19 @@ whenToUse: >-
   Use it when you want a MySQL-compatible serverless database with a large free
   quota and no card, for side projects or apps with uneven traffic.
 whenNotToUse: >-
-  Avoid it if your stack needs Postgres features, if you need a region outside
-  AWS, or if you cannot accept connections being blocked at the quota.
+  Avoid it if you need generally available Postgres support, since PostgreSQL
+  compatibility is in public preview, if you need a cloud other than AWS or
+  Alibaba Cloud, or if you cannot accept connections being blocked at the quota.
 bestFor:
   - MySQL apps
   - side projects
   - vector search prototypes
 avoidIf:
-  - Postgres-only stacks
+  - Postgres stacks that cannot use a public preview
   - a hard need for uptime when the quota runs out
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 5
 usefulnessScore: 8
 officialUrl: 'https://www.pingcap.com/tidb-cloud-starter/'
@@ -84,7 +86,7 @@ You work in the TiDB Cloud console, where an AI-assisted SQL Editor runs queries
 
 The pricing page lists Starter from $0 a month. Each organization gets 25 GiB of row storage, 25 GiB of column storage, and 250M Request Units for free every month. The pricing details page splits this per instance: each of your first 5 instances gets 5 GiB of row storage, 5 GiB of column storage, and 50 million Request Units a month.
 
-Starter scales down to zero, and you pay only for storage and capacity you use beyond the free amount. An organization also includes capacity for up to 100 active instances and branches at no extra charge. Starter is generally available on AWS.
+Starter scales down to zero, and you pay only for storage and capacity you use beyond the free amount. An organization also includes capacity for up to 100 active instances and branches at no extra charge. Starter is generally available on AWS. PostgreSQL compatibility is in public preview, and the pricing page states the per-instance allowance for MySQL-compatible instances.
 
 ## When you hit a limit
 
@@ -100,7 +102,7 @@ You can raise the quota by setting a monthly spending limit. This needs a credit
 
 ## Alternatives in this atlas
 
-- [Aiven](/services/aiven/): when you want a free managed MySQL or Postgres plan with no card.
+- [Aiven](/services/aiven/): when you want a free managed Postgres plan with no card.
 - [Turso](/services/turso/): when your app fits SQLite and you want many small databases.
 - [Supabase Database](/services/supabase-database/): when you need Postgres features instead of MySQL.
 

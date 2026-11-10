@@ -20,19 +20,19 @@ freeTierDetails:
   limits:
     - Unlimited seats and feature flags
     - 5 service connections and 1,000 client-side MAU/month
-    - 100,000 experimentation MAU/month
+    - A/B tests and multi-armed bandits with no limit on experimentation
     - 10M logs and 10M traces/month
     - 5,000 session replays and 5,000 errors/month
     - 5,000 AI runs/month, 14-day AgentControl retention
   caveats:
+    - Developer is never billed; you upgrade when you hit a limit
     - Unlimited projects and environments need the Foundation plan
-    - Foundation lists $10 per extra service connection; client-side MAU pricing differs between the comparison table and yearly billing selector
-    - Foundation has a 14-day trial, then pay as you go
+    - Foundation is pay as you go at $10 per extra service connection billed yearly or $12 billed monthly, and $8.33 per 1K client-side MAU billed yearly or $10 billed monthly
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: unknown
-  overageRisk: low
+  overageRisk: none
 quickstartSteps:
   - Sign up for a free trial; after 14 days it moves to the free Developer plan.
   - Create a feature flag in the dashboard and set its variations.
@@ -54,8 +54,8 @@ avoidIf:
   - you need many projects and environments for free
   - you need SCIM or custom roles
 productionReadiness: production-light
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://launchdarkly.com/'
@@ -75,28 +75,28 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  LaunchDarkly's free Developer plan has unlimited flags and seats with no card, but only 1,000 client-side monthly users and 5 service connections, and extra ones are billed on the paid Foundation plan.
+  LaunchDarkly's free Developer plan has unlimited flags and seats with no card, but only 1,000 client-side monthly users and 5 service connections, and it is never billed, so you upgrade to Foundation at a limit.
 
 ---
 You create flags in the LaunchDarkly dashboard and read them in your app through one of its SDKs. It suits small teams that want gradual rollouts and a kill switch.
 
 ## What the free plan gives you
 
-The Developer plan costs $0 per month forever, with no credit card, unlimited seats and unlimited feature flags. It includes 100K experimentation MAU, 10M logs, 10M traces, 5K session replays and 5K errors each month.
+The Developer plan costs $0 per month forever, with no credit card, unlimited seats and unlimited feature flags. It includes 10M logs, 10M traces, 5K session replays and 5K errors each month, and A/B tests and multi-armed bandits with no limit on experimentation.
 
-Delivery includes 5 service connections and 1K client-side MAU per month. A service connection is one server-side SDK connected to one environment for a month; each unique client-side user or device is one MAU. You also get 5K AI runs monthly and 14 days of data retention. The getting-started guide mentions 10K experiment keys, while current pricing lists 100K experimentation MAU. These different units are not interchangeable.
+Delivery includes 5 service connections and 1K client-side MAU per month. A service connection is one server-side SDK connected to one environment, counted by time and averaged over the month; each unique client-side user or device is one MAU. You also get 5K AI runs monthly and 14 days of data retention. The getting-started guide still mentions 10,000 experiment keys, while the pricing page no longer lists an experimentation quota.
 
 ## When you hit a limit
 
-The pricing page says AI run ingestion stops at 5K on the Developer plan. For service connections and client-side users it says only that the free tier is limited, not what happens past the limit.
+The pricing page says the Developer plan is never billed and that you upgrade when you hit a limit. The plan table says AI run ingestion stops at 5K on Developer. For service connections and client-side users it says only that the free tier is limited, not what happens past the limit.
 
-Foundation is the pay-as-you-go step up, with a 14-day trial and unlimited projects and environments. Additional service connections cost $10 each per month. The comparison table lists $10 per 1 K client-side MAU, while the yearly selector shows $8.33; check the selected billing cadence. Past 5K AI runs, Foundation charges $5 per additional 1k runs.
+Foundation is the pay-as-you-go step up, with unlimited projects and environments. Past the free amounts, service connections cost $10 each billed yearly or $12 billed monthly, and client-side MAU costs $8.33 per 1K billed yearly or $10 per 1K billed monthly. Past 5K AI runs, Foundation charges $5 per additional 1K runs.
 
 ## Gotchas
 
 - The free plan is capped at 1 project and 3 environments in the plan table, while Foundation has unlimited.
-- Server-side SDK usage is counted per connection, and the page notes serverless and short-lived processes bill fractionally by connection time on paid plans.
-- Special rates exist for Kubernetes, serverless, Python, and Ruby setups, because they create many server-side connections.
+- Every replica, worker, and dev or staging environment counts as a service connection, so 5 connections go fast.
+- Moving to Foundation replaces the Developer stop with pay-as-you-go usage on service connections, client-side MAU, and AI runs.
 
 ## Alternatives in this atlas
 

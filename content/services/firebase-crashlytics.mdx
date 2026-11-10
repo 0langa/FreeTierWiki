@@ -2,8 +2,8 @@
 title: Firebase Crashlytics
 description: >-
   Firebase Crashlytics is a realtime crash reporter for Apple, Android,
-  Flutter, and Unity apps. It groups crashes into issues and shows what led up
-  to each one.
+  Flutter, Unity, and web apps. It groups crashes into issues and shows what
+  led up to each one.
 provider: Google Cloud
 domain: observability
 tags:
@@ -15,13 +15,15 @@ tags:
   - ios
 freeTierDetails:
   summary: >-
-    Crashlytics is a no-cost product on both the Spark and Blaze plans of
-    Firebase.
+    Crashlytics is a no-cost product for mobile apps on both the Spark and
+    Blaze plans of Firebase. Web apps need Blaze and use Google Cloud pricing.
   limits:
-    - No charge on the Spark or Blaze plan
-    - 'Supports Apple, Android, Flutter, and Unity apps'
+    - No charge for mobile apps on the Spark or Blaze plan
+    - 'Mobile support covers Apple, Android, Flutter, and Unity apps'
+    - Web apps are not available on the Spark plan
   caveats:
-    - The pricing page lists no usage limits for Crashlytics
+    - The pricing page lists no usage limits for Crashlytics on mobile apps
+    - Web apps on Blaze are billed at Cloud Logging and Cloud Storage rates
     - AI assistance in Crashlytics is a separate Gemini in Firebase feature with its own terms
   resetPeriod: none
   requiresCard: false
@@ -29,7 +31,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: none
   billingRiskNotes:
-    - Crashlytics itself has no charge on either Firebase plan
+    - Crashlytics for mobile apps has no charge on either Firebase plan; web apps use Google Cloud pricing on Blaze
 quickstartSteps:
   - Create a Firebase project and add your Apple, Android, Flutter, or Unity app.
   - Follow the Crashlytics get-started guide for your platform to add the SDK.
@@ -39,17 +41,18 @@ whenToUse: >-
   Use Crashlytics when you ship a mobile or Unity app and want crash reports
   with no bill, especially if you already use Firebase.
 whenNotToUse: >-
-  Skip it if you need error tracking for a backend or a web frontend as well,
-  since Crashlytics targets app platforms.
+  Skip it if you need error tracking for a backend, or free error tracking for
+  a web frontend, since web apps need the Blaze plan and Google Cloud pricing.
 bestFor:
   - mobile crash reporting
   - free crash reports at any scale
 avoidIf:
-  - you need backend or web error tracking
+  - you need backend error tracking
+  - you want free web error tracking
   - you want one tool for all platforms
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/crashlytics'
@@ -58,6 +61,7 @@ sourceUrls:
   - "https://firebase.google.com/pricing"
   - "https://firebase.google.com/docs/crashlytics?hl=en"
   - 'https://firebase.google.com/docs/crashlytics'
+  - 'https://firebase.google.com/products/crashlytics'
 pricingUrl: 'https://firebase.google.com/pricing'
 changes:
   - date: 2026-10-21
@@ -67,7 +71,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Firebase Crashlytics lists no usage limits and no charge on Spark or Blaze, while AI assistance is a separate Gemini feature with its own terms.
+  Firebase Crashlytics has no charge for mobile apps on Spark or Blaze and lists no usage limits for them, while web apps need Blaze and use Google Cloud pricing for logging and storage.
 
 ---
 
@@ -75,19 +79,19 @@ Crashlytics is the crash reporter in Firebase. You add its SDK to an Apple, Andr
 
 ## What the free plan gives you
 
-The Firebase pricing page lists Crashlytics as a no-cost product. It costs nothing on the no-cost Spark plan and on the pay-as-you-go Blaze plan, and the page lists no usage limits for it.
+The Firebase pricing page lists Crashlytics for mobile apps as no-cost. It costs nothing on the no-cost Spark plan and on the pay-as-you-go Blaze plan, and the page lists no usage limits for it. Web apps are marked not applicable on Spark.
 
-Google describes Crashlytics as a lightweight, realtime crash reporter. It groups crashes intelligently and highlights the circumstances that led up to them. You can see whether a crash affects many users, get alerts when an issue suddenly increases in severity, and find which lines of code are causing crashes. You do not need a billing account to use it.
+Google describes Crashlytics as a lightweight, realtime crash reporter. It groups crashes intelligently and highlights the circumstances that led up to them. You can see whether a crash affects many users, get alerts when an issue suddenly increases in severity, and find which lines of code are causing crashes. You do not need a billing account for a mobile app.
 
 ## When you hit a limit
 
-The pricing page shows no paid tier and no usage cap for Crashlytics, so there is no bill to reach. Collection depends on SDK configuration and connectivity; the public product page does not promise indefinite delivery or publish a universal ingestion allowance.
+The pricing page shows no paid tier and no usage cap for mobile apps, so there is no bill to reach. Collection depends on SDK configuration and connectivity; the public product page does not promise indefinite delivery or publish a universal ingestion allowance.
 
-Costs can come from other Firebase products you pair it with. For example, if you use Cloud Functions to react to new issues, Cloud Functions is billed on the Blaze plan. AI assistance in Crashlytics is part of Gemini in Firebase and listed separately on the pricing page.
+Web apps are different. They need Blaze, and the product page says they use Google Cloud pricing; the pricing table lists Cloud Logging and Cloud Storage rates. Costs can also come from other Firebase products you pair it with. For example, if you use Cloud Functions to react to new issues, Cloud Functions is billed on the Blaze plan. AI assistance in Crashlytics is part of Gemini in Firebase and listed separately on the pricing page.
 
 ## Gotchas
 
-- Crashlytics covers app platforms; it is not an error tracker for a server or a plain web frontend.
+- Crashlytics for web needs the Blaze plan and bills through Google Cloud, so the no-cost mobile terms do not carry over.
 - Crashlytics groups events that share a failure point into one issue, so check the events inside an issue before assuming it is a single bug.
 - Readable reports depend on your build's mapping information, such as dSYM files for Apple apps.
 
@@ -101,12 +105,12 @@ Costs can come from other Firebase products you pair it with. For example, if yo
 
 ### Is Firebase Crashlytics free?
 
-Yes. The Firebase pricing page lists Crashlytics as no-cost on both the Spark and Blaze plans.
+For mobile apps, yes. The Firebase pricing page lists mobile apps as no-cost on both the Spark and Blaze plans. Web apps need Blaze and use Google Cloud pricing.
 
 ### Which platforms does Crashlytics support?
 
-Google lists Apple platforms, Android, Flutter, and Unity.
+The docs list Apple platforms, Android, Flutter, and Unity. The product page also lists web apps.
 
 ### Do I need a credit card for Crashlytics?
 
-No billing account is needed, because Crashlytics works on the no-cost Spark plan.
+Not for a mobile app, because Crashlytics for mobile apps works on the no-cost Spark plan. Web apps need Blaze, which needs a billing account.

@@ -1,9 +1,10 @@
 ---
-title: Lockitbot
+title: Lockit (Lockitbot)
 description: >-
-  Lockitbot is a Slack bot for reserving shared resources, such as a staging
-  server or a test environment, so two people do not use the same one at once.
-provider: Lockitbot
+  Lockit is a chat bot for Slack, Discord, and Microsoft Teams that lets a team
+  reserve shared resources, such as a staging server or a test environment, so
+  two people do not use the same one at once.
+provider: Lockit
 domain: security
 tags:
   - slack
@@ -12,56 +13,64 @@ tags:
   - shared-environments
   - devops
 freeTierDetails:
-  summary: Free plan is limited to 2 resources; paid plans can be trialed free for 15 days.
+  summary: >-
+    Free plan covers up to 2 resources with unlimited locks and members, and
+    the home page says no credit card is needed. Any plan can be tried free for
+    15 days.
   limits:
     - Up to 2 resources
-    - Unlimited members and users
+    - Unlimited members
     - Unlimited locks
+    - Slack and Discord; Microsoft Teams on request
   caveats:
-    - "The card requirement for the free offer is not confirmed in the cited public sources"
-    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
-    - Starter plan ($17/month) raises the limit to 100 resources
-    - The pricing page lists API access, priority support, and a white-labeled bot as plan features; check which plan includes them before you build on the API
-    - The refund policy says there are no refunds on paid plans
-  requiresCard: unknown
+    - A third resource on the Free plan is refused; existing resources and locks keep working
+    - The REST API and MCP server are on paid plans, starting with Starter at $17 a month
+    - API keys are created in Slack; Discord and Microsoft Teams workspaces cannot create keys yet
+    - The docs say there are no refunds, full or partial, for time already paid for
+  requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
-    - 'The free offer is listed, but a strict stop and complete billing policy are not established in the cited public sources.'
+    - 'The docs say a third resource on the Free plan is refused rather than billed.'
 quickstartSteps:
-  - Open lockitbot.com and choose Add to Slack.
-  - Start a plan from the pricing page; the Free plan has a Start Trial button, and any plan can be tried free for 15 days.
-  - In Slack, type `@Lockit new` to create your first resource, for example a staging server.
+  - Open lockitbot.com and choose Add to Slack or Add to Discord. The Free plan needs no credit card.
+  - In a Slack channel where Lockit is a member, type `@Lockit new` and fill in the form to create your first resource, for example a staging server.
   - Lock it with `@Lockit lock` and the resource name, and free it with `@Lockit release` and the name.
-  - Add your team in the resource settings to get an alert when the resource is free.
+  - Pick a channel for lock and release updates when you create a resource, so the team sees each change.
 whenToUse: >-
-  Use Lockitbot when a small team shares a few environments or devices and
-  coordinates by Slack messages today. Two resources are enough for one
-  staging server and one test device.
+  Use Lockit when a small team shares a few environments or devices and
+  coordinates by Slack or Discord messages today. Two resources are enough for
+  one staging server and one test device.
 whenNotToUse: >-
-  Avoid it if you need to track more than two resources for free, if your team
-  does not use Slack, or if you want on-call scheduling and incident response
-  rather than locks.
+  Avoid it if you need to track more than two resources for free, need the
+  REST API or MCP server on the free plan, or want on-call scheduling and
+  incident response rather than locks.
 bestFor:
   - small engineering teams with a shared staging environment
   - QA teams sharing test devices
-  - Slack-first teams
+  - Slack or Discord teams
 avoidIf:
   - you need more than 2 resources on a free plan
-  - your team does not use Slack
+  - you need the REST API or MCP server for free
   - you need on-call rotations or incident response
 productionReadiness: production-light
-lastVerified: '2026-10-21'
-lastUpdated: '2026-10-21'
+lastVerified: '2026-11-09'
+lastUpdated: '2026-11-09'
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.lockitbot.com/'
-docsUrl: 'https://docs.lockitbot.com'
+docsUrl: 'https://lockitbot.com/docs'
 pricingUrl: 'https://www.lockitbot.com/pricing'
 sourceUrls:
   - 'https://www.lockitbot.com/pricing'
   - 'https://www.lockitbot.com/'
+  - 'https://lockitbot.com/docs'
+  - 'https://lockitbot.com/docs/account/plans-and-billing'
+  - 'https://lockitbot.com/docs/troubleshooting/cant-create-more-resources'
+  - 'https://lockitbot.com/docs/getting-started/create-your-first-resource'
+  - 'https://lockitbot.com/docs/using-lockit/lock-and-release'
+  - 'https://lockitbot.com/docs/developers/api-keys'
 changes:
   - date: '2026-10-21'
     kind: changed
@@ -70,26 +79,26 @@ changes:
     kind: changed
     note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 answer: >-
-  The free Lockitbot plan is limited to 2 resources with unlimited members, paid plans can be tried for 15 days, and the card rule plus a strict stop are not established.
+  Lockit's free plan covers 2 resources with unlimited locks and members and no card, a third resource is refused rather than billed, and the REST API and MCP server need Starter at $17 a month.
 
 ---
-You work with Lockitbot inside Slack by mentioning `@Lockit`. A script can also call its HTTP API with an API key. It suits teams that share a few environments or devices.
+You work with Lockit inside Slack by mentioning `@Lockit`, in Discord with `/lockit` slash commands, or in Microsoft Teams, which is available on request. On paid plans a script can also use its REST API and MCP server. It suits teams that share a few environments or devices.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and covers up to 2 resources. A resource is anything your team shares, such as a staging server or a test phone. The plan lists unlimited members, unlimited users, and unlimited locks, so the only cap is the number of resources.
+The Free plan costs $0 forever and covers up to 2 resources. A resource is anything your team shares, such as a staging server or a test phone. The plan lists unlimited locks, unlimited members, alerts and takeovers, and Slack and Discord; Microsoft Teams is on request. The home page says the free plan needs no credit card.
 
-In Slack, you create a resource with `@Lockit new`, list resources with `@Lockit list`, and lock or release one by name. You can also add a team to a resource so people get an alert when it becomes free. The Starter plan costs $17 a month and covers up to 100 resources. The page also offers a custom plan through the contact form.
+In Slack, you create a resource with `@Lockit new`, list resources with `@Lockit list`, and lock or release one by name. The Starter plan costs $17 a month, covers up to 100 resources, and adds the REST API and MCP server. Custom plans add unlimited resources, a white-labelled bot, and custom Slack workflows.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you try to add a third resource on the Free plan. It names 2 resources as the limit and lists Starter as the next step. The page does not establish a card requirement or over-limit billing policy for Free; the $0 headline alone does not settle either. Any plan can be tried free for 15 days, so you can test the 100-resource limit before you pay.
+On the Free plan, creating a third resource is refused, from chat and from the API alike. Your existing resources and locks keep working. To go further, upgrade or delete a resource you no longer need. Any plan can be tried free for 15 days, so you can test the 100-resource limit before you pay, and annual billing saves 20%.
 
 ## Gotchas
 
-- The site says Lockitbot may change its pricing, pricing policies, features, and access restrictions at any time.
-- The pricing page lists API, priority support, and a white-labeled bot as plan features. It does not say which plans include the API, so check before you build a script on it.
-- The refund policy says there are no refunds on paid plans, but you can cancel at any time.
+- The REST API and MCP server are on paid plans. API keys are created in Slack, so Discord and Teams workspaces cannot create keys yet.
+- Microsoft Teams is available on request, so check before you plan around it.
+- The docs say there are no refunds, full or partial, for time already paid for, but you can cancel at any time.
 
 ## Alternatives in this atlas
 
@@ -98,14 +107,14 @@ The pricing page does not say what happens when you try to add a third resource 
 
 ## Questions people ask
 
-### Is Lockitbot free?
+### Is Lockit free?
 
-Yes, there is a Free plan for up to 2 resources with unlimited members and locks. Paid plans start at $17 a month.
+Yes, the Free plan covers up to 2 resources with unlimited members and locks, and the home page says it needs no credit card. Paid plans start at $17 a month.
 
-### What happens when I go over 2 resources on Lockitbot?
+### What happens when I go over 2 resources on Lockit?
 
-The pricing page does not say. It lists the Starter plan, which raises the limit to 100 resources, as the next step.
+Creating a third resource is refused, from chat or the API. Existing resources and locks keep working, and you can upgrade or delete a resource.
 
-### How do I lock a resource in Lockitbot?
+### How do I lock a resource in Lockit?
 
-Mention `@Lockit lock` with the resource name in Slack. To free it, use `@Lockit release` with the name.
+In Slack, mention `@Lockit lock` with the resource name, and use `@Lockit release` to free it. Discord uses the `/lockit lock` and `/lockit release` commands.
