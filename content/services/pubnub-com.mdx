@@ -14,12 +14,12 @@ tags:
   - websocket alternative
 freeTierDetails:
   summary: >-
-    Free tier includes 200 MAUs or 1M transactions per month, but only on
-    Testing keysets that cannot carry live traffic.
+    Free tier includes 200 MAUs or 1M transactions per month with no card, on
+    Testing or Production keysets.
   limits:
     - 200 monthly active users or 1 million transactions per month, whichever comes first
     - 1 GB storage, 7-day retention
-    - Up to 10 active Testing keysets; Production keysets need the Starter plan
+    - Up to 10 active keysets; every plan, including Free, can create Production keysets
   caveats:
     - Testing keysets are rate-limited and are not meant for live traffic
     - Free Functions pause seven days after deployment and need redeployment
@@ -33,39 +33,42 @@ freeTierDetails:
   hasHardCap: unknown
   overageRisk: medium
   billingRiskNotes:
-    - The free plan has no Production keysets, so live traffic means the paid Starter plan
+    - The pricing FAQ says usage past the Free limits requires the paid Starter plan
     - Free overage FAQ conflicts with upgrade-required wording; do not assume an automatic hard spending stop
 quickstartSteps:
   - Sign up in the Admin Portal with a username and password, Google single sign-on, or your own SSO provider.
-  - Create an app, then create a keyset and choose Testing.
+  - Create an app, then create a keyset and choose Testing or Production.
   - Copy the publish key (starts with `pub-c-`) and the subscribe key (starts with `sub-c-`).
   - Turn on the features your app needs on the keyset, such as Presence or Message Persistence.
   - Check the keyset in the Debug Console by subscribing to a channel and publishing a message.
   - Install a PubNub SDK, initialize it with your keys and a stable User ID, then publish and subscribe.
 whenToUse: >-
-  Use PubNub to prototype and test real-time features on a Testing keyset
-  before you pick a paid plan.
+  Use PubNub to prototype real-time features or run a small live app within
+  the free allowance before you pick a paid plan.
 whenNotToUse: >-
-  Avoid it for live traffic on the free plan, since Production keysets need the
-  Starter plan.
+  Avoid the free plan for an app that may pass 200 monthly active users or 1
+  million transactions a month, since handling past those limits is unclear.
 bestFor:
   - prototypes
   - real-time chat tests
   - collaboration tools
 avoidIf:
-  - live production traffic on a free budget
+  - more than 1 million transactions a month on a free budget
   - more than 200 monthly active users on a free budget
 productionReadiness: prototype
 status: changed
 changes:
+  - date: 2026-11-10
+    kind: changed
+    note: "PubNub's docs now say every plan, including Free, can create Production keysets; Testing keysets remain rate-limited and unsuitable for live traffic."
   - date: 2026-10-21
     kind: changed
     note: "Qualified conflicting Free overage wording and premium-feature trials; preserved the documented Testing-keyset-only restriction."
   - date: 2026-10-09
     kind: changed
     note: The docs say the free plan is limited to Testing keysets, and Production keysets need the Starter plan.
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-10
+lastVerified: 2026-11-10
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.pubnub.com/'
@@ -78,7 +81,7 @@ sourceUrls:
   - 'https://www.pubnub.com/docs/general/setup/account-setup'
 pricingUrl: 'https://www.pubnub.com/pricing/'
 answer: >-
-  Pubnub.com's free tier allows 200 monthly active users or 1 million transactions on Testing keysets only, not live Production traffic, and conflicting overage wording means a charge is possible.
+  Pubnub.com's free tier covers 200 monthly active users or 1 million transactions with no card on Testing or Production keysets, and its conflicting overage wording means a charge past those limits is possible.
 
 ---
 You work in the Admin Portal to create keysets, then use one of the many PubNub SDKs to publish and subscribe to channels from your app. The free account suits a developer who wants to try the platform.
@@ -87,17 +90,17 @@ You work in the Admin Portal to create keysets, then use one of the many PubNub 
 
 A free PubNub account covers up to 200 monthly active users or 1 million transactions at no cost, whichever limit you reach first. A monthly active user is one unique User ID that connects to your keyset in a calendar month. The plan has no time limit and needs no credit card.
 
-You get 1GB of data storage with 7 days of retention. The plan includes unlimited channels. Up to ten active Testing keysets give you Pub/Sub, Presence, data storage, and Functions. Free Functions typically handle 15 requests/second without scaling and pause seven days after deployment; redeploy to run them again.
+You get 1GB of data storage with 7 days of retention. The plan includes unlimited channels. Up to ten active keysets give you Pub/Sub, Presence, data storage, and Functions, and every plan, including Free, can create Production keysets. Free Functions typically handle 15 requests/second without scaling and pause seven days after deployment; redeploy to run them again.
 
 ## When you hit a limit
 
-The docs say a free account is limited to Testing keysets, which are rate-limited and not suitable for live traffic. Creating a Production keyset requires at least the Starter plan.
+The docs say Testing keysets are rate-limited and not suitable for live traffic, so choose a Production keyset if yours will carry live traffic. Every plan, including Free, can create one.
 
-The pricing FAQ says excess Free usage requires an upgrade, but another FAQ groups Free and Starter together and describes proportional overage MAUs. It does not establish whether an unbilled Free Testing keyset stops, continues, or creates an obligation. Confirm this before exceeding the allowance. The Starter plan costs $98 per month for 1,000 monthly active users, and you can buy more by credit card month to month.
+The pricing FAQ says excess Free usage requires an upgrade, but another FAQ groups Free and Starter together and describes proportional overage MAUs. It does not establish whether an unbilled Free account stops, continues, or creates an obligation. Confirm this before exceeding the allowance. The Starter plan costs $98 per month for 1,000 monthly active users, and you can buy more by credit card month to month.
 
 ## Gotchas
 
-- Free accounts cannot create Production keysets. Plan for the paid tier before you launch.
+- Testing keysets are rate-limited and not for live traffic, so create a Production keyset before you launch.
 - A single User ID counts as one monthly active user, however often it reconnects. Reuse a stable User ID, or the same person counts more than once.
 - Auto Moderation needs a paid plan. Events & Actions, Insights, and Illuminate are only trials on a Free account, according to the current docs.
 
@@ -111,11 +114,11 @@ The pricing FAQ says excess Free usage requires an upgrade, but another FAQ grou
 
 ### Is PubNub free?
 
-Yes, for testing. A free account covers up to 200 monthly active users or 1 million transactions at no cost, on Testing keysets.
+Yes, within limits. A free account covers up to 200 monthly active users or 1 million transactions at no cost, whichever you reach first, with no credit card.
 
 ### Can I use PubNub free in production?
 
-No. Production keysets need at least the Starter plan, which costs $98 per month. Testing keysets are rate-limited and not for live traffic.
+Yes, within the free allowance. The docs say every plan, including Free, can create Production keysets, while Testing keysets are rate-limited and not for live traffic. The Starter plan costs $98 per month.
 
 ### What counts as a monthly active user on PubNub?
 

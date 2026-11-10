@@ -13,20 +13,22 @@ tags:
   - risk scoring
   - api
 freeTierDetails:
-  summary: 'Free tier includes 1,000 login checks per month with all core features.'
+  summary: 'Every new account gets 100 free login checks with no card. Paid plans start at $9 a month.'
   limits:
-    - '1,000 login checks/month'
+    - '100 free login checks per new account'
     - Full API with risk scoring and risk codes
   caveats:
     - No credit card required
-    - API requests are rate limited to 100 requests per minute per API key
-    - Free quota comes from the home page; the pricing table lists paid Starter, Professional, and Enterprise plans
-    - Exhausted API credits return HTTP 402; how this maps to Free monthly reset and quota transition is not published
-  resetPeriod: monthly
+    - The pages do not say the 100 free checks renew, so treat them as a starting allowance
+    - API requests are rate limited to 100 requests per minute per API key, or 60 for test keys
+    - Exhausted API credits return HTTP 402
+    - Test keys are free and spend no credits, but they never score a real login
+  resetPeriod: none
   requiresCard: false
-  freeTierType: always-free
+  freeTierType: credit
   hasHardCap: unknown
   overageRisk: low
+  monthlyCreditAmount: 100 free checks per new account
 quickstartSteps:
   - Sign up free at loginllama.app/signup. No card is needed.
   - Copy your API key from the API settings in your account.
@@ -43,19 +45,19 @@ whenToUse: >-
   Use LoginLlama when you already have a login system and want a simple risk score on each sign-in,
   without building your own fraud model.
 whenNotToUse: >-
-  Avoid it if you need a full login system, self-hosting, or more than the free login checks each
-  month.
+  Avoid it if you need a full login system, self-hosting, or more than the 100 free checks without
+  paying.
 bestFor:
   - small apps that already have auth
   - indie developers
   - adding risk checks to an existing login
 avoidIf:
   - self-hosting
-  - unlimited login checks on free
+  - more than 100 free login checks
   - a full auth provider
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://loginllama.app'
@@ -65,8 +67,12 @@ sourceUrls:
   - 'https://loginllama.app/pricing'
   - 'https://loginllama.app'
   - 'https://loginllama.app/docs'
+  - 'https://loginllama.app/faq'
 status: changed
 changes:
+  - date: '2026-11-09'
+    kind: changed
+    note: 'The free offer is now 100 free login checks for each new account, with no card, and the paid Starter plan starts at $9 a month for 5,000 checks.'
   - date: '2026-10-21'
     kind: changed
     note: 'Scoped HTTP 402 to documented API-credit exhaustion and marked the unpublished Free quota transition as unknown.'
@@ -74,26 +80,26 @@ changes:
     kind: changed
     note: "Replaced an obsolete pricing-page access warning with current paid plan details and documented HTTP 402 for exhausted API credits."
 answer: >-
-  LoginLlama's free tier allows 1,000 login checks a month with no card, exhausted API credits return HTTP 402, and what happens to the free quota at that point is not published.
+  LoginLlama gives each new account 100 free login checks with no card, exhausted API credits return HTTP 402, and the pages do not say whether the free checks ever renew.
 
 ---
 LoginLlama is not a login system. You call its REST API, or an SDK for Node.js, Python, or PHP, right before you finish a login, and act on the score it returns.
 
 ## What the free plan gives you
 
-The home page says you get 1,000 free checks every month, with no card. Each check scores one login from 0 to 10 and returns risk codes such as impossible travel, new device, and known VPN. Your app then decides to block the login, step up to MFA, or allow it.
+The home page and pricing page say you start with 100 free checks and no card, and the FAQ says every new account gets 100 free login checks. They do not say the checks renew each month, so treat them as a starting allowance. Each check scores one login from 0 to 10 and returns risk codes such as impossible travel, new device, and known VPN. Your app then decides to block the login, step up to MFA, or allow it.
 
-The home page supplies the monthly free allowance. The pricing table lists paid Starter at $19 per month for 10,000 checks, Professional at $49 for 50,000, and Enterprise at $199 for unlimited checks. Requests are rate limited to 100 per minute per API key, or 200 for staging keys. The home page says a check takes under 500 milliseconds and that the API fails open by design.
+The pricing table lists paid Starter at $9 per month for 5,000 checks, Professional at $49 for 50,000, and Enterprise at $199 for unlimited checks. Requests are rate limited to 100 per minute per API key, or 60 for test keys. Test keys are free but never score a real login.
 
 ## When you hit a limit
 
-The API docs define HTTP 402 Payment Required for exhausted API credits and HTTP 429 for rate limits. They do not map the general credit error explicitly to the 1,000-check Free allowance, or explain when Free requests resume after exhaustion. The home page confirms the monthly grant, but that grant should not be read as a documented enforcement or retry policy.
+The API docs define HTTP 402 Payment Required for no API credits remaining and HTTP 429 for rate limits. They do not say whether the free checks behave like paid API credits, or when free requests resume after the checks run out.
 
-Because your login flow calls this API, plan for both cases. Decide in your code whether a failed check should allow the login or block it, and keep an eye on your remaining credits.
+Because your login flow calls this API, plan for both cases. Decide in your code whether a failed check should allow the login or block it, and keep an eye on your remaining credits. The home page says the SDKs and plugins let a login through if LoginLlama cannot answer.
 
 ## Gotchas
 
-- The pricing table describes paid plans, while the home page advertises the monthly free checks. The exact transition after exhausting the free allowance is not explained.
+- The 100 free checks are a starting allowance, and the pages do not say they renew each month.
 - The rate limit is 100 requests per minute per API key. A login burst can reach it.
 - LoginLlama scores logins only. You still need your own auth provider to sign users in.
 
@@ -107,11 +113,11 @@ Because your login flow calls this API, plan for both cases. Decide in your code
 
 ### Is LoginLlama free?
 
-Yes, to start. The home page lists 1,000 free checks every month with no card.
+Partly. Every new account gets 100 free login checks with no card, and paid plans start at $9 a month.
 
 ### Does LoginLlama need a credit card?
 
-The home page says the free checks need no card.
+No card is needed for the 100 free checks, the pricing page and FAQ say.
 
 ### Does LoginLlama replace my login system?
 

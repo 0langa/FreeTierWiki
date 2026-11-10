@@ -23,17 +23,18 @@ freeTierDetails:
     - Image 30 GB delivery bandwidth per month
     - Image 2 sources and a 6000x6000 px size limit
   caveats:
-    - Free signup card requirement and excess-usage handling without a payment method are not explicitly established
+    - The free signup card rule, and how an overage invoice is collected without a payment method, are not confirmed
     - API and MCP access are listed as Creator plan additions for video
     - Free video carries Gumlet branding
     - Free plans have 1 seat
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: false
+  overageRisk: medium
   billingRiskNotes:
     - The image plan lists $0.5 per GB of bandwidth overage on the Free plan
+    - Once streaming passes the free video limit, a provisional invoice covers the overage; upgrading before the billing cycle ends voids it
     - On the free video plan you must upgrade to add more storage
 quickstartSteps:
   - Sign up for Gumlet from the pricing page; the Free plans are listed as Free Forever.
@@ -52,8 +53,8 @@ avoidIf:
   - you need a video API for free
   - you store many videos
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-02
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.gumlet.com'
@@ -61,6 +62,7 @@ docsUrl: 'https://docs.gumlet.com'
 sourceUrls:
   - 'https://www.gumlet.com/pricing/'
   - 'https://docs.gumlet.com/image/getting-started/image-getting-started/index.md'
+  - 'https://docs.gumlet.com/billing/overage-billing'
 pricingUrl: 'https://www.gumlet.com/pricing/'
 changes:
   - date: 2026-10-21
@@ -70,7 +72,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Gumlet's free video plan includes 60 storage minutes and 100 GB of bandwidth a month, the free image plan lists $0.5 per GB of bandwidth overage, and the card rule is not confirmed.
+  Gumlet's free video plan includes 60 storage minutes and 100 GB of bandwidth a month, bandwidth past the limit is invoiced at $0.5 per GB unless you upgrade first, and the card rule is not confirmed.
 
 ---
 
@@ -84,9 +86,9 @@ The image Free plan, also Free Forever, includes 30 GB of image delivery bandwid
 
 ## When you hit a limit
 
-The image plan lists bandwidth overage at $0.5 per GB on Free, so the pricing page implies image traffic past 30 GB is billed rather than stopped. It does not say how that is charged on an account with no payment method.
+The image plan lists bandwidth overage at $0.5 per GB on Free, and the pricing FAQ says usage beyond your plan is billed at the overage price.
 
-For video, the rendered Free column lists streaming overage at $0.5/GB and storage as requiring an upgrade. It also includes 1000 AI credits/month with $1 per 1000 extra credits. The public pricing does not explain whether an account without a payment method is blocked before either overage charge. The Creator plan costs $6 a month billed annually.
+For video, the rendered Free column lists streaming overage at $0.5/GB and storage as requiring an upgrade. It also includes 1000 AI credits/month with $1 per 1000 extra credits. Gumlet's overage docs say a provisional invoice is generated once streaming exceeds the free limit, and that upgrading to a paid plan before the billing cycle ends voids it. Neither page says whether an account with no payment method is blocked or how an invoice is collected. The Creator plan costs $6 a month billed annually.
 
 ## Gotchas
 
@@ -112,4 +114,4 @@ The pricing page lists API and MCP access among the Creator plan's features, not
 
 ### What happens if I go over the free image bandwidth?
 
-The image plan lists overage at $0.5 per GB on the Free plan. The page does not describe a hard stop.
+The image plan lists overage at $0.5 per GB on the Free plan, and the pricing FAQ says usage beyond your plan is billed at the overage price. The page does not describe a hard stop.

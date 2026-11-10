@@ -13,27 +13,32 @@ tags:
   - build cache
 freeTierDetails:
   summary: >-
-    Free (Hobby) plan gives 1 private app, 5 concurrent builds, a 90-minute build timeout, and 300
-    credits per month, with no credit card needed.
+    Free (Hobby) plan gives 1 private app, unlimited public apps, 500 build minutes a month on Linux
+    or macOS, and a 90-minute build timeout. You must verify a credit card.
   limits:
-    - 1 private app
-    - 5 concurrent builds
+    - 1 private app, unlimited public apps
+    - 500 build minutes per month on Linux or macOS
     - 90-minute build timeout
-    - 300 credits/month
+    - Unlimited team members
+    - 1 free on-prem runner
   caveats:
+    - >-
+      The pricing FAQ says Hobby needs a verified credit card, and that you are not charged unless
+      you turn on Pay-As-You-Go
     - >-
       The Bitrise docs say a new account cannot start CI builds until you start the 30-day trial or
       buy a Pro plan; the trial needs a credit card, which is charged $0.01 and the charge is voided
-    - >-
-      After the trial you can pick the free Hobby plan, which the pricing FAQ says needs no credit
-      card
-    - Hobby is access for a team of one
-    - The pricing page does not say what happens when the 300 monthly credits run out.
+    - After the trial you can pick the free Hobby plan
+    - Pay-As-You-Go on Hobby charges 1.5x per minute and stops new builds at a $15 monthly cap
   resetPeriod: monthly
   requiresCard: true
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
+  billingRiskNotes:
+    - >-
+      Charges happen only if you turn on Pay-As-You-Go. On Hobby it is capped at $15 a month, and
+      charges under $5 are not billed.
 quickstartSteps:
   - Sign up with an email address or through a Git hosting provider.
   - Start the 30-day trial, which asks for a credit card ($0.01 is charged and voided); without it you cannot run CI builds.
@@ -42,22 +47,28 @@ quickstartSteps:
   - Review the build machine and stack, choose private or public builds, optionally register a webhook, and click Finish to start the first build.
   - When the trial ends, choose the free Hobby plan to keep going.
 whenToUse: >-
-  Use it to build and ship a mobile app, when you build only a few times a
-  month and work alone.
+  Use it to build and ship a mobile app with one private repository, when 500
+  build minutes a month is enough.
 whenNotToUse: >-
-  Skip it if you cannot give a card to start the trial, need more than 1 private
-  app on the free plan, or work in a team. Hobby is access for a team of one.
+  Skip it if you cannot verify a credit card, need more than 1 private app on
+  the free plan, or need more than 500 build minutes a month.
 bestFor:
   - solo mobile developers
   - side projects with few builds
   - trying Bitrise before choosing a plan
 avoidIf:
-  - you work in a team on the free plan
+  - you cannot verify a credit card
   - you need more than 1 private app
-  - you run more than 300 credits of builds a month
+  - you need more than 500 build minutes a month
 productionReadiness: production-light
 status: changed
 changes:
+  - date: '2026-11-09'
+    kind: changed
+    note: >-
+      Bitrise now lists Hobby at 500 build minutes a month with unlimited team members. Its pricing
+      FAQ says the plan needs a verified credit card, with optional Pay-As-You-Go capped at $15 a
+      month.
   - date: '2026-10-21'
     kind: changed
     note: >-
@@ -68,7 +79,7 @@ changes:
     note: >-
       Bitrise docs say new accounts need the 30-day trial, which asks for a credit card, before CI
       builds can run; the free Hobby plan is available after the trial.
-lastUpdated: 2026-11-02
+lastUpdated: 2026-11-09
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.bitrise.io/'
@@ -76,31 +87,31 @@ docsUrl: 'https://devcenter.bitrise.io/'
 sourceUrls:
   - https://www.bitrise.io/pricing
   - https://docs.bitrise.io/en/bitrise-ci/getting-started/getting-started
-lastVerified: 2026-11-02
+lastVerified: 2026-11-09
 pricingUrl: 'https://www.bitrise.io/pricing'
 answer: >-
-  Bitrise's Hobby plan gives one private app and 300 credits a month, but new accounts must first run a 30-day trial that needs a card, while the pricing FAQ says Hobby itself needs none.
+  Bitrise's Hobby plan gives one private app and 500 build minutes a month, but you must verify a credit card and new accounts start with a 30-day trial that needs one, with no charge unless you turn on Pay-As-You-Go.
 
 ---
 You use Bitrise in the web dashboard and describe builds as workflows, with an API and a CLI around it. The docs build the first project from a wizard that scans your repository.
 
 ## What the free plan gives you
 
-The Hobby plan is free and the pricing page calls it free forever. The FAQ says it includes 1 private app and 5 concurrent builds, with a 90-minute build timeout and 300 credits per month. The plan is access for a team of one, with support from the Bitrise Community on Slack or the Discuss forum.
+The Hobby plan is free and the pricing page calls it free forever. The FAQ says it includes 500 build minutes a month on Linux or macOS, 1 private app, and unlimited public apps. It also includes Pipelines, unlimited workflow steps, 1 free on-prem runner, and unlimited team members. Builds on Hobby time out at 90 minutes.
 
-The pricing page says the credits are enough to build a small project a few times per month. The pricing page also lists build timeout and concurrent builds as plan limits, so check them before you rely on the plan.
+To keep usage fair, Bitrise says you need to verify a credit card for Hobby, and that you will not be charged unless you turn on Pay-As-You-Go.
 
 ## When you hit a limit
 
-A build that reaches the 90-minute timeout is stopped. The FAQ says that on the Free plan the build times out at 90 minutes, while Starter and Pro allow longer runs.
+A build that reaches the 90-minute timeout is stopped. On Starter and Pro the timeout is 210 minutes.
 
-The pricing page does not say what happens on Hobby when the 300 monthly credits are gone. Its trial FAQ mentions requesting a trial extension or getting a paid plan, but that is about the trial. The Starter plan costs $99 per month on monthly billing and has unlimited build minutes with up to 4 concurrent builds. The docs say Bitrise does not sign you up for a paid plan when the trial ends.
+When the 500 minutes are gone, the FAQ says you can keep building by turning on Pay-As-You-Go. On Hobby it charges 1.5x per minute up to a $15 monthly cap, and after the cap you cannot start new builds until your next billing cycle. Pay-As-You-Go charges under $5 are not billed. The Starter plan costs $99 per month on monthly billing and has unlimited usage with up to 4 concurrent builds. The docs say Bitrise does not sign you up for a paid plan when the trial ends.
 
 ## Gotchas
 
 - The docs say a new account cannot start CI builds until you start the 30-day trial or buy a Pro plan.
 - The trial needs a credit card. The card is charged $0.01, and the charge is voided right away.
-- The pricing FAQ says Hobby needs no credit card, and it is offered at the end of the trial. Plan to enter a card once.
+- The pricing FAQ says Hobby also needs a verified credit card, and you are charged only if you turn on Pay-As-You-Go.
 
 ## Alternatives in this atlas
 
@@ -112,12 +123,12 @@ The pricing page does not say what happens on Hobby when the 300 monthly credits
 
 ### Is Bitrise free?
 
-Yes, through the Hobby plan: 1 private app, 5 concurrent builds, a 90-minute build timeout, and 300 credits per month. It is for a team of one.
+Yes, through the Hobby plan: 1 private app, unlimited public apps, 500 build minutes a month, and a 90-minute build timeout, with unlimited team members.
 
 ### Does Bitrise need a credit card?
 
-The pricing FAQ says Hobby needs no credit card. The docs say you must start the 30-day trial to run builds, and the trial asks for a card with a $0.01 charge that is voided.
+Yes. The pricing FAQ says you need to verify a credit card for Hobby, and the docs say the 30-day trial asks for a card with a $0.01 charge that is voided. You are only charged if you turn on Pay-As-You-Go.
 
 ### What happens when my Bitrise trial ends?
 
-You must choose a plan to continue. You can pick the free Hobby plan with 300 credits per month, and Bitrise does not move you to a paid plan on its own.
+You must choose a plan to continue. You can pick the free Hobby plan with 500 build minutes per month, and Bitrise does not move you to a paid plan on its own.

@@ -12,9 +12,9 @@ tags:
   - geoip
   - batch lookup
 freeTierDetails:
-  summary: 'Free plan includes 150 requests per month with a 10 requests/minute limit for testing and personal, non-commercial projects.'
+  summary: 'Free plan includes 1,000 requests per month with a 10 requests/minute limit for testing and personal, non-commercial projects.'
   limits:
-    - '150 requests/month'
+    - '1,000 requests/month'
     - 10 requests/minute rate limit
     - Location, connection, time zone, and currency data
   caveats:
@@ -34,9 +34,9 @@ quickstartSteps:
   - 'Read the JSON response, or POST a list to `/v2/batch` for up to 1,000 addresses in a POST body.'
 whenToUse: >-
   Use ipbase for testing or personal, non-commercial IP lookups when
-  150 requests a month is enough.
+  1,000 requests a month is enough.
 whenNotToUse: >-
-  Avoid the Free plan for commercial use, more than 150 requests a month,
+  Avoid the Free plan for commercial use, more than 1,000 requests a month,
   no per-minute limit, or security flags without paying.
 bestFor:
   - location-based personalization
@@ -47,8 +47,8 @@ avoidIf:
   - need VPN or proxy flags for free
   - strict SLA requirements
 productionReadiness: prototype
-lastVerified: 2026-11-02
-lastUpdated: 2026-11-02
+lastVerified: 2026-11-09
+lastUpdated: 2026-11-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://ipbase.com'
@@ -62,20 +62,23 @@ sourceUrls:
   - 'https://ipbase.com'
 status: changed
 changes:
+  - date: 2026-11-09
+    kind: changed
+    note: "The Free plan lists 1,000 requests a month, and VPN, proxy, and Tor detection starts on the Medium plan at $39.99 a month."
   - date: 2026-10-21
     kind: changed
     note: "Corrected Free data access to include time zone and currency data, and distinguished 1,000-IP POST batches from 100-IP GET batches."
 answer: >-
-  ipbase.com's free plan is for testing and personal, non-commercial projects, with 150 requests a month, 10 a minute, no card, and no overage charge; commercial use requires a paid plan.
+  ipbase.com's free plan is for testing and personal, non-commercial projects, with 1,000 requests a month, 10 a minute, no card, and no overage charge; commercial use requires a paid plan.
 
 ---
 You register for an API key in the dashboard, then call the HTTP API with `curl` or one of the SDKs, or use the MCP server. It suits developers who need a few IP lookups a month and want location, time zone, and network data in one JSON call.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and gives you 150 requests a month for testing and personal, non-commercial projects. Commercial use needs a paid plan. Free allows 10 requests per minute and batch lookups of up to 1,000 addresses in a POST body or 100 in a GET query string. No credit card is required.
+The Free plan costs $0 and gives you 1,000 requests a month for testing and personal, non-commercial projects. Commercial use needs a paid plan. Free allows 10 requests per minute and batch lookups of up to 1,000 addresses in a POST body or 100 in a GET query string. No credit card is required.
 
-A batch call counts one request per address. The paid plans remove the per-minute limit and add volume. The first paid plan costs $9.99 a month for 65,000 requests, and the next costs $39.99 for 650,000. Time zone and currency data are included on Free. Security data such as VPN, proxy, and Tor flags starts on Small, the $9.99 plan.
+A batch call counts one request per address. The paid plans remove the per-minute limit and add volume. The first paid plan costs $9.99 a month for 65,000 requests, and the next costs $39.99 for 650,000. Time zone and currency data are included on Free. Security data such as VPN, proxy, and Tor flags starts on Medium, the $39.99 plan.
 
 ## When you hit a limit
 
@@ -85,21 +88,21 @@ Only successful calls count against your quota. Errors on the provider side and 
 
 ## Gotchas
 
-- A batch lookup of 100 addresses uses 100 of your 150 monthly requests. Use it sparingly on the free plan.
-- Security flags are not part of the free plan. The response includes a security object with null fields; VPN, proxy, and Tor detection needs Small or above.
+- A batch lookup of 100 addresses uses 100 of your 1,000 monthly requests. Use it sparingly on the free plan.
+- Security flags are not part of the free plan. The response includes a security object with null fields; VPN, proxy, and Tor detection needs Medium or above.
 - A 403 status means the endpoint is not allowed on your plan, so check the plan before you build on an endpoint.
 
 ## Alternatives in this atlas
 
 - [IPLocate](/services/iplocate/): when you want a larger daily allowance with full data.
 - [Geolocated.io](/services/geolocated-io/): when you want a daily allowance and a choice of server region.
-- [ip2geo.dev](/services/ip2geo-dev/): when you want a larger monthly allowance and typed SDKs.
+- [ip2geo.dev](/services/ip2geo-dev/): when you want the same monthly allowance with typed SDKs and no per-minute limit.
 
 ## Questions people ask
 
 ### Is ipbase free?
 
-Yes, for testing and personal, non-commercial projects. Free includes 150 monthly requests at up to 10 per minute, with no credit card. Commercial use requires a paid plan.
+Yes, for testing and personal, non-commercial projects. Free includes 1,000 monthly requests at up to 10 per minute, with no credit card. Commercial use requires a paid plan.
 
 ### What happens when I go over the ipbase free limit?
 

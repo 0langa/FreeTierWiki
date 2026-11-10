@@ -16,23 +16,30 @@ tags:
   - cli review
 freeTierDetails:
   summary: >-
-    Free forever for public repositories on GitHub or GitLab. Private
-    repositories need a paid plan, starting at $24 per developer per month
-    billed annually. Paid plans have a 14-day free trial.
+    The open-source plan is free forever for public repositories and gives
+    Team features under its own rate limits. The Free plan covers public and
+    private repositories with pull request summaries only; code reviews on
+    Free run in the VS Code extension and CLI. Full pull request reviews on
+    private repositories start at $24 per developer per month billed annually.
   limits:
-    - Free reviews forever for public repositories
-    - No private repositories on the free open-source plan
+    - 'Open-source plan: unlimited public repositories, 1 to 10 pull request
+      reviews per hour depending on the repository, 100 to 300 files per review'
+    - 'Free plan: unlimited public and private repositories, 1 pull request
+      summary, 3 IDE reviews, and 3 CLI reviews per developer per hour, 150
+      files per review'
     - 'Paid plans: Essentials $24, Team $48, Advanced $72 per developer per
       month billed annually'
     - Paid plans have per-developer hourly review limits of 5 on Essentials, 8
       on Team, and 10 on Advanced
   caveats:
-    - The docs say no credit card is required to create an account
-    - The free open-source plan covers GitHub and GitLab public repositories
+    - The docs say the Free and open-source plans need no credit card
+    - The pricing FAQ describes open-source sign-up through GitHub or GitLab on a public repository
+    - Public repositories with fewer than 10 stars need reviews triggered by hand
+    - New organizations start on a 14-day Advanced trial and revert to Free if they do not subscribe
     - Paid plans can add usage-based reviews at $0.25 per reviewed file, with a
       monthly spending cap you set
     - CodeRabbit Engineer costs $0.40 per agent minute after trial and free minutes
-  resetPeriod: monthly
+  resetPeriod: hourly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -48,21 +55,23 @@ quickstartSteps:
   - Optionally install the IDE extension or the CLI.
 whenToUse: >-
   Use CodeRabbit when you maintain a public repository on GitHub or GitLab and
-  want AI review comments on every pull request, free forever.
+  want AI review comments on pull requests, free forever, or when pull request
+  summaries and editor reviews are enough on private code.
 whenNotToUse: >-
-  Avoid it for private repositories on a free budget. Paid plans start at $24
-  per developer per month billed annually, with a 14-day free trial. Avoid it if
-  your code must never reach a third-party AI service.
+  Avoid it if you need full pull request reviews on private repositories on a
+  free budget. Those start at $24 per developer per month billed annually, with
+  a 14-day free trial. Avoid it if your code must never reach a third-party AI
+  service.
 bestFor:
   - open source maintainers
   - solo developers with public repositories
   - teams that want to try AI review in a trial
 avoidIf:
-  - free reviews of private repositories
+  - free pull request reviews of private repositories
   - strict rules against sending code to AI services
-  - you need review limits per hour spelled out for the free plan
+  - high pull request volume on a small public repository
 productionReadiness: side-project
-lastUpdated: 2026-10-13
+lastUpdated: 2026-11-09
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://coderabbit.ai'
@@ -71,29 +80,34 @@ sourceUrls:
   - https://coderabbit.ai/pricing
   - https://docs.coderabbit.ai/getting-started/quickstart
   - https://docs.coderabbit.ai
-lastVerified: 2026-11-02
+  - https://docs.coderabbit.ai/management/plans
+lastVerified: 2026-11-09
 pricingUrl: 'https://coderabbit.ai/pricing'
 answer: >-
-  CodeRabbit reviews public GitHub and GitLab repositories for free with no credit card and no overage, while private repositories need a paid plan from $24 per developer a month.
+  CodeRabbit's open-source plan reviews public repositories free with Team features and no credit card, while the Free plan gives private repositories pull request summaries only, and full reviews there need a paid plan from $24 per developer.
 
 ---
 You install CodeRabbit on your Git platform and it comments on each new pull request. You can also use it in VS Code, Cursor, Windsurf, or from a command line. It suits maintainers who want a quick AI review.
 
 ## What the free plan gives you
 
-CodeRabbit's open-source plan is free forever. You sign up with GitHub or GitLab, install CodeRabbit on a public repository, and get reviews. The pricing FAQ says no extra setup is needed. Private repositories are not part of this free plan.
+CodeRabbit's open-source plan is free forever. You sign up with GitHub or GitLab, install CodeRabbit on a public repository, and get reviews with Team features and no credit card.
 
-The paid plans add private repositories. Essentials costs $24 per developer per month billed annually, and Team costs $48. Advanced costs $72 and adds continuous security monitoring. The paid plans offer a 14-day trial. The docs say you can sign up with GitHub, GitLab, Azure DevOps, Bitbucket Cloud, or Bitbucket Data Center, and no credit card is required.
+The Free plan covers public and private repositories, also with no credit card. On pull requests it gives summaries only. Code reviews on Free run in the VS Code extension and the CLI. New organizations start on a 14-day Advanced trial and revert to Free if they do not subscribe.
+
+Paid plans add full pull request reviews on private repositories. Essentials costs $24 per developer per month billed annually, Team costs $48, and Advanced costs $72 with continuous security monitoring. The docs list sign-up through GitHub, GitLab, Azure DevOps, Bitbucket Cloud, and Bitbucket Data Center.
 
 ## When you hit a limit
 
-The pricing page does not list limits for the free open-source plan. It does list review limits for paid plans: 5 pull request reviews per developer per hour on Essentials, 8 on Team, and 10 on Advanced, subject to a Fair Usage Policy. The page says there is no total cap on pull requests or repositories.
+The plans docs enforce review limits per developer over rolling hourly windows. Open source allows 1 to 10 pull request reviews per hour depending on the repository, with 100 to 300 files per review. Free allows 1 pull request summary and 3 IDE and 3 CLI reviews per hour, with 150 files per review.
 
-On paid plans, usage-based reviews let reviews continue after the hourly allowance. They cost $0.25 per reviewed file, and admins can pick Automatic, On demand, or Off and set a monthly spending cap. The page bills only developers who create pull requests.
+Paid plans allow 5 pull request reviews per developer per hour on Essentials, 8 on Team, and 10 on Advanced, with no total cap on pull requests or repositories.
+
+Usage-based reviews can continue past the hourly allowance on paid plans at $0.25 per reviewed file, with a monthly spending cap you set.
 
 ## Gotchas
 
-- Free reviews apply to public repositories only. A private repository needs a paid plan or a trial.
+- Free pull request reviews apply to public repositories only. On a private repository, the Free plan gives summaries, and full pull request reviews need a paid plan or the trial.
 - The paid prices on the page assume annual billing. Essentials costs $30 per developer per month when billed monthly.
 - CodeRabbit Engineer for cloud coding tasks, Slack, and automations is separate and costs $0.40 per agent minute after trial and free minutes.
 
@@ -107,7 +121,7 @@ On paid plans, usage-based reviews let reviews continue after the hourly allowan
 
 ### Is CodeRabbit free?
 
-Yes, for public repositories. Sign up with GitHub or GitLab and install CodeRabbit on a public repository for free reviews forever. Private repositories need a paid plan.
+Yes, for public repositories. Sign up with GitHub or GitLab and install CodeRabbit on a public repository for free reviews forever. On private repositories, the Free plan gives pull request summaries and editor or CLI reviews, and full pull request reviews need a paid plan.
 
 ### How much does CodeRabbit cost for private repositories?
 
@@ -115,4 +129,4 @@ Essentials costs $24 per developer per month billed annually. Team costs $48 and
 
 ### Does CodeRabbit need a credit card?
 
-No. The quickstart docs say no credit card is required to create your CodeRabbit account.
+No. The quickstart docs say no credit card is required to create your CodeRabbit account, and the plans docs say the same for the Free and open-source plans.

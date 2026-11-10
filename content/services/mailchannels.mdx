@@ -14,22 +14,25 @@ tags:
 freeTierDetails:
   summary: >-
     The free developer plan sends up to 3,000 emails a month at 100 emails a
-    day, with no overages. Delivery pauses when you reach the limit.
+    day, with no overages. Delivery pauses at the limit, and you must add a
+    payment method to send to anyone other than verified users on your account.
   limits:
-    - 100 emails per day
+    - 100 emails per day, resetting at 00:00 UTC
     - Up to 3,000 emails per month
   caveats:
+    - Until you add a payment method, sending is restricted to verified users on your account; other recipients are rejected with a 550 error
     - Each recipient counts as one send, including deferred, rejected, or spam-marked attempts
     - Unused emails do not roll over to the next month
     - There is no tier between the free plan and the 10,000 emails a month paid plan
   resetPeriod: monthly
-  requiresCard: unknown
+  requiresCard: true
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: none
+  overageRisk: low
 quickstartSteps:
   - Sign up for the Email API from the MailChannels pricing page and choose the Free plan.
   - Generate an API key with api scope and configure a Domain Lockdown DNS TXT record for every sending domain, following the official docs.
+  - Add a payment method if you need to send to anyone other than verified users on your account.
   - Send a test message with an HTTP request and watch your daily count.
 whenToUse: >-
   Use MailChannels when an app or prototype sends fewer than 100 transactional
@@ -44,15 +47,17 @@ bestFor:
 avoidIf:
   - more than 100 emails a day
   - large recipient lists per message
+  - you cannot add a payment method
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-10-21
+lastUpdated: 2026-11-09
+lastVerified: 2026-11-09
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.mailchannels.com/'
 docsUrl: 'https://docs.mailchannels.net/email-api/'
 sourceUrls:
   - 'https://www.mailchannels.com/pricing/'
+  - 'https://docs.mailchannels.com/email-api/billing/pricing'
 pricingUrl: 'https://www.mailchannels.com/pricing/'
 changes:
   - date: '2026-10-21'
@@ -62,7 +67,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  MailChannels' free Email API plan pauses delivery at 100 emails a day and 3,000 a month with no overage, each recipient counts, and the card rule is not confirmed.
+  MailChannels' free Email API plan pauses delivery at 100 emails a day and 3,000 a month, and you must add a payment method to send to anyone but verified users.
 
 ---
 
@@ -70,21 +75,23 @@ MailChannels sells two products: Outbound Filtering for hosting providers, and a
 
 ## What the free plan gives you
 
-The Email API's Free plan is aimed at developers testing, prototyping, or running small projects. It sends up to 3,000 emails a month with no overages, at a rate of 100 emails a day. It includes REST and SMTP integration, up to 3 domains, 30-day transaction logs, and community support.
+The Email API's Free plan is aimed at developers testing, prototyping, or running small projects. It sends up to 3,000 emails a month with no overages, at a rate of 100 emails a day. It includes REST and SMTP integration, up to 3 domains, 30-day transaction logs, and community support. Open and click tracking are on paid plans.
 
-Usage is counted per recipient: one message sent to 100 recipients counts as 100 sends. A send includes any attempted delivery, even one that is deferred, rejected, or marked as spam by the receiving provider. Your allocation resets at the start of each billing cycle, and unused emails do not roll over.
+Until you add a payment method, the docs say you can only send to the addresses of verified users on your account; any other recipient is rejected with a 550 error.
+
+Usage is counted per recipient: one message sent to 100 recipients counts as 100 sends. A send includes any attempted delivery, even a rejected one. Your allocation resets at the start of each billing cycle, and unused emails do not roll over.
 
 ## When you hit a limit
 
-MailChannels pauses delivery when you exceed the plan limit. Its FAQ says delivery resumes next billing cycle or after a prorated upgrade; it does not separately explain daily-cap reset timing. The Free card requirement is also unpublished.
+MailChannels pauses delivery when you reach the daily limit on the free plan, and further API calls to send fail. The docs say the 100-sends-a-day limit resets at 00:00 UTC each day. The FAQ adds that delivery resumes at the next billing cycle or after a prorated upgrade.
 
 So the free plan stops rather than charging you. The FAQ says there is no tier between the free developer plan and the paid plan for 10,000 emails a month, and the pricing overview says the Email API is volume-based from $10 a month after the free amount.
 
 ## Gotchas
 
-- The 100-email daily cap can interrupt a burst even with monthly allowance left; the FAQ does not specify daily recovery timing.
+- The 100-email daily cap can interrupt a burst even with monthly allowance left, and it resets at 00:00 UTC each day.
 - Each recipient counts as a send, so a message to a group uses several sends.
-- Outbound Filtering is a different product for hosting providers, starting at $99.99 a month; it is not the free Email API.
+- Without a payment method, sending is limited to verified users on your account. Outbound Filtering is a separate product for hosting providers, starting at $99.99 a month.
 
 ## Alternatives in this atlas
 
@@ -100,7 +107,7 @@ Yes. The Email API has a free developer plan that includes 100 emails per day, u
 
 ### What happens when I go over the MailChannels free limit?
 
-Delivery pauses. The FAQ describes recovery next billing cycle or on upgrade, but does not separately specify recovery from the daily cap.
+Delivery pauses and further send calls fail. The daily cap resets at 00:00 UTC each day, and the monthly count at the start of the billing cycle.
 
 ### Do unused free emails roll over?
 

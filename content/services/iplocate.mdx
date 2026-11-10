@@ -18,13 +18,13 @@ freeTierDetails:
     - Full data access, same as paid plans
     - Requires a free API key
   caveats:
-    - Enforcement of the listed free allowance is not confirmed in the cited public sources
+    - Requests past the daily quota get a 429 error until it resets at midnight UTC
     - No SLA specified for the free tier
     - Requires a free API key (not anonymous)
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
 quickstartSteps:
   - Sign up on the IPLocate site and get a free API key.
@@ -48,8 +48,8 @@ avoidIf:
   - high-traffic production
   - strict compliance needs
 productionReadiness: prototype
-lastVerified: 2026-11-02
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-10
+lastUpdated: 2026-11-10
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.iplocate.io'
@@ -59,6 +59,7 @@ sourceUrls:
   - https://www.iplocate.io
   - https://www.iplocate.io/pricing
   - https://www.iplocate.io/docs
+  - https://www.iplocate.io/docs/getting-started/quota-rate-limits
 changes:
   - date: '2026-10-21'
     kind: changed
@@ -69,7 +70,7 @@ changes:
     kind: changed
     note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 answer: >-
-  IPLocate's free plan gives an API key 1,000 requests a day of full data with no card, though whether that daily allowance is a hard cap is not confirmed.
+  IPLocate's free plan gives an API key 1,000 requests a day of full data with no card and a hard cap: requests past the daily quota get a 429 error.
 
 ---
 You get a free API key on the website, then send a GET request to `iplocate.io/api/lookup/` with an IP address and your key. There are also client libraries and an MCP server. It suits developers who want full IP data on a free key without a credit card.
@@ -82,7 +83,7 @@ Paid use is optional. You can buy credits in bulk, where one request is one cred
 
 ## When you hit a limit
 
-The pricing page does not say what the API returns after the 1,000 daily requests. It also lists no overage charge for the free plan. The pages do not describe a bill for free-key usage.
+The quota docs say that if you exceed your quota, you get a 429 error. The daily quota resets at midnight UTC, and IPLocate emails you at 90% and 100% of it. The pricing page lists no overage charge for the free plan.
 
 To get more room, buy credits or a monthly quota. The pricing page says all plans use the same API endpoints, so you do not need to change your code.
 
@@ -110,4 +111,4 @@ Yes. You get a free API key when you sign up, and you pass it as the `apikey` pa
 
 ### What happens when I go over the IPLocate free limit?
 
-The pricing page does not say. It lists no overage charge for the free plan, and you can buy credits or a monthly quota for more requests.
+You get a 429 error until the quota resets at midnight UTC. The pricing page lists no overage charge for the free plan, and you can buy credits or a monthly quota for more requests.

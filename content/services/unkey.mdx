@@ -15,25 +15,25 @@ tags:
 freeTierDetails:
   summary: >-
     The free API management plan includes 1k API keys, 150K valid requests a
-    month, unlimited APIs, 1-day log retention, and 3-day audit log
+    month, unlimited APIs, 7-day log retention, and 30-day audit log
     retention.
   limits:
     - 1k API keys
     - 150K valid requests per month
-    - 1-day log retention
-    - 3-day audit log retention
+    - 7-day log retention
+    - 30-day audit log retention
     - Unlimited APIs
   caveats:
     - Team members require a paid API tier or Compute Pro or Business
-    - Billing docs say passing the API quota means moving to a higher tier and receiving an email; exact Free transition behavior is not specified
-    - Unkey Deploy, its app hosting product, is priced separately
+    - Passing the Free quota emails workspace admins; if the workspace is still on Free 5 days later, requests to the Unkey API are limited to 5 per minute until you upgrade
+    - Compute, its app hosting product, is priced separately
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: medium
+  hasHardCap: false
+  overageRisk: none
   billingRiskNotes:
-    - API Management has fixed request-quota tiers; passing a quota means a higher tier, but Free rejection versus automatic upgrade is not explained
+    - Free lists no overage charge; passing the quota brings an email and later a 5-per-minute limit, and upgrading needs a card on file
 quickstartSteps:
   - Sign up for Unkey and create an API in the dashboard.
   - Create a root key and keep it on your server, never in client code.
@@ -42,7 +42,7 @@ whenToUse: >-
   Use Unkey when you are launching an API and want key creation, verification,
   and revocation handled for you within 150K valid requests a month.
 whenNotToUse: >-
-  Avoid the free plan if you need logs older than a day, team members in the
+  Avoid the free plan if you need logs older than 7 days, team members in the
   workspace, or more than 1k keys.
 bestFor:
   - API keys for a new public API
@@ -51,8 +51,9 @@ avoidIf:
   - you need long log retention for free
   - several teammates need dashboard access for free
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-02
+status: changed
+lastUpdated: 2026-11-10
+lastVerified: 2026-11-10
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.unkey.com'
@@ -61,9 +62,13 @@ sourceUrls:
   - 'https://www.unkey.com/docs/platform/billing/usage.md'
   - 'https://www.unkey.com/docs/platform/billing/limits.md'
   - 'https://www.unkey.com/docs/platform/billing/plans.md'
+  - 'https://www.unkey.com/docs/platform/workspace/team.md'
   - 'https://www.unkey.com/pricing'
 pricingUrl: 'https://www.unkey.com/pricing'
 changes:
+  - date: '2026-11-10'
+    kind: changed
+    note: "Free API Management now lists 7-day log retention and 30-day audit log retention, and the limits guide says a workspace still on Free 5 days after passing the quota is limited to 5 API requests a minute until it upgrades."
   - date: '2026-10-21'
     kind: changed
     note: "Defined API billable operations from current usage docs and replaced unsupported card/cap flags with unknown while qualifying tier transitions."
@@ -74,29 +79,29 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Unkey's free API plan includes 1k keys and 150K valid requests a month with 1-day logs, and passing the quota means a higher tier, though whether that upgrade is automatic is not explained.
+  Unkey's free API plan includes 1k keys and 150K valid requests a month with 7-day logs; passing the quota emails admins, and 5 days later a workspace still on Free is limited to 5 API requests a minute until it upgrades.
 
 ---
 
-Unkey is an API key management service. Your backend creates keys for your users through Unkey, and on each incoming request it asks Unkey whether the key is valid. That spares you from building key storage, hashing, expiry, and revocation yourself. Unkey also sells Unkey Deploy, a separate hosting product with its own plans.
+Unkey is an API key management service. Your backend creates keys for your users through Unkey, and on each incoming request it asks Unkey whether the key is valid. That spares you from building key storage, hashing, expiry, and revocation yourself. Unkey also sells Compute, a separate app hosting product with its own plans.
 
 ## What the free plan gives you
 
-On the pricing page's API Management tab, the Free plan is described as everything you need to start fast, with the core tools to protect and manage your API. It includes 1k API keys, 150K valid requests per month, 1-day log retention, 3-day audit log retention, and unlimited APIs.
+On the pricing page's API Management tab, the Free plan is described as everything you need to start fast, with the core tools to protect and manage your API. It includes 1k API keys, 150K valid requests per month, 7-day log retention, 30-day audit log retention, and unlimited APIs.
 
-Pro raises that to 1M API keys and 250K valid requests a month, with 7-day log retention, 14-day audit log retention, and workspaces with team members. Enterprise adds custom quotas, IP whitelisting, and a dedicated Slack channel.
+Pro raises that to 1M API keys and 250K valid requests a month, with 90-day log retention, 90-day audit log retention, and workspaces with team members. Enterprise adds custom quotas, IP whitelisting, and a dedicated Slack channel.
 
 ## When you hit a limit
 
-Current API Management docs define valid billable operations as successful key verifications and standalone rate-limit operations. Invalid, expired and over-limit calls are not billed. Usage covers a calendar month in UTC. The limits guide says passing the quota means moving to a higher tier and receiving an email, but does not specify whether Free requests are rejected or an account is automatically upgraded.
+Current API Management docs define valid billable operations as successful key verifications and standalone rate-limit operations. Invalid, expired and over-limit calls are not billed. Usage covers a calendar month in UTC. On Free, passing the quota emails your workspace admins. If the workspace is still on Free 5 days later, requests to the Unkey API are limited to 5 per minute until you upgrade. Paid tiers are not limited when they pass their quota.
 
 Every workspace starts on Free. The billing guide requires a card before upgrading, but does not give an explicit Free no-card guarantee. API tiers are separate from compute plans and their usage credits.
 
 ## Gotchas
 
-- Logs on the free plan are kept for 1 day, so debugging yesterday's failed verifications is not possible.
+- Logs on the free plan are kept for 7 days, so older failed verifications cannot be inspected.
 - A workspace using only Free API Management has one owner. Team members need a paid API tier or Compute Pro or Business.
-- The pricing page has two tabs, Unkey Deploy and API Management, and their limits are different; this entry covers API Management.
+- The pricing page has two tabs, Compute plans and API Management, and their limits are different; this entry covers API Management.
 
 ## Alternatives in this atlas
 
@@ -115,4 +120,4 @@ Successful key verifications and standalone rate-limit operations count. Invalid
 
 ### How long does Unkey keep logs on the free plan?
 
-1 day for logs and 3 days for audit logs. Pro keeps logs for 7 days and audit logs for 14 days.
+7 days for logs and 30 days for audit logs. Pro keeps both for 90 days.
