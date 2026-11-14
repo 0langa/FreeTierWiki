@@ -145,6 +145,8 @@ The remaining readable queue and rotation require further review. No account cre
 
 npm ci reported 20 dependency vulnerabilities (1 low, 12 moderate, 6 high, 1 critical); dependency remediation is outside this content PR. Full copied evidence remains under ignored development storage.
 
-## Validation blocker
+## Local runner follow-up
 
-The initial build could not create a junction inside the Windows sandbox. The subsequent browser-test prerequisite failed: `npx playwright install chromium` exhausted its download attempts after repeated 30-second timeouts fetching Chrome for Testing 153.0.8010.12 (Playwright Chromium v1243). `npm run test:e2e` consequently failed to launch its required browser. Install the required Chromium build and rerun the end-to-end suite before marking this PR ready. No tests or application settings were changed to bypass this failure.
+The first run hit Windows sandbox restrictions and a Playwright browser download timeout. The follow-up downloaded the exact official Chrome Headless Shell 153.0.8010.12 archive (Playwright v1243), checked its MD5 against the official download response, and extracted it into the project's ignored development/playwright-browsers cache. With PLAYWRIGHT_BROWSERS_PATH set to that cache, the end-to-end suite was rerun outside the Windows sandbox using two workers: 160 passed and 11 skipped. No test assertions or application settings were changed.
+
+The draft remains incomplete because 109 entries are not reviewed and five have unresolved evidence. The automation's instructions now include this local browser setup and explicitly require continuing through readable entries before ending a normal run. Those revised completion instructions have not yet been exercised in another full scheduled run.
