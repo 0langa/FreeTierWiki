@@ -144,3 +144,7 @@ Reddit’s [November 10 changelog](https://support.reddithelp.com/hc/en-us/artic
 The remaining readable queue and rotation require further review. No account creation or owner billing decision is needed for the next public-source comparisons. Prior owner questions are preserved in the manifest without silently choosing a policy. No newly reviewed source was acknowledged on freshness-data.
 
 npm ci reported 20 dependency vulnerabilities (1 low, 12 moderate, 6 high, 1 critical); dependency remediation is outside this content PR. Full copied evidence remains under ignored development storage.
+
+## Validation blocker
+
+The initial build could not create a junction inside the Windows sandbox. The subsequent browser-test prerequisite failed: `npx playwright install chromium` exhausted its download attempts after repeated 30-second timeouts fetching Chrome for Testing 153.0.8010.12 (Playwright Chromium v1243). `npm run test:e2e` consequently failed to launch its required browser. Install the required Chromium build and rerun the end-to-end suite before marking this PR ready. No tests or application settings were changed to bypass this failure.
