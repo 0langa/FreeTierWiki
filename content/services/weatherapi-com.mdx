@@ -17,6 +17,7 @@ freeTierDetails:
     receiving data for that month.
   limits:
     - 100K calls per month
+    - 10 requests per second across the account
     - 3 day forecast
     - Historical weather for the past 1 day
     - 95.5% uptime
@@ -49,8 +50,8 @@ avoidIf:
   - forecasts beyond 3 days
   - an uptime commitment above 95.5%
 productionReadiness: side-project
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.weatherapi.com'
@@ -79,7 +80,9 @@ The Free plan costs $0 a month and includes 100K calls per month. Its forecast c
 
 ## When you hit a limit
 
-The FAQ says that if you go over your calls or requests per month, you stop receiving data for that month. The quota resets at midnight UTC on the first of each month. To keep going sooner, you can buy a top-up of extra calls from your dashboard or upgrade to a higher plan, and no changes are needed in your code. Automatic top-up is only for paid plans. The page describes a stop, not an overage charge, so on the Free plan your app simply gets no data until the next month unless you buy calls or upgrade. Plan for this by caching responses and falling back gracefully when the API stops returning weather.
+At the monthly limit, the API stops returning data until midnight UTC on the first of the next month. There is no overage charge. You can buy a top-up manually in the dashboard or upgrade, keeping the same API key. Automatic top-ups are available on paid plans only. Cache responses or use a fallback while the quota is exhausted.
+
+Free also allows 10 requests per second per account across all its API keys. Requests over that rate receive HTTP 429 with a Retry-After header and do not count against the monthly quota.
 
 ## Gotchas
 

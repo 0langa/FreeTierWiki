@@ -9,6 +9,8 @@ export const SOURCE_NUMERIC_LOCALES = Object.freeze({
   "https://open-meteo.com/en/pricing": "de-DE",
   "https://open-meteo.com/en/terms": "de-DE",
   "https://doczilla.app/pricing": "mixed",
+  "https://logzab.com/pricing/": "de-DE",
+  "https://squidex.io/pricing": "de-DE",
 });
 
 /** @param {unknown} value @returns {NumericLocale | undefined} */

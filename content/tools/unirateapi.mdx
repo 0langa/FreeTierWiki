@@ -23,12 +23,12 @@ freeTierDetails:
     - >-
       Historical data, precious metals, commodity prices, and VAT number validation require the paid
       Pro plan ($9/month)
-    - The pricing page says the free tier has no historical data access
+    - Historical exchange-rate endpoints return HTTP 403 with a Free key. Pages displaying rates must attribute UniRateAPI.
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
 quickstartSteps:
   - "Open unirateapi.com and choose Get Free API Key to register. No credit card is needed."
   - "Copy your API key from your account."
@@ -48,8 +48,8 @@ avoidIf:
   - "high request volumes"
   - "priority support"
 productionReadiness: prototype
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://unirateapi.com'
@@ -59,6 +59,9 @@ sourceUrls:
   - https://unirateapi.com
   - https://unirateapi.com/pricing
   - https://unirateapi.com/docs/python
+  - 'https://unirateapi.com/forex-api'
+  - 'https://unirateapi.com/docs/go'
+  - 'https://unirateapi.com/terms'
 changes:
   - date: '2026-10-21'
     kind: changed
@@ -66,7 +69,7 @@ changes:
       Recorded conflicting historical-data and currency-count claims and removed an inferred no-bill
       assurance.
 answer: >-
-  UniRateAPI's free tier allows 200 requests a day and 30 a minute with no card, covering live fiat and crypto rates, though sources conflict on historical data and the currency count.
+  UniRateAPI's free tier allows 200 requests a day and 30 a minute with no card, covering live fiat and crypto rates, while historical exchange-rate endpoints require Pro.
 
 ---
 You call UniRateAPI with a GET request and an API key from any language. The docs also show an official Python client that you install with pip. It suits developers who add currency conversion to apps, shops, and dashboards.
@@ -75,7 +78,7 @@ You call UniRateAPI with a GET request and an API key from any language. The doc
 
 The Free tier costs $0 a month, lasts forever, and needs no credit card. The site calls it good for testing and personal projects. You get 200 requests a day, which the pricing page puts at 6,000 a month, with a limit of 30 requests per minute. The pricing page lists 170+ fiat currencies, and both pricing and the home page include 500+ cryptocurrencies. The homepage’s headline says 593 currencies, while another section says 870+, so the exact current total is inconsistent.
 
-Free also includes EU VAT rates, IBAN validation, holiday/business-day calendars, and central-bank rates/CPI history. Historical exchange rates are excluded by pricing despite conflicting homepage copy.
+Free also includes EU VAT rates, IBAN validation, holiday/business-day calendars, and central-bank rates/CPI history. The pricing and API guides reserve historical exchange-rate endpoints for Pro, although the homepage lists historical forex under Free.
 
 ## When you hit a limit
 
@@ -85,9 +88,9 @@ The Free plan lists no excess-use rate; requests stop at the daily cap. Pro cost
 
 ## Gotchas
 
-- The dedicated pricing page puts historical rates on Pro; Free history conflicts with the homepage. Precious metals, commodity prices and VAT number validation are consistently paid features.
+- Precious metals, commodity prices and VAT number validation require Pro.
 - The 30/minute limit also applies. Data is informational, not for trading/investing; the provider prohibits redistribution.
-- The homepage includes historical forex in its Free card, while the dedicated pricing page excludes history. Treat historical access as unresolved and confirm entitlement before relying on it.
+- UniRateAPI requires a visible attribution link when you display its exchange rates.
 
 ## Alternatives in this atlas
 
@@ -106,4 +109,4 @@ Requests return a 429 error until the limit resets at midnight UTC. You can upgr
 
 ### Does UniRateAPI give historical exchange rates for free?
 
-The dedicated pricing page says no and lists history on Pro at $9 a month. The homepage’s Free card conflicts with that description, so confirm account entitlement.
+No. The API guide documents an HTTP 403 response when a Free key calls a historical endpoint. Pro starts at $9 per month.

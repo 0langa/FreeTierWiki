@@ -2,7 +2,7 @@
 title: Mockaroo
 description: >-
   Mockaroo generates realistic test data as CSV, JSON, SQL, or Excel and serves
-  mock APIs. The free plan allows files of up to 1,000 rows and 200 API
+  mock APIs. The free plan allows browser files of up to 1,000 rows and 200 API
   requests a day.
 provider: Mockaroo
 domain: devops
@@ -16,18 +16,19 @@ tags:
   - json
 freeTierDetails:
   summary: >-
-    The free plan generates files of up to 1,000 rows each with no daily limit
-    on browser downloads, and allows 200 API requests a day.
+    The free plan generates browser files of up to 1,000 rows with no daily
+    download limit. The API allows 200 requests a day and documents up to
+    5,000 records per Generate API download on Free.
   limits:
-    - 1,000 rows per file
+    - 1,000 rows per browser file
+    - 5,000 records per Generate API download according to the API docs
     - No daily limit on files downloaded from the browser
     - 200 API requests per day
     - 1x generation speed
   caveats:
     - API access needs an account and an API key
-    - Pricing lists 1,000 rows per file; API docs separately describe 5,000 Free records per download
     - Paid plans limit records per day instead of requests
-    - The pricing page and docs do not state a card rule for the free plan
+    - The pricing page and docs do not state a card rule for Free API signup
   resetPeriod: daily
   requiresCard: unknown
   freeTierType: always-free
@@ -52,8 +53,8 @@ avoidIf:
   - you need more than 1,000 rows per file
   - your CI calls the API many times a day
 productionReadiness: side-project
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.mockaroo.com'
@@ -70,7 +71,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Mockaroo's free plan allows 1,000 rows per file in browser downloads and 200 API requests a day with no overage, though the API docs say 5,000 records, and the card rule and daily exhaustion behavior are not confirmed.
+  Mockaroo allows 1,000 rows per browser file and documents up to 5,000 per Free Generate API download, with 200 API requests a day and no published signup-card or exhaustion policy.
 
 ---
 
@@ -91,7 +92,7 @@ The docs explain that free plans are limited to 200 requests per day, while Silv
 ## Gotchas
 
 - The API limit counts requests, not rows, so many small requests from a test suite use the free 200 quickly.
-- Browser pricing lists 1,000 rows per file, while Generate API docs separately describe 5,000 records per Free download. Confirm the API-specific limit rather than assuming both routes match.
+- The Generate API documents up to 5,000 records per Free download. Browser downloads cap each file at 1,000 rows.
 - Paid plans are priced per year, not per month, so there is no cheap one-month upgrade for a single big job.
 
 ## Alternatives in this atlas
@@ -104,7 +105,7 @@ The docs explain that free plans are limited to 200 requests per day, while Silv
 
 ### Is Mockaroo free?
 
-Yes. The free plan generates files of up to 1,000 rows and allows 200 API requests a day.
+Yes. Free includes browser downloads of up to 1,000 rows per file and 200 API requests a day.
 
 ### How many rows can I generate for free?
 

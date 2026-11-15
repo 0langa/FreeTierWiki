@@ -25,10 +25,10 @@ freeTierDetails:
     - 25 provisioned Read Capacity Units
     - '~200 million requests/month (DynamoDB Standard table class)'
     - 2.5 million DynamoDB Streams read requests/month
-    - 1 GB of data transfer out per month
+    - Internet transfer allowance is shared across AWS services; check destination and Region
   caveats:
     - Most new AWS customers need no payment method, but identity verification may require one
-    - The allowance covers provisioned capacity on the Standard table class; on-demand tables are billed per request
+    - Free read and write capacity is for provisioned Standard tables. Standard storage can also qualify in on-demand mode, where reads and writes are billed per request
     - A Free account plan ends after six months or when credits run out, and access is suspended; a Paid upgrade within 90 days restores data
     - On the Paid account plan, usage past the allowance is billed at standard rates
   resetPeriod: monthly
@@ -52,8 +52,7 @@ whenToUse: >-
   capacity units covers you.
 whenNotToUse: >-
   Skip it if you need SQL joins or complex relational queries. Skip it if you
-  cannot watch your capacity mode, because on-demand tables fall outside the
-  free allowance.
+  cannot watch your capacity mode, because on-demand reads and writes are billed per request.
 bestFor:
   - Serverless apps on AWS
   - Prototypes and learning
@@ -63,8 +62,8 @@ avoidIf:
   - You want a free tier with no AWS account
   - You need heavy on-demand traffic for free
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/dynamodb/'
@@ -97,9 +96,9 @@ You use DynamoDB from the AWS console, the AWS CLI, or an AWS SDK. It suits deve
 
 ## What the free plan gives you
 
-The DynamoDB free tier is enough for about 200 million requests a month, depending on item size. Each month, per Region and per payer account, you get 25 write capacity units, 25 read capacity units, and 25 GB of storage. You also get 25 replicated write units for global tables across two Regions, 2.5 million stream read requests, and 1 GB of data transfer out.
+The DynamoDB free tier is enough for about 200 million requests a month, depending on item size. Each month, per Region and per payer account, you get 25 write capacity units, 25 read capacity units, and 25 GB of storage. AWS lists 25 replicated write units for global tables across two Regions and 2.5 million Streams read requests. Internet transfer is shared across AWS services. The DynamoDB overview and its transfer details cite different free figures, so check the transfer rates for your destination.
 
-The allowance applies to provisioned capacity and the Standard table class. It is a recurring monthly allowance. It does not apply to on-demand tables.
+The monthly read and write capacity allowance applies to provisioned Standard tables. The first 25 GB of Standard storage also applies to on-demand tables, which bill for reads and writes by request.
 
 New AWS accounts also get up to $200 in credits for up to 6 months.
 
@@ -111,7 +110,7 @@ On a Paid account plan, usage beyond the free allowance is billed at standard ra
 
 ## Gotchas
 
-- On-demand capacity is not part of the free allowance. The CLI example in the getting-started guide creates a table in pay-per-request mode.
+- On-demand reads and writes do not use the provisioned capacity allowance. The CLI example in the getting-started guide creates a table in pay-per-request mode.
 - The Free account plan suspends access when it ends, so the always-free allowance only lasts beyond six months on a Paid plan.
 - Some actions upgrade a Free account plan to Paid automatically, such as joining AWS Organizations.
 

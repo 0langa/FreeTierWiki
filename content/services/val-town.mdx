@@ -1,9 +1,7 @@
 ---
 title: Val Town
 description: >-
-  Val Town lets you write, run, and host small TypeScript programs in the
-  browser, with HTTP endpoints, cron jobs, and email handlers. It is for
-  developers who want scripts and webhooks online fast.
+  Val Town hosted TypeScript programs and webhooks. New signups ended November 10, 2026, and existing apps stop running January 10, 2027.
 provider: Val Town
 domain: compute
 tags:
@@ -15,7 +13,7 @@ tags:
   - http endpoints
   - mcp server
 freeTierDetails:
-  summary: 'Free plan: 100,000 runs per day, cron every 15 minutes, 1 minute per run.'
+  summary: Existing accounts only. New signups and upgrades ended November 10, 2026. Hosted apps stop January 10, 2027.
   limits:
     - '100,000 runs per day'
     - Cron intervals of 15 minutes or more
@@ -23,49 +21,49 @@ freeTierDetails:
     - Public vals; pricing says unlimited, but the limits page caps all vals at 2,500
     - 3 days of log retention
   caveats:
-    - Private vals, custom domains, and email to others need a paid plan
+    - Private vals, custom domains, and email to others are limited to existing paid subscriptions during the wind-down
     - Log retention is 3 days on Free
-    - Some limits are soft-enforced and may change
+    - Existing subscriptions continue free during the wind-down
+    - Code becomes read-only December 10, 2026
   resetPeriod: daily
   requiresCard: unknown
   freeTierType: always-free
   hasHardCap: unknown
-  overageRisk: low
+  overageRisk: none
 quickstartSteps:
-  - 'Sign up at val.town.'
-  - 'Create a new val and open the editor.'
-  - 'Click Add trigger and choose HTTP, cron, or email.'
-  - 'Write a TypeScript file whose default export takes a Request and returns a Response (for HTTP), then save.'
-  - 'Copy the val.run URL of the HTTP trigger and open it in a browser.'
+  - Open the Val Town migration guide and list the scripts, schedules, and endpoints you still need.
+  - Copy source code and move any SQLite or blob data the app needs.
+  - Test the app on a replacement host, then update callers or redirect the old val.run URL.
 whenToUse: >-
-  Use it to get small scripts, webhooks, and scheduled jobs online in minutes
-  without setting up hosting.
+  Use the remaining access to move existing vals before the hosted service closes.
 whenNotToUse: >-
-  Avoid it for long jobs beyond 1 minute on Free, for code that must stay
-  private, or for custom domains on the free plan.
+  New projects need a different host. Val Town stopped taking signups November 10, 2026.
 bestFor:
-  - scripts
-  - webhooks
-  - prototypes
+  - migrating existing scripts and webhooks
 avoidIf:
-  - long-running jobs
-  - private code on the free plan
-  - custom domains on the free plan
+  - new deployments
+  - hosting beyond January 10, 2027
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.val.town'
 docsUrl: 'https://docs.val.town'
 sourceUrls:
+  - https://blog.val.town/winding-down
+  - https://docs.val.town/migration
   - 'https://www.val.town/pricing'
   - 'https://www.val.town/limits'
   - 'https://docs.val.town/vals/'
   - 'https://docs.val.town/vals/http/'
   - 'https://docs.val.town/vals/cron/'
 pricingUrl: 'https://www.val.town/pricing'
+status: ended
 changes:
+  - date: 2026-11-10
+    kind: ended
+    note: New signups and upgrades ended November 10. Code goes read-only December 10, and hosted apps stop running January 10, 2027.
   - date: 2026-10-21
     kind: changed
     note: "Recorded conflicting public-val counts and qualified unpublished Free card, exhaustion and billing policy."
@@ -73,45 +71,44 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Val Town allows 100,000 runs a day and 1 minute per run on Free, but pricing says public vals are unlimited while the limits page states 2,500, and a hard cap is not confirmed.
+  Val Town ended new signups and upgrades on November 10, 2026, and existing apps run without subscription charges until the hosted service shuts down January 10, 2027.
 
 ---
-You write TypeScript in the Val Town editor, add an HTTP, cron, or email trigger, and save. Your code runs on the Deno runtime, and each file change is versioned. You can also use the CLI or an AI agent through the MCP server. It suits people who want small scripts and webhooks online without setting up hosting.
+Val Town hosted small TypeScript programs with HTTP, cron, and email triggers. It ran them on Deno and provided version history, a browser editor, and public endpoints. The company is winding down its hosted service.
 
 ## What the free plan gives you
 
-The Free plan costs $0. It includes 100,000 runs per day. Pricing advertises unlimited public vals, but the detailed limits page caps total vals at 2,500. Each run can last 1 minute of wall-clock time. Cron triggers can run as often as every 15 minutes, with up to 10 crons per val. Logs are kept for 3 days, with 100,000 log lines per day.
+Existing Free accounts can keep running their apps during the wind-down. The published Free limits are 100,000 runs per day, 1 minute per run, and a minimum 15-minute cron interval. Logs are available for 3 days. Pricing advertises unlimited public vals, while the limits page lists 2,500 total vals. Free accounts have no private vals or custom domains and can only use built-in email to send to themselves.
 
-It allows 0 private vals and 0 custom domains. You can email yourself from a val, but not other people. The limits page also says the API allows 1,000 requests per minute for authenticated calls, and a worker can use up to 4 GiB of memory.
+Val Town stopped accepting signups and plan upgrades on November 10, 2026. It also paused billing and says existing subscriptions will continue at no charge during the wind-down.
 
 ## When you hit a limit
 
-The pricing and limits pages do not say what happens after 100,000 runs in a day. The limits page says Val Town enforces these limits, that they may change, and that some are soft-enforced. Free card requirements and excess-usage billing are not stated. Contact Val Town if a limit blocks legitimate use.
+Existing accounts remain subject to their documented runtime and plan limits. The detailed limits page says some limits are enforced flexibly and does not say how it handles a day over 100,000 runs. With upgrades closed, move work that needs more capacity to the replacement host.
 
-A run that goes past the 1 minute execution timeout stops. Pro raises the timeout to 10 min, the cron interval to 1 minute, and the daily runs to 1,000,000.
+Hosted code becomes read-only on December 10, 2026. The announcement excludes SQLite and blob storage from that read-only step. Existing apps continue to run until January 10, 2027, when hosted services stop.
 
 ## Gotchas
 
-- Free vals are public. Private vals need the Pro plan.
-- A cron cannot run more often than every 15 minutes on Free. Crons run in UTC.
-- Free logs last only 3 days, so debug failures soon after they happen.
+- Move code you still need to edit before December 10, 2026, and transfer app data before shutdown.
+- If you migrate a webhook, update the sender to the new endpoint. Some webhook callers do not follow redirects.
+- Val Town plans to release its source code on February 1, 2027.
 
 ## Alternatives in this atlas
 
 - [Cloudflare Workers](/services/cloudflare-workers/): when you want a different set of free limits for HTTP handlers.
-- [Deno Deploy](/services/deno-deploy/): when you want to deploy your own Deno projects from Git.
 - [Windmill.dev](/services/windmill-dev/): when you want scripts and workflows in one platform.
 
 ## Questions people ask
 
-### Is Val Town free?
+### Can I sign up for Val Town for free?
 
-Yes. The Free plan costs $0 and includes 100,000 runs per day and 1 minute of wall-clock time per run. Public vals are advertised as unlimited, although the limits page lists a 2,500-val total cap.
+New signups and plan upgrades ended on November 10, 2026. Current users can still access their existing plan during the shutdown period.
 
-### Can Val Town run cron jobs for free?
+### When will Val Town stop running existing apps?
 
-Yes, but a cron on the Free plan can run at most once every 15 minutes. The Pro plan allows once a minute.
+Existing apps run until January 10, 2027. Code on the service becomes read-only on December 10, 2026.
 
-### Can I keep my Val Town code private for free?
+### Will Val Town keep billing existing customers?
 
-No. The Free plan allows 0 private vals. Pro allows 2,000.
+Val Town paused billing on November 10, 2026. It says existing subscriptions will continue free during the wind-down and customers who prepaid annually will receive a partial refund.

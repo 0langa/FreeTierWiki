@@ -26,14 +26,14 @@ freeTierDetails:
     - 1 request per second
     - One credit pool for all 16 APIs
   caveats:
-    - Failed requests cost no credits
+    - Provider-side failures cost no credits
     - Credits renew every month; higher throughput needs a paid plan
     - 'Screenshots and PDFs cost 5 credits each, search costs 2'
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
 quickstartSteps:
   - >-
     Sign up for a free Geekflare account. No card is needed, and your API key is
@@ -66,8 +66,8 @@ avoidIf:
   - enterprise
   - need guaranteed uptime
 productionReadiness: prototype
-lastUpdated: '2026-11-09'
-lastVerified: 2026-11-09
+lastUpdated: '2026-11-15'
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://geekflare.com/'
@@ -75,7 +75,9 @@ docsUrl: 'https://docs.geekflare.com/'
 sourceUrls:
   - 'https://geekflare.com/pricing/'
   - 'https://geekflare.com/'
+  - 'https://docs.geekflare.com/'
   - 'https://docs.geekflare.com/quickstart'
+  - 'https://docs.geekflare.com/credit-exhausted'
 pricingUrl: 'https://geekflare.com/pricing/'
 changes:
   - date: '2026-10-21'
@@ -84,7 +86,7 @@ changes:
       Qualified unpublished zero-credit enforcement instead of asserting a
       guaranteed hard stop.
 answer: >-
-  Geekflare API's free plan gives 500 credits a month, one request per second, and seven days of logs with no card, but what happens at zero credits, including any charge, is unpublished.
+  Geekflare API Free includes 500 monthly credits, one request per second and seven days of logs with no card, and returns HTTP 402 when credits run out until they renew or you buy more.
 
 ---
 
@@ -94,15 +96,15 @@ You send requests with one API key from any language, or try them first in the p
 
 The Free plan costs $0 per month and needs no card. It gives you 500 credits per month, 1 team member, 7 days of log retention, and 1 request per second. All 16 APIs share one credit pool and one API key.
 
-Credits are charged by endpoint. A scraped page costs 0.25 credits without a browser and 1 credit with JavaScript. Page metadata, DNS lookups, redirect checks, and site status checks cost 0.5 credits. Search costs 2. Screenshots and PDFs cost 5. Failed requests cost nothing.
+Credits are charged by endpoint. A scraped page costs 0.25 credits without a browser and 1 credit with JavaScript. Page metadata, DNS lookups, redirect checks, and site status checks cost 0.5 credits. A basic search costs 2 credits. Returning full pages or an AI answer increases the cost. Screenshots and PDFs cost 5. Provider-side failures cost nothing, and the pricing page says invalid input generally costs nothing.
 
-The scraping endpoint renders JavaScript when a page needs it. CAPTCHA solving and anti-bot bypass are included in the base scraping price. The other endpoints cover load time, TLS scans, broken link checks, Lighthouse, port scans, and site status.
+Scraping supports JavaScript rendering and includes CAPTCHA solving and anti-bot bypass. Other endpoints cover load time, TLS, broken links, Lighthouse, port scans, and site status.
 
 ## When you hit a limit
 
-The free tier renews every month at 500 credits. If they run out, the FAQ points to monthly renewal or a manual purchase but does not publish the exact rejection or enforcement response. You can also pay for a plan or buy a credit pack. Paid plans start at $19 per month. Credit packs start at $10 and need no subscription.
+The free tier renews every month at 500 credits. At zero credits, the API returns HTTP 402 and blocks requests until you add credits or they renew. Paid plans start at $19 per month. You can buy optional credit packs from $10 without a subscription. Pricing says packs are valid for one year, while the error guide says they do not expire.
 
-Speed has its own limit. Free allows 1 request per second, Starter 5, Growth 10, and Business 25. For more, the company asks you to contact them. The page does not say what happens when you go over the rate, so add a delay between calls.
+Speed has its own limit. Free allows 1 request per second, Starter 5, Growth 10, and Business 25. For more, the company asks you to contact them. The API docs say that exceeding the request rate returns HTTP 429.
 
 ## Gotchas
 
@@ -124,8 +126,8 @@ Yes. The Free plan gives 500 credits per month with no card. It renews every mon
 
 ### What happens when Geekflare free credits run out?
 
-The free tier renews every month at 500 credits. Paid plans start at $19 per month, or you can buy a credit pack from $10 without a subscription.
+The API returns HTTP 402 and blocks requests until your 500 credits renew or you add credits. You can buy a credit pack from $10 without a subscription.
 
 ### Do failed Geekflare API requests use credits?
 
-No. The site says failed requests cost nothing.
+Geekflare says requests that fail on its side cost no credits and that invalid input generally costs nothing.

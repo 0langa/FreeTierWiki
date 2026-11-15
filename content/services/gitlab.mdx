@@ -16,23 +16,21 @@ tags:
 freeTierDetails:
   summary: >-
     Free tier includes 400 compute minutes per month, 10 GiB of storage, and 5 users per top-level
-    group. A card is needed to use the shared runners.
+    group. Hosted runners may require identity verification using a card.
   limits:
     - 400 compute minutes per month
     - 5 users per private top-level group
     - 10 GiB of Git repository and LFS storage per project
     - Static application security testing is included
   caveats:
-    - >-
-      Using GitLab shared runners needs a credit or debit card on file; GitLab verifies it with a
-      one-dollar authorization and makes no charge
-    - Your own runners and storage need no card
+    - GitLab-hosted runners can require identity verification by email, phone or card depending on account risk
+    - Self-managed runners do not consume GitLab-hosted compute minutes
     - You can purchase additional compute minutes
     - >-
       The Premium plan costs $29 per user per month, billed annually, and has unlimited licensed
       users
   resetPeriod: monthly
-  requiresCard: true
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: low
@@ -63,14 +61,16 @@ avoidIf:
   - you need more than 400 shared-runner minutes for free
   - you cannot provide a card for shared runners
 productionReadiness: production-light
-lastVerified: 2026-11-09
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://about.gitlab.com/'
 docsUrl: 'https://docs.gitlab.com/'
 pricingUrl: 'https://about.gitlab.com/pricing/'
 sourceUrls:
+  - https://docs.gitlab.com/ci/debugging/
+  - https://docs.gitlab.com/security/identity_verification/
   - 'https://about.gitlab.com/pricing/'
   - 'https://docs.gitlab.com/ci/pipelines/compute_minutes/'
   - 'https://docs.gitlab.com/user/project/'
@@ -82,7 +82,7 @@ changes:
     kind: changed
     note: "Scoped five-user cap to private top-level groups, storage to repository/LFS per project, and described runner grace/enforcement plus purchased-minute validity."
 answer: >-
-  GitLab's free tier includes 400 compute minutes a month, and shared runners require a card, checked with a one-dollar authorization that is not itself a charge.
+  GitLab’s Free plan includes 400 compute minutes each month, and hosted runners may require a card for identity verification, which GitLab handles separately from billing.
 
 ---
 You use GitLab.com in the browser and push code with Git. Each project has its own repository, issues, and merge requests. It suits solo developers, open-source maintainers, and private groups of up to 5 people; public top-level groups are exempt from that user cap.
@@ -103,7 +103,7 @@ You can purchase additional compute minutes. The docs say purchased minutes are 
 
 ## Gotchas
 
-- The shared runners need a credit or debit card on file. GitLab verifies it with a one-dollar authorization and makes no charge. A bring-your-own runner needs no card.
+- GitLab may ask for a phone number or card before you can use hosted runners. A self-managed runner avoids the hosted-runner verification step.
 - The five-user limit applies only to private top-level groups; public top-level groups and qualifying community programs are exempt. The compute quota applies to the group, no matter how many users it has.
 - AI features come from a separate credits add-on and are not part of the Free plan.
 
@@ -121,7 +121,7 @@ Yes. The Free plan includes 5 users per private top-level group, 400 compute min
 
 ### Does GitLab need a credit card?
 
-The pricing page says no card is needed for the Free plan. You do need a credit or debit card to use the shared runners, and GitLab verifies it with a one-dollar authorization and makes no charge.
+There is no card for the Free subscription itself. GitLab can ask some users for a card to verify their identity, including before running jobs on GitLab-hosted runners. Verification is separate from billing and does not charge the card.
 
 ### What happens when I use up my GitLab CI minutes?
 

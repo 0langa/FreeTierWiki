@@ -29,7 +29,7 @@ quickstartSteps:
   - 'Create TavilyClient(api_key=...) and call search with a question.'
   - 'A basic search costs 1 credit and an advanced search costs 2.'
 whenToUse: 'Use Tavily when an AI app or agent needs current web results, page content, or crawled sites through one API.'
-whenNotToUse: 'Avoid it for high-volume search. The Free plan stops at 1,000 credits per month, and production rate limits need a paid plan or pay as you go.'
+whenNotToUse: 'Avoid it for high-volume search. The Free plan stops at 1,000 credits per month, and higher plan-wide rate limits need a paid plan or pay as you go.'
 bestFor:
   - 'developers building LLM apps'
   - 'AI agent prototypes'
@@ -40,8 +40,8 @@ avoidIf:
   - 'you need production rate limits without paying'
   - 'you need a guaranteed SLA on the free plan'
 productionReadiness: prototype
-lastVerified: 2026-11-10
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://tavily.com/'
@@ -67,7 +67,7 @@ You call Tavily through a REST API, a Python or JavaScript SDK, or the playgroun
 
 The Researcher plan is free and includes 1,000 API credits per month with email support. No credit card is required. Credits reset on the first day of each month.
 
-Each request spends credits based on its type. A basic search costs 1 credit and an advanced search costs 2. Basic extraction costs 1 credit for every 5 successful URLs, and advanced extraction costs 2 credits for every 5. Mapping costs 1 credit for every 10 successful pages, or 2 credits when you supply natural-language instructions. A research task costs between 4 and 250 credits, depending on the model.
+Each request spends credits based on its type. A basic search costs 1 credit and an advanced search costs 2. Basic extraction costs 1 credit for every 5 successful URLs, and advanced extraction costs 2 credits for every 5. Every ten successful mapped pages cost one credit, or two with natural-language instructions. A research task costs between 4 and 250 credits, depending on the model.
 
 Paid plans start at 4,000 credits for $30 per month. Pay as you go costs $0.008 per credit. The pricing page also lists free access for students.
 
@@ -75,12 +75,12 @@ Paid plans start at 4,000 credits for $30 per month. Pay as you go costs $0.008 
 
 When you use all 1,000 credits, requests stop until the credits reset or you upgrade to a paid plan. The FAQ says this directly, so the free plan cannot run up a bill.
 
-Rate limits also apply. Production keys, with 1,000 requests per minute, need a paid plan or pay as you go. Without one, expect the development limit of 100 requests per minute. The crawl endpoint is limited to 100 requests per minute on both key types.
+Researcher allows 100 requests per minute across keys in the same organization or personal account. Paid Project, Bootstrap, and Startup plans and pay-as-you-go allow 1,000 requests per minute. All plans share endpoint-specific limits of 100 per minute for crawl and map, and 20 for research.
 
 ## Gotchas
 
-- Credits are not requests. An advanced search, a crawl, or a research task uses more credits than a basic search.
-- Failed extractions and failed map requests are not charged.
+- Advanced search, crawling, and research can use more credits than a basic search. Failed extractions and map requests use no credits.
+- On nonpaying plans, live searches using `max_age_hours` can receive HTTP 434 when the service is under load.
 - The pricing page lists SLAs only under Enterprise, so do not build a critical service on the free plan.
 
 ## Alternatives in this atlas

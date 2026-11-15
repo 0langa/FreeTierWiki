@@ -22,11 +22,11 @@ freeTierDetails:
     - 25 MB per site
     - 10 GB monthly transfer per owner, excluding CDN cache hits
     - 60 publishes per hour
-    - 10 versions kept per site
+    - 10 versions kept per site by default
     - 1 custom domain and 1 webhook
     - 4 MB per single request body; larger sites use a manifest upload
   caveats:
-    - Free sites are public only; a site password needs a paid plan
+    - Setting a site password needs a paid plan; an existing password survives downgrade until cleared
     - The token is shown once, and without an optional recovery email a lost token cannot be restored
     - Free sites show a small Published with deed.page badge; removing it needs Hobby or a one-time $9 clean publish for one site
     - deed.page launched in late September 2026; its terms were published September 28, 2026 and updated November 4, 2026
@@ -57,8 +57,8 @@ avoidIf:
   - you need private sites for free
   - you need more than 25 MB per site
 productionReadiness: side-project
-lastUpdated: 2026-11-09
-lastVerified: 2026-11-09
+lastUpdated: '2026-11-15'
+lastVerified: '2026-11-15'
 popularityScore: 2
 usefulnessScore: 6
 officialUrl: 'https://deed.page/'
@@ -76,7 +76,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  deed.page needs no signup for 25 public sites of 25 MB each and 10 GB monthly transfer per owner, payment requires human checkout, and a lost token cannot be restored without a recovery email.
+  deed.page needs no signup for 25 sites of 25 MB each and 10 GB monthly transfer per owner, payment requires human checkout, and a lost token cannot be restored without a recovery email.
 
 ---
 
@@ -84,7 +84,7 @@ deed.page hosts static sites that are published by a single HTTP request. Send a
 
 ## What the free plan gives you
 
-The pricing page lists a Free plan at $0 with 25 sites, 25 MB per site, 60 publishes an hour, 10 versions kept, 1 custom domain, public sites only, and 1 webhook. Free also has a 10 GB monthly fair-use transfer cap per owner; files served from the CDN cache do not count. It says there is no signup and that an email is never required. Analytics, the MCP server and subdomains come with every plan, and sites never expire. Free sites show a small deed.page badge; a one-time $9 clean publish removes it from one site.
+Free includes 25 sites, 25 MB per site, 60 publishes an hour, 1 custom domain, 1 webhook, and 10 saved versions per site. A one-time share point raises retention to 20 versions per site. Each owner gets 10 GB of monthly transfer. Files served from the CDN cache are exempt. Publishing requires neither signup nor email. Analytics, the MCP server and subdomains come with every plan, and sites never expire. Free sites show a small deed.page badge; a one-time $9 clean publish removes it from one site.
 
 Paid plans attach to the same token. Hobby is $3 a month for 250 sites of 100 MB with no badge, and Pro is $15 a month for 2,500 sites of 500 MB. A human pays a Stripe checkout link.
 
@@ -92,7 +92,7 @@ Paid plans attach to the same token. Hobby is $3 a month for 250 sites of 100 MB
 
 Publishing past the site limit returns quota_sites (403); exceeding the site-size cap returns quota_bytes (413). A request body over 4 MB returns request_too_large. Larger sites need manifest uploads and must still fit the per-site cap.
 
-At 80% of the monthly transfer cap, the agent receives an upgrade warning. Above the cap, that owner’s sites show a limit page until the next month or an upgrade.
+At 80% of the monthly transfer cap, the agent receives an upgrade warning. Above the cap, that owner’s sites show a limit page until the next calendar month in UTC or an upgrade.
 
 Exceeding the hourly publish limit returns rate_limited (429), retry_after and a Retry-After header. Free limits stop requests or serving instead of adding charges.
 
@@ -100,7 +100,7 @@ Exceeding the hourly publish limit returns rate_limited (429), retry_after and a
 
 - The token is shown once and the service keeps only a hash of it. Without the optional recovery email, a lost token cannot be restored, and the sites can no longer be updated.
 - Publishing new slugs with the same token keeps them under one owner, so the 25-site limit applies per token.
-- Free sites are always public; the site password is a Hobby and Pro feature, and only static files are served.
+- Setting a site password requires Hobby or Pro. An existing password stays in effect after downgrading until you clear it.
 
 ## Alternatives in this atlas
 

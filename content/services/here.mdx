@@ -1,8 +1,7 @@
 ---
 title: HERE
 description: >-
-  HERE Location Services are map rendering, geocoding, search, routing, and
-  traffic APIs. Its no-payment Limited Plan has a published daily allowance.
+  HERE Location Services provide map tiles, geocoding, search, routing, and traffic APIs. The Base Plan includes monthly free transactions by product and requires a payment method.
 provider: HERE
 domain: apis
 tags:
@@ -13,37 +12,32 @@ tags:
   - location-api
 freeTierDetails:
   summary: >-
-    The no-payment Limited Plan allows 1000 daily requests with per-service
-    rate limits. Base has separate monthly free tiers and paid transactions,
-    including 30,000 free vector-tile and 30,000 geocoding transactions.
+    The Base Plan requires a payment method and includes separate monthly allowances of 30,000 vector-tile transactions and 30,000 geocode and reverse-geocode transactions. Usage above the free tier is billed by product.
   limits:
-    - Limited Plan 1000 requests/day without payment information
-    - Geocode/reverse geocode/search/autocomplete 5 requests/second
-    - Vector/raster tiles 50 requests/second; map images 2 requests/second
-    - Routing 10 requests/second; matrix routing 1 request/second
-    - Base separately includes 30,000 monthly vector-tile transactions and 30,000 geocode/reverse-geocode transactions
+    - 30,000 vector-tile transactions per month
+    - 30,000 geocode and reverse-geocode transactions per month
+    - One request counts as one transaction for either of these products
   caveats:
-    - Permanent Geocoding is not included in the Base Plan
-    - Asset management, telematics and optimization are excluded; Base specifically allows Tour Planning for optimization
+    - The no-card Limited Plan retired on August 31, 2025
+    - Permanent Geocoding is excluded from Base
+    - Asset management, telematics and optimization are excluded. HERE Tour Planning is allowed for optimization.
     - Each application needs its own app ID
-  resetPeriod: daily
-  requiresCard: false
+  resetPeriod: monthly
+  requiresCard: true
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Limited has daily/RPS limits; Base bills transactions beyond each product's monthly free tier
-    - The pricing page does not describe a spending cap
+    - Base bills transactions beyond each product’s monthly free tier
+    - Public pricing gives estimates. The customer agreement determines actual prices.
 quickstartSteps:
-  - Sign up for HERE and confirm the no-payment Limited Plan and displayed allowances before activating services.
-  - Create an app ID for your application and generate credentials.
-  - Call the eligible APIs and track daily requests and per-second rates.
+  - Sign up for HERE Base and enter a payment method to activate the free monthly allowances.
+  - Register an application in Access Manager, then create an API key from its Credentials tab.
+  - Call a supported API and track monthly transactions separately for each product you use.
 whenToUse: >-
-  Use HERE for a small routing or geocoding integration within the documented
-  Limited Plan daily and per-second limits, when your use case is eligible.
+  Use HERE when you need hosted mapping or geocoding APIs and can budget for transaction charges above the free allowance.
 whenNotToUse: >-
-  Avoid these plans for asset tracking or telematics without a separate
-  agreement. Base's optimization exception is specifically for Tour Planning.
+  Avoid Base if you need a no-card service or need asset tracking, telematics, or Permanent Geocoding.
 bestFor:
   - routing and ETAs
   - small eligible location-API integrations
@@ -51,54 +45,54 @@ avoidIf:
   - fleet or asset management products
   - permanent storage of geocoding results
 productionReadiness: production-ready
-lastUpdated: 2026-11-05
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.here.com'
 docsUrl: 'https://www.here.com/docs'
 sourceUrls:
-  - 'https://legal.here.com/us-en/terms/here-platform-terms'
-  - 'https://www.here.com/get-started/pricing/rps-limits-excluded-use-cases'
-  - 'https://www.here.com/get-started/pricing'
-  - 'https://www.here.com/get-started/pricing/base-plan-restrictions'
-  - 'https://platform.here.com/sign-up'
+  - https://www.here.com/get-started/pricing
+  - https://pricing-calculator.here.com/api/contentfulData?widget=Pricing+Widget
+  - https://www.here.com/get-started/pricing/base-plan-restrictions
+  - https://www.here.com/learn/blog/april-2025-platform-release-notes
+  - https://www.here.com/learn/blog/july-2025-platform-release-notes
+  - https://docs.here.com/map-rendering/docs/quickstart-vector-tile-api
 pricingUrl: 'https://www.here.com/get-started/pricing'
 changes:
   - date: 2026-11-05
     kind: changed
-    note: "Restored source-backed Base allowance examples and clarified the Tour Planning exception; Limited remains a separate no-payment plan."
+    note: "Restored Base allowance examples and clarified the Tour Planning exception."
   - date: 2026-10-21
     kind: changed
-    note: "Replaced unverified no-card Base quantities with documented no-payment Limited 1000 daily requests, scoped rate limits and precise Base pricing gaps."
+    note: "Documented the scope of the legacy Limited Plan and gaps in the Base pricing sources at the time."
   - date: '2026-10-11'
     kind: new
     note: Added to the atlas.
+  - date: 2025-08-31
+    kind: changed
+    note: HERE retired the no-card Limited Plan and directed existing accounts to the Base Plan.
 answer: >-
-  HERE's Limited Plan needs no payment information and allows 1000 requests a day; Base has separate monthly free tiers followed by paid transactions, with no confirmed spending cap.
+  HERE Base requires a card and includes separate monthly quotas of 30,000 vector-tile and 30,000 geocoding transactions, with usage charges above each product’s allowance.
 
 ---
-HERE provides map rendering, geocoding, search, routing, traffic and other location APIs. The public documentation distinguishes a no-payment Limited Plan from the Base Plan. Choose the account plan deliberately: free access and paid transaction billing are different arrangements.
+HERE provides map rendering, geocoding, search, routing, traffic, and other location APIs. Its Base Plan gives developers monthly free transactions for individual products and bills for higher usage.
 
 ## What the free plan gives you
 
-The current official rate-limits page documents Limited Plan customers who do not provide payment information. It specifies 1000 daily requests, with additional per-service requests-per-second ceilings. Geocode, reverse geocode, discover/search, autocomplete and autosuggest allow 5 requests/second. Vector and raster tiles allow 50, map tiles 30 and map images 2.
+The Base Plan requires a payment method during onboarding. You get 30,000 vector-tile transactions each month and a separate 30,000 transactions for forward and reverse geocoding combined. Each request to one of those products counts as one transaction, and other HERE APIs have their own quotas and pricing.
 
-Car, bicycle, pedestrian, truck and several other routing services allow 10 requests/second; matrix and isoline routing allow 1. These rate ceilings are additional to the daily allowance, not extra daily quotas.
-
-Base uses separate product-specific monthly tiers. Its pricing details list the first 30,000 vector-tile transactions as free and a separate first 30,000 geocode/reverse-geocode transactions as free, with one request counted as one transaction for those products. Other APIs have different allowances. These Base tiers are not additional no-payment Limited entitlements; confirm the plan and product before using them.
+The old Limited Plan gave access without a card. HERE stopped offering it to new customers on March 27, 2025 and shut it down on August 31, 2025. Its legacy restrictions page is still online.
 
 ## When you hit a limit
 
-The Limited Plan documentation states daily and per-second limits but does not specify the response code, reset timezone, or exact suspension behavior when they are exhausted. Its no-payment scope supports starting without payment details; it does not prove every Base Plan is free or capped.
-
-Base has transaction-based billing and no daily transaction limit. Usage beyond each product's free tier is chargeable; the public prices are indicative and the actual agreement determines final prices. Before moving from Limited to Base, review the displayed allowances, prices and payment requirements. The reviewed pricing pages do not establish an optional spending cap or the precise transition process.
+HERE charges for transactions above the monthly free tier of each product. For monthly usage from 30,001 through 5 million transactions, the calculator lists $0.088 per 1,000 vector-tile requests and $0.88 per 1,000 geocoding requests. Its prices are estimates and the actual rate depends on your agreement with HERE. The documented free quotas are billing thresholds. The public pricing materials do not establish a spending cap.
 
 ## Gotchas
 
-- Asset management, usage-based insurance/telematics and optimization are excluded use cases on Limited and Base. The Base restrictions specifically permit HERE Tour Planning for optimization; this does not grant general tracking or telematics rights.
-- Each separate application needs its own app ID. Mobile/server versions and applications for different customers cannot share one ID; unauthorized use can create fee liability.
-- Per-second limits and Base monthly tiers vary by product: a map-tile allowance does not imply the same allowance for matrix routing or geocoding. Permanent Geocoding is excluded from Base.
+- Base excludes asset management, telematics, and optimization. The published exception allows HERE Tour Planning for optimization.
+- Register a separate app ID for each app, including mobile and server versions. HERE holds you responsible for fees from unauthorized use of your app IDs.
+- Permanent Geocoding is excluded from Base and needs separate pricing from HERE.
 
 ## Alternatives in this atlas
 
@@ -110,12 +104,12 @@ Base has transaction-based billing and no daily transaction limit. Usage beyond 
 
 ### Can I start HERE without payment information?
 
-Yes. The official rate-limits page documents Limited Plan customers without payment information, with 1000 daily requests and service-specific rate ceilings.
+HERE requires a payment method to activate Base. It retired the old no-card Limited Plan on August 31, 2025.
 
-### Is Base the same as Limited?
+### How many free geocoding requests does HERE Base include?
 
-No. The documentation names them separately, and Base subscription terms can include transaction charges. Confirm current quantities and prices before activating paid access.
+The Base Plan gives you a combined 30,000 free forward and reverse geocoding transactions per month. Each request counts as one transaction, and requests above that allowance are billed.
 
-### Can I use these plans for fleet tracking?
+### Can I use Base for fleet tracking?
 
-Asset management and telematics are excluded by the published use-case definitions. Base permits Tour Planning for optimization, but that exception does not include general fleet tracking. Contact HERE for the applicable agreement.
+Base excludes asset management and telematics. Its published exception allows HERE Tour Planning for optimization. General fleet tracking needs a separate agreement.

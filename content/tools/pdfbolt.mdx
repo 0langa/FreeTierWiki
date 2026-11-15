@@ -26,13 +26,13 @@ freeTierDetails:
     - 1 AI template generation
   caveats:
     - No card required for PDF generation; AI template generation requires a verification card
-    - Only successful conversions are charged/counted
-    - AI template generation needs a card for verification (not charged)
-    - Requests past the quota are blocked with a 403 error unless overage is enabled
+    - Only successful conversions count
+    - Free requests past the monthly quota return 403
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
-  overageRisk: low
+  overageRisk: none
 quickstartSteps:
   - Register for free at pdfbolt.com; the free plan needs no credit card.
   - Create an API key in the Dashboard.
@@ -54,8 +54,8 @@ avoidIf:
   - you need more than 50 documents a month for free
   - you need more than 20 requests per minute
 productionReadiness: prototype
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://pdfbolt.com'
@@ -71,7 +71,7 @@ changes:
     kind: changed
     note: "Corrected Free to 50 monthly documents and scoped the card exemption to PDF generation."
 answer: >-
-  PDFBolt's free plan includes 50 successful documents a month with no card for PDF generation, and past that it returns 403 unless you enable overage, which can charge you, while AI template generation needs a verification card.
+  PDFBolt Free includes 50 successful PDFs a month with no card, returns 403 above quota, and requires a verification card to use its AI template generation.
 
 ---
 You call the API from your own code with an API key, or through the Node.js, Python, or PHP SDK. You can also use automation tools such as Make, Zapier, and n8n. A dashboard holds your templates, keys, and request logs.
@@ -84,7 +84,7 @@ Paid plans remove the file size cap. On them, each 5MB portion counts as 1 docum
 
 ## When you hit a limit
 
-By default, overage is disabled on every plan. Requests past 100% of your quota are blocked with a 403 error. Your quota resets each billing cycle, and unused documents do not roll over. You can check what is left in the Dashboard or with the usage endpoint. Overage pricing is opt-in, at $0.01 per extra PDF on Basic. The pricing page lists no overage rate for the free plan.
+On Free, requests past your quota return 403. Your quota resets each billing cycle, and unused documents do not roll over. Check remaining conversions in the Dashboard or use the usage endpoint, which also shows your current plan and one-time conversion packages. Calling that endpoint does not consume the PDF quota. Paid plans can opt in to overage pricing from Settings, at $0.01 per extra PDF on Basic.
 
 ## Gotchas
 
@@ -106,8 +106,8 @@ Yes. The free plan gives you 50 PDF documents per month, with no credit card for
 
 ### What happens when I go over the PDFBolt limit?
 
-Overage is off by default, so requests past 100% of your quota get a 403 error. Paid plans can opt in to overage pricing.
+Requests past the Free monthly quota return 403. Paid plans can opt in to overage pricing.
 
 ### Does PDFBolt need a credit card?
 
-Not for the free plan. Only the AI template generation asks for a card for verification, and PDFBolt says you will not be charged.
+Free PDF generation needs no card. The AI template generation asks for a verification card, which PDFBolt says it does not charge.

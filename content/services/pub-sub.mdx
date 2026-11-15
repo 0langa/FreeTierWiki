@@ -20,7 +20,7 @@ freeTierDetails:
     - '$40 per TiB after the free amount'
   caveats:
     - The free 10 GiB does not apply to BigQuery subscriptions, Cloud Storage subscriptions, or import topics.
-    - A minimum of 1 KB is assessed for each request, so batch small messages.
+    - Standard requests have a 1 KB minimum; messages automatically acknowledged by a subscription filter are an exception.
     - Storage for retained messages is charged at $0.27 per GiB-month.
     - Pub/Sub Lite is deprecated (closed to new customers since September 24, 2024; turned down March 18, 2026); this free tier applies to standard Pub/Sub topics.
   resetPeriod: monthly
@@ -53,8 +53,8 @@ quickstartSteps:
   - Publish a message from the Messages tab of the topic page with Publish message.
   - Open the subscription, go to its Messages tab, and select Pull to read the message. You can also use the client libraries or the gcloud CLI.
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/pubsub'
@@ -62,6 +62,7 @@ docsUrl: 'https://cloud.google.com/pubsub/docs'
 pricingUrl: 'https://cloud.google.com/pubsub/pricing'
 sourceUrls:
   - 'https://cloud.google.com/pubsub/pricing'
+  - 'https://cloud.google.com/free/docs/free-cloud-features'
   - 'https://cloud.google.com/pubsub/docs/overview'
   - 'https://cloud.google.com/pubsub/docs/publish-receive-messages-console'
 changes:
@@ -69,7 +70,7 @@ changes:
     kind: changed
     note: "Corrected cross-zone transfer wording: standard Pub/Sub has no zone data-transfer fee."
 answer: >-
-  Google Cloud Pub/Sub gives 10 GiB of throughput free each month, then bills $40 per TiB with no hard cap, and a card is required to enable billing.
+  Google Cloud Pub/Sub includes 10 GiB of monthly Basic message throughput per Cloud Billing account, then charges $40 per TiB, with separate rates for import topics and export subscriptions.
 
 ---
 You use Pub/Sub in the Google Cloud console, with the gcloud CLI, or with client libraries. You create a topic, add subscriptions, and publish. It suits teams that build event-driven systems or data pipelines on Google Cloud.
@@ -78,7 +79,7 @@ You use Pub/Sub in the Google Cloud console, with the gcloud CLI, or with client
 
 Every calendar month, the first 10 GiB of throughput billed as the Message Delivery Basic SKU is free for a billing account. Throughput is the total bytes written to a topic plus the bytes read from a subscription. After the free amount the price is $40 per TiB in all Google Cloud regions.
 
-A minimum of 1 KB is assessed for each request, no matter how small the messages are. For messages under 1 KB it is cheaper to batch several messages in one request. The free amount does not cover BigQuery subscriptions, Cloud Storage subscriptions, or import topics.
+A minimum of 1 KB applies per standard request, so batching small messages can save money. Automatically acknowledged filtered messages are billed on their actual size. The free amount does not cover BigQuery subscriptions, Cloud Storage subscriptions, or import topics.
 
 ## When you hit a limit
 
@@ -110,4 +111,4 @@ You need a Google Cloud project with billing enabled. The quickstart tells you t
 
 ### How is Pub/Sub throughput counted?
 
-Throughput is the total bytes written to a topic and read from a subscription. Each request is assessed at a minimum of 1 KB.
+Throughput is the total bytes written to a topic and read from a subscription. Standard requests have a 1 KB minimum, except for messages that Pub/Sub automatically acknowledges because they fail a filter.

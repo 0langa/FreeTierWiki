@@ -22,9 +22,9 @@ freeTierDetails:
     - '100,000 fetch requests per day per project'
     - A/B Testing, Rollouts, and Personalization included on both plans
   caveats:
-    - On Spark, a project that keeps exceeding the daily limit is throttled from the 31st day after the first time
+    - After a Spark project first exceeds the daily allowance, excess requests are throttled from day 31
     - Only fetch requests made through the client SDKs or REST APIs count
-    - Existing Spark projects get a grace period before billing enforcement begins on December 1, 2026
+    - Spark projects with Remote Config enabled before September 1, 2026 have transition grace until December 1, 2026
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -52,8 +52,8 @@ avoidIf:
   - very high daily fetch counts on a no-cost plan
   - you want flags without a Firebase project
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://firebase.google.com/products/remote-config'
@@ -72,7 +72,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Firebase Remote Config is free up to 100,000 fetch requests a day on Spark, throttling starts on the 31st day of continued excess, and billing enforcement begins December 1, 2026.
+  Firebase Remote Config includes 100,000 fetch requests per project per day on Spark, with throttling for requests above that limit after the applicable grace period and no overage charge on Spark.
 
 ---
 
@@ -88,13 +88,13 @@ Both plans include A/B Testing, Rollouts, and Personalization. Only fetch reques
 
 On the Spark plan, a project that exceeds 100,000 fetch requests in a day gets 30 days of uninterrupted service after the first time. Throttling begins on the 31st day, and to prevent it you must upgrade to Blaze. You are not billed on Spark.
 
-On Blaze, extra requests cost $0.000006 each through 10 million/day, then $0.000001 each. Projects enabled before September 1 have transition grace: Spark until December 1, 2026; existing Blaze until February 1, 2027. Eligible Spark projects upgrading before November 15 also get the February deadline. The standard 30-day countdown never pauses or resets.
+On Blaze, extra requests cost $0.000006 each through 10 million/day, then $0.000001 each. Projects enabled before September 1 have transition grace: Spark until December 1, 2026; existing Blaze until February 1, 2027. Eligible Spark projects that upgraded before November 15, 2026 also get the February deadline. The standard 30-day countdown never pauses or resets.
 
 ## Gotchas
 
 - The quota is per day per project, so an app that fetches on every launch can pass it with a modest user base.
 - Fetching less often keeps you under the daily limit; Firebase has a guide on optimizing fetch frequency.
-- Remote Config is free on Spark today, but upgrading to Blaze for another product puts the paid rates in force for fetches past the free amount.
+- If you need Blaze for another Firebase product, check whether your project still has transition grace. After it expires, excess Remote Config fetches are billed.
 
 ## Alternatives in this atlas
 

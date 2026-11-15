@@ -27,10 +27,10 @@ freeTierDetails:
     - Email triggers up to 100 emails/day; 100 app guests/30 days
   caveats:
     - Self-hosted (Fargate/Docker/Kubernetes); community support on Discord only
-    - 100 free app guests per 30 days via your own identity provider
+    - 100 distinct app guest emails in a rolling 30-day window. New guests must wait after the cap.
     - Paid plans advertise from $120/month; billing period, hosting and capacity affect total
     - Windmill Cloud has a separate Free plan with no credit card and 1,000 executions per month; the limits here are for the self-hosted edition
-  resetPeriod: monthly
+  resetPeriod: daily email triggers; rolling 30-day app guest count
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -56,8 +56,8 @@ avoidIf:
   - SSO for more than 10 users
   - an SLA
 productionReadiness: side-project
-lastVerified: 2026-11-10
-lastUpdated: 2026-11-10
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://windmill.dev/'
@@ -68,6 +68,8 @@ sourceUrls:
   - 'https://www.windmill.dev/docs/intro'
   - 'https://www.windmill.dev/docs/advanced/self_host'
   - 'https://www.windmill.dev/docs/getting_started/scripts_quickstart/typescript'
+  - 'https://www.windmill.dev/pricing'
+  - 'https://www.windmill.dev/docs/getting_started/how_to_use_windmill'
 changes:
   - date: 2026-10-21
     kind: changed
@@ -80,9 +82,9 @@ You write scripts in TypeScript, Python, Go, Bash, SQL, and other languages in a
 
 ## What the free plan gives you
 
-The free plan is the open source Community Edition, which you host yourself. The pricing page lists unlimited executions per month, 3 workspaces, up to 50 users, and 10 GiB of workspace object storage. Groups, folders, and permissions are capped at 4 groups. Scripts, flows, apps, variables, and resources are unlimited.
+You host Windmill’s open source Community Edition. The pricing page lists unlimited executions per month, 3 workspaces, up to 50 users, and 10 GiB of workspace object storage. Groups, folders, and permissions are capped at 4 groups. Scripts, flows, apps, variables, and resources are unlimited.
 
-SSO is limited to a maximum of 10 users. The plan also includes 100 free app guests per 30 days. Authenticated guests take no seat within that allowance; anonymous public apps have no guest-count limit. Job-run details are retained up to 30 days, and email triggers have a 100-email daily limit. Support is by community on Discord. Concurrency limits, content search, and script-specific workers are not part of the free edition.
+SSO is limited to a maximum of 10 users. The plan also includes 100 free app guests per 30 days. The limit counts distinct guest emails across the instance. Once you reach it, new guests must wait for an email to age out, but returning guests still get in. Anonymous public apps have no guest count. Job-run details are retained up to 30 days, and email triggers have a 100-email daily limit. Support is by community on Discord. Concurrency limits, content search, and script-specific workers are not part of the free edition.
 
 ## When you hit a limit
 

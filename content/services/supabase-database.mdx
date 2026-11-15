@@ -29,7 +29,7 @@ freeTierDetails:
   caveats:
     - Free projects are paused after 1 week of inactivity
     - Dedicated backup docs limit automatic daily backups to paid plans; export Free database dumps yourself
-    - Continually exceeding the Free quota can lead to service restrictions such as read-only databases
+    - A fixed 2 GB disk enters read-only mode at 95% usage; continued Free quota excess can separately restrict the organization
     - Community support only on Free
   resetPeriod: monthly
   requiresCard: false
@@ -58,8 +58,8 @@ avoidIf:
   - Pro plan daily backups needed
   - high-availability requirements
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/'
@@ -71,13 +71,14 @@ sourceUrls:
   - 'https://supabase.com/docs/guides/database'
   - 'https://supabase.com/docs/guides/platform/billing-faq'
   - 'https://supabase.com/docs/guides/getting-started/quickstarts/nextjs'
+  - 'https://supabase.com/docs/guides/platform/database-size'
 pricingUrl: 'https://supabase.com/pricing'
 changes:
   - date: 2026-10-21
     kind: changed
     note: "Corrected automatic backup eligibility and clarified Free signup and shared quota scope."
 answer: >-
-  Supabase Database on Free has 500 MB on shared CPU with no card and no overage, but projects pause after 1 week of inactivity and continually exceeding the quota can make it read-only.
+  Supabase Database has a 500 MB Free allowance on shared CPU with no card or overage fees, and the database becomes read-only when its fixed 2 GB disk reaches 95% usage.
 
 ---
 You work in the Supabase dashboard with the Table Editor and SQL Editor, call the database through the auto-generated API and client libraries, or connect with any Postgres tool. It suits builders who want a full Postgres database without running a server.
@@ -90,7 +91,7 @@ You can have 2 active free projects. Paused projects do not count toward that qu
 
 ## When you hit a limit
 
-Supabase notifies you when you exceed the Free quota. If you keep exceeding it, the Fair Use Policy applies service restrictions, such as read-only databases or a 402 status on API requests. You get a grace period first, and restrictions lift when the quota refills at the start of the next billing cycle.
+Supabase notifies you when your organization exceeds the 500 MB database-size allowance per project. Continued excess can trigger HTTP 402 across the organization after a grace period, with relief at the next billing cycle. Separately, each Free project has a fixed 2 GB disk. At 95% disk usage the database becomes read-only, and if the disk fills, Postgres shuts down.
 
 Inactivity is a separate limit. Free projects are paused after 1 week of inactivity. The Pro plan starts at $25 a month and adds daily backups kept for 7 days.
 
@@ -118,4 +119,4 @@ Yes. Supabase pauses free projects after 1 week of inactivity. Paused projects d
 
 ### What happens when I exceed the Supabase free quota?
 
-Supabase notifies you first. If you keep going over, service restrictions apply, such as read-only databases. The restrictions lift when your quota refills.
+Supabase notifies you first. Continued excess can trigger HTTP 402 across the organization until its quota refills. A project's separate disk limit can make the database read-only.

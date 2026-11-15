@@ -15,11 +15,11 @@ tags:
 freeTierDetails:
   summary: Free domain-validated SSL/TLS certificates, within rate limits.
   limits:
-    - 50 certificates per registered domain per week
-    - 5 duplicate certificates (same identifiers) per week
-    - 90-day certificate validity
+    - 50 new certificates per registered domain per 7 days
+    - 5 certificates for the same set of identifiers per 7 days
+    - 90-day default lifetime; opt-in 45-day and 160-hour profiles
   caveats:
-    - Only supports domain-validated certificates
+    - Only supports Domain Validation; the shortlived profile can certify an IP address
     - Wildcard certificates need the DNS-01 challenge
     - No direct support; help comes from docs and the community forum
   resetPeriod: weekly
@@ -32,7 +32,7 @@ quickstartSteps:
   - If not, pick an ACME client; Let's Encrypt recommends Certbot and lists others on its client page.
   - Point the client at the production ACME directory, `https://acme-v02.api.letsencrypt.org/directory`, if it asks for an endpoint.
   - Test first against the staging API, which has much higher limits than production.
-  - Request a certificate for your domain and prove you control it with an HTTP or DNS challenge; wildcards need DNS.
+  - Request a certificate for your domain and prove control using a supported ACME challenge. Wildcards need DNS-01.
   - Install the certificate on your server and let the client renew it before it expires.
 whenToUse: >-
   Use Let's Encrypt when you control a public domain and want free HTTPS
@@ -52,8 +52,8 @@ avoidIf:
   - you need email encryption or code signing certificates
   - you cannot run an ACME client or use a host that does
 productionReadiness: production-ready
-lastVerified: 2026-11-09
-lastUpdated: 2026-10-09
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 9
 usefulnessScore: 10
 officialUrl: 'https://letsencrypt.org/'
@@ -64,8 +64,10 @@ sourceUrls:
   - 'https://letsencrypt.org/docs/faq/'
   - 'https://letsencrypt.org/getting-started/'
   - 'https://letsencrypt.org/docs/'
+  - 'https://letsencrypt.org/docs/profiles/'
+  - 'https://letsencrypt.org/upcoming-features/'
 answer: >-
-  Let's Encrypt issues free domain-validated certificates with no card, a hard cap of 50 a week per registered domain, and 5 duplicates a week, and each certificate lasts 90 days.
+  Let's Encrypt issues free certificates with no card, a 90-day default lifetime, and limits of 50 new certificates per registered domain and five for the same names every seven days.
 
 ---
 Many hosting providers get Let's Encrypt certificates for you with a settings switch. If yours does not, you run an ACME client such as Certbot on your server, and the client does the work from the command line. No part of getting a certificate happens on the Let's Encrypt website.
@@ -74,7 +76,7 @@ Many hosting providers get Let's Encrypt certificates for you with a settings sw
 
 Certificates cost nothing. Let's Encrypt is a nonprofit and says it does not charge a fee. It issues Domain Validation certificates, and they work for web servers, mail servers, FTP servers, and other servers that use a domain name. Wildcard certificates are available, but you must prove control with the DNS-01 challenge.
 
-Default certificates are valid for 90 days, and Let's Encrypt recommends renewing every 60 days. You can opt in to six-day certificates. A single certificate can hold up to 100 identifiers, and a new account can place up to 300 orders every 3 hours.
+The default classic profile lasts 90 days and allows up to 100 DNS names. You can select the 45-day tlsserver profile or the 160-hour shortlived profile, each with up to 25 identifiers. The shortlived profile also supports IP addresses. Each account can place up to 300 new orders every 3 hours.
 
 ## When you hit a limit
 
@@ -100,7 +102,7 @@ Yes. Let's Encrypt says it does not charge a fee for certificates. Some hosting 
 
 ### How long do Let's Encrypt certificates last?
 
-Default certificates are valid for 90 days. You can opt in to certificates that last six days. The lifetimes cannot be adjusted.
+The default is 90 days, with fixed opt-in profiles of 45 days and 160 hours. Let's Encrypt plans to shorten the default to 64 days on February 10, 2027, then to 45 days on February 16, 2028.
 
 ### Does Let's Encrypt issue wildcard certificates?
 

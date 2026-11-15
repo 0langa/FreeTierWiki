@@ -26,7 +26,7 @@ freeTierDetails:
     - '1,000 list requests/day'
     - 25 MiB maximum value size
   caveats:
-    - Eventually consistent
+    - Standard KV namespaces are eventually consistent
     - Writes to the same key are limited to 1 per second
     - >-
       Dashboard and Wrangler operations count as usage, and so do reads of keys
@@ -65,7 +65,7 @@ avoidIf:
   - You need relational queries
   - You write to the same key often
 productionReadiness: production-light
-lastUpdated: 2026-10-09T00:00:00.000Z
+lastUpdated: 2026-11-15
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/kv'
@@ -77,7 +77,7 @@ sourceUrls:
   - 'https://developers.cloudflare.com/kv/get-started/'
   - 'https://developers.cloudflare.com/kv/concepts/how-kv-works/'
   - 'https://www.cloudflare.com/plans/'
-lastVerified: 2026-11-09
+lastVerified: 2026-11-15
 pricingUrl: 'https://developers.cloudflare.com/kv/platform/pricing/'
 answer: >-
   Cloudflare Workers KV's free plan includes 1 GB of storage, 100,000 reads, and 1,000 writes a day, and an operation past its daily limit fails with an error instead of billing.
@@ -87,9 +87,9 @@ You use Workers KV from a Worker through a binding, from the Wrangler CLI, from 
 
 ## What the free plan gives you
 
-Workers KV is included in the Workers Free plan. Each day you get 100,000 key reads, 1,000 key writes, 1,000 key deletes, and 1,000 list requests. Storage is 1 GB per account and per namespace. You can create 1,000 namespaces per account.
+Workers KV is included in the Workers Free plan. Each day you get 100,000 key reads, 1,000 key writes, 1,000 key deletes, and 1,000 list requests. Storage is 1 GB per account and per namespace for standard KV. You can create 1,000 namespaces per account.
 
-A key can be up to 512 bytes, and a value can be up to 25 MiB. A Worker invocation can make up to 1000 operations. All daily limits reset at 00:00 UTC. KV does not charge for data transfer.
+A key can be up to 512 bytes, and a value can be up to 25 MiB. A Worker invocation can make up to 1,000 operations across external services such as KV and R2; a KV bulk request counts as one such request. All daily limits reset at 00:00 UTC. KV does not charge for data transfer.
 
 ## When you hit a limit
 
@@ -99,7 +99,7 @@ If you pass any one of the daily limits, further operations of that type fail wi
 
 - Operations from the dashboard or Wrangler count as usage, including updating, deleting, and listing keys.
 - Reads of keys that do not exist still count, even when they return a null or a 404.
-- Writes to the same key are limited to 1 per second, and data is eventually consistent.
+- In standard KV, writes to the same key are limited to 1 per second and data is eventually consistent.
 
 ## Alternatives in this atlas
 
@@ -119,4 +119,4 @@ Further operations of that type fail with an error until the daily reset at 00:0
 
 ### Is Workers KV strongly consistent?
 
-No. It is eventually consistent, and writes to the same key are limited to 1 per second.
+Standard KV namespaces are eventually consistent, and writes to the same key are limited to 1 per second. Cloudflare offers a separate KV Instant mode in private beta.

@@ -207,7 +207,11 @@ export function idleDeleters(idle: LineFact[]): LineFact[] {
 
 /** Entries that record the vendor using what you send to improve its product. Free training hours for your own model do not count. */
 export function usesYourContent(entries: AtlasEntry[]): LineFact[] {
-  return lineFacts(entries, /\b(?:used|may be used)\s+(?:to improve|for (?:service|product) improvement)\b/i, undefined, { shortest: true });
+  const reuse = /\b(?:used|may be used)\s+(?:to improve|for (?:service|product) improvement)\b|\buses?\s+(?:your |Free Tier |user |customer )?(?:content|data|prompts?|inputs?|outputs?)\s+to improve\b/i;
+  return lineFacts(entries, reuse, (line, match) => {
+    const prefix = line.slice(0, match.index);
+    return !/\b(?:not|never|no longer)\s+(?:be\s+)?$/i.test(prefix);
+  }, { shortest: true });
 }
 
 /** A published per-minute request limit, such as "30 requests/minute". */

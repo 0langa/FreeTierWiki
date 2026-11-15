@@ -19,7 +19,7 @@ freeTierDetails:
   limits:
     - $5 in free credits every month
     - Search at $5 per 1,000 requests, up to 50 queries per second
-    - Answers at $4 per 1,000 requests plus $5 per million tokens, up to 2 queries per second
+    - Answers at $4 per 1,000 searches plus $5 per million tokens, up to 2 requests per second
   caveats:
     - A card is required; free-only signup uses a $0 prepay amount with auto-reload disabled
     - Auto-reload charges the card automatically and can be uncapped if no monthly limit is set
@@ -52,8 +52,8 @@ avoidIf:
   - no credit card available
   - unbounded automated searches
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://brave.com/search/api/'
@@ -61,6 +61,7 @@ docsUrl: 'https://api-dashboard.search.brave.com/documentation/resources/help-fe
 sourceUrls:
   - 'https://brave.com/search/api/'
   - 'https://api-dashboard.search.brave.com/documentation/resources/help-feedback'
+  - 'https://api-dashboard.search.brave.com/documentation/services/answers'
 pricingUrl: 'https://brave.com/search/api/'
 changes:
   - date: '2026-10-11'
@@ -77,7 +78,7 @@ The Brave Search API gives developers results from Brave's own web index, the sa
 
 Each plan includes $5 in free credits every month. Brave's help page explains the $20 headline: it is $5 on each of four plans, not $20 for Search alone. Search costs $5 per 1,000 requests, so its credit covers about 1,000 searches a month. Results include URLs, text, news, images, extra LLM context, alternate snippets, and Goggles for reranking. Search supports up to 50 queries per second.
 
-The Answers plan costs $4 per 1,000 requests plus $5 per million input and output tokens, with capacity of 2 queries per second. It returns answers grounded on one or more searches with citations, supports streaming, and is OpenAI SDK compatible. The same $5 monthly credit applies, but tokens make each answer cost more than a plain search.
+The Answers plan costs $4 per 1,000 searches plus $5 per million input and output tokens, with capacity of 2 API requests per second. An answer that searches several times incurs a charge for each search. It returns answers grounded on one or more searches with citations, supports streaming, and is OpenAI SDK compatible. The same $5 monthly credit applies, but tokens make each answer cost more than a plain search.
 
 ## When you hit a limit
 
@@ -107,4 +108,4 @@ To prevent abuse. Free-only signup allows a $0 prepay amount, but the card recei
 
 ### How fast can I send requests?
 
-Up to 50 queries per second on Search and 2 queries per second on Answers.
+Up to 50 queries per second on Search and 2 API requests per second on Answers.

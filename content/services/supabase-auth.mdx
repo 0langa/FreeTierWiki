@@ -24,7 +24,7 @@ freeTierDetails:
     - Basic multi-factor authentication and custom SMTP included
   caveats:
     - Supabase confirms no credit card is required for Free
-    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
+    - Continued quota excess may restrict the organization; Supabase does not publish a separate MAU-specific response
     - Enterprise SSO (SAML 2.0) and advanced (phone) MFA require paid plans
     - 'Free projects pause after 1 week of inactivity, limited to 2 active projects'
   resetPeriod: monthly
@@ -58,8 +58,8 @@ avoidIf:
   - custom auth flows
   - apps that sit idle for a week
 productionReadiness: production-light
-lastUpdated: '2026-10-21'
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://supabase.com/docs/reference/auth'
@@ -71,6 +71,7 @@ sourceUrls:
   - 'https://supabase.com/docs/guides/auth/quickstarts/react'
   - 'https://supabase.com/docs/guides/auth/rate-limits'
   - 'https://supabase.com/docs/guides/platform/cost-control'
+  - 'https://supabase.com/docs/guides/platform/billing-faq'
 pricingUrl: 'https://supabase.com/pricing'
 changes:
   - date: 2026-10-21
@@ -83,7 +84,7 @@ changes:
     kind: changed
     note: Aligned card requirement and limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 answer: >-
-  Supabase Auth includes 50,000 monthly active users with no card and no overage, yet free projects still pause after 1 week of inactivity and allowance enforcement is not confirmed.
+  Supabase Auth includes 50,000 monthly active users with no card or overage fees, and Supabase can restrict service after repeated quota excess or pause a project after a week of inactivity.
 
 ---
 You use Supabase Auth through the Supabase client libraries or its REST API, and you manage providers and users in the Supabase dashboard. It suits developers who already build on Supabase or want auth next to Postgres.
@@ -96,7 +97,7 @@ The Free plan comes with project limits. Free projects are paused after 1 week o
 
 ## When you hit a limit
 
-Supabase's cost-control guide says you are not charged while using the Free Plan. It describes the Spend Cap, which is a Pro plan feature: with it on, further use of an item is disallowed after the quota is used up, until the next billing cycle. The guide does not describe exactly what happens on the Free plan when you pass a quota.
+Supabase does not charge for Free quota excess. Continued excess can restrict all projects in an organization. The docs give no separate response for crossing the Auth MAU allowance. On Pro, the Spend Cap can stop excess use until the next billing cycle.
 
 Auth also has rate limits on its endpoints, which protect against abuse. When you pass them, Supabase Auth returns a 429 error. Most limits use a token bucket with a capacity of 30 requests, so a short burst is fine but steady traffic above the rate is denied. Some limits can be changed in the project's Authentication settings.
 

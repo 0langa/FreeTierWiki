@@ -14,12 +14,13 @@ it('ignores stale pricing and maintenance headings inside comments or scripts',(
 });
 
 it("rejects HTTP 200 maintenance and bot challenges even when a footer contains pricing words", () => {
-  for (const heading of ["Security maintenance · StatusCake", "Making sure you're not a bot!"]) {
+  for (const heading of ["Security maintenance · StatusCake", "Making sure you're not a bot!", "Automated Access Notice | WhatIsMyIP.HELP", "Prove your humanity"]) {
     const page = sourceSnapshot(`<title>${heading}</title><h1>${heading}</h1><p>${"Free pricing plan unavailable. ".repeat(40)}</p>`);
     expect(page.accessIssue).toBeDefined();
     expect(classifyFetch([{ status: 200, chars: page.text.length, excerptChars: page.text.length, accessIssue: page.accessIssue }])).toBe("blocked");
   }
   expect(sourceSnapshot('<title>Pricing</title><h1>Free plan</h1><p>Does your plan include scheduled maintenance?</p>').accessIssue).toBeUndefined();
+  expect(sourceSnapshot('<title>Pricing</title><h1>Free API</h1><p>Our automated access notice explains the rate limit for free accounts.</p>').accessIssue).toBeUndefined();
 });
 
 it("detects pricing changes after the former 6,000-character excerpt cutoff", () => {

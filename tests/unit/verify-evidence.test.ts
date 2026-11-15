@@ -50,9 +50,12 @@ describe("numeric locale evidence metadata", () => {
     expect(readEvidence("services/example", evidenceDir)?.[0].accessIssue).toBe("maintenance");
     expect(readEvidence("services/example", evidenceDir)?.[0].text).not.toBe("Free 5 GB");
   });
-  it("uses tracked source typography on a fresh checkout, with explicit hints taking precedence", () => {
+  it.each([
+    "https://open-meteo.com/en/pricing",
+    "https://logzab.com/pricing/",
+    "https://squidex.io/pricing",
+  ])("uses tracked source typography on a fresh checkout for %s, with explicit hints taking precedence", (url) => {
     const dir = workspace();
-    const url = "https://open-meteo.com/en/pricing";
     const page = { url, status: 200, fetchedAt: "2026-10-21T00:00:00Z", via: "fetch", text: "5.000 calls" };
     writeEvidence("services/open-meteo", [page], dir);
     expect(readEvidence("services/open-meteo", dir)?.[0].numericLocale).toBe("de-DE");

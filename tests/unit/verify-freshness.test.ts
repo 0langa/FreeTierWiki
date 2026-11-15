@@ -86,6 +86,45 @@ describe("compareRuns", () => {
     expect(run.thin).toEqual([]);
   });
 
+  it("preserves the reviewed digest and records access issues when the expanded scan cannot read a source", () => {
+    const id = "services/a";
+    const url = "https://a.test/pricing";
+    const challengedAt = "https://a.test/verify-human";
+    const reviewedFingerprint = { hash: "old", hashVersion: HASH_VERSION, markupHash: "old-markup", url, verificationDate: "2026-10-01", acknowledgedAt: "2026-10-01T22:00:00Z" };
+    const before = { [id]: stored("old", { ...reviewedFingerprint, reviewedFingerprint }) };
+    const failed = compareRuns(before, [{
+      id, state: "blocked", url: challengedAt, coverageVersion: 1,
+      sourceDocuments: [{ requestedUrl: url, url: challengedAt, state: "blocked", status: 403, accessIssue: "challenge" }],
+    }], NOW);
+    expect(failed.next[id]).toMatchObject({ hash: "old", url, reviewedFingerprint });
+    expect(failed.next[id].coverageVersion).toBeUndefined();
+    expect(reviewQueue(failed, {})).toEqual([{
+      id, reason: "blocked", url, sourceIssues: [{ url, state: "blocked", status: 403, accessIssue: "challenge" }],
+    }]);
+
+    const recovered = compareRuns(failed.next, [{
+      id, state: "ok", url, coverageVersion: 1, hash: "aggregate", markupHash: "aggregate-markup", hashVersion: HASH_VERSION,
+    }], "2026-10-12T04:17:00.000Z");
+    expect(recovered.added).toEqual([id]);
+    expect(recovered.changed).toEqual([]);
+    expect(recovered.next[id].coverageVersion).toBe(1);
+    expect(recovered.next[id].reviewedFingerprint).toBeUndefined();
+  });
+
+  it("retains the acknowledgement through a failed attempt when the same expanded fingerprint returns", () => {
+    const id = "services/a";
+    const url = "https://a.test/pricing";
+    const reviewedFingerprint = { hash: "current", hashVersion: HASH_VERSION, markupHash: "markup", url, coverageVersion: 1, verificationDate: "2026-10-01", acknowledgedAt: "2026-10-01T22:00:00Z" };
+    const before = { [id]: stored("current", { ...reviewedFingerprint, reviewedFingerprint }) };
+    const failed = compareRuns(before, [{ id, state: "blocked", url: "https://a.test/maintenance", coverageVersion: 1 }], NOW);
+    const recovered = compareRuns(failed.next, [{
+      id, state: "ok", url, coverageVersion: 1, hash: "current", markupHash: "markup", hashVersion: HASH_VERSION,
+    }], "2026-10-12T04:17:00.000Z");
+    expect(recovered.added).toEqual([]);
+    expect(recovered.changed).toEqual([]);
+    expect(recovered.next[id].reviewedFingerprint).toEqual(reviewedFingerprint);
+  });
+
   it("reports a dead page only after it failed in enough runs in a row", () => {
     let previous = { "services/a": stored("h1") };
     for (let i = 1; i < DEAD_AFTER_RUNS; i += 1) {
@@ -179,6 +218,26 @@ describe("reviewQueue", () => {
     expect(reviewQueue(run, {}).map(({ id, reason }) => [id, reason])).toEqual([
       ["services/blocked", "blocked"], ["services/noisy", "noisy"], ["services/thin", "thin"],
     ]);
+  });
+
+  it("queues the first two missing-source scans and escalates on the third", () => {
+    const id = "services/a";
+    const url = "https://a.test/pricing";
+    const result = {
+      id, url, state: "dead" as const, coverageVersion: 1,
+      sourceDocuments: [{ requestedUrl: url, url, state: "dead", status: 404 }],
+    };
+    const dates = { [id]: "2026-10-01" };
+    const expected = { id, url, sourceIssues: [{ url, state: "dead", status: 404 }] };
+    const first = compareRuns({}, [result], NOW);
+    const second = compareRuns(first.next, [result], NOW);
+    for (const missed of [first, second]) {
+      expect(missed.dead).toEqual([]);
+      expect(reviewQueue(missed, dates)).toEqual([{ ...expected, reason: "source-not-found" }]);
+    }
+    const third = compareRuns(second.next, [result], NOW);
+    expect(third.dead).toEqual([id]);
+    expect(reviewQueue(third, dates)).toEqual([{ ...expected, reason: "dead" }]);
   });
 
   it("keeps older changes pending until their source comparison has been reviewed", () => {

@@ -24,13 +24,13 @@ freeTierDetails:
     - '50k lines of code free for private projects'
     - No credit card required, no expiry
   caveats:
-    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
+    - Analysis fails when the private organization exceeds its subscription line-of-code limit
     - The Team plan starts at $34 per month for up to 100k lines of code
     - There is a 14-day trial of the paid plan, with no credit card
     - There is no SonarQube Cloud-only account; you sign in with your DevOps platform
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: none
 quickstartSteps:
   - Click Start Free and choose the DevOps platform to connect, such as GitHub, Bitbucket Cloud, GitLab, or Azure DevOps.
@@ -52,7 +52,7 @@ avoidIf:
   - private codebases over 50k lines
   - needing self-hosted analysis
 productionReadiness: production-ready
-lastVerified: 2026-11-10
+lastVerified: 2026-11-15
 status: changed
 changes:
   - date: 2026-10-21
@@ -61,7 +61,7 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified OSI-licensed public-project eligibility and removed the incorrect annual-billing condition."
-lastUpdated: 2026-11-10
+lastUpdated: 2026-11-15
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://sonarcloud.io'
@@ -72,9 +72,11 @@ sourceUrls:
   - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started'
   - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started/sign-up'
   - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started/first-analysis'
+  - 'https://docs.sonarsource.com/sonarqube-cloud/appendices/troubleshooting'
+  - 'https://docs.sonarsource.com/sonarqube-cloud/administering-sonarcloud/managing-subscription/subscription-plans'
   - 'https://docs.sonarsource.com/sonarqube-cloud/getting-started/bitbucket-cloud'
 answer: >-
-  SonarQube Cloud is free for public OSI-licensed projects and for private projects up to 50k lines, with no card and no overage, and enforcement at that limit is not confirmed.
+  SonarQube Cloud is free for public OSI-licensed projects and private organizations with up to 50,000 lines of code, needs no card, and rejects analysis past the private-code cap.
 
 ---
 You sign in with your DevOps platform account and read the results on the web. You can also add the SonarQube for IDE extension to your editor.
@@ -89,7 +91,7 @@ The free tier supports many languages and DevOps integrations. Paid Team plans s
 
 ## When you hit a limit
 
-The private limit is a size limit, not a usage meter. The FAQ says that if you get close to the threshold, you are notified to either upgrade your plan or reduce the lines of code in your projects. The pricing page does not describe a block.
+The private limit is a size limit, not a usage meter. The FAQ says that if you get close to the threshold, you are notified to either upgrade your plan or reduce the lines of code in your projects. The troubleshooting guide says analysis fails when the organization exceeds its subscription’s line limit.
 
 The pricing page says the free tier takes no card. A paid private organization is billed monthly by credit card. You can cancel, delete a paid organization, or downgrade to the free tier to keep analyzing public projects.
 
