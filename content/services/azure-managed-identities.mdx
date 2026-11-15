@@ -21,7 +21,7 @@ freeTierDetails:
   limits:
     - No extra cost for managed identities
     - Assigned to Azure compute resources or supported app hosting platforms
-    - Requests to the managed identity endpoint are limited to 20 per second and 5 concurrent requests
+    - Azure Instance Metadata Service limits its managed identity endpoint to 20 requests per second and 5 concurrent requests
     - Each identity counts toward the tenant's directory object quota
   caveats:
     - The Azure resources that use the identities are billed as usual.
@@ -57,11 +57,11 @@ avoidIf:
   - you need access across tenants
   - you use Azure Cloud Services (classic)
 productionReadiness: production-ready
-lastVerified: 2026-11-10
-lastUpdated: 2026-10-09
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 8
 usefulnessScore: 9
-officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/active-directory/'
+officialUrl: 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview'
 docsUrl: 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview'
 pricingUrl: 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview'
 sourceUrls:
@@ -69,10 +69,9 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/managed-identities-faq'
   - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/qs-configure-portal-windows-vm'
   - 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities'
-  - 'https://azure.microsoft.com/en-us/pricing/details/active-directory/'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
 answer: >-
-  Azure Managed Identities add no charge, but the card is required for the Azure subscription, the resources using them are billed as usual, and requests are limited to 20 per second.
+  Azure Managed Identities add no charge, and the Azure subscription requires a card, with underlying resources billed as usual and the Instance Metadata Service limiting identity requests to 20 per second.
 
 ---
 You set it up in the Azure portal, the Azure CLI, PowerShell, an Azure Resource Manager template, or the REST API. Your code then asks for a token through the Azure.Identity library or MSAL. It suits developers who already run workloads on Azure.
@@ -85,7 +84,7 @@ You can assign an identity to an Azure virtual machine, a virtual machine scale 
 
 ## When you hit a limit
 
-You pay nothing for identities, so a limit cannot create a bill. The limits are technical. The FAQ says requests to the managed identity endpoint are limited to 20 per second and 5 concurrent requests, and requests over the instance metadata limit get 429 responses.
+You pay nothing for identities, so a limit cannot create a bill. The limits are technical. The FAQ gives limits of 20 requests per second and 5 concurrent requests for the managed identity category of Azure Instance Metadata Service. Requests over that limit receive HTTP 429.
 
 Each identity also counts toward your tenant's directory object quota. Creating a new identity is blocked once usage would reach 98 percent of that quota. An administrator then has to raise the quota or delete objects. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 
@@ -113,4 +112,4 @@ A system-assigned identity belongs to one resource and is deleted with it. A use
 
 ### Are there limits on Azure managed identities?
 
-Yes. The FAQ lists a rate limit of 20 requests per second with 5 concurrent requests for the managed identity endpoint. It also lists a tenant directory object quota, with creation blocked at 98 percent.
+Yes. The FAQ lists 20 requests per second and 5 concurrent requests for the managed identity category of Azure Instance Metadata Service. It also lists a tenant directory object quota, with creation blocked at 98 percent.

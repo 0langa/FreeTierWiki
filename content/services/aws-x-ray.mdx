@@ -36,7 +36,7 @@ freeTierDetails:
     - A high sampling rate on a busy app can pass the free traces quickly
 quickstartSteps:
   - Create an AWS account.
-  - Turn on tracing for a supported service, such as a Lambda function, or instrument your app with an X-Ray SDK or agent.
+  - Turn on tracing for a supported service, such as a Lambda function, or use OpenTelemetry to instrument your app and send traces to X-Ray.
   - Send some requests to your app.
   - Open the trace map in the console to view traces and the calls inside them.
 whenToUse: >-
@@ -52,13 +52,14 @@ avoidIf:
   - apps that do not run on AWS
   - high-traffic apps with full sampling
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://aws.amazon.com/xray/'
 docsUrl: 'https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html'
 sourceUrls:
+  - https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html
   - 'https://aws.amazon.com/cloudwatch/pricing/'
   - 'https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html'
   - 'https://aws.amazon.com/free/free-tier-faqs/'
@@ -92,7 +93,7 @@ AWS gives an example: 2,000 requests per hour with a 10% sampling rate over 31 d
 ## Gotchas
 
 - The number of traces follows your traffic and sampling rate, so a traffic spike raises the count without any change to your code.
-- The newer transaction search and Application Signals features are priced separately from classic X-Ray traces.
+- The X-Ray SDK and daemon entered maintenance mode in February 2026. AWS recommends OpenTelemetry for new instrumentation. Transaction Search and Application Signals have separate pricing.
 - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion.
 
 ## Alternatives in this atlas

@@ -77,7 +77,7 @@ export function sourceSnapshot(html) {
   const headings = [...inert.matchAll(/<(?:title|h1)\b[^>]*>([\s\S]*?)<\/(?:title|h1)>/gi)].map((m) => htmlToText(m[1])).join("\n");
   const accessIssue = /(?:security|scheduled|precautionary|under(?:going)?|down for) maintenance|^maintenance(?:\s*[|·-].*)?$|^our apps are offline/im.test(headings)
     ? "maintenance"
-    : /making sure.*not a bot|just a moment|checking your browser|verify (?:that )?you are human|attention required.*cloudflare/im.test(headings)
+    : /making sure.*not a bot|just a moment|checking your browser|verify (?:that )?you are human|prove your humanity|automated access notice|attention required.*cloudflare/im.test(headings)
       ? "challenge"
       : /^(?:sign in|log in|login)\b/im.test(headings) && /<input\b[^>]*type\s*=\s*["']?password/i.test(html) ? "login" : undefined;
   // Preserve inert tag order and meaningful attributes, including CSS/span indicators in div-based cards.

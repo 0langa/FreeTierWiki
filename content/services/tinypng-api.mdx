@@ -2,7 +2,7 @@
 title: TinyPNG API
 description: >-
   The TinyPNG Developer API from Tinify compresses, resizes, and converts AVIF,
-  WebP, JPEG, and PNG images. It includes 500 free compressions each month with
+  JPEG XL, WebP, JPEG, and PNG images. It includes 500 free compressions each month with
   no payment method.
 provider: Tinify
 domain: apis
@@ -20,11 +20,11 @@ freeTierDetails:
     and email address to get an API key.
   limits:
     - 500 compressions per month
-    - Resizing and converting each count as one additional compression
+    - Each request that resizes, converts, or stores an image counts as one additional compression
   caveats:
     - The free account stops at 500 compressions until the next calendar month or a paid upgrade
     - Preserving metadata does not count as an extra compression
-    - Resizing, converting and saving a result to Amazon S3 each use an additional compression
+    - A combined resize, conversion, or cloud-storage request adds one compression in total
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -49,8 +49,8 @@ avoidIf:
   - you process thousands of images a month for free
   - you want images served from a CDN
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://tinypng.com/developers'
@@ -75,19 +75,19 @@ answer: >-
 
 ---
 
-The TinyPNG Developer API, run by Tinify, compresses images from your server. You send an image, the API compresses it, and it responds with a URL where you can download the result. It can also resize, convert between AVIF, WebP, JPEG, and PNG, and store results in Amazon S3.
+The TinyPNG Developer API, run by Tinify, compresses images from your server. You send an image, the API compresses it, and it responds with a URL where you can download the result. It can also resize, convert between AVIF, JPEG XL, WebP, JPEG, and PNG, and store results in Amazon S3. HEIC uploads are compressed to JPEG.
 
 ## What the free plan gives you
 
 The developers page offers 500 free compressions each month and says no payment method is required. You register with your name and email address, click the button in the activation email, and find your API key in the API dashboard.
 
-Official client libraries are available for Ruby, PHP, Node.js, Python, Java, and .NET, and any HTTPS client works too. You can create several API keys in the dashboard to track compressions separately for each site or app. Each response carries a Compression-Count header so you can see how many you have used.
+Official client libraries are available for Ruby, PHP, Node.js, Python, Java, and .NET, and any HTTPS client works too. You can create several API keys in the dashboard to track compressions separately for each site or app. Most responses include a Compression-Count header for the current key. The monthly allowance is shared across every key in the account.
 
 ## When you hit a limit
 
-Free accounts stop at 500 compressions per calendar month with the error “Your monthly limit has been exceeded.” Wait for the next calendar month or explicitly upgrade. Paid usage costs $0.009 per compression for the next 9,500, then $0.002 each beyond 10,000; adding paid billing removes the free cap.
+Free accounts stop at 500 compressions per UTC calendar month and return HTTP 429 with a message identifying the monthly limit. Wait for the next calendar month or explicitly upgrade. Paid usage costs $0.009 per compression for the next 9,500, then $0.002 each beyond 10,000; adding paid billing removes the free cap.
 
-Plan for how operations are counted. Resizing, converting and saving to Amazon S3 each count as an additional compression. The API reference gives an example: uploading one image and retrieving the optimized version plus 2 resized versions counts as 3 compressions.
+Plan for how operations are counted. Each request that resizes, converts, or stores a result counts as one additional compression, even if it combines several actions. The API reference gives an example: uploading one image and retrieving the optimized version plus 2 resized versions counts as 3 compressions.
 
 ## Gotchas
 
@@ -109,7 +109,7 @@ Plan for how operations are counted. Resizing, converting and saving to Amazon S
 
 ### Does resizing count as a compression?
 
-Yes. Resizing counts as one additional compression, and converting the format counts as one more.
+Yes. A resize request adds one compression. If you also convert the image in that same request, the two actions together add one compression.
 
 ### Which languages have official clients?
 

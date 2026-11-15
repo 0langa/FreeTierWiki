@@ -3,7 +3,7 @@ title: AWS Key Management Service
 description: >-
   AWS Key Management Service (KMS) creates and holds encryption keys on AWS.
   Your code and AWS services call it to encrypt, decrypt, sign, and generate
-  data keys without the key ever leaving the service.
+  data keys without exposing unencrypted KMS key material.
 provider: AWS
 domain: security
 tags:
@@ -52,8 +52,8 @@ avoidIf:
   - you need a free customer managed key
   - apps outside AWS
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://aws.amazon.com/kms/'
@@ -87,7 +87,7 @@ Some things cost nothing at all. AWS managed and AWS owned keys, which AWS servi
 
 On Paid accounts without optional project controls, requests continue past the free amount. Past 20,000 requests a month, the pricing page examples bill $0.03 per 10,000 requests.
 
-The bigger cost is often the keys. Each KMS key you create costs $1/month, prorated hourly, whether or not you use it. Rotating a key adds $1/month for the first and second rotation, and later rotations are not billed. An S3 example on the pricing page with one key and 2,000,000 decrypt requests comes to $6.97/month.
+The bigger cost is often the keys. Each KMS key you create costs $1/month, prorated hourly, whether or not you use it. Rotating a key adds $1/month for the first and second rotation, and later rotations are not billed. An S3 example on the pricing page with one key, 10,000 encrypt requests, and 2,000,000 decrypt requests comes to $6.97/month.
 
 ## Gotchas
 
@@ -108,7 +108,7 @@ The first 20,000 requests each month are free, and AWS managed keys have no stor
 
 ### Do AWS managed keys cost money?
 
-No. Creating and storing AWS managed or AWS owned keys is free; you pay only for requests past the free tier.
+AWS does not charge to create or store AWS managed or AWS owned keys. Request charges are separate, and only eligible requests count toward the monthly free tier.
 
 ### Do asymmetric key operations count toward the free tier?
 

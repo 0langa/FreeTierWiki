@@ -50,8 +50,8 @@ avoidIf:
   - transactional app databases
   - frequent full scans of large tables
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/bigquery'
@@ -79,7 +79,7 @@ BigQuery is a data warehouse you open in the Google Cloud console. You load data
 
 BigQuery is part of the Google Cloud Free Tier, and its free amounts last after the free trial ends. Each month the first 10 GiB of storage is free, and the first 1 TiB of query data processed is free under on-demand pricing. BigQuery ML models and training data stored in BigQuery count toward the storage free tier.
 
-Some operations are free in every location: batch loading data through the shared slot pool costs nothing, though quotas and limits apply. Without a card, the sandbox has a lifetime 10 GiB storage limit that deletion does not restore, plus 1 TiB of monthly query data. Its tables, views and partitions expire after 60 days. Queries that return an error or are served from the cache are not charged.
+Batch loading through the shared slot pool has no processing charge, although quotas apply and cross-region loads can incur network charges. Without a card, the sandbox has a lifetime 10 GiB storage limit that deletion does not restore, plus 1 TiB of monthly query data. Its tables, views and partitions expire after 60 days. Queries that return an error or are served from the cache are not charged.
 
 ## When you hit a limit
 
@@ -91,7 +91,7 @@ Charges are rounded up to the nearest MB, with a minimum of 10 MB processed per 
 
 - A query is billed by the bytes it processes, not the rows it returns, so scanning many columns of a large table uses the free terabyte fast.
 - Loading data from Cloud Storage means you also pay Cloud Storage for keeping the source files.
-- Streaming reads and writes are billed, unlike batch loading through the shared slot pool.
+- Streaming uses separate pricing. The Storage Read API includes 300 TiB of reads a month and the gRPC Storage Write API includes 2 TiB a month, after which usage is billed.
 
 ## Alternatives in this atlas
 

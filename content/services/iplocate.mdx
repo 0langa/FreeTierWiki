@@ -16,11 +16,11 @@ freeTierDetails:
   limits:
     - 1,000 requests/day
     - Full data access, same as paid plans
-    - Requires a free API key
+    - Free API key needed for 1,000 daily requests; anonymous access allows 50 per IP per day
   caveats:
     - Requests past the daily quota get a 429 error until it resets at midnight UTC
     - No SLA specified for the free tier
-    - Requires a free API key (not anonymous)
+    - A separate rate limit allows up to 100 requests per second per IP
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -48,8 +48,8 @@ avoidIf:
   - high-traffic production
   - strict compliance needs
 productionReadiness: prototype
-lastVerified: 2026-11-10
-lastUpdated: 2026-11-10
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.iplocate.io'
@@ -77,7 +77,7 @@ You get a free API key on the website, then send a GET request to `iplocate.io/a
 
 ## What the free plan gives you
 
-The free plan gives you 1,000 requests per day, free forever, with no credit card. The pricing page says there are no other limits, and that you get the same data, accuracy, and API as paid users. Free access includes geolocation, threat detection, company, and hosting data.
+The free plan gives you 1,000 requests per day, free forever, with no credit card. The pricing page says you get the same data, accuracy, and API as paid users. The API docs specify a separate rate limit of 100 requests per second per IP. Free access includes geolocation, threat detection, company, and hosting data.
 
 Paid use is optional. You can buy credits in bulk, where one request is one credit, or pay a fixed price for a monthly quota that starts from 100,000 requests a month. Custom plans with an SLA are available on request. The site also offers free downloadable databases for country and ASN data.
 
@@ -89,7 +89,7 @@ To get more room, buy credits or a monthly quota. The pricing page says all plan
 
 ## Gotchas
 
-- You need a free API key. The service is not anonymous.
+- The free key raises your allowance to 1,000 requests a day. Anonymous requests have a separate limit of 50 per IP per day.
 - The free plan lists no SLA. The pricing page offers an SLA only in custom packages.
 - The free databases cover country and ASN only. City-level data from the database products is paid.
 
@@ -107,7 +107,7 @@ Yes. The free plan gives you 1,000 requests per day, forever, with no credit car
 
 ### Does IPLocate need an API key?
 
-Yes. You get a free API key when you sign up, and you pass it as the `apikey` parameter in your request.
+You can make 50 anonymous requests a day per IP. Sign up for a free key to make 1,000 requests a day, and pass it as the `apikey` parameter.
 
 ### What happens when I go over the IPLocate free limit?
 

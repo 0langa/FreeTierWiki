@@ -7,11 +7,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { readEntries, selectEntries } from "./lib/entries.mjs";
-import { fetchText } from "./lib/fetch.mjs";
-import { classifyFetch, compareRuns, renderReport, reviewQueue } from "./lib/freshness.mjs";
-import { candidateUrls, excerpt, isThin } from "./lib/pages.mjs";
+import { compareRuns, renderReport, reviewQueue } from "./lib/freshness.mjs";
+import { scanSources, trackedSourceUrls } from "./lib/scan-sources.mjs";
 
-const CONCURRENCY = 6;
 const argv = process.argv.slice(2);
 if (argv.some((value) => value === "--mark-verified" || value.startsWith("--mark-verified="))) {
   throw new Error("--mark-verified is no longer supported: source scans cannot verify complete entries. Review the entry against official sources and update lastVerified explicitly.");
@@ -33,60 +31,57 @@ const limit = Number(arg("limit") ?? 0);
 const subset = Boolean(ids) || limit > 0;
 
 let targets = selectEntries(readEntries(), { ids });
-targets = targets.filter((entry) => candidateUrls(/** @type {never} */ (entry.data)).length > 0);
+targets = targets.filter((entry) => trackedSourceUrls(entry.data).length > 0);
 if (limit > 0) targets = targets.slice(0, limit);
 
-const previous = fs.existsSync(hashesFile) ? (JSON.parse(fs.readFileSync(hashesFile, "utf8")).entries ?? {}) : {};
-
-/** @type {import("./lib/freshness.mjs").RunResult[]} */
-const results = [];
-let next = 0;
-async function worker() {
-  while (next < targets.length) {
-    const entry = targets[next++];
-    const tried = [];
-    let best;
-    for (const url of candidateUrls(/** @type {never} */ (entry.data))) {
-      const fetched = await fetchText(url);
-      const kept = excerpt(fetched.text, Infinity);
-      tried.push({ url, status: fetched.status, chars: fetched.text.length, excerptChars: kept.length, error: fetched.error, accessIssue: fetched.accessIssue });
-      const quality = fetched.status === 200 && !fetched.accessIssue ? (!isThin(fetched.text) && kept ? 3 : 2) : 1;
-      // Prefer a page with price-related text, then the longest one.
-      if (!best || quality > best.quality || (quality === best.quality && ((kept && !best.kept) || (Boolean(kept) === Boolean(best.kept) && fetched.text.length > best.text.length)))) best = { ...fetched, kept, quality };
-      // A page with no price-related line (a script shell, a bot check) is no answer: try the next address.
-      if (quality === 3) break;
-    }
-    const state = classifyFetch(tried);
-    results.push({
-      id: entry.id,
-      state,
-      url: best?.finalUrl || best?.url || null,
-      ...(state === "ok" ? { hash: best?.hash, legacyHash: best?.legacyHash, hashVersion: best?.hashVersion, markupHash: best?.markupHash, legacyMarkupHash: best?.legacyMarkupHash } : {}),
-    });
+let previous = {};
+try {
+  const baseline = JSON.parse(fs.readFileSync(hashesFile, "utf8"));
+  if (!baseline?.entries || typeof baseline.entries !== "object" || Array.isArray(baseline.entries)) {
+    throw new Error("Invalid source baseline: missing entries object");
   }
+  previous = baseline.entries;
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error;
 }
-await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+
+const results = await scanSources(targets, { previous });
 results.sort((a, b) => a.id.localeCompare(b.id));
 
 const now = new Date().toISOString();
 const run = compareRuns(previous, results, now);
 // A subset run keeps the old records of the entries it did not read. A full run drops removed entries.
 const merged = subset ? { ...previous, ...run.next } : run.next;
-fs.mkdirSync(path.dirname(hashesFile), { recursive: true });
-fs.writeFileSync(hashesFile, `${JSON.stringify({ updatedAt: now, entries: merged }, null, 1)}\n`);
 
 // Frontmatter dates come back as Date objects when unquoted and strings when quoted.
 const asDate = (/** @type {unknown} */ value) =>
   value instanceof Date ? value.toISOString().slice(0, 10) : typeof value === "string" ? value.slice(0, 10) : undefined;
 const entries = readEntries();
 const lastVerifiedById = Object.fromEntries(entries.map((entry) => [entry.id, asDate(entry.data.lastVerified)]));
-const queue = reviewQueue(run, lastVerifiedById);
+const policyFile = path.resolve("docs/reviews/source-review-policy.json");
+const policy = fs.existsSync(policyFile) ? JSON.parse(fs.readFileSync(policyFile, "utf8")) : {};
+const queue = reviewQueue(run, lastVerifiedById, policy);
 const titles = Object.fromEntries(entries.map((e) => [e.id, String(e.data.title ?? e.id)]));
 const urls = Object.fromEntries(results.map((r) => [r.id, r.url]));
 fs.mkdirSync(path.dirname(reportFile), { recursive: true });
 fs.mkdirSync(path.dirname(reviewFile), { recursive: true });
-fs.writeFileSync(reportFile, renderReport({ ...run, pending: queue.filter((entry) => entry.reason === "unreviewed-change").map((entry) => entry.id) }, { date: now.slice(0, 10), titles, urls }));
+fs.writeFileSync(reportFile, renderReport({ ...run,
+  pending: queue.filter((entry) => entry.reason === "unreviewed-change").map((entry) => entry.id),
+  notFound: queue.filter((entry) => entry.reason === "source-not-found").map((entry) => entry.id),
+  partial: queue.filter((entry) => entry.sourceIssues?.length && run.next[entry.id].state === "ok").map((entry) => entry.id),
+  rendered: queue.filter((entry) => entry.reason === "rendered-source-review").map((entry) => entry.id),
+  overdue: queue.filter((entry) => entry.reason === "overdue-review").map((entry) => entry.id),
+}, { date: now.slice(0, 10), titles, urls, sourceIssues: Object.fromEntries(queue.map(({ id, sourceIssues }) => [id, sourceIssues])) }));
 fs.writeFileSync(reviewFile, `${JSON.stringify({ checkedAt: now, entries: queue }, null, 2)}\n`);
+
+fs.mkdirSync(path.dirname(hashesFile), { recursive: true });
+const temporary = `${hashesFile}.${process.pid}.tmp`;
+try {
+  fs.writeFileSync(temporary, `${JSON.stringify({ updatedAt: now, entries: merged }, null, 1)}\n`);
+  fs.renameSync(temporary, hashesFile);
+} finally {
+  fs.rmSync(temporary, { force: true });
+}
 const flagged = queue.length;
 // GitHub Actions reads this to decide whether to open an issue.
 if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `flagged=${flagged}\n`);

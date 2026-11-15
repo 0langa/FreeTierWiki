@@ -27,7 +27,7 @@ freeTierDetails:
     - Topic names are public, so pick one that is hard to guess
     - Repeated abuse of the limits can get your IP address temporarily banned
     - Reserved topic names and higher limits need a paid plan
-  resetPeriod: daily
+  resetPeriod: rolling 24 hours per visitor
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -53,8 +53,8 @@ avoidIf:
   - sensitive messages on the public server
   - high message volume
 productionReadiness: side-project
-lastUpdated: 2026-10-09
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://ntfy.sh'
@@ -64,13 +64,14 @@ sourceUrls:
   - 'https://docs.ntfy.sh'
   - 'https://docs.ntfy.sh/publish/'
   - 'https://docs.ntfy.sh/faq/'
+  - 'https://docs.ntfy.sh/config/'
 pricingUrl: 'https://ntfy.sh/'
 changes:
   - date: '2026-10-01'
     kind: new
     note: Added to the atlas.
 answer: >-
-  ntfy.sh lets you publish with no sign-up and no card, up to 250 messages a day and 5 verified emails, and repeated abuse of the limits can temporarily ban your IP.
+  ntfy.sh lets you publish without signing up or adding a card, stops at 250 messages per visitor in 24 hours, and allows five daily emails after verification.
 
 ---
 You publish with a plain HTTP PUT or POST from curl, a script, or the `ntfy` command line tool, and you read the message in the Android or iOS app, the web app, or the desktop. It suits one person or a small team that wants alerts from their own machines.
@@ -83,7 +84,7 @@ Attachments can be up to 2 MB each, with 20 MB in total per visitor, and they ex
 
 ## When you hit a limit
 
-The docs say traffic over the daily bandwidth limit is rejected, and they do not say what happens at 250 messages a day. The request limit refills slowly: you get 60 requests at once, then one more every 5 seconds.
+At 250 messages per visitor in a rolling 24-hour period, additional publish requests return HTTP 429 until the window resets. The server includes a Retry-After header when it knows how long to wait. Traffic above the daily bandwidth limit is also rejected. A separate request limit controls bursts.
 
 If you repeatedly exceed the limits or abuse the service, the docs say your IP address may be temporarily banned. You can check a ban at am-i-banned.ntfy.sh. Free use needs no account, and the docs list no overage charge.
 

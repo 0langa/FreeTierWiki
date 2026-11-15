@@ -68,6 +68,19 @@ describe("text selectors reject their look-alikes", () => {
     expect(titles(usesYourContent(ai))).toEqual(["Gemini API"]);
   });
 
+  it("keeps qualified active-voice reuse policies and rejects negated ones", () => {
+    const policy = "Google generally uses Free Tier content to improve its products, subject to its regional terms.";
+    const ai = [
+      entry("Gemini API", "ai", { summary: policy }),
+      entry("Private API", "ai", { caveats: ["The vendor does not use your content to improve its products"] }),
+      entry("Private Cloud", "ai", { caveats: ["Your content is not used to improve the service"] }),
+      entry("Opt-out", "ai", { caveats: ["Your data may not be used to improve the service"] }),
+    ];
+    const facts = usesYourContent(ai);
+    expect(titles(facts)).toEqual(["Gemini API"]);
+    expect(facts[0].line).toContain("subject to its regional terms");
+  });
+
   it("an operation quota is not an idle shutdown", () => {
     const database = [
       entry("Firebase Firestore", "database", { limits: ["20,000 deletes/day", "50,000 reads/day"] }),

@@ -25,15 +25,14 @@ freeTierDetails:
   caveats:
     - Async renders and presigned URL upload need a paid plan
     - More templates or document volume need a paid plan
-    - The quickstart guide says Doppio asks for a credit card to prevent abuse, which conflicts with the pricing page
   resetPeriod: monthly
-  requiresCard: unknown
+  requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 quickstartSteps:
   - 'Create a free account at app.doppio.sh and open the dashboard.'
-  - 'Copy your API key; refresh the key the first time you copy it.'
+  - 'Copy your organization’s API key from the dashboard.'
   - 'Send a POST request to api.doppio.sh/v1/render/pdf/direct with a URL (goTo) or raw HTML (setContent).'
   - 'Save the raw PDF the API returns, or use the screenshot render methods for PNG images.'
   - 'Check the usage monitoring guide so you can watch your monthly document count.'
@@ -52,7 +51,7 @@ avoidIf:
   - several templates
   - async rendering on the free plan
 productionReadiness: side-project
-lastUpdated: 2026-10-21
+lastUpdated: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://doppio.sh/'
@@ -63,14 +62,14 @@ sourceUrls:
   - 'https://doc.doppio.sh/'
   - 'https://doc.doppio.sh/guide/quick-start'
   - 'https://doc.doppio.sh/guide/render-methods/render-pdf-direct'
-lastVerified: 2026-11-09
+lastVerified: 2026-11-15
 pricingUrl: 'https://doppio.sh/pricing'
 changes:
   - date: 2026-10-21
     kind: changed
     note: "Represented direct conflict between no-card pricing and abuse-prevention card requirement in official quickstart; Free pause/no-overage policy remains explicit."
 answer: >-
-  Doppio's Basic plan renders 400 documents a month with one template and pauses at that cap with no overage, while its pricing page and quickstart conflict on the card rule.
+  Doppio’s Basic plan needs no credit card and renders up to 400 PDFs or screenshots a month with one template, then pauses renders until the next billing cycle or an upgrade.
 
 ---
 You call the Doppio REST API from your code with an API key. You send a URL, raw HTML, or a saved template, and you get back a PDF or a screenshot. Official quick starts cover Node.js, Python, PHP, Ruby, Rust, serverless, and a CLI.
@@ -89,8 +88,8 @@ So you will not get a surprise charge on the free plan. A pause also means your 
 
 ## Gotchas
 
-- The pricing page says no credit card is required. The quickstart guide says Doppio asks for a card to prevent abuse. Expect either at sign-up.
-- The quickstart notes that you must refresh your API key the first time you copy it.
+- The Basic plan needs no credit card, according to Doppio’s pricing page.
+- Each render made with the shared organization API key counts toward that organization’s monthly quota.
 - The free plan has 1 template. A second saved template needs the Premium plan with 5 templates.
 
 ## Alternatives in this atlas
@@ -107,7 +106,7 @@ Yes. The Basic plan is free with up to 400 documents per month and 1 template. T
 
 ### Does Doppio need a credit card?
 
-The pricing page says no credit card is required. The quickstart guide says Doppio asks for one to prevent abuse, so be ready for either.
+No. Doppio’s pricing page explicitly lists Basic as a cardless plan.
 
 ### What happens when I go over the Doppio free quota?
 

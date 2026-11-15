@@ -21,13 +21,13 @@ freeTierDetails:
     - 24-hour log retention
     - Unlimited apps and team members
   caveats:
-    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
+    - "Logs beyond the rolling quota can be delayed or discarded"
     - No crash reporting or user feedback collection on the free plan
     - Only 24 hours of log retention (paid plans get 7-30 days)
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: none
 quickstartSteps:
   - Sign up from bugfender.com; the site says no credit card is required.
@@ -51,14 +51,15 @@ avoidIf:
   - crash reporting on the free plan
   - more than 2,000 devices
 productionReadiness: production-light
-lastVerified: 2026-11-09
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://bugfender.com/'
 docsUrl: 'https://docs.bugfender.com/'
 pricingUrl: 'https://bugfender.com/pricing/'
 sourceUrls:
+  - https://support.bugfender.com/en/articles/2019498-how-can-i-see-how-many-logs-are-used-and-left-from-my-daily-quota
   - 'https://bugfender.com/pricing/'
   - 'https://docs.bugfender.com/'
   - 'https://docs.bugfender.com/docs/platforms/web-apps/bugfender-for-javascript-on-browsers'
@@ -85,7 +86,7 @@ Crash reporting and user feedback collection start on the paid Team plan, called
 
 ## When you hit a limit
 
-The pricing page does not say what happens on the Free plan when you pass 100K log lines in a day or 2,000 devices. It asks for no card, so a bill is unlikely. Check the dashboard before you rely on it at that scale.
+Bugfender counts logs over a rolling 24-hour window. Its help center says the first over-quota period can delay logs for another 24 hours, after which extra logs are discarded. Pricing gives the 2,000-device allowance without detailing how it is enforced.
 
 The paid plans work differently: the page says you start with reserved monthly logs and scale with pay-as-you-go pricing when you need more.
 
@@ -93,7 +94,7 @@ The paid plans work differently: the page says you start with reserved monthly l
 
 - Free logs vanish after 24 hours, so a bug a user reports the next day may already be gone.
 - Crash reporting and user feedback are not in the Free plan list.
-- The 2,000 device limit counts customer devices, and the daily 100K log lines reset every day.
+- The 2,000 device limit counts customer devices, and the 100K log allowance is measured over a rolling 24-hour window.
 
 ## Alternatives in this atlas
 

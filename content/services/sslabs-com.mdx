@@ -18,6 +18,7 @@ freeTierDetails:
     - Public internet servers only
     - A free online service; the page lists no price and no signup step
     - Free APIs and an open source command-line scanner, with restrictions
+    - API v4 assessments require registration with an organization email
   caveats:
     - Tests public servers only, not private/internal sites
     - The test form has an option to keep your result off the public boards
@@ -49,8 +50,8 @@ avoidIf:
   - testing private or internal sites
   - you need bulk testing without reading the API terms first
 productionReadiness: production-ready
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://www.ssllabs.com/ssltest/'
@@ -60,6 +61,7 @@ sourceUrls:
   - https://www.ssllabs.com/projects/documentation/
   - https://www.ssllabs.com/projects/ssllabs-apis/index.html
   - https://www.ssllabs.com/downloads/Qualys_SSL_Labs_Terms_of_Use.pdf
+  - https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v4.md
 pricingUrl: 'https://www.ssllabs.com/ssltest/'
 changes:
   - date: '2026-10-21'
@@ -75,13 +77,13 @@ You use it in a browser: enter a hostname and wait for the report. For scheduled
 
 SSL Server Test is a free online service. It performs a deep analysis of the configuration of any SSL web server on the public internet. The page lists no price and no signup step. The test page says submitted information is used only for the service; the terms permit collecting hostnames and IPs for proactive scans and report caching.
 
-For automation, SSL Labs APIs expose the full testing function so you can run scheduled and bulk assessments. They are free to use, with restrictions. The site also maintains ssllabs-scan, an open source command-line tool that doubles as the reference API client. A guide called SSL/TLS Deployment Best Practices and an SSL Server Rating Guide explain the results.
+For automation, SSL Labs APIs expose the full testing function so you can run scheduled and bulk assessments. They are free to use under the published terms. API v4 assessments require registration with your name, organization and organization email. The site also maintains ssllabs-scan, an open source command-line tool that doubles as the reference API client. A guide called SSL/TLS Deployment Best Practices and an SSL Server Rating Guide explain the results.
 
 ## When you hit a limit
 
 The public test page lists no daily testing allowance or paid overage. API usage is restricted by the published terms rather than offered as unlimited commercial scanning. Assess only servers whose owners have given permission. Commercial API use, public-website integration and republishing results require the permissions specified in those terms.
 
-Precise live request and concurrency quotas are not published on the test page. Avoid treating the free price as a bulk-capacity promise. Private or internal hosts cannot be reached by this public-internet scanner.
+API v4 can return HTTP 429 when a new assessment exceeds the allowed rate or concurrency. Its response headers show how many assessments are running and the current concurrency allowance. Private or internal hosts cannot be reached by this public-internet scanner.
 
 ## Gotchas
 

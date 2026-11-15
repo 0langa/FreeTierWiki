@@ -4,7 +4,7 @@ name: Weekly pricing check
 # issue for changed, unreadable, noisy or still-unreviewed sources. The hashes live on the `freshness-data` branch.
 # Entry dates change only after an entry review; this source scanner does not modify main.
 # The page content is only parsed and hashed: it is never run, never sent to a model, and never put in the issue.
-# The Sunday slot gives the Monday 08:00 UTC review routine (claude.ai) time to find the issue: GitHub has
+# The Sunday slot gives the Monday 10:00 Europe/Berlin Codex review time to find the issue: GitHub has
 # started this schedule up to eight hours late.
 
 on:
@@ -39,6 +39,7 @@ jobs:
       - run: npm ci
 
       - name: Load last week's hashes
+        id: baseline
         run: |
           mkdir -p data
           # Exit code 2 means the branch does not exist yet. Any other failure (network, auth) stops the run:
@@ -48,8 +49,11 @@ jobs:
           git ls-remote --exit-code --heads origin freshness-data >/dev/null || found=$?
           if [ "$found" -eq 0 ]; then
             git fetch --depth=1 origin freshness-data
-            git show FETCH_HEAD:source-hashes.json > data/source-hashes.json
+            revision=$(git rev-parse FETCH_HEAD)
+            git show "$revision:source-hashes.json" > data/source-hashes.json
+            printf 'revision=%s\n' "$revision" >> "$GITHUB_OUTPUT"
           elif [ "$found" -eq 2 ]; then
+            printf 'revision=none\n' >> "$GITHUB_OUTPUT"
             echo "No baseline yet: this run creates it."
           else
             echo "::error::Could not read the freshness-data branch (git ls-remote exit $found)."
@@ -85,20 +89,17 @@ jobs:
 
       - name: Save this week's hashes
         if: github.ref == 'refs/heads/main'
+        env:
+          BASELINE_REVISION: ${{ steps.baseline.outputs.revision }}
         run: |
           cp data/source-hashes.json "$RUNNER_TEMP/source-hashes.json"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          found=0
-          git ls-remote --exit-code --heads origin freshness-data >/dev/null || found=$?
-          if [ "$found" -eq 0 ]; then
-            git fetch --depth=1 origin freshness-data
-            git switch --force -C freshness-data FETCH_HEAD
-          elif [ "$found" -eq 2 ]; then
+          # Build on the revision this scan read so a concurrent writer causes a non-fast-forward rejection.
+          if [ "$BASELINE_REVISION" = "none" ]; then
             git switch --orphan freshness-data
           else
-            echo "::error::Could not read the freshness-data branch (git ls-remote exit $found)."
-            exit 1
+            git switch --force -C freshness-data "$BASELINE_REVISION"
           fi
           cp "$RUNNER_TEMP/source-hashes.json" source-hashes.json
           git add source-hashes.json

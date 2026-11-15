@@ -23,7 +23,7 @@ freeTierDetails:
     - No credit card required to start
     - Logs beyond monthly access are still recorded but blurred; exports stop at that allowance
     - Score reset and over-allowance behavior are not published
-    - Pricing lists 7-day default retention on Free, matching the 7-day query window in the Logs documentation
+    - Pricing lists 30-day default Free retention, while the Logs documentation limits Free queries to 7 days
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -49,8 +49,8 @@ avoidIf:
   - 'unlimited datasets, evaluators, or prompts'
   - 'SOC 2 reports on the free plan'
 productionReadiness: production-light
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://respan.ai'
@@ -62,7 +62,13 @@ sourceUrls:
   - 'https://respan.ai/docs/documentation/features/tracing/quickstart'
   - 'https://respan.ai/docs/documentation/admin/credits-billing'
   - 'https://www.respan.ai/docs/documentation/features/observe/explore-spans'
+  - 'https://www.respan.ai/docs/documentation/admin/projects'
+  - 'https://www.respan.ai/docs/ai-gateway/security/zero-data-retention'
+status: changed
 changes:
+  - date: '2026-11-15'
+    kind: changed
+    note: The Free pricing table now lists 30 days of default retention. The documented Free query window is still 7 days.
   - date: '2026-10-21'
     kind: changed
     note: 'Confirmed calendar-month log visibility and blur/export behavior; removed the unsupported monthly score-reset assertion and clarified external model costs.'
@@ -76,7 +82,7 @@ You send your LLM calls through one gateway endpoint, or add the Respan SDK to t
 
 The Free plan costs $0 and covers the full platform with no credit card. You can view the first 100k logs each calendar month and get 1k scores, 5 datasets, 10 prompts, and 2 evaluators. The score reset period is not specified.
 
-Pricing lists 7-day default retention on Free, and the Logs documentation limits Free queries to the last 7 days. Proxy throughput is 4,200 requests per minute and ingestion is 412 logs per minute. Team costs $199 per month, billed yearly, with unlimited datasets, evaluators, and prompts and a SOC 2 report.
+Pricing and project docs list 30 days of default Free storage, while the homepage comparison still lists 7 days of retention. The Logs guide separately limits Free queries to the past 7 days. Proxy throughput is 4,200 requests per minute and ingestion is 412 logs per minute. Team costs $199 per month, billed yearly, with unlimited datasets, evaluators, and prompts and a SOC 2 report.
 
 ## When you hit a limit
 
@@ -87,7 +93,7 @@ Gateway calls that use Respan's own provider keys are paid with prepaid gateway 
 ## Gotchas
 
 - Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Using your own provider key avoids Respan gateway-credit purchases, but model usage is still billed by your provider.
-- Free logs have 7-day default retention and Free queries cover only the last 7 days, so export what you need to keep.
+- Free queries cover only the last 7 days. Export logs within that window if you need longer access.
 - Team plan features such as a SOC 2 report and a private Slack channel start on the Team plan.
 
 ## Alternatives in this atlas

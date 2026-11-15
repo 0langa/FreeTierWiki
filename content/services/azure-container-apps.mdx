@@ -30,7 +30,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above the free amount is billed per second; there is no hard cap.
+    - Compute above the free amount is billed per second, and extra external HTTP requests are billed by count.
 quickstartSteps:
   - 'Create an Azure account with an active subscription and register the Microsoft.App resource provider.'
   - 'Sign in to the Azure portal, search for Container Apps, and select Create, then Container App.'
@@ -53,7 +53,7 @@ avoidIf:
   - a fixed cost with no usage billing
   - no payment method for an Azure account
 productionReadiness: production-light
-lastUpdated: 2026-10-21
+lastUpdated: 2026-11-15
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
@@ -64,14 +64,14 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/container-apps/quickstart-portal'
   - 'https://learn.microsoft.com/en-us/azure/container-apps/billing'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
-lastVerified: 2026-11-10
+lastVerified: 2026-11-15
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/container-apps/'
 changes:
   - date: 2026-10-21
     kind: changed
     note: "Scoped scale-to-zero savings to replica compute, with other resource and management charges separate."
 answer: >-
-  Azure Container Apps needs a card and includes the first 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests a month, with usage above that billed per second and no hard cap.
+  Azure Container Apps needs a card and includes 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests a month on Consumption, then bills extra compute by the second and extra requests by volume.
 
 ---
 You create a Container Apps environment and a container app in the Azure portal, or with the Azure CLI, and point it at a container image. It suits teams that already package code as containers and want Azure to run them without managing Kubernetes. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
@@ -86,7 +86,7 @@ Free usage does not show on your bill. You only pay once your use passes these m
 
 Nothing stops your apps at the free amounts. After the grants are used, Azure bills you per second for the vCPU and memory your replicas have, plus the requests they handle. The pricing page and the billing docs describe no hard spending cap.
 
-You can keep a minimum number of replicas always running. A replica that sits idle is charged at a reduced rate, and a replica is charged at the active rate while it starts, handles requests, or uses more than a small amount of CPU or network. Scaling to zero stops replica compute consumption; separate management fees and other Azure resources can still cost money.
+You can keep a minimum number of replicas always running. Eligible replicas at the configured minimum can get the reduced idle rate. Starting and busy replicas, replicas above the configured minimum, and running serverless GPU replicas are billed at active rates. Scaling to zero stops replica compute consumption; separate management fees and other Azure resources can still cost money.
 
 ## Gotchas
 
@@ -112,4 +112,4 @@ Yes, you can configure an app to scale to zero replicas when there are no reques
 
 ### What happens when I go over the Azure Container Apps free grant?
 
-Azure keeps your apps running and bills the extra usage per second. The pricing page shows no hard cap.
+Azure bills extra vCPU and memory use by the second and extra billable HTTP requests by count. The pricing page shows no hard cap.

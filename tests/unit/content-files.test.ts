@@ -7,11 +7,14 @@ import { makeEntry } from "../support/fixtures";
 
 function riskProblems(entry: AtlasEntry): string[] {
   const problems: string[] = [];
-  const { requiresCard, overageRisk, hasHardCap, freeTierType } = entry.freeTierDetails;
+  const { requiresCard, overageRisk, hasHardCap, freeTierType, billingRiskNotes } = entry.freeTierDetails;
   // "none" means you cannot be billed, which is impossible with a card on file.
   if (overageRisk === "none" && requiresCard === true) problems.push(`${entry.id}: overageRisk none with requiresCard`);
-  // No-risk credits and trials need a confirmed stopping cap; always-free offers can have no paid overage.
-  if (overageRisk === "none" && hasHardCap !== true && freeTierType !== "always-free") {
+  // A documented, cardless trial that never converts can stop dashboard access while collection continues.
+  const manualTrial = freeTierType === "trial" && requiresCard === false && billingRiskNotes.some((note) =>
+    /\b(?:never|does not) converts? to a paid subscription automatically\b/i.test(note));
+  // Otherwise credits and trials need a confirmed stopping cap; always-free offers can have no paid overage.
+  if (overageRisk === "none" && hasHardCap !== true && freeTierType !== "always-free" && !manualTrial) {
     problems.push(`${entry.id}: overageRisk none without a hard cap or an always-free plan`);
   }
   if (overageRisk === "high" && hasHardCap === true) problems.push(`${entry.id}: overageRisk high with hasHardCap`);
@@ -57,6 +60,9 @@ describe("content files", () => {
     expect(riskProblems(trial)).toEqual(["services:neon: overageRisk none without a hard cap or an always-free plan"]);
     expect(riskProblems({ ...trial, freeTierDetails: { ...trial.freeTierDetails, hasHardCap: true } })).toEqual([]);
     expect(riskProblems({ ...trial, freeTierDetails: { ...trial.freeTierDetails, overageRisk: "low" } })).toEqual([]);
+    const documented = { ...trial, freeTierDetails: { ...trial.freeTierDetails, billingRiskNotes: ["The trial never converts to a paid subscription automatically."] } };
+    expect(riskProblems(documented)).toEqual([]);
+    expect(riskProblems({ ...documented, freeTierDetails: { ...documented.freeTierDetails, requiresCard: "unknown" } })).not.toEqual([]);
   });
 
   it("every entry has real search tags", async () => {

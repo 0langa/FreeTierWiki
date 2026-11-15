@@ -68,8 +68,8 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: Corrected monthly allowance units from requests to credits; the previously recorded daily cap remains unverified.
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://zipcodestack.com'
@@ -81,7 +81,7 @@ sourceUrls:
   - 'https://zipcodestack.com/pricing'
   - 'https://zipcodestack.com/docs/authentication/'
 answer: >-
-  Zipcodestack's Free plan gives 1,000 requests a month at up to 10 requests a minute, with no card and no overage charge.
+  Zipcodestack's Free plan gives 1,000 requests a month and up to 10 per minute for personal use and testing, with no card or overage charge.
 
 ---
 You call Zipcodestack with a GET request and an API key, and the docs also list client SDKs. Pass the key in a header or as a query parameter. It suits developers who add postal code checks and autocomplete to forms and checkouts.
@@ -90,7 +90,7 @@ You call Zipcodestack with a GET request and an API key, and the docs also list 
 
 The Free plan costs $0 a month and is described as for testing and personal projects. It includes 1,000 requests a month, one API key, and a limit of 10 requests per minute. The home page says no credit card is needed.
 
-Endpoints count different numbers of requests. Search counts 1 request per postal code found. Validate, autocomplete, reverse, and match count 1 request per call; distance counts 1 per successful calculation. Radius and polygon calls count 10 requests each. City and state lists count 1 request per 10 postal codes returned. The status endpoint, the provinces list, and the coverage list are free.
+Endpoints count different numbers of requests. Search counts 1 request per postal code found. Validate, autocomplete, reverse, and match count 1 request per call; distance counts 1 per successful calculation. Radius and polygon calls count 10 requests each. City and state lists count 1 request per 10 postal codes returned, with a minimum of 1. The status endpoint, the provinces list, and the coverage list are free.
 
 Only successful calls count. Errors on the provider's side and validation errors do not use your quota.
 
@@ -98,7 +98,7 @@ Only successful calls count. Errors on the provider's side and validation errors
 
 When you use all 1,000 requests, the API returns a 429 status code. You then upgrade your plan or wait until the end of the month. If you pass 10 requests in a minute on the free plan, you also get a 429 code and must wait until the minute ends.
 
-Response headers show your remaining monthly and per-minute quota. The docs list only these two limits, with no daily cap. Every paid plan can turn on optional overage up to a monthly spending cap, while the free plan has none and stops at its limit.
+Response headers show your remaining monthly quota and the minute quota for the gateway node that responded. The documented 10 requests per minute are split across two nodes at 5 each. The docs list only these two limits, with no daily cap. Every paid plan can turn on optional overage up to a monthly spending cap, while the free plan has none and stops at its limit.
 
 ## Gotchas
 

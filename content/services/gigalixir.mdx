@@ -22,16 +22,16 @@ freeTierDetails:
     - Free PostgreSQL database with 10,000 rows
     - 2 concurrent database connections
   caveats:
-    - A credit card is required at signup for all plans
+    - A credit card is required at signup for all plans; Gigalixir places and releases a temporary authorization hold
     - Free apps are scaled to zero if you do not deploy for 30 days
-    - The current comparison lists SSH and remote console access on Free
+    - Gigalixir's pricing and tier docs disagree on Free SSH access
   resetPeriod: none
   requiresCard: true
   freeTierType: always-free
   hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - Free Tier usage is not charged; scaling up moves you to per-second Standard billing
+    - Free Tier usage is not charged; you must move the account to Standard to scale up, and its usage is billed per second
 quickstartSteps:
   - Sign up for Gigalixir and add a credit card, which is required for all plans.
   - Create an app on the Free Tier with one 0.5 GB replica.
@@ -49,14 +49,16 @@ avoidIf:
   - you cannot add a credit card
   - you need more than 10,000 database rows
 productionReadiness: prototype
-lastUpdated: 2026-11-09
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.gigalixir.com/'
 docsUrl: 'https://www.gigalixir.com/docs/'
 sourceUrls:
   - 'https://www.gigalixir.com/pricing'
+  - 'https://docs.gigalixir.com/tiers-pricing'
+  - 'https://docs.gigalixir.com/database/free-tier'
 pricingUrl: 'https://www.gigalixir.com/pricing'
 changes:
   - date: 2026-10-21
@@ -80,15 +82,15 @@ The plan comparison sets the free maximum at 0.5 GB of replica memory and 1 repl
 
 ## When you hit a limit
 
-The plan caps you at one replica and the row limit on the database; the pricing page does not say exactly what happens when a write would pass 10,000 rows.
+The plan caps you at one replica. Going over a replica's memory limit restarts it. Gigalixir lists a 10,000-row database limit but does not publish exactly what happens when a write exceeds it.
 
 To conserve resources, Free Tier apps sleep: if you do not deploy for 30 days, Gigalixir scales the app to zero. Standard Tier apps never sleep. Moving to Standard is billed per second for what you use, so a short scale-up costs only for the hours it runs.
 
 ## Gotchas
 
-- A credit card is required at signup for all plans, including the Free Tier.
+- A credit card is required at signup for all plans; Gigalixir places and releases a temporary authorization hold, including the Free Tier.
 - The free app is scaled to zero after 30 days without a deploy, so an untouched app goes offline.
-- High-availability databases are paid features. The current comparison lists SSH, remote console access, and native clustering across plans, but Free still has one replica.
+- High-availability databases are paid features. The pricing comparison lists SSH and remote console access across plans, while the tier documentation's Free versus Standard table lists SSH only on Standard. The free database has no backups and may be deleted after extended app inactivity.
 
 ## Alternatives in this atlas
 

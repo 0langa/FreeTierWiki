@@ -1,5 +1,7 @@
 # Pricing review — 14 November 2026
 
+Historical partial run. The [15 November full-catalog baseline](2026-11-15-full-baseline.md) supersedes this queue and records the subsequent comparisons. The incomplete outcomes below describe the original run, not the current catalog.
+
 Incomplete run: one complete comparison and catalog correction, five unresolved carryovers, 109 entries not reviewed. The 50-entry rotation was not completed. Evidence was fetched for 50 additional entries, but those files have not been compared claim by claim. This is a draft, not a completed weekly review. No external access failure is asserted for entries merely left unreviewed.
 
 ## Queue and reconciliation

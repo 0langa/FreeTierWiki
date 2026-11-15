@@ -22,7 +22,7 @@ freeTierDetails:
     - Up to 25 developers
     - Unlimited real-time secret scanning
     - Up to 500 historical scan detections
-    - 10K API calls/month
+    - 10K scan API calls per rolling month
     - Repository scanning capacity of 1 GB
   caveats:
     - Remediation playbooks, public secrets monitoring, and SSO need paid plans
@@ -56,7 +56,7 @@ avoidIf:
   - you need self-hosting
   - you need public secrets monitoring
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
+lastUpdated: 2026-11-15
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://www.gitguardian.com'
@@ -67,7 +67,8 @@ sourceUrls:
   - 'https://www.gitguardian.com'
   - 'https://docs.gitguardian.com/'
   - 'https://docs.gitguardian.com/ggshield-docs/getting-started'
-lastVerified: 2026-11-09
+  - 'https://docs.gitguardian.com/api-docs/usage-and-quotas'
+lastVerified: 2026-11-15
 pricingUrl: 'https://www.gitguardian.com/pricing'
 changes:
   - date: 2026-10-21
@@ -84,20 +85,20 @@ You connect repositories in the GitGuardian web dashboard and review incidents t
 
 ## What the free plan gives you
 
-The Starter plan costs $0 and is free always, with no credit card required. It includes internal secrets monitoring for up to 25 developers. You get unlimited real-time scanning and up to 500 historical scan detections. The pricing page also lists 10K API calls per month. Its API FAQ specifies a rolling month rather than a calendar-month reset.
+The Starter plan costs $0 and is free always, with no credit card required. It includes internal secrets monitoring for up to 25 developers. You get unlimited real-time scanning and up to 500 historical scan detections. The scan API allowance is 10,000 calls per workspace in a rolling month. A call to the single-document scan or the multi-scan endpoint uses one unit.
 
 The comparison table lists a repository scanning capacity of 1 GB on Starter, against 12 GB on Growth and 60 GB on Enterprise. Starter has limited ggshield CLI and pre-commit hook support. The current plan guide excludes endpoint scanning from Starter. Growth and Enterprise include endpoints up to the paid seat count; endpoints beyond that are add-ons.
 
 ## When you hit a limit
 
-The plan guide says exceeding 25 contributing developers automatically starts a trial if available. If that trial has already been redeemed and expired, business repositories are no longer monitored; upgrading is required to restore that coverage. A contributor has authored a commit to a counted business repository within the last 90 days. Public and individual-account GitHub repositories do not count toward this developer limit.
+Exceeding 25 contributing developers starts a trial if available. If the trial has already expired, business repositories lose monitoring until you upgrade. A contributor has authored a commit to a counted business repository in the last 90 days. Public and individual-account GitHub repositories do not count.
 
-The pricing page lists no Starter overage tariff. Exact handling of the historical-detection and API-call allowances is not separately stated here. Check Plan & usage in the workspace for your contributor count, plan, and remaining allowances.
+At the scan quota, all workspace keys stop processing scans. Each used call returns to the allowance after 30 days. Free personal access tokens also have a 50-request-per-minute limit, which returns HTTP 429. Pricing gives no Starter overage tariff or exact handling at the historical-detection cap.
 
 ## Gotchas
 
 - Repository scanning capacity is 1 GB on Starter, so a very large repo may need a paid plan.
-- ggshield sends files to the GitGuardian public API for scanning. The docs say only metadata is stored, and incidents from a ggshield scan do not show in your dashboard.
+- ggshield sends data to the GitGuardian API for scanning. GitGuardian SaaS logs each secret detection and quota and access metadata. Scan API requests do not create workspace incidents.
 - Public secrets monitoring is limited on Growth and unlimited only on Enterprise, so the free plan does not watch public GitHub for your leaks.
 
 ## Alternatives in this atlas

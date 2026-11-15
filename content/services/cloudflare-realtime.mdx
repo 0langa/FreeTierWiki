@@ -37,7 +37,7 @@ freeTierDetails:
 quickstartSteps:
   - Create a Cloudflare account; the get-started guide lists it as the main prerequisite.
   - In the Cloudflare dashboard, go to Realtime and then Serverless SFU to create an SFU app.
-  - Generate TURN credentials from the TURN Service section when clients need a relay.
+  - Create a TURN key in the TURN Service dashboard, then use it on your server to generate short-lived credentials when clients need a relay.
 whenToUse: >-
   Use Cloudflare Realtime when you can handle WebRTC signaling yourself and
   want a large free monthly egress allowance for an SFU or TURN relay.
@@ -51,8 +51,8 @@ avoidIf:
   - you need more than 10,000 free RealtimeKit participant minutes a month
   - you need a hard spending cap
 productionReadiness: production-ready
-lastUpdated: 2026-11-09
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/realtime/'
@@ -63,6 +63,7 @@ sourceUrls:
   - 'https://developers.cloudflare.com/realtime/'
   - 'https://developers.cloudflare.com/realtime/realtimekit/platform/pricing/'
   - 'https://developers.cloudflare.com/realtime/sfu/get-started/'
+  - 'https://developers.cloudflare.com/realtime/turn/generate-credentials/'
   - 'https://www.cloudflare.com/plans/'
 pricingUrl: 'https://developers.cloudflare.com/realtime/sfu/platform/pricing/'
 status: changed
@@ -95,9 +96,9 @@ The WebSocket adapter, which moves audio between the SFU and a WebSocket service
 
 ## When you hit a limit
 
-Past the free 1,000 GB in a month, SFU and TURN egress costs $0.05 per GB, and usage appears as a single line item on your Cloudflare bill. The pricing page does not describe a stop at the free allowance, so watch the Realtime analytics if your traffic grows.
+After 1,000 GB a month, SFU and TURN egress costs $0.05 per GB and appears as one item on your Cloudflare bill. The pricing page describes no stop at the allowance.
 
-RealtimeKit is priced separately. Its pricing page lists 10,000 audio and video minutes and 10,000 audio-only minutes a month, plus 100 minutes of each export type, for all accounts including Free. After that, audio and video cost $0.002 per minute, audio-only $0.0005 per minute, and recording or streaming export $0.010 per minute. Cloudflare's plans page still marks it as not available on Free, so check your account first.
+RealtimeKit pricing separately lists 10,000 audio/video minutes and 10,000 audio-only minutes a month, plus 100 minutes of each export type, for all accounts including Free. Above those amounts, audio/video costs $0.002 a minute and audio-only $0.0005. Video recording or streaming exports are $0.010 a minute, audio-only exports $0.003, and raw RTP exports to R2 $0.0005. Cloudflare's plans page still marks RealtimeKit unavailable on Free, so check your account.
 
 ## Gotchas
 

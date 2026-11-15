@@ -1,7 +1,7 @@
 ---
 title: Composio
 description: >-
-  Composio gives AI agents more than 1,500 tools across many apps. It handles tool
+  Composio gives AI agents toolkits for more than 1,700 apps. It handles tool
   discovery, account connections, and execution, so developers do not build
   each integration.
 provider: Composio
@@ -35,7 +35,7 @@ freeTierDetails:
 quickstartSteps:
   - Sign up at composio.dev and open the dashboard.
   - Copy your API key from Settings in the Composio dashboard.
-  - Install the SDK, for example `pip install composio composio-openai-agents openai-agents` for Python or `npm install @composio/core @composio/openai-agents @openai/agents` for TypeScript.
+  - Install `composio` for Python or `@composio/core` for TypeScript, with the adapter for your framework from the quickstart.
   - Create a session for a user with `composio.sessions.create(user_id=user_id)`.
   - Call `session.tools()` and hand the tools to your agent.
 whenToUse: >-
@@ -53,23 +53,28 @@ avoidIf:
   - you need more than three team members free
   - you need higher rate limits on a free plan
 productionReadiness: side-project
-lastVerified: 2026-11-09
-lastUpdated: 2026-11-02
+lastVerified: 2026-11-15
+lastUpdated: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://composio.dev/'
 docsUrl: 'https://docs.composio.dev/'
-pricingUrl: 'https://composio.dev/pricing'
+pricingUrl: 'https://composio.dev/pricing/platform'
 sourceUrls:
-  - 'https://composio.dev/pricing'
+  - 'https://composio.dev/pricing/platform'
   - 'https://docs.composio.dev/'
   - 'https://docs.composio.dev/docs/quickstart'
+  - 'https://docs.composio.dev/docs/configuring-sessions'
+status: changed
 changes:
+  - date: 2026-11-03
+    kind: changed
+    note: Composio applies per-app credit rates for managed apps to signups from this date.
   - date: 2026-10-21
     kind: changed
     note: "Added exact lower managed-OAuth quotas and separated Instant Tools provider usage from the Hobby tool-call grant."
 answer: >-
-  Composio's free tier is 100,000 tool calls a month for three people, with no credit card and no overage, and managed OAuth gets a lower grant of 20,000 calls and 10,000 triggers.
+  Composio Platform's no-card Hobby plan includes 100,000 monthly tool calls, with lower caps for managed apps and a separate balance for optional Instant Tools and Google Maps.
 
 ---
 You use Composio through its Python or TypeScript SDK, and you manage keys and accounts in a web dashboard. It suits developers who build AI agents that need to act in other people's apps.
@@ -84,15 +89,15 @@ Some execution modes have lower monthly allowances: 1,000 shared-connection call
 
 ## When you hit a limit
 
-Hobby pauses at the included limit until next month or upgrade, without charging. Optional Instant Tools spend a separate Composio balance for provider usage; your own provider credentials can also incur separate provider fees.
+Hobby pauses at the included limit until next month or upgrade, without charging. Optional Instant Tools draw from a separate balance that starts at $2. Google Maps also draws from that balance on Hobby, starting with the first call. Usage on your own provider account can incur that provider's fees.
 
 To go past the limits, you move to Pro at $29 a month. Pro includes a $29 monthly usage credit that expires at the end of each billing month. Past the free amounts, usage bills at the rates on the pricing page. Pro also gives you unlimited team members and spend controls.
 
 ## Gotchas
 
-- Composio-managed OAuth apps are easy to start with, but their allowances are lower and they count toward your free tier. Listed pricing applies to signups on or after August 15, 2026. Older customers retain their earlier pricing through December 31, 2026; Instant Tools provider charges apply to all customers from September 10, 2026.
+- Composio-managed OAuth apps are easy to start with, but their allowances are lower and they count toward your free tier. Listed pricing applies to signups on or after August 15, 2026. Older customers retain their earlier pricing through December 31, 2026; Instant Tools provider charges apply to all customers from September 10, 2026. Per-app credit rates for Composio-managed apps apply to signups from November 3, 2026.
 - Advanced white-labeling of the connection page is not on Hobby. On Pro it costs a one-time $0.30 per connection.
-- The Python package is `composio`. The quickstart warns you not to install `composio-core`.
+- The Python SDK is `composio`. Use the adapter that matches your agent framework.
 
 ## Alternatives in this atlas
 

@@ -10,7 +10,7 @@ freeTierDetails:
   summary: Free hosting for apps that run on Reddit, with platform capabilities and per-installation limits.
   limits:
     - Free app hosting on Reddit servers
-    - Redis storage up to 5 GB per installation
+    - 'Redis per installation: up to 5 GB for published apps and 100 MB for unpublished apps'
     - Server requests up to 30 seconds
   caveats:
     - Runs within Reddit's platform and app review process
@@ -32,8 +32,8 @@ whenNotToUse: Avoid treating Devvit as a drop-in external Reddit export API or a
 bestFor: [moderators, community developers, Reddit games]
 avoidIf: [unrestricted data feeds, unmodified Python bots, long-running server processes]
 productionReadiness: side-project
-lastUpdated: 2026-10-28
-lastVerified: 2026-11-10
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: https://developers.reddit.com/
@@ -50,7 +50,7 @@ changes:
     kind: new
     note: Added Reddit's free hosted app platform and its role in public Data API migration.
 answer: >-
-  Reddit Developer Platform (Devvit) hosts apps on Reddit's servers for free, with 5 GB of Redis per installation and 30-second requests, while any external service you call can bill you on its own.
+  Reddit Developer Platform (Devvit) hosts apps on Reddit's servers for free, with up to 5 GB of Redis per published installation and 30-second requests, while any external service you call can bill you on its own.
 
 ---
 Devvit is Reddit's platform for apps that live inside Reddit. It is the first migration route to examine for a community bot affected by the public Data API shutdown, but the two interfaces do not have identical capabilities.
@@ -59,7 +59,7 @@ Devvit is Reddit's platform for apps that live inside Reddit. It is the first mi
 
 The [developer homepage](https://developers.reddit.com/) advertises free hosting and automatic scaling on Reddit's servers. Apps can provide games, utilities and moderation features. Devvit Web combines a web client with server endpoints and platform capabilities such as Reddit API access and Redis storage.
 
-This is hosted execution for an app installed in a Reddit community. It is not a subscription to an external stream of every Reddit conversation. The current FAQ lists Redis storage up to 5 GB per installation and server requests up to 30 seconds. Authentication is handled through Devvit, so creating a traditional Data API client is not the starting point for a new Devvit app.
+This is hosted execution for an app installed in a Reddit community. It is not a subscription to an external stream of every Reddit conversation. The current FAQ lists Redis storage up to 5 GB per published installation and 100 MB for unpublished apps, and server requests up to 30 seconds. Authentication is handled through Devvit, so creating a traditional Data API client is not the starting point for a new Devvit app.
 
 ## When you hit a limit
 

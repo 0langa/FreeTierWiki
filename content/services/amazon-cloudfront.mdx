@@ -26,6 +26,7 @@ freeTierDetails:
     - '2,000,000 CloudFront Function invocations per month'
     - Up to 3 Free plans per AWS account
   caveats:
+    - AWS accounts using the AWS Free Tier cannot subscribe to CloudFront flat-rate plans
     - Most new AWS customers need no payment method, but identity verification may require one
     - Flat-rate plans have no overage charges, but delivery might be adjusted if you keep exceeding the allowance
     - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
@@ -42,7 +43,7 @@ freeTierDetails:
 quickstartSteps:
   - Create an AWS account.
   - Open the CloudFront console and create a distribution that points at your origin, such as an S3 bucket or a public URL.
-  - Pick the $0/month Free plan for the distribution, or keep pay-as-you-go pricing.
+  - If the account is eligible for flat-rate pricing, pick the $0/month Free plan for the distribution. AWS accounts using the AWS Free Tier use pay-as-you-go instead.
   - Point your domain or app at the distribution's domain name.
 whenToUse: >-
   Use CloudFront when your app or files already live on AWS, or when you want
@@ -58,8 +59,8 @@ avoidIf:
   - you do not want an AWS account
   - your traffic is far above the Free plan allowance
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cloudfront/'
@@ -79,7 +80,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Amazon CloudFront's flat-rate Free plan does not charge overage on 1M requests and 100GB a month and has no hard cap, but pay-as-you-go use past Always Free amounts is billed and a new Free account suspends after 6 months.
+  Amazon CloudFront's flat-rate Free plan gives eligible accounts 1M requests and 100GB a month without overage charges, while AWS accounts on the AWS Free Tier use pay-as-you-go pricing with separate free allowances.
 
 ---
 
@@ -87,7 +88,7 @@ CloudFront is the CDN inside AWS. You create a distribution in front of an origi
 
 ## What the free plan gives you
 
-There are two ways to use CloudFront for free. The first is the flat-rate Free plan at $0/month per distribution. It includes 1M requests and 100GB of data transfer each month, 5GB of S3 storage, always-on DDoS protection, a TLS certificate, DNS, and serverless edge compute. You can have up to 3 Free plans per AWS account.
+There are two ways to use CloudFront for free. The first is the flat-rate Free plan at $0/month per distribution. It includes 1M requests and 100GB of data transfer each month, 5GB of S3 storage, always-on DDoS protection, a TLS certificate, DNS, and serverless edge compute. Eligible AWS accounts can have up to 3 Free plans. AWS excludes accounts using its AWS Free Tier from flat-rate subscriptions.
 
 The second is pay-as-you-go pricing with the Always Free tier: 1 TB of data transfer out to the internet, 10,000,000 HTTP or HTTPS requests, 2,000,000 CloudFront Function invocations, and 2,000,000 KeyValueStore reads each month, with free SSL certificates. Origin fetches from AWS origins such as S3 are free.
 
@@ -120,4 +121,4 @@ No. Flat-rate plans have no overage charges, though sustained use far above the 
 
 ### Do I need a credit card for AWS?
 
-AWS says a payment method is not required to sign up for most new customers. In some cases it may ask for one to verify your identity.
+Most new customers can sign up for AWS without a payment method, though AWS may request one for identity verification. To use the flat-rate CloudFront plan, the AWS account must meet the eligibility rules above.

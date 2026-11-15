@@ -23,17 +23,15 @@ freeTierDetails:
     - Email templates and subscription forms
     - '1,000 contacts'
   caveats:
-    - >-
-      Enforcement of the listed free allowance is not confirmed in the cited
-      public sources
+    - Mail over the daily allowance queues for up to 3 days; exceeding 1,000 contacts puts sending on hold
     - Segmentation starts on the Essential plan
     - Online customer support is for the first month only
     - No dedicated IP on the free plan
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
 quickstartSteps:
   - Create a free Mailjet account; the free plan needs no credit card.
   - Verify the domain or subdomain you will send from.
@@ -58,8 +56,8 @@ avoidIf:
   - segmentation needed
   - dedicated IP needed
 productionReadiness: production-light
-lastUpdated: '2026-10-21'
-lastVerified: 2026-11-09
+lastUpdated: 2026-11-15
+lastVerified: 2026-11-15
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.mailjet.com/'
@@ -68,6 +66,8 @@ sourceUrls:
   - 'https://www.mailjet.com/pricing/'
   - 'https://dev.mailjet.com/email/guides/getting-started/'
   - 'https://dev.mailjet.com/email/guides/send-api-v3/'
+  - 'https://documentation.mailjet.com/hc/en-us/articles/19154256993051-Understanding-Mailjet-Free-Plan-Limits'
+  - 'https://documentation.mailjet.com/hc/en-us/articles/8625025643803-Mailjet-Subscription-Management'
 pricingUrl: 'https://www.mailjet.com/pricing/'
 changes:
   - date: 2026-10-21T00:00:00.000Z
@@ -81,7 +81,7 @@ changes:
       Added the current Free contact limit and qualified unpublished Free
       email-credit overage treatment.
 answer: >-
-  Mailjet lets you send 200 emails a day and 6,000 a month without a card, stores 1,000 contacts, and how over-limit email credits are treated is not published.
+  Mailjet sends up to 200 emails a day and 6,000 a month with no card, queues mail above the daily limit, and puts sending on hold above 1,000 contacts.
 
 ---
 You send through the Email API, SMTP relay, or one of the language libraries, and you build campaigns and templates in the web app. It suits teams that want one account for app mail and newsletters.
@@ -96,11 +96,11 @@ The pricing table lists segmentation, email address validation, and email previe
 
 The pricing page says the free plan has a sending maximum of 200 emails per day, and the 6,000 emails per month. To get more features or send more, you must upgrade. Starter costs $9 per month and has no daily sending limit.
 
-The pricing page says that when you run out of email credit, further emails are billed per 1,000 beyond the plan limit. It does not say whether that applies to the Free plan, and it does not describe what happens at 200 a day beyond the upgrade note. Email credits do not roll over to the next month.
+On Free, mail above the daily limit queues until sending capacity becomes available. Unsent mail is dropped after 3 days. The daily and monthly allowances both apply, and unused email credits expire at the end of the billing cycle. Mailjet lists per-1,000 overage rates for paid plans.
 
 ## Gotchas
 
-- The daily cap of 200 is separate from the monthly 6,000, so a busy day can stop sending before the month is used up.
+- The 1,000-contact limit combines the main account and its subaccount. Exceeding it puts sending on hold until you reduce the count or upgrade.
 - Segmentation is not part of the free plan. The pricing table lists it from the Essential plan at $19 per month.
 - You must verify the domain or subdomain you send from before you send your first email.
 

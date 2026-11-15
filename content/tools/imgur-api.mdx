@@ -28,7 +28,7 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: low
 quickstartSteps:
-  - Register your application on the Imgur site to receive a client_id and client_secret.
+  - Sign in to Imgur and register your application to receive a client_id and client_secret.
   - 'Send the header Authorization: Client-ID plus your client_id for public reads and anonymous uploads.'
   - Use OAuth 2.0 to get an access token if you need to act as a user.
   - Send your first upload or image-info request, and watch the X-RateLimit-ClientRemaining header.
@@ -48,15 +48,17 @@ avoidIf:
   - you need guaranteed uptime
   - you need a custom CDN
 productionReadiness: side-project
-lastUpdated: '2026-10-21'
+lastUpdated: 2026-11-15
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://api.imgur.com'
 docsUrl: 'https://apidocs.imgur.com/'
 sourceUrls:
   - 'https://apidocs.imgur.com/'
+  - 'https://api.imgur.com/oauth2/addclient'
+  - 'https://rapidapi.com/imgur/api/imgur-9/pricing'
 pricingUrl: 'https://apidocs.imgur.com/'
-lastVerified: 2026-11-09
+lastVerified: 2026-11-15
 changes:
   - date: '2026-10-21'
     kind: changed
@@ -69,7 +71,7 @@ You call the REST API over HTTPS and get JSON back. Version 3 uses OAuth 2.0, an
 
 ## What the free plan gives you
 
-The docs list no fee for non-commercial apps. Each registered application can make about 12,500 requests per day, or about 1,250 uploads per day. Imgur calls this a credit allocation system.
+The docs list no fee for non-commercial apps. Each registered application can make about 12,500 requests per day, or about 1,250 uploads per day. Most calls use one credit, uploads use ten, and OAuth calls are exempt.
 
 An IP-wide cap also allows 1,250 POST requests per hour across endpoints; the docs say it does not affect commercial usage. You also get a second limit for each user. Imgur counts users by IP address for each application. Every response carries rate limit headers, such as `X-RateLimit-ClientRemaining`, so your code can track the credits left. For public reads and anonymous uploads you only need to send your client ID in an `Authorization` header.
 
@@ -77,7 +79,7 @@ An IP-wide cap also allows 1,250 POST requests per hour across endpoints; the do
 
 If a user hits the per-user limit, Imgur stops that user from requesting more data for an hour. If your app reaches its daily limit five times in one month, Imgur blocks the app for the rest of that month.
 
-The docs list no bill for non-commercial use. Commercial use works differently: you register with RapidAPI, pick a pricing plan there, and send requests to a RapidAPI endpoint with a key. The docs treat an app as commercial if it makes money, plans to make money, or belongs to a commercial organization, including in-app advertising. They do not explicitly state a card rule for non-commercial registration.
+Imgur charges no fee for the non-commercial allowance. Commercial use works differently: you register with RapidAPI, pick a pricing plan there, and send requests to a RapidAPI endpoint with a key. The docs treat an app as commercial if it makes money, plans to make money, or belongs to a commercial organization, including in-app advertising. They do not explicitly state a card rule for non-commercial registration.
 
 ## Gotchas
 
