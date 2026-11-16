@@ -1,0 +1,100 @@
+---
+title: cron-job.org
+description: >-
+  cron-job.org invokes a URL on a recurring schedule and exposes execution
+  history and notifications.
+provider: cron-job.org
+domain: automation
+tags:
+  - cron
+  - http scheduler
+  - webhooks
+  - scheduled requests
+freeTierDetails:
+  summary: The donation-funded service schedules HTTP requests for free, as often as once a minute.
+  limits:
+    - Scheduling as often as once a minute
+    - HTTP requests to your endpoint
+    - Dashboard execution history
+  caveats:
+    - The service calls an endpoint you supply
+    - The endpoint must handle the job and respond within service limits
+    - Other hosting costs follow your endpoint
+  resetPeriod: per job
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+quickstartSteps:
+  - Create an account and add a job for a URL you control.
+  - Select the desired schedule and time zone.
+  - Run a test and review the response.
+  - Set up notifications as needed.
+whenToUse: >-
+  Use cron-job.org for small HTTP-triggered schedules such as refreshing a
+  dataset.
+whenNotToUse: >-
+  Use another scheduler if you need to run arbitrary code on its machines
+  or keep an HTTP connection open for long work.
+bestFor:
+  - webhook scheduling
+  - light HTTP triggers
+avoidIf:
+  - hosting job code
+  - large synchronous responses
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://cron-job.org/'
+docsUrl: 'https://cron-job.org/en/faq/'
+pricingUrl: 'https://cron-job.org/en/'
+sourceUrls:
+  - "https://cron-job.org/en/"
+  - "https://cron-job.org/en/faq/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the donation-funded HTTP scheduler.
+answer: >-
+  cron-job.org schedules recurring HTTP requests for free as often as once
+  a minute, while your own endpoint handles the work triggered by each
+  request.
+
+---
+cron-job.org sends a request to an endpoint on a schedule you set. For example, it can ask an app to begin a daily refresh, or invoke a webhook for a small workflow. The scheduler records whether the HTTP request succeeded, while your own app implements the work.
+
+## What the free plan gives you
+
+The service is financed by donations and can execute a job as often as once a minute. You can choose a less frequent schedule for a status refresh, a backup trigger, or another recurring operation. Set a URL and check the time zone. The dashboard provides execution history and the service can notify you about failures. A test request gives you a chance to check the response and establish what the endpoint does before you let the schedule run unattended. Protect a trigger that changes data so it cannot be invoked by anyone who guesses the URL.
+
+## When you hit a limit
+
+The provider sets limits on requests and the time an endpoint can take to finish. Inspect the run history if a request fails or takes too long. For slow processing, design your endpoint to accept and queue work, then report the eventual result in your app. Running the scheduled request is free. Your own hosting and queue costs depend on what that endpoint does. Log each invocation in your app so you can distinguish scheduler failures from downstream problems.
+
+## Gotchas
+
+- Confirm the schedule’s time zone before using it for a job with a local cutoff.
+- Make the underlying operation safe to invoke again if you are going to retry failures.
+- Check task completion in your application when the HTTP response only acknowledges that work was queued.
+
+## Alternatives in this atlas
+
+- [Cloud Scheduler](/services/cloud-scheduler/) for scheduled jobs in Google Cloud.
+- [PingCron](/services/pingcron/) if you already run the job and need missed check-in alerts.
+
+## Questions people ask
+
+### Is cron-job.org free?
+
+Yes. The provider describes it as free and donation-funded.
+
+### Can I run a script directly on cron-job.org?
+
+It invokes your URL. Run your code on the infrastructure that receives the request.
+
+### How often can I trigger a URL?
+
+The service advertises schedules as often as once a minute.

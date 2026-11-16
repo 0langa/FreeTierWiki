@@ -1,0 +1,99 @@
+---
+title: VPNDetection
+description: >-
+  VPNDetection classifies IP addresses as VPN, Tor, relay, or other network
+  types. The free response includes a subset of its data.
+provider: VPNDetection
+domain: security
+tags:
+  - ip intelligence
+  - vpn
+  - tor
+  - network risk
+freeTierDetails:
+  summary: Basic VPN, Tor, and relay lookups are free without a key. A free account can try all fields for 100 lookups a day.
+  limits:
+    - Unlimited basic lookups as advertised
+    - 100 full-field lookups/day on a free account
+  caveats:
+    - Proxy and other detailed fields are outside the basic response
+    - Missing fields do not mean false
+    - Lookups can describe infrastructure without identifying a user
+  resetPeriod: daily
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+quickstartSteps:
+  - Open the provider’s documentation and inspect the basic response.
+  - Try an IP address using the keyless endpoint.
+  - If you need additional fields, create a free key and test them.
+  - Handle absent fields and limit errors separately.
+whenToUse: >-
+  Use VPNDetection to add basic network classification to a development or
+  security workflow.
+whenNotToUse: >-
+  Choose a paid feed or another source when detailed proxy coverage is
+  required at scale.
+bestFor:
+  - VPN and Tor classification
+  - keyless enrichment
+avoidIf:
+  - identity verification
+  - large full-field workloads
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://vpndetection.io/'
+docsUrl: 'https://vpndetection.io/'
+pricingUrl: 'https://vpndetection.io/pricing'
+sourceUrls:
+  - "https://vpndetection.io/pricing"
+  - "https://vpndetection.io/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the keyless classification API and its optional full-field trial allowance.
+answer: >-
+  VPNDetection offers free keyless VPN, Tor and relay lookups, with a
+  separate no-card account allowance of 100 full-field lookups per day for
+  testing richer responses.
+
+---
+VPNDetection returns information about the network behind an IP address. Your application can use it as one signal when investigating traffic or explaining why a connection came from a known VPN or relay. The provider exposes both a basic public response and a richer set of fields.
+
+## What the free plan gives you
+
+The basic offer includes VPN, Tor and relay flags along with location and network details. The provider advertises these lookups as unlimited and says they require no key. To inspect the full response, create a free account and use the separate allowance of 100 lookups a day. The extra fields include more network and proxy classifications. The two response shapes matter when building a parser. A field that appears in paid or test data can be entirely absent from the public lookup. Record that as missing information and preserve the distinction in your application.
+
+## When you hit a limit
+
+The 100-per-day allowance applies when trying the full response. Keep the basic path available for requests that only need its public data. If most of your workload needs rich fields, compare the paid plans and their per-lookup overage rates before choosing one. A retry can repeat work unnecessarily, especially if the issue is that a particular field is outside the selected response.
+
+## Gotchas
+
+- Treat a missing field in the basic response as unavailable. It does not establish that the IP is clear of that network type.
+- Public classification describes network infrastructure. Avoid treating it as proof of a person’s identity.
+- Using a paid plan changes the limit and introduces published paid overage.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/) for IP data and network context.
+- [IPQuery](/services/ipquery/) for keyless IP geolocation and ISP fields.
+
+## Questions people ask
+
+### Do I need an API key?
+
+The basic lookup is public. Create a key when you want to inspect the additional data on the free account.
+
+### How much full data can I try?
+
+The free account can try the full response for 100 lookups per day.
+
+### What does the basic response cover?
+
+The provider lists VPN, Tor and relay flags along with location and ASN.

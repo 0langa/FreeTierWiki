@@ -1,0 +1,103 @@
+---
+title: Unitpost
+description: >-
+  Unitpost provides an email API and SMTP relay for application messages
+  and campaigns, with support for receiving mail on verified domains.
+provider: Unitpost
+domain: messaging
+tags:
+  - email api
+  - smtp
+  - transactional email
+  - inbound email
+freeTierDetails:
+  summary: Send up to 5,000 emails per month and 200 per day on a no-card plan that includes five domains and 10,000 contacts.
+  limits:
+    - 5,000 emails per month
+    - 200 emails per day
+    - 5 domains
+    - 10,000 contacts
+  caveats:
+    - Inbound mail shares the free monthly allowance
+    - Daily limit still applies with monthly quota left
+    - SMS has its own rates
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The Free plan stops at its allowance. Paid sending and SMS have their own pricing.
+quickstartSteps:
+  - Create an account and add a sending domain.
+  - Complete the DNS verification steps.
+  - Configure your API or SMTP credentials and test a message.
+  - Check usage and delivery in the dashboard.
+whenToUse: >-
+  Use Unitpost to send messages from several small projects or to receive
+  inbound mail via webhook.
+whenNotToUse: >-
+  Choose a higher-capacity mail plan for large campaigns or frequent
+  bursts.
+bestFor:
+  - transactional email
+  - multiple domains
+  - inbound email
+avoidIf:
+  - large daily bursts
+  - assuming SMS is included
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.unitpost.com/'
+docsUrl: 'https://www.unitpost.com/'
+pricingUrl: 'https://www.unitpost.com/pricing'
+sourceUrls:
+  - "https://www.unitpost.com/pricing"
+  - "https://www.unitpost.com/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the hosted email API and its combined inbound and outbound allowance.
+answer: >-
+  Unitpost includes 5,000 emails a month and a 200-per-day sending limit
+  without a card, and stops at the free limit until reset or upgrade.
+
+---
+Unitpost sits between an app and its email recipients. Use SMTP if your application already has a mail transport, or use the API if you want to send messages directly from code. A verified domain can also receive mail that Unitpost passes to your application as a webhook.
+
+## What the free plan gives you
+
+The Free plan includes 5,000 emails in a month, up to 200 sends in a day, five domains, and 10,000 contacts. The email API and SMTP relay are available. Those domain slots can help when several projects use different sender addresses. Every sending domain still needs verification. Watch for an allowance shared by inbound and outbound mail: the pricing FAQ says messages received on Free also draw from the monthly pool. That matters when you publish an address intended to receive large volumes, even if your app sends very little itself.
+
+## When you hit a limit
+
+Free stops at its limit until the next cycle or an upgrade, according to the pricing FAQ. Check the daily cap too when you schedule a campaign or replay a batch of pending messages. On a paid plan, the pricing page describes a different meter with a sending allowance and billed overage. Review those terms before switching if your application could send in bursts.
+
+## Gotchas
+
+- The daily and monthly figures are both relevant. A job can run into the daily allowance after a quiet month.
+- A contact allowance is separate from the number of messages you can send.
+- Confirm SMS pricing before building a workflow that sends texts alongside email.
+
+## Alternatives in this atlas
+
+- [Mailkube](/services/mailkube/) for SMTP sending and short delivery logs.
+- [AgentMail](/services/agentmail/) for an address that behaves like a programmable inbox.
+
+## Questions people ask
+
+### Is Unitpost free to start?
+
+Yes. Unitpost advertises a no-card plan with a recurring monthly email allowance.
+
+### Does incoming email count?
+
+Yes. The pricing FAQ says inbound mail shares the monthly email quota on Free. A busy inbound address can leave less capacity for sends.
+
+### Can I use SMTP?
+
+The free plan includes SMTP and the API. Choose the transport supported by your application and verify your sending domain before testing.

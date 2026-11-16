@@ -1,0 +1,100 @@
+---
+title: Nango
+description: >-
+  Nango manages connections to external services and runs integration
+  workloads such as syncs, webhooks, and tool calls.
+provider: Nango
+domain: automation
+tags:
+  - integrations
+  - oauth
+  - data sync
+  - webhooks
+freeTierDetails:
+  summary: Free includes 10 connections, 10 monthly compute hours, and 10 GB of monthly transfer with explicit caps.
+  limits:
+    - 10 connections
+    - 10 compute hours/month
+    - 10 GB transfer/month
+  caveats:
+    - Each connection represents one authorized account
+    - Several kinds of work consume compute
+    - Signup card policy is not confirmed
+  resetPeriod: monthly
+  requiresCard: unknown
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The Free meter is hard-capped and resets monthly. Pay-as-you-go is a separate plan.
+quickstartSteps:
+  - Create an account and choose an integration.
+  - Authorize a test connection.
+  - Run a small sync or tool call.
+  - Review the connection, compute and transfer usage.
+whenToUse: >-
+  Use Nango to connect a prototype or small app with a few external
+  accounts.
+whenNotToUse: >-
+  Choose a higher plan when the product needs many connections or moves
+  large amounts of data.
+bestFor:
+  - OAuth integrations
+  - small sync jobs
+avoidIf:
+  - high transfer volume
+  - large customer connection counts
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://nango.dev/'
+pricingUrl: 'https://nango.dev/pricing'
+sourceUrls:
+  - "https://nango.dev/pricing"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the hosted integration platform’s hard-capped Free plan.
+answer: >-
+  Nango’s free integration plan includes ten connections, ten compute hours
+  and 10 GB of transfer, with hard caps and monthly resets on the usage
+  allowances.
+
+---
+Nango connects an app to third-party accounts so you can keep the authorization and integration work in one place. You can use the connection for a sync, process a webhook, or make a tool call. This helps when several features rely on access to the same external account.
+
+## What the free plan gives you
+
+The Free limits are ten connections, ten compute hours per month, and 10 GB of data transfer per month. A connection is an authorized user account in the external system. Several users connecting the same product can therefore consume several slots. Compute measures execution work from operations such as syncs and tool calls. Transfer measures data processed through integrations. Start with one account and one small sync, then observe which meters move. A job that runs often on a small dataset can have a different profile from one that moves a large dataset occasionally.
+
+## When you hit a limit
+
+Nango describes the free limits as hard caps that reset monthly. It publishes a separate pay-as-you-go plan with rates for connections, compute and data. Treat each free allowance as a constraint when choosing the sync schedule and deciding which records to transfer. Re-running a backfill can use more compute or transfer even if it does not add another connection. Pause unnecessary backfills and tune the sync cadence when compute is the constrained resource.
+
+## Gotchas
+
+- An integration type is not the count used for authorized connections. Each separate account can take a slot.
+- Frequent tool calls and webhooks can share compute time with scheduled syncs.
+- Plan transfer around the data actually processed, including any initial imports.
+
+## Alternatives in this atlas
+
+- [Pipedream](/services/pipedream/) for hosted workflows around API and webhook triggers.
+- [Pomerado](/services/pomerado/) when the target is a website you are authorized to automate.
+
+## Questions people ask
+
+### What is a connection?
+
+It represents one authorized account in an external service.
+
+### Can I pay for excess usage on Free?
+
+Free is described as hard-capped. Nango lists billed usage under its separate pay-as-you-go plan.
+
+### Do the free usage allowances reset?
+
+The pricing page says the Free limits reset monthly. Watch the runtime and data meters separately.

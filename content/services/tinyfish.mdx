@@ -1,0 +1,99 @@
+---
+title: TinyFish Search and Fetch
+description: >-
+  TinyFish offers web search and URL fetching endpoints for agents and
+  other applications, alongside separate wallet-funded browser tools.
+provider: TinyFish
+domain: scraping
+tags:
+  - web search
+  - page fetch
+  - api
+  - web extraction
+freeTierDetails:
+  summary: TinySearch and TinyFetch have ongoing free quotas and keep working with a zero Wallet balance.
+  limits:
+    - "TinySearch: 30 requests/minute and 500/hour"
+    - "TinyFetch: 150 URLs/minute and 1,000/day"
+  caveats:
+    - Search and Fetch have different rate windows
+    - TinyBrowser and TinyAgent use Wallet funds
+    - Higher rate limits may require a paid add-on
+  resetPeriod: minute, hour or day
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Search and Fetch stay free within their published limits. Wallet-funded products are separate.
+quickstartSteps:
+  - Create a free account and get an API key.
+  - Try a search and fetch one relevant URL.
+  - Check the response in a representative input pipeline.
+  - Apply separate rate handling to search and fetch calls.
+whenToUse: >-
+  Use TinyFish Search and Fetch to retrieve pages for a small research or
+  retrieval workflow.
+whenNotToUse: >-
+  Choose another plan if you need hosted browser sessions or more than the
+  free endpoint limits.
+bestFor:
+  - web search
+  - getting pages by URL
+avoidIf:
+  - assuming browser automation is free
+  - high sustained request rates
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.tinyfish.ai/'
+pricingUrl: 'https://www.tinyfish.ai/pricing'
+sourceUrls:
+  - "https://www.tinyfish.ai/pricing"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the public ongoing Search and Fetch allowances.
+answer: >-
+  TinyFish Search and Fetch offer recurring no-card quotas for web searches
+  and URL fetching, and both endpoints keep working within those limits
+  with an empty Wallet.
+
+---
+TinyFish has endpoints for finding pages and for fetching a page when you have its URL. You can use them together to supply web content to a retrieval workflow. Their billing treatment is separate from TinyFish products that run browser sessions or carry out agent actions.
+
+## What the free plan gives you
+
+TinySearch allows 30 requests per minute and 500 per hour. TinyFetch allows 150 URLs per minute and 1,000 per day. The pricing FAQ says both remain free within those limits even when the Wallet balance is zero. The service advertises a no-card start for the free endpoints. Use search to find a relevant page, then pass the selected URL to Fetch. Keeping the actions separate makes it easier to account for usage. For example, you can fetch several relevant URLs from one query, and those URLs use the Fetch allowance.
+
+## When you hit a limit
+
+Both the short and longer limit windows apply. A workflow can stay under the per-minute search rate and still reach the hourly allowance. Queue requests with the appropriate window in mind and avoid retrying an entire batch when only a few URLs failed. Higher limits and certain other capabilities use the Wallet or paid add-ons, according to the pricing page. If repeated requests target the same document, reuse a recent result where that meets the freshness needs of your application.
+
+## Gotchas
+
+- Check your code’s product endpoint before running it. TinyBrowser and TinyAgent are separate paid usage surfaces.
+- A URL-based fetch meter can be used up by batches of URLs even when they are sent together.
+- Search and Fetch keep their free allowances when the wallet is empty.
+
+## Alternatives in this atlas
+
+- [ZenRows](/services/zenrows/) for a credit-based scraping API with optional rendering.
+- [Cloudbrowser](/services/cloudbrowser/) for controlling a persistent browser profile.
+
+## Questions people ask
+
+### Do I have to fund the TinyFish Wallet?
+
+Search and Fetch do not draw from it and run within their free limits.
+
+### What if I already know the URL?
+
+Use TinyFetch directly and keep its daily and per-minute limits in mind.
+
+### Is TinyBrowser included?
+
+Browser runtime is separately metered. This entry covers only TinySearch and TinyFetch.

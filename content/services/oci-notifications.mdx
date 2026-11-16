@@ -1,0 +1,105 @@
+---
+title: OCI Notifications
+description: >-
+  Oracle Cloud Infrastructure Notifications delivers messages from topics
+  to subscribers. It can carry alerts or events to email recipients and
+  HTTPS endpoints.
+provider: Oracle
+domain: messaging
+tags:
+  - oracle cloud
+  - notifications
+  - https webhooks
+  - pubsub
+freeTierDetails:
+  summary: Always Free includes 1 million HTTPS deliveries and 1,000 email deliveries per month. A card is required to register for OCI.
+  limits:
+    - 1 million HTTPS notifications/month
+    - 1,000 email notifications/month
+    - Separate meters per delivery channel
+  caveats:
+    - OCI signup requires card verification
+    - Paid tenancies can incur delivery charges above included usage
+    - Fan-out can increase delivery volume
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - Do not assume the Always Free amounts stop usage in a paid tenancy. Review the channel prices and account type.
+quickstartSteps:
+  - Create or open an OCI tenancy.
+  - Create a topic in Notifications.
+  - Add an email or HTTPS subscription and confirm it.
+  - Publish a test and check delivery.
+whenToUse: >-
+  Use OCI Notifications to fan out Oracle alerts and events to a small
+  number of receivers.
+whenNotToUse: >-
+  Use a bulk email provider if your goal is application mail to a customer
+  list.
+bestFor:
+  - cloud alarms
+  - webhook notifications
+avoidIf:
+  - bulk transactional emails
+  - no-card signup
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.oracle.com/cloud/'
+docsUrl: 'https://docs.oracle.com/en-us/iaas/Content/Notification/Concepts/notificationoverview.htm'
+pricingUrl: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+sourceUrls:
+  - "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm"
+  - "https://docs.oracle.com/en-us/iaas/Content/Notification/Concepts/notificationoverview.htm"
+  - "https://docs.oracle.com/en-us/iaas/Content/GSG/Tasks/signingup_topic-Sign_Up_for_Free_Oracle_Cloud_Promotion.htm"
+  - "https://www.oracle.com/cloud/price-list/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the Always Free topic delivery allowances for HTTPS and email.
+answer: >-
+  OCI Notifications includes one million HTTPS and 1,000 email
+  notifications monthly under Always Free, with a card required for OCI
+  signup and paid rates on eligible accounts.
+
+---
+Notifications is the Oracle Cloud Infrastructure service for delivering messages to subscribers to a topic. An OCI alarm or an app can publish a message, and subscribers receive it through the channel you configured. A team can use this to send an incident to both an email address and a webhook handler.
+
+## What the free plan gives you
+
+Oracle lists 1 million HTTPS notifications per month and 1,000 email notifications per month under Always Free. Those allowances are tied to delivery channels. Start with a topic and a subscription, then confirm that the destination accepts messages. A subscription can remain pending until the recipient or endpoint completes confirmation. Use a test alert to check delivery before putting a monitoring rule in service. A single published event may fan out to more than one subscriber, so budget deliveries based on how many destinations will receive it.
+
+## When you hit a limit
+
+Oracle publishes paid rates by delivery type above the included amount. Track email and HTTPS separately to see which type is approaching its limit. On a Free Tier account, check the available service limit in the Console. Oracle says a signup card can receive a temporary verification hold and that it charges for cloud usage only if you elect to upgrade the account.
+
+## Gotchas
+
+- One active topic can generate a lot of deliveries when several subscribers listen to it.
+- Confirm every required subscription and test the endpoint that receives the message.
+- The email allowance is for Notifications topic deliveries. OCI Email Delivery has its own meter and use case.
+
+## Alternatives in this atlas
+
+- [Amazon SNS](/services/sns/) for AWS topic-based notifications.
+- [OCI Email Delivery](/services/oracle-email-delivery/) for application email through Oracle’s separate sending service.
+
+## Questions people ask
+
+### Is OCI Notifications free to use?
+
+Oracle includes monthly email and HTTPS delivery allowances under Always Free. Costs depend on channel, usage and the tenancy’s billing status.
+
+### Can it call my API?
+
+Yes. Configure an HTTPS subscription and confirm it according to the Notifications documentation.
+
+### Is the email allowance the same as OCI Email Delivery?
+
+They are distinct OCI products. Notifications sends from a topic to subscribers, while Email Delivery serves as an application mail transport.

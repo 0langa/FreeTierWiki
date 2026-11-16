@@ -1,0 +1,111 @@
+---
+title: ReviveDB
+description: >-
+  ReviveDB makes off-platform backups of Supabase projects, including
+  PostgreSQL, Auth, Storage, and Edge Functions. It checks the backup
+  before offering it for recovery.
+provider: ReviveDB
+domain: storage
+tags:
+  - backup
+  - supabase
+  - postgresql
+  - disaster recovery
+freeTierDetails:
+  summary: Get weekly backups for one Supabase project, with 5 GB of backup storage and the latest 3 recovery points kept. No credit card is required.
+  limits:
+    - 1 Supabase project
+    - 1 GB database and 1 GB Supabase Storage per project
+    - 5 GB backup storage per account and 5 GB backup processing per month
+    - Weekly backups and the latest 3 recovery points
+  caveats:
+    - Supabase may count backup reads toward your project's outbound traffic
+    - The free backup schedule is weekly
+    - Verify supported project components before relying on a restore
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: low
+  billingRiskNotes:
+    - ReviveDB skips backups that would exceed the plan limit and sends a notification. It does not charge overage.
+    - Supabase may meter egress separately under your Supabase plan.
+quickstartSteps:
+  - Create a free ReviveDB account.
+  - Authorize the Supabase connection and select one project you control.
+  - Wait for the initial backup to finish and review its verification report.
+  - Download a recovery point or follow the restore guide to rehearse recovery into a separate project.
+whenToUse: >-
+  Use ReviveDB when a small Supabase project needs an independent weekly
+  recovery point that covers uploaded files as well as tables.
+whenNotToUse: >-
+  Choose another backup schedule if you need hourly recovery points, have
+  several projects, or regularly exceed the size allowances.
+bestFor:
+  - small Supabase projects
+  - weekly off-platform backups
+  - restore rehearsal
+avoidIf:
+  - hourly recovery
+  - large Supabase Storage buckets
+  - backing up unrelated Postgres hosts
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://revivedb.dev/'
+docsUrl: 'https://revivedb.dev/docs/restores'
+pricingUrl: 'https://revivedb.dev/pricing'
+sourceUrls:
+  - "https://revivedb.dev/pricing"
+  - "https://revivedb.dev/docs/restores"
+  - "https://revivedb.dev/backup-verification"
+  - "https://revivedb.dev/security"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the weekly Supabase backup plan and its separate source egress caveat.
+answer: >-
+  ReviveDB backs up one Supabase project weekly without a card, keeps the
+  latest three recovery points, and skips backups that exceed quota while
+  Supabase may meter the traffic.
+
+---
+ReviveDB stores recovery points outside Supabase. It captures the database and Auth data as well as Storage files and supported Edge Functions, then restores the database dump into an isolated instance so it can compare the result against the source inventory. This gives you a backup to inspect before you need to recover from it.
+
+## What the free plan gives you
+
+The free plan covers one connected Supabase project. The database and Supabase Storage each have a 1 GB limit, and the account gets 5 GB of backup storage. There is a separate 5 GB monthly allowance for backup processing. The schedule is weekly and the latest three recovery points are retained. ReviveDB stores and verifies them in the EU.
+
+The processing meter counts the compressed database dump and new Storage bytes. The service reuses unchanged files, so processing does not necessarily match the full size of all your stored objects on every run.
+
+## When you hit a limit
+
+ReviveDB says it skips backups that would exceed the plan limits and sends a notification. There is no automatic overage on its side. Check when the most recent successful recovery point was created, especially after importing a large dataset or adding a Storage bucket. Supabase can count the data read by the backup as outbound traffic on the source project. Any cost for that traffic follows your Supabase plan.
+
+## Gotchas
+
+- Weekly recovery points can leave changes made since the last backup uncovered. Paid plans offer more frequent backups.
+- The restore guide requires a compatible supported Postgres version on the target. Pause writes before restoring into a project that is in use.
+- ReviveDB checks database restores and verifies file and function artifacts separately. Review the recovery report to see what the backup covers.
+
+## Alternatives in this atlas
+
+- [Supabase Database](/services/supabase-database/) for the source database and its provider-managed features.
+- [Backblaze B2](/services/backblaze-b2/) for storing backups you create and verify yourself.
+
+## Questions people ask
+
+### Is ReviveDB free?
+
+Yes. One eligible project gets weekly backups and three retained recovery points without a card.
+
+### What happens if my project outgrows the free plan?
+
+ReviveDB skips backups that would exceed the limits and alerts you. You can reduce the size of the source or switch plans.
+
+### Can I restore into another Supabase project?
+
+Yes. Choose a verified recovery point and a compatible empty target. Follow the recovery guide to review which components the restore can apply.
