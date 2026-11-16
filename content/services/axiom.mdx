@@ -22,14 +22,14 @@ freeTierDetails:
     - 30-day data retention
     - Community support
   caveats:
-    - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
+    - The limits reference lists 500 GB as the monthly data loading maximum; exact enforcement of the Personal query and storage allowances is unpublished
     - No SSO, RBAC, directory sync, or extended audit logs on the free Personal plan
     - SSO and RBAC are paid add-ons on Axiom Cloud ($25/month platform fee)
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: unknown
-  overageRisk: none
+  overageRisk: low
 quickstartSteps:
   - Start free from axiom.co; the Personal plan needs no credit card.
   - Create a dataset for your logs; the docs list Datasets under Manage.
@@ -52,8 +52,8 @@ avoidIf:
   - SSO or role-based access control
   - high event volume
 productionReadiness: side-project
-lastVerified: 2026-11-15
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://axiom.co/'
@@ -63,12 +63,13 @@ sourceUrls:
   - 'https://axiom.co/pricing'
   - 'https://docs.axiom.co/'
   - 'https://axiom.co/docs/getting-started-guide/getting-started'
+  - 'https://axiom.co/docs/reference/limits'
 changes:
   - date: 2026-10-21
     kind: changed
     note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 answer: >-
-  Axiom's Personal plan needs no card and includes 500GB of monthly data-loading compute and 25GB of storage, with no paid overage, but a hard cap is not confirmed.
+  Axiom's cardless Personal plan has a 500 GB monthly data loading maximum and 25 GB of storage, while the published metered rates apply to Axiom Cloud.
 
 ---
 You send events to Axiom with an HTTP request or one of its integrations, then explore them in the web console with queries and dashboards. It suits individual developers and small projects that need log search.
@@ -81,14 +82,14 @@ The paid Axiom Cloud plan starts at $25 per month plus usage. It has a larger al
 
 ## When you hit a limit
 
-The pricing page does not say what happens on the Personal plan when you pass an allowance. It does not list an overage price for Personal, and it asks for no card.
+The limits reference lists 500 GB a month as the Personal data loading maximum. The pricing page does not specify exactly how Personal handles extra query or storage use, and it publishes usage charges for Cloud only.
 
 For the paid Axiom Cloud plan, the page says extra usage is billed at normal rates, with no separate overage rate. Data older than 30 days drops out of the Personal plan, so move anything you need to keep.
 
 ## Gotchas
 
 - Personal has no SSO or role-based access control, and those add-ons exist only on the paid Cloud plan.
-- The pricing page lists soft limits on datasets, fields per dataset, and query concurrency. It says they can be lifted on request.
+- The limits reference lists fixed Personal limits of 3 datasets and 256 fields per dataset. The larger Cloud limits for those resources can be raised on request.
 - Query compute (10 GB-hours a month) is a separate allowance from data loading compute (500 GB a month).
 
 ## Alternatives in this atlas
@@ -109,4 +110,4 @@ The Personal plan keeps data for 30 days. The pricing page lists this as the pla
 
 ### What happens when I go over the Axiom free limits?
 
-The pricing page does not say for the Personal plan. On the paid Cloud plan, extra usage is billed at normal rates.
+Personal has a 500 GB monthly data loading maximum. The pricing page does not specify how Personal handles extra query or storage use, while Cloud bills extra usage at its regular rates.

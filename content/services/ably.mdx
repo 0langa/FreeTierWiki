@@ -26,7 +26,7 @@ freeTierDetails:
     - 500 concurrent connections
     - 500 concurrent channels
     - 200 presence members per channel
-    - 24 hours default message history, up to 30 days
+    - 2 minutes of default message history without a persistence rule
     - 64KiB maximum message size
   caveats:
     - Free package limits are fixed; more capacity needs a paid package.
@@ -60,11 +60,11 @@ quickstartSteps:
   - Create a new app in the dashboard, then create your first API key in the API Keys tab with the publish, subscribe, presence, and history capabilities.
   - Optionally run `npx @ably/cli init` to install the Ably CLI, sign in, and set a default app and API key.
   - Add the SDK for your language. The JavaScript guide loads it from a CDN script tag in an HTML file.
-  - Create an `Ably.Realtime` client with your key and a `clientId`, and wait for the `connected` event.
+  - Create a Pub/Sub device client with `AblyPubSub.createClient`, your key and a `clientId`, then wait for the `connected` event.
   - Get a channel such as `my-first-channel`, subscribe to it, then publish a message with `channel.publish` or the CLI command `ably channels publish`.
 productionReadiness: production-light
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.ably.com/'
@@ -77,6 +77,7 @@ sourceUrls:
   - 'https://ably.com/docs/platform/pricing/limits'
   - 'https://ably.com/docs/platform/pricing/billing'
   - 'https://ably.com/docs/getting-started/javascript'
+  - 'https://ably.com/docs/storage-history/storage'
 status: changed
 changes:
   - date: 2026-11-09
@@ -95,7 +96,7 @@ You work with Ably through its dashboard, the Ably CLI, and SDKs for many langua
 
 The Free package costs $0 and has no time limit. Ably now prices its packages by monthly active users (MAUs), and Free includes 500 MAUs each month. A user who connects several times in a month counts once, and servers are not counted. Free covers every Ably product, including Pub/Sub, Chat, Spaces, and LiveObjects.
 
-You also get 6 million messages per month, a top rate of 500 messages per second, and 500 concurrent connections and 500 concurrent channels. Each channel can hold up to 200 presence members, and one message can be up to 64KiB. History defaults to 24 hours and can be kept up to 30 days. Support is community and email support on a best effort basis. The Free package has no credit card requirement.
+You also get 6 million messages per month, a top rate of 500 messages per second, and 500 concurrent connections and 500 concurrent channels. Each channel can hold up to 200 presence members, and one message can be up to 64KiB. Without a persistence rule, message history lasts two minutes. Support is community and email support on a best effort basis. The Free package has no credit card requirement.
 
 ## When you hit a limit
 
@@ -105,8 +106,9 @@ Going over 500 MAUs in a month may degrade service until the start of the follow
 
 ## Gotchas
 
+- For persisted history, the storage guide lists 24 hours on Free while the limits table lists a 30-day maximum, so check the retention available in your account.
+
 - Every device must connect with a `clientId`, and each distinct `clientId` counts as an MAU, so giving one user different IDs on two devices uses two MAUs.
-- The 1,600 messages per hour throttle after the monthly allowance is far below the normal 250,000 messages per hour, so a busy app can slow sharply late in the month.
 - If you move from a paid package back to Free, the change takes effect at the end of the current month for monthly billing or the end of the 12-month term for annual billing. The final invoice includes any extra MAUs used in the last month.
 
 ## Alternatives in this atlas
