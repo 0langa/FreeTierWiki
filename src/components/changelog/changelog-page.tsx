@@ -36,7 +36,7 @@ export async function ChangelogPage({ filter = "all", page = 1 }: { filter?: Cha
     <div className="changelog max-w-3xl">
       <PageHeader
         title="Free tier changelog"
-        lede="Free plans that were added, changed, ended, or removed from the catalog, newest first. Each item links to the entry with the current facts."
+        lede="Free plans that were added, changed, ended, or removed from the catalog, newest first."
       >
         <p className="text-[14px] text-ink-3">
           Follow it in a feed reader:{" "}
@@ -45,6 +45,9 @@ export async function ChangelogPage({ filter = "all", page = 1 }: { filter?: Cha
         <p className="text-[14px] text-ink-3">
           The sourced summary:{" "}
           <Link href="/reports/free-tier-changes-2026/" className="underline underline-offset-[3px] hover:text-ink">Free tiers that ended or changed in 2026</Link>.
+        </p>
+        <p className="text-[14px] text-ink-3">
+          Browse the <Link href="/ended-offers/" className="underline underline-offset-[3px] hover:text-ink">ended offers archive</Link>.
         </p>
       </PageHeader>
       {allRows.length > 0 ? (

@@ -2,7 +2,7 @@
 
 ## Home and Explorer
 
-The [home page](https://freetier.wiki/) offers search, quick filters, browsing by category, and comparison guides under **Pick by job**. **Most visited** uses the previous 30 days of available Cloudflare entry-view data. When that data is unavailable, **Common first picks** provides a curated starting point. Recent changed or ended offers appear near the bottom.
+The [home page](https://freetier.wiki/) offers search, quick filters, browsing by category, and comparison guides under **Pick by job**. **Most visited** uses the previous 30 days of available Cloudflare entry-view data. When that data is unavailable, **Common first picks** provides a curated starting point. Recent changes to current offers appear near the bottom.
 
 [Explorer](https://freetier.wiki/explorer/) searches the full catalog and filters by category, type, and billing risk. Search text, filters, and sort order live in the URL, so shared links and the back button preserve the view. Results are paged 50 at a time. Category pages offer a narrower list for areas such as hosting, databases, or AI.
 
@@ -27,7 +27,7 @@ The main sections explain what is included, what happens at the limit, gotchas, 
 
 A checked date means the entry was compared with official sources. Source scans do not advance it automatically. It becomes stale after 180 days. An imported date marks information that has not been re-checked. See the [label guide](https://freetier.wiki/about/) for billing-risk definitions and the catalog's source history.
 
-Entries can be `active`, `changed`, or `ended`. Changed and ended offers carry change notes. Use **Report outdated info** on an entry to open a GitHub issue with its URL pre-filled.
+Entries can be `active`, `changed`, or `ended`. Changed and ended offers carry change notes. Ended offers keep their original pages and sources in the [Ended offers archive](https://freetier.wiki/ended-offers/), linked in the Browse footer and changelog. Use **Report outdated info** on an entry to open a GitHub issue with its URL pre-filled.
 
 ## Changelog and RSS
 

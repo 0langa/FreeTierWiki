@@ -5,7 +5,7 @@ import { DomainIcon } from "@/components/site/icons";
 import { JsonLd } from "@/components/site/json-ld";
 import { PageHeader } from "@/components/site/page-header";
 import { DOMAIN_LABELS } from "@/lib/content";
-import { getAllEntries } from "@/lib/content.server";
+import { getCatalogEntries } from "@/lib/content.server";
 import { pageUrl } from "@/lib/metadata";
 import { collectionPage } from "@/lib/structured-data";
 
@@ -16,14 +16,12 @@ export const metadata: Metadata = {
 };
 
 export default async function CategoriesPage() {
-  const entries = await getAllEntries();
+  const entries = await getCatalogEntries();
   const categories = [...new Set(entries.map((entry) => entry.domain))]
     .sort((a, b) => DOMAIN_LABELS[a].localeCompare(DOMAIN_LABELS[b]))
     .map((domain) => {
       const items = entries.filter((entry) => entry.domain === domain);
       const examples = items
-        .filter((entry) => entry.status !== "ended")
-        .sort((a, b) => a.title.localeCompare(b.title))
         .slice(0, 3)
         .map((entry) => entry.title);
       return { domain, count: items.length, examples };

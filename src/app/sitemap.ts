@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { BUILD_NOW } from "@/lib/build-info";
 import { changelogRoutes } from "@/lib/changelog-view";
 import { reportPath } from "@/lib/changes-report";
-import { getAllEntries, getChangesReport, getComparisons, getPopular, getProviderGroups, getRemovals } from "@/lib/content.server";
+import { getAllEntries, getCatalogEntries, getChangesReport, getComparisons, getPopular, getProviderGroups, getRemovals } from "@/lib/content.server";
 import { toListItem } from "@/lib/entry-view";
 import { FILTER_SLUGS, filterDomains, filterItems } from "@/lib/filter-pages";
 import { latestChanges } from "@/lib/home-data";
@@ -18,16 +18,17 @@ function newest(entries: AtlasEntry[]): string | undefined {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const entries = await getAllEntries();
+  const entries = await getCatalogEntries();
+  const allEntries = await getAllEntries();
   const comparisons = await getComparisons();
   const providers = await getProviderGroups();
   const domains = [...new Set(entries.map((entry) => entry.domain))];
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
-  const catalogDate = newest(entries);
+  const catalogDate = newest(allEntries);
   // The home page also lists the most visited entries, which the weekly job refreshes.
   const popular = await getPopular();
   const homeDate = [catalogDate, popular?.updated].filter((date): date is string => Boolean(date)).sort().at(-1);
-  const changes = latestChanges(entries, undefined, await getRemovals());
+  const changes = latestChanges(allEntries, undefined, await getRemovals());
   const changelogDate = changes[0]?.date;
   const report = await getChangesReport();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));

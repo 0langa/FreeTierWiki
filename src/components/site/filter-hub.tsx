@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
-import { getAllEntries } from "@/lib/content.server";
+import { getCatalogEntries } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FILTER_PAGES, filterDomains, filterItems, otherFilter, type FilterSlug } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
@@ -17,7 +17,7 @@ import { collectionPage } from "@/lib/structured-data";
 const PICKS = 10;
 
 async function load(filter: FilterSlug) {
-  const all = (await getAllEntries()).map((entry) => toListItem(entry, BUILD_NOW));
+  const all = (await getCatalogEntries()).map((entry) => toListItem(entry, BUILD_NOW));
   return { all, matching: filterItems(all, filter).sort(compareSafety) };
 }
 
@@ -40,7 +40,7 @@ export async function FilterHub({ filter }: { filter: FilterSlug }) {
     .map((domain) => ({
       domain,
       count: matching.filter((item) => item.domain === domain).length,
-      total: all.filter((item) => item.domain === domain && item.status !== "ended").length,
+      total: all.filter((item) => item.domain === domain).length,
     }))
     .sort((a, b) => b.count - a.count || DOMAIN_LABELS[a.domain].localeCompare(DOMAIN_LABELS[b.domain]));
 

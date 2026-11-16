@@ -9,7 +9,7 @@ import { ChipRow, PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
 import { filterDescription, filterFaqs, filterIntro } from "@/lib/category-filters";
 import { DOMAIN_LABELS, isDomain } from "@/lib/content";
-import { getAllEntries } from "@/lib/content.server";
+import { getCatalogEntries } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { categoryFilterTitle, FILTER_PAGES, FILTER_SLUGS, filterDomains, filterItems, isFilterSlug, otherFilter } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
@@ -20,7 +20,7 @@ type Params = Promise<{ domain: string; filter: string }>;
 export const dynamicParams = false;
 
 async function catalog() {
-  const entries = await getAllEntries();
+  const entries = await getCatalogEntries();
   return { entries, items: entries.map((entry) => toListItem(entry, BUILD_NOW)) };
 }
 

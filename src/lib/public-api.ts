@@ -124,7 +124,7 @@ const ENTRY_PROPERTIES = {
   markdownUrl: { type: "string", format: "uri", description: "The entry page as Markdown." },
   answer: text("One sentence: is it free, what you get, and whether it can bill you."),
   description: text("What the product is."),
-  status: oneOf(ENTRY_STATUSES, '"changed" means the free tier changed recently; "ended" means it is gone.'),
+  status: oneOf(ENTRY_STATUSES, '"changed" means the free tier changed recently. Older exports may include "ended".'),
   planType: oneOf(FREE_TIER_TYPES, "How the free offer works."),
   cardRequired: policy('Whether sign-up needs a payment card. "unknown" means the provider does not publish it clearly.'),
   hardCap: policy('Whether usage stops at the free limit instead of billing. "unknown" means not confirmed.'),
@@ -151,7 +151,7 @@ export const OPENAPI = {
     version: "1.0.0",
     summary: "Free tiers for developers: limits, card rules, hard caps, and billing risk.",
     description:
-      "A read-only JSON export of every entry on freetier.wiki, rebuilt with the site. No key or sign-up. "
+      "A read-only JSON export of the current free-tier catalog on freetier.wiki, rebuilt with the site. No key or sign-up. "
       + "Every page is also available as Markdown: request it with Accept: text/markdown, or add index.md to the page URL.",
     license: { name: "MIT", identifier: "MIT" },
     contact: { name: "freetier.wiki", url: `${REPO_URL}/issues` },
@@ -162,8 +162,8 @@ export const OPENAPI = {
     [ENTRIES_PATH]: {
       get: {
         operationId: "listEntries",
-        summary: "Every catalog entry",
-        description: "The whole catalog in one file, sorted by id. Filter it on your side.",
+        summary: "Every current catalog entry",
+        description: "Current offers in one file, sorted by id. Ended offers appear in the archive.",
         responses: {
           "200": {
             description: "The catalog.",

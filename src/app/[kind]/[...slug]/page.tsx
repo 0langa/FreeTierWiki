@@ -4,10 +4,9 @@ import { notFound } from "next/navigation";
 import { EntryPage } from "@/components/entry/entry-page";
 import { JsonLd } from "@/components/site/json-ld";
 import { BUILD_NOW } from "@/lib/build-info";
-import { isContentKind } from "@/lib/content";
 import { comparisonsFor } from "@/lib/comparison-view";
-import { DOMAIN_LABELS } from "@/lib/content";
-import { getAllEntries, getComparisons, getEntryWithBody, getProviderGroups } from "@/lib/content.server";
+import { DOMAIN_LABELS, isContentKind } from "@/lib/content";
+import { getAllEntries, getCatalogEntries, getComparisons, getEntryWithBody, getProviderGroups } from "@/lib/content.server";
 import { bodyQuestions } from "@/lib/entry-body";
 import { entryDescription, entryTitle } from "@/lib/entry-metadata";
 import { relatedItems } from "@/lib/entry-view";
@@ -24,12 +23,14 @@ type Params = Promise<{ kind: string; slug: string[] }>;
  * official sources. The page carries the "Questions people ask" pairs once the body has them.
  */
 function structuredData(entry: AtlasEntryWithBody, provider: string | undefined): object[] {
-  const crumbs = breadcrumbList([
-    { name: "Explore", url: "/explorer/" },
-    { name: DOMAIN_LABELS[entry.domain], url: `/category/${entry.domain}/` },
-    ...(provider ? [{ name: entry.provider, url: provider }] : []),
-    { name: entry.title, url: entry.url },
-  ]);
+  const parents = entry.status === "ended"
+    ? [{ name: "Ended offers", url: "/ended-offers/" }]
+    : [
+        { name: "Explore", url: "/explorer/" },
+        { name: DOMAIN_LABELS[entry.domain], url: `/category/${entry.domain}/` },
+        ...(provider ? [{ name: entry.provider, url: provider }] : []),
+      ];
+  const crumbs = breadcrumbList([...parents, { name: entry.title, url: entry.url }]);
   // Only the body's own questions go into the FAQ. The one-line intro is the page description, not a question,
   // because 914 bodies already open their FAQ with "Is X free?".
   const questions = bodyQuestions(entry.body.raw);
@@ -93,6 +94,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: { absolute: title },
     description,
+    ...(entry.status === "ended" ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical: entry.url },
     openGraph: { ...OPEN_GRAPH, type: "article", title, description, url: entry.url, modifiedTime: entry.lastUpdated },
   };
@@ -101,7 +103,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function DynamicEntryPage({ params }: { params: Params }) {
   const entry = await load(params);
   if (!entry) notFound();
-  const related = relatedItems(entry, await getAllEntries(), BUILD_NOW);
+  const related = relatedItems(entry, await getCatalogEntries(), BUILD_NOW);
   const comparisons = comparisonsFor(entry.id, await getComparisons());
   const provider = providerHref(entry, await getProviderGroups());
   return (

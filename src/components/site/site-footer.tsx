@@ -62,6 +62,11 @@ export function SiteFooter() {
             </Link>
           </li>
           <li>
+            <Link href="/ended-offers/" className="hover:text-ink">
+              Ended offers
+            </Link>
+          </li>
+          <li>
             <Link href="/reports/free-tier-changes-2026/" className="hover:text-ink">
               2026 changes report
             </Link>

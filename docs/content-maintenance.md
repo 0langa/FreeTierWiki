@@ -131,4 +131,10 @@ npm run verify:remove -- --from deletes.json --date YYYY-MM-DD
 
 The removal list is a JSON array of `{ "id": "services/example", "reason": "Reason for removal" }` objects. The tool deletes the MDX files, adds 301 redirects to their category, and records removals in `content/changelog.json`. Remove any comparison references to deleted entries as part of the change.
 
-Review the official evidence and the resulting diff before publishing removals. A changed or ended offer can also remain visible with an accurate status and change note when that history helps readers.
+Review the official evidence and the resulting diff before publishing removals.
+
+### Archiving an ended free tier
+
+When a provider ends its free tier for new users, keep the MDX file at its existing path. Set `status: ended`, add a dated `kind: ended` change note, and update the answer, body, and official sources to reflect the change. Replace references that recommend the plan in comparison tables and alternative lists.
+
+The next build lists the entry under [Ended offers](https://freetier.wiki/ended-offers/) and preserves its original page and changelog history. The catalog, search, filters, and catalog exports include current offers only.

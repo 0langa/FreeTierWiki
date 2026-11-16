@@ -1,10 +1,10 @@
-import { getAllEntries } from "@/lib/content.server";
+import { getCatalogEntries } from "@/lib/content.server";
 import type { SearchRecord } from "@/types/content";
 
 export const dynamic = "force-static";
 
 export async function GET() {
-  const records: SearchRecord[] = (await getAllEntries()).map((entry) => ({
+  const records: SearchRecord[] = (await getCatalogEntries()).map((entry) => ({
     id: entry.id,
     url: entry.url,
     title: entry.title,

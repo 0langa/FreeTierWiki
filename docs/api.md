@@ -1,6 +1,6 @@
 # Catalog API
 
-freetier.wiki publishes its whole catalog as one read-only JSON file. There is no key, no sign-up, and no rate limit beyond Cloudflare's. The file is rebuilt every time the site deploys, so it matches the pages.
+freetier.wiki publishes its current free-tier catalog as one read-only JSON file. There is no key, no sign-up, and no rate limit beyond Cloudflare's. The file is rebuilt every time the site deploys. Historical listings are available in the [Ended offers archive](https://freetier.wiki/ended-offers/).
 
 | What | URL |
 | --- | --- |
@@ -25,7 +25,7 @@ Each entry has the facts shown on its page:
 | `category`, `categoryName` | Category slug and label, for example `database` and `Database` |
 | `url`, `markdownUrl` | The entry page, as HTML and as Markdown |
 | `answer` | One sentence: is it free, what you get, and whether it can bill you |
-| `status` | `active`, `changed` (the free tier changed recently), or `ended` |
+| `status` | `active` or `changed` (the free tier changed recently). Older exports may include `ended`. |
 | `planType` | `always-free`, `credit`, `trial`, or `time-limited` |
 | `cardRequired`, `hardCap` | `true`, `false`, or `"unknown"` when the provider does not publish it clearly |
 | `billingRisk` | `none`, `low`, `medium`, or `high`; see [How we rate](https://freetier.wiki/about/) |
@@ -66,7 +66,7 @@ curl -H "Accept: text/markdown" https://freetier.wiki/services/supabase/
 ## For language models
 
 - [`/llms.txt`](https://freetier.wiki/llms.txt) is an index of the site's comparisons, categories, and lists, linking their Markdown versions.
-- [`/llms-full.txt`](https://freetier.wiki/llms-full.txt) has every entry's facts in one text file.
+- [`/llms-full.txt`](https://freetier.wiki/llms-full.txt) has every current catalog entry's facts in one text file.
 - The [`find-free-tier` agent skill](https://freetier.wiki/.well-known/agent-skills/find-free-tier/SKILL.md) explains how to look up, read, and cite entries.
 
 ## License and corrections

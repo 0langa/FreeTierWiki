@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { EntryList } from "@/components/entry/entry-list";
 import { ExplorerClient } from "@/components/explorer/explorer-client";
 import { BUILD_NOW } from "@/lib/build-info";
-import { getAllEntries } from "@/lib/content.server";
+import { getCatalogEntries } from "@/lib/content.server";
 import { toListItem } from "@/lib/entry-view";
 import { applyQuery, DEFAULT_QUERY } from "@/lib/explorer-query";
 import { pageUrl } from "@/lib/metadata";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const PAGE_SIZE = 50;
 
 export default async function ExplorerPage() {
-  const all = (await getAllEntries()).map((entry) => toListItem(entry, BUILD_NOW));
+  const all = (await getCatalogEntries()).map((entry) => toListItem(entry, BUILD_NOW));
   const initial = applyQuery(all, DEFAULT_QUERY);
   const firstPage = initial.slice(0, PAGE_SIZE);
 
