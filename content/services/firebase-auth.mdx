@@ -26,8 +26,8 @@ freeTierDetails:
     - 'Identity Platform on Blaze: 50,000 tier-1 and 50 SAML/OIDC monthly active users at no cost'
   caveats:
     - >-
-      Phone/SMS auth needs a billing account attached; SMS is billed per message and not free on
-      Spark.
+      Phone/SMS auth needs Blaze billing. The linked rate page lists the first ten
+      SMS per day at no charge, then country-specific charges.
     - >-
       The pricing table lists 50K and 50 SAML/OIDC monthly active users for Spark, but the
       Authentication limits page sets daily Spark limits, so plan for the daily limits.
@@ -61,8 +61,8 @@ avoidIf:
   - on-premises requirements
 productionReadiness: production-light
 status: changed
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-09
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/auth'
@@ -76,6 +76,7 @@ sourceUrls:
   - 'https://firebase.google.com/docs/auth/limits'
   - 'https://firebase.google.com/docs/auth'
   - 'https://firebase.google.com/docs/auth/web/start'
+  - 'https://cloud.google.com/identity-platform/pricing'
 changes:
   - date: 2026-10-21
     kind: changed
@@ -91,14 +92,14 @@ changes:
       Phone/SMS verification moved off the free Spark plan; it now requires the Blaze plan and
       billing, with SMS billed per message.
 answer: >-
-  Firebase Auth includes email, anonymous, and social sign-in free on Spark, while phone and SMS sign-in needs the paid Blaze plan and is billed per message.
+  Firebase Auth includes email, anonymous, and social sign-in free on Spark, while phone and SMS sign-in requires Blaze billing and can incur per-message charges.
 
 ---
 You turn on sign-in methods in the Firebase console and call the Firebase client SDKs from your web, iOS, or Android app. It suits developers who already use Firebase or want sign-in without writing a backend.
 
 ## What the free plan gives you
 
-The free Spark plan covers email and password, anonymous, and social sign-in at no cost. Registered user accounts are unlimited, and the docs cap anonymous accounts at 100 million. Phone number verification is not on Spark. It needs the pay-as-you-go Blaze plan, and each SMS is billed.
+Spark covers email and password, anonymous, and social sign-in at no cost. The docs list unlimited registered accounts and 100 million anonymous accounts. SMS verification requires Blaze; the linked rates list the first ten SMS per day at no charge and price subsequent messages by destination.
 
 Authentication with Identity Platform on Spark has daily limits: 3000 tier 1 daily active users and 2 tier 2 daily active users, which cover SAML and OIDC. The pricing table lists 50K and 50 monthly users for Spark instead, so plan for the daily limits. On the Blaze plan, the allowances are monthly: 50K tier 1 monthly active users and 50 SAML or OIDC users at no cost. Email sending is also capped on Spark. Spark allows 150 password reset emails per day and 1000 address verification emails per day.
 
@@ -106,11 +107,11 @@ Authentication with Identity Platform on Spark has daily limits: 3000 tier 1 dai
 
 The listed email and Identity Platform Spark quotas are daily. The Authentication quota page does not specify their reset timezone or an exact midnight reset time. The pages do not say exactly what happens when you pass them. Plan to upgrade to Blaze if you expect to. The email link sign-in limit is very low on Spark, at 5 emails per day. The docs say you must add a billing instrument to go beyond it.
 
-Moving to Blaze means a billing account is attached. After that, usage above the monthly no-cost amounts is billed by volume, and SMS messages are billed per message. Set a budget alert before you turn on phone sign-in.
+Moving to Blaze means a billing account is attached. After that, usage above the monthly no-cost amounts is billed by volume, and SMS pricing follows the applicable per-message rates. Set a budget alert before you turn on phone sign-in.
 
 ## Gotchas
 
-- Phone and SMS sign-in is not free. It needs Blaze, and each SMS costs money.
+- Phone and SMS sign-in needs Blaze billing even when usage fits the no-cost SMS amount.
 - With Identity Platform, Spark has a daily active user cap, while Blaze has a monthly one. Do not mix the two when you plan for growth.
 - Email link sign-in is limited to 5 emails per day on Spark, so it cannot carry real traffic without a billing account.
 

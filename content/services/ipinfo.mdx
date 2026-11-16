@@ -25,7 +25,7 @@ freeTierDetails:
     - City-level geolocation requires paid IPinfo Core or higher; displayed prices depend on billing cadence
     - Privacy detection (VPN, proxy, Tor) is paid-only
     - Full ASN details are paid-only
-  resetPeriod: monthly
+    - IPinfo Lite data is licensed under CC BY-SA 4.0 and requires attribution
   requiresCard: false
   freeTierType: always-free
   hasHardCap: false
@@ -40,8 +40,8 @@ whenToUse: >-
   Use IPinfo Lite when country-level geolocation and basic ASN data are enough
   and you want no request quota.
 whenNotToUse: >-
-  Avoid it if you need city-level location, full ASN data, privacy detection, or
-  a self-hosted database.
+  Avoid the free plan if you need city-level location, full ASN data, or
+  privacy detection.
 bestFor:
   - web developers
   - app developers
@@ -50,10 +50,9 @@ bestFor:
 avoidIf:
   - need city-level accuracy
   - require full ASN or privacy detection
-  - must self-host
 productionReadiness: production-light
-lastVerified: 2026-11-15
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://ipinfo.io/'
@@ -63,10 +62,15 @@ sourceUrls:
   - 'https://ipinfo.io/pricing'
   - 'https://ipinfo.io/developers'
   - 'https://ipinfo.io/'
+  - 'https://ipinfo.io/lite'
+  - 'https://ipinfo.io/developers/ipinfo-lite-database'
 changes:
   - date: 2026-10-21
     kind: changed
     note: "Scoped no-per-second throttling to paid plans and removed cadence-ambiguous Core price."
+  - date: 2026-11-16
+    kind: changed
+    note: Documented the free downloadable Lite database and its attribution requirement.
 answer: >-
   IPinfo's free Lite plan gives unlimited country-level geolocation with no card and no hard cap, while city location, privacy detection, and full ASN details need a paid plan.
 
@@ -76,6 +80,8 @@ You sign up, copy a token from the dashboard, and call `api.ipinfo.io/lite` over
 ## What the free plan gives you
 
 IPinfo Lite is free forever and needs no credit card. It gives you unlimited API requests per month for country-level geolocation, plus ASN, ASN name, and ASN domain. The pricing page also lists 50 web lookups in the dashboard.
+
+The free IPinfo Lite database also gives you country, continent, and basic ASN data for offline use. Download it as CSV, JSON, MMDB, or Parquet. The data uses the CC BY-SA 4.0 license and requires crediting IPinfo as the source.
 
 Lite has no API request quota. The docs explicitly remove daily/hourly and concurrent caps, but their no-per-second-throttling statement is scoped to paid plans; do not extend that precise guarantee to Lite. City-level data requires paid IPinfo Core; review the selected monthly or annual billing cadence before comparing its price. Privacy detection for VPNs, proxies, and Tor is on paid plans.
 
