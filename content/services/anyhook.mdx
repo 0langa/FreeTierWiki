@@ -1,0 +1,107 @@
+---
+title: AnyHook
+description: >-
+  AnyHook receives webhooks and forwards them to your endpoints. It keeps a
+  record of deliveries and can retry failed sends or replay stored events.
+provider: AnyHook
+domain: automation
+tags:
+  - webhooks
+  - webhook replay
+  - delivery retries
+  - event routing
+freeTierDetails:
+  summary: One app, three destinations, and three days of replayable history. The no-card Free plan includes 10,000 events per month and a 1,000-event daily cap.
+  limits:
+    - 10,000 events/month and 1,000 events/day
+    - 1 app and 3 destinations
+    - 3 days of event history
+    - 512 KB maximum payload
+  caveats:
+    - Events count per destination when fanned out
+    - Free refuses events beyond the daily cap and holds a limited number above the monthly cap
+    - Retries and replays can draw from a separate compute allowance
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The Free plan has no metered overage. Above the included quota some monthly overflow is held for replay, while the daily cap rejects events.
+quickstartSteps:
+  - Create a free account and add an app for one webhook source.
+  - Set a destination URL and choose the provider signature check if you use one.
+  - Configure the sender to use your AnyHook inbound URL.
+  - Send a test event, open the delivery log, and review the response from your endpoint.
+whenToUse: >-
+  Use AnyHook when a small integration needs a record of failed webhook
+  deliveries and a way to retry after your receiver recovers.
+whenNotToUse: >-
+  Use another plan for long audit retention, large payloads, or daily event
+  bursts above the free cap.
+bestFor:
+  - webhook debugging
+  - event replay
+  - small webhook integrations
+avoidIf:
+  - long event retention
+  - large webhook payloads
+  - high-volume event delivery
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://anyhook.net/'
+docsUrl: 'https://anyhook.net/docs'
+pricingUrl: 'https://anyhook.net/pricing'
+sourceUrls:
+  - "https://anyhook.net/pricing"
+  - "https://anyhook.net/docs"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the free webhook relay with daily refusals and bounded monthly overflow.
+answer: >-
+  AnyHook forwards up to 10,000 webhook events monthly with no card, keeps
+  three days of history, and enforces a separate daily cap without charging
+  overage.
+
+---
+AnyHook sits between a webhook sender and your own receiver. For example, you can point a service's webhook at an AnyHook URL and forward events to an app endpoint. If your handler fails, you can inspect its response and try the stored event again after you fix it.
+
+## What the free plan gives you
+
+The plan covers one app with up to three destinations and keeps events for three days. The monthly delivery allowance is 10,000 events. Forwarding one event to several destinations counts against the quota for each destination. You can leave a destination blank to inspect incoming events before connecting a receiver.
+
+The event log records delivery outcome, response status, and attempts. The free payload limit is 512 KB. The service can check sender signatures when you configure a supported source and provide its signing secret. Keep the event history window in mind when deciding how quickly someone needs to investigate a failed delivery.
+
+## When you hit a limit
+
+Free refuses events above its daily limit of 1,000. Above the monthly allowance, AnyHook can hold a bounded number of events without delivering them. Held events appear in the log and need replay after capacity is available. Once the hold is full, incoming requests are refused. The Free plan has no metered overage. Retries, replays, and requests to the management API also have limits of their own.
+
+## Gotchas
+
+- Fan-out spends event quota per destination, so adding a second receiver can use the allowance twice as fast.
+- The daily cap can reject events even if most of the monthly allowance is still available. A rejected event needs the sender to try again.
+- Free events expire from the log after three days. Replay them while they are still retained.
+
+## Alternatives in this atlas
+
+- [Webhook Relay](/services/webhook-relay/) if you need to deliver webhooks to a local or private target.
+- [UseWebhook.com](/services/usewebhook-com/) for another hosted endpoint to inspect and route events.
+
+## Questions people ask
+
+### Is AnyHook free?
+
+Yes. One app and three destinations are included with 10,000 events a month, subject to the daily limit. No card is required.
+
+### Does AnyHook retry failed webhooks?
+
+It can retry eligible failed deliveries. Check the delivery log for the result and whether another attempt is scheduled.
+
+### Can Free accounts replay events?
+
+Yes. Events remain replayable during the three-day retention window, subject to the replay and compute limits.

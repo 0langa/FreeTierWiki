@@ -1,0 +1,111 @@
+---
+title: InsForge
+description: >-
+  InsForge is a hosted application backend. A project combines Postgres,
+  user authentication, file storage, and edge functions for a web or mobile
+  app.
+provider: InsForge
+domain: hosting
+tags:
+  - backend as a service
+  - postgresql
+  - authentication
+  - edge functions
+  - object storage
+freeTierDetails:
+  summary: The Free plan includes a 500 MB database, 50,000 monthly active users, 1 GB of file storage, and 5 GB of bandwidth.
+  limits:
+    - 500 MB database size
+    - 50,000 monthly active users
+    - 1 GB file storage and 5 GB bandwidth
+    - 100,000 edge function calls
+    - 120 hours of custom compute per month on the default spec
+  caveats:
+    - Free projects pause after 1 week of inactivity
+    - The provider documents a custom compute cap but does not explain enforcement of every free allowance
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: none
+  billingRiskNotes:
+    - The no-card Free tier is separate from Pro, which meters usage above its included allowances.
+quickstartSteps:
+  - Create a free InsForge account and start a new project.
+  - Open the project console and copy the project ID.
+  - Use the InsForge CLI quickstart to link your local application to the project.
+  - Check the organization’s usage in the CLI before adding a larger workload.
+whenToUse: >-
+  Use one InsForge project when a prototype needs a managed database,
+  sign-in, and storage with a shared dashboard.
+whenNotToUse: >-
+  Use another option if an idle backend has to remain available or you want
+  published enforcement details for every allowance.
+bestFor:
+  - full-stack prototypes
+  - apps with sign-in and uploads
+  - Postgres-backed demos
+avoidIf:
+  - always-on free backends
+  - large file delivery
+  - fully documented free limit behavior
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://insforge.dev/'
+docsUrl: 'https://docs.insforge.dev/pricing'
+pricingUrl: 'https://insforge.dev/pricing'
+sourceUrls:
+  - "https://insforge.dev/pricing"
+  - "https://docs.insforge.dev/pricing"
+  - "https://docs.insforge.dev/quickstart"
+  - "https://insforge.dev/blog/insforge-pricing-update"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the hosted Free plan for Postgres, auth, storage, and edge functions.
+answer: >-
+  InsForge puts hosted Postgres, auth and file storage on a no-card free
+  plan with a 500 MB database, and pauses free projects after a week of
+  inactivity.
+
+---
+InsForge bundles the backend pieces a web or mobile app needs in one hosted project. Your app can use Postgres for its data, the authentication service for sign-in, and file storage for uploads. Use the project console to set up the backend and link your local code with the CLI.
+
+## What the free plan gives you
+
+The pricing page lists 500 MB for the database, 50,000 monthly active users, 1 GB for file storage, and 5 GB of bandwidth. You also get 100,000 edge function calls. These are separate allowances. For an app with uploads, the storage allowance covers the files you keep, while bandwidth measures data moving out to readers. The usage report exposes these meters alongside auth and edge function usage.
+
+Custom compute is a separate feature for running containers. The Free plan includes 120 hours per month on the default spec. A prototype using the ordinary database, auth, and storage services can start without deploying a custom container.
+
+## When you hit a limit
+
+The CLI can print usage for the current billing period and show its reset date. Check which resource is limiting your app before changing plans. InsForge documents a cap for custom compute and a pause after one week of project inactivity. Its public pricing FAQ does not clearly specify whether every other free-plan resource blocks or throttles requests at its allowance. Pro explicitly bills above the included amounts.
+
+## Gotchas
+
+- Free projects pause after a week of inactivity. An occasional demo may need attention before you share it again.
+- Storage and bandwidth are separate. Repeatedly downloading a file uses bandwidth even if the stored copy stays the same size.
+- The pricing FAQ describes compute credits for Pro separately from the free monthly custom compute hours.
+
+## Alternatives in this atlas
+
+- [Supabase](/services/supabase/) for another hosted backend built around Postgres, auth, and file storage.
+- [Appwrite](/services/appwrite/) for an integrated backend with database, auth, storage, and functions.
+
+## Questions people ask
+
+### Is InsForge free to start?
+
+Yes. The hosted Free plan costs nothing per month and InsForge says no card is necessary for free access.
+
+### Does InsForge keep free projects running when idle?
+
+Free projects pause after one week without activity.
+
+### Where can I check my current usage?
+
+Run the organization usage command documented in the pricing FAQ from the InsForge CLI. It reports the current billing period, resource totals, and reset date.

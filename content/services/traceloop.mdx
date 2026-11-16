@@ -1,0 +1,95 @@
+---
+title: Traceloop
+description: >-
+  Traceloop hosts traces and evaluations for applications that call
+  language models. It can ingest instrumentation from OpenLLMetry.
+provider: Traceloop
+domain: observability
+tags:
+  - llm observability
+  - openllmetry
+  - traces
+  - evaluations
+freeTierDetails:
+  summary: The Free plan lists 50,000 spans per month with 24-hour retention and monitoring and evaluation dashboards.
+  limits:
+    - 50,000 spans/month
+    - 24 hours of data retention
+  caveats:
+    - Pricing table and FAQ disagree on seat count
+    - A request can produce multiple spans
+    - Card and post-limit enforcement are not confirmed
+  resetPeriod: monthly
+  requiresCard: unknown
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: low
+quickstartSteps:
+  - Start a hosted project.
+  - Instrument a representative model call using the provider's integration.
+  - Open the trace in the monitoring dashboard.
+  - Check the number of spans and the retained history.
+whenToUse: >-
+  Use Traceloop to see how a model call fits into a larger workflow.
+whenNotToUse: >-
+  Choose another plan for long investigation history or a confirmed large
+  team allowance.
+bestFor:
+  - LLM traces
+  - short debugging sessions
+avoidIf:
+  - long retention
+  - unconfirmed seats
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.traceloop.com/'
+pricingUrl: 'https://www.traceloop.com/pricing'
+sourceUrls:
+  - "https://www.traceloop.com/pricing"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added hosted LLM monitoring and documented the inconsistent seat limit.
+answer: >-
+  Traceloop’s hosted free plan lists 50,000 spans per month and 24 hours of
+  retention, while enforcement at the monthly quota remains unconfirmed.
+
+---
+Traceloop helps you follow an application request through operations such as retrieval, model calls and other steps. Its hosted dashboard is useful when you need to inspect the timing and output of a particular trace while changing a prompt or testing a workflow.
+
+## What the free plan gives you
+
+The published hosted Free plan includes 50,000 spans a month and 24 hours of retention. A span represents a timed operation within a trace, so a request can contribute several spans. The plan lists monitoring and evaluation dashboards as well as prompt management. The same page points to OpenLLMetry, the separate instrumentation project, as a way to send data to supported backends. The free library and the hosted plan serve different roles. Use the dashboard to look at a few representative requests and see how many operations your instrumentation records for each one.
+
+## When you hit a limit
+
+The pricing page quotes enterprise terms for usage beyond the free bundle. It does not specify what the hosted service does with a span after the free quota or give a clear card policy. The retention limit is short regardless of monthly usage. Capture investigation notes promptly and test how much trace data your workload produces before relying on the monthly figure.
+
+## Gotchas
+
+- The plan card says up to five seats. The FAQ on the same page says there is no seat limit, so the published seat policy conflicts.
+- Instrumentation for a single app request can create several operations in a trace. Plan capacity around spans.
+- The hosted plan's retention can make a problem from the previous day difficult to investigate.
+
+## Alternatives in this atlas
+
+- [Honeycomb](/services/honeycomb/) for broader application traces and events.
+- [AWS X-Ray](/services/aws-x-ray/) for distributed tracing within an AWS workload.
+
+## Questions people ask
+
+### Is OpenLLMetry included in the span meter?
+
+The library is a separate open-source project. Spans you send to the hosted Traceloop service count toward its allowance.
+
+### How long can I look up a free trace?
+
+Free lists 24 hours of data retention.
+
+### How many teammates can join?
+
+The pricing page gives two different answers. Check the current hosted organization settings before using Free for a group.

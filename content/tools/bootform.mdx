@@ -1,0 +1,109 @@
+---
+title: BootForm
+description: >-
+  BootForm receives submissions from forms you build yourself. It supplies
+  the endpoint, validation, spam checks, and a dashboard for reviewing
+  entries.
+provider: BootForm
+domain: forms
+tags:
+  - form backend
+  - static sites
+  - spam protection
+  - mcp
+freeTierDetails:
+  summary: Free includes 250 submissions per month across the account, notifications by email or Discord, and API and MCP access. A credit card is not required.
+  limits:
+    - 250 submissions/month across all forms
+    - Forms subject to fair use
+    - 1 workspace and 1 account owner
+    - 60 requests/minute for the account API
+  caveats:
+    - Submissions beyond quota are rejected until reset
+    - File uploads and custom notification routes require a paid plan
+    - Free email notifications carry BootForm branding
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Free rejects additional submissions when the monthly quota is exhausted. Opt-in paid overage applies only on eligible paid plans.
+quickstartSteps:
+  - Generate a form ID using BootForm's getting-started guide.
+  - Point the action of your HTML form at the BootForm endpoint and use POST.
+  - Submit test data and claim the form into your account.
+  - Configure notifications and check the submission in the dashboard before publishing the form.
+whenToUse: >-
+  Use BootForm when your own HTML form needs validation, spam filtering,
+  and delivery notifications without an application server.
+whenNotToUse: >-
+  Use another plan if you need attachments, several workspace members, or
+  delivery beyond the free monthly submission quota.
+bestFor:
+  - contact forms
+  - static sites
+  - small feedback forms
+avoidIf:
+  - file uploads on Free
+  - more than 250 submissions/month
+  - shared workspace access on Free
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://bootform.com/'
+docsUrl: 'https://bootform.com/docs/getting-started'
+pricingUrl: 'https://bootform.com/pricing'
+sourceUrls:
+  - "https://bootform.com/pricing"
+  - "https://bootform.com/docs/getting-started"
+  - "https://bootform.com/docs/api-guide"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the free form backend, with account-wide submission limits and hard-stop behavior.
+answer: >-
+  BootForm accepts 250 free submissions a month across your forms without a
+  card, and rejects further submissions at quota until your allowance
+  resets.
+
+---
+BootForm handles the receiving end of a form you wrote yourself. Point the form at its endpoint and use the dashboard to view submissions or set up notifications. This fits a static site where the page can serve HTML but you do not want to run a server to process each submission.
+
+## What the free plan gives you
+
+The plan includes 250 submissions per month for the account. You can create forms subject to fair use, and they all draw from that account allowance. Free includes form validation, spam checks, and email and Discord notifications. The dashboard keeps your submissions and supports export, so you can take the data out without adding an integration.
+
+The API and MCP server are available on Free. The getting-started guide also describes generating an endpoint and posting a test without signing up first. Claim the form for your account to manage its settings and submissions in the dashboard.
+
+## When you hit a limit
+
+BootForm rejects additional submissions when the monthly allowance is used up. The provider sends a usage warning as you approach the cap and another at the limit. If one form attracts a burst of legitimate submissions it can consume quota for the rest of the account. Paid plans have larger bundles and optional metered overage, which is a separate choice.
+
+## Gotchas
+
+- File uploads require a paid tier. Use ordinary text fields if you want to stay on Free.
+- The API and the public form endpoint have separate rate limits. Consult the API guide if you are submitting programmatically or handling bursts.
+- BootForm branding appears in email notifications on the Free plan. Some notification channels and advanced routing rules also require an upgrade.
+
+## Alternatives in this atlas
+
+- [Formspree.io](/tools/formspree-io/) for forwarding submissions from another hosted HTML form endpoint.
+- [Formcarry.com](/tools/formcarry-com/) for a form backend with a different quota and submission handling policy.
+
+## Questions people ask
+
+### Is BootForm free?
+
+Yes. The ongoing Free plan includes 250 submissions per account each month, with no credit card.
+
+### Do I get 250 submissions for each form?
+
+The allowance is for the account. All the forms in it share the same pool.
+
+### Can I accept file attachments on BootForm Free?
+
+File uploads start on Starter. For a free form, use fields that submit text.

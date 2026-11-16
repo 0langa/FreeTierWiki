@@ -1,0 +1,108 @@
+---
+title: Cloudbrowser
+description: >-
+  Cloudbrowser runs persistent Chrome profiles you can drive over the
+  Chrome DevTools Protocol or open in a live viewer.
+provider: Cloudbrowser
+domain: scraping
+tags:
+  - browser automation
+  - hosted browser
+  - playwright
+  - chrome devtools protocol
+freeTierDetails:
+  summary: The no-card Free plan provides 1 browser-hour per UTC month and 1 running browser at a time. The browser pauses when the allowance is used.
+  limits:
+    - 1 browser-hour per UTC calendar month
+    - 1 running browser at a time
+    - Persistent Chrome profile, CDP access, and live view
+  caveats:
+    - Closing the CDP client or viewer does not itself stop the runtime meter
+    - Resume restarts Chrome and may lose in-memory page state
+    - AI model usage is separate
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The Free plan pauses browsers at quota without charging overage. A paid plan requires separate checkout.
+quickstartSteps:
+  - Verify your email and sign in to the Cloudbrowser console.
+  - Create a browser and wait for it to start.
+  - Open the live view or create a scoped CDP link for a tool such as Playwright.
+  - Pause the browser when you finish if you want to save the remaining runtime.
+whenToUse: >-
+  Use Cloudbrowser for short browser automation tests where your tools need
+  a remote Chrome profile or you want to watch the session.
+whenNotToUse: >-
+  Use another plan if tasks routinely need more than one browser-hour a
+  month, several concurrent browsers, or guaranteed in-memory state across
+  restarts.
+bestFor:
+  - short automation runs
+  - testing CDP clients
+  - browser profiles that persist between runs
+avoidIf:
+  - many parallel browsers
+  - long unattended runs
+  - browser time bundled with model usage
+productionReadiness: prototype
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://cloudbrowser.tv/'
+docsUrl: 'https://cloudbrowser.tv/docs'
+pricingUrl: 'https://cloudbrowser.tv/pricing'
+sourceUrls:
+  - "https://cloudbrowser.tv/pricing"
+  - "https://cloudbrowser.tv/docs"
+  - "https://cloudbrowser.tv/docs/billing"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the persistent Chrome service at cloudbrowser.tv with a monthly runtime hard cap.
+answer: >-
+  Cloudbrowser gives a verified account one free Chrome browser-hour per
+  UTC month, with no card, and automatically pauses the browser at the
+  limit without charging overage.
+
+---
+Cloudbrowser runs Chrome remotely and gives you a live view or a Chrome DevTools Protocol connection. A tool such as Playwright can attach to the browser to run a task. The profile can keep cookies and other saved state between runs so you can return to a site without setting everything up again.
+
+## What the free plan gives you
+
+Free covers one browser-hour per UTC calendar month and allows one running browser at a time. It includes a persistent Chrome profile, CDP access, and the live viewer. You can create a browser after verifying your email and use the console to issue connection links for your automation tool or live view.
+
+Running time counts while Chrome is active, even if you close the viewer. Pausing stops the runtime meter and retains the profile. An ordinary resume starts Chrome again, so do not count on an unsaved form or other in-memory state surviving.
+
+## When you hit a limit
+
+The service automatically pauses running browsers once the free hour is gone. You can wait until the next UTC calendar month or choose a paid plan. The Free plan has no overage charge. Under a paid plan, extra running time can be billed after the included hours. Look at Usage in the console to see how much free time a task used.
+
+## Gotchas
+
+- Closing a client connection alone does not stop the runtime meter. Check the console or explicitly pause the browser when the job is done.
+- A saved browser profile does not guarantee a website will keep you signed in. The site can expire its session.
+- The plan covers Chrome runtime. Your automation or agent software handles its own model usage.
+
+## Alternatives in this atlas
+
+- [BrowserCat](/tools/browsercat/) for another hosted browser automation service.
+- [Cloudflare Browser Run](/services/cloudflare-browser-run/) for hosted browser sessions integrated with Cloudflare Workers.
+
+## Questions people ask
+
+### Is Cloudbrowser free without a card?
+
+Yes. Free includes one hour per UTC month without a payment card.
+
+### What happens when the free browser-hour runs out?
+
+The running browser pauses automatically. Wait for the monthly reset or upgrade to resume.
+
+### Does closing the browser viewer preserve my free minutes?
+
+Closing the viewer does not stop a running browser. Pause it or check that the service has paused it before leaving the session.

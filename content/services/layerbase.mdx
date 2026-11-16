@@ -1,0 +1,108 @@
+---
+title: Layerbase
+description: >-
+  Layerbase hosts databases from several engines in one dashboard. You can
+  create a database, connect using your usual client, and branch it to test
+  changes.
+provider: Layerbase
+domain: database
+tags:
+  - managed database
+  - postgresql
+  - valkey
+  - database branching
+freeTierDetails:
+  summary: Run 2 sleeping databases with 5 GB of storage and no credit card. Free databases wake on connection and are subject to storage and fair-use limits.
+  limits:
+    - 2 databases and 5 GB of storage
+    - 20 concurrent connections
+    - 9 Standard engines
+    - 10 GB of bandwidth per 24 hours across your databases
+  caveats:
+    - Free databases must sleep for at least 25% of a rolling 7-day window
+    - MySQL and FerretDB require Solo or higher
+    - Long-idle databases can be archived and require a manual restore
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Layerbase does not meter database overage. The separate Pro trial requires a card and converts to a paid subscription.
+quickstartSteps:
+  - Create a free account from the pricing page.
+  - Choose a Standard database engine and a region in the dashboard.
+  - Copy the connection details into your database client or app.
+  - Run a test query and review storage, traffic and sleep history in Usage.
+whenToUse: >-
+  Use Layerbase for development databases and preview branches when you
+  need a choice of engines and can tolerate a wake-up delay.
+whenNotToUse: >-
+  Choose another plan if your database serves traffic continuously, needs
+  MySQL, or has to respond immediately after an idle period.
+bestFor:
+  - development databases
+  - preview environments
+  - testing different database engines
+avoidIf:
+  - always-on applications
+  - MySQL on Free
+  - latency-sensitive connections
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://layerbase.com/'
+docsUrl: 'https://layerbase.com/docs/database-lifecycle'
+pricingUrl: 'https://layerbase.com/pricing'
+sourceUrls:
+  - "https://layerbase.com/pricing"
+  - "https://layerbase.com/docs/database-lifecycle"
+  - "https://cloud.layerbase.com/acceptable-use"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the Free managed database plan and documented its sleep requirement.
+answer: >-
+  Layerbase hosts two free databases with 5 GB of storage and no card, and
+  can pause them for exceeding usage limits without billing overage.
+
+---
+Layerbase gives you a managed database and a connection string. The same dashboard covers relational engines and key-value stores, so you can try different backends without setting up a server for each one. You can branch a database to try a migration or seed data on a separate copy.
+
+## What the free plan gives you
+
+The Free plan includes two databases, 5 GB of storage, and 20 concurrent connections. Its nine Standard engines include PostgreSQL, MariaDB and Valkey. Pick a region when you create the database, then connect using the client for that engine. Layerbase lists MySQL and FerretDB under Solo rather than Free.
+
+When a free database sits idle, Layerbase puts it to sleep. A normal connection wakes a hibernated database, so it can take longer than a connection to one already running. Databases that sit idle for longer can be archived. Restore an archived database from its page before trying to connect.
+
+## When you hit a limit
+
+The acceptable-use policy explains what happens when storage is full. Layerbase sends a warning and gives you time to free space or change plans. If usage stays at or above quota after that window, databases may stop until there's room again. Bandwidth is also limited across the account. Database plans have fixed prices and carry no metered overage. You can export a paused database without upgrading.
+
+## Gotchas
+
+- The plan expects a free database to sleep for at least 25% of a rolling seven-day window. Polling or uptime probes that keep it awake can lead to a pause.
+- A provider-side pause for excess usage differs from ordinary sleep. Connecting again may fail until the pause is lifted.
+- The separate Pro trial requires a card and converts to a paid subscription at the end of the trial.
+
+## Alternatives in this atlas
+
+- [Neon](/services/neon/) for serverless PostgreSQL with database branching.
+- [Aiven](/services/aiven/) for a choice of managed data services with their own free plans.
+
+## Questions people ask
+
+### Is Layerbase free?
+
+Yes. The Free plan includes two databases and 5 GB of storage. You can create an account without a credit card.
+
+### Can I use MySQL on the free plan?
+
+Layerbase includes MariaDB on Free. For the MySQL engine itself, choose Solo or a higher plan.
+
+### Will a sleeping Layerbase database drop my data?
+
+Hibernation leaves the data in place. Connecting wakes the database unless it has been stopped, archived or paused for another reason.

@@ -1,0 +1,108 @@
+---
+title: Rendi
+description: >-
+  Rendi runs FFmpeg commands on hosted infrastructure. An application
+  supplies inputs and the command, then retrieves the files produced by the
+  job.
+provider: Rendi
+domain: storage
+tags:
+  - ffmpeg
+  - video processing
+  - audio processing
+  - media api
+freeTierDetails:
+  summary: The hosted Free plan includes 50 GB of processing per month, 5 GB-month of storage, and a 1-minute command limit. A card is required for verification.
+  limits:
+    - 50 GB of processing per month
+    - 5 GB-month of storage
+    - 1 minute maximum runtime per command
+    - 4 commands per minute and 4 account vCPUs
+  caveats:
+    - The processing meter counts input and output bytes
+    - Private file storage and API webhooks are listed on Pro
+    - The exact response when the free monthly processing allowance runs out is unpublished on the cited pages
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - Rendi says Stripe validates the card without charging it. Free has no recurring fee, and extra processing credits are offered to Pro accounts.
+quickstartSteps:
+  - Create a Free account and complete card verification.
+  - Generate an API key and keep it on the server running your integration.
+  - Send a small FFmpeg job using a source URL, command, and named output as shown in the API reference.
+  - Save the command ID and check its result before processing larger files.
+whenToUse: >-
+  Use Rendi when an app needs occasional FFmpeg jobs and they fit the short
+  runtime and storage allowances.
+whenNotToUse: >-
+  Use another plan for long encodes, workflows that need private output
+  storage, or projects that cannot provide a verification card.
+bestFor:
+  - short video conversions
+  - audio extraction
+  - FFmpeg-based media automation
+avoidIf:
+  - long-running commands
+  - private file storage on Free
+  - no-card signup
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.rendi.dev/'
+docsUrl: 'https://www.rendi.dev/docs/api-reference/endpoint/run-ffmpeg-command'
+pricingUrl: 'https://www.rendi.dev/pricing'
+sourceUrls:
+  - "https://www.rendi.dev/pricing"
+  - "https://www.rendi.dev/docs/api-reference/endpoint/run-ffmpeg-command"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the hosted FFmpeg API with its processing allowances and card verification policy.
+answer: >-
+  Rendi includes 50 GB of hosted FFmpeg processing a month with a
+  one-minute command limit, and requires a card for verification without
+  charging for Free.
+
+---
+Rendi accepts an FFmpeg command and file inputs over an API. It runs the command and makes the result available to the calling application. That fits small media tasks such as extracting a thumbnail, trimming a clip, or converting a file from a workflow that has no FFmpeg installation.
+
+## What the free plan gives you
+
+The Free plan includes 50 GB of processing per month and 5 GB-month of storage. Each command can run for up to one minute. The account has four vCPUs and accepts up to four commands per minute. These are different limits, so a file can fit the monthly volume and still take too long to process.
+
+The pricing FAQ says processing counts bytes from both the inputs and outputs of a command. Keep that in mind when testing variants of the same clip. The API reference shows how to send input and output names in the command request and get an ID for the job.
+
+## When you hit a limit
+
+Work within the published runtime and rate limits and track the monthly processing allowance as you build a pipeline. The cited pricing and API pages do not specify the exact response for a free account that has exhausted its monthly processing. The pricing page offers extra processing credits to Pro accounts. It says the Free tier has no recurring fee and the verification card is not charged.
+
+## Gotchas
+
+- The processing quota is a volume allowance. Even a short command can use a lot of it if the input and output files are large.
+- Rendi lists private storage and presigned URLs as Pro features. Check output access before sending media that needs to stay private.
+- Longer commands and result webhooks are paid features. For the Free plan, build around brief jobs and retrieve their results through the API.
+
+## Alternatives in this atlas
+
+- [Cloudinary](/services/cloudinary/) for hosted media management and transformations.
+- [Mux](/services/mux/) if you need to ingest and deliver video for playback.
+
+## Questions people ask
+
+### Does Rendi require a credit card?
+
+Yes. Rendi says it validates the card through Stripe without charging it. The hosted Free plan has no recurring fee.
+
+### Does the processing quota count the output file?
+
+Yes. Rendi's pricing FAQ counts both the input and output bytes.
+
+### Can I run an overnight encoding job on Free?
+
+Each free command has a one-minute runtime limit. Use the plan for short jobs that complete within that window.

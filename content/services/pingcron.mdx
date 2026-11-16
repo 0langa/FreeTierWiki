@@ -1,0 +1,105 @@
+---
+title: PingCron
+description: >-
+  PingCron watches for check-ins from scheduled jobs. If a job misses its
+  expected heartbeat, it can send an alert through email, Slack, or
+  Discord.
+provider: PingCron
+domain: observability
+tags:
+  - cron monitoring
+  - heartbeats
+  - scheduled jobs
+  - alerts
+freeTierDetails:
+  summary: Monitor 5 jobs with email, Slack, and Discord alerts, 7 days of run history, and one account owner. No card is needed for Free.
+  limits:
+    - 5 monitors
+    - 7 days of run history
+    - 1 account owner
+    - Email, Slack, and Discord alerts
+  caveats:
+    - Custom alert webhooks require a paid plan
+    - Shared account access starts on Team
+    - The pricing page does not describe enforcement of the monitor allowance
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: none
+  billingRiskNotes:
+    - Paid plans use a separate checkout. The free plan needs no credit card.
+quickstartSteps:
+  - Create a monitor in the PingCron dashboard.
+  - Match the schedule and grace period to the job you already run.
+  - Add a request to the job so it checks in after successful completion.
+  - Send a test check-in and verify the alert destination.
+whenToUse: >-
+  Use PingCron to find out when a backup, data sync, or other scheduled
+  task stops reaching the end of its run.
+whenNotToUse: >-
+  Use another plan for shared account access, a custom alert endpoint, or
+  more than one week of free run history.
+bestFor:
+  - cron jobs
+  - backup monitoring
+  - scheduled data syncs
+avoidIf:
+  - running jobs on the service
+  - shared account access on Free
+  - long run retention
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.pingcron.io/'
+pricingUrl: 'https://www.pingcron.io/#pricing'
+sourceUrls:
+  - "https://www.pingcron.io/#pricing"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the free heartbeat monitor plan and its alert channels.
+answer: >-
+  PingCron monitors five scheduled jobs for free and keeps seven days of
+  run history, with no card and paid checkout for higher capacity.
+
+---
+You keep your existing scheduler and add a check-in to each job you want to monitor. PingCron expects that check-in to arrive on schedule. If the grace period passes with no check-in, it alerts you, which can reveal that a nightly job stopped finishing even when nobody reads its logs.
+
+## What the free plan gives you
+
+The plan includes five monitors, one account owner, and seven days of run history. You can send alerts by email or connect Slack or Discord. Set the expected schedule and allow enough grace for the job to finish under ordinary conditions. The history shows the reported activity so you can compare a late run with previous runs.
+
+PingCron says assistant connections are available on every plan. They use your existing assistant account and can expose retained monitor data according to their permissions. You can also manage monitors directly in the dashboard.
+
+## When you hit a limit
+
+The provider directs users to a paid plan for more than five monitors or a longer run history. Paid plans have a separate checkout and Free needs no payment card. The public terms do not explain the exact behavior of an attempt to create a sixth monitor. Seven days is the published retention window, so look up older incidents elsewhere.
+
+## Gotchas
+
+- A monitor still needs a check-in from the job. Creating it in the dashboard does not deploy the heartbeat.
+- A missing check-in tells you that the job did not report success on time. Read the job or scheduler logs to find out what went wrong.
+- Free includes Slack and Discord alerts. Custom outgoing alert webhooks require a paid plan and shared access starts on Team.
+
+## Alternatives in this atlas
+
+- [Healthchecks.io](/services/healthchecks-io/) for another heartbeat monitor with a different retention model.
+- [Cronitor](/services/cronitor/) for scheduled jobs and other monitoring options.
+
+## Questions people ask
+
+### Is PingCron free?
+
+Yes. Its no-card plan includes five monitors and seven days of run history.
+
+### How do I avoid alerts for jobs that take longer on busy days?
+
+Set a grace period that allows for normal variation. PingCron alerts once the expected check-in is late beyond that grace period.
+
+### Does PingCron run my scheduled jobs?
+
+You run them on your own scheduler. PingCron listens for check-ins and alerts when they go missing.

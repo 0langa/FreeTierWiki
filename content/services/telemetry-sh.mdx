@@ -1,0 +1,97 @@
+---
+title: Telemetry
+description: >-
+  Telemetry stores application events and lets you query them with SQL,
+  chart the results, and trigger alerts.
+provider: Telemetry
+domain: analytics
+tags:
+  - event analytics
+  - sql
+  - dashboards
+  - query compute
+freeTierDetails:
+  summary: Free includes 1 GB of storage, 1 user, and 1 query CPU-hour per month, with no card required.
+  limits:
+    - 1 GB storage
+    - 1 user
+    - 1 query CPU-hour per month
+  caveats:
+    - Query usage counts CPU time across workers
+    - Pricing does not spell out Free enforcement for each resource
+    - Free is scoped to personal apps
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - The provider lists additional usage prices on paid plans. Free limit behavior is not clearly published.
+quickstartSteps:
+  - Try a SQL query on the sample data.
+  - Create a Free account and ingest one event type.
+  - Query a small time window.
+  - Save a useful result as a dashboard or alert.
+whenToUse: >-
+  Use Telemetry to answer targeted SQL questions about an app you run.
+whenNotToUse: >-
+  Choose another plan for heavy recurring queries or shared account access.
+bestFor:
+  - small app event streams
+  - SQL dashboards
+avoidIf:
+  - large raw event archives
+  - frequent heavy queries
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://telemetry.sh/'
+pricingUrl: 'https://telemetry.sh/pricing'
+sourceUrls:
+  - "https://telemetry.sh/pricing"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the no-card SQL event analytics plan.
+answer: >-
+  Telemetry gives one user free SQL event analytics with 1 GB of storage
+  and one query CPU-hour monthly, without requiring a card to start.
+
+---
+Telemetry stores app events so you can ask questions in SQL. It suits an app with a few well-defined events that you want to explore, such as how often a background operation finishes or how a timing metric changes after a release.
+
+## What the free plan gives you
+
+The current pricing page lists 1 GB of storage, one user and one query CPU-hour per month. It says you can start without a card. SQL queries, dashboards and alerts are available on Free. To get a feel for the interface, start with its sample data before deciding which fields to send from your app. A query can narrow the event type and time range, then feed a chart that you revisit. The query meter measures CPU time across workers, which can differ from the time a person waits for the response.
+
+## When you hit a limit
+
+There are two allowances to watch. A burst of large events primarily affects storage, while repeated queries over a large dataset affect query time. The public pricing table gives the Free limits and describes upgrades. It does not document the precise handling of each kind of excess free usage. Use the usage figures in the product when planning a dashboard or alert with recurring queries.
+
+## Gotchas
+
+- Free is for one user. If teammates need their own access, check the paid plan.
+- A small dataset can still use its query allowance through frequent or heavy scans.
+- Choose the event fields you need before enabling broad logging. This helps preserve space for the events you actually query.
+
+## Alternatives in this atlas
+
+- [Cloudflare Workers Analytics Engine](/services/cloudflare-analytics-engine/) for custom event datasets from Workers.
+- [Cloudflare Web Analytics](/services/cloudflare-web-analytics/) for prebuilt website traffic reports.
+
+## Questions people ask
+
+### Is Telemetry free?
+
+Yes. The Free plan has a monthly query allowance and a storage limit, and the provider says it requires no card.
+
+### What does a query CPU-hour measure?
+
+The provider measures time actually spent working across query workers. Waiting for a response and query CPU usage are different measurements.
+
+### Can I try SQL before wiring up my app?
+
+The pricing page links to a sample query that you can run before connecting an application.

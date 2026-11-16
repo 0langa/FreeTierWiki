@@ -1,0 +1,98 @@
+---
+title: ttl.sh
+description: >-
+  ttl.sh is a public registry for short-lived container images. You can
+  push an image by name and set when it expires through the tag.
+provider: ttl.sh
+domain: storage
+tags:
+  - oci registry
+  - container images
+  - docker
+  - ephemeral storage
+freeTierDetails:
+  summary: Push public OCI images without an account. Images expire after one hour by default, with a maximum lifetime of 24 hours.
+  limits:
+    - 1-hour default lifetime
+    - 24-hour maximum lifetime
+    - Public image access
+  caveats:
+    - Anyone with the reference can pull the image
+    - Expired images must be pushed again
+    - No account is required
+  resetPeriod: per image
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The public registry is free and stops serving images after their lifetime.
+quickstartSteps:
+  - Build a container image locally.
+  - Choose a unique image name and a lifetime tag using the site examples.
+  - Push the tagged image to ttl.sh.
+  - Pull it from the target machine before it expires.
+whenToUse: >-
+  Use ttl.sh to hand off a build artifact during a test or review.
+whenNotToUse: >-
+  Choose a private persistent registry for production releases and
+  confidential images.
+bestFor:
+  - CI handoffs
+  - short-lived image sharing
+avoidIf:
+  - private images
+  - durable release tags
+productionReadiness: prototype
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://ttl.sh/'
+pricingUrl: 'https://ttl.sh/'
+sourceUrls:
+  - "https://ttl.sh/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the public ephemeral OCI image registry.
+answer: >-
+  ttl.sh stores public container images for free without an account, with a
+  one-hour default lifetime and automatic expiry after at most 24 hours.
+
+---
+A teammate can try a container build by pulling the image you pushed to ttl.sh. The registry is useful when both sides only need the artifact for a short time. Give the build a unique name and pass the exact image reference along with instructions for running it.
+
+## What the free plan gives you
+
+You can use standard OCI tools such as the Docker CLI without creating an account. Tag the image with its full ttl.sh name and a lifetime, then push it the same way you would push to another registry. The service defaults to one hour and supports lifetimes up to 24 hours. The receiving machine pulls the same reference while the image is available. The tag is useful for choosing a lifetime short enough for a quick debugging session or long enough for a teammate in another time zone to look at it.
+
+## When you hit a limit
+
+When the lifetime ends, the registry removes the image. A new checkout or deploy that still depends on the expired reference will need another push. Keep the source or a local copy from which you can rebuild. In a CI pipeline it helps to publish the reference only after the push has finished, and tell the next step when you expect it to expire.
+
+## Gotchas
+
+- Anyone who gets the reference can pull. A unique name reduces collisions with other users but provides no authentication.
+- Container layers can contain credentials or other files from the build context. Inspect the image before sharing it publicly.
+- A deployment that pulls on restart can break after the image expires even if the first rollout finished successfully.
+
+## Alternatives in this atlas
+
+- [Docker Hub](/tools/docker-hub/) for a persistent registry with account-based repositories.
+- [Appish](/services/appish/) if your goal is to run the image behind a shareable URL.
+
+## Questions people ask
+
+### Is ttl.sh free?
+
+Yes. The registry is free to push and pull without account registration.
+
+### What can use a ttl.sh image?
+
+An OCI-compatible client can pull the reference. The target still needs to match the platforms that the image was built for.
+
+### What happens if I need the image tomorrow?
+
+Choose an appropriate lifetime before you push and keep a reproducible build. For access beyond the maximum lifetime, store the image in a persistent registry.

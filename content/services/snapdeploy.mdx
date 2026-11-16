@@ -1,0 +1,102 @@
+---
+title: SnapDeploy
+description: >-
+  SnapDeploy builds or runs container images and exposes them over HTTPS.
+  The Free plan suits intermittent apps and browser demos.
+provider: SnapDeploy
+domain: hosting
+tags:
+  - docker hosting
+  - containers
+  - fargate
+  - deployments
+freeTierDetails:
+  summary: Free includes up to four small containers and 100 shared running hours per month, with no card.
+  limits:
+    - 4 small containers per account
+    - 100 shared container-hours per month
+    - 10 deploys/day and 5 per rolling 12 hours
+    - 512 MB RAM and 0.25 vCPU per small container
+  caveats:
+    - Free containers sleep after about 15 idle minutes
+    - A browser visit can wake a sleeping app
+    - Background callers cannot depend on waking it
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - Free running hours are shared. Paid Always-On capacity and add-ons require separate purchase.
+quickstartSteps:
+  - Create a no-card account.
+  - Connect a repository or choose a compatible container image.
+  - Deploy a small container and open its HTTPS URL.
+  - Check idle wake behavior and account usage.
+whenToUse: >-
+  Use SnapDeploy when an occasional dashboard or demo can tolerate an idle
+  pause.
+whenNotToUse: >-
+  Choose an always-on host for webhooks, jobs, or latency-sensitive
+  services that must respond immediately.
+bestFor:
+  - browser demos
+  - intermittent container apps
+avoidIf:
+  - persistent jobs
+  - latency-sensitive automation
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://snapdeploy.dev/'
+docsUrl: 'https://snapdeploy.dev/docs/faq'
+pricingUrl: 'https://snapdeploy.dev/docs/free-tier'
+sourceUrls:
+  - "https://snapdeploy.dev/docs/free-tier"
+  - "https://snapdeploy.dev/docs/faq"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the no-card free container hosting tier.
+answer: >-
+  SnapDeploy gives you four small containers and 100 shared running hours a
+  month without a card, with idle sleep and a browser wake-up delay.
+
+---
+SnapDeploy runs a container from a repository or an image. You get a URL that someone can open to test the application. The free service fits intermittent browser traffic, such as a small demo that needs to be available occasionally and can wait for a sleeping container to start.
+
+## What the free plan gives you
+
+The plan allows four small containers and 100 container-hours per month across the account. The hours count while containers run. A small container has 512 MB of memory and a quarter of a vCPU. The service also limits deploy attempts, including failed ones, to ten per day and five per rolling 12 hours. Open the URL after deployment to check that the app is listening correctly. If you run multiple demos at once, monitor how much runtime remains for the account. Each running container can draw from the same balance even when the containers belong to different projects.
+
+## When you hit a limit
+
+A Free container sleeps after about 15 minutes without traffic. A browser visit can wake it. The docs say that cron jobs, webhooks, and CI runners receive a wake page and cannot wake the container. When the account runs out of its monthly hours, free runtime is unavailable until allowance returns or you select paid capacity. Check whether an unavailable app is sleeping or has used up its allowance.
+
+## Gotchas
+
+- A shared running-hour allowance is consumed faster by several concurrent apps.
+- A browser visitor may see a wake page before the container responds.
+- Confirm image architecture and required memory before deploying a container from your own registry.
+
+## Alternatives in this atlas
+
+- [Appish](/services/appish/) for short Docker demos that use a slot timer.
+- [Render](/services/render/) for another free hosted web service with its own idle policy.
+
+## Questions people ask
+
+### Do I need a payment card?
+
+The Free plan accepts signup without one. Paid Always-On and other add-ons are separate purchases.
+
+### Can I run a webhook receiver on Free?
+
+A running container can receive requests, but a sleeping one depends on the documented wake behavior. Use always-on capacity when the caller must get an immediate response.
+
+### Do failed deployments count?
+
+Yes. The free limits page counts them in the deployment allowance.

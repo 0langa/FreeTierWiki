@@ -1,0 +1,100 @@
+---
+title: SambaCloud
+description: >-
+  SambaCloud hosts inference endpoints with separate request and token
+  limits for each supported model.
+provider: SambaNova
+domain: ai
+tags:
+  - llm inference
+  - model api
+  - rate limits
+  - tokens
+freeTierDetails:
+  summary: The Free tier applies when you have no payment method linked. Rate limits depend on the model.
+  limits:
+    - 20 requests/day for each listed free production model
+    - 20 requests/minute for those models
+    - 200,000 tokens/day for those models
+  caveats:
+    - Request and token caps both apply
+    - Model availability and limits may change
+    - Linking a payment method moves the account to the Developer tier
+  resetPeriod: minute or day
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: low
+  billingRiskNotes:
+    - The no-card Free tier enforces rate limits. Accounts with payment methods use a separate tier.
+quickstartSteps:
+  - Create an account without linking a payment method.
+  - Get an API key and choose a documented free model.
+  - Send a small test request.
+  - Handle limit errors and read the rate headers.
+whenToUse: >-
+  Use SambaCloud to evaluate hosted inference across supported models with
+  explicit no-card rate limits.
+whenNotToUse: >-
+  Choose another service or tier when you need a larger daily request
+  budget or a particular model that is absent.
+bestFor:
+  - model comparisons
+  - short inference tests
+avoidIf:
+  - high-volume requests
+  - depending on preview models for production
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://cloud.sambanova.ai/'
+pricingUrl: 'https://docs.sambanova.ai/docs/en/models/rate-limits'
+sourceUrls:
+  - "https://docs.sambanova.ai/docs/en/models/rate-limits"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the no-card SambaCloud inference tier.
+answer: >-
+  SambaCloud provides no-card model inference with published daily request
+  and token caps, and links accounts to a different tier when a payment
+  method is added.
+
+---
+SambaCloud gives applications a hosted API for running language models. The documentation separates production and preview model lists. Pick an exact model ID and check its limits before deciding how to spread work across a day.
+
+## What the free plan gives you
+
+The Free tier applies to accounts with no payment method linked. The current documentation lists 20 requests per minute, 20 requests a day, and 200,000 tokens a day for the free production models it shows. Treat these as separate limits. Several short requests can reach the daily request ceiling long before using the tokens, while a smaller number of long requests can have a different profile. The provider publishes model-specific tables, so consult the one for your chosen model instead of extrapolating to every endpoint that appears in the console.
+
+## When you hit a limit
+
+The API returns an error when a rate limit is hit. Read the rate headers and wait for the applicable window before retrying. If the daily request allowance is gone, small prompts will still count as requests. The Developer tier applies when a payment method is linked, with different limits. Review its billing separately before adding a payment method. If you run evaluations, start with the cases that answer the most important question. Save the remaining cases for a later window or choose a model with enough capacity.
+
+## Gotchas
+
+- A preview model is intended for evaluation and its availability can change.
+- Limit handling should respect both the request count and tokens remaining.
+- Keep the free account without a payment method if you need its documented no-card tier.
+
+## Alternatives in this atlas
+
+- [Groq](/services/groq/) for hosted models with a different free rate-limit policy.
+- [OpenRouter](/services/openrouter/) for access to a wider selection of models through one API.
+
+## Questions people ask
+
+### Does SambaCloud have a cardless tier?
+
+Yes. The rate-limit policy ties Free to accounts without a payment method.
+
+### How many calls can I make?
+
+Check the model’s row. The listed production models show 20 requests per day on Free.
+
+### Will a failed rate check bill me?
+
+The no-card Free tier returns an error when its documented rate limits are reached.

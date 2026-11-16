@@ -1,0 +1,106 @@
+---
+title: Appish
+description: >-
+  Appish turns a Docker image into a temporary public demo. You push to the
+  registry address from the dashboard and get a URL to share.
+provider: Appish
+domain: hosting
+tags:
+  - docker
+  - container hosting
+  - preview deployments
+  - demos
+freeTierDetails:
+  summary: The Free plan gives you 1 public Docker slot on shared resources. A deployment runs for up to 4 hours at a time and can be extended from the dashboard.
+  limits:
+    - 1 demo slot
+    - 4 hours per free session before an extension or renewal
+    - Public URL on appi.sh
+    - Images must target linux/amd64
+  caveats:
+    - The container stops at expiry unless you extend it
+    - Rebuilding and pushing an image does not reset the clock on an active slot
+    - The cited public pages do not state whether signup asks for a payment card
+  resetPeriod: per deployment
+  requiresCard: unknown
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The free slot stops at expiry. Upgrading to a paid slot is a separate purchase.
+quickstartSteps:
+  - Sign up and copy the build-and-push command for your free slot.
+  - Build the image for linux/amd64 and set the port tag to match your app.
+  - Push the image and open the public URL shown in the dashboard.
+  - Extend the slot in the dashboard if you need to keep the demo running.
+whenToUse: >-
+  Use Appish when you have a Docker image for a short-lived demo, hackathon
+  project, or review and want a public link.
+whenNotToUse: >-
+  Use another host if you need unattended long-running deployments,
+  built-in databases, or a private preview URL.
+bestFor:
+  - hackathon demos
+  - public previews
+  - short-lived container tests
+avoidIf:
+  - permanent production hosting
+  - private demos
+  - ARM-only container images
+productionReadiness: prototype
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://appi.sh/'
+docsUrl: 'https://appi.sh/docs'
+pricingUrl: 'https://appi.sh/pricing'
+sourceUrls:
+  - "https://appi.sh/pricing"
+  - "https://appi.sh/docs"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the reusable free Docker demo slot and its expiry behavior.
+answer: >-
+  Appish gives you one free public Docker slot for four hours at a time,
+  and stops the container at expiry unless you extend the slot.
+
+---
+Appish works with a Docker image you already have. The dashboard supplies a registry destination, and Appish runs the image at a public URL. That makes it useful for a project review where someone needs to try the app in a browser without building it on their own machine.
+
+## What the free plan gives you
+
+Each account has one free demo slot with shared resources and a public address under appi.sh. Build an image for linux/amd64, use the dashboard's push command and set the port tag to match the port your container serves. The clock starts on the first push. Subsequent pushes replace the running image without changing the public URL or extending the timer.
+
+A free session lasts up to four hours. If you need the link to stay live for a little longer, extend the slot from the dashboard. The docs say each extension starts a fresh four-hour window.
+
+## When you hit a limit
+
+At expiry Appish stops the containers and marks the slot as expired. The image remains in the registry, so you can reuse it. During the first eight hours after expiry, use Renew slot in the dashboard before pushing again. Later, a new push can restart it by itself. The provider lists paid slots separately for longer-lived demos. It does not publish a clear card requirement for signing up on Free.
+
+## Gotchas
+
+- The URL is public. Put only the intended demo and demonstration data behind it.
+- Updating the image leaves the old expiry time in place. Extend the slot before a review if the current session will run out during the meeting.
+- Appish documents using an external database for an app that needs one. Its free container slot does not include a built-in database.
+
+## Alternatives in this atlas
+
+- [Render](/services/render/) for a free web service with a different idle and runtime policy.
+- [Koyeb](/services/koyeb/) for running a container as a hosted web service.
+
+## Questions people ask
+
+### Is Appish free?
+
+Yes. The Free plan includes one public demo slot for four hours at a time and supports manual extensions.
+
+### What happens when the Appish slot expires?
+
+The container stops and the image stays in the registry. Renew the slot in the dashboard if you want to restart it before an ordinary push will work.
+
+### Do I need to connect a Git repository?
+
+The documented deployment uses a Docker push. You can build the image locally and send it straight to the registry address Appish gives you.

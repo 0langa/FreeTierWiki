@@ -1,0 +1,97 @@
+---
+title: IPQuery
+description: >-
+  IPQuery returns public network and location information for an IP
+  address, including ISP and ASN data.
+provider: IPQuery
+domain: apis
+tags:
+  - ip geolocation
+  - asn
+  - network intelligence
+  - public API
+freeTierDetails:
+  summary: The public lookup API works without an API key and supports both IPv4 and IPv6.
+  limits:
+    - Public IPv4 and IPv6 lookup API
+    - JSON, XML, YAML and text responses
+  caveats:
+    - The cited pages do not establish a fixed public request allowance
+    - Network classification is an estimate
+    - Do not rely on geography for precise identity
+  resetPeriod: none
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: none
+quickstartSteps:
+  - Open the documentation and try a public IP lookup.
+  - Choose the response format used by your app.
+  - Inspect which network and location fields are present.
+  - Handle absent fields and temporary request failures.
+whenToUse: >-
+  Use IPQuery for basic geolocation or ISP context in a small diagnostics
+  or lookup tool.
+whenNotToUse: >-
+  Choose another source if you need a contract for a fixed volume,
+  accuracy, or response time.
+bestFor:
+  - network diagnostics
+  - basic IP geolocation
+avoidIf:
+  - precise identity checks
+  - guaranteed high-volume access
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://ipquery.io/'
+pricingUrl: 'https://ipquery.io/'
+sourceUrls:
+  - "https://ipquery.io/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the public keyless IP lookup API.
+answer: >-
+  IPQuery offers free public lookups for IPv4 and IPv6 with network and
+  location data and no API key, while a fixed public request quota is
+  unconfirmed.
+
+---
+IPQuery turns an IP address into network and location information. A developer can use it to show basic context in a diagnostics report or investigate whether test requests came through the expected network. The provider exposes a public endpoint that works without adding an API key to the application.
+
+## What the free plan gives you
+
+The public service supports IPv4 and IPv6 and can return JSON, XML, YAML, or text. The provider’s examples show ISP, ASN and location fields. Pick the response format your application can handle directly and test it against several public addresses. Use the fields relevant to your workflow. An ISP or hosting classification can be useful for diagnostics even when you cannot use the location data to place a request precisely. Treat a missing field as missing information so a failed or partial lookup does not silently become a conclusion about the address.
+
+## When you hit a limit
+
+The cited product and documentation material does not establish a fixed public quota or what happens at every rate threshold. Keep client retries bounded and tolerate a missing lookup when the service responds slowly or cannot classify an address. Workflows that depend on predictable volume should verify the current provider policy before sending a large batch. For repeat lookups, separate transient request errors from successful replies and reuse recent results if the application can accept older network information.
+
+## Gotchas
+
+- The result describes the network, so several visitors behind the same address can share its context.
+- Both protocol versions are supported, but test representative addresses for the fields you need.
+- Choose a structured response format before writing a parser. The text output is useful for quick inspection.
+
+## Alternatives in this atlas
+
+- [IPinfo](/services/ipinfo/) for structured IP data with documented product plans.
+- [VPNDetection](/services/vpndetection/) for classifications such as VPN, Tor and relay networks.
+
+## Questions people ask
+
+### Do I need an API key?
+
+The public endpoint is documented without an API key.
+
+### Can it look up IPv6 addresses?
+
+Yes. The provider advertises both address families.
+
+### Does it identify the exact visitor?
+
+The service describes an IP address and its network. That information cannot reliably identify an individual visitor.

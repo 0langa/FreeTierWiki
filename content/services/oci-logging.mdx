@@ -1,0 +1,102 @@
+---
+title: OCI Logging
+description: >-
+  OCI Logging collects Oracle Cloud service logs and custom application
+  logs in log groups that you can search in the Console.
+provider: Oracle
+domain: observability
+tags:
+  - oracle cloud
+  - logs
+  - log ingestion
+  - vcn flow logs
+freeTierDetails:
+  summary: Free Tier tenancies without trial credits get up to 10 GB per month shared across the OCI Logging service.
+  limits:
+    - 10 GB per month shared across OCI Logging for eligible Free Tier tenancies
+    - Service logs and custom logs use the same Logging allowance
+  caveats:
+    - OCI signup requires a verification card
+    - Other services that consume or export logs have their own prices
+    - Check usage across all log groups
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - Oracle publishes paid log storage rates. Review account status and any downstream service charges before enabling broad collection.
+quickstartSteps:
+  - Open Logging in the OCI Console.
+  - Choose a compartment and create a log group.
+  - Enable a supported service log or configure custom log collection.
+  - Test a narrow search and monitor ingestion volume.
+whenToUse: >-
+  Use OCI Logging to inspect an Oracle workload’s logs and diagnose event
+  or network activity.
+whenNotToUse: >-
+  Choose a different setup if you want a no-card account or want all
+  ingestion to stay within an explicitly documented cap.
+bestFor:
+  - OCI troubleshooting
+  - VCN flow logs
+avoidIf:
+  - no-card signup
+  - assuming exports are included
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.oracle.com/cloud/'
+docsUrl: 'https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/loggingoverview.htm'
+pricingUrl: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm'
+sourceUrls:
+  - "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm"
+  - "https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/loggingoverview.htm"
+  - "https://docs.oracle.com/en-us/iaas/Content/GSG/Tasks/signingup_topic-Sign_Up_for_Free_Oracle_Cloud_Promotion.htm"
+  - "https://www.oracle.com/cloud/price-list/"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added OCI Logging and its shared Free Tier allowance.
+answer: >-
+  OCI Logging gives eligible Free Tier tenancies 10 GB of shared monthly
+  logging, with a card for OCI signup and separate pricing for paid usage.
+
+---
+OCI Logging is a place to collect and search messages from Oracle Cloud services and applications. Put related logs in a group, then narrow a search by source and event details. This can help when you are tracing what happened around a network or application problem.
+
+## What the free plan gives you
+
+Oracle’s Always Free guide lists up to 10 GB a month across OCI Logging for Free Tier tenancies without active trial credits. The same pool applies across the service rather than supplying a new allowance to each log group. The guide discusses the allowance alongside VCN flow logs, which record network traffic decisions. Depending on the source you enable, Logging can also work with service logs or with logs your application provides. Start with the sources you expect to search. A permissive collection rule can produce far more data than you need to investigate a problem.
+
+## When you hit a limit
+
+Inspect usage at the tenancy level to understand what contributes to the monthly allowance. Oracle’s price list has a paid storage meter above the included amount. The Always Free summary does not describe an automatic spending stop for every account configuration. If logs leave Logging through another Oracle service, check that service’s quotas separately. Plan retention and export with the sensitivity and volume of the data in mind.
+
+## Gotchas
+
+- Enabling flow logs for busy network paths can quickly increase ingestion.
+- The free allowance is shared even if you organize workloads into different log groups.
+- The Oracle Cloud account requires a card for signup and can place a temporary hold. Check the tenancy type before interpreting a price list.
+
+## Alternatives in this atlas
+
+- [CloudWatch](/services/cloudwatch/) for AWS logs and operational monitoring.
+- [Azure Monitor](/services/azure-monitor/) for Azure services and log workspaces.
+
+## Questions people ask
+
+### Can I search logs from the Console?
+
+Yes. Logging provides search across the logs that your account has permission to view.
+
+### Do I get 10 GB for each log group?
+
+The Always Free guide describes 10 GB shared across OCI Logging for eligible Free Tier tenancies.
+
+### Can I send log data elsewhere?
+
+OCI has ways to route log data to other destinations. Check the separate service and destination limits for the route you configure.

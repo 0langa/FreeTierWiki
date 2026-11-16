@@ -1,0 +1,112 @@
+---
+title: AgentMail
+description: >-
+  AgentMail provisions programmable inboxes that receive, store, and send
+  email. An app can process incoming messages and reply in a thread using
+  the API.
+provider: AgentMail
+domain: messaging
+tags:
+  - email inbox
+  - email api
+  - inbound email
+  - ai agents
+  - webhooks
+freeTierDetails:
+  summary: The no-card Free plan lists 3 inboxes, 1 custom domain for new accounts, 3,000 emails per month, and 3 GB of storage.
+  limits:
+    - 3 inboxes and 3 GB storage
+    - 1 custom domain for new accounts
+    - 100 sends per day
+    - 3,000 emails per month on the pricing page
+  caveats:
+    - The provider's rate-limit guide lists no separate monthly sending cap, which differs from the pricing table
+    - Agent-created accounts have tighter limits until verified or claimed
+    - Free accounts created before November 4, 2026 may need support to enable their custom domain
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: true
+  overageRisk: none
+  billingRiskNotes:
+    - The documented daily send limit and inbox count are enforced with API errors.
+quickstartSteps:
+  - Create a Free organization in the AgentMail Console.
+  - Create an inbox and copy its address.
+  - Generate an API key in the Console and keep it server-side.
+  - Read messages through the API or configure a signed webhook for inbound events.
+whenToUse: >-
+  Use AgentMail when an application needs a mailbox of its own for two-way
+  email or needs to react to replies and inbound events.
+whenNotToUse: >-
+  Choose another plan if you need many mailboxes, several custom domains,
+  or higher sending limits from the start.
+bestFor:
+  - inbound email automation
+  - agents that reply to email
+  - small mailbox integrations
+avoidIf:
+  - high-volume sending
+  - many custom domains
+  - unverified automated account signup
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.agentmail.to/'
+docsUrl: 'https://www.agentmail.to/docs/knowledge-base/agent-sign-up-limits'
+pricingUrl: 'https://www.agentmail.to/pricing'
+sourceUrls:
+  - "https://www.agentmail.to/pricing"
+  - "https://www.agentmail.to/docs/knowledge-base/agent-sign-up-limits"
+  - "https://docs.agentmail.to/knowledge-base/rate-limits"
+  - "https://www.agentmail.to/blog/custom-domains-free-plan"
+  - "https://www.agentmail.to/docs/knowledge-base/custom-domain-setup"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the free programmable inbox plan and noted the conflicting monthly sending documentation.
+answer: >-
+  AgentMail's free plan gives you three programmable inboxes and one custom
+  domain on new accounts, with no card and a daily sending limit enforced
+  by the API.
+
+---
+AgentMail gives a program its own mailbox. It can receive messages, read threads and reply by API, which fits an approval workflow or an assistant that needs to handle email. A webhook can notify your application about incoming mail without repeatedly asking the inbox for new messages.
+
+## What the free plan gives you
+
+The pricing table gives Free accounts three inboxes, 3 GB of storage, and a daily limit of 100 emails. The plan supports signed webhooks and needs no payment card. New Free accounts can use one custom domain. To send or receive on that domain, add the DNS records AgentMail supplies and wait for verification.
+
+The pricing table lists 3,000 emails per month. The separate rate-limit guide says Free has no distinct monthly cap, so the public pages disagree about how the monthly figure is enforced. Use the pricing allowance for planning and account for the documented daily send cap as well.
+
+## When you hit a limit
+
+The signup limits guide documents an HTTP 429 response when a send would exceed the daily limit. Check the retry header before sending again. Sending to several recipients uses allowance for each recipient. The inbox and domain limits are also enforced by API errors. Applications that create accounts through the agent signup API start with stricter sending and inbox rules until a human verifies or claims the account.
+
+## Gotchas
+
+- Use the documented daily limit even if the pricing table suggests there is room left for the month.
+- Older Free organizations may need to contact support to enable a custom domain. The release note gives the eligibility date.
+- A newly verified agent signup has limits on how quickly it can contact new recipients. Plan a small test before attaching it to an automated flow.
+
+## Alternatives in this atlas
+
+- [Resend](/services/resend/) for API-based transactional sending and inbound event handling.
+- [Imitate Email](/services/imitate-email/) if the team needs test inboxes for development and quality assurance.
+
+## Questions people ask
+
+### Is AgentMail free?
+
+The Free plan lists three inboxes and needs no card. It supports both receiving and sending with the same inbox.
+
+### Can I use my own domain on AgentMail Free?
+
+New Free accounts include one custom domain. An older account may need the provider to enable it.
+
+### What happens after the daily send limit?
+
+The API rejects the send with a rate-limit response. Wait until the window resets before retrying.

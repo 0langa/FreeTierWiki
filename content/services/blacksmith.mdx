@@ -1,0 +1,106 @@
+---
+title: Blacksmith
+description: >-
+  Blacksmith runs GitHub Actions jobs on hosted runners. GitHub still
+  schedules the workflow, while Blacksmith runs jobs configured with its
+  runner labels.
+provider: Blacksmith
+domain: devops
+tags:
+  - ci/cd
+  - github actions
+  - hosted runners
+  - build cache
+freeTierDetails:
+  summary: Start without a card and get 3,000 free runner minutes per month on qualifying runners. Paid runner rates vary by platform and machine size.
+  limits:
+    - 3,000 free runner minutes per month on qualifying runners
+    - Pricing shows the allowance for the baseline Ubuntu x64 runner
+  caveats:
+    - Install the GitHub integration and use a Blacksmith runner label
+    - Paid runner rates and extra services depend on the configuration
+    - Public pricing does not state exactly how a no-card organization is handled at quota
+  resetPeriod: monthly
+  requiresCard: false
+  freeTierType: always-free
+  hasHardCap: unknown
+  overageRisk: low
+  billingRiskNotes:
+    - Check the rate for the selected instance and any separately priced add-ons before setting up paid usage.
+quickstartSteps:
+  - Connect your GitHub organization in the Blacksmith dashboard and grant access to the intended repository.
+  - Use the migration wizard to choose a runner and update a workflow.
+  - Trigger the workflow in GitHub Actions and confirm that the job lands on the selected runner.
+  - Review the run and its usage in Blacksmith before moving more jobs.
+whenToUse: >-
+  Use Blacksmith when you already rely on GitHub Actions and want to try a
+  hosted runner and its cache on a representative workflow.
+whenNotToUse: >-
+  Use another runner if you cannot install the GitHub integration or need a
+  documented no-card cutoff for every runner configuration.
+bestFor:
+  - GitHub Actions workflows
+  - build and test jobs
+  - evaluating alternative runners
+avoidIf:
+  - CI outside GitHub Actions
+  - organizations that prohibit the integration
+  - a confirmed hard cap on no-card usage
+productionReadiness: side-project
+lastVerified: 2026-11-16
+lastUpdated: 2026-11-16
+popularityScore: 3
+usefulnessScore: 7
+officialUrl: 'https://www.blacksmith.sh/'
+docsUrl: 'https://docs.blacksmith.sh/introduction/quickstart'
+pricingUrl: 'https://www.blacksmith.sh/pricing'
+sourceUrls:
+  - "https://www.blacksmith.sh/pricing"
+  - "https://docs.blacksmith.sh/introduction/quickstart"
+status: active
+changes:
+  - date: 2026-11-16
+    kind: new
+    note: Added the free GitHub Actions runner allowance with paid rate and quota caveats.
+answer: >-
+  Blacksmith advertises 3,000 free GitHub Actions runner minutes a month
+  without a card, with separate paid rates and no published cutoff for
+  no-card accounts.
+
+---
+Blacksmith supplies the machines that execute a GitHub Actions job. You keep the workflow in GitHub and select the new runner using its label. The dashboard's migration wizard helps map existing jobs to Blacksmith runners. Start with a representative build or test so you can see whether the integration suits your workflow.
+
+## What the free plan gives you
+
+Blacksmith advertises 3,000 free minutes per month and says signup does not require a card. The pricing page shows that allowance on the baseline Ubuntu x64 runner. Choose the instance in the price table before comparing the cost of moving a workflow. Different operating systems and machine sizes can have different per-minute prices.
+
+The runner executes the steps you already define in your GitHub Actions file. The quickstart shows how to install the integration, select the organization, and use the migration wizard. To move a single job, you can update its runner label and leave the other jobs on their current runners.
+
+## When you hit a limit
+
+Blacksmith publishes per-minute rates for billed use. The public pricing page does not specify whether a no-card organization can continue to schedule jobs when the free minutes run out. Check your usage and payment settings in the dashboard before moving a workload that relies on running continuously. Add-ons such as sticky disks and dedicated static IPs have separate listed prices.
+
+## Gotchas
+
+- The free figure is for runner usage in Blacksmith. Changing the runner label determines which jobs run on that service.
+- The GitHub app needs permission to run jobs for the selected organization. If your organization uses an allowlist or SSO, check the requirements in the quickstart.
+- Paid rates vary by instance. Confirm the allowance and rate for the runner label you choose before changing every job in a workflow.
+
+## Alternatives in this atlas
+
+- [GitHub Actions](/services/github-actions/) for runners supplied by GitHub.
+- [CircleCI](/tools/circleci/) for a separate CI service with a free plan and its own workflow configuration.
+
+## Questions people ask
+
+### Is Blacksmith free to try?
+
+Yes. The pricing page advertises a recurring 3,000-minute allowance and says you can start without a credit card.
+
+### Do I need to migrate away from GitHub Actions?
+
+You keep GitHub Actions and select a Blacksmith runner for the jobs you want it to execute.
+
+### Can I assume all runner sizes have the same price?
+
+Use the pricing table for the exact platform and size. The default runner and larger instances have different rates.
