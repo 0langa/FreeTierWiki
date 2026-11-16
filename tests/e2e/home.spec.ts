@@ -12,8 +12,7 @@ test("home shows the promise, popular picks, jobs, categories, and the changelog
   await expect(page.getByRole("link", { name: /^Database/ }).first()).toHaveAttribute("href", "/category/database/");
   const changelog = page.getByRole("region", { name: "Free tier changelog" });
   await expect(changelog.getByRole("listitem").first()).toBeVisible();
-  // Removed listings and new entries are housekeeping; the home page only shows plans that changed or ended.
-  await expect(changelog.getByText(/^(Removed|New)$/)).toHaveCount(0);
+  await expect(changelog.getByText(/^(Removed|New|Ended)$/)).toHaveCount(0);
   await expect(page.getByRole("region", { name: "Recently added" })).toHaveCount(0);
 });
 

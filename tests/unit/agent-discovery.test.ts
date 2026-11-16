@@ -28,7 +28,7 @@ describe("llms.txt", () => {
     expect(text).toContain("](https://freetier.wiki/category/database/index.md)");
   }, 60_000);
 
-  it("puts every entry in llms-full.txt", async () => {
+  it("puts current entries in llms-full.txt", async () => {
     const text = await (await llmsFullRoute()).text();
     expect(text).toContain("### Supabase\n");
     expect(text).toContain("Details: https://freetier.wiki/services/supabase/");

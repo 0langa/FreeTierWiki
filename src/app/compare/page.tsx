@@ -5,7 +5,7 @@ import { JobIcon } from "@/components/site/icons";
 import { JsonLd } from "@/components/site/json-ld";
 import { PageHeader } from "@/components/site/page-header";
 import { liveComparisons } from "@/lib/comparison-view";
-import { getAllEntries, getComparisons } from "@/lib/content.server";
+import { getCatalogEntries, getComparisons } from "@/lib/content.server";
 import { pageUrl } from "@/lib/metadata";
 import { collectionPage } from "@/lib/structured-data";
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CompareIndexPage() {
-  const live = new Set((await getAllEntries()).filter((entry) => entry.status !== "ended").map((entry) => entry.id));
+  const live = new Set((await getCatalogEntries()).map((entry) => entry.id));
   const comparisons = liveComparisons(await getComparisons(), live);
 
   return (

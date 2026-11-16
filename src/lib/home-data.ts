@@ -24,7 +24,7 @@ export function topCategories(items: ListItem[], limit: number): CategorySummary
 export type ChangeRow = { date: string; kind: ChangelogKind; note: string; title: string; url: string };
 
 export function latestChanges(entries: AtlasEntry[], limit?: number, removals: RemovalRecord[] = []): ChangeRow[] {
-  const liveDomains = new Set(entries.map((entry) => entry.domain));
+  const liveDomains = new Set(entries.filter((entry) => entry.status !== "ended").map((entry) => entry.domain));
   const rows: ChangeRow[] = [
     ...entries.flatMap((entry) => entry.changes.map((change) => ({ ...change, title: entry.title, url: entry.url }))),
     ...removals.map((record) => ({

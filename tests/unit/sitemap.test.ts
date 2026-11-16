@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import sitemap from "@/app/sitemap";
 import { changelogRoutes } from "@/lib/changelog-view";
-import { getAllEntries, getChangesReport, getComparisons, getProviderGroups, getRemovals } from "@/lib/content.server";
+import { getAllEntries, getCatalogEntries, getChangesReport, getComparisons, getEndedEntries, getProviderGroups, getRemovals } from "@/lib/content.server";
 import { latestChanges } from "@/lib/home-data";
 import { absoluteUrl } from "@/lib/links";
 
@@ -20,9 +20,11 @@ describe("sitemap", () => {
     expect(new Set(urls).size).toBe(urls.length);
   }, 60_000);
 
-  it("dates each entry by its last content change, not by the weekly check", async () => {
-    const entries = await getAllEntries();
+  it("dates current offers by their last content change and omits archived offers", async () => {
+    const entries = await getCatalogEntries();
     const lastModified = new Map((await sitemap()).map((item) => [item.url, item.lastModified]));
+    expect(lastModified.has(absoluteUrl("/ended-offers/"))).toBe(false);
+    for (const entry of await getEndedEntries()) expect(lastModified.has(absoluteUrl(entry.url))).toBe(false);
 
     // Entries the weekly check confirmed after their last edit: lastVerified is newer than lastUpdated.
     const confirmed = entries.filter((entry) => entry.lastVerified && entry.lastVerified > entry.lastUpdated);
@@ -35,7 +37,7 @@ describe("sitemap", () => {
   }, 60_000);
 
   it("dates list pages by their newest entry", async () => {
-    const entries = await getAllEntries();
+    const entries = await getCatalogEntries();
     const lastModified = new Map((await sitemap()).map((item) => [item.url, item.lastModified]));
     const newest = (list: { lastUpdated: string }[]) => list.map((entry) => entry.lastUpdated).sort().at(-1);
 
@@ -45,7 +47,7 @@ describe("sitemap", () => {
     const [group] = await getProviderGroups();
     expect(lastModified.get(absoluteUrl(`/provider/${group.slug}/`))).toBe(newest(group.entries));
     const noCardDatabase = entries.filter(
-      (entry) => entry.domain === "database" && entry.status !== "ended" && entry.freeTierDetails.requiresCard === false,
+      (entry) => entry.domain === "database" && entry.freeTierDetails.requiresCard === false,
     );
     expect(lastModified.get(absoluteUrl("/category/database/no-card/"))).toBe(newest(noCardDatabase));
     // A page that only lists names and counts gets no date rather than a made-up one.

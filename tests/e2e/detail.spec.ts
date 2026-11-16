@@ -89,11 +89,32 @@ test("an unchecked entry says so", async ({ page, request }) => {
   await expect(page.getByRole("note")).toContainText("Not re-checked since");
 });
 
-test("an ended entry says so", async ({ page, request }) => {
-  const row = await findEntry(request, (r) => r.status === "ended");
-  test.skip(!row, "no ended entry in the catalog");
-  await page.goto(row!.url);
+test("ended offers keep their pages and leave the catalog", async ({ page, request }) => {
+  await page.goto("/explorer/");
+  await page.getByRole("contentinfo").getByRole("link", { name: "Ended offers" }).click();
+  await expect(page).toHaveURL(/\/ended-offers\/$/);
+  await expect(page.getByRole("heading", { name: "Ended offers", level: 1 })).toBeVisible();
+  const links = page.getByRole("list", { name: "Ended offers" }).getByRole("link");
+  await expect(links.first()).toBeVisible();
+  const archived = await links.evaluateAll((items) => items.map((item) => item.getAttribute("href")));
+  const [explorer, search, catalog, llms] = await Promise.all([
+    request.get("/data/explorer.json").then((response) => response.json()),
+    request.get("/data/search.json").then((response) => response.json()),
+    request.get("/api/v1/entries.json").then((response) => response.json()),
+    request.get("/llms-full.txt").then((response) => response.text()),
+  ]);
+  expect(explorer.status).not.toContain("ended");
+  const searchUrls = search.map((row: { url: string }) => row.url);
+  const catalogUrls = catalog.entries.map((row: { url: string }) => new URL(row.url).pathname);
+  for (const url of archived) {
+    expect(searchUrls).not.toContain(url);
+    expect(catalogUrls).not.toContain(url);
+    expect(llms).not.toContain(`Details: https://freetier.wiki${url}`);
+  }
+  await links.first().click();
+  await expect(page).toHaveURL((url) => url.pathname === archived[0]);
   await expect(page.getByRole("note")).toContainText("This free tier ended");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
   await expect(page.getByRole("heading", { name: "Good fit" })).toHaveCount(0);
 });
 

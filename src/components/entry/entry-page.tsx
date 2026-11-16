@@ -62,6 +62,12 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
   const pricing = pricingUrl(entry);
   const category = DOMAIN_LABELS[entry.domain];
   const ended = entry.status === "ended";
+  const crumbs = ended
+    ? [{ href: "/ended-offers/", label: "Ended offers" }]
+    : [
+        { href: "/explorer/", label: "Explore" },
+        { href: `/category/${entry.domain}/`, label: category },
+      ];
   const outline = bodyOutline(entry.body.raw);
   const sectioned = outline.length > 0;
   const jumps: JumpItem[] = [
@@ -75,13 +81,7 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
   return (
     <article className="grid gap-y-7 pt-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-x-14 lg:pt-8 xl:grid-cols-[minmax(0,1fr)_360px] 2xl:grid-cols-[220px_minmax(0,1fr)_400px] 2xl:gap-x-16">
       <header className="grid content-start gap-4 lg:col-start-1 lg:row-start-1 2xl:col-start-2">
-        <Breadcrumb
-          crumbs={[
-            { href: "/explorer/", label: "Explore" },
-            { href: `/category/${entry.domain}/`, label: category },
-          ]}
-          current={entry.title}
-        />
+        <Breadcrumb crumbs={crumbs} current={entry.title} />
         <div className="grid gap-3">
           <h1 className="text-[34px] font-bold leading-[1.05] tracking-tight sm:text-[42px] lg:text-[46px]">{entry.title}</h1>
           {/* The one-line intro. The body's "Is X free?" question stays the only FAQ question, so the two never repeat. */}
@@ -101,9 +101,13 @@ export function EntryPage({ entry, related, comparisons = [], providerHref }: En
               )}
             </span>
             <span aria-hidden>·</span>
-            <Link href={`/category/${entry.domain}/`} className="text-ink-2 underline underline-offset-2 hover:text-ink">
-              {category}
-            </Link>
+            {ended ? (
+              <span className="text-ink-2">{category}</span>
+            ) : (
+              <Link href={`/category/${entry.domain}/`} className="text-ink-2 underline underline-offset-2 hover:text-ink">
+                {category}
+              </Link>
+            )}
             {freshness.state === "checked" || freshness.state === "stale" ? (
               <>
                 <span aria-hidden>·</span>

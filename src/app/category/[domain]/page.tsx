@@ -10,7 +10,7 @@ import { BUILD_NOW } from "@/lib/build-info";
 import { categoryDescription, categoryFaqItems, categoryIntro } from "@/lib/category-copy";
 import { DOMAIN_LABELS, isDomain } from "@/lib/content";
 import { comparisonsForDomain, jobLabel } from "@/lib/comparison-view";
-import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
+import { getCatalogEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FILTER_PAGES, FILTER_SLUGS, filterItems, MIN_CATEGORY_ENTRIES } from "@/lib/filter-pages";
 import { pageUrl } from "@/lib/metadata";
@@ -21,7 +21,7 @@ type Params = Promise<{ domain: string }>;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const domains = new Set((await getAllEntries()).map((entry) => entry.domain));
+  const domains = new Set((await getCatalogEntries()).map((entry) => entry.domain));
   return [...domains].map((domain) => ({ domain }));
 }
 
@@ -40,16 +40,12 @@ export default async function CategoryPage({ params }: { params: Params }) {
   const { domain } = await params;
   if (!isDomain(domain)) notFound();
   const label = DOMAIN_LABELS[domain];
-  const all = await getAllEntries();
+  const all = await getCatalogEntries();
   const comparisons = comparisonsForDomain(domain, await getComparisons(), new Map(all.map((entry) => [entry.id, entry.domain])));
   const providers = (await getProviderGroups()).filter((group) => group.entries.some((entry) => entry.domain === domain));
-  const items = all
-    .filter((entry) => entry.domain === domain)
-    .map((entry) => toListItem(entry, BUILD_NOW))
-    .sort(compareSafety);
   const entries = all.filter((entry) => entry.domain === domain);
+  const items = entries.map((entry) => toListItem(entry, BUILD_NOW)).sort(compareSafety);
   const faqs = categoryFaqItems(domain, entries);
-  const activeCount = items.filter((item) => item.status !== "ended").length;
   // Only filters with a page of their own for this category get a chip.
   const narrowed = FILTER_SLUGS.map((filter) => ({ filter, count: filterItems(items, filter).length })).filter(
     ({ count }) => count >= MIN_CATEGORY_ENTRIES,
@@ -62,7 +58,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
         current={label}
         title={`Free ${label} tiers`}
         lede={categoryIntro(domain)}
-        note={`${activeCount} free tiers, safest first. Each one shows the limits, whether it needs a card, and how fresh the data is.`}
+        note={`${items.length} free tiers, safest first. Each one shows the limits, whether it needs a card, and how fresh the data is.`}
       >
         {narrowed.length > 0 ? (
           <ChipRow label="Show only" name="Filtered lists">

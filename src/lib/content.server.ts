@@ -14,6 +14,8 @@ async function load() {
   const files = await listContentFiles(CONTENT_DIR);
   const loaded = await Promise.all(files.map((file) => readEntryFile(file)));
   const entries = loaded.map(({ entry }) => entry).sort((a, b) => a.title.localeCompare(b.title));
+  const catalog = entries.filter((entry) => entry.status !== "ended");
+  const ended = entries.filter((entry) => entry.status === "ended");
   const byPath = new Map<string, AtlasEntryWithBody>(
     loaded.map(({ entry, body }) => [`${entry.kind}/${entry.slug}`, { ...entry, body: { raw: body } }]),
   );
@@ -21,8 +23,8 @@ async function load() {
   const comparisons = await readComparisons();
   const popular = await readPopular();
   const changesReport = await readChangesReport();
-  const providers = providerGroups(entries);
-  return { entries, byPath, removals, comparisons, popular, providers, changesReport };
+  const providers = providerGroups(catalog);
+  return { entries, catalog, ended, byPath, removals, comparisons, popular, providers, changesReport };
 }
 
 // Static export prerenders every entry page as its own render. React's `cache()`
@@ -35,8 +37,17 @@ let memoized: ReturnType<typeof load> | undefined;
 const loadAll: () => ReturnType<typeof load> =
   process.env.NODE_ENV === "production" ? () => (memoized ??= load()) : cache(load);
 
+/** Includes archived records for detail routes, changelogs and historical reports. */
 export async function getAllEntries(): Promise<AtlasEntry[]> {
   return (await loadAll()).entries;
+}
+
+export async function getCatalogEntries(): Promise<AtlasEntry[]> {
+  return (await loadAll()).catalog;
+}
+
+export async function getEndedEntries(): Promise<AtlasEntry[]> {
+  return (await loadAll()).ended;
 }
 
 export async function getEntryWithBody(kind: ContentKind, slug: string): Promise<AtlasEntryWithBody | undefined> {

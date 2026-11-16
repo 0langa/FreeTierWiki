@@ -1,7 +1,7 @@
 import { BUILD_NOW } from "@/lib/build-info";
 import { liveComparisons, type ComparisonCard } from "@/lib/comparison-view";
 import { DOMAIN_LABELS } from "@/lib/content";
-import { getAllEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
+import { getCatalogEntries, getComparisons, getProviderGroups } from "@/lib/content.server";
 import { toListItem } from "@/lib/entry-view";
 import { filterItems } from "@/lib/filter-pages";
 import type { Domain } from "@/types/content";
@@ -17,11 +17,10 @@ export type NavData = {
 const PROVIDERS = 8;
 
 async function load(): Promise<NavData> {
-  const entries = await getAllEntries();
-  const live = entries.filter((entry) => entry.status !== "ended");
+  const entries = await getCatalogEntries();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
   const counts = new Map<Domain, number>();
-  for (const entry of live) counts.set(entry.domain, (counts.get(entry.domain) ?? 0) + 1);
+  for (const entry of entries) counts.set(entry.domain, (counts.get(entry.domain) ?? 0) + 1);
   const groups = [...(await getProviderGroups())].sort((a, b) => b.entries.length - a.entries.length || a.name.localeCompare(b.name));
   return {
     categories: [...counts]
@@ -30,10 +29,10 @@ async function load(): Promise<NavData> {
     lists: [
       { href: "/no-card/", label: "No credit card needed", count: filterItems(items, "no-card").length },
       { href: "/hard-cap/", label: "Hard spending cap", count: filterItems(items, "hard-cap").length },
-      { href: "/explorer/", label: "All free tiers", count: live.length },
+      { href: "/explorer/", label: "All free tiers", count: entries.length },
     ],
     providers: groups.slice(0, PROVIDERS).map((group) => ({ href: `/provider/${group.slug}/`, name: group.name })),
-    comparisons: liveComparisons(await getComparisons(), new Set(live.map((entry) => entry.id))),
+    comparisons: liveComparisons(await getComparisons(), new Set(entries.map((entry) => entry.id))),
   };
 }
 

@@ -5,7 +5,7 @@ import { EntryList } from "@/components/entry/entry-list";
 import { JsonLd } from "@/components/site/json-ld";
 import { PageHeader } from "@/components/site/page-header";
 import { BUILD_NOW } from "@/lib/build-info";
-import { getAllEntries, getComparison, getComparisons } from "@/lib/content.server";
+import { getCatalogEntries, getComparison, getComparisons } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { pageUrl } from "@/lib/metadata";
 import { article, itemList } from "@/lib/structured-data";
@@ -34,8 +34,8 @@ export default async function ComparePage({ params }: { params: Params }) {
   const comparison = await getComparison(slug);
   if (!comparison) notFound();
   const wanted = new Set(comparison.entries);
-  const items = (await getAllEntries())
-    .filter((entry) => wanted.has(entry.id) && entry.status !== "ended")
+  const items = (await getCatalogEntries())
+    .filter((entry) => wanted.has(entry.id))
     .map((entry) => toListItem(entry, BUILD_NOW))
     .sort(compareSafety);
 

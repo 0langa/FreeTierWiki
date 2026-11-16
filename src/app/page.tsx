@@ -10,7 +10,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { BUILD_NOW } from "@/lib/build-info";
 import { DOMAIN_LABELS } from "@/lib/content";
 import { liveComparisons } from "@/lib/comparison-view";
-import { getAllEntries, getComparisons, getPopular } from "@/lib/content.server";
+import { getCatalogEntries, getComparisons, getPopular } from "@/lib/content.server";
 import { compareSafety, toListItem } from "@/lib/entry-view";
 import { FEED_ALTERNATE } from "@/lib/feed";
 import { formatDay, formatMonth } from "@/lib/format";
@@ -67,25 +67,24 @@ function SectionHeading({ id, title, note, link }: { id: string; title: string; 
 }
 
 export default async function HomePage() {
-  const entries = await getAllEntries();
+  const entries = await getCatalogEntries();
   const items = entries.map((entry) => toListItem(entry, BUILD_NOW));
-  const activeCount = entries.filter((entry) => entry.status !== "ended").length;
+  const activeCount = entries.length;
   const categories = topCategories(items, 12);
   const safePicks = items
     .filter((item) => item.freshness.state === "checked" && item.status === "active" && item.card === false && item.cap === true && item.risk === "none")
     .sort(compareSafety)
     .slice(0, 3);
-  // A visitor only needs to know which plans changed or ended. New entries and removed listings are
-  // housekeeping and stay on the changelog page.
+  // The homepage highlights updates to current offers. Other events are in the changelog.
   const changes = latestChanges(entries)
-    .filter((change) => change.kind === "changed" || change.kind === "ended")
+    .filter((change) => change.kind === "changed")
     .slice(0, 5);
-  const jobs = liveComparisons(await getComparisons(), new Set(entries.filter((entry) => entry.status !== "ended").map((entry) => entry.id)));
+  const jobs = liveComparisons(await getComparisons(), new Set(entries.map((entry) => entry.id)));
   // The hero card shows real visits once content/popular.json exists with enough live entries.
   const popular = await getPopular();
   const visited = popular ? mostVisited(popular.paths, items, HERO_ROWS) : [];
   const picks = POPULAR_PICKS.flatMap((pick) => {
-    const entry = entries.find((candidate) => candidate.slug === pick.slug && candidate.status !== "ended");
+    const entry = entries.find((candidate) => candidate.slug === pick.slug);
     return entry ? [{ ...pick, entry, text: pick.short ?? entry.freeTierDetails.limits[pick.limit] ?? entry.freeTierDetails.limits[0] }] : [];
   }).slice(0, HERO_ROWS);
 
