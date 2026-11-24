@@ -19,7 +19,7 @@ freeTierDetails:
     under the Google Cloud Free Tier, during and after the free trial.
   limits:
     - '5,000 internal steps per month'
-    - '2,000 external steps (HTTP calls) per month'
+    - '2,000 external steps (external/custom-domain HTTP calls and callback waits) per month'
   caveats:
     - A Cloud Billing account is required to use the Free Tier
     - Each retry attempt counts as a step execution
@@ -50,8 +50,8 @@ avoidIf:
   - very high step counts
   - no billing account
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://cloud.google.com/workflows'
@@ -72,7 +72,6 @@ answer: >-
   Google Cloud Workflows includes 5,000 internal and 2,000 external steps a month with a Cloud Billing account, and bills for additional steps, including retry attempts that exceed the allowance.
 
 ---
-
 Workflows runs a sequence of steps that you write in YAML or JSON. Each step can call a Google Cloud service through a connector, call an HTTP API, branch on a result, or wait for a callback. It suits developers on Google Cloud who want to tie a few services together without hosting an orchestration engine.
 
 ## What the free plan gives you
@@ -83,14 +82,14 @@ Internal steps are steps that run inside Google Cloud, such as calls to other Go
 
 ## When you hit a limit
 
-Nothing stops your workflows at the free amounts. Past them, internal steps cost $0.01 per 1,000 and external steps cost $0.025 per 1,000, charged in increments of 1,000 steps.
+On a Paid Cloud Billing account, the free amounts are allowances rather than a spending cap. Past them, internal steps cost $0.01 per 1,000 and external steps cost $0.025 per 1,000, charged in increments of 1,000 steps.
 
 The pricing page example: a month with 6,500 internal steps and 3,999 external steps leaves 1,500 internal and 1,999 external steps above the free amounts. Each category is billed by the number of 1,000-step increments you used, fully or partly. Calling a subworkflow costs the same as running its steps plus the step that calls it.
 
 ## Gotchas
 
-- Each retry attempt counts as a step execution, so retries add to your bill.
-- Polling attempts by connectors for long-running operations count as internal steps.
+- Successful steps, failed steps, and each retry attempt count toward usage. Assignments and conditional evaluations also count as internal steps. Polling attempts by connectors for long-running operations count as internal steps.
+- A Free Trial account uses trial credit for chargeable usage and closes when the credit or 90-day trial ends unless upgraded.
 - The free amounts are counted per billing account, so several projects share them.
 
 ## Alternatives in this atlas

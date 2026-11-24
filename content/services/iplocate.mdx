@@ -18,7 +18,8 @@ freeTierDetails:
     - Full data access, same as paid plans
     - Free API key needed for 1,000 daily requests; anonymous access allows 50 per IP per day
   caveats:
-    - Requests past the daily quota get a 429 error until it resets at midnight UTC
+    - Without purchased credits, requests past the daily quota get a 429 error until midnight UTC
+    - Batch API calls require paid credits; the free allowance covers individual lookups
     - No SLA specified for the free tier
     - A separate rate limit allows up to 100 requests per second per IP
   resetPeriod: daily
@@ -48,8 +49,8 @@ avoidIf:
   - high-traffic production
   - strict compliance needs
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.iplocate.io'
@@ -70,7 +71,7 @@ changes:
     kind: changed
     note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
 answer: >-
-  IPLocate's free plan gives an API key 1,000 requests a day of full data with no card and a hard cap: requests past the daily quota get a 429 error.
+  IPLocate's free plan gives an API key 1,000 requests a day of full data with no card and a daily cap: excess requests return 429 unless you have purchased credits.
 
 ---
 You get a free API key on the website, then send a GET request to `iplocate.io/api/lookup/` with an IP address and your key. There are also client libraries and an MCP server. It suits developers who want full IP data on a free key without a credit card.
@@ -83,13 +84,13 @@ Paid use is optional. You can buy credits in bulk, where one request is one cred
 
 ## When you hit a limit
 
-The quota docs say that if you exceed your quota, you get a 429 error. The daily quota resets at midnight UTC, and IPLocate emails you at 90% and 100% of it. The pricing page lists no overage charge for the free plan.
+Without a purchased credit balance, exceeding the free quota returns HTTP 429. If you buy credits, they are consumed after the daily free allowance (or after a paid monthly quota), allowing requests to continue. The daily quota resets at midnight UTC, and IPLocate emails you at 90% and 100% of it. The pricing page lists no overage charge for the free plan.
 
-To get more room, buy credits or a monthly quota. The pricing page says all plans use the same API endpoints, so you do not need to change your code.
+To get more room, buy credits with or without a subscription, or choose a monthly quota. The pricing page says all plans use the same API endpoints, so you do not need to change your code.
 
 ## Gotchas
 
-- The free key raises your allowance to 1,000 requests a day. Anonymous requests have a separate limit of 50 per IP per day.
+- The free key raises your allowance to 1,000 requests a day. Anonymous requests have a separate limit of 50 per IP per day. Batch requests of up to 1,000 IPs require paid credits; full free data access applies to individual lookups.
 - The free plan lists no SLA. The pricing page offers an SLA only in custom packages.
 - The free databases cover country and ASN only. City-level data from the database products is paid.
 
@@ -111,4 +112,4 @@ You can make 50 anonymous requests a day per IP. Sign up for a free key to make 
 
 ### What happens when I go over the IPLocate free limit?
 
-You get a 429 error until the quota resets at midnight UTC. The pricing page lists no overage charge for the free plan, and you can buy credits or a monthly quota for more requests.
+Without purchased credits, you get a 429 error until midnight UTC. Purchased credits are used after the free allowance to keep requests flowing. The pricing page lists no overage charge for the free plan, and you can buy credits or a monthly quota for more requests.

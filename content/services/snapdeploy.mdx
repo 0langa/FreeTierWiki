@@ -21,6 +21,9 @@ freeTierDetails:
     - Free containers sleep after about 15 idle minutes
     - A browser visit can wake a sleeping app
     - Background callers cannot depend on waking it
+    - Local files are lost on restart, redeploy and wake; persistent databases cost extra
+    - Custom domains and WebSockets require Always-On
+    - Shared-domain traffic is limited to 100 requests/minute per IP per app
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -46,8 +49,8 @@ avoidIf:
   - persistent jobs
   - latency-sensitive automation
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://snapdeploy.dev/'
@@ -74,13 +77,15 @@ The plan allows four small containers and 100 container-hours per month across t
 
 ## When you hit a limit
 
-A Free container sleeps after about 15 minutes without traffic. A browser visit can wake it. The docs say that cron jobs, webhooks, and CI runners receive a wake page and cannot wake the container. When the account runs out of its monthly hours, free runtime is unavailable until allowance returns or you select paid capacity. Check whether an unavailable app is sleeping or has used up its allowance.
+Free containers sleep after roughly 15 idle minutes. Browser visits wake them, normally within 60 seconds; sleeping apps return HTTP 503. Cron, webhooks and CI runners receive a wake page and cannot wake containers. Monthly-hour exhaustion instead requires renewed allowance or paid capacity.
+
+More than 100 requests/minute from one IP to a shared-domain app triggers HTTP 429 for ten minutes. A one-time $1 Sprint Pack provides 24 hours' Always-On for one Small container and unlimited account deploys; it adds no free hours and returns to Free rules afterward. Distinguish sleep, exhausted hours and rate limits when diagnosing availability.
 
 ## Gotchas
 
 - A shared running-hour allowance is consumed faster by several concurrent apps.
-- A browser visitor may see a wake page before the container responds.
-- Confirm image architecture and required memory before deploying a container from your own registry.
+- A browser visitor may see a wake page before the container responds. Builds target ARM64 and may run up to 60 minutes. Free image uploads are limited to 2 GB; confirm architecture and memory before deployment. Idle apps keep their stored image and settings, but after roughly 14 idle days the hosting slot may be released and the next wake can take under two minutes. Free deploy-on-push pauses after 15 days without signing in; reconnect GitHub to resume. A public-image deployment that never starts successfully is removed 24 hours after failure.
+- Local files disappear on restart, redeploy and wake. Persistent database add-ons, custom domains and WebSockets are outside the regular Free tier. Outbound TCP ports above 27017, plus 3333 and 9000–9099, are blocked; a database assigned a random high port may therefore be unreachable.
 
 ## Alternatives in this atlas
 

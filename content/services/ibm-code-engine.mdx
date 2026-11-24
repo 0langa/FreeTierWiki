@@ -35,6 +35,7 @@ freeTierDetails:
       CPU, memory, and HTTP requests past the free amounts are billed per second and per million
       requests
     - An app with a minimum scale of 1 uses CPU and memory all month
+    - Image pulls, code-bundle pulls and source builds count toward billable runtime
 quickstartSteps:
   - Create an IBM Cloud account; registration asks for credit card information.
   - Create a Code Engine project in the console or with the CLI.
@@ -53,8 +54,8 @@ avoidIf:
   - always-on apps on a free budget
   - no credit card at sign-up
 productionReadiness: production-ready
-lastUpdated: '2026-11-15'
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.ibm.com/products/code-engine'
@@ -87,11 +88,11 @@ Code Engine is IBM Cloud's fully managed, serverless platform for containerized 
 
 Code Engine has an always free tier that renews each month and applies globally. It covers 100,000 vCPU seconds per month, 200,000 GB seconds of memory, and 100,000 incoming HTTP requests.
 
-You pay only for resources your workloads consume during active execution. If an app scales to zero, or a job or build is not running, it uses no resources and is not charged. Internal HTTP traffic between workloads in the same project is excluded from the billable HTTP call total.
+You pay for resources your workloads consume, including image or code-bundle pulls and source builds. Build charges are separate from running the resulting app or job; pulling source and pushing the built image also count toward build time. If an app scales to zero, or a job or build is not running, it uses no resources and is not charged. Internal HTTP traffic between workloads in the same project is excluded from the billable HTTP call total.
 
 ## When you hit a limit
 
-Nothing stops your apps at the free amounts; charges apply for consumption beyond the monthly free tier. For applications and functions, IBM’s illustrative cost example uses $0.00003431 per vCPU second, $0.00000356 per GB second, and $0.538 per 1 million HTTP requests. The same CPU and memory examples apply to jobs and builds. Actual rates vary by geography.
+Nothing stops your apps at the free amounts; charges apply for consumption beyond the monthly free tier. For applications and functions, the rendered Dallas pricing table lists $0.00003431 per vCPU second, $0.00000356 per GB second, and $0.538 per 1 million HTTP requests. The same CPU and memory rates apply to jobs and builds. Actual rates vary by geography.
 
 IBM's example: an app with 2 GB of memory and 1 vCPU at a fixed scale of 1 is charged 1 vCPU hour and 2 GB hours every hour. Scaling it to 2 instances doubles both.
 
@@ -99,7 +100,7 @@ IBM's example: an app with 2 GB of memory and 1 vCPU at a fixed scale of 1 is ch
 
 - Setting a minimum scale above zero keeps an instance running and billing around the clock.
 - IBM Cloud registration asks for credit card information for security and identity verification, even if you use only free plans.
-- A promotion for net-new accounts cuts container runtime costs by 50 percent for six months, but it is separate from the always free tier.
+- The TRYCONTAINERS promotion for net-new accounts cuts eligible container runtime costs by 50 percent for six months, excluding GPU profiles; it is separate from the always free tier.
 
 ## Alternatives in this atlas
 

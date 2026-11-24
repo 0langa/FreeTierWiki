@@ -38,7 +38,7 @@ quickstartSteps:
   - Run `npx create-db@latest` to get a temporary Postgres database and connection strings, or use the web interface at create-db.prisma.io.
   - Open the claim URL it prints, sign in to the Prisma Data Platform (or create an account), and click Claim database to keep it. Unclaimed databases are deleted after 24 hours.
   - Choose a workspace that has capacity for new projects and click Authorize Prisma Create DB.
-  - Copy the connection string into your `.env` file as `DATABASE_URL`.
+  - Use the pooled connection string for app traffic and the direct string for migrations or database tools; keep them in environment variables.
   - Connect with Prisma ORM, or with any Postgres client such as `psql`, pgAdmin, or node-postgres.
 whenToUse: >-
   Use it for small Postgres projects, especially with Prisma ORM, when you want
@@ -54,13 +54,14 @@ avoidIf:
   - high-traffic apps
   - you need backups on the free plan
 productionReadiness: side-project
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.prisma.io/postgres'
 docsUrl: 'https://www.prisma.io/docs/postgres'
 sourceUrls:
+  - 'https://www.prisma.io/docs/postgres/database/connection-pooling'
   - 'https://www.prisma.io/pricing'
   - 'https://www.prisma.io/docs/postgres/introduction/npx-create-db'
   - 'https://www.prisma.io/docs/postgres/database/connecting-to-your-database'
@@ -87,7 +88,7 @@ You can create a database from the web interface or with the `create-db` CLI, th
 
 The Free plan is $0 per month, free forever, with no credit card required. Prisma Postgres on Free includes 200k operations a month, 2 GB of storage, and 50 databases, shared across the workspace. One query counts as one operation. Database data transfer is unlimited and free on every plan.
 
-The Free plan also covers part of Prisma Compute, the hosting side. You get 1M requests, 360 GB-hours of memory, 4 active vCPU-hours, and 10 GB of outbound bandwidth each month. The plan allows 10 pooled connections and 10 direct connections, but 5 direct connections are reserved for platform operations. Support is community only.
+The Free plan also covers part of Prisma Compute, the hosting side. You get 1M requests, 360 GB-hours of memory, 4 active vCPU-hours, and 10 GB of outbound bandwidth each month. The plan allows 10 pooled connections and 10 direct connections, but 5 direct connections are reserved for platform operations. Pooled queries are terminated after ten minutes and idle pooled connections close after sixty minutes. Direct connections support longer queries and session-dependent tools. Support is community only.
 
 ## When you hit a limit
 
@@ -97,9 +98,9 @@ For paid plans, the Starter plan costs $10 a month. It includes 1M operations an
 
 ## Gotchas
 
-- Databases made with `create-db` are temporary. Prisma deletes them after 24 hours unless you claim them in the Prisma Data Platform.
+- Databases made with `create-db` are temporary. Prisma deletes them after twenty-four hours by default unless claimed; an explicit shorter TTL can delete them sooner.
+- The pricing page lists Accelerate cache retirement on December 1, 2026. Existing users should follow its migration guidance; the database connection limits above describe Postgres itself. Connection capacity is small: 10 pooled connections and 10 direct connections, with 5 direct connections reserved for platform operations. Pick the connection string for your client carefully.
 - The Free plan has no backups. Daily backups with 7-day retention start on the Starter plan.
-- Connection capacity is small: 10 pooled connections and 10 direct connections, with 5 direct connections reserved for platform operations. Pick the connection string for your client carefully.
 
 ## Alternatives in this atlas
 

@@ -17,7 +17,7 @@ freeTierDetails:
   limits:
     - 25 requests per day (daily quota only, no monthly quota)
     - Screenshot, PDF, and SDK included
-    - 60-second request timeout
+    - 30-second request timeout
     - Up to 2 concurrent requests
   caveats:
     - Free requests return HTTP 429 at quota until the daily reset or upgrade; no overage fees
@@ -52,8 +52,8 @@ avoidIf:
   - you need an uptime guarantee
   - you need a dedicated endpoint
 productionReadiness: prototype
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://microlink.io/'
@@ -67,6 +67,9 @@ sourceUrls:
   - 'https://microlink.io/'
 status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Observed Free request timeout reduced from 60 to 30 seconds, with paid plans now listing 90 seconds; the effective date was not stated.
   - date: '2026-10-26'
     kind: changed
     note: The pricing page again lists 25 requests per day on the free plan, with no monthly quota and 2 concurrent requests, so the catalog dropped the 100 requests per month figure.
@@ -81,7 +84,7 @@ You call the API with one HTTP GET request, so it works from a browser, cURL, or
 
 ## What the free plan gives you
 
-The free plan costs $0 a month and needs no card. You sign up at dashboard.microlink.io and get a free API key with 25 requests per day. The pricing table shows the daily quota only, with no monthly quota. You get the same toolbox as Pro for screenshots, PDFs, metadata, markdown, search, insights, and the SDK. The request timeout is 60 seconds.
+The free plan costs $0 a month and needs no card. You sign up at dashboard.microlink.io and get a free API key with 25 requests per day. The pricing table shows the daily quota only, with no monthly quota. You get the same toolbox as Pro for screenshots, PDFs, metadata, markdown, search, insights, and the SDK. The Free request timeout is 30 seconds; paid plans list 90 seconds.
 
 One request is one API call to any Microlink endpoint. Responses served from the cache do not count against your quota. The free plan runs up to 2 concurrent requests, and support comes from the community.
 
@@ -95,7 +98,7 @@ Pro costs $49 a month for 46,000 requests a month, and it has no daily quota. Up
 
 - 25 requests a day is small. Every call to any endpoint counts, so lean on the cache, since cached responses do not count.
 - The free plan has a best-effort SLA, and the 99.9% SLA applies to paid plans.
-- The free plan uses the shared global edge cache, and a custom cache key is a Pro feature.
+- Free uses the shared global edge cache. The rendered comparison includes custom cache keys on Free, although the Pro card still promotes that feature; the earlier claim that it is Pro-only is not supported by the current table.
 
 ## Alternatives in this atlas
 

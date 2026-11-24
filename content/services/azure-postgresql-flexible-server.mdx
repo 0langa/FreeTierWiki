@@ -25,7 +25,7 @@ freeTierDetails:
     - Free for 12 months (new customers only)
   caveats:
     - The free amount is for new Azure customers only and lasts 12 months
-    - After 12 months, or above the monthly free amounts, usage is billed at pay-as-you-go rates
+    - On a pay-as-you-go subscription, usage above the monthly free amounts or after 12 months is billed
     - The Azure free account asks for card verification, and a temporary authorization may appear on the card
   resetPeriod: monthly
   requiresCard: true
@@ -33,14 +33,14 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Exceeding limits or the 12-month period incurs standard pay-as-you-go charges
+    - On pay-as-you-go, exceeding limits or the 12-month period incurs standard charges
   trialDays: 365
 quickstartSteps:
   - 'Create an Azure account. New customers get the free monthly amounts for 12 months, and sign-up asks for card verification.'
   - 'Sign in to the Azure portal, choose Create a resource, then Databases, then Azure Database for PostgreSQL flexible server, and select Create.'
   - 'Fill in subscription, resource group, a globally unique server name, region, and PostgreSQL version.'
   - 'Set the workload type to Development so the server uses a Burstable size, and pick the Burstable B1ms compute tier within the free amount.'
-  - 'Set an admin username and password, review, and create. Then connect with a PostgreSQL client on port 5432.'
+  - 'Set 32 GB storage, review backup and autogrow settings, and configure authentication and permitted client networking. Create the server, then connect with a PostgreSQL client on port 5432 using TLS.'
 whenToUse: >-
   Use it for development, testing, or learning when you want managed
   PostgreSQL on Azure and are a new Azure customer inside your first 12
@@ -58,7 +58,7 @@ avoidIf:
   - You need free hosting past 12 months
   - You need a server without a card on file
 productionReadiness: production-light
-lastUpdated: 2026-10-21
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/'
@@ -70,14 +70,14 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/'
   - 'https://learn.microsoft.com/azure/postgresql/configure-maintain/quickstart-create-server'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/'
 changes:
   - date: 2026-10-21
     kind: changed
     note: "Clarified new-account eligibility and pay-as-you-go continuation."
 answer: >-
-  Azure PostgreSQL Flexible Server gives new Azure customers 750 B1MS hours a month for 12 months, needs a card, and bills pay-as-you-go rates once the year or the monthly hours run out.
+  Azure PostgreSQL Flexible Server gives new Azure customers 750 B1MS hours a month for 12 months, needs a card, and charges overages or use after the first year if you choose pay-as-you-go.
 
 ---
 You create and manage the server in the Azure portal, then connect with any PostgreSQL client or driver. It suits developers who are new to Azure and want a managed PostgreSQL to learn or test on.
@@ -90,15 +90,15 @@ Eligible signup routes include the Azure free account and, where offered, direct
 
 ## When you hit a limit
 
-The free amount is a monthly allowance, not a hard cap. Hours, storage, and backup storage above the allowance are billed at pay-as-you-go rates. The same happens when the 12 months end. Run one Burstable B1MS server to stay inside the 750 hours.
+On pay-as-you-go, the free amount is a monthly allowance, not a spending cap. An unupgraded free account stops services when its initial credit runs out or expires. Hours, storage, and backup storage above the allowance are billed at pay-as-you-go rates. The same happens when the 12 months end. Run one Burstable B1MS server to stay inside the 750 hours.
 
 Check your usage in the Azure portal so a second server or larger disk does not create a charge.
 
 ## Gotchas
 
-- The 12-month free amount is only for new Azure customers.
-- The Development workload type uses Burstable sizes, and Production uses General Purpose or Memory Optimized, which fall outside the free offer.
-- Turning on high availability adds a standby server. The free amount lists a single B1MS instance.
+- The 12-month free amount is only for new Azure customers. Turning on high availability adds a standby server. The free amount lists a single B1MS instance.
+- The Development workload type uses Burstable sizes, and Production uses General Purpose or Memory Optimized, which fall outside the free offer. Stopped servers still incur storage charges outside the allowance. Billing rounds a partial hour up and uses the highest compute tier or vCore count selected during that hour.
+- Network egress is separately billed; geo-redundant backups require twice the storage capacity.
 
 ## Alternatives in this atlas
 
@@ -114,7 +114,7 @@ It is free for new Azure customers for 12 months, within 750 hours of a B1MS Bur
 
 ### What happens after the 12 months?
 
-Standard pay-as-you-go prices apply to the server. The same goes for any usage above the monthly free amounts during the 12 months.
+If you have chosen pay-as-you-go, standard prices apply to the server. The same goes for any usage above the monthly free amounts during the 12 months.
 
 ### Does Azure PostgreSQL free tier need a credit card?
 

@@ -16,12 +16,13 @@ freeTierDetails:
   summary: 'Free Hobby tier includes 2 users, 5 deployments, and 500 minutes of Prefect Serverless per month.'
   limits:
     - '2 users, 1 workspace'
-    - 'Up to 5 deployments'
+    - 'Up to 5 deployments and 5 automations'
     - '500 Prefect Serverless minutes/month'
     - '625 API requests/min rate limit'
     - '7 days of run retention'
   caveats:
-    - "Public sources list five deployments and 500 Serverless minutes but do not confirm exact over-limit enforcement"
+    - "The five-deployment cap is enforced; exact exhaustion behavior for 500 Serverless minutes remains unspecified"
+    - Hobby uses managed Serverless only; custom work pools and your own compute require a paid plan
     - Support is through community channels
     - 'No SSO, service accounts, or audit log on Hobby; the first paid plan is $100 per month'
   resetPeriod: monthly
@@ -50,8 +51,8 @@ avoidIf:
   - more than 2 users
   - SSO or audit logs
 productionReadiness: production-light
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.prefect.io/cloud/'
@@ -69,7 +70,7 @@ changes:
     kind: changed
     note: "Confirmed Hobby needs no card from the official plan announcement and separated the enforced deployment cap from unpublished Serverless-credit exhaustion behavior."
 answer: >-
-  PrefectCloud Hobby includes 2 users, 5 deployments, and 500 serverless minutes a month with no card, but exact enforcement of the deployment and serverless allowances is not confirmed.
+  PrefectCloud Hobby includes 2 users, 5 deployments, and 500 serverless minutes a month with no card, with a hard five-deployment cap and unconfirmed serverless-minute exhaustion behavior.
 
 ---
 You write workflows in Python with the `prefect` library, log in through the `prefect-cloud` command, and manage runs in the Cloud dashboard. It suits data and ML engineers who want orchestration without running their own server.
@@ -82,17 +83,16 @@ Hobby includes workflow scheduling, observability, logging, and alerting. Plan a
 
 ## When you hit a limit
 
-Hobby lists a maximum of 5 deployments; the current cited sources do not establish the precise behavior when you try to exceed that allowance. The pricing page does not say what happens when you use all 500 Serverless minutes, so check the dashboard before you plan a long run. The official self-serve plan announcement explicitly says Hobby needs no credit card. Execution credits are consumed during actual runtime, but no Free overage price or exhaustion mechanism is published. The next plan, Starter, costs $100 per month for 3 users and 20 deployments.
+Once you reach five deployments, the pricing FAQ says you cannot create another until you delete one or upgrade. The pricing page does not say what happens when you use all 500 Serverless minutes, so check the dashboard before you plan a long run. The official self-serve plan announcement explicitly says Hobby needs no credit card. Execution credits are consumed during actual runtime. The FAQ describes flat user/workspace pricing rather than per-run or per-task metering, but does not establish what happens when Hobby's Serverless minutes run out. The next plan, Starter, costs $100 per month for 3 users and 20 deployments.
 
 ## Gotchas
 
-- Five deployments count flows you deploy, so plan which flows need a schedule.
-- The Hobby tier has one workspace and two users, so a shared team account runs out fast.
+- Five deployments count flows you deploy, so plan which flows need a schedule; Hobby also allows five automations.
+- Hobby runs on managed Serverless only. Custom work pools and your own infrastructure start on Starter. The Hobby tier has one workspace and two users, so a shared team account runs out fast.
 - Paid plans add higher workflow and compute allowances; review the plan table before moving a larger workload onto managed Serverless compute.
 
 ## Alternatives in this atlas
 
-- [Pipedream](/services/pipedream/): when you want event-driven workflows with a free plan.
 - [Posthook](/services/posthook/): when you only need scheduled webhooks.
 - [Buddy](/services/buddy/): when you want delivery pipelines with a free seat.
 
@@ -104,7 +104,7 @@ Yes. The Hobby tier is free forever with 2 users, 1 workspace, up to 5 deploymen
 
 ### What happens when I reach 5 deployments on Prefect?
 
-The plan lists five deployments, but the current sources do not confirm the exact enforcement behavior. Remove an unused deployment or upgrade if you need more capacity.
+New deployment creation is blocked at five. Delete an existing deployment or upgrade to add another.
 
 ### Does Prefect Cloud need a credit card?
 

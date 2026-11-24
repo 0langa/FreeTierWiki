@@ -42,7 +42,7 @@ freeTierDetails:
       million rule actions.
     - >-
       With a spend limit above 0 you choose between suspending the deployment
-      and keep billing at the limit.
+      and keep billing after spending exceeds the limit.
 whenToUse: >-
   Use EMQX Serverless when you need a hosted MQTT broker quickly, for a
   prototype or a small fleet of devices.
@@ -74,8 +74,8 @@ quickstartSteps:
     Under Access Control, then Authentication, add a username and password, then
     connect with MQTTX or your own MQTT client.
 productionReadiness: production-light
-lastUpdated: '2026-10-21'
-lastVerified: '2026-11-15'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.emqx.com/en/cloud/serverless-mqtt'
@@ -85,6 +85,7 @@ sourceUrls:
   - 'https://www.emqx.com/en/cloud/serverless-mqtt'
   - 'https://docs.emqx.com/en/cloud/latest/price/pricing.html'
   - 'https://docs.emqx.com/en/cloud/latest/create/serverless.html'
+  - 'https://docs.emqx.com/en/cloud/latest/deployments/alerts_guide/free_actions_limit_reached.html'
 changes:
   - date: '2026-10-21'
     kind: changed
@@ -105,9 +106,9 @@ Traffic counts all public network traffic in and out of your deployment. Rule ac
 
 ## When you hit a limit
 
-Each deployment has a spend limit, and the default is 0. That means the deployment can only use the free quota. When the spend limit is 0 and the quota runs out, the docs list troubleshooting topics for free connection minutes, free traffic, and free rule actions limits. The pages do not describe the exact behavior.
+The default deployment spend limit is 0, allowing only free usage. Exhausting session minutes or traffic stops deployment. Rule-action alerts do not independently stop execution; general spend-limit policy governs billing.
 
-If you raise the spend limit above 0, usage past the free amounts is billed. You then choose what happens at the limit: suspend the deployment, or get a reminder and keep billing. Rates are $2.00 per extra million session minutes, $0.15 per GB, and $0.25 per extra million rule actions.
+A positive limit permits paid excess: $2.00/million session minutes, $0.15/GB and $0.25/million rule actions. Choose suspension after exceeding the limit, or reminders with continued billing. Spending exactly the positive limit triggers neither suspension nor notification. Raising it does not restart a stopped deployment; restart manually when usage is permitted. Review the suspension choice as well as the amount, because a reminder-only limit is not a spending stop.
 
 ## Gotchas
 
@@ -129,7 +130,7 @@ Yes. The forever-free quota is 1 million session minutes, 1 GB of traffic, and 1
 
 ### What happens if I use up the EMQX free quota?
 
-With the default spend limit of 0, only the free quota is used. If you set a limit above 0, you can have the deployment suspend at the limit or keep billing.
+With the default spend limit of 0, only the free quota is used. If you set a limit above 0, you can have the deployment suspend after spending exceeds the limit or keep billing.
 
 ### Does an EMQX Serverless deployment stop when it is idle?
 

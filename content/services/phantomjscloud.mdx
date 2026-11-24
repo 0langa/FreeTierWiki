@@ -21,15 +21,17 @@ freeTierDetails:
   caveats:
     - The daily amount is a credit of browser time and egress, so heavy pages give fewer than 500
     - A demo key for the docs examples is limited to 100 requests per day
+    - Basic rendering is cardless; advanced features require card verification or an existing payment
+    - Proxies and multi-page requests require a paid account
   resetPeriod: daily
-  requiresCard: unknown
+  requiresCard: false
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
     - When the account is out of credits the API returns 402 Payment Required; prepaid credit is used only if you buy it
 quickstartSteps:
-  - Create a free account at Dashboard.PhantomJsCloud.com and copy your API key.
+  - Create a cardless free account at Dashboard.PhantomJsCloud.com and copy your API key; check whether your needed features require verification.
   - Try the docs examples, replacing the demo key with your own.
   - Watch for HTTP 402 responses, which mean the account is out of credits.
 whenToUse: >-
@@ -44,8 +46,8 @@ bestFor:
 avoidIf:
   - heavy pages at high volume
 productionReadiness: side-project
-lastUpdated: 2026-11-10
-lastVerified: '2026-11-16'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://phantomjscloud.com/'
@@ -62,17 +64,18 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  PhantomJsCloud's $0 plan is about 500 pages a day of browser time, returns 402 when that credit runs out, and the card rule is not confirmed.
+  PhantomJsCloud's $0 plan is about 500 pages a day of browser time, returns 402 when that credit runs out, and needs no card for basic rendering; advanced features require verification.
 
 ---
-
 PhantomJsCloud runs a headless browser for you behind an HTTP API. You send a page request and get back a screenshot, a PDF, the rendered HTML, or other output, without hosting a browser yourself. It suits scripts and small services that need pages rendered with JavaScript.
 
 ## What the free plan gives you
 
-The pricing page lists The Free Plan at $0 a month with about 500 pages a day. The docs say the same: create a free account to get 500 Pages/Day at the dashboard. The page count is an estimate. Each request uses browser time and data out, and the estimate assumes 2 seconds of browser time and 50KB of data out per page. Pages that take longer or return more data give you fewer pages a day; lighter pages give you more.
+Free costs $0 for roughly 500 daily pages, with no card for basic screenshots, PDFs, rendered HTML/text. Verified/unverified accounts share the allowance. Actual capacity depends on browser time/egress; the estimate assumes 2 seconds and 50KB/page.
 
-Paid subscriptions bill browser time at $0.15 an hour and egress at $0.25 per GB, about $0.000095 a page. For bursts you can buy Prepaid Credit in $20 steps, which the page says never expires.
+Paid subscriptions charge $0.15/browser-hour and $0.25/GB egress, approximately $0.000095/page. Prepaid credit comes in non-expiring $20 steps.
+
+Advanced scripts, uploaded HTML, cookies, custom headers/user agents, device emulation, resource modifiers, POST and logins are restricted to example pages until verification. Host-header overrides also require it. Verification takes roughly two minutes using a one-time card check without purchase, or an existing payment. Proxies/multi-page requests need paid service, including prepaid credit; verification alone is insufficient.
 
 ## When you hit a limit
 

@@ -22,7 +22,7 @@ freeTierDetails:
     - '10,000 simple operations'
     - '2,000 advanced operations'
   caveats:
-    - Hobby is for non-commercial, personal use only
+    - Hobby is for personal or non-commercial use
     - Hobby limits are shared across all Vercel services in the project
     - 'Over the limit, Blob is blocked until 30 days pass'
     - Dashboard interactions such as browsing the store count as advanced operations
@@ -36,7 +36,7 @@ quickstartSteps:
   - Create a new Blob store, pick public or private access, and include Development for local testing. You cannot change the access mode later.
   - Install the SDK with npm i @vercel/blob.
   - Run vercel env pull to get the store variables into your local .env.local file.
-  - Call put() from server code to upload a file, then use the URL it returns.
+  - Call put() from server code with access matching the store. Public URLs work directly; private files must be fetched with authenticated server code and delivered through your app.
 whenToUse: >-
   Use it when your app is on Vercel and needs a small amount of file storage
   close to your code.
@@ -52,13 +52,14 @@ avoidIf:
   - S3-compatible storage requirements
   - you need access to never be blocked
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://vercel.com/storage/blob'
 docsUrl: 'https://vercel.com/docs/vercel-blob'
 sourceUrls:
+  - 'https://vercel.com/legal/terms'
   - 'https://vercel.com/docs/plans/hobby'
   - 'https://vercel.com/docs/vercel-blob/usage-and-pricing'
   - 'https://vercel.com/docs/vercel-blob'
@@ -83,7 +84,7 @@ You create a Blob store in the Vercel dashboard or with the Vercel CLI, then upl
 
 ## What the free plan gives you
 
-Vercel Blob is free for Hobby users within the usage limits. Hobby is for non-commercial, personal use only. The Hobby plan includes 1 GB-month of average storage, the first 10 GB of data transfer, the first 10,000 simple operations, and the first 2,000 advanced operations.
+Vercel Blob is free for Hobby users within the usage limits. Hobby is for personal or non-commercial use. The Hobby plan includes 1 GB-month of average storage, the first 10 GB of data transfer, the first 10,000 simple operations, and the first 2,000 advanced operations.
 
 Simple operations count when a blob is read by its URL and it is a cache miss, or when you call head(). Advanced operations count when you call put(), copy(), or list(), and when you create a store. Cache hits do not count as simple operations, but still count as CDN requests. The del() operation is free.
 
@@ -93,12 +94,12 @@ The included usage on Hobby is shared across all Vercel services in your project
 
 Vercel emails you as you near the limits. You will not pay for any additional usage on Hobby. Instead, you cannot access Vercel Blob once the limits are exceeded, and you have to wait until 30 days have passed before using Blob again.
 
-Paid storage and operation rates vary by region. The docs illustrate $0.023/GB-month, $0.40/million simple operations and $5/million advanced operations; the pricing table now lists Pro Blob transfer under Flat Rate CDN. Check your region and plan rather than treating the example’s $0.05/GB transfer as universal. Multipart uploads count as several advanced operations.
+Paid storage and operation rates vary by region. The docs illustrate $0.023/GB-month, $0.40/million simple operations and $5/million advanced operations; the pricing table now lists Pro Blob transfer under Flat Rate CDN. Check your region and plan rather than treating the example’s $0.05/GB transfer as universal. Multipart uploads count as several advanced operations. Setting automatic expiry adds one advanced operation per started 60 days of TTL, up to 13 at the 730-day maximum; automatic deletion is free.
 
 ## Gotchas
 
-- Blob reads also consume CDN requests and, on cache misses, Fast Origin Transfer. Those allowances are shared with other Vercel services; builds do not consume Blob operations.
-- The access mode, public or private, cannot be changed after you create the store. Pick it carefully.
+- Blob reads also consume CDN requests and, on cache misses, Fast Origin Transfer. Those allowances are shared with other Vercel services. Server uploads consume Fast Data Transfer when the app receives the file; direct client uploads do not incur upload transfer charges. Server uploads through Hobby Functions are limited to a 4.5 MB request body; use client uploads for larger files. Private delivery also consumes transfer for the Function-to-browser response.
+- The access mode, public or private, and the store region cannot be changed after you create the store. Pick them carefully.
 - Blobs larger than 512 MB are not cached. Each access is a cache miss, which counts as a simple operation.
 
 ## Alternatives in this atlas

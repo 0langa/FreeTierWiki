@@ -16,21 +16,19 @@ tags:
   - python benchmarks
 freeTierDetails:
   summary: >-
-    Free plan: unlimited runs and repositories, up to 5 users on private
-    repositories (unlimited for open source), 3 months of history, and 600 macro
-    runner minutes per month. Public repositories have no user limit.
+    Official sources disagree: pricing lists Free with 600 runner minutes,
+    while billing docs describe Hobby with $50 in monthly usage credits. Both
+    list a five-person limit and three months of history, but count people differently.
   limits:
-    - Unlimited runs and repositories
-    - Up to 5 users, unlimited for open-source projects
-    - 3 months of history
-    - 600 macro runner minutes per month
+    - Five users or active contributors, depending on the conflicting plan source
+    - 3 months of history on the ordinary free tier
+    - Pricing page lists 600 macro runner minutes/month
+    - Billing docs instead list $50/month shared by runners and the Optimization Agent
   caveats:
     - Free signup card requirement is not published
-    - Pro costs $15 per user per month with unlimited history and a 14-day free
-      trial
-    - Pro offers additional macro runner usage at $0.032 per minute after 600 minutes; Free enforcement is unpublished
-    - On the Pro plan, a user without a seat is disabled and their runs are
-      blocked on private repositories
+    - Pricing lists Pro from $15/user/month; billing docs instead list Team at $500/month
+    - Hobby docs say credit-consuming work pauses when credits run out; pricing does not specify Free minute enforcement
+    - Open-source approval and eligibility terms differ between the pricing FAQ and billing docs
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
@@ -51,18 +49,18 @@ whenToUse: >-
   automatic reports and checks on pull requests, especially on public
   repositories.
 whenNotToUse: >-
-  Avoid it for private repositories with more than 5 users unless you pay for
-  Pro. Avoid it if you need history longer than 3 months on the free plan.
+  Avoid relying on a fixed free runner allowance until CodSpeed confirms which
+  published plan applies. Ordinary free history is limited to three months.
 bestFor:
   - open source libraries
   - performance-sensitive projects
-  - small private teams of up to 5 users
+  - small private teams after confirming plan terms
 avoidIf:
-  - more than 5 users on private repositories
+  - more than 5 users or contributors without confirming eligibility
   - long benchmark history on the free plan
   - no benchmarks and no wish to write any
 productionReadiness: production-light
-lastUpdated: '2026-11-15'
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://codspeed.io'
@@ -71,52 +69,52 @@ sourceUrls:
   - https://codspeed.io/pricing
   - https://codspeed.io/docs
   - https://codspeed.io/docs/features/seats-and-billing
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 pricingUrl: 'https://codspeed.io/pricing'
 changes:
   - date: 2026-10-21
     kind: changed
     note: "Separated Pro seat blocking from the unpublished Free quota response and signup policy."
 answer: >-
-  CodSpeed's free plan allows up to five users on private repositories, 600 macro runner minutes a month, and three months of history, but the card rule and what happens past the quota are not confirmed.
+  CodSpeed advertises free benchmarking for five users with three months of history, but its pricing page lists 600 runner minutes while billing docs describe $50 in shared monthly credits; card requirements remain unpublished.
 
 ---
 You install the CodSpeed GitHub App, add benchmarks to your tests, and run them in CI. CodSpeed then comments on each pull request with a performance report. It suits library authors who care about speed.
 
 ## What the free plan gives you
 
-The Free plan is free forever, at $0 per user per month. It allows unlimited runs and unlimited repositories. It also includes CI integration, pull request reports and checks, and the wall-time instrument with 600 macro runner minutes per month. Benchmark history is kept for 3 months.
+CodSpeed's public sources disagree as of November 23, 2026. The rendered pricing page lists Free with unlimited runs and repositories, five users, three months of history, CI checks and reports, CPU and memory instruments, and 600 macro runner minutes per month. It lists Pro from $15 per user per month with unlimited history and a 14-day trial.
 
-Users are capped at 5 on private repositories. CodSpeed is free and unlimited on public repositories, with no limit on the number of users. A user is anyone who triggers a run on a private repository of an organization, or opens that organization's dashboard. Bot accounts do not count as users.
+The linked billing documentation instead describes Hobby: five active contributors, three months of history, one concurrent Macro Runner job at low queue priority, and $50 of monthly usage credits shared by Macro Runners and the Optimization Agent. It describes Team at $500 per month, comprising a $250 platform fee and $250 in credits, with 20 contributors. Annual Team billing is $5,400 per year. These are conflicting published offers, not two allowances to combine.
 
 ## When you hit a limit
 
-On a private repository, the Free plan covers up to 5 users. For more, you need the Pro plan, where each active user takes one seat. On Pro, a user without a seat is disabled and their private-repository runs are blocked. The docs do not state the exact sixth-user response on Free.
+Under the Hobby policy in billing docs, work that needs credits pauses when credits run out until the next monthly grant or an upgrade. Unused monthly credits do not roll over. Gen 1 runners use $0.032 per minute, Gen 2 runners $0.064, and the Optimization Agent $2.50 per agent compute unit from that shared balance. Team continues beyond its credits and bills extra usage.
 
-For macro runners, the Free plan lists 600 minutes per month. The Pro plan lists the same 600 minutes and then $0.032 per minute. You can set a monthly budget for macro runner usage in the Billing tab. The pricing page does not say what happens on the Free plan after the 600 minutes.
+The pricing page instead lists 600 free runner minutes and Pro runner overage at $0.032 per minute. It does not explain Free enforcement past 600 minutes. Confirm which plan and meter applies before relying on either allowance; signup card requirements are also unpublished.
 
 ## Gotchas
 
-- The 5-user cap applies to private repositories only. Public repositories have no user cap.
-- A person who only opens the organization dashboard counts as a user.
-- Pro costs $15 per user per month and adds unlimited history. It has a 14-day free trial.
+- The pricing FAQ counts people who author private-repository pull requests or view detailed performance reports. Billing docs instead count commit authors/co-authors, pull-request authors, and reviewers/approvers over a rolling 30 days, once per GitHub account across the organization; bots are excluded.
+- Pricing describes public OSI-licensed repositories as open source with unlimited users. Billing docs require an approved application for a non-commercial OSI-licensed project, then grant monthly credits, unlimited contributors, and unlimited history. Do not assume merely making a repository public qualifies.
+- The published pages do not establish an effective date for the conflicting plan models. Check your account's plan and usage screen before budgeting a team rollout.
 
 ## Alternatives in this atlas
 
-- [Codecov](/tools/codecov/): when you want coverage reports on pull requests instead of benchmarks.
-- [GitHub Actions](/services/github-actions/): when you want a general CI service to run your own benchmark jobs.
-- [Nx Cloud](/services/nx-cloud/): when you want build caching and CI speedups for a monorepo.
+- [Codecov](/tools/codecov/): when you want coverage reports rather than benchmarks.
+- [GitHub Actions](/services/github-actions/): when you want general CI for your own benchmark jobs.
+- [Nx Cloud](/services/nx-cloud/): when you want build caching and CI speedups.
 
 ## Questions people ask
 
 ### Is CodSpeed free?
 
-Yes. The Free plan costs $0 and gives unlimited runs and repositories. Up to 5 users are included on private repositories, and public repositories have no user limit.
+Both official sources offer a free plan with a five-person limit and three months of ordinary history. They disagree on its name, usage allowance, and definition of a counted person.
 
-### Is CodSpeed free on private repositories?
+### How many free runner minutes do I get?
 
-Yes, for up to 5 users. Beyond that, you need the Pro plan at $15 per user per month.
+Pricing lists 600 per month. Billing docs instead give Hobby $50 in credits shared across runners and the Optimization Agent, so the number of minutes depends on runner generation and other usage. Confirm the applicable offer in your account.
 
-### What are macro runner minutes?
+### Does free usage stop at the limit?
 
-They are time on dedicated bare-metal machines used for the wall-time instrument. The Free plan includes 600 minutes per month.
+Hobby billing docs say credit-consuming work pauses. The separate Free minute offer on the pricing page does not publish its excess-use behavior.

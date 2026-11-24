@@ -18,7 +18,7 @@ freeTierDetails:
     - 3 days of event history
     - 512 KB maximum payload
   caveats:
-    - Events count per destination when fanned out
+    - Monthly events count per destination and each started 64 KB of body and headers
     - Free refuses events beyond the daily cap and holds a limited number above the monthly cap
     - Retries and replays can draw from a separate compute allowance
   resetPeriod: monthly
@@ -48,8 +48,8 @@ avoidIf:
   - large webhook payloads
   - high-volume event delivery
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://anyhook.net/'
@@ -73,19 +73,21 @@ AnyHook sits between a webhook sender and your own receiver. For example, you ca
 
 ## What the free plan gives you
 
-The plan covers one app with up to three destinations and keeps events for three days. The monthly delivery allowance is 10,000 events. Forwarding one event to several destinations counts against the quota for each destination. You can leave a destination blank to inspect incoming events before connecting a receiver.
+The plan covers one app with up to three destinations and keeps events for three days. The monthly delivery allowance is 10,000 events. Monthly usage counts each destination and each started 64 KB of body and headers. The daily cap counts accepted inbound requests once, regardless of fan-out. You can leave a destination blank to inspect incoming events before connecting a receiver.
 
 The event log records delivery outcome, response status, and attempts. The free payload limit is 512 KB. The service can check sender signatures when you configure a supported source and provide its signing secret. Keep the event history window in mind when deciding how quickly someone needs to investigate a failed delivery.
 
 ## When you hit a limit
 
-Free refuses events above its daily limit of 1,000. Above the monthly allowance, AnyHook can hold a bounded number of events without delivering them. Held events appear in the log and need replay after capacity is available. Once the hold is full, incoming requests are refused. The Free plan has no metered overage. Retries, replays, and requests to the management API also have limits of their own.
+Free rejects events above 1,000 daily. Monthly excess can be held, undelivered, up to another 20% of quota; once full, requests are refused. Held events require replay when capacity returns. There are no metered overages.
+
+Free permits 3 delivery attempts, 100 daily replays, 300 API/MCP units per UTC day and $0.15 monthly compute. Responses over 32 KB consume multiple API units; dashboard use does not. Retries and ordinary replays do not consume monthly events, but quota-held replays do. Compute covers retries, replays and waiting beyond the first second. Exhaustion stops those operations until next month and leaves first deliveries one second to respond.
 
 ## Gotchas
 
 - Fan-out spends event quota per destination, so adding a second receiver can use the allowance twice as fast.
-- The daily cap can reject events even if most of the monthly allowance is still available. A rejected event needs the sender to try again.
-- Free events expire from the log after three days. Replay them while they are still retained.
+- The daily cap can reject events even if most of the monthly allowance is still available. A rejected event needs the sender to try again. Free events expire from the log after three days. Replay them while they are still retained.
+- Retries preserve the sender's original timestamp, so timestamp-sensitive sender signatures may expire; the docs recommend verifying AnyHook-Signature for these deliveries.
 
 ## Alternatives in this atlas
 

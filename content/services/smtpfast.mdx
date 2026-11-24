@@ -38,6 +38,7 @@ quickstartSteps:
   - Start sending free on smtpfa.st; the site says no card is required.
   - Verify your sending domain with the guided DNS setup.
   - Create an API key and send over the REST API, or use the key as the password for the SMTP bridge.
+  - Set `category` to `transactional` for password resets, receipts and similar mail; omitting it defaults to marketing.
   - Open the email logs to trace each send, bounce, and open.
 whenToUse: >-
   Use SMTPfast when a side project sends up to 3,000 emails a month and you
@@ -53,13 +54,16 @@ avoidIf:
   - you need several sending domains for free
   - you send more than 3,000 emails a month
 productionReadiness: side-project
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://smtpfa.st/'
 docsUrl: 'https://smtpfa.st/docs'
 sourceUrls:
+  - https://smtpfa.st/docs
+  - https://smtpfa.st/docs/emails
+  - https://smtpfa.st/pricing
   - 'https://smtpfa.st/'
   - 'https://smtpfa.st/docs/billing'
   - 'https://smtpfa.st/docs/rate-limits'
@@ -88,7 +92,7 @@ Sending works over the JSON REST API or through the SMTP bridge, where your API 
 
 The reviewed pricing and docs do not say what happens when Free uses its 3,000 monthly emails. Usage follows the UTC calendar month, separate from paid billing periods. Free allows 10 API requests per second; exceeding that rate returns HTTP 429 with Retry-After. This rate limit does not establish monthly exhaustion behavior.
 
-If you only need extra volume for a spike, active accounts can buy prepaid email credits at $0.001 per extra email, which works out at $1 for 1,000 extra emails. For a steady increase, the Starter plan is $9 a month for 25,000 emails, 10,000 contacts, and 3 sending domains.
+If you only need extra volume for a spike, active accounts can buy prepaid email credits at $0.001 per extra email, which works out at $1 for 1,000 extra emails. The plan allowance is used first, then prepaid credits cover overflow; buying credits does not unlock paid features. For a steady increase, the Starter plan is $9 a month for 25,000 emails, 10,000 contacts, and 3 sending domains.
 
 ## Gotchas
 

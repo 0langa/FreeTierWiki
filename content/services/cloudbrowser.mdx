@@ -20,6 +20,7 @@ freeTierDetails:
     - Closing the CDP client or viewer does not itself stop the runtime meter
     - Resume restarts Chrome and may lose in-memory page state
     - AI model usage is separate
+    - Stored-profile allowances, retention, and deletion policies are not finalized
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -48,8 +49,8 @@ avoidIf:
   - long unattended runs
   - browser time bundled with model usage
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://cloudbrowser.tv/'
@@ -76,7 +77,7 @@ Cloudbrowser runs Chrome remotely and gives you a live view or a Chrome DevTools
 
 Free covers one browser-hour per UTC calendar month and allows one running browser at a time. It includes a persistent Chrome profile, CDP access, and the live viewer. You can create a browser after verifying your email and use the console to issue connection links for your automation tool or live view.
 
-Running time counts while Chrome is active, even if you close the viewer. Pausing stops the runtime meter and retains the profile. An ordinary resume starts Chrome again, so do not count on an unsaved form or other in-memory state surviving.
+Running time counts while Chrome is active, even if you close the viewer. Pausing stops the runtime meter and retains the profile. By default, the service also auto-pauses after five minutes without connected agents or live-view streams; this setting is configurable. An ordinary resume starts Chrome again, so do not count on an unsaved form or other in-memory state surviving.
 
 ## When you hit a limit
 
@@ -84,8 +85,8 @@ The service automatically pauses running browsers once the free hour is gone. Yo
 
 ## Gotchas
 
-- Closing a client connection alone does not stop the runtime meter. Check the console or explicitly pause the browser when the job is done.
-- A saved browser profile does not guarantee a website will keep you signed in. The site can expire its session.
+- Closing a client connection does not immediately stop the runtime meter. Default auto-pause waits five minutes without connections; explicitly pause to stop sooner.
+- A saved browser profile does not guarantee a website will keep you signed in. The site can expire its session, and the provider has not finalized stored-profile allowances or paused-browser retention/deletion policies.
 - The plan covers Chrome runtime. Your automation or agent software handles its own model usage.
 
 ## Alternatives in this atlas
@@ -105,4 +106,4 @@ The running browser pauses automatically. Wait for the monthly reset or upgrade 
 
 ### Does closing the browser viewer preserve my free minutes?
 
-Closing the viewer does not stop a running browser. Pause it or check that the service has paused it before leaving the session.
+Closing the viewer does not immediately stop a running browser. Default auto-pause waits five minutes without connected agents or viewers; pause explicitly to stop sooner.

@@ -25,7 +25,7 @@ freeTierDetails:
     - Classic bus delivery to a service in the same account is free
   caveats:
     - Most new AWS customers need no payment method, but identity verification may require one
-    - Custom events, partner events, and opt-in data events are billed from the first event
+    - Custom and partner event ingestion has no free allowance; opt-in data event pricing is not visible in the current public rate widget
     - Classic event buses bill each 64 KB payload chunk as an event; enhanced Custom buses use different GB-based pricing
     - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
   resetPeriod: monthly
@@ -55,13 +55,14 @@ avoidIf:
   - high volumes of custom events on a free budget
   - you do not want an AWS account
 productionReadiness: production-ready
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://aws.amazon.com/eventbridge/'
 docsUrl: 'https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html'
 sourceUrls:
+  - 'https://aws.amazon.com/eventbridge/faqs/'
   - 'https://aws.amazon.com/eventbridge/pricing/'
   - 'https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html'
   - 'https://aws.amazon.com/free/free-tier-faqs/'
@@ -84,13 +85,13 @@ EventBridge has two parts most developers use: an event bus that routes events t
 
 AWS management events from over 250 services are ingested free on the default/classic bus model. Same-account service delivery is free in that model. The enhanced Custom event bus has separate data-volume pricing.
 
-EventBridge Scheduler has its own Free Tier: you can make 14,000,000 invocations per month for free. The Schema Discovery feature of the Schema Registry includes a Free Tier of 5 million ingested events per month, and the Schema Registry itself is free for AWS and custom schemas. Free Tier usage is calculated each month across all Regions, except GovCloud, and unused free usage does not roll over.
+EventBridge Scheduler has its own Free Tier: you can make 14,000,000 invocations per month for free. The Schema Discovery feature of the Schema Registry includes a Free Tier of 5 million ingested events per month, and the Schema Registry itself is free for AWS and custom schemas. Schema Discovery counts each 8 KB payload chunk as one event, so a 16 KB payload uses two units of that allowance. Free Tier usage is calculated each month across all Regions, except GovCloud, and unused free usage does not roll over.
 
 ## When you hit a limit
 
 Service allowances are not spending caps on Paid accounts without optional project controls. Scheduler invocations past 14 million are billed per million; the pricing page example of 20M invocations comes to $6.00 for the month.
 
-Custom events you publish, partner events from SaaS apps, and opt-in data events have no free amount. The examples bill partner event ingestion at $1.00 per million, and delivering 5M AWS management events to a different account costs $5.00. Data transfer between Regions is charged separately.
+Custom events you publish and partner events from SaaS apps have no free amount. AWS distinguishes opt-in data events from free management events, but the public regional rate widget did not display their current charge, so do not assume they are free. The examples bill partner event ingestion at $1.00 per million, and delivering 5M AWS management events to a different account costs $5.00. Data transfer between Regions is charged separately.
 
 ## Gotchas
 

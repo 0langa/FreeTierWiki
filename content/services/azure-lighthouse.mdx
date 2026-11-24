@@ -32,8 +32,8 @@ quickstartSteps:
   - Make sure the customer tenant has an active Azure subscription, and collect the tenant IDs and the subscription IDs.
   - Decide which users, groups, or service principals in your tenant get which Azure built-in roles.
   - Create an Azure Resource Manager template for the delegation, or create it in the Azure portal.
-  - Deploy the template in the customer's tenant, or have the customer onboard through a Managed Service offer on Microsoft Marketplace.
-  - Check from your own tenant that the delegated subscriptions or resource groups appear and that you can manage them.
+  - Have a customer-tenant account with subscription Owner or equivalent role-assignment permissions deploy the template, or onboard through a Managed Service offer on Microsoft Marketplace.
+  - Check from your own tenant that the delegated subscriptions or resource groups appear and that you can manage them. The delegated role must include Reader access to see them in My customers.
 whenToUse: >-
   Use it when you manage Azure resources for other organizations, or for
   several of your own tenants, and want to sign in once.
@@ -49,8 +49,8 @@ avoidIf:
   - the customer has no Azure subscription
   - your workloads are not on Azure
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-lighthouse/'
@@ -86,7 +86,7 @@ Azure Resource Health is one example Microsoft lists as free when managed throug
 ## Gotchas
 
 - The customer tenant must have an active Azure subscription to be onboarded.
-- Onboarding takes action in both the service provider's tenant and the customer's tenant.
+- Onboarding takes action in both tenants. Delegation cannot grant Owner or roles with DataActions; groups must be Security groups. Cross-national-cloud delegation is unsupported.
 - Microsoft recommends assigning the Managed Services Registration Assignment Delete Role, so your users can remove the delegation later. Without it, only a user in the customer's tenant can remove delegated resources.
 
 ## Alternatives in this atlas

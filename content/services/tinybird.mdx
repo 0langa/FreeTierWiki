@@ -39,6 +39,7 @@ quickstartSteps:
   - >-
     Install the Tinybird CLI: run curl https://tinybird.co | sh on macOS and Linux, or use the
     Windows install command from the docs.
+  - Initialize a Git repository and run tb init, then define your data source and endpoint files. Keep the generated .tinyb credentials file out of Git.
   - Run tb build to create your resources in your Tinybird development environment.
   - 'Send events with the Events API: POST to your host at /v0/events with a name and token.'
   - Publish a SQL pipe as an API endpoint and call it from your app.
@@ -59,8 +60,8 @@ avoidIf:
   - need more than 10 GB
   - need dedicated infrastructure
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.tinybird.co'
@@ -97,7 +98,7 @@ The Developer plan is the next step up. The current pricing page lists it from $
 
 ## When you hit a limit
 
-The vCPU limit is hard. Requests that exceed the burst capacity return HTTP 429. The LLM limit is a soft stop, and requests resume in the next billing cycle. The docs do not spell out what happens when you pass 1,000 requests per day.
+The vCPU limit is hard. Requests that exceed the burst capacity return HTTP 429. The LLM limit is a soft stop, and requests resume in the next billing cycle. The limits guide lists warning emails above 75% of storage or daily queries and alerts above 100%, but does not spell out blocking behavior after 1,000 requests per day or 10 GB of storage.
 
 Paid plans handle bursts differently. The Developer and SaaS plans charge $0.0002 per second for compute beyond the base allocation. Developer requests can still return HTTP 429 once they exhaust their burst capacity. To upgrade, go to Organization settings and Billing, then pick a vCPU size.
 

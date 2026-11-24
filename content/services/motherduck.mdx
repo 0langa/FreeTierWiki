@@ -16,7 +16,7 @@ tags:
 freeTierDetails:
   summary: >-
     Free Lite plan: 10 GB of storage and 10 compute unit hours of Pulse compute per month, for up to
-    3 internal users. Free Accounts are capped; Commercial Accounts pay for extra usage.
+    3 internal users. Card-free Lite has a daily compute throttle; Commercial Accounts pay for extra usage.
   limits:
     - 10 GB of free storage
     - 10 compute unit hours per month on Pulse instances
@@ -24,7 +24,8 @@ freeTierDetails:
     - Pulse instances only
     - 'Flights: 30 minutes per day of F4 compute without a credit card'
   caveats:
-    - Free Accounts must upgrade to a Commercial Account to exceed included storage and query volumes
+    - Terms cap Free Accounts at included volumes, while billing docs describe a daily compute throttle on card-free Lite; exact monthly cutoff behavior is unclear
+    - Card-free Lite shares 20 minutes of CPU time daily, continuously replenished over 24 hours; exhausted queries are throttled to a quarter core
     - Free Accounts are restricted to internal business use; third-party products or services require a Commercial Account
     - One day of backup history is a paid Lite feature; Business offers configurable retention
     - Scheduling and unlimited concurrent Flight runs on Lite need a credit card
@@ -32,7 +33,7 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 quickstartSteps:
   - >-
@@ -63,8 +64,8 @@ avoidIf:
   - heavy compute
   - more than 3 active users
 productionReadiness: side-project
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://motherduck.com'
@@ -85,7 +86,7 @@ changes:
     kind: changed
     note: "Distinguished capped Free Accounts from billed Lite accounts using the Fees Addendum and added its internal-use restriction and paid-backup scope."
 answer: >-
-  MotherDuck's Free Accounts are capped at 10 GB of storage and 10 compute unit hours a month for up to 3 users, and extra usage needs an upgrade to a Commercial Account, which is where billing starts.
+  MotherDuck lists 10 GB storage and 10 compute unit hours monthly for up to 3 users; card-free Lite throttles compute without invoicing, while billed Lite charges extra usage and the exact monthly free-cap behavior is unclear.
 
 ---
 
@@ -93,17 +94,19 @@ You connect from the DuckDB command line, the web interface, or a client library
 
 ## What the free plan gives you
 
-Lite has a $0 platform fee. It includes 10 GB of storage, 10 compute unit hours per month on Pulse instances, up to 3 internal active users, and 2 service accounts. The Fees Addendum restricts Free Accounts to internal business use; you cannot embed the free service in a product offered to third parties.
+Lite's $0 platform fee includes 10 GB storage, 10 monthly compute-unit hours on Pulse, 3 internal active users and 2 service accounts. Free Account terms allow only internal business use, excluding third-party products.
 
-Pulse instances handle light, bursty work and are billed per query, with a minimum of one compute unit second. Lite is limited to Pulse. Bigger instance types such as Standard and Jumbo are on the Business plan, which costs $250 per org per month plus usage.
+Pulse suits bursty work, billing per query with a one-compute-unit-second minimum. Lite cannot use larger Standard/Jumbo instances; Business costs $250/organization/month plus usage.
 
-Flights run Python jobs on a schedule. Without a credit card, Lite includes 30 minutes of Flight compute per day at no charge. A credit card unlocks scheduling and unlimited concurrent runs, with a one-hour maximum per Lite run.
+Flights run Python jobs. Card-free Lite includes 30 daily compute minutes. A card unlocks scheduling and unlimited concurrency, with a one-hour maximum per Lite run. Paid Lite Flights share Ducklings' monthly compute allocation and bill excess. Treat these daily Flight and monthly query allowances separately.
 
 ## When you hit a limit
 
-Free and paid Lite accounts have different billing terms. The Fees Addendum caps Free Accounts at included storage and query volumes; exceeding them requires upgrading to a Commercial Account. Commercial Lite usage beyond the grants is billed. Storage past 10 GB is billed at $0.04 to $0.044 per GB per month, and extra Pulse compute is $0.60 to $0.77 per compute unit hour. Both rates depend on your cloud region. The terms do not specify the exact error or read-access behavior at the free cap.
+Terms cap Free storage/query volumes and require commercial upgrade for excess. Billing instead describes card-free Lite's organization-wide 20-minute daily CPU budget, continuously refilling over 24 hours: exhausted queries continue at quarter-core speed and may time out. The precise monthly cutoff remains unclear.
 
-New users get a 7-day Free Trial without a credit card. At the end, you can stay on Lite with no card or move to Business.
+Adding a card removes daily throttling; billed Lite/Business have no spending cap. Regional excess costs $0.04–$0.044/GB/month and $0.60–$0.80/Pulse compute-unit-hour.
+
+After the seven-day no-card trial, connections/Flights stop until an admin chooses Lite or Business; databases remain but no read-only/export mode is available. Billing says Lite downgrades preserve databases, while general terms warn of possible loss.
 
 ## Gotchas
 
@@ -121,7 +124,7 @@ New users get a 7-day Free Trial without a credit card. At the end, you can stay
 
 ### Is MotherDuck free?
 
-Yes. Free Lite includes 10 GB of storage and 10 compute unit hours per month for internal use. Going beyond the free volumes requires a Commercial Account, which bills extra usage.
+Yes. Free Lite includes 10 GB of storage and 10 compute unit hours per month for internal use. The terms require a Commercial Account beyond the included volumes, while the billing guide describes throttling on card-free Lite without invoices; do not assume an exact monthly hard cutoff.
 
 ### Does MotherDuck need a credit card?
 

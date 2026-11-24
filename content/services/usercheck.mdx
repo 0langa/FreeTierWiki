@@ -33,7 +33,7 @@ freeTierDetails:
 quickstartSteps:
   - Choose Sign up for free on usercheck.com; the page says no credit card is required.
   - Create an API key in the dashboard.
-  - Send an address to the email endpoint at api.usercheck.com and read the disposable, relay_domain, and mx fields.
+  - Send a GET request to https://api.usercheck.com/email/ followed by the URL-encoded address, with an Authorization Bearer header containing your API key. Read disposable, relay_domain, and mx.
 whenToUse: >-
   Use UserCheck when you want to block throwaway sign-ups on an app that
   checks up to a thousand addresses a month.
@@ -48,13 +48,14 @@ avoidIf:
   - bulk list cleaning
   - high request rates
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.usercheck.com/'
 docsUrl: 'https://www.usercheck.com/docs'
 sourceUrls:
+  - 'https://www.usercheck.com/docs/get-started/quickstart'
   - 'https://www.usercheck.com/docs/api/rate-limits'
   - 'https://www.usercheck.com/docs/get-started/credits'
   - 'https://www.usercheck.com/'
@@ -71,7 +72,6 @@ answer: >-
   UserCheck's free plan includes 1,000 credits a month at 1 request per second with no card and no overage, and it returns HTTP 429 once the credits are gone.
 
 ---
-
 UserCheck, which used to be called MailCheck.ai, is an API that tells you whether an email address is disposable, a forwarding relay, or a likely typo. The old mailcheck.ai address now leads to UserCheck.
 
 ## What the free plan gives you
@@ -82,14 +82,14 @@ One API call returns fields such as disposable, relay_domain, public_domain, fre
 
 ## When you hit a limit
 
-When the monthly quota is exhausted, requests return HTTP 429 Too Many Requests until the billing cycle resets. Unused credits do not roll over. The credit docs distinguish this from the separate request rate limit. The free plan also caps you at 1 request per second, so a burst of sign-ups may need to queue checks.
+When the monthly quota is exhausted, requests return HTTP 429 Too Many Requests until the billing cycle resets. Unused credits do not roll over. Throughput limits are separate. Credits and lookup/decision throughput are shared across all API keys and environments, including development and staging. Honor Retry-After when present; repeatedly ignoring throughput errors can temporarily block the whole source IP. Free permits 1 request/second; queue signup bursts.
 
 The Pro plan costs $50 a month and raises the allowance to 200,000 credits per month and 5 requests per second. It adds a 30-day request log, bulk email and domain validation, a custom blocklist, and provider information. Larger plans are custom through sales.
 
 ## Gotchas
 
-- The free request log is limited, while Pro keeps 30 days, so debugging a blocked sign-up is harder on the free plan.
-- At 1 request per second you cannot validate a list in bulk on the free plan; bulk validation is a Pro feature.
+- A successful email/domain lookup or Gates decision costs one credit. Adding IP lookup to a Gates decision costs two more credits. Invalid requests cost nothing; status and configuration calls consume no credits.
+- The free request log is limited, while Pro keeps 30 days, so debugging a blocked sign-up is harder on the free plan. At 1 request per second you cannot validate a list in bulk on the free plan; bulk validation is a Pro feature.
 - Old links, docs, and packages may still use the MailCheck.ai name for the same service.
 
 ## Alternatives in this atlas

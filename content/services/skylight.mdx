@@ -26,7 +26,7 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: false
+  hasHardCap: unknown
   overageRisk: medium
   billingRiskNotes:
     - >-
@@ -34,7 +34,8 @@ freeTierDetails:
       traces your apps receive
 quickstartSteps:
   - Choose Start your free month on the Skylight pricing page; it says no credit card is required.
-  - Add Skylight to your Rails app and deploy it.
+  - Add the skylight gem, run bundle install and bundle exec skylight setup with your setup token, then deploy.
+  - Keep the generated authentication configuration secret; use environment variables for public source repositories.
   - Watch traces for web requests and background jobs in the dashboard.
 whenToUse: >-
   Use it for a Rails app that serves fewer than 100,000 requests and jobs a
@@ -49,8 +50,8 @@ avoidIf:
   - non-Ruby stacks
   - high-traffic apps on a zero budget
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://www.skylight.io/'
@@ -71,14 +72,14 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Skylight includes 100,000 traces a month and has no hard cap, so it automatically moves you into paid tiers as traces grow, and the ongoing card rule is not confirmed.
+  Skylight includes 100,000 traces a month across owned apps, with automatic paid-tier adjustments as usage grows and no published excess-use behavior for accounts without payment details.
 
 ---
 Skylight is a performance monitoring service for Ruby and Rails apps, made by Tilde. It records traces of web requests and background jobs and shows where time goes, so you can find slow endpoints and queries. It suits Rails developers who want a focused profiler rather than a general monitoring platform.
 
 ## What the free plan gives you
 
-Billing is based on monthly traces, meaning web requests and background jobs, across all of your apps. The pricing page says every account gets 100,000 free traces per month. The tier table lists the Free tier at 100,000 monthly requests with no base price.
+Billing is based on monthly traces, meaning web requests and background jobs, across all apps you own; collaborating on someone else's app does not bill you for its usage, and SQL queries inside a request do not count separately. The pricing page says every account gets 100,000 free traces per month. The tier table lists the Free tier at 100,000 monthly requests with no base price.
 
 Skylight is also free for open source apps through the Skylight for Open Source program, which the program page describes as free and public performance reporting for open source Ruby and Rails apps, with guidelines for which apps qualify. The pricing page offers a free month to try it with no credit card required.
 

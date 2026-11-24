@@ -17,11 +17,12 @@ freeTierDetails:
     - 2 databases and 5 GB of storage
     - 20 concurrent connections
     - 9 Standard engines
-    - 10 GB of bandwidth per 24 hours across your databases
+    - Account-wide transfer limits of 10 GB/24 hours, 50 GB/7 days and 150 GB/30 days, in rolling windows
   caveats:
     - Free databases must sleep for at least 25% of a rolling 7-day window
     - MySQL and FerretDB require Solo or higher
     - Long-idle databases can be archived and require a manual restore
+    - Revenue-generating production products belong on a paid plan; Free is for development and early-stage use
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
@@ -49,8 +50,8 @@ avoidIf:
   - MySQL on Free
   - latency-sensitive connections
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://layerbase.com/'
@@ -80,13 +81,15 @@ When a free database sits idle, Layerbase puts it to sleep. A normal connection 
 
 ## When you hit a limit
 
-The acceptable-use policy explains what happens when storage is full. Layerbase sends a warning and gives you time to free space or change plans. If usage stays at or above quota after that window, databases may stop until there's room again. Bandwidth is also limited across the account. Database plans have fixed prices and carry no metered overage. You can export a paused database without upgrading.
+Storage exhaustion triggers a warning and remedy window; databases may stop if usage remains at/above quota. Free bandwidth counts incoming/outgoing traffic across all databases: 10 GB/rolling 24 hours, 50 GB/7 days and 150 GB/30 days. The first exceeded window starts a 24-hour warning; traffic above five times an allowance stops databases immediately.
+
+Bandwidth stops do not lift automatically as usage drains. Upgrade or contact support after fixing traffic. Plans have fixed prices without metered overages. Paused databases remain exportable without upgrading, limited to five exports per database per 24 hours.
 
 ## Gotchas
 
-- The plan expects a free database to sleep for at least 25% of a rolling seven-day window. Polling or uptime probes that keep it awake can lead to a pause.
-- A provider-side pause for excess usage differs from ordinary sleep. Connecting again may fail until the pause is lifted.
-- The separate Pro trial requires a card and converts to a paid subscription at the end of the trial.
+- The plan expects a free database to sleep for at least 25% of a rolling seven-day window. Polling or uptime probes that keep it awake can lead to a pause. A provider-side pause for excess usage differs from ordinary sleep. Connecting again may fail until the pause is lifted.
+- The separate Pro trial lasts seven days, requires a card and automatically converts to $15/month unless cancelled during the trial.
+- Free allows one account per person or organization. A product earning recurring production revenue belongs on a paid plan; this eligibility rule triggers a human request to upgrade, not automatic suspension. Nonprofits and borderline cases can request an exception.
 
 ## Alternatives in this atlas
 

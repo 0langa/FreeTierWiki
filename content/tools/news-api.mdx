@@ -21,6 +21,7 @@ freeTierDetails:
   caveats:
     - Development and testing only; not for staging or production (even internal) use
     - Upgrading to a paid plan is required for production or commercial deployment
+    - Browser CORS access on Developer is limited to localhost
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -57,8 +58,8 @@ avoidIf:
   - "breaking news without delay"
   - "full article text"
 productionReadiness: prototype
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://newsapi.org'
@@ -71,6 +72,9 @@ sourceUrls:
   - https://newsapi.org/docs/get-started
   - https://newsapi.org/docs/errors
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Added localhost-only CORS and quota-versus-rate-limit error handling.
   - date: '2026-10-21'
     kind: changed
     note: >-
@@ -94,12 +98,14 @@ The plan is for development and testing only. The pricing page says you may not 
 
 The pricing page says the Developer plan has no extra requests available. When you use your 100 daily requests, you have to wait. The page offers no way to buy more on this plan, with no excess-request purchase option listed for Developer.
 
+The error reference distinguishes apiKeyExhausted (no requests remain) from rateLimited (temporary throttling, including HTTP 429). Handle the reported error instead of repeatedly retrying an exhausted key.
+
 To run outside development, you must move to a paid plan. Paid plans bill per request above their included amount, but the free plan has no such option.
 
 ## Gotchas
 
+- Browser CORS is enabled only for localhost on Developer; a published browser app needs a paid plan. Articles on the free plan are 24 hours old, so it does not suit anything that needs breaking news.
 - The free plan is only for a development environment. Using it in staging or production, even for an internal tool, needs an upgrade.
-- Articles on the free plan are 24 hours old, so it does not suit anything that needs breaking news.
 - The API does not return the full article text. You get a link with each result and must fetch the page yourself.
 
 ## Alternatives in this atlas

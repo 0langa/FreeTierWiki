@@ -25,22 +25,18 @@ freeTierDetails:
     - Up to 10,000 commands per second
     - Maximum request size of 10 MB and record size of 100 MB
   caveats:
-    - Free plan has community support only
+    - Free plan includes community and email support
     - Upgrading to pay as you go needs a credit card
-    - >-
-      A free instant database is available through an API call with no signup and is deleted after 3
-      days unless claimed
     - The first 10 database base-fee exemption is scoped to pay-as-you-go; Free has 1 database.
     - Free databases are archived after at least 30 days of inactivity, with a backup you can restore
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
     - >-
-      Current monthly Free quota exhaustion is not explicit; the help exception rule still names the
-      obsolete 10K/day quota.
+      The help FAQ explicitly says commands above 500K per month on Free return an exception.
 quickstartSteps:
   - Log in to the Upstash Console, or sign up for a free account.
   - From the Redis tab, click Create Database. Enter a database name and choose a primary region and optional read regions.
@@ -63,8 +59,8 @@ avoidIf:
   - need VPC peering
   - need advanced Redis modules
 productionReadiness: production-light
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://upstash.com/docs/redis'
@@ -96,19 +92,19 @@ You create databases in the Upstash Console and connect with `redis-cli`, any Re
 
 The Free plan costs $0 and is meant for prototypes and hobby projects. It includes 250MB of data (the interactive table still says 256MB), 10 GB of monthly bandwidth, and 500K commands per month. The plan table shows 1 database on Free, with up to 10,000 commands per second. The maximum request size is 10 MB and the maximum record size is 100 MB.
 
-Support comes from the community. Pay as you go raises the data size to 100 GB, and Fixed plans start at $10 a month. Some operational commands such as AUTH, PING, and INFO are not charged.
+Free includes community and email support. Pay as you go raises the data size to 100 GB, and Fixed plans start at $10 a month. Some operational commands such as AUTH, PING, and INFO are not charged.
 
 ## When you hit a limit
 
-Current pricing does not spell out the response above 500K monthly Free commands. A help FAQ says excess requests return exceptions but still names the old 10K/day quota replaced in 2025. It does describe other cases. On pay as you go, you get an email, and Upstash may rate limit your database. Requests above the maximum request size are rejected with an exception.
+Commands beyond Free's 500K monthly quota return exceptions. Commands-per-second excess temporarily throttles, often waiting for capacity; oversized requests are rejected. Pay-as-you-go excess can trigger email/rate limiting.
 
-To go past the free limits you enter a credit card, which upgrades the database to pay as you go and updates the limits. That plan costs $0.2 per 100K commands and lets you set a monthly budget cap.
+Entering a card upgrades to pay-as-you-go at $0.2/100K commands with higher limits. Its optional monthly budget sends alerts at 70%/90%, then rate-limits the database and caps billing when exceeded. Mid-month Fixed-to-pay-as-you-go moves count only pay-as-you-go spending toward that budget. Treat monthly quotas, throughput and payload size as separate limits: queueing a burst cannot fix an exhausted monthly allowance.
 
 ## Gotchas
 
 - Free has 1 database. Machine-readable pricing scopes the first 10 database base-fee exemption to pay-as-you-go; commands and storage still incur usage charges.
 - Global databases count replication as commands. A write to a database with one primary and one read region costs two commands.
-- A free instant database, made through an API call with no signup, is deleted after 3 days unless you claim it in your account. A regular free database is archived after at least 30 days of inactivity; Upstash keeps a backup you can restore into a new database.
+- A regular free database is archived after at least 30 days of inactivity; Upstash keeps a backup you can restore into a new database.
 
 ## Alternatives in this atlas
 
@@ -124,8 +120,8 @@ Yes. The Free plan costs $0 and includes 250MB of data (the interactive table st
 
 ### What happens when I go over the Upstash Redis free tier?
 
-The pricing page does not say for the Free plan. On pay as you go, Upstash emails you and may rate limit the database, and you can set a monthly budget.
+Commands above 500K per month return an exception on Free. On pay as you go, Upstash emails you and may rate limit the database; exceeding a configured monthly budget also rate limits it.
 
 ### Does Upstash Redis work without signing up?
 
-Yes, in one case. The pricing page says a POST request to its start-redis endpoint creates a free database with no signup, and Upstash deletes it after 3 days unless you claim it.
+The current pricing page no longer advertises the previously listed no-signup instant database. Use the documented account-based Free setup; continued availability of that older endpoint is not confirmed.

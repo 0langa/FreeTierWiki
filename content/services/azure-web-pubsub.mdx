@@ -50,8 +50,8 @@ quickstartSteps:
   - 'Install a client SDK, for example `npm install @azure/web-pubsub-client` or `dotnet add package Azure.Messaging.WebPubSub.Client --prerelease`.'
   - Create a `WebPubSubClient` with the Client Access URL, call `start()`, join a group with `joinGroup`, and handle the `group-message` event.
 productionReadiness: prototype
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/web-pubsub/'
@@ -83,12 +83,12 @@ The pricing page lists no SLA for Free, while Standard has 99.9% and Premium has
 
 The pricing page does not say what happens when you pass 20 connections or 20,000 messages in a day. You cannot add units to a Free resource, because it is capped at 1 unit.
 
-Standard and Premium work differently. Each unit supports 1,000 concurrent connections, and messages are unlimited. The first 1,000,000 messages are free, and extra messages are sold per million. Billing counts only outbound messages from the service, and messages over 2 KB count in multiple units, and messages under 2 KB are added together for billing.
+Standard and Premium work differently. Each unit supports 1,000 concurrent connections, and messages are unlimited. The first 1,000,000 messages per unit per day are free, and extra messages are sold per million. Billing counts only outbound messages from the service, and messages over 2 KB count in multiple units, and messages under 2 KB are added together for billing.
 
 ## Gotchas
 
 - The pricing FAQ says only outbound messages count, and ping messages are ignored. Traffic is counted in bytes.
-- Each application server opens five initial connections per hub by default, and each client uses one connection.
+- Each application server opens five initial connections per hub by default, and each client uses one connection. Client Access URLs contain authentication tokens. The quickstart copies one manually; production apps should obtain them on demand from an application server.
 - The .NET quickstart installs the client package with the `--prerelease` flag.
 
 ## Alternatives in this atlas

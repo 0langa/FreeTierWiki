@@ -14,7 +14,7 @@ tags:
   - azure
   - device twin
 freeTierDetails:
-  summary: 'The Free edition allows up to 8,000 messages per day and 500 device identities, one hub per subscription.'
+  summary: 'The Free edition allows up to 8,000 messages per day and 500 device identities, one hub per subscription; larger messages consume multiple units.'
   limits:
     - '8,000 message units/day, metered in 0.5 KB blocks'
     - 1 free-tier IoT hub per Azure subscription
@@ -36,10 +36,10 @@ quickstartSteps:
   - 'Run `az extension add --name azure-iot` to add the IoT commands to the Azure CLI.'
   - Create a resource group and an IoT hub. In the portal, choose Create a resource, then Internet of Things, then IoT Hub, and pick the Free tier.
   - 'Register a device identity and start a simulated device with `az iot device simulate`.'
-  - 'Watch the telemetry with `az iot hub monitor-events`, then send a message with `az iot device c2d-message send`.'
+  - 'Use a second CLI session to watch telemetry with `az iot hub monitor-events`, then stop monitoring before sending a message with `az iot device c2d-message send`; keep the simulated device running in the first session.'
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/iot-hub/'
@@ -71,7 +71,7 @@ changes:
     kind: changed
     note: "Marked the unpublished daily message-limit response as unknown."
 answer: >-
-  Azure IoT Hub needs a card for its Free edition of 8,000 messages a day and 500 devices, which is for testing, not production, and cannot be upgraded in place.
+  Azure IoT Hub needs a card for its Free edition of 8,000 half-kilobyte message units a day and 500 devices, which is for testing, not production, and cannot be upgraded in place.
 
 ---
 You work with IoT Hub in the Azure portal, with the Azure CLI and its `azure-iot` extension, or with device SDKs. It suits developers who want to test device connectivity on Azure before they pay for a production hub. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
@@ -90,9 +90,9 @@ Separate throttles limit the rate of calls. If you hit one, IoT Hub answers with
 
 ## Gotchas
 
-- Only one free hub is allowed per subscription, so a second free hub needs another subscription.
-- The name of a free hub can be visible to other free-tier users, and hub names are public DNS names. Do not put private data in the name.
-- Deleting a hub deletes its device identity registry, so keep a record of your devices before you remove it.
+- Device-twin reads, writes and queries also consume message units. File uploads require separately billed storage, and their start/completion notifications count against the hub quota. Deleting a hub deletes its device identity registry, so keep a record of your devices before you remove it.
+- The MQTT v5 connection-profile preview requires Standard S1 and uses throughput units; the classic Free allowance does not apply.
+- Only one free hub is allowed per subscription, so a second free hub needs another subscription. The name of a free hub can be visible to other free-tier users, and hub names are public DNS names. Do not put private data in the name.
 
 ## Alternatives in this atlas
 

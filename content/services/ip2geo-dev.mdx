@@ -19,10 +19,11 @@ freeTierDetails:
     - '1,000 conversions/month'
     - No credit card required
     - Team access and analytics included
+    - 12-month conversion history and up to 5,000 IPs per bulk request
   caveats:
     - Requires creating an account, not fully anonymous
     - Higher volumes need a paid plan starting at $10/month
-    - Once the monthly quota is used, conversions return HTTP 429 until reset or upgrade
+    - Once the monthly quota is used, conversions and reading stored conversions return HTTP 429 until reset or upgrade
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -50,8 +51,8 @@ avoidIf:
   - need a written uptime SLA
   - need no sign-up
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ip2geo.dev'
@@ -77,13 +78,13 @@ You sign in to a cloud dashboard, create a project and a secret key, then call o
 
 ## What the free plan gives you
 
-The Free plan gives you 1,000 conversions every month, and you do not add a credit card. A conversion turns one IP address into location data. Each account starts with a default project, and the site says all plans, including the free one, get support by email.
+The Free plan gives you 1,000 conversions every month, and you do not add a credit card. A conversion turns one IP address into location data. The plan lists 12-month conversion history and up to 5,000 IPs per bulk request, although every address still consumes quota. Each account starts with a default project, and the site says all plans, including the free one, get support by email.
 
 The response includes the country, city, coordinates, timezone, currency, and EU flag, among other fields. Paid plans give more conversions: Starter has 10,000, Growth has 100,000, and Scale is unlimited. The site shows the Starter price as $10 a month.
 
 ## When you hit a limit
 
-On a metered plan, once you reach the quota, further conversions return HTTP 429 with the message "Plan conversion limit exceeded". They stop until your limit resets or you upgrade. The CLI stops there, keeps what it already converted, and exits with code 5.
+On a metered plan, once you reach the quota, further conversions return HTTP 429 with the message "Plan conversion limit exceeded". This also blocks reading existing conversions until your limit resets or you upgrade. The CLI stops there, keeps what it already converted, and exits with code 5.
 
 The docs say there are no strict rate limits per second, but the monthly quota is real. The site also says it may contact you if it sees unusual usage. The pages describe a 429 stop at the quota, not a bill, for the free plan.
 
@@ -107,7 +108,7 @@ Yes, within limits. The Free plan gives you 1,000 conversions a month with no cr
 
 ### What happens when I go over the ip2geo.dev free limit?
 
-Further conversions return HTTP 429 with the message "Plan conversion limit exceeded" until your limit resets or you upgrade.
+Further requests, including reading existing conversions, return HTTP 429 with the message "Plan conversion limit exceeded" until your limit resets or you upgrade.
 
 ### Does ip2geo.dev have an SDK?
 

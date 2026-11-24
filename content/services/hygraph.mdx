@@ -22,6 +22,8 @@ freeTierDetails:
     - 'Unlimited asset storage, 50 MB per file; asset traffic is capped at 100 GB'
     - '2 locales, 10 components, 1 environment'
     - 5 requests per second for uncached requests
+    - 10 concurrent queries and 5 concurrent mutations per environment
+    - 10 KB query requests and 30 KB mutation requests
   caveats:
     - No custom roles or advanced workflows
     - >-
@@ -62,8 +64,8 @@ avoidIf:
   - you need custom roles
   - 'you need more than 500,000 API calls a month'
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: '2026-11-09'
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://hygraph.com/'
@@ -91,13 +93,13 @@ You define models in the Schema builder, editors write entries in the Content ed
 
 The Hobby plan costs $0 and is free forever. It includes 1,000 content entries and 500,000 API calls per month. Assets count against the entry limit. You get 3 seats with 2 standard roles, 2 locales, 10 components, and 1 environment.
 
-Asset storage is unlimited, with a 50 MB maximum per upload. The plan table lists asset traffic at 100 GB. Uncached requests are limited to 5 per second, while cached requests have no rate limit. Hobby also allows 5 webhooks and 3 API tokens.
+Asset storage is unlimited, with a 50 MB maximum per upload. The plan table lists asset traffic at 100 GB. Uncached requests are limited to 5 per second, while cached requests have no rate limit. Hobby also allows 5 webhooks and 3 API tokens, 20 models and 2 content stages. It has no version-retention allowance or scheduled publishing.
 
 ## When you hit a limit
 
-If you exceed the API Operations or Asset Traffic allowances on Hobby, Hygraph blocks that usage until the next billing period instead of charging overages. Entry, seat, and other plan limits remain separate caps. You can watch your usage on the project dashboard.
+If you exceed the API Operations or Asset Traffic allowances on Hobby, Hygraph blocks that usage until the next billing period instead of charging overages. Entry, seat, and other plan limits remain separate caps. Hobby also limits uncached operations to 10 simultaneous queries and 5 mutations per environment, counting operations rather than HTTP requests. Query requests can be up to 10 KB and mutations 30 KB; oversize requests return HTTP 413, while rate or concurrency excess returns HTTP 429. You can watch your usage on the project dashboard.
 
-The paid Growth plan behaves differently: it charges extra usage to your credit card at the end of the billing cycle. Hobby has no such charge, so a surprise bill is not a risk on the free plan.
+The paid Growth plan behaves differently: it charges extra usage to your credit card at the end of the billing cycle. Hobby does not bill these overages.
 
 ## Gotchas
 

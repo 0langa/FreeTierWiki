@@ -22,7 +22,7 @@ freeTierDetails:
     - Same-availability-zone transfer always free
   caveats:
     - Applies only to outbound data; inbound is always free.
-    - Overages billed at standard per-GB rates by source continent.
+    - On pay-as-you-go, overages bill at standard per-GB rates by source continent.
     - Transfer between two Azure regions is charged, even inside Azure.
   resetPeriod: monthly
   requiresCard: true
@@ -30,12 +30,12 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Exceeding the free limit incurs automatic charges.
+    - On pay-as-you-go, exceeding the free limit incurs automatic charges.
     - There is no hard cap on egress; watch usage in Cost Management.
 quickstartSteps:
   - Sign up for an Azure account at azure.microsoft.com; the free account gives credit and free monthly amounts.
   - Sign in to the Azure portal and create a resource group.
-  - Create a resource that sends data out, for example a virtual network with a virtual machine.
+  - Use a resource that sends data out, such as an existing virtual machine; compute and supporting services have separate costs.
   - Send traffic from the resource to the internet, such as serving a page or calling an API.
   - Open Cost Management in the portal to see how much egress you used this month.
 whenToUse: >-
@@ -54,8 +54,8 @@ avoidIf:
   - large file transfers
   - strict cost controls
 productionReadiness: prototype
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/bandwidth/'
@@ -72,7 +72,7 @@ changes:
     kind: changed
     note: "Clarified that continental pricing rows do not promise separate free bandwidth pools."
 answer: >-
-  Azure Bandwidth needs a card: the first 100 GB of internet egress each month is free, and exceeding it incurs automatic per-GB charges with no hard cap.
+  Azure Bandwidth needs a card: the first 100 GB of internet egress each month is free, and pay-as-you-go usage above it incurs automatic per-GB charges with no bandwidth cap.
 
 ---
 You do not sign up for bandwidth on its own. It is the network traffic bill for the Azure resources you run, and you manage it in the Azure portal. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
@@ -109,7 +109,7 @@ Partly. Inbound data is free, and the first 100 GB of internet egress each month
 
 ### What happens when I go over the free Azure egress?
 
-Azure does not block traffic. It bills the extra gigabytes at the rate for the continent the data leaves from.
+On pay-as-you-go, Azure bills extra gigabytes at the rate for the continent the data leaves from. An unupgraded free account instead stops services when its trial credit expires or runs out.
 
 ### Is data transfer between Azure regions free?
 

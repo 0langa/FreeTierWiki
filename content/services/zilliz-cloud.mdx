@@ -20,6 +20,8 @@ freeTierDetails:
     - 5 GB of storage, enough for about 1M vectors of 768 dimensions
     - 2.5M vCUs per month for reads and writes
     - Up to 5 collections
+    - 2 MB/s insert/upsert rate
+    - At most 10 query vectors and 1,024 returned entities per search
     - 1 Free cluster per organization
     - Community support through Slack
   caveats:
@@ -54,8 +56,8 @@ avoidIf:
   - need dedicated performance
   - more than 5 collections
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://zilliz.com/cloud'
@@ -98,9 +100,9 @@ The trial works differently from the Free cluster. A work email signup gets $100
 
 ## Gotchas
 
-- Only one Free cluster is allowed per organization. A second serving cluster must be Serverless or Dedicated.
-- Save the cluster password when you create the cluster. The console shows it only once.
-- Zilliz suspends a Free cluster after 7 consecutive days of inactivity. You can resume it at any time.
+- Only one Free cluster is allowed per organization. A second serving cluster must be Serverless or Dedicated. Save the cluster password when you create the cluster. The console shows it only once. Zilliz suspends a Free cluster after 7 consecutive days of inactivity. You can resume it at any time.
+- Free supports up to 64 fields per collection, including four vector fields, and two shards. Inserts/upserts are limited to 2 MB/s; searches accept at most 10 query vectors and return at most 1,024 entities.
+- A Free import can contain at most 1 GB in total, with at most 1,000 files and 1 GB per file. These operation limits apply independently of the 5 GB storage allowance.
 
 ## Alternatives in this atlas
 

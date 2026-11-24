@@ -34,8 +34,8 @@ freeTierDetails:
 quickstartSteps:
   - Create an Azure account with an active subscription and sign in to the Azure portal.
   - Check the Connected Machine agent prerequisites and the supported Azure regions.
-  - In the portal, add a server with Azure Arc and pick the subscription, resource group, and operating system.
-  - Download the generated script (`OnboardingScript.ps1` for Windows, `OnboardingScript.sh` for Linux) and run it on the machine.
+  - In the portal, add a server with Azure Arc and pick the subscription, resource group, and operating system; use an Azure Connected Machine Onboarding or Resource Administrator role.
+  - Download the generated script (`OnboardingScript.ps1` for Windows, `OnboardingScript.sh` for Linux) and run it with local administrator/root privileges on the machine.
   - Check that the machine shows up in the Azure portal as an Azure Arc-enabled server.
 whenToUse: >-
   Use it to bring servers and clusters that run outside Azure into the Azure
@@ -52,8 +52,8 @@ avoidIf:
   - you cannot pay for add-on management services
   - you have no Azure subscription
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-arc/'
@@ -83,13 +83,13 @@ VM self-service is the third. It covers create, resize, update, and delete, plus
 
 ## When you hit a limit
 
-The pricing page lists no quota on the core control plane. The cost comes from add-ons. Add-on management services, such as Azure Update Manager, Azure Policy guest configuration, Azure Monitor, Microsoft Defender for Cloud, and Microsoft Sentinel, are charged for Azure Arc-enabled servers when you enable them.
+Pricing lists no quota on the core control plane. The cost comes from add-ons. Azure Policy features that do not use guest configuration, such as auto-tagging, remain free. Add-on management services, such as Azure Update Manager, Azure Policy guest configuration, Azure Monitor, Microsoft Defender for Cloud, and Microsoft Sentinel, are charged for Azure Arc-enabled servers when you enable them.
 
-The monthly price of an Arc-enabled server depends on how many management and security services you run on it and on the plan you buy. Check each add-on's pricing page before you switch it on. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+Monthly cost depends on enabled management/security services and their plans. Check each add-on's pricing page before you switch it on. Azure signup requires a phone number and non-prepaid credit/debit card for identity verification. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 
 ## Gotchas
 
-- Onboarding also connects existing SQL Server instances by default. Microsoft's onboarding guide documents the `ArcSQLServerExtensionDeployment` tag to opt out.
+- Onboarding also connects existing SQL Server instances by default. Microsoft's onboarding guide documents the `ArcSQLServerExtensionDeployment` tag with value `Disabled` to opt out.
 - Defender for Cloud Plan 2 includes Azure Policy guest configuration and Azure Update Manager at no extra cost, but Plan 1 does not.
 - Windows Server licenses with active Software Assurance or an active subscription license can use some features at no additional cost, though log ingestion, compute, and storage may still be charged.
 

@@ -21,7 +21,8 @@ freeTierDetails:
   caveats:
     - Pricing lists proxy throughput of 4,200 requests/minute and ingestion of 412 logs/minute on the free plan
     - No credit card required to start
-    - Logs beyond monthly access are still recorded but blurred; exports stop at that allowance
+    - Logs beyond monthly access are still recorded but blurred
+    - Pricing excludes Free batch export; the Logs guide separately describes exports stopping at the monthly allowance
     - Score reset and over-allowance behavior are not published
     - Pricing lists 30-day default Free retention, while the Logs documentation limits Free queries to 7 days
   resetPeriod: monthly
@@ -31,7 +32,7 @@ freeTierDetails:
   overageRisk: low
 quickstartSteps:
   - 'Create a free account at platform.respan.ai. No credit card is needed.'
-  - 'In the platform, go to Gateway, then API keys, click New key, and copy it.'
+  - 'In the platform, open API keys, click New key, choose Production or Test, create the key, and copy it.'
   - 'Set the key as the environment variable RESPAN_API_KEY.'
   - 'Install the SDK next to your LLM SDK: pip install respan-ai openai for Python (Python 3.11 to 3.13), or follow the TypeScript tab on the quickstart page.'
   - 'Create a Respan() client once, before your first model call.'
@@ -49,8 +50,8 @@ avoidIf:
   - 'unlimited datasets, evaluators, or prompts'
   - 'SOC 2 reports on the free plan'
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://respan.ai'
@@ -73,27 +74,27 @@ changes:
     kind: changed
     note: 'Confirmed calendar-month log visibility and blur/export behavior; removed the unsupported monthly score-reset assertion and clarified external model costs.'
 answer: >-
-  Respan's free plan needs no card and includes access to 100,000 logs a month within a 7-day viewing window, and past that allowance logs are still recorded but blurred and exports stop.
+  Respan's free plan needs no card and includes access to 100,000 logs a month within a 7-day viewing window; excess logs are blurred, and pricing excludes Free batch export.
 
 ---
 You send your LLM calls through one gateway endpoint, or add the Respan SDK to trace calls you already make. You read the results in a web platform, a command line tool, or an MCP server. It fits developers and small teams who run AI features in production.
 
 ## What the free plan gives you
 
-The Free plan costs $0 and covers the full platform with no credit card. You can view the first 100k logs each calendar month and get 1k scores, 5 datasets, 10 prompts, and 2 evaluators. The score reset period is not specified.
+The Free plan costs $0 with no credit card and includes tracing, prompt management, and limited evaluations. The feature table excludes capabilities such as alerts, full-text search, batch export, and the BYOK key vault. You can view the first 100k logs each calendar month and get 1k scores, 5 datasets, 10 prompts, and 2 evaluators. The score reset period is not specified.
 
-Pricing and project docs list 30 days of default Free storage, while the homepage comparison still lists 7 days of retention. The Logs guide separately limits Free queries to the past 7 days. Proxy throughput is 4,200 requests per minute and ingestion is 412 logs per minute. Team costs $199 per month, billed yearly, with unlimited datasets, evaluators, and prompts and a SOC 2 report.
+Pricing, the homepage, and project docs list 30 days of default Free storage. The Logs guide separately limits Free queries to the past 7 days. Proxy throughput is 4,200 requests per minute and ingestion is 412 logs per minute. Team costs $199 per month, billed yearly, with unlimited datasets, evaluators, and prompts and a SOC 2 report.
 
 ## When you hit a limit
 
-Logs beyond the first 100k spans in a calendar month are still recorded, but their names, models, and messages are blurred and exports stop at that allowance. Upgrading to Team restores visibility. Score reset timing and Free over-score behavior are not published.
+Logs beyond the first 100k spans in a calendar month are still recorded, but their names, models, and messages are blurred. The Logs guide says exports stop at that allowance, while pricing marks batch JSONL/CSV export as unavailable on Free; do not rely on Free batch export. Upgrading to Team restores visibility. Score reset timing and Free over-score behavior are not published.
 
-Gateway calls that use Respan's own provider keys are paid with prepaid gateway credits. When the balance runs out, those requests fail with a 401 error and the code `activation_required`. Requests that use your own provider key keep working.
+Gateway calls that use Respan's own provider keys are paid with prepaid gateway credits. When the balance runs out, those requests fail with a 401 error and the code `activation_required`. Requests that use your own provider key keep working where that feature is available; pricing places the BYOK key vault on Team and above.
 
 ## Gotchas
 
-- Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Using your own provider key avoids Respan gateway-credit purchases, but model usage is still billed by your provider.
-- Free queries cover only the last 7 days. Export logs within that window if you need longer access.
+- Gateway credits are separate from your plan. They pay for model calls made with Respan's provider keys. Using your own provider key avoids Respan gateway-credit purchases, but model usage is still billed by your provider. Optional gateway-credit auto reload charges the default card when the configured threshold is reached.
+- Free queries cover only the last 7 days despite 30-day storage. Keep a separate copy if you need longer access; Free batch export is not included in pricing.
 - Team plan features such as a SOC 2 report and a private Slack channel start on the Team plan.
 
 ## Alternatives in this atlas
@@ -114,4 +115,4 @@ Yes. Respan is the new name of Keywords AI, and the pricing page still shows Key
 
 ### What happens when I run out of gateway credits?
 
-Gateway requests that need Respan's provider keys fail with a 401 error until you add credits. Requests that use your own provider key keep working.
+Gateway requests that need Respan's provider keys fail with a 401 error until you add credits. Requests using your own provider key keep working where available; the pricing table puts the BYOK key vault on Team and above.

@@ -50,10 +50,10 @@ bestFor:
 avoidIf:
   - heavy use of managed connectors on a free budget
   - you need a hard spending cap
-  - logic that needs custom code
+  - primarily code-driven orchestration rather than a visual workflow
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-10
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/logic-apps/'
@@ -70,7 +70,7 @@ changes:
     kind: changed
     note: "Kept managed connector charges separate from the built-in free-operation allowance."
 answer: >-
-  Azure Logic Apps needs a card, the first 4,000 Consumption actions a month are free, managed connectors are billed, and there is no hard cap.
+  Azure Logic Apps needs a card, the first 4,000 Consumption built-in operations a month are free, managed connectors are billed, and there is no hard cap.
 
 ---
 You build a workflow in the Azure portal designer by adding a trigger and then actions from a gallery of connectors. You can also use Visual Studio Code or the Azure CLI. It suits teams that want automation without writing custom code.
@@ -79,18 +79,18 @@ You build a workflow in the Azure portal designer by adding a trigger and then a
 
 The Consumption plan runs workflows in multitenant Azure Logic Apps and bills per execution. The pricing page lists the first 4,000 actions as free and included. Microsoft's pricing docs say the free built-in operations are counted per Azure subscription, so every workflow in the subscription shares them.
 
-Built-in operations include the HTTP and Request triggers, the HTTP and Response actions, loops, conditions, and data operations. The Standard plan, which runs on a hosting plan you pay for, includes unlimited free built-in operations, but you pay for the hosting plan itself. In its default view (US dollars, West US 2), the pricing page lists the Workflow Service Plan at $140.16 a month for vCPU and $10.001 a month for memory.
+Built-in operations include the HTTP and Request triggers, the HTTP and Response actions, loops, conditions, and data operations. The Standard plan, which runs on a hosting plan you pay for, includes unlimited free built-in operations, but you pay for the hosting plan itself. With US dollars and West US 2 selected, the pricing page lists the Workflow Service Plan at $140.16 per vCPU-month and $10.001 per GB-month. WS1 includes 1 vCPU and 3.5 GB, so those are unit rates rather than the total hosting price.
 
 ## When you hit a limit
 
-Nothing stops your workflows at the free amount. Above it, the Consumption plan meters each execution and bills it, whether or not the workflow finishes or even starts. A polling trigger counts as one execution each time it checks, even when it finds no new data.
+On pay-as-you-go, nothing stops your workflows at the free amount. Above it, the Consumption plan meters each execution and bills it, whether or not the workflow finishes or even starts. A polling trigger counts as one execution each time it checks, even when it finds no new data.
 
-Managed connector operations are never part of the free built-in operations. Microsoft bills them at standard or enterprise connector rates from the first call. A frequent polling trigger on a managed connector can therefore produce a bill quickly.
+Managed connector operations are never part of the free built-in operations. They incur standard or enterprise connector charges from the start. The pricing table labels the meter per call, while the Consumption billing guide describes per execution even with pagination; check the applicable connector meter rather than assuming those counts are equal. A frequent polling trigger on a managed connector can therefore produce a bill quickly.
 
 ## Gotchas
 
-- The free amount covers built-in operations only. Managed connector operations are billed as soon as you use them.
-- Some managed connector operations also exist as built-in ones. The built-in version uses the free amount, and above it billing follows the actions price, not the connector price.
+- The free amount covers built-in operations only. Managed connector operations, run-history data retention, integration accounts, and agentic features can add separate charges. Some managed connector operations also exist as built-in ones. The built-in version uses the free amount, and above it billing follows the actions price, not the connector price.
+- Retries and loop iterations consume additional operations. For example, one action with five retries counts as six executions.
 - A Consumption logic app resource holds only one workflow. The Standard type holds many workflows but bills through a hosting plan.
 
 ## Alternatives in this atlas
@@ -111,4 +111,4 @@ Yes. Azure sign-up asks for a phone number and a credit or debit card (not prepa
 
 ### What happens when I go over the free actions in Logic Apps?
 
-Nothing blocks the workflow. Azure bills each extra execution at the actions price, so watch your cost reports.
+On pay-as-you-go, Azure bills each extra execution at the actions price. An unupgraded free account instead stops services when its initial trial credit expires or runs out.

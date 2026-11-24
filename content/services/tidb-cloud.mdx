@@ -40,7 +40,7 @@ quickstartSteps:
   - Sign up for TiDB Cloud with an email and password, or with Google, GitHub, or Microsoft single sign-on.
   - Open the My TiDB page. New accounts get a default Starter instance named Instance0.
   - To make another one, click Create Resource, keep Starter selected, name it, pick the cloud provider and region, and click Create.
-  - Open the SQL Editor in the console and run queries without a local client.
+  - On an AWS Starter instance, open the SQL Editor in the console and run queries without a local client.
   - Or connect with the `mysql` command line client, a MySQL driver, or an ORM using the connection details in the console.
 whenToUse: >-
   Use it when you want a MySQL-compatible serverless database with a large free
@@ -57,8 +57,8 @@ avoidIf:
   - Postgres stacks that cannot use a public preview
   - a hard need for uptime when the quota runs out
 productionReadiness: production-light
-lastUpdated: 2026-11-09
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 8
 officialUrl: 'https://www.pingcap.com/tidb-cloud-starter/'
@@ -84,21 +84,21 @@ You work in the TiDB Cloud console, where an AI-assisted SQL Editor runs queries
 
 ## What the free plan gives you
 
-The pricing page lists Starter from $0 a month. Each organization gets 25 GiB of row storage, 25 GiB of column storage, and 250M Request Units for free every month. The pricing details page splits this per instance: each of your first 5 instances gets 5 GiB of row storage, 5 GiB of column storage, and 50 million Request Units a month.
+The pricing page lists Starter from $0 a month. Each organization gets 25 GiB of row storage, 25 GiB of column storage, and 250M Request Units for free every month. These allowances cannot be pooled into one larger free instance. The pricing details page splits this per instance: each of your first 5 instances gets 5 GiB of row storage, 5 GiB of column storage, and 50 million Request Units a month.
 
 Starter scales down to zero, and you pay only for storage and capacity you use beyond the free amount. An organization also includes capacity for up to 100 active instances and branches at no extra charge. Starter is generally available on AWS. PostgreSQL compatibility is in public preview, and the pricing page states the per-instance allowance for MySQL-compatible instances.
 
 ## When you hit a limit
 
-A free instance that uses up its quota is throttled. Once it reaches the quota, it denies new connection attempts until you raise the quota or the usage resets at the start of a new month. Existing connections stay open but are throttled. For example, a free instance with more than 5 GiB of row storage restricts new connections.
+Quota exhaustion denies new connections until a quota increase or next month's reset; existing connections remain open but throttled. Exceeding 5 GiB row storage is one trigger.
 
-You can raise the quota by setting a monthly spending limit. This needs a credit card. Paid usage starts at $0.20 per GiB-month for row storage, $0.05 per GiB-month for columnar storage, and $0.10 per 1M Request Units. Rates vary by cloud provider and region. The instance is not throttled until it reaches the spending limit.
+Increasing quota requires a credit card and monthly spending limit; scalable instances require at least $0.01. The limit cannot fall below spending already incurred. UTC calendar months govern billing. Paid rates start at $0.20/GiB-month row storage, $0.05/GiB-month columnar storage and $0.10/million Request Units, varying by cloud/region. Paid instances throttle at the spending limit. Monitor storage and requests separately because either can restrict connections.
 
 ## Gotchas
 
-- The free quota covers only the first 5 instances in an organization. A sixth needs a credit card and a spending limit, unless you delete an earlier instance first.
-- Reaching the quota blocks new connections, not only slows them. An app that opens a connection per request can fail until the month resets.
+- The free quota covers only the first 5 instances in an organization. A sixth needs a credit card and a spending limit, unless you delete an earlier instance first. Reaching the quota blocks new connections, not only slows them. An app that opens a connection per request can fail until the month resets.
 - Starter runs on AWS, and the Alibaba Cloud version is in public preview.
+- Request Units combine reads, writes, SQL CPU and network egress; one query is not necessarily one RU. Replicated writes also count.
 
 ## Alternatives in this atlas
 

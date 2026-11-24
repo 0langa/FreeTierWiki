@@ -43,7 +43,7 @@ whenToUse: >-
   Use when you need to screen text and images in a small app and 5,000 records of each per month is
   enough.
 whenNotToUse: >-
-  Avoid if you need moderation beyond text and images, need an on-premises solution, or handle high
+  Avoid if you need moderation beyond text and images, need ongoing on-premises deployment after the announced container retirement, or handle high
   volume. Free usage stops at the monthly limit.
 bestFor:
   - prototypes that moderate user content
@@ -52,11 +52,11 @@ bestFor:
   - learning how moderation thresholds behave
 avoidIf:
   - need moderation beyond text and images
-  - need on-premises deployment
+  - need ongoing on-premises deployment after April 2027
   - need more than 5 requests per second on the free tier
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/products/ai-services/ai-content-safety'
@@ -84,9 +84,9 @@ You call it through a REST API or an SDK, and you can test it first in the Found
 
 The Free tier is called F0. It includes 5,000 text records per month and 5,000 images per month. The counts reset each month. You need an Azure subscription and a Content Safety resource in a supported region.
 
-The docs also set a query rate for the F0 tier. Most features allow 5 requests per second. The docs table shows groundedness detection as not available on F0, although the pricing page lists it under the Free tier's text features. That is enough for a prototype or a small site. It is not enough for a busy app that checks every message.
+The docs also set a query rate for the F0 tier. Most features allow 5 requests per second. The docs table shows groundedness detection as not available on F0, although the pricing page lists it under the Free tier's text features. That suits prototypes, not busy moderation workloads.
 
-The paid S0 tier has higher rate limits. The Central US USD table lists $0.38 per 1,000 text records and $0.75 per 1,000 images.
+The paid S0 tier has higher rate limits. The Central US USD table lists $0.38 per 1,000 text records and $0.75 per 1,000 images. On S0, one text record is up to 1,000 Unicode code points, rounded up per input; a 7,500-character input uses eight records.
 
 ## When you hit a limit
 
@@ -97,7 +97,7 @@ Moving to S0 is a separate step that you take on purpose. You will not be moved 
 ## Gotchas
 
 - F0 text and image moderation has a 5-requests-per-second limit, even before you reach the monthly count.
-- Groundedness detection is a preview feature that the docs say retires on April 30, 2027, and it works with English only.
+- Groundedness detection works with English only. It retires on April 30, 2027 alongside Analyze Multimodal, custom categories (rapid), connected/disconnected Content Safety containers, and the embedded SDK.
 - The lifecycle policy describes conditional 90-day deprecation after a compatible replacement, rather than promising every old API retires automatically. Watch the What's new page.
 
 ## Alternatives in this atlas

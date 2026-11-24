@@ -41,7 +41,7 @@ quickstartSteps:
   - Create an app and get its API key and secret from your Stream account.
   - On your server, create a user token. Stream signs tokens with your API secret, so the client never creates them.
   - In a React app, install the SDK with `npm install stream-chat stream-chat-react`.
-  - Use the React `useCreateChatClient` hook with the API key, server token, and user data; it connects and cleans up the client. Create a channel and render it inside the Chat and Channel providers.
+  - Use the React `useCreateChatClient` hook with the API key, server token, and user data; it connects and cleans up the client. Watch the channel, then pass it explicitly to Channel inside the Chat provider, following the current React quickstart.
 whenToUse: >-
   Use Stream Chat when you want a hosted chat backend with SDKs for React,
   iOS, Android, Flutter, and React Native, and your app has fewer than 1,000
@@ -58,8 +58,8 @@ avoidIf:
   - more than 100 users online at once
   - you need paid support
 productionReadiness: side-project
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://getstream.io/chat/'
@@ -69,7 +69,7 @@ sourceUrls:
   - 'https://getstream.io/chat/'
   - 'https://getstream.io/chat/docs/react/'
   - 'https://getstream.io/chat/docs/react/tokens_and_authentication/'
-  - 'https://getstream.io/chat/docs/sdk/react/basics/getting_started/'
+  - 'https://getstream.io/chat/docs/sdk/react/getting-started/quick-start/'
 pricingUrl: 'https://getstream.io/chat/pricing/'
 changes:
   - date: 2026-11-02
@@ -92,11 +92,11 @@ You add chat with a client SDK in your app and a small server that creates user 
 
 ## What the free plan gives you
 
-The Free plan is called Build. It gives you 1,000 monthly active users and 100 concurrent connections. A monthly active user is anyone who connected to chat within the last calendar month. A concurrent connection is an open WebSocket between a device and Stream, and the peak in the billing month counts.
+Build includes 1,000 MAU and 100 concurrent connections without a card. MAU counts users connected in the previous calendar month; concurrency measures peak open device-to-Stream WebSockets during the billing month.
 
-The plan includes core chat features, SDKs, UI components, and community support; advanced features such as multi-tenancy and automatic translation are reserved for paid plans. It asks for no credit card. Monthly allowances are up to 1M API calls, up to 100K query channel calls, and up to 10 GB of API bandwidth.
+Core chat, SDKs, UI components and community support are included; multi-tenancy/automatic translation require paid plans. Monthly limits are 1M API calls, 100K query-channel calls and 10 GB API bandwidth, including responses, WebSocket messages and server webhooks. Message storage, channel counts and image/file CDN allowances say Limits Apply without figures.
 
-Makers get more. If your team has fewer than 5 people and under $10k in monthly revenue, Stream offers a $100 monthly credit. The page says availability is limited.
+Eligible makers with fewer than 5 team members and under $10k monthly revenue can receive $100 monthly credit, subject to limited availability.
 
 ## When you hit a limit
 
@@ -106,8 +106,8 @@ The next plan up is Start at $399 per month billed annually, or $499 billed mont
 
 ## Gotchas
 
-- The pricing page tells you that cron jobs polling query channels are the most common cause of overage on the query channel limit.
-- Messages are stored for as long as your plan is active.
+- The pricing page tells you that cron jobs polling query channels are the most common cause of overage on the query channel limit. Messages are stored for as long as your plan is active, subject to the plan storage allowance; Free does not publish that quantity.
+- One user can hold several WebSocket connections across devices or through duplicate connections, so 100 concurrent connections is not necessarily 100 people.
 - Maker credit is limited in availability, so do not plan around it.
 
 ## Alternatives in this atlas

@@ -26,7 +26,7 @@ freeTierDetails:
   caveats:
     - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Cloud Community support is through Discord
-    - Cloud Teams advertises $449 monthly equivalent,up to 5000 resources and unlimited users; pricing payment help says yearly billing
+    - Cloud Teams advertises $449 monthly equivalent, up to 5000 resources and unlimited users; pricing payment help says yearly billing
     - The pricing table lists unlimited Teams users, but the FAQ on the same page says extra Teams seats are not offered
   requiresCard: unknown
   freeTierType: always-free
@@ -37,7 +37,7 @@ quickstartSteps:
   - Install Terraform or OpenTofu, and create a Git repository with git init and an initial empty commit.
   - Create stacks with terramate create, then list them with terramate list.
   - Generate shared backend and provider code with code generation, and run commands in the changed stacks with terramate run.
-  - Optional. Run terramate cloud login to sign in to Terramate Cloud, using Google by default or the github option.
+  - Optional. Run terramate cloud login to sign in to Terramate Cloud, using the documented --google or --github option.
 whenToUse: >-
   Use Terramate when one Terraform repository has grown too big and you want
   stacks, change detection, and generated code, with your own CI.
@@ -53,14 +53,15 @@ avoidIf:
   - needing vendor support on the free plan
   - more than 2 Cloud users
 productionReadiness: production-light
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-10
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://terramate.io/'
 docsUrl: 'https://terramate.io/docs/'
 pricingUrl: 'https://terramate.io/pricing'
 sourceUrls:
+  - https://terramate.io/docs/cli/reference/cmdline/cloud/
   - 'https://terramate.io/pricing'
   - 'https://github.com/terramate-io/terramate'
   - 'https://terramate.io/docs/cli/getting-started'
@@ -80,11 +81,11 @@ You work from the Terramate CLI inside a Git repository, and your existing CI ru
 
 ## What the free plan gives you
 
-The Terramate CLI is open source and runs on your own machine or in your own CI. The GitHub README says it needs no access to your state or cloud accounts. It supports Terraform, OpenTofu, and Terragrunt.
+The open-source CLI runs locally or in your CI without state/cloud-account access, supporting Terraform, OpenTofu and Terragrunt.
 
 Terramate Cloud has a Community plan that is free forever. It allows up to 2 users and up to 1000 resources, with 30 days of data retention. It includes deployment workflows, pull request previews, and drift management. Support is through Discord.
 
-Teams advertises $449 per month with a 14-day trial; the payment help describes subscriptions as billed yearly. It raises the limits to unlimited users, up to 5000 resources, and 90 days of data retention, and it adds asset management and a 24 hour support response.
+Teams advertises $449 per month with a 14-day trial; the payment help describes subscriptions as billed yearly. It raises the limits to unlimited users, up to 5000 resources, and 90 days of data retention, and it advertises a 24-hour support response. The Teams card labels asset management, policies and DORA metrics as additions, but the detailed matrix marks those features as included on Community too; confirm access before choosing a plan for those features.
 
 ## When you hit a limit
 
@@ -96,7 +97,7 @@ The limits belong to Terramate Cloud. The CLI is open source and runs in your ow
 
 - Terramate is not a CI/CD platform. You still need GitHub Actions, GitLab CI/CD, Bitbucket Pipelines, or similar to run the workflows.
 - Change detection works by comparing Git commits. The quickstart tells you to make an empty first commit so there is something to compare.
-- The CLI signs in to Terramate Cloud with Google by default. Use the github option for GitHub. Microsoft Entra ID is not supported in the CLI yet.
+- The CLI authentication reference documents --google and --github for local user sign-in. Use OIDC or an API key for CI; local user credentials are not intended for CI automation.
 
 ## Alternatives in this atlas
 

@@ -54,14 +54,17 @@ avoidIf:
 productionReadiness: production-light
 status: changed
 changes:
+  - date: '2026-11-23'
+    kind: changed
+    note: The official limits page now describes the two-second CPU budget per worker, replacing per-request wording in the November 16 source snapshot.
   - date: 2026-10-21
     kind: changed
     note: "Added Free signup and billing evidence and documented general Free fair-use restrictions."
   - date: 2026-10-06
     kind: changed
     note: "Distinguished the CLI and server-side function-bundle size limits."
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/docs/guides/functions'
@@ -83,7 +86,7 @@ You write functions as TypeScript files that run on Supabase's Deno-based Edge R
 
 ## What the free plan gives you
 
-The Free organization shares 500,000 Edge Function invocations per month across its projects. A function can use up to 256MB of memory. The wall-clock limit is 150s on Free and 400s on paid plans. A request gets up to 2s of CPU time, which does not count time spent waiting on async input and output. The request idle timeout is 150s.
+The Free organization shares 500,000 Edge Function invocations per month across its projects. A function can use up to 256MB of memory. The wall-clock limit is 150s on Free and 400s on paid plans. The current limits page states up to 2s of CPU time per worker, excluding async input and output. A worker can serve multiple requests or background tasks during its wall-clock lifetime; the November 16 source snapshot instead described this as per request. The request idle timeout is 150s.
 
 A function bundle can be up to 20MB when built locally with the CLI, or 5MB when bundled server-side. The Free plan allows up to 100 functions per project. Free projects pause after 1 week of inactivity, and you can have 2 active projects.
 
@@ -96,7 +99,7 @@ For runtime limits, the docs say that a function that sends no response before t
 ## Gotchas
 
 - Free projects pause after 1 week of inactivity, so a webhook receiver on a quiet project can stop working.
-- The CPU limit is 2s per request. Heavy work, and libraries that need multithreading such as sharp, are not supported.
+- The current documented CPU limit is 2s per worker. Heavy work, and libraries that need multithreading such as sharp, are not supported. Recursive calls are limited to 30 requests per trace within 60 seconds. Log messages are limited to 10,000 characters, with 100 events per 10 seconds. HTML responses need a custom domain; otherwise GET text/html responses are rewritten to text/plain.
 - Outgoing connections on ports 25 and 587 are blocked, so you cannot send mail over SMTP directly. Use an email API instead.
 
 ## Alternatives in this atlas
@@ -117,4 +120,4 @@ Free projects pause after 1 week of inactivity. Cold starts can also happen, so 
 
 ### What is the Supabase Edge Function time limit?
 
-The wall-clock limit is 150s on the Free plan and 400s on paid plans. CPU time is 2s per request.
+The wall-clock limit is 150s on the Free plan and 400s on paid plans. The current limits page defines CPU time as 2s per worker, which can handle several requests.

@@ -26,6 +26,7 @@ freeTierDetails:
     - 30 concurrent job runs on Docker, Linux VM, Arm, and Windows; 1 on macOS
     - 1 GB for cache and workspace restores on self-hosted runners and 2 GB-months of storage. Extra usage draws from your credits
     - Flaky test detection for up to 5 tests
+    - 1,000 Smarter Testing test atoms per month before extra credit consumption
   caveats:
     - No credit card required
     - Free credits expire each month and do not roll over
@@ -44,8 +45,7 @@ quickstartSteps:
     and pick the repository to connect.
   - Follow the in-app steps to set up a pipeline, and pick a starter config.yml
     such as Hello World in the config editor.
-  - Select Commit and Run. CircleCI adds .circleci/config.yml on a new branch
-    named update-circleci-config and starts a build.
+  - Review the generated configuration and select Commit config and run; the exact flow depends on your repository integration. The GitLab starter flow uses an update-circleci-config branch.
   - Open the pipeline, expand a job to read each step's output, and invite
     teammates under Org, People.
 whenToUse: >-
@@ -66,7 +66,7 @@ avoidIf:
   - heavy private builds that burn credits fast
   - you need SSO or config policies, which are Scale features
 productionReadiness: production-light
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://circleci.com/'
@@ -77,7 +77,7 @@ sourceUrls:
   - https://circleci.com/docs/guides/plans-pricing/plan-overview/
   - https://circleci.com/docs/guides/getting-started/getting-started/
   - https://circleci.com/open-source/
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 pricingUrl: 'https://circleci.com/pricing/'
 answer: >-
   CircleCI's free plan gives 30,000 credits a month for 5 users with no credit card, and personal builds stop at zero instead of billing while open source builds keep running.
@@ -95,12 +95,12 @@ The plan allows 5 active users and 30 concurrent job runs on Docker, Linux VM, A
 
 When your credits reach 0, personal builds are blocked until the credits refill at the start of the next month. Jobs fail to run in the meantime. Open source builds are not subject to this block and keep running even when the balance is empty.
 
-The Performance plan starts at $15 per month and adds credits at $15 for every 25,000 credits. If you queue more jobs than your concurrency allows, the extra jobs wait until a slot opens.
+The Performance plan starts at $15 per month and adds credits at $15 for every 25,000 credits. It automatically buys more credits when exhausted, normally about 25% of the monthly package with a minimum 25,000-credit refill. If you queue more jobs than your concurrency allows, the extra jobs wait until a slot opens.
 
 ## Gotchas
 
-- Free credits expire after a month and do not roll over.
-- The Free plan includes only 5 active users. On the Performance plan, each extra user costs 25,000 credits per month.
+- Free credits expire after a month and do not roll over. The Free plan includes only 5 active users. On the Performance plan, each extra user costs 25,000 credits per month.
+- Docker layer caching uses 200 credits per job run in addition to compute. Smarter Testing includes 1,000 test atoms/month on Free, then costs 3,000 credits per 100,000 atoms; reruns also count. These features can consume the same credit pool used for builds.
 - A minute on a bigger machine uses more credits than a minute on a small one, so the 3,000 minutes is a Linux Medium estimate.
 
 ## Alternatives in this atlas

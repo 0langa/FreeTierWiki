@@ -20,6 +20,7 @@ freeTierDetails:
   limits:
     - '50,000 monthly active users'
     - Unlimited total users
+    - A separate 50,000 monthly active third-party users allowance
     - Social OAuth logins and OAuth 2.1 server included
     - Basic multi-factor authentication and custom SMTP included
   caveats:
@@ -55,11 +56,10 @@ bestFor:
   - open-source apps
 avoidIf:
   - enterprise SSO required
-  - custom auth flows
   - apps that sit idle for a week
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://supabase.com/docs/reference/auth'
@@ -91,7 +91,7 @@ You use Supabase Auth through the Supabase client libraries or its REST API, and
 
 ## What the free plan gives you
 
-Supabase Auth is part of a Supabase project. The Free plan costs $0 and includes 50,000 monthly active users. The pricing page lists total users as unlimited, and social OAuth sign-in and basic multi-factor authentication are included.
+Supabase Auth is part of a Supabase project. The Free plan costs $0 and includes 50,000 monthly active users. The pricing page lists total users as unlimited, and social OAuth sign-in and basic multi-factor authentication are included. A separate allowance covers 50,000 monthly active third-party users. Auth audit logs are kept for 24 hours; email branding removal, leaked-password protection, single-session enforcement and session timeouts are not included on Free.
 
 The Free plan comes with project limits. Free projects are paused after 1 week of inactivity, and you can have 2 active projects. The Pro plan includes 100,000 monthly active users and then charges $0.00325 per monthly active user. The pricing page marks SSO for the Supabase dashboard, automatic backups, and certifications such as SOC2 as not included in Free.
 
@@ -99,11 +99,11 @@ The Free plan comes with project limits. Free projects are paused after 1 week o
 
 Supabase does not charge for Free quota excess. Continued excess can restrict all projects in an organization. The docs give no separate response for crossing the Auth MAU allowance. On Pro, the Spend Cap can stop excess use until the next billing cycle.
 
-Auth also has rate limits on its endpoints, which protect against abuse. When you pass them, Supabase Auth returns a 429 error. Most limits use a token bucket with a capacity of 30 requests, so a short burst is fine but steady traffic above the rate is denied. Some limits can be changed in the project's Authentication settings.
+Auth also has rate limits on its endpoints, which protect against abuse. When you pass them, Supabase Auth returns a 429 error. Most IP-based limits use a token bucket with a capacity of 30 requests, so a short burst is fine but steady traffic above the rate is denied. Anonymous sign-ins are an exception: burst capacity equals the configured hourly allowance, which defaults to 30. Some limits can be changed in the project's Authentication settings.
 
 ## Gotchas
 
-- A free project pauses after 1 week of inactivity. The built-in Auth email provider is limited to 2 emails per hour; configure your own SMTP or Send Email hook for a larger flow.
+- A free project pauses after 1 week of inactivity. The built-in Auth email provider is limited to 2 emails per hour per project; configure your own SMTP or Send Email hook for a larger flow.
 - Only 2 active projects fit on the Free plan, so a dev, staging, and production setup needs a paid plan.
 - Enterprise SSO (SAML) and phone-based advanced MFA need a paid plan, according to the pricing page.
 

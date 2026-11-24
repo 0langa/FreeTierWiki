@@ -16,6 +16,7 @@ freeTierDetails:
   summary: Free Hobby plan includes 100 Amazon product data API requests per month.
   limits:
     - 100 requests/month
+    - 20 requests/minute on Hobby; excess requests return HTTP 429 until the minute passes
   caveats:
     - Pay-as-you-go plan charges $0.01 per request after the first 100
     - Premium plan starts at $99/month and includes 20K requests
@@ -44,8 +45,8 @@ avoidIf:
   - need high-volume production without paying
   - need data from sites other than Amazon
 productionReadiness: prototype
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://www.canopyapi.co/'
@@ -59,7 +60,7 @@ changes:
     kind: changed
     note: Aligned card and cap flags with unpublished policies while retaining Hobby’s explicit no-additional-charges promise.
 answer: >-
-  Canopy's free Hobby plan includes 100 Amazon product data requests a month with no additional charges promised, but the card rule and a hard cap are not confirmed.
+  Canopy's free Hobby plan includes 100 requests a month and allows 20 per minute with HTTP 429 above that rate; the card rule and monthly exhaustion behavior remain unconfirmed.
 
 ---
 You sign up in the dashboard, copy an API key, and call REST or GraphQL endpoints, or use the MCP server from an AI agent. It suits developers who want Amazon listing data without building a scraper or waiting for Amazon's official access.
@@ -73,6 +74,8 @@ You get the same API key for REST, GraphQL, and MCP. The paid plans add volume. 
 ## When you hit a limit
 
 On the Hobby plan, the pricing page lists no additional charges, so the plan does not turn into a bill by itself. The pricing page does not say exactly what the API returns once you use up the 100 requests.
+
+The separate Hobby rate limit is explicit: up to 20 requests per minute. Requests above that receive HTTP 429 until the minute passes. Paid plans do not have this Hobby rate limit.
 
 To get more requests, move to the pay-as-you-go plan or to Premium. Both are billed monthly, and the page says volume discounts apply automatically as you grow. Check the dashboard before you run a large batch.
 
@@ -95,7 +98,7 @@ Yes, within limits. The Hobby plan gives you 100 requests per month, forever, wi
 
 ### What happens when I go over the Canopy free limit?
 
-The pricing page lists no additional charges on the Hobby plan and does not say how the API responds past 100 requests. Move to pay-as-you-go to get extra requests at $0.01 each.
+The pricing page lists no additional charges on Hobby and does not say how the API responds past 100 monthly requests. Its separate 20-request-per-minute limit returns HTTP 429 until the minute passes. Pay-as-you-go offers extra monthly requests at $0.01 each.
 
 ### Does Canopy have an MCP server for AI agents?
 

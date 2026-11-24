@@ -17,16 +17,17 @@ freeTierDetails:
   summary: >-
     Included in the Workers Free plan: 100,000 requests per day shared with
     Workers, 3,000 steps per day, 1 GB-month of storage, and 10 milliseconds of
-    CPU time per invocation.
+    CPU time under the Free limit.
   limits:
     - '100,000 requests per day, shared with Workers requests'
     - '3,000 steps per day'
     - 1 GB-month of storage
-    - 10 ms CPU time per invocation
+    - 10 ms CPU limit; pricing says per invocation, limits reference says per step
     - '1,024 steps per Workflow and 100 concurrent active instances'
   caveats:
     - 'Billing for steps and storage applies starting August 10th, 2026'
     - Instance state is kept for 3 days on the Free plan by default
+    - Pricing and limits pages disagree on whether the 10 ms CPU limit is per invocation or per step
     - >-
       An instance that tries to store state past the Free plan storage limit
       throws an error
@@ -53,7 +54,7 @@ whenToUse: >-
   with retries and waits that survives failures.
 whenNotToUse: >-
   Skip it if each step needs much CPU on the Free plan, which allows 10
-  milliseconds per invocation, or if you need more than 3,000 steps a day
+  milliseconds of CPU under its published limit, or if you need more than 3,000 steps a day
   without paying.
 bestFor:
   - durable multi-step jobs on Workers
@@ -62,8 +63,8 @@ avoidIf:
   - CPU-heavy steps on the Free plan
   - very high step counts for free
 productionReadiness: production-light
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://developers.cloudflare.com/workflows/'
@@ -80,15 +81,14 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Cloudflare Workflows on the Workers Free plan has fixed limits of 3,000 steps a day and 10 milliseconds of CPU per invocation, and billing for extra steps and storage applies only on Workers Paid.
+  Cloudflare Workflows on the Workers Free plan has fixed limits of 3,000 steps a day and 10 milliseconds of CPU with conflicting published scope, and billing for extra steps and storage applies only on Workers Paid.
 
 ---
-
 Workflows lets you write a multi-step process as code in a Cloudflare Worker. Each step runs and is retried on its own, state is saved between steps, and a workflow can sleep or wait on an API response without using CPU time. It suits developers on Cloudflare who need background processes that pick up where they left off after a failure.
 
 ## What the free plan gives you
 
-Workflows is included in both the Free and Paid Workers plans. On Workers Free you get 100,000 requests per day, shared with Workers requests, 10 milliseconds of CPU time per invocation, 1 GB-month of storage, and 3,000 steps per day. Billing for steps and storage applies starting August 10th, 2026.
+Workflows is included in both the Free and Paid Workers plans. On Workers Free you get 100,000 requests per day, shared with Workers requests, a 10-millisecond CPU limit, 1 GB-month of storage, and 3,000 steps per day. Billing for steps and storage applies starting August 10th, 2026.
 
 The Free plan allows up to 1,024 steps per Workflow, 100 concurrent active instances per account, and 100MB of persisted state per instance. Waiting instances do not count toward that concurrency limit. A step.sleep can last up to 365 days, and instance state is retained for 3 days by default.
 
@@ -100,8 +100,8 @@ On Workers Paid, the plan includes 10 million requests and 30 million CPU millis
 
 ## Gotchas
 
-- Storage counts running, errored, sleeping, and completed instances, so set a shorter retention period if you do not need old state.
-- Waiting on a response or sleeping uses no CPU time, but each step still counts toward the 3,000 per day.
+- Storage counts running, errored, sleeping, and completed instances, so set a shorter retention period if you do not need old state. Storage uses the average daily peak over a 30-day period, not just the current size. Each non-stream step result and event payload is limited to 1 MiB.
+- Waiting on a response or sleeping uses no CPU time. The billed step count excludes retries and rollback handlers; starting an instance is an invocation, while its individual steps are not. Pricing describes the 10 ms Free CPU limit per invocation; the limits reference describes it per step. Confirm the scope before designing CPU-heavy workflows.
 - Workflows cannot be deployed to Workers for Platforms namespaces.
 
 ## Alternatives in this atlas

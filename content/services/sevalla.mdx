@@ -18,7 +18,8 @@ freeTierDetails:
     - 100 sites per account
     - 100 GB bandwidth per month
     - 600 build minutes per month
-    - 1 GB build size and 1 concurrent build per site
+    - 1 GB publish directory per deployment; 1 production deployment at a time per site
+    - 30-minute build limit; at most 10 running or queued deployments per site
   caveats:
     - The docs say the dashboard asks for billing details and a valid payment method before you create any service
     - Fair use policy applies
@@ -54,8 +55,8 @@ avoidIf:
   - server-side rendering
   - PHP builds
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://sevalla.com/static-site-hosting/'
@@ -84,7 +85,7 @@ You add a site from the Sevalla dashboard, connect a Git provider, and Sevalla b
 
 ## What the free plan gives you
 
-Static site hosting is free for up to 100 sites per account. Each billing period a Sevalla company shares 100 GB of bandwidth and 600 build minutes across all its static sites. Each site has a build size of 1 GB and 1 concurrent build.
+Static site hosting is free for up to 100 sites per account. Each billing period a Sevalla company shares 100 GB of bandwidth and 600 build minutes across all its static sites. Each deployment has a 1 GB publish-directory limit and a 30-minute build limit. Production deployments run one at a time per site; up to 10 production and preview deployments can be running or queued together.
 
 The pricing page lists static site hosting on more than 260 global edge locations. The Static Sites page of the docs lets you add a site from a Git repository, set a build command and publish directory, and read a build and rollout log for each deployment. The docs support GitHub, GitLab, and Bitbucket as Git providers, with auto-deploy and pull request previews for connected private-repository sources. Public Git URLs require manual deployment.
 
@@ -92,11 +93,11 @@ The pricing page lists static site hosting on more than 260 global edge location
 
 You can keep going past the free amounts, but usage is billed. After the first 100 GB of bandwidth in a month, Sevalla charges $0.1 per GB, counted by the byte. After the first 600 build minutes, it charges $0.05 per minute.
 
-The invoice covers only bandwidth and build time for static sites. The static site docs say the company needs billing details and a valid payment method before you create any service, even though static sites are free up to the allowances. Pull request previews create a new deployment for each pull request, so they add to build minutes and bandwidth.
+The invoice covers only bandwidth and build time for static sites. The static site docs say the company needs billing details and a valid payment method before you create any service, even though static sites are free up to the allowances. With pull request previews enabled, pushes to other branches create preview deployments, so they add to build minutes and bandwidth.
 
 ## Gotchas
 
-- Sites that need server-side rendering, a database connection, sessions, or a build in a language other than Node.js fit better on Sevalla's paid application hosting.
+- Sites that need server-side rendering, a database connection, sessions, or a build in a language other than Node.js fit better on Sevalla's paid application hosting. Set the publish directory to the build output folder. Leaving it empty can publish source files from the repository root; the documented exclusions are `.git`, `node_modules`, and `.env` files.
 - A site's permanent name comes from its display name plus a random suffix and never changes. You can edit the display name later.
 - Static sites cannot run dynamic features such as contact forms on their own. The docs point to outside form services for that.
 

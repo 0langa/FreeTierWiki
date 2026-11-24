@@ -33,7 +33,7 @@ freeTierDetails:
 quickstartSteps:
   - Choose Create Account on desec.io.
   - Add a managed domain, or import your existing domain's records in the web interface.
-  - Point your domain's name servers at deSEC, following the deSEC documentation.
+  - Point your domain's name servers at deSEC and publish the returned DS records through your registrar to secure the delegation.
   - Create an API token if you want to manage records from scripts or Terraform.
 whenToUse: >-
   Use deSEC when you want free DNS hosting with DNSSEC and an API for domains
@@ -49,8 +49,8 @@ avoidIf:
   - you need a free dedyn.io hostname today
   - you need an SLA
 productionReadiness: production-light
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 7
 officialUrl: 'https://desec.io/'
@@ -70,7 +70,6 @@ answer: >-
   deSEC is free for everyone with no paid plan, but new dedyn.io sign-ups are suspended, the per-account domain cap is unpublished, and the card rule is not confirmed.
 
 ---
-
 deSEC is a DNS hosting service run by deSEC e.V., a non-profit based in Berlin. It runs on free and open-source software and hosts your domain's records on global anycast name servers, signed with DNSSEC.
 
 ## What the free plan gives you
@@ -87,8 +86,8 @@ Subdomains that deSEC offers itself, such as names under dedyn.io, are limited t
 
 ## Gotchas
 
-- Free dedyn.io dynDNS names are not available while registration is suspended; bring your own domain.
-- The official API page does not give the per-account domain cap as a number, only the 403 response when you reach it.
+- Free dedyn.io dynDNS names are not available while registration is suspended; bring your own domain. The official API page does not give the per-account domain cap as a number, only the 403 response when you reach it.
+- Zonefile imports ignore existing DNSKEY and apex NS records and generate deSEC replacements. Publish the new DS records through your registrar; stale DS records can break resolution.
 - deSEC is donation-funded with grants and sponsors; the reviewed pages state no service-level agreement or explicit card requirement.
 
 ## Alternatives in this atlas

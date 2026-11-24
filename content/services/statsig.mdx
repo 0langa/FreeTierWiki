@@ -21,7 +21,7 @@ freeTierDetails:
   limits:
     - Unlimited seats
     - 2 million events/month
-    - '50,000 session replays/month'
+    - '50,000 session replays/month, retained for 30 days'
     - Unlimited feature flag & config checks
   caveats:
     - Free tier keeps 1 year of analytics retention (Pro has unlimited retention)
@@ -64,8 +64,8 @@ avoidIf:
   - need change approvals
   - need more than 1 year of analytics retention
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: '2026-10-09'
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.statsig.com'
@@ -84,11 +84,11 @@ You create gates and experiments in the Statsig console and call them from an SD
 
 ## What the free plan gives you
 
-The Developer tier is free and needs no credit card. When you sign up, you start on it automatically. It gives you free access to gates, configs, experimentation, and analytics. You get 2 million events per month at no charge, unlimited flag and config checks, 50,000 session replays per month, and unlimited seats.
+Signup automatically starts no-card Developer with gates, configs, experimentation and analytics: 2 million monthly events, unlimited flag/config checks, 50,000 monthly session replays and unlimited seats.
 
-Statsig bills by metered events, which are the events and exposures your app sends. Experiment checks with no allocation, and flags that are fully shipped or disabled, do not generate metered events. Statsig also dedupes repeat exposure events for the same user. By default, one event dimension with each log event is free.
+Metered events include sent events/exposures and ingested/custom metrics. Unallocated experiment checks and fully shipped/disabled flags generate none. Repeat user/feature-or-experiment exposures deduplicate for 60 minutes in client SDKs and one minute in server SDKs. One Value-field dimension is free; each additional dimension counts as another log event.
 
-The Developer tier keeps 1 year of analytics data. The Pro tier, at $150 per month, includes 5M events and unlimited analytics retention.
+Developer retains analytics for 1 year and replays for 30 days; event quotas reset each calendar month. Pro costs $150/month for 5M events and unlimited analytics retention.
 
 ## When you hit a limit
 

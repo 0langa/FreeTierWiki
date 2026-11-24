@@ -16,13 +16,13 @@ tags:
 freeTierDetails:
   summary: >-
     Free plan at $0 with no signup: 25 sites, 25 MB per site, 60 publishes an
-    hour, the last 10 versions of each site kept, and 1 custom domain.
+    hour, the last 5 versions of each site kept, and 1 custom domain.
   limits:
     - 25 sites per token
     - 25 MB per site
     - 10 GB monthly transfer per owner, excluding CDN cache hits
     - 60 publishes per hour
-    - 10 versions kept per site by default
+    - 5 versions kept per site by default
     - 1 custom domain and 1 webhook
     - 4 MB per single request body; larger sites use a manifest upload
   caveats:
@@ -57,8 +57,8 @@ avoidIf:
   - you need private sites for free
   - you need more than 25 MB per site
 productionReadiness: side-project
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 2
 usefulnessScore: 6
 officialUrl: 'https://deed.page/'
@@ -69,7 +69,11 @@ sourceUrls:
   - 'https://deed.page/docs'
   - 'https://deed.page/terms'
   - 'https://deed.page/'
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: "Observed Free retained versions reduced from ten to five; effective date not published. Added analytics, form and AI-builder scope."
   - date: '2026-11-02'
     kind: changed
     note: "Added the documented 10 GB monthly transfer cap per owner and its warning and limit-page behavior."
@@ -80,12 +84,11 @@ answer: >-
   deed.page needs no signup for 25 sites of 25 MB each and 10 GB monthly transfer per owner, payment requires human checkout, and a lost token cannot be restored without a recovery email.
 
 ---
-
 deed.page hosts static sites that are published by a single HTTP request. Send an HTML file or a tarball of a folder with PUT or POST to the sites endpoint, or call the remote MCP server, and the JSON response returns a live HTTPS address on a subdomain plus a token. It is aimed at AI agents and scripts that need to put a page online without a human step.
 
 ## What the free plan gives you
 
-Free includes 25 sites, 25 MB per site, 60 publishes an hour, 1 custom domain, 1 webhook, and 10 saved versions per site. Each owner gets 10 GB of monthly transfer. Files served from the CDN cache are exempt. Publishing requires neither signup nor email. Analytics, the MCP server and subdomains come with every plan, and sites never expire. Free sites show a small deed.page badge; a one-time $9 clean publish removes it from one site.
+Free includes 25 sites, 25 MB per site, 60 publishes an hour, 1 custom domain, 1 webhook, and 5 saved versions per site. Each owner gets 10 GB of monthly transfer. Files served from the CDN cache are exempt. Publishing requires neither signup nor email. Analytics, the MCP server and subdomains come with every plan, and sites have no scheduled expiry. The terms do not guarantee uptime or preservation of data; keep your own copy. Free sites show a small deed.page badge; a one-time $9 clean publish removes it from one site and raises that site to 100 MB.
 
 Paid plans attach to the same token. Hobby is $3 a month for 250 sites of 100 MB with no badge, and Pro is $15 a month for 2,500 sites of 500 MB. A human pays a Stripe checkout link.
 
@@ -99,9 +102,9 @@ Exceeding the hourly publish limit returns rate_limited (429), retry_after and a
 
 ## Gotchas
 
-- The token is shown once and the service keeps only a hash of it. Without the optional recovery email, a lost token cannot be restored, and the sites can no longer be updated.
-- Publishing new slugs with the same token keeps them under one owner, so the 25-site limit applies per token.
-- Setting a site password requires Hobby or Pro. An existing password stays in effect after downgrading until you clear it.
+- The token is shown once and the service keeps only a hash of it. Without the optional recovery email, a lost token cannot be restored, and the sites can no longer be updated. Publishing new slugs with the same token keeps them under one owner, so the 25-site limit applies per token.
+- Setting a site password requires Hobby or Pro. An existing password stays in effect after downgrading until you clear it. Hosted contact/booking form submissions also require a paid plan.
+- Free includes 90-day analytics and seven-day visit history. AI building has a separate one-time allowance of one build and three edits; ordinary publishing does not use those credits. Version retention includes the live version. Downgrading prunes history on the next publish or restore, not immediately. The optional once-per-account public-share reward adds ten retained versions; ordinary Free retains five.
 
 ## Alternatives in this atlas
 

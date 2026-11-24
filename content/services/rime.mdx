@@ -2,7 +2,7 @@
 title: Rime
 description: >-
   Rime offers hosted speech models for synthesis, transcription and
-  interactive voice. It prices model usage by the minute.
+  interactive voice. It presents minute-based rates, with synthesis actually metered by characters.
 provider: Rime
 domain: ai
 tags:
@@ -16,19 +16,19 @@ freeTierDetails:
     - $50 of Rime model usage per month
     - Access across the model lineup listed for Free
   caveats:
-    - Usage duration and model determine how quickly the balance is spent
+    - The model and its audio-duration or generated-character meter determine how quickly the balance is spent
     - Upgrading to Flex enables billed usage
     - Temporary promotions are separate from the recurring balance
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
   billingRiskNotes:
-    - Free refreshes monthly without a card. Flex is a separate billed plan.
+    - Free refreshes monthly without rollover or a card. Continuing after exhaustion requires moving to Flex with a card.
 quickstartSteps:
   - Create a Free account.
-  - Choose a speech model for a small input.
+  - Copy an API key from API Tokens and choose a speech model for a small input.
   - Make a representative API request.
   - Review the usage and output before expanding the workload.
 whenToUse: >-
@@ -43,22 +43,26 @@ avoidIf:
   - estimating minutes without selecting a model
   - continuous high traffic
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://www.rime.ai/'
 pricingUrl: 'https://www.rime.ai/pricing'
 sourceUrls:
+  - 'https://docs.rime.ai/docs/quickstart-five-minute'
   - "https://www.rime.ai/pricing"
-status: active
+status: changed
 changes:
+  - date: 2026-11-20
+    kind: changed
+    note: The all-plan STT promotion ended November 19; transcription is now $0.002 per minute on Flex or $0.0016 on Scale, while Free retains its $50 monthly allowance.
   - date: 2026-11-16
     kind: new
     note: Added the recurring no-card voice API allowance.
 answer: >-
   Rime gives $50 of free voice API usage each month without a card, and how
-  long it lasts depends on the model and duration you use.
+  long it lasts depends on the model and its billing meter.
 
 ---
 Rime provides speech models through a hosted service. An application can generate speech from text or try a different audio model for a voice workflow. A first evaluation should use representative audio or text so you can compare the result as well as the amount of usage.
@@ -69,13 +73,13 @@ Free provides $50 of usage each month and requires no card. The plan advertises 
 
 ## When you hit a limit
 
-The pricing page describes a move to Flex if you need more usage. That plan is billed by the minute to a card. The public Free description does not explicitly say what error or account state occurs at exhaustion. Check the balance before a scheduled voice test and leave capacity available for any follow-up. Separate transcription, generated speech, and interactive call usage in your logs. That makes it easier to estimate which parts of the workflow will need extra capacity in a paid deployment.
+The pricing FAQ says Free credit does not roll over and continuing after it is exhausted requires moving to Flex and adding a card. Flex has no monthly fee or minimum; charges follow model usage. The exact exhaustion error is not documented. Check the balance before a scheduled voice test and leave capacity available for any follow-up. Separate transcription, generated speech, and interactive call usage in your logs. That makes it easier to estimate which parts of the workflow will need extra capacity in a paid deployment.
 
 ## Gotchas
 
-- The balance renews monthly, and voice models can spend it at different rates.
+- The balance renews monthly without rollover. Synthesis is metered by generated characters, approximately 1,000 per displayed minute; transcription and Prism use audio duration.
 - Keep other services in a call pipeline separate when estimating total cost.
-- A short-run model promotion may change independently of the Free allowance.
+- The all-plan transcription promotion ended November 19, 2026. From November 20, STT costs $0.002 per minute on Flex or $0.0016 on Scale; Free still includes STT within its monthly balance.
 
 ## Alternatives in this atlas
 

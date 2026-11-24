@@ -29,6 +29,7 @@ freeTierDetails:
       Workers that handle incoming email count toward the Workers Free CPU and
       memory limits
     - Sending to arbitrary recipients needs the Workers Paid plan
+    - Free sends to verified destinations must use your routing domains
   resetPeriod: none
   requiresCard: false
   freeTierType: always-free
@@ -42,7 +43,7 @@ quickstartSteps:
   - Use Cloudflare DNS for your domain.
   - >-
     Open Email Routing in the dashboard, select Onboard Domain, and let
-    Cloudflare add the MX and SPF records.
+    Cloudflare add the MX, SPF, and DKIM records.
   - 'Add and verify a destination address, such as your personal inbox.'
   - >-
     Create a routing rule that maps a custom address on your domain to that
@@ -60,8 +61,8 @@ avoidIf:
   - you need hosted mailboxes
   - you need to send to arbitrary recipients for free
 productionReadiness: production-ready
-lastUpdated: 2026-10-11T00:00:00.000Z
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.cloudflare.com/developer-platform/products/email-routing/'
@@ -81,7 +82,6 @@ answer: >-
   Cloudflare Email Routing has no charge for inbound routing, Workers Free accepts unlimited mail up to 25 MiB, and sending to arbitrary recipients needs Workers Paid.
 
 ---
-
 Email Routing receives mail sent to addresses on your domain and routes it to custom addresses, Workers, or external destinations, such as your existing inbox. It now sits inside Cloudflare Email Service, next to the paid sending feature. It suits developers and small teams with a domain on Cloudflare who want addresses like support@ without paying for mailboxes.
 
 ## What the free plan gives you
@@ -92,14 +92,14 @@ Each domain can have 200 routing rules, and each rule maps an email pattern to o
 
 ## When you hit a limit
 
-There is no bill for inbound email. The limits are hard ones: messages larger than 25 MiB are rejected, and you cannot add rules or destinations past the counts above.
+There is no bill for inbound email. Messages larger than 25 MiB are rejected, and the listed rule and destination limits constrain setup. Cloudflare accepts limit-increase requests but does not guarantee that a particular limit can be raised.
 
 If a Worker handles incoming email, it counts toward the standard Workers CPU and memory limits. On the Workers Free plan, a complex handler may exceed those limits and fail to process a message. Sending email to arbitrary recipients is a separate feature that requires the Workers Paid plan, with 3,000 emails included per month.
 
 ## Gotchas
 
-- Each routing rule sends to one destination; to forward one pattern to several inboxes you need a Worker that calls forward() once per destination.
-- Every destination must be verified before it receives mail.
+- Each routing rule sends to one destination; to forward one pattern to several inboxes you need a Worker that calls forward() once per destination. Every destination must be verified before it receives mail. Free sends to verified destinations do not consume monthly or daily sending quotas, but must originate from your routing domains.
+- A Worker reply fails if the incoming email contains more than 100 References entries. Sends through the send_email binding can appear as dropped in the routing summary even when delivered; use sending metrics to check delivery.
 - You must be using Cloudflare DNS for your domain to use Email Service.
 
 ## Alternatives in this atlas

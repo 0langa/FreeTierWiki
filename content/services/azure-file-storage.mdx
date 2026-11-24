@@ -38,7 +38,8 @@ freeTierDetails:
 quickstartSteps:
   - Create an Azure free account with a Microsoft or GitHub account, a phone number, and a credit or debit card.
   - In the Azure portal, search for storage accounts and select + Create to make one.
-  - Choose Standard HDD, locally redundant storage and pay-as-you-go billing for the published LRS offer. Use an SMB share for this configuration.
+  - Choose Standard HDD, locally redundant storage and pay-as-you-go billing for the published LRS offer. Use a StorageV2 account with Standard_LRS for this configuration.
+  - Open Data storage, then Classic file shares, select + Classic file share, and choose an SMB share with Transaction optimized, Hot, or Cool access. Review the default-enabled Azure Backup option before creating it.
   - Mount the share on a Windows, Linux, or macOS client.
   - Copy files to the share and check your free usage in the portal.
 whenToUse: >-
@@ -64,7 +65,7 @@ changes:
   - date: 2026-10-09
     kind: changed
     note: Free storage is a 12-month offer for new Azure free accounts, not always-free, and extra usage is billed without a hard cap.
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
@@ -77,10 +78,10 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/storage/files/storage-files-introduction'
   - 'https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 pricingUrl: 'https://azure.microsoft.com/en-us/pricing/details/storage/files/'
 answer: >-
-  Azure File Storage needs a card and gives new accounts 100 GB of LRS files and 2 million operations a month for 12 months, and extra storage is billed with no hard cap.
+  Azure File Storage needs a card and gives new accounts 100 GB of LRS files and 2 million operations a month for 12 months, and after a pay-as-you-go upgrade, extra usage is billed with no hard cap.
 
 ---
 You create a file share inside an Azure storage account, then mount it from your machines. You can set it up in the Azure portal, PowerShell, or the Azure CLI, and you can also reach it through the REST API and the Azure Storage client libraries.
@@ -95,7 +96,7 @@ The free amount is monthly. Azure's cost guide says unused free storage does not
 
 After upgrading to pay-as-you-go, the applicable allowance is not a spending cap. If your usage goes above the free amount, you pay the extra at pay-as-you-go rates. The cost guide says this applies once your account is upgraded.
 
-The free account also has a starting credit. You must move to pay-as-you-go within 30 days, or when the credit is used up, to keep receiving free services. After the 12 months end, services you still use keep running and are billed at normal rates. Delete the shares you no longer need.
+The free account also has a starting credit. You must move to pay-as-you-go within 30 days, or when the credit is used up, to keep receiving free services. After the 12 months end, services you still use keep running and are billed at normal rates. Delete shares you no longer need, but account for soft-delete retention: used storage remains billable during that period, which defaults to 7 days.
 
 ## Gotchas
 
@@ -121,4 +122,4 @@ Yes. Azure uses a phone number and a credit or debit card to check your identity
 
 ### What happens when I go over the free Azure Files amount?
 
-Azure bills the extra storage at pay-as-you-go rates. There is no hard cap, so watch your usage in the portal.
+After a pay-as-you-go upgrade, Azure bills extra storage and operations at normal rates with no hard cap. An unupgraded free account stops services when its trial credit expires or runs out.

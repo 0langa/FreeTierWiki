@@ -39,7 +39,7 @@ freeTierDetails:
 quickstartSteps:
   - Sign up for the Free plan on airtable.com.
   - Create a base from a template or by importing a CSV file.
-  - Create a personal access token and call the Web API to read and write records.
+  - Create a personal access token with the required scopes and access to your base; send it as an Authorization Bearer header when calling the Web API.
 whenToUse: >-
   Use Airtable when a few people need a friendly shared table with views,
   forms, and light automation, and the data fits in 1,000 records per base.
@@ -53,13 +53,14 @@ avoidIf:
   - apps that call the API often
   - bases past a thousand records
 productionReadiness: side-project
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://www.airtable.com/'
 docsUrl: 'https://airtable.com/developers/web/api/introduction'
 sourceUrls:
+  - 'https://airtable.com/developers/web/guides/personal-access-tokens'
   - 'https://airtable.com/pricing'
   - 'https://support.airtable.com/articles/2277136852-airtable-plans-overview'
   - 'https://support.airtable.com/articles/7735693959-Managing-API-call-limits-in-Airtable'
@@ -82,13 +83,13 @@ Airtable is a hosted database that looks like a spreadsheet. You build tables wi
 
 Airtable's Free plan is for individuals, very small teams, and lightweight needs, and all users on it are free. You get unlimited bases, each holding up to 1,000 records and 1 GB of attachments. One workspace can have up to 5 editors and 50 commenters.
 
-Each month the Free plan includes 100 automation runs and 1,000 API calls. Revision and snapshot history goes back 2 weeks. Each editor also gets 500 AI credits each month. Grid, kanban, calendar, and list views are included, and so is the Interface Designer.
+Each workspace gets 100 automation runs and 1,000 API calls per month. You can define up to 75 automations per base. Failed and canceled automation runs count too, and unused runs do not roll over. Revision and snapshot history goes back 2 weeks. Each editor also gets 500 AI credits each month. Grid, kanban, calendar, and list views are included, and so is the Interface Designer.
 
 ## When you hit a limit
 
-Airtable answers this on its pricing page. If you reach or go over the record or attachment limits, you can still use your bases and Airtable never removes your data. Airtable notifies you, and you cannot add more records or attachments until you upgrade.
+At record or attachment limits, bases remain usable and data is retained, but additions stop until upgrade. Automation runs are capped. API excess gets a one-time 30-day grace period, then blocks until the next calendar month. Metadata and third-party integrations share that quota.
 
-Automation runs are capped. API calls have a one-time 30-day grace period when the workspace first exceeds its monthly allowance; after that, calls above the limit are blocked until the next calendar month. Team costs $20 per seat per month billed annually, or $24 billed monthly. Adding a payment method during the initial 14-day Team trial automatically upgrades and bills the workspace.
+After downgrading from Team, earlier calls still count; an exhausted grace period can leave integrations blocked until reset. Team costs $20 per seat/month annually or $24 monthly. Adding a payment method during the initial 14-day Team trial automatically upgrades and bills the workspace. Airtable sends limit notifications, so monitor both workspace usage and integrations before adding records or changing plans.
 
 ## Gotchas
 

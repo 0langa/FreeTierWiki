@@ -23,6 +23,7 @@ freeTierDetails:
     - The 100 credits are a starter amount, not a monthly refill; credits renew monthly only on paid plans
     - Browser runs cost 1 credit per page after the first 5
     - Free accounts allow 3 saved recipes; card requirements are not published
+    - Scrape results are stored for 30 days per run
   resetPeriod: none
   requiresCard: unknown
   freeTierType: always-free
@@ -30,7 +31,7 @@ freeTierDetails:
   overageRisk: low
 quickstartSteps:
   - Add Simplescraper to Chrome from the Chrome Web Store.
-  - Sign up; your API key then appears on your Account Page.
+  - Browser runs of up to 5 pages need no account; sign up to save recipes or use cloud credits and the API key on your Account Page.
   - Open a web page, start the extension, and click the elements you want.
   - Export the result as CSV, JSON, or Markdown, or save the selection as a recipe to reuse.
   - Run the recipe again, or call the API with `POST /recipes/:recipeId/run` and your Bearer API key.
@@ -50,8 +51,8 @@ avoidIf:
   - you need more than 3 saved recipes for free
   - you want a code-first crawler
 productionReadiness: prototype
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://simplescraper.io'
@@ -84,7 +85,7 @@ Credits are priced by where and how a page runs. One page in the cloud with Java
 
 ## When you hit a limit
 
-The API guide documents an out-of-credits 402 response. The 100 credits are a starter amount; credits refresh each billing period on paid subscriptions and expire when the subscription ends. Paid plans start at $39 per month for 6,000 credits. The public pages do not state a free-account card requirement.
+The API guide documents an out-of-credits 402 response. A cloud run or crawl stops when credits run out, while browser runs of up to five pages stay free. The 100 credits are a starter amount; credits refresh each billing period on paid subscriptions and expire when the subscription ends. Paid plans start at $39 per month for 6,000 credits. Purchased top-ups expire at the next renewal. Results last 30 days/run; preserve them through downloads, integrations or incremental datasets. Free card requirements are unpublished.
 
 The API guide accepts up to 5,000 URLs in a bulk call, but the number actually scraped is capped by available credits. Keep free browser runs separate from cloud jobs: their credit rules differ.
 

@@ -12,7 +12,7 @@ tags:
   - code-interpreter
   - llm
 freeTierDetails:
-  summary: Hobby plan is free with $100 of one-time usage credits. No card needed.
+  summary: Hobby includes $100 of one-time usage credits; some accounts need a $5 card verification payment.
   limits:
     - $100 one-time usage credit
     - Up to 10 concurrent sandboxes
@@ -21,20 +21,22 @@ freeTierDetails:
     - 10 GiB disk per sandbox
     - Usage billed per second from the credit
   caveats:
+    - Some accounts must make a non-refundable $5 card verification payment, added as usage credit
     - The credit does not refill
     - Continuous runtime is 1 hour on Hobby and 24 hours on Pro
-    - When the credit runs out the account is blocked until you add a payment method
+    - Without a payment method, credit exhaustion blocks workspace projects; continued use with a payment method is billed
   resetPeriod: none
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: credit
-  hasHardCap: true
-  overageRisk: none
+  hasHardCap: unknown
+  overageRisk: low
 quickstartSteps:
-  - Create an E2B account. Every new account gets $100 in credits.
+  - Create an E2B account for $100 in credits; check whether the account requires the $5 verification payment.
   - Open the E2B Dashboard, copy your API key, and save it as `E2B_API_KEY` in a `.env` file.
   - Install the SDK with `pip install e2b-code-interpreter python-dotenv`, or `npm i @e2b/code-interpreter dotenv`.
   - Call `Sandbox.create()` to start a sandbox.
   - Run code inside it with `sbx.run_code(...)` and list files with `sbx.files.list("/")`.
+  - Call `sbx.kill()` when finished to stop compute billing.
 whenToUse: >-
   Use E2B when you build an agent or app that must run untrusted or
   model-written code in an isolated cloud sandbox.
@@ -50,8 +52,8 @@ avoidIf:
   - you need more than 10 concurrent sandboxes on the free plan
   - you cannot add a payment method once the credit is used
 productionReadiness: side-project
-lastUpdated: 2026-11-09
-lastVerified: '2026-11-15'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://e2b.dev'
@@ -74,14 +76,14 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  E2B has no ongoing free plan: Hobby is a one-time $100 credit with no card that never refills, sessions run up to one hour, and the account is blocked when the credit is gone.
+  E2B Hobby provides a one-time $100 credit and one-hour sessions, but some accounts require a non-refundable $5 card verification payment; projects without a payment method are blocked when credits run out.
 
 ---
 You use E2B through its Python or JavaScript SDK with an API key from the dashboard. Your code starts a sandbox, runs code in it, and reads the results. It suits developers who build AI agents and code interpreters and need a safe place for generated code to run.
 
 ## What the free plan gives you
 
-The Hobby plan has a base price of $0 per month and a one-time $100 usage credit. No credit card is required. You can run up to 10 concurrent sandboxes. Each sandbox can use up to 8 vCPUs and 8 GiB of memory, and it can run for 1 hour before you must pause it.
+The Hobby plan has a base price of $0 per month and a one-time $100 usage credit. The pricing footnote says some accounts must make a non-refundable $5 card verification payment to prevent abuse; that payment becomes project usage credit. You can run up to 10 concurrent sandboxes. Each sandbox can use up to 8 vCPUs and 8 GiB of memory, and it can run for 1 hour before you must pause it.
 
 E2B bills by the second for a running sandbox, and the credit pays for it. The pricing guide marks 2 vCPUs as the default size. A paused sandbox is kept with no time limit, and you pay only while a sandbox runs.
 
@@ -105,11 +107,11 @@ Without a payment method, exhausted credits cause every project in your workspac
 
 ### Is E2B free?
 
-Partly. The Hobby plan is free and comes with a one-time $100 usage credit. After the credit is gone you must add a payment method.
+Hobby is free with a one-time $100 usage credit, but some accounts require a $5 verification payment. Without a payment method, projects are blocked after credits run out; adding one enables billed usage.
 
 ### Does E2B need a credit card?
 
-No. The pricing page says no credit card is required to start on the Hobby plan.
+Usually not, but some accounts must make a one-time $5 card verification payment. It is non-refundable and added to project usage credits.
 
 ### What happens when I run out of E2B credits?
 

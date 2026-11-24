@@ -34,7 +34,7 @@ freeTierDetails:
   billingRiskNotes:
     - Free requests over the rate limit get HTTP 429 Too Many Requests; nothing is billed
 quickstartSteps:
-  - Write a Chart.js chart config; QuickChart renders any Chart.js config.
+  - Write a Chart.js chart config; set the API version parameter to match version 3 or 4 because the default is version 2.
   - Request the chart as an image from the QuickChart API; the Community plan needs no purchase.
   - If you receive HTTP 429, wait before retrying and use the Retry-After header when present.
 whenToUse: >-
@@ -50,8 +50,8 @@ avoidIf:
   - you need an SLA
   - you render charts at high volume
 productionReadiness: side-project
-lastUpdated: '2026-11-15'
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://quickchart.io'
@@ -72,7 +72,6 @@ answer: >-
   QuickChart's Community plan is $0 with no purchase and renders charts and QR codes on shared servers, returning HTTP 429 over the rate limit with nothing billed.
 
 ---
-
 QuickChart turns a Chart.js configuration into an image you can embed anywhere, including emails and PDFs where JavaScript does not run. It also generates QR codes, word clouds, and tables. The project is open source under AGPLv3, and QuickChart also sells a hosted paid service.
 
 ## What the free plan gives you
@@ -89,9 +88,9 @@ The pricing page does not publish the free rate limit as a number. For higher li
 
 ## Gotchas
 
+- The API defaults to Chart.js 2; explicitly request version 3 or 4 for configurations written for those versions. Some Chart.js internals and custom plugins are restricted on the free tier.
 - The rate limit covers chart rendering, validation, QR reading, word clouds, tables, and watermarking alike.
-- Some Chart.js internals and custom plugins are restricted on the free tier.
-- Long chart configs can hit URL length limits set by browsers and hosts, so consolidate the payload or reduce the data points.
+- Long chart configs can hit URL length limits set by browsers and hosts, so use the POST endpoint, consolidate the payload, or reduce the data points.
 
 ## Alternatives in this atlas
 

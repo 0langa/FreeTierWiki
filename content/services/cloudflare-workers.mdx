@@ -20,7 +20,8 @@ freeTierDetails:
     - 100 MB request body size
   caveats:
     - Limited to 10ms CPU per request
-    - Max 50 subrequests per request on the free plan
+    - Max 50 external subrequests per request; internal services have a separate 1,000 limit
+    - Enabling Workers Cache makes normally free static-asset requests count as Worker requests
   resetPeriod: daily
   requiresCard: false
   freeTierType: always-free
@@ -48,7 +49,7 @@ avoidIf:
   - long-running jobs
   - traffic above the daily limit
 productionReadiness: production-light
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/workers/'
@@ -58,7 +59,8 @@ sourceUrls:
   - 'https://developers.cloudflare.com/workers/platform/pricing/'
   - 'https://developers.cloudflare.com/workers/get-started/guide/'
   - 'https://www.cloudflare.com/plans/'
-lastVerified: 2026-11-15
+  - 'https://developers.cloudflare.com/workers/cache/'
+lastVerified: 2026-11-23
 pricingUrl: 'https://developers.cloudflare.com/workers/platform/pricing/'
 changes:
   - date: '2026-10-21'
@@ -74,9 +76,9 @@ You write a Worker on your machine with the Wrangler CLI and deploy it with one 
 
 ## What the free plan gives you
 
-Every Cloudflare account starts on the Workers Free plan. It allows 100,000 requests per day, and the count resets at midnight UTC. Each request gets 10 ms of CPU time. Time spent waiting on the network does not count toward it. Each isolate can use up to 128 MB of memory. A Worker can make 50 subrequests per request and have 6 connections waiting for response headers at once.
+Accounts start on Workers Free with 100,000 daily requests, resetting at midnight UTC. Each request gets 10 ms of CPU time. Time spent waiting on the network does not count toward it. Each isolate can use up to 128 MB of memory. A Worker can make 50 external subrequests per request; internal Cloudflare services have a separate limit of 1,000. It permits 6 simultaneous connections awaiting response headers.
 
-You can deploy up to 100 Workers and 5 Cron Triggers per account. A Worker can be up to 64 MiB and must start within 1 second. Requests to static assets are free and unlimited. Workers KV is included too: 100,000 reads and 1,000 writes per day, with 1 GB of stored data.
+You can deploy up to 100 Workers and 5 Cron Triggers per account. A Worker can be up to 64 MiB and must start within 1 second. Requests to static assets are normally free and unlimited. Enabling Workers Cache makes these requests count as Worker requests, even on cache hits. Workers KV is included too: 100,000 reads and 1,000 writes per day, with 1 GB of stored data.
 
 ## When you hit a limit
 
@@ -108,4 +110,4 @@ You are not charged. Requests to the Worker fail with Error 1027, or skip the Wo
 
 ### Do static assets count toward the Workers request limit?
 
-No. Requests to static assets are free and unlimited. Only requests that run your Worker code count toward the daily limit.
+Normally no. Static-asset requests are free and unlimited by default, but enabling Workers Cache makes all requests count as Worker requests, including static assets and cache hits.

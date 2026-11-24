@@ -15,23 +15,25 @@ tags:
 freeTierDetails:
   summary: >-
     Free Email Sandbox plan: 50 test emails per month in 1 sandbox, for 1 user. The same free
-    account also has a separate Email API/SMTP plan.
+    account also has a separate Email Live Sending (API/SMTP) plan.
   limits:
     - 50 test emails/month
     - 1 sandbox that holds 10 emails at a time
     - 1 user
     - 1 email per 10 seconds sending rate into a sandbox
     - Sandbox API access; no unlimited-call promise in the current table
+    - 5MB maximum test email size, including attachments
   caveats:
     - No email forwarding to real inboxes on the free plan
+    - Sandbox monthly-quota enforcement is unpublished; documented rate and storage limits still apply
     - No dedicated email address per sandbox on the free plan
     - >-
-      Email API/SMTP is a separate free plan, sold apart from Email Sandbox: 4,000 emails/month, 150
+      Email Live Sending (API/SMTP) is a separate free plan, sold apart from Email Sandbox: 4,000 emails/month, 150
       emails/day shared between sending and receiving
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: true
+  hasHardCap: unknown
   overageRisk: low
 quickstartSteps:
   - Sign up for a free Mailtrap account; the pricing page asks for no card on the free plans.
@@ -54,8 +56,8 @@ avoidIf:
   - heavy email testing
   - forwarding test mail to real inboxes
 productionReadiness: prototype
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mailtrap.io/'
@@ -65,6 +67,7 @@ sourceUrls:
   - https://mailtrap.io/email-sandbox/
   - https://docs.mailtrap.io/
   - https://docs.mailtrap.io/email-sandbox/features-and-limits
+  - https://docs.mailtrap.io/getting-started/email-sandbox.md
 pricingUrl: 'https://mailtrap.io/pricing'
 changes:
   - date: '2026-10-21'
@@ -80,17 +83,17 @@ You point your app's SMTP settings at a Mailtrap sandbox, or use the Sandbox API
 
 ## What the free plan gives you
 
-The free Email Sandbox plan includes 50 test emails per month for 1 user. You get 1 sandbox, and it holds 10 emails at a time. When it is full, Mailtrap cleans out the oldest messages first. You can send 1 email per 10 seconds into a sandbox, and Sandbox API access is included; the current table does not promise unlimited API calls.
+The free Email Sandbox plan includes 50 test emails per month for 1 user. You get 1 sandbox, and it holds 10 emails at a time. When it is full, Mailtrap cleans out the oldest messages first. You can send 1 email per 10 seconds into a sandbox, and Sandbox API access is included; the current table does not promise unlimited API calls. Each test email, including attachments, is limited to 5MB.
 
-The same free account also has an Email API/SMTP plan for real sending. It is sold separately and allows 4,000 emails per month and 150 emails per day, shared between sending and receiving. No credit card is needed for the free plans.
+The same free account also has an Email Live Sending (API/SMTP) plan for real sending. It is sold separately and allows 4,000 emails per month and 150 emails per day, shared between sending and receiving. No credit card is needed for the free plans.
 
 ## When you hit a limit
 
-If you send faster than the rate limit, Mailtrap rejects the message with a "too many emails per second" error. For the 50 monthly test emails, the pricing page does not say what happens at the cap. For the separate Email API/SMTP plan, the docs say you get a "Monthly messages limit reached" SMTP error, and you must upgrade or wait for the next period. The Email API/SMTP table excludes paid extra emails on Free. The Sandbox docs specify what happens at the rate and storage limits.
+If you send faster than the rate limit, Mailtrap rejects the message with a "too many emails per second" error. For the 50 monthly test emails, the pricing page does not say what happens at the cap. For the separate Email Live Sending (API/SMTP) plan, the pricing FAQ says you get a "Monthly messages limit reached" SMTP error, and you must upgrade or wait for the next period. The Email Live Sending (API/SMTP) table excludes paid extra emails on Free. The Sandbox docs specify what happens at the rate and storage limits.
 
 ## Gotchas
 
-- Email Sandbox, Email API/SMTP, and Email Marketing are sold separately, each with its own free plan.
+- Email Sandbox, Email Live Sending (API/SMTP), and Email Marketing are sold separately, each with its own free plan.
 - The free sandbox has no dedicated email address and no forwarding. Those start on paid plans.
 - The sandbox holds 10 emails, so a busy test run pushes out older messages fast.
 
@@ -104,7 +107,7 @@ If you send faster than the rate limit, Mailtrap rejects the message with a "too
 
 ### Is Mailtrap free?
 
-Yes. The free Email Sandbox plan gives 50 test emails per month for 1 user. A separate free Email API/SMTP plan allows 4,000 emails per month.
+Yes. The free Email Sandbox plan gives 50 test emails per month for 1 user. A separate free Email Live Sending (API/SMTP) plan allows 4,000 emails per month.
 
 ### Does Mailtrap need a credit card?
 
@@ -112,4 +115,4 @@ No. The docs say the free plan needs no credit card.
 
 ### What happens when I go over the Mailtrap free limit?
 
-For sandbox testing the pricing page does not say. On the Email API/SMTP plan, sending stops with a monthly limit error until you upgrade or the next period starts.
+For sandbox testing the pricing page does not say. On the Email Live Sending (API/SMTP) plan, sending stops with a monthly limit error until you upgrade or the next period starts.

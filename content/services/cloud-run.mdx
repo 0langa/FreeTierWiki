@@ -31,7 +31,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above the free tier is billed automatically
+    - Usage above the free tier is billed automatically on Paid Cloud Billing accounts
     - With request-based billing, minimum instances accrue charges at a lower idle rate
     - No hard cap; monitor usage to avoid unexpected charges
 quickstartSteps:
@@ -54,8 +54,8 @@ avoidIf:
   - no billing account
   - a fixed monthly cost with no usage billing
 productionReadiness: production-ready
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://cloud.google.com/run'
@@ -67,7 +67,7 @@ sourceUrls:
   - 'https://cloud.google.com/run/pricing'
   - 'https://cloud.google.com/run/docs'
 answer: >-
-  Cloud Run includes 2 million requests a month with request-based billing and a Cloud Billing account, and Google bills usage above the free amounts and can charge for idle minimum instances.
+  Cloud Run includes 2 million requests a month with request-based billing and a Cloud Billing account, and Paid billing accounts incur overages and can incur idle minimum-instance charges.
 
 ---
 You deploy a container image or your source code to Cloud Run with the Google Cloud console or the gcloud CLI. Cloud Run gives the service an HTTPS URL and runs it for you. It suits developers who want to host web apps and APIs without managing servers or clusters.
@@ -80,15 +80,15 @@ For services with instance-based billing, the free tier is the first 240,000 vCP
 
 ## When you hit a limit
 
-Nothing stops your service at the free amounts. You are billed only for usage past the free tier, rounded up to the nearest 100 milliseconds. Google Cloud needs a billing account for the Free Tier, and a Free Trial billing account uses its $300 welcome credit for any overage.
+On a Paid Cloud Billing account, the free amounts are allowances rather than a spending cap. Chargeable Cloud Run usage is rounded up to the nearest 100 milliseconds. Google Cloud needs a billing account for the Free Tier, and a Free Trial billing account uses its $300 welcome credit for any overage and closes when the credit or 90-day trial ends unless you upgrade.
 
 With request-based billing, billable time covers requests, startup and graceful shutdown. Google also applies a lower idle rate to warm minimum instances. With instance-based billing, each instance is billed for its lifetime, with a one-minute minimum.
 
 ## Gotchas
 
-- The free amounts are shared by all your projects under one billing account. A second service uses the same pool.
+- The free amounts are shared by all your projects under one billing account. A second service uses the same pool. Deploying from source uses Cloud Build and Artifact Registry, each with separate pricing. Artifact Registry storage can cost money even while Cloud Run stays within its free allowance. Eventarc event delivery is also billed separately. Serverless VPC Access connectors charge for their compute; VPC data transfer has separate rates. Transfers to Google Cloud resources in the same region are free.
 - Setting minimum instances keeps instances warm and adds idle charges, even with no traffic.
-- Deploying from source uses Cloud Build and Artifact Registry. Artifact Registry has its own free tier of storage.
+- Requests rejected by IAM before reaching the container are not billed as requests.
 
 ## Alternatives in this atlas
 
@@ -108,4 +108,4 @@ It needs a Cloud Billing account. A Free Trial gives eligible new customers $300
 
 ### What happens when I go over the Cloud Run free tier?
 
-Google bills only the usage past the free tier. Nothing in the pricing docs says your service stops.
+Paid accounts are charged for usage past the allowance. Free Trial accounts use their remaining trial credit and close when that credit or the trial period ends unless upgraded.

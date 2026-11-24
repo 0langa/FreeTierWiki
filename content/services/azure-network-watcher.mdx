@@ -38,26 +38,26 @@ freeTierDetails:
 quickstartSteps:
   - Sign up for an Azure account and sign in to the Azure portal.
   - Create a virtual network; Network Watcher turns on by itself in that region.
-  - Create a virtual machine in the virtual network.
+  - Use a running virtual machine in the virtual network; a new VM and its disks can have separate charges.
   - Open Network Watcher and run a diagnostic tool such as IP flow verify against the VM.
   - Read the result, which names the security rule that allowed or denied the traffic.
 whenToUse: >-
   Use it to find out why an Azure VM cannot reach something, to capture packets,
   or to log traffic on your virtual networks.
 whenNotToUse: >-
-  Avoid it for non-Azure networks, for PaaS monitoring or web analytics, or if
+  Connection Monitor can include hybrid endpoints. Avoid it for general PaaS monitoring or web analytics, or if
   you cannot accept any risk of pay-as-you-go charges.
 bestFor:
   - Azure network troubleshooting
   - connectivity checks
   - traffic logging
 avoidIf:
-  - monitoring non-Azure networks
+  - needing an independent network monitor without Azure resources
   - web analytics or PaaS monitoring
   - avoiding any risk of overage
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/network-watcher/'
@@ -89,15 +89,15 @@ Network Watcher turns on by itself in a region when you create or update a virtu
 
 ## When you hit a limit
 
-Nothing stops your usage at the free units. In the pricing page's default view (US dollars, Central US), extra flow logs cost $0.50 per GB, extra diagnostic checks cost $0.001 each, and Connection Monitor starts at $0.30 per test per month after the free 10.
+On pay-as-you-go, the free units do not impose a spending cap. With US dollars and West US 2 selected, extra flow logs cost $0.50 per GB, extra diagnostic checks cost $0.001 each, and Connection Monitor starts at $0.30 per test per month after the free 10.
 
 Some costs sit outside Network Watcher. Flow logs live in a storage account, and the pricing page says storage and event hub charges apply separately. Its Traffic Analytics footnote says that feature absorbs the Log Analytics workspace cost; other Log Analytics usage has its own charges. Traffic Analytics and Network Analytics show no free units. Packet capture on a scale set counts one check for every instance.
 
 ## Gotchas
 
-- Connection Monitor tests are billed when you start them from the portal, PowerShell, the CLI, or the REST API, so 10 free tests go fast on a large setup.
+- Connection Monitor tests are billed when you start them from the portal, PowerShell, the CLI, or the REST API, so 10 free tests go fast on a large setup. Packet capture on a virtual machine scale set counts one check per instance, and Connection Monitor tests on a scale set count one test per instance, so the free units can go fast.
+- NSG flow-log retirement removes the logging resources, not their stored records. Existing records continue under their retention policy.
 - Flow log retention can be set from one day to 365 days. If you set none, the logs are kept forever and the storage bill keeps growing.
-- Packet capture on a virtual machine scale set counts one check per instance, and Connection Monitor tests on a scale set count one test per instance, so the free units can go fast.
 
 ## Alternatives in this atlas
 
@@ -113,7 +113,7 @@ Partly. It includes free monthly units for flow logs, diagnostic checks, and Con
 
 ### What happens when I go over the free Network Watcher limits?
 
-Azure bills the extra usage per gigabyte, per check, or per test. It does not stop the service.
+On pay-as-you-go, Azure bills extra usage per gigabyte, per check, or per test. An unupgraded free account stops services when its trial credit expires or runs out.
 
 ### Do I have to enable Network Watcher?
 

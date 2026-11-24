@@ -1,9 +1,9 @@
 ---
 title: Fly.io
 description: >-
-  Fly.io runs apps from Docker images as Machines in regions around the world.
-  You deploy with the flyctl command line tool, and new organizations get a
-  short trial rather than a free plan.
+  Fly.io deploys containerized apps as Machines in regions around the world.
+  Its personal-organization Free plan includes a small monthly allowance
+  with a card and automatically becomes paid if you exceed it.
 provider: Fly.io
 domain: hosting
 tags:
@@ -12,71 +12,57 @@ tags:
   - app hosting
   - docker
   - flyctl
-  - edge deployment
   - machines
   - postgres
 freeTierDetails:
   summary: >-
-    New organizations get no free allowance. There is a one-time trial of $1 in
-    credit, then usage is billed.
+    Personal organizations get $5 of usage each month with a card. Exceeding
+    $5 automatically switches to Pay As You Go and bills the whole month
+    from the first cent. Without a card, there is only a one-time $1 credit.
   limits:
-    - No free allowance for new organizations
-    - >-
-      Free trial: $1 of credit for Machines, Sprites, and Managed Postgres,
-      lasting 7 days or until it is used up
-    - 'Trial: up to 10 machines at a time, each up to shared-cpu-2x with 4 GB of memory'
-    - 'Trial: up to 20 GB of Volumes and 3 Sprites'
-    - >-
-      Organizations on plans discontinued in October 2024 keep their old
-      allowances
+    - $5 monthly usage allowance with a card, renewed on the 1st
+    - One-time $1 credit without a card, expiring after 7 days
+    - One member and up to 3 Machines; no performance Machines
+    - Volumes up to 5 GB each and up to 3 Sprites
+    - One Managed Postgres cluster on the $4/month Developer plan
   caveats:
-    - Trial machines stop automatically after 5 minutes of running
-    - >-
-      Adding a card is optional during the trial and lifts its limits; usage
-      counts toward your bill once any remaining credit is used up
-    - >-
-      Without a card, Machines stay stopped once the credit runs out or expires,
-      and Fly.io may delete trial resources
-  trialDays: 7
-  resetPeriod: none
-  requiresCard: false
-  freeTierType: trial
-  hasHardCap: true
-  overageRisk: low
+    - Only the personal organization can use the Free plan; each card can cover one such organization
+    - Exceeding $5 removes the allowance and bills all usage for that month, not just the excess
+    - A voluntary upgrade also bills the whole month from the first cent
+    - Adding a card alone keeps the Free plan and its limits
+    - Dedicated IPv4, static egress IPs, extensions and linked organizations are excluded
+  resetPeriod: monthly
+  requiresCard: true
+  freeTierType: always-free
+  hasHardCap: false
+  overageRisk: high
+  billingRiskNotes:
+    - The recurring allowance needs a card and automatically converts to paid usage above $5
+    - The entire month's usage becomes billable when conversion occurs
+    - Stopped Machines still incur root filesystem charges; provisioned volumes also count
 quickstartSteps:
-  - >-
-    Install flyctl: `brew install flyctl` on macOS with Homebrew, `curl -L
-    https://fly.io/install.sh | sh` on macOS or Linux, or the PowerShell script
-    on Windows.
-  - Create a Fly.io account; the trial does not need a credit card.
-  - >-
-    From your project folder, run `fly launch`. It detects some frameworks and
-    writes a `fly.toml` file.
-  - >-
-    Review the proposed settings, such as the app name, region, and Machine
-    size, then continue.
-  - Run `fly deploy` to deploy or redeploy the app.
-  - >-
-    Check your remaining credit on the Billing page in the dashboard, and add a
-    credit card before it runs out to keep apps running.
+  - Install flyctl using the official guide for macOS, Linux or Windows.
+  - Create an account; the personal organization starts on Free with $1 of no-card credit.
+  - Run `fly launch --no-deploy` in your project and review the generated configuration and resource sizes.
+  - Use `fly deploy --ha=false` for a single Machine; ordinary deploys create two by default.
+  - Check usage on the dashboard Billing page before deciding whether to add a card for the recurring allowance.
 whenToUse: >-
-  Use Fly.io to try running a containerized app near your users, if you are
-  ready to pay for ongoing use after a short trial.
+  Use Fly.io for a small containerized app when its resources fit within $5
+  monthly and you accept automatic paid conversion if usage grows.
 whenNotToUse: >-
-  Skip it if you want an ongoing free tier, a free managed database, or a hobby
-  project that must stay online at no cost. New organizations have no free
-  allowance.
+  Skip it if you require a hard spending stop, a recurring no-card offer,
+  multiple team members, or resources excluded from the Free plan.
 bestFor:
-  - global app hosting
-  - containerized apps
-  - developers ready to pay a small monthly bill
-  - short trials
+  - small personal containerized apps
+  - low-usage global hosting
+  - testing with a one-time no-card credit
 avoidIf:
-  - you want a free tier that never expires
-  - you need a free managed database
-  - you cannot add a credit card after the trial
+  - you require a hard spending cap
+  - you cannot add a card for ongoing usage
+  - you need team members on Free
 productionReadiness: production-light
-lastUpdated: '2026-11-09'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://fly.io/'
@@ -88,65 +74,68 @@ sourceUrls:
   - 'https://docs.fly.io/flyctl/install'
   - 'https://docs.fly.io/launch/create'
 status: changed
-lastVerified: 2026-11-15
 pricingUrl: 'https://docs.fly.io/about/pricing'
 changes:
+  - date: '2026-11-23'
+    kind: changed
+    note: >-
+      Observed a new personal-organization Free plan with $5 monthly usage
+      after adding a card. Exceeding the allowance automatically converts to
+      Pay As You Go and bills the whole month. Effective date not published.
   - date: '2026-11-09'
     kind: changed
     note: >-
-      The one-time trial is now $1 of credit for Machines, Sprites, and Managed
-      Postgres, lasting 7 days or until used. Adding a card lifts the trial
-      limits, and leftover credit still applies.
-  - date: 2024-10-07T00:00:00.000Z
+      The one-time trial was documented as $1 of credit for Machines,
+      Sprites and Managed Postgres, lasting 7 days or until used.
+  - date: '2024-10-07'
     kind: changed
-    note: >-
-      Free allowances ended for new organizations. New accounts get a one-time
-      trial of 2 machine-hours or 7 days, then pay as they go.
+    note: Free allowances ended for new organizations under the plans then offered.
   - date: '2026-10-21'
     kind: changed
-    note: >-
-      Marked the trial as non-renewing and scoped the lowest Machine price to
-      its published regions.
+    note: Scoped the lowest Machine price to its published regions.
 answer: >-
-  Fly.io has no ongoing free plan: new organizations get a one-time $1 trial credit for 7 days or until it runs out, and usage bills once a card is on file and the credit is gone.
-
+  Fly.io offers $5 monthly usage for personal organizations with a card, but exceeding it automatically switches to paid billing for the whole month, not just the excess.
 ---
-You install the `flyctl` command line tool, run `fly launch` in your project, and then `fly deploy`. A dashboard shows trial status and billing. It suits developers who are comfortable with containers and the command line.
+Fly.io runs apps from container images as Machines. You use the flyctl command line and a generated fly.toml configuration to deploy them, then inspect resource usage and billing in the dashboard. The Free plan is for the personal organization created with your account, with community support and one member.
 
 ## What the free plan gives you
 
-There is no free plan for new organizations. The pricing docs say new organizations have no free tier or monthly free usage allowance. What you get is a free trial: $1 of credit for Machines, Sprites, and Managed Postgres, which lasts 7 days or until you use it up. You do not need a credit card to start it.
+New accounts start on Free: one-time $1 without a card, expiring after 7 days. A card enables $5 monthly, fully available immediately and renewed on the 1st; remaining $1 is spent first. New card-backed Free organizations also receive $30 Sprites credit, used before the $5.
 
-During the trial you can run up to 10 Machines at a time, each up to shared-cpu-2x with up to 4GB of memory, plus up to 20GB of Volumes and 3 Sprites. Trial Machines stop on their own after running for 5 minutes. Dedicated IPv4 addresses, performance-optimized vCPUs, and extensions such as Tigris are not available. Some things stay free later, such as the first 10GB of volume snapshots each month, the first 10 single-hostname certificates, and inbound data.
+Allowances cover Machines, volumes/snapshots, transfer, Sprites and one $4/month Developer Managed Postgres cluster. Limits: 3 Machines, 5 GB/volume, 3 Sprites, one Free organization/card. Performance Machines, other Postgres plans, Tigris/Upstash extensions, dedicated IPv4, static egress and linked organizations are excluded.
+
+All plans separately include first 10 GB monthly snapshots, first 10 single-hostname certificates, inbound transfer and shared IPv4/IPv6. Plans discontinued October 2024 retain legacy allowances.
 
 ## When you hit a limit
 
-When your credit is used up or expires, your Machines stay stopped, and you cannot start them or create new resources until you add a credit card. Fly.io may then delete your trial resources, though your apps are kept. Adding a card during the trial lifts its limits, and any credit you have left still applies.
+The $5 is not a spending cap. At $1 remaining, Fly emails; exhaustion automatically moves the organization to Pay As You Go and bills the entire month's usage from the first cent. Voluntary upgrades have the same effect.
 
-After that you pay for what you use. The cheapest always-on app is a shared-cpu-1x Machine with 256MB of RAM, which costs $2.19 per 30 days of continuous runtime in Ashburn or Secaucus, plus data transfer; regional rates differ. Managed Postgres starts at $38 per month for Basic. The docs also say all organizations except Linked Organizations need a card on file.
+Without a card, $1 exhaustion or seven-day expiry blocks new resources and triggers email. Existing-resource behavior is unspecified; former trial stop/deletion rules should not be assumed.
+
+The smallest continuously running Machine costs $2.19/30 days in Ashburn/Secaucus, plus transfer; regions differ. Stopped root filesystems cost $0.15/GB/month. Volumes cost $0.15/provisioned GB/month, including detached or stopped-machine volumes.
 
 ## Gotchas
 
-- Organizations on plans discontinued in October 2024 keep the free allowances from those plans, but new organizations do not.
-- Adding a card lifts the trial limits, and usage counts toward your bill once any remaining credit is used up.
-- Outbound data to the internet is billed per GB, and the rate depends on the region group.
+- `fly deploy` creates two Machines per app by default. Use `--ha=false` for one to conserve the three-Machine allowance. Crossing $5 makes the entire month payable. A $5 allowance is not a $5 discount on a larger bill. The Free-plan guide lists a $4 Developer Postgres option; the general resource table still starts its main Postgres list at $38 Basic. Use the plan-specific guide for Free eligibility.
+- A card is required for recurring free usage, even though the initial $1 credit needs none.
+- An existing personal Pay As You Go organization can switch to Free only after removing resources and members that the plan does not permit.
 
 ## Alternatives in this atlas
 
-- [Koyeb](/services/koyeb/): when you want a free web service, though it asks for a card.
-- [Render](/services/render/): when you want a free web service without a card.
-- [Northflank](/services/northflank/): when you want containers with a free tier and a card on file.
+- [Koyeb](/services/koyeb/): another option for a small hosted web service.
+- [Render](/services/render/): an alternative for a web service with a no-card free offer.
+- [Northflank](/services/northflank/): an alternative for container-based projects.
 
 ## Questions people ask
 
-### Is Fly.io free?
+### Does Fly.io have an ongoing free plan?
 
-Not for new organizations. They get a trial of $1 in credit that lasts 7 days or until it is used up, then pay as they go.
+Yes. The personal organization can receive $5 of usage monthly after adding a card, subject to the Free plan's resource limits. Without a card, the credit is one-time and lasts at most 7 days.
 
-### Does Fly.io need a credit card?
+### Will Fly.io stop before charging me?
 
-Not to start the trial. After the trial ends you need to add a credit card to keep using billable resources.
+Not on the recurring allowance. Exceeding $5 automatically moves the organization to Pay As You Go and bills the entire month's usage, including usage previously covered by the allowance.
 
-### What happens when the Fly.io free trial ends?
+### Does adding a card remove the Free plan limits?
 
-Your Machines stay stopped, and you cannot start them or create new resources until you add a credit card. Fly.io may delete trial resources if you do not add one.
+No. Adding a card keeps Free and enables the monthly allowance. An explicit upgrade or automatic conversion after exceeding $5 removes the limits and starts full-month billing.

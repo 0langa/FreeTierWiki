@@ -36,14 +36,14 @@ quickstartSteps:
   - Select your organization and choose Create new application.
   - Copy the Default API key from the application's API keys page.
   - Create an event type, then create a subscription that points at your endpoint.
-  - Send an event with a POST to `https://app.hook0.com/api/v1/event` using your token, an `application_id`, an `event_type`, and at least one label.
+  - Send an event with a POST to `https://app.hook0.com/api/v1/event` using your token, an `application_id`, an `event_type`, and at least one label; encode the payload as a JSON string rather than a raw object.
   - Open Request Attempts in the dashboard to check the delivery.
 whenToUse: >-
   Use it when your product needs to send webhooks and you want retries, signing,
   and delivery logs without building them, or you want to self-host.
 whenNotToUse: >-
   Avoid the hosted free plan for more than 100 events a day, or if you need
-  more than 2 free organizations.
+  more than 2 free organizations without a support-approved increase.
 bestFor:
   - SaaS products that send webhooks
   - side projects
@@ -53,8 +53,8 @@ avoidIf:
   - you want to receive and inspect third-party webhooks only
   - you need support beyond community help
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: '2026-11-15'
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.hook0.com/'
@@ -73,17 +73,17 @@ You work through a dashboard and a REST API: you define event types and subscrip
 
 ## What the free plan gives you
 
-The Developer plan is free forever and needs no credit card. It includes 100 webhook events a day, HMAC signatures, and delivery monitoring, with community support. The plan lists 1 developer, 1 application, 10 event types, 10 subscriptions, and 7 days of data retention. Subscriptions and retries are free, because one event can trigger several subscriptions and each can be retried.
+Developer is free forever without a card. It includes 100 webhook events a day, HMAC signatures, and delivery monitoring, with community support. The plan lists 1 developer, 1 application, 10 event types, 10 subscriptions, and 7 days of data retention. Subscriptions and retries are free, because one event can trigger several subscriptions and each can be retried.
 
-Your account can belong to up to 2 free organizations. An organization on a paid plan does not count toward that limit. Hook0 Cloud is hosted in France by default.
+Your account can belong to up to 2 free organizations. An organization on a paid plan does not count toward that limit. Support can raise the free-organization cap on request. Hook0 Cloud is hosted in France by default.
 
-The server source is available under SSPL-1.0, and you can self-host it with Docker Compose or Kubernetes at no cost. The client SDKs use the MIT license. When you self-host, you run the infrastructure, scaling, and updates yourself.
+The server source is available under SSPL-1.0, and you can self-host it with Docker Compose or Kubernetes without a server license fee; your infrastructure costs remain separate. The client SDKs use the MIT license. Self-hosting leaves infrastructure, scaling and updates to you.
 
 ## When you hit a limit
 
 On the free Developer plan, extra events past the daily limit are blocked with an HTTP 429 error. You get no bill. The Organization Dashboard shows your event use for the current day and earlier days, so you can watch it.
 
-Paid plans work differently. They never block events. The Startup plan costs €59 a month and covers up to 30,000 events a day, then charges €0.003 per event. The Pro plan costs €190 a month, covers up to 100,000 events a day, then charges €0.0001 per event.
+Paid plans work differently. They never block events. Prices exclude VAT. The Startup plan costs €59 a month and covers up to 30,000 events a day, then charges €0.003 per event. The Pro plan costs €190 a month or €1,824 billed annually, covers up to 100,000 events a day, then charges €0.0001 per event.
 
 ## Gotchas
 

@@ -52,8 +52,8 @@ avoidIf:
   - very chatty debug logging
   - long retention for free
 productionReadiness: production-ready
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://cloud.google.com/logging'
@@ -74,7 +74,6 @@ answer: >-
   Cloud Logging includes 50 GiB of ordinary logs per project each month with a Cloud Billing account, and Google charges for additional storage and excludes vended network logs from the allowance.
 
 ---
-
 Cloud Logging stores the logs your Google Cloud services write and lets you search, analyze, and route them. Logs land in log buckets, where you query them in Logs Explorer or with SQL in Log Analytics. It suits developers whose apps already run on Google Cloud and who want logs in the same console.
 
 ## What the free plan gives you
@@ -85,15 +84,15 @@ There is no additional charge for querying and analyzing log data, for upgrading
 
 ## When you hit a limit
 
-The pricing page does not describe a stop at 50 GiB. Logs past the free amount are billed at $0.50/GiB as they are streamed into log bucket storage, and vended network logs at $0.25/GiB from the first GiB, with no free allotment. Generating those network logs can also incur network telemetry charges.
+Pricing documents no stop at 50 GiB. On a Paid Cloud Billing account, logs past the free amount are billed at $0.50/GiB as they are streamed into log bucket storage, and vended network logs at $0.25/GiB from the first GiB, with no free allotment. Generating those network logs can also incur network telemetry charges.
 
-For the _Default bucket and user-defined buckets, keeping logs longer than the default retention period of 30 days costs $0.01 per GiB per month. Logs kept only for the default period have no retention cost. Storage volume counts the size of the log entries before indexing.
+For the _Default bucket and user-defined buckets, keeping logs longer than the default retention period of 30 days costs $0.01 per GiB per month. Logs kept only for the default period have no retention cost. Storage volume counts the size of the log entries before indexing. A Free Trial account uses its trial credit for chargeable usage rather than automatically charging a payment method.
 
 ## Gotchas
 
-- The 50 GiB free amount is per project, so a busy project can pay while a quiet one stays free.
-- Raising retention past 30 days adds a monthly charge for every GiB you keep.
-- Routing is free in Cloud Logging, but the destination you route logs to bills its own storage.
+- The 50 GiB free amount is per project, so a busy project can pay while a quiet one stays free. Raising retention past 30 days adds a monthly charge for every GiB you keep.
+- Routing is free, but the destination project pays for stored logs. Routing the same entry to multiple buckets can multiply storage and retention charges, including copies of otherwise free _Required logs. Shortening retention creates a seven-day recovery window for expired logs. They cannot be queried during that window, but still count toward retention charges.
+- User-defined logs-based metrics have separate Cloud Monitoring charges; system-defined logs-based metrics are free.
 
 ## Alternatives in this atlas
 

@@ -55,8 +55,8 @@ avoidIf:
   - you need retention beyond 14 days
   - you have no AWS account
 productionReadiness: production-ready
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 9
 usefulnessScore: 9
 officialUrl: 'https://aws.amazon.com/sqs/'
@@ -64,6 +64,7 @@ docsUrl: >-
   https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html
 pricingUrl: 'https://aws.amazon.com/sqs/pricing/'
 sourceUrls:
+  - 'https://aws.amazon.com/sqs/faqs/'
   - 'https://aws.amazon.com/sqs/pricing/'
   - 'https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html'
   - 'https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-getting-started.html'
@@ -91,9 +92,9 @@ Every SQS action counts as a request. One request can carry 1 to 10 messages, up
 
 ## When you hit a limit
 
-On Paid accounts without optional project controls, requests beyond the first 1 million/month incur per-million charges after applicable credits, and the page shows the rates in a calculator. Standard and FIFO queues have their own rates. Standard-queue requests involving a message group ID also incur fair-queue charges on top of standard charges.
+Paid accounts without optional project controls bill excess beyond 1 million monthly requests after credits. Regional Standard/FIFO rates differ; Standard requests with message group IDs also incur fair-queue charges.
 
-Payload size changes the count. Each 64 KB chunk of a payload is billed as one request, so a request with a 1 MiB payload is billed as 16. Sending and receiving in the same region has no data transfer charge. Cross-region traffic and traffic to or from the internet use standard AWS data transfer charges.
+Every 64 KB payload chunk counts as a request, so 1 MiB counts as 16. Same-region sending/receiving has no transfer charge; cross-region and internet traffic use standard AWS transfer rates. Extended Client Library payloads stored in S3 incur S3 storage charges, and KMS encryption incurs separate key-request charges. Count payload chunks and supporting services when estimating costs rather than treating each API call as one billable request.
 
 ## Gotchas
 

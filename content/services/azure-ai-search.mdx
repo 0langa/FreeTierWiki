@@ -33,10 +33,10 @@ freeTierDetails:
 quickstartSteps:
   - Create an Azure account or use an existing subscription.
   - >-
-    In the Azure portal, create an Azure AI Search service and pick the Free tier. You can have one
+    In the Azure portal, find Foundry IQ (Azure AI Search), create a service, and pick the Dedicated Free tier. You can have one
     free service per subscription.
   - >-
-    Open the service and note its endpoint. Assign yourself roles such as Search Index Data
+    Open the service and note its endpoint. Enable role-based authentication and assign Search Service Contributor, Search Index Data
     Contributor and Search Index Data Reader.
   - 'Create an index, using the portal, the REST API, or an SDK such as the .NET client library.'
   - 'Load some documents, such as the sample hotel data, and wait for indexing to finish.'
@@ -56,8 +56,8 @@ avoidIf:
   - need semantic ranker for free
   - need high availability
 productionReadiness: prototype
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/search/'
@@ -77,15 +77,13 @@ answer: >-
   Azure AI Search needs a card, and its free tier is one shared service with three indexes and 50 MB for short-term evaluation, which may be deleted after inactivity.
 
 ---
-You create a search service in the Azure portal, then load documents and query them through the portal, the REST API, or an SDK. It suits developers who want to prototype search, or retrieval for an AI app, before they pay.
+Microsoft now presents Azure AI Search as Foundry IQ. You create a search service in the Azure portal, then load documents and query them through the portal, the REST API, or an SDK. It suits developers who want to prototype search, or retrieval for an AI app, before they pay.
 
 ## What the free plan gives you
 
-Each Azure subscription can have one free search service. It runs on shared hardware. Storage is limited to 50 MB, and you can create up to 3 indexes. You also get up to 3 indexers, 3 data sources, and 3 skillsets.
+Each Azure subscription can have one Free search service on shared hardware: 50 MB storage and 3 each of indexes, indexers, data sources and skillsets. Indexer runs last at most 3 minutes for blobs or 1 minute for other sources, and can start only once every 180 seconds. AI enrichment includes 20 transactions per indexer daily; each is a successfully enriched document. Each run loads up to 10,000 documents.
 
-Indexers on the Free tier have tight limits. A run can last 3 minutes for blob sources and 1 minute for other sources. An indexer can start only once every 180 seconds. AI enrichment is limited to 20 free transactions per indexer per day. Each indexing run can load up to 10,000 documents.
-
-Dedicated Free services cannot scale. You cannot add replicas or partitions. The separate Serverless Developer preview is metered and is not this free tier. The docs call the Free tier a short-term, non-production way to evaluate the product.
+Dedicated Free services cannot add replicas or partitions. Separate Serverless compute and storage billing began September 13, 2026 according to Microsoft; it is not this Free tier, and migration between tiers is unsupported. Microsoft describes Free as short-term, non-production evaluation.
 
 ## When you hit a limit
 

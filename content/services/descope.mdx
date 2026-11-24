@@ -20,6 +20,9 @@ freeTierDetails:
     - '7,500 monthly active users (MAUs)'
     - 10 monthly active tenants
     - 3 SSO connections
+    - 1 OIDC federated app and 5 test users
+    - 100 provider-delivered SMS/voice messages monthly and 1,000 emails daily
+    - One week of audit retention
     - '10,000 M2M exchanges/month'
     - '2,000 monthly active consents (MACs)'
     - '2,000 monthly active tokens (MATKs)'
@@ -45,7 +48,7 @@ whenToUse: >-
   Use Descope when you want to build login as a visual flow, add passwordless or passkeys quickly,
   and keep B2B SSO for a few business customers.
 whenNotToUse: >-
-  Avoid it if you need to host auth yourself, want to customize everything in code, or need more
+  Avoid it if you need to host auth yourself or need more
   than 7,500 monthly active users, 10 tenants, or 3 SSO connections for free.
 bestFor:
   - passwordless login
@@ -53,10 +56,10 @@ bestFor:
   - small teams that want no-code auth flows
 avoidIf:
   - self-hosted auth
-  - fully custom login code
+  - more than the included message-delivery allowance
   - 'more than the free user, tenant, or SSO limits'
 productionReadiness: production-light
-lastUpdated: 2026-11-16
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.descope.com/'
@@ -66,7 +69,7 @@ sourceUrls:
   - "https://docs.descope.com/getting-started"
   - 'https://www.descope.com/pricing'
   - 'https://docs.descope.com/'
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 pricingUrl: 'https://www.descope.com/pricing'
 changes:
   - date: 2026-10-21
@@ -85,7 +88,7 @@ You build your login flow in the Descope console, then drop it into your app wit
 
 The Free Forever plan costs $0 and has no overages. It includes 7,500 monthly active users, 10 monthly active tenants, and 3 SSO connections. You also get 10,000 M2M exchanges, 2,000 monthly active consents, and 2,000 monthly active tokens.
 
-Everything runs through flows, which you design visually. The Pro plan starts at $249 per month, billed annually, and it raises the limits to 35 tenants, 5 SSO connections, and 50,000 M2M exchanges. It also adds custom OIDC providers, SSO for third-party apps, and self-service SSO setup. Early-stage startups can apply for Pro free for one year.
+Flows provide visual setup, while client and backend SDKs also support custom login code. The Pro plan starts at $249 per month, billed annually, and it raises the limits to 35 tenants, 5 SSO connections, and 50,000 M2M exchanges. It also adds custom OIDC providers, SSO for third-party apps, and self-service SSO setup. Early-stage startups can apply for Pro free for one year.
 
 ## When you hit a limit
 
@@ -95,9 +98,9 @@ The pricing page says you must move to Pro if you pass 7,500 MAUs, 10 tenants, o
 
 ## Gotchas
 
-- Separate Free counters cover users, tenants, SSO connections, M2M exchanges, consents and tokens. Check every allowance rather than only the MAU total.
+- Separate Free counters cover users, tenants, SSO connections, M2M exchanges, consents and tokens. An active tenant has at least two associated users and at least one login in the month; every configured SSO connection counts. Free also has one OIDC federated app, five test users and one week of audit retention.
+- Descope-delivered SMS/voice has a 100-message monthly cap; exceeding it stops those sign-ins until capacity is available or you use a separately billed connector/package. Free provider email is limited to 1,000 per day. The old standalone React SDK repository is deprecated. The package name stays `@descope/react-sdk`, but issues now go to the descope-js repository.
 - SCIM provisioning and bot protection are not in Free or Pro. They start in a higher plan.
-- The old standalone React SDK repository is deprecated. The package name stays `@descope/react-sdk`, but issues now go to the descope-js repository.
 
 ## Alternatives in this atlas
 
