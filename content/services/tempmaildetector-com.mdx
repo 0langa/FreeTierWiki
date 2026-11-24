@@ -22,7 +22,7 @@ freeTierDetails:
   caveats:
     - Pro tier is pay-as-you-go at $0.005 per lookup, excluding VAT
     - The API returns a 402 status when your account has run out of lookups
-    - It checks only the domain and is not a bulk email validation service
+    - Domain-only checks remain available; the new full-address endpoint also scores the mailbox name, without establishing mailbox deliverability
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -39,19 +39,19 @@ whenToUse: >-
   when your volume fits in 200 lookups a month or you accept pay-as-you-go
   pricing.
 whenNotToUse: >-
-  Avoid it for bulk list cleaning or for checking if a mailbox exists, because
-  it is not a bulk validation service and checks the domain only.
+  Avoid it for bulk list cleaning or proof that a mailbox exists. Its domain
+  and mailbox-name risk signals do not establish deliverability.
 bestFor:
   - sign-up forms
   - SaaS free trials
   - WordPress and Ghost sites
 avoidIf:
   - you need bulk email validation
-  - you need checks on the mailbox, not only the domain
+  - you need proof that a mailbox exists
   - you get more than 200 sign-ups a month and do not want to pay per lookup
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://tempmaildetector.com/'
@@ -60,17 +60,22 @@ sourceUrls:
   - 'https://tempmaildetector.com/'
   - 'https://tempmaildetector.com/documentation'
 pricingUrl: 'https://tempmaildetector.com/'
+status: changed
+changes:
+  - date: '2026-11-23'
+    kind: changed
+    note: Official documentation adds a full-address risk endpoint alongside domain-only checks; monthly free lookups and HTTP 402 exhaustion remain unchanged.
 answer: >-
   TempMailDetector.com allows 200 lookups a month with no card and no overage, and the API returns a 402 status once you run out.
 
 ---
-You call a small HTTP API from your sign-up code, or install the WordPress or Ghost plugin. The service checks the domain and asks clients to send only that part of the address. It suits developers who run sign-up forms and free trials.
+You call a small HTTP API from your sign-up code, or install the WordPress or Ghost plugin. The domain-only endpoint checks the domain. A separate full-address endpoint also scores whether the mailbox name looks machine-generated. It suits developers who run sign-up forms and free trials.
 
 ## What the free plan gives you
 
 The Free plan gives 200 lookups per month. It resets monthly, needs no card, and includes the WordPress and Ghost plugins. Each call returns a risk score from 0 to 100 and some details about the domain, such as whether it is on the block list, how old it is, whether its website resolves, and whether it is a forwarding service. The docs advise blocking a score of 75 or higher.
 
-The service says it never stores user emails, because it needs only the domain. If a domain is new, it analyzes it and gives you a risk score.
+For domain-only checks, send only the domain. The newly documented `/check-email` endpoint accepts a full address and returns independent domain and local-part risk signals. The provider says it discards the local part after computing its risk. A trusted domain can still have a high-risk mailbox name, and the block-list flag need not match the numerical score. Neither result proves that a mailbox exists.
 
 ## When you hit a limit
 
@@ -78,8 +83,8 @@ When your key runs out of lookups, the API returns a 402 Payment Required status
 
 ## Gotchas
 
-- Send only the domain. The service strips the user part if you send a full address. Split on the at sign so sub-domains and country domains such as co.uk work.
-- It is not a bulk email validation service, and it checks only the domain, not the mailbox.
+- Send only the domain to `/check`; that endpoint strips the user part if you send a full address. Split on the at sign so sub-domains and country domains such as co.uk work.
+- It is not a bulk email validation service. Full-address risk analysis is available through `/check-email`; use `/check` when you want to avoid transmitting mailbox names.
 - You decide what to do with a flagged sign-up. You can hard reject it or let the user continue as a shadow-banned account.
 
 ## Alternatives in this atlas
@@ -99,4 +104,4 @@ The API returns a 402 status with no_lookups_remaining. Free lookups reset month
 
 ### Does TempMailDetector store my users' email addresses?
 
-No. The service needs only the domain, and the docs say you should never send a full customer email.
+The provider says it does not store user emails. Its domain-only endpoint needs no mailbox name. The new full-address endpoint processes the local part to calculate risk and then discards it, according to its documentation.

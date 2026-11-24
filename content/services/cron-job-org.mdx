@@ -15,7 +15,8 @@ freeTierDetails:
   limits:
     - Scheduling as often as once a minute
     - HTTP requests to your endpoint
-    - Dashboard execution history
+    - Last 50 executions in history; response headers and bodies retained for 2 days
+    - 30-second request timeout and 64 KB response cap
   caveats:
     - The service calls an endpoint you supply
     - The endpoint must handle the job and respond within service limits
@@ -43,8 +44,8 @@ avoidIf:
   - hosting job code
   - large synchronous responses
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://cron-job.org/'
@@ -72,13 +73,13 @@ The service is financed by donations and can execute a job as often as once a mi
 
 ## When you hit a limit
 
-The provider sets limits on requests and the time an endpoint can take to finish. Inspect the run history if a request fails or takes too long. For slow processing, design your endpoint to accept and queue work, then report the eventual result in your app. Running the scheduled request is free. Your own hosting and queue costs depend on what that endpoint does. Log each invocation in your app so you can distinguish scheduler failures from downstream problems.
+The provider closes requests after 30 seconds and aborts execution if the response exceeds 64 KB. It does not set a job-count limit, but requires fair usage and can delete abusive or excessive-use accounts. Jobs may be disabled after more than 25 consecutive failures. Inspect the run history if a request fails or takes too long. For slow processing, design your endpoint to accept and queue work, then report the eventual result in your app. Running the scheduled request is free. Your own hosting and queue costs depend on what that endpoint does. Log each invocation in your app so you can distinguish scheduler failures from downstream problems.
 
 ## Gotchas
 
-- Confirm the schedule’s time zone before using it for a job with a local cutoff.
+- Confirm the schedule’s time zone before using it for a job with a local cutoff. Timing is not guaranteed, and repeatedly failing or slow jobs may be delayed. History covers the last 50 executions; response headers and bodies last two days. Check task completion in your application when the HTTP response only acknowledges that work was queued.
+- The FAQ says HTTPS certificates are not checked. Do not rely on the scheduler to validate the endpoint certificate.
 - Make the underlying operation safe to invoke again if you are going to retry failures.
-- Check task completion in your application when the HTTP response only acknowledges that work was queued.
 
 ## Alternatives in this atlas
 

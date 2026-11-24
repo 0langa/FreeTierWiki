@@ -22,7 +22,7 @@ freeTierDetails:
   limits:
     - '1 CPU, 1 GB RAM per VM (PostgreSQL Free plan)'
     - '1 GB total storage (PostgreSQL Free plan)'
-    - 'Kafka Free plan: up to 250 kb/s data in and out, retention up to 3 days'
+    - 'Kafka Free plan: up to 250 KiB/s throughput, retention up to 3 days'
     - 'OpenSearch Free plan: 20 GB storage, 4 GB RAM, up to 20 shards'
     - One free service per service type per account
     - Cannot choose cloud or region on PostgreSQL Free
@@ -61,14 +61,16 @@ quickstartSteps:
   - 'Wait for the service to start, then open its overview page to find the connection details.'
   - 'Connect with the standard client for that service, for example `psql` with the service URI for PostgreSQL.'
 productionReadiness: prototype
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://aiven.io/'
 docsUrl: 'https://docs.aiven.io/docs/'
 pricingUrl: 'https://aiven.io/pricing'
 sourceUrls:
+  - 'https://aiven.io/pricing/kafka'
+  - 'https://aiven.io/pricing/opensearch'
   - 'https://aiven.io/pricing'
   - 'https://aiven.io/free-tier'
   - 'https://aiven.io/docs/platform/concepts/free-plan'
@@ -92,7 +94,7 @@ You create and manage services in the Aiven Console, and you can also use the CL
 
 The Free plan costs $0 per month and has no time limit. You get a free service for PostgreSQL, Kafka, OpenSearch, or Valkey. You can run one free service per type on each account. The MySQL Free tier is retired, so new MySQL services start on the Developer plan at $5 a month.
 
-The PostgreSQL Free plan has 1 CPU, 1 GB of RAM, and 1 GB of total storage. Kafka allows up to 250 kb/s of data in and out, with retention up to 3 days. OpenSearch gets 20 GB of storage, 4 GB of RAM, and up to 20 shards. For PostgreSQL Free, you cannot pick the cloud or region, and the pricing table lists a single backup for disaster recovery. The 30-day trial is separate and uses credits for paid plans.
+The PostgreSQL Free plan has 1 CPU, 1 GB of RAM, and 1 GB of total storage. Kafka allows up to 250 KiB/s of throughput, with retention up to 3 days and up to 5 topics with 2 partitions each. OpenSearch gets 20 GB of storage, 4 GB of RAM, and up to 20 shards. For PostgreSQL Free, you cannot pick the cloud or region, and the pricing table lists a single backup for disaster recovery. The 30-day trial is separate and uses credits for paid plans.
 
 ## When you hit a limit
 
@@ -103,7 +105,7 @@ The bigger risk is idle services. Aiven can power off a free service that shows 
 ## Gotchas
 
 - Free services are single node and have no high availability, so treat them as learning and prototype tools.
-- PostgreSQL Free does not let you choose the cloud or region, and has no integrations or connection pooling; check the product-specific plan before assuming those restrictions apply to another engine.
+- PostgreSQL Free does not let you choose the cloud or region, and has no integrations or connection pooling; check the product-specific plan before assuming those restrictions apply to another engine. OpenSearch Free cannot select a cloud or region and excludes role-based access control and imports from custom repositories.
 - Deleting a free service removes its data, though you can create a new free service later.
 
 ## Alternatives in this atlas

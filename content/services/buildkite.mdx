@@ -17,13 +17,15 @@ tags:
 freeTierDetails:
   summary: >-
     Free plan: up to 5 users, 10 concurrent jobs, 2,000 Linux vCPU minutes and
-    250k test executions per month. No credit card required. A 30-day all-access
+    250k test executions and 1 GB of test traces per month. No credit card required. A 30-day all-access
     trial runs alongside it.
   limits:
     - Up to 5 users
     - Up to 10 concurrent jobs
     - 'Up to 2,000 Linux vCPU minutes per month on hosted agents, Small size only'
     - 250k test executions per month
+    - 1 GB of OpenTelemetry test traces per month with a hard cap and 30-day retention
+    - 30-day build and artifact retention; 24-hour test history
     - 50GB artifact storage per month
     - 250GB artifact downloads per month
     - Package Registries includes 1 GB indexed and distributed per organization per month and supports private registries
@@ -78,7 +80,7 @@ avoidIf:
   - macOS hosted agents on the free plan
   - you want zero CI setup
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://buildkite.com'
@@ -88,7 +90,7 @@ sourceUrls:
   - 'https://buildkite.com/docs/pipelines/getting-started'
   - 'https://buildkite.com/docs/platform/pricing-and-plans'
   - 'https://buildkite.com/docs/platform/spend-alerts'
-lastVerified: 2026-11-15
+lastVerified: 2026-11-23
 pricingUrl: 'https://buildkite.com/pricing'
 changes:
   - date: 2026-10-21T00:00:00.000Z
@@ -104,13 +106,15 @@ You write pipeline steps in YAML, either in the web editor or in a file in your 
 
 ## What the free plan gives you
 
-The Free plan costs $0 and allows up to 5 users and up to 10 concurrent jobs. It includes up to 2,000 Linux vCPU minutes per month on Buildkite hosted agents, in the Small size on AMD64 only. A vCPU minute is one minute of one virtual CPU.
+Free costs $0 for 5 users and 10 concurrent jobs. It includes 2,000 monthly Linux vCPU minutes on Small AMD64 hosted agents; each measures one virtual CPU for one minute.
 
-You also get 250k test executions per month. A test execution is one recorded result from one test run, and sending this data is optional. Artifact storage is 50GB per month and artifact downloads are 250GB per month. The plan includes dynamic pipelines and test splitting. Support is community support. The separate Package Registries allowance is 1 GB indexed and distributed per organization per month, and private registries are included. Pro costs $30 per active user per month and adds macOS hosted agents and larger machine sizes.
+You get 250k monthly test executions and 1 GB of uncompressed OTLP child-span traces, hard-capped and retained 30 days. A test execution is one recorded test-run result; submission is optional. Builds/artifacts last 30 days, test history 24 hours. Monthly artifacts include 50GB storage and 250GB downloads. Dynamic pipelines, test splitting and community support are included.
+
+Separate Package Registries includes 1 GB indexed/distributed monthly per organization, including private registries. Pro costs $30 per active user/month, adding macOS hosted agents and larger machines.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you use all 2,000 minutes or pass the other monthly amounts. It lists the amounts as "up to", but does not establish how the monthly allowances are enforced. The page shows no card requirement for the Free plan.
+The pricing table explicitly hard-caps the 1 GB test-trace allowance. It does not say what happens when you use all 2,000 hosted minutes or pass the other monthly amounts. The other amounts are listed as "up to" without a general enforcement policy. The page shows no card requirement for the Free plan.
 
 If you need more users, jobs, or minutes, move to Pro. Buildkite's docs say spend alerts for Pro only warn you and do not cap spending, so set one before you scale up.
 

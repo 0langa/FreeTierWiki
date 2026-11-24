@@ -15,9 +15,11 @@ freeTierDetails:
   summary: Free includes 250 submissions per month across the account, notifications by email or Discord, and API and MCP access. A credit card is not required.
   limits:
     - 250 submissions/month across all forms
-    - Forms subject to fair use
+    - Up to 1,000 forms under fair use
     - 1 workspace and 1 account owner
     - 60 requests/minute for the account API
+    - 2 verified email addresses
+    - Full submission access for 30 days; stored for 6 months before deletion
   caveats:
     - Submissions beyond quota are rejected until reset
     - File uploads and custom notification routes require a paid plan
@@ -30,9 +32,9 @@ freeTierDetails:
   billingRiskNotes:
     - Free rejects additional submissions when the monthly quota is exhausted. Opt-in paid overage applies only on eligible paid plans.
 quickstartSteps:
-  - Generate a form ID using BootForm's getting-started guide.
-  - Point the action of your HTML form at the BootForm endpoint and use POST.
-  - Submit test data and claim the form into your account.
+  - Generate a random UUID form ID using BootForm's getting-started guide.
+  - Point your form action at the public BootForm endpoint, use POST, and include an empty hidden honeypot field.
+  - Test privately and claim the form before publishing; unclaimed forms hold up to 10 submissions for 48 hours from the first one.
   - Configure notifications and check the submission in the dashboard before publishing the form.
 whenToUse: >-
   Use BootForm when your own HTML form needs validation, spam filtering,
@@ -49,8 +51,8 @@ avoidIf:
   - more than 250 submissions/month
   - shared workspace access on Free
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://bootform.com/'
@@ -60,6 +62,7 @@ sourceUrls:
   - "https://bootform.com/pricing"
   - "https://bootform.com/docs/getting-started"
   - "https://bootform.com/docs/api-guide"
+  - "https://bootform.com/docs/submission-retention"
 status: active
 changes:
   - date: 2026-11-16
@@ -75,9 +78,9 @@ BootForm handles the receiving end of a form you wrote yourself. Point the form 
 
 ## What the free plan gives you
 
-The plan includes 250 submissions per month for the account. You can create forms subject to fair use, and they all draw from that account allowance. Free includes form validation, spam checks, and email and Discord notifications. The dashboard keeps your submissions and supports export, so you can take the data out without adding an integration.
+Free includes 250 monthly account submissions. The fair-use ceiling is 1,000 forms, and they all draw from that account allowance. Free includes form validation, spam checks, and email and Discord notifications. Free allows two verified email addresses. Full submission access and CSV/JSON export last 30 days. Older submissions show only a title/snippet and require an upgrade to open, export or modify; they are permanently deleted after six months, measured from arrival.
 
-The API and MCP server are available on Free. The getting-started guide also describes generating an endpoint and posting a test without signing up first. Claim the form for your account to manage its settings and submissions in the dashboard.
+The API and MCP server are available on Free. The getting-started guide also describes generating an endpoint and posting a test without signing up first. Claim the form before publishing its ID: whoever claims it first owns it. Unclaimed forms hold up to 10 submissions for 48 hours from the first arrival. Keep full-access account API keys on your server; the public form endpoint does not need one.
 
 ## When you hit a limit
 
@@ -85,9 +88,9 @@ BootForm rejects additional submissions when the monthly allowance is used up. T
 
 ## Gotchas
 
-- File uploads require a paid tier. Use ordinary text fields if you want to stay on Free.
-- The API and the public form endpoint have separate rate limits. Consult the API guide if you are submitting programmatically or handling bursts.
-- BootForm branding appears in email notifications on the Free plan. Some notification channels and advanced routing rules also require an upgrade.
+- File uploads require a paid tier. Use ordinary text fields if you want to stay on Free. BootForm branding appears in email notifications on the Free plan. Webhooks, Slack, Telegram, autoresponders and advanced notification routing require an upgrade.
+- Downgrading applies the shorter retention window to existing submissions; data older than the new storage window is deleted within a day. Export before downgrading.
+- The account API shares a 60-request/minute limit across keys and dashboard use. Public submissions allow 5/minute per IP per form and 30/minute per IP across forms; Free also has a 500/hour/form ceiling, still subject to its 250/month account quota.
 
 ## Alternatives in this atlas
 

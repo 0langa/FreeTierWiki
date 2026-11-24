@@ -55,8 +55,8 @@ bestFor:
 avoidIf:
   - no payment method for a Cloud Billing account
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://firebase.google.com/products/functions'
@@ -70,6 +70,7 @@ sourceUrls:
   - "https://cloud.google.com/build/pricing"
   - 'https://firebase.google.com/docs/functions'
   - 'https://firebase.google.com/docs/projects/billing/firebase-pricing-plans'
+  - 'https://firebase.google.com/docs/projects/billing/spend-caps'
 changes:
   - date: 2026-10-21
     kind: changed
@@ -88,9 +89,9 @@ The Firebase table lists 2M invocations, 400K GB-seconds, 200K CPU-seconds and 5
 
 ## When you hit a limit
 
-Blaze has no spending cap at the free allowance. The Firebase table lists $0.40 per million excess invocations and $0.12/GB outbound, while second-generation workloads follow Cloud Run pricing. Compute, builds, networking and container storage can each add charges. Check your generation, region and billing SKUs rather than applying one table to every deployment.
+Blaze does not stop at free allowances. Firebase lists $0.40/million excess invocations and $0.12/GB outbound; second-generation workloads use Cloud Run pricing. Compute, builds, networking and container storage can all cost extra. Check generation, region and billing SKUs.
 
-Because Blaze needs a Cloud Billing account, and those require a payment method, a runaway function or a traffic spike turns into a bill. Watch your usage in the console.
+Blaze requires Cloud Billing and a payment method, so runaway functions can bill. Optional monthly spend caps are in preview for supported services, including underlying Cloud Run functions. Caps pause new usage until next month, but reporting delays permit billable overshoot. They apply per project/service to gross cost before credits and do not automatically cap related build or storage costs.
 
 ## Gotchas
 
@@ -116,4 +117,4 @@ Deployment requires the Blaze plan and a Cloud Billing account with a valid paym
 
 ### What happens when I go over the Cloud Functions no-cost amount?
 
-Firebase bills extra usage. Its legacy table lists $0.40 per million invocations beyond 2 million, and second-generation functions follow Cloud Run pricing. Blaze has no hard spending cap.
+Firebase bills extra usage. Its legacy table lists $0.40 per million invocations beyond 2 million, and second-generation functions follow Cloud Run pricing. Optional preview spend caps can pause new usage, but they do not guarantee a hard billing ceiling.

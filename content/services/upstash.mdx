@@ -27,7 +27,7 @@ freeTierDetails:
       Kafka does not appear on the current pricing pages; QStash and Workflow cover messaging and
       queues
     - Upgrading any product to pay as you go needs a credit card
-    - Free plans have community support only
+    - Redis, Vector and QStash Free comparisons include community and email support
     - >-
       The QStash/Workflow FAQ describes soft daily limits; another Workflow answer describes
       immediate errors, with scope unclear.
@@ -39,7 +39,7 @@ freeTierDetails:
   billingRiskNotes:
     - >-
       QStash/Workflow describe soft quotas and eventual errors; Workflow also describes errors at
-      its daily cap. Current Redis/Vector Free exhaustion is not fully explained.
+      its daily cap. Redis rejects commands above 500K/month; Vector Free exhaustion is not fully explained.
 quickstartSteps:
   - Log in to the Upstash Console, or sign up for a free account.
   - >-
@@ -58,8 +58,8 @@ whenToUse: >-
   Use it for a small cache, queue, or vector index in serverless or edge apps,
   when HTTP access and no servers to run matter more than raw throughput.
 whenNotToUse: >-
-  Avoid it if you need a hosted Kafka service, very high throughput on free
-  plans, or private networking.
+  Avoid the Free plans if you need a hosted Kafka service, very high throughput,
+  or private networking.
 bestFor:
   - serverless apps
   - prototyping
@@ -71,8 +71,8 @@ avoidIf:
   - you need hosted Kafka
 productionReadiness: prototype
 status: changed
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://upstash.com/'
@@ -99,7 +99,7 @@ answer: >-
   Upstash's free plans include Redis with 250MB and 500K commands a month and QStash with 1,000 messages a day, with no card until you move to pay as you go, though Kafka no longer appears on the pricing pages.
 
 ---
-You create resources in the Upstash Console and reach them over REST with SDKs for TypeScript, Python, and other languages. This page covers the products together. The Redis and Vector pages in this atlas go deeper on each one.
+You create resources in the Upstash Console and reach them over REST with SDKs for TypeScript, Python, and other languages. This page covers Redis, Vector, QStash and Workflow together; the provider also lists newer products outside this comparison. The Redis and Vector pages in this atlas go deeper on each one.
 
 ## What the free plan gives you
 
@@ -111,7 +111,7 @@ QStash, the HTTP message queue, allows 1,000 messages per day, with messages up 
 
 The QStash and Workflow FAQs describe daily quotas as soft: occasional spikes are tolerated, with contact about an upgrade before persistent excess can cause errors. Another Workflow answer says daily exhaustion causes errors, retries and eventual dead-letter failures. Their scope is not reconciled, so do not assume every Free spike is accepted.
 
-Redis storage is 250MB on the card but 256MB in the comparison. Current Redis monthly and Vector daily exhaustion are not fully explained. Pay-as-you-go requires a card and has separate usage billing.
+Redis storage is 250MB on the card but 256MB in the comparison. The Redis help FAQ now explicitly says commands above 500K per month return an exception. Vector daily exhaustion is not fully explained. Pay-as-you-go requires a card and has separate usage billing.
 
 ## Gotchas
 
@@ -133,7 +133,7 @@ Yes. Each product has a Free plan. Redis includes 250MB of data and 500K command
 
 ### What happens when I hit the Upstash free limits?
 
-The FAQs describe soft quotas and eventual errors, but another Workflow answer describes errors at the daily cap. Exact Free enforcement remains unclear. Redis and Vector have separate limits.
+The FAQs describe soft quotas and eventual errors, but another Workflow answer describes errors at the daily cap. Exact Free enforcement remains unclear for those messaging products. Redis rejects commands above 500K per month; Vector has separate limits.
 
 ### Does Upstash still offer Kafka?
 

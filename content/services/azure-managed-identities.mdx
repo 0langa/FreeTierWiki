@@ -40,7 +40,7 @@ quickstartSteps:
   - Sign in to the Azure portal with an account on an Azure subscription; the account needs a payment method.
   - Create a resource that supports managed identities, such as a virtual machine, or open an existing one.
   - Open the resource, go to Security, then Identity, set System assigned status to On, and click Save. Or create a user-assigned identity under Managed Identities and add it to the resource.
-  - Grant the identity access to the target service with an Azure role assignment, for example on a storage account.
+  - Have an account with Owner or User Access Administrator permissions grant the identity access to the target service, for example with a storage data role.
   - In your code, use the Azure.Identity library or MSAL to get a token with no secret in your configuration.
 whenToUse: >-
   Use it when code running on an Azure resource needs to call another service
@@ -57,8 +57,8 @@ avoidIf:
   - you need access across tenants
   - you use Azure Cloud Services (classic)
 productionReadiness: production-ready
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 9
 officialUrl: 'https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview'
@@ -84,15 +84,17 @@ You can assign an identity to an Azure virtual machine, a virtual machine scale 
 
 ## When you hit a limit
 
-You pay nothing for identities, so a limit cannot create a bill. The limits are technical. The FAQ gives limits of 20 requests per second and 5 concurrent requests for the managed identity category of Azure Instance Metadata Service. Requests over that limit receive HTTP 429.
+Identities cost nothing; limits are technical. Azure Instance Metadata Service's managed-identity category allows 20 requests/second and 5 concurrent requests, returning HTTP 429 above that.
 
-Each identity also counts toward your tenant's directory object quota. Creating a new identity is blocked once usage would reach 98 percent of that quota. An administrator then has to raise the quota or delete objects. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+Identities count toward the tenant's directory-object quota, including soft-deleted objects. Creation is blocked when usage would reach 98 percent; an administrator must reduce usage or request more capacity. Existing identities still obtain tokens, and assigning an existing user-assigned identity creates no additional object.
+
+Azure signup requires a phone number and non-prepaid credit/debit card for identity verification, potentially with a temporary one-dollar hold. Charges begin only after moving to pay-as-you-go.
 
 ## Gotchas
 
+- Enabling a VM identity requires Virtual Machine Contributor; creating a user-assigned identity requires Managed Identity Contributor, and attaching it also requires Managed Identity Operator.
 - Tokens are cached for around 24 hours, so a role change can take several hours to work. You cannot force a refresh.
-- Managed identities do not work across directories or tenants. After you move a subscription to another directory, you must re-create them and grant roles again.
-- Deleted identities are soft deleted for 30 days, but you cannot restore or permanently delete them in that time.
+- Managed identities do not work across directories or tenants. After you move a subscription to another directory, you must re-create them and grant roles again. Deleted identities are soft deleted for 30 days, but you cannot restore or permanently delete them in that time.
 
 ## Alternatives in this atlas
 

@@ -15,10 +15,10 @@ tags:
   - url to pdf
 freeTierDetails:
   summary: >-
-    Free plan: 100 screenshots per month for as long as you like, no card
+    Free plan: 50 screenshots per month for as long as you like, no card
     needed, with 10 requests per minute and 1 render at a time.
   limits:
-    - 100 screenshots per month
+    - 50 screenshots per month
     - 10 requests per minute and 1 render at a time per account
     - Full-page captures up to 10,000 px tall at 1x pixel density
     - Videos up to 10 seconds
@@ -54,8 +54,8 @@ avoidIf:
   - parallel rendering on a free plan
   - you need self-hosting
 productionReadiness: prototype
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 3
 usefulnessScore: 6
 officialUrl: 'https://curlshot.com/'
@@ -68,7 +68,11 @@ sourceUrls:
   - 'https://curlshot.com/docs/authentication'
   - 'https://curlshot.com/docs/html-and-markdown'
   - 'https://curlshot.com/docs/guides/ai-agents'
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: "Observed Free allowance reduced from 100 to 50 screenshots monthly and Starter advertised at $9.50 monthly; effective date not published."
   - date: '2026-11-02'
     kind: changed
     note: "Qualified conflicting official statements on paid-plan overage; Free remains hard-capped."
@@ -79,17 +83,16 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  CurlShot needs no credit card, allows 100 screenshots a month with one render at a time, and returns status 402 after the allowance and any bonus screenshots are exhausted, with no free-plan overage.
+  CurlShot needs no credit card, allows 50 screenshots a month with one render at a time, and returns status 402 after the allowance and any bonus screenshots are exhausted, with no free-plan overage.
 
 ---
-
 CurlShot is an HTTP API that renders a web page in a browser and returns an image or a PDF. Send a URL with a GET request, or POST HTML or Markdown as JSON to the same screenshot endpoint. It suits apps that need link previews, social images, or page captures without running a headless browser.
 
 ## What the free plan gives you
 
-The pricing page lists a Free plan at $0 with 100 screenshots a month, "for as long as you like", and says no card is needed. The plan allows 10 requests per minute and 1 render at a time. Full-page captures go up to 10,000 px tall at 1x pixel density, and videos up to 10 seconds.
+The pricing page lists a Free plan at $0 with 50 screenshots a month, "for as long as you like", and says no card is needed. The plan allows 10 requests per minute and 1 render at a time. Full-page captures go up to 10,000 px tall at 1x pixel density, and videos up to 10 seconds.
 
-The page says all plans include PNG, JPEG, and WebP images, PDF output, video capture, a response cache, and ad and cookie-banner blocking. Async renders, webhooks, bulk requests, and signed links start on paid plans, and the errors guide says Free requests for them return feature_not_available. A failed render and a cache hit are not counted. Paid plans start at $19 a month for 3,000 screenshots.
+The page says all plans include PNG, JPEG, and WebP images, PDF output, video capture, a response cache, and ad and cookie-banner blocking. Async renders, webhooks, bulk requests, and signed links start on paid plans, and the errors guide says Free requests for them return feature_not_available. A failed render and a cache hit are not counted. Paid plans start at $9.50 a month for 3,000 screenshots.
 
 ## When you hit a limit
 
@@ -99,13 +102,13 @@ Going past 10 requests a minute returns rate_limited, and a second render while 
 
 ## Gotchas
 
-- For paid plans, the sources disagree: the pricing page says there are no overage charges and requests stop at the limit, while the usage guide describes optional overage that is off by default and stops at a cap you set. Confirm the paid-plan terms in your dashboard before relying on extra capacity.
-- Keys work only after email confirmation; otherwise requests return email_not_verified. All keys of one account share quota, rate and concurrency limits, so extra keys do not add capacity.
-- The Free plan lists full-page captures up to 10,000 px at 1x pixel density.
+- For paid plans, the sources disagree: the pricing page says there are no overage charges and requests stop at the limit, while the usage guide describes optional overage that is off by default and stops at a cap you set. Confirm the paid-plan terms in your dashboard before relying on extra capacity. Keys work only after email confirmation; otherwise requests return email_not_verified. All keys of one account share quota, rate and concurrency limits, so extra keys do not add capacity. Unused plan screenshots do not roll over. Optional one-time packs cost $4.50 for 1,000 bonus screenshots, expire after 12 months, and work on Free without a subscription.
+- The Free plan lists full-page captures up to 10,000 px at 1x pixel density. HTML or Markdown input is limited to 2 MB.
+- Failed renders do not consume screenshots but can trigger a separate per-minute failure cap; stop and fix recurring failures instead of retrying continuously.
 
 ## Alternatives in this atlas
 
-- [ApiFlash](/services/apiflash/): when you want the same 100 monthly screenshots with a higher rate limit.
+- [ApiFlash](/services/apiflash/): when you want 100 monthly screenshots with a higher rate limit.
 - [Microlink.io](/services/microlink-io/): when you also want link metadata and preview cards from the same API.
 - [Screenshot Machine](/services/screenshotmachine/): when cached captures that do not count toward the quota suit you.
 
@@ -113,9 +116,9 @@ Going past 10 requests a minute returns rate_limited, and a second render while 
 
 ### Is CurlShot free?
 
-Yes, for 100 screenshots a month. The pricing page says the free plan needs no card and has no end date.
+Yes, for 50 screenshots a month. The pricing page says the free plan needs no card and has no end date.
 
-### What happens when I use all 100 screenshots?
+### What happens when I use all 50 screenshots?
 
 Once the allowance and any bonus screenshots are exhausted, the API returns quota_exceeded with status 402 until your monthly period resets or you upgrade. The free plan has no overage, so there is no bill.
 

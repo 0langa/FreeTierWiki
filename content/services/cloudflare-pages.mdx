@@ -24,6 +24,7 @@ freeTierDetails:
     - 100 projects per account
     - '20,000 files per site; 25 MiB per file'
     - 100 custom domains per project
+    - Deployments kept for 30 days, with the 100 most recent and current production deployment always kept
   caveats:
     - >-
       Cloudflare lists 500 builds per month and does not publish what happens
@@ -33,6 +34,7 @@ freeTierDetails:
       projects should start on Workers
     - Functions requests count toward the Workers plan quota
     - A Git-integrated project cannot be switched to Direct Upload later
+    - Deleted deployments lose their preview URLs and cannot be used for rollback
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -71,7 +73,7 @@ avoidIf:
   - you need many builds a month
   - you need heavy server-side logic
 productionReadiness: production-light
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/pages/'
@@ -81,14 +83,21 @@ sourceUrls:
   - 'https://www.cloudflare.com/products/pages/'
   - 'https://developers.cloudflare.com/pages/'
   - 'https://developers.cloudflare.com/pages/get-started/git-integration/'
-lastVerified: 2026-11-15
+lastVerified: 2026-11-23
 pricingUrl: 'https://developers.cloudflare.com/pages/platform/limits/'
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: >-
+      Observed a deployment-retention policy replacing unlimited active previews:
+      deployments older than 30 days are deleted unless they are among the 100
+      most recent or are the current production deployment.
   - date: 2026-10-21T00:00:00.000Z
     kind: changed
     note: >-
       Aligned limit enforcement flags with the scope and uncertainty of the
       cited policy evidence.
+status: changed
 answer: >-
   Cloudflare Pages offers 500 monthly builds and up to 100 projects with no card or overage, and Cloudflare recommends Workers for new projects; its docs leave build-quota enforcement unconfirmed.
 
@@ -97,7 +106,9 @@ You connect a GitHub or GitLab repository in the Cloudflare dashboard, or use Di
 
 ## What the free plan gives you
 
-The Free plan allows 500 builds per month and 1 build at a time. A build times out after 20 minutes. You can have 100 projects per account, 100 custom domains per project, and up to 20,000 files per site, each up to 25 MiB. Preview deployments are unlimited, and an unlimited number of users can manage a site through the dashboard.
+The Free plan allows 500 builds per month and 1 build at a time. A build times out after 20 minutes. You can have 100 projects per account, 100 custom domains per project, and up to 20,000 files per site, each up to 25 MiB. Unlimited users can manage sites through the dashboard.
+
+Deployments are kept for 30 days. The 100 most recent deployments, counting both production and previews, and the current production deployment are always kept. Older deployments outside those exceptions are deleted: their preview URLs stop working, and you cannot roll back to them.
 
 Requests to Pages Functions count toward your Workers plan quota. A `_headers` file can hold 100 rules, and a `_redirects` file can hold 2,000 static and 100 dynamic redirects. The Pro plan raises builds to 5,000 per month, and Business raises them to 20,000.
 
@@ -123,7 +134,7 @@ The project cap is firm. The page says it is not routinely increased, and points
 
 ### Is Cloudflare Pages free?
 
-Yes. The Free plan allows 500 builds per month, 100 projects per account, and unlimited preview deployments.
+Yes. The Free plan allows 500 builds per month and 100 projects per account. Deployment retention is 30 days, with the 100 most recent deployments and current production deployment always kept.
 
 ### Does Cloudflare Pages have a build limit?
 

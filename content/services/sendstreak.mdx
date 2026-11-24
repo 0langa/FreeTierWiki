@@ -15,22 +15,23 @@ tags:
   - eu hosted
 freeTierDetails:
   summary: >-
-    Free tier gives 100 emails per day, forever. Beyond that you pay as you go,
+    Free tier gives 100 send attempts per day, forever, then stops sending. Upgrade to pay as you go,
     at 2 euros per 10,000 emails. Your own email backend bills you separately.
   limits:
-    - '100 emails/day, forever'
+    - '100 send attempts/day per workspace, resetting at 00:00 UTC'
     - 'All features included, no tiers'
     - 'Pay-as-you-go beyond free amount: €2/10,000 emails, excluding VAT'
   caveats:
     - >-
       You connect your own email backend, and that provider bills you at its own
       rates
+    - Failed and blocked attempts count toward the daily free limit
     - The free daily allowance stays after you upgrade
     - 'Billing happens in whole packages of 10,000 emails'
   resetPeriod: daily
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
   billingRiskNotes:
     - >-
@@ -61,8 +62,8 @@ avoidIf:
   - you want a flat monthly price instead of paying per email
   - you have no email backend to connect
 productionReadiness: production-light
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.sendstreak.com/'
@@ -80,14 +81,14 @@ changes:
       Qualified the unpublished account card requirement and unpaid-account
       daily exhaustion behavior.
 answer: >-
-  SendStreak includes 100 emails a day, then charges €2 per 10,000 emails in whole packages, and your separate email backend bills you too, while the account card rule is not confirmed.
+  SendStreak stops Free sending at 100 attempts a day, including failures; an upgrade adds €2 per 10,000 billable emails, backend delivery costs remain separate, and the card rule is unconfirmed.
 
 ---
 You call a REST API or use an SDK, and you manage templates and logs in a web dashboard. It suits developers who want control over mail delivery without building the extras themselves.
 
 ## What the free plan gives you
 
-SendStreak has one plan with every feature. The first 100 emails each day are free, and that allowance never expires. Templates, routing, retries, logs, analytics, and automations are all on from day one, with no tiers or seats.
+SendStreak has one plan with every feature. The first 100 send attempts each day are free, and that allowance never expires. Templates, routing, retries, logs, analytics, and automations are all on from day one, with no tiers or seats.
 
 Pricing is excluding VAT. The pricing page says the service is EU-hosted and GDPR compliant.
 
@@ -95,7 +96,7 @@ Full-audience delivery uses your connected backend, such as AWS SES, Postmark, o
 
 ## When you hit a limit
 
-The pricing page says every email beyond the daily 100 costs 2 euros per 10,000, and the free 100 a day stays after you upgrade. The billing guide shows an upgrade from Free to Pay-As-You-Go. It does not specify the response when a Free account attempts more than 100 sends.
+The pricing page says every email beyond the daily 100 costs 2 euros per 10,000, and the free 100 a day stays after you upgrade. The billing guide shows an upgrade from Free to Pay-As-You-Go. The Free workspace stops sending once it reaches 100 attempts. This daily count includes blocked and failed attempts and resets at 00:00 UTC. Blocked and failed emails are not billable on Pay-As-You-Go.
 
 Billing uses whole packages of 10,000 emails, once per billing period. A started package counts as a whole one. For example, 97,000 billable emails are 10 packages, so the bill is 20 euros. The pricing page says there is no monthly fee and no minimum.
 
@@ -115,7 +116,7 @@ Billing uses whole packages of 10,000 emails, once per billing period. A started
 
 ### Is SendStreak free?
 
-Yes, up to 100 emails a day, forever. The free amount stays after you start paying for more.
+Yes, up to 100 send attempts a day, forever, including blocked or failed attempts. The free amount stays after you start paying for more.
 
 ### How much does SendStreak cost after the free emails?
 

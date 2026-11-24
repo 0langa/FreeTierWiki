@@ -30,6 +30,7 @@ freeTierDetails:
     - Most new AWS customers need no payment method, but identity verification may require one
     - Free read and write capacity is for provisioned Standard tables. Standard storage can also qualify in on-demand mode, where reads and writes are billed per request
     - A Free account plan ends after six months or when credits run out, and access is suspended; a Paid upgrade within 90 days restores data
+    - Point-in-time recovery and other optional features have separate charges
     - On the Paid account plan, usage past the allowance is billed at standard rates
   resetPeriod: monthly
   requiresCard: false
@@ -41,7 +42,7 @@ freeTierDetails:
     - Overages are billed at standard rates on the Paid account plan
     - The Free account plan does not bill; access suspends at six months or depleted credits with 90 days to recover
 quickstartSteps:
-  - Sign up for an AWS account at aws.amazon.com/free and choose the Free plan or the Paid plan.
+  - Sign up at aws.amazon.com/free; the current signup FAQ says eligible new accounts start on Free and can upgrade to Paid.
   - Sign in to the AWS Management Console and open the DynamoDB console.
   - 'Choose Tables, then Create table, and enter a table name and a partition key (the docs example uses a Music table with Artist and SongTitle keys).'
   - Choose provisioned capacity and Standard table class for the capacity allowance; default/on-demand table settings can incur request charges.
@@ -62,8 +63,8 @@ avoidIf:
   - You want a free tier with no AWS account
   - You need heavy on-demand traffic for free
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/dynamodb/'
@@ -77,6 +78,7 @@ sourceUrls:
   - 'https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html'
   - 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html'
   - 'https://aws.amazon.com/free/free-tier-faqs/'
+  - 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html'
 status: changed
 changes:
   - date: 2026-10-21
@@ -110,7 +112,7 @@ On a Paid account plan, usage beyond the free allowance is billed at standard ra
 
 ## Gotchas
 
-- On-demand reads and writes do not use the provisioned capacity allowance. The CLI example in the getting-started guide creates a table in pay-per-request mode.
+- On-demand reads and writes do not use the provisioned capacity allowance. The CLI example in the getting-started guide creates a table in pay-per-request mode. The setup guide also recommends point-in-time recovery, which has separate charges; it is not included in the storage or capacity allowance.
 - The Free account plan suspends access when it ends, so the always-free allowance only lasts beyond six months on a Paid plan.
 - Some actions upgrade a Free account plan to Paid automatically, such as joining AWS Organizations.
 

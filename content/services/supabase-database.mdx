@@ -39,7 +39,7 @@ freeTierDetails:
 quickstartSteps:
   - Sign up for Supabase and create a project from the dashboard. You set a database password and a region.
   - Open the SQL Editor in the project dashboard and create a table, for example the `instruments` table from the quickstart.
-  - Enable row level security on the table and add a policy for the roles that should read it.
+  - Grant only the needed database privileges, enable row level security, and add a policy for the roles that should read the table.
   - For a Next.js app, run `npx create-next-app -e with-supabase` and set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`.
   - Query the table from your app with the Supabase client, or connect with `psql` or an ORM such as Prisma or Drizzle.
 whenToUse: >-
@@ -58,8 +58,8 @@ avoidIf:
   - Pro plan daily backups needed
   - high-availability requirements
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://supabase.com/'
@@ -91,14 +91,16 @@ You can have 2 active free projects. Paused projects do not count toward that qu
 
 ## When you hit a limit
 
-Supabase notifies you when your organization exceeds the 500 MB database-size allowance per project. Continued excess can trigger HTTP 402 across the organization after a grace period, with relief at the next billing cycle. Separately, each Free project has a fixed 2 GB disk. At 95% disk usage the database becomes read-only, and if the disk fills, Postgres shuts down.
+Exceeding 500 MB/project triggers organization notification and potentially HTTP 402 after grace, relieved next billing cycle. Dropping below quota does not immediately reset grace; repeat excess may restrict without another grace period until several cycles stay compliant.
 
-Inactivity is a separate limit. Free projects are paused after 1 week of inactivity. The Pro plan starts at $25 a month and adds daily backups kept for 7 days.
+Separately, each Free disk is 2 GB including data, WAL and system files. At 95%, it becomes read-only; filling it shuts down Postgres until upgrade. This is best-effort: in-flight writes/WAL can fill it anyway.
+
+Free projects pause after 1 inactive week. Pro starts at $25/month with daily backups retained 7 days. Distinguish the database allowance from physical disk capacity.
 
 ## Gotchas
 
 - A free project pauses after 1 week without activity, so a demo you share later may be asleep.
-- The dedicated backup guide says automatic daily backups cover Pro, Team, and Enterprise. Free projects should regularly export data with the Supabase CLI and keep off-site backups.
+- The dedicated backup guide says automatic daily backups cover Pro, Team, and Enterprise. Free projects should regularly export data with the Supabase CLI and keep off-site backups. Database backups contain Storage metadata, not the uploaded files themselves; back those up separately.
 - Inside one organization, the 2 project limit counts the free projects of every member with the Owner or Admin role.
 
 ## Alternatives in this atlas

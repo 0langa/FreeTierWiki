@@ -20,7 +20,7 @@ freeTierDetails:
     - '1,000 requests/day at 10+ credits, with a documented one-credit threshold tolerance'
   caveats:
     - The daily cap depends on lifetime credits purchased; the higher tier starts one credit below the nominal 10-credit threshold
-    - Only models with a ":free" suffix are included
+    - Choose a free model variant or the openrouter/free router; paid models cost credits
   resetPeriod: daily
   requiresCard: unknown
   freeTierType: always-free
@@ -30,8 +30,8 @@ quickstartSteps:
   - 'Create an OpenRouter account and sign in.'
   - 'Create an API key and store it as OPENROUTER_API_KEY.'
   - 'Pick a model from the models page; search for free to find IDs that end in :free.'
-  - 'Send a request to https://openrouter.ai/api/v1/chat/completions with the header Authorization: Bearer and your key, or use one of the SDKs.'
-  - 'If a request fails with a 429 error, read the X-RateLimit-Reset header to see when your limit resets.'
+  - 'Send a request to https://openrouter.ai/api/v1/responses with the header Authorization: Bearer and your key, or use one of the SDKs.'
+  - 'For free-model quota errors, read X-RateLimit-Reset and retry later; provider or per-IP errors may lack those headers.'
 whenToUse: 'Use OpenRouter when you want one API for many models and a free way to try some of them.'
 whenNotToUse: 'Avoid it when you need steady production traffic on free models. Free models normally allow 50 requests per day until sufficient lifetime credits are purchased, then 1,000. The FAQ says they are usually not suitable for production use.'
 bestFor:
@@ -44,8 +44,8 @@ avoidIf:
   - 'more than 1,000 free requests per day'
   - 'a guarantee of access to one specific model'
 productionReadiness: prototype
-lastUpdated: 2026-11-02
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://openrouter.ai/models?q=free'
@@ -65,20 +65,20 @@ answer: >-
   OpenRouter's :free models have a hard cap of 20 requests a minute and normally 50 a day, rising to 1,000 with sufficient lifetime credits purchased, with a documented threshold tolerance and an unconfirmed card rule.
 
 ---
-You send standard HTTP requests to one chat completions endpoint, or use an SDK, and change the model ID to switch models. This page covers the free models, whose IDs end in `:free`.
+You send standard HTTP requests to the API, or use an SDK, and change the model ID to switch models. This page covers the free models, whose IDs end in `:free`.
 
 
 ## What the free plan gives you
 
 You can call any model with a `:free` ID without paying. Free models run at 20 requests per minute. The daily cap depends on how many credits you have bought over the life of the account.
 
-The published table lists 50 requests per day below 10 lifetime credits purchased and 1,000 at 10 or more. The accompanying note grants the higher allowance one credit below that nominal threshold to absorb rounding and top-up fees. Check your key’s effective limit when you are near the boundary.
+The published table lists 50 requests per day below 10 lifetime credits purchased and 1,000 at 10 or more. The accompanying note grants the higher allowance one credit below that nominal threshold to absorb rounding and top-up fees. Check the free_model_daily_requests fields from GET /api/v1/key for the current UTC day's used, limit and remaining counts. Creating more keys or accounts does not increase the limits.
 
 New users also get a small free allowance to test the service. OpenRouter also offers a Free Models Router that picks a free model for you. The FAQ calls free models low-limit and usually not suitable for production use.
 
 ## When you hit a limit
 
-OpenRouter rejects the request with a 429 error and the message "Rate limit exceeded". Platform-limit errors carry quota/reset headers; provider-side 429 responses can differ. Wait and retry, or switch to the paid version of the same model.
+OpenRouter rejects the request with a 429 error and the message "Rate limit exceeded". Free-model and key-management quota errors carry quota/reset headers; provider-side and per-IP burst errors can differ, and successful inference responses do not include these headers. Wait and retry, or switch to the paid version of the same model.
 
 The limits page lists no charge for hitting a cap. But a negative credit balance can cause 402 errors, even on free models. Add credits to bring the balance above zero.
 

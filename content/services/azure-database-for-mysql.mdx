@@ -39,7 +39,7 @@ quickstartSteps:
   - 'Create an Azure account. New customers get the free monthly amounts for 12 months, and sign-up asks for card verification.'
   - 'In the Azure portal, search for and select Azure Database for MySQL Flexible Servers, then create a server in a resource group.'
   - 'On the Configure server pane, keep the Burstable compute tier with the Standard_B1ms size so the server fits the free amount.'
-  - 'Set an admin user and password, create the server, and connect with a MySQL client.'
+  - 'Set an admin user and password, configure private access or a public-access firewall rule for your client IP, create the server, and connect with a MySQL client using TLS.'
 whenToUse: >-
   Use it for development, testing, or learning when you want managed MySQL on
   Azure and are a new Azure customer inside your first 12 months.
@@ -55,8 +55,8 @@ avoidIf:
   - You need free hosting past 12 months
   - You need a server without a card on file
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/mysql/'
@@ -77,10 +77,9 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Azure Database for MySQL is free for 12 months on a new Azure account with 750 hours a month of B1MS, but it needs a card, and usage past that is billed at pay-as-you-go rates.
+  Azure Database for MySQL is free for 12 months on a new Azure account with 750 hours a month of B1MS, but it needs a card, and after a pay-as-you-go upgrade, usage beyond the allowance is billed.
 
 ---
-
 You create and manage the server in the Azure portal, then connect with any MySQL client or driver. It suits developers who are new to Azure and want a managed MySQL server to learn or test on.
 
 ## What the free plan gives you
@@ -91,14 +90,14 @@ Eligible signup routes include the Azure free account and, where offered, direct
 
 ## When you hit a limit
 
-The free amount is a monthly allowance, not a hard cap. Hours, storage, and backup storage above it are billed at pay-as-you-go rates, and the same applies once the 12 months end. One B1MS server running all month fits inside the 750 hours.
+After moving to pay-as-you-go, the free amount is a monthly allowance, not a hard cap. An unupgraded free account stops services when the 30-day credit expires or runs out. Hours, storage, and backup storage above it are billed at pay-as-you-go rates, and the same applies once the 12 months end. One B1MS server running all month fits inside the 750 hours.
 
 The Azure portal's default server settings are Burstable, Standard_B1ms, 10 GiB of storage, 100 IOPS, and 7 days of backup retention. Changing the size or adding servers can move you outside the free amount, so check the cost summary before you create.
 
 ## Gotchas
 
 - The 12-month free amount is only for new Azure customers.
-- A stopped server can still incur storage and excess backup charges. Compute billing pauses while it is stopped.
+- A stopped server can still incur storage and excess backup charges. Compute billing pauses while it is stopped. Billing rounds partial hours up and uses the highest compute size or tier selected within that hour.
 - Multiple B1MS servers can exhaust the 750-hour monthly allowance faster. A different instance size is billed outside the offer.
 
 ## Alternatives in this atlas

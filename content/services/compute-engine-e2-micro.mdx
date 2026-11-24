@@ -42,24 +42,24 @@ quickstartSteps:
   - 'In the console, open the Create an instance page for Compute Engine.'
   - 'In Machine configuration, pick the e2-micro machine type and a free region: us-west1, us-central1, or us-east1.'
   - 'In OS and storage, choose a Linux image and keep the standard persistent boot disk within 30 GB.'
-  - 'In Networking, set the firewall options you need, then click Create.'
+  - 'In Networking, review external IPv4 assignment and firewall settings before creating the VM; an external IPv4 address has a separate charge.'
 whenToUse: >-
   Use it when you want one small always-on Linux VM for learning, testing, or
   a hobby project, in one of the three eligible US regions.
 whenNotToUse: >-
-  Avoid it when you need more than one e2-micro VM running at a time, GPUs or
+  Avoid it when your combined e2-micro runtime exceeds one VM-month, you need GPUs or
   TPUs, or regions outside the three US regions.
 bestFor:
   - learning
   - prototyping
   - personal projects
 avoidIf:
-  - more than one e2-micro VM running at a time
+  - combined runtime beyond one e2-micro VM-month
   - GPUs or TPUs
   - regions outside the three US regions
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://cloud.google.com/compute'
@@ -95,7 +95,7 @@ A Paid billing account is billed for overage; a Free Trial account uses its $300
 ## Gotchas
 
 - The free e2-micro must be non-preemptible and must run in us-west1, us-central1, or us-east1. A VM in another region is billed.
-- The free hours are shared across all your e2-micro instances, so two instances running for the whole month use up the allowance in half the time.
+- The free hours are shared across all your e2-micro instances, so two instances running for the whole month use up the allowance in half the time. Running several briefly is allowed within the combined allowance. External IPv4 on a standard VM is $0.005/hour after its separate one-hour monthly free allowance. A static address attached to a stopped VM still counts as in use; an ephemeral address is released when the VM stops.
 - Google can change or end Free Tier limits with 30 days of advance notice, and limits are calculated per billing account.
 
 ## Alternatives in this atlas

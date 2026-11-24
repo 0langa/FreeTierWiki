@@ -56,8 +56,8 @@ avoidIf:
   - cannot create an Azure subscription
   - only need IP geolocation
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/azure-maps/'
@@ -88,14 +88,14 @@ A transaction is not always one request. For map tiles, 15 tiles count as one tr
 
 ## When you hit a limit
 
-The pricing page does not describe a hard stop. It says Azure Maps uses consumption-based pricing and that billing is calculated monthly, so usage above a free amount becomes billable. In its default view (US dollars, Central US), the table lists $4.50 per 1,000 transactions under 500K for each meter, and Contact Us above that.
+The pricing page does not describe a hard stop. It says Azure Maps uses consumption-based pricing and that billing is calculated monthly, so usage above a free amount becomes billable on pay-as-you-go. An unupgraded free account stops services when its initial trial credit expires or runs out. With US dollars and West US 2 selected, the table lists $4.50 per 1,000 transactions under 500K for each meter, and Contact Us above that.
 
 The pricing page says volume discounts begin at 100,000 transactions per month and that you should contact sales for details. Each meter is billed on its own, so one busy service can bill while the others stay free. Watch the Metrics report in the Azure portal.
 
 ## Gotchas
 
 - The Gen1 tier, including the old S0 free amounts, retired on September 15, 2026. Old accounts were converted to Gen2 automatically.
-- Batch calls and matrix calls use up transactions faster. Each query in a batch search counts as a Search transaction, and every 4 cells of a route matrix count as one Routing transaction.
+- Batch calls and matrix calls use up transactions faster. Each query in a batch search counts as a Search transaction, and every 4 cells of a route matrix count as one Routing transaction, rounded up. A 5-by-10 matrix therefore uses 13 transactions. Copyright, attribution, and Terra map tiles are nonbillable. HTTP 5xx, 401, 403, 408, and 429 responses and CORS preflight requests do not count as billing transactions.
 - You need an Azure subscription to create the account.
 
 ## Alternatives in this atlas

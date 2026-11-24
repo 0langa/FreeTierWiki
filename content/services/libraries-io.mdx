@@ -1,8 +1,9 @@
 ---
 title: Libraries.io
 description: >-
-  Libraries.io is a search site and API for open source packages. You can find
-  packages by license or language and read their metadata.
+  Libraries.io documents an API for open source package metadata. Its main
+  site currently redirects to Sonar, so current search and signup availability
+  need confirmation.
 provider: Libraries.io
 domain: devops
 tags:
@@ -14,34 +15,34 @@ tags:
   - licenses
 freeTierDetails:
   summary: >-
-    Free search of open source packages across many package managers, plus a
-    free API for registered users at 60 requests per minute.
+    The API docs still advertise free access for registered users at 60
+    requests per minute, but the homepage redirects to Sonar and current
+    signup availability is unconfirmed.
   limits:
-    - Search and browse packages for free
+    - Current package-search availability is unconfirmed after the homepage redirect
     - API access is free to registered users
     - 60 API requests/minute per API key
     - Dependency insights are limited and not validated for accuracy
   caveats:
     - Data is scraped from the internet and not validated, corrected, or curated
     - Requests over the rate limit get a 429 response
-    - Larger scale data access is sold by Tidelift
+    - Homepage and About redirect to Sonar; new-account and current paid upgrade availability are unconfirmed
   resetPeriod: minute
-  requiresCard: false
+  requiresCard: unknown
   freeTierType: always-free
   hasHardCap: true
   overageRisk: none
 quickstartSteps:
-  - Open libraries.io and search by package name, license, or language.
-  - Open a package page to read its details and links.
-  - Log in with GitHub, GitLab, or Bitbucket to use the API and account features.
-  - Copy your API key from your account page.
-  - Call the API with the api_key parameter on every request, and keep to 60 requests per minute.
+  - Confirm current account and API access before relying on the historical signup flow.
+  - Read the API documentation for the package metadata endpoint you need.
+  - If your account remains available, obtain its API key from the account page.
+  - Use the documented api_key parameter and keep to 60 requests per minute.
 whenToUse: >-
-  Use Libraries.io to search open source packages across package managers and
-  to pull package metadata through its free API.
+  Consider the documented package-metadata API if you already have working
+  account access; current search and new-account availability need confirmation.
 whenNotToUse: >-
-  Avoid it for checked, curated package data or high-volume API use. The site
-  points those users to the paid Tidelift Subscription.
+  Avoid it for validated package data, high-volume API use, or a new integration
+  that depends on unconfirmed account availability.
 bestFor:
   - open source maintainers
   - developers
@@ -49,9 +50,9 @@ bestFor:
 avoidIf:
   - you need validated dependency data
   - you need more than 60 API requests a minute
-  - you need the extensive dependency insights that the site sells through Tidelift
+  - you need a confirmed current route to commercial dependency insights
 productionReadiness: prototype
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 lastVerified: 2026-11-16
 popularityScore: 6
 usefulnessScore: 7
@@ -61,30 +62,30 @@ sourceUrls:
   - 'https://libraries.io/about'
   - 'https://libraries.io/api'
   - 'https://libraries.io/'
-pricingUrl: 'https://libraries.io/'
+pricingUrl: 'https://libraries.io/api'
 answer: >-
-  Libraries.io search is free, registered users get 60 API requests a minute with HTTP 429 responses over that, and its scraped package data is not validated or curated.
+  Libraries.io still documents free API access at 60 requests a minute, but its homepage redirects to Sonar and current search and new-account availability are unconfirmed.
 
 ---
-You use Libraries.io in the browser to search for packages, or call its REST API with a key. It suits developers and researchers who need public package information.
+On November 23, 2026, Libraries.io’s homepage and About page redirected to Sonar. Its API documentation remained readable and advertised free registered-user access, but that does not confirm working signup or API access. The full entry comparison remains unresolved. Historically, you could search packages in the browser or call its REST API with a key. It suits developers and researchers who need public package information.
 
 ## What the free plan gives you
 
-The home page calls Libraries.io a free service that collects publicly available open source package information from the internet. You can search millions of packages by license and language, or look at new, trending, or popular packages. It tracks packages across 32 package managers.
+The earlier catalog described free package search across package managers, with license and language filters. The current homepage redirect no longer supports treating that interface or its previous package-manager count as confirmed. Use the still-readable API documentation as a reference, and confirm current account access before depending on the service.
 
-API access is free to all registered users. You create a login, take the API key from your account page, and pass it as the `api_key` parameter. The site offers dependency insights too, but it says they are limited and not validated for accuracy.
+The API documentation says access is free to all registered users. You create a login, take the API key from your account page, and pass it as the `api_key` parameter. The earlier site also offered limited dependency insights without accuracy validation.
 
 ## When you hit a limit
 
 All API requests share a limit of 60 requests per minute for each API key. Extra requests in that minute get a 429 response. The pages describe no charge for the free API.
 
-For larger scale access to the data, the API page points you to Tidelift. The home page says the paid Tidelift Subscription has curated, human-validated data, more complete dependency insights, and rate limits you can customize.
+For larger scale access to the data, the API page points you to Tidelift. The previously cited homepage description of a paid Tidelift Subscription is no longer available at that URL; current commercial availability and terms need confirmation.
 
 ## Gotchas
 
 - The data is scraped and not validated, corrected, or curated for accuracy, so check anything important before you rely on it.
-- Dependency insights on the free site are limited and carry the same accuracy warning.
-- You log in with GitHub, GitLab, or Bitbucket, and you accept the terms of service and privacy policy when you do.
+- Earlier free dependency insights were limited and unvalidated; current availability is unconfirmed.
+- Earlier signup used GitHub, GitLab or Bitbucket with terms/privacy acceptance; current new-account access is unconfirmed.
 
 ## Alternatives in this atlas
 
@@ -96,7 +97,7 @@ For larger scale access to the data, the API page points you to Tidelift. The ho
 
 ### Is Libraries.io free?
 
-Yes. The home page calls it a free service for searching open source packages. API access is free to registered users.
+The API documentation still advertises free registered-user access. Current search and new-account availability are unconfirmed because the homepage redirects to Sonar.
 
 ### What is the Libraries.io API rate limit?
 
@@ -104,4 +105,4 @@ All requests are limited to 60 requests per minute for each API key. Going over 
 
 ### Is Libraries.io data accurate?
 
-The site says its data is scraped from the internet and not validated, corrected, or curated for accuracy. It offers the paid Tidelift Subscription for curated data.
+Earlier guidance described scraped, unvalidated data and pointed to Tidelift for curated information. Current commercial availability requires confirmation.

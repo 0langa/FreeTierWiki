@@ -25,7 +25,7 @@ freeTierDetails:
     - Requires a RapidAPI account to get an API key
     - RapidAPI says a provider may require a credit card when a quota has overage fees
     - The request quota has a hard limit, but the separate bandwidth quota has an overage fee
-    - Failed requests are free and do not count toward the quota
+    - Provider fetch failures returned as 5xx responses do not count toward the request quota or charge
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
@@ -36,9 +36,9 @@ freeTierDetails:
 quickstartSteps:
   - Sign up for a free RapidAPI account from the RapidAPI home page.
   - Open the Scraper's Proxy listing and select the Basic plan on the Pricing tab and review any card requirement and bandwidth-overage terms.
-  - Back on the Endpoints tab, pick Standard Fetch Raw Webpages, enter a target page, and select Test Endpoint.
+  - Back on the Endpoints tab, open the Standard GET playground under Standard Fetch Raw Webpages, enter a target page, and use its request control after subscribing.
   - Switch to Code Snippets, choose your language, and copy the request into your scraper.
-  - Choose a suitable timeout for the endpoint and handle quota or request failures in your client.
+  - Allow at least a 30-second timeout as the provider recommends, and handle quota or request failures in your client.
 whenToUse: >-
   Use it to test a scraper or fetch a few hundred pages a year through
   proxies, when a RapidAPI account and possible card requirement are acceptable.
@@ -63,8 +63,8 @@ changes:
   - date: 2026-10-21
     kind: changed
     note: "Corrected Basic email support to excluded and documented conflicting current listing and older general credit-card wording. Marked the specific API card requirement unknown while retaining its confirmed bandwidth overage warning."
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://rapidapi.com/scapers-proxy-scapers-proxy-default/api/scrapers-proxy2'
@@ -84,7 +84,7 @@ You call Scraper's Proxy through the RapidAPI hub with an HTTP request, and you 
 
 ## What the free plan gives you
 
-The Basic plan costs $0 a month and sits on RapidAPI. It includes 100 requests a month with a hard limit, and a rate limit of 5 requests per second. It also includes proxy and cookie sessions and JavaScript rendering. Email support is not included on Basic. Failed requests are free and do not count toward the quota.
+The Basic plan costs $0 a month and sits on RapidAPI. It includes 100 requests a month with a hard limit, and a rate limit of 5 requests per second. It also includes proxy and cookie sessions and JavaScript rendering. Email support is not included on Basic. Provider fetch failures returned as 5xx responses do not count toward the request quota or charge.
 
 The API has endpoints to fetch raw pages by GET or POST, to fetch pages with a rendered browser, and to turn a page into JSON. Allow for the extra time browser rendering takes when choosing a request timeout.
 

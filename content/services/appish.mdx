@@ -31,7 +31,7 @@ freeTierDetails:
 quickstartSteps:
   - Sign up and copy the build-and-push command for your free slot.
   - Build the image for linux/amd64 and set the port tag to match your app.
-  - Push the image and open the public URL shown in the dashboard.
+  - Push the image, wait for the deployment sub-status to become Healthy, then open the public URL shown in the dashboard.
   - Extend the slot in the dashboard if you need to keep the demo running.
 whenToUse: >-
   Use Appish when you have a Docker image for a short-lived demo, hackathon
@@ -48,8 +48,8 @@ avoidIf:
   - private demos
   - ARM-only container images
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://appi.sh/'
@@ -68,11 +68,11 @@ answer: >-
   and stops the container at expiry unless you extend the slot.
 
 ---
-Appish works with a Docker image you already have. The dashboard supplies a registry destination, and Appish runs the image at a public URL. That makes it useful for a project review where someone needs to try the app in a browser without building it on their own machine.
+Appish works with a Docker image you already have. The dashboard supplies a private registry push URL, and Appish runs the image at a different public URL. Anyone with the push URL can replace the deployment, so share only the public app URL. That makes it useful for a project review where someone needs to try the app in a browser without building it on their own machine.
 
 ## What the free plan gives you
 
-Each account has one free demo slot with shared resources and a public address under appi.sh. Build an image for linux/amd64, use the dashboard's push command and set the port tag to match the port your container serves. The clock starts on the first push. Subsequent pushes replace the running image without changing the public URL or extending the timer.
+Each account has one free demo slot with shared resources and a public address under appi.sh. Build an image for linux/amd64, use the dashboard's push command and set the port tag to match the port your container serves. An Active dashboard status only means the image has arrived and is being processed; Healthy confirms the app is reachable. The clock starts on the first push. Subsequent pushes replace the running image without changing the public URL or extending the timer.
 
 A free session lasts up to four hours. If you need the link to stay live for a little longer, extend the slot from the dashboard. The docs say each extension starts a fresh four-hour window.
 

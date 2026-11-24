@@ -45,8 +45,8 @@ avoidIf:
   - high transfer volume
   - large customer connection counts
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://nango.dev/'
@@ -68,7 +68,7 @@ Nango connects an app to third-party accounts so you can keep the authorization 
 
 ## What the free plan gives you
 
-The Free limits are ten connections, ten compute hours per month, and 10 GB of data transfer per month. A connection is an authorized user account in the external system. Several users connecting the same product can therefore consume several slots. Compute measures execution work from operations such as syncs and tool calls. Transfer measures data processed through integrations. Start with one account and one small sync, then observe which meters move. A job that runs often on a small dataset can have a different profile from one that moves a large dataset occasionally.
+The Free limits are ten connections, ten compute hours per month, and 10 GB of data transfer per month. A connection is an authorized user account in the external system. Several users connecting the same product can therefore consume several slots. Compute measures execution work from operations such as syncs and tool calls, rounded up to a whole second for each run. A 300-millisecond call therefore consumes one second. Transfer meters egress only; ingress is free. Count outbound data to your backend or external APIs, sync processing and custom log messages from Nango Functions. Start with one account and one small sync, then observe which meters move. A job that runs often on a small dataset can have a different profile from one that moves a large dataset occasionally.
 
 ## When you hit a limit
 
@@ -76,9 +76,9 @@ Nango describes the free limits as hard caps that reset monthly. It publishes a 
 
 ## Gotchas
 
-- An integration type is not the count used for authorized connections. Each separate account can take a slot.
-- Frequent tool calls and webhooks can share compute time with scheduled syncs.
-- Plan transfer around the data actually processed, including any initial imports.
+- An integration type is not the count used for authorized connections. Each separate account can take a slot. Frequent tool calls and webhooks can share compute time with scheduled syncs.
+- Plan transfer around metered egress, including sync processing and custom logs; inbound transfers are free.
+- The hosted service does not currently offer an EU cloud; Enterprise BYOC can use other AWS, GCP or Azure regions.
 
 ## Alternatives in this atlas
 

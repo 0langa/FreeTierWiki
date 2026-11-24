@@ -19,10 +19,12 @@ freeTierDetails:
     database that expires after 30 days, with 5 GB of bandwidth included per month.
   limits:
     - 'Static sites: always free to deploy, with CDN'
-    - 'Web services: 750 free instance hours per month, 512 MB RAM, under 1 CPU (free instance type)'
+    - 'Web services: 750 free instance hours per month, 512 MB RAM; Free CPU allocation is not specified in the current table'
     - 'PostgreSQL: 256 MB RAM, 1 GB storage, 100 connections (expires after 30 days)'
     - 'Key-value (Redis-compatible): 25 MB RAM, 50 connections'
     - 5 GB bandwidth/month included per workspace, then $0.15/GB
+    - 500 standard build minutes/month; additional usage is $5 per 1,000 minutes with billing enabled
+    - 2 custom domains included; additional domains are $0.25/domain/month
   caveats:
     - >-
       Free PostgreSQL expires 30 days after creation, with a 14-day grace period to upgrade; there are
@@ -68,7 +70,7 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified that a saved payment method enables bandwidth overage charges on free services."
-lastUpdated: 2026-10-09
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://render.com/'
@@ -77,7 +79,7 @@ sourceUrls:
   - 'https://render.com/pricing'
   - 'https://render.com/docs/free'
   - 'https://render.com/docs/your-first-deploy'
-lastVerified: 2026-11-15
+lastVerified: 2026-11-23
 pricingUrl: 'https://render.com/pricing'
 answer: >-
   Render's free web services sleep after 15 idle minutes, the free 1 GB Postgres expires after 30 days, and a saved payment method enables bandwidth charges past the included 5 GB a month.
@@ -87,20 +89,20 @@ You connect a Git repository in the dashboard, and Render builds it and gives th
 
 ## What the free plan gives you
 
-Static sites are free to deploy. A Free web service has 512 MB of RAM and less than 1 CPU, and the workspace gets 750 Free instance hours per calendar month. Services that are spun down use no hours. The Hobby workspace includes 5 GB of bandwidth per month, then $0.15 per GB, and the plan page lists up to 25 services.
+Static sites are free to deploy. A Free web service has 512 MB of RAM; its CPU allocation is not specified in the current compute table, and the workspace gets 750 Free instance hours per calendar month. Services that are spun down use no hours. The Hobby workspace includes 5 GB of bandwidth per month, then $0.15 per GB, and the plan page lists up to 25 services.
 
-You can also create one free Postgres database per workspace, with 256 MB of RAM, 100 connections, and 1 GB of storage. One free Key Value instance is allowed too, and it keeps data in memory only.
+You can also create one free Postgres database per workspace, with 256 MB of RAM, 100 connections, and 1 GB of storage. One free Key Value instance is allowed too, and it keeps data in memory only. Its data is lost on restart and when upgrading it to a paid compute plan.
 
 ## When you hit a limit
 
 If you use all 750 instance hours, Render suspends your Free web services until the start of the next month. If you use all your outbound bandwidth, Render bills you for the extra when a payment method is on file. Without a payment method, it suspends all your Free services for the rest of the month.
 
-Build pipeline minutes work in a similar way. Without a payment method, or at your spend limit, Render disables new builds for the month while existing services keep running. Render emails you when you approach a limit.
+Hobby includes 500 standard build minutes per month, then $5 per 1,000 minutes with billing enabled. Build pipeline limits work in a similar way. Without a payment method, or at your spend limit, Render disables new builds for the month while existing services keep running. Render emails limit warnings. Hobby also includes two custom domains; extra domains cost $0.25 each per month.
 
 ## Gotchas
 
 - A Free web service spins down after 15 minutes without inbound traffic, and waking it takes about one minute. Changes to its local filesystem are lost when it spins down.
-- A Free Postgres database expires 30 days after creation. You then have a 14-day grace period to upgrade, and after that Render deletes it and its data. Free databases have no backups.
+- A Free Postgres database expires 30 days after creation. You then have a 14-day grace period to upgrade, and after that Render deletes it and its data. Free databases have no backups. Render may suspend a Free web service for unusually high service-initiated public traffic, such as external API or database calls; restoring it then requires paid compute.
 - Free web services cannot send outbound traffic on ports 25, 465, or 587, which SMTP mail commonly uses.
 
 ## Alternatives in this atlas

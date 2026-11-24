@@ -18,7 +18,7 @@ freeTierDetails:
   limits:
     - '1,000 credits per month, shared across metered endpoints'
     - 'About 1,000 scraped pages or 500 searches'
-    - 2 concurrent requests
+    - 2 concurrent browsers
     - >-
       10 requests a minute on scrape, map and search; 2 a minute on crawl and
       agent
@@ -56,11 +56,11 @@ bestFor:
   - prototypes
 avoidIf:
   - you crawl whole sites often
-  - you need more than 2 concurrent requests for free
+  - you need more than 2 concurrent browsers for free
   - you need unused credits to roll over
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.firecrawl.dev'
@@ -90,9 +90,11 @@ You use Firecrawl through a REST API, Python and Node SDKs, a command-line tool,
 
 ## What the free plan gives you
 
-Free includes 1,000 credits a month without a card. Searches and scraped pages share one balance. The Research Index and Government Index have separate rate limits and use no credits. The monthly credits cover 500 searches or 1,000 scraped pages.
+Free includes 1,000 monthly credits without a card: roughly 500 searches of up to 10 results without extras, or 1,000 basic scraped pages. Research/Government Indexes consume no credits but each permits 1,000 daily team requests, including errors, resetting at midnight UTC; respective per-minute caps are 100/300.
 
-Scrape and crawl cost 1 credit per page. Map costs 1 per call, and search costs 2 per 10 results. The JSON, Question, and Highlight formats add 4 credits per page on scrape and crawl. Free allows 2 concurrent requests and limits scrape, map, and search to 10 requests a minute, and crawl and agent to 2 a minute. Agent gets 5 free daily runs.
+Scrape/crawl cost 1 credit/page; map costs 1/call; search costs 2 per ten results, rounded up. Scraped search content adds 1/returned page, with PDFs charged per PDF page. JSON extraction adds 4/page; JSON, Question and Highlight formats add 4/page on scrape/crawl.
+
+Free permits 2 concurrent browsers, 10 scrape/map/search requests per minute and 2 crawl/agent requests per minute. Agent includes 5 daily free runs.
 
 ## When you hit a limit
 
@@ -100,9 +102,9 @@ The Free plan needs no card, and the pricing page restricts automatic pay-as-you
 
 ## Gotchas
 
-- A page that returns an error such as 403 or 404 is still returned and still costs 1 credit. A scrape that returns no result is not charged.
-- Heavier formats cost more. JSON, Question, and Highlight add 4 credits per page, so your 1,000 credits cover fewer pages.
-- Interact sessions cost 2 credits per browser minute, which uses up a small balance fast.
+- A page that returns an error such as 403 or 404 is still returned and still costs 1 credit. A scrape that returns no result is not charged. Heavier formats cost more. JSON, Question, and Highlight add 4 credits per page, so your 1,000 credits cover fewer pages. Interact sessions cost 2 credits per browser minute, which uses up a small balance fast.
+- Browser jobs beyond concurrency wait in a queue, limited to 50,000 jobs and 48 hours. Queue time counts toward a request timeout.
+- On paid plans, a blank automatic top-up monthly limit means unlimited top-ups; zero turns them off. Manual credit purchases are outside that cap. Purchased credits do not expire while subscribed, but expire on subscription cancellation.
 
 ## Alternatives in this atlas
 

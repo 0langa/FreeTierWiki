@@ -29,7 +29,7 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Usage above the free amount is billed automatically.
+    - Usage above the free amount is billed automatically on a paid Cloud Billing account.
     - No hard cap; monitor usage to avoid unexpected charges.
 whenToUse: >-
   Use Pub/Sub to pass events between services on Google Cloud, or to feed a
@@ -53,8 +53,8 @@ quickstartSteps:
   - Publish a message from the Messages tab of the topic page with Publish message.
   - Open the subscription, go to its Messages tab, and select Pull to read the message. You can also use the client libraries or the gcloud CLI.
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/pubsub'
@@ -77,15 +77,17 @@ You use Pub/Sub in the Google Cloud console, with the gcloud CLI, or with client
 
 ## What the free plan gives you
 
-Every calendar month, the first 10 GiB of throughput billed as the Message Delivery Basic SKU is free for a billing account. Throughput is the total bytes written to a topic plus the bytes read from a subscription. After the free amount the price is $40 per TiB in all Google Cloud regions.
+Every calendar month, the first 10 GiB of throughput billed as the Message Delivery Basic SKU is free for a billing account. Throughput is the total bytes written to a topic plus the bytes read from subscriptions, so fan-out adds delivery usage. The measured message includes its encoded body, attributes, timestamp, message ID and applicable optional fields. After the free amount the price is $40 per TiB in all Google Cloud regions.
 
 A minimum of 1 KB applies per standard request, so batching small messages can save money. Automatically acknowledged filtered messages are billed on their actual size. The free amount does not cover BigQuery subscriptions, Cloud Storage subscriptions, or import topics.
 
 ## When you hit a limit
 
-The pricing page lists no hard stop at the free amount. Usage past 10 GiB is billed at $40 per TiB, and some kinds of subscriptions and topics cost more. BigQuery and Cloud Storage subscriptions cost $50 per TiB. Import topics cost $50 or $80 per TiB depending on the source.
+Paid usage beyond 10 GiB costs $40/TiB without a hard stop. BigQuery/Cloud Storage subscriptions cost $50/TiB; import topics cost $50 or $80/TiB by source.
 
-Storage is a separate cost. Pub/Sub charges $0.27 per GiB-month when a topic retains messages, a subscription retains acknowledged messages, or you take a snapshot. Cross-region and internet transfer can add VPC network charges; standard Pub/Sub has no zone data-transfer fee. Pub/Sub has no hard cap, so watch your usage in the console.
+Retained topic messages, retained acknowledged subscription messages and snapshots cost $0.27/GiB-month. Snapshotting an existing unacknowledged backlog adds a one-time seven-day storage charge. Cross-region/internet transfer can incur VPC charges; standard Pub/Sub has no zone-transfer fee.
+
+Free Trial credits cover eligible excess without automatic charges; automatic overage billing begins after choosing Paid billing. Monitor throughput, retention and transfer separately because each can create charges outside the headline allowance.
 
 ## Gotchas
 

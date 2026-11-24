@@ -20,7 +20,7 @@ freeTierDetails:
     data transfer out and 10 million requests each month.
   limits:
     - 'Free plan: 1M requests and 100GB data transfer per month'
-    - 'Free plan: 5GB of included S3 storage'
+    - 'Free plan: credit for 5GB of S3 Standard storage'
     - 'Pay-as-you-go Always Free: 1 TB data transfer out per month'
     - 'Pay-as-you-go Always Free: 10,000,000 HTTP or HTTPS requests per month'
     - '2,000,000 CloudFront Function invocations per month'
@@ -39,6 +39,7 @@ freeTierDetails:
   billingRiskNotes:
     - Free-account excess usage consumes credits; optional Paid project spend limits start at $20 and pause project resources at the limit
     - On the flat-rate Free plan there are no overage charges, even during traffic spikes or attacks
+    - Attached Route 53 zones can move to pay-as-you-go after excess DNS usage and notification
     - On pay-as-you-go pricing, data transfer and requests past the Always Free amounts are billed
 quickstartSteps:
   - Create an AWS account.
@@ -59,8 +60,8 @@ avoidIf:
   - you do not want an AWS account
   - your traffic is far above the Free plan allowance
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cloudfront/'
@@ -88,15 +89,17 @@ CloudFront is the CDN inside AWS. You create a distribution in front of an origi
 
 ## What the free plan gives you
 
-There are two ways to use CloudFront for free. The first is the flat-rate Free plan at $0/month per distribution. It includes 1M requests and 100GB of data transfer each month, 5GB of S3 storage, always-on DDoS protection, a TLS certificate, DNS, and serverless edge compute. Eligible AWS accounts can have up to 3 Free plans. AWS excludes accounts using its AWS Free Tier from flat-rate subscriptions.
+CloudFront has two free routes. Flat-rate Free costs $0/month per distribution, including 1M requests, 100GB monthly transfer, a 5GB S3 Standard storage credit, DDoS protection, TLS, DNS, and serverless edge compute. The credit offsets S3 Standard storage in the payer account, including buckets that are not CloudFront origins. Eligible accounts can have 3 Free plans, each with one apex domain. Accounts using AWS Free Tier cannot subscribe to flat-rate plans.
 
-The second is pay-as-you-go pricing with the Always Free tier: 1 TB of data transfer out to the internet, 10,000,000 HTTP or HTTPS requests, 2,000,000 CloudFront Function invocations, and 2,000,000 KeyValueStore reads each month, with free SSL certificates. Origin fetches from AWS origins such as S3 are free.
+Pay-as-you-go includes an Always Free allowance: 1 TB internet transfer, 10,000,000 HTTP/HTTPS requests, 2,000,000 Function invocations, and 2,000,000 KeyValueStore reads monthly, plus SSL certificates. Fetches from AWS origins such as S3 are free.
 
 ## When you hit a limit
 
-On the flat-rate Free plan you are not charged overages, however much you exceed the allowance. AWS sends notifications as you approach and pass it. Your first traffic spike up to 3x the allowance does not affect service that month. If you keep exceeding it without upgrading, traffic delivery might be adjusted, for example served from fewer edge locations.
+Flat-rate Free has no overages. AWS sends usage notifications; the first spike up to 3x the allowance does not affect service that month. Repeated excess can reduce delivery coverage unless you upgrade.
 
-Pay-as-you-go excess consumes credits on new Free accounts or incurs standard rates on Paid accounts. Optional Paid project spend limits start at $20 and pause resources at the limit; these are separate from CloudFront allowances.
+Attach an eligible Route 53 zone to cover standard DNS costs: unlimited supported ALIAS queries and 1 million other monthly queries, including CNAME. After excess usage and notification, AWS can move DNS to pay-as-you-go while CloudFront continues.
+
+Pay-as-you-go excess consumes Free-account credits or incurs Paid-account rates. Optional Paid project spend limits start at $20 and pause resources; they are separate from CloudFront allowances. Monitor the CloudFront plan and DNS separately because their excess-usage consequences differ.
 
 ## Gotchas
 
@@ -117,7 +120,7 @@ Yes, within limits. The flat-rate Free plan costs $0/month with 1M requests and 
 
 ### Will I be charged if my site goes viral on the Free plan?
 
-No. Flat-rate plans have no overage charges, though sustained use far above the allowance can lead AWS to adjust delivery.
+The CloudFront distribution has no flat-rate overage charges, though sustained excess can lead AWS to adjust delivery. An attached Route 53 zone has a separate DNS allowance and can move to paid usage after excess and notification.
 
 ### Do I need a credit card for AWS?
 

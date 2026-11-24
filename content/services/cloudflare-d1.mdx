@@ -25,7 +25,7 @@ freeTierDetails:
     - 10 databases per account
     - 7 days of Time Travel point-in-time recovery
   caveats:
-    - 50 queries per Worker invocation on the free plan
+    - 50 D1 calls per Worker invocation on Free; a batch counts as one call
     - >-
       At the daily read or write limit, queries fail with errors until the reset
       at 00:00 UTC
@@ -52,7 +52,8 @@ whenToUse: >-
   database that scales to zero and bills for usage, not idle hours.
 whenNotToUse: >-
   Skip it for heavy write workloads, databases larger than 500 MB each on the
-  free plan, or apps that need more than 50 queries per Worker call. Skip it if
+  free plan, or apps that need more than 50 D1 calls per Worker invocation. A batch
+  counts as one call. Skip it if
   you want a Postgres or MySQL engine.
 bestFor:
   - Workers and Pages apps
@@ -61,9 +62,9 @@ bestFor:
 avoidIf:
   - You need a database bigger than 500 MB on the free plan
   - You need Postgres or MySQL
-  - You need more than 50 queries per Worker invocation on the free plan
+  - You need more than 50 D1 calls per Worker invocation on the free plan
 productionReadiness: production-light
-lastUpdated: 2026-11-02
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://developers.cloudflare.com/d1/'
@@ -74,7 +75,7 @@ sourceUrls:
   - 'https://developers.cloudflare.com/d1/'
   - 'https://developers.cloudflare.com/d1/get-started/'
   - 'https://www.cloudflare.com/plans/'
-lastVerified: 2026-11-15
+lastVerified: 2026-11-23
 pricingUrl: 'https://developers.cloudflare.com/d1/platform/pricing/'
 answer: >-
   Cloudflare D1's free plan includes 5 million reads, 100,000 writes, and 5 GB, and at the daily read or write limit queries fail until 00:00 UTC rather than charging you.
@@ -84,7 +85,7 @@ You use D1 from a Worker through a binding, from the Wrangler CLI, or over the R
 
 ## What the free plan gives you
 
-The Workers Free plan includes D1 with 5 million rows read per day and 100,000 rows written per day. Storage is 5 GB in total across all databases, and each database can hold up to 500 MB. You can create 10 databases per account. Time Travel, the point-in-time recovery feature, keeps 7 days. A free Worker can run 50 queries per invocation.
+The Workers Free plan includes D1 with 5 million rows read per day and 100,000 rows written per day. Storage is 5 GB in total across all databases, and each database can hold up to 500 MB. You can create 10 databases per account. Time Travel, the point-in-time recovery feature, keeps 7 days. A free Worker can make 50 D1 calls per invocation; a `db.batch()` call counts as one, rather than counting each SQL statement inside it.
 
 There are no charges for data transfer or throughput. Free limits reset daily at 00:00 UTC. Cloudflare says the Free plan will always let you prototype with D1.
 

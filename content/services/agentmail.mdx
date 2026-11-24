@@ -21,6 +21,7 @@ freeTierDetails:
     - 3,000 emails per month on the pricing page
   caveats:
     - The provider's rate-limit guide lists no separate monthly sending cap, which differs from the pricing table
+    - Free custom-domain messages include a Sent via AgentMail footer
     - Agent-created accounts have tighter limits until verified or claimed
     - Free accounts created before November 4, 2026 may need support to enable their custom domain
   resetPeriod: monthly
@@ -50,8 +51,8 @@ avoidIf:
   - many custom domains
   - unverified automated account signup
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://www.agentmail.to/'
@@ -78,7 +79,7 @@ AgentMail gives a program its own mailbox. It can receive messages, read threads
 
 ## What the free plan gives you
 
-The pricing table gives Free accounts three inboxes, 3 GB of storage, and a daily limit of 100 emails. The plan supports signed webhooks and needs no payment card. New Free accounts can use one custom domain. To send or receive on that domain, add the DNS records AgentMail supplies and wait for verification.
+The pricing table gives Free accounts three inboxes, 3 GB of storage, and a daily limit of 100 emails. The plan supports signed webhooks and needs no payment card. New Free accounts can use one custom domain. To send or receive on that domain, add the DNS records AgentMail supplies, start verification in the Console, and wait for Verified status. Use a subdomain if the root domain already receives mail elsewhere; for send-only use, disabling inbound mail preserves the existing receiving provider.
 
 The pricing table lists 3,000 emails per month. The separate rate-limit guide says Free has no distinct monthly cap, so the public pages disagree about how the monthly figure is enforced. Use the pricing allowance for planning and account for the documented daily send cap as well.
 
@@ -89,7 +90,7 @@ The signup limits guide documents an HTTP 429 response when a send would exceed 
 ## Gotchas
 
 - Use the documented daily limit even if the pricing table suggests there is room left for the month.
-- Older Free organizations may need to contact support to enable a custom domain. The release note gives the eligibility date.
+- Free custom-domain messages include a "Sent via AgentMail" footer; paid plans remove it. The Free organization includes two team members, and capacity add-ons start on Developer. Older Free organizations may need to contact support to enable a custom domain. The release note gives the eligibility date.
 - A newly verified agent signup has limits on how quickly it can contact new recipients. Plan a small test before attaching it to an automated flow.
 
 ## Alternatives in this atlas

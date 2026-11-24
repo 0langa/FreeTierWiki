@@ -58,7 +58,7 @@ avoidIf:
   - high monthly Terraform run volume
   - needing a fixed monthly bill
 productionReadiness: side-project
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 status: changed
 changes:
   - date: 2026-10-21
@@ -67,7 +67,7 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Clarified that the paid Business example bills all 100 runs, rather than subtracting the free plan's 50 runs."
-lastUpdated: 2026-11-10
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://scalr.com/'
@@ -97,13 +97,13 @@ Everything else is the same on both plans, including role-based access control, 
 
 The pricing pages do not say what a Free account sees after run 50. Business is usage-based at $0.99 per run, and 100 runs cost $99 per month. The billing FAQ says customers are never blocked from running. Runs past a prepaid amount are billed at the same $0.99 rate at the end of the period.
 
-Some runs do not count. These include scheduled drift detection runs, local execution runs, and runs that fail early, for example during init. You can also cut run counts by skipping dry runs on pull requests, or by adding a skip tag to a commit message.
+Scheduled drift detection, local execution, pre-init/pre-plan stops, init/cost-estimation failures and internal Scalr errors are not billed. Failures during plan or apply, post-plan OPA rejections, and runs that reconcile detected drift do count. You can also cut run counts by skipping dry runs on pull requests, or by adding a skip tag to a commit message.
 
 ## Gotchas
 
-- Plans on pull requests count as runs. A busy repository can use 50 runs quickly if every push triggers a plan.
+- Plans on pull requests count as runs. A busy repository can use 50 runs quickly if every push triggers a plan; one pull-request plan followed by an apply counts as two runs.
 - Runs do not roll over. Unused runs in a period are lost.
-- The Scalr backend gives the full feature set. A different backend, such as S3, limits some features and removes Terraform CLI runs from Scalr.
+- The Scalr backend gives the full feature set. A different backend, such as S3, limits some features and removes Terraform CLI runs from Scalr. Disabling the Scalr backend is irreversible for that environment. Disabling the Scalr backend is irreversible for that environment.
 
 ## Alternatives in this atlas
 

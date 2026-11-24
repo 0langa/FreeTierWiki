@@ -56,8 +56,8 @@ avoidIf:
   - you need unlimited free builds
   - builds must run on-premises only
 productionReadiness: production-ready
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/build'
@@ -83,7 +83,7 @@ You can also ask for extra SSD storage for the build machine. The first 100GB is
 
 ## When you hit a limit
 
-Cloud Build does not stop your builds when the free minutes run out. It keeps building and bills the billing account for the extra minutes. On `e2-standard-2` the price is $0.006 per minute. Partial minutes are billed by the second.
+On a Paid Cloud Billing account, Cloud Build does not stop your builds when the free minutes run out. It keeps building and bills the account for the extra minutes. A Free Trial account instead uses its trial credit and closes when that credit or the trial period ends unless you upgrade. On `e2-standard-2` the price is $0.006 per minute. Partial minutes are billed by the second.
 
 Network egress is charged at standard rates. Overage is billed to the billing account, so watch your Google Cloud billing for runaway builds.
 
@@ -91,7 +91,7 @@ Network egress is charged at standard rates. Overage is billed to the billing ac
 
 - The free tier is called promotional and the pricing page says the limit is subject to change, so check the page before you rely on the number.
 - The free minutes only apply to `e2-standard-2` in the default pool. Bigger or other machine types are billed from the first minute.
-- The quickstart tells you to verify that billing is enabled for the project before you run builds.
+- The quickstart requires billing and appropriate IAM roles for the build service account. Artifact Registry image storage, logs, and other resources have their own billing rules; the build-minute allowance does not cover all deployment costs.
 
 ## Alternatives in this atlas
 
@@ -107,7 +107,7 @@ Partly. Each billing account gets 2,500 free build-minutes per month on `e2-stan
 
 ### What happens when I go over the Cloud Build free minutes?
 
-Builds keep running and Google charges the billing account. The pricing page lists $0.006 per minute for `e2-standard-2`.
+On a Paid Cloud Billing account, builds keep running and Google charges for excess usage. The pricing page lists $0.006 per minute for `e2-standard-2`.
 
 ### Does Cloud Build need a credit card?
 

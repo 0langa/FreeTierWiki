@@ -56,8 +56,8 @@ avoidIf:
   - require an on-premises deployment within the hosted Free allowance
   - high-volume free usage
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/'
@@ -84,7 +84,7 @@ You create a Language resource in the Azure portal, then call it from the REST A
 
 The Free (F0) tier includes 5,000 text records per month. One text record is up to 1,000 characters. The Standard tier pricing FAQ gives an example in which 7,500 characters count as 8 records. The pricing page says summarization, sentiment analysis, key phrase extraction, language detection, question answering, named entity recognition, and conversational language understanding all share this one pool of free records.
 
-Summarization counts the input text and the summary together. The other features count only the input text.
+Summarization counts the input text and the summary together. The other features count only the input text. Each document is rounded up separately, so documents of 500 and 1,200 characters use three records together.
 
 Custom features have their own free amounts. Custom text classification and custom NER give up to 1 hour of free training. Custom NER and classification allow up to 1 model hosted for free. Conversational language understanding training is free at the standard level.
 
@@ -96,9 +96,9 @@ Paid tiers bill per 1,000 text records. In USD for Central US, the pricing page 
 
 ## Gotchas
 
-- Question answering needs an Azure AI Search resource. Azure deploys one in your subscription when you choose it.
-- Most preconfigured synchronous features accept up to 5,120 characters per document. Their asynchronous versions generally allow 125,000 characters across up to 25 documents, with some feature-specific limits.
-- Azure Translator is a separate service with its own pricing.
+- Question answering needs an Azure AI Search resource. Azure deploys one in your subscription when you choose it. Azure Translator is a separate service with its own pricing.
+- Most preconfigured synchronous features accept up to 5,120 characters per document. Their asynchronous versions generally allow 125,000 characters across up to 25 documents, with some feature-specific limits. Preconfigured F0 features have both a 100-request-per-second and a 300-request-per-minute limit, measured separately for each feature; request payloads are capped at 1 MB.
+- Microsoft classifies sentiment, summarization, key phrase extraction, question answering, custom classification, conversational language understanding, entity linking, and orchestration as legacy capabilities supported for existing workloads. Its core-capability guidance recommends PII, language detection, NER, and health text analytics for new development.
 
 ## Alternatives in this atlas
 

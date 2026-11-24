@@ -22,6 +22,7 @@ freeTierDetails:
     - Hard limit, no overage charges
   caveats:
     - Cost per call depends on the endpoint and data fields requested
+    - Free calls should run server-side; browser Request Origin support and extra API keys require a paid plan
     - Production and commercial use are allowed within the free daily allowance
   resetPeriod: daily at 00:00 UTC
   requiresCard: false
@@ -32,7 +33,7 @@ quickstartSteps:
   - Sign up for a free account on ipgeolocation.io.
   - Log in to the dashboard.
   - Copy your API key from the dashboard.
-  - 'Send a GET request to `https://api.ipgeolocation.io/v3/ipgeo` with `apiKey` and an `ip` parameter; leave out `ip` to look up the caller.'
+  - 'From your server, send a GET request to `https://api.ipgeolocation.io/v3/ipgeo` with `apiKey` and an `ip` parameter; leave out `ip` to look up the caller.'
   - 'Use `fields` or `excludes` to trim the response.'
 whenToUse: >-
   Use it when you want one call that returns location, currency, ASN, and time
@@ -48,7 +49,7 @@ avoidIf:
   - production volume beyond the free daily allowance
   - need security data or bulk lookups for free
 productionReadiness: production-light
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 status: changed
 changes:
   - date: 2026-10-21
@@ -57,7 +58,7 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: "Added the official non-commercial-use restriction to the free plan."
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipgeolocation.io/'
@@ -76,20 +77,20 @@ You create an account, copy an API key from the dashboard, and call one HTTPS en
 
 ## What the free plan gives you
 
-The Free plan costs $0 and gives you 1000 API credits per day, for life. The credits reset at 00:00 UTC. The pricing page says no credit card is required. A successful lookup charges 1 credit, so the plan covers up to 1000 basic lookups a day.
+The Free plan costs $0 and gives you 1000 API credits per day, for life. The credits reset at 00:00 UTC. The provider states no separate per-second or per-minute rate limit, including on Free. The pricing page says no credit card is required. A successful lookup charges 1 credit, so the plan covers up to 1000 basic lookups a day.
 
 The free plan returns location, country metadata, currency, ASN, and time zone. Lookup by domain, hostname, company data, security flags, bulk lookup, and translated responses need a paid plan. The first paid plan, Starter, costs $19 a month for 150000 credits. The pricing page explicitly allows production and commercial use on Free, within its daily allowance.
 
 ## When you hit a limit
 
-The free plan, which the docs also call the Developer plan, has no surcharge and no overage. It stays capped at its daily credits. The pricing page says there are no overages on Free. The IP Geolocation API error reference explicitly returns HTTP 429 when a free subscription reaches its usage limit.
+Free, also called Developer, has no surcharges or overages. At its daily credit limit, the API returns HTTP 429 rather than billing.
 
-Paid plans have overage enabled by default. With it enabled, requests can continue past the included credits and extra use is billed in blocks. The free plan never bills you.
+Paid overages are enabled by default, charging excess in blocks up to a plan-specific surcharge cap. Disable Allow Surcharge Usage to stop at included credits; requests return HTTP 429 there or when the surcharge cap is reached. Starter charges $5 per 25,000 excess credits, capped at $500 in surcharges. Monthly paid credits reset monthly and annual credits yearly, without rollover. Check both the toggle and cap before upgrading; the paid defaults differ from Free.
 
 ## Gotchas
 
-- Paid modules can cost multiple credits: security adds 2 and abuse contact adds 1. These modules are unavailable on Free, where a successful basic lookup costs 1 credit.
-- Asking for a language other than English with a free key returns a 401 response.
+- Paid modules can cost multiple credits: security adds 2 and abuse contact adds 1. These modules are unavailable on Free, where a successful basic lookup costs 1 credit. Use Free from your server: browser Request Origin support and extra API keys require a paid plan. Successful responses expose `X-Credits-Charged` for exact credit accounting.
+- Asking for a language other than English with a free key returns a 401 response. Naming a paid module in `include` also returns 401; `fields` and `excludes` remain available on Free.
 - Production and commercial use are allowed on Free, but workloads exceeding 1,000 daily credits need paid capacity.
 
 ## Alternatives in this atlas

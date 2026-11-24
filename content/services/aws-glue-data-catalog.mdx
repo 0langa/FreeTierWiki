@@ -53,8 +53,8 @@ avoidIf:
   - data outside AWS
   - expecting free ETL jobs or crawlers
 productionReadiness: production-ready
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://aws.amazon.com/glue/'
@@ -75,7 +75,6 @@ answer: >-
   AWS Glue Data Catalog includes one million metadata objects and one million monthly requests, while Paid accounts incur charges above those allowances and for crawlers.
 
 ---
-
 The Data Catalog is the metadata store inside AWS Glue. It holds databases, tables, and partitions that describe where your data lives and what its columns are, and Amazon Athena and other AWS services read those definitions to query the data. It suits developers who keep data files in S3 and want to query them with SQL.
 
 ## What the free plan gives you
@@ -93,7 +92,7 @@ Crawler and ETL usage sits outside the catalog allowance. AWS measures it by the
 ## Gotchas
 
 - Every table version and partition counts as an object, so a table with many partitions uses the free million faster than the table count suggests.
-- Filling the catalog with a crawler is convenient but billed; you can add tables by hand or through the API instead.
+- Filling the catalog with a crawler is convenient but billed; you can add tables by hand or through the API instead. Table statistics, Iceberg optimization, and materialized-view auto-refresh use separately billed compute, listed at $0.44 per DPU-hour with a one-minute minimum. Data storage and queries through services such as S3, Athena, or Redshift have their own charges.
 - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion.
 
 ## Alternatives in this atlas

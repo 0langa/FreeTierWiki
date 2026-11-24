@@ -24,11 +24,12 @@ freeTierDetails:
     - 1 team member
     - 7-day log retention
     - 1 request per second
-    - One credit pool for all 16 APIs
+    - One credit pool advertised for all 16 APIs; port-scanner Free eligibility conflicts with the introduction docs
   caveats:
     - Provider-side failures cost no credits
     - Credits renew every month; higher throughput needs a paid plan
-    - 'Screenshots and PDFs cost 5 credits each, search costs 2'
+    - 'Screenshots and PDFs cost 5 credits each, search costs 2, and AI extraction costs 8'
+    - Premium proxies are not included on Free
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -66,8 +67,8 @@ avoidIf:
   - enterprise
   - need guaranteed uptime
 productionReadiness: prototype
-lastUpdated: '2026-11-15'
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://geekflare.com/'
@@ -79,7 +80,11 @@ sourceUrls:
   - 'https://docs.geekflare.com/quickstart'
   - 'https://docs.geekflare.com/credit-exhausted'
 pricingUrl: 'https://geekflare.com/pricing/'
+status: changed
 changes:
+  - date: '2026-11-23'
+    kind: changed
+    note: AI extraction increased from 7 to 8 credits per page; the top-up guide now states one-year expiry, matching pricing.
   - date: '2026-10-21'
     kind: changed
     note: >-
@@ -94,15 +99,15 @@ You send requests with one API key from any language, or try them first in the p
 
 ## What the free plan gives you
 
-The Free plan costs $0 per month and needs no card. It gives you 500 credits per month, 1 team member, 7 days of log retention, and 1 request per second. All 16 APIs share one credit pool and one API key.
+Free costs $0 without a card: 500 monthly credits, one member, seven-day logs and one request/second. Pricing includes 16 APIs on one key/pool, but introductory docs still call Port Scanner paid-only.
 
-Credits are charged by endpoint. A scraped page costs 0.25 credits without a browser and 1 credit with JavaScript. Page metadata, DNS lookups, redirect checks, and site status checks cost 0.5 credits. A basic search costs 2 credits. Returning full pages or an AI answer increases the cost. Screenshots and PDFs cost 5. Provider-side failures cost nothing, and the pricing page says invalid input generally costs nothing.
+Scraping costs 0.25 credits/page without a browser or 1 with JavaScript. Metadata, DNS, redirects and status cost 0.5; basic search costs 2, with full-page/AI-answer extras. Screenshots/PDFs cost 5 and AI extraction 8/page. Premium proxies cost 5/page on eligible paid plans, excluded from Free. Provider failures cost nothing; invalid input is generally uncharged.
 
-Scraping supports JavaScript rendering and includes CAPTCHA solving and anti-bot bypass. Other endpoints cover load time, TLS, broken links, Lighthouse, port scans, and site status.
+Scraping includes JavaScript and anti-bot handling. Other APIs cover load time, TLS, broken links, Lighthouse, ports and status; confirm disputed endpoint access.
 
 ## When you hit a limit
 
-The free tier renews every month at 500 credits. At zero credits, the API returns HTTP 402 and blocks requests until you add credits or they renew. Paid plans start at $19 per month. You can buy optional credit packs from $10 without a subscription. Pricing says packs are valid for one year, while the error guide says they do not expire.
+The free tier renews every month at 500 credits. At zero credits, the API returns HTTP 402 and blocks requests until you add credits or they renew. Paid plans start at $19 per month. You can buy optional credit packs from $10 without a subscription. Both pricing and the error guide now say purchased packs expire within one year. Monthly subscription credits do not roll over.
 
 Speed has its own limit. Free allows 1 request per second, Starter 5, Growth 10, and Business 25. For more, the company asks you to contact them. The API docs say that exceeding the request rate returns HTTP 429.
 

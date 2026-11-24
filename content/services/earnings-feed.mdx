@@ -21,10 +21,11 @@ freeTierDetails:
     - 5,000 requests per UTC calendar month
     - Every endpoint, including filings, insider trades, and 13F holdings
   caveats:
+    - Company-system API use requires Business; showing data in your own product needs a data licence
     - Monthly limits are hard caps
     - The monthly quota is shared across API keys, interactive docs, and MCP
     - Interactive docs tokens are fixed at 10 requests per minute
-    - Pro ($10/month billed annually) raises limits to 60 requests per minute and 250,000 per month
+    - Pro ($49/month billed annually) raises limits to 60 requests per minute and 250,000 per month
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -56,8 +57,8 @@ avoidIf:
   - bulk historical data needs
   - need investment advice
 productionReadiness: prototype
-lastUpdated: '2026-11-15'
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://earningsfeed.com/api'
@@ -65,7 +66,13 @@ docsUrl: 'https://earningsfeed.com/api/docs'
 sourceUrls:
   - https://earningsfeed.com/api
   - https://earningsfeed.com/api/docs
+  - https://earningsfeed.com/pricing
 pricingUrl: 'https://earningsfeed.com/api'
+status: changed
+changes:
+  - date: 2026-11-23
+    kind: changed
+    note: "Observed Pro at $49/month billed annually or $59 monthly, with existing subscribers grandfathered; provider does not state an effective date."
 answer: >-
   Earnings Feed's free tier allows 5,000 requests a month and 15 a minute with no credit card, a hard cap, and no overage, and the monthly quota is shared across API keys and docs.
 
@@ -76,7 +83,7 @@ You call Earnings Feed over HTTPS with a Bearer API key and get JSON back. No SD
 
 The Free plan allows 15 requests per minute and 5,000 requests per UTC calendar month. It costs $0 and needs no credit card or trial period. Every plan includes every endpoint, so Free can read filings, single filing details, insider transactions, 13F holdings, and company profiles.
 
-The data covers 10-K and 10-Q reports, 8-K events, Form 3, 4, and 5 insider trades, 13F holdings, and 13D and 13G ownership stakes. The site checks EDGAR every minute. Its own figures say half of filings appear within two minutes of SEC acceptance, and 9 in 10 within five.
+The data covers 10-K and 10-Q reports, 8-K events, Form 3, 4, and 5 insider trades, 13F holdings, and 13D and 13G ownership stakes. The site checks EDGAR every minute and says most filings arrive within minutes of SEC acceptance; it no longer publishes the earlier percentile timings.
 
 The quota is shared across API keys, interactive docs, and MCP. Interactive docs tokens are fixed at 10 requests per minute.
 
@@ -84,12 +91,12 @@ The quota is shared across API keys, interactive docs, and MCP. Interactive docs
 
 Monthly limits are hard caps on every plan, and they reset at the start of each UTC calendar month. When you reach the monthly cap, the docs say not to retry in a loop. Wait for the UTC reset, upgrade, or contact support.
 
-The per-minute limit works differently. A minute-scoped 429 response includes a Retry-After header. Wait that long, add some jitter, and cap your retries. Responses include headers that show your minute and monthly usage, so you can track it in code. Pro is $10 per month billed annually and allows 60 requests per minute and 250,000 per month.
+The per-minute limit works differently. A minute-scoped 429 response includes a Retry-After header. Wait that long, add some jitter, and cap your retries. Responses include headers that show your minute and monthly usage, so you can track it in code. Pro is $49 per month billed annually and allows 60 requests per minute and 250,000 per month.
 
 ## Gotchas
 
-- The monthly cap is account-wide. Testing in the interactive docs or through MCP uses the same 5,000 requests as your app.
-- The pricing table and the FAQ show Pro both as $15 per month and as $10 per month billed annually. The lower price needs an annual plan.
+- The monthly cap is account-wide. Testing in the interactive docs or through MCP uses the same 5,000 requests as your app. Paid plans offer a separate 5-day card-required trial; the Free account needs no card.
+- Pro costs $59 per month or $49 per month billed annually ($588 a year). Existing subscribers keep their prior price while subscribed. API use inside company systems requires Business, at $199 per month billed annually ($2,388 a year). Displaying data in your product requires a separate data licence.
 - The site says it is not affiliated with the SEC, and nothing there is investment advice.
 
 ## Alternatives in this atlas
@@ -110,4 +117,4 @@ Monthly limits are hard caps. Wait for the UTC reset, upgrade, or contact suppor
 
 ### How fast does Earnings Feed show new filings?
 
-The site checks EDGAR every minute. Half of filings appear within two minutes of SEC acceptance, and 9 in 10 within five.
+The site checks EDGAR every minute. Most filings arrive within minutes of SEC acceptance; no current percentile timing is published.

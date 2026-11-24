@@ -31,7 +31,7 @@ freeTierDetails:
     - Free-plan over-limit usage consumes remaining credits without an overage bill. Paid-plan usage beyond credits is billed; AWS may request a payment method for identity verification.
 quickstartSteps:
   - 'Create an AWS account.'
-  - 'Open the Functions page of the Lambda console and choose Create function.'
+  - 'Open the Event Functions page of the Lambda console and choose Create Event Function.'
   - 'Select Author from scratch, enter a function name, and pick the Node.js or Python runtime.'
   - 'Replace the Hello world code in the built-in code editor with your own handler and choose Deploy.'
   - 'Create a test event with a small JSON document, run it, and read the log output in CloudWatch Logs.'
@@ -39,18 +39,18 @@ whenToUse: >-
   Use Lambda for short, event-driven jobs and small APIs where you want AWS to
   scale the code and you do not want to manage servers.
 whenNotToUse: >-
-  Avoid ordinary Event Functions for work longer than 15 minutes per call, or
+  Avoid ordinary Event Functions for work longer than 30 minutes per call, or
   steady heavy compute. Managed Instances have a separate 90-minute exception.
 bestFor:
   - event-driven apps
   - microservices
   - automation scripts
 avoidIf:
-  - jobs that run longer than 15 minutes
+  - jobs that run longer than 30 minutes
   - 'steady, heavy compute'
 productionReadiness: production-ready
-lastUpdated: 2026-10-21
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 9
 usefulnessScore: 9
 officialUrl: 'https://aws.amazon.com/lambda/'
@@ -63,8 +63,13 @@ sourceUrls:
   - 'https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html'
   - 'https://aws.amazon.com/free/'
   - 'https://aws.amazon.com/free/free-tier-faqs/'
+  - 'https://aws.amazon.com/about-aws/whats-new/2026/11/aws-lambda-30-minute-ondemand-event-functions/'
+  - 'https://aws.amazon.com/blogs/compute/announcing-30-minute-timeout-for-on-demand-aws-lambda-event-functions/'
 status: changed
 changes:
+  - date: '2026-11-19'
+    kind: changed
+    note: 'AWS increased on-demand Event Function invocations from 15 to 30 minutes; eligible Managed Instances asynchronous invocations retain 90 minutes. Reviewed November 23, 2026.'
   - date: 2026-10-21
     kind: changed
     note: "Added optional Paid project spend controls and scoped15-minute timeout with Managed Instances90-minute exception; qualified current credit-expiry conflict."
@@ -84,7 +89,7 @@ You work in the Lambda console or deploy code from your own tools, and a trigger
 
 Lambda Event Functions have a monthly free tier. It includes one million requests and 400,000 GB-seconds of run time each month. A GB-second is one second of running with 1 GB of memory, so a function with more memory uses the allowance faster.
 
-You pick the memory for each function, from 128 MB up to 10,240 MB, and CPU power grows with the memory you choose. Ordinary Event Function invocations run up to 15 minutes. Managed Instances asynchronous and eligible event-source invocations can run up to 90 minutes, with separate deployment/pricing considerations. The listed default limit is 1,000 concurrent executions per Region. New AWS accounts start with lower concurrency and memory quotas, and AWS raises them as you use the service.
+You pick the memory for each function, from 128 MB up to 10,240 MB, and CPU power grows with the memory you choose. Ordinary Event Function invocations run up to 30 minutes since November 19, 2026. Managed Instances asynchronous and eligible event-source invocations can run up to 90 minutes, with separate deployment/pricing considerations. The listed default limit is 1,000 concurrent executions per Region. New AWS accounts start with lower concurrency and memory quotas, and AWS raises them as you use the service.
 
 ## When you hit a limit
 
@@ -94,8 +99,8 @@ Concurrency quotas separately cause throttling; retry with exponential backoff. 
 
 ## Gotchas
 
-- The free tier does not apply to functions that use Provisioned Concurrency. Provisioned Concurrency and other features have their own prices.
-- New accounts have reduced concurrency and memory quotas until AWS raises them based on your usage.
+- The free tier does not apply to functions that use Provisioned Concurrency. Provisioned Concurrency and other features have their own prices. New accounts have reduced concurrency and memory quotas until AWS raises them based on your usage.
+- Event-source limits can be lower: Amazon MQ, DocumentDB, and non-provisioned Kafka mappings created before November 19, 2026 remain limited to 14 minutes.
 - Memory sets both cost and speed, because CPU grows with memory and the GB-second allowance is shared across all your functions.
 
 ## Alternatives in this atlas
@@ -116,4 +121,4 @@ On the Free account plan, extra usage consumes remaining credits and the account
 
 ### How long can a Lambda function run?
 
-Ordinary Event invocations run up to 15 minutes. Managed Instances asynchronous and event-source invocations can run up to 90 minutes, except Amazon MQ and DocumentDB mappings; review separate pricing before choosing that route.
+Ordinary Event invocations run up to 30 minutes. Managed Instances asynchronous and event-source invocations can run up to 90 minutes, except Amazon MQ and DocumentDB mappings; review separate pricing before choosing that route.

@@ -14,14 +14,14 @@ tags:
   - rest api
 freeTierDetails:
   summary: >-
-    The homepage advertises a requested trial up to 1,000 lookups/day for testing;
-    the FAQ separately describes no-card basic access without signup or a time limit.
+    The homepage advertises a requested trial up to 100 lookups/day for testing;
+    the FAQ separately describes no-card basic access without signup.
   limits:
-    - Homepage trial allowance up to 1,000 lookups/day (~30K/month)
+    - Homepage trial allowance up to 100 lookups/day (~3,000/month)
     - Not for production or deployment use
     - Contact support for the homepage trial or higher/full-access trial terms
   caveats:
-    - Homepage and FAQ disagree on whether all trial access requires support or expires
+    - Homepage requests go through support; the FAQ still describes basic access without signup
     - FAQ says basic fields work without signup and without a credit card
     - The plan is for testing and development, not production
     - Requested-trial duration, card requirements, and exact cap policy require confirmation
@@ -51,8 +51,8 @@ avoidIf:
   - need a guaranteed self-serve trial scope
   - expect high traffic
 productionReadiness: prototype
-lastVerified: 2026-11-16
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://ipapi.co/'
@@ -62,21 +62,25 @@ sourceUrls:
   - 'https://ipapi.co/faq/'
   - 'https://ipapi.co/'
   - 'https://ipapi.co/api/'
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Trial allowance reduced to 100 lookups daily; FAQ no longer promises unlimited duration.
   - date: 2026-10-21
     kind: changed
     note: Scoped conflicting official trial descriptions and documented quota errors without promising no billing or fixed access terms.
 answer: >-
-  ipapi has no settled ongoing plan: the homepage offers a trial of up to 1,000 test lookups a day, not for production, while the FAQ disagrees, and the card rule is not confirmed.
+  ipapi advertises up to 100 trial lookups a day for testing, not production; the requested trial's duration, card requirements and exact cap policy need confirmation.
 
 ---
 You send plain HTTPS GET requests to `ipapi.co` from any language, and paid plans add a token in the query string. The homepage directs trial requests to support, while the FAQ describes basic access without signup. It suits developers who want to test a lookup API before they buy.
 
 ## What the free plan gives you
 
-The homepage lists a Free Trial row and asks you to contact the team. It describes up to 1000 IP lookups daily, approximately 30K monthly, for a limited time. It restricts this offer to testing and development, excludes production deployments, and allows further restrictions.
+The homepage lists a Free Trial row and asks you to contact the team. It describes up to 100 IP lookups daily, approximately 3,000 monthly, for a limited time. It restricts this offer to testing and development, excludes production deployments, and allows further restrictions.
 
-The separate official FAQ describes a free trial/testing plan with no time limit, no card, and basic fields without signup; it directs full-access or higher-limit trials to support. These public descriptions do not establish one universal trial duration or access path. Confirm the scope you need rather than assuming all trial features work anonymously. Paid plans start at $15 monthly for 60,000 lookups.
+The separate official FAQ describes a free trial/testing plan with no card and basic fields without signup; it directs full-access or higher-limit trials to support. The FAQ no longer promises an unlimited trial duration. These public descriptions do not establish one fixed duration or universal access path. Confirm the scope you need rather than assuming all trial features work anonymously. Paid plans start at $15 monthly for 60,000 lookups.
 
 ## When you hit a limit
 
@@ -87,7 +91,7 @@ Paid plans count each lookup, including repeat queries, and provide usage monito
 ## Gotchas
 
 - The homepage requires a trial request, but the FAQ allows basic fields without signup. Ask support which features and limits apply to your intended use.
-- Trial expiry is inconsistent across official pages: the homepage says limited time and the FAQ says no time limit. Neither grants production use.
+- The homepage says the trial is time-limited without specifying its length; the FAQ no longer promises an unlimited duration. Neither grants production use.
 - Every request counts as a lookup, even a repeat of the same address. Cache results on your side.
 
 ## Alternatives in this atlas
@@ -100,7 +104,7 @@ Paid plans count each lookup, including repeat queries, and provide usage monito
 
 ### Is ipapi free?
 
-Free access is described as trial/testing use. The homepage advertises requested limited-time access; the FAQ separately offers no-card basic access without signup or a time limit.
+Free access is described as trial/testing use. The homepage advertises requested limited-time access; the FAQ separately offers no-card basic access without signup.
 
 ### Can I use the ipapi free trial in production?
 

@@ -24,7 +24,7 @@ freeTierDetails:
     - 30 days of log retention
   caveats:
     - SuprSend branding shows on the in-app notification feed on the free plan
-    - You bring your own provider accounts, such as Twilio or Mailjet, and pay them directly
+    - Email and SMS require your own provider accounts; push, Slack, Teams and in-app can use direct integrations
     - The 30 day trial of all features ends and the account moves to the Free plan
   resetPeriod: monthly
   requiresCard: false
@@ -57,8 +57,8 @@ avoidIf:
   - you want the vendor to include the SMS or email delivery
   - you need a branding-free inbox on a free plan
 productionReadiness: production-light
-lastVerified: 2026-11-15
-lastUpdated: 2026-10-21
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.suprsend.com/'
@@ -89,7 +89,7 @@ The in-app notification feed carries SuprSend branding on this plan. The paid pl
 
 New accounts unlock all features for a 30 day trial. After that, the account moves to the Free plan.
 
-Billing counts notifications, not API requests. Each recipient on each channel counts separately, including webhook calls; a bulk request counts each user, while a digest counts as one.
+Billing counts notifications, not API requests. Each recipient on each channel counts separately, including webhook calls; a bulk request counts each user, while a digest counts as one. Notifications stopped by SuprSend because of opt-outs or inactive channels do not count, but downstream provider failures still count after SuprSend triggers the notification.
 
 ## When you hit a limit
 
@@ -99,7 +99,7 @@ The Essentials plan costs $100 per month billed annually and includes 50k notifi
 
 ## Gotchas
 
-- SuprSend does not send the mail or SMS itself. You bring your own provider accounts, such as Twilio, Sendgrid, or Mailjet, and pay them directly.
+- Email and SMS require your own provider accounts, such as Twilio, Sendgrid, or Mailjet, which you pay directly. Mobile/web push, Slack, Teams and in-app Inbox use direct integrations without an intermediary provider.
 - Batching and digest are Business features after the trial. One delivered digest counts once; a bulk send still counts each user on each channel.
 - A workflow request is accepted when the API call is correct. Check the Requests tab under Logs in the dashboard to confirm delivery.
 

@@ -16,15 +16,18 @@ freeTierDetails:
     - 20,000 speech credits per month
     - $1 in prepaid agent usage per month
     - Text-to-speech and speech-to-text access
+    - Two concurrent TTS requests; eight concurrent STT requests and agent calls in separate pools
   caveats:
     - Speech credits and voice-agent usage are separate
     - Credit use depends on operation and model
-    - Free payment-card and quota enforcement policies are not confirmed
+    - Commercial-use license and instant voice cloning start on Pro
+    - Free payment-card requirements are not confirmed
+    - Requests stop without overages; Free cannot enable agent overages
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
 quickstartSteps:
   - Create a Free account in the Cartesia console.
   - Choose synthesis or transcription.
@@ -34,8 +37,8 @@ whenToUse: >-
   Use Cartesia to prototype a voice output, audio transcription, or short
   agent call.
 whenNotToUse: >-
-  Choose another tier for many parallel voice sessions or a workload that
-  needs a documented free cutoff.
+  Choose a paid tier for commercial use, voice cloning, or more than two
+  concurrent synthesis requests.
 bestFor:
   - speech API prototypes
   - short voice tests
@@ -43,8 +46,8 @@ avoidIf:
   - large sustained speech volume
   - treating both meters as interchangeable
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://www.cartesia.ai/'
@@ -70,13 +73,13 @@ The pricing page lists 20,000 credits each month on Free for text-to-speech and 
 
 ## When you hit a limit
 
-The provider lists larger credit and agent allowances on other plans. The cited pricing page does not describe the exact response when a free workload exceeds its balance or confirm whether the signup flow asks for a card. Use separate counters for the speech API and agent workflows so you can see which one needs more room. A voice prototype can exercise transcription, synthesis, and agent features independently before connecting them.
+The pricing FAQ says new speech requests are blocked when credits run out with overages disabled; paid plans can enable overages. New agent calls stop at a zero balance, and agent overages are unavailable on Free. Signup card requirements are still not confirmed. Speech and agent balances are separate, as are their concurrency pools: Free allows two TTS requests, eight STT requests, and eight agent calls concurrently.
 
 ## Gotchas
 
-- Speech processing credits cover more than one type of operation. Use the rate table for your chosen use case.
-- The hosted agent allowance has its own meter. It does not simply add speech credits to the account.
-- Start with the request pattern you intend to use, since output length and input audio affect cost estimates differently.
+- Sonic TTS uses one credit per character, roughly 750–800 per audio minute; Ink STT uses three credits per audio second. A break tag counts as one TTS credit.
+- The $1 agent allowance covers about 33 minutes at $0.03/minute before telephony and LLM costs. Cartesia-provided phone numbers add $0.014/minute; LLM usage is billed separately.
+- The commercial-use license and instant voice cloning start at Pro ($5/month). Professional voice-clone slots start at Startup; Free and Pro have none.
 
 ## Alternatives in this atlas
 
@@ -95,4 +98,4 @@ The plan lists a separate $1 prepaid monthly allowance for agents.
 
 ### How many requests fit in the credit allowance?
 
-It depends on what the requests do and which model they use. Check a representative sample first.
+TTS uses one credit per character and STT three per audio second. The Free table estimates about 27 TTS minutes or 1 hour 51 minutes of STT if the whole balance goes to one operation.

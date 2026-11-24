@@ -23,7 +23,8 @@ freeTierDetails:
       supported)
     - 0.5 million characters/month neural text-to-speech
     - 5 audio hours/month speech translation
-    - 1 concurrent request on the base model endpoint and 1 on a custom endpoint (not adjustable)
+    - Speech recognition/translation share 1 concurrent request on the base endpoint and 1 on a custom endpoint
+    - Text-to-speech: 20 requests per 60 seconds, with at most 10 minutes of output per request
   caveats:
     - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
     - Batch transcription is not included in the free tier
@@ -39,8 +40,8 @@ quickstartSteps:
   - >-
     Create a resource for Azure Speech in the Azure portal and explicitly select Free F0
     where offered; a Foundry project or playground alone does not establish F0 billing.
-  - Copy a key and the region from the resource.
-  - Store the key in an environment variable such as SPEECH_KEY.
+  - Copy a key, endpoint, and the region from the resource.
+  - Store the key as SPEECH_KEY and configure SPEECH_REGION and ENDPOINT as required by the selected SDK sample.
   - >-
     Follow the speech to text or text to speech quickstart for your language, using the SDK or the
     REST API.
@@ -49,7 +50,7 @@ whenToUse: >-
   Use when you need cloud speech recognition, synthesis, or translation and your monthly volume fits
   in a few audio hours.
 whenNotToUse: >-
-  Avoid if you need more than 1 concurrent request on the free tier, batch transcription for free,
+  Avoid if you need more than 1 concurrent recognition/translation request per endpoint on the free tier, batch transcription for free,
   or offline processing.
 bestFor:
   - voice-enabled app prototypes
@@ -61,8 +62,8 @@ avoidIf:
   - require on-premises processing
   - exceed free tier limits regularly
 productionReadiness: production-light
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/'
@@ -90,15 +91,13 @@ You create a Speech resource in Azure, then call it from the REST API, an SDK, t
 
 ## What the free plan gives you
 
-The Free (F0) tier has monthly allowances for three jobs. Real-time speech to text gets 5 audio hours per month, and that pool is shared between standard and custom models. Neural text to speech gets 0.5 million characters per month. Speech translation gets 5 audio hours per month.
+F0 includes monthly pools of 5 audio hours for real-time speech-to-text across standard/custom models, 0.5 million neural text-to-speech characters, and 5 speech-translation audio hours. One custom endpoint can be hosted free; unused custom models are decommissioned after 7 days. Batch transcription is excluded.
 
-One custom model endpoint can be hosted for free. The pricing page says unused custom models are decommissioned after 7 days. Batch transcription is not supported on the free tier.
-
-The F0 quotas cannot be raised. The docs set the limit at 1 concurrent request for the base model endpoint and 1 for a custom endpoint. Real-time speech-to-text and speech translation share that concurrency count. Several features, such as Voice Live and large language model speech, show as not applicable for F0.
+F0 quotas cannot increase. Recognition and translation share concurrency: 1 request for the base endpoint and 1 for a custom endpoint. Real-time text-to-speech separately permits 20 transactions per 60 seconds and 10 minutes of output per request. Batch synthesis is unavailable. Voice Live and large language model speech are also marked inapplicable to F0.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when the free hours or characters are used up. The docs say F0 quotas are not adjustable. Standard (S0) quotas can be adjusted, and the default for S0 is 100 concurrent requests.
+The pricing page does not say what happens when the free hours or characters are used up. The docs say F0 quotas are not adjustable. Standard (S0) quotas can be adjusted, and recognition/translation default to 100 concurrent requests per endpoint.
 
 If you switch a resource from F0 to S0, the new quotas can take up to several hours to apply. In USD, Central US lists standard real-time transcription at $1 per hour and neural text to speech at $15 per 1M characters. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
 

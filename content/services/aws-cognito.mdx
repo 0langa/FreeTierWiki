@@ -25,6 +25,7 @@ freeTierDetails:
     - Plus has no direct/social free MAU allowance; SAML/OIDC still gets 50 MAU; machine-to-machine tokens have none
     - Paid AWS usage beyond allowances incurs charges unless optional project controls intervene
     - Some grandfathered Lite accounts qualify for 50,000 direct or social MAU instead of 10,000
+    - SMS and verification email delivery are billed separately through SNS and SES
     - No free tier pricing in the AWS GovCloud (US) Regions
     - New Free accounts suspend at six months or credit exhaustion; data is retained for 90 days to upgrade and recover
   resetPeriod: monthly
@@ -36,7 +37,7 @@ quickstartSteps:
   - Create an AWS account.
   - Open the Amazon Cognito console and choose Create user pool.
   - Pick the Essentials or Lite tier and set up how users sign in, for example with email or a social provider.
-  - Create an app client, for example a traditional web application, and note its client ID.
+  - Choose an application type and return URL; the creation wizard creates the user pool and initial app client together. Note the client ID.
   - Use the managed login page, the AWS SDKs, or the Amplify libraries to sign users in from your app.
 whenToUse: >-
   Use Cognito when your app already runs on AWS and you want users and tokens in
@@ -52,8 +53,8 @@ avoidIf:
   - machine-to-machine token use on the free tier
   - SAML-heavy B2B on the free tier
 productionReadiness: production-ready
-lastUpdated: 2026-11-16
-lastVerified: '2026-11-16'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/cognito/'
@@ -96,9 +97,9 @@ AWS offers optional Paid-project monthly spend limits starting at $20 that pause
 
 ## Gotchas
 
-- The direct/social 10,000-MAU allowance covers Lite and Essentials. Plus still has the separate 50-MAU SAML/OIDC allowance.
-- Machine-to-machine token requests have no free tier, so a service that fetches many tokens costs money from the start.
-- Enterprise users from SAML or OIDC providers get only 50 free MAU. A B2B app with many such users pays quickly.
+- The direct/social 10,000-MAU allowance covers Lite and Essentials. Plus still has the separate 50-MAU SAML/OIDC allowance. Enterprise users from SAML or OIDC providers get only 50 free MAU. A B2B app with many such users pays quickly.
+- Successful machine-to-machine token responses have no free allowance. SMS and verification email delivery use separately priced SNS and SES services, even when user counts fit the Cognito allowance.
+- A user active while the pool is on Plus counts as a Plus MAU that month; switching back to a cheaper tier does not undo that.
 
 ## Alternatives in this atlas
 

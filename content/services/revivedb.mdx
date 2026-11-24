@@ -12,14 +12,15 @@ tags:
   - postgresql
   - disaster recovery
 freeTierDetails:
-  summary: Get weekly backups for one Supabase project, with 5 GB of backup storage and the latest 3 recovery points kept. No credit card is required.
+  summary: Get weekly backups for one personal Supabase project, with 500 MB each for the database and Supabase Storage and the latest 3 recovery points kept. No credit card is required.
   limits:
-    - 1 Supabase project
-    - 1 GB database and 1 GB Supabase Storage per project
-    - 5 GB backup storage per account and 5 GB backup processing per month
+    - 1 personal Supabase project and 1 person
+    - 500 MB database and 500 MB Supabase Storage per project
+    - 5 GB backup processing per month; current backup-storage capacity is not published
     - Weekly backups and the latest 3 recovery points
   caveats:
     - Supabase may count backup reads toward your project's outbound traffic
+    - Free is for personal projects; a business project serving customers needs Pro or Team
     - The free backup schedule is weekly
     - Verify supported project components before relying on a restore
   resetPeriod: monthly
@@ -50,25 +51,29 @@ avoidIf:
   - large Supabase Storage buckets
   - backing up unrelated Postgres hosts
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://revivedb.dev/'
 docsUrl: 'https://revivedb.dev/docs/restores'
 pricingUrl: 'https://revivedb.dev/pricing'
 sourceUrls:
+  - 'https://revivedb.dev/docs/security-retention'
   - "https://revivedb.dev/pricing"
   - "https://revivedb.dev/docs/restores"
   - "https://revivedb.dev/backup-verification"
   - "https://revivedb.dev/security"
-status: active
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Observed Free reduced to 500 MB each for database and Supabase Storage, with personal-use eligibility; exact effective date and current backup-storage capacity are unpublished.
   - date: 2026-11-16
     kind: new
     note: Added the weekly Supabase backup plan and its separate source egress caveat.
 answer: >-
-  ReviveDB backs up one Supabase project weekly without a card, keeps the
+  ReviveDB backs up one personal Supabase project weekly without a card, keeps the
   latest three recovery points, and skips backups that exceed quota while
   Supabase may meter the traffic.
 
@@ -77,9 +82,9 @@ ReviveDB stores recovery points outside Supabase. It captures the database and A
 
 ## What the free plan gives you
 
-The free plan covers one connected Supabase project. The database and Supabase Storage each have a 1 GB limit, and the account gets 5 GB of backup storage. There is a separate 5 GB monthly allowance for backup processing. The schedule is weekly and the latest three recovery points are retained. ReviveDB stores and verifies them in the EU.
+The free plan covers one personal Supabase project and one person, with 500 MB each for the database and Supabase Storage. Backup processing has a 5 GB monthly allowance. Pricing still distinguishes backup storage from processing but no longer publishes its capacity, so the former 5 GB storage allowance is not confirmed. The schedule is weekly and the latest three recovery points are retained. Storage defaults to the EU with a US option per project; processing and restore tests run in Amsterdam. A business project serving customers requires Pro or Team.
 
-The processing meter counts the compressed database dump and new Storage bytes. The service reuses unchanged files, so processing does not necessarily match the full size of all your stored objects on every run.
+The processing meter counts the compressed database dump and new Storage bytes. The service reuses unchanged files, so processing does not necessarily match the full size of all your stored objects on every run. Automatic verification does not consume that allowance.
 
 ## When you hit a limit
 
@@ -87,9 +92,10 @@ ReviveDB says it skips backups that would exceed the plan limits and sends a not
 
 ## Gotchas
 
-- Weekly recovery points can leave changes made since the last backup uncovered. Paid plans offer more frequent backups.
+- In-place rollback requires a fresh verified safety backup; if that backup cannot complete, rollback does not start. Secret values are never copied and must be restored separately.
+
+- Weekly recovery points can leave changes made since the last backup uncovered. Paid plans offer more frequent backups. ReviveDB checks database restores and verifies file and function artifacts separately. Review the recovery report to see what the backup covers.
 - The restore guide requires a compatible supported Postgres version on the target. Pause writes before restoring into a project that is in use.
-- ReviveDB checks database restores and verifies file and function artifacts separately. Review the recovery report to see what the backup covers.
 
 ## Alternatives in this atlas
 
@@ -100,7 +106,7 @@ ReviveDB says it skips backups that would exceed the plan limits and sends a not
 
 ### Is ReviveDB free?
 
-Yes. One eligible project gets weekly backups and three retained recovery points without a card.
+Yes. One eligible personal project gets weekly backups and three retained recovery points without a card.
 
 ### What happens if my project outgrows the free plan?
 

@@ -56,8 +56,8 @@ avoidIf:
   - require complex SQL features
   - enterprise compliance required
 productionReadiness: production-light
-lastUpdated: 2026-11-02
-lastVerified: '2026-11-15'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://turso.tech/'
@@ -79,15 +79,17 @@ You manage databases with the `turso` CLI or the dashboard and connect from code
 
 ## What the free plan gives you
 
-The Free plan is $0 a month, and the pricing page says you can start free with no credit card. It includes 100 databases and 5GB of storage. Each month you get 500 million rows read, 10 million rows written, and 3GB of syncs. Point-in-time restore reaches back 1 day, and support comes from the community.
+The Free plan is $0 a month, and the pricing page says you can start free with no credit card. It includes 100 databases and 5GB of storage. Each month you get 500 million rows read, 10 million rows written, and 3GB of syncs. Point-in-time restore reaches back 1 day, and support comes from the community. Each branch or restore consumes a database slot and storage. Point-in-time restore applies to an existing database; recovery after deletion on Free is not guaranteed, even if you upgrade later.
 
 Turso counts a row read as a row scan, so a query can scan more rows than it returns. Queries without an index scan the whole table. Idle databases cost only storage, which keeps a large set of mostly idle databases cheap.
 
 ## When you hit a limit
 
-The pricing FAQ explicitly says Free databases are blocked when any one storage, row-read, row-write, or sync limit is exceeded, even if the other metrics remain under quota. The usage docs describe the BLOCKED error for quota-exceeding queries.
+Exceeding any storage, row-read, row-write or sync quota blocks Free databases, even if other allowances remain. Quota queries return BLOCKED.
 
-Extra storage, reads, writes, and syncs are billed automatically only once you enable overages. On Developer, which costs $5.99 monthly or $4.99 per month under yearly billing, this means $1 per billion extra rows read. The Free plan has no overage billing shown on the pricing page.
+Paid excess bills only with overages enabled. Developer costs $5.99/month or $4.99/month annually; extra reads cost $1/billion rows. Free lists no overage billing. Disabling paid overages immediately bills incurred excess plus prorated subscription charges.
+
+Vegas Blackout advertises one chosen day of waived usage charges monthly before invoice closure. It does not erase quota consumption or remove overage-enablement requirements. Monitor each quota individually rather than treating remaining capacity in one meter as credit for another.
 
 ## Gotchas
 

@@ -56,8 +56,8 @@ avoidIf:
   - you need outbound SMTP
   - you need hosted mailboxes
 productionReadiness: side-project
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://forwardemail.net/en'
@@ -83,7 +83,6 @@ answer: >-
   Inbound forwarding on Forward Email covers unlimited domains, but you cannot send mail or store a mailbox on the free plan, and the card rule is not confirmed.
 
 ---
-
 Forward Email is an open-source email service for custom domains. On the free plan it receives mail at your domain and forwards it to the inbox you already read, to several recipients, or to a webhook in your app.
 
 ## What the free plan gives you
@@ -94,16 +93,15 @@ Forwarding rules can be flexible: catch-all addresses, multiple recipients per a
 
 ## When you hit a limit
 
-The free plan separates forwarding from paid mailbox and sending features. The pricing FAQ says the free plan only supports email forwarding: you can receive mail at your domain and forward it, but you cannot send emails directly from your custom domain or store emails on Forward Email's servers.
+Free only forwards incoming domain email. It cannot send directly from your custom domain or store mail on Forward Email servers.
 
-Sending, storage, and the developer API start on Enhanced Protection at $3 a month, which adds outbound SMTP, 10 GB of pooled storage, and API access. The pricing page does not list a monthly recipient volume cap. The FAQ describes sender-side limits that vary by trust tier, and says messages above the 50 MB total size limit are rejected. Neither reviewed page establishes a universal card requirement for Free.
+Enhanced Protection starts at $3/month with outbound SMTP, 10 GB pooled storage and developer API access. Pricing lists no monthly recipient cap. Forwarding differs from paid IMAP trust-tier limits: non-allowlisted senders get 100 connections/hour per sender/envelope recipient, then SMTP 421 responses. Messages above 50 MB total size are rejected. A universal Free card requirement is not established by either reviewed page. Keep forwarding, mailbox storage and sending requirements separate when deciding whether Free is sufficient.
 
 ## Gotchas
 
-- Free forwarding is limited to the domain extensions listed in the FAQ. Domains that expired within 90 days or have a pending registrar transfer, update, or deletion require a paid plan. Newly registered names can be free, but prior use, a registrar transfer, drop-catching, certain extensions, or abuse classifications can require payment for the first 90 days. From December 1, 2026, Forward Email says new .id, .jp, and .ws domains require a paid plan.
-
-- You cannot send mail from your domain on the free plan, so it does not replace a transactional email service. Developer API access is paid, even though webhook forwarding is free.
+- Free forwarding is limited to the domain extensions listed in the FAQ. Domains that expired within 90 days or have a pending registrar transfer, update, or deletion require a paid plan. Newly registered names can be free, but prior use, a registrar transfer, drop-catching, certain extensions, or abuse classifications can require payment for the first 90 days. From December 1, 2026, Forward Email says new .id, .jp, and .ws domains require a paid plan. You cannot send mail from your domain on the free plan, so it does not replace a transactional email service. Developer API access is paid, even though webhook forwarding is free.
 - The 50 MB limit covers the whole message, not just its attachment. Receiving providers may impose lower limits.
+- Free forwarding destinations are stored in public DNS TXT records and are publicly searchable. Do not use this setup expecting to keep the destination inbox private.
 
 ## Alternatives in this atlas
 

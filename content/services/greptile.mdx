@@ -19,11 +19,12 @@ freeTierDetails:
   caveats:
     - Credit use depends on review mode
     - A credit is not necessarily one review
-    - Starter post-quota behavior and card requirement are not confirmed
+    - New reviews pause when credits run out; Starter signup card requirement remains unconfirmed
+    - CLI reviews are excluded from the free plan
   resetPeriod: monthly
   requiresCard: unknown
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
 quickstartSteps:
   - Sign up for Starter.
@@ -43,8 +44,8 @@ avoidIf:
   - shared team quota
   - unconfirmed signup card policy
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://www.greptile.com/'
@@ -53,6 +54,8 @@ pricingUrl: 'https://www.greptile.com/pricing'
 sourceUrls:
   - "https://www.greptile.com/pricing"
   - "https://docs.greptile.com/"
+  - "https://www.greptile.com/docs/account/billing-seats"
+  - "https://www.greptile.com/docs/quickstart"
 status: active
 changes:
   - date: 2026-11-16
@@ -68,11 +71,11 @@ Greptile adds automated review to pull requests. It can use context from the rep
 
 ## What the free plan gives you
 
-Starter includes 50 credits in a month for one active developer and can cover unlimited repositories. The credit balance limits reviews across those repositories. Greptile's pricing page describes different credit costs for review modes, so the same allowance can buy different numbers of reviews depending on what you request. Start with a representative change and look at the findings. Useful feedback on a real change is a better basis for deciding how often to run the tool than assuming that every pull request needs several automatic passes.
+Starter includes 50 credits in a month for one active developer and can cover unlimited repositories. The credit balance limits reviews across those repositories. Base reviews cost 1 credit, Plus 3 and Apex 10; Auto charges for the tier that actually ran. Only completed reviews spend credits. A TREX run adds 3 credits only when at least one flow reaches a pass or fail. CLI reviews are excluded from Free. Start with a representative change and look at the findings. Useful feedback on a real change is a better basis for deciding how often to run the tool than assuming that every pull request needs several automatic passes.
 
 ## When you hit a limit
 
-The provider publishes prepaid rates on Pro and a separate Starter allowance. Its public pricing page does not clearly describe what happens to a Starter review after the credit balance is exhausted or whether a card is requested during Starter signup. Review your balance and the mode configured for automatic reviews before turning it on for several repositories at once.
+The billing guide says new reviews pause when credits run out. Pro uses prepaid credits at $1 each, shared across the organization; optional automatic recharge buys more when the balance runs low. The public pages do not establish whether Starter signup requires a card. Review your balance and the mode configured for automatic reviews before turning it on for several repositories at once.
 
 ## Gotchas
 
@@ -93,7 +96,7 @@ Starter is free for one active developer and includes 50 monthly review credits.
 
 ### Do 50 credits equal 50 pull requests?
 
-It depends on the review modes and how often the tool reviews each pull request. Consult the pricing breakdown before calculating expected usage.
+Fifty credits cover 50 Base reviews, 16 Plus reviews with 2 credits left, or 5 Apex reviews. Repeat passes and optional TREX runs consume more of the same balance.
 
 ### Can I use it across multiple repositories?
 

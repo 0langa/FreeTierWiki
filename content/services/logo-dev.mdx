@@ -15,7 +15,9 @@ freeTierDetails:
   limits:
     - 500,000 CDN requests per month
     - $5 in API credits per month
-    - No purchased top-ups on Community
+    - API credit top-ups are optional and start at $5
+    - CDN rate limit is 500 requests/minute per account and 100 per IP
+    - API rate limit is 100 requests/minute, search is 500/minute, and API concurrency is 5
   caveats:
     - Commercial display on Community requires attribution
     - CDN quota and API credits are separate
@@ -26,7 +28,7 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: none
   billingRiskNotes:
-    - The Community CDN quota is a hard limit. Paid API top-ups are unavailable on Community.
+    - The Community CDN quota is a hard limit. API requests return HTTP 402 when credits run out; the account owner can buy more, with no automatic overage billing.
 quickstartSteps:
   - Start a Community account and locate the required keys.
   - Request a logo for a known brand.
@@ -45,16 +47,19 @@ avoidIf:
   - commercial use without attribution
   - combining API and CDN budgets
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://www.logo.dev/'
 pricingUrl: 'https://www.logo.dev/pricing'
 sourceUrls:
   - "https://www.logo.dev/pricing"
-status: active
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Observed Community API credit top-ups now available from $5, with HTTP 402 at exhaustion and no automatic overage billing; an effective date was not stated.
   - date: 2026-11-16
     kind: new
     note: Added the no-card Community logo and API allowances.
@@ -72,13 +77,15 @@ Community includes 500,000 logo CDN requests each month and a separate $5 monthl
 
 ## When you hit a limit
 
-The CDN request count has a hard limit. If your app needs a higher number, consider the paid CDN allowances and make sure it can display a fallback in the meantime. The Community plan excludes purchasing more API credits, so budget data calls as well as image delivery. A busy page that loads several logos can use several CDN requests during a single view. Cache artwork only as permitted by the provider and give missing logos a usable fallback.
+CDN requests have a hard cap; use fallbacks or upgrade for more. API-credit exhaustion returns HTTP 402 until monthly renewal or an optional purchase starting at $5. Community supports top-ups without automatic overage billing.
+
+Budget API calls and image delivery separately: multiple logos can consume multiple CDN requests per page view, though browser-cached repeats do not count. API responses, including returned logo assets, may be stored/served on your servers on every plan. In contrast, load CDN images directly from img.logo.dev without proxying or copying them. These different storage rules depend on which service returned the asset.
 
 ## Gotchas
 
 - Follow the commercial attribution instructions before you embed logos in a public product.
-- Separate the CDN budget from the API balance when forecasting usage.
-- An MCP request can draw from the same credit balance as direct API requests.
+- Separate the CDN budget from the API balance when forecasting usage. Community also limits CDN traffic to 500 requests per minute per account and 100 per IP. API requests allow 100 per minute, searches 500 per minute, and up to 5 concurrent API requests.
+- An MCP request can draw from the same credit balance as direct API requests. A Brand API request costs 5 credits ($0.05); repeated requests for the same brand are free for 24 hours.
 
 ## Alternatives in this atlas
 

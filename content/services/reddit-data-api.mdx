@@ -19,7 +19,7 @@ freeTierDetails:
   caveats:
     - Explicit Reddit approval is required; a free quota does not grant access
     - Access removal starts 12 January 2027 for apps and users that have not registered or engaged with Reddit
-    - Reddit announced an RSS support cutoff of 13 November 2026. The public r/redditdev feed still returned Atom when checked on 16 November 2026.
+    - Reddit announced an RSS support cutoff of 13 November 2026. On 23 November 2026 the checked public r/redditdev feed returned an empty Not Found Atom document.
     - Commercial use requires permission and a contract; research uses Reddit for Researchers
   requiresCard: unknown
   freeTierType: time-limited
@@ -40,8 +40,8 @@ whenNotToUse: >-
 bestFor: [existing bot maintainers, moderators, migration planning]
 avoidIf: [new long-term public data feeds, unapproved commercial use, unrestricted data exports]
 productionReadiness: prototype
-lastUpdated: 2026-11-16
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 6
 officialUrl: https://developers.reddit.com/
@@ -56,8 +56,10 @@ sourceUrls:
   - https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data
   - https://support.reddithelp.com/hc/en-us/articles/42728983564564-Responsible-Builder-Policy
   - https://developers.reddit.com/docs/guides/migrate/public-api
-  - https://www.reddit.com/r/redditdev/.rss
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: The previously readable r/redditdev RSS feed now returns an empty Not Found document; the exact shutdown date is unknown.
   - date: 2026-11-05
     kind: changed
     note: "Updated the elapsed October 31 request cutoff to past tense after rechecking the official API and RSS migration announcements."
@@ -75,9 +77,9 @@ The Reddit API is still free for eligible, approved non-commercial use, but that
 
 ## What the free plan gives you
 
-Reddit's [Data API wiki](https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki) lists 100 queries per minute per OAuth client, averaged over 10 minutes. Approved developers can read and modify Reddit content within their authorized use case. Requests without OAuth or login credentials are blocked.
+Reddit's [Data API wiki](https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki) allows 100 queries/minute/OAuth client averaged over 10 minutes. Approved developers read/modify content within authorized uses; unauthenticated requests are blocked. Free chat permits 2,000 messages/recipient/day, 3,000 total/day and 300 bot room joins/day.
 
-The public API is a transition option for existing integrations. Reddit's [November migration reminder](https://www.reddit.com/r/redditdev/comments/1xulk8k/data_api_migration_reminder_register_your_apps/) confirms that the 31 October 2026 cutoff for new access requests has passed. Removal of access for apps and users that have not registered or engaged with Reddit starts on 12 January 2027, and remaining public access closes in March 2027. Reddit has not specified a day in March. Registration supports migration; it does not promise indefinite public access.
+This API is transitional for existing integrations. The [migration reminder](https://www.reddit.com/r/redditdev/comments/1xulk8k/data_api_migration_reminder_register_your_apps/) confirms new access requests closed October 31, 2026. Removal for unregistered/unengaged apps/users starts January 12, 2027; remaining public access closes in March, without a specified day. Registration supports migration, not indefinite access. November 30, 2026 is the migration-funding registration deadline, not API shutdown.
 
 ## When you hit a limit
 
@@ -87,7 +89,7 @@ Commercial access is separate: Reddit requires permission and a contract, with n
 
 ## Gotchas
 
-- Reddit's announced RSS support cutoff was 13 November 2026. Its [November 10 reminder](https://support.reddithelp.com/hc/en-us/articles/55472297340308-Changelog-November-10-2026) recommends Discord Relay for common moderator alerts and says there is no replacement for RSS feeds outside a community you moderate. On 16 November 2026, the public [r/redditdev feed](https://www.reddit.com/r/redditdev/.rss) still returned Atom in a browser. Availability of other feeds and continued support remain unconfirmed.
+- Reddit's announced RSS support cutoff was 13 November 2026. Its [November 10 reminder](https://support.reddithelp.com/hc/en-us/articles/55472297340308-Changelog-November-10-2026) recommends Discord Relay for common moderator alerts and says there is no replacement for RSS feeds outside a community you moderate. The public [r/redditdev feed](https://www.reddit.com/r/redditdev/.rss) previously returned posts, but now returns an empty Atom document titled Not Found; the direct fetch also returns a not-found response. That establishes the checked feed's current unavailability, not the exact shutdown date or the state of every feed.
 - Reddit directs academic research to Reddit for Researchers. Approval for a bot does not grant unrestricted research or commercial reuse.
 - A third-party seller's free trial does not establish ongoing access, rights to redistribute Reddit content, or support after the shutdown. Check those separately.
 

@@ -20,6 +20,8 @@ freeTierDetails:
     - 10 GB-hours/month query compute
     - 25GB storage
     - 30-day data retention
+    - 1 user, 3 datasets, 256 fields per dataset, and 3 monitors
+    - Email and Discord notifiers; US edge deployment
     - Community support
   caveats:
     - The limits reference lists 500 GB as the monthly data loading maximum; exact enforcement of the Personal query and storage allowances is unpublished
@@ -32,9 +34,9 @@ freeTierDetails:
   overageRisk: low
 quickstartSteps:
   - Start free from axiom.co; the Personal plan needs no credit card.
-  - Create a dataset for your logs; the docs list Datasets under Manage.
-  - Create an API token; the docs list Tokens under Access.
-  - Send your first event with a single HTTP request to `https://AXIOM_DOMAIN/v1/ingest/DATASET_NAME`, using your own domain and dataset name.
+  - Create a dataset for your logs; open Datasets in the Library.
+  - Create an API token with permission to ingest into that dataset.
+  - Send your first event with a single HTTP request to `https://AXIOM_DOMAIN/v1/ingest/DATASET_NAME`, using the base domain of your Axiom edge deployment and your dataset name.
   - Open the dataset to check that the event arrived.
   - Save a query as a dashboard element to chart it.
 whenToUse: >-
@@ -46,14 +48,14 @@ whenNotToUse: >-
 bestFor:
   - individual developers
   - side projects
-  - small teams starting with log search
+  - solo projects starting with log search
 avoidIf:
   - retention longer than 30 days
   - SSO or role-based access control
   - high event volume
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://axiom.co/'
@@ -76,7 +78,7 @@ You send events to Axiom with an HTTP request or one of its integrations, then e
 
 ## What the free plan gives you
 
-The Personal plan costs $0 per month, is described as permanent, and needs no credit card. It includes 500 GB per month of data loading compute and 10 GB-hours per month of query compute. Storage is 25 GB, and data is kept for 30 days. Support is through the community.
+The Personal plan costs $0 per month, is described as permanent, and needs no credit card. It includes 500 GB per month of data loading compute and 10 GB-hours per month of query compute. Storage is 25 GB, and data is kept for 30 days. Personal allows one user, three monitors, Email and Discord notifiers, and the US edge deployment. Support is through the community.
 
 The paid Axiom Cloud plan starts at $25 per month plus usage. It has a larger allowance of 1 TB of loading, 100 GB-hours of queries, and 100 GB of storage. SSO, role-based access control, directory sync, and extended audit logs are paid add-ons on that plan, not on Personal.
 
@@ -89,7 +91,7 @@ For the paid Axiom Cloud plan, the page says extra usage is billed at normal rat
 ## Gotchas
 
 - Personal has no SSO or role-based access control, and those add-ons exist only on the paid Cloud plan.
-- The limits reference lists fixed Personal limits of 3 datasets and 256 fields per dataset. The larger Cloud limits for those resources can be raised on request.
+- The limits reference lists 3 Personal datasets and 256 fields per dataset, with increases explicitly marked for Cloud. The pricing overview calls these soft limits; do not assume a Personal exception without confirmation. New fields beyond the dataset field limit are dropped even when ingestion succeeds, and cannot be recovered.
 - Query compute (10 GB-hours a month) is a separate allowance from data loading compute (500 GB a month).
 
 ## Alternatives in this atlas

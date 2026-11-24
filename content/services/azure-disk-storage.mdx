@@ -41,7 +41,7 @@ freeTierDetails:
 quickstartSteps:
   - Create an Azure free account with a Microsoft or GitHub account, a phone number, and an accepted payment card.
   - Open Free services in the Azure portal and review the benefits attached to your subscription.
-  - Pick a 64 GB (P6) SSD to match the listed free disks, and check its redundancy setting and cost before creating it.
+  - Pick a 64 GB (P6) Premium SSD and a VM size that supports Premium storage to match the listed free disks, and check its redundancy setting and cost before creating it.
   - Create and attach the disk to a VM, then format and mount it inside the operating system.
   - Track the shared credit and delete unneeded disks, snapshots and related resources before the credit or the 12 months expire.
 whenToUse: >-
@@ -70,7 +70,7 @@ changes:
   - date: 2026-10-06
     kind: changed
     note: Corrected the 32 GB Standard SSD guidance and post-upgrade billing risk; exact free-benefit redundancy remains unverified.
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 6
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/managed-disks/'
@@ -84,7 +84,7 @@ sourceUrls:
   - 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account'
   - 'https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview'
   - 'https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account'
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 pricingUrl: 'https://azure.microsoft.com/en-us/free/'
 answer: >-
   Azure Disk Storage needs a card and gives new accounts two 64 GB P6 SSDs, a 1 GB snapshot, and 2 million I/O operations free for 12 months, then bills at normal rates.
@@ -98,7 +98,7 @@ New Azure free-account customers receive $200 of shared credit for 30 days. Micr
 
 Microsoft's free-services list also names Managed Disks as a 12-month benefit for new customers: two 64 GB (P6) solid-state drives, plus a 1 GB snapshot and 2 million I/O operations. Microsoft's free-services list does not specify the redundancy setting. Check the Free services benefits on your subscription before deployment.
 
-Azure offers Ultra Disks, Premium SSD v2, Premium SSD, Standard SSD and Standard HDD. Type, provisioned size, performance options and redundancy affect cost, and billing follows what you provision, not what you store.
+Azure offers Ultra Disks, Premium SSD v2, Premium SSD, Standard SSD and Standard HDD. Type, provisioned size, performance options and redundancy affect cost, and billing follows what you provision, not what you store. For newly created empty Premium SSD, Standard SSD, and Standard HDD disks, billing starts at their first attachment to a VM.
 
 ## When you hit a limit
 
@@ -108,8 +108,8 @@ Managed disks are billed by their configured size and type. Snapshots, additiona
 
 ## Gotchas
 
-- Standard Azure registration requires a phone number and an accepted credit or non-prepaid debit card. A temporary verification hold may appear.
-- The $200 belongs to the Azure account, not to each disk or VM, and other services use the same balance. Only the listed disks are free; a larger or third disk is billed or uses credit.
+- Standard Azure registration requires a phone number and an accepted credit or non-prepaid debit card. A temporary verification hold may appear. The $200 belongs to the Azure account, not to each disk or VM, and other services use the same balance. Only the listed disks are free; a larger or third disk is billed or uses credit.
+- P6 is a Premium SSD tier, requiring a compatible VM size. The named offer does not establish a free Premium SSD v2 allowance.
 - Stopping a VM does not remove its persistent disks. Review remaining disks and snapshots as well as compute before ending an experiment.
 
 ## Alternatives in this atlas

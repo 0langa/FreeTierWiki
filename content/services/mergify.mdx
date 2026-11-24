@@ -33,9 +33,9 @@ quickstartSteps:
   - Sign in at mergify.com.
   - Install the Mergify GitHub App on your repository; you need GitHub admin rights to add one.
   - Open the Repositories page of the dashboard and tick the products you want, then choose Save Changes.
-  - If the target branch has GitHub rulesets, follow the setup guide to configure Mergify as an exempt bypass actor and check which rules it enforces as merge conditions.
+  - Require your CI status checks on the target branch; the queue does not wait for CI if no checks are required. Follow the guide to add Mergify as an exempt bypass actor for applicable rulesets.
   - Open a pull request and comment `@mergifyio queue` to add it to the merge queue.
-  - Watch Mergify update the pull request, wait for CI, and merge it.
+  - Watch Mergify update the pull request, wait for required checks, and merge it.
 whenToUse: >-
   Use Mergify to run a merge queue on GitHub for an open source project or a
   private team of up to 5 active contributors.
@@ -51,8 +51,8 @@ avoidIf:
   - private teams over 5 active contributors
   - long data retention on the free plan
 productionReadiness: production-light
-lastUpdated: 2026-11-02
-lastVerified: '2026-11-16'
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://mergify.com'
@@ -77,13 +77,13 @@ You install the Mergify GitHub App, choose which products to turn on per reposit
 
 ## What the free plan gives you
 
-Mergify is free for open source projects, with unlimited users. Private teams get the Free plan for up to 5 users. Both plans include all three products: CI Insights, Test Engine, and Merge Queue. The pricing page says the Open Source and Free plans do not cover the same features, so check its table.
+Open Source is free with unlimited users; private Free permits 5. Both include CI Insights, Test Engine and Merge Queue, with differing feature coverage in the pricing table. CI Insights retention is 24 hours and Test Engine 7 days; paid Max retains 30 days.
 
-CI Insights data retention is 24 hours on the Free and Open Source plans; Test Engine data is kept for 7 days. The paid Max plan keeps data for 30 days. Billing counts only active contributors. A contributor is active for 30 days after opening or updating a pull request. The billing docs include updates to its head branch and count the person who performed the update; bots and inactive teammates do not count.
+Billing counts active contributors for 30 days after opening/updating a PR, including head-branch updates attributed to their author. Bots, inactive teammates, reviews and comments alone do not count; each person counts once across repositories. Pricing FAQ excludes one-off contributors, while detailed billing counts anyone opening/updating a PR. Confirm that exception in the dashboard rather than assuming a single contribution is exempt.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when a private team grows past 5 active contributors. The next step is the Max plan, which costs $21 per seat per month and covers up to 100 users. Mergify also offers a free 14-day trial of Max with no credit card. The pages also do not separately state whether permanent Free requires a card.
+The pricing page does not say what happens when a private team grows past 5 active contributors. The next step is the Max plan, which costs $21 per seat per month and covers up to 100 users. Mergify also offers a free 14-day trial of Max with no credit card. The pages also do not separately state whether permanent Free requires a card. Paid subscriptions may generate a final invoice for contributor-count adjustments when cancellation takes effect; cancellation does not erase accrued usage.
 
 ## Gotchas
 

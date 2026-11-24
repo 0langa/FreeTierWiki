@@ -21,7 +21,8 @@ freeTierDetails:
     no card and no expiry.
   limits:
     - Public, OSI-licensed open-source projects do not count toward the line limit
-    - '50k lines of code free for private projects'
+    - '50k lines of code free for private projects across an organization'
+    - Free organizations have at most five members, main-branch analysis and pull requests targeting main
     - No credit card required, no expiry
   caveats:
     - Analysis fails when the private organization exceeds its subscription line-of-code limit
@@ -36,11 +37,11 @@ quickstartSteps:
   - Click Start Free and choose the DevOps platform to connect, such as GitHub, Bitbucket Cloud, GitLab, or Azure DevOps.
   - Sign in with your existing account on that platform. There is no SonarQube Cloud-only account.
   - Import your organization, then import the repositories you want. Each repository becomes a project.
-  - Follow the in-product tutorial to connect analysis to your CI pipeline.
+  - Use automatic analysis where supported, or follow the tutorial to connect your CI pipeline; disable automatic analysis before switching to CI-based analysis.
   - Open the project Overview page to see the first analysis, then set a new code definition so the quality gate can run.
 whenToUse: >-
   Use SonarQube Cloud to scan open source projects, or private projects under 50k
-  lines, with a quality gate on every pull request.
+  lines, with quality gates; Free private projects cover pull requests targeting the main branch.
 whenNotToUse: >-
   Avoid the free tier for private codebases over 50k lines of code. Avoid it if
   you need analysis to run on your own servers.
@@ -52,16 +53,19 @@ avoidIf:
   - private codebases over 50k lines
   - needing self-hosted analysis
 productionReadiness: production-ready
-lastVerified: 2026-11-16
+lastVerified: 2026-11-23
 status: changed
 changes:
+  - date: '2026-11-23'
+    kind: changed
+    note: The Bitbucket guide now supports automatic analysis, unlike the November 16 source snapshot; exact rollout date is not stated.
   - date: 2026-10-21
     kind: changed
     note: Aligned limit enforcement flags with the scope and uncertainty of the cited policy evidence.
   - date: 2026-10-06
     kind: changed
     note: "Clarified OSI-licensed public-project eligibility and removed the incorrect annual-billing condition."
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://sonarcloud.io'
@@ -83,11 +87,11 @@ You sign in with your DevOps platform account and read the results on the web. Y
 
 ## What the free plan gives you
 
-Sonar runs two free offers. Public repositories with an OSI-licensed open source license get the open source plan, free forever. The pricing page says they get the same features as the paid Pro plan.
+OSI-licensed public repositories qualify for free-forever Open Source: unlimited public repositories/members, branch/PR analysis, custom quality gates/profiles, no private projects. Cloud documentation defines this separately from pricing's broad paid-Pro comparison.
 
-For private code, the free tier covers private projects up to 50k lines of code. The pricing page says no card and no expiry. It is the Team plan, free up to that size. Sonar sums private projects within an organization, counting each project’s largest branch; scan frequency does not change the count.
+Private Free allows 50k lines, five organization members, main-branch analysis and PRs targeting main, without card or expiry. Pricing calls it free Team, but detailed subscriptions distinguish Free. It excludes custom gates/profiles, webhooks, AI CodeFix and Advanced Security. Usage sums each private project's largest branch across the organization; scan frequency does not change it.
 
-The free tier supports many languages and DevOps integrations. Paid Team plans start at $34 per month for analysis of up to 100k lines of code, and other size steps are available.
+Many languages and DevOps integrations are supported. Paid Team starts at $34/month for 100k lines, with other size steps available.
 
 ## When you hit a limit
 
@@ -99,7 +103,7 @@ The pricing page says the free tier takes no card. A paid private organization i
 
 - The open source offer is for public repositories under an OSI-licensed license. Check your license before you rely on it.
 - Only each project’s largest branch counts, but private projects are added together within the organization.
-- Bitbucket projects require CI-based analysis; automatic analysis is not available for Bitbucket Cloud.
+- The current Bitbucket guide supports automatic analysis through the Forge app as well as CI-based analysis. Workspaces bound before August 31, 2026 need to migrate to the new app; the Connect app retirement is December 1, 2026. Automatic analysis does not cover pull requests from forks, and it must be disabled before using CI-based analysis.
 
 ## Alternatives in this atlas
 

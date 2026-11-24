@@ -32,7 +32,7 @@ freeTierDetails:
 quickstartSteps:
   - Create a Free account and complete card verification.
   - Generate an API key and keep it on the server running your integration.
-  - Send a small FFmpeg job using a source URL, command, and named output as shown in the API reference.
+  - Send a small FFmpeg job with input/output aliases, explicitly setting vcpu_count to 4 and max_command_run_seconds to 60 for Free.
   - Save the command ID and check its result before processing larger files.
 whenToUse: >-
   Use Rendi when an app needs occasional FFmpeg jobs and they fit the short
@@ -49,8 +49,8 @@ avoidIf:
   - private file storage on Free
   - no-card signup
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://www.rendi.dev/'
@@ -84,7 +84,7 @@ Work within the published runtime and rate limits and track the monthly processi
 
 ## Gotchas
 
-- The processing quota is a volume allowance. Even a short command can use a lot of it if the input and output files are large.
+- Set `vcpu_count: 4` and `max_command_run_seconds: 60` explicitly on Free: the general API examples/defaults use eight CPUs and 300 seconds, which exceed Free's limits. Parallel commands share the account's CPU allowance. The processing quota is a volume allowance. Even a short command can use a lot of it if the input and output files are large.
 - Rendi lists private storage and presigned URLs as Pro features. Check output access before sending media that needs to stay private.
 - Longer commands and result webhooks are paid features. For the Free plan, build around brief jobs and retrieve their results through the API.
 
@@ -97,7 +97,7 @@ Work within the published runtime and rate limits and track the monthly processi
 
 ### Does Rendi require a credit card?
 
-Yes. Rendi says it validates the card through Stripe without charging it. The hosted Free plan has no recurring fee.
+Yes. Rendi says it validates the card through Stripe without charging it. The hosted Free plan has no recurring fee, and each verification card can be used for only one free account.
 
 ### Does the processing quota count the output file?
 

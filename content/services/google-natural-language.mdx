@@ -33,11 +33,11 @@ freeTierDetails:
   hasHardCap: false
   overageRisk: medium
   billingRiskNotes:
-    - Units past the free amounts are billed per unit, by feature
+    - On Paid billing accounts, units past the free amounts are billed by feature after applicable credit
     - Requesting several features in one annotateText call bills each feature
 quickstartSteps:
   - Create a Google Cloud project with a billing account.
-  - Enable the Cloud Natural Language API.
+  - Enable the Cloud Natural Language API and configure authentication, such as Application Default Credentials for a client library.
   - Call a method such as analyzeSentiment or analyzeEntities from a client library or the REST API.
   - Check units used per feature in the billing console.
 whenToUse: >-
@@ -53,8 +53,8 @@ avoidIf:
   - large text volumes for free
   - no billing account
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://cloud.google.com/natural-language'
@@ -73,7 +73,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  Google Cloud Natural Language includes 5,000 monthly units for each of four analysis features with a Cloud Billing account, offers separate classification and moderation allowances, and bills usage past each allowance.
+  Google Cloud Natural Language includes 5,000 monthly units for each of four analysis features with a Cloud Billing account, offers separate classification and moderation allowances, and bills usage past each allowance on Paid billing accounts after applicable credit.
 
 ---
 
@@ -87,9 +87,11 @@ A unit is 1,000 Unicode characters for most features and 100 characters for text
 
 ## When you hit a limit
 
-Nothing stops the API at the free units. Past them, each feature is billed per unit at its own listed price. In the price table, entity sentiment analysis costs twice as much as entity or sentiment analysis, and syntax analysis half as much. For entity, sentiment, syntax and entity sentiment, prices drop at 1,000,000 units and again at 5,000,000 monthly; classification and moderation have different thresholds.
+Paid accounts bill excess after credits. Free Trial excess consumes trial credit; without manual upgrade, resources stop when credit or 90 days expire. Continuing recurring Free Tier access then requires Paid billing.
 
-Requests are rounded up per request. Google's example: three sentiment requests of 800, 1,500, and 600 characters are charged as four units, not three. Prices are computed monthly per feature.
+Entity sentiment costs twice entity/sentiment analysis; syntax costs half. Those four features drop rates at 1,000,000 and 5,000,000 monthly units; classification/moderation thresholds differ. Each feature's prices are calculated monthly.
+
+Requests round up individually: Google's example of 800, 1,500 and 600 characters consumes four sentiment units, not three. Estimate each request separately rather than adding all characters before rounding, and monitor feature-specific billing.
 
 ## Gotchas
 

@@ -22,6 +22,7 @@ freeTierDetails:
     - Unlimited tasks
     - 5 team members
     - 10 schedules per project and 1-day log retention
+    - 10 projects per organization, 10 concurrent Realtime connections and 1 alert destination
   caveats:
     - Usage is billed per second and per run from the credit
     - On the Free plan, tasks stop until you upgrade once the $5 credit is used
@@ -55,8 +56,8 @@ avoidIf:
   - heavy compute on the free credit
   - tasks that must keep running past the free credit
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://trigger.dev'
@@ -78,13 +79,13 @@ answer: >-
   Trigger.dev's free plan includes a $5 monthly compute credit billed per second with no card and no overage, and it has a hard cap, so tasks stop until you upgrade once it is used.
 
 ---
-You write tasks as TypeScript code in a /trigger folder of your project. The CLI links your project to Trigger.dev Cloud, runs a dev server, and deploys the tasks. Your app then triggers them from its own code. It suits web and AI developers who need long background jobs without running workers.
+You write tasks as TypeScript code in a trigger folder chosen during setup, commonly src/trigger. The CLI links your project to Trigger.dev Cloud, runs a dev server, and deploys the tasks. Your app then triggers them from its own code. It suits web and AI developers who need long background jobs without running workers.
 
 ## What the free plan gives you
 
 The Free plan costs $0 and includes $5 of monthly compute credits, 10 schedules per project and 1-day log retention. It has 20 concurrent runs, unlimited tasks, and 5 team members. Concurrency is set per environment. The limits guide lists 20 concurrent runs in production and 25 in development, the environments named on the Free pricing card.
 
-Tasks run on Trigger.dev's managed workers, and you only pay while they run. The smallest machine costs $0.0000169 per second. Each run that starts also costs an invocation fee of $0.25 per 10,000 runs, except runs in the DEV environment. Waits longer than 5 seconds are checkpointed and do not count toward compute use.
+Tasks run on Trigger.dev's managed workers, and you only pay while they run. The smallest machine costs $0.0000169 per second; the default Small 1x machine costs $0.0000338 per second. Each run that starts also costs an invocation fee of $0.25 per 10,000 runs, except runs in the DEV environment. Waits longer than 5 seconds are checkpointed and do not count toward compute use.
 
 ## When you hit a limit
 
@@ -95,7 +96,7 @@ You can also hit other limits. The API allows 1,500 requests per minute on every
 ## Gotchas
 
 - A task that triggers a subtask and waits is checkpointed, so the waiting time does not count toward compute usage or your concurrency limit.
-- Calling trigger in a loop can hit the API rate limit. Use batchTrigger: recent SDK versions fit 1,000 tasks per call; older versions allow 500.
+- Calling trigger in a loop can hit the API rate limit. Use batchTrigger: SDK 4.3.1 and later fit 1,000 tasks per call; older versions allow 500. A separate Free batch bucket allows a 1,200-run burst and refills 100 runs every ten seconds per environment, with five batches processed concurrently. Single and current batch-item payloads can be up to 3 MB; outputs up to 10 MB. Free query lookback is one day, with ten-second execution, 10,000 result rows and three concurrent queries per project. Free hosted webhooks allow 100 requests per endpoint every ten seconds, plus a shared 300-token environment allowance; each started 64 KiB costs a token. Excess requests get HTTP 429 and Retry-After. Free delivery visibility is three days, distinct from one-day task logs.
 - Preview branches are unavailable on Free, even though the concurrency table gives a default for preview builds.
 
 ## Alternatives in this atlas

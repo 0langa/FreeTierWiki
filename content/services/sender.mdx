@@ -17,7 +17,7 @@ freeTierDetails:
     Free plan includes up to 2,500 subscribers and 15,000 emails per month, and a 14-day
     Professional trial.
   limits:
-    - 2,500 subscribers
+    - 2,500 active subscribers and 2,500 unique recipients per billing cycle
     - 15,000 emails/month; no separate daily limit
     - 1 user seat
     - Transactional emails
@@ -29,12 +29,11 @@ freeTierDetails:
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
     - >-
-      Professional trial ends automatically on Free Forever; Free email/subscriber exhaustion
-      behavior is unpublished.
+      Professional trial ends automatically on Free Forever; exhausted email or unique-recipient limits block sending until reset or upgrade.
 quickstartSteps:
   - Click Start With Free Plan on sender.net and create an account; no credit card is required.
   - Import subscribers or add them through a form.
@@ -59,13 +58,15 @@ avoidIf:
   - free SMS needed
   - dedicated IP needed
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://www.sender.net'
 docsUrl: 'https://help.sender.net/'
 sourceUrls:
+  - https://www.sender.net/help/account-settings-and-billing/free-plan-limits-explained
+  - https://www.sender.net/help/account-settings-and-billing/when-you-exceed-plan-limits
   - https://www.sender.net/pricing/
   - https://help.sender.net/
   - https://api.sender.net/
@@ -78,7 +79,7 @@ changes:
       Qualified unpublished email-quota handling and removed an unsupported no-daily-limit
       assertion.
 answer: >-
-  Sender's free plan covers 2,500 subscribers and 15,000 emails a month with no card, branding stays on newsletters, forms, and popups, and exhaustion behavior is unpublished.
+  Sender's free plan covers 2,500 subscribers and 15,000 emails a month with no card, branding stays on newsletters, forms, and popups, and sending stops at the email, active-subscriber, or unique-recipient limit.
 
 ---
 You build campaigns and automation workflows in the Sender dashboard, and developers can use a REST API and an SMTP option for transactional email. The Help Center offers guided paths for email marketing, transactional email, SMS, and lead capture.
@@ -91,9 +92,11 @@ The home page says the free plan includes automation and segmentation workflows.
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you pass 15,000 emails in a month or 2,500 subscribers. It lists larger paid plans and says you can upgrade at any time.
+Free has three limits: 2,500 active subscribers, 2,500 unique subscribers emailed per billing cycle, and 15,000 emails per cycle. Campaign and workflow emails both count. Sending campaigns is blocked above the active-subscriber limit, even if the intended audience is smaller. Reduce active subscribers or upgrade to resume.
 
-Sender adds its branding to the bottom of subscription forms, popups, and newsletters on the free plan. The branding goes away on a paid plan. The email allowance does not include a free SMS quota; SMS has separate pricing.
+Exhausting the email or unique-recipient allowance blocks further sending until the billing cycle resets or you upgrade. Deleting contacts does not reduce unique recipients already emailed that cycle. Scheduled campaigns reserve both email credits and recipient capacity; canceling them releases those reservations.
+
+Free forms, popups and newsletters carry Sender branding; paid plans remove it. The email allowance does not include a free SMS quota; SMS has separate pricing.
 
 ## Gotchas
 

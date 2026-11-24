@@ -50,8 +50,8 @@ avoidIf:
   - transactional app databases
   - frequent full scans of large tables
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/bigquery'
@@ -69,7 +69,7 @@ changes:
     kind: new
     note: Added to the atlas.
 answer: >-
-  BigQuery's no-card sandbox gives a lifetime 10 GiB of storage and 1 TiB of queries a month with 60-day table expiry, and with billing attached queries past 1 TiB are billed with no hard cap.
+  BigQuery's no-card sandbox gives a lifetime 10 GiB of storage and 1 TiB of queries a month with 60-day table expiry, and with billing attached queries past 1 TiB are billed without an automatic spending cap.
 
 ---
 
@@ -79,13 +79,15 @@ BigQuery is a data warehouse you open in the Google Cloud console. You load data
 
 BigQuery is part of the Google Cloud Free Tier, and its free amounts last after the free trial ends. Each month the first 10 GiB of storage is free, and the first 1 TiB of query data processed is free under on-demand pricing. BigQuery ML models and training data stored in BigQuery count toward the storage free tier.
 
-Batch loading through the shared slot pool has no processing charge, although quotas apply and cross-region loads can incur network charges. Without a card, the sandbox has a lifetime 10 GiB storage limit that deletion does not restore, plus 1 TiB of monthly query data. Its tables, views and partitions expire after 60 days. Queries that return an error or are served from the cache are not charged.
+Batch loading through the shared slot pool has no processing charge, although quotas apply and cross-region loads can incur network charges. Without a card, the sandbox has a lifetime 10 GiB storage limit that deletion does not restore, plus 1 TiB of monthly query data. Its tables, views and partitions expire after 60 days. Queries that return an error or are served from the cache are not charged; for procedural jobs this rule applies per statement.
 
 ## When you hit a limit
 
-The no-card sandbox has fixed limits and excludes streaming, DML and Data Transfer Service. Enabling billing removes those sandbox restrictions. With a billing account attached, usage past them is charged at the listed rates, for example $6.25 per TiB of on-demand query data after the first 1 TiB each month.
+The no-card sandbox has fixed limits and excludes streaming, DML and Data Transfer Service. Enabling billing removes those restrictions and bills excess: for example, $6.25/TiB of on-demand queries after the first monthly 1 TiB.
 
-Charges are rounded up to the nearest MB, with a minimum of 10 MB processed per table a query references and per query. Canceling a running query might still incur charges up to the full cost of the query. Pricing models apply to accounts, not individual projects, so all your projects draw on the same free amounts.
+Processing rounds up to MB, with a 10 MB minimum per referenced table and per query. Cancelling a running query may still incur its full cost. Pricing applies across accounts, so projects share free allowances.
+
+User/project custom cost controls and maximum bytes billed can cap query costs. Explicitly review default expiration settings when upgrading; enabling billing does not replace that review.
 
 ## Gotchas
 
@@ -111,4 +113,4 @@ Yes. Google says you can try BigQuery's free tier in the BigQuery sandbox withou
 
 ### Do failed queries count against the free terabyte?
 
-No. You are not charged for queries that return an error or for queries served from the cache.
+Queries that return an error and cached results are not charged. For procedural jobs, this is assessed per statement, so an error does not waive earlier successful statements.

@@ -38,7 +38,7 @@ freeTierDetails:
 quickstartSteps:
   - Sign in to Google Cloud with a Google account and set up billing. New customers also get free credits.
   - In the Google Cloud console, select or create a project, and verify that billing is enabled for it.
-  - Open Cloud Storage and create a bucket in us-east1, us-west1, or us-central1 so the free quota applies.
+  - Open Cloud Storage and explicitly choose regional Standard storage in us-east1, us-west1, or us-central1; an unspecified location defaults to the US multi-region.
   - Upload objects in the console, or use the gcloud CLI or a client library.
   - Set API request caps and watch usage in the billing details to stay within the free limits.
 whenToUse: >-
@@ -57,8 +57,8 @@ avoidIf:
   - you need a hard usage cap
   - you cannot enable billing
 productionReadiness: production-ready
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 9
 usefulnessScore: 8
 officialUrl: 'https://cloud.google.com/storage'
@@ -89,14 +89,14 @@ The free quotas are tracked per billing account.
 
 ## When you hit a limit
 
-Google does not stop your buckets at the free amounts. Usage beyond the Always Free limits is charged according to the pricing tables, once any trial credit is gone.
+On a Paid Cloud Billing account, usage beyond the Always Free allowances is charged at standard rates. A Free Trial account uses its trial credit and closes when the credit or 90-day trial ends unless you upgrade; exhausting trial credit does not itself enable paid billing.
 
 There is no hard cap on the free tier, so a busy bucket can run up a bill. Google suggests setting API request caps to avoid being billed for usage beyond the Always Free limits. Check your usage in the billing details for the project.
 
 ## Gotchas
 
 - A bucket in any other region, such as one in Europe or Asia, gets no free quota.
-- Tag operations are not eligible for the Always Free program, and general network usage applies to data read out to the internet beyond the free transfer.
+- Tag operations are not eligible for the Always Free program, and general network usage applies to data read out to the internet beyond the free transfer. Request caps limit API activity, not an existing storage bill. Console and client-library actions can make several billable API operations. New buckets default to seven-day soft delete. Soft-deleted and noncurrent object versions count toward storage, so deleting a file may not immediately stop its storage cost.
 - You must have billing enabled on the project, even if you plan to stay inside the free limits.
 
 ## Alternatives in this atlas

@@ -16,15 +16,15 @@ tags:
 freeTierDetails:
   summary: >-
     A recurring Free plan gives $1 of credit per month. New accounts also get a
-    one-time $5 trial.
+    one-time $5 trial. Free services sleep when idle and stop when credit runs out.
   limits:
     - >-
       Free plan: $1 of free credit per month (1 project, 3 services per project,
-      1 vCPU and 0.5 GB RAM per service, 0.5 GB volume storage)
+      1 vCPU and 0.5 GB RAM per service, one 0.5 GB volume and one 10 GB bucket)
     - >-
       Trial (new accounts only): one-time $5 credit for 30 days, no card
       required
-    - 'Then the Hobby plan ($5/month, includes $5 of usage)'
+    - 'Optional Hobby upgrade: $5/month, includes $5 of usage'
   caveats:
     - >-
       The Hobby plan normally charges a $5 subscription fee even below $5 of usage; Railway waives the fee for a small set of eligible builders.
@@ -32,15 +32,17 @@ freeTierDetails:
     - >-
       An unverified trial account has restricted outbound network access and few
       open ports
-    - Volumes on Free or Trial accounts are deleted 30 days after expiry
+    - Services stop when the recurring $1 credit runs out, until renewal or upgrade
+    - Free services sleep after 5 to 10 minutes without outbound traffic and wake on request
+    - Free volume retention wording conflicts across docs; the trial deletion rule is 30 days after credit expiry
     - >-
       Custom domains are trial-only on Free; generated Railway domains remain
       included
   resetPeriod: monthly
   requiresCard: false
   freeTierType: credit
-  hasHardCap: unknown
-  overageRisk: low
+  hasHardCap: true
+  overageRisk: none
   billingRiskNotes:
     - No charges on the Free plan unless you upgrade to a paid plan.
   monthlyCreditAmount: $1
@@ -72,7 +74,7 @@ avoidIf:
   - more than 3 services in a project
   - complex networking
 productionReadiness: production-light
-lastUpdated: 2026-11-15
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://railway.app/'
@@ -84,9 +86,12 @@ sourceUrls:
   - 'https://docs.railway.com/quick-start'
   - 'https://docs.railway.com/storage-buckets/billing'
 status: changed
-lastVerified: 2026-11-15
+lastVerified: 2026-11-23
 pricingUrl: 'https://railway.com/pricing'
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: "Observed current Free service sleeping and credit-exhaustion stop policy, plus explicit manual plan selection and redeploy after trial expiry; effective date not established."
   - date: 2025-05-01T00:00:00.000Z
     kind: changed
     note: >-
@@ -98,22 +103,22 @@ changes:
       Represented unpublished recurring Free credit-exhaustion enforcement as
       unknown and distinguished custom from generated domains.
 answer: >-
-  Railway's Free plan includes a recurring $1 monthly credit with no card and pauses storage bucket access after the credit runs out, while new accounts also get a one-time $5 trial.
+  Railway's Free plan gives $1 monthly with no card; services sleep when idle and stop when credits run out, while new accounts get a separate $5 trial.
 
 ---
 You work in a project canvas in the dashboard, or from the Railway CLI. Each project holds services and databases, and Railway builds and deploys them for you. It suits makers who want a quick deploy with little server setup.
 
 ## What the free plan gives you
 
-New accounts start with a free trial. The trial gives a one-time grant of $5 for up to 30 days. After 30 days, or after the $5 is spent, the account reverts to the Free plan. The Free plan costs $0 and gives $1 of credit per month. That credit does not roll over.
+New accounts start with a free trial. The trial gives a one-time grant of $5 for up to 30 days. After 30 days, or after the $5 is spent, running deployments stop. Switch to Free from the Plans page and redeploy within its limits, or upgrade to a paid plan. The Free plan costs $0 and gives $1 of credit per month. That credit does not roll over.
 
-The pricing page lists these Free limits: 1 project, 3 services per project, up to 1 vCPU and 0.5 GB of RAM per service, and 0.5 GB of volume storage. It also lists a 10-minute build timeout and 1 concurrent build. Support is through the community, and no credit card is required to deploy a new project.
+The pricing page lists these Free limits: 1 project, 3 services per project, up to 1 vCPU and 0.5 GB of RAM per service, one 0.5 GB volume, and one 10 GB bucket. Bucket storage draws from the same $1 credit. It also lists a 10-minute build timeout and 1 concurrent build. Support is through the community, and no credit card is required to deploy a new project.
 
 ## When you hit a limit
 
-Railway says storage bucket access pauses when the Free credit runs out and resumes at the next billing cycle or after an upgrade. Stored bucket files remain. The docs do not specify how the Free credit limit applies to running app services. Custom domains are available during the trial but not on the recurring Free plan; generated Railway domains remain available.
+At $1 exhaustion, apps and bucket access pause until reset/upgrade; bucket files remain. Free services/databases sleep after 5–10 minutes without outbound traffic, waking on requests/connections. WebSockets/polling can prevent sleep. Trial-only custom domains, cron and region selection disappear on recurring Free; Railway domains remain.
 
-You can move to the Hobby plan for $5 per month, which includes $5 of usage credits. Railway deletes volumes on Free or Trial accounts 30 days after expiry, so upgrade first if the data matters.
+Hobby costs $5/month including $5 usage. Free-plan guidance retains recurring-plan volumes/buckets, but its trial section deletes volumes 30 days after expiry. The plans FAQ broadly applies that deletion to Free or Trial volumes. Free-volume retention therefore remains unresolved: keep backups rather than assuming indefinite retention.
 
 ## Gotchas
 
@@ -135,7 +140,7 @@ Partly. New accounts get a one-time $5 trial credit for 30 days. After that, the
 
 ### What happens when my Railway free credit runs out?
 
-Storage bucket access pauses until the next billing cycle or an upgrade. The docs do not say what happens to running app services.
+Running services stop and storage bucket access pauses until the next billing cycle or an upgrade. The Free-plan guide says volumes and bucket files remain, but a separate plans FAQ retains broader expiry-based volume deletion wording.
 
 ### Does Railway need a credit card?
 

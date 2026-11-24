@@ -35,7 +35,7 @@ quickstartSteps:
   - Sign up for a free account from the dns.he.net portal.
   - Add your domain as a zone and create its records.
   - Point your domain's name servers at Hurricane Electric's.
-  - For dynamic DNS, create the record in the interface first, then update it with a request to dyn.dns.he.net/nic/update.
+  - For dynamic DNS, create and mark the record as dynamic in the interface, generate its update key, then send authenticated HTTPS updates to dyn.dns.he.net/nic/update.
 whenToUse: >-
   Use Hurricane Electric Free DNS when you want free DNS for several of your
   own domains, especially with IPv6 or reverse zones.
@@ -50,8 +50,8 @@ avoidIf:
   - you need DNSSEC
   - you need documented limits or an SLA
 productionReadiness: side-project
-lastUpdated: 2026-10-26
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://dns.he.net/'
@@ -73,7 +73,6 @@ answer: >-
   Hurricane Electric Free DNS hosts forward and reverse zones for multiple domains with no card, though the portal states no numeric zone or query limit and lists DNSSEC only as a feature it is exploring.
 
 ---
-
 Hurricane Electric, the network operator, runs a Free DNS Hosting portal at dns.he.net. You sign up for a free account, add your domains, and HE's name servers answer forward and reverse DNS queries for them.
 
 ## What the free plan gives you
@@ -90,7 +89,7 @@ For dynamic TXT records, the page warns of a propagation delay of up to 5 minute
 
 ## Gotchas
 
-- Dynamic DNS is described as a basic implementation, with documentation still being written, so expect to read examples rather than full docs.
+- Dynamic DNS is described as a basic implementation, with documentation still being written, so expect to read examples rather than full docs. A and AAAA records with the same name share one dynamic-update key, but IPv4 and IPv6 require separate update requests. Secondary zones that block AXFR are deactivated until validated.
 - The portal page lists DNSSEC only as an upcoming feature it is exploring, so the page does not offer it.
 - Existing admin.he.net customers must contact support for a password instead of signing up again.
 

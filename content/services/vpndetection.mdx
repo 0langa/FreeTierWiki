@@ -11,15 +11,15 @@ tags:
   - tor
   - network risk
 freeTierDetails:
-  summary: Basic VPN, Tor, and relay lookups are free without a key. A free account can try all fields for 100 lookups a day.
+  summary: Basic VPN, Tor, and relay lookups are free without a key. A free account can try all fields for 100 lookups a month.
   limits:
     - Unlimited basic lookups as advertised
-    - 100 full-field lookups/day on a free account
+    - 100 full-field lookups/month on a free account
   caveats:
     - Proxy and other detailed fields are outside the basic response
     - Missing fields do not mean false
     - Lookups can describe infrastructure without identifying a user
-  resetPeriod: daily
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: true
@@ -42,8 +42,8 @@ avoidIf:
   - identity verification
   - large full-field workloads
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://vpndetection.io/'
@@ -52,14 +52,17 @@ pricingUrl: 'https://vpndetection.io/pricing'
 sourceUrls:
   - "https://vpndetection.io/pricing"
   - "https://vpndetection.io/"
-status: active
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: The full-field trial now lists 100 lookups per month instead of 100 per UTC day; exhausted trials continue with core fields.
   - date: 2026-11-16
     kind: new
     note: Added the keyless classification API and its optional full-field trial allowance.
 answer: >-
   VPNDetection offers free keyless VPN, Tor and relay lookups, with a
-  separate no-card account allowance of 100 full-field lookups per day for
+  separate no-card account allowance of 100 full-field lookups per month for
   testing richer responses.
 
 ---
@@ -67,17 +70,17 @@ VPNDetection returns information about the network behind an IP address. Your ap
 
 ## What the free plan gives you
 
-The basic offer includes VPN, Tor and relay flags along with location and network details. The provider advertises these lookups as unlimited and says they require no key. To inspect the full response, create a free account and use the separate allowance of 100 lookups a day. The extra fields include more network and proxy classifications. The two response shapes matter when building a parser. A field that appears in paid or test data can be entirely absent from the public lookup. Record that as missing information and preserve the distinction in your application.
+The basic offer includes VPN, Tor, relay, bot and anycast flags along with country-level location and network details. The provider advertises these lookups as unlimited and says they require no key. To inspect the full response, create a free account and use the separate allowance of 100 lookups a month. The extra fields include more network and proxy classifications. The two response shapes matter when building a parser. A field that appears in paid or test data can be entirely absent from the public lookup. Record that as missing information and preserve the distinction in your application.
 
 ## When you hit a limit
 
-The 100-per-day allowance applies when trying the full response. Keep the basic path available for requests that only need its public data. If most of your workload needs rich fields, compare the paid plans and their per-lookup overage rates before choosing one. A retry can repeat work unnecessarily, especially if the issue is that a particular field is outside the selected response.
+The pricing card now lists 100 full-field trial lookups per month, replacing the previous daily offer. It does not specify the exact trial reset time. Once the trial is spent, requests still answer with Unlimited core fields and a trial_expired indicator. If most of your workload needs rich fields, compare the paid plans and their per-lookup overage rates before choosing one. Paid overage is off by default: exhausted accounts fall back to core fields. Enabling overage in Billing can retain all fields up to a chosen spending cap, or without a limit if the cap is left empty. A retry can repeat work unnecessarily, especially if the issue is that a particular field is outside the selected response.
 
 ## Gotchas
 
-- Treat a missing field in the basic response as unavailable. It does not establish that the IP is clear of that network type.
-- Public classification describes network infrastructure. Avoid treating it as proof of a person’s identity.
-- Using a paid plan changes the limit and introduces published paid overage.
+- Treat a missing field in the basic response as unavailable. It does not establish that the IP is clear of that network type. Public classification describes network infrastructure. Avoid treating it as proof of a person’s identity.
+- Commercial use in your own product is allowed, but the pricing FAQ prohibits reselling or redistributing API answers or using them in a competing service. Paid batches can contain up to 1,000 addresses, but each address counts as a lookup. Paid overage is optional, not automatic.
+- Free accounts also get Tor IP, Relay IP and Relay Provider datasets under CC BY-SA 4.0, with attribution and share-alike requirements.
 
 ## Alternatives in this atlas
 

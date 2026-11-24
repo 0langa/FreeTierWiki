@@ -2,8 +2,8 @@
 title: HS Ping
 description: >-
   HS Ping is an API that looks up harmonized system (HS) tariff codes for
-  products across multiple countries. Developers use it for customs
-  classification and trade compliance.
+  products across multiple countries. Developers use it to search official
+  tariff references; it does not classify products.
 provider: HS Ping
 domain: apis
 tags:
@@ -21,7 +21,7 @@ freeTierDetails:
     - >-
       Country-specific coverage; pricing FAQ says 32 countries while its call to
       action says 35
-    - '1,000 requests/minute rate limit on paid plans'
+    - '1,000 lookups/minute rate limit, including trial credits'
   caveats:
     - >-
       No recurring free plan; paid plans start at $49/month once the 100 free
@@ -41,7 +41,7 @@ quickstartSteps:
   - >-
     Send a GET request to `https://api.hsping.com/api/v1/find` with a `query`
     and a `country`, and your key as a Bearer token.
-  - Use the batch lookup to classify many products in one request.
+  - Use the batch lookup to search multiple terms in one request.
   - Choose a paid plan when the 100 free lookups run out.
 whenToUse: >-
   Use HS Ping when you need HS codes for products across several countries
@@ -57,8 +57,8 @@ avoidIf:
   - high-volume lookups without a paid plan
   - need a permanent free tier
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: '2026-10-21'
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://hsping.com'
@@ -68,6 +68,9 @@ sourceUrls:
   - 'https://hsping.com/'
   - 'https://hsping.com/pricing/'
   - 'https://hsping.com/docs/introduction'
+  - https://hsping.com/docs/limits-errors/rate-limits-and-usage.md
+  - https://hsping.com/docs/authentication.md
+  - https://hsping.com/docs/api-overview/single-lookup.md
 changes:
   - date: '2026-10-21'
     kind: changed
@@ -88,15 +91,15 @@ When the 100 lookups run out, you pick a paid plan to continue. Professional cos
 
 ## When you hit a limit
 
-Once the 100 trial lookups are gone, nothing is charged automatically. The FAQ says you can choose a plan to continue.
+Once the 100 trial lookups are gone, requests return `INSUFFICIENT_BALANCE`. Nothing is charged until you choose a subscription and add payment details. The 1,000-lookups-per-minute rate limit also applies during the trial.
 
-On a paid plan, the site says lookups stop until your next monthly reset or until you move up a plan. HS Ping says it does not meter overage, so you are never billed more than your plan price. Paid plan credits reset every month, but the first 100 do not.
+Paid plan credits reset every month, but the first 100 do not. The current reviewed pricing and usage pages do not specify paid-quota exhaustion or overage billing, so confirm those terms before subscribing.
 
 ## Gotchas
 
-- The 100 lookups are a trial. After they are used, the free path ends and the lowest plan is a paid one.
-- Each paid plan lists the 100 free lookups again, but the FAQ says those trial credits are one-time and non-recurring.
-- A wrong classification can mean customs delays or penalties. The site stresses source, version, and last-updated fields so you can audit a stored code later.
+- The 100 lookups are a trial. After they are used, the free path ends and the lowest plan is a paid one. Each paid plan lists the 100 free lookups again, but the FAQ says those trial credits are one-time and non-recurring.
+- The introduction explicitly says HS Ping is not a classification service. Results provide tariff references with source, version and last-updated fields; selecting the right classification is a separate task.
+- Country is optional: without it, the single-lookup endpoint uses WCO six-digit codes.
 
 ## Alternatives in this atlas
 
@@ -115,4 +118,4 @@ No, not to start. The site says you can sign up with just an email and get an AP
 
 ### What happens when I use up the HS Ping free lookups?
 
-Nothing is charged automatically. You choose a plan to keep going. The FAQ says there is no overage metering, so a plan never bills more than its price.
+Requests return `INSUFFICIENT_BALANCE`. Nothing is charged until you choose a plan and add payment details; the current pages do not establish paid-quota overage terms.

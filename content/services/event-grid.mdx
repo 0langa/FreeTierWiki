@@ -55,8 +55,8 @@ avoidIf:
   - you need a free tier without a card
   - you run mostly outside Azure
 productionReadiness: production-ready
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 7
 officialUrl: 'https://azure.microsoft.com/services/event-grid/'
@@ -81,15 +81,15 @@ The Standard tier uses an Event Grid namespace. It gives you an MQTT broker, plu
 
 ## When you hit a limit
 
-The pricing page lists no hard stop at the free amounts. You pay per million operations after them. In its default view (US dollars, Central US), the pricing page lists $0.60 per million Basic operations, $1 per million MQTT operations, and $0.60 per million event operations.
+The pricing page lists no hard stop at the free amounts. You pay per million operations after them. In the reviewed view (US dollars, West US 2), the pricing page lists $0.60 per million Basic operations, $1 per million MQTT operations, and $0.60 per million event operations.
 
 A Standard namespace has a second cost. You pre-purchase throughput units, and they are billed per hour per unit, at $0.04 in that same view. The free amounts cover operations only, so a namespace that sits idle can still cost money. You can choose up to 40 throughput units for each namespace. Each throughput unit allows 10,000 MQTT client connections.
 
 ## Gotchas
 
-- Event retention is free for 1 day on Basic. On a namespace topic it is free for 7 days.
-- On Basic, event type matching and filtering on the start of the subject are free. Advanced filtering on the data payload counts as operations.
-- MQTT client connections have no extra charge, but connects, subscribes, and publishes are MQTT operations.
+- Event retention is free for 1 day on Basic. On a namespace topic it is free for 7 days. On Basic, event type matching and filtering on the start of the subject are free. Advanced payload filtering and subject-ends-with filtering count as operations.
+- MQTT client connections have no extra charge, but connects, subscribes, unsubscribes, and inbound/outbound publishes are MQTT operations. Expired MQTT publishes and certain dropped persistent sessions also count.
+- Standard bills one event operation per four TTL-dropped events. Ack/reject/release/renew operations are excluded unless a rejected event needs dead-lettering. MQTT enrichment and routing to Basic custom topics cost one operation per four messages; routing to namespace topics is free.
 
 ## Alternatives in this atlas
 

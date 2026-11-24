@@ -55,8 +55,8 @@ avoidIf:
   - need offline translation
   - high-volume translation
 productionReadiness: production-light
-lastUpdated: 2026-11-10
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/'
@@ -88,14 +88,16 @@ Document translation is a paid feature. It is not part of the free tier.
 
 ## When you hit a limit
 
-The pricing page does not say what happens after the 2 million monthly characters. The docs describe the hourly limit: if you pass it, or send too much too fast, you get an out-of-quota response.
+Monthly exhaustion after 2 million characters is undocumented. Exceeding hourly capacity or sending too quickly returns an out-of-quota response.
 
-For more room, move to a paid tier. The S1 tier allows 40 million characters per hour. In USD for Central US, the pricing page lists S1 text translation at $10 per million characters and document translation at $15 per million characters. Azure sign-up asks for a phone number and a credit or debit card (not prepaid) to verify your identity. It may place a temporary one-dollar hold, and it does not charge you unless you move to pay-as-you-go.
+Paid S1 allows 40 million characters hourly. Central US USD prices are $10 per million text-translation characters and $15 per million document-translation characters. Image documents cost $8 per 1,000 units; each block of up to 500 characters counts as one unit.
+
+Azure signup requires a phone number and non-prepaid credit/debit card for identity verification, potentially with a temporary one-dollar hold. Charges begin only after moving to pay-as-you-go. Plan for hourly throttling separately from the monthly allowance.
 
 ## Gotchas
 
 - Characters are counted across every target language, so translating into three languages triples the count.
-- Custom translation training uses the same free pool as standard translation.
+- Custom translation training uses the same free pool as standard translation. Training counts both source and target characters; custom inference and hosting are separate paid features. Hosted custom models are charged for the full billing month without prorating, even if hosted for only part of it.
 - A multi-service or regional resource needs two headers, the key and the region. A single-service global resource needs only the key.
 
 ## Alternatives in this atlas

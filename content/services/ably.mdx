@@ -60,11 +60,11 @@ quickstartSteps:
   - Create a new app in the dashboard, then create your first API key in the API Keys tab with the publish, subscribe, presence, and history capabilities.
   - Optionally run `npx @ably/cli init` to install the Ably CLI, sign in, and set a default app and API key.
   - Add the SDK for your language. The JavaScript guide loads it from a CDN script tag in an HTML file.
-  - Create a Pub/Sub device client with `AblyPubSub.createClient`, your key and a `clientId`, then wait for the `connected` event.
+  - Create a Pub/Sub device client with `AblyPubSub.createClient`, a demo API key and a `clientId`, then wait for the `connected` event; use server-issued JWT authentication in production.
   - Get a channel such as `my-first-channel`, subscribe to it, then publish a message with `channel.publish` or the CLI command `ably channels publish`.
 productionReadiness: production-light
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://www.ably.com/'
@@ -94,7 +94,7 @@ You work with Ably through its dashboard, the Ably CLI, and SDKs for many langua
 
 ## What the free plan gives you
 
-The Free package costs $0 and has no time limit. Ably now prices its packages by monthly active users (MAUs), and Free includes 500 MAUs each month. A user who connects several times in a month counts once, and servers are not counted. Free covers every Ably product, including Pub/Sub, Chat, Spaces, and LiveObjects.
+The Free package costs $0 and has no time limit. Ably now prices its packages by monthly active users (MAUs), and Free includes 500 MAUs each month. A user who connects several times in a month counts once within each Ably app; the same clientId in two apps counts separately. Properly identified servers and AI Transport agents are not counted. Free covers every Ably product, including Pub/Sub, Chat, Spaces, and LiveObjects.
 
 You also get 6 million messages per month, a top rate of 500 messages per second, and 500 concurrent connections and 500 concurrent channels. Each channel can hold up to 200 presence members, and one message can be up to 64KiB. Without a persistence rule, message history lasts two minutes. Support is community and email support on a best effort basis. The Free package has no credit card requirement.
 
@@ -108,8 +108,8 @@ Going over 500 MAUs in a month may degrade service until the start of the follow
 
 - For persisted history, the storage guide lists 24 hours on Free while the limits table lists a 30-day maximum, so check the retention available in your account.
 
+- Persisting a message and retrieving it from disk each consume an extra message from the monthly allowance, in addition to normal messaging. If you move from a paid package back to Free, the change takes effect at the end of the current month for monthly billing or the end of the 12-month term for annual billing. The final invoice includes any extra MAUs used in the last month.
 - Every device must connect with a `clientId`, and each distinct `clientId` counts as an MAU, so giving one user different IDs on two devices uses two MAUs.
-- If you move from a paid package back to Free, the change takes effect at the end of the current month for monthly billing or the end of the 12-month term for annual billing. The final invoice includes any extra MAUs used in the last month.
 
 ## Alternatives in this atlas
 

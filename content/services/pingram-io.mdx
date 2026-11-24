@@ -1,8 +1,8 @@
 ---
 title: Pingram.io
 description: >-
-  Pingram.io, formerly NotificationAPI, is one API for email and SMS, with
-  Voice available and WhatsApp listed as coming. It is for developers who want a single monthly
+  Pingram.io, formerly NotificationAPI, is one API for email, plus SMS and voice
+  in the United States and Canada. It is for developers who want a single monthly
   budget instead of separate email and SMS subscriptions.
 provider: Pingram.io
 domain: messaging
@@ -25,10 +25,9 @@ freeTierDetails:
   caveats:
     - Unused free balance does not roll over each billing cycle
     - Managed A2P 10DLC is testing-only on the free plan
-    - SMS rates vary by destination country
+    - SMS and voice coverage is the United States and Canada, with rates varying by destination
     - No dedicated IP on the free plan
     - Voice draws from the same budget; AI, streaming, recording, and transcription can add separate charges
-    - WhatsApp is marked coming soon
     - Free budget enforcement and whether allowances combine are not confirmed
   resetPeriod: monthly
   requiresCard: false
@@ -38,9 +37,9 @@ freeTierDetails:
 quickstartSteps:
   - Click Get started free on pingram.io and create an account; no credit card is needed.
   - Verify a sending domain for email; confirm sandbox and phone-number eligibility before configuring SMS.
-  - Copy the credentials required by the current SDK documentation from your account.
+  - Copy your secret API key from the dashboard API Keys page.
   - Install the SDK with `npm install pingram`, or pick Python, PHP, Go, Ruby, Java, or .NET.
-  - Initialize the SDK using its current credential format and send a test message using the email or SMS example.
+  - Initialize the backend SDK with apiKey and use email.send() or sms.send() as shown in the current quickstart.
   - Watch your usage against the monthly budget.
 whenToUse: >-
   Use Pingram.io when you want email and SMS from one API and the free
@@ -57,13 +56,15 @@ avoidIf:
   - need a dedicated IP
   - high-volume SMS sending
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://www.pingram.io/'
 docsUrl: 'https://www.pingram.io/docs'
 sourceUrls:
+  - 'https://www.pingram.io/docs/quick-start/send-emails'
+  - 'https://www.pingram.io/docs/quick-start/send-sms'
   - 'https://www.pingram.io/docs'
   - 'https://www.pingram.io/llms.txt'
   - 'https://www.pingram.io/pricing'
@@ -87,13 +88,13 @@ You install an SDK, create a client with your credentials, and use the SDK's ema
 
 The pricing selector describes a shared monthly budget equivalent to 100 US SMS or 3,000 emails. Its FAQ and reference instead say both allowances are included, and the homepage says 3,000 emails plus 100 SMS and Calls. Do not assume both maximums combine until confirmed. No credit card is required.
 
-Free lists unlimited sending domains and webhooks, 30-day logs, no Pingram branding, and US/EU/CA regions. The reference says one local number is included, while the feature table leaves Free phone numbers blank. The pricing FAQ says Voice draws from the same monthly budget as SMS and email. The US selector shows up to 100 call minutes at the lowest published telephony rate. AI, streaming, recording, and transcription are separate. WhatsApp is marked coming soon.
+Free lists unlimited sending domains and webhooks, 30-day logs, no Pingram branding, and US/EU/CA regions. The reference says one local number is included, while the feature table leaves Free phone numbers blank. The pricing FAQ says Voice draws from the same monthly budget as SMS and email. The US selector shows up to 100 call minutes at the lowest published telephony rate. AI, streaming, recording, and transcription are separate.
 
 ## When you hit a limit
 
-The balance refills each billing cycle, and unused credit does not roll over. SMS messages deduct the rate for their destination country, so a message to a costly country uses more of the budget than a US message.
+The balance refills each billing cycle, and unused credit does not roll over. SMS and voice are offered for the United States and Canada. SMS messages deduct the destination rate from the budget; the listed Canadian SMS rate is higher than the US rate.
 
-The pricing page does not say whether Free stops, queues, or otherwise handles sends after the budget runs out. It says to upgrade for a larger balance, so a hard spending stop is unconfirmed. The first paid budget costs $20 per month. On a paid plan you can turn on Auto upgrade, which moves you up when spend reaches 90% of the budget.
+Free exhaustion behavior is undocumented; an upgrade invitation does not establish a hard spending stop. The current pricing page and homepage start paid budgets at $20 per month; the llms.txt summary still says $9, so use the current pricing page when choosing a plan. On a paid plan you can turn on Auto upgrade, which moves you up when spend reaches 90% of the budget.
 
 ## Gotchas
 

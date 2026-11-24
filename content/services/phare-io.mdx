@@ -20,11 +20,14 @@ freeTierDetails:
   limits:
     - '100,000 monitoring events/month'
     - '10 AI incident summaries/month'
+    - Each monitor or heartbeat consumes at least 5,000 events for a full active month
+    - API and MCP each allow 100 requests/minute per organization
     - Unlimited projects, team members, and alerts
     - Public status pages with unlimited custom domains + SSL
   caveats:
     - No SMS or voice alerts on the free plan
     - Monitoring pauses after the overage buffer is used, until next period
+    - Configurations exceeding quota plus the buffer cannot be saved
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
@@ -51,8 +54,8 @@ avoidIf:
   - you need private status pages
   - your checks run far more often than the monthly allowance covers
 productionReadiness: production-light
-lastUpdated: 2026-10-09
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://phare.io/'
@@ -64,8 +67,13 @@ sourceUrls:
   - 'https://docs.phare.io/getting-started'
   - 'https://docs.phare.io/billing-quotas'
 pricingUrl: 'https://phare.io/pricing'
+status: changed
+changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Observed a 5,000-event monthly minimum per active monitor or heartbeat and configuration blocking above quota plus buffer; no effective date was stated.
 answer: >-
-  Phare.io's Hobby plan includes 100,000 monitoring events a month with no card, then pauses monitoring after the overage buffer until the next period, and it has no SMS alerts.
+  Phare.io includes 100,000 monthly events without a card, with a 5,000-event minimum per active monitor or heartbeat and a 10% buffer above which configurations are blocked and monitoring stops.
 
 ---
 You work in the Phare dashboard, and there is also an API plus Terraform, Ansible, and NixOS integrations. It suits indie developers who want uptime checks and a status page without paying per monitor.
@@ -74,13 +82,15 @@ You work in the Phare dashboard, and there is also an API plus Terraform, Ansibl
 
 The Hobby plan is free and the pricing page says no credit card is needed. It includes 100 000 monitoring events per month and 10 AI incident summaries per month. Projects, team members, integrations, and alerts are unlimited. You also get public status pages with unlimited custom domains and SSL. SMS and voice alerts are not included.
 
-An event counts each time Phare runs an HTTP, TCP, or ICMP ping check. The pricing FAQ gives an example: one check per minute from two regions comes to about 90k events in a month. Intervals can be set from 30 seconds to 1 hour.
+A monitor uses one event per check per region, and a heartbeat uses one per expected ping. Each active monitor or heartbeat consumes at least 5,000 events for a full month, even at long intervals. Phare calculates every month as 730 hours: one-minute checks from two regions use 87,600 events; five-minute checks use 17,520. Paused monitors consume nothing, and part-month use is prorated by active time. Check intervals range from 30 seconds to one hour.
 
 ## When you hit a limit
 
-Free and paid accounts get a 10% overage buffer above the quota, and Phare notifies you before you use it and before it runs out. After that, your monitoring pauses automatically until the next billing period starts.
+Free and paid accounts get a 10% overage buffer that is never billed, with notification as usage approaches the allowance. A monitor or heartbeat configuration that would put monthly usage above that buffer cannot be saved: reduce or pause others, or upgrade for more quota. If actual usage reaches the quota plus buffer, monitors and heartbeats stop until the next period or a quota increase.
 
-The Hobby plan does not include additional usage, so you cannot pay to extend it. You would need the paid Scale plan, which starts at 5 euros per month plus usage.
+The Hobby plan does not include additional usage, so you cannot pay to extend it. You need paid Scale, which starts at 5 euros per month plus usage.
+
+The API allows 100 requests per minute per organization, shared by its API keys. MCP has a separate 100-request-per-minute organization limit shared by connected assistants.
 
 ## Gotchas
 

@@ -16,15 +16,19 @@ freeTierDetails:
     - 200 credits per month
     - About 10 filled PDFs at the provider’s example rate
     - Unlimited test PDFs
-    - 10 templates and 2 users
+    - 10 templates, 2 users, and 2 active integrations
+    - 50 free AI field setup pages per month
+    - Live API 10 requests/minute with burst 20; test API 5/minute with burst 15
   caveats:
     - Credit cost depends on operation
     - Hosted forms carry branding
     - Live signature requests require a first payment
+    - Free credits reset monthly; optional credit packs and automatic top-ups cost money
+    - Keeping documents beyond the included 30 days consumes credits
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
 quickstartSteps:
   - Create a Developer account.
@@ -44,8 +48,8 @@ avoidIf:
   - free live signatures
   - large production volume
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://docspring.com/'
@@ -71,13 +75,15 @@ Developer includes 200 credits each month without a card. DocSpring estimates th
 
 ## When you hit a limit
 
-If you expect more than the example document volume, check which specific document operations you will use and their credit cost. DocSpring sells larger monthly credit amounts on paid plans. The pricing table does not explain the exact free-plan response once you run out. Live signature requests require a first payment even where the feature is visible in the plan. Keep an eye on the distinction between a generated document and the additional signing workflow when setting up a live integration.
+Budget by operation and credit cost, not document count alone. Paid plans offer larger allowances. Exhausted live PDFs wait with HTTP 402 and insufficient_credits, then process automatically when credits return; submissions waiting over 30 days are not processed. Test PDFs continue.
+
+Optional automatic top-up buys paid packs at low balance, with an optional monthly spending cap. Packs work on Developer and expire after 12 months; free credits reset monthly. Live signature requests require a first payment even when the feature appears in the plan. Treat document generation and signing as separate workflows when estimating a live integration's cost.
 
 ## Gotchas
 
-- Live and test PDFs have different allowances. Verify which mode your test integration uses.
-- Credit use varies by operation, so the example filled-PDF count is useful for estimating a similar workflow.
-- Hosted forms on Developer show DocSpring branding.
+- Live and test PDFs have different allowances. Verify which mode your test integration uses. Request limits are shared across account API keys and IPs, separately for live and test requests.
+- Filled PDF forms cost 20 credits per unit; HTML and page-design PDFs cost 4. A unit is the highest of 10 pages, 10 MiB input, 20 seconds processing, or 50 MiB output, rounded up. Combining PDFs costs credits even for test files. Developer includes 50 AI field setup pages monthly, subject to a shared daily free allowance. Additional AI pages cost $0.25 paid from credits. Hosted forms on Developer show DocSpring branding.
+- Storage beyond the included 30 days costs 1 credit monthly per 50 documents or 50 MiB, whichever is greater. The FAQ says 31 days while the detailed rules say 30; use the shorter period when budgeting.
 
 ## Alternatives in this atlas
 

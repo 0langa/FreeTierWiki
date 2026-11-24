@@ -21,7 +21,7 @@ freeTierDetails:
     - 100 V2-type action execution minutes/month
   caveats:
     - Most new AWS customers need no payment method, but identity verification may require one
-    - Additional pipelines and action minutes incur charges.
+    - Additional pipelines and action minutes consume Free account credits or incur Paid account charges.
     - Artifact storage in Amazon S3 and third-party service triggers are
       billed separately.
     - A new AWS Free account is suspended after 6 months or depleted credits; data is retained 90 days for a Paid upgrade before deletion
@@ -45,19 +45,20 @@ whenToUse: >-
   Use it to automate releases of an app that already runs on AWS, when you
   want one managed place to chain build, test, and deploy.
 whenNotToUse: >-
-  Skip it if you deploy outside AWS or do not want an AWS account. Past the
-  free tier, you pay per pipeline or per action minute.
+  Skip it if you do not want an AWS account or need unlimited free releases.
+  Past service allowances, usage consumes Free account credits or is billed
+  per pipeline or action minute on Paid accounts.
 bestFor:
   - AWS deployments
   - teams that use CodeBuild and CodeDeploy
   - release flows with approval steps
 avoidIf:
-  - you deploy outside AWS
+  - you do not want an AWS account
   - you want a pipeline you can run for free without limits
   - you need more than 100 free action minutes a month
 productionReadiness: production-ready
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-15
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://aws.amazon.com/codepipeline/'
@@ -81,7 +82,7 @@ answer: >-
   CodePipeline covers one active V1 pipeline and 100 V2 action minutes a month, with excess charged at the applicable rate on Paid accounts or drawn from Free account credits.
 
 ---
-You create and watch pipelines in the AWS console, and the AWS CLI works too. Each pipeline is made of stages, and each stage holds actions such as a source, a CodeBuild build, or a CodeDeploy deploy.
+You create and watch pipelines in the AWS console, and the AWS CLI works too. Each pipeline is made of stages, and each stage holds actions such as a source, a CodeBuild build, or a CodeDeploy deploy. Custom actions can integrate your own servers, so deployment is not restricted to AWS destinations.
 
 ## What the free plan gives you
 
@@ -119,4 +120,4 @@ After the free 100 minutes, V2 pipelines cost $0.002 per action execution minute
 
 ### Do I pay for a CodePipeline V1 pipeline that I do not use?
 
-A V1 pipeline that has no new code changes running through it during the month costs nothing. An active V1 pipeline costs $1.00 per month.
+A V1 pipeline that has no new code changes running through it during the month costs nothing. Beyond the one free active V1 pipeline, each active pipeline costs $1.00 per month, drawn from Free account credits or billed on Paid accounts.

@@ -26,7 +26,7 @@ freeTierDetails:
     - 10 GB/month downloads
   caveats:
     - More than 100 simultaneous connections needs a paid plan
-    - Blaze includes 1 GB of storage and 360 MB/day of downloads before usage is billed
+    - Blaze pricing lists 360 MB/day of free downloads, while its billing guide says 10 GB/month; both include 1 GB of storage
     - Budget alerts on Blaze do not cap your usage or charges
   resetPeriod: monthly
   requiresCard: false
@@ -40,7 +40,7 @@ quickstartSteps:
   - Create a Firebase project in the Firebase console.
   - 'Go to Realtime Database and click Create database, then pick a location.'
   - 'Choose a Security Rules mode: test mode for quick starts or locked mode.'
-  - 'Add the SDK to your app, for example `npm install firebase` for the web, and call `getDatabase`.'
+  - 'Add the Firebase SDK, initialize it with your project configuration including databaseURL, and call getDatabase.'
   - 'Read and write JSON data at database paths with the SDK, and set Security Rules before you launch.'
 whenToUse: >-
   Use it for small apps that need simple live data sync, such as chat or
@@ -57,8 +57,8 @@ avoidIf:
   - You need relational features
   - You need more than 100 simultaneous connections for free
 productionReadiness: prototype
-lastVerified: 2026-11-15
-lastUpdated: 2026-11-15
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 7
 officialUrl: 'https://firebase.google.com/products/realtime-database'
@@ -91,15 +91,15 @@ Downloads count all bytes sent out, including protocol and encryption overhead. 
 
 ## When you hit a limit
 
-The pages do not say what the app sees when Spark usage runs out, only that you are not billed on Spark. To go past the limits, upgrade the project to the pay-as-you-go Blaze plan. Blaze includes 1 GB of storage and 360 MB of downloads per day, which the pricing table describes as about 10 GB per month. Usage past those allowances is billed.
+The pages do not say what the app sees when Spark usage runs out, only that you are not billed on Spark. To go past the limits, upgrade the project to the pay-as-you-go Blaze plan. Blaze includes 1 GB of storage and 360 MB of downloads per day, which the pricing table describes as about 10 GB per month. The billing guide instead describes the Blaze download allowance as 10 GB/month. Check the project usage dashboard because these official sources use different periods; usage above the applicable allowance is billed.
 
 On Blaze, storage costs $5 for each GB per month. Budget alerts warn you about cost, but they do not cap usage or charges.
 
 ## Gotchas
 
-- The Spark plan allows only 100 simultaneous connections.
-- Downloads include protocol overhead and rejected requests, so small frequent connections cost more than payload size suggests.
+- The Spark plan allows only 100 simultaneous connections. Downloads include protocol overhead and rejected requests, so small frequent connections cost more than payload size suggests.
 - On Blaze, budget alerts do not stop spending.
+- Blaze download quotas differ between the pricing table (daily) and billing guide (monthly); do not assume they are interchangeable.
 
 ## Alternatives in this atlas
 

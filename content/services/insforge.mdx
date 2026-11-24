@@ -19,11 +19,13 @@ freeTierDetails:
     - 50,000 monthly active users
     - 1 GB file storage and 5 GB bandwidth
     - 100,000 edge function calls
+    - 600 minutes of site build time
+    - $1 AI model credits per month; the pricing announcement lists 2 Free projects
     - 120 hours of custom compute per month on the default spec
   caveats:
     - Free projects pause after 1 week of inactivity
     - The provider documents a custom compute cap but does not explain enforcement of every free allowance
-  resetPeriod: monthly
+  resetPeriod: monthly usage counters; database and storage measure current size
   requiresCard: false
   freeTierType: always-free
   hasHardCap: unknown
@@ -50,8 +52,8 @@ avoidIf:
   - large file delivery
   - fully documented free limit behavior
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://insforge.dev/'
@@ -77,9 +79,11 @@ InsForge bundles the backend pieces a web or mobile app needs in one hosted proj
 
 ## What the free plan gives you
 
-The pricing page lists 500 MB for the database, 50,000 monthly active users, 1 GB for file storage, and 5 GB of bandwidth. You also get 100,000 edge function calls. These are separate allowances. For an app with uploads, the storage allowance covers the files you keep, while bandwidth measures data moving out to readers. The usage report exposes these meters alongside auth and edge function usage.
+Free includes 500 MB database storage, 50,000 monthly active users, 1 GB files, 5 GB bandwidth, 100,000 edge calls, 600 site-build minutes and $1 monthly AI credits. The announcement lists 2 Free projects with dedicated instances.
 
-Custom compute is a separate feature for running containers. The Free plan includes 120 hours per month on the default spec. A prototype using the ordinary database, auth, and storage services can start without deploying a custom container.
+These are separate meters. Database/file sizes measure currently stored data without monthly resets; AI credits, active users, egress and function calls reset each billing period. Uploaded files consume storage, while delivery to readers consumes bandwidth. Usage reports expose these alongside authentication and functions.
+
+Separate custom compute includes 120 monthly hours on the default container specification. Ordinary database, authentication and storage prototypes do not require a custom container.
 
 ## When you hit a limit
 
@@ -89,7 +93,7 @@ The CLI can print usage for the current billing period and show its reset date. 
 
 - Free projects pause after a week of inactivity. An occasional demo may need attention before you share it again.
 - Storage and bandwidth are separate. Repeatedly downloading a file uses bandwidth even if the stored copy stays the same size.
-- The pricing FAQ describes compute credits for Pro separately from the free monthly custom compute hours.
+- Pro costs $25 month-to-month or $240 billed annually and includes $10 of backend compute credit shared across the organization. The pricing page explicitly excludes Custom Compute containers from that credit, while the FAQ says it offsets custom compute. Confirm that conflict before relying on the credit for containers; the Free 120-hour allowance is stated separately.
 
 ## Alternatives in this atlas
 

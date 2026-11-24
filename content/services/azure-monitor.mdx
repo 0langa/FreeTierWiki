@@ -16,8 +16,8 @@ freeTierDetails:
   limits:
     - 5 GB Analytics Logs ingestion/month per billing account
     - 31 days Analytics Logs retention (longer in specified scenarios)
-    - Unlimited platform metrics ingestion
-    - 1,000,000 platform metric API calls/month
+    - Unlimited standard platform metrics ingestion
+    - 1,000,000 platform metric API calls/month per subscription
     - 10 metric-alert time-series/month
     - 1,000 notification emails/month
   caveats:
@@ -34,7 +34,7 @@ quickstartSteps:
   - Create an Azure account with an active subscription.
   - Sign in to the Azure portal and search for Azure Monitor.
   - Create a Log Analytics workspace and choose a subscription, resource group, name, and region.
-  - Select Review + Create, then Create; a pay-as-you-go tier applies and no charges start until data collection begins.
+  - Use an account with Log Analytics Contributor or equivalent workspace-write permissions. Select Review + Create, then Create; a pay-as-you-go tier applies and no charges start until data collection begins.
   - Connect your Azure resources so they send data to the workspace.
   - Set up an alert rule on a metric you care about.
 whenToUse: >-
@@ -48,12 +48,12 @@ bestFor:
   - DevOps
   - Cloud operations
 avoidIf:
-  - multi-cloud monitoring
+  - expecting every metric and query type to be free
   - strict budget control
   - verbose logging above the free ingestion
 productionReadiness: production-ready
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://azure.microsoft.com/en-us/pricing/details/monitor/'
@@ -76,21 +76,21 @@ You set up Azure Monitor in the Azure portal, or with PowerShell and templates, 
 
 ## What the free plan gives you
 
-Azure Monitor has no single free plan. It has free amounts inside each part of the service. The first 5 GB per month per billing account of Analytics Logs ingestion is free. The pricing table lists 31 or 90 days of retention included for Analytics Logs, and 30 days for Basic and Auxiliary Logs.
+Azure Monitor has no single free plan. It has free amounts inside each part of the service. The first 5 GB per month per billing account of Analytics Logs ingestion is free. Analytics Logs normally include 31 days of retention; Application Insights and Sentinel-enabled Analytics Logs include 90 days. Basic and Auxiliary Logs include 30 days.
 
-Platform metrics are ingested for free, and the first 1,000,000 platform metric API calls per month are free. Metric alerts include 10 monitored metric time-series per month. Notifications include 1,000 emails per month, 1,000 ITSM connector events, and 1,000 push notifications. Standard metrics and activity logs collect at no cost, and so do the advanced monitoring tools that use your ingested data.
+Standard platform metrics are ingested for free; advanced platform metrics have a separate ingestion meter. The first 1,000,000 platform metric API calls per subscription per month are free. Metric alerts include 10 monitored metric time-series per month. Notifications include 1,000 emails per month, 1,000 ITSM connector events, and 1,000 push notifications. Standard metrics and activity logs collect at no cost, and the listed Insights tools add no separate charge for analyzing ingested data. The Copilot Observability Agent has its own Azure Agent Credit charges.
 
 ## When you hit a limit
 
-Azure bills you. Log data is billed by ingestion, retention, and export, and the free amounts only cover the first part of each month. A new workspace uses a pay-as-you-go tier by default, and no charges start until data collection begins.
+On pay-as-you-go, Azure bills usage beyond the applicable monthly quantities. Log data is billed by ingestion, retention, and export; Basic and Auxiliary log queries also incur data-scanning charges. A new workspace uses a pay-as-you-go tier by default, and no charges start until data collection begins.
 
 The free allowance does not impose a spending cap. The FAQ describes an optional daily Application Insights ingestion cap, which does not cap every Azure Monitor charge. Check your costs in Azure before you connect many resources, because verbose logs can grow fast.
 
 ## Gotchas
 
-- The 5 GB of free log ingestion is per billing account, not per workspace, so several workspaces share it.
+- The 5 GB of free log ingestion is per billing account, not per workspace, so several workspaces share it. On Sentinel-enabled workspaces, Basic and Auxiliary Logs ingestion uses Sentinel meters. Analytics Logs ingestion uses Sentinel meters on Sentinel's simplified pricing plans.
+- The ten free metric-alert time series do not waive dynamic-threshold charges. Alerts and their notification deliveries are separate meters.
 - Retention beyond the included days costs money, and you can extend it up to 12 years.
-- On Sentinel-enabled workspaces, Basic and Auxiliary Logs ingestion uses Sentinel meters. Analytics Logs ingestion uses Sentinel meters on Sentinel's simplified pricing plans.
 
 ## Alternatives in this atlas
 

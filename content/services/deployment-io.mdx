@@ -37,13 +37,13 @@ freeTierDetails:
   hasHardCap: unknown
   overageRisk: low
   billingRiskNotes:
-    - AWS charges for the runner and the infrastructure it creates in your account
+    - AWS charges for the runner and the infrastructure it creates in your account, including an always-on controller
     - 'Anthropic, OpenAI, or AWS Bedrock bill the model usage, not Deployment.io'
 quickstartSteps:
   - Choose Start for free on deployment.io/platform and create an account.
-  - Connect your GitHub or GitLab account and give access to the repositories you want.
+  - Connect your repository provider and give access only to the repositories you want.
   - >-
-    In Org Settings, open Runners and add a runner: launch the CloudFormation stack in your AWS
+    In Org Settings, open Agents then Runners and add a runner: review ongoing costs before launching the CloudFormation stack in your AWS
     account, which the docs say takes about 5 minutes.
   - >-
     In Organization Settings, under Agents and LLM Providers, add a provider key (Anthropic or
@@ -66,8 +66,8 @@ avoidIf:
   - you have no AWS account
   - you cannot pay for LLM usage on your own vendor account
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 6
 officialUrl: 'https://deployment.io'
@@ -100,13 +100,15 @@ The pricing page does not mention a credit card for the free sign-up. Static sit
 
 ## When you hit a limit
 
-The pricing page does not say what happens when you reach a free tier limit. Those limits show in the app.
+Free limits appear in the app; exhaustion behavior is unpublished. AWS bills your runner: estimated $8/month for an idle, always-on Fargate controller plus $0.09/hour for active EC2 compute. These are estimates, not Platform credits.
 
-The costs outside the free tier matter more. The runner lives in your AWS account, so AWS bills the compute it uses. The agents also call a model on your own vendor account, and the vendor bills that usage directly. The docs say Deployment.io does not resell tokens. Tasks stay blocked until you add a model provider.
+Web-service/database deployments can add a persistent NAT gateway, estimated $35/month, plus load balancers, public IPv4 and workloads. Static sites use S3/CloudFront storage and traffic instead.
+
+Agents use your own model-provider account, which bills directly; Deployment.io does not resell tokens. Tasks remain blocked until a provider is added. Budget for both infrastructure and model usage independently of the platform's free allowance.
 
 ## Gotchas
 
-- You must install a runner in your AWS account with a CloudFormation stack before deploys and Tasks work. The docs say it takes about 5 minutes.
+- You must install a runner in your AWS account with a CloudFormation stack before deploys and Tasks work. The docs say it takes about 5 minutes. Removing the runner stack does not remove every deployed resource. The setup guide identifies a separate application cluster/VPC/NAT gateway, role and logs that can remain and continue to cost money.
 - Tasks run one at a time, in the order you create them. If a Task introduces a build or test failure, it does not open a pull request. It can still open one if the same check also fails on the starting branch.
 - The pricing and home pages describe AI-driven managed delivery, so the product is not a basic deploy button.
 

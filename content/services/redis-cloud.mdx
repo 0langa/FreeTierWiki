@@ -28,7 +28,7 @@ freeTierDetails:
     - Free plans have no REST API
     - You must delete the free database or upgrade it before you can create another free one
     - Upgrading to a paid plan needs a payment method
-  resetPeriod: none
+  resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
   hasHardCap: unknown
@@ -54,13 +54,14 @@ avoidIf:
   - need high availability
   - more than 30 connections
 productionReadiness: prototype
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 7
 usefulnessScore: 8
 officialUrl: 'https://redis.io/'
 docsUrl: 'https://docs.redis.com/latest/rc/'
 sourceUrls:
+  - 'https://redis.io/docs/latest/operate/rc/subscriptions/view-essentials-subscription/'
   - https://redis.io/pricing/
   - https://redis.io/docs/latest/operate/rc/subscriptions/
   - https://redis.io/docs/latest/operate/rc/rc-quickstart/
@@ -89,9 +90,11 @@ A free plan is a type of Essentials plan, built for training and prototyping. Yo
 
 ## When you hit a limit
 
-At the 30 MB memory limit, Redis Cloud follows the database's eviction policy. Its default evicts least recently used keys that have an expiry. With eviction disabled, new values are not saved. The cited pages do not describe the exact response above 30 connections. The current Essentials details add 5GB of monthly total network bandwidth and a maximum of 100 operations per second, assuming 1KiB requests. Redis says it notifies you before limiting usage for bandwidth or throughput excess.
+At 30 MB, eviction policy applies: default removes least-recently-used keys with expiries; disabling eviction prevents new-value storage. Behavior above 30 connections is unspecified.
 
-If you outgrow it, the paid Essentials plans start from $0.007 an hour, with a total of $5 a month, and range from 250 MB up. You need to add a payment method when you upgrade a free plan.
+Essentials adds 5GB monthly network bandwidth and 100 operations/second assuming 1KiB requests. Redis notifies before restricting bandwidth/throughput excess. Memory/connections are standing caps, unlike monthly bandwidth. Free permits one CIDR allow rule.
+
+Paid Essentials starts at $0.007/hour, with $5/month, and 250 MB capacity. Upgrading requires a payment method. Watch memory and eviction settings separately from network usage, because reaching memory capacity can discard eligible keys even before monthly bandwidth runs out.
 
 ## Gotchas
 

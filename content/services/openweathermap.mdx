@@ -32,7 +32,7 @@ freeTierDetails:
   hasHardCap: true
   overageRisk: medium
   billingRiskNotes:
-    - Free plan calls past 60 a minute return a 429 error
+    - Exceeding plan limits can cause errors or account suspension
     - One Call API calls past 1,000 a day are charged at the end of the subscription month
 quickstartSteps:
   - Sign up for a free OpenWeather account and copy the API key from the API keys page.
@@ -51,13 +51,14 @@ avoidIf:
   - you need One Call data without adding billing details
   - bursts above 60 calls a minute
 productionReadiness: side-project
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 8
 usefulnessScore: 8
 officialUrl: 'https://openweathermap.org'
 docsUrl: 'https://openweathermap.org/api'
 sourceUrls:
+  - 'https://openweathermap.org/current'
   - 'https://openweathermap.org/api/one-call-4'
   - 'https://openweathermap.org/price'
   - 'https://openweathermap.org/faq'
@@ -84,7 +85,7 @@ The Free plan covers current weather and forecasts with 60 API calls a minute an
 
 ## When you hit a limit
 
-On the Free plan, making more than 60 API calls a minute returns a 429 error. If you go past the plan's limits, OpenWeather says it will notify you and ask you to move to a subscription or reduce your calls, and expects you to act to avoid your account being suspended. One Call API works differently: a separately activated subscription requires billing details, and calls above 1,000 a day are charged automatically at month end. Its default 2,000-call daily limit can still incur charges; set it to 1,000 in Billing plan to stay within that product's free allowance. The ordinary Free signup card policy is not explicitly published.
+The Free plan requires staying within both the 60-call minute limit and the monthly allowance. Excess prompts a notification to subscribe or reduce calls; ignoring it risks suspension. Its account FAQ says limit-related suspensions can last from a few hours to several days. One Call API works differently: a separately activated subscription requires billing details, and calls above 1,000 a day are charged automatically at month end, or when you unsubscribe early. Its default 2,000-call daily limit can still incur charges; set it to 1,000 in Billing plan to stay within that product's free allowance. The ordinary Free signup card policy is not explicitly published.
 
 ## Gotchas
 
@@ -110,4 +111,4 @@ Partly. Its pay-per-call subscription includes 1,000 free calls a day, and calls
 
 ### What does a 429 error mean on the Free plan?
 
-It means you made more than 60 API calls in a minute, which is the Free plan's limit.
+It indicates a usage limit was exceeded. The FAQ also documents daily and monthly limits, so do not assume every 429 means the 60-calls-per-minute limit.

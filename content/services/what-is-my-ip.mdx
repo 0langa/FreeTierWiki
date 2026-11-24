@@ -19,7 +19,7 @@ freeTierDetails:
     - Shows public IPv4 and IPv6 address, country, ISP, and ASN
     - Text, JSON, and XML endpoints for scripts
   caveats:
-    - Scripts should use the official text, JSON, and XML endpoints; automated page requests get a notice page
+    - Use the documented endpoints for scripts; some automated HTML requests receive an access notice
     - No numeric rate limit or uptime promise is published; excessive load may be limited
   requiresCard: false
   freeTierType: always-free
@@ -30,7 +30,7 @@ quickstartSteps:
   - Read your IPv4 and IPv6 address, country, ISP, and ASN.
   - Scroll to the privacy details to compare your language, time zone, and browser against your IP location.
   - 'For scripts, open the Tools page and use the `/txt`, `/json`, or `/xml` endpoint.'
-  - Try the Ping Test page for a quick connection check.
+  - Open the Ping Test page for command-line IPv4 and IPv6 connectivity instructions.
 whenToUse: >-
   Use it when you want to see your public IP, ISP, and location signals in the
   browser, or fetch your IP in a script through the official endpoints.
@@ -46,8 +46,8 @@ avoidIf:
   - scraping the web page
   - need advanced analytics
 productionReadiness: prototype
-lastVerified: 2026-11-14
-lastUpdated: 2026-11-14
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 6
 usefulnessScore: 7
 officialUrl: 'https://whatismyip.help'
@@ -59,6 +59,7 @@ sourceUrls:
   - 'https://whatismyip.help/about'
   - 'https://whatismyip.help/terms'
   - 'https://whatismyip.help/privacy'
+  - 'https://whatismyip.help/ping-test'
 changes:
   - date: 2026-10-21
     kind: changed
@@ -81,11 +82,11 @@ The site also has a Ping Test page, a FAQ about IP addresses, and a Tools page. 
 
 The terms require no registration, account, or paid service. They publish no numeric quota or rate limit, but say access that places excessive load on the site may be limited. Availability is not guaranteed. The unknown cap label means no precise threshold is confirmed, not that usage is unlimited.
 
-One rule does apply. The service says automated requests to the web page get an Automated Access Notice page instead of your IP. The Tools page lists text, JSON, and XML endpoints for scripts. The terms ask automated clients to respect technical limits and robots.txt.
+Some automated HTML requests receive an access notice instead of the page. The Tools page lists text, JSON, and XML endpoints for scripts, while the Ping Test page separately documents command-line connectivity checks. The terms ask automated clients to respect technical limits and robots.txt.
 
 ## Gotchas
 
-- Do not scrape the home page. A script that requests it gets a notice page, not your address.
+- Prefer the documented script endpoints over scraping HTML; automated HTML access may receive a notice instead of page content.
 - Behind a VPN, proxy, or shared network, the page shows the address of that network, not your own machine.
 - The pages state no numeric rate limit for the endpoints, but excessive load may be limited; cache the result in any script that runs often.
 
@@ -103,7 +104,7 @@ It looks that way. The site lists no price or paid plan, needs no account, and s
 
 ### Can I get my IP address in a script?
 
-Yes. Use the text, JSON, or XML endpoint listed on the Tools page. The site asks scripts not to crawl the HTML page.
+Yes. Use the text, JSON, or XML endpoint listed on the Tools page and respect the site's technical limits.
 
 ### Does WhatIsMyIP.HELP show IPv6?
 

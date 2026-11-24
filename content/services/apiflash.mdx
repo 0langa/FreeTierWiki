@@ -47,8 +47,8 @@ avoidIf:
   - high-volume capture
   - needing support on a free plan
 productionReadiness: prototype
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 4
 usefulnessScore: 6
 officialUrl: 'https://apiflash.com/'
@@ -79,7 +79,7 @@ The documentation sets a rate limit for every account: 20 requests per second wi
 
 ## When you hit a limit
 
-The quota is per billing period. Every successful capture returns X-Quota-Limit, X-Quota-Remaining, and X-Quota-Reset headers, and a dedicated quota endpoint returns the same numbers. When the monthly screenshot quota is used up, the API answers with a 402 Payment Required error, so captures stop instead of creating a bill.
+The quota is per billing period. Repeating identical parameters can return a cached screenshot without using another quota unit. The default cache lifetime is 24 hours, configurable up to 30 days; request a fresh capture when you need an updated page. Each capture returns X-Quota-Limit, X-Quota-Remaining, and X-Quota-Reset headers, and a dedicated quota endpoint returns the same numbers. When the monthly screenshot quota is used up, the API answers with a 402 Payment Required error, so captures stop instead of creating a bill.
 
 The X-Quota-Reset header gives the time, in UTC epoch seconds, at which the current billing period ends and the remaining calls reset. A job that checks it can wait for the reset or ask you to upgrade.
 

@@ -19,11 +19,13 @@ freeTierDetails:
   caveats:
     - The allowance is for a single form
     - File storage and submission quota are separate
-    - Free submission cutoff behavior is not confirmed in the pricing table
+    - At the monthly submission limit, forms reject new entries without storing or queuing them until renewal or upgrade
+    - Full file storage rejects submissions with attachments; submissions without files continue
+    - Webhooks, REST API, CSV export and autoresponders require a paid plan
   resetPeriod: monthly
   requiresCard: false
   freeTierType: always-free
-  hasHardCap: unknown
+  hasHardCap: true
   overageRisk: low
 quickstartSteps:
   - Create a Free account and a form endpoint.
@@ -43,8 +45,8 @@ avoidIf:
   - several active forms
   - high-volume submission handling
 productionReadiness: side-project
-lastVerified: 2026-11-16
-lastUpdated: 2026-11-16
+lastVerified: 2026-11-23
+lastUpdated: 2026-11-23
 popularityScore: 3
 usefulnessScore: 7
 officialUrl: 'https://forminit.com/'
@@ -72,13 +74,13 @@ The no-card Free plan includes a single form and up to 100 submissions a month. 
 
 ## When you hit a limit
 
-The pricing page lists both submission and storage limits. It does not clearly explain whether a free submission that exceeds quota is kept, rejected, or held. Check the current account usage and provider guidance before relying on a submission at the limit. Keep a second way for customers to contact you if a busy period could exceed the allowance for the one active form.
+At the monthly submission limit, forms pause and reject new entries until the allowance renews or you upgrade. Rejected entries are not stored or queued and cannot be recovered. When file storage is full, submissions without files still work, but submissions with attachments are rejected until you free space or upgrade. Keep another reliable contact method available during busy periods.
 
 ## Gotchas
 
 - The provider used to be called Getform.io. Older instructions may use that name.
-- Uploads draw on file storage. A handful of large files can be the first limit you reach.
-- A seasonal form can share the same project only if you can work within the single form allowance.
+- Uploads draw on file storage. A handful of large files can be the first limit you reach. Normal submissions remain until you delete them; spam is deleted after 30 days.
+- Free includes workflow automation, but webhooks, REST API access, CSV export and autoresponders start on paid plans.
 
 ## Alternatives in this atlas
 

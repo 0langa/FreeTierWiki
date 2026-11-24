@@ -30,7 +30,7 @@ freeTierDetails:
     - The Free card marks SSL monitoring, domain name monitoring, Slack alerts, and Discord alerts as not included
     - Paid-plan trials require a credit card and charge when the trial ends unless canceled
     - "Enforcement of the listed free allowance is not confirmed in the cited public sources"
-    - No bundled SMS allowance is listed; the integrations page advertises Twilio SMS
+    - Twilio SMS and WhatsApp work through Free webhooks, but Twilio charges separately
     - For new paid subscriptions, Indie costs €9 per month and includes 50 monitors with 1-minute checks
   resetPeriod: none
   requiresCard: false
@@ -62,8 +62,8 @@ avoidIf:
   - you monitor many sites
   - you need Slack, Discord, or SSL monitoring without paying
 productionReadiness: production-light
-lastUpdated: 2026-11-15
-lastVerified: 2026-11-16
+lastUpdated: 2026-11-23
+lastVerified: 2026-11-23
 popularityScore: 5
 usefulnessScore: 7
 officialUrl: 'https://uptimeobserver.com'
@@ -72,7 +72,11 @@ sourceUrls:
   - 'https://uptimeobserver.com'
   - 'https://uptimeobserver.com/integrations'
 pricingUrl: 'https://uptimeobserver.com/pricing'
+status: changed
 changes:
+  - date: 2026-11-23
+    kind: changed
+    note: Updated integration documentation explicitly includes Twilio SMS and WhatsApp on Free through webhooks, with separate Twilio charges.
   - date: '2026-11-15'
     kind: changed
     note: 'Monthly prices for first-time paid subscriptions are now €9 for Indie and €29 for Pro. Free explicitly needs no card, while the 14-day paid-plan trials require one and charge unless canceled.'
@@ -90,21 +94,21 @@ You use UptimeObserver in a web dashboard, and the home page says setup takes ab
 
 ## What the free plan gives you
 
-The Free plan lists 20 monitors with a 5-minute monitoring interval and 1 status page. It includes 1 email alert recipient and 2 webhook alerts. Free monitor types are HTTPS, DNS, and port checks; the plan card marks SSL and domain name monitoring as not included. Alerts can go out by email, Telegram, Pushover, or webhook, and Slack and Discord alerts need a paid plan.
+Free includes 20 monitors at 5-minute intervals, 1 status page, 1 email recipient and 2 webhook alerts. HTTPS, DNS and port checks are included; SSL/domain monitoring is excluded. Email, Telegram, Pushover and webhooks work on Free, while Slack/Discord need payment.
 
-New paid subscribers can try Indie or Pro for 14 days. The trial requires a credit card and charges when it ends unless you cancel. Indie costs €9 per month and has 50 monitors, 1-minute checks, 5 status pages, 3 email recipients, and 20 webhook alerts. Pro costs €29 per month with 200 monitors and 30-second checks. The vendor says existing paid subscribers keep their price and monitor allowance.
+New paid subscribers get a 14-day card-required trial that bills unless cancelled. Indie costs €9/month or €90/year: 50 monitors, 1-minute checks, 5 status pages, 3 email recipients and 20 webhook alerts. Pro costs €29/month or €290/year for 200 monitors and 30-second checks. Existing paid subscribers retain their price and monitor allowance.
 
 ## When you hit a limit
 
 The Free plan lists a 20-monitor allowance. See the paid plans if you need more monitors. UptimeObserver gives no details on free limit enforcement.
 
-Free signup needs no credit card. The pricing page gives no SMS allowance, while the integrations page advertises Twilio SMS; its plan eligibility and external messaging costs are not established here. You can use Telegram or push services such as Pushover for urgent alerts instead.
+Free signup needs no credit card. The pricing page gives no bundled SMS allowance. The updated integrations page explicitly includes Twilio SMS and WhatsApp on Free through webhooks, within the two-webhook allowance; Twilio charges separately and WhatsApp needs approved Business message templates. You can use Telegram or push services such as Pushover for urgent alerts instead.
 
 ## Gotchas
 
 - Free has 1 email alert recipient and 2 webhook alerts, so a team that wants many recipients needs a paid plan.
 - The free interval is 5 minutes, and the Free card marks Slack alerts, Discord alerts, SSL monitoring, and domain name monitoring as not included.
-- No SMS alerts are listed on any plan. The integrations page lists Twilio SMS as an integration, so check how it applies to your plan.
+- Free also includes MCP access and webhook integrations such as ntfy and Zenduty. Custom status-page domains and PageSpeed Insights monitoring require a paid plan.
 
 ## Alternatives in this atlas
 
@@ -124,4 +128,4 @@ Indie and Pro each have a 14-day trial. You enter a credit card and get charged 
 
 ### Does UptimeObserver send SMS alerts?
 
-The pricing page lists no SMS alerts on any plan. The integrations page lists Twilio SMS as an integration.
+Yes, through the Twilio SMS webhook integration on Free, within its webhook allowance. You use your own Twilio account and pay Twilio separately; no SMS credits are bundled.
